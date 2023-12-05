@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Screen Failure Assessment
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Evaluates screen failure (SF) rate on a mapped subject-level dataset to identify sites that may be over- or under-reporting screen failures.

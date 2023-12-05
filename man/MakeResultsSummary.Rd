@@ -2,7 +2,7 @@
 % Please edit documentation in R/MakeResultsSummary.R
 \name{MakeResultsSummary}
 \alias{MakeResultsSummary}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Make \code{results_summary}}
 \usage{
 MakeResultsSummary(lResults, dfConfigWorkflow)
 }
@@ -16,7 +16,7 @@ MakeResultsSummary(lResults, dfConfigWorkflow)
 output of \code{\link[=Study_Assess]{Study_Assess()}}
 }
 \description{
-Make \code{results_summary}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 \dontrun{

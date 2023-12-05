@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Run a single assessment via workflow YAML specification.
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Attempts to run a single assessment (`lWorkflow`) using shared data (`lData`) and metadata (`lMapping`).

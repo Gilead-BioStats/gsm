@@ -2,7 +2,7 @@
 % Please edit documentation in R/Disp_Assess.R
 \name{Disp_Assess}
 \alias{Disp_Assess}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Disposition Assessment}
 \usage{
 Disp_Assess(
   dfInput,
@@ -73,7 +73,7 @@ of the column. Default: package-defined Disposition Assessment mapping.}
 Evaluates disposition rate (DISP) on mapped subject-level dataset to identify sites that may be over- or under-reporting patient discontinuations.
 }
 \details{
-Disposition Assessment
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 The Disposition Assessment uses the standard \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.

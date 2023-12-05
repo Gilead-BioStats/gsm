@@ -2,7 +2,7 @@
 % Please edit documentation in R/Flag_QTL.R
 \name{Flag_QTL}
 \alias{Flag_QTL}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Flag QTL}
 \usage{
 Flag_QTL(dfAnalyzed, vThreshold = NULL)
 }
@@ -18,7 +18,7 @@ Flag_QTL(dfAnalyzed, vThreshold = NULL)
 This function flags a study-level QTL metric by comparing the mean and lower confidence bound for the metric to a single threshold.
 }
 \details{
-Flag QTL
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \section{Data Specification}{
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Visualize_Score.R
 \name{Visualize_Score}
 \alias{Visualize_Score}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Group-level visualization of scores.}
 \usage{
 Visualize_Score(
   dfSummary,
@@ -27,7 +27,7 @@ Visualize_Score(
 group-level ggplot2 object.
 }
 \description{
-Group-level visualization of scores.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 ae <- AE_Map_Raw() \%>\% AE_Assess()

@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Get_Enrolled Calculated enrolled participants or sites.
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Derive number of enrolled participants or sites by a given denominator (study or site).

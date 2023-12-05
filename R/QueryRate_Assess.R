@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Query Rate Assessment
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Evaluates query rates to identify sites that may be over- or under-reporting queries.

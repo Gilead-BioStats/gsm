@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Make Snapshot - create and export data model.
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' `Make_Snapshot()` ingests data from a variety of sources, and runs KRIs and/or QTLs based on the `list` provided in `lAssessments`.
@@ -22,15 +22,7 @@
 #' @includeRmd ./man/md/Make_Snapshot.md
 #'
 #' @return `list` `lSnapshot`, a named list with a data.frame for each component of the {gsm} data model.
-#' - `status_study`
-#' - `status_site`
 #' - `status_workflow`
-#' - `status_param`
-#' - `results_summary`
-#' - `results_analysis`
-#' - `results_bounds`
-#' - `meta_workflow`
-#' - `meta_param`
 #' - `rpt_site_details`
 #' - `rpt_study_details`
 #' - `rpt_kri_details`
@@ -86,14 +78,6 @@ Make_Snapshot <- function(
     bMakeCharts = TRUE,
     bQuiet = TRUE
 ) {
-
-  # create `gsm_analysis_date` ----------------------------------------------
-  gsm_analysis_date <- MakeAnalysisDate(
-    strAnalysisDate = strAnalysisDate,
-    bQuiet = bQuiet
-  )
-
-
   # run Study_Assess() ------------------------------------------------------
   lResults <- gsm::Study_Assess(
     lData = lData,
@@ -102,20 +86,6 @@ Make_Snapshot <- function(
     bQuiet = bQuiet
   ) %>%
     UpdateLabels(lMeta$meta_workflow)
-
-  # results_analysis --------------------------------------------------------
-  # -- check if any workflows in `lResults` start with "qtl"
-  if (length(grep("qtl", names(lResults))) > 0) {
-    results_analysis <- MakeResultsAnalysis(lResults)
-  } else {
-    results_analysis <- data.frame(
-      studyid = NA,
-      workflowid = NA,
-      param = NA,
-      value = NA,
-      gsm_analysis_date = NA
-    )
-  }
 
   # map ctms data -----------------------------------------------------------
   status_study <- Study_Map_Raw(
@@ -135,19 +105,7 @@ Make_Snapshot <- function(
     ),
     lMapping = lMapping,
     dfConfig = lMeta$config_param
-  ) %>%
-    left_join(ExtractFlags(lResults, group = "site"), by = "siteid") %>%
-    rename(
-      "amber_flags" = "num_of_at_risk_kris",
-      "red_flags" = "num_of_flagged_kris"
-    )
-
-
-
-
-  # create `results_summary` ----------------------------------------------
-
-  results_summary <- MakeResultsSummary(lResults = lResults, dfConfigWorkflow = lMeta$config_workflow)
+  )
 
   # create `gsm_analysis_date` ----------------------------------------------
   gsm_analysis_date <- MakeAnalysisDate(
@@ -157,25 +115,9 @@ Make_Snapshot <- function(
 
   # create lSnapshot --------------------------------------------------------
   lSnapshot <- list(
-    status_study = status_study,
-    status_site = status_site,
-    status_workflow = MakeStatusWorkflow(lResults = lResults, dfConfigWorkflow = lMeta$config_workflow) %>%
-      left_join(ExtractFlags(lResults, group = "kri"), by = c("workflowid" = "kri_id")) %>%
-      rename(
-        "amber_flags" = "num_of_sites_at_risk",
-        "red_flags" = "num_of_sites_flagged"
-      ) %>%
-      replace_na(replace = list("amber_flags" = 0, "red_flags" = 0)),
-    status_param = lMeta$config_param,
-    results_summary = MakeResultsSummary(lResults = lResults, dfConfigWorkflow = lMeta$config_workflow),
-    results_analysis = results_analysis,
-    results_bounds = MakeResultsBounds(lResults = lResults, dfConfigWorkflow = lMeta$config_workflow),
-    meta_workflow = lMeta$meta_workflow,
-    meta_param = lMeta$meta_params,
-    rpt_site_details = MakeRptSiteDetails(lResults = lResults, status_site = status_site, gsm_analysis_date = gsm_analysis_date),
-    rpt_study_details = MakeRptStudyDetails(lResults = lResults, status_study = status_study, gsm_analysis_date = gsm_analysis_date),
-    rpt_study_snapshot = MakeRptStudySnapshot(lMeta = lMeta, gsm_analysis_date = gsm_analysis_date),
-    rpt_qtl_details = MakeRptQtlDetails(lResults = lResults, dfMetaWorkflow = lMeta$meta_workflow, dfConfigParam = lMeta$config_param, gsm_analysis_date = gsm_analysis_date),
+    rpt_site_details = MakeRptSiteDetails(lResults, status_site, gsm_analysis_date),
+    rpt_study_details = MakeRptStudyDetails(lResults, status_study, gsm_analysis_date),
+    rpt_qtl_details = MakeRptQtlDetails(lResults, lMeta$meta_workflow, lMeta$config_param, gsm_analysis_date),
     rpt_kri_details = MakeRptKriDetails(lResults, status_site, lMeta$meta_workflow, gsm_analysis_date),
     rpt_site_kri_details = MakeRptSiteKriDetails(lResults, status_site, lMeta$meta_workflow, lMeta$meta_params, gsm_analysis_date),
     rpt_kri_bounds_details = MakeRptKriBoundsDetails(lResults, lMeta$config_param, gsm_analysis_date),
@@ -186,8 +128,18 @@ Make_Snapshot <- function(
     purrr::keep(~ !is.null(.x)) %>%
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))
 
+  # create `status_workflow` ------------------------------------------------
+  lSnapshot[["status_workflow"]] <- MakeStatusWorkflow(lResults = lResults, dfConfigWorkflow = lMeta$config_workflow) %>%
+    left_join(ExtractFlags(AppendDroppedWorkflows(lPrevSnapshot, lResults), group = "kri"), by = c("workflowid" = "kri_id")) %>%
+    rename("amber_flags" = "num_of_sites_at_risk",
+           "red_flags" = "num_of_sites_flagged") %>%
+    mutate(snapshot_date = gsm_analysis_date,
+           gsm_analysis_date = gsm_analysis_date) %>%
+    replace_na(replace = list("amber_flags" = 0, "red_flags" = 0))
+
   # create `lStackedSnapshots` ----------------------------------------------
   lStackedSnapshots = AppendLogs(lPrevSnapshot, lSnapshot, append_files)
+
 
   # create lCharts ----------------------------------------------------------
 
@@ -205,8 +157,17 @@ Make_Snapshot <- function(
   }
 
   # build output ---------------------------------------------------------------
+
+  # create `status_workflow` ------------------------------------------------
+  workflow_history <- MakeWorkflowHistory(lStackedSnapshots)
+  if(is.data.frame(workflow_history)){
+    lSnapshot[["status_workflow"]] <- lSnapshot[["status_workflow"]] %>%
+      full_join(MakeWorkflowHistory(lStackedSnapshots), by = c("workflowid" = "kri_id"))
+  }
+
+  # build output ------------------------------------------------------------
+
   snapshot <- list(
-    dfStatus = MakeWorkflowStatus(lStackedSnapshots),
     lSnapshotDate = gsm_analysis_date,
     lSnapshot = lSnapshot,
     lStudyAssessResults = AppendDroppedWorkflows(lPrevSnapshot, lResults),

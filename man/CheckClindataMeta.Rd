@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-CheckClindataMeta.R
 \name{CheckClindataMeta}
 \alias{CheckClindataMeta}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
+\title{Check gsm_version in clindata metadata.}
 \usage{
 CheckClindataMeta(
   config = list(config_param = gsm::config_param, config_workflow = gsm::config_workflow),
@@ -18,7 +18,7 @@ CheckClindataMeta(
 Console message indicating if \code{{clindata}} and \code{{gsm}} versions are compatible.
 }
 \description{
-Check gsm_version in clindata metadata.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \examples{
 \dontrun{

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Analyze_NormalApprox.R
 \name{Analyze_NormalApprox}
 \alias{Analyze_NormalApprox}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Funnel Plot Analysis with Normal Approximation for Binary and Rate Outcomes.}
 \usage{
 Analyze_NormalApprox(dfTransformed, strType = "binary", bQuiet = TRUE)
 }
@@ -21,7 +21,7 @@ Analyze_NormalApprox(dfTransformed, strType = "binary", bQuiet = TRUE)
 \code{data.frame} with one row per site with columns: GroupID, Numerator, Denominator, Metric, OverallMetric, Factor, and Score.
 }
 \description{
-Funnel Plot Analysis with Normal Approximation for Binary and Rate Outcomes.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \details{
 Creates analysis results data for percentage/rate data using funnel plot method with normal approximation.

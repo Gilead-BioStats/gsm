@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("experimental")`
-#'
 #' Create multiple workflows from a single stratified workflow.
+#'
+#' `r lifecycle::badge("experimental")`
 #'
 #' @description
 #' `MakeStratifiedAssessment` is a utility function that creates a stratified workflow list using a pre-defined workflow (from `inst/workflows`), or

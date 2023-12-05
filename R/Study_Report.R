@@ -1,7 +1,6 @@
-#' `r lifecycle::badge("experimental")`
-#'
 #' Study Report
 #'
+#' `r lifecycle::badge("experimental")`
 #'
 #' Create HTML summary report using the results of `Study_Assess`, including tables, charts, and error checking.
 #'
@@ -73,16 +72,30 @@ Study_Report <- function(
   }
 
   if (is.null(dfStudy)) {
-    dfStudy <- if ("status_study" %in% names(lSnapshot$lSnapshot)) {
-      lSnapshot$lSnapshot$status_study
+    dfStudy <- if ("lInputs" %in% names(lSnapshot)) {
+      Study_Map_Raw(
+        dfs = list(
+          dfSTUDY = lSnapshot$lInputs$lMeta$meta_study,
+          dfSUBJ = lSnapshot$lInputs$lData$dfSUBJ
+        ),
+        lMapping = lSnapshot$lInputs$lMapping,
+        dfConfig = lSnapshot$lInputs$lMeta$config_param
+      )
     } else {
       NULL
     }
   }
 
   if (is.null(dfSite)) {
-    dfSite <- if ("status_site" %in% names(lSnapshot$lSnapshot)) {
-      lSnapshot$lSnapshot$status_site
+    dfSite <- if ("lInputs" %in% names(lSnapshot)) {
+      Site_Map_Raw(
+        dfs = list(
+          dfSITE = lSnapshot$lInputs$lMeta$meta_site,
+          dfSUBJ = lSnapshot$lInputs$lData$dfSUBJ
+        ),
+        lMapping = lSnapshot$lInputs$lMapping,
+        dfConfig = lSnapshot$lInputs$lMeta$config_param
+      )
     } else {
       NULL
     }

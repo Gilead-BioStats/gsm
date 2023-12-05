@@ -2,7 +2,7 @@
 % Please edit documentation in R/AE_Assess.R
 \name{AE_Assess}
 \alias{AE_Assess}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Adverse Event Assessment}
 \usage{
 AE_Assess(
   dfInput,
@@ -72,7 +72,7 @@ when \code{strMethod == "NormalApprox"} or \code{strMethod == "Poisson"}. \code{
 Evaluates Adverse Event (AE) rates to identify sites that may be over- or under-reporting AEs.
 }
 \details{
-Adverse Event Assessment
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 The AE Assessment uses the standard \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.

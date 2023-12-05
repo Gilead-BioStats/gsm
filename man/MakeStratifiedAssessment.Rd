@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-MakeStratifiedAssessment.R
 \name{MakeStratifiedAssessment}
 \alias{MakeStratifiedAssessment}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
+\title{Create multiple workflows from a single stratified workflow.}
 \usage{
 MakeStratifiedAssessment(lWorkflow, lData, lMapping, bQuiet = TRUE)
 }
@@ -28,7 +28,7 @@ For this example using default data, \code{\link[=MakeWorkflowList]{MakeWorkflow
 }
 }
 \details{
-Create multiple workflows from a single stratified workflow.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \examples{
 \dontrun{

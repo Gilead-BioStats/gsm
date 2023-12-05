@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Query Age Assessment
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Evaluates rate of reported Query Age >30 days.

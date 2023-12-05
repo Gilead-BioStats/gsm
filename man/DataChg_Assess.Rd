@@ -2,7 +2,7 @@
 % Please edit documentation in R/DataChg_Assess.R
 \name{DataChg_Assess}
 \alias{DataChg_Assess}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Data Change Rate Assessment}
 \usage{
 DataChg_Assess(
   dfInput,
@@ -70,7 +70,7 @@ of the column. Default: package-defined Labs Assessment mapping.}
 Evaluates rate of reported data point with >1 changes.
 }
 \details{
-Data Change Rate Assessment
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 The Data Change Rate Assessment uses the standard \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.

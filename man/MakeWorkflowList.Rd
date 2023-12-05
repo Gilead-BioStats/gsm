@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-MakeWorkflowList.R
 \name{MakeWorkflowList}
 \alias{MakeWorkflowList}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Load workflows from a package/directory.}
 \usage{
 MakeWorkflowList(
   strNames = NULL,
@@ -25,7 +25,7 @@ See the Data Model Vignette - Appendix 2 - Data Model Specifications for detaile
 \code{list} A list of workflows with workflow and parameter metadata.
 }
 \description{
-Load workflows from a package/directory.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \details{
 \code{MakeWorkflowList()} is a utility function that creates a list of workflows for use in \code{\link[=Study_Assess]{Study_Assess()}}.

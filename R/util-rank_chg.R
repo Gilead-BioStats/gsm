@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("experimental")`
-#'
 #' Report helper functions used to create fontawesome status icons for the report that is generated with [gsm::Study_Report].
+#'
+#' `r lifecycle::badge("experimental")`
 #'
 #' @description
 #' `rank_chg` - inserts icons for status in {gt} table.

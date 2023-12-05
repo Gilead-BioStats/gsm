@@ -2,7 +2,7 @@
 % Please edit documentation in R/PD_Assess_Rate.R
 \name{PD_Assess_Rate}
 \alias{PD_Assess_Rate}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Protocol Deviation Assessment (Rate)}
 \usage{
 PD_Assess_Rate(
   dfInput,
@@ -73,7 +73,7 @@ of the column. Default: package-defined Protocol Deviation Assessment mapping.}
 Evaluates Protocol Deviation (PD) rates to identify sites that may be over- or under-reporting PDs.
 }
 \details{
-Protocol Deviation Assessment (Rate)
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 The PD Assessment uses the standard \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.

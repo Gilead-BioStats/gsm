@@ -2,7 +2,7 @@
 % Please edit documentation in R/Transform_Rate.R
 \name{Transform_Rate}
 \alias{Transform_Rate}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Transform Rate}
 \usage{
 Transform_Rate(
   dfInput,
@@ -30,7 +30,7 @@ Transform_Rate(
 Convert from input data format to needed input format to derive KRI for an Assessment. Calculate a site-level rate.
 }
 \details{
-Transform Rate
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 This function transforms data to prepare it for the analysis step. It is currently only sourced for the Adverse Event, Disposition, Labs, and Protocol Deviations Assessments.
 }

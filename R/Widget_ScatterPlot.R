@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' KRI Scatter Plot
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' A widget that displays a group-level scatter plot based on the output of a KRI analysis.
@@ -146,9 +146,9 @@ Widget_ScatterPlot <- function(
   )
 }
 
-#' `r lifecycle::badge("stable")`
-#'
 #' Shiny bindings for Widget_ScatterPlot
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' Output and render functions for using Widget_ScatterPlot within Shiny
 #' applications and interactive Rmd documents.

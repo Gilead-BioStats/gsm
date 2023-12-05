@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Merge Domain data with subject-level data.
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' `MergeSubjects` is a helper function used within mapping functions to join subject-level data with domain-level data, with the ability to impute

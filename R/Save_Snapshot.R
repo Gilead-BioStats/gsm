@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("experimental")`
-#'
 #' Save Snapshot
+#'
+#' `r lifecycle::badge("experimental")`
 #'
 #' @description
 #' Save the output of [gsm::Make_Snapshot()] or [gsm::Augment_Snapshot()].

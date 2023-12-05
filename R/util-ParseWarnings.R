@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("experimental")`
-#'
 #' Parse warnings from the result of [gsm::Study_Assess()].
+#'
+#' `r lifecycle::badge("experimental")`
 #'
 #' @description
 #' `ParseWarnings` is used inside of [gsm::Make_Snapshot()] to summarize any issues with data needed to run a KRI or QTL. If there are any warnings for any

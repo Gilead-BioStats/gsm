@@ -47,24 +47,10 @@ jobs:
 
           snapshot <- gsm::Make_Snapshot()
 
-          aug_snap <- gsm::Augment_Snapshot(
-            lSnapshot = snapshot,
-            cPath = system.file("data-longitudinal", "AA-AA-000-0000", package = "clindata")
-          )
-
           gsm::Study_Report(
             lSnapshot = snapshot,
-            dfStudy = snapshot$lSnapshot$status_study,
-            dfSite = snapshot$lSnapshot$status_site,
             strReportType = "country",
             strOutpath = here::here("StandardReportCountry.html")
-          )
-
-          gsm::Study_Report(
-            lSnapshot = aug_snap,
-            dfStudy = aug_snap$lSnapshot$status_study,
-            dfSite = snapshot$lSnapshot$status_site,
-            strOutpath = here::here("StandardReportSite.html")
           )
 
       - name: delete temp-report branch if it exists

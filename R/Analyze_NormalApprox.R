@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Funnel Plot Analysis with Normal Approximation for Binary and Rate Outcomes.
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @details
 #' Creates analysis results data for percentage/rate data using funnel plot method with normal approximation.
