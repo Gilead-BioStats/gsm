@@ -622,7 +622,7 @@ Match_Class <- function(lPrevSnapshot, lSnapshot){
   if(is.null(lPrevSnapshot)){
     return(lSnapshot)
   } else {
-    prev_snapshot_classes <- purrr::map_df(lPrevSnapshot$lSnapshot, GetClass, .id = "file")
+    prev_snapshot_classes <- purrr::map_df(lPrevSnapshot$lStackedSnapshots, GetClass, .id = "file")
     curr_snapshot_classes <- purrr::map_df(lSnapshot, GetClass, .id = "file")
 
     unmatched_data_class <- left_join(prev_snapshot_classes, curr_snapshot_classes, by = c("file", "column"), relationship = "many-to-many") %>%
@@ -632,7 +632,7 @@ Match_Class <- function(lPrevSnapshot, lSnapshot){
       for(i in 1:nrow(unmatched_data_class)){
         File <- unmatched_data_class$file[i]
 
-        lPrevSnapshot$lSnapshot[[File]] <- lPrevSnapshot$lSnapshot[[File]] %>%
+        lPrevSnapshot$lStackedSnapshots[[File]] <- lPrevSnapshot$lStackedSnapshots[[File]] %>%
           mutate(across(unmatched_data_class$column[i], get(paste0("as.", unmatched_data_class$class.y[i]))))
       }
     } else {
@@ -642,34 +642,38 @@ Match_Class <- function(lPrevSnapshot, lSnapshot){
   return(lPrevSnapshot)
 }
 
-
-  #' Appends the previous snapshot logs to the current snapshot logs
-  #'
-  #' @param lPrevSnapshot `list` the previous Snapshot object
-  #' @param lSnapshot `list` the current Snapshot object
-  #' @param files `vector` Optional vector of desired files to append, defaults to all files within the previous snapshot
-  #'
-  #' @importFrom dplyr bind_rows
-  #' @importFrom cli cli_alert_warning
-  #'
-  #' @return Appended lSnapshot object
-  #'
-  #' @export
-  #'
-  #' @keywords internal
-  AppendLogs <- function(lPrevSnapshot, lSnapshot, files = names(lPrevSnapshot$lSnapshot)){
-    if(is.null(lPrevSnapshot)){
-      cli::cli_alert_warning("`lPrevSnapshot` argument is NULL `lStackedSnapshots` will only contain current lSnapshot logs")
-      return(lSnapshot)
-    } else {
-      prev_snap_fixed <- Match_Class(lPrevSnapshot, lSnapshot)
-      appendedlogs <- list()
-      for(i in files[files %in% names(lSnapshot)]){
-        appendedlogs[[i]] <- dplyr::bind_rows(prev_snap_fixed$lSnapshot[[i]], lSnapshot[[i]])
-      }
-      return(appendedlogs)
+#' Appends the previous snapshot logs to the current snapshot logs
+#'
+#' @param lPrevSnapshot `list` the previous Snapshot object
+#' @param lSnapshot `list` the current Snapshot object
+#' @param files `vector` Optional vector of desired files to append, defaults to all files within the previous snapshot
+#'
+#' @importFrom dplyr bind_rows
+#' @importFrom cli cli_alert_warning
+#'
+#' @return Appended lSnapshot object
+#'
+#' @export
+#'
+#' @keywords internal
+AppendLogs <- function(lPrevSnapshot, lSnapshot, files = names(lPrevSnapshot$lSnapshot)){
+  if(is.null(lPrevSnapshot)){
+    cli::cli_alert_warning("`lPrevSnapshot` argument is NULL `lStackedSnapshots` will only contain current lSnapshot logs")
+    return(lSnapshot)
+  } else {
+    prev_snap_fixed <- Match_Class(lPrevSnapshot, lSnapshot)
+    appendedlogs <- list()
+    for(i in files[files %in% names(lSnapshot)]){
+      appendedlogs[[i]] <- dplyr::bind_rows(lSnapshot[[i]], prev_snap_fixed$lStackedSnapshots[[i]])
     }
+    files_not_appended <- setdiff(names(lSnapshot), names(appendedlogs))
+    if (length(files_not_appended) != 0) {
+      cli::cli_alert_warning("{files_not_appended} were not appended in `lStackedSnapshots` because they were not found in `lPrevSnapshot` or `append_files` argument")
+    }
+    output <- c(appendedlogs, lSnapshot[files_not_appended])
+    return(output)
   }
+}
 
 #' Appends the previous snapshot logs to the current snapshot logs
 #'
