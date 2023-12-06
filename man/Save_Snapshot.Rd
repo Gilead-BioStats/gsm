@@ -13,7 +13,7 @@ Save_Snapshot(
 )
 }
 \arguments{
-\item{lSnapshot}{\code{list} the output of \code{\link[=Make_Snapshot]{Make_Snapshot()}} or \code{\link[=Augment_Snapshot]{Augment_Snapshot()}}.}
+\item{lSnapshot}{\code{list} the output of \code{\link[=Make_Snapshot]{Make_Snapshot()}}.}
 
 \item{cPath}{\code{character} a character string indicating a directory to save .csv files; the output of the snapshot.}
 
@@ -27,7 +27,7 @@ Save_Snapshot(
 \code{.csv} files and \code{.rds} file saved to a specified directory.
 }
 \description{
-Save the output of \code{\link[=Make_Snapshot]{Make_Snapshot()}} or \code{\link[=Augment_Snapshot]{Augment_Snapshot()}}.
+Save the output of \code{\link[=Make_Snapshot]{Make_Snapshot()}}.
 }
 \details{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}

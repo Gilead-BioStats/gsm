@@ -4,7 +4,7 @@
       names(snapshot)
     Output
       [1] "lSnapshotDate"       "lSnapshot"           "lStudyAssessResults"
-      [4] "lInputs"             "lStackedSnapshots"  
+      [4] "lCharts"             "lInputs"             "lStackedSnapshots"  
 
 ---
 

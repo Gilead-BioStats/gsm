@@ -2,7 +2,8 @@
 #'
 #' The function MakeKRICharts creates three different types of charts (scatter plot and two bar charts) using the gsm package. It takes two inputs: lData and dfConfig, and returns a list of the created charts.
 #'
-#' @param lData A list containing two data frames - dfSummary and dfBounds.
+#' @param lData `list` A list containing two data frames - dfSummary and dfBounds.
+#' @param lStackedSnapshots `list` A list returned by [gsm::Make_Snapshot()] containing flat files for snapshot/assessment data.
 #'
 #' @return A list (lCharts) containing three charts - scatterJS, barMetricJS, and barScoreJS.
 #'

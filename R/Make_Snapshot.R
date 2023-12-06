@@ -148,18 +148,22 @@ Make_Snapshot <- function(
   if (bMakeCharts) {
     lCharts <- purrr::map(lResults, function(x) {
 
-      if (!grepl("qtl", x$name)) {
-        MakeKRICharts(lData = x$lResults$lData, lStackedSnapshots = SubsetStackedSnapshots(workflowid = x$name, lStackedSnapshots = lStackedSnapshots))
-      } else {
+      if (x$bStatus) {
 
-        # this will be a function eventually
-        list(
-          timeseriesQtl = Widget_TimeSeriesQTL(qtl = x$name,
-                                               raw_results = lStackedSnapshots$rpt_site_kri_details,
-                                               raw_workflow = lStackedSnapshots$rpt_kri_details,
-                                               raw_param = lStackedSnapshots$rpt_kri_threshold_param,
-                                               raw_analysis = lStackedSnapshots$rpt_qtl_analysis)
-        )
+        if (!grepl("qtl", x$name)) {
+          MakeKRICharts(lData = x$lResults$lData, lStackedSnapshots = SubsetStackedSnapshots(workflowid = x$name, lStackedSnapshots = lStackedSnapshots))
+        } else {
+
+          # this will be a function eventually
+          list(
+            timeseriesQtl = Widget_TimeSeriesQTL(qtl = x$name,
+                                                 raw_results = lStackedSnapshots$rpt_site_kri_details,
+                                                 raw_workflow = lStackedSnapshots$rpt_kri_details,
+                                                 raw_param = lStackedSnapshots$rpt_kri_threshold_param,
+                                                 raw_analysis = lStackedSnapshots$rpt_qtl_analysis)
+          )
+
+        }
 
       }
 

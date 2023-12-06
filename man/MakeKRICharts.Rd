@@ -7,7 +7,9 @@
 MakeKRICharts(lData = NULL, lStackedSnapshots = NULL)
 }
 \arguments{
-\item{lData}{A list containing two data frames - dfSummary and dfBounds.}
+\item{lData}{\code{list} A list containing two data frames - dfSummary and dfBounds.}
+
+\item{lStackedSnapshots}{\code{list} A list returned by \code{\link[=Make_Snapshot]{Make_Snapshot()}} containing flat files for snapshot/assessment data.}
 }
 \value{
 A list (lCharts) containing three charts - scatterJS, barMetricJS, and barScoreJS.

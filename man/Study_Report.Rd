@@ -52,17 +52,7 @@ Study_Report(
 )
 
 # Longitudinal Data
-snapshot <- Make_Snapshot()
-
-longitudinal <- Augment_Snapshot(
-  snapshot,
-  system.file("data-longitudinal", "AA-AA-000-0000", package = "clindata")
-)
-
-Study_Report(
-  lSnapshot = longitudinal,
-  dfStudy = longitudinal$lSnapshot$status_study
-)
+TODO: add example here
 }
 
 }

@@ -4,7 +4,7 @@
 \alias{SubsetStackedSnapshots}
 \title{SubsetStackedSnapshots}
 \usage{
-SubsetStackedSnapshots(workflowid)
+SubsetStackedSnapshots(workflowid, lStackedSnapshots)
 }
 \arguments{
 \item{workflowid}{\code{character} workflow ID or \code{kri_id}.}
