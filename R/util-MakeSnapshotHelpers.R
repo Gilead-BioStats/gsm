@@ -658,6 +658,7 @@ Match_Class <- function(lPrevSnapshot, lSnapshot){
   #'
   #' @keywords internal
   AppendLogs <- function(lPrevSnapshot, lSnapshot, files = names(lPrevSnapshot$lSnapshot)){
+
     if(is.null(lPrevSnapshot)){
       cli::cli_alert_warning("`lPrevSnapshot` argument is NULL `lStackedSnapshots` will only contain current lSnapshot logs")
       return(lSnapshot)
@@ -665,7 +666,7 @@ Match_Class <- function(lPrevSnapshot, lSnapshot){
       prev_snap_fixed <- Match_Class(lPrevSnapshot, lSnapshot)
       appendedlogs <- list()
       for(i in files[files %in% names(lSnapshot)]){
-        appendedlogs[[i]] <- dplyr::bind_rows(prev_snap_fixed$lSnapshot[[i]], lSnapshot[[i]])
+        appendedlogs[[i]] <- dplyr::bind_rows(prev_snap_fixed$lStackedSnapshot[[i]], lSnapshot[[i]])
       }
       return(appendedlogs)
     }

@@ -4,7 +4,7 @@
 \alias{MakeKRICharts}
 \title{MakeKRICharts Function}
 \usage{
-MakeKRICharts(lData = NULL)
+MakeKRICharts(lData = NULL, lStackedSnapshots = NULL)
 }
 \arguments{
 \item{lData}{A list containing two data frames - dfSummary and dfBounds.}

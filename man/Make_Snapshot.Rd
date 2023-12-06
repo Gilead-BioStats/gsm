@@ -20,6 +20,7 @@ Make_Snapshot(
   lPrevSnapshot = NULL,
   append_files = names(lPrevSnapshot$lSnapshot),
   strAnalysisDate = NULL,
+  bMakeCharts = TRUE,
   bQuiet = TRUE
 )
 }
@@ -38,6 +39,8 @@ See the Data Model Vignette - Appendix 2 - Data Model Specifications for detaile
 \item{append_files}{\code{vector} a vector or log files to append, defaults to all log files from \code{lPrevSnapshot} argument}
 
 \item{strAnalysisDate}{\code{character} date that the data was pulled/wrangled/snapshot. Note: date should be provided in format: \code{YYYY-MM-DD}.}
+
+\item{bMakeCharts}{\code{logical} Boolean value indicating whether to create charts.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}.}
 }

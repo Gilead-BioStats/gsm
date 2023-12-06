@@ -149,10 +149,8 @@ Make_Snapshot <- function(
     lCharts <- purrr::map(lResults, function(x) {
 
       if (!grepl("qtl", x$name)) {
-        MakeKRICharts(lData = x$lResults$lData)
+        MakeKRICharts(lData = x$lResults$lData, lStackedSnapshots = SubsetStackedSnapshots(workflowid = x$name, lStackedSnapshots = lStackedSnapshots))
       } else {
-
-        browser()
 
         # this will be a function eventually
         list(

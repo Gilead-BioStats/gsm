@@ -8,7 +8,7 @@
 #'
 #'
 #' @export
-MakeKRICharts <- function(lData = NULL) {
+MakeKRICharts <- function(lData = NULL, lStackedSnapshots = NULL) {
 
     lCharts <- list()
 
@@ -54,6 +54,22 @@ MakeKRICharts <- function(lData = NULL) {
         strType = "score",
         vThreshold = unlist(lData$dfConfig$thresholds)
     )
+
+
+  # Continuous Charts -------------------------------------------------------
+    if (!is.null(lStackedSnapshots)) {
+
+      number_of_snapshots <- length(unique(lStackedSnapshots$rpt_site_kri_details$snapshot_date))
+
+      if (number_of_snapshots > 1) {
+        lCharts$timeSeriesContinuousJS <- Widget_TimeSeries(
+          results = lStackedSnapshots$rpt_site_kri_details,
+          workflow = lStackedSnapshots$rpt_kri_details,
+          parameters = lStackedSnapshots$rpt_kri_threshold_param
+        )
+      }
+
+    }
 
 
     return(lCharts)
