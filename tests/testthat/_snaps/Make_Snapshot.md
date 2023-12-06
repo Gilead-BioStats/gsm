@@ -11,11 +11,11 @@
     Code
       names(snapshot$lSnapshot)
     Output
-       [1] "rpt_site_details"        "rpt_study_details"      
-       [3] "rpt_qtl_details"         "rpt_kri_details"        
-       [5] "rpt_site_kri_details"    "rpt_kri_bounds_details" 
-       [7] "rpt_qtl_threshold_param" "rpt_kri_threshold_param"
-       [9] "rpt_qtl_analysis"        "status_workflow"        
+      [1] "rpt_site_details"        "rpt_study_details"      
+      [3] "rpt_qtl_details"         "rpt_kri_details"        
+      [5] "rpt_site_kri_details"    "rpt_kri_bounds_details" 
+      [7] "rpt_qtl_threshold_param" "rpt_kri_threshold_param"
+      [9] "rpt_qtl_analysis"       
 
 ---
 
@@ -115,11 +115,11 @@
       v `Summarize()` returned output with 3 rows.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
+      ! lResults argument in `MakeRptKRIDetail()` didn't contain any KRI's with site level results, `num_of_sites_flagged` will be reported as zero
       ! lResults argument in `MakeRptSiteDetails()` didn't contain any KRI's with site level results,
       `num_of_at_risk_kris` and `num_of_flagged_kris` will not be representative of site
       ! lResults argument in `MakeRptStudyDetails()` didn't contain any KRI's with site level results, `num_of_sites_flagged` will be reported as zero
       ! lResults argument in `MakeRptQtlDetails()` didn't contain any QTL's, returning blank data frame.
-      ! lResults argument in `MakeRptKRIDetail()` didn't contain any KRI's with site level results, `num_of_sites_flagged` will be reported as zero
       ! lResults argument in `MakeRptQtlAnalysis` is missing qtl workflows, a blank data frame will be returned
       ! `lPrevSnapshot` argument is NULL `lStackedSnapshots` will only contain current lSnapshot logs
 

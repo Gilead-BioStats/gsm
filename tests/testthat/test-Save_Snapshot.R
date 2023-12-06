@@ -60,7 +60,7 @@ test_that("cPath works as intended", {
 
   expected_files <- gsm::rbm_data_spec %>%
     filter(System == "Gismo",
-           (grepl("rpt_", Table) | Table == "status_workflow")) %>%
+           (grepl("rpt_", Table) & .data$Table != "rpt_study_snapshot")) %>%
     mutate(Table = paste0(Table, ".parquet")) %>%
     pull(Table) %>%
     unique()
@@ -77,7 +77,7 @@ test_that("bCreateDefaultFolder creates a folder and saves output correctly", {
 
   expected_files <- gsm::rbm_data_spec %>%
     filter(System == "Gismo",
-           (grepl("rpt_", Table) | Table == "status_workflow")) %>%
+           (grepl("rpt_", Table) & .data$Table != "rpt_study_snapshot")) %>%
     mutate(Table = paste0(Table, ".parquet")) %>%
     pull(Table) %>%
     unique()
