@@ -282,13 +282,14 @@ MakeRptStudyDetails <- function(lResults, status_study, gsm_analysis_date) {
 #'
 #' @param lResults `list` the output from `Study_Assess()`
 #' @param status_site `data.frame` the output from `Site_Map_Raw()`
-#' @param meta_workflow `string` the meta_workflow stated in lMeta argument of `Make_Snapshot()`
+#' @param meta_workflow `data.frame` the meta_workflow stated in lMeta argument of `Make_Snapshot()`
+#' @param status_workflow `data.frame` the kri status workflow created with `MakeStatusWorkflow()`
 #' @param gsm_analysis_date `string` the gsm analysis date calculated in `Make_Snapshot()`
 #'
 #' @export
 #'
 #' @keywords internal
-MakeRptKriDetails <- function(lResults, status_site, meta_workflow, gsm_analysis_date) {
+MakeRptKriDetails <- function(lResults, status_site, meta_workflow, status_workflow, gsm_analysis_date) {
   types <- unique(gsub("[[:digit:]]", "", names(lResults)))
   results <- ExtractFlags(lResults, group = "kri")
   if (!"kri" %in% types) {
@@ -329,7 +330,10 @@ MakeRptKriDetails <- function(lResults, status_site, meta_workflow, gsm_analysis
       "total_num_of_sites",
       "pt_cycle_id",
       "pt_data_dt"
-    )
+    ) %>%
+    left_join(status_workflow, by = c("study_id" = "studyid",
+                                      "kri_id" = "workflowid",
+                                      "meta_gsm_version" = "gsm_version"))
 }
 
 
@@ -643,21 +647,21 @@ Match_Class <- function(lPrevSnapshot, lSnapshot){
 }
 
 
-  #' Appends the previous snapshot logs to the current snapshot logs
-  #'
-  #' @param lPrevSnapshot `list` the previous Snapshot object
-  #' @param lSnapshot `list` the current Snapshot object
-  #' @param files `vector` Optional vector of desired files to append, defaults to all files within the previous snapshot
-  #'
-  #' @importFrom dplyr bind_rows
-  #' @importFrom cli cli_alert_warning
-  #'
-  #' @return Appended lSnapshot object
-  #'
-  #' @export
-  #'
-  #' @keywords internal
-  AppendLogs <- function(lPrevSnapshot, lSnapshot, files = names(lPrevSnapshot$lSnapshot)){
+#' Appends the previous snapshot logs to the current snapshot logs
+#'
+#' @param lPrevSnapshot `list` the previous Snapshot object
+#' @param lSnapshot `list` the current Snapshot object
+#' @param files `vector` Optional vector of desired files to append, defaults to all files within the previous snapshot
+#'
+#' @importFrom dplyr bind_rows
+#' @importFrom cli cli_alert_warning
+#'
+#' @return Appended lSnapshot object
+#'
+#' @export
+#'
+#' @keywords internal
+AppendLogs <- function(lPrevSnapshot, lSnapshot, files = names(lPrevSnapshot$lSnapshot)){
     if(is.null(lPrevSnapshot)){
       cli::cli_alert_warning("`lPrevSnapshot` argument is NULL `lStackedSnapshots` will only contain current lSnapshot logs")
       return(lSnapshot)

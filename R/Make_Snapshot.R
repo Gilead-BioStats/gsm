@@ -114,17 +114,12 @@ Make_Snapshot <- function(
   status_workflow <- MakeStatusWorkflow(lResults = AppendDroppedWorkflows(lPrevSnapshot, lResults),
                                         dfConfigWorkflow = lMeta$config_workflow)
 
-  rpt_kri_details <- MakeRptKriDetails(lResults, status_site, lMeta$meta_workflow, gsm_analysis_date) %>%
-    left_join(status_workflow, by = c("study_id" = "studyid",
-                                      "kri_id" = "workflowid",
-                                      "meta_gsm_version" = "gsm_version"))
-
   # create lSnapshot --------------------------------------------------------
   lSnapshot <- list(
     rpt_site_details = MakeRptSiteDetails(lResults, status_site, gsm_analysis_date),
     rpt_study_details = MakeRptStudyDetails(lResults, status_study, gsm_analysis_date),
     rpt_qtl_details = MakeRptQtlDetails(lResults, lMeta$meta_workflow, lMeta$config_param, gsm_analysis_date),
-    rpt_kri_details = rpt_kri_details,
+    rpt_kri_details = MakeRptKriDetails(lResults, status_site, lMeta$meta_workflow, status_workflow, gsm_analysis_date),
     rpt_site_kri_details = MakeRptSiteKriDetails(lResults, status_site, lMeta$meta_workflow, lMeta$meta_params, gsm_analysis_date),
     rpt_kri_bounds_details = MakeRptKriBoundsDetails(lResults, lMeta$config_param, gsm_analysis_date),
     rpt_qtl_threshold_param = MakeRptThresholdParam(lMeta$meta_params, lMeta$config_param, gsm_analysis_date, type = "qtl"),
