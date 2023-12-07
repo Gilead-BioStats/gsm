@@ -2,7 +2,7 @@
 #'
 #' @param lPrevSnapshot `list` snapshot.rds file of archived snapshot
 #' @param lMeta `list` lMeta data used in previous snapshot defaults to `Make_Snapshot()` lMeta default arguments if NULL
-#' @param dfSUBJ `list` dfSUBJ definition in lData argument of previous snapshot defaults to `Make_Snapshot()` lData$dfSUBJ default arguments if NULL
+#' @param lData `list` lData argument of previous snapshot defaults to `Make_Snapshot()` lData default arguments if NULL
 #' @param lMapping `list` lMapping argument of previous snapshot. defaults to `Read_Mapping()` output if NULL
 #'
 #' @return `list` list of corrected lSnapshot logs and lStackedSnapshots logs if available
@@ -11,7 +11,7 @@
 #' @examples
 #' lPrevSnapshot <- readRDS(system.file("data-longitudinal", "AA-AA-000-0000", "2019-12-01", "snapshot.rds", package = "clindata"))
 #' updated_lPrevSnapshot <- UpdateDataLogs(lPrevSnapshot)
-UpdateDataLogs <- function(lPrevSnapshot, lMeta = NULL, dfSUBJ = NULL, lMapping = NULL) {
+UpdateDataLogs <- function(lPrevSnapshot, lMeta = NULL, lData = NULL, lMapping = NULL) {
   current_tables <- c("rpt_site_details", "rpt_study_details", "rpt_qtl_details",
                       "rpt_kri_details", "rpt_site_kri_details", "rpt_kri_bounds_details",
                       "rpt_qtl_threshold_param", "rpt_kri_threshold_param", "rpt_qtl_analysis")
