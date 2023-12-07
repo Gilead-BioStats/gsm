@@ -309,26 +309,26 @@ MakeRptKriDetails <- function(lResults, status_site, meta_workflow, gsm_analysis
       pt_data_dt = NA_character_
     ) %>%
     select("study_id",
-      "snapshot_date",
-      "kri_id" = "workflowid",
-      "kri_name" = "metric",
-      "kri_acronym" = "abbreviation",
-      "kri_description",
-      "base_metric",
-      "meta_numerator" = "numerator",
-      "meta_denominator" = "denominator",
-      "num_of_sites_at_risk",
-      "num_of_sites_flagged",
-      "meta_outcome" = "outcome",
-      "meta_model" = "model",
-      "meta_score" = "score",
-      "meta_data_inputs" = "data_inputs",
-      "meta_data_filters" = "data_filters",
-      "meta_gsm_version" = "gsm_version",
-      "meta_group" = "group",
-      "total_num_of_sites",
-      "pt_cycle_id",
-      "pt_data_dt"
+           "snapshot_date",
+           "kri_id" = "workflowid",
+           "kri_name" = "metric",
+           "kri_acronym" = "abbreviation",
+           "kri_description",
+           "base_metric",
+           "meta_numerator" = "numerator",
+           "meta_denominator" = "denominator",
+           "num_of_sites_at_risk",
+           "num_of_sites_flagged",
+           "meta_outcome" = "outcome",
+           "meta_model" = "model",
+           "meta_score" = "score",
+           "meta_data_inputs" = "data_inputs",
+           "meta_data_filters" = "data_filters",
+           "meta_gsm_version" = "gsm_version",
+           "meta_group" = "group",
+           "total_num_of_sites",
+           "pt_cycle_id",
+           "pt_data_dt"
     )
 }
 
@@ -374,26 +374,26 @@ MakeRptSiteKriDetails <- function(lResults, status_site, meta_workflow, meta_par
       "pt_data_dt" = NA_character_
     ) %>%
     select("study_id",
-      "snapshot_date",
-      "site_id" = "GroupID",
-      "kri_id" = "kri",
-      "kri_value" = "Metric",
-      "kri_score" = "Score",
-      "numerator" = "Numerator",
-      "denominator" = "Denominator",
-      "flag_value" = "Flag",
-      "no_of_consecutive_loads",
-      "upper_threshold",
-      "lower_threshold",
-      "bottom_lower_threshold",
-      "top_upper_threshold",
-      "kri_name" = "metric",
-      "country_aggregate",
-      "study_aggregate",
-      "meta_numerator" = "numerator",
-      "meta_denominator" = "denominator",
-      "pt_cycle_id",
-      "pt_data_dt"
+           "snapshot_date",
+           "site_id" = "GroupID",
+           "kri_id" = "kri",
+           "kri_value" = "Metric",
+           "kri_score" = "Score",
+           "numerator" = "Numerator",
+           "denominator" = "Denominator",
+           "flag_value" = "Flag",
+           "no_of_consecutive_loads",
+           "upper_threshold",
+           "lower_threshold",
+           "bottom_lower_threshold",
+           "top_upper_threshold",
+           "kri_name" = "metric",
+           "country_aggregate",
+           "study_aggregate",
+           "meta_numerator" = "numerator",
+           "meta_denominator" = "denominator",
+           "pt_cycle_id",
+           "pt_data_dt"
     ) %>%
     mutate(across(c("flag_value", "no_of_consecutive_loads"), as.integer))
 }
@@ -514,15 +514,15 @@ MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date, t
         "pt_data_dt" = NA_character_
       ) %>%
       select("study_id",
-        "snapshot_date",
-        "workflowid",
-        "gsm_version",
-        "param",
-        "index_n" = "index",
-        "default_s" = "default",
-        "configurable",
-        "pt_cycle_id",
-        "pt_data_dt"
+             "snapshot_date",
+             "workflowid",
+             "gsm_version",
+             "param",
+             "index_n" = "index",
+             "default_s" = "default",
+             "configurable",
+             "pt_cycle_id",
+             "pt_data_dt"
       ) %>%
       rename_at("workflowid", ~ paste0(type, "_id"))
   } else {
@@ -540,15 +540,15 @@ MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date, t
         "pt_data_dt" = NA_character_
       ) %>%
       select("study_id",
-        "snapshot_date",
-        "workflowid",
-        "gsm_version",
-        "param",
-        "index_n" = "index",
-        "default_s",
-        "configurable",
-        "pt_cycle_id",
-        "pt_data_dt"
+             "snapshot_date",
+             "workflowid",
+             "gsm_version",
+             "param",
+             "index_n" = "index",
+             "default_s",
+             "configurable",
+             "pt_cycle_id",
+             "pt_data_dt"
       ) %>%
       rename_at("workflowid", ~ paste0(type, "_id"))
   }
@@ -622,7 +622,7 @@ Match_Class <- function(lPrevSnapshot, lSnapshot){
   if(is.null(lPrevSnapshot)){
     return(lSnapshot)
   } else {
-    prev_snapshot_classes <- purrr::map_df(lPrevSnapshot$lSnapshot, GetClass, .id = "file")
+    prev_snapshot_classes <- purrr::map_df(lPrevSnapshot$lStackedSnapshots, GetClass, .id = "file")
     curr_snapshot_classes <- purrr::map_df(lSnapshot, GetClass, .id = "file")
 
     unmatched_data_class <- left_join(prev_snapshot_classes, curr_snapshot_classes, by = c("file", "column"), relationship = "many-to-many") %>%
@@ -632,7 +632,7 @@ Match_Class <- function(lPrevSnapshot, lSnapshot){
       for(i in 1:nrow(unmatched_data_class)){
         File <- unmatched_data_class$file[i]
 
-        lPrevSnapshot$lSnapshot[[File]] <- lPrevSnapshot$lSnapshot[[File]] %>%
+        lPrevSnapshot$lStackedSnapshots[[File]] <- lPrevSnapshot$lStackedSnapshots[[File]] %>%
           mutate(across(unmatched_data_class$column[i], get(paste0("as.", unmatched_data_class$class.y[i]))))
       }
     } else {
@@ -642,35 +642,38 @@ Match_Class <- function(lPrevSnapshot, lSnapshot){
   return(lPrevSnapshot)
 }
 
-
-  #' Appends the previous snapshot logs to the current snapshot logs
-  #'
-  #' @param lPrevSnapshot `list` the previous Snapshot object
-  #' @param lSnapshot `list` the current Snapshot object
-  #' @param files `vector` Optional vector of desired files to append, defaults to all files within the previous snapshot
-  #'
-  #' @importFrom dplyr bind_rows
-  #' @importFrom cli cli_alert_warning
-  #'
-  #' @return Appended lSnapshot object
-  #'
-  #' @export
-  #'
-  #' @keywords internal
-  AppendLogs <- function(lPrevSnapshot, lSnapshot, files = names(lPrevSnapshot$lSnapshot)){
-
-    if(is.null(lPrevSnapshot)){
-      cli::cli_alert_warning("`lPrevSnapshot` argument is NULL `lStackedSnapshots` will only contain current lSnapshot logs")
-      return(lSnapshot)
-    } else {
-      prev_snap_fixed <- Match_Class(lPrevSnapshot, lSnapshot)
-      appendedlogs <- list()
-      for(i in files[files %in% names(lSnapshot)]){
-        appendedlogs[[i]] <- dplyr::bind_rows(prev_snap_fixed$lStackedSnapshot[[i]], lSnapshot[[i]])
-      }
-      return(appendedlogs)
+#' Appends the previous snapshot logs to the current snapshot logs
+#'
+#' @param lPrevSnapshot `list` the previous Snapshot object
+#' @param lSnapshot `list` the current Snapshot object
+#' @param files `vector` Optional vector of desired files to append, defaults to all files within the previous snapshot
+#'
+#' @importFrom dplyr bind_rows
+#' @importFrom cli cli_alert_warning
+#'
+#' @return Appended lSnapshot object
+#'
+#' @export
+#'
+#' @keywords internal
+AppendLogs <- function(lPrevSnapshot, lSnapshot, files = names(lPrevSnapshot$lSnapshot)){
+  if(is.null(lPrevSnapshot)){
+    cli::cli_alert_warning("`lPrevSnapshot` argument is NULL `lStackedSnapshots` will only contain current lSnapshot logs")
+    return(lSnapshot)
+  } else {
+    prev_snap_fixed <- Match_Class(lPrevSnapshot, lSnapshot)
+    appendedlogs <- list()
+    for(i in files[files %in% names(lSnapshot)]){
+      appendedlogs[[i]] <- dplyr::bind_rows(lSnapshot[[i]], prev_snap_fixed$lStackedSnapshots[[i]])
     }
+    files_not_appended <- setdiff(names(lSnapshot), names(appendedlogs))
+    if (length(files_not_appended) != 0) {
+      cli::cli_alert_warning("{files_not_appended} were not appended in `lStackedSnapshots` because they were not found in `lPrevSnapshot` or `append_files` argument")
+    }
+    output <- c(appendedlogs, lSnapshot[files_not_appended])
+    return(output)
   }
+}
 
 #' Appends the previous snapshot logs to the current snapshot logs
 #'
@@ -696,7 +699,7 @@ MakeWorkflowHistory <- function(lStackedSnapshots){
         .groups = "drop"
       )
   } else {
-   cli::cli_alert_warning("`latest_active_status` in `status_workflow` can't be determined. 'rpt_site_kri_details' missing from `lPrevSnapshot` or `append_files` argument")
+    cli::cli_alert_warning("`latest_active_status` in `status_workflow` can't be determined. 'rpt_site_kri_details' missing from `lPrevSnapshot` or `append_files` argument")
   }
 }
 
