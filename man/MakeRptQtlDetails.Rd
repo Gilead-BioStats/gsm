@@ -4,7 +4,12 @@
 \alias{MakeRptQtlDetails}
 \title{Make QTL Details Table}
 \usage{
-MakeRptQtlDetails(lResults, dfMetaWorkflow, dfConfigParam, gsm_analysis_date)
+MakeRptQtlDetails(
+  lResults,
+  dfMetaWorkflow,
+  dfConfigParam,
+  gsm_analysis_date = NULL
+)
 }
 \arguments{
 \item{lResults}{\code{list} List returned from \code{\link[=Study_Assess]{Study_Assess()}}.}
@@ -13,7 +18,7 @@ MakeRptQtlDetails(lResults, dfMetaWorkflow, dfConfigParam, gsm_analysis_date)
 
 \item{dfConfigParam}{\code{data.frame} Workflow configuration parameters.}
 
-\item{gsm_analysis_date}{\code{date} Date that \code{{gsm}} snapshot was run.}
+\item{gsm_analysis_date}{\code{date} Date that \code{{gsm}} snapshot was run. leave NULL if dealing with stacked results}
 }
 \description{
 Make QTL Details Table

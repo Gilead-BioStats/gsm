@@ -91,18 +91,18 @@ ExtractStudyAge <- function(fpfv, snapshot_date) {
 #' @param lResults `list` List returned from [gsm::Study_Assess()].
 #' @param dfMetaWorkflow `data.frame` Workflow metadata. See [gsm::meta_workflow].
 #' @param dfConfigParam `data.frame` Workflow configuration parameters.
-#' @param gsm_analysis_date `date` Date that `{gsm}` snapshot was run.
+#' @param gsm_analysis_date `date` Date that `{gsm}` snapshot was run. leave NULL if dealing with stacked results
 #'
 #' @import purrr
 #' @importFrom cli cli_alert_warning
 #' @export
-MakeRptQtlDetails <- function(lResults, dfMetaWorkflow, dfConfigParam, gsm_analysis_date) {
+MakeRptQtlDetails <- function(lResults, dfMetaWorkflow, dfConfigParam, gsm_analysis_date = NULL) {
   qtl_present <- any(grepl("qtl", names(lResults)))
   if (!qtl_present) {
     cli::cli_alert_warning("lResults argument in `MakeRptQtlDetails()` didn't contain any QTL's, returning blank data frame.")
     qtl_results <- data.frame(
       "study_id" = NA_character_,
-      "snapshot_date" = gsm_analysis_date,
+      "snapshot_date" = {if(is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date},
       "qtl_id" = NA_character_,
       "qtl_name" = NA_character_,
       "numerator_name" = NA_character_,
@@ -180,12 +180,12 @@ MakeRptQtlDetails <- function(lResults, dfMetaWorkflow, dfConfigParam, gsm_analy
 #'
 #' @param lResults `list` the output from `Study_Assess()`
 #' @param status_site `data.frame` the output from `Site_Map_Raw()`
-#' @param gsm_analysis_date `string` the gsm analysis date calculated in `Make_Snapshot()`
+#' @param gsm_analysis_date `string` the gsm analysis date calculated in `Make_Snapshot()`. leave NULL if dealing with stacked results
 #'
 #' @export
 #'
 #' @keywords internal
-MakeRptSiteDetails <- function(lResults, status_site, gsm_analysis_date) {
+MakeRptSiteDetails <- function(lResults, status_site, gsm_analysis_date = NULL) {
   types <- unique(gsub("[[:digit:]]", "", names(lResults)))
   results <- ExtractFlags(lResults, group = "site")
   if (!"kri" %in% types) {
@@ -195,7 +195,7 @@ MakeRptSiteDetails <- function(lResults, status_site, gsm_analysis_date) {
   status_site %>%
     left_join(results, by = "siteid", relationship = "many-to-many") %>%
     mutate(
-      snapshot_date = gsm_analysis_date,
+      snapshot_date = {if(is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date},
       region = "Other",
       planned_participants = NA_integer_,
       pt_cycle_id = NA_character_,
@@ -227,12 +227,12 @@ MakeRptSiteDetails <- function(lResults, status_site, gsm_analysis_date) {
 #'
 #' @param lResults `list` the output from `Study_Assess()`
 #' @param status_study `data.frame` the output from `Study_Map_Raw()`
-#' @param gsm_analysis_date `string` the gsm analysis date calculated in `Make_Snapshot()`
+#' @param gsm_analysis_date `string` the gsm analysis date calculated in `Make_Snapshot()`. leave NULL if dealing with stacked results
 #'
 #' @export
 #'
 #' @keywords internal
-MakeRptStudyDetails <- function(lResults, status_study, gsm_analysis_date) {
+MakeRptStudyDetails <- function(lResults, status_study, gsm_analysis_date = NULL) {
   types <- unique(gsub("[[:digit:]]", "", names(lResults)))
   results <- ExtractFlags(lResults, group = "kri")
   if (!"kri" %in% types) {
@@ -246,7 +246,7 @@ MakeRptStudyDetails <- function(lResults, status_study, gsm_analysis_date) {
   }
   status_study %>%
     mutate(
-      snapshot_date = gsm_analysis_date,
+      snapshot_date = {if(is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date},
       num_of_sites_flagged = num_of_sites_flagged,
       enrolling_sites_with_flagged_kris = as.integer(0),
       study_age = ExtractStudyAge(.data$fpfv, .data$snapshot_date),
@@ -284,12 +284,12 @@ MakeRptStudyDetails <- function(lResults, status_study, gsm_analysis_date) {
 #' @param status_site `data.frame` the output from `Site_Map_Raw()`
 #' @param meta_workflow `data.frame` the meta_workflow stated in lMeta argument of `Make_Snapshot()`
 #' @param status_workflow `data.frame` the kri status workflow created with `MakeStatusWorkflow()`
-#' @param gsm_analysis_date `string` the gsm analysis date calculated in `Make_Snapshot()`
+#' @param gsm_analysis_date `string` the gsm analysis date calculated in `Make_Snapshot()`. leave NULL if dealing with stacked results
 #'
 #' @export
 #'
 #' @keywords internal
-MakeRptKriDetails <- function(lResults, status_site, meta_workflow, status_workflow, gsm_analysis_date) {
+MakeRptKriDetails <- function(lResults, status_site, meta_workflow, status_workflow, gsm_analysis_date = NULL) {
   types <- unique(gsub("[[:digit:]]", "", names(lResults)))
   results <- ExtractFlags(lResults, group = "kri")
   if (!"kri" %in% types) {
@@ -300,7 +300,7 @@ MakeRptKriDetails <- function(lResults, status_site, meta_workflow, status_workf
     left_join(results, by = c("workflowid" = "kri_id"), relationship = "many-to-many") %>%
     replace_na(replace = list("num_of_sites_at_risk" = 0, "num_of_sites_flagged" = 0)) %>%
     mutate(
-      snapshot_date = gsm_analysis_date,
+      snapshot_date = {if(is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date},
       study_id = unique(status_site$studyid),
       kri_description = paste(.data$numerator, .data$denominator, sep = " / "),
       base_metric = paste(.data$numerator, .data$denominator, sep = " / "),
@@ -343,12 +343,12 @@ MakeRptKriDetails <- function(lResults, status_site, meta_workflow, status_workf
 #' @param status_site `data.frame` the output from `Site_Map_Raw()`
 #' @param meta_workflow `string` the meta_workflow stated in lMeta argument of `Make_Snapshot()`
 #' @param meta_param `string` the meta_param stated in lMeta argument of `Make_Snapshot()`
-#' @param gsm_analysis_date `string` the gsm analysis date calculated in `Make_Snapshot()`
+#' @param gsm_analysis_date `string` the gsm analysis date calculated in `Make_Snapshot()`. leave NULL if dealing with stacked results
 #'
 #' @export
 #'
 #' @keywords internal
-MakeRptSiteKriDetails <- function(lResults, status_site, meta_workflow, meta_param = NULL, gsm_analysis_date) {
+MakeRptSiteKriDetails <- function(lResults, status_site, meta_workflow, meta_param = NULL, gsm_analysis_date = NULL) {
   if (is.null(meta_param)) {
     meta_param <- gsm::meta_param
   }
@@ -370,7 +370,7 @@ MakeRptSiteKriDetails <- function(lResults, status_site, meta_workflow, meta_par
     left_join(status_site, by = c("GroupID" = "siteid"), relationship = "many-to-many") %>%
     mutate(
       "study_id" = unique(status_site$studyid),
-      "snapshot_date" = gsm_analysis_date,
+      "snapshot_date" = {if(is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date},
       "no_of_consecutive_loads" = as.integer(NA),
       "country_aggregate" = as.double(NA),
       "study_aggregate" = as.double(NA),
@@ -406,17 +406,17 @@ MakeRptSiteKriDetails <- function(lResults, status_site, meta_workflow, meta_par
 #'
 #' @param lResults `list` the output from `Study_Assess()`
 #' @param config_workflow `data.frame` configuration workflow in lMeta argument of `Make_Snapshot()`
-#' @param gsm_analysis_date `string` Date of snapshot
+#' @param gsm_analysis_date `string` Date of snapshot. leave NULL if dealing with stacked results
 #'
 #' @export
 #'
 #' @keywords internal
-MakeRptKriBoundsDetails <- function(lResults, config_workflow, gsm_analysis_date) {
+MakeRptKriBoundsDetails <- function(lResults, config_workflow, gsm_analysis_date = NULL) {
   bounds <- MakeResultsBounds(lResults = lResults, dfConfigWorkflow = config_workflow)
   if (length(bounds) > 0) {
     bounds %>%
       mutate(
-        "snapshot_date" = gsm_analysis_date,
+        "snapshot_date" = {if(is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date},
         "pt_cycle_id" = NA_character_,
         "pt_data_dt" = NA_character_
       ) %>%
@@ -435,7 +435,7 @@ MakeRptKriBoundsDetails <- function(lResults, config_workflow, gsm_analysis_date
     cli::cli_alert_warning("lResults argument in `MakeRptKRIBoundsDetails` contains no bounds results for `qtl` only reports, returning blank data frame")
     data.frame(
       "study_id" = NA_character_,
-      "snapshot_date" = gsm_analysis_date,
+      "snapshot_date" = {if(is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date},
       "kri_id" = NA_character_,
       "threshold" = as.double(NA),
       "numerator" = as.double(NA),
@@ -451,14 +451,14 @@ MakeRptKriBoundsDetails <- function(lResults, config_workflow, gsm_analysis_date
 #'
 #' @param meta_param `data.frame` the meta_param defined in lMeta argument of `Make_Snapshot()` Default: gsm::meta_param
 #' @param status_param `data.frame` the config_param defined in lMeta argument of `Make_Snapshot()`
-#' @param gsm_analysis_date `string` Date of snapshot
+#' @param gsm_analysis_date `string` Date of snapshot. leave NULL if dealing with stacked results
 #' @param type `string` type of threshold to output
 #' @param verbose `logical` whether or not to display function messages
 #'
 #' @export
 #'
 #' @keywords internal
-MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date, type, verbose = FALSE) {
+MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date = NULL, type, verbose = FALSE) {
   if (!type %in% c("kri", "qtl")) {
     stop("`type` must be either 'kri' or 'qtl'")
   }
@@ -468,7 +468,7 @@ MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date, t
     }
     data.frame(
       "study_id" = NA_character_,
-      "snapshot_date" = gsm_analysis_date,
+      "snapshot_date" = {if(is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date},
       "workflowid" = NA_character_,
       "gsm_version" = NA_character_,
       "param" = NA_character_,
@@ -487,7 +487,7 @@ MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date, t
     status_param %>%
       filter(grepl(type, .data$workflowid)) %>%
       mutate(
-        "snapshot_date" = gsm_analysis_date,
+        "snapshot_date" = {if(is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date},
         "configurable" = NA,
         "pt_cycle_id" = NA_character_,
         "pt_data_dt" = NA_character_
@@ -513,7 +513,7 @@ MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date, t
       filter(grepl(type, .data$workflowid)) %>%
       mutate(
         "study_id" = NA_character_,
-        "snapshot_date" = gsm_analysis_date,
+        "snapshot_date" = {if(is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date},
         "pt_cycle_id" = NA_character_,
         "pt_data_dt" = NA_character_
       ) %>%
@@ -539,7 +539,7 @@ MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date, t
           !is.na(index) & !is.na(value) ~ value
         ),
         "study_id" = unique(status_param$studyid),
-        "snapshot_date" = gsm_analysis_date,
+        "snapshot_date" = {if(is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date},
         "pt_cycle_id" = NA_character_,
         "pt_data_dt" = NA_character_
       ) %>%
@@ -562,14 +562,14 @@ MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date, t
 #'
 #' @param lResults `list` the output from `Study_Assess()`
 #' @param status_param `data.frame` configuration parameters defined in lMeta argument of `Make_Snapshot()`
-#' @param gsm_analysis_date `string` Date of snapshot
+#' @param gsm_analysis_date `string` Date of snapshot. leave NULL if dealing with stacked results
 #'
 #' @importFrom purrr map_df
 #'
 #' @export
 #'
 #' @keywords internal
-MakeRptQtlAnalysis <- function(lResults, status_param, gsm_analysis_date) {
+MakeRptQtlAnalysis <- function(lResults, status_param, gsm_analysis_date = NULL) {
   types <- unique(gsub("[[:digit:]]", "", names(lResults)))
   if (!"qtl" %in% types) {
     cli::cli_alert_warning("lResults argument in `MakeRptQtlAnalysis` is missing qtl workflows, a blank data frame will be returned")
@@ -590,7 +590,7 @@ MakeRptQtlAnalysis <- function(lResults, status_param, gsm_analysis_date) {
     output <- analysis %>%
       left_join(status_param, by = c("qtl_id" = "workflowid"), relationship = "many-to-many") %>%
       mutate(
-        "snapshot_date" = gsm_analysis_date,
+        "snapshot_date" = {if(is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date},
         "pt_cycle_id" = NA_character_,
         "pt_data_dt" = NA_character_
       ) %>%

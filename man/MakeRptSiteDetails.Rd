@@ -4,14 +4,14 @@
 \alias{MakeRptSiteDetails}
 \title{Create rpt_site_details output for \code{Make_Snapshot()}}
 \usage{
-MakeRptSiteDetails(lResults, status_site, gsm_analysis_date)
+MakeRptSiteDetails(lResults, status_site, gsm_analysis_date = NULL)
 }
 \arguments{
 \item{lResults}{\code{list} the output from \code{Study_Assess()}}
 
 \item{status_site}{\code{data.frame} the output from \code{Site_Map_Raw()}}
 
-\item{gsm_analysis_date}{\code{string} the gsm analysis date calculated in \code{Make_Snapshot()}}
+\item{gsm_analysis_date}{\code{string} the gsm analysis date calculated in \code{Make_Snapshot()}. leave NULL if dealing with stacked results}
 }
 \description{
 Create rpt_site_details output for \code{Make_Snapshot()}
