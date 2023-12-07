@@ -51,20 +51,19 @@ snapshot <- Make_Snapshot(lData = lData)
 cPath <- system.file("data-longitudinal", "AA-AA-000-0000", package = "clindata")
 
 expected_data <- c(
-  "meta_param", "meta_workflow", "results_analysis", "results_summary",
-  "status_param", "status_site", "status_study", "status_workflow",
-  "parameters"
+  "rpt_site_details", "rpt_study_details", "rpt_qtl_details", "rpt_kri_details", "rpt_site_kri_details",
+  "rpt_kri_bounds_details", "rpt_qtl_threshold_param", "rpt_kri_threshold_param", "rpt_qtl_analysis"
 )
 
 test_that("all expected datasets are present in stacked data", {
-  stacked_data <- StackSnapshots(cPath = cPath)
+  stacked_data <- snapshot$lStackedSnapshots
 
   expect_true(all(expected_data %in% names(stacked_data)))
   expect_type(stacked_data, "list")
 })
 
 test_that("all expected datasets are present in stacked data with new snapshot appended", {
-  stacked_data <- StackSnapshots(cPath = cPath, lSnapshot = snapshot)
+  stacked_data <- snapshot$lStackedSnapshots
   expect_true(all(expected_data %in% names(stacked_data)))
   expect_type(stacked_data, "list")
 

@@ -47,7 +47,6 @@ See the Data Model Vignette - Appendix 2 - Data Model Specifications for detaile
 \value{
 \code{list} \code{lSnapshot}, a named list with a data.frame for each component of the {gsm} data model.
 \itemize{
-\item \code{status_workflow}
 \item \code{rpt_site_details}
 \item \code{rpt_study_details}
 \item \code{rpt_kri_details}
