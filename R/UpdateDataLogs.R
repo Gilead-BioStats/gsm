@@ -36,9 +36,9 @@ UpdateDataLogs <- function(lPrevSnapshot, lMeta = NULL, dfSUBJ = NULL, lMapping 
 
   # Defining Data Parameters
   if (!"lInputs" %in% names(lPrevSnapshot) & is.null(lData)) {
-    dfSUBJ <- clindata::rawplus_dm
+    lData$dfSUBJ <- clindata::rawplus_dm
   } else if("lInputs" %in% names(lPrevSnapshot) & is.null(lData)) {
-    dfSUBJ <- lPrevSnapshot$lInputs$lData$dfSUBJ
+    lData$dfSUBJ <- lPrevSnapshot$lInputs$lData$dfSUBJ
   }
 
   # Defining Mapping Parameters
@@ -52,7 +52,7 @@ UpdateDataLogs <- function(lPrevSnapshot, lMeta = NULL, dfSUBJ = NULL, lMapping 
   status_study <- Study_Map_Raw(
     dfs = list(
       dfSTUDY = lMeta$meta_study,
-      dfSUBJ = dfSUBJ
+      dfSUBJ = lData$dfSUBJ
     ),
     lMapping = lMapping,
     dfConfig = lMeta$config_param
@@ -62,7 +62,7 @@ UpdateDataLogs <- function(lPrevSnapshot, lMeta = NULL, dfSUBJ = NULL, lMapping 
   status_site <- Site_Map_Raw(
     dfs = list(
       dfSITE = lMeta$meta_site,
-      dfSUBJ = dfSUBJ
+      dfSUBJ = lData$dfSUBJ
     ),
     lMapping = lMapping,
     dfConfig = lMeta$config_param
