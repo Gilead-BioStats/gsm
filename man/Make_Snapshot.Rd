@@ -2,7 +2,7 @@
 % Please edit documentation in R/Make_Snapshot.R
 \name{Make_Snapshot}
 \alias{Make_Snapshot}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Make Snapshot - create and export data model.}
 \usage{
 Make_Snapshot(
   lMeta = list(config_param = gsm::config_param, config_workflow = gsm::config_workflow,
@@ -17,6 +17,8 @@ Make_Snapshot(
     dfQUERY = "clindata::edc_queries", dfENROLL = "clindata::rawplus_enroll")),
   lMapping = Read_Mapping(),
   lAssessments = MakeWorkflowList(lMeta = lMeta),
+  lPrevSnapshot = NULL,
+  append_files = names(lPrevSnapshot$lSnapshot),
   strAnalysisDate = NULL,
   bQuiet = TRUE
 )
@@ -31,6 +33,10 @@ See the Data Model Vignette - Appendix 2 - Data Model Specifications for detaile
 
 \item{lAssessments}{\code{list} a named list of metadata defining how each assessment should be run. By default, \code{MakeWorkflowList()} imports YAML specifications from \code{inst/workflow}.}
 
+\item{lPrevSnapshot}{\code{list} optional argument for the previous snapshot run to track longitudinal data,}
+
+\item{append_files}{\code{vector} a vector or log files to append, defaults to all log files from \code{lPrevSnapshot} argument}
+
 \item{strAnalysisDate}{\code{character} date that the data was pulled/wrangled/snapshot. Note: date should be provided in format: \code{YYYY-MM-DD}.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}.}
@@ -38,15 +44,7 @@ See the Data Model Vignette - Appendix 2 - Data Model Specifications for detaile
 \value{
 \code{list} \code{lSnapshot}, a named list with a data.frame for each component of the {gsm} data model.
 \itemize{
-\item \code{status_study}
-\item \code{status_site}
 \item \code{status_workflow}
-\item \code{status_param}
-\item \code{results_summary}
-\item \code{results_analysis}
-\item \code{results_bounds}
-\item \code{meta_workflow}
-\item \code{meta_param}
 \item \code{rpt_site_details}
 \item \code{rpt_study_details}
 \item \code{rpt_kri_details}
@@ -65,7 +63,7 @@ For more context about the inputs and outputs of \code{Make_Snapshot()}, refer t
 Appendix 2 - Data Model Specifications
 }
 \details{
-Make Snapshot - create and export data model.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \section{Return - Data Model Description}{
 A named \code{list} of data.frames:

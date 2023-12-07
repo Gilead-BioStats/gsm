@@ -2,7 +2,7 @@
 % Please edit documentation in R/Save_Snapshot.R
 \name{Save_Snapshot}
 \alias{Save_Snapshot}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
+\title{Save Snapshot}
 \usage{
 Save_Snapshot(
   lSnapshot,
@@ -30,7 +30,7 @@ Save_Snapshot(
 Save the output of \code{\link[=Make_Snapshot]{Make_Snapshot()}} or \code{\link[=Augment_Snapshot]{Augment_Snapshot()}}.
 }
 \details{
-Save Snapshot
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \examples{
 \dontrun{

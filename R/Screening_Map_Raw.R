@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Screening Assessment - Raw Mapping
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Convert raw screening data to formatted input data to [gsm::Screening_Assess()].

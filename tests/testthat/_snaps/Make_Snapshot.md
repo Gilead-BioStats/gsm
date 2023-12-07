@@ -4,22 +4,18 @@
       names(snapshot)
     Output
       [1] "lSnapshotDate"       "lSnapshot"           "lStudyAssessResults"
-      [4] "lInputs"            
+      [4] "lInputs"             "lStackedSnapshots"  
 
 ---
 
     Code
       names(snapshot$lSnapshot)
     Output
-       [1] "status_study"            "status_site"            
-       [3] "status_workflow"         "status_param"           
-       [5] "results_summary"         "results_analysis"       
-       [7] "results_bounds"          "meta_workflow"          
-       [9] "meta_param"              "rpt_site_details"       
-      [11] "rpt_study_details"       "rpt_qtl_details"        
-      [13] "rpt_kri_details"         "rpt_site_kri_details"   
-      [15] "rpt_kri_bounds_details"  "rpt_qtl_threshold_param"
-      [17] "rpt_kri_threshold_param" "rpt_qtl_analysis"       
+       [1] "rpt_site_details"        "rpt_study_details"      
+       [3] "rpt_qtl_details"         "rpt_kri_details"        
+       [5] "rpt_site_kri_details"    "rpt_kri_bounds_details" 
+       [7] "rpt_qtl_threshold_param" "rpt_kri_threshold_param"
+       [9] "rpt_qtl_analysis"        "status_workflow"        
 
 ---
 
@@ -51,6 +47,8 @@
     Code
       snapshot <- Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping_edited,
         lAssessments = lAssessments_edited)
+    Message
+      ! `lPrevSnapshot` argument is NULL `lStackedSnapshots` will only contain current lSnapshot logs
 
 # bQuiet works as intended
 
@@ -115,8 +113,6 @@
       i 0 Site(s) have insufficient sample size due to KRI denominator less than 30. 
       These site(s) will not have KRI score and flag summarized.
       v `Summarize()` returned output with 3 rows.
-      v Created 2 scatter plots.
-      v Created 4 bar charts.
       v `AE_Assess()` Successful
       Saving lResults to `lWorkflow`
       ! lResults argument in `MakeRptSiteDetails()` didn't contain any KRI's with site level results,
@@ -125,4 +121,5 @@
       ! lResults argument in `MakeRptQtlDetails()` didn't contain any QTL's, returning blank data frame.
       ! lResults argument in `MakeRptKRIDetail()` didn't contain any KRI's with site level results, `num_of_sites_flagged` will be reported as zero
       ! lResults argument in `MakeRptQtlAnalysis` is missing qtl workflows, a blank data frame will be returned
+      ! `lPrevSnapshot` argument is NULL `lStackedSnapshots` will only contain current lSnapshot logs
 

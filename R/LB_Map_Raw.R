@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Lab Abnormality Assessment - Raw Mapping
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Convert from ADaM or raw format to input format for Lab Abnormality Assessment.

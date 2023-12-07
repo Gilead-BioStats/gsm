@@ -2,7 +2,7 @@
 % Please edit documentation in R/SaveQTL.R
 \name{SaveQTL}
 \alias{SaveQTL}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
+\title{SaveQTL}
 \usage{
 SaveQTL(
   lSnapshot,
@@ -23,7 +23,7 @@ Running \code{SaveQTL} will save a new file with an added row for the single spe
 but will incorporate the run date for version control.
 }
 \details{
-SaveQTL
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \examples{
 \dontrun{

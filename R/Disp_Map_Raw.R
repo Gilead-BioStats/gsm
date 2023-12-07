@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Disposition Assessment - Raw Mapping
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Convert raw disposition data to formatted input data to to formatted

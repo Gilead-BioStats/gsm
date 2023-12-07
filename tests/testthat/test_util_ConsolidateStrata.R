@@ -6,6 +6,7 @@ lData <- list(
 )
 lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 lWorkflow <- MakeWorkflowList(bRecursive = TRUE, strNames = "aeGrade")$aeGrade
+lWorkflow$steps[[3]]$params[["bMakeCharts"]] <- TRUE
 lOutput <- RunWorkflow(lWorkflow, lData = lData, lMapping = lMapping, bQuiet = TRUE)
 lStratifiedWorkflow <- MakeStratifiedAssessment(
   lWorkflow,
@@ -55,7 +56,7 @@ test_that("Stratified output is returned", {
   expect_true(is.list(lConsolidatedOutput))
   expect_equal(
     c(
-      "chart", "dfAnalyzed", "dfBounds", "dfFlagged", "dfSummary",
+      "chart", "dfAnalyzed", "dfBounds", "dfConfig", "dfFlagged", "dfSummary",
       "dfTransformed", "lCharts", "lChecks", "lData"
     ),
     names(lConsolidatedOutput$lResults) %>% sort()

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Flag_Poisson.R
 \name{Flag_Poisson}
 \alias{Flag_Poisson}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Flag_Poisson}
 \usage{
 Flag_Poisson(dfAnalyzed, vThreshold = NULL)
 }
@@ -18,7 +18,7 @@ Flag_Poisson(dfAnalyzed, vThreshold = NULL)
 Add columns flagging sites that represent possible statistical outliers when the Poisson statistical method is used.
 }
 \details{
-Flag_Poisson
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 This function flags sites based on the Poisson analysis result as part of the \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline}.
 }

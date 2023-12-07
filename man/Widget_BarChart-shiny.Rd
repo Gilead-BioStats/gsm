@@ -4,7 +4,7 @@
 \alias{Widget_BarChart-shiny}
 \alias{Widget_BarChartOutput}
 \alias{renderWidget_BarChart}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Shiny bindings for Widget_BarChart}
 \usage{
 Widget_BarChartOutput(outputId, width = "100\%", height = "400px")
 
@@ -25,7 +25,7 @@ string and have \code{'px'} appended.}
 is useful if you want to save an expression in a variable.}
 }
 \description{
-Shiny bindings for Widget_BarChart
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \details{
 Output and render functions for using barChart within Shiny

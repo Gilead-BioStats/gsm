@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Adverse Event Assessment - Raw Mapping
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Convert raw adverse event (AE) data, typically processed case report form data, to formatted

@@ -2,7 +2,7 @@
 % Please edit documentation in R/is_workflow_valid.R
 \name{is_workflow_valid}
 \alias{is_workflow_valid}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Check if workflow is valid/contains necessary metadata.}
 \usage{
 is_workflow_valid(lWorkflow)
 }
@@ -13,7 +13,7 @@ is_workflow_valid(lWorkflow)
 \code{list} with \code{TRUE}/\code{FALSE} status for each workflow.
 }
 \description{
-Check if workflow is valid/contains necessary metadata.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 workflow <- MakeWorkflowList()

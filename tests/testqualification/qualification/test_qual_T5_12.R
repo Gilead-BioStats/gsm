@@ -50,5 +50,5 @@ test_that("Given appropriate Disposition data, the assessment function correctly
   )
 
   # compare results
-  expect_equal(test5_12$lData[!names(test5_12$lData) == "dfBounds"], t5_12)
+  expect_equal(test5_12$lData[!names(test5_12$lData) %in% c("dfBounds", "dfConfig")], t5_12)
 })

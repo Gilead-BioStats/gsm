@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Identity Analysis.
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @details
 #' Used in the data pipeline between `Transform` and `Flag` to rename KRI and Score columns.

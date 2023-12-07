@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-FilterData.R
 \name{FilterData}
 \alias{FilterData}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Subset a data frame.}
 \usage{
 FilterData(dfInput, strCol, anyVal, bReturnChecks = FALSE, bQuiet = TRUE)
 }
@@ -26,7 +26,7 @@ for a stratified KRI on an existing categorical variable. For example, we can fi
 which specifies if the adverse event was mild, moderate, or severe.
 }
 \details{
-Subset a data frame.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 

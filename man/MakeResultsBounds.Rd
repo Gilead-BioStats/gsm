@@ -2,7 +2,7 @@
 % Please edit documentation in R/MakeResultsBounds.R
 \name{MakeResultsBounds}
 \alias{MakeResultsBounds}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Make \code{results_bounds}}
 \usage{
 MakeResultsBounds(lResults, dfConfigWorkflow)
 }
@@ -15,7 +15,7 @@ MakeResultsBounds(lResults, dfConfigWorkflow)
 \code{data.frame} Containing stacked results from \code{dfBounds}.
 }
 \description{
-Make \code{results_bounds}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 \dontrun{

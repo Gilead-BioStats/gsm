@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-RunStratifiedWorkflow.R
 \name{RunStratifiedWorkflow}
 \alias{RunStratifiedWorkflow}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
+\title{Run a stratified workflow via workflow YAML specification.}
 \usage{
 RunStratifiedWorkflow(lWorkflow, lData, lMapping, bQuiet = TRUE)
 }
@@ -31,7 +31,7 @@ Attempts to run a stratified workflow (\code{lWorkflow}) using shared data (\cod
 Calls \code{RunStep} for each item in \code{lWorkflow$workflow} and saves the results to \code{lWorkflow}
 }
 \details{
-Run a stratified workflow via workflow YAML specification.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \examples{
 lWorkflows <- MakeWorkflowList(bRecursive = TRUE)

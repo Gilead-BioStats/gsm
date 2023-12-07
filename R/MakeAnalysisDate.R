@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Make Analysis Date
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @param strAnalysisDate `character` Date that analysis was run. Formatted as YYYY-MM-DD.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Country_Map_Raw.R
 \name{Country_Map_Raw}
 \alias{Country_Map_Raw}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Count Participants by Country}
 \usage{
 Country_Map_Raw(dfSite = Site_Map_Raw())
 }
@@ -13,5 +13,5 @@ Country_Map_Raw(dfSite = Site_Map_Raw())
 \code{data.frame} Data frame with one record per country.
 }
 \description{
-Count Participants by Country
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }

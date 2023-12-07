@@ -71,7 +71,15 @@ lData <- list(
   dfENROLL = dfENROLL
 )
 
-lAssessments <- MakeWorkflowList()
+lAssessments <- MakeWorkflowList() %>%
+  purrr::map(
+    function(x) {
+      idx <- length(x$steps)
+
+      x[['steps']][[idx]][['params']][['bMakeCharts']] <- TRUE
+      return(x)
+    }
+  )
 
 lMapping <- c(
   yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),

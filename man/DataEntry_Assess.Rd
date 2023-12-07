@@ -2,7 +2,7 @@
 % Please edit documentation in R/DataEntry_Assess.R
 \name{DataEntry_Assess}
 \alias{DataEntry_Assess}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Data Entry Lag Assessment}
 \usage{
 DataEntry_Assess(
   dfInput,
@@ -12,6 +12,7 @@ DataEntry_Assess(
     "gsm")),
   strGroup = "Site",
   nMinDenominator = NULL,
+  bMakeCharts = FALSE,
   bQuiet = TRUE
 )
 }
@@ -34,6 +35,8 @@ of the column. Default: package-defined Labs Assessment mapping.}
 \item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"}, \code{"Country"}, and \code{"CustomGroup"}.}
 
 \item{nMinDenominator}{\code{numeric} Specifies the minimum denominator required to return a \code{score} and calculate a \code{flag}. Default: NULL}
+
+\item{bMakeCharts}{\code{logical} Boolean value indicating whether to create charts.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
@@ -67,7 +70,7 @@ of the column. Default: package-defined Labs Assessment mapping.}
 Evaluates rate of reported Data Entry Lag >10 days.
 }
 \details{
-Data Entry Lag Assessment
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 The Data Entry Lag Assessment uses the standard \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.

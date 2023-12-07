@@ -2,7 +2,7 @@
 % Please edit documentation in R/MakeStatusWorkflow.R
 \name{MakeStatusWorkflow}
 \alias{MakeStatusWorkflow}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Make \code{status_workflow}}
 \usage{
 MakeStatusWorkflow(lResults, dfConfigWorkflow)
 }
@@ -15,7 +15,7 @@ MakeStatusWorkflow(lResults, dfConfigWorkflow)
 \code{data.frame} with columns \code{studyid}, \code{workflowid}, \code{gsm_version}, \code{active}, \code{status}, and \code{notes}.
 }
 \description{
-Make \code{status_workflow}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 \dontrun{

@@ -2,7 +2,7 @@
 % Please edit documentation in R/CheckSnapshotInputs.R
 \name{CheckSnapshotInputs}
 \alias{CheckSnapshotInputs}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
+\title{Check Snapshot Inputs}
 \usage{
 CheckSnapshotInputs(snapshot)
 }
@@ -23,7 +23,7 @@ Check that the output created from \code{\link[=Make_Snapshot]{Make_Snapshot()}}
 data model (\link{rbm_data_spec}).
 }
 \details{
-Check Snapshot Inputs
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \examples{
 \dontrun{

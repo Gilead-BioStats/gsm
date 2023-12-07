@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-StackSnapshots.R
 \name{StackSnapshots}
 \alias{StackSnapshots}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
+\title{Create longitudinal snapshot from results_summary.}
 \usage{
 StackSnapshots(cPath, lSnapshot = NULL, vFolderNames = NULL)
 }
@@ -17,7 +17,7 @@ StackSnapshots(cPath, lSnapshot = NULL, vFolderNames = NULL)
 \code{data.frame} containing longitudinal snapshots of \code{{gsm}} analyses.
 }
 \description{
-Create longitudinal snapshot from results_summary.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \examples{
 \dontrun{

@@ -41,5 +41,5 @@ test_that("Given an appropriate subset of Labs data, the assessment function cor
   )
 
   # compare results
-  expect_equal(test6_8$lData[!names(test6_8$lData) == "dfBounds"], t6_8)
+  expect_equal(test6_8$lData[!names(test6_8$lData) %in% c("dfBounds", "dfConfig")], t6_8)
 })

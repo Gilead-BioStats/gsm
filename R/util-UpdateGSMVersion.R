@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("experimental")`
-#'
 #' Update GSM Version (`gsm_version` column) in metadata for [gsm::meta_param] and [gsm::meta_workflow].
+#'
+#' `r lifecycle::badge("experimental")`
 #'
 #' @description
 #' Automatically updates metadata that relies on the current `{gsm}` version. Exported `{gsm}` data, as well as raw `.csv` files are updated.

@@ -46,6 +46,7 @@ reference:
       - Analyze_NormalApprox_PredictBounds
       - Analyze_Poisson_PredictBounds
       - UpdateLabels
+      - MakeKRICharts
       - Make_Timeline
 
   - title: Map

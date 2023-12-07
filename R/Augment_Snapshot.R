@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("experimental")`
-#'
 #' Attach longitudinal content to snapshot
+#'
+#' `r lifecycle::badge("experimental")`
 #'
 #' Attach stacked, longitudinal snapshot data and time series widgets to output of
 #' [gsm::Make_Snapshot()].
@@ -44,7 +44,7 @@ Augment_Snapshot <- function(
         purrr::imap(function(result, workflowid) {
           this_workflow_id <- result$name
 
-          siteSelectLabelValue <- lSnapshot$lSnapshot$meta_workflow %>%
+          siteSelectLabelValue <- lSnapshot$lInputs$lMeta$meta_workflow %>%
             filter(.data$workflowid == this_workflow_id) %>%
             pull(.data$group)
 

@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Query Age Assessment - Raw Mapping
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Convert raw query data to formatted input data to [gsm::QueryAge_Assess()].

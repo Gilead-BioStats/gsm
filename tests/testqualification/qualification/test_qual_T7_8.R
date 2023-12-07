@@ -43,5 +43,5 @@ test_that("Given an appropriate subset of Data Change Rate data, the assessment 
   )
 
   # compare results
-  expect_equal(test7_8$lData[names(test7_8$lData) != "dfBounds"], t7_8)
+  expect_equal(test7_8$lData[!names(test7_8$lData) %in% c("dfBounds", "dfConfig")], t7_8)
 })

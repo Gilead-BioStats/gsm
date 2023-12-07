@@ -2,7 +2,7 @@
 % Please edit documentation in R/Widget_TimeSeries.R
 \name{Widget_TimeSeries}
 \alias{Widget_TimeSeries}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
+\title{Time-Series Continuous Plot}
 \usage{
 Widget_TimeSeries(
   results,
@@ -39,5 +39,5 @@ Widget_TimeSeries(
 A widget that displays a time-series plot based on longitudinal snapshots using \code{{gsm}}.
 }
 \details{
-Time-Series Continuous Plot
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }

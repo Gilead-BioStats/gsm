@@ -1,6 +1,6 @@
-#' lifecycle::badge("stable")
-#'
 #' Create interactive timeline for study data
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @param status_study the table containing study data of interest
 #' @param longitudinal optional argument for supplying longitudinal snapshot information
@@ -26,7 +26,7 @@ Make_Timeline <- function(status_study, longitudinal = NULL, n_breaks = 10, date
 
   if (history) {
     snapshots <- longitudinal$status_study %>%
-      select(date = "snapshot_date") %>%
+      select(date = "gsm_analysis_date") %>%
       mutate(
         .before = date,
         activity = "Snapshot"

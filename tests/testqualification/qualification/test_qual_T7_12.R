@@ -53,5 +53,5 @@ test_that("Given appropriate Data Change Rate data, the assessment function corr
   )
 
   # compare results
-  expect_equal(test7_12$lData[names(test7_12$lData) != "dfBounds"], t7_12)
+  expect_equal(test7_12$lData[!names(test7_12$lData) %in% c("dfBounds", "dfConfig")], t7_12)
 })

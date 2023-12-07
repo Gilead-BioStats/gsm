@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Check that a data frame contains columns and fields specified in mapping.
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' `is_mapping_valid` is a utility function that is a core feature of any assessment or workflow. This function evaluates the validity of input data based on

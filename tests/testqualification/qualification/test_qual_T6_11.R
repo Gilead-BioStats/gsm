@@ -52,6 +52,9 @@ test_that("Given appropriate Labs data, the assessment function correctly perfor
     "dfSummary" = t6_11_summary
   )
 
+  # remove metadata that is not part of qualification
+  test6_11$lData$dfConfig <- NULL
+
   # compare results
   expect_equal(test6_11$lData, t6_11)
 })

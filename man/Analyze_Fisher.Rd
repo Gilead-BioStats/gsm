@@ -2,7 +2,7 @@
 % Please edit documentation in R/Analyze_Fisher.R
 \name{Analyze_Fisher}
 \alias{Analyze_Fisher}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Fisher's Exact Test Analysis.}
 \usage{
 Analyze_Fisher(dfTransformed, strOutcome = "Numerator", bQuiet = TRUE)
 }
@@ -17,7 +17,7 @@ Analyze_Fisher(dfTransformed, strOutcome = "Numerator", bQuiet = TRUE)
 \code{data.frame} with one row per site with columns: GroupID, Numerator, Numerator_Other, Denominator, Denominator_Other, Prop, Prop_Other, Metric, Estimate, and Score.
 }
 \description{
-Fisher's Exact Test Analysis.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \details{
 Analyzes count data using the Fisher's exact test.

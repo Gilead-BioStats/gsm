@@ -1,5 +1,6 @@
-#' `r lifecycle::badge("experimental")`
+#' Run a QTL analysis for any supported `*_Assess` function.
 #'
+#' `r lifecycle::badge("experimental")`
 #'
 #' @description
 #' Run a QTL based on a pre-defined or custom workflow outside of `Make_Snapshot()` or `Study_Assess()`. This is a helper function that makes it possible to

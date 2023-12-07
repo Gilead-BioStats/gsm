@@ -2,7 +2,7 @@
 % Please edit documentation in R/Overview_Table.R
 \name{Overview_Table}
 \alias{Overview_Table}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Overview Table - Create summary of red and amber KRIs for a study.}
 \usage{
 Overview_Table(
   lAssessments = Study_Assess(),
@@ -25,7 +25,7 @@ Overview_Table(
 \item{bInteractive}{\code{logical} Display interactive widget? Default: \code{TRUE}.}
 }
 \description{
-Overview Table - Create summary of red and amber KRIs for a study.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 \dontrun{
