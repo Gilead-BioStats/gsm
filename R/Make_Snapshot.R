@@ -83,8 +83,7 @@ Make_Snapshot <- function(
     lMapping = lMapping,
     lAssessments = lAssessments,
     bQuiet = bQuiet
-  ) %>%
-    UpdateLabels(lMeta$meta_workflow)
+  )
 
   # map ctms data -----------------------------------------------------------
   status_study <- Study_Map_Raw(
@@ -145,7 +144,12 @@ Make_Snapshot <- function(
       if (x$bStatus) {
 
         if (!grepl("qtl", x$name)) {
-          MakeKRICharts(lData = x$lResults$lData, lStackedSnapshots = SubsetStackedSnapshots(workflowid = x$name, lStackedSnapshots = lStackedSnapshots))
+          MakeKRICharts(
+            strWorkflowId = x$name,
+            lData = x$lResults$lData,
+            lStackedSnapshots = SubsetStackedSnapshots(workflowid = x$name, lStackedSnapshots = lStackedSnapshots),
+            dfMetaWorkflow = lMeta$meta_workflow
+            )
         } else {
 
           # this will be a function eventually

@@ -4,12 +4,21 @@
 \alias{MakeKRICharts}
 \title{MakeKRICharts Function}
 \usage{
-MakeKRICharts(lData = NULL, lStackedSnapshots = NULL)
+MakeKRICharts(
+  strWorkflowId = NULL,
+  lData = NULL,
+  lStackedSnapshots = NULL,
+  dfMetaWorkflow = NULL
+)
 }
 \arguments{
+\item{strWorkflowId}{\code{character} Name of workflow ID, e.g., 'kri0001'.}
+
 \item{lData}{\code{list} A list containing two data frames - dfSummary and dfBounds.}
 
 \item{lStackedSnapshots}{\code{list} A list returned by \code{\link[=Make_Snapshot]{Make_Snapshot()}} containing flat files for snapshot/assessment data.}
+
+\item{dfMetaWorkflow}{\code{data.frame} Workflow metadata. See \link{meta_workflow}.}
 }
 \value{
 A list (lCharts) containing three charts - scatterJS, barMetricJS, and barScoreJS.

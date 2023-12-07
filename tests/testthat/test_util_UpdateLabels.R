@@ -81,12 +81,7 @@ lAssessments <- MakeWorkflowList() %>%
     }
   )
 
-lMapping <- c(
-  yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
-  yaml::read_yaml(system.file("mappings", "mapping_ctms.yaml", package = "gsm")),
-  yaml::read_yaml(system.file("mappings", "mapping_edc.yaml", package = "gsm")),
-  yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package = "gsm"))
-)
+lMapping <- gsm::Read_Mapping()
 
 
 # run standard Study_Assess() ---------------------------------------------
@@ -95,8 +90,21 @@ result <- Study_Assess(
   lAssessments = lAssessments
 )
 
+result$qtl0004 <- NULL
+result$qtl0006 <- NULL
+
 test_that("labels were updated correctly", {
-  update <- UpdateLabels(result, gsm::meta_workflow)
+  update <- purrr::map(result, function(x) {
+    UpdateLabels(
+      strWorkflowId = x$name,
+      lCharts = x$lResults$lCharts,
+      dfMetaWorkflow = gsm::meta_workflow
+    )
+  })
+
+
+
+
 
   # test a single workflow labels
   kri <- update$kri0001

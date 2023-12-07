@@ -2,14 +2,16 @@
 #'
 #' The function MakeKRICharts creates three different types of charts (scatter plot and two bar charts) using the gsm package. It takes two inputs: lData and dfConfig, and returns a list of the created charts.
 #'
+#' @param strWorkflowId `character` Name of workflow ID, e.g., 'kri0001'.
 #' @param lData `list` A list containing two data frames - dfSummary and dfBounds.
 #' @param lStackedSnapshots `list` A list returned by [gsm::Make_Snapshot()] containing flat files for snapshot/assessment data.
+#' @param dfMetaWorkflow `data.frame` Workflow metadata. See [gsm::meta_workflow].
 #'
 #' @return A list (lCharts) containing three charts - scatterJS, barMetricJS, and barScoreJS.
 #'
 #'
 #' @export
-MakeKRICharts <- function(lData = NULL, lStackedSnapshots = NULL) {
+MakeKRICharts <- function(strWorkflowId = NULL, lData = NULL, lStackedSnapshots = NULL, dfMetaWorkflow = NULL) {
 
     lCharts <- list()
 
@@ -72,6 +74,13 @@ MakeKRICharts <- function(lData = NULL, lStackedSnapshots = NULL) {
 
     }
 
+    if (!is.null(strWorkflowId) & !is.null(dfMetaWorkflow)) {
+      lCharts <- UpdateLabels(
+        strWorkflowId = strWorkflowId,
+        lCharts = lCharts,
+        dfMetaWorkflow = dfMetaWorkflow
+      )
+    }
 
     return(lCharts)
 }
