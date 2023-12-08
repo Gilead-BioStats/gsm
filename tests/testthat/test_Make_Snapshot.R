@@ -65,7 +65,6 @@ test_that("output is generated as expected", {
   expect_snapshot(names(snapshot$lSnapshot))
   expect_snapshot(names(snapshot$lStudyAssessResults))
   expect_snapshot(names(snapshot$lInputs))
-  expect_equal(sort(names(snapshot$lSnapshot$status_workflow)), sort(specColumns("status_workflow")))
   expect_equal(sort(names(snapshot$lSnapshot$rpt_site_details)), sort(specColumns("rpt_site_details")))
   expect_equal(sort(names(snapshot$lSnapshot$rpt_study_details)), sort(specColumns("rpt_study_details")))
   expect_equal(sort(names(snapshot$lSnapshot$rpt_qtl_details)), sort(specColumns("rpt_qtl_details")))

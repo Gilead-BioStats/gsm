@@ -27,7 +27,7 @@ CheckSnapshotInputs <- function(snapshot) {
   # get rbm_data_spec/data model
   gismo_input <- gsm::rbm_data_spec %>%
     filter(.data$System == "Gismo",
-           (grepl("rpt_", .data$Table) | .data$Table == "status_workflow")) %>%
+           (grepl("rpt_", .data$Table) & .data$Table != "rpt_study_snapshot")) %>%
     arrange(match(.data$Table, names(snapshot)))
 
   gismo_input <- split(gismo_input, gismo_input$Table)
