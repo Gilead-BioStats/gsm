@@ -11,7 +11,9 @@
 #' @examples
 #' lPrevSnapshot <- readRDS(system.file("data-longitudinal", "AA-AA-000-0000", "2019-12-01", "snapshot.rds", package = "clindata"))
 #' updated_lPrevSnapshot <- UpdateDataLogs(lPrevSnapshot)
-UpdateDataLogs <- function(lPrevSnapshot, lMeta = NULL, lData = NULL, lMapping = NULL) {
+#'
+#' @keywords internal
+UpdateSnapshotLogs <- function(lPrevSnapshot, lMeta = NULL, lData = NULL, lMapping = NULL) {
   current_tables <- c("rpt_site_details", "rpt_study_details", "rpt_qtl_details",
                       "rpt_kri_details", "rpt_site_kri_details", "rpt_kri_bounds_details",
                       "rpt_qtl_threshold_param", "rpt_kri_threshold_param", "rpt_qtl_analysis")
