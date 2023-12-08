@@ -5,9 +5,10 @@
 \title{Make Snapshot - create and export data model.}
 \usage{
 Make_Snapshot(
-  lMeta = list(config_param = gsm::config_param, config_workflow = gsm::config_workflow,
-    meta_params = gsm::meta_param, meta_site = clindata::ctms_site, meta_study =
-    clindata::ctms_study, meta_workflow = gsm::meta_workflow),
+  lMeta = gsm::UseClindata(list(config_param = "gsm::config_param", config_workflow =
+    "gsm::config_workflow", meta_params = "gsm::meta_param", meta_site =
+    "clindata::ctms_site", meta_study = "clindata::ctms_study", meta_workflow =
+    "gsm::meta_workflow")),
   lData = gsm::UseClindata(list(dfSUBJ = "clindata::rawplus_dm", dfAE =
     "clindata::rawplus_ae", dfPD = "clindata::ctms_protdev", dfCONSENT =
     "clindata::rawplus_consent", dfIE = "clindata::rawplus_ie", dfLB =
