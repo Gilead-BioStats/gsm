@@ -16,6 +16,7 @@
 #' @param nThreshold `numeric` Threshold specification. Default: `0.5`
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column. Default: package-defined Inclusion/Exclusion Assessment mapping.
+#' @param lLabels `list` Labels used to populate chart labels.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"`, `"Country"`, and `"CustomGroup"`.
 #' @param nMinDenominator `numeric` Specifies the minimum denominator required to return a `score` and calculate a `flag`. Default: NULL
 #' @param bMakeCharts `logical` Boolean value indicating whether to create charts.
@@ -54,6 +55,16 @@ IE_Assess <- function(
   dfInput,
   nThreshold = 0.5,
   lMapping = yaml::read_yaml(system.file("mappings", "IE_Assess.yaml", package = "gsm")),
+  lLabels = list(
+    workflowid = "",
+    group = strGroup,
+    abbreviation = "IE",
+    metric = "Inclusion/Exclusion Issues",
+    numerator = "Inclusion/Exclusion Issues",
+    denominator = "",
+    model = "Normal Approximation",
+    score = "Adjusted Z-Score"
+  ),
   strGroup = "Site",
   nMinDenominator = NULL,
   bMakeCharts = FALSE,
@@ -108,15 +119,8 @@ IE_Assess <- function(
     lData$dfSummary <- gsm::Summarize(lData$dfFlagged, nMinDenominator = nMinDenominator, bQuiet = bQuiet)
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
-    lData$dfConfig <- MakeDfConfig(
-      strMethod = "Identity",
-      strGroup = strGroup,
-      strAbbreviation = "IE",
-      strMetric = "Inclusion/Exclusion Issues",
-      strNumerator = "Inclusion/Exclusion Issues",
-      strDenominator = "",
-      vThreshold = nThreshold
-    )
+    lData$dfConfig <- purrr::map_df(lLabels, ~.x) %>%
+      mutate(thresholds = list(nThreshold))
 
     lOutput <- list(
       lData = lData,
@@ -125,7 +129,7 @@ IE_Assess <- function(
 
     # visualizations ----------------------------------------------------------
     if (bMakeCharts) {
-      lOutput$lCharts <- MakeKRICharts(lData = lData)
+      lOutput$lCharts <- MakeKRICharts(lData = lData, dfWorkflow = lData$dfConfig)
       if (!bQuiet) cli::cli_alert_success("Created {length(lOutput$lCharts)} chart{?s}.")
     }
 

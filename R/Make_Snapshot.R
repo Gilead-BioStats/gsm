@@ -148,7 +148,7 @@ Make_Snapshot <- function(
             strWorkflowId = x$name,
             lData = x$lResults$lData,
             lStackedSnapshots = SubsetStackedSnapshots(workflowid = x$name, lStackedSnapshots = lStackedSnapshots),
-            dfMetaWorkflow = lMeta$meta_workflow
+            dfWorkflow = x$lResults$lData$dfConfig
             )
         } else {
 

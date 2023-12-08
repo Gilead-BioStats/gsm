@@ -5,46 +5,46 @@
 #' @param strWorkflowId `character` Name of workflow ID, e.g., 'kri0001'.
 #' @param lData `list` A list containing two data frames - dfSummary and dfBounds.
 #' @param lStackedSnapshots `list` A list returned by [gsm::Make_Snapshot()] containing flat files for snapshot/assessment data.
-#' @param dfMetaWorkflow `data.frame` Workflow metadata. See [gsm::meta_workflow].
+#' @param dfWorkflow `data.frame` Workflow metadata. See [gsm::meta_workflow].
 #'
 #' @return A list (lCharts) containing three charts - scatterJS, barMetricJS, and barScoreJS.
 #'
 #'
 #' @export
-MakeKRICharts <- function(strWorkflowId = NULL, lData = NULL, lStackedSnapshots = NULL, dfMetaWorkflow = NULL) {
+MakeKRICharts <- function(strWorkflowId = NULL, lData = NULL, dfWorkflow = NULL, lStackedSnapshots = NULL) {
 
     lCharts <- list()
 
-    if (tolower(lData$dfConfig$model) != "identity") {
+    if (tolower(dfWorkflow$model) != "identity") {
         lCharts$scatterJS <- gsm::Widget_ScatterPlot(
             results = lData$dfSummary,
-            workflow = lData$dfConfig,
+            workflow = dfWorkflow,
             bounds = lData$dfBounds,
-            elementId = paste0(tolower(lData$dfConfig$abbreviation), "AssessScatter"),
-            siteSelectLabelValue = lData$dfConfig$group
+            elementId = paste0(tolower(dfWorkflow$abbreviation), "AssessScatter"),
+            siteSelectLabelValue = dfWorkflow$group
         )
 
         lCharts$scatter <- gsm::Visualize_Scatter(
             dfSummary = lData$dfSummary,
             dfBounds = lData$dfBounds,
-            strGroupLabel = lData$dfConfig$group
+            strGroupLabel = dfWorkflow$group
         )
     }
 
     lCharts$barMetricJS <- gsm::Widget_BarChart(
         results = lData$dfSummary,
-        workflow = lData$dfConfig,
+        workflow = dfWorkflow,
         yaxis = "metric",
-        elementId = paste0(tolower(lData$dfConfig$abbreviation), "AssessMetric"),
-        siteSelectLabel = lData$dfConfig$group
+        elementId = paste0(tolower(dfWorkflow$abbreviation), "AssessMetric"),
+        siteSelectLabel = dfWorkflow$group
     )
 
     lCharts$barScoreJS <- gsm::Widget_BarChart(
         results = lData$dfSummary,
-        workflow = lData$dfConfig,
+        workflow = dfWorkflow,
         yaxis = "score",
-        elementId = paste0(tolower(lData$dfConfig$abbreviation), "AssessScore"),
-        siteSelectLabelValue = lData$dfConfig$group
+        elementId = paste0(tolower(dfWorkflow$abbreviation), "AssessScore"),
+        siteSelectLabelValue = dfWorkflow$group
     )
 
     lCharts$barMetric <- gsm::Visualize_Score(
@@ -55,7 +55,7 @@ MakeKRICharts <- function(strWorkflowId = NULL, lData = NULL, lStackedSnapshots 
     lCharts$barScore <- gsm::Visualize_Score(
         dfSummary = lData$dfSummary,
         strType = "score",
-        vThreshold = unlist(lData$dfConfig$thresholds)
+        vThreshold = unlist(dfWorkflow$thresholds)
     )
 
 
@@ -72,14 +72,6 @@ MakeKRICharts <- function(strWorkflowId = NULL, lData = NULL, lStackedSnapshots 
         )
       }
 
-    }
-
-    if (!is.null(strWorkflowId) & !is.null(dfMetaWorkflow)) {
-      lCharts <- UpdateLabels(
-        strWorkflowId = strWorkflowId,
-        lCharts = lCharts,
-        dfMetaWorkflow = dfMetaWorkflow
-      )
     }
 
     return(lCharts)

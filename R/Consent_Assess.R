@@ -18,6 +18,7 @@
 #' @param nThreshold `numeric` Threshold specification. Default: `0.5`
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column. Default: package-defined Consent Assessment mapping.
+#' @param lLabels `list` Labels used to populate chart labels.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"`, `"Country"`, and `"CustomGroup"`.
 #' @param nMinDenominator `numeric` Specifies the minimum denominator required to return a `score` and calculate a `flag`. Default: NULL
 #' @param bMakeCharts `logical` Boolean value indicating whether to create charts.
@@ -55,6 +56,16 @@ Consent_Assess <- function(
     dfInput,
     nThreshold = 0.5,
     lMapping = yaml::read_yaml(system.file("mappings", "Consent_Assess.yaml", package = "gsm")),
+    lLabels = list(
+      workflowid = "",
+      group = strGroup,
+      abbreviation = "CONSENT",
+      metric = "Consent Issues",
+      numerator = "Consent Issues",
+      denominator = "",
+      model = "Identity",
+      score = "Count"
+    ),
     strGroup = "Site",
     nMinDenominator = NULL,
     bMakeCharts = FALSE,
@@ -107,15 +118,8 @@ Consent_Assess <- function(
     lData$dfSummary <- gsm::Summarize(lData$dfFlagged, nMinDenominator = nMinDenominator, bQuiet = bQuiet)
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
-    lData$dfConfig <- MakeDfConfig(
-      strMethod = "Identity",
-      strGroup = strGroup,
-      strAbbreviation = "CONSENT",
-      strMetric = "Consent Issues",
-      strNumerator = "Consent Issues",
-      strDenominator = "",
-      vThreshold = nThreshold
-    )
+    lData$dfConfig <- purrr::map_df(lLabels, ~.x) %>%
+      mutate(thresholds = list(nThreshold))
 
     lOutput <- list(
       lData = lData,
@@ -124,7 +128,7 @@ Consent_Assess <- function(
 
     # visualizations ----------------------------------------------------------
     if (bMakeCharts) {
-      lOutput$lCharts <- MakeKRICharts(lData = lData)
+      lOutput$lCharts <- MakeKRICharts(lData = lData, dfWorkflow = lData$dfConfig)
       if (!bQuiet) cli::cli_alert_success("Created {length(lOutput$lCharts)} chart{?s}.")
     }
 

@@ -22,6 +22,7 @@
 #'   - `"Identity"`
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column. Default: package-defined Adverse Event Assessment mapping.
+#' @param lLabels `list` Labels used to populate chart labels.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"`, `"Country"`, and `"CustomGroup"`.
 #' Other valid options using the default mapping are `"Study"` and `"CustomGroup"`.
 #' @param nMinDenominator `numeric` Specifies the minimum denominator required to return a `score` and calculate a `flag`. Default: NULL
@@ -73,6 +74,16 @@ AE_Assess <- function(
     vThreshold = NULL,
     strMethod = "NormalApprox",
     lMapping = yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
+    lLabels = list(
+      workflowid = "",
+      group = strGroup,
+      abbreviation = "AE",
+      metric = "Adverse Event Rate",
+      numerator = "Adverse Events",
+      denominator = "Days on Study",
+      model = "Normal Approximation",
+      score = "Adjusted Z-Score"
+    ),
     strGroup = "Site",
     nMinDenominator = NULL,
     bMakeCharts = FALSE,
@@ -188,15 +199,8 @@ AE_Assess <- function(
     lData$dfSummary <- gsm::Summarize(lData$dfFlagged, nMinDenominator = nMinDenominator, bQuiet = bQuiet)
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
-    lData$dfConfig <- MakeDfConfig(
-      strMethod = strMethod,
-      strGroup = strGroup,
-      strAbbreviation = "AE",
-      strMetric = "Adverse Event Rate",
-      strNumerator = "Adverse Events",
-      strDenominator = "Days on Study",
-      vThreshold = vThreshold
-    )
+    lData$dfConfig <- purrr::map_df(lLabels, ~.x) %>%
+      mutate(thresholds = list(vThreshold))
 
     lOutput <- list(
       lData = lData,
@@ -207,7 +211,7 @@ AE_Assess <- function(
     if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
     if (bMakeCharts) {
-      lOutput$lCharts <- MakeKRICharts(lData = lData)
+      lOutput$lCharts <- MakeKRICharts(lData = lData, dfWorkflow = lData$dfConfig)
       if (!bQuiet) cli::cli_alert_success("Created {length(lOutput$lCharts)} chart{?s}.")
     }
 

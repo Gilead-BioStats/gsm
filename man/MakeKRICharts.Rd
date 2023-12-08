@@ -7,8 +7,8 @@
 MakeKRICharts(
   strWorkflowId = NULL,
   lData = NULL,
-  lStackedSnapshots = NULL,
-  dfMetaWorkflow = NULL
+  dfWorkflow = NULL,
+  lStackedSnapshots = NULL
 )
 }
 \arguments{
@@ -16,9 +16,9 @@ MakeKRICharts(
 
 \item{lData}{\code{list} A list containing two data frames - dfSummary and dfBounds.}
 
-\item{lStackedSnapshots}{\code{list} A list returned by \code{\link[=Make_Snapshot]{Make_Snapshot()}} containing flat files for snapshot/assessment data.}
+\item{dfWorkflow}{\code{data.frame} Workflow metadata. See \link{meta_workflow}.}
 
-\item{dfMetaWorkflow}{\code{data.frame} Workflow metadata. See \link{meta_workflow}.}
+\item{lStackedSnapshots}{\code{list} A list returned by \code{\link[=Make_Snapshot]{Make_Snapshot()}} containing flat files for snapshot/assessment data.}
 }
 \value{
 A list (lCharts) containing three charts - scatterJS, barMetricJS, and barScoreJS.

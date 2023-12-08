@@ -21,6 +21,7 @@
 #'   - `"QTL"`
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column. Default: package-defined Protocol Deviation Assessment mapping.
+#' @param lLabels `list` Labels used to populate chart labels.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"`, `"Country"`, and `"CustomGroup"`.
 #' @param nMinDenominator `numeric` Specifies the minimum denominator required to return a `score` and calculate a `flag`. Default: NULL
 #' @param nConfLevel `numeric` Confidence level for QTL analysis.
@@ -65,6 +66,16 @@ PD_Assess_Binary <- function(
   vThreshold = NULL,
   strMethod = "NormalApprox",
   lMapping = yaml::read_yaml(system.file("mappings", "PD_Assess_Binary.yaml", package = "gsm")),
+  lLabels = list(
+    workflowid = "",
+    group = strGroup,
+    abbreviation = "PD",
+    metric = "Protocol Deviation Rate",
+    numerator = "Protocol Deviations",
+    denominator = "Days on Study",
+    model = "Normal Approximation",
+    score = "Adjusted Z-Score"
+  ),
   strGroup = "Site",
   nMinDenominator = NULL,
   nConfLevel = NULL,
@@ -186,15 +197,8 @@ PD_Assess_Binary <- function(
     if (strMethod != "QTL") {
       if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
-      lData$dfConfig <- MakeDfConfig(
-        strMethod = strMethod,
-        strGroup = strGroup,
-        strAbbreviation = "PD",
-        strMetric = "Protocol Deviation Rate",
-        strNumerator = "Protocol Deviations",
-        strDenominator = "Days on Study",
-        vThreshold = vThreshold
-      )
+      lData$dfConfig <- purrr::map_df(lLabels, ~.x) %>%
+        mutate(thresholds = list(vThreshold))
 
       lOutput <- list(
         lData = lData,
@@ -202,7 +206,7 @@ PD_Assess_Binary <- function(
       )
 
       if (bMakeCharts) {
-        lOutput$lCharts = MakeKRICharts(lData = lData)
+        lOutput$lCharts <- MakeKRICharts(lData = lData, dfWorkflow = lData$dfConfig)
         if (!bQuiet) cli::cli_alert_success("Created {length(lOutput$lCharts)} chart{?s}.")
       }
 

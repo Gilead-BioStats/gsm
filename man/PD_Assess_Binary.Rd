@@ -43,6 +43,8 @@ of the column. Default: package-defined Protocol Deviation Assessment mapping.}
 \item{bMakeCharts}{\code{logical} Boolean value indicating whether to create charts.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
+
+\item{lLabels}{\code{list} Labels used to populate chart labels.}
 }
 \value{
 \code{list} \code{lData}, a named list with:
