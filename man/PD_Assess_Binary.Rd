@@ -10,6 +10,9 @@ PD_Assess_Binary(
   strMethod = "NormalApprox",
   lMapping = yaml::read_yaml(system.file("mappings", "PD_Assess_Binary.yaml", package =
     "gsm")),
+  lLabels = list(workflowid = "", group = strGroup, abbreviation = "PD", metric =
+    "Protocol Deviation Rate", numerator = "Protocol Deviations", denominator =
+    "Days on Study", model = "Normal Approximation", score = "Adjusted Z-Score"),
   strGroup = "Site",
   nMinDenominator = NULL,
   nConfLevel = NULL,
@@ -34,6 +37,8 @@ PD_Assess_Binary(
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
 of the column. Default: package-defined Protocol Deviation Assessment mapping.}
 
+\item{lLabels}{\code{list} Labels used to populate chart labels.}
+
 \item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"}, \code{"Country"}, and \code{"CustomGroup"}.}
 
 \item{nMinDenominator}{\code{numeric} Specifies the minimum denominator required to return a \code{score} and calculate a \code{flag}. Default: NULL}
@@ -43,8 +48,6 @@ of the column. Default: package-defined Protocol Deviation Assessment mapping.}
 \item{bMakeCharts}{\code{logical} Boolean value indicating whether to create charts.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
-
-\item{lLabels}{\code{list} Labels used to populate chart labels.}
 }
 \value{
 \code{list} \code{lData}, a named list with:

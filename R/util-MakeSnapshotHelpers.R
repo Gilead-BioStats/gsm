@@ -781,7 +781,7 @@ SubsetStackedSnapshots <- function(workflowid, lStackedSnapshots) {
     if ("kri_id" %in% names(x)) {
       x %>%
         filter(
-          kri_id == workflowid
+          .data$kri_id == workflowid
         )
     }
 
