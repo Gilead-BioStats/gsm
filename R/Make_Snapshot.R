@@ -14,8 +14,8 @@
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name of the column. Default: package-defined mapping for raw+.
 #' @param lAssessments `list` a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
 #' @param lPrevSnapshot `list` optional argument for the previous snapshot run to track longitudinal data,
-#' @param append_files `vector` a vector or log files to append, defaults to all log files from `lPrevSnapshot` argument
 #' @param strAnalysisDate `character` date that the data was pulled/wrangled/snapshot. Note: date should be provided in format: `YYYY-MM-DD`.
+#' @param bAppendFiles `vector` a vector or log files to append, defaults to all log files from `lPrevSnapshot` argument
 #' @param bMakeCharts `logical` Boolean value indicating whether to create charts.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`.
 #'
@@ -72,8 +72,8 @@ Make_Snapshot <- function(
     lMapping = Read_Mapping(),
     lAssessments = MakeWorkflowList(lMeta = lMeta),
     lPrevSnapshot = NULL,
-    append_files = names(lPrevSnapshot$lSnapshot),
     strAnalysisDate = NULL,
+    bAppendFiles = names(lPrevSnapshot$lSnapshot),
     bMakeCharts = TRUE,
     bQuiet = TRUE
 ) {
@@ -144,21 +144,23 @@ Make_Snapshot <- function(
       if (x$bStatus) {
 
         if (!grepl("qtl", x$name)) {
+
+          dfWorkflow <- lMeta$meta_workflow %>% filter(workflowid == x$name) %>%
+            mutate(
+              thresholds = list(x$lResults$lData$dfConfig$thresholds)
+            )
+
           MakeKRICharts(
             strWorkflowId = x$name,
             lData = x$lResults$lData,
             lStackedSnapshots = SubsetStackedSnapshots(workflowid = x$name, lStackedSnapshots = lStackedSnapshots),
-            dfWorkflow = x$lResults$lData$dfConfig
+            dfWorkflow = dfWorkflow
             )
         } else {
 
-          # this will be a function eventually
-          list(
-            timeseriesQtl = Widget_TimeSeriesQTL(qtl = x$name,
-                                                 raw_results = lStackedSnapshots$rpt_site_kri_details,
-                                                 raw_workflow = lStackedSnapshots$rpt_kri_details,
-                                                 raw_param = lStackedSnapshots$rpt_kri_threshold_param,
-                                                 raw_analysis = lStackedSnapshots$rpt_qtl_analysis)
+          MakeQTLCharts(
+            strQtlName = x$name,
+            lStackedSnapshots = lStackedSnapshots
           )
 
         }
