@@ -49,7 +49,7 @@ test_that("missing tables are caught", {
 
 test_that("missing columns are caught", {
   columns_missing <- snapshot_all
-  columns_missing$rpt_site_kri_details$site_id <- NULL
+  columns_missing$rpt_site_kri_details$siteid <- NULL
 
   check_missing_columns <- CheckSnapshotInputs(columns_missing)
   expect_false(check_missing_columns$bStatus)

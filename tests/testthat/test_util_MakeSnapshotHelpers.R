@@ -84,7 +84,7 @@ kri_lResults <- lResults[grepl("kri", names(lResults))]
 
 # CompileResultsSummary() ------------------------------------------------------
 test_that("`CompileResultsSummary` functions as intended", {
-  expected_cols <- c("kri", "GroupID", "Numerator", "Denominator", "Metric", "Score", "Flag", "flag_color")
+  expected_cols <- c("workflowid", "GroupID", "Numerator", "Denominator", "Metric", "Score", "Flag", "flag_color")
   expect_true(is.list(lResults),
               info = "lResults argument is not in list format")
   expect_true(
@@ -105,7 +105,7 @@ test_that("`CompileResultsSummary` functions as intended", {
 # ExtractFlags() ---------------------------------------------------------------
 test_that("`ExtractFlags` functions as intended", {
   expected_cols_site <- c("siteid", "num_of_at_risk_kris", "num_of_flagged_kris")
-  expected_cols_kri <- c("kri_id", "num_of_sites_at_risk", "num_of_sites_flagged")
+  expected_cols_kri <- c("workflowid", "num_of_sites_at_risk", "num_of_sites_flagged")
 
   expect_true(is.list(lResults),
               info = "lResults argument is not in list format")
@@ -128,11 +128,11 @@ test_that("`ExtractStudyAge` functions as intended", {
 # MakeRptQtlDetails() [rpt_qtl_details] ----------------------------------------
 test_that("`MakeRptQtlDetails` functions as intended", {
   # Define expected column output
-  expected_cols <- c("study_id", "snapshot_date", "qtl_id", "qtl_name", "numerator_name",
-                     "denominator_name", "qtl_value", "base_metric", "numerator_value", "denominator_value",
-                     "qtl_score", "qtl_flag", "threshold", "abbreviation", "meta_outcome",
-                     "meta_model", "meta_score", "meta_data_inputs", "meta_data_filters", "meta_gsm_version",
-                     "meta_group", "pt_cycle_id", "pt_data_dt")
+  expected_cols <- c("studyid", "snapshot_date", "workflowid", "metric", "numerator",
+                     "denominator", "Metric", "base_metric", "Numerator", "Denominator",
+                     "Score", "Flag", "value", "abbreviation", "outcome",
+                     "model", "score", "data_inputs", "data_filters", "gsm_version",
+                     "group", "pt_cycle_id", "pt_data_dt")
 
   # Define expected column classes
   expected_col_classes <- c("character", "Date", "character", "character", "character",
@@ -168,17 +168,17 @@ test_that("`MakeRptQtlDetails` functions as intended", {
   expect_true(nrow(MakeRptQtlDetails(cou_lResults, lMeta$meta_workflow, lMeta$config_param, gsm_analysis_date)) == 1)
   expect_true(is.data.frame(rpt_qtl_details),
               info = "`rpt_qtl_details` is not output as a data frame")
-  expect_true(nrow(filter(rpt_qtl_details, !grepl("qtl", qtl_id))) == 0,
+  expect_true(nrow(filter(rpt_qtl_details, !grepl("qtl", workflowid))) == 0,
               info = "Output contains non QTL workflows")
 })
 
 # MakeRptSiteDetails() [rpt_site_details] --------------------------------------
 test_that("`MakeRptSiteDetails` functions as intended", {
   # Define expected column output
-  expected_cols <- c("study_id", "snapshot_date", "site_id", "site_nm", "site_status",
-                     "investigator_nm", "site_country", "site_state", "site_city", "region",
-                     "enrolled_participants", "planned_participants", "num_of_at_risk_kris",
-                     "num_of_flagged_kris", "pt_cycle_id", "pt_data_dt")
+  expected_cols <- c("studyid", "snapshot_date", "siteid", "site_num", "status",
+                     "invname", "country", "state", "city", "region",
+                     "enrolled_participants", "planned_participants", "num_of_at_risk_kris", "num_of_flagged_kris", "pt_cycle_id",
+                     "pt_data_dt")
 
   # Define expected column classes
   expected_col_classes <- c("character", "Date", "character", "character", "character",
@@ -214,10 +214,10 @@ test_that("`MakeRptSiteDetails` functions as intended", {
 # MakeRptStudyDetails() [rpt_study_details] ------------------------------------
 test_that("MakeRptStudyDetails functions as intended", {
   # Define expected column output
-  expected_cols <- c("study_id", "snapshot_date", "protocol_title", "therapeutic_area", "indication",
+  expected_cols <- c("studyid", "snapshot_date", "title", "ta", "indication",
                      "phase", "product", "enrolled_sites", "enrolled_participants", "planned_sites",
-                     "planned_participants", "study_status", "fpfv", "lpfv", "lplv", "study_age",
-                     "num_of_sites_flagged", "enrolling_sites_with_flagged_kris", "pt_cycle_id", "pt_data_dt")
+                     "planned_participants", "status", "fpfv", "lpfv", "lplv",
+                     "study_age", "num_of_sites_flagged", "enrolling_sites_with_flagged_kris", "pt_cycle_id", "pt_data_dt")
 
   # Define expected column classes
   expected_col_classes <- c("character", "Date", "character", "character", "character",
@@ -251,12 +251,12 @@ test_that("MakeRptStudyDetails functions as intended", {
 })
 
 # MakeRptKriDetails() [rpt_kri_details] ----------------------------------------
-test_that("CompileResultsSummary functions as intended", {
+test_that("MakeRptKriDetails functions as intended", {
   # Define expected column output
-  expected_cols <- c("study_id", "snapshot_date", "kri_id", "kri_name", "kri_acronym", "kri_description",
-                     "base_metric", "meta_numerator", "meta_denominator", "num_of_sites_at_risk",
-                     "num_of_sites_flagged", "meta_outcome", "meta_model", "meta_score", "meta_data_inputs",
-                     "meta_data_filters", "meta_gsm_version", "meta_group", "total_num_of_sites", "pt_cycle_id",
+  expected_cols <- c("studyid", "snapshot_date", "workflowid", "metric", "abbreviation",
+                     "kri_description", "base_metric", "numerator", "denominator", "num_of_sites_at_risk",
+                     "num_of_sites_flagged", "outcome", "model", "score", "data_inputs",
+                     "data_filters", "gsm_version", "group", "total_num_of_sites", "pt_cycle_id",
                      "pt_data_dt", "active", "status", "notes")
 
   # Define expected column classes
@@ -292,13 +292,12 @@ test_that("CompileResultsSummary functions as intended", {
 })
 
 # MakeRptSiteKriDetails() (rpt_site_kri_details) -------------------------------
-test_that("CompileResultsSummary functions as intended", {
+test_that("MakeRptSiteKriDetails functions as intended", {
   # Define expected column output
-  expected_cols <- c("study_id", "snapshot_date", "site_id", "kri_id", "kri_value", "kri_score",
-                     "numerator", "denominator", "flag_value", "no_of_consecutive_loads", "upper_threshold",
-                     "lower_threshold", "bottom_lower_threshold", "top_upper_threshold", "kri_name",
-                     "country_aggregate", "study_aggregate", "meta_numerator", "meta_denominator", "pt_cycle_id",
-                     "pt_data_dt")
+  expected_cols <- c("studyid", "snapshot_date", "siteid", "workflowid", "Metric", "Score",
+                     "Numerator", "Denominator", "Flag", "no_of_consecutive_loads", "upper_threshold",
+                     "lower_threshold", "bottom_lower_threshold", "top_upper_threshold", "metric",
+                     "country_aggregate", "study_aggregate", "numerator", "denominator", "pt_cycle_id", "pt_data_dt")
 
   # Define expected column classes
   expected_col_classes <- c("character", "Date", "character", "character", "numeric",
@@ -330,9 +329,9 @@ test_that("CompileResultsSummary functions as intended", {
 })
 
 # MakeRptKriBoundsDetails() (rpt_kri_bounds_details) ---------------------------
-test_that("CompileResultsSummary functions as intended", {
+test_that("MakeRptKriBoundsDetails functions as intended", {
   # Define expected column output
-  expected_cols <- c("study_id", "snapshot_date", "kri_id", "threshold", "numerator",
+  expected_cols <- c("studyid", "snapshot_date", "workflowid", "threshold", "numerator",
                      "denominator", "log_denominator", "pt_cycle_id", "pt_data_dt")
 
   # Define expected column classes
@@ -365,20 +364,16 @@ test_that("CompileResultsSummary functions as intended", {
 })
 
 # MakeRptThresholdParam() (rpt_kri_threshold_param, rpt_qtl_threshold_param) ----
-test_that("CompileResultsSummary functions as intended", {
+test_that("MakeRptThresholdParam functions as intended", {
   # Define expected column output
-  expected_cols_qtl <- c("study_id", "snapshot_date", "qtl_id", "gsm_version", "param",
-                         "index_n", "default_s", "configurable", "pt_cycle_id", "pt_data_dt")
-
-  expected_cols_kri <- c("study_id", "snapshot_date", "kri_id", "gsm_version", "param",
-                         "index_n", "default_s", "configurable", "pt_cycle_id", "pt_data_dt")
+  expected_cols_kri <- c("studyid", "snapshot_date", "workflowid", "gsm_version", "param",
+                         "index", "default_s", "configurable", "pt_cycle_id", "pt_data_dt")
 
   # Define expected column classes
   expected_col_classes <- c("character", "Date", "character", "character", "character",
                             "integer", "character", "logical", "character", "character")
 
   # Combine expected columns and classes
-  expected_output_format_qtl <- data.frame("column" = expected_cols_qtl, "class" = expected_col_classes)
   expected_output_format_kri <- data.frame("column" = expected_cols_kri, "class" = expected_col_classes)
 
   # Create varying outputs
@@ -390,7 +385,7 @@ test_that("CompileResultsSummary functions as intended", {
   kri_output_format <- GetClass(rpt_kri_threshold_param)
 
   # Tests
-  expect_identical(expected_output_format_qtl, qtl_output_format,
+  expect_identical(expected_output_format_kri, qtl_output_format,
                    info = "columns and classes output by `MakeRptThresholdParam` are not as expected with type = 'qtl'")
   expect_identical(expected_output_format_kri, kri_output_format,
                    info = "columns and classes output by `MakeRptThresholdParam` are not as expected with type = 'kri'")
@@ -399,7 +394,7 @@ test_that("CompileResultsSummary functions as intended", {
 # MakeRptQtlAnalysis() (rpt_qtl_analysis) --------------------------------------
 test_that("MakeRptQtlAnalysis functions as intended", {
   # Define expected column output
-  expected_cols <- c("study_id", "snapshot_date", "qtl_id", "param", "qtl_value",
+  expected_cols <- c("studyid", "snapshot_date", "workflowid", "param", "Score",
                      "pt_cycle_id", "pt_data_dt")
 
   # Define expected column classes
