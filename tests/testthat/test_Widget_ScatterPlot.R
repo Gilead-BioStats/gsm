@@ -31,14 +31,15 @@ ae_summary <- Summarize(
   dfFlagged = ae_flagged
 )
 
-dfConfig <- MakeDfConfig(
-  strMethod = "NormalApprox",
-  strGroup = "Site",
-  strAbbreviation = "AE",
-  strMetric = "Adverse Event Rate",
-  strNumerator = "Adverse Events",
-  strDenominator = "Days on Treatment",
-  vThreshold = c(-3, -2, 2, 3)
+dfConfig <- list(
+  workflowid = "",
+  group = "Site",
+  abbreviation = "AE",
+  metric = "Adverse Event Rate",
+  numerator = "Adverse Events",
+  denominator = "Days on Study",
+  model = "Normal Approximation",
+  score = "Adjusted Z-Score"
 )
 
 chart <- Widget_ScatterPlot(

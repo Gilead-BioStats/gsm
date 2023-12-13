@@ -19,7 +19,6 @@ HTMLWidgets.widget({
           analysis
         );
 
-        console.log(workflow)
       },
       resize: function(width, height) {
       }

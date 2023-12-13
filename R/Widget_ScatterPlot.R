@@ -82,19 +82,20 @@
 #'   ae_flag
 #' )
 #'
-#' dfConfig <- MakeDfConfig(
-#'   strMethod = "NormalApprox",
-#'   strGroup = "Site",
-#'   strAbbreviation = "AE",
-#'   strMetric = "Adverse Event Rate",
-#'   strNumerator = "Adverse Events",
-#'   strDenominator = "Days on Study",
-#'   vThreshold = c(-3, -2, 2, 3)
+#' wf <- list(
+#'   workflowid = "",
+#'   group = "Site",
+#'   abbreviation = "AE",
+#'   metric = "Adverse Event Rate",
+#'   numerator = "Adverse Events",
+#'   denominator = "Days on Study",
+#'   model = "Normal Approximation",
+#'   score = "Adjusted Z-Score"
 #' )
 #'
 #' plot <- Widget_ScatterPlot(
 #'   results = ae_summary,
-#'   workflow = dfConfig,
+#'   workflow = wf,
 #'   bounds = bounds,
 #'   elementId = "aeAssessScatter"
 #' )
@@ -135,6 +136,7 @@ Widget_ScatterPlot <- function(
     addSiteSelect = addSiteSelect,
     siteSelectLabelValue = siteSelectLabelValue
   )
+
 
   # create widget
   htmlwidgets::createWidget(

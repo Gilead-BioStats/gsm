@@ -1,7 +1,4 @@
 const clickCallback = function(d, siteSelect, instance) {
-    console.log(d);
-    console.log(siteSelect);
-    console.log(instance);
     // update chart config
     instance.data.config.selectedGroupIDs = instance.data.config.selectedGroupIDs.includes(d.groupid)
         ? 'None'

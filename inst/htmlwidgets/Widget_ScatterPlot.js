@@ -31,7 +31,6 @@ HTMLWidgets.widget({
                     bounds
                 );
 
-                console.log(workflow)
 
                 // add dropdown that highlights sites
                 let siteSelect;

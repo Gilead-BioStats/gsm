@@ -10,8 +10,6 @@ HTMLWidgets.widget({
                 // bar chart configuration
                 const workflow = x.workflow
 
-                console.log(workflow)
-
                 workflow.y = x.yaxis;
                 workflow.selectedGroupIDs = number_to_array(x.selectedGroupIDs)
 
