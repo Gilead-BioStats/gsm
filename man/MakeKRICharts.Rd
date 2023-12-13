@@ -24,5 +24,5 @@ MakeKRICharts(
 A list (lCharts) containing three charts - scatterJS, barMetricJS, and barScoreJS.
 }
 \description{
-The function MakeKRICharts creates three different types of charts (scatter plot and two bar charts) using the gsm package. It takes two inputs: lData and dfConfig, and returns a list of the created charts.
+The function MakeKRICharts creates three different types of charts (scatter plot and two bar charts) using the gsm package.
 }

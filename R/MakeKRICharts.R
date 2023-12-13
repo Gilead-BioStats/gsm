@@ -1,6 +1,6 @@
 #' MakeKRICharts Function
 #'
-#' The function MakeKRICharts creates three different types of charts (scatter plot and two bar charts) using the gsm package. It takes two inputs: lData and dfConfig, and returns a list of the created charts.
+#' The function MakeKRICharts creates three different types of charts (scatter plot and two bar charts) using the gsm package.
 #'
 #' @param strWorkflowId `character` Name of workflow ID, e.g., 'kri0001'.
 #' @param lData `list` A list containing two data frames - dfSummary and dfBounds.
