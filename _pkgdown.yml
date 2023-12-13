@@ -111,7 +111,6 @@ reference:
       -  FilterDomain
       -  Get_Enrolled
       -  MakeAnalysisDate
-      -  MakeDfConfig
       -  MakeResultsAnalysis
       -  MakeResultsBounds
       -  MakeResultsSummary
