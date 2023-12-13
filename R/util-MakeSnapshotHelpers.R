@@ -105,19 +105,19 @@ MakeRptQtlDetails <- function(lResults, dfMetaWorkflow, dfConfigParam, gsm_analy
       "snapshot_date" = gsm_analysis_date,
       "workflowid" = NA_character_,
       "metric" = NA_character_,
-      "numerator" = NA_character_,
-      "denominator" = NA_character_,
-      "Metric" = as.double(NA),
+      "numerator_name" = NA_character_,
+      "denominator_name" = NA_character_,
+      "qtl_value" = as.double(NA),
       "base_metric" = NA_character_,
-      "Numerator" = as.double(NA),
-      "Denominator" = as.double(NA),
-      "Score" = as.double(NA),
-      "Flag" = NA_integer_,
-      "value" = as.double(NA),
+      "numerator_value" = as.double(NA),
+      "denominator_value" = as.double(NA),
+      "qtl_score" = as.double(NA),
+      "flag" = NA_integer_,
+      "threshold" = as.double(NA),
       "abbreviation" = NA_character_,
       "outcome" = NA_character_,
       "model" = NA_character_,
-      "score" = NA_character_,
+      "meta_score" = NA_character_,
       "data_inputs" = NA_character_,
       "data_filters" = NA_character_,
       "gsm_version" = NA_character_,
@@ -150,19 +150,19 @@ MakeRptQtlDetails <- function(lResults, dfMetaWorkflow, dfConfigParam, gsm_analy
           snapshot_date = gsm_analysis_date,
           workflowid = qtl_name,
           metric = meta_workflow_for_this_qtl$metric,
-          numerator = meta_workflow_for_this_qtl$numerator,
-          denominator = meta_workflow_for_this_qtl$denominator,
-          Metric = df_summary$lData$dfSummary$Metric,
-          base_metric = paste0(.data$numerator, " / ", .data$denominator),
-          Numerator = df_summary$lData$dfSummary$Numerator,
-          Denominator = df_summary$lData$dfSummary$Denominator,
-          Score = df_summary$lData$dfSummary$Score,
-          Flag = as.integer(df_summary$lData$dfSummary$Flag),
-          value = threshold_for_this_qtl,
+          numerator_name = meta_workflow_for_this_qtl$numerator,
+          denominator_name = meta_workflow_for_this_qtl$denominator,
+          qtl_value = df_summary$lData$dfSummary$Metric,
+          base_metric = paste0(.data$numerator_name, " / ", .data$denominator_name),
+          numerator_value = df_summary$lData$dfSummary$Numerator,
+          denominator_value = df_summary$lData$dfSummary$Denominator,
+          qtl_score = df_summary$lData$dfSummary$Score,
+          flag = as.integer(df_summary$lData$dfSummary$Flag),
+          threshold = threshold_for_this_qtl,
           abbreviation = meta_workflow_for_this_qtl$abbreviation,
           outcome = meta_workflow_for_this_qtl$outcome,
           model = meta_workflow_for_this_qtl$model,
-          score = meta_workflow_for_this_qtl$score,
+          meta_score = meta_workflow_for_this_qtl$score,
           data_inputs = meta_workflow_for_this_qtl$data_inputs,
           data_filters = meta_workflow_for_this_qtl$data_filters,
           gsm_version = meta_workflow_for_this_qtl$gsm_version,
@@ -196,15 +196,30 @@ MakeRptSiteDetails <- function(lResults, status_site, gsm_analysis_date) {
     left_join(results, by = "siteid", relationship = "many-to-many") %>%
     mutate(
       "snapshot_date" = gsm_analysis_date,
+      "start_date" = as.Date(.data$start_date),
       "region" = "Other",
       "planned_participants" = NA_integer_,
       "pt_cycle_id" = NA_character_,
       "pt_data_dt" = NA_character_
     ) %>%
-    select("studyid", "snapshot_date", "siteid", "site_num", "status", "invname",
-           "country", "state", "city", "region", "enrolled_participants",
-           "planned_participants", "num_of_at_risk_kris", "num_of_flagged_kris",
-           "pt_cycle_id", "pt_data_dt"
+    select("studyid",
+           "snapshot_date",
+           "siteid",
+           "site_num",
+           "institution",
+           "status",
+           "start_date",
+           "invname",
+           "country",
+           "state",
+           "city",
+           "region",
+           "enrolled_participants",
+           "planned_participants",
+           "num_of_at_risk_kris",
+           "num_of_flagged_kris",
+           "pt_cycle_id",
+           "pt_data_dt"
     ) %>%
     replace_na(replace = list("num_of_at_risk_kris" = as.integer(0), "num_of_flagged_kris" = as.integer(0)))
 }
@@ -240,11 +255,29 @@ MakeRptStudyDetails <- function(lResults, status_study, gsm_analysis_date) {
       "pt_cycle_id" = NA_character_,
       "pt_data_dt" = NA_character_
     ) %>%
-    select("studyid", "snapshot_date", "title", "ta", "indication", "phase", "product",
-           "enrolled_sites", "enrolled_participants", "planned_sites",
-           "planned_participants", "status", "fpfv", "lpfv", "lplv",
-           "study_age", "num_of_sites_flagged", "enrolling_sites_with_flagged_kris",
-           "pt_cycle_id", "pt_data_dt")
+    select("studyid",
+           "snapshot_date",
+           "title",
+           "ta",
+           "indication",
+           "phase",
+           "product",
+           "enrolled_sites",
+           "enrolled_participants",
+           "planned_sites",
+           "planned_participants",
+           "est_fpfv",
+           "est_lpfv",
+           "est_lplv",
+           "status",
+           "fpfv",
+           "lpfv",
+           "lplv",
+           "study_age",
+           "num_of_sites_flagged",
+           "enrolling_sites_with_flagged_kris",
+           "pt_cycle_id",
+           "pt_data_dt")
 }
 
 
@@ -281,10 +314,27 @@ MakeRptKriDetails <- function(lResults, status_site, meta_workflow, status_workf
       "pt_cycle_id" = NA_character_,
       "pt_data_dt" = NA_character_
     ) %>%
-  select("studyid", "snapshot_date", "workflowid", "metric", "abbreviation", "kri_description",
-         "base_metric", "numerator", "denominator", "num_of_sites_at_risk", "num_of_sites_flagged",
-         "outcome", "model", "score", "data_inputs", "data_filters", "gsm_version", "group",
-         "total_num_of_sites", "pt_cycle_id", "pt_data_dt"
+  select("studyid",
+         "snapshot_date",
+         "workflowid",
+         "metric",
+         "abbreviation",
+         "kri_description",
+         "base_metric",
+         "numerator",
+         "denominator",
+         "num_of_sites_at_risk",
+         "num_of_sites_flagged",
+         "outcome",
+         "model",
+         "score",
+         "data_inputs",
+         "data_filters",
+         "gsm_version",
+         "group",
+         "total_num_of_sites",
+         "pt_cycle_id",
+         "pt_data_dt"
   ) %>%
     left_join(status_workflow, by = c("studyid", "workflowid", "gsm_version"))
 }
@@ -330,14 +380,30 @@ MakeRptSiteKriDetails <- function(lResults, status_site, meta_workflow, meta_par
       "pt_cycle_id" = NA_character_,
       "pt_data_dt" = NA_character_
     ) %>%
-    select("studyid", "snapshot_date", "siteid" = "GroupID",
-           "workflowid", "Metric", "Score", "Numerator", "Denominator",
-           "Flag", "no_of_consecutive_loads", "upper_threshold",
-           "lower_threshold", "bottom_lower_threshold", "top_upper_threshold",
-           "metric", "country_aggregate", "study_aggregate",
-           "numerator", "denominator", "pt_cycle_id", "pt_data_dt"
+    select("studyid",
+           "snapshot_date",
+           "siteid" = "GroupID",
+           "workflowid",
+           "metric_value" = "Metric",
+           "Score",
+           "numerator_value" = "Numerator",
+           "denominator_value" = "Denominator",
+           "flag_value" = "Flag",
+           "no_of_consecutive_loads",
+           "upper_threshold",
+           "lower_threshold",
+           "bottom_lower_threshold",
+           "top_upper_threshold",
+           "metric",
+           "country_aggregate",
+           "study_aggregate",
+           "numerator_name" = "numerator",
+           "denominator_name" ="denominator",
+           "pt_cycle_id",
+           "pt_data_dt"
     ) %>%
-    mutate(across(c("Flag", "no_of_consecutive_loads"), as.integer))
+    mutate(across(c("flag_value", "no_of_consecutive_loads"), as.integer)) %>%
+    rename_with(tolower)
 }
 
 #' Create rpt_kri_bounds_details output for `Make_Snapshot()`
@@ -410,7 +476,7 @@ MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date, t
       "workflowid" = NA_character_,
       "gsm_version" = NA_character_,
       "param" = NA_character_,
-      "index_n" = NA_integer_,
+      "index" = NA_integer_,
       "default_s" = NA_character_,
       "configurable" = NA,
       "pt_cycle_id" = NA_character_,
@@ -436,7 +502,7 @@ MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date, t
         "gsm_version",
         "param",
         "index",
-        "value",
+        "default_s" = "value",
         "configurable",
         "pt_cycle_id",
         "pt_data_dt"
@@ -459,7 +525,7 @@ MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date, t
              "gsm_version",
              "param",
              "index",
-             "default",
+             "default_s",
              "configurable",
              "pt_cycle_id",
              "pt_data_dt"
@@ -495,7 +561,6 @@ MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date, t
 #' Create rpt_qtl_analysis output for `Make_Snapshot()`
 #'
 #' @param lResults `list` the output from `Study_Assess()`
-#' @param status_param `data.frame` configuration parameters defined in lMeta argument of `Make_Snapshot()`
 #' @param gsm_analysis_date `string` Date of snapshot
 #'
 #' @importFrom purrr map_df
@@ -503,7 +568,7 @@ MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date, t
 #' @export
 #'
 #' @keywords internal
-MakeRptQtlAnalysis <- function(lResults, status_param, gsm_analysis_date) {
+MakeRptQtlAnalysis <- function(lResults, gsm_analysis_date) {
   types <- unique(gsub("[[:digit:]]", "", names(lResults)))
   if (!"qtl" %in% types) {
     cli::cli_alert_warning("lResults argument in `MakeRptQtlAnalysis` is missing qtl workflows, a blank data frame will be returned")
@@ -512,28 +577,25 @@ MakeRptQtlAnalysis <- function(lResults, status_param, gsm_analysis_date) {
       "snapshot_date" = gsm_analysis_date,
       "workflowid" = NA_character_,
       "param" = NA_character_,
-      "Score" = as.double(NA),
+      "value" = as.double(NA),
       "pt_cycle_id" = NA_character_,
       "pt_data_dt" = NA_character_
     )
   } else {
-    analysis <- purrr::map_df(lResults[grepl("qtl", names(lResults))], function(qtl) {
-      qtl$lResults$lData$dfAnalyzed
-    }, .id = "workflowid")
+    analysis <- MakeResultsAnalysis(lResults)
 
     output <- analysis %>%
-      left_join(status_param, by = "workflowid", relationship = "many-to-many") %>%
       mutate(
         "snapshot_date" = gsm_analysis_date,
         "pt_cycle_id" = NA_character_,
         "pt_data_dt" = NA_character_
       ) %>%
       select(
-        "studyid" = "GroupID",
+        "studyid",
         "snapshot_date",
         "workflowid",
         "param",
-        "Score",
+        "value",
         "pt_cycle_id",
         "pt_data_dt"
       )
@@ -541,7 +603,6 @@ MakeRptQtlAnalysis <- function(lResults, status_param, gsm_analysis_date) {
 
   return(output)
 }
-
 
 #' Augment the previous lSnapshot classes to be inline with the current lSnapshot classes
 #'
