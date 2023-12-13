@@ -181,21 +181,14 @@ DataChg_Assess <- function(
     # visualizations ----------------------------------------------------------
     if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
-    lData$dfConfig <- purrr::map_df(lLabels, ~.x) %>%
-      mutate(thresholds = list(vThreshold))
-
     lOutput <- list(
       lData = lData,
       lChecks = lChecks
     )
 
     if (bMakeCharts) {
-      lOutput$lCharts <- MakeKRICharts(lData = lData, dfWorkflow = lData$dfConfig)
+      lOutput$lCharts <- MakeKRICharts(lData = lData, lLabels = lLabels)
       if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} chart{?s}.")
-    } else {
-
-
-
     }
 
     # return data -------------------------------------------------------------

@@ -50,6 +50,7 @@
 #' @param siteSelectLabelValue Label used to populate the HTML drop-down menu. Constructed as: 'Highlighted {siteSelectLabelValue}: '.
 #'
 #' @import htmlwidgets
+#' @importFrom jsonlite toJSON
 #'
 #' @examples
 #' ae <- AE_Map_Raw()
@@ -128,7 +129,7 @@ Widget_ScatterPlot <- function(
   # forward options using x
   x <- list(
     results = results,
-    workflow = workflow,
+    workflow = jsonlite::toJSON(workflow),
     bounds = bounds,
     selectedGroupIDs = as.character(selectedGroupIDs),
     addSiteSelect = addSiteSelect,

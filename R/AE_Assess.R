@@ -199,9 +199,6 @@ AE_Assess <- function(
     lData$dfSummary <- gsm::Summarize(lData$dfFlagged, nMinDenominator = nMinDenominator, bQuiet = bQuiet)
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
-    lData$dfConfig <- purrr::map_df(lLabels, ~.x) %>%
-      mutate(thresholds = list(vThreshold))
-
     lOutput <- list(
       lData = lData,
       lChecks = lChecks
@@ -211,7 +208,7 @@ AE_Assess <- function(
     if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
     if (bMakeCharts) {
-      lOutput$lCharts <- MakeKRICharts(lData = lData, dfWorkflow = lData$dfConfig)
+      lOutput$lCharts <- MakeKRICharts(lData = lData, lLabels = lLabels)
       if (!bQuiet) cli::cli_alert_success("Created {length(lOutput$lCharts)} chart{?s}.")
     }
 

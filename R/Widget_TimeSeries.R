@@ -17,6 +17,7 @@
 #'
 #' @import htmlwidgets
 #' @import htmltools
+#' @importFrom jsonlite toJSON
 #'
 #' @export
 Widget_TimeSeries <- function(
@@ -70,7 +71,8 @@ Widget_TimeSeries <- function(
       "data_inputs" = "meta_data_inputs",
       "data_filters" = "meta_data_filters",
       "gsm_analysis_date"
-    )
+    ) %>%
+    jsonlite::toJSON()
 
   parameters <- parameters %>%
     select(

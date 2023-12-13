@@ -8,7 +8,10 @@ HTMLWidgets.widget({
                 const results = HTMLWidgets.dataframeToD3(x.results)
 
                 // bar chart configuration
-                const workflow = HTMLWidgets.dataframeToD3(x.workflow)[0]
+                const workflow = x.workflow
+
+                console.log(workflow)
+
                 workflow.y = x.yaxis;
                 workflow.selectedGroupIDs = number_to_array(x.selectedGroupIDs)
 

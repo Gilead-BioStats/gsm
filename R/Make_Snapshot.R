@@ -131,7 +131,7 @@ Make_Snapshot <- function(
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))
 
   # create `lStackedSnapshots` ----------------------------------------------
-  lStackedSnapshots <- AppendLogs(lPrevSnapshot, lSnapshot, append_files)
+  lStackedSnapshots <- AppendLogs(lPrevSnapshot, lSnapshot, bAppendFiles)
 
 
   # create lCharts ----------------------------------------------------------
@@ -145,16 +145,15 @@ Make_Snapshot <- function(
 
         if (!grepl("qtl", x$name)) {
 
-          dfWorkflow <- lMeta$meta_workflow %>% filter(workflowid == x$name) %>%
-            mutate(
-              thresholds = list(x$lResults$lData$dfConfig$thresholds)
-            )
+          lLabels <- lMeta$meta_workflow %>%
+            filter(.data$workflowid == x$name) %>%
+            as.list()
 
           MakeKRICharts(
             strWorkflowId = x$name,
             lData = x$lResults$lData,
             lStackedSnapshots = SubsetStackedSnapshots(workflowid = x$name, lStackedSnapshots = lStackedSnapshots),
-            dfWorkflow = dfWorkflow
+            lLabels = lLabels
             )
         } else {
 

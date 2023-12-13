@@ -31,6 +31,8 @@ HTMLWidgets.widget({
             parameters
         );
 
+        console.log(workflow)
+
         // Add event listener to site dropdown that updates chart on change.
         el.previousElementSibling.addEventListener('change', (event) => {
           instance.helpers.updateSelectedGroupIDs(event.target.value);

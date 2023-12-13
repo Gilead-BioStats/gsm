@@ -52,6 +52,7 @@
 #' @param siteSelectLabelValue Label used to populate the HTML drop-down menu. Constructed as: 'Highlighted {siteSelectLabelValue}: '.
 #'
 #' @import htmlwidgets
+#' @importFrom jsonlite toJSON
 #'
 #' @examples
 #'
@@ -123,7 +124,7 @@ Widget_BarChart <- function(
   # forward options using x
   x <- list(
     results = results,
-    workflow = workflow,
+    workflow = jsonlite::toJSON(workflow),
     threshold = threshold,
     yaxis = yaxis,
     selectedGroupIDs = as.character(selectedGroupIDs),

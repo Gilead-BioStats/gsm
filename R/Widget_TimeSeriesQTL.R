@@ -15,6 +15,7 @@
 #' @param elementId id of widget, automatically generated if not supplied
 #'
 #' @import htmlwidgets
+#' @importFrom jsonlite toJSON
 #'
 #' @export
 Widget_TimeSeriesQTL <- function(qtl,
@@ -61,7 +62,8 @@ Widget_TimeSeriesQTL <- function(qtl,
       "data_filters" = "meta_data_filters",
       "gsm_analysis_date"
     ) %>%
-    dplyr::filter(.data$workflowid == qtl)
+    dplyr::filter(.data$workflowid == qtl) %>%
+    jsonlite::toJSON()
 
   parameters <- raw_param %>%
     select(
