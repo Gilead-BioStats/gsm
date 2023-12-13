@@ -218,6 +218,14 @@ JavaScript utility functions used to configure `htmlwidgets` and for custom repo
 ```
 ---
 
+# 📄 Wordlist
+
+#### Description
+
+Text file that contains words that are omitted from `devtools::spell_check()`.
+
+---
+
 # 📁 `workflow`
 
 #### Description
