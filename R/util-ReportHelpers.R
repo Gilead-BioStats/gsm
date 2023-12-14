@@ -64,7 +64,7 @@ MakeStudyStatusTable <- function(dfStudy, overview_raw_table, longitudinal = NUL
   participants <- paste0(round(sum(as.numeric(overview_raw_table$Subjects))), " / ", round(as.numeric(dfStudy$planned_participants)))
 
   if (!is.null(longitudinal)) {
-    snap_stats <- longitudinal$status_study %>%
+    snap_stats <- longitudinal$rpt_study_details %>%
       reframe(
         "Average snapshot interval" = mean(difftime(.data$gsm_analysis_date, lag(.data$gsm_analysis_date)), na.rm = TRUE),
         "Median snapshot interval" = median(difftime(.data$gsm_analysis_date, lag(.data$gsm_analysis_date)), na.rm = TRUE)

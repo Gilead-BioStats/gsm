@@ -25,7 +25,7 @@ Make_Timeline <- function(status_study, longitudinal = NULL, n_breaks = 10, date
   history <- length(longitudinal) > 0
 
   if (history) {
-    snapshots <- longitudinal$status_study %>%
+    snapshots <- longitudinal$rpt_study_details %>%
       select(date = "gsm_analysis_date") %>%
       mutate(
         .before = date,
@@ -36,7 +36,7 @@ Make_Timeline <- function(status_study, longitudinal = NULL, n_breaks = 10, date
 
   d <- status_study %>%
     {
-      if (history) select(., -"gsm_analysis_date") else .
+      if (history) select(., -c("snapshot_date", "gsm_analysis_date")) else .
     } %>%
     mutate(across(
       everything(),
