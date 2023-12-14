@@ -62,7 +62,9 @@ Study_Report <- function(
   }
 
   if (is.null(dfStudy)) {
-    dfStudy <- if ("lInputs" %in% names(lSnapshot)) {
+    dfStudy <- if ("rpt_study_details" %in% names(lSnapshot$lSnapshot)) {
+      lSnapshot$lSnapshot$rpt_study_details
+    } else if ("lInputs" %in% names(lSnapshot)) {
       Study_Map_Raw(
         dfs = list(
           dfSTUDY = lSnapshot$lInputs$lMeta$meta_study,
@@ -77,7 +79,9 @@ Study_Report <- function(
   }
 
   if (is.null(dfSite)) {
-    dfSite <- if ("lInputs" %in% names(lSnapshot)) {
+    dfSite <- if ("rpt_study_details" %in% names(lSnapshot$lSnapshot)) {
+      lSnapshot$lSnapshot$rpt_site_details
+    } else if ("lInputs" %in% names(lSnapshot)) {
       Site_Map_Raw(
         dfs = list(
           dfSITE = lSnapshot$lInputs$lMeta$meta_site,
