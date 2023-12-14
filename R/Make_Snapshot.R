@@ -124,7 +124,7 @@ Make_Snapshot <- function(
     rpt_kri_bounds_details = MakeRptKriBoundsDetails(lResults, lMeta$config_param, gsm_analysis_date),
     rpt_qtl_threshold_param = MakeRptThresholdParam(lMeta$meta_params, lMeta$config_param, gsm_analysis_date, type = "qtl"),
     rpt_kri_threshold_param = MakeRptThresholdParam(lMeta$meta_params, lMeta$config_param, gsm_analysis_date, type = "kri"),
-    rpt_qtl_analysis = MakeRptQtlAnalysis(lResults, lMeta$config_param, gsm_analysis_date)
+    rpt_qtl_analysis = MakeRptQtlAnalysis(lResults, gsm_analysis_date)
   ) %>%
     purrr::keep(~ !is.null(.x)) %>%
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))

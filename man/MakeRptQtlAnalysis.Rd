@@ -4,14 +4,12 @@
 \alias{MakeRptQtlAnalysis}
 \title{Create rpt_qtl_analysis output for \code{Make_Snapshot()}}
 \usage{
-MakeRptQtlAnalysis(lResults, status_param, gsm_analysis_date = NULL)
+MakeRptQtlAnalysis(lResults, gsm_analysis_date)
 }
 \arguments{
 \item{lResults}{\code{list} the output from \code{Study_Assess()}}
 
-\item{status_param}{\code{data.frame} configuration parameters defined in lMeta argument of \code{Make_Snapshot()}}
-
-\item{gsm_analysis_date}{\code{string} Date of snapshot. leave NULL if dealing with stacked results}
+\item{gsm_analysis_date}{\code{string} Date of snapshot}
 }
 \description{
 Create rpt_qtl_analysis output for \code{Make_Snapshot()}
