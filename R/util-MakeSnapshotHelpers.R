@@ -303,7 +303,7 @@ MakeRptKriDetails <- function(lResults, status_site, meta_workflow, status_workf
   meta_workflow %>%
     left_join(results, by = c("workflowid"), relationship = "many-to-many") %>%
     replace_na(replace = list("num_of_sites_at_risk" = 0, "num_of_sites_flagged" = 0)) %>%
-    group_by(workflowid) %>%
+    group_by(.data$workflowid) %>%
     mutate(
       "snapshot_date" = gsm_analysis_date,
       "studyid" = unique(status_site$studyid),
