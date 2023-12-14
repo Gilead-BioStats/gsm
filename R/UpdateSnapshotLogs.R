@@ -100,7 +100,7 @@ UpdateSnapshotLogs <- function(lPrevSnapshot, lMeta = NULL, lData = NULL, lMappi
     rpt_kri_bounds_details = MakeRptKriBoundsDetails(lResults, lMeta$config_param, gsm_analysis_date),
     rpt_qtl_threshold_param = MakeRptThresholdParam(lMeta$meta_params, lMeta$config_param, gsm_analysis_date, type = "qtl"),
     rpt_kri_threshold_param = MakeRptThresholdParam(lMeta$meta_params, lMeta$config_param, gsm_analysis_date, type = "kri"),
-    rpt_qtl_analysis = MakeRptQtlAnalysis(lResults, lMeta$config_param, gsm_analysis_date)
+    rpt_qtl_analysis = MakeRptQtlAnalysis(lResults, gsm_analysis_date)
   )
 
   # augment past lStackedSnapshots data if available
@@ -114,7 +114,7 @@ UpdateSnapshotLogs <- function(lPrevSnapshot, lMeta = NULL, lData = NULL, lMappi
       rpt_kri_bounds_details = MakeRptKriBoundsDetails(StackedlResults, lMeta$config_param),
       rpt_qtl_threshold_param = MakeRptThresholdParam(lMeta$meta_params, lMeta$config_param, type = "qtl"),
       rpt_kri_threshold_param = MakeRptThresholdParam(lMeta$meta_params, lMeta$config_param, type = "kri"),
-      rpt_qtl_analysis = MakeRptQtlAnalysis(StackedlResults, lMeta$config_param)
+      rpt_qtl_analysis = MakeRptQtlAnalysis(StackedlResults)
     )
   }
 
