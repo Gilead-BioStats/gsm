@@ -8,10 +8,6 @@
 #' @return `list` list of corrected lSnapshot logs and lStackedSnapshots logs if available
 #' @export
 #'
-#' @examples
-#' lPrevSnapshot <- readRDS(system.file("data-longitudinal", "AA-AA-000-0000", "2019-12-01", "snapshot.rds", package = "clindata"))
-#' updated_lPrevSnapshot <- UpdateSnapshotLogs(lPrevSnapshot)
-#'
 #' @keywords internal
 UpdateSnapshotLogs <- function(lPrevSnapshot, lMeta = NULL, lData = NULL, lMapping = NULL) {
   current_tables <- c("rpt_site_details", "rpt_study_details", "rpt_qtl_details",
