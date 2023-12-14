@@ -30,16 +30,18 @@ Widget_TimeSeriesQTL <- function(qtl,
 ) {
 
 
+
+
   results <- raw_results  %>%
     dplyr::mutate(gsm_analysis_date = .data$snapshot_date) %>%
     dplyr::select(
-      "studyid" = "study_id",
-      "workflowid" = "kri_id",
-      "groupid" = "site_id",
-      "numerator",
-      "denominator",
-      "metric" = "kri_value",
-      "score" = "kri_score",
+      "studyid",
+      "workflowid",
+      "groupid" = "siteid",
+      "numerator" = "numerator_value",
+      "denominator" = "denominator_value",
+      "metric",
+      "score",
       "flag" = "flag_value",
       "gsm_analysis_date",
       "snapshot_date"
@@ -49,17 +51,17 @@ Widget_TimeSeriesQTL <- function(qtl,
   workflow <- raw_workflow %>%
     dplyr::mutate(selectedGroupIDs = selectedGroupIDs) %>%
     select(
-      "workflowid" = "kri_id",
-      "group" = "meta_group",
-      "abbreviation" = "kri_acronym",
-      "metric" = "kri_name",
-      "numerator" = "meta_numerator",
-      "denominator" = "meta_denominator",
-      "outcome" = "meta_outcome",
-      "model" = "meta_model",
-      "score" = "meta_score",
-      "data_inputs" = "meta_data_inputs",
-      "data_filters" = "meta_data_filters",
+      "workflowid",
+      "group",
+      "abbreviation",
+      "metric",
+      "numerator",
+      "denominator",
+      "outcome",
+      "model",
+      "score",
+      "data_inputs",
+      "data_filters",
       "gsm_analysis_date"
     ) %>%
     dplyr::filter(.data$workflowid == qtl) %>%
@@ -67,22 +69,22 @@ Widget_TimeSeriesQTL <- function(qtl,
 
   parameters <- raw_param %>%
     select(
-      "workflowid" = "kri_id",
+      "workflowid",
       "param",
-      "index" = "index_n",
+      "index",
       "gsm_analysis_date",
       "snapshot_date",
-      "studyid" = "study_id",
+      "studyid",
       "value" = "default_s"
     ) %>%
     dplyr::filter(.data$workflowid == qtl)
 
   analysis <- raw_analysis %>%
     select(
-      "studyid" = "study_id",
-      "workflowid" = "qtl_id",
+      "studyid",
+      "workflowid",
       "param",
-      "value" = "qtl_value",
+      "value",
       "gsm_analysis_date",
       "snapshot_date"
     ) %>%
