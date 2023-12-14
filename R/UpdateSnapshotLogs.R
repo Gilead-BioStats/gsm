@@ -10,7 +10,7 @@
 #'
 #' @examples
 #' lPrevSnapshot <- readRDS(system.file("data-longitudinal", "AA-AA-000-0000", "2019-12-01", "snapshot.rds", package = "clindata"))
-#' updated_lPrevSnapshot <- UpdateDataLogs(lPrevSnapshot)
+#' updated_lPrevSnapshot <- UpdateSnapshotLogs(lPrevSnapshot)
 #'
 #' @keywords internal
 UpdateSnapshotLogs <- function(lPrevSnapshot, lMeta = NULL, lData = NULL, lMapping = NULL) {
