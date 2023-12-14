@@ -21,9 +21,4 @@ UpdateSnapshotLogs(lPrevSnapshot, lMeta = NULL, lData = NULL, lMapping = NULL)
 \description{
 Update archived snapshot logs pre v1.9.0 to the data model of post v1.9.0
 }
-\examples{
-lPrevSnapshot <- readRDS(system.file("data-longitudinal", "AA-AA-000-0000", "2019-12-01", "snapshot.rds", package = "clindata"))
-updated_lPrevSnapshot <- UpdateDataLogs(lPrevSnapshot)
-
-}
 \keyword{internal}
