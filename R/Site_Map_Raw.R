@@ -7,13 +7,14 @@
 #' @export
 #' @keywords internal
 Site_Map_Raw <- function(
-  dfs = list(
-    dfSITE = clindata::ctms_site,
-    dfSUBJ = clindata::rawplus_dm
-  ),
-  lMapping = gsm::Read_Mapping(c("ctms", "rawplus")),
-  dfConfig = gsm::config_param
-) {
+    dfs = gsm::UseClindata(
+      list(
+        "dfSITE" = "clindata::ctms_site",
+        "dfSUBJ" = "clindata::rawplus_dm"
+      )
+    ),
+    lMapping = gsm::Read_Mapping(c("ctms", "rawplus")),
+    dfConfig = gsm::config_param) {
   status_site <- dfs$dfSITE %>%
     mutate(
       siteid = as.character(

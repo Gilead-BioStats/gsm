@@ -42,16 +42,16 @@
 #' @export
 
 QueryAge_Map_Raw <- function(
-  dfs = list(
-    dfSUBJ = clindata::rawplus_dm,
-    dfQUERY = clindata::edc_queries
-  ),
-  lMapping = gsm::Read_Mapping(c("edc", "rawplus")),
-  nMaxQueryAge = 30,
-  bReturnChecks = FALSE,
-  bQuiet = TRUE
-
-) {
+    dfs = gsm::UseClindata(
+      list(
+        "dfSUBJ" = "clindata::rawplus_dm",
+        "dfQUERY" = "clindata::edc_queries"
+      )
+    ),
+    lMapping = gsm::Read_Mapping(c("edc", "rawplus")),
+    nMaxQueryAge = 30,
+    bReturnChecks = FALSE,
+    bQuiet = TRUE) {
   stopifnot(
     "bReturnChecks must be logical" = is.logical(bReturnChecks),
     "bQuiet must be logical" = is.logical(bQuiet)

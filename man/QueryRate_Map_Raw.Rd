@@ -5,8 +5,8 @@
 \title{Query Rate Assessment - Raw Mapping}
 \usage{
 QueryRate_Map_Raw(
-  dfs = list(dfSUBJ = clindata::rawplus_dm, dfQUERY = clindata::edc_queries, dfDATACHG =
-    clindata::edc_data_points),
+  dfs = gsm::UseClindata(list(dfSUBJ = "clindata::rawplus_dm", dfQUERY =
+    "clindata::edc_queries", dfDATACHG = "clindata::edc_data_points")),
   lMapping = gsm::Read_Mapping(c("edc", "rawplus")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
