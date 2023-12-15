@@ -40,16 +40,16 @@
 #' @export
 
 DataEntry_Map_Raw <- function(
-  dfs = list(
-    dfSUBJ = clindata::rawplus_dm,
-    dfDATAENT = clindata::edc_data_pages
-  ),
-  lMapping = gsm::Read_Mapping(c("rawplus", "edc")),
-  nMaxDataEntryLag = 10,
-  bReturnChecks = FALSE,
-  bQuiet = TRUE
-
-) {
+    dfs = gsm::UseClindata(
+      list(
+        "dfSUBJ" = "clindata::rawplus_dm",
+        "dfDATAENT" = "clindata::edc_data_pages"
+      )
+    ),
+    lMapping = gsm::Read_Mapping(c("rawplus", "edc")),
+    nMaxDataEntryLag = 10,
+    bReturnChecks = FALSE,
+    bQuiet = TRUE) {
   stopifnot(
     "bReturnChecks must be logical" = is.logical(bReturnChecks),
     "bQuiet must be logical" = is.logical(bQuiet)

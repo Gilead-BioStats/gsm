@@ -5,7 +5,8 @@
 \title{Query Age Assessment - Raw Mapping}
 \usage{
 QueryAge_Map_Raw(
-  dfs = list(dfSUBJ = clindata::rawplus_dm, dfQUERY = clindata::edc_queries),
+  dfs = gsm::UseClindata(list(dfSUBJ = "clindata::rawplus_dm", dfQUERY =
+    "clindata::edc_queries")),
   lMapping = gsm::Read_Mapping(c("edc", "rawplus")),
   nMaxQueryAge = 30,
   bReturnChecks = FALSE,

@@ -5,7 +5,8 @@
 \title{Data Entry Lag Assessment - Raw Mapping}
 \usage{
 DataEntry_Map_Raw(
-  dfs = list(dfSUBJ = clindata::rawplus_dm, dfDATAENT = clindata::edc_data_pages),
+  dfs = gsm::UseClindata(list(dfSUBJ = "clindata::rawplus_dm", dfDATAENT =
+    "clindata::edc_data_pages")),
   lMapping = gsm::Read_Mapping(c("rawplus", "edc")),
   nMaxDataEntryLag = 10,
   bReturnChecks = FALSE,

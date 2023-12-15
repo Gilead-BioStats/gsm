@@ -5,7 +5,7 @@
 \title{Screening Assessment - Raw Mapping}
 \usage{
 Screening_Map_Raw(
-  dfs = list(dfENROLL = clindata::rawplus_enroll),
+  dfs = gsm::UseClindata(list(dfENROLL = "clindata::rawplus_enroll")),
   lMapping = gsm::Read_Mapping("rawplus"),
   bReturnChecks = FALSE,
   bQuiet = TRUE

@@ -10,38 +10,37 @@ navbar:
     Reports:
       text: Sample Reports
       menu:
-      - text: Site Report
-        href: StandardReportSite.html
-      - text: Country Report
-        href: StandardReportCountry.html
+        - text: Site Report
+          href: StandardReportSite.html
+        - text: Country Report
+          href: StandardReportCountry.html
     articles:
       text: Articles
       menu:
-      - text: Cookbook
-        href: articles/Cookbook.html
-      - text: Step-by-Step Analysis Workflow
-        href: articles/DataAnalysis.html
-      - text: Data Pipeline
-        href: articles/DataPipeline.html
-      - text: Contributor Guidelines
-        href: articles/ContributorGuidelines.html
-      - text: KRI Method
-        href: articles/KRI Method.html
-      - text: Qualification Report for the {gsm} R Package
-        href: articles/Qualification.html
-      - text: Qualification Workflow
-        href: articles/QualificationWorkflow.html
-
+        - text: Cookbook
+          href: articles/Cookbook.html
+        - text: Step-by-Step Analysis Workflow
+          href: articles/DataAnalysis.html
+        - text: Data Pipeline
+          href: articles/DataPipeline.html
+        - text: Contributor Guidelines
+          href: articles/ContributorGuidelines.html
+        - text: KRI Method
+          href: articles/KRI Method.html
+        - text: Qualification Report for the {gsm} R Package
+          href: articles/Qualification.html
+        - text: Qualification Workflow
+          href: articles/QualificationWorkflow.html
 
 reference:
-   - title: Assess
-     desc: Sequentially execute the Assessment Pipeline Functions (Transform, Analyze, Flag, and Summarize)
-   - contents:
+  - title: Assess
+    desc: Sequentially execute the Assessment Pipeline Functions (Transform, Analyze, Flag, and Summarize)
+  - contents:
       - matches("*_Assess_*")
 
-   - title: Visualize
-     desc: Generate a visualization from the Assessment results
-   - contents:
+  - title: Visualize
+    desc: Generate a visualization from the Assessment results
+  - contents:
       - starts_with("Visualize_")
       - starts_with("Widget_")
       - Analyze_NormalApprox_PredictBounds
@@ -50,22 +49,22 @@ reference:
       - MakeKRICharts
       - Make_Timeline
 
-   - title: Map
-     desc: Generate input data from multiple clinical data standards (generally rawplus or SDTM-)
-   - contents:
+  - title: Map
+    desc: Generate input data from multiple clinical data standards (generally rawplus or SDTM-)
+  - contents:
       - matches("*_Map_*")
 
-   - title: Analyze
-     desc: Conduct statistical analysis based on input data
-   - contents:
+  - title: Analyze
+    desc: Conduct statistical analysis based on input data
+  - contents:
       - Analyze_NormalApprox
       - Analyze_Identity
       - Analyze_Fisher
       - Analyze_Poisson
 
-   - title: Data Pipeline
-     desc: Create site-level summary, analyzed, and flagged data for an assessment
-   - contents:
+  - title: Data Pipeline
+    desc: Create site-level summary, analyzed, and flagged data for an assessment
+  - contents:
       - Transform_Count
       - Transform_Rate
       - Flag
@@ -75,66 +74,67 @@ reference:
       - Flag_QTL
       - Summarize
 
-   - title: Reporting
-     desc: Creates summary tables and HTML objects to create a report
-   - contents:
+  - title: Reporting
+    desc: Creates summary tables and HTML objects to create a report
+  - contents:
       - Study_Report
       - Study_AssessmentReport
       - Overview_Table
       - rank_chg
       - kri_directionality_logo
 
-   - title: QTL
-     desc: Runs QTL analysis for longitudinal metrics
-   - contents:
+  - title: QTL
+    desc: Runs QTL analysis for longitudinal metrics
+  - contents:
       - Analyze_QTL
       - RunQTL
       - SaveQTL
       - MakeRptQtlDetails
 
-   - title: Longitudinal
-     desc: Utility functions to analyze longitudinal/trend data.
-   - contents:
+  - title: Longitudinal
+    desc: Utility functions to analyze longitudinal/trend data.
+  - contents:
       - StackSnapshots
       - Save_Snapshot
       - Augment_Snapshot
 
-   - title: Utility
-     desc: Utility functions for use within the Data Pipeline
-   - contents:
-      -  CheckClindataMeta
-      -  CheckInputs
-      -  CheckSnapshotInputs
-      -  ConsolidateStrata
-      -  ExportCode
-      -  FilterData
-      -  FilterDomain
-      -  Get_Enrolled
-      -  MakeAnalysisDate
-      -  MakeDfConfig
-      -  MakeResultsAnalysis
-      -  MakeResultsBounds
-      -  MakeResultsSummary
-      -  MakeStatusWorkflow
-      -  MakeStratifiedAssessment
-      -  MakeWorkflowList
-      -  Make_Snapshot
-      -  MergeSubjects
-      -  ParseWarnings
-      -  RunStep
-      -  RunStratifiedWorkflow
-      -  RunWorkflow
-      -  UpdateGSMVersion
-      -  UpdateParams
-      -  generate_md_table
-      -  is_mapping_valid
-      -  is_workflow_valid
-      -  parse_data_mapping
-      -  parse_data_spec
+  - title: Utility
+    desc: Utility functions for use within the Data Pipeline
+  - contents:
+      - CheckClindataMeta
+      - CheckInputs
+      - CheckSnapshotInputs
+      - ConsolidateStrata
+      - ExportCode
+      - FilterData
+      - FilterDomain
+      - Get_Enrolled
+      - MakeAnalysisDate
+      - MakeDfConfig
+      - MakeResultsAnalysis
+      - MakeResultsBounds
+      - MakeResultsSummary
+      - MakeStatusWorkflow
+      - MakeStratifiedAssessment
+      - MakeWorkflowList
+      - Make_Snapshot
+      - MergeSubjects
+      - ParseWarnings
+      - RunStep
+      - RunStratifiedWorkflow
+      - RunWorkflow
+      - UpdateGSMVersion
+      - UpdateParams
+      - UseClindata
+      - generate_md_table
+      - is_mapping_valid
+      - is_workflow_valid
+      - parse_data_mapping
+      - parse_data_spec
 
-   - title: Data
-     desc: Metadata used to create workflows
-   - contents:
+  - title: Data
+    desc: Metadata used to create workflows
+  - contents:
       - config_param
       - config_workflow
       - input_data_schema
