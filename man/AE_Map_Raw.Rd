@@ -5,7 +5,8 @@
 \title{Adverse Event Assessment - Raw Mapping}
 \usage{
 AE_Map_Raw(
-  dfs = list(dfSUBJ = clindata::rawplus_dm, dfAE = clindata::rawplus_ae),
+  dfs = gsm::UseClindata(list(dfSUBJ = "clindata::rawplus_dm", dfAE =
+    "clindata::rawplus_ae")),
   lMapping = gsm::Read_Mapping("rawplus"),
   bReturnChecks = FALSE,
   bQuiet = TRUE

@@ -44,15 +44,15 @@
 #' @export
 
 LB_Map_Raw <- function(
-  dfs = list(
-    dfSUBJ = clindata::rawplus_dm,
-    dfLB = clindata::rawplus_lb
-  ),
-
-  lMapping = gsm::Read_Mapping("rawplus"),
-  bReturnChecks = FALSE,
-  bQuiet = TRUE
-) {
+    dfs = gsm::UseClindata(
+      list(
+        "dfSUBJ" = "clindata::rawplus_dm",
+        "dfLB" = "clindata::rawplus_lb"
+      )
+    ),
+    lMapping = gsm::Read_Mapping("rawplus"),
+    bReturnChecks = FALSE,
+    bQuiet = TRUE) {
   stopifnot(
     "bReturnChecks must be logical" = is.logical(bReturnChecks),
     "bQuiet must be logical" = is.logical(bQuiet)

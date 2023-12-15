@@ -5,7 +5,8 @@
 \title{Inclusion/Exclusion Assessment - Raw Mapping}
 \usage{
 IE_Map_Raw(
-  dfs = list(dfSUBJ = clindata::rawplus_dm, dfIE = clindata::rawplus_ie),
+  dfs = gsm::UseClindata(list(dfSUBJ = "clindata::rawplus_dm", dfIE =
+    "clindata::rawplus_ie")),
   lMapping = gsm::Read_Mapping("rawplus"),
   bReturnChecks = FALSE,
   bQuiet = TRUE
