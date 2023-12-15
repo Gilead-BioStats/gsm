@@ -13,15 +13,20 @@
 #' @param lData `list` a named list of domain-level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name of the column. Default: package-defined mapping for raw+.
 #' @param lAssessments `list` a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
-#' @param lPrevSnapshot `list` optional argument for the previous snapshot run to track longitudinal data,
+#' @param lPrevSnapshot `list` optional argument for the previous snapshot run to track longitudinal data. Default: `NULL`.
 #' @param strAnalysisDate `character` date that the data was pulled/wrangled/snapshot. Note: date should be provided in format: `YYYY-MM-DD`.
-#' @param bAppendFiles `vector` a vector or log files to append, defaults to all log files from `lPrevSnapshot` argument
-#' @param bMakeCharts `logical` Boolean value indicating whether to create charts.
+#' If `NULL`, `gsm_analysis_date` will default to the `Sys.Date()` that `Make_Snapshot()` is run. Default: `NULL`.
+#' @param vAppendFiles `vector` a character vector of log files to append. Default: all log files from `lPrevSnapshot` argument.
+#' @param bMakeCharts `logical` boolean value indicating whether to create charts. Default: `TRUE`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`.
 #'
 #' @includeRmd ./man/md/Make_Snapshot.md
 #'
-#' @return `list` `lSnapshot`, a named list with a data.frame for each component of the {gsm} data model.
+#' @return
+#'
+#' `Date` `lSnapshotDate` Date that snapshot was run (`strAnalysisDate`).
+#'
+#' `list` `lSnapshot`, a named list with a data.frame for each component of the {gsm} data model.
 #' - `rpt_site_details`
 #' - `rpt_study_details`
 #' - `rpt_kri_details`
@@ -31,6 +36,18 @@
 #' - `rpt_qtl_threshold_param`
 #' - `rpt_kri_threshold_param`
 #' - `rpt_qtl_analysis`
+#'
+#' `list` `lStudyAssessResults`, a named list of assessments run using [gsm::Study_Assess()].
+#'
+#' `list` `lCharts`, a named list of htmlwidgets and ggplot2 charts, created when `bMakeCharts` is `TRUE`.
+#'
+#' `list` `lInputs`, a named list containing snapshot inputs to the following parameters:
+#' - `lMeta`
+#' - `lData`
+#' - `lMapping`
+#' - `lAssessments`
+#'
+#' `list` `lStackedSnapshots`, a named list containing longitudinal data, or the culmination of all data provided as `lPrevSnapshot`.
 #'
 #' @examples
 #' # run with default testing data
@@ -77,7 +94,7 @@ Make_Snapshot <- function(
     lAssessments = MakeWorkflowList(lMeta = lMeta),
     lPrevSnapshot = NULL,
     strAnalysisDate = NULL,
-    bAppendFiles = names(lPrevSnapshot$lSnapshot),
+    vAppendFiles = names(lPrevSnapshot$lSnapshot),
     bMakeCharts = TRUE,
     bQuiet = TRUE
 ) {
@@ -135,7 +152,7 @@ Make_Snapshot <- function(
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))
 
   # create `lStackedSnapshots` ----------------------------------------------
-  lStackedSnapshots <- AppendLogs(lPrevSnapshot, lSnapshot, bAppendFiles)
+  lStackedSnapshots <- AppendLogs(lPrevSnapshot, lSnapshot, vAppendFiles)
 
 
   # create lCharts ----------------------------------------------------------
