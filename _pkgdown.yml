@@ -98,38 +98,38 @@ reference:
       - StackSnapshots
       - Save_Snapshot
 
-   - title: Utility
-     desc: Utility functions for use within the Data Pipeline
-   - contents:
-      -  CheckClindataMeta
-      -  CheckInputs
-      -  CheckSnapshotInputs
-      -  ConsolidateStrata
-      -  ExportCode
-      -  FilterData
-      -  FilterDomain
-      -  Get_Enrolled
-      -  MakeAnalysisDate
-      -  MakeResultsAnalysis
-      -  MakeResultsBounds
-      -  MakeResultsSummary
-      -  MakeStatusWorkflow
-      -  MakeStratifiedAssessment
-      -  MakeWorkflowList
-      -  Make_Snapshot
-      -  MergeSubjects
-      -  ParseWarnings
-      -  RunStep
-      -  RunStratifiedWorkflow
-      -  RunWorkflow
-      -  UseClindata
-      -  UpdateGSMVersion
-      -  UpdateParams
-      -  generate_md_table
-      -  is_mapping_valid
-      -  is_workflow_valid
-      -  parse_data_mapping
-      -  parse_data_spec
+  - title: Utility
+    desc: Utility functions for use within the Data Pipeline
+  - contents:
+     -  CheckClindataMeta
+     -  CheckInputs
+     -  CheckSnapshotInputs
+     -  ConsolidateStrata
+     -  ExportCode
+     -  FilterData
+     -  FilterDomain
+     -  Get_Enrolled
+     -  MakeAnalysisDate
+     -  MakeResultsAnalysis
+     -  MakeResultsBounds
+     -  MakeResultsSummary
+     -  MakeStatusWorkflow
+     -  MakeStratifiedAssessment
+     -  MakeWorkflowList
+     -  Make_Snapshot
+     -  MergeSubjects
+     -  ParseWarnings
+     -  RunStep
+     -  RunStratifiedWorkflow
+     -  RunWorkflow
+     -  UseClindata
+     -  UpdateGSMVersion
+     -  UpdateParams
+     -  generate_md_table
+     -  is_mapping_valid
+     -  is_workflow_valid
+     -  parse_data_mapping
+     -  parse_data_spec
 
   - title: Data
     desc: Metadata used to create workflows
