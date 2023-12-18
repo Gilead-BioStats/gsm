@@ -5,7 +5,7 @@
 #' @param dfSummary `data.frame` A data.frame returned by [gsm::Summarize()].
 #' @param dfBounds `data.frame`, A data.frame returned by [gsm::Analyze_NormalApprox_PredictBounds()] or [gsm::Analyze_Poisson_PredictBounds()]
 #' @param lStackedSnapshots `list` A list returned by [gsm::Make_Snapshot()] containing flat files for snapshot/assessment data.
-#' @param lLabels `data.frame` Workflow metadata. See [gsm::meta_workflow].
+#' @param lLabels `list` Workflow metadata. See [gsm::meta_workflow].
 #'
 #' @return A list (lCharts) containing three charts - scatterJS, barMetricJS, and barScoreJS.
 #'
