@@ -286,6 +286,9 @@ MakeKRIGlossary <- function(
 #' @export
 #' @keywords internal
 MakeResultsTable <- function(assessment, summary_table) {
+
+  browser()
+
   for (i in seq_along(assessment)) {
     kri_key <- names(assessment)[i]
     kri <- assessment[[kri_key]]
