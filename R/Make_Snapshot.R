@@ -22,33 +22,6 @@
 #'
 #' @includeRmd ./man/md/Make_Snapshot.md
 #'
-#' @return
-#'
-#' `Date` `lSnapshotDate` Date that snapshot was run (`strAnalysisDate`).
-#'
-#' `list` `lSnapshot`, a named list with a data.frame for each component of the {gsm} data model.
-#' - `rpt_site_details`
-#' - `rpt_study_details`
-#' - `rpt_kri_details`
-#' - `rpt_qtl_details`
-#' - `rpt_site_kri_details`
-#' - `rpt_kri_bounds_details`
-#' - `rpt_qtl_threshold_param`
-#' - `rpt_kri_threshold_param`
-#' - `rpt_qtl_analysis`
-#'
-#' `list` `lStudyAssessResults`, a named list of assessments run using [gsm::Study_Assess()].
-#'
-#' `list` `lCharts`, a named list of htmlwidgets and ggplot2 charts, created when `bMakeCharts` is `TRUE`.
-#'
-#' `list` `lInputs`, a named list containing snapshot inputs to the following parameters:
-#' - `lMeta`
-#' - `lData`
-#' - `lMapping`
-#' - `lAssessments`
-#'
-#' `list` `lStackedSnapshots`, a named list containing longitudinal data, or the culmination of all data provided as `lPrevSnapshot`.
-#'
 #' @examples
 #' # run with default testing data
 #' \dontrun{

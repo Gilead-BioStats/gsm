@@ -1,5 +1,11 @@
 # Return - Data Model Description
 
+## lSnapshotDate 
+
+A `Date` string in format `YYYY-MM-DD`.
+
+## lSnapshot
+
 A named `list` of data.frames:
 
 - `rpt_kri_bounds_details`, with columns: 
@@ -192,3 +198,23 @@ A named `list` of data.frames:
    - `pt_cycle_id` - Cycle ID
    - `pt_data_dt` - Data ID
    - `gsm_analysis_date` - Date that snapshot was created
+   
+## lStudyAssessResults
+
+A named `list` of assessments run using [gsm::Study_Assess()].
+
+## lCharts 
+
+A named `list` of htmlwidgets and ggplot2 charts, created when `bMakeCharts` is `TRUE`.
+
+## lInputs
+
+A named `list` containing snapshot inputs to the following parameters:
+ - `lMeta`
+ - `lData`
+ - `lMapping`
+ - `lAssessments`
+
+## lStackedSnapshots
+
+A named `list` containing longitudinal data, or the culmination of all data provided as `lPrevSnapshot`.

@@ -46,36 +46,6 @@ If \code{NULL}, \code{gsm_analysis_date} will default to the \code{Sys.Date()} t
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}.}
 }
-\value{
-\code{Date} \code{lSnapshotDate} Date that snapshot was run (\code{strAnalysisDate}).
-
-\code{list} \code{lSnapshot}, a named list with a data.frame for each component of the {gsm} data model.
-\itemize{
-\item \code{rpt_site_details}
-\item \code{rpt_study_details}
-\item \code{rpt_kri_details}
-\item \code{rpt_qtl_details}
-\item \code{rpt_site_kri_details}
-\item \code{rpt_kri_bounds_details}
-\item \code{rpt_qtl_threshold_param}
-\item \code{rpt_kri_threshold_param}
-\item \code{rpt_qtl_analysis}
-}
-
-\code{list} \code{lStudyAssessResults}, a named list of assessments run using \code{\link[=Study_Assess]{Study_Assess()}}.
-
-\code{list} \code{lCharts}, a named list of htmlwidgets and ggplot2 charts, created when \code{bMakeCharts} is \code{TRUE}.
-
-\code{list} \code{lInputs}, a named list containing snapshot inputs to the following parameters:
-\itemize{
-\item \code{lMeta}
-\item \code{lData}
-\item \code{lMapping}
-\item \code{lAssessments}
-}
-
-\code{list} \code{lStackedSnapshots}, a named list containing longitudinal data, or the culmination of all data provided as \code{lPrevSnapshot}.
-}
 \description{
 \code{Make_Snapshot()} ingests data from a variety of sources, and runs KRIs and/or QTLs based on the \code{list} provided in \code{lAssessments}.
 
@@ -86,6 +56,13 @@ Appendix 2 - Data Model Specifications
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \section{Return - Data Model Description}{
+\subsection{lSnapshotDate}{
+
+A \code{Date} string in format \code{YYYY-MM-DD}.
+}
+
+\subsection{lSnapshot}{
+
 A named \code{list} of data.frames:
 \itemize{
 \item \code{rpt_kri_bounds_details}, with columns:
@@ -286,6 +263,31 @@ kris
 \item \code{pt_data_dt} - Data ID
 \item \code{gsm_analysis_date} - Date that snapshot was created
 }
+}
+}
+
+\subsection{lStudyAssessResults}{
+
+A named \code{list} of assessments run using
+\code{\link[=Study_Assess]{Study_Assess()}}.
+}
+
+\subsection{lCharts}{
+
+A named \code{list} of htmlwidgets and ggplot2 charts, created when
+\code{bMakeCharts} is \code{TRUE}.
+}
+
+\subsection{lInputs}{
+
+A named \code{list} containing snapshot inputs to the following parameters: -
+\code{lMeta} - \code{lData} - \code{lMapping} - \code{lAssessments}
+}
+
+\subsection{lStackedSnapshots}{
+
+A named \code{list} containing longitudinal data, or the culmination of all
+data provided as \code{lPrevSnapshot}.
 }
 }
 
