@@ -52,6 +52,7 @@
 #' @param siteSelectLabelValue Label used to populate the HTML drop-down menu. Constructed as: 'Highlighted {siteSelectLabelValue}: '.
 #'
 #' @import htmlwidgets
+#' @importFrom jsonlite toJSON
 #'
 #' @examples
 #'
@@ -78,19 +79,20 @@
 #'   ae_flag
 #' )
 #'
-#' dfConfig <- MakeDfConfig(
-#'   strMethod = "NormalApprox",
-#'   strGroup = "Site",
-#'   strAbbreviation = "AE",
-#'   strMetric = "Adverse Event Rate",
-#'   strNumerator = "Adverse Events",
-#'   strDenominator = "Days on Study",
-#'   vThreshold = c(-3, -2, 2, 3)
+#' wf <- list(
+#'   workflowid = "",
+#'   group = "Site",
+#'   abbreviation = "AE",
+#'   metric = "Adverse Event Rate",
+#'   numerator = "Adverse Events",
+#'   denominator = "Days on Study",
+#'   model = "Normal Approximation",
+#'   score = "Adjusted Z-Score"
 #' )
 #'
 #' plot <- Widget_BarChart(
 #'   results = ae_summary,
-#'   workflow = dfConfig,
+#'   workflow = wf,
 #'   yaxis = "metric",
 #'   elementId = "aeAssessMetric"
 #' )
@@ -123,7 +125,7 @@ Widget_BarChart <- function(
   # forward options using x
   x <- list(
     results = results,
-    workflow = workflow,
+    workflow = jsonlite::toJSON(workflow),
     threshold = threshold,
     yaxis = yaxis,
     selectedGroupIDs = as.character(selectedGroupIDs),

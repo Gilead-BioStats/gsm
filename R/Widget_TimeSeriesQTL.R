@@ -5,8 +5,8 @@
 #' A Time Series graphic for qtl data
 #'
 #' @param qtl specific qtl to filter to
-#' @param raw_results TODO
-#' @param raw_workflow TODO
+#' @param raw_results `data.frame` Typically `lStackedSnapshots$rpt_site_kri_details`
+#' @param raw_workflow `data.frame` Typically
 #' @param raw_param TODO
 #' @param raw_analysis TODO
 #' @param selectedGroupIDs TODO
@@ -15,6 +15,7 @@
 #' @param elementId id of widget, automatically generated if not supplied
 #'
 #' @import htmlwidgets
+#' @importFrom jsonlite toJSON
 #'
 #' @export
 Widget_TimeSeriesQTL <- function(qtl,
@@ -27,22 +28,67 @@ Widget_TimeSeriesQTL <- function(qtl,
   height = NULL,
   elementId = NULL
 ) {
-  results <- raw_results %>%
-    dplyr::filter(.data$workflowid == qtl) %>%
-    dplyr::mutate(snapshot_date = .data$gsm_analysis_date) # contains the string qtl
+
+
+
+
+  results <- raw_results  %>%
+    dplyr::mutate(gsm_analysis_date = .data$snapshot_date) %>%
+    dplyr::select(
+      "studyid",
+      "workflowid",
+      "groupid" = "siteid",
+      "numerator" = "numerator_value",
+      "denominator" = "denominator_value",
+      "metric",
+      "score",
+      "flag" = "flag_value",
+      "gsm_analysis_date",
+      "snapshot_date"
+    ) %>%
+    dplyr::filter(.data$workflowid == qtl)
 
   workflow <- raw_workflow %>%
+    dplyr::mutate(selectedGroupIDs = selectedGroupIDs) %>%
+    select(
+      "workflowid",
+      "group",
+      "abbreviation",
+      "metric",
+      "numerator",
+      "denominator",
+      "outcome",
+      "model",
+      "score",
+      "data_inputs",
+      "data_filters",
+      "gsm_analysis_date"
+    ) %>%
     dplyr::filter(.data$workflowid == qtl) %>%
-    dplyr::mutate(selectedGroupIDs = selectedGroupIDs)
+    jsonlite::toJSON()
 
   parameters <- raw_param %>%
-    dplyr::filter(.data$workflowid == qtl) %>%
-    mutate(
-      snapshot_date = .data$gsm_analysis_date
-    )
+    select(
+      "workflowid",
+      "param",
+      "index",
+      "gsm_analysis_date",
+      "snapshot_date",
+      "studyid",
+      "value" = "default_s"
+    ) %>%
+    dplyr::filter(.data$workflowid == qtl)
 
-  analysis <- raw_analysis # %>%
-  #   dplyr::filter(grepl("qtl", .data$workflowid))
+  analysis <- raw_analysis %>%
+    select(
+      "studyid",
+      "workflowid",
+      "param",
+      "value",
+      "gsm_analysis_date",
+      "snapshot_date"
+    ) %>%
+    dplyr::filter(.data$workflowid == qtl)
 
   if (is.null(selectedGroupIDs)) {
     selectedGroupIDs <- "None"

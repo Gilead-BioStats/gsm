@@ -10,6 +10,9 @@ Screening_Assess(
   strMethod = "NormalApprox",
   lMapping = yaml::read_yaml(system.file("mappings", "Screening_Assess.yaml", package =
     "gsm")),
+  lLabels = list(workflowid = "", group = strGroup, abbreviation = "SF", metric =
+    "Screen Failure Rate", numerator = "Screen Failures", denominator =
+    "Screened Subjects", model = "Normal Approximation", score = "Adjusted Z-Score"),
   strGroup = "Site",
   nMinDenominator = NULL,
   nConfLevel = NULL,
@@ -32,6 +35,8 @@ Screening_Assess(
 
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
 of the column. Default: package-defined Screening Assessment mapping.}
+
+\item{lLabels}{\code{list} Labels used to populate chart labels.}
 
 \item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"}, \code{"Country"}, and \code{"CustomGroup"}.}
 

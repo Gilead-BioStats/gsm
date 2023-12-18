@@ -3,9 +3,9 @@
 #' `r lifecycle::badge("experimental")`
 #'
 #' @description
-#' Save the output of [gsm::Make_Snapshot()] or [gsm::Augment_Snapshot()].
+#' Save the output of [gsm::Make_Snapshot()].
 #'
-#' @param lSnapshot `list` the output of [gsm::Make_Snapshot()] or [gsm::Augment_Snapshot()].
+#' @param lSnapshot `list` the output of [gsm::Make_Snapshot()].
 #' @param cPath `character` a character string indicating a directory to save .csv files; the output of the snapshot.
 #' @param bCreateDefaultFolder `logical` default: `FALSE`. If `TRUE`, creates a new folder in the `cPath` directory with the current date (YYYY-MM-DD).
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`

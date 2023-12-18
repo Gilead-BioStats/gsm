@@ -13,23 +13,14 @@
 #' @param lData `list` a named list of domain-level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name of the column. Default: package-defined mapping for raw+.
 #' @param lAssessments `list` a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
-#' @param lPrevSnapshot `list` optional argument for the previous snapshot run to track longitudinal data,
-#' @param append_files `vector` a vector or log files to append, defaults to all log files from `lPrevSnapshot` argument
+#' @param lPrevSnapshot `list` optional argument for the previous snapshot run to track longitudinal data. Default: `NULL`.
 #' @param strAnalysisDate `character` date that the data was pulled/wrangled/snapshot. Note: date should be provided in format: `YYYY-MM-DD`.
+#' If `NULL`, `gsm_analysis_date` will default to the `Sys.Date()` that `Make_Snapshot()` is run. Default: `NULL`.
+#' @param vAppendFiles `vector` a character vector of log files to append. Default: all log files from `lPrevSnapshot` argument.
+#' @param bMakeCharts `logical` boolean value indicating whether to create charts. Default: `TRUE`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`.
 #'
 #' @includeRmd ./man/md/Make_Snapshot.md
-#'
-#' @return `list` `lSnapshot`, a named list with a data.frame for each component of the {gsm} data model.
-#' - `rpt_site_details`
-#' - `rpt_study_details`
-#' - `rpt_kri_details`
-#' - `rpt_qtl_details`
-#' - `rpt_site_kri_details`
-#' - `rpt_kri_bounds_details`
-#' - `rpt_qtl_threshold_param`
-#' - `rpt_kri_threshold_param`
-#' - `rpt_qtl_analysis`
 #'
 #' @examples
 #' # run with default testing data
@@ -75,8 +66,9 @@ Make_Snapshot <- function(
     lMapping = Read_Mapping(),
     lAssessments = MakeWorkflowList(lMeta = lMeta),
     lPrevSnapshot = NULL,
-    append_files = names(lPrevSnapshot$lSnapshot),
     strAnalysisDate = NULL,
+    vAppendFiles = names(lPrevSnapshot$lSnapshot),
+    bMakeCharts = TRUE,
     bQuiet = TRUE
 ) {
   # run Study_Assess() ------------------------------------------------------
@@ -85,8 +77,7 @@ Make_Snapshot <- function(
     lMapping = lMapping,
     lAssessments = lAssessments,
     bQuiet = bQuiet
-  ) %>%
-    UpdateLabels(lMeta$meta_workflow)
+  )
 
   # map ctms data -----------------------------------------------------------
   status_study <- Study_Map_Raw(
@@ -134,13 +125,57 @@ Make_Snapshot <- function(
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))
 
   # create `lStackedSnapshots` ----------------------------------------------
-  lStackedSnapshots = AppendLogs(lPrevSnapshot, lSnapshot, append_files)
+  lStackedSnapshots <- AppendLogs(lPrevSnapshot, lSnapshot, vAppendFiles, bQuiet = bQuiet)
+
+
+  # create lCharts ----------------------------------------------------------
+
+
+
+  if (bMakeCharts) {
+    lCharts <- purrr::map(lResults, function(x) {
+
+      if (x$bStatus) {
+
+        if (!grepl("qtl", x$name)) {
+
+          lLabels <- lMeta$meta_workflow %>%
+            filter(.data$workflowid == x$name) %>%
+            as.list()
+
+          lStackedSnapshots <- SubsetStackedSnapshots(workflowid = x$name, lStackedSnapshots = lStackedSnapshots)
+
+          MakeKRICharts(
+            dfSummary = x$lResults$lData$dfSummary,
+            dfBounds = x$lResults$lData$dfBounds,
+            lStackedSnapshots = lStackedSnapshots,
+            lLabels = lLabels
+            )
+
+        } else {
+
+          MakeQTLCharts(
+            strQtlName = x$name,
+            lStackedSnapshots = lStackedSnapshots
+          )
+
+        }
+
+      }
+
+    }) %>%
+      purrr::discard(is.null)
+  }
+
+  # build output ---------------------------------------------------------------
 
   # build output ------------------------------------------------------------
+
   snapshot <- list(
     lSnapshotDate = gsm_analysis_date,
     lSnapshot = lSnapshot,
     lStudyAssessResults = AppendDroppedWorkflows(lPrevSnapshot, lResults),
+    lCharts = lCharts,
     lInputs = list(
       lMeta = lMeta,
       lData = lData,

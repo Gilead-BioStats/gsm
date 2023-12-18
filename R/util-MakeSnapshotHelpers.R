@@ -314,28 +314,28 @@ MakeRptKriDetails <- function(lResults, status_site, meta_workflow, status_workf
       "pt_cycle_id" = NA_character_,
       "pt_data_dt" = NA_character_
     ) %>%
-  select("studyid",
-         "snapshot_date",
-         "workflowid",
-         "metric",
-         "abbreviation",
-         "kri_description",
-         "base_metric",
-         "numerator",
-         "denominator",
-         "num_of_sites_at_risk",
-         "num_of_sites_flagged",
-         "outcome",
-         "model",
-         "score",
-         "data_inputs",
-         "data_filters",
-         "gsm_version",
-         "group",
-         "total_num_of_sites",
-         "pt_cycle_id",
-         "pt_data_dt"
-  ) %>%
+    select("studyid",
+           "snapshot_date",
+           "workflowid",
+           "metric",
+           "abbreviation",
+           "kri_description",
+           "base_metric",
+           "numerator",
+           "denominator",
+           "num_of_sites_at_risk",
+           "num_of_sites_flagged",
+           "outcome",
+           "model",
+           "score",
+           "data_inputs",
+           "data_filters",
+           "gsm_version",
+           "group",
+           "total_num_of_sites",
+           "pt_cycle_id",
+           "pt_data_dt"
+    ) %>%
     left_join(status_workflow, by = c("studyid", "workflowid", "gsm_version"))
 }
 
@@ -647,6 +647,7 @@ Match_Class <- function(lPrevSnapshot, lSnapshot){
 #' @param lPrevSnapshot `list` the previous Snapshot object
 #' @param lSnapshot `list` the current Snapshot object
 #' @param files `vector` Optional vector of desired files to append, defaults to all files within the previous snapshot
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @importFrom dplyr bind_rows
 #' @importFrom cli cli_alert_warning
@@ -656,9 +657,9 @@ Match_Class <- function(lPrevSnapshot, lSnapshot){
 #' @export
 #'
 #' @keywords internal
-AppendLogs <- function(lPrevSnapshot, lSnapshot, files = names(lPrevSnapshot$lSnapshot)){
+AppendLogs <- function(lPrevSnapshot, lSnapshot, files = names(lPrevSnapshot$lSnapshot), bQuiet = FALSE){
   if(is.null(lPrevSnapshot)){
-    cli::cli_alert_warning("`lPrevSnapshot` argument is NULL `lStackedSnapshots` will only contain current lSnapshot logs")
+    if (!bQuiet) cli::cli_alert_warning("`lPrevSnapshot` argument is NULL `lStackedSnapshots` will only contain current lSnapshot logs")
     return(lSnapshot)
   } else {
     prev_snap_fixed <- Match_Class(lPrevSnapshot, lSnapshot)
@@ -758,4 +759,30 @@ MakeRptStudySnapshot <- function(lMeta, gsm_analysis_date) {
   )
 
   return(output)
+}
+
+
+#' SubsetStackedSnapshots
+#'
+#' @description
+#' This function is used to subset a list of stacked snapshots within [gsm::Make_Snapshot()].
+#'
+#' @param workflowid `character` workflow ID or `kri_id`.
+#'
+#'
+#' @keywords internal
+SubsetStackedSnapshots <- function(workflowid, lStackedSnapshots) {
+  subset_snapshots <- purrr::map(lStackedSnapshots, function(x) {
+
+    if ("kri_id" %in% names(x)) {
+      x %>%
+        filter(
+          .data$kri_id == workflowid
+        )
+    }
+
+  }) %>%
+    purrr::discard(is.null)
+
+  return(subset_snapshots)
 }

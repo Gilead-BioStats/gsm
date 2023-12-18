@@ -8,8 +8,8 @@ HTMLWidgets.widget({
                 const results = HTMLWidgets.dataframeToD3(x.results)
 
                 // scatter plot configuration
-                const workflow = HTMLWidgets.dataframeToD3(x.workflow)[0]
-                workflow.selectedGroupIDs = number_to_array(x.selectedGroupIDs)
+                const workflow = x.workflow;
+                workflow.selectedGroupIDs = number_to_array(x.selectedGroupIDs);
 
                 if (x.addSiteSelect)
                     workflow.clickCallback = function(d) { // clickCallback.bind(null, instance, siteSelect);
@@ -30,6 +30,7 @@ HTMLWidgets.widget({
                     workflow,
                     bounds
                 );
+
 
                 // add dropdown that highlights sites
                 let siteSelect;

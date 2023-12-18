@@ -17,6 +17,7 @@
 #'
 #' @import htmlwidgets
 #' @import htmltools
+#' @importFrom jsonlite toJSON
 #'
 #' @export
 Widget_TimeSeries <- function(
@@ -40,6 +41,49 @@ Widget_TimeSeries <- function(
   if (!is.null(siteSelectLabelValue)) {
     siteSelectLabelValue <- paste0("Highlighted ", siteSelectLabelValue, ": ")
   }
+
+  # rename results to account for rpt_* table refactor
+  # -- this is the data format expected by JS library {rbm-viz}
+  results <- results %>%
+    select(
+      "studyid" = "study_id",
+      "groupid" = "site_id",
+      "numerator",
+      "denominator",
+      "metric" = "kri_value",
+      "score" = "kri_score",
+      "flag" = "flag_value",
+      "gsm_analysis_date",
+      "snapshot_date"
+    )
+
+  workflow <- workflow %>%
+    select(
+      "workflowid" = "kri_id",
+      "group" = "meta_group",
+      "abbreviation" = "kri_acronym",
+      "metric" = "kri_name",
+      "numerator" = "meta_numerator",
+      "denominator" = "meta_denominator",
+      "outcome" = "meta_outcome",
+      "model" = "meta_model",
+      "score" = "meta_score",
+      "data_inputs" = "meta_data_inputs",
+      "data_filters" = "meta_data_filters",
+      "gsm_analysis_date"
+    ) %>%
+    jsonlite::toJSON()
+
+  parameters <- parameters %>%
+    select(
+      "workflowid" = "kri_id",
+      "param",
+      "index" = "index_n",
+      "gsm_analysis_date",
+      "snapshot_date",
+      "studyid" = "study_id",
+      "value" = "default_s"
+    )
 
 
   # forward options using x
