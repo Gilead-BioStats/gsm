@@ -4,7 +4,12 @@
 \alias{AppendLogs}
 \title{Appends the previous snapshot logs to the current snapshot logs}
 \usage{
-AppendLogs(lPrevSnapshot, lSnapshot, files = names(lPrevSnapshot$lSnapshot))
+AppendLogs(
+  lPrevSnapshot,
+  lSnapshot,
+  files = names(lPrevSnapshot$lSnapshot),
+  bQuiet = FALSE
+)
 }
 \arguments{
 \item{lPrevSnapshot}{\code{list} the previous Snapshot object}
@@ -12,6 +17,8 @@ AppendLogs(lPrevSnapshot, lSnapshot, files = names(lPrevSnapshot$lSnapshot))
 \item{lSnapshot}{\code{list} the current Snapshot object}
 
 \item{files}{\code{vector} Optional vector of desired files to append, defaults to all files within the previous snapshot}
+
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
 Appended lSnapshot object

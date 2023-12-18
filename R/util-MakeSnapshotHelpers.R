@@ -647,6 +647,7 @@ Match_Class <- function(lPrevSnapshot, lSnapshot){
 #' @param lPrevSnapshot `list` the previous Snapshot object
 #' @param lSnapshot `list` the current Snapshot object
 #' @param files `vector` Optional vector of desired files to append, defaults to all files within the previous snapshot
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @importFrom dplyr bind_rows
 #' @importFrom cli cli_alert_warning
@@ -656,9 +657,9 @@ Match_Class <- function(lPrevSnapshot, lSnapshot){
 #' @export
 #'
 #' @keywords internal
-AppendLogs <- function(lPrevSnapshot, lSnapshot, files = names(lPrevSnapshot$lSnapshot)){
+AppendLogs <- function(lPrevSnapshot, lSnapshot, files = names(lPrevSnapshot$lSnapshot), bQuiet = FALSE){
   if(is.null(lPrevSnapshot)){
-    cli::cli_alert_warning("`lPrevSnapshot` argument is NULL `lStackedSnapshots` will only contain current lSnapshot logs")
+    if (!bQuiet) cli::cli_alert_warning("`lPrevSnapshot` argument is NULL `lStackedSnapshots` will only contain current lSnapshot logs")
     return(lSnapshot)
   } else {
     prev_snap_fixed <- Match_Class(lPrevSnapshot, lSnapshot)

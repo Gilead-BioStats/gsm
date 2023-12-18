@@ -152,7 +152,7 @@ Make_Snapshot <- function(
     purrr::map(~ .x %>% mutate(gsm_analysis_date = gsm_analysis_date))
 
   # create `lStackedSnapshots` ----------------------------------------------
-  lStackedSnapshots <- AppendLogs(lPrevSnapshot, lSnapshot, vAppendFiles)
+  lStackedSnapshots <- AppendLogs(lPrevSnapshot, lSnapshot, vAppendFiles, bQuiet = bQuiet)
 
 
   # create lCharts ----------------------------------------------------------
@@ -170,12 +170,15 @@ Make_Snapshot <- function(
             filter(.data$workflowid == x$name) %>%
             as.list()
 
+          lStackedSnapshots <- SubsetStackedSnapshots(workflowid = x$name, lStackedSnapshots = lStackedSnapshots)
+
           MakeKRICharts(
-            strWorkflowId = x$name,
-            lData = x$lResults$lData,
-            lStackedSnapshots = SubsetStackedSnapshots(workflowid = x$name, lStackedSnapshots = lStackedSnapshots),
+            dfSummary = x$lResults$lData$dfSummary,
+            dfBounds = x$lResults$lData$dfBounds,
+            lStackedSnapshots = lStackedSnapshots,
             lLabels = lLabels
             )
+
         } else {
 
           MakeQTLCharts(

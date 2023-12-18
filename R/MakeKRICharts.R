@@ -2,8 +2,8 @@
 #'
 #' The function MakeKRICharts creates three different types of charts (scatter plot and two bar charts) using the gsm package.
 #'
-#' @param strWorkflowId `character` Name of workflow ID, e.g., 'kri0001'.
-#' @param lData `list` A list containing two data frames - dfSummary and dfBounds.
+#' @param dfSummary `data.frame` A data.frame returned by [gsm::Summarize()].
+#' @param dfBounds `data.frame`, A data.frame returned by [gsm::Analyze_NormalApprox_PredictBounds()] or [gsm::Analyze_Poisson_PredictBounds()]
 #' @param lStackedSnapshots `list` A list returned by [gsm::Make_Snapshot()] containing flat files for snapshot/assessment data.
 #' @param lLabels `data.frame` Workflow metadata. See [gsm::meta_workflow].
 #'
@@ -11,29 +11,28 @@
 #'
 #'
 #' @export
-MakeKRICharts <- function(strWorkflowId = NULL, lData = NULL, lLabels = NULL, lStackedSnapshots = NULL) {
-
+MakeKRICharts <- function(dfSummary, dfBounds, lLabels = NULL, lStackedSnapshots = NULL) {
 
     lCharts <- list()
 
     if (tolower(lLabels$model) != "identity") {
         lCharts$scatterJS <- gsm::Widget_ScatterPlot(
-            results = lData$dfSummary,
+            results = dfSummary,
             workflow = lLabels,
-            bounds = lData$dfBounds,
+            bounds = dfBounds,
             elementId = paste0(tolower(lLabels$abbreviation), "AssessScatter"),
             siteSelectLabelValue = lLabels$group
         )
 
         lCharts$scatter <- gsm::Visualize_Scatter(
-            dfSummary = lData$dfSummary,
-            dfBounds = lData$dfBounds,
+            dfSummary = dfSummary,
+            dfBounds = dfBounds,
             strGroupLabel = lLabels$group
         )
     }
 
     lCharts$barMetricJS <- gsm::Widget_BarChart(
-        results = lData$dfSummary,
+        results = dfSummary,
         workflow = lLabels,
         yaxis = "metric",
         elementId = paste0(tolower(lLabels$abbreviation), "AssessMetric"),
@@ -41,7 +40,7 @@ MakeKRICharts <- function(strWorkflowId = NULL, lData = NULL, lLabels = NULL, lS
     )
 
     lCharts$barScoreJS <- gsm::Widget_BarChart(
-        results = lData$dfSummary,
+        results = dfSummary,
         workflow = lLabels,
         yaxis = "score",
         elementId = paste0(tolower(lLabels$abbreviation), "AssessScore"),
@@ -49,12 +48,12 @@ MakeKRICharts <- function(strWorkflowId = NULL, lData = NULL, lLabels = NULL, lS
     )
 
     lCharts$barMetric <- gsm::Visualize_Score(
-        dfSummary = lData$dfSummary,
+        dfSummary = dfSummary,
         strType = "metric"
     )
 
     lCharts$barScore <- gsm::Visualize_Score(
-        dfSummary = lData$dfSummary,
+        dfSummary = dfSummary,
         strType = "score",
         vThreshold = unlist(lLabels$thresholds)
     )

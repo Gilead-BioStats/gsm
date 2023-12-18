@@ -4,17 +4,12 @@
 \alias{MakeKRICharts}
 \title{MakeKRICharts Function}
 \usage{
-MakeKRICharts(
-  strWorkflowId = NULL,
-  lData = NULL,
-  lLabels = NULL,
-  lStackedSnapshots = NULL
-)
+MakeKRICharts(dfSummary, dfBounds, lLabels = NULL, lStackedSnapshots = NULL)
 }
 \arguments{
-\item{strWorkflowId}{\code{character} Name of workflow ID, e.g., 'kri0001'.}
+\item{dfSummary}{\code{data.frame} A data.frame returned by \code{\link[=Summarize]{Summarize()}}.}
 
-\item{lData}{\code{list} A list containing two data frames - dfSummary and dfBounds.}
+\item{dfBounds}{\code{data.frame}, A data.frame returned by \code{\link[=Analyze_NormalApprox_PredictBounds]{Analyze_NormalApprox_PredictBounds()}} or \code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}}}
 
 \item{lLabels}{\code{data.frame} Workflow metadata. See \link{meta_workflow}.}
 

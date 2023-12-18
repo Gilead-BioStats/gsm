@@ -188,7 +188,7 @@ QueryAge_Assess <- function(
     )
 
     if (bMakeCharts) {
-      lOutput$lCharts <- MakeKRICharts(lData = lData, lLabels = lLabels)
+      lOutput$lCharts <- MakeKRICharts(dfSummary = lData$dfSummary, dfBounds = lData$dfBounds, lLabels = lLabels)
       if (!bQuiet) cli::cli_alert_success("Created {length(lOutput$lCharts)} chart{?s}.")
     }
 
