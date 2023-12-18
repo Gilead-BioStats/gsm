@@ -47,8 +47,6 @@
     Code
       snapshot <- Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping_edited,
         lAssessments = lAssessments_edited)
-    Message
-      ! `lPrevSnapshot` argument is NULL `lStackedSnapshots` will only contain current lSnapshot logs
 
 # bQuiet works as intended
 
