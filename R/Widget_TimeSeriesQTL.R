@@ -30,43 +30,39 @@ Widget_TimeSeriesQTL <- function(qtl,
 ) {
 
 
-
-
+# results -----------------------------------------------------------------
   results <- raw_results  %>%
-    dplyr::mutate(gsm_analysis_date = .data$snapshot_date) %>%
+    dplyr::mutate(
+      gsm_analysis_date = .data$snapshot_date
+      ) %>%
     dplyr::select(
       "studyid",
       "workflowid",
-      "groupid" = "siteid",
       "numerator" = "numerator_value",
       "denominator" = "denominator_value",
       "metric",
-      "score",
-      "flag" = "flag_value",
+      "score" = "qtl_score",
+      "flag",
       "gsm_analysis_date",
       "snapshot_date"
-    ) %>%
-    dplyr::filter(.data$workflowid == qtl)
-
-  workflow <- raw_workflow %>%
-    dplyr::mutate(selectedGroupIDs = selectedGroupIDs) %>%
-    select(
-      "workflowid",
-      "group",
-      "abbreviation",
-      "metric",
-      "numerator",
-      "denominator",
-      "outcome",
-      "model",
-      "score",
-      "data_inputs",
-      "data_filters",
-      "gsm_analysis_date"
     ) %>%
     dplyr::filter(.data$workflowid == qtl) %>%
     jsonlite::toJSON()
 
+  browser()
+
+
+# workflow ----------------------------------------------------------------
+  if (!is.null(selectedGroupIDs)) {
+    raw_workflow[["selectedGroupIDs"]] <- selectedGroupIDs
+  } else {
+    raw_workflow[["selectedGroupIDs"]] <- "None"
+  }
+
+  workflow <- jsonlite::toJSON(raw_workflow)
+
+
+# params ------------------------------------------------------------------
   parameters <- raw_param %>%
     select(
       "workflowid",
@@ -77,8 +73,15 @@ Widget_TimeSeriesQTL <- function(qtl,
       "studyid",
       "value" = "default_s"
     ) %>%
-    dplyr::filter(.data$workflowid == qtl)
+    mutate(
+      groupid = ""
+    ) %>%
+    dplyr::filter(.data$workflowid == qtl) %>%
+    jsonlite::toJSON()
 
+
+
+# analysis ----------------------------------------------------------------
   analysis <- raw_analysis %>%
     select(
       "studyid",
@@ -88,13 +91,13 @@ Widget_TimeSeriesQTL <- function(qtl,
       "gsm_analysis_date",
       "snapshot_date"
     ) %>%
-    dplyr::filter(.data$workflowid == qtl)
+    dplyr::filter(.data$workflowid == qtl) %>%
+    jsonlite::toJSON()
 
-  if (is.null(selectedGroupIDs)) {
-    selectedGroupIDs <- "None"
-  }
 
-  # forward options using x
+
+
+# widget ------------------------------------------------------------------
   x <- list(
     results = results,
     workflow = workflow,

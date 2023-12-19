@@ -137,11 +137,11 @@ Make_Snapshot <- function(
 
       if (x$bStatus) {
 
-        if (!grepl("qtl", x$name)) {
+        lLabels <- lMeta$meta_workflow %>%
+          filter(.data$workflowid == x$name) %>%
+          as.list()
 
-          lLabels <- lMeta$meta_workflow %>%
-            filter(.data$workflowid == x$name) %>%
-            as.list()
+        if (!grepl("qtl", x$name)) {
 
           lStackedSnapshots <- SubsetStackedSnapshots(workflowid = x$name, lStackedSnapshots = lStackedSnapshots)
 
@@ -156,7 +156,10 @@ Make_Snapshot <- function(
 
           MakeQTLCharts(
             strQtlName = x$name,
-            lStackedSnapshots = lStackedSnapshots
+            dfResults = lStackedSnapshots$rpt_qtl_details,
+            dfParam = lStackedSnapshots$rpt_qtl_threshold_param,
+            dfAnalysis = lStackedSnapshots$rpt_qtl_analysis,
+            lLabels = lLabels
           )
 
         }
