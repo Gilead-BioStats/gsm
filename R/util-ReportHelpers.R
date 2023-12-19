@@ -279,15 +279,13 @@ MakeKRIGlossary <- function(
 
 #' Create Study Results table for Report
 #' @param assessment `list` a snapshot list containing the parameters to assess
-#' @param summary_table `data.frame` a summary table created from `MakeSummayTable`
+#' @param summary_table `data.frame` a summary table created from `MakeSummaryTable`
 #' @import htmltools
 #' @import knitr
 #' @importFrom purrr map
 #' @export
 #' @keywords internal
-MakeResultsTable <- function(assessment, summary_table) {
-
-  browser()
+MakeResultsTable <- function(assessment, summary_table, lCharts) {
 
   for (i in seq_along(assessment)) {
     kri_key <- names(assessment)[i]
@@ -303,8 +301,8 @@ MakeResultsTable <- function(assessment, summary_table) {
     #### charts tabset /
     cat("#### Summary Charts {.tabset} \n")
 
-    charts <- assessment[[i]]$lResults$lCharts[
-      names(assessment[[i]]$lResults$lCharts) %in% c("scatterJS", "barMetricJS", "barScoreJS", "timeSeriesContinuousJS")
+    charts <- lCharts[[kri_key]][
+      names(lCharts[[kri_key]]) %in% c("scatterJS", "barMetricJS", "barScoreJS", "timeSeriesContinuousJS")
     ]
 
     for (j in seq_along(charts)) {

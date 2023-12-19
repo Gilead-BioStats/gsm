@@ -13,6 +13,7 @@ params:
     status_site: NA
     status_snap: NA
     longitudinal: NULL
+    lCharts: NULL
 ---
 
 ```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
@@ -81,8 +82,11 @@ MakeOverviewMessage(
 ## Results
 
 ```{r, echo=FALSE, results='asis'}
-MakeResultsTable(setup$active,
-                 setup$summary_table)
+MakeResultsTable(
+  assessment = setup$active, 
+  summary_table = setup$summary_table, 
+  lCharts = params$lCharts
+  )
 ```
 
 ## KRI Glossary
