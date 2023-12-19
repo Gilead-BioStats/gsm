@@ -302,7 +302,7 @@ MakeResultsTable <- function(assessment, summary_table, lCharts) {
     cat("#### Summary Charts {.tabset} \n")
 
     charts <- lCharts[[kri_key]][
-      names(lCharts[[kri_key]]) %in% c("scatterJS", "barMetricJS", "barScoreJS", "timeSeriesContinuousJS")
+      names(lCharts[[kri_key]]) %in% c("scatterJS", "barMetricJS", "barScoreJS", "timeSeriesContinuousJS", "timeseriesQtl")
     ]
 
     for (j in seq_along(charts)) {

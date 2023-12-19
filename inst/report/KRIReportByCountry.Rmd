@@ -13,6 +13,7 @@ params:
     status_site: NULL
     status_snap: NULL
     longitudinal: NULL
+    lCharts: NULL
 ---
 
 ```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
@@ -82,9 +83,10 @@ MakeOverviewMessage(
 
 ```{r, echo=FALSE, results='asis'}
 MakeResultsTable(
-  setup$active,
-  setup$summary_table
-)
+  assessment = setup$active, 
+  summary_table = setup$summary_table, 
+  lCharts = params$lCharts
+  )
 ```
 
 
