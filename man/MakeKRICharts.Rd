@@ -11,7 +11,7 @@ MakeKRICharts(dfSummary, dfBounds, lLabels = NULL, lStackedSnapshots = NULL)
 
 \item{dfBounds}{\code{data.frame}, A data.frame returned by \code{\link[=Analyze_NormalApprox_PredictBounds]{Analyze_NormalApprox_PredictBounds()}} or \code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}}}
 
-\item{lLabels}{\code{data.frame} Workflow metadata. See \link{meta_workflow}.}
+\item{lLabels}{\code{list} Workflow metadata. See \link{meta_workflow}.}
 
 \item{lStackedSnapshots}{\code{list} A list returned by \code{\link[=Make_Snapshot]{Make_Snapshot()}} containing flat files for snapshot/assessment data.}
 }
