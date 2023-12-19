@@ -3,6 +3,12 @@
 #' @param table `data.frame` the table of interest from `Make_Snapshot()` lSnapshot log
 #' @param table_name `character` optional argument to define table to remap by name, when the table object name doesn't match
 #'
+#' @importFrom purrr map_chr
+#' @importFrom purrr map_int
+#' @importFrom yaml read_yaml
+#' @importFrom yaml yaml.load
+#' @importFrom cli cli_abort
+#'
 #' @export
 #'
 #' @keywords internal
@@ -29,7 +35,7 @@ RemapLog <- function(table, table_name = NULL){
   file <- paste0(table_name, "_schema.yaml")
 
   # load yaml file
-  schema <- read_yaml(system.file("log_renaming_yaml_files", file, package = "gsm")) %>%
+  schema <- yaml::read_yaml(system.file("log_renaming_yaml_files", file, package = "gsm")) %>%
     yaml::yaml.load()
 
   # define renaming key
@@ -42,7 +48,7 @@ RemapLog <- function(table, table_name = NULL){
   }
 
   # Reorder based on new index
-  output <- select(table, names(sort(map_int(schema, ~ .x$new_index))))
+  output <- select(table, names(sort(purrr::map_int(schema, ~ .x$new_index))))
 
   # Return output
   return(output)
