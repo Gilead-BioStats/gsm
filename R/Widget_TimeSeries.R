@@ -31,12 +31,6 @@ Widget_TimeSeries <- function(
   addSiteSelect = TRUE,
   siteSelectLabelValue = NULL
 ) {
-  # get unique sites
-  if (all(grepl("^[0-9]$", results$groupid))) {
-    uniqueSiteSelections <- sort(unique(as.numeric(results$groupid)))
-  } else {
-    uniqueSiteSelections <- sort(unique(results$groupid))
-  }
 
   if (!is.null(siteSelectLabelValue)) {
     siteSelectLabelValue <- paste0("Highlighted ", siteSelectLabelValue, ": ")
@@ -44,46 +38,55 @@ Widget_TimeSeries <- function(
 
   # rename results to account for rpt_* table refactor
   # -- this is the data format expected by JS library {rbm-viz}
+
   results <- results %>%
     select(
-      "studyid" = "study_id",
-      "groupid" = "site_id",
-      "numerator",
-      "denominator",
-      "metric" = "kri_value",
-      "score" = "kri_score",
+      "studyid",
+      "groupid" = "siteid",
+      "numerator" = "numerator_value",
+      "denominator" = "denominator_value",
+      "metric" = "metric_value",
+      "score",
       "flag" = "flag_value",
       "gsm_analysis_date",
       "snapshot_date"
     )
 
+  # get unique sites
+  if (all(grepl("^[0-9]$", results$groupid))) {
+    uniqueSiteSelections <- sort(unique(as.numeric(results$groupid)))
+  } else {
+    uniqueSiteSelections <- sort(unique(results$groupid))
+  }
+
   workflow <- workflow %>%
     select(
-      "workflowid" = "kri_id",
-      "group" = "meta_group",
-      "abbreviation" = "kri_acronym",
-      "metric" = "kri_name",
-      "numerator" = "meta_numerator",
-      "denominator" = "meta_denominator",
-      "outcome" = "meta_outcome",
-      "model" = "meta_model",
-      "score" = "meta_score",
-      "data_inputs" = "meta_data_inputs",
-      "data_filters" = "meta_data_filters",
+      "workflowid",
+      "group",
+      "abbreviation",
+      "metric",
+      "numerator",
+      "denominator",
+      "outcome",
+      "model",
+      "score",
+      "data_inputs",
+      "data_filters",
       "gsm_analysis_date"
-    ) %>%
-    jsonlite::toJSON()
+    )
 
   parameters <- parameters %>%
     select(
-      "workflowid" = "kri_id",
+      "workflowid",
       "param",
-      "index" = "index_n",
+      "index",
       "gsm_analysis_date",
       "snapshot_date",
-      "studyid" = "study_id",
+      "studyid",
       "value" = "default_s"
     )
+
+
 
   # forward options using x
   x <- list(

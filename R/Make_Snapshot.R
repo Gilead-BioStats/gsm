@@ -131,7 +131,6 @@ Make_Snapshot <- function(
   # create lCharts ----------------------------------------------------------
 
 
-
   if (bMakeCharts) {
     lCharts <- purrr::map(lResults, function(x) {
 
@@ -143,12 +142,12 @@ Make_Snapshot <- function(
 
         if (!grepl("qtl", x$name)) {
 
-          lStackedSnapshots <- SubsetStackedSnapshots(workflowid = x$name, lStackedSnapshots = lStackedSnapshots)
+          lStackedSnapshotsSubset <- SubsetStackedSnapshots(strWorkflowId = x$name, lStackedSnapshots = lStackedSnapshots)
 
           MakeKRICharts(
             dfSummary = x$lResults$lData$dfSummary,
             dfBounds = x$lResults$lData$dfBounds,
-            lStackedSnapshots = lStackedSnapshots,
+            lStackedSnapshots = lStackedSnapshotsSubset,
             lLabels = lLabels
             )
 

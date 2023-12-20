@@ -4,10 +4,10 @@
 \alias{SubsetStackedSnapshots}
 \title{SubsetStackedSnapshots}
 \usage{
-SubsetStackedSnapshots(workflowid, lStackedSnapshots)
+SubsetStackedSnapshots(strWorkflowId, lStackedSnapshots)
 }
 \arguments{
-\item{workflowid}{\code{character} workflow ID or \code{kri_id}.}
+\item{strWorkflowId}{\code{character} workflow ID.}
 }
 \description{
 This function is used to subset a list of stacked snapshots within \code{\link[=Make_Snapshot]{Make_Snapshot()}}.

@@ -58,13 +58,13 @@ MakeKRICharts <- function(dfSummary, dfBounds, lLabels = NULL, lStackedSnapshots
         vThreshold = unlist(lLabels$thresholds)
     )
 
-
   # Continuous Charts -------------------------------------------------------
     if (!is.null(lStackedSnapshots)) {
 
       number_of_snapshots <- length(unique(lStackedSnapshots$rpt_site_kri_details$snapshot_date))
 
       if (number_of_snapshots > 1) {
+
         lCharts$timeSeriesContinuousJS <- Widget_TimeSeries(
           results = lStackedSnapshots$rpt_site_kri_details,
           workflow = lStackedSnapshots$rpt_kri_details,
