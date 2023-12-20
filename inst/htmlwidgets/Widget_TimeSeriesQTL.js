@@ -4,26 +4,17 @@ HTMLWidgets.widget({
   factory: function(el, width, height) {
     return {
       renderValue: function(x) {
-        const results = x.results;
-        results.groupid = "tmp"
-        const workflow = x.workflow;
-        workflow.selectedGroupIDs = x.selectedGroupIDs;
-        workflow.y = 'metric';
-        const parameters = x.parameters;
-        const analysis = x.analysis;
 
-        console.log('el: ', el);
-        console.log('results: ', results);
-        console.log('workflow: ', workflow);
-        console.log('parameters: ', parameters);
-        console.log('analysis: ', analysis);
+        const workflow = x.workflow[0];
+        workflow.selectedGroupIDs = x.selectedGroupIDs
+        workflow.y = 'metric';
 
         const instance = rbmViz.default.timeSeries(
           el,
-          results,
+          x.results,
           workflow,
-          parameters,
-          analysis
+          x.parameters,
+          x.analysis
         );
 
       },

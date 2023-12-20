@@ -29,7 +29,6 @@ Widget_TimeSeriesQTL <- function(qtl,
   elementId = NULL
 ) {
 
-
 # results -----------------------------------------------------------------
   results <- raw_results  %>%
     dplyr::mutate(
@@ -38,18 +37,18 @@ Widget_TimeSeriesQTL <- function(qtl,
     dplyr::select(
       "studyid",
       "workflowid",
+      "groupid" = "siteid",
       "numerator" = "numerator_value",
       "denominator" = "denominator_value",
-      "metric",
-      "score" = "qtl_score",
-      "flag",
+      "metric" = "metric_value",
+      "score",
+      "flag" = "flag_value",
       "gsm_analysis_date",
       "snapshot_date"
     ) %>%
     dplyr::filter(.data$workflowid == qtl) %>%
     jsonlite::toJSON()
 
-  browser()
 
 
 # workflow ----------------------------------------------------------------
@@ -59,11 +58,30 @@ Widget_TimeSeriesQTL <- function(qtl,
     raw_workflow[["selectedGroupIDs"]] <- "None"
   }
 
-  workflow <- jsonlite::toJSON(raw_workflow)
+  workflow <- raw_workflow
+  workflow[["gsm_analysis_date"]] <- Sys.Date()
 
+  workflow <- workflow %>%
+    jsonlite::toJSON()
 
 # params ------------------------------------------------------------------
+  # {
+  #   "workflowid": "qtl0004",
+  #   "param": "strGroup",
+  #   "index": null,
+  #   "gsm_analysis_date": "2023-12-19",
+  #   "snapshot_date": "2023-12-19",
+  #   "studyid": "AA-AA-000-0000",
+  #   "value": "Study",
+  #   "groupid": ""
+  # }
+
   parameters <- raw_param %>%
+    dplyr::filter(.data$workflowid == qtl) %>%
+    mutate(
+      value = .data$default_s,
+      groupid = ""
+    ) %>%
     select(
       "workflowid",
       "param",
@@ -71,17 +89,25 @@ Widget_TimeSeriesQTL <- function(qtl,
       "gsm_analysis_date",
       "snapshot_date",
       "studyid",
-      "value" = "default_s"
+      "value",
+      "groupid"
     ) %>%
-    mutate(
-      groupid = ""
-    ) %>%
-    dplyr::filter(.data$workflowid == qtl) %>%
     jsonlite::toJSON()
 
 
 
+
 # analysis ----------------------------------------------------------------
+
+  # {
+  #   "studyid": "AA-AA-000-0000",
+  #   "workflowid": "qtl0006",
+  #   "param": "LowCI",
+  #   "value": "0",
+  #   "gsm_analysis_date": "2003-12-01",
+  #   "snapshot_date": "2003-12-01"
+  # }
+  #
   analysis <- raw_analysis %>%
     select(
       "studyid",
@@ -93,9 +119,6 @@ Widget_TimeSeriesQTL <- function(qtl,
     ) %>%
     dplyr::filter(.data$workflowid == qtl) %>%
     jsonlite::toJSON()
-
-
-
 
 # widget ------------------------------------------------------------------
   x <- list(

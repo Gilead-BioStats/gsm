@@ -85,7 +85,6 @@ Widget_TimeSeries <- function(
       "value" = "default_s"
     )
 
-
   # forward options using x
   x <- list(
     results = results,
