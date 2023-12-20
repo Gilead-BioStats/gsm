@@ -48,6 +48,7 @@ reference:
       - UpdateLabels
       - MakeKRICharts
       - Make_Timeline
+      - MakeQTLCharts
 
   - title: Map
     desc: Generate input data from multiple clinical data standards (generally rawplus or SDTM-)
@@ -96,41 +97,39 @@ reference:
   - contents:
       - StackSnapshots
       - Save_Snapshot
-      - Augment_Snapshot
 
   - title: Utility
     desc: Utility functions for use within the Data Pipeline
   - contents:
-      - CheckClindataMeta
-      - CheckInputs
-      - CheckSnapshotInputs
-      - ConsolidateStrata
-      - ExportCode
-      - FilterData
-      - FilterDomain
-      - Get_Enrolled
-      - MakeAnalysisDate
-      - MakeDfConfig
-      - MakeResultsAnalysis
-      - MakeResultsBounds
-      - MakeResultsSummary
-      - MakeStatusWorkflow
-      - MakeStratifiedAssessment
-      - MakeWorkflowList
-      - Make_Snapshot
-      - MergeSubjects
-      - ParseWarnings
-      - RunStep
-      - RunStratifiedWorkflow
-      - RunWorkflow
-      - UpdateGSMVersion
-      - UpdateParams
-      - UseClindata
-      - generate_md_table
-      - is_mapping_valid
-      - is_workflow_valid
-      - parse_data_mapping
-      - parse_data_spec
+     -  CheckClindataMeta
+     -  CheckInputs
+     -  CheckSnapshotInputs
+     -  ConsolidateStrata
+     -  ExportCode
+     -  FilterData
+     -  FilterDomain
+     -  Get_Enrolled
+     -  MakeAnalysisDate
+     -  MakeResultsAnalysis
+     -  MakeResultsBounds
+     -  MakeResultsSummary
+     -  MakeStatusWorkflow
+     -  MakeStratifiedAssessment
+     -  MakeWorkflowList
+     -  Make_Snapshot
+     -  MergeSubjects
+     -  ParseWarnings
+     -  RunStep
+     -  RunStratifiedWorkflow
+     -  RunWorkflow
+     -  UseClindata
+     -  UpdateGSMVersion
+     -  UpdateParams
+     -  generate_md_table
+     -  is_mapping_valid
+     -  is_workflow_valid
+     -  parse_data_mapping
+     -  parse_data_spec
 
   - title: Data
     desc: Metadata used to create workflows

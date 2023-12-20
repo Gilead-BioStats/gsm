@@ -13,7 +13,7 @@ Study_Report(
 )
 }
 \arguments{
-\item{lSnapshot}{\code{list} The results of multiple assessments run using \code{Study_Assess}, \code{Make_Snapshot}, or \code{Augment_Snapshot}.}
+\item{lSnapshot}{\code{list} The results of multiple assessments run using \code{Study_Assess} or \code{Make_Snapshot}.}
 
 \item{dfStudy}{\code{data.frame} A data.frame containing study status metadata. Typically output from \code{Make_Snapshot()$lSnapshot$status_study}}
 
@@ -52,17 +52,7 @@ Study_Report(
 )
 
 # Longitudinal Data
-snapshot <- Make_Snapshot()
-
-longitudinal <- Augment_Snapshot(
-  snapshot,
-  system.file("data-longitudinal", "AA-AA-000-0000", package = "clindata")
-)
-
-Study_Report(
-  lSnapshot = longitudinal,
-  dfStudy = longitudinal$lSnapshot$status_study
-)
+TODO: add example here
 }
 
 }

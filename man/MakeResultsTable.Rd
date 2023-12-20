@@ -4,12 +4,12 @@
 \alias{MakeResultsTable}
 \title{Create Study Results table for Report}
 \usage{
-MakeResultsTable(assessment, summary_table)
+MakeResultsTable(assessment, summary_table, lCharts)
 }
 \arguments{
 \item{assessment}{\code{list} a snapshot list containing the parameters to assess}
 
-\item{summary_table}{\code{data.frame} a summary table created from \code{MakeSummayTable}}
+\item{summary_table}{\code{data.frame} a summary table created from \code{MakeSummaryTable}}
 }
 \description{
 Create Study Results table for Report

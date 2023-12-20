@@ -4,10 +4,12 @@
 \alias{UpdateLabels}
 \title{Update visualization labels based on metadata.}
 \usage{
-UpdateLabels(lStudyAssessResults, dfMetaWorkflow)
+UpdateLabels(strWorkflowId, lCharts, dfMetaWorkflow)
 }
 \arguments{
-\item{lStudyAssessResults}{\code{list} The output of \code{\link[=Study_Assess]{Study_Assess()}}.}
+\item{strWorkflowId}{\code{character} Name of Workflow ID, e.g., 'kri0001'.}
+
+\item{lCharts}{\code{list} The output of \code{\link[=MakeKRICharts]{MakeKRICharts()}}.}
 
 \item{dfMetaWorkflow}{\code{data.frame} The metadata for a workflow or set of workflows.}
 }

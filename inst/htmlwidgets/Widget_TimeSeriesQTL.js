@@ -18,6 +18,7 @@ HTMLWidgets.widget({
           parameters,
           analysis
         );
+
       },
       resize: function(width, height) {
       }

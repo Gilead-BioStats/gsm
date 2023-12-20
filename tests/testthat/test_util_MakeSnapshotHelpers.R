@@ -36,8 +36,7 @@ lResults <- gsm::Study_Assess(
   lData = lData,
   lMapping = lMapping,
   lAssessments = lAssessments
-) %>%
-  UpdateLabels(lMeta$meta_workflow)
+)
 
 # create `status_study`
 status_study <- Study_Map_Raw(

@@ -4,14 +4,20 @@
 \alias{MakeKRICharts}
 \title{MakeKRICharts Function}
 \usage{
-MakeKRICharts(lData = NULL)
+MakeKRICharts(dfSummary, dfBounds, lLabels = NULL, lStackedSnapshots = NULL)
 }
 \arguments{
-\item{lData}{A list containing two data frames - dfSummary and dfBounds.}
+\item{dfSummary}{\code{data.frame} A data.frame returned by \code{\link[=Summarize]{Summarize()}}.}
+
+\item{dfBounds}{\code{data.frame}, A data.frame returned by \code{\link[=Analyze_NormalApprox_PredictBounds]{Analyze_NormalApprox_PredictBounds()}} or \code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}}}
+
+\item{lLabels}{\code{list} Workflow metadata. See \link{meta_workflow}.}
+
+\item{lStackedSnapshots}{\code{list} A list returned by \code{\link[=Make_Snapshot]{Make_Snapshot()}} containing flat files for snapshot/assessment data.}
 }
 \value{
 A list (lCharts) containing three charts - scatterJS, barMetricJS, and barScoreJS.
 }
 \description{
-The function MakeKRICharts creates three different types of charts (scatter plot and two bar charts) using the gsm package. It takes two inputs: lData and dfConfig, and returns a list of the created charts.
+The function MakeKRICharts creates three different types of charts (scatter plot and two bar charts) using the gsm package.
 }

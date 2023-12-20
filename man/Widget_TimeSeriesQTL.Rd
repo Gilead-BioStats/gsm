@@ -19,9 +19,9 @@ Widget_TimeSeriesQTL(
 \arguments{
 \item{qtl}{specific qtl to filter to}
 
-\item{raw_results}{TODO}
+\item{raw_results}{\code{data.frame} Typically \code{lStackedSnapshots$rpt_site_kri_details}}
 
-\item{raw_workflow}{TODO}
+\item{raw_workflow}{\code{data.frame} Typically}
 
 \item{raw_param}{TODO}
 

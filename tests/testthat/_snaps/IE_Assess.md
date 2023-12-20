@@ -11,7 +11,6 @@
       names(output$lData)
     Output
       [1] "dfTransformed" "dfAnalyzed"    "dfFlagged"     "dfSummary"    
-      [5] "dfConfig"     
 
 ---
 

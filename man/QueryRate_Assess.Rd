@@ -10,6 +10,9 @@ QueryRate_Assess(
   strMethod = "NormalApprox",
   lMapping = yaml::read_yaml(system.file("mappings", "QueryRate_Assess.yaml", package =
     "gsm")),
+  lLabels = list(workflowid = "", group = strGroup, abbreviation = "QRY", metric =
+    "Query Rate", numerator = "Total Queries", denominator = "Total Data Points", model =
+    "Normal Approximation", score = "Adjusted Z-Score"),
   strGroup = "Site",
   nMinDenominator = NULL,
   bMakeCharts = FALSE,
@@ -32,6 +35,8 @@ for a nominal assessment (\code{strMethod = "Identity"}).}
 
 \item{lMapping}{Column metadata with structure \code{domain$key}, where \code{key} contains the name
 of the column. Default: package-defined Adverse Event Assessment mapping.}
+
+\item{lLabels}{\code{list} Labels used to populate chart labels.}
 
 \item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"}, \code{"Country"}, and \code{"CustomGroup"}.}
 

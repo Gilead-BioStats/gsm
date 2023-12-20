@@ -4,7 +4,7 @@
 #'
 #' Create HTML summary report using the results of `Study_Assess`, including tables, charts, and error checking.
 #'
-#' @param lSnapshot `list` The results of multiple assessments run using `Study_Assess`, `Make_Snapshot`, or `Augment_Snapshot`.
+#' @param lSnapshot `list` The results of multiple assessments run using `Study_Assess` or `Make_Snapshot`.
 #' @param dfStudy `data.frame` A data.frame containing study status metadata. Typically output from `Make_Snapshot()$lSnapshot$status_study`
 #' @param dfSite `data.frame` A data.frame containing site status metadata. Typically output from `Make_Snapshot()$lSnapshot$status_site`
 #' @param strOutpath `character` File path; location where the report will be saved.
@@ -30,17 +30,7 @@
 #' )
 #'
 #' # Longitudinal Data
-#' snapshot <- Make_Snapshot()
-#'
-#' longitudinal <- Augment_Snapshot(
-#'   snapshot,
-#'   system.file("data-longitudinal", "AA-AA-000-0000", package = "clindata")
-#' )
-#'
-#' Study_Report(
-#'   lSnapshot = longitudinal,
-#'   dfStudy = longitudinal$lSnapshot$status_study
-#' )
+#' TODO: add example here
 #' }
 #'
 #' @importFrom rmarkdown render
@@ -54,19 +44,28 @@ Study_Report <- function(
   strOutpath = NULL,
   strReportType = "site"
 ) {
+
   # input check
   lAssessments <- if ("lStudyAssessResults" %in% names(lSnapshot)) {
     lSnapshot$lStudyAssessResults
   } else {
     lSnapshot
   }
+
   lStatus <- if ("lStatus" %in% names(lSnapshot)) {
     lSnapshot$lStatus
   } else {
     NULL
   }
+
   lLongitudinal <- if ("lStackedSnapshots" %in% names(lSnapshot)) {
     lSnapshot$lStackedSnapshots
+  } else {
+    NULL
+  }
+
+  lCharts <- if ("lCharts" %in% names(lSnapshot)) {
+    lSnapshot$lCharts
   } else {
     NULL
   }
@@ -137,7 +136,8 @@ Study_Report <- function(
       status_study = dfStudy,
       status_site = dfSite,
       status_snap = lStatus,
-      longitudinal = lLongitudinal
+      longitudinal = lLongitudinal,
+      lCharts = lCharts
     ),
     envir = new.env(parent = globalenv())
   )

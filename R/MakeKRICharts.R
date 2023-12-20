@@ -1,60 +1,78 @@
 #' MakeKRICharts Function
 #'
-#' The function MakeKRICharts creates three different types of charts (scatter plot and two bar charts) using the gsm package. It takes two inputs: lData and dfConfig, and returns a list of the created charts.
+#' The function MakeKRICharts creates three different types of charts (scatter plot and two bar charts) using the gsm package.
 #'
-#' @param lData A list containing two data frames - dfSummary and dfBounds.
+#' @param dfSummary `data.frame` A data.frame returned by [gsm::Summarize()].
+#' @param dfBounds `data.frame`, A data.frame returned by [gsm::Analyze_NormalApprox_PredictBounds()] or [gsm::Analyze_Poisson_PredictBounds()]
+#' @param lStackedSnapshots `list` A list returned by [gsm::Make_Snapshot()] containing flat files for snapshot/assessment data.
+#' @param lLabels `list` Workflow metadata. See [gsm::meta_workflow].
 #'
 #' @return A list (lCharts) containing three charts - scatterJS, barMetricJS, and barScoreJS.
 #'
 #'
 #' @export
-MakeKRICharts <- function(lData = NULL) {
+MakeKRICharts <- function(dfSummary, dfBounds, lLabels = NULL, lStackedSnapshots = NULL) {
 
     lCharts <- list()
 
-    if (tolower(lData$dfConfig$model) != "identity") {
+    if (tolower(lLabels$model) != "identity") {
         lCharts$scatterJS <- gsm::Widget_ScatterPlot(
-            results = lData$dfSummary,
-            workflow = lData$dfConfig,
-            bounds = lData$dfBounds,
-            elementId = paste0(tolower(lData$dfConfig$abbreviation), "AssessScatter"),
-            siteSelectLabelValue = lData$dfConfig$group
+            results = dfSummary,
+            workflow = lLabels,
+            bounds = dfBounds,
+            elementId = paste0(tolower(lLabels$abbreviation), "AssessScatter"),
+            siteSelectLabelValue = lLabels$group
         )
 
         lCharts$scatter <- gsm::Visualize_Scatter(
-            dfSummary = lData$dfSummary,
-            dfBounds = lData$dfBounds,
-            strGroupLabel = lData$dfConfig$group
+            dfSummary = dfSummary,
+            dfBounds = dfBounds,
+            strGroupLabel = lLabels$group
         )
     }
 
     lCharts$barMetricJS <- gsm::Widget_BarChart(
-        results = lData$dfSummary,
-        workflow = lData$dfConfig,
+        results = dfSummary,
+        workflow = lLabels,
         yaxis = "metric",
-        elementId = paste0(tolower(lData$dfConfig$abbreviation), "AssessMetric"),
-        siteSelectLabel = lData$dfConfig$group
+        elementId = paste0(tolower(lLabels$abbreviation), "AssessMetric"),
+        siteSelectLabel = lLabels$group
     )
 
     lCharts$barScoreJS <- gsm::Widget_BarChart(
-        results = lData$dfSummary,
-        workflow = lData$dfConfig,
+        results = dfSummary,
+        workflow = lLabels,
         yaxis = "score",
-        elementId = paste0(tolower(lData$dfConfig$abbreviation), "AssessScore"),
-        siteSelectLabelValue = lData$dfConfig$group
+        elementId = paste0(tolower(lLabels$abbreviation), "AssessScore"),
+        siteSelectLabelValue = lLabels$group
     )
 
     lCharts$barMetric <- gsm::Visualize_Score(
-        dfSummary = lData$dfSummary,
+        dfSummary = dfSummary,
         strType = "metric"
     )
 
     lCharts$barScore <- gsm::Visualize_Score(
-        dfSummary = lData$dfSummary,
+        dfSummary = dfSummary,
         strType = "score",
-        vThreshold = unlist(lData$dfConfig$thresholds)
+        vThreshold = unlist(lLabels$thresholds)
     )
 
+
+  # Continuous Charts -------------------------------------------------------
+    if (!is.null(lStackedSnapshots)) {
+
+      number_of_snapshots <- length(unique(lStackedSnapshots$rpt_site_kri_details$snapshot_date))
+
+      if (number_of_snapshots > 1) {
+        lCharts$timeSeriesContinuousJS <- Widget_TimeSeries(
+          results = lStackedSnapshots$rpt_site_kri_details,
+          workflow = lStackedSnapshots$rpt_kri_details,
+          parameters = lStackedSnapshots$rpt_kri_threshold_param
+        )
+      }
+
+    }
 
     return(lCharts)
 }
