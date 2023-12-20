@@ -1,0 +1,49 @@
+---
+title: "v1_9_0-data-model-update-reference"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{v1_9_0-data-model-update-reference}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(gsm)
+```
+
+# Introduction
+explaining the change
+
+# Data Model pre-v1.9.0
+describe what was before
+
+# Data Model post-v1.9.0
+describe what is now
+
+# Highlight Changes
+highlight added/dropped variables,
+new functionality of Make_Snapshot,
+new function for backwards compatibility (UpdateSnapshotLogs)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
