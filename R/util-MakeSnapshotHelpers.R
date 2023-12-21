@@ -425,7 +425,7 @@ MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date, t
         "pt_data_dt" = NA_character_
       )
 
-     output <- RemapLog(table, table_name = paste0("rpt_", type, "_threshold_param"))
+     output <- RemapLog(table, table_name = paste0("rpt_", match.call()$type, "_threshold_param"))
 
   } else if (is.null(status_param) & !is.null(meta_param)) {
     if (verbose) {
@@ -440,7 +440,7 @@ MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date, t
         "pt_data_dt" = NA_character_
       )
 
-    output <- RemapLog(table, table_name = paste0("rpt_", type, "_threshold_param"))
+    output <- RemapLog(table, table_name = paste0("rpt_", match.call()$type, "_threshold_param"))
   } else {
 
     table <- meta_param %>%
@@ -456,7 +456,7 @@ MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date, t
         "pt_cycle_id" = NA_character_,
         "pt_data_dt" = NA_character_
       )
-    output <- RemapLog(table, table_name = paste0("rpt_", type, "_threshold_param"))
+    output <- RemapLog(table, table_name = paste0("rpt_", match.call()$type, "_threshold_param"))
   }
   return(output)
 }
