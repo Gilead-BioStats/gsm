@@ -5,19 +5,18 @@
 \title{KRI Scatter Plot}
 \usage{
 Widget_ScatterPlot(
-  results,
-  workflow,
-  bounds,
+  dfSummary,
+  lLabels,
+  dfBounds,
   selectedGroupIDs = NULL,
   addSiteSelect = TRUE,
   width = NULL,
   height = NULL,
-  elementId = NULL,
-  siteSelectLabelValue = NULL
+  elementId = NULL
 )
 }
 \arguments{
-\item{results}{data with columns:
+\item{dfSummary}{data with columns:
 \itemize{
 \item{\code{studyid}}
 \item{\code{workflowid}}
@@ -29,7 +28,7 @@ Widget_ScatterPlot(
 \item{\code{flag}}
 }}
 
-\item{workflow}{configuration with columns:
+\item{lLabels}{configuration with columns:
 \itemize{
 \item{\code{workflow}}
 \item{\code{gsm_version}}
@@ -44,7 +43,7 @@ Widget_ScatterPlot(
 \item{\code{data_filters}}
 }}
 
-\item{bounds}{bounds data with columns:
+\item{dfBounds}{chart bounds data with columns:
 \itemize{
 \item{\code{threshold}}
 \item{\code{numerator}}
@@ -62,8 +61,6 @@ Widget_ScatterPlot(
 \item{height}{height of widget, calculated based on width}
 
 \item{elementId}{ID of container HTML element}
-
-\item{siteSelectLabelValue}{Label used to populate the HTML drop-down menu. Constructed as: 'Highlighted {siteSelectLabelValue}: '.}
 }
 \description{
 A widget that displays a group-level scatter plot based on the output of a KRI analysis.
@@ -87,7 +84,7 @@ ae_analyze <- Analyze_NormalApprox(
   strType = "rate"
 )
 
-bounds <- Analyze_NormalApprox_PredictBounds(
+dfBounds <- Analyze_NormalApprox_PredictBounds(
   dfTransformed = ae_transform,
   vThreshold = c(-3, -2, 2, 3),
   strType = "rate"
@@ -102,7 +99,7 @@ ae_summary <- Summarize(
   ae_flag
 )
 
-wf <- list(
+lLabels <- list(
   workflowid = "",
   group = "Site",
   abbreviation = "AE",
@@ -114,9 +111,9 @@ wf <- list(
 )
 
 plot <- Widget_ScatterPlot(
-  results = ae_summary,
-  workflow = wf,
-  bounds = bounds,
+  dfSummary = ae_summary,
+  lLabels = lLabels,
+  dfBounds = dfBounds,
   elementId = "aeAssessScatter"
 )
 

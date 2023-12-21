@@ -31,7 +31,7 @@ ae_summary <- Summarize(
   dfFlagged = ae_flagged
 )
 
-dfConfig <- list(
+lLabels <- list(
   workflowid = "",
   group = "Site",
   abbreviation = "AE",
@@ -43,8 +43,8 @@ dfConfig <- list(
 )
 
 chart <- Widget_BarChart(
-  results = ae_summary,
-  workflow = dfConfig,
+  dfSummary  = ae_summary,
+  lLabels = lLabels,
   yaxis = "metric",
   elementId = "unit_test"
 )
@@ -52,10 +52,6 @@ chart <- Widget_BarChart(
 test_that("chart is created", {
   expect_true(all(c("Widget_BarChart", "htmlwidget") %in% class(chart)))
   expect_equal(substr(chart$elementId, 1, 9), "unit_test")
-  expect_equal(
-    nrow(chart$x$results),
-    nrow(ae_summary)
-  )
 })
 
 test_that("chart structure has not changed", {

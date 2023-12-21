@@ -17,11 +17,10 @@ MakeKRICharts <- function(dfSummary, dfBounds, lLabels = NULL, lStackedSnapshots
 
     if (tolower(lLabels$model) != "identity") {
         lCharts$scatterJS <- gsm::Widget_ScatterPlot(
-            results = dfSummary,
-            workflow = lLabels,
-            bounds = dfBounds,
-            elementId = paste0(tolower(lLabels$abbreviation), "AssessScatter"),
-            siteSelectLabelValue = lLabels$group
+            dfSummary = dfSummary,
+            lLabels = lLabels,
+            dfBounds = dfBounds,
+            elementId = paste0(tolower(lLabels$abbreviation), "AssessScatter")
         )
 
         lCharts$scatter <- gsm::Visualize_Scatter(
@@ -32,19 +31,17 @@ MakeKRICharts <- function(dfSummary, dfBounds, lLabels = NULL, lStackedSnapshots
     }
 
     lCharts$barMetricJS <- gsm::Widget_BarChart(
-        results = dfSummary,
-        workflow = lLabels,
+        dfSummary = dfSummary,
+        lLabels = lLabels,
         yaxis = "metric",
-        elementId = paste0(tolower(lLabels$abbreviation), "AssessMetric"),
-        siteSelectLabel = lLabels$group
+        elementId = paste0(tolower(lLabels$abbreviation), "AssessMetric")
     )
 
     lCharts$barScoreJS <- gsm::Widget_BarChart(
-        results = dfSummary,
-        workflow = lLabels,
+        dfSummary = dfSummary,
+        lLabels = lLabels,
         yaxis = "score",
-        elementId = paste0(tolower(lLabels$abbreviation), "AssessScore"),
-        siteSelectLabelValue = lLabels$group
+        elementId = paste0(tolower(lLabels$abbreviation), "AssessScore")
     )
 
     lCharts$barMetric <- gsm::Visualize_Score(

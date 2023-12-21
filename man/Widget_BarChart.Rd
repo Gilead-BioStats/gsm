@@ -5,20 +5,19 @@
 \title{KRI Bar Chart}
 \usage{
 Widget_BarChart(
-  results = NULL,
-  workflow = list(),
+  dfSummary = NULL,
+  lLabels = list(),
   threshold = NULL,
   yaxis = "score",
   selectedGroupIDs = NULL,
   addSiteSelect = TRUE,
   width = NULL,
   height = NULL,
-  elementId = NULL,
-  siteSelectLabelValue = NULL
+  elementId = NULL
 )
 }
 \arguments{
-\item{results}{data with column names:
+\item{dfSummary}{data with column names:
 \itemize{
 \item{\code{studyid}}
 \item{\code{workflowid}}
@@ -30,20 +29,7 @@ Widget_BarChart(
 \item{\code{flag}}
 }}
 
-\item{workflow}{configuration data with columns:
-\itemize{
-\item{\code{workflow}}
-\item{\code{gsm_version}}
-\item{\code{group}}
-\item{\code{metric}}
-\item{\code{numerator}}
-\item{\code{denominator}}
-\item{\code{outcome}}
-\item{\code{model}}
-\item{\code{score}}
-\item{\code{data_inputs}}
-\item{\code{data_filters}}
-}}
+\item{lLabels}{configuration data with columns:}
 
 \item{threshold}{a one row data frame containing columns:
 \itemize{
@@ -66,8 +52,6 @@ Widget_BarChart(
 \item{height}{height of widget, calculated based on width}
 
 \item{elementId}{ID of container HTML element}
-
-\item{siteSelectLabelValue}{Label used to populate the HTML drop-down menu. Constructed as: 'Highlighted {siteSelectLabelValue}: '.}
 }
 \description{
 A widget that displays a group-level bar chart based on the output of a KRI analysis.
@@ -101,7 +85,8 @@ ae_summary <- Summarize(
   ae_flag
 )
 
-wf <- list(
+# labels list
+lLabels <- list(
   workflowid = "",
   group = "Site",
   abbreviation = "AE",
@@ -113,8 +98,8 @@ wf <- list(
 )
 
 plot <- Widget_BarChart(
-  results = ae_summary,
-  workflow = wf,
+  dfSummary = ae_summary,
+  lLabels = lLabels,
   yaxis = "metric",
   elementId = "aeAssessMetric"
 )
