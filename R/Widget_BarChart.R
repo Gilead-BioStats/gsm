@@ -20,7 +20,7 @@
 #'
 #' @param lLabels configuration data with columns:
 #'
-#' @param threshold a one row data frame containing columns:
+#' @param dfThreshold a one row data frame containing columns:
 #' \itemize{
 #'  \item{\code{workflowid}}
 #'  \item{\code{gsm_version}}
@@ -30,7 +30,7 @@
 #'  \item{\code{configurable}}
 #' }
 #'
-#' @param yaxis either \code{'score'} or \code{'metric'}
+#' @param strYAxisType either \code{'score'} or \code{'metric'}
 #' @param selectedGroupIDs group IDs to highlight, \code{NULL} by default, can be a single site or a vector.
 #' @param addSiteSelect `logical` add a dropdown to highlight sites? Default: `TRUE`.
 #' @param width width of widget, full screen by default
@@ -80,7 +80,7 @@
 #' plot <- Widget_BarChart(
 #'   dfSummary = ae_summary,
 #'   lLabels = lLabels,
-#'   yaxis = "metric",
+#'   strYAxisType = "metric",
 #'   elementId = "aeAssessMetric"
 #' )
 #'
@@ -88,8 +88,8 @@
 Widget_BarChart <- function(
   dfSummary = NULL,
   lLabels = list(),
-  threshold = NULL,
-  yaxis = "score",
+  dfThreshold = NULL,
+  strYAxisType = "score",
   selectedGroupIDs = NULL,
   addSiteSelect = TRUE,
   width = NULL,
@@ -108,16 +108,16 @@ Widget_BarChart <- function(
     siteSelectLabelValue <- paste0("Highlighted ", lLabels$group, ": ")
   }
 
-  if (!is.null(threshold)) {
-    threshold <- jsonlite::toJSON(threshold)
+  if (!is.null(dfThreshold)) {
+    dfThreshold <- jsonlite::toJSON(dfThreshold, na = "string")
   }
 
   # forward options using x
   x <- list(
-    dfSummary = jsonlite::toJSON(dfSummary),
-    lLabels = jsonlite::toJSON(lLabels),
-    threshold = threshold,
-    yaxis = yaxis,
+    dfSummary = jsonlite::toJSON(dfSummary, na = "string"),
+    lLabels = jsonlite::toJSON(lLabels, na = "string"),
+    dfThreshold = dfThreshold,
+    strYAxisType = strYAxisType,
     selectedGroupIDs = as.character(selectedGroupIDs),
     addSiteSelect = addSiteSelect,
     siteSelectLabelValue = siteSelectLabelValue

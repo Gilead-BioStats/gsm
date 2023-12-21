@@ -33,14 +33,14 @@ MakeKRICharts <- function(dfSummary, dfBounds, lLabels = NULL, lStackedSnapshots
     lCharts$barMetricJS <- gsm::Widget_BarChart(
         dfSummary = dfSummary,
         lLabels = lLabels,
-        yaxis = "metric",
+        strYAxisType = "metric",
         elementId = paste0(tolower(lLabels$abbreviation), "AssessMetric")
     )
 
     lCharts$barScoreJS <- gsm::Widget_BarChart(
         dfSummary = dfSummary,
         lLabels = lLabels,
-        yaxis = "score",
+        strYAxisType = "score",
         elementId = paste0(tolower(lLabels$abbreviation), "AssessScore")
     )
 

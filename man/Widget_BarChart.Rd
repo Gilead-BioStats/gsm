@@ -7,8 +7,8 @@
 Widget_BarChart(
   dfSummary = NULL,
   lLabels = list(),
-  threshold = NULL,
-  yaxis = "score",
+  dfThreshold = NULL,
+  strYAxisType = "score",
   selectedGroupIDs = NULL,
   addSiteSelect = TRUE,
   width = NULL,
@@ -31,7 +31,7 @@ Widget_BarChart(
 
 \item{lLabels}{configuration data with columns:}
 
-\item{threshold}{a one row data frame containing columns:
+\item{dfThreshold}{a one row data frame containing columns:
 \itemize{
 \item{\code{workflowid}}
 \item{\code{gsm_version}}
@@ -41,7 +41,7 @@ Widget_BarChart(
 \item{\code{configurable}}
 }}
 
-\item{yaxis}{either \code{'score'} or \code{'metric'}}
+\item{strYAxisType}{either \code{'score'} or \code{'metric'}}
 
 \item{selectedGroupIDs}{group IDs to highlight, \code{NULL} by default, can be a single site or a vector.}
 
@@ -100,7 +100,7 @@ lLabels <- list(
 plot <- Widget_BarChart(
   dfSummary = ae_summary,
   lLabels = lLabels,
-  yaxis = "metric",
+  strYAxisType = "metric",
   elementId = "aeAssessMetric"
 )
 

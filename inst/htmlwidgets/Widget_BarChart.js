@@ -6,7 +6,7 @@ HTMLWidgets.widget({
             renderValue: function(x) {
 
                 const lLabels = x.lLabels
-                lLabels.y = x.yaxis;
+                lLabels.y = x.strYAxisType;
                 lLabels.selectedGroupIDs = number_to_array(x.selectedGroupIDs)
 
                 // add click event listener to chart
@@ -28,7 +28,7 @@ HTMLWidgets.widget({
                     el,
                     x.dfSummary,
                     lLabels,
-                    x.threshold
+                    x.dfThreshold
                 );
 
                 // add dropdown that highlights sites

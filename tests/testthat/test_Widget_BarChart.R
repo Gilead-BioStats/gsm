@@ -45,7 +45,7 @@ lLabels <- list(
 chart <- Widget_BarChart(
   dfSummary  = ae_summary,
   lLabels = lLabels,
-  yaxis = "metric",
+  strYAxisType = "metric",
   elementId = "unit_test"
 )
 
