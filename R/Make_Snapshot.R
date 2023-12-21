@@ -131,32 +131,36 @@ Make_Snapshot <- function(
   # create lCharts ----------------------------------------------------------
 
 
-
   if (bMakeCharts) {
     lCharts <- purrr::map(lResults, function(x) {
 
       if (x$bStatus) {
 
+        lLabels <- lMeta$meta_workflow %>%
+          filter(.data$workflowid == x$name) %>%
+          as.list()
+
         if (!grepl("qtl", x$name)) {
 
-          lLabels <- lMeta$meta_workflow %>%
-            filter(.data$workflowid == x$name) %>%
-            as.list()
-
-          lStackedSnapshots <- SubsetStackedSnapshots(workflowid = x$name, lStackedSnapshots = lStackedSnapshots)
+          lStackedSnapshotsSubset <- SubsetStackedSnapshots(strWorkflowId = x$name, lStackedSnapshots = lStackedSnapshots)
 
           MakeKRICharts(
             dfSummary = x$lResults$lData$dfSummary,
             dfBounds = x$lResults$lData$dfBounds,
-            lStackedSnapshots = lStackedSnapshots,
+            lStackedSnapshots = lStackedSnapshotsSubset,
             lLabels = lLabels
             )
+
 
         } else {
 
           MakeQTLCharts(
             strQtlName = x$name,
-            lStackedSnapshots = lStackedSnapshots
+            dfSummary = lStackedSnapshots$rpt_site_kri_details,
+            dfParams = lStackedSnapshots$rpt_qtl_threshold_param,
+            dfAnalysis = lStackedSnapshots$rpt_qtl_analysis,
+            lLabels = lMeta$meta_workflow %>%
+              filter(.data$workflowid == x$name)
           )
 
         }

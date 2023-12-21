@@ -6,7 +6,7 @@
 #' A widget that displays a group-level bar chart based on the output of a KRI analysis.
 #' Bar charts are provided by default in any Assess function, and are suffixed with "JS" to indicate that they are an `htmlwidget` ported from the `rbm-viz` JavaScript library.
 #'
-#' @param results data with column names:
+#' @param dfSummary data with column names:
 #' \itemize{
 #'  \item{\code{studyid}}
 #'  \item{\code{workflowid}}
@@ -18,22 +18,9 @@
 #'  \item{\code{flag}}
 #' }
 #'
-#' @param workflow configuration data with columns:
-#' \itemize{
-#'  \item{\code{workflow}}
-#'  \item{\code{gsm_version}}
-#'  \item{\code{group}}
-#'  \item{\code{metric}}
-#'  \item{\code{numerator}}
-#'  \item{\code{denominator}}
-#'  \item{\code{outcome}}
-#'  \item{\code{model}}
-#'  \item{\code{score}}
-#'  \item{\code{data_inputs}}
-#'  \item{\code{data_filters}}
-#' }
+#' @param lLabels configuration data with columns:
 #'
-#' @param threshold a one row data frame containing columns:
+#' @param dfThreshold a one row data frame containing columns:
 #' \itemize{
 #'  \item{\code{workflowid}}
 #'  \item{\code{gsm_version}}
@@ -43,13 +30,12 @@
 #'  \item{\code{configurable}}
 #' }
 #'
-#' @param yaxis either \code{'score'} or \code{'metric'}
+#' @param strYAxisType either \code{'score'} or \code{'metric'}
 #' @param selectedGroupIDs group IDs to highlight, \code{NULL} by default, can be a single site or a vector.
 #' @param addSiteSelect `logical` add a dropdown to highlight sites? Default: `TRUE`.
 #' @param width width of widget, full screen by default
 #' @param height height of widget, calculated based on width
 #' @param elementId ID of container HTML element
-#' @param siteSelectLabelValue Label used to populate the HTML drop-down menu. Constructed as: 'Highlighted {siteSelectLabelValue}: '.
 #'
 #' @import htmlwidgets
 #' @importFrom jsonlite toJSON
@@ -79,7 +65,8 @@
 #'   ae_flag
 #' )
 #'
-#' wf <- list(
+#' # labels list
+#' lLabels <- list(
 #'   workflowid = "",
 #'   group = "Site",
 #'   abbreviation = "AE",
@@ -91,26 +78,25 @@
 #' )
 #'
 #' plot <- Widget_BarChart(
-#'   results = ae_summary,
-#'   workflow = wf,
-#'   yaxis = "metric",
+#'   dfSummary = ae_summary,
+#'   lLabels = lLabels,
+#'   strYAxisType = "metric",
 #'   elementId = "aeAssessMetric"
 #' )
 #'
 #' @export
 Widget_BarChart <- function(
-  results = NULL,
-  workflow = list(),
-  threshold = NULL,
-  yaxis = "score",
+  dfSummary = NULL,
+  lLabels = list(),
+  dfThreshold = NULL,
+  strYAxisType = "score",
   selectedGroupIDs = NULL,
   addSiteSelect = TRUE,
   width = NULL,
   height = NULL,
-  elementId = NULL,
-  siteSelectLabelValue = NULL
+  elementId = NULL
 ) {
-  results <- results %>%
+  dfSummary <- dfSummary %>%
     dplyr::mutate(across(everything(), as.character)) %>%
     dplyr::rename_with(tolower)
 
@@ -118,16 +104,20 @@ Widget_BarChart <- function(
     elementId <- paste(elementId, as.numeric(Sys.time()) * 1000, sep = "-")
   }
 
-  if (!is.null(siteSelectLabelValue)) {
-    siteSelectLabelValue <- paste0("Highlighted ", siteSelectLabelValue, ": ")
+  if (!is.null(lLabels$group)) {
+    siteSelectLabelValue <- paste0("Highlighted ", lLabels$group, ": ")
+  }
+
+  if (!is.null(dfThreshold)) {
+    dfThreshold <- jsonlite::toJSON(dfThreshold, na = "string")
   }
 
   # forward options using x
   x <- list(
-    results = results,
-    workflow = jsonlite::toJSON(workflow),
-    threshold = threshold,
-    yaxis = yaxis,
+    dfSummary = jsonlite::toJSON(dfSummary, na = "string"),
+    lLabels = jsonlite::toJSON(lLabels, na = "string"),
+    dfThreshold = dfThreshold,
+    strYAxisType = strYAxisType,
     selectedGroupIDs = as.character(selectedGroupIDs),
     addSiteSelect = addSiteSelect,
     siteSelectLabelValue = siteSelectLabelValue

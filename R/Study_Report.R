@@ -44,19 +44,28 @@ Study_Report <- function(
   strOutpath = NULL,
   strReportType = "site"
 ) {
+
   # input check
   lAssessments <- if ("lStudyAssessResults" %in% names(lSnapshot)) {
     lSnapshot$lStudyAssessResults
   } else {
     lSnapshot
   }
+
   lStatus <- if ("lStatus" %in% names(lSnapshot)) {
     lSnapshot$lStatus
   } else {
     NULL
   }
+
   lLongitudinal <- if ("lStackedSnapshots" %in% names(lSnapshot)) {
     lSnapshot$lStackedSnapshots
+  } else {
+    NULL
+  }
+
+  lCharts <- if ("lCharts" %in% names(lSnapshot)) {
+    lSnapshot$lCharts
   } else {
     NULL
   }
@@ -127,7 +136,8 @@ Study_Report <- function(
       status_study = dfStudy,
       status_site = dfSite,
       status_snap = lStatus,
-      longitudinal = lLongitudinal
+      longitudinal = lLongitudinal,
+      lCharts = lCharts
     ),
     envir = new.env(parent = globalenv())
   )

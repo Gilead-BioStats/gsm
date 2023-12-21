@@ -388,6 +388,11 @@ MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date, t
   if (!type %in% c("kri", "qtl")) {
     stop("`type` must be either 'kri' or 'qtl'")
   }
+
+  if (type == "kri") {
+    type <- "kri|cou"
+  }
+
   if (is.null(meta_param) & is.null(status_param)) {
     if (verbose) {
       cli::cli_alert_warning("No `meta_param` or `status_param` found, returning blank data frame.")
@@ -409,6 +414,7 @@ MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date, t
     if (verbose) {
       cli::cli_alert_warning("`MakeRptQTLThresholdParam()` is missing meta_param, status_param will be used to define defaults")
     }
+
      table <- status_param %>%
       filter(grepl(type, .data$workflowid)) %>%
       mutate(
@@ -436,6 +442,7 @@ MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date, t
 
     output <- RemapLog(table, table_name = paste0("rpt_", type, "_threshold_param"))
   } else {
+
     table <- meta_param %>%
       filter(grepl(type, .data$workflowid)) %>%
       left_join(status_param, by = c("workflowid", "gsm_version", "param", "index"), relationship = "many-to-many") %>%
@@ -656,18 +663,20 @@ MakeRptStudySnapshot <- function(lMeta, gsm_analysis_date) {
 #' @description
 #' This function is used to subset a list of stacked snapshots within [gsm::Make_Snapshot()].
 #'
-#' @param workflowid `character` workflow ID or `kri_id`.
+#' @param strWorkflowId `character` workflow ID.
 #'
 #'
 #' @keywords internal
-SubsetStackedSnapshots <- function(workflowid, lStackedSnapshots) {
+SubsetStackedSnapshots <- function(strWorkflowId, lStackedSnapshots) {
   subset_snapshots <- purrr::map(lStackedSnapshots, function(x) {
 
-    if ("kri_id" %in% names(x)) {
+    if ("workflowid" %in% names(x)) {
       x %>%
         filter(
-          .data$kri_id == workflowid
+          .data$workflowid == strWorkflowId
         )
+    } else {
+      x
     }
 
   }) %>%

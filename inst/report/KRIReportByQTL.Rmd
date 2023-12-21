@@ -13,6 +13,7 @@ params:
     status_site: NULL
     status_snap: NULL
     longitudinal: NULL
+    lCharts: NULL
 ---
 
 ```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
@@ -64,7 +65,11 @@ DT::datatable(results_analysis)
 
 ```{r echo=FALSE, results='asis', eval=!is.null(params$longitudinal)}
 summary_table <- MakeSummaryTable(setup$active, dfSite = params$status_site)
-MakeResultsTable(setup$active, summary_table)
+MakeResultsTable(
+  assessment = setup$active, 
+  summary_table = summary_table, 
+  lCharts = params$lCharts
+  )
 ```
 
 
