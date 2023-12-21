@@ -5,10 +5,10 @@
 #' A Time Series graphic for qtl data
 #'
 #' @param qtl specific qtl to filter to
-#' @param raw_results `data.frame` Typically `lStackedSnapshots$rpt_site_kri_details`
-#' @param raw_workflow `data.frame` Typically
-#' @param raw_param TODO
-#' @param raw_analysis TODO
+#' @param dfSummary `data.frame` Longitudinal data, typically `rpt_site_kri_details` from [gsm::Make_Snapshot()].
+#' @param lLabels `list` Longitudinal workflow/metadata, typically `rpt_kri_details` from [gsm::Make_Snapshot()].
+#' @param dfParams `data.frame` Longitudinal parameter/configuration data, typically `rpt_kri_threshold_param` from [gsm::Make_Snapshot()].
+#' @param dfAnalysis `data.frame` Longitudinal QTL analysis results, typically `rpt_qtl_analysis` from  [gsm::Make_Snapshot()].
 #' @param selectedGroupIDs TODO
 #' @param width the width of the widget
 #' @param height the height of the widget
@@ -19,10 +19,10 @@
 #'
 #' @export
 Widget_TimeSeriesQTL <- function(qtl,
-  raw_results,
-  raw_workflow,
-  raw_param,
-  raw_analysis,
+  dfSummary,
+  lLabels,
+  dfParams,
+  dfAnalysis,
   selectedGroupIDs = NULL,
   width = NULL,
   height = NULL,
@@ -30,7 +30,7 @@ Widget_TimeSeriesQTL <- function(qtl,
 ) {
 
 # results -----------------------------------------------------------------
-  results <- raw_results  %>%
+  results <- dfSummary  %>%
     dplyr::mutate(
       gsm_analysis_date = .data$snapshot_date
       ) %>%
@@ -53,16 +53,12 @@ Widget_TimeSeriesQTL <- function(qtl,
 
 # workflow ----------------------------------------------------------------
   if (!is.null(selectedGroupIDs)) {
-    raw_workflow[["selectedGroupIDs"]] <- selectedGroupIDs
+    lLabels[["selectedGroupIDs"]] <- selectedGroupIDs
   } else {
-    raw_workflow[["selectedGroupIDs"]] <- "None"
+    lLabels[["selectedGroupIDs"]] <- "None"
   }
 
-  workflow <- raw_workflow
-  workflow[["gsm_analysis_date"]] <- Sys.Date()
-
-  workflow <- workflow %>%
-    jsonlite::toJSON()
+  workflow <- jsonlite::toJSON(lLabels)
 
 # params ------------------------------------------------------------------
   # {
@@ -76,7 +72,7 @@ Widget_TimeSeriesQTL <- function(qtl,
   #   "groupid": ""
   # }
 
-  parameters <- raw_param %>%
+  parameters <- dfParams %>%
     dplyr::filter(.data$workflowid == qtl) %>%
     mutate(
       value = .data$default_s,
@@ -108,7 +104,8 @@ Widget_TimeSeriesQTL <- function(qtl,
   #   "snapshot_date": "2003-12-01"
   # }
   #
-  analysis <- raw_analysis %>%
+  analysis <- dfAnalysis %>%
+    dplyr::filter(.data$workflowid == qtl) %>%
     select(
       "studyid",
       "workflowid",
@@ -117,7 +114,6 @@ Widget_TimeSeriesQTL <- function(qtl,
       "gsm_analysis_date",
       "snapshot_date"
     ) %>%
-    dplyr::filter(.data$workflowid == qtl) %>%
     jsonlite::toJSON()
 
 # widget ------------------------------------------------------------------

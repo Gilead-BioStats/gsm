@@ -156,8 +156,8 @@ Make_Snapshot <- function(
 
           MakeQTLCharts(
             strQtlName = x$name,
-            dfResults = lStackedSnapshots$rpt_site_kri_details,
-            dfParam = lStackedSnapshots$rpt_qtl_threshold_param,
+            dfSummary = lStackedSnapshots$rpt_site_kri_details,
+            dfParams = lStackedSnapshots$rpt_qtl_threshold_param,
             dfAnalysis = lStackedSnapshots$rpt_qtl_analysis,
             lLabels = lMeta$meta_workflow %>%
               filter(.data$workflowid == x$name)
