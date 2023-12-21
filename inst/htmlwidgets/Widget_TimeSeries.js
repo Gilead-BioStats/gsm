@@ -4,13 +4,13 @@ HTMLWidgets.widget({
   factory: function(el, width, height) {
     return {
       renderValue: function(x) {
-        // analysis results
-        const results = HTMLWidgets.dataframeToD3(x.results)
 
         // chart configuration
-        const workflow = HTMLWidgets.dataframeToD3(x.workflow)[0]
-        workflow.selectedGroupIDs = x.selectedGroupIDs
-        workflow.clickCallback = function(d) {
+        const lLabels = HTMLWidgets.dataframeToD3(x.lLabels)[0]
+        lLabels.selectedGroupIDs = x.selectedGroupIDs
+
+
+        lLabels.clickCallback = function(d) {
             // Update site dropdown.
             const siteDropdown = document
                 .getElementById(`site-select--time-series_${workflow.workflowid}`)
@@ -20,15 +20,12 @@ HTMLWidgets.widget({
             instance.helpers.updateSelectedGroupIDs(d.groupid);
         };
 
-        // analysis parameters
-        const parameters = HTMLWidgets.dataframeToD3(x.parameters)
-
         // chart
         const instance = rbmViz.default.timeSeries(
             el,
-            results,
-            workflow,
-            parameters
+            x.dfSummary,
+            lLabels,
+            x.dfParams
         );
 
         // Add event listener to site dropdown that updates chart on change.

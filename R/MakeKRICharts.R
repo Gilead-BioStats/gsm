@@ -63,9 +63,9 @@ MakeKRICharts <- function(dfSummary, dfBounds, lLabels = NULL, lStackedSnapshots
       if (number_of_snapshots > 1) {
 
         lCharts$timeSeriesContinuousJS <- Widget_TimeSeries(
-          results = lStackedSnapshots$rpt_site_kri_details,
-          workflow = lStackedSnapshots$rpt_kri_details,
-          parameters = lStackedSnapshots$rpt_kri_threshold_param
+          dfSummary = lStackedSnapshots$rpt_site_kri_details,
+          lLabels = lStackedSnapshots$rpt_kri_details,
+          dfParams = lStackedSnapshots$rpt_kri_threshold_param
         )
       }
 
