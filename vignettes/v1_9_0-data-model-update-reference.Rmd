@@ -19,31 +19,178 @@ library(gsm)
 ```
 
 # Introduction
+
 explaining the change
 
+------------------------------------------------------------------------
+
 # Data Model pre-v1.9.0
+
 describe what was before
 
+### status_study
+
+| Table       | Column                | Description                       |
+|-------------|-----------------------|-----------------------------------|
+| status_study | studyid | Unique Study ID |
+| status_study | enrolled_sites | # of enrolled sites |
+| status_study | enrolled_participants | # of enrolled participants |
+| status_study | planned_sites | # of planned sites |
+| status_study | planned_participants | # of planned participants |
+| status_study | title | Protocol title |
+| status_study | nickname | Protocol nickname |
+| status_study | enrolled_sites_ctms | # of enrolled sites from GILDA |
+| status_study | enrolled_participants_ctms | # of enrolled participants from GILDA |
+| status_study | fpfv | First-patient first visit date |
+| status_study | lpfv | Last-patient first visit date |
+| status_study | lplv | Last-patient last visit date |
+| status_study | ta | Therapeutic Area |
+| status_study | indication | Indication |
+| status_study | phase | Phase |
+| status_study | status | Study Status |
+| status_study | rbm_flag | Risk-based monitoring flag |
+| status_study | product | Product |
+| status_study | protocol_type | Protocol type |
+| status_study | protocol_row_id | Protocol row ID |
+| status_study | est_fpfv | Estimated first-patient first visit date from GILDA |
+| status_study | est_lpfv | Estimated last-patient first visit date from GILDA |
+| status_study | est_lplv | Estimated last-patient last visit date from GILDA |
+| status_study | protocol_product_number | Protocol product number |
+| status_study | gsm_analysis_date | Date that snapshot was created |
+
+### status_site
+
+| Table       | Column                | Description                       |
+|-------------|-----------------------|-----------------------------------|
+| status_site | studyid               | Unique Study ID                   |
+| status_site | siteid                | Unique Site ID                    |
+| status_site | institution           | Institution Name                  |
+| status_site | status                | Site Status                       |
+| status_site | enrolled_participants | Number of Enrolled Participants   |
+| status_site | start_date            | Site Activation Date              |
+| status_site | city                  | Site City                         |
+| status_site | state                 | Site State                        |
+| status_site | country               | Site Country                      |
+| status_site | invname               | Investigator Name                 |
+| status_site | protocol_row_id       | Protocol row ID                   |
+| status_site | site_num              | Site Number                       |
+| status_site | site_row_id           | Site row ID                       |
+| status_site | pi_number             | Principal Investigator Number     |
+| status_site | pi_last_name          | Principal Investigator Last Name  |
+| status_site | pi_first_name         | Principal Investigator First Name |
+| status_site | is_satellite          | Is site a satellite location      |
+| status_site | gsm_analysis_date     | Date that Snapshot was created    |
+
+### status_workflow
+
+| Table       | Column                | Description                       |
+|-------------|-----------------------|-----------------------------------|
+
+
+### status_param
+
+| Table       | Column                | Description                       |
+|-------------|-----------------------|-----------------------------------|
+| status_param | studyid | Unique Study ID |
+| status_param | workflowid | Unique Workflow ID |
+| status_param | gsm_version | GSM version of workflow |
+| status_param | param | Parameter name |
+| status_param | index | Index value for parameter |
+| status_param | value | Value for parameter at index |
+| status_param | gsm_analysis_date | Date that snapshot was created |
+
+### results_summary
+
+| Table       | Column                | Description                       |
+|-------------|-----------------------|-----------------------------------|
+| results_summary | studyid | Unique Study ID |
+| results_summary | workflowid | Unique Workflow ID |
+| results_summary | groupid | Unique Group ID (e.g. SiteID for KRI workflows) |
+| results_summary | numerator | Metric numerator |
+| results_summary | denominator | Metric denominator |
+| results_summary | metric | Metric value |
+| results_summary | score | Statistical Score |
+| results_summary | flag | Flag |
+| results_summary | gsm_analysis_date | Date that snapshot was created |
+
+### results_analysis
+
+| Table       | Column                | Description                       |
+|-------------|-----------------------|-----------------------------------|
+| results_analysis | studyid | Unique Study ID |
+| results_analysis | workflowid | Unique Workflow ID |
+| results_analysis | param | Parameter name |
+| results_analysis | value | Value for parameter |
+| results_analysis | gsm_analysis_date | Date that snapshot was created |
+
+### results_bounds
+
+| Table       | Column                | Description                       |
+|-------------|-----------------------|-----------------------------------|
+| results_bounds | studyid | Unique Study ID |
+| results_bounds | workflowid | Unique Workflow ID |
+| results_bounds | threshold | Threshold |
+| results_bounds | numerator | y value |
+| results_bounds | denominator | x value |
+| results_bounds | log_denominator | Log X value |
+| results_bounds | gsm_analysis_date | Date that snapshot was created |
+
+### meta_workflow
+
+| Table       | Column                | Description                       |
+|-------------|-----------------------|-----------------------------------|
+| meta_workflow | workflowid | Unique Workflow ID |
+| meta_workflow | gsm_version | GSM Version of workflow |
+| meta_workflow | group | Group for workflow - Site |  Country |  Region or Study |
+| meta_workflow | abbreviation | Workflow Abbreviation (max 3-letters) |
+| meta_workflow | metric | Metric Label |
+| meta_workflow | numerator | Numerator Label |
+| meta_workflow | denominator | Denominator Label |
+| meta_workflow | outcome | Metric Outcome Type (e.g. rate) |
+| meta_workflow | model | Statistical Model used to create score |
+| meta_workflow | score | Score Label |
+| meta_workflow | data_inputs | Data inputs for workflow |
+| meta_workflow | data_filters | Filters applied in workflow |
+| meta_workflow | gsm_analysis_date | Date that snapshot was created |
+
+### meta_param
+
+| Table       | Column                | Description                       |
+|-------------|-----------------------|-----------------------------------|
+| meta_param | workflowid | Unique Workflow ID |
+| meta_param | gsm_version | GSM version of workflow |
+| meta_param | param | Parameter name |
+| meta_param | index | Parameter index |
+| meta_param | default | Default value for parameter at index |
+| meta_param | configurable | Is parameter configurable? |
+| meta_param | gsm_analysis_date | Date that snapshot was created |
+
+------------------------------------------------------------------------
+
 # Data Model post-v1.9.0
+
 describe what is now
 
+### rpt_site_details
+
+### rpt_study_details
+
+### rpt_qtl_details
+
+### rpt_kri_details
+
+### rpt_site_kri_details
+
+### rpt_kri_bounds_details
+
+### rpt_qtl_threshold_param
+
+### rpt_kri_threshold_param
+
+### rpt_qtl_analysis
+
+------------------------------------------------------------------------
+
 # Highlight Changes
-highlight added/dropped variables,
-new functionality of Make_Snapshot,
-new function for backwards compatibility (UpdateSnapshotLogs)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+highlight added/dropped variables, new functionality of Make_Snapshot, new function for backwards compatibility (UpdateSnapshotLogs)
