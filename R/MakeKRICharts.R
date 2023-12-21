@@ -17,11 +17,10 @@ MakeKRICharts <- function(dfSummary, dfBounds, lLabels = NULL, lStackedSnapshots
 
     if (tolower(lLabels$model) != "identity") {
         lCharts$scatterJS <- gsm::Widget_ScatterPlot(
-            results = dfSummary,
-            workflow = lLabels,
-            bounds = dfBounds,
-            elementId = paste0(tolower(lLabels$abbreviation), "AssessScatter"),
-            siteSelectLabelValue = lLabels$group
+            dfSummary = dfSummary,
+            lLabels = lLabels,
+            dfBounds = dfBounds,
+            elementId = paste0(tolower(lLabels$abbreviation), "AssessScatter")
         )
 
         lCharts$scatter <- gsm::Visualize_Scatter(
@@ -32,19 +31,17 @@ MakeKRICharts <- function(dfSummary, dfBounds, lLabels = NULL, lStackedSnapshots
     }
 
     lCharts$barMetricJS <- gsm::Widget_BarChart(
-        results = dfSummary,
-        workflow = lLabels,
-        yaxis = "metric",
-        elementId = paste0(tolower(lLabels$abbreviation), "AssessMetric"),
-        siteSelectLabel = lLabels$group
+        dfSummary = dfSummary,
+        lLabels = lLabels,
+        strYAxisType = "metric",
+        elementId = paste0(tolower(lLabels$abbreviation), "AssessMetric")
     )
 
     lCharts$barScoreJS <- gsm::Widget_BarChart(
-        results = dfSummary,
-        workflow = lLabels,
-        yaxis = "score",
-        elementId = paste0(tolower(lLabels$abbreviation), "AssessScore"),
-        siteSelectLabelValue = lLabels$group
+        dfSummary = dfSummary,
+        lLabels = lLabels,
+        strYAxisType = "score",
+        elementId = paste0(tolower(lLabels$abbreviation), "AssessScore")
     )
 
     lCharts$barMetric <- gsm::Visualize_Score(
@@ -58,17 +55,17 @@ MakeKRICharts <- function(dfSummary, dfBounds, lLabels = NULL, lStackedSnapshots
         vThreshold = unlist(lLabels$thresholds)
     )
 
-
   # Continuous Charts -------------------------------------------------------
     if (!is.null(lStackedSnapshots)) {
 
       number_of_snapshots <- length(unique(lStackedSnapshots$rpt_site_kri_details$snapshot_date))
 
       if (number_of_snapshots > 1) {
+
         lCharts$timeSeriesContinuousJS <- Widget_TimeSeries(
-          results = lStackedSnapshots$rpt_site_kri_details,
-          workflow = lStackedSnapshots$rpt_kri_details,
-          parameters = lStackedSnapshots$rpt_kri_threshold_param
+          dfSummary = lStackedSnapshots$rpt_site_kri_details,
+          lLabels = lStackedSnapshots$rpt_kri_details,
+          dfParams = lStackedSnapshots$rpt_kri_threshold_param
         )
       }
 

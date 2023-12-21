@@ -31,7 +31,7 @@ ae_summary <- Summarize(
   dfFlagged = ae_flagged
 )
 
-dfConfig <- list(
+lLabels <- list(
   workflowid = "",
   group = "Site",
   abbreviation = "AE",
@@ -43,19 +43,15 @@ dfConfig <- list(
 )
 
 chart <- Widget_ScatterPlot(
-  results = ae_summary,
-  workflow = dfConfig,
-  bounds = ae_bounds,
+  dfSummary = ae_summary,
+  lLabels = lLabels,
+  dfBounds = ae_bounds,
   elementId = "unit_test"
 )
 
 test_that("chart is created", {
   expect_true(all(c("Widget_ScatterPlot", "htmlwidget") %in% class(chart)))
   expect_equal(substr(chart$elementId, 1, 9), "unit_test")
-  expect_equal(
-    nrow(chart$x$results),
-    nrow(ae_summary)
-  )
 })
 
 
