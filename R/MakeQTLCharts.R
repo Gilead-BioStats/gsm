@@ -15,7 +15,7 @@
 MakeQTLCharts <- function(strQtlName, dfSummary, dfParams, dfAnalysis, lLabels) {
 
   stopifnot(
-    "[ `dfResults` ] must be a `data.frame`." = is.data.frame(dfSummary),
+    "[ `dfSummary` ] must be a `data.frame`." = is.data.frame(dfSummary),
     "[ `lLabels` ] must be a `list`." = is.list(lLabels),
     "[ `dfParam` ] must be a `data.frame`." = is.data.frame(dfParams),
     "[ `dfAnalysis` ] must be a `data.frame`." = is.data.frame(dfAnalysis)
