@@ -31,16 +31,16 @@ describe what was before
 ### status_study
 
 | Table        | Column                     | Description                                         |
-|--------------|----------------------------|-----------------------------------------------------|
+|------------------|----------------------|--------------------------------|
 | status_study | studyid                    | Unique Study ID                                     |
-| status_study | enrolled_sites             | \# of enrolled sites                                |
-| status_study | enrolled_participants      | \# of enrolled participants                         |
-| status_study | planned_sites              | \# of planned sites                                 |
-| status_study | planned_participants       | \# of planned participants                          |
+| status_study | enrolled_sites             | Number of enrolled sites                                |
+| status_study | enrolled_participants      | Number of enrolled participants                         |
+| status_study | planned_sites              | Number of planned sites                                 |
+| status_study | planned_participants       | Number of planned participants                          |
 | status_study | title                      | Protocol title                                      |
 | status_study | nickname                   | Protocol nickname                                   |
-| status_study | enrolled_sites_ctms        | \# of enrolled sites from GILDA                     |
-| status_study | enrolled_participants_ctms | \# of enrolled participants from GILDA              |
+| status_study | enrolled_sites_ctms        | Number of enrolled sites from GILDA                     |
+| status_study | enrolled_participants_ctms | Number of enrolled participants from GILDA              |
 | status_study | fpfv                       | First-patient first visit date                      |
 | status_study | lpfv                       | Last-patient first visit date                       |
 | status_study | lplv                       | Last-patient last visit date                        |
@@ -84,7 +84,7 @@ describe what was before
 ### status_workflow
 
 | Table           | Column            | Description                                   |
-|-----------------|-------------------|-----------------------------------------------|
+|------------------|---------------------|---------------------------------|
 | status_workflow | studyid           | Unique Study ID                               |
 | status_workflow | workflowid        | Unique workflow ID                            |
 | status_workflow | gsm_version       | Version of GSM used                           |
@@ -108,7 +108,7 @@ describe what was before
 ### results_summary
 
 | Table           | Column            | Description                                     |
-|-----------------|-------------------|-------------------------------------------------|
+|------------------|----------------------|--------------------------------|
 | results_summary | studyid           | Unique Study ID                                 |
 | results_summary | workflowid        | Unique Workflow ID                              |
 | results_summary | groupid           | Unique Group ID (e.g. SiteID for KRI workflows) |
@@ -180,7 +180,7 @@ describe what is now
 ### rpt_site_details
 
 | Table            | Column                | Description                         |
-|------------------|-----------------------|-------------------------------------|
+|------------------|----------------------|--------------------------------|
 | rpt_site_details | studyid               | Unique Study ID                     |
 | rpt_site_details | snapshot_date         | Date that snapshot was created      |
 | rpt_site_details | siteid                | Unique Site ID                      |
@@ -204,7 +204,7 @@ describe what is now
 ### rpt_study_details
 
 | Table             | Column                            | Description                          |
-|-------------------|-----------------------------------|--------------------------------------|
+|------------------|----------------------|--------------------------------|
 | rpt_study_details | studyid                           | Unique Study ID                      |
 | rpt_study_details | snapshot_date                     | Date that snapshot was created       |
 | rpt_study_details | title                             | Title of protocol                    |
@@ -233,7 +233,7 @@ describe what is now
 ### rpt_qtl_details
 
 | Table           | Column            | Description                                      |
-|-----------------|-------------------|--------------------------------------------------|
+|------------------|----------------------|--------------------------------|
 | rpt_qtl_details | studyid           | Unique Study ID                                  |
 | rpt_qtl_details | snapshot_date     | Date that snapshot was created                   |
 | rpt_qtl_details | workflowid        | Unique QTL ID                                    |
@@ -262,7 +262,7 @@ describe what is now
 ### rpt_kri_details
 
 | Table           | Column               | Description                                          |
-|-----------------|----------------------|------------------------------------------------------|
+|------------------|----------------------|--------------------------------|
 | rpt_kri_details | studyid              | Name of study                                        |
 | rpt_kri_details | snapshot_date        | Date that snapshot was created                       |
 | rpt_kri_details | workflowid           | Unique KRI                                           |
@@ -292,7 +292,7 @@ describe what is now
 ### rpt_site_kri_details
 
 | Table                | Column                  | Description                                                    |
-|----------------------|-------------------------|----------------------------------------------------------------|
+|------------------|----------------------|--------------------------------|
 | rpt_site_kri_details | studyid                 | Unique Study ID                                                |
 | rpt_site_kri_details | snapshot_date           | Date that snapshot was created                                 |
 | rpt_site_kri_details | siteid                  | Unique Site ID                                                 |
@@ -319,7 +319,7 @@ describe what is now
 ### rpt_kri_bounds_details
 
 | Table                  | Column            | Description                          |
-|------------------------|-------------------|--------------------------------------|
+|---------------------|---------------------|------------------------------|
 | rpt_kri_bounds_details | studyid           | Unique Study ID                      |
 | rpt_kri_bounds_details | snapshot_date     | Date that snapshot was created       |
 | rpt_kri_bounds_details | workflowid        | Unique KRI ID                        |
@@ -334,7 +334,7 @@ describe what is now
 ### rpt_qtl_threshold_param
 
 | Table                   | Column            | Description                                             |
-|-------------------------|-------------------|---------------------------------------------------------|
+|---------------------|---------------------|------------------------------|
 | rpt_qtl_threshold_param | studyid           | Unique Study ID                                         |
 | rpt_qtl_threshold_param | snapshot_date     | Date that snapshot was created                          |
 | rpt_qtl_threshold_param | workflowid        | Unique QTL ID                                           |
@@ -350,7 +350,7 @@ describe what is now
 ### rpt_kri_threshold_param
 
 | Table                   | Column            | Description                                             |
-|-------------------------|-------------------|---------------------------------------------------------|
+|---------------------|---------------------|------------------------------|
 | rpt_kri_threshold_param | studyid           | Unique Study ID                                         |
 | rpt_kri_threshold_param | snapshot_date     | Date that snapshot was created                          |
 | rpt_kri_threshold_param | workflowid        | Unique KRI ID                                           |
@@ -380,4 +380,6 @@ describe what is now
 
 # Highlight Changes
 
-highlight added/dropped variables, new functionality of Make_Snapshot, new function for backwards compatibility (UpdateSnapshotLogs)
+highlight added/dropped variables, 
+new functionality of Make_Snapshot, 
+new function for backwards compatibility (UpdateSnapshotLogs)
