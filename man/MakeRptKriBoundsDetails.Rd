@@ -4,14 +4,14 @@
 \alias{MakeRptKriBoundsDetails}
 \title{Create rpt_kri_bounds_details output for \code{Make_Snapshot()}}
 \usage{
-MakeRptKriBoundsDetails(lResults, config_workflow, gsm_analysis_date)
+MakeRptKriBoundsDetails(lResults, config_workflow, gsm_analysis_date = NULL)
 }
 \arguments{
 \item{lResults}{\code{list} the output from \code{Study_Assess()}}
 
 \item{config_workflow}{\code{data.frame} configuration workflow in lMeta argument of \code{Make_Snapshot()}}
 
-\item{gsm_analysis_date}{\code{string} Date of snapshot}
+\item{gsm_analysis_date}{\code{string} Date of snapshot. leave NULL if dealing with stacked results}
 }
 \description{
 Create rpt_kri_bounds_details output for \code{Make_Snapshot()}

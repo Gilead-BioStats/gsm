@@ -9,7 +9,7 @@ MakeRptSiteKriDetails(
   status_site,
   meta_workflow,
   meta_param = NULL,
-  gsm_analysis_date
+  gsm_analysis_date = NULL
 )
 }
 \arguments{
@@ -21,7 +21,7 @@ MakeRptSiteKriDetails(
 
 \item{meta_param}{\code{string} the meta_param stated in lMeta argument of \code{Make_Snapshot()}}
 
-\item{gsm_analysis_date}{\code{string} the gsm analysis date calculated in \code{Make_Snapshot()}}
+\item{gsm_analysis_date}{\code{string} the gsm analysis date calculated in \code{Make_Snapshot()}. leave NULL if dealing with stacked results}
 }
 \description{
 Create rpt_kri_site_detail output for \code{Make_Snapshot()}

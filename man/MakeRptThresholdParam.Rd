@@ -7,7 +7,7 @@
 MakeRptThresholdParam(
   meta_param,
   status_param,
-  gsm_analysis_date,
+  gsm_analysis_date = NULL,
   type,
   verbose = FALSE
 )
@@ -17,7 +17,7 @@ MakeRptThresholdParam(
 
 \item{status_param}{\code{data.frame} the config_param defined in lMeta argument of \code{Make_Snapshot()}}
 
-\item{gsm_analysis_date}{\code{string} Date of snapshot}
+\item{gsm_analysis_date}{\code{string} Date of snapshot. leave NULL if dealing with stacked results}
 
 \item{type}{\code{string} type of threshold to output}
 
