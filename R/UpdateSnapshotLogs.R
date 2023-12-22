@@ -19,31 +19,44 @@ UpdateSnapshotLogs <- function(lPrevSnapshot, lMeta = NULL, lData = NULL, lMappi
   }
 
   # Defining Meta Parameters
-  if (!"lInputs" %in% names(lPrevSnapshot) & is.null(lMeta)) {
-    lMeta <- list(
-      config_param = gsm::config_param,
-      config_workflow = gsm::config_workflow,
-      meta_params = gsm::meta_param,
-      meta_site = clindata::ctms_site,
-      meta_study = clindata::ctms_study,
-      meta_workflow = gsm::meta_workflow
-    )
-  } else if("lInputs" %in% names(lPrevSnapshot) & is.null(lMeta)) {
-    lMeta <- lPrevSnapshot$lInputs$lMeta
-  }
+  if (!"lInputs" %in% names(lPrevSnapshot)) {
 
-  # Defining Data Parameters
-  if (!"lInputs" %in% names(lPrevSnapshot) & is.null(lData)) {
-    lData$dfSUBJ <- clindata::rawplus_dm
-  } else if("lInputs" %in% names(lPrevSnapshot) & is.null(lData)) {
-    lData$dfSUBJ <- lPrevSnapshot$lInputs$lData$dfSUBJ
-  }
+    # If inputs are not provided, use default lMeta
+    if (is.null(lMeta)) {
+      lMeta <- list(
+        config_param = gsm::config_param,
+        config_workflow = gsm::config_workflow,
+        meta_params = gsm::meta_param,
+        meta_site = clindata::ctms_site,
+        meta_study = clindata::ctms_study,
+        meta_workflow = gsm::meta_workflow
+      )
+    }
 
-  # Defining Mapping Parameters
-  if (!"lInputs" %in% names(lPrevSnapshot) & is.null(lMapping)) {
-    lMapping <- Read_Mapping()
-  } else if("lInputs" %in% names(lPrevSnapshot) & is.null(lMapping)) {
-    lMapping <- lPrevSnapshot$lInputs$lMapping
+    # If inputs are not provided, use default demographic lData
+    if (is.null(lData)) {
+      lData$dfSUBJ <- clindata::rawplus_dm
+    }
+
+    # If mapping is not provided, use default mapping
+    if (is.null(lMapping)) {
+      lMapping <- Read_Mapping()
+    }
+
+  } else {
+
+    if (is.null(lMeta)) {
+      lMeta <- lPrevSnapshot$lInputs$lMeta
+    }
+
+    if (is.null(lData)) {
+      lData$dfSUBJ <- lPrevSnapshot$lInputs$lData$dfSUBJ
+    }
+
+    if (is.null(lMapping)) {
+      lMapping <- lPrevSnapshot$lInputs$lMapping
+    }
+
   }
 
   # Create status_study

@@ -628,7 +628,8 @@ Match_Class <- function(lPrevSnapshot, lSnapshot){
   if(is.null(lPrevSnapshot)){
     return(lSnapshot)
   } else {
-    prev_snapshot_classes <- purrr::map_df(lPrevSnapshot$lStackedSnapshots, GetClass, .id = "file")
+    snapshot <- ifelse("lStackedSnapshots" %in% names(lPrevSnapshot), "lStackedSnapshots", "lSnapshot")
+    prev_snapshot_classes <- purrr::map_df(lPrevSnapshot[[snapshot]], GetClass, .id = "file")
     curr_snapshot_classes <- purrr::map_df(lSnapshot, GetClass, .id = "file")
 
     unmatched_data_class <- left_join(prev_snapshot_classes, curr_snapshot_classes, by = c("file", "column"), relationship = "many-to-many") %>%
@@ -638,7 +639,7 @@ Match_Class <- function(lPrevSnapshot, lSnapshot){
       for(i in 1:nrow(unmatched_data_class)){
         File <- unmatched_data_class$file[i]
 
-        lPrevSnapshot$lStackedSnapshots[[File]] <- lPrevSnapshot$lStackedSnapshots[[File]] %>%
+        lPrevSnapshot[[snapshot]][[File]] <- lPrevSnapshot[[snapshot]][[File]] %>%
           mutate(across(unmatched_data_class$column[i], get(paste0("as.", unmatched_data_class$class.y[i]))))
       }
     } else {
@@ -669,10 +670,11 @@ AppendLogs <- function(lPrevSnapshot, lSnapshot, files = names(lPrevSnapshot$lSn
     if (!bQuiet) cli::cli_alert_warning("`lPrevSnapshot` argument is NULL `lStackedSnapshots` will only contain current lSnapshot logs")
     return(lSnapshot)
   } else {
+    snapshot <- ifelse("lStackedSnapshots" %in% names(lPrevSnapshot), "lStackedSnapshots", "lSnapshot")
     prev_snap_fixed <- Match_Class(lPrevSnapshot, lSnapshot)
     appendedlogs <- list()
     for(i in files[files %in% names(lSnapshot)]){
-      appendedlogs[[i]] <- dplyr::bind_rows(lSnapshot[[i]], prev_snap_fixed$lStackedSnapshots[[i]])
+      appendedlogs[[i]] <- dplyr::bind_rows(lSnapshot[[i]], prev_snap_fixed[[snapshot]][[i]])
     }
     files_not_appended <- setdiff(names(lSnapshot), names(appendedlogs))
     if (length(files_not_appended) != 0) {
