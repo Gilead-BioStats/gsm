@@ -1,10 +1,6 @@
 on:
   push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - fix-1424-reporting
+    branches: [main, fix-1424-reporting]
 
 name: pkgdown
 
