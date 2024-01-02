@@ -78,7 +78,25 @@ Study_Assess <- function(
     if (nrow(lData$dfSUBJ) > 0) {
       ### --- Attempt to run each assessment --- ###
       lAssessments <- lAssessments %>%
-        purrr::map(safeWorkflow)
+        purrr::map(purrr::safely(
+          function(lWorkflow) {
+          if (hasName(lWorkflow, "group")) {
+            RunStratifiedWorkflow(
+              lWorkflow,
+              lData = lData,
+              lMapping = lMapping,
+              bQuiet = bQuiet
+            )
+          } else {
+            RunWorkflow(
+              lWorkflow,
+              lData = lData,
+              lMapping = lMapping,
+              bQuiet = bQuiet
+            )
+          }
+        })
+        )
     } else {
       if (!bQuiet) cli::cli_alert_danger("Subject-level data contains 0 rows. Assessment not run.")
       lAssessments <- NULL
@@ -88,26 +106,15 @@ Study_Assess <- function(
     lAssessments <- NULL
   }
 
+  # extract results
+  lAssessments <- purrr::imap(lAssessments, function(x, y) {
+    if (is.null(x$error)) {
+      x$result
+    } else {
+      if (!bQuiet) cli::cli_alert_warning("Error in workflow {y}: {x$error}")
+    }
+  })
+
+
   return(lAssessments)
 }
-
-
-safeWorkflow <- purrr::safely(
-  function(lWorkflow) {
-  if (hasName(lWorkflow, "group")) {
-    RunStratifiedWorkflow(
-      lWorkflow,
-      lData = lData,
-      lMapping = lMapping,
-      bQuiet = bQuiet
-    )
-  } else {
-    RunWorkflow(
-      lWorkflow,
-      lData = lData,
-      lMapping = lMapping,
-      bQuiet = bQuiet
-    )
-  }
-  }
-)
