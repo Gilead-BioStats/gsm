@@ -2,6 +2,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - fix-1424-reporting
 
 name: pkgdown
 
@@ -30,26 +33,24 @@ jobs:
 
       - uses: r-lib/actions/setup-tinytex@v2
 
-      - name: clone clindata
-        run: |
-          cd ..
-          git clone git@github.com:Gilead-BioStats/clindata.git
-          cd clindata
-          cd ../gsm
-
       - name: install packages and generate sample reports
         shell: Rscript {0}
         run: |
           install.packages("devtools")
           install.packages("tidyverse")
-          devtools::install('../clindata')
+          devtools::install_github(Gilead-BioStats/clindata@fix-185')
           devtools::install(dependencies=TRUE)
 
-          snapshot <- gsm::Make_Snapshot()
+          snapshot <- readRDS(system.file("data-longitudinal", "longitudinal_snapshot.rds", package = "clindata"))
 
-          gsm::Study_Report(
+          Study_Report(
             lSnapshot = snapshot,
-            strReportType = "country",
+            strOutpath = here::here("StandardReportSite.html")
+            )
+
+
+          Study_Report(
+            lSnapshot = snapshot,
             strOutpath = here::here("StandardReportCountry.html")
           )
 
