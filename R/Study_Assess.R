@@ -78,23 +78,7 @@ Study_Assess <- function(
     if (nrow(lData$dfSUBJ) > 0) {
       ### --- Attempt to run each assessment --- ###
       lAssessments <- lAssessments %>%
-        purrr::map(function(lWorkflow) {
-          if (hasName(lWorkflow, "group")) {
-            RunStratifiedWorkflow(
-              lWorkflow,
-              lData = lData,
-              lMapping = lMapping,
-              bQuiet = bQuiet
-            )
-          } else {
-            RunWorkflow(
-              lWorkflow,
-              lData = lData,
-              lMapping = lMapping,
-              bQuiet = bQuiet
-            )
-          }
-        })
+        purrr::map(safeWorkflow)
     } else {
       if (!bQuiet) cli::cli_alert_danger("Subject-level data contains 0 rows. Assessment not run.")
       lAssessments <- NULL
@@ -106,3 +90,24 @@ Study_Assess <- function(
 
   return(lAssessments)
 }
+
+
+safeWorkflow <- purrr::safely(
+  function(lWorkflow) {
+  if (hasName(lWorkflow, "group")) {
+    RunStratifiedWorkflow(
+      lWorkflow,
+      lData = lData,
+      lMapping = lMapping,
+      bQuiet = bQuiet
+    )
+  } else {
+    RunWorkflow(
+      lWorkflow,
+      lData = lData,
+      lMapping = lMapping,
+      bQuiet = bQuiet
+    )
+  }
+  }
+)
