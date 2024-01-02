@@ -95,7 +95,6 @@ reference:
   - title: Longitudinal
     desc: Utility functions to analyze longitudinal/trend data.
   - contents:
-      - StackSnapshots
       - Save_Snapshot
 
   - title: Utility
