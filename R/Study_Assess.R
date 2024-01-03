@@ -21,7 +21,7 @@
 #'
 #' @import dplyr
 #' @importFrom cli cli_alert_danger
-#' @importFrom purrr map
+#' @importFrom purrr discard flatten map safely
 #' @importFrom yaml read_yaml
 #' @importFrom utils hasName
 #'
@@ -107,14 +107,20 @@ Study_Assess <- function(
   }
 
   # extract results
-  lAssessments <- purrr::imap(lAssessments, function(x, y) {
-    if (is.null(x$error)) {
-      x$result
-    } else {
-      x$error
-      if (!bQuiet) cli::cli_alert_warning("Error in workflow {y}: {x$error}")
-    }
+  lAssessments <- purrr::map(lAssessments, function(x) {
+    purrr::discard(x, is.null) %>%
+      purrr::flatten()
   })
+
+  if (!bQuiet) {
+    purrr::iwalk(lAssessments, function(x, y) {
+
+      if ("message" %in% names(x)) {
+        cli::cli_alert_warning("Workflow {y} did not run. Error message: {x$parent$message}")
+      }
+
+    })
+  }
 
 
   return(lAssessments)
