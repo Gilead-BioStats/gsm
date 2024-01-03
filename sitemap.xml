@@ -73,10 +73,13 @@
     <loc>/reference/Analyze_QTL.html</loc>
   </url>
   <url>
-    <loc>/reference/AssessStatus.html</loc>
+    <loc>/reference/AppendDroppedWorkflows.html</loc>
   </url>
   <url>
-    <loc>/reference/Augment_Snapshot.html</loc>
+    <loc>/reference/AppendLogs.html</loc>
+  </url>
+  <url>
+    <loc>/reference/AssessStatus.html</loc>
   </url>
   <url>
     <loc>/reference/CheckClindataMeta.html</loc>
@@ -86,6 +89,9 @@
   </url>
   <url>
     <loc>/reference/CheckSnapshotInputs.html</loc>
+  </url>
+  <url>
+    <loc>/reference/CompileResultsSummary.html</loc>
   </url>
   <url>
     <loc>/reference/Consent_Assess.html</loc>
@@ -124,7 +130,13 @@
     <loc>/reference/ExtractDirectoryPaths.html</loc>
   </url>
   <url>
+    <loc>/reference/ExtractFlags.html</loc>
+  </url>
+  <url>
     <loc>/reference/ExtractSnapshotDate.html</loc>
+  </url>
+  <url>
+    <loc>/reference/ExtractStudyAge.html</loc>
   </url>
   <url>
     <loc>/reference/FilterData.html</loc>
@@ -146,6 +158,9 @@
   </url>
   <url>
     <loc>/reference/Flag_QTL.html</loc>
+  </url>
+  <url>
+    <loc>/reference/GetClass.html</loc>
   </url>
   <url>
     <loc>/reference/GetSnapshotDate.html</loc>
@@ -172,16 +187,19 @@
     <loc>/reference/MakeAnalysisDate.html</loc>
   </url>
   <url>
-    <loc>/reference/MakeDfConfig.html</loc>
+    <loc>/reference/MakeErrorLog.html</loc>
   </url>
   <url>
-    <loc>/reference/MakeErrorLog.html</loc>
+    <loc>/reference/MakeKRICharts.html</loc>
   </url>
   <url>
     <loc>/reference/MakeKRIGlossary.html</loc>
   </url>
   <url>
     <loc>/reference/MakeOverviewMessage.html</loc>
+  </url>
+  <url>
+    <loc>/reference/MakeQTLCharts.html</loc>
   </url>
   <url>
     <loc>/reference/MakeReportSetup.html</loc>
@@ -199,6 +217,33 @@
     <loc>/reference/MakeResultsTable.html</loc>
   </url>
   <url>
+    <loc>/reference/MakeRptKriBoundsDetails.html</loc>
+  </url>
+  <url>
+    <loc>/reference/MakeRptKriDetails.html</loc>
+  </url>
+  <url>
+    <loc>/reference/MakeRptQtlAnalysis.html</loc>
+  </url>
+  <url>
+    <loc>/reference/MakeRptQtlDetails.html</loc>
+  </url>
+  <url>
+    <loc>/reference/MakeRptSiteDetails.html</loc>
+  </url>
+  <url>
+    <loc>/reference/MakeRptSiteKriDetails.html</loc>
+  </url>
+  <url>
+    <loc>/reference/MakeRptStudyDetails.html</loc>
+  </url>
+  <url>
+    <loc>/reference/MakeRptStudySnapshot.html</loc>
+  </url>
+  <url>
+    <loc>/reference/MakeRptThresholdParam.html</loc>
+  </url>
+  <url>
     <loc>/reference/MakeStatusWorkflow.html</loc>
   </url>
   <url>
@@ -211,6 +256,9 @@
     <loc>/reference/MakeSummaryTable.html</loc>
   </url>
   <url>
+    <loc>/reference/MakeWorkflowHistory.html</loc>
+  </url>
+  <url>
     <loc>/reference/MakeWorkflowList.html</loc>
   </url>
   <url>
@@ -218,6 +266,9 @@
   </url>
   <url>
     <loc>/reference/Make_Timeline.html</loc>
+  </url>
+  <url>
+    <loc>/reference/Match_Class.html</loc>
   </url>
   <url>
     <loc>/reference/MergeSubjects.html</loc>
@@ -254,6 +305,9 @@
   </url>
   <url>
     <loc>/reference/Read_Mapping.html</loc>
+  </url>
+  <url>
+    <loc>/reference/RemapLog.html</loc>
   </url>
   <url>
     <loc>/reference/RunQTL.html</loc>
@@ -298,6 +352,9 @@
     <loc>/reference/Study_Report.html</loc>
   </url>
   <url>
+    <loc>/reference/SubsetStackedSnapshots.html</loc>
+  </url>
+  <url>
     <loc>/reference/Summarize.html</loc>
   </url>
   <url>
@@ -317,6 +374,12 @@
   </url>
   <url>
     <loc>/reference/UpdateParams.html</loc>
+  </url>
+  <url>
+    <loc>/reference/UpdateSnapshotLogs.html</loc>
+  </url>
+  <url>
+    <loc>/reference/UseClindata.html</loc>
   </url>
   <url>
     <loc>/reference/Visualize_Scatter.html</loc>
@@ -389,6 +452,12 @@
   </url>
   <url>
     <loc>/reference/pipe.html</loc>
+  </url>
+  <url>
+    <loc>/reference/qtl_analysis.html</loc>
+  </url>
+  <url>
+    <loc>/reference/qtl_summary.html</loc>
   </url>
   <url>
     <loc>/reference/rank_chg.html</loc>
