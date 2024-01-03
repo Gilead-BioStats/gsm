@@ -111,6 +111,7 @@ Study_Assess <- function(
     if (is.null(x$error)) {
       x$result
     } else {
+      x$error
       if (!bQuiet) cli::cli_alert_warning("Error in workflow {y}: {x$error}")
     }
   })
