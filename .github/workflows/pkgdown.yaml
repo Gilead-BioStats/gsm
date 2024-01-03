@@ -34,8 +34,8 @@ jobs:
         run: |
           install.packages("devtools")
           install.packages("tidyverse")
-          devtools::install_github('Gilead-BioStats/clindata@fix-185')
           devtools::install(dependencies=TRUE)
+          devtools::install_github('Gilead-BioStats/clindata@fix-185')
 
           snapshot <- readRDS(system.file("data-longitudinal", "longitudinal_snapshot.rds", package = "clindata"))
 
