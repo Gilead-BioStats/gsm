@@ -20,13 +20,13 @@ library(gsm)
 
 # Introduction
 
-explaining the change
+gsm v1.9.0 represents a substantial change to the gsm data model. The main changes include new log tables with different names and altered data variables, and new functionality for `Make_Snapshot`. Moving forward with this new model, data will be cumulatively collected and combined to allow for tracking changes through time of a study. Below is a description of the past data for reference along with the new data and highlighted changes in the v1.9.0 release.
 
 ------------------------------------------------------------------------
 
 # Data Model pre-v1.9.0
 
-describe what was before
+The tables below represent the past data model for a reference
 
 ### status_study
 
@@ -175,9 +175,10 @@ describe what was before
 
 # Data Model post-v1.9.0
 
-describe what is now
+The table below represent the new data model
 
 ### rpt_site_details
+Created using the `status_site` and `results_summary` tables 
 
 | Table            | Column                | Description                         |
 |------------------|----------------------|--------------------------------|
@@ -202,6 +203,7 @@ describe what is now
 | rpt_site_details | gsm_analysis_date     | Date that snapshot was created      |
 
 ### rpt_study_details
+Created using the `status_study` and `results_summary` tables
 
 | Table             | Column                            | Description                          |
 |------------------|----------------------|--------------------------------|
@@ -231,6 +233,7 @@ describe what is now
 | rpt_study_details | gsm_analysis_date                 | Date that snapshot was created       |
 
 ### rpt_qtl_details
+Created using the `status_param`, `results_summary`, and `meta_workflow` tables
 
 | Table           | Column            | Description                                      |
 |------------------|----------------------|--------------------------------|
@@ -260,6 +263,7 @@ describe what is now
 | rpt_qtl_details | gsm_analysis_date | Date that snapshot was created                   |
 
 ### rpt_kri_details
+Created using the `meta_workflow`, `status_site`, `status_workflow` and `results_summary` tables
 
 | Table           | Column               | Description                                          |
 |------------------|----------------------|--------------------------------|
@@ -290,6 +294,7 @@ describe what is now
 | rpt_kri_details | gsm_analysis_date    | Date that snapshot was created                       |
 
 ### rpt_site_kri_details
+Created using the `meta_workflow`, `status_param`, `meta_param`, and `results_summary` tables
 
 | Table                | Column                  | Description                                                    |
 |------------------|----------------------|--------------------------------|
@@ -317,6 +322,7 @@ describe what is now
 | rpt_site_kri_details | gsm_analysis_date       | Date that snapshot was created                                 |
 
 ### rpt_kri_bounds_details
+Created using the `results_bounds` table
 
 | Table                  | Column            | Description                          |
 |---------------------|---------------------|------------------------------|
@@ -332,6 +338,7 @@ describe what is now
 | rpt_kri_bounds_details | gsm_analysis_date | Data ID                              |
 
 ### rpt_qtl_threshold_param
+Created using the `meta_param` and `status_param` tables
 
 | Table                   | Column            | Description                                             |
 |---------------------|---------------------|------------------------------|
@@ -348,6 +355,7 @@ describe what is now
 | rpt_qtl_threshold_param | gsm_analysis_date | Date that snapshot was created                          |
 
 ### rpt_kri_threshold_param
+Created using the `meta_param` and `status_param` tables
 
 | Table                   | Column            | Description                                             |
 |---------------------|---------------------|------------------------------|
@@ -364,6 +372,7 @@ describe what is now
 | rpt_kri_threshold_param | gsm_analysis_date | Date that snapshot was created                          |
 
 ### rpt_qtl_analysis
+Created using the `results_analysis`` table
 
 | Table            | Column            | Description                    |
 |------------------|-------------------|--------------------------------|
@@ -380,6 +389,44 @@ describe what is now
 
 # Highlight Changes
 
-highlight added/dropped variables, 
-new functionality of Make_Snapshot, 
-new function for backwards compatibility (UpdateSnapshotLogs)
+## Dropped Variables
+
+| Table            | Column            | Description                    |
+|------------------|-------------------|--------------------------------|
+| status_site | protocol_row_id       | Protocol row ID                   |
+| status_site | site_row_id           | Site row ID                       |
+| status_site | pi_number             | Principal Investigator Number     |
+| status_site | pi_last_name          | Principal Investigator Last Name  |
+| status_site | pi_first_name         | Principal Investigator First Name |
+| status_site | is_satellite          | Is site a satellite location      |
+| status_study | nickname                   | Protocol nickname                                   |
+| status_study | enrolled_sites_ctms        | Number of enrolled sites from GILDA                     |
+| status_study | enrolled_participants_ctms | Number of enrolled participants from GILDA              |
+| status_study | rbm_flag                   | Risk-based monitoring flag                          |
+| status_study | protocol_type              | Protocol type                                       |
+| status_study | protocol_row_id            | Protocol row ID                                     |
+| status_param | value             | Value for parameter at index   |
+
+## Added Variables
+
+| Table            | Column            | Description                    |
+|------------------|-------------------|--------------------------------|
+| All new tables | snapshot_date                     | Date that snapshot was created       |
+| All new tables | pt_cycle_id           | Cycle ID                            |
+| All new tables | pt_data_dt            | Data date                             |
+| rpt_site_details | region                | Region of site                      |
+| rpt_site_details | planned_participants  | Planned participants                |
+| rpt_study_details | study_age                         | Total age of the study in YMD        |
+| rpt_study_details | enrolling_sites_with_flagged_kris | Enrolled sites with flagged kris     |
+| rpt_qtl_details | base_metric       | Name of numerator over name of denominator       |
+| rpt_site_kri_details | no_of_consecutive_loads | The number of times the site KRI has been continuously flagged |
+| rpt_site_kri_details | country_aggregate       | Country aggregate                                              |
+| rpt_site_kri_details | study_aggregate         | Study aggregate                                                |
+
+## New Functionality
+Previously `Make_Snapshot` was functionally used to extrapolate meaningful statistics and information for a study at a single moment in time. These snapshots were then intended to be saved in a location using `Save_Snapshot` and if longitudinal data was desired the user would then call `Augment_Snapshot`to combine all past snapshot outputs into a longitudinal snapshot.
+
+The new functionality eliminates the need for `Augment_Snapshot` (removed in the v1.9.0 release). `Make_Snapshot` will now have an `lPrevSnapshot` argument for the previous snapshot object (snapshot.rds file), this is designed to accumulate and combine data as snapshots are run. 
+
+## `UpdateSnapshotLogs`
+For backwards compatibility a new funtion called `UpdateSnapshotLogs` is used to retrofit the past saved snapshots, that were saved prior to v1.9.0, to the new data model. This function will convert the `lSnapshot` and `lStackedSnapshots` logs to the new data model logs (rpt_* tables)
