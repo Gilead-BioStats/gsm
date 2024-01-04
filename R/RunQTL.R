@@ -20,10 +20,10 @@
 #'
 #' @export
 RunQTL <- function(
-    strName = NULL,
-    lWorkflow = NULL,
-    lData = NULL,
-    lMapping = NULL) {
+  strName = NULL,
+  lWorkflow = NULL,
+  lData = NULL,
+  lMapping = NULL) {
   bothNull <- is.null(strName) & is.null(lWorkflow)
 
   stopifnot(

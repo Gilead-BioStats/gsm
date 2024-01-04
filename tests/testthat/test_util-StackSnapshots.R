@@ -91,8 +91,3 @@ test_that("message is thrown when expected data is missing", {
 
   expect_snapshot(defunct_stacked_data <- StackSnapshots(cPath = cPath, lSnapshot = defunct_snapshot))
 })
-
-
-
-
-

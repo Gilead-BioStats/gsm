@@ -12,64 +12,60 @@
 #'
 #' @export
 MakeKRICharts <- function(dfSummary, dfBounds, lLabels = NULL, lStackedSnapshots = NULL) {
+  lCharts <- list()
 
-    lCharts <- list()
-
-    if (tolower(lLabels$model) != "identity") {
-        lCharts$scatterJS <- gsm::Widget_ScatterPlot(
-            dfSummary = dfSummary,
-            lLabels = lLabels,
-            dfBounds = dfBounds,
-            elementId = paste0(tolower(lLabels$abbreviation), "AssessScatter")
-        )
-
-        lCharts$scatter <- gsm::Visualize_Scatter(
-            dfSummary = dfSummary,
-            dfBounds = dfBounds,
-            strGroupLabel = lLabels$group
-        )
-    }
-
-    lCharts$barMetricJS <- gsm::Widget_BarChart(
-        dfSummary = dfSummary,
-        lLabels = lLabels,
-        strYAxisType = "metric",
-        elementId = paste0(tolower(lLabels$abbreviation), "AssessMetric")
+  if (tolower(lLabels$model) != "identity") {
+    lCharts$scatterJS <- gsm::Widget_ScatterPlot(
+      dfSummary = dfSummary,
+      lLabels = lLabels,
+      dfBounds = dfBounds,
+      elementId = paste0(tolower(lLabels$abbreviation), "AssessScatter")
     )
 
-    lCharts$barScoreJS <- gsm::Widget_BarChart(
-        dfSummary = dfSummary,
-        lLabels = lLabels,
-        strYAxisType = "score",
-        elementId = paste0(tolower(lLabels$abbreviation), "AssessScore")
+    lCharts$scatter <- gsm::Visualize_Scatter(
+      dfSummary = dfSummary,
+      dfBounds = dfBounds,
+      strGroupLabel = lLabels$group
     )
+  }
 
-    lCharts$barMetric <- gsm::Visualize_Score(
-        dfSummary = dfSummary,
-        strType = "metric"
-    )
+  lCharts$barMetricJS <- gsm::Widget_BarChart(
+    dfSummary = dfSummary,
+    lLabels = lLabels,
+    strYAxisType = "metric",
+    elementId = paste0(tolower(lLabels$abbreviation), "AssessMetric")
+  )
 
-    lCharts$barScore <- gsm::Visualize_Score(
-        dfSummary = dfSummary,
-        strType = "score",
-        vThreshold = unlist(lLabels$thresholds)
-    )
+  lCharts$barScoreJS <- gsm::Widget_BarChart(
+    dfSummary = dfSummary,
+    lLabels = lLabels,
+    strYAxisType = "score",
+    elementId = paste0(tolower(lLabels$abbreviation), "AssessScore")
+  )
+
+  lCharts$barMetric <- gsm::Visualize_Score(
+    dfSummary = dfSummary,
+    strType = "metric"
+  )
+
+  lCharts$barScore <- gsm::Visualize_Score(
+    dfSummary = dfSummary,
+    strType = "score",
+    vThreshold = unlist(lLabels$thresholds)
+  )
 
   # Continuous Charts -------------------------------------------------------
-    if (!is.null(lStackedSnapshots)) {
+  if (!is.null(lStackedSnapshots)) {
+    number_of_snapshots <- length(unique(lStackedSnapshots$rpt_site_kri_details$snapshot_date))
 
-      number_of_snapshots <- length(unique(lStackedSnapshots$rpt_site_kri_details$snapshot_date))
-
-      if (number_of_snapshots > 1) {
-
-        lCharts$timeSeriesContinuousJS <- Widget_TimeSeries(
-          dfSummary = lStackedSnapshots$rpt_site_kri_details,
-          lLabels = lStackedSnapshots$rpt_kri_details,
-          dfParams = lStackedSnapshots$rpt_kri_threshold_param
-        )
-      }
-
+    if (number_of_snapshots > 1) {
+      lCharts$timeSeriesContinuousJS <- Widget_TimeSeries(
+        dfSummary = lStackedSnapshots$rpt_site_kri_details,
+        lLabels = lStackedSnapshots$rpt_kri_details,
+        dfParams = lStackedSnapshots$rpt_kri_threshold_param
+      )
     }
+  }
 
-    return(lCharts)
+  return(lCharts)
 }

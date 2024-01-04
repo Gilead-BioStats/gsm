@@ -201,18 +201,14 @@ Screening_Assess <- function(
         lOutput$lCharts <- MakeKRICharts(dfSummary = lData$dfSummary, dfBounds = lData$dfBounds, lLabels = lLabels)
         if (!bQuiet) cli::cli_alert_success("Created {length(lOutput$lCharts)} chart{?s}.")
       }
-
     } else {
-
       lOutput <- list(
         lData = lData,
         lChecks = lChecks
       )
-
     }
 
     # return data -------------------------------------------------------------
     return(lOutput)
   }
 }
-

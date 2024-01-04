@@ -1,3 +1,6 @@
+# gsm v1.9.0
+This major release introduces a new data model to the snapshot logs, reworking the outputs of `Make_Snapshot()` to include longitudinal functionality and new table components. see `v1_9_0-data-model-update-reference.Rmd` vignette for new data mapping and functionality notes. 
+
 # gsm v1.8.4
 Patch release to address bugfixes for invalid cPath argument of `Augment_Snapshot()` and variable referencing in `Overview_Table()`
 

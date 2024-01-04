@@ -59,25 +59,24 @@
 #'
 #' @export
 LB_Assess <- function(
-    dfInput,
-    vThreshold = NULL,
-    strMethod = "NormalApprox",
-    lMapping = yaml::read_yaml(system.file("mappings", "LB_Assess.yaml", package = "gsm")),
-    lLabels = list(
-      workflowid = "",
-      group = strGroup,
-      abbreviation = "LB",
-      metric = "Lab Abnormality Rate",
-      numerator = "Abnormal Lab Samples",
-      denominator = "Total Lab Samples",
-      model = "Normal Approximation",
-      score = "Adjusted Z-Score"
-    ),
-    strGroup = "Site",
-    nMinDenominator = NULL,
-    bMakeCharts = FALSE,
-    bQuiet = TRUE) {
-
+  dfInput,
+  vThreshold = NULL,
+  strMethod = "NormalApprox",
+  lMapping = yaml::read_yaml(system.file("mappings", "LB_Assess.yaml", package = "gsm")),
+  lLabels = list(
+    workflowid = "",
+    group = strGroup,
+    abbreviation = "LB",
+    metric = "Lab Abnormality Rate",
+    numerator = "Abnormal Lab Samples",
+    denominator = "Total Lab Samples",
+    model = "Normal Approximation",
+    score = "Adjusted Z-Score"
+  ),
+  strGroup = "Site",
+  nMinDenominator = NULL,
+  bMakeCharts = FALSE,
+  bQuiet = TRUE) {
   # data checking -----------------------------------------------------------
   stopifnot(
     "strMethod is not 'NormalApprox', 'Fisher' or 'Identity'" = strMethod %in% c("NormalApprox", "Fisher", "Identity"),
