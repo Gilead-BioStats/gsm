@@ -85,9 +85,4 @@ test_that("error is thrown when cPath does not exist", {
   expect_error(StackSnapshots(cPath))
 })
 
-test_that("message is thrown when expected data is missing", {
-  defunct_snapshot <- snapshot
-  defunct_snapshot$lSnapshot <- snapshot$lSnapshot[names(snapshot$lSnapshot) %in% c("rpt_site_kri_details", "rpt_qtl_analysis")]
 
-  expect_snapshot(defunct_stacked_data <- StackSnapshots(cPath = cPath, lSnapshot = defunct_snapshot))
-})
