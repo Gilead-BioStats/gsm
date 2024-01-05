@@ -112,16 +112,5 @@ Study_Assess <- function(
       purrr::flatten()
   })
 
-  if (!bQuiet) {
-    purrr::iwalk(lAssessments, function(x, y) {
-
-      if ("message" %in% names(x)) {
-        cli::cli_alert_warning("Workflow {y} did not run. Error message: {x$parent$message}")
-      }
-
-    })
-  }
-
-
   return(lAssessments)
 }
