@@ -21,7 +21,7 @@
 #'
 #' @import dplyr
 #' @importFrom cli cli_alert_danger
-#' @importFrom purrr map
+#' @importFrom purrr discard flatten map safely
 #' @importFrom yaml read_yaml
 #' @importFrom utils hasName
 #'
@@ -78,7 +78,8 @@ Study_Assess <- function(
     if (nrow(lData$dfSUBJ) > 0) {
       ### --- Attempt to run each assessment --- ###
       lAssessments <- lAssessments %>%
-        purrr::map(function(lWorkflow) {
+        purrr::map(purrr::safely(
+          function(lWorkflow) {
           if (hasName(lWorkflow, "group")) {
             RunStratifiedWorkflow(
               lWorkflow,
@@ -95,6 +96,7 @@ Study_Assess <- function(
             )
           }
         })
+        )
     } else {
       if (!bQuiet) cli::cli_alert_danger("Subject-level data contains 0 rows. Assessment not run.")
       lAssessments <- NULL
@@ -103,6 +105,12 @@ Study_Assess <- function(
     if (!bQuiet) cli::cli_alert_danger("Subject-level data not found. Assessment not run.")
     lAssessments <- NULL
   }
+
+  # extract results
+  lAssessments <- purrr::map(lAssessments, function(x) {
+    purrr::discard(x, is.null) %>%
+      purrr::flatten()
+  })
 
   return(lAssessments)
 }
