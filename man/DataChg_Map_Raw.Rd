@@ -2,10 +2,11 @@
 % Please edit documentation in R/DataChg_Map_Raw.R
 \name{DataChg_Map_Raw}
 \alias{DataChg_Map_Raw}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Data Change Rate Assessment - Raw Mapping}
 \usage{
 DataChg_Map_Raw(
-  dfs = list(dfSUBJ = clindata::rawplus_dm, dfDATACHG = clindata::edc_data_points),
+  dfs = gsm::UseClindata(list(dfSUBJ = "clindata::rawplus_dm", dfDATACHG =
+    "clindata::edc_data_points")),
   lMapping = gsm::Read_Mapping(c("rawplus", "edc")),
   bReturnChecks = FALSE,
   bQuiet = TRUE
@@ -37,7 +38,7 @@ of the column.}
 Convert raw data entry data to formatted input data to \code{\link[=DataChg_Assess]{DataChg_Assess()}}.
 }
 \details{
-Data Change Rate Assessment - Raw Mapping
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 \code{DataChg_Map_Raw} creates an input dataset for the Data Change Rate Assessment \code{\link[=DataChg_Assess]{DataChg_Assess()}} by adding
 Data Points with Change Counts (derived from \code{dfDATACHG}) to basic subject-level data (from \code{dfSUBJ}).

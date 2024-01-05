@@ -36,5 +36,8 @@ test_that("Given appropriate Adverse Event data, the assessment function correct
     "dfSummary" = t9_summary
   )
 
+  # remove metadata that is not part of qualification
+  test1_9$lData$dfConfig <- NULL
+
   expect_equal(test1_9$lData[names(test1_9$lData) != "dfBounds"], t1_9)
 })

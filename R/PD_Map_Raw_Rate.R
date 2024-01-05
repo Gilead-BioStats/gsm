@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Protocol Deviation Assessment (Rate Outcome) - Raw Mapping
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Convert raw protocol deviation (PD) data, typically processed case report form data, to formatted
@@ -41,14 +41,15 @@
 #' @export
 
 PD_Map_Raw_Rate <- function(
-  dfs = list(
-    dfSUBJ = clindata::rawplus_dm,
-    dfPD = clindata::ctms_protdev
+  dfs = gsm::UseClindata(
+    list(
+      "dfSUBJ" = "clindata::rawplus_dm",
+      "dfPD" = "clindata::ctms_protdev"
+    )
   ),
   lMapping = gsm::Read_Mapping(c("ctms", "rawplus")),
   bReturnChecks = FALSE,
-  bQuiet = TRUE
-) {
+  bQuiet = TRUE) {
   stopifnot(
     "bReturnChecks must be logical" = is.logical(bReturnChecks),
     "bQuiet must be logical" = is.logical(bQuiet)

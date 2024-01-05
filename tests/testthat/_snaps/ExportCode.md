@@ -34,8 +34,10 @@
       lResults <- AE_Assess(
         dfInput = dfInput,
         strMethod = "NormalApprox",
+        c("lLabels = list", "lLabels = ", "lLabels = strGroup", "lLabels = AE", "lLabels = Adverse Event Rate", "lLabels = Adverse Events", "lLabels = Days on Study", "lLabels = Normal Approximation", "lLabels = Adjusted Z-Score"),
         strGroup = "Country",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -80,8 +82,10 @@
       lResults <- AE_Assess(
         dfInput = dfInput,
         strMethod = "NormalApprox",
+        c("lLabels = list", "lLabels = ", "lLabels = strGroup", "lLabels = AE", "lLabels = Adverse Event Rate", "lLabels = Adverse Events", "lLabels = Days on Study", "lLabels = Normal Approximation", "lLabels = Adjusted Z-Score"),
         strGroup = "Country",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -126,8 +130,10 @@
       lResults <- PD_Assess_Rate(
         dfInput = dfInput,
         strMethod = "NormalApprox",
+        c("lLabels = list", "lLabels = ", "lLabels = strGroup", "lLabels = PD", "lLabels = Protocol Deviation Rate", "lLabels = Protocol Deviations", "lLabels = Days on Study", "lLabels = Normal Approximation", "lLabels = Adjusted Z-Score"),
         strGroup = "Country",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -172,8 +178,10 @@
       lResults <- PD_Assess_Rate(
         dfInput = dfInput,
         strMethod = "NormalApprox",
+        c("lLabels = list", "lLabels = ", "lLabels = strGroup", "lLabels = PD", "lLabels = Protocol Deviation Rate", "lLabels = Protocol Deviations", "lLabels = Days on Study", "lLabels = Normal Approximation", "lLabels = Adjusted Z-Score"),
         strGroup = "Country",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -218,8 +226,10 @@
       lResults <- LB_Assess(
         dfInput = dfInput,
         strMethod = "NormalApprox",
+        c("lLabels = list", "lLabels = ", "lLabels = strGroup", "lLabels = LB", "lLabels = Lab Abnormality Rate", "lLabels = Abnormal Lab Samples", "lLabels = Total Lab Samples", "lLabels = Normal Approximation", "lLabels = Adjusted Z-Score"),
         strGroup = "Country",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -251,8 +261,10 @@
       lResults <- Disp_Assess(
         dfInput = dfInput,
         strMethod = "NormalApprox",
+        c("lLabels = list", "lLabels = ", "lLabels = strGroup", "lLabels = DSC", "lLabels = Discontinuation Rate", "lLabels = Subjects Discontinued", "lLabels = Total Subjects", "lLabels = Normal Approximation", "lLabels = Adjusted Z-Score"),
         strGroup = "Country",
         nMinDenominator = 3,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -297,8 +309,10 @@
       lResults <- Disp_Assess(
         dfInput = dfInput,
         strMethod = "NormalApprox",
+        c("lLabels = list", "lLabels = ", "lLabels = strGroup", "lLabels = DSC", "lLabels = Discontinuation Rate", "lLabels = Subjects Discontinued", "lLabels = Total Subjects", "lLabels = Normal Approximation", "lLabels = Adjusted Z-Score"),
         strGroup = "Country",
         nMinDenominator = 3,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -343,8 +357,10 @@
       lResults <- QueryRate_Assess(
         dfInput = dfInput,
         strMethod = "NormalApprox",
+        c("lLabels = list", "lLabels = ", "lLabels = strGroup", "lLabels = QRY", "lLabels = Query Rate", "lLabels = Total Queries", "lLabels = Total Data Points", "lLabels = Normal Approximation", "lLabels = Adjusted Z-Score"),
         strGroup = "Country",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -389,8 +405,10 @@
       lResults <- QueryAge_Assess(
         dfInput = dfInput,
         strMethod = "NormalApprox",
+        c("lLabels = list", "lLabels = ", "lLabels = strGroup", "lLabels = OQRY", "lLabels = Outstanding Query Rate", "lLabels = Queries Open > 30 Days", "lLabels = Total Queries", "lLabels = Normal Approximation", "lLabels = Adjusted Z-Score"),
         strGroup = "Country",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -422,8 +440,10 @@
       lResults <- DataEntry_Assess(
         dfInput = dfInput,
         strMethod = "NormalApprox",
+        c("lLabels = list", "lLabels = ", "lLabels = strGroup", "lLabels = ODAT", "lLabels = Outstanding Data Entry Rate", "lLabels = Outstanding Data Pages", "lLabels = Total Data Pages", "lLabels = Normal Approximation", "lLabels = Adjusted Z-Score"),
         strGroup = "Country",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -455,8 +475,10 @@
       lResults <- DataChg_Assess(
         dfInput = dfInput,
         strMethod = "NormalApprox",
+        c("lLabels = list", "lLabels = ", "lLabels = strGroup", "lLabels = CDAT", "lLabels = Data Change Rate", "lLabels = Data Points with 1+ Change", "lLabels = Total Data Points", "lLabels = Normal Approximation", "lLabels = Adjusted Z-Score"),
         strGroup = "Country",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -475,8 +497,10 @@
       lResults <- Screening_Assess(
         dfInput = dfInput,
         strMethod = "NormalApprox",
+        c("lLabels = list", "lLabels = ", "lLabels = strGroup", "lLabels = SF", "lLabels = Screen Failure Rate", "lLabels = Screen Failures", "lLabels = Screened Subjects", "lLabels = Normal Approximation", "lLabels = Adjusted Z-Score"),
         strGroup = "Country",
         nMinDenominator = 3,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -508,8 +532,10 @@
       lResults <- AE_Assess(
         dfInput = dfInput,
         strMethod = "NormalApprox",
+        c("lLabels = list", "lLabels = ", "lLabels = strGroup", "lLabels = AE", "lLabels = Adverse Event Rate", "lLabels = Adverse Events", "lLabels = Days on Study", "lLabels = Normal Approximation", "lLabels = Adjusted Z-Score"),
         strGroup = "Site",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -554,8 +580,10 @@
       lResults <- AE_Assess(
         dfInput = dfInput,
         strMethod = "NormalApprox",
+        c("lLabels = list", "lLabels = ", "lLabels = strGroup", "lLabels = AE", "lLabels = Adverse Event Rate", "lLabels = Adverse Events", "lLabels = Days on Study", "lLabels = Normal Approximation", "lLabels = Adjusted Z-Score"),
         strGroup = "Site",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -600,8 +628,10 @@
       lResults <- PD_Assess_Rate(
         dfInput = dfInput,
         strMethod = "NormalApprox",
+        c("lLabels = list", "lLabels = ", "lLabels = strGroup", "lLabels = PD", "lLabels = Protocol Deviation Rate", "lLabels = Protocol Deviations", "lLabels = Days on Study", "lLabels = Normal Approximation", "lLabels = Adjusted Z-Score"),
         strGroup = "Site",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -646,8 +676,10 @@
       lResults <- PD_Assess_Rate(
         dfInput = dfInput,
         strMethod = "NormalApprox",
+        c("lLabels = list", "lLabels = ", "lLabels = strGroup", "lLabels = PD", "lLabels = Protocol Deviation Rate", "lLabels = Protocol Deviations", "lLabels = Days on Study", "lLabels = Normal Approximation", "lLabels = Adjusted Z-Score"),
         strGroup = "Site",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -692,8 +724,10 @@
       lResults <- LB_Assess(
         dfInput = dfInput,
         strMethod = "NormalApprox",
+        c("lLabels = list", "lLabels = ", "lLabels = strGroup", "lLabels = LB", "lLabels = Lab Abnormality Rate", "lLabels = Abnormal Lab Samples", "lLabels = Total Lab Samples", "lLabels = Normal Approximation", "lLabels = Adjusted Z-Score"),
         strGroup = "Site",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -725,8 +759,10 @@
       lResults <- Disp_Assess(
         dfInput = dfInput,
         strMethod = "NormalApprox",
+        c("lLabels = list", "lLabels = ", "lLabels = strGroup", "lLabels = DSC", "lLabels = Discontinuation Rate", "lLabels = Subjects Discontinued", "lLabels = Total Subjects", "lLabels = Normal Approximation", "lLabels = Adjusted Z-Score"),
         strGroup = "Site",
         nMinDenominator = 3,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -771,8 +807,10 @@
       lResults <- Disp_Assess(
         dfInput = dfInput,
         strMethod = "NormalApprox",
+        c("lLabels = list", "lLabels = ", "lLabels = strGroup", "lLabels = DSC", "lLabels = Discontinuation Rate", "lLabels = Subjects Discontinued", "lLabels = Total Subjects", "lLabels = Normal Approximation", "lLabels = Adjusted Z-Score"),
         strGroup = "Site",
         nMinDenominator = 3,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -817,8 +855,10 @@
       lResults <- QueryRate_Assess(
         dfInput = dfInput,
         strMethod = "NormalApprox",
+        c("lLabels = list", "lLabels = ", "lLabels = strGroup", "lLabels = QRY", "lLabels = Query Rate", "lLabels = Total Queries", "lLabels = Total Data Points", "lLabels = Normal Approximation", "lLabels = Adjusted Z-Score"),
         strGroup = "Site",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -863,8 +903,10 @@
       lResults <- QueryAge_Assess(
         dfInput = dfInput,
         strMethod = "NormalApprox",
+        c("lLabels = list", "lLabels = ", "lLabels = strGroup", "lLabels = OQRY", "lLabels = Outstanding Query Rate", "lLabels = Queries Open > 30 Days", "lLabels = Total Queries", "lLabels = Normal Approximation", "lLabels = Adjusted Z-Score"),
         strGroup = "Site",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -896,8 +938,10 @@
       lResults <- DataEntry_Assess(
         dfInput = dfInput,
         strMethod = "NormalApprox",
+        c("lLabels = list", "lLabels = ", "lLabels = strGroup", "lLabels = ODAT", "lLabels = Outstanding Data Entry Rate", "lLabels = Outstanding Data Pages", "lLabels = Total Data Pages", "lLabels = Normal Approximation", "lLabels = Adjusted Z-Score"),
         strGroup = "Site",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -929,8 +973,10 @@
       lResults <- DataChg_Assess(
         dfInput = dfInput,
         strMethod = "NormalApprox",
+        c("lLabels = list", "lLabels = ", "lLabels = strGroup", "lLabels = CDAT", "lLabels = Data Change Rate", "lLabels = Data Points with 1+ Change", "lLabels = Total Data Points", "lLabels = Normal Approximation", "lLabels = Adjusted Z-Score"),
         strGroup = "Site",
         nMinDenominator = 30,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -949,8 +995,10 @@
       lResults <- Screening_Assess(
         dfInput = dfInput,
         strMethod = "NormalApprox",
+        c("lLabels = list", "lLabels = ", "lLabels = strGroup", "lLabels = SF", "lLabels = Screen Failure Rate", "lLabels = Screen Failures", "lLabels = Screened Subjects", "lLabels = Normal Approximation", "lLabels = Adjusted Z-Score"),
         strGroup = "Site",
         nMinDenominator = 3,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -995,8 +1043,10 @@
       lResults <- PD_Assess_Binary(
         dfInput = dfInput,
         strMethod = "QTL",
+        c("lLabels = list", "lLabels = ", "lLabels = strGroup", "lLabels = PD", "lLabels = Protocol Deviation Rate", "lLabels = Protocol Deviations", "lLabels = Days on Study", "lLabels = Normal Approximation", "lLabels = Adjusted Z-Score"),
         strGroup = "Study",
         nConfLevel = 0.95,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
       
@@ -1028,8 +1078,10 @@
       lResults <- Disp_Assess(
         dfInput = dfInput,
         strMethod = "QTL",
+        c("lLabels = list", "lLabels = ", "lLabels = strGroup", "lLabels = DSC", "lLabels = Discontinuation Rate", "lLabels = Subjects Discontinued", "lLabels = Total Subjects", "lLabels = Normal Approximation", "lLabels = Adjusted Z-Score"),
         strGroup = "Study",
         nConfLevel = 0.95,
+        bMakeCharts = FALSE,
         bQuiet = TRUE
       )
 

@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Query Age Assessment
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Evaluates rate of reported Query Age >30 days.
@@ -20,8 +20,10 @@
 #'   - `"Identity"`
 #' @param lMapping `list` Column metadata with structure `domain$key`, where `key` contains the name
 #'   of the column. Default: package-defined Labs Assessment mapping.
+#' @param lLabels `list` Labels used to populate chart labels.
 #' @param strGroup `character` Grouping variable. `"Site"` (the default) uses the column named in `mapping$strSiteCol`. Other valid options using the default mapping are `"Study"`, `"Country"`, and `"CustomGroup"`.
 #' @param nMinDenominator `numeric` Specifies the minimum denominator required to return a `score` and calculate a `flag`. Default: NULL
+#' @param bMakeCharts `logical` Boolean value indicating whether to create charts.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `list` `lData`, a named list with:
@@ -62,8 +64,19 @@ QueryAge_Assess <- function(
   vThreshold = NULL,
   strMethod = "NormalApprox",
   lMapping = yaml::read_yaml(system.file("mappings", "QueryAge_Assess.yaml", package = "gsm")),
+  lLabels = list(
+    workflowid = "",
+    group = strGroup,
+    abbreviation = "OQRY",
+    metric = "Outstanding Query Rate",
+    numerator = "Queries Open > 30 Days",
+    denominator = "Total Queries",
+    model = "Normal Approximation",
+    score = "Adjusted Z-Score"
+  ),
   strGroup = "Site",
   nMinDenominator = NULL,
+  bMakeCharts = FALSE,
   bQuiet = TRUE
 ) {
   # data checking -----------------------------------------------------------
@@ -167,64 +180,20 @@ QueryAge_Assess <- function(
     if (!bQuiet) cli::cli_alert_success("{.fn Summarize} returned output with {nrow(lData$dfSummary)} rows.")
 
     # visualizations ----------------------------------------------------------
-    lCharts <- list()
-
     if (!hasName(lData, "dfBounds")) lData$dfBounds <- NULL
 
-    # rbm-viz setup -----------------------------------------------------------
-
-    dfConfig <- MakeDfConfig(
-      strMethod = strMethod,
-      strGroup = strGroup,
-      strAbbreviation = "OQRY",
-      strMetric = "Outstanding Query Rate",
-      strNumerator = "Queries Open > 30 Days",
-      strDenominator = "Total Queries",
-      vThreshold = vThreshold
+    lOutput <- list(
+      lData = lData,
+      lChecks = lChecks
     )
 
-    if (strMethod != "Identity") {
-      lCharts$scatter <- gsm::Visualize_Scatter(dfSummary = lData$dfSummary, dfBounds = lData$dfBounds, strGroupLabel = strGroup)
-
-      lCharts$scatterJS <- gsm::Widget_ScatterPlot(
-        results = lData$dfSummary,
-        workflow = dfConfig,
-        bounds = lData$dfBounds,
-        elementId = "queryAgeAssessScatter",
-        siteSelectLabelValue = strGroup
-      )
-
-      if (!bQuiet) cli::cli_alert_success("Created {length(lCharts)} scatter plot{?s}.")
+    if (bMakeCharts) {
+      lOutput$lCharts <- MakeKRICharts(dfSummary = lData$dfSummary, dfBounds = lData$dfBounds, lLabels = lLabels)
+      if (!bQuiet) cli::cli_alert_success("Created {length(lOutput$lCharts)} chart{?s}.")
     }
-
-    lCharts$barMetric <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "metric")
-    lCharts$barScore <- gsm::Visualize_Score(dfSummary = lData$dfSummary, strType = "score", vThreshold = vThreshold)
-
-    lCharts$barMetricJS <- gsm::Widget_BarChart(
-      results = lData$dfSummary,
-      workflow = dfConfig,
-      yaxis = "metric",
-      elementId = "queryAgeAssessMetric",
-      siteSelectLabelValue = strGroup
-    )
-
-    lCharts$barScoreJS <- gsm::Widget_BarChart(
-      results = lData$dfSummary,
-      workflow = dfConfig,
-      yaxis = "score",
-      elementId = "queryAgeAssessScore",
-      siteSelectLabelValue = strGroup
-    )
-
-    if (!bQuiet) cli::cli_alert_success("Created {length(names(lCharts)[!names(lCharts) %in% c('scatter', 'scatterJS')])} bar chart{?s}.")
-
 
 
     # return data -------------------------------------------------------------
-    return(list(
-      lData = lData,
-      lCharts = lCharts,
-      lChecks = lChecks
-    ))
+    return(lOutput)
   }
 }

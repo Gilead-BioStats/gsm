@@ -2,7 +2,7 @@
 % Please edit documentation in R/Flag_NormalApprox.R
 \name{Flag_NormalApprox}
 \alias{Flag_NormalApprox}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Flag_NormalApprox}
 \usage{
 Flag_NormalApprox(dfAnalyzed, vThreshold = NULL)
 }
@@ -19,7 +19,7 @@ values in \code{strColumn} are compared to \code{vThreshold} using strict compar
 Add columns flagging sites that represent possible statistical outliers.
 }
 \details{
-Flag_NormalApprox
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 This function flags sites based on the funnel plot with normal approximation analysis result as part of
 the \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline}.

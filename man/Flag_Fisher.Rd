@@ -2,7 +2,7 @@
 % Please edit documentation in R/Flag_Fisher.R
 \name{Flag_Fisher}
 \alias{Flag_Fisher}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Flag_Fisher}
 \usage{
 Flag_Fisher(dfAnalyzed, vThreshold = NULL)
 }
@@ -18,7 +18,7 @@ Flag_Fisher(dfAnalyzed, vThreshold = NULL)
 Add columns flagging sites that represent possible statistical outliers when the Fisher's Exact Test is used.
 }
 \details{
-Flag_Fisher
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 This function flags sites based on the Fisher's Exact Test result as part of the \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline}.
 }

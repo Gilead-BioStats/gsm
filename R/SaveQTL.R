@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("experimental")`
-#'
 #' SaveQTL
+#'
+#' `r lifecycle::badge("experimental")`
 #'
 #' @description
 #' Save QTL analysis results to a directory location. The `strPath` argument specifies the filepath, including filename, of the current QTL analysis.

@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("experimental")`
-#'
 #' Update parameters for workflow
+#'
+#' `r lifecycle::badge("experimental")`
 #'
 #' @param lWorkflow `list` A named list of metadata defining how the workflow should be run.
 #' @param dfConfig `data.frame` Configuration parameters data.frame; `gsm::config_param`

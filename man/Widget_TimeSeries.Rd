@@ -2,12 +2,12 @@
 % Please edit documentation in R/Widget_TimeSeries.R
 \name{Widget_TimeSeries}
 \alias{Widget_TimeSeries}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
+\title{Time-Series Continuous Plot}
 \usage{
 Widget_TimeSeries(
-  results,
-  workflow,
-  parameters,
+  dfSummary,
+  lLabels,
+  dfParams,
   selectedGroupIDs = NULL,
   width = NULL,
   height = NULL,
@@ -17,11 +17,11 @@ Widget_TimeSeries(
 )
 }
 \arguments{
-\item{results}{\code{data.frame} the stacked output of \code{Make_Snapshot()$lSnapshot$results_summary}, containing a minimum of two unique values for \code{gsm_analysis_date}.}
+\item{dfSummary}{\code{data.frame} the stacked output of \code{Make_Snapshot()$lStackedSnapshots$rpt_site_kri_details}, containing a minimum of two unique values for \code{gsm_analysis_date}.}
 
-\item{workflow}{\code{data.frame} the output of \code{Make_Snapshot()$lSnapshot$meta_workflow}.}
+\item{lLabels}{\code{list} chart labels, typically defined by \code{Make_Snapshot()$lStackedSnapshots$rpt_site_kri_details}.}
 
-\item{parameters}{\code{data.frame} the stacked output of \code{Make_Snapshot()$lSnapshot$meta_param}.}
+\item{dfParams}{\code{data.frame} the stacked output of \code{Make_Snapshot()$lStackedSnapshots$rpt_kri_threshold_param}.}
 
 \item{selectedGroupIDs}{\code{character} group IDs to highlight, \code{NULL} by default, can be a single site or a vector.}
 
@@ -39,5 +39,5 @@ Widget_TimeSeries(
 A widget that displays a time-series plot based on longitudinal snapshots using \code{{gsm}}.
 }
 \details{
-Time-Series Continuous Plot
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }

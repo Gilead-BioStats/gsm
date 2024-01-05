@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Lab Abnormality Assessment - Raw Mapping
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Convert from ADaM or raw format to input format for Lab Abnormality Assessment.
@@ -44,15 +44,15 @@
 #' @export
 
 LB_Map_Raw <- function(
-  dfs = list(
-    dfSUBJ = clindata::rawplus_dm,
-    dfLB = clindata::rawplus_lb
+  dfs = gsm::UseClindata(
+    list(
+      "dfSUBJ" = "clindata::rawplus_dm",
+      "dfLB" = "clindata::rawplus_lb"
+    )
   ),
-
   lMapping = gsm::Read_Mapping("rawplus"),
   bReturnChecks = FALSE,
-  bQuiet = TRUE
-) {
+  bQuiet = TRUE) {
   stopifnot(
     "bReturnChecks must be logical" = is.logical(bReturnChecks),
     "bQuiet must be logical" = is.logical(bQuiet)

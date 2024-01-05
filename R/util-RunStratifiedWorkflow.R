@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("experimental")`
-#'
 #' Run a stratified workflow via workflow YAML specification.
+#'
+#' `r lifecycle::badge("experimental")`
 #'
 #' @description
 #' Attempts to run a stratified workflow (`lWorkflow`) using shared data (`lData`) and metadata (`lMapping`).
@@ -55,6 +55,8 @@ RunStratifiedWorkflow <- function(
   bQuiet = TRUE
 ) {
   if (!bQuiet) cli::cli_h1(paste0("Initializing `", lWorkflow$name, "` workflow"))
+
+
 
   lOutput <- RunWorkflow(
     lWorkflow,

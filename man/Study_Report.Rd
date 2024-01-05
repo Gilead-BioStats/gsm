@@ -2,7 +2,7 @@
 % Please edit documentation in R/Study_Report.R
 \name{Study_Report}
 \alias{Study_Report}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
+\title{Study Report}
 \usage{
 Study_Report(
   lSnapshot,
@@ -13,7 +13,7 @@ Study_Report(
 )
 }
 \arguments{
-\item{lSnapshot}{\code{list} The results of multiple assessments run using \code{Study_Assess}, \code{Make_Snapshot}, or \code{Augment_Snapshot}.}
+\item{lSnapshot}{\code{list} The results of multiple assessments run using \code{Study_Assess} or \code{Make_Snapshot}.}
 
 \item{dfStudy}{\code{data.frame} A data.frame containing study status metadata. Typically output from \code{Make_Snapshot()$lSnapshot$status_study}}
 
@@ -32,7 +32,7 @@ Study_Report(
 HTML report of study data.
 }
 \description{
-Study Report
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \details{
 Create HTML summary report using the results of \code{Study_Assess}, including tables, charts, and error checking.
@@ -44,25 +44,12 @@ study <- Study_Assess()
 Study_Report(study)
 Study_Report(study, strReportType = "country")
 
-# Adding metadata for a single snapshot
+# Adding metadata for a snapshot
 one_snapshot <- Make_Snapshot()
 Study_Report(
-  lSnapshot = one_snapshot,
-  dfStudy = one_snapshot$lSnapshot$status_study
-)
-
-# Longitudinal Data
-snapshot <- Make_Snapshot()
-
-longitudinal <- Augment_Snapshot(
-  snapshot,
-  system.file("data-longitudinal", "AA-AA-000-0000", package = "clindata")
-)
-
-Study_Report(
-  lSnapshot = longitudinal,
-  dfStudy = longitudinal$lSnapshot$status_study
+  lSnapshot = one_snapshot
 )
 }
+
 
 }

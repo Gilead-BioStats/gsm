@@ -2,7 +2,7 @@
 % Please edit documentation in R/AE_Map_Adam.R
 \name{AE_Map_Adam}
 \alias{AE_Map_Adam}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
+\title{Adverse Event Assessment - ADaM Mapping}
 \usage{
 AE_Map_Adam(
   dfs = list(dfADSL = safetyData::adam_adsl, dfADAE = safetyData::adam_adae),
@@ -37,7 +37,7 @@ Convert analysis adverse event (AE) data, by default ADaM data, to formatted inp
 \code{\link[=AE_Assess]{AE_Assess()}}.
 }
 \details{
-Adverse Event Assessment - ADaM Mapping
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 \code{AE_Map_Adam} combines AE data with subject-level treatment exposure data to create formatted
 input data to \code{\link[=AE_Assess]{AE_Assess()}}. This function creates an input dataset for the AE Assessment

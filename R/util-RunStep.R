@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Run a single step in a workflow.
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Runs a single step of an assessment workflow. Currently supports `Filter`, `Map`, and `Assess`

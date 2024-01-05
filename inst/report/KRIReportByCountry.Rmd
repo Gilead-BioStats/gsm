@@ -13,6 +13,7 @@ params:
     status_site: NULL
     status_snap: NULL
     longitudinal: NULL
+    lCharts: NULL
 ---
 
 ```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
@@ -52,10 +53,15 @@ Make_Timeline(status_study = params$status_study, longitudinal = params$longitud
 
 ## Study Overview
 
-<div class="flag-container">
-  <div class="flag flag-red">`r setup$red_kris` Red KRIs</div>
-  <div class="flag flag-amber">`r setup$amber_kris` Amber KRIs</div>
-</div>
+::: flag-container
+::: {.flag .flag-red}
+<div> `r setup$red_kris` Red KRIs </div>
+:::
+
+::: {.flag .flag-amber}
+<div> `r setup$amber_kris` Amber KRIs </div>
+:::
+:::
 
 
 <div class="gsm-overview-table">
@@ -77,9 +83,10 @@ MakeOverviewMessage(
 
 ```{r, echo=FALSE, results='asis'}
 MakeResultsTable(
-  setup$active,
-  setup$summary_table
-)
+  assessment = setup$active, 
+  summary_table = setup$summary_table, 
+  lCharts = params$lCharts
+  )
 ```
 
 

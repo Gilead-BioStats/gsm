@@ -1,13 +1,13 @@
-#' `r lifecycle::badge("experimental")`
-#'
 #' Time-Series Continuous Plot
+#'
+#' `r lifecycle::badge("experimental")`
 #'
 #' @description
 #' A widget that displays a time-series plot based on longitudinal snapshots using `{gsm}`.
 #'
-#' @param results `data.frame` the stacked output of `Make_Snapshot()$lSnapshot$results_summary`, containing a minimum of two unique values for `gsm_analysis_date`.
-#' @param workflow `data.frame` the output of `Make_Snapshot()$lSnapshot$meta_workflow`.
-#' @param parameters `data.frame` the stacked output of `Make_Snapshot()$lSnapshot$meta_param`.
+#' @param dfSummary `data.frame` the stacked output of `Make_Snapshot()$lStackedSnapshots$rpt_site_kri_details`, containing a minimum of two unique values for `gsm_analysis_date`.
+#' @param lLabels `list` chart labels, typically defined by `Make_Snapshot()$lStackedSnapshots$rpt_site_kri_details`.
+#' @param dfParams `data.frame` the stacked output of `Make_Snapshot()$lStackedSnapshots$rpt_kri_threshold_param`.
 #' @param selectedGroupIDs `character` group IDs to highlight, \code{NULL} by default, can be a single site or a vector.
 #' @param width `numeric` width of widget.
 #' @param height `numeric` height of widget.
@@ -17,12 +17,13 @@
 #'
 #' @import htmlwidgets
 #' @import htmltools
+#' @importFrom jsonlite toJSON
 #'
 #' @export
 Widget_TimeSeries <- function(
-  results,
-  workflow,
-  parameters,
+  dfSummary,
+  lLabels,
+  dfParams,
   selectedGroupIDs = NULL,
   width = NULL,
   height = NULL,
@@ -30,23 +31,67 @@ Widget_TimeSeries <- function(
   addSiteSelect = TRUE,
   siteSelectLabelValue = NULL
 ) {
-  # get unique sites
-  if (all(grepl("^[0-9]$", results$groupid))) {
-    uniqueSiteSelections <- sort(unique(as.numeric(results$groupid)))
-  } else {
-    uniqueSiteSelections <- sort(unique(results$groupid))
-  }
-
   if (!is.null(siteSelectLabelValue)) {
     siteSelectLabelValue <- paste0("Highlighted ", siteSelectLabelValue, ": ")
   }
 
+  # rename results to account for rpt_* table refactor
+  # -- this is the data format expected by JS library {rbm-viz}
+
+  dfSummary <- dfSummary %>%
+    select(
+      "studyid",
+      "groupid" = "siteid",
+      "numerator" = "numerator_value",
+      "denominator" = "denominator_value",
+      "metric" = "metric_value",
+      "score",
+      "flag" = "flag_value",
+      "gsm_analysis_date",
+      "snapshot_date"
+    )
+
+  # get unique sites
+  if (all(grepl("^[0-9]$", dfSummary$groupid))) {
+    uniqueSiteSelections <- sort(unique(as.numeric(dfSummary$groupid)))
+  } else {
+    uniqueSiteSelections <- sort(unique(dfSummary$groupid))
+  }
+
+  lLabels <- lLabels %>%
+    select(
+      "workflowid",
+      "group",
+      "abbreviation",
+      "metric",
+      "numerator",
+      "denominator",
+      "outcome",
+      "model",
+      "score",
+      "data_inputs",
+      "data_filters",
+      "gsm_analysis_date"
+    )
+
+  dfParams <- dfParams %>%
+    select(
+      "workflowid",
+      "param",
+      "index",
+      "gsm_analysis_date",
+      "snapshot_date",
+      "studyid",
+      "value" = "default_s"
+    )
+
+
 
   # forward options using x
   x <- list(
-    results = results,
-    workflow = workflow,
-    parameters = parameters,
+    dfSummary = jsonlite::toJSON(dfSummary, na = "string"),
+    lLabels = lLabels,
+    dfParams = jsonlite::toJSON(dfParams, na = "string"),
     addSiteSelect = addSiteSelect,
     selectedGroupIDs = c(as.character(selectedGroupIDs))
   )
@@ -66,7 +111,7 @@ Widget_TimeSeries <- function(
         htmltools::tags$label(siteSelectLabelValue),
         htmltools::tags$select(
           class = "site-select--time-series",
-          id = glue::glue("site-select--time-series_{unique(workflow$workflowid)}"),
+          id = glue::glue("site-select--time-series_{lLabels$workflowid}"),
           purrr::map(
             c("None", uniqueSiteSelections),
             ~ htmltools::HTML(paste0(
@@ -84,9 +129,9 @@ Widget_TimeSeries <- function(
     )
 }
 
-#' `r lifecycle::badge("experimental")`
-#'
 #' Shiny bindings for Widget_TimeSeries
+#'
+#' `r lifecycle::badge("experimental")`
 #'
 #' Output and render functions for using Widget_TimeSeries within Shiny
 #' applications and interactive Rmd documents.
@@ -107,8 +152,7 @@ Widget_TimeSeriesOutput <- function(outputId, width = "100%", height = "400px") 
   htmlwidgets::shinyWidgetOutput(outputId, "Widget_TimeSeries", width, height, package = "gsm")
 }
 
-#' `r lifecycle::badge("experimental")`
-#'
+
 #' @rdname Widget_TimeSeries-shiny
 #' @export
 renderWidget_TimeSeries <- function(expr, env = parent.frame(), quoted = FALSE) {

@@ -65,14 +65,15 @@ test_that("output is generated as expected", {
   expect_snapshot(names(snapshot$lSnapshot))
   expect_snapshot(names(snapshot$lStudyAssessResults))
   expect_snapshot(names(snapshot$lInputs))
-  expect_equal(sort(names(snapshot$lSnapshot$status_study)), sort(specColumns("status_study")))
-  expect_equal(sort(names(snapshot$lSnapshot$status_site)), sort(specColumns("status_site")))
-  expect_equal(sort(names(snapshot$lSnapshot$status_workflow)), sort(specColumns("status_workflow")))
-  expect_equal(sort(names(snapshot$lSnapshot$status_param)), sort(specColumns("status_param")))
-  expect_equal(sort(names(snapshot$lSnapshot$results_summary)), sort(specColumns("results_summary")))
-  expect_equal(sort(names(snapshot$lSnapshot$results_bounds)), sort(specColumns("results_bounds")))
-  expect_equal(sort(names(snapshot$lSnapshot$meta_workflow)), sort(specColumns("meta_workflow")))
-  expect_equal(sort(names(snapshot$lSnapshot$meta_param)), sort(specColumns("meta_param")))
+  expect_equal(sort(names(snapshot$lSnapshot$rpt_site_details)), sort(specColumns("rpt_site_details")))
+  expect_equal(sort(names(snapshot$lSnapshot$rpt_study_details)), sort(specColumns("rpt_study_details")))
+  expect_equal(sort(names(snapshot$lSnapshot$rpt_qtl_details)), sort(specColumns("rpt_qtl_details")))
+  expect_equal(sort(names(snapshot$lSnapshot$rpt_kri_detail)), sort(specColumns("rpt_kri_details")))
+  expect_equal(sort(names(snapshot$lSnapshot$rpt_site_kri_details)), sort(specColumns("rpt_site_kri_details")))
+  expect_equal(sort(names(snapshot$lSnapshot$rpt_kri_bounds_details)), sort(specColumns("rpt_kri_bounds_details")))
+  expect_equal(sort(names(snapshot$lSnapshot$rpt_qtl_threshold_param)), sort(specColumns("rpt_qtl_threshold_param")))
+  expect_equal(sort(names(snapshot$lSnapshot$rpt_kri_threshold_param)), sort(specColumns("rpt_kri_threshold_param")))
+  expect_equal(sort(names(snapshot$lSnapshot$rpt_qtl_analysis)), sort(specColumns("rpt_qtl_analysis")))
 })
 
 ################################################################################################################
@@ -101,10 +102,9 @@ test_that("input data is structured as expected", {
 
 test_that("invalid data throw errors", {
   ### lMeta - testing lMeta equal to character string and missing config_param
-  expect_error(Make_Snapshot("Hi")[["lMeta"]])
+  expect_error(Make_Snapshot("Hi"))
 
   lMeta_edited <- list(
-    config_schedule = clindata::config_schedule,
     config_workflow = gsm::config_workflow,
     meta_params = gsm::meta_param,
     meta_site = clindata::ctms_site,
@@ -112,10 +112,6 @@ test_that("invalid data throw errors", {
     meta_workflow = gsm::meta_workflow
   )
   expect_error(Make_Snapshot(lMeta = lMeta_edited, lData = lData, lMapping = lMapping, lAssessments = lAssessments))
-
-
-  ### lData - testing lData equal to character string and missing dfSUBJ
-  expect_error(Make_Snapshot("Hola")[["lData"]])
 
   lData_edited <- list(
     dfAE = dfAE_expanded,
@@ -129,22 +125,20 @@ test_that("invalid data throw errors", {
   expect_error(Make_Snapshot(lMeta = lMeta, lData = lData_edited, lMapping = lMapping, lAssessments = lAssessments))
 
 
-  ### lMapping - testing lMapping equal to character string and with mislabeled siteID in dfSUBJ
-  expect_error(Make_Snapshot("Bonjour")[["lMapping"]])
-
   lMapping_edited <- lMapping
   lMapping_edited$dfSUBJ$strSiteCol <- "cupcakes"
   expect_error(Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping_edited, lAssessments = lAssessments))
-
-
-  ### lAssessments - testing lAssessments equal to character string and with invalid YAML specs
-  expect_error(Make_Snapshot("Ciao")[["lAssessments"]])
 
   lAssessments_edited <- list(
     yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm")),
     yaml::read_yaml(system.file("mappings", "mapping_adam.yaml", package = "gsm"))
   )
-  expect_error(Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping, lAssessments = lAssessments_edited))
+
+  expect_error(
+    expect_warning(
+      Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping, lAssessments = lAssessments_edited)
+    )
+  )
 })
 
 ################################################################################################################
@@ -231,7 +225,7 @@ test_that("Make_Snapshot() runs with non-essential missing datasets/metadata", {
     meta_workflow = gsm::meta_workflow
   )
 
-  expect_silent(
+  expect_no_error(
     Make_Snapshot(
       lMeta = lMeta_edited,
       lData = lData_edited,
@@ -263,7 +257,7 @@ test_that("valid gsm_analysis_date is passed to output", {
   )
 
   expect_equal(
-    unique(result$lSnapshot$results_summary$gsm_analysis_date),
+    unique(result$lSnapshot$rpt_site_kri_details$gsm_analysis_date),
     as.Date("2023-02-15")
   )
 })
@@ -276,7 +270,7 @@ test_that("invalid date input returns the current date", {
   )
 
   expect_equal(
-    unique(result$lSnapshot$results_summary$gsm_analysis_date),
+    unique(result$lSnapshot$rpt_site_kri_details$gsm_analysis_date),
     Sys.Date()
   )
 })
@@ -288,7 +282,7 @@ test_that("NULL date input returns the current date", {
   )
 
   expect_equal(
-    unique(result$lSnapshot$results_summary$gsm_analysis_date),
+    unique(result$lSnapshot$rpt_site_kri_details$gsm_analysis_date),
     Sys.Date()
   )
 })

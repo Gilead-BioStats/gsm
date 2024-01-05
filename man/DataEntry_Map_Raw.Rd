@@ -2,10 +2,11 @@
 % Please edit documentation in R/DataEntry_Map_Raw.R
 \name{DataEntry_Map_Raw}
 \alias{DataEntry_Map_Raw}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Data Entry Lag Assessment - Raw Mapping}
 \usage{
 DataEntry_Map_Raw(
-  dfs = list(dfSUBJ = clindata::rawplus_dm, dfDATAENT = clindata::edc_data_pages),
+  dfs = gsm::UseClindata(list(dfSUBJ = "clindata::rawplus_dm", dfDATAENT =
+    "clindata::edc_data_pages")),
   lMapping = gsm::Read_Mapping(c("rawplus", "edc")),
   nMaxDataEntryLag = 10,
   bReturnChecks = FALSE,
@@ -40,7 +41,7 @@ of the column.}
 Convert raw data entry data to formatted input data to \code{\link[=DataEntry_Assess]{DataEntry_Assess()}}.
 }
 \details{
-Data Entry Lag Assessment - Raw Mapping
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 \code{DataEntry_Map_Raw} creates an input dataset for the Data Entry Lag Assessment \code{\link[=DataEntry_Assess]{DataEntry_Assess()}} by adding
 Data Entry Lag Counts (derived from \code{dfDATAENT}) to basic subject-level data (from \code{dfSUBJ}).

@@ -5,7 +5,8 @@
 \title{Map input study data to expected structure.}
 \usage{
 Study_Map_Raw(
-  dfs = list(dfSTUDY = clindata::ctms_study, dfSUBJ = clindata::rawplus_dm),
+  dfs = gsm::UseClindata(list(dfSTUDY = "clindata::ctms_study", dfSUBJ =
+    "clindata::rawplus_dm")),
   lMapping = gsm::Read_Mapping(c("ctms", "rawplus")),
   dfConfig = gsm::config_param
 )

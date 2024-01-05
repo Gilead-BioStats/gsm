@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Adverse Event Assessment - Raw Mapping
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Convert raw adverse event (AE) data, typically processed case report form data, to formatted
@@ -42,14 +42,15 @@
 #' @export
 
 AE_Map_Raw <- function(
-  dfs = list(
-    dfSUBJ = clindata::rawplus_dm,
-    dfAE = clindata::rawplus_ae
+  dfs = gsm::UseClindata(
+    list(
+      "dfSUBJ" = "clindata::rawplus_dm",
+      "dfAE" = "clindata::rawplus_ae"
+    )
   ),
   lMapping = gsm::Read_Mapping("rawplus"),
   bReturnChecks = FALSE,
-  bQuiet = TRUE
-) {
+  bQuiet = TRUE) {
   stopifnot(
     "bReturnChecks must be logical" = is.logical(bReturnChecks),
     "bQuiet must be logical" = is.logical(bQuiet)

@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("experimental")`
-#'
 #' Check Snapshot Inputs
+#'
+#' `r lifecycle::badge("experimental")`
 #'
 #' @description
 #' Check that the output created from [gsm::Make_Snapshot()] returns all expected tables and columns within tables as defined by the
@@ -26,33 +26,15 @@
 CheckSnapshotInputs <- function(snapshot) {
   # get rbm_data_spec/data model
   gismo_input <- gsm::rbm_data_spec %>%
-    filter(.data$System == "Gismo") %>%
+    filter(
+      .data$System == "Gismo",
+      (grepl("rpt_", .data$Table) & .data$Table != "rpt_study_snapshot")
+    ) %>%
     arrange(match(.data$Table, names(snapshot)))
 
   gismo_input <- split(gismo_input, gismo_input$Table)
 
   # expected tables ---------------------------------------------------------
-
-  # check to see if there are any QTL workflows
-  # if yes - results_analysis should be included
-  # if no - results_analysis should not be included
-  if (exists("results_summary", where = snapshot)) {
-    hasQTL <- length(grep("qtl", unique(snapshot$results_summary$workflowid))) > 0
-
-    # check to see if there are *only* QTLs being run
-    # if yes - results_bounds should not be included
-    # if no - results_bounds should be included
-    qtlOnly <- sum(purrr::map_int(c("kri", "cou"), ~ length(grep(.x, unique(snapshot$results_summary$workflowid)))))
-
-    if (qtlOnly == 0) {
-      # QTLs don't produce a meaningful results_bounds data.frame
-      # Only have gsm_analysis_date appended at the end of Make_Snapshot()
-      # Duplicate expected result here
-      gismo_input$results_bounds <- tibble(Column = "gsm_analysis_date")
-    }
-  } else {
-    hasQTL <- FALSE
-  }
 
   # expected tables for gismo input
   expected_gismo <- tibble(tables = sort(names(gismo_input)))

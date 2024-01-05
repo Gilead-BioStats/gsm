@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Subset a data frame given a mapping.
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' `FilterDomain` is primarily used in a KRI/assessment workflow, and is used to filter or pre-process input data sources before the creation of `dfInput` via a `*_Map_Raw` function.

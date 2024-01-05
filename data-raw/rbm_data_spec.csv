@@ -41,14 +41,9 @@
 "Gismo","status_site","pi_last_name","Principal investigator last name",15
 "Gismo","status_site","pi_first_name","Principal investigator first name",16
 "Gismo","status_site","is_satellite","Is site a satellite location?",17
-"Gismo","status_site","gsm_analysis_date","Date that snapshot was created",18
-"Gismo","status_workflow","studyid","Unique Study ID",1
-"Gismo","status_workflow","workflowid","Unique Workflow ID",2
-"Gismo","status_workflow","gsm_version","GSM version of workflow",3
-"Gismo","status_workflow","active","Is workflow active?",4
-"Gismo","status_workflow","status","Did workflow run?",5
-"Gismo","status_workflow","notes","Status notes",6
-"Gismo","status_workflow","gsm_analysis_date","Date that snapshot was created",7
+"Gismo","status_site","amber_flags","Number of amber KRI flags found",18
+"Gismo","status_site","red_flags","Number of red KRI flags found",19
+"Gismo","status_site","gsm_analysis_date","Date that snapshot was created",20
 "Gismo","status_param","studyid","Unique Study ID",1
 "Gismo","status_param","workflowid","Unique Workflow ID",2
 "Gismo","status_param","gsm_version","GSM version of workflow",3
@@ -97,6 +92,167 @@
 "Gismo","meta_param","default","Default value for parameter at index",5
 "Gismo","meta_param","configurable","Is parameter configurable?",6
 "Gismo","meta_param","gsm_analysis_date","Date that snapshot was created",7
+"Gismo","rpt_study_snapshot","study_id","Unique Study ID",1
+"Gismo","rpt_study_snapshot","snapshot_date","Date that snapshot was created",2
+"Gismo","rpt_study_snapshot","is_latest","Is this the latest snapshot?",3
+"Gismo","rpt_study_snapshot","next_snapshot_date","Next snapshot date",4
+"Gismo","rpt_study_snapshot","pt_cycle_id","Cycle ID",5
+"Gismo","rpt_study_snapshot","pt_data_dt","Data ID",6
+"Gismo","rpt_study_snapshot","gsm_analysis_date","Date that snapshot was created",7
+"Gismo","rpt_site_details","studyid","Unique Study ID",1
+"Gismo","rpt_site_details","snapshot_date","Date that snapshot was created",2
+"Gismo","rpt_site_details","siteid","Unique Site ID",3
+"Gismo","rpt_site_details","site_num","Number of site",4
+"Gismo","rpt_site_details","institution","Name of site",5
+"Gismo","rpt_site_details","status","Status of site",6
+"Gismo","rpt_site_details","start_date","Start date of site",7
+"Gismo","rpt_site_details","invname","Investigator's name",8
+"Gismo","rpt_site_details","country","Country site is located",9
+"Gismo","rpt_site_details","state","State site is located",10
+"Gismo","rpt_site_details","city","City site is located",11
+"Gismo","rpt_site_details","region","Region of site",12
+"Gismo","rpt_site_details","enrolled_participants","Enrolled participants",13
+"Gismo","rpt_site_details","planned_participants","Planned participants",14
+"Gismo","rpt_site_details","num_of_at_risk_kris","Total number of amber flags per KRI",15
+"Gismo","rpt_site_details","num_of_flagged_kris","Total number of red flags per KRI",16
+"Gismo","rpt_site_details","pt_cycle_id","Cycle ID",17
+"Gismo","rpt_site_details","pt_data_dt","Data ID",18
+"Gismo","rpt_site_details","gsm_analysis_date","Date that snapshot was created",19
+"Gismo","rpt_study_details","studyid","Unique Study ID",1
+"Gismo","rpt_study_details","snapshot_date","Date that snapshot was created",2
+"Gismo","rpt_study_details","title","Title of protocol",3
+"Gismo","rpt_study_details","ta","Area of therapy",4
+"Gismo","rpt_study_details","indication","Protocol indication",5
+"Gismo","rpt_study_details","phase","Phase of study",6
+"Gismo","rpt_study_details","product","Name of product",7
+"Gismo","rpt_study_details","enrolled_sites","Sites enrolled in study",8
+"Gismo","rpt_study_details","enrolled_participants","Participants enrolled in study",9
+"Gismo","rpt_study_details","planned_sites","Total planned sites for study",10
+"Gismo","rpt_study_details","planned_participants","Total planned participants for study",11
+"Gismo","rpt_study_details","est_fpfv","First patient first visit",12
+"Gismo","rpt_study_details","est_lpfv","Last patient first visit",13
+"Gismo","rpt_study_details","est_lplv","Last patient last visit",14
+"Gismo","rpt_study_details","status","Study status",15
+"Gismo","rpt_study_details","fpfv","First patient first visit",16
+"Gismo","rpt_study_details","lpfv","Last patient first visit",17
+"Gismo","rpt_study_details","lplv","Last patient last visit",18
+"Gismo","rpt_study_details","study_age","Total age of the study in YMD",19
+"Gismo","rpt_study_details","num_of_sites_flagged","Total number of sites with red flags",20
+"Gismo","rpt_study_details","enrolling_sites_with_flagged_kris","Enrolled sites with flagged kris",21
+"Gismo","rpt_study_details","pt_cycle_id","Cycle ID",22
+"Gismo","rpt_study_details","pt_data_dt","Data ID",23
+"Gismo","rpt_study_details","gsm_analysis_date","Date that snapshot was created",24
+"Gismo","rpt_qtl_details","studyid","Unique Study ID",1
+"Gismo","rpt_qtl_details","snapshot_date","Date that snapshot was created",2
+"Gismo","rpt_qtl_details","workflowid","Unique QTL ID",3
+"Gismo","rpt_qtl_details","metric","QTL name",4
+"Gismo","rpt_qtl_details","numerator_name","Name of the numerator used to calculate metric",5
+"Gismo","rpt_qtl_details","denominator_name","Name of the denominator used to calculate metric",6
+"Gismo","rpt_qtl_details","qtl_value","QTL numerical metric",7
+"Gismo","rpt_qtl_details","base_metric","Name of numerator over name of denominator",8
+"Gismo","rpt_qtl_details","numerator_value","numerator numerical metric",9
+"Gismo","rpt_qtl_details","denominator_value","denominator numerical metric",10
+"Gismo","rpt_qtl_details","qtl_score","QTL statistical score",11
+"Gismo","rpt_qtl_details","flag","QTL flag value",12
+"Gismo","rpt_qtl_details","threshold","Thershold used to determine score",13
+"Gismo","rpt_qtl_details","abbreviation","Abbreviated QTL name",14
+"Gismo","rpt_qtl_details","outcome","Units representing outcome",15
+"Gismo","rpt_qtl_details","model","Model used for evaluation",16
+"Gismo","rpt_qtl_details","meta_score","Statistical score used",17
+"Gismo","rpt_qtl_details","data_inputs","Data used as inputs for the model",18
+"Gismo","rpt_qtl_details","data_filters","Filters applied to data inputs",19
+"Gismo","rpt_qtl_details","gsm_version","gsm version used for analysis",20
+"Gismo","rpt_qtl_details","group","The grouping used for the analysis",21
+"Gismo","rpt_qtl_details","pt_cycle_id","Cycle ID",22
+"Gismo","rpt_qtl_details","pt_data_dt","Data ID",23
+"Gismo","rpt_qtl_details","gsm_analysis_date","Date that snapshot was created",24
+"Gismo","rpt_kri_details","studyid","Name of study",1
+"Gismo","rpt_kri_details","snapshot_date","Date that snapshot was created",2
+"Gismo","rpt_kri_details","workflowid","Unique KRI",3
+"Gismo","rpt_kri_details","metric","Name of the KRI",4
+"Gismo","rpt_kri_details","abbreviation","KRI abbreviation",5
+"Gismo","rpt_kri_details","kri_description","KRI Description",6
+"Gismo","rpt_kri_details","base_metric","Numerator over denominator",7
+"Gismo","rpt_kri_details","numerator","Meta workflow numerator",8
+"Gismo","rpt_kri_details","denominator","Meta workflow denominator",9
+"Gismo","rpt_kri_details","num_of_sites_at_risk","Total number of grouped sites with amber flags",10
+"Gismo","rpt_kri_details","num_of_sites_flagged","Total number of grouped sites with red flags",11
+"Gismo","rpt_kri_details","outcome","The units output in the outcome of the KRI",12
+"Gismo","rpt_kri_details","model","The method of calculating the score for the KRI",13
+"Gismo","rpt_kri_details","score","The type of score used for the KRI",14
+"Gismo","rpt_kri_details","data_inputs","Data used as inputs",15
+"Gismo","rpt_kri_details","data_filters","Data filtering parameters",16
+"Gismo","rpt_kri_details","gsm_version","version of gsm used for analysis",17
+"Gismo","rpt_kri_details","group","group targeted by KRI",18
+"Gismo","rpt_kri_details","total_num_of_sites","Total number of sites in study",19
+"Gismo","rpt_kri_details","pt_cycle_id","Cycle ID",20
+"Gismo","rpt_kri_details","pt_data_dt","Data date",21
+"Gismo","rpt_kri_details","active","Logical value indicating if kri is currently active",22
+"Gismo","rpt_kri_details","status","Logical value indicating if kri was successfully run",23
+"Gismo","rpt_kri_details","notes","User input notes per kri",24
+"Gismo","rpt_kri_details","gsm_analysis_date","Date that snapshot was created",25
+"Gismo","rpt_site_kri_details","studyid","Unique Study ID",1
+"Gismo","rpt_site_kri_details","snapshot_date","Date that snapshot was created",2
+"Gismo","rpt_site_kri_details","siteid","Unique Site ID",3
+"Gismo","rpt_site_kri_details","workflowid","Unique KRI ID",4
+"Gismo","rpt_site_kri_details","metric_value","KRI value",5
+"Gismo","rpt_site_kri_details","score","KRI score based on value",6
+"Gismo","rpt_site_kri_details","numerator_value","Numerator used to calculate metric",7
+"Gismo","rpt_site_kri_details","denominator_value","Denominator used to calculate metric",8
+"Gismo","rpt_site_kri_details","flag_value","Flag value reported based on score",9
+"Gismo","rpt_site_kri_details","no_of_consecutive_loads","The number of times the site KRI has been continuously flagged",10
+"Gismo","rpt_site_kri_details","upper_threshold","Value from status_param when index = 3",11
+"Gismo","rpt_site_kri_details","lower_threshold","Value from status_param when index = 2",12
+"Gismo","rpt_site_kri_details","bottom_lower_threshold","Value from status_param when index = 1",13
+"Gismo","rpt_site_kri_details","top_upper_threshold","Value from status_param when index = 4",14
+"Gismo","rpt_site_kri_details","metric","Name of KRI", 15
+"Gismo","rpt_site_kri_details","country_aggregate","Country aggregate",16
+"Gismo","rpt_site_kri_details","study_aggregate","Study aggregate",17
+"Gismo","rpt_site_kri_details","numerator_name","Description of Numerator",18
+"Gismo","rpt_site_kri_details","denominator_name","Description of Denominator",19
+"Gismo","rpt_site_kri_details","pt_cycle_id","Cycle ID",20
+"Gismo","rpt_site_kri_details","pt_data_dt","Data ID",21
+"Gismo","rpt_site_kri_details","gsm_analysis_date","Date that snapshot was created",22
+"Gismo","rpt_kri_bounds_details","studyid","Unique Study ID",1
+"Gismo","rpt_kri_bounds_details","snapshot_date","Date that snapshot was created",2
+"Gismo","rpt_kri_bounds_details","workflowid","Unique KRI ID",3
+"Gismo","rpt_kri_bounds_details","threshold","KRI value",4
+"Gismo","rpt_kri_bounds_details","numerator","Threshold",5
+"Gismo","rpt_kri_bounds_details","denominator","Numerator used to calculate metric",6
+"Gismo","rpt_kri_bounds_details","log_denominator","Denominator used to calculate metric",7
+"Gismo","rpt_kri_bounds_details","pt_cycle_id","Log transformed denominator",8
+"Gismo","rpt_kri_bounds_details","pt_data_dt","Cycle ID",9
+"Gismo","rpt_kri_bounds_details","gsm_analysis_date","Data ID",10
+"Gismo","rpt_qtl_threshold_param","studyid","Unique Study ID",1
+"Gismo","rpt_qtl_threshold_param","snapshot_date","Date that snapshot was created",2
+"Gismo","rpt_qtl_threshold_param","workflowid","Unique QTL ID",3
+"Gismo","rpt_qtl_threshold_param","gsm_version","version of gsm used for analysis",4
+"Gismo","rpt_qtl_threshold_param","param","Parameter used for QTL",5
+"Gismo","rpt_qtl_threshold_param","index","Index used for threshold values",6
+"Gismo","rpt_qtl_threshold_param","default_s","Default values for parameters",7
+"Gismo","rpt_qtl_threshold_param","configurable","Logical field indicating if parameter can be configured",8
+"Gismo","rpt_qtl_threshold_param","pt_cycle_id","Cycle ID",9
+"Gismo","rpt_qtl_threshold_param","pt_data_dt","Data ID",10
+"Gismo","rpt_qtl_threshold_param","gsm_analysis_date","Date that snapshot was created",11
+"Gismo","rpt_kri_threshold_param","studyid","Unique Study ID",1
+"Gismo","rpt_kri_threshold_param","snapshot_date","Date that snapshot was created",2
+"Gismo","rpt_kri_threshold_param","workflowid","Unique KRI ID",3
+"Gismo","rpt_kri_threshold_param","gsm_version","version of gsm used for analysis",4
+"Gismo","rpt_kri_threshold_param","param","Parameter used for QTL",5
+"Gismo","rpt_kri_threshold_param","index","Index used for threshold values",6
+"Gismo","rpt_kri_threshold_param","default_s","Default values for parameters",7
+"Gismo","rpt_kri_threshold_param","configurable","Logical field indicating if parameter can be configured",8
+"Gismo","rpt_kri_threshold_param","pt_cycle_id","Cycle ID",9
+"Gismo","rpt_kri_threshold_param","pt_data_dt","Data ID",10
+"Gismo","rpt_kri_threshold_param","gsm_analysis_date","Date that snapshot was created",11
+"Gismo","rpt_qtl_analysis","studyid","Unique Study ID",1
+"Gismo","rpt_qtl_analysis","snapshot_date","Date that snapshot was created",2
+"Gismo","rpt_qtl_analysis","workflowid","Unique QTL ID",3
+"Gismo","rpt_qtl_analysis","param","Parameter used for QTL",4
+"Gismo","rpt_qtl_analysis","value","Score for the QTL",5
+"Gismo","rpt_qtl_analysis","pt_cycle_id","Cycle ID",6
+"Gismo","rpt_qtl_analysis","pt_data_dt","Data ID",7
+"Gismo","rpt_qtl_analysis","gsm_analysis_date","Date that snapshot was created",8
 "GSM","meta_study","protocol_row_id","Protocol row ID",1
 "GSM","meta_study","protocol_number","Protocol number",2
 "GSM","meta_study","protocol_title","Protocol title",3
@@ -161,3 +317,164 @@
 "GSM","meta_param","index","Parameter index",4
 "GSM","meta_param","default","Default value for parameter at index",5
 "GSM","meta_param","configurable","Is parameter configurable?",6
+"GSM","rpt_site_details","studyid","Unique Study ID",1
+"GSM","rpt_site_details","snapshot_date","Date that snapshot was created",2
+"GSM","rpt_site_details","siteid","Unique Site ID",3
+"GSM","rpt_site_details","site_num","Number of site",4
+"GSM","rpt_site_details","institution","Name of site",5
+"GSM","rpt_site_details","status","Status of site",6
+"GSM","rpt_site_details","start_date","Start date of site",7
+"GSM","rpt_site_details","invname","Investigator's name",8
+"GSM","rpt_site_details","country","Country site is located",9
+"GSM","rpt_site_details","state","State site is located",10
+"GSM","rpt_site_details","city","City site is located",11
+"GSM","rpt_site_details","region","Region of site",12
+"GSM","rpt_site_details","enrolled_participants","Enrolled participants",13
+"GSM","rpt_site_details","planned_participants","Planned participants",14
+"GSM","rpt_site_details","num_of_at_risk_kris","Total number of amber flags per KRI",15
+"GSM","rpt_site_details","num_of_flagged_kris","Total number of red flags per KRI",16
+"GSM","rpt_site_details","pt_cycle_id","Cycle ID",17
+"GSM","rpt_site_details","pt_data_dt","Data ID",18
+"GSM","rpt_site_details","gsm_analysis_date","Date that snapshot was created",19
+"GSM","rpt_study_details","studyid","Unique Study ID",1
+"GSM","rpt_study_details","snapshot_date","Date that snapshot was created",2
+"GSM","rpt_study_details","title","Title of protocol",3
+"GSM","rpt_study_details","ta","Area of therapy",4
+"GSM","rpt_study_details","indication","Protocol indication",5
+"GSM","rpt_study_details","phase","Phase of study",6
+"GSM","rpt_study_details","product","Name of product",7
+"GSM","rpt_study_details","enrolled_sites","Sites enrolled in study",8
+"GSM","rpt_study_details","enrolled_participants","Participants enrolled in study",9
+"GSM","rpt_study_details","planned_sites","Total planned sites for study",10
+"GSM","rpt_study_details","planned_participants","Total planned participants for study",11
+"GSM","rpt_study_details","est_fpfv","First patient first visit",12
+"GSM","rpt_study_details","est_lpfv","Last patient first visit",13
+"GSM","rpt_study_details","est_lplv","Last patient last visit",14
+"GSM","rpt_study_details","status","Study status",15
+"GSM","rpt_study_details","fpfv","First patient first visit",16
+"GSM","rpt_study_details","lpfv","Last patient first visit",17
+"GSM","rpt_study_details","lplv","Last patient last visit",18
+"GSM","rpt_study_details","study_age","Total age of the study in YMD",19
+"GSM","rpt_study_details","num_of_sites_flagged","Total number of sites with red flags",20
+"GSM","rpt_study_details","enrolling_sites_with_flagged_kris","Enrolled sites with flagged kris",21
+"GSM","rpt_study_details","pt_cycle_id","Cycle ID",22
+"GSM","rpt_study_details","pt_data_dt","Data ID",23
+"GSM","rpt_study_details","gsm_analysis_date","Date that snapshot was created",24
+"GSM","rpt_qtl_details","studyid","Unique Study ID",1
+"GSM","rpt_qtl_details","snapshot_date","Date that snapshot was created",2
+"GSM","rpt_qtl_details","workflowid","Unique QTL ID",3
+"GSM","rpt_qtl_details","metric","QTL name",4
+"GSM","rpt_qtl_details","numerator_name","Name of the numerator used to calculate metric",5
+"GSM","rpt_qtl_details","denominator_name","Name of the denominator used to calculate metric",6
+"GSM","rpt_qtl_details","qtl_value","QTL numerical metric",7
+"GSM","rpt_qtl_details","base_metric","Name of numerator over name of denominator",8
+"GSM","rpt_qtl_details","numerator_value","numerator numerical metric",9
+"GSM","rpt_qtl_details","denominator_value","denominator numerical metric",10
+"GSM","rpt_qtl_details","qtl_score","QTL statistical score",11
+"GSM","rpt_qtl_details","flag","QTL flag value",12
+"GSM","rpt_qtl_details","threshold","Thershold used to determine score",13
+"GSM","rpt_qtl_details","abbreviation","Abbreviated QTL name",14
+"GSM","rpt_qtl_details","outcome","Units representing outcome",15
+"GSM","rpt_qtl_details","model","Model used for evaluation",16
+"GSM","rpt_qtl_details","meta_score","Statistical score used",17
+"GSM","rpt_qtl_details","data_inputs","Data used as inputs for the model",18
+"GSM","rpt_qtl_details","data_filters","Filters applied to data inputs",19
+"GSM","rpt_qtl_details","gsm_version","gsm version used for analysis",20
+"GSM","rpt_qtl_details","group","The grouping used for the analysis",21
+"GSM","rpt_qtl_details","pt_cycle_id","Cycle ID",22
+"GSM","rpt_qtl_details","pt_data_dt","Data ID",23
+"GSM","rpt_qtl_details","gsm_analysis_date","Date that snapshot was created",24
+"GSM","rpt_kri_details","studyid","Name of study",1
+"GSM","rpt_kri_details","snapshot_date","Date that snapshot was created",2
+"GSM","rpt_kri_details","workflowid","Unique KRI",3
+"GSM","rpt_kri_details","metric","Name of the KRI",4
+"GSM","rpt_kri_details","abbreviation","KRI abbreviation",5
+"GSM","rpt_kri_details","kri_description","KRI Description",6
+"GSM","rpt_kri_details","base_metric","Numerator over denominator",7
+"GSM","rpt_kri_details","numerator","Meta workflow numerator",8
+"GSM","rpt_kri_details","denominator","Meta workflow denominator",9
+"GSM","rpt_kri_details","num_of_sites_at_risk","Total number of grouped sites with amber flags",10
+"GSM","rpt_kri_details","num_of_sites_flagged","Total number of grouped sites with red flags",11
+"GSM","rpt_kri_details","outcome","The units output in the outcome of the KRI",12
+"GSM","rpt_kri_details","model","The method of calculating the score for the KRI",13
+"GSM","rpt_kri_details","score","The type of score used for the KRI",14
+"GSM","rpt_kri_details","data_inputs","Data used as inputs",15
+"GSM","rpt_kri_details","data_filters","Data filtering parameters",16
+"GSM","rpt_kri_details","gsm_version","version of gsm used for analysis",17
+"GSM","rpt_kri_details","group","group targeted by KRI",18
+"GSM","rpt_kri_details","total_num_of_sites","Total number of sites in study",19
+"GSM","rpt_kri_details","pt_cycle_id","Cycle ID",20
+"GSM","rpt_kri_details","pt_data_dt","Data date",21
+"GSM","rpt_kri_details","active","Logical value indicating if kri is currently active",22
+"GSM","rpt_kri_details","status","Logical value indicating if kri was successfully run",23
+"GSM","rpt_kri_details","notes","User input notes per kri",24
+"GSM","rpt_kri_details","gsm_analysis_date","Date that snapshot was created",25
+"GSM","rpt_site_kri_details","studyid","Unique Study ID",1
+"GSM","rpt_site_kri_details","snapshot_date","Date that snapshot was created",2
+"GSM","rpt_site_kri_details","siteid","Unique Site ID",3
+"GSM","rpt_site_kri_details","workflowid","Unique KRI ID",4
+"GSM","rpt_site_kri_details","metric_value","KRI value",5
+"GSM","rpt_site_kri_details","score","KRI score based on value",6
+"GSM","rpt_site_kri_details","numerator_value","Numerator used to calculate metric",7
+"GSM","rpt_site_kri_details","denominator_value","Denominator used to calculate metric",8
+"GSM","rpt_site_kri_details","flag_value","Flag value reported based on score",9
+"GSM","rpt_site_kri_details","no_of_consecutive_loads","The number of times the site KRI has been continuously flagged",10
+"GSM","rpt_site_kri_details","upper_threshold","Value from status_param when index = 3",11
+"GSM","rpt_site_kri_details","lower_threshold","Value from status_param when index = 2",12
+"GSM","rpt_site_kri_details","bottom_lower_threshold","Value from status_param when index = 1",13
+"GSM","rpt_site_kri_details","top_upper_threshold","Value from status_param when index = 4",14
+"GSM","rpt_site_kri_details","metric","Name of KRI", 15
+"GSM","rpt_site_kri_details","country_aggregate","Country aggregate",16
+"GSM","rpt_site_kri_details","study_aggregate","Study aggregate",17
+"GSM","rpt_site_kri_details","numerator_name","Description of Numerator",18
+"GSM","rpt_site_kri_details","denominator_name","Description of Denominator",19
+"GSM","rpt_site_kri_details","pt_cycle_id","Cycle ID",20
+"GSM","rpt_site_kri_details","pt_data_dt","Data ID",21
+"GSM","rpt_site_kri_details","gsm_analysis_date","Date that snapshot was created",22
+"GSM","rpt_kri_bounds_details","studyid","Unique Study ID",1
+"GSM","rpt_kri_bounds_details","snapshot_date","Date that snapshot was created",2
+"GSM","rpt_kri_bounds_details","workflowid","Unique KRI ID",3
+"GSM","rpt_kri_bounds_details","threshold","KRI value",4
+"GSM","rpt_kri_bounds_details","numerator","Threshold",5
+"GSM","rpt_kri_bounds_details","denominator","Numerator used to calculate metric",6
+"GSM","rpt_kri_bounds_details","log_denominator","Denominator used to calculate metric",7
+"GSM","rpt_kri_bounds_details","pt_cycle_id","Log transformed denominator",8
+"GSM","rpt_kri_bounds_details","pt_data_dt","Cycle ID",9
+"GSM","rpt_kri_bounds_details","gsm_analysis_date","Data ID",10
+"GSM","rpt_qtl_threshold_param","studyid","Unique Study ID",1
+"GSM","rpt_qtl_threshold_param","snapshot_date","Date that snapshot was created",2
+"GSM","rpt_qtl_threshold_param","workflowid","Unique QTL ID",3
+"GSM","rpt_qtl_threshold_param","gsm_version","version of gsm used for analysis",4
+"GSM","rpt_qtl_threshold_param","param","Parameter used for QTL",5
+"GSM","rpt_qtl_threshold_param","index","Index used for threshold values",6
+"GSM","rpt_qtl_threshold_param","default_s","Default values for parameters",7
+"GSM","rpt_qtl_threshold_param","configurable","Logical field indicating if parameter can be configured",8
+"GSM","rpt_qtl_threshold_param","pt_cycle_id","Cycle ID",9
+"GSM","rpt_qtl_threshold_param","pt_data_dt","Data ID",10
+"GSM","rpt_qtl_threshold_param","gsm_analysis_date","Date that snapshot was created",11
+"GSM","rpt_kri_threshold_param","studyid","Unique Study ID",1
+"GSM","rpt_kri_threshold_param","snapshot_date","Date that snapshot was created",2
+"GSM","rpt_kri_threshold_param","workflowid","Unique KRI ID",3
+"GSM","rpt_kri_threshold_param","gsm_version","version of gsm used for analysis",4
+"GSM","rpt_kri_threshold_param","param","Parameter used for QTL",5
+"GSM","rpt_kri_threshold_param","index","Index used for threshold values",6
+"GSM","rpt_kri_threshold_param","default_s","Default values for parameters",7
+"GSM","rpt_kri_threshold_param","configurable","Logical field indicating if parameter can be configured",8
+"GSM","rpt_kri_threshold_param","pt_cycle_id","Cycle ID",9
+"GSM","rpt_kri_threshold_param","pt_data_dt","Data ID",10
+"GSM","rpt_kri_threshold_param","gsm_analysis_date","Date that snapshot was created",11
+"GSM","rpt_qtl_analysis","studyid","Unique Study ID",1
+"GSM","rpt_qtl_analysis","snapshot_date","Date that snapshot was created",2
+"GSM","rpt_qtl_analysis","workflowid","Unique QTL ID",3
+"GSM","rpt_qtl_analysis","param","Parameter used for QTL",4
+"GSM","rpt_qtl_analysis","value","Score for the QTL",5
+"GSM","rpt_qtl_analysis","pt_cycle_id","Cycle ID",6
+"GSM","rpt_qtl_analysis","pt_data_dt","Data ID",7
+"GSM","rpt_qtl_analysis","gsm_analysis_date","Date that snapshot was created",8
+"GSM","rpt_study_snapshot","study_id","Unique Study ID",1
+"GSM","rpt_study_snapshot","snapshot_date","Date that snapshot was created",2
+"GSM","rpt_study_snapshot","is_latest","Is this the latest snapshot?",3
+"GSM","rpt_study_snapshot","next_snapshot_date","Next snapshot date",4
+"GSM","rpt_study_snapshot","pt_cycle_id","Cycle ID",5
+"GSM","rpt_study_snapshot","pt_data_dt","Data ID",6
+"GSM","rpt_study_snapshot","gsm_analysis_date","Date that snapshot was created",7

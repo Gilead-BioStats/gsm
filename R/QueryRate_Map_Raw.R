@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Query Rate Assessment - Raw Mapping
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Convert raw query data to formatted input data to [gsm::QueryRate_Assess()].
@@ -42,16 +42,16 @@
 #' @export
 
 QueryRate_Map_Raw <- function(
-  dfs = list(
-    dfSUBJ = clindata::rawplus_dm,
-    dfQUERY = clindata::edc_queries,
-    dfDATACHG = clindata::edc_data_points
+  dfs = gsm::UseClindata(
+    list(
+      "dfSUBJ" = "clindata::rawplus_dm",
+      "dfQUERY" = "clindata::edc_queries",
+      "dfDATACHG" = "clindata::edc_data_points"
+    )
   ),
   lMapping = gsm::Read_Mapping(c("edc", "rawplus")),
   bReturnChecks = FALSE,
-  bQuiet = TRUE
-
-) {
+  bQuiet = TRUE) {
   stopifnot(
     "bReturnChecks must be logical" = is.logical(bReturnChecks),
     "bQuiet must be logical" = is.logical(bQuiet)

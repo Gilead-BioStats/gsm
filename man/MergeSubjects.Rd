@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-MergeSubjects.R
 \name{MergeSubjects}
 \alias{MergeSubjects}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Merge Domain data with subject-level data.}
 \usage{
 MergeSubjects(
   dfDomain,
@@ -34,7 +34,7 @@ MergeSubjects(
 zeros when necessary.
 }
 \details{
-Merge Domain data with subject-level data.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 MergeSubjects(

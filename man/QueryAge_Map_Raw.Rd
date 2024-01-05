@@ -2,10 +2,11 @@
 % Please edit documentation in R/QueryAge_Map_Raw.R
 \name{QueryAge_Map_Raw}
 \alias{QueryAge_Map_Raw}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Query Age Assessment - Raw Mapping}
 \usage{
 QueryAge_Map_Raw(
-  dfs = list(dfSUBJ = clindata::rawplus_dm, dfQUERY = clindata::edc_queries),
+  dfs = gsm::UseClindata(list(dfSUBJ = "clindata::rawplus_dm", dfQUERY =
+    "clindata::edc_queries")),
   lMapping = gsm::Read_Mapping(c("edc", "rawplus")),
   nMaxQueryAge = 30,
   bReturnChecks = FALSE,
@@ -40,7 +41,7 @@ of the column.}
 Convert raw query data to formatted input data to \code{\link[=QueryAge_Assess]{QueryAge_Assess()}}.
 }
 \details{
-Query Age Assessment - Raw Mapping
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 \code{QueryAge_Map_Raw} combines query data with data points data and subject-level data to create
 formatted input data to \code{\link[=QueryAge_Assess]{QueryAge_Assess()}}. This function creates an input dataset for the Query Age Assessment

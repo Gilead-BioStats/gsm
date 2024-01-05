@@ -1,11 +1,10 @@
-#' `r lifecycle::badge("experimental")`
-#'
 #' Study Report
 #'
+#' `r lifecycle::badge("experimental")`
 #'
 #' Create HTML summary report using the results of `Study_Assess`, including tables, charts, and error checking.
 #'
-#' @param lSnapshot `list` The results of multiple assessments run using `Study_Assess`, `Make_Snapshot`, or `Augment_Snapshot`.
+#' @param lSnapshot `list` The results of multiple assessments run using `Study_Assess` or `Make_Snapshot`.
 #' @param dfStudy `data.frame` A data.frame containing study status metadata. Typically output from `Make_Snapshot()$lSnapshot$status_study`
 #' @param dfSite `data.frame` A data.frame containing site status metadata. Typically output from `Make_Snapshot()$lSnapshot$status_site`
 #' @param strOutpath `character` File path; location where the report will be saved.
@@ -23,24 +22,10 @@
 #' Study_Report(study)
 #' Study_Report(study, strReportType = "country")
 #'
-#' # Adding metadata for a single snapshot
+#' # Adding metadata for a snapshot
 #' one_snapshot <- Make_Snapshot()
 #' Study_Report(
-#'   lSnapshot = one_snapshot,
-#'   dfStudy = one_snapshot$lSnapshot$status_study
-#' )
-#'
-#' # Longitudinal Data
-#' snapshot <- Make_Snapshot()
-#'
-#' longitudinal <- Augment_Snapshot(
-#'   snapshot,
-#'   system.file("data-longitudinal", "AA-AA-000-0000", package = "clindata")
-#' )
-#'
-#' Study_Report(
-#'   lSnapshot = longitudinal,
-#'   dfStudy = longitudinal$lSnapshot$status_study
+#'   lSnapshot = one_snapshot
 #' )
 #' }
 #'
@@ -61,28 +46,54 @@ Study_Report <- function(
   } else {
     lSnapshot
   }
+
   lStatus <- if ("lStatus" %in% names(lSnapshot)) {
     lSnapshot$lStatus
   } else {
     NULL
   }
+
   lLongitudinal <- if ("lStackedSnapshots" %in% names(lSnapshot)) {
     lSnapshot$lStackedSnapshots
   } else {
     NULL
   }
 
+  lCharts <- if ("lCharts" %in% names(lSnapshot)) {
+    lSnapshot$lCharts
+  } else {
+    NULL
+  }
+
   if (is.null(dfStudy)) {
-    dfStudy <- if ("status_study" %in% names(lSnapshot$lSnapshot)) {
-      lSnapshot$lSnapshot$status_study
+    dfStudy <- if ("rpt_study_details" %in% names(lSnapshot$lSnapshot)) {
+      lSnapshot$lSnapshot$rpt_study_details
+    } else if ("lInputs" %in% names(lSnapshot)) {
+      Study_Map_Raw(
+        dfs = list(
+          dfSTUDY = lSnapshot$lInputs$lMeta$meta_study,
+          dfSUBJ = lSnapshot$lInputs$lData$dfSUBJ
+        ),
+        lMapping = lSnapshot$lInputs$lMapping,
+        dfConfig = lSnapshot$lInputs$lMeta$config_param
+      )
     } else {
       NULL
     }
   }
 
   if (is.null(dfSite)) {
-    dfSite <- if ("status_site" %in% names(lSnapshot$lSnapshot)) {
-      lSnapshot$lSnapshot$status_site
+    dfSite <- if ("rpt_study_details" %in% names(lSnapshot$lSnapshot)) {
+      lSnapshot$lSnapshot$rpt_site_details
+    } else if ("lInputs" %in% names(lSnapshot)) {
+      Site_Map_Raw(
+        dfs = list(
+          dfSITE = lSnapshot$lInputs$lMeta$meta_site,
+          dfSUBJ = lSnapshot$lInputs$lData$dfSUBJ
+        ),
+        lMapping = lSnapshot$lInputs$lMapping,
+        dfConfig = lSnapshot$lInputs$lMeta$config_param
+      )
     } else {
       NULL
     }
@@ -120,7 +131,8 @@ Study_Report <- function(
       status_study = dfStudy,
       status_site = dfSite,
       status_snap = lStatus,
-      longitudinal = lLongitudinal
+      longitudinal = lLongitudinal,
+      lCharts = lCharts
     ),
     envir = new.env(parent = globalenv())
   )

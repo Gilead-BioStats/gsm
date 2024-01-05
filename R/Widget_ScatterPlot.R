@@ -1,12 +1,12 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' KRI Scatter Plot
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' A widget that displays a group-level scatter plot based on the output of a KRI analysis.
 #' Scatter plots are provided by default in any Assess function, and are suffixed with "JS" to indicate that they are an `htmlwidget` ported from the `rbm-viz` JavaScript library.
 #'
-#' @param results data with columns:
+#' @param dfSummary data with columns:
 #' \itemize{
 #'  \item{\code{studyid}}
 #'  \item{\code{workflowid}}
@@ -18,7 +18,7 @@
 #'  \item{\code{flag}}
 #' }
 #'
-#' @param workflow configuration with columns:
+#' @param lLabels configuration with columns:
 #' \itemize{
 #'  \item{\code{workflow}}
 #'  \item{\code{gsm_version}}
@@ -33,7 +33,7 @@
 #'  \item{\code{data_filters}}
 #' }
 #'
-#' @param bounds bounds data with columns:
+#' @param dfBounds chart bounds data with columns:
 #' \itemize{
 #'  \item{\code{threshold}}
 #'  \item{\code{numerator}}
@@ -47,9 +47,9 @@
 #' @param width width of widget, full screen by default
 #' @param height height of widget, calculated based on width
 #' @param elementId ID of container HTML element
-#' @param siteSelectLabelValue Label used to populate the HTML drop-down menu. Constructed as: 'Highlighted {siteSelectLabelValue}: '.
 #'
 #' @import htmlwidgets
+#' @importFrom jsonlite toJSON
 #'
 #' @examples
 #' ae <- AE_Map_Raw()
@@ -66,7 +66,7 @@
 #'   strType = "rate"
 #' )
 #'
-#' bounds <- Analyze_NormalApprox_PredictBounds(
+#' dfBounds <- Analyze_NormalApprox_PredictBounds(
 #'   dfTransformed = ae_transform,
 #'   vThreshold = c(-3, -2, 2, 3),
 #'   strType = "rate"
@@ -81,59 +81,62 @@
 #'   ae_flag
 #' )
 #'
-#' dfConfig <- MakeDfConfig(
-#'   strMethod = "NormalApprox",
-#'   strGroup = "Site",
-#'   strAbbreviation = "AE",
-#'   strMetric = "Adverse Event Rate",
-#'   strNumerator = "Adverse Events",
-#'   strDenominator = "Days on Study",
-#'   vThreshold = c(-3, -2, 2, 3)
+#' lLabels <- list(
+#'   workflowid = "",
+#'   group = "Site",
+#'   abbreviation = "AE",
+#'   metric = "Adverse Event Rate",
+#'   numerator = "Adverse Events",
+#'   denominator = "Days on Study",
+#'   model = "Normal Approximation",
+#'   score = "Adjusted Z-Score"
 #' )
 #'
 #' plot <- Widget_ScatterPlot(
-#'   results = ae_summary,
-#'   workflow = dfConfig,
-#'   bounds = bounds,
+#'   dfSummary = ae_summary,
+#'   lLabels = lLabels,
+#'   dfBounds = dfBounds,
 #'   elementId = "aeAssessScatter"
 #' )
 #'
 #' @export
 Widget_ScatterPlot <- function(
-  results,
-  workflow,
-  bounds,
+  dfSummary,
+  lLabels,
+  dfBounds,
   selectedGroupIDs = NULL,
   addSiteSelect = TRUE,
   width = NULL,
   height = NULL,
-  elementId = NULL,
-  siteSelectLabelValue = NULL
+  elementId = NULL
 ) {
-  results <- results %>%
+  dfSummary <- dfSummary %>%
     dplyr::rename_with(tolower)
 
-  if (!is.null(bounds)) {
-    bounds <- bounds %>% dplyr::rename_with(tolower)
+  if (!is.null(dfBounds)) {
+    dfBounds <- dfBounds %>%
+      dplyr::rename_with(tolower) %>%
+      jsonlite::toJSON()
   }
 
   if (!is.null(elementId)) {
     elementId <- paste(elementId, as.numeric(Sys.time()) * 1000, sep = "-")
   }
 
-  if (!is.null(siteSelectLabelValue)) {
-    siteSelectLabelValue <- paste0("Highlighted ", siteSelectLabelValue, ": ")
+  if (!is.null(lLabels$group)) {
+    siteSelectLabelValue <- paste0("Highlighted ", lLabels$group, ": ")
   }
 
   # forward options using x
   x <- list(
-    results = results,
-    workflow = workflow,
-    bounds = bounds,
+    dfSummary = jsonlite::toJSON(dfSummary, na = "string"),
+    lLabels = jsonlite::toJSON(lLabels, na = "string"),
+    dfBounds = dfBounds,
     selectedGroupIDs = as.character(selectedGroupIDs),
     addSiteSelect = addSiteSelect,
     siteSelectLabelValue = siteSelectLabelValue
   )
+
 
   # create widget
   htmlwidgets::createWidget(
@@ -146,9 +149,9 @@ Widget_ScatterPlot <- function(
   )
 }
 
-#' `r lifecycle::badge("stable")`
-#'
 #' Shiny bindings for Widget_ScatterPlot
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' Output and render functions for using Widget_ScatterPlot within Shiny
 #' applications and interactive Rmd documents.

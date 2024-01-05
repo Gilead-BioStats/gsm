@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("experimental")`
-#'
 #' Inclusion/Exclusion Assessment - Raw Mapping
+#'
+#' `r lifecycle::badge("experimental")`
 #'
 #' @description
 #' Convert raw inclusion/exclusion (IE) data, typically processed case report form data, to formatted
@@ -41,14 +41,15 @@
 #' @export
 
 IE_Map_Raw <- function(
-  dfs = list(
-    dfSUBJ = clindata::rawplus_dm,
-    dfIE = clindata::rawplus_ie
+  dfs = gsm::UseClindata(
+    list(
+      "dfSUBJ" = "clindata::rawplus_dm",
+      "dfIE" = "clindata::rawplus_ie"
+    )
   ),
   lMapping = gsm::Read_Mapping("rawplus"),
   bReturnChecks = FALSE,
-  bQuiet = TRUE
-) {
+  bQuiet = TRUE) {
   stopifnot(
     "bReturnChecks must be logical" = is.logical(bReturnChecks),
     "bQuiet must be logical" = is.logical(bQuiet)

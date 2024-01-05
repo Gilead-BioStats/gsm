@@ -2,7 +2,7 @@
 % Please edit documentation in R/Flag.R
 \name{Flag}
 \alias{Flag}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Flag}
 \usage{
 Flag(dfAnalyzed, strColumn = "Score", vThreshold = NULL, strValueColumn = NULL)
 }
@@ -30,7 +30,7 @@ Add columns flagging sites that represent possible statistical outliers when the
 method is used.
 }
 \details{
-Flag
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 This function provides a generalized framework for flagging sites as part of the
 \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline}.

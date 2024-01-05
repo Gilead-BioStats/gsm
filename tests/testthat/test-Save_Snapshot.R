@@ -59,8 +59,11 @@ test_that("cPath works as intended", {
   all_files <- list.files(tmpdir)
 
   expected_files <- gsm::rbm_data_spec %>%
-    filter(System == "Gismo") %>%
-    mutate(Table = paste0(Table, ".csv")) %>%
+    filter(
+      System == "Gismo",
+      (grepl("rpt_", Table) & .data$Table != "rpt_study_snapshot")
+    ) %>%
+    mutate(Table = paste0(Table, ".parquet")) %>%
     pull(Table) %>%
     unique()
 
@@ -75,8 +78,11 @@ test_that("bCreateDefaultFolder creates a folder and saves output correctly", {
   all_files <- list.files(paste0(tmpdir, "/", as.character(Sys.Date())))
 
   expected_files <- gsm::rbm_data_spec %>%
-    filter(System == "Gismo") %>%
-    mutate(Table = paste0(Table, ".csv")) %>%
+    filter(
+      System == "Gismo",
+      (grepl("rpt_", Table) & .data$Table != "rpt_study_snapshot")
+    ) %>%
+    mutate(Table = paste0(Table, ".parquet")) %>%
     pull(Table) %>%
     unique()
 

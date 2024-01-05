@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Funnel Plot Analysis with Normal Approximation - Predicted Boundaries.
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @details
 #' Applies a funnel plot analysis with normal approximation to site-level data, and then calculates predicted

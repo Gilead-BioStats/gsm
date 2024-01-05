@@ -2,22 +2,26 @@
 % Please edit documentation in R/Make_Snapshot.R
 \name{Make_Snapshot}
 \alias{Make_Snapshot}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Make Snapshot - create and export data model.}
 \usage{
 Make_Snapshot(
-  lMeta = list(config_param = gsm::config_param, config_workflow = gsm::config_workflow,
-    meta_params = gsm::meta_param, meta_site = clindata::ctms_site, meta_study =
-    clindata::ctms_study, meta_workflow = gsm::meta_workflow),
-  lData = list(dfSUBJ = clindata::rawplus_dm, dfAE = clindata::rawplus_ae, dfPD =
-    clindata::ctms_protdev, dfCONSENT = clindata::rawplus_consent, dfIE =
-    clindata::rawplus_ie, dfLB = clindata::rawplus_lb, dfSTUDCOMP =
-    clindata::rawplus_studcomp, dfSDRGCOMP = clindata::rawplus_sdrgcomp \%>\%
-    filter(.data$phase == "Blinded Study Drug Completion"), dfDATACHG =
-    clindata::edc_data_points, dfDATAENT = clindata::edc_data_pages, dfQUERY =
-    clindata::edc_queries, dfENROLL = clindata::rawplus_enroll),
+  lMeta = gsm::UseClindata(list(config_param = "gsm::config_param", config_workflow =
+    "gsm::config_workflow", meta_params = "gsm::meta_param", meta_site =
+    "clindata::ctms_site", meta_study = "clindata::ctms_study", meta_workflow =
+    "gsm::meta_workflow")),
+  lData = gsm::UseClindata(list(dfSUBJ = "clindata::rawplus_dm", dfAE =
+    "clindata::rawplus_ae", dfPD = "clindata::ctms_protdev", dfCONSENT =
+    "clindata::rawplus_consent", dfIE = "clindata::rawplus_ie", dfLB =
+    "clindata::rawplus_lb", dfSTUDCOMP = "clindata::rawplus_studcomp", dfSDRGCOMP =
+    "clindata::rawplus_sdrgcomp \%>\%\\n      filter(.data$phase == 'Blinded Study Drug Completion')",
+    dfDATACHG = "clindata::edc_data_points", dfDATAENT = "clindata::edc_data_pages",
+    dfQUERY = "clindata::edc_queries", dfENROLL = "clindata::rawplus_enroll")),
   lMapping = Read_Mapping(),
   lAssessments = MakeWorkflowList(lMeta = lMeta),
+  lPrevSnapshot = NULL,
   strAnalysisDate = NULL,
+  vAppendFiles = names(lPrevSnapshot$lSnapshot),
+  bMakeCharts = TRUE,
   bQuiet = TRUE
 )
 }
@@ -31,23 +35,16 @@ See the Data Model Vignette - Appendix 2 - Data Model Specifications for detaile
 
 \item{lAssessments}{\code{list} a named list of metadata defining how each assessment should be run. By default, \code{MakeWorkflowList()} imports YAML specifications from \code{inst/workflow}.}
 
-\item{strAnalysisDate}{\code{character} date that the data was pulled/wrangled/snapshot. Note: date should be provided in format: \code{YYYY-MM-DD}.}
+\item{lPrevSnapshot}{\code{list} optional argument for the previous snapshot run to track longitudinal data. Default: \code{NULL}.}
+
+\item{strAnalysisDate}{\code{character} date that the data was pulled/wrangled/snapshot. Note: date should be provided in format: \code{YYYY-MM-DD}.
+If \code{NULL}, \code{gsm_analysis_date} will default to the \code{Sys.Date()} that \code{Make_Snapshot()} is run. Default: \code{NULL}.}
+
+\item{vAppendFiles}{\code{vector} a character vector of log files to append. Default: all log files from \code{lPrevSnapshot} argument.}
+
+\item{bMakeCharts}{\code{logical} boolean value indicating whether to create charts. Default: \code{TRUE}.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}.}
-}
-\value{
-\code{list} \code{lSnapshot}, a named list with a data.frame for each component of the {gsm} data model.
-\itemize{
-\item \code{status_study}
-\item \code{status_site}
-\item \code{status_workflow}
-\item \code{status_param}
-\item \code{results_summary}
-\item \code{results_analysis}
-\item \code{results_bounds}
-\item \code{meta_workflow}
-\item \code{meta_param}
-}
 }
 \description{
 \code{Make_Snapshot()} ingests data from a variety of sources, and runs KRIs and/or QTLs based on the \code{list} provided in \code{lAssessments}.
@@ -56,128 +53,241 @@ For more context about the inputs and outputs of \code{Make_Snapshot()}, refer t
 Appendix 2 - Data Model Specifications
 }
 \details{
-Make Snapshot - create and export data model.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \section{Return - Data Model Description}{
+\subsection{lSnapshotDate}{
+
+A \code{Date} string in format \code{YYYY-MM-DD}.
+}
+
+\subsection{lSnapshot}{
+
 A named \code{list} of data.frames:
 \itemize{
-\item \code{status_study}, with columns:
+\item \code{rpt_kri_bounds_details}, with columns:
 \itemize{
 \item \code{studyid} - Unique Study ID
-\item \code{enrolled_sites} - # of enrolled sites
-\item \code{enrolled_participants} - # of enrolled participants
-\item \code{planned_sites} - # of planned sites
-\item \code{planned_participants} - # of planned participants
-\item \code{title} - Protocol title
-\item \code{nickname} - Protocol nickname
-\item \code{enrolled_sites_ctms} - # of enrolled sites (ctms)
-\item \code{enrolled_participants_ctms} - # of enrolled participants (ctms)
-\item \code{fpfv} - First-patient first visit date
-\item \code{lpfv} - Last-patient first visit date
-\item \code{lplv} - Last-patient last visit date
-\item \code{ta} - Therapeutic Area
-\item \code{indication} - Indication
-\item \code{phase} - Phase
-\item \code{status} - Study Status
-\item \code{rbm_flag} - Risk-based monitoring flag
-\item \code{product} - Product
-\item \code{protocol_type} - Protocol type
-\item \code{protocol_row_id} - Protocol row ID
-\item \code{est_fpfv} - Estimated first-patient first visit date
-\item \code{est_lpfv} - Estimated last-patient first visit date
-\item \code{est_lplv} - Estimated last-patient last visit date
-\item \code{protocol_product_number} - Protocol product number
-\item \code{gsm_analysis_date} - Date that \code{Make_Snapshot} was run
+\item \code{snapshot_date} - Date that snapshot was created
+\item \code{workflowid} - Unique KRI ID
+\item \code{threshold} - KRI value
+\item \code{numerator} - Threshold
+\item \code{denominator} - Numerator used to calculate metric
+\item \code{log_denominator} - Denominator used to calculate metric
+\item \code{pt_cycle_id} - Log transformed denominator
+\item \code{pt_data_dt} - Cycle ID
+\item \code{gsm_analysis_date} - Data ID
 }
-\item \code{status_site}, with columns:
+\item \code{rpt_kri_details}, with columns:
+\itemize{
+\item \code{studyid} - Name of study
+\item \code{snapshot_date} - Date that snapshot was created
+\item \code{workflowid} - Unique KRI
+\item \code{metric} - Name of the KRI
+\item \code{abbreviation} - KRI abbreviation
+\item \code{kri_description} - KRI Description
+\item \code{base_metric} - Numerator over denominator
+\item \code{numerator} - Meta workflow numerator
+\item \code{denominator} - Meta workflow denominator
+\item \code{num_of_sites_at_risk} - Total number of grouped sites with amber
+flags
+\item \code{num_of_sites_flagged} - Total number of grouped sites with red
+flags
+\item \code{outcome} - The units output in the outcome of the KRI
+\item \code{model} - The method of calculating the score for the KRI
+\item \code{score} - The type of score used for the KRI
+\item \code{data_inputs} - Data used as inputs
+\item \code{data_filters} - Data filtering parameters
+\item \code{gsm_version} - version of gsm used for analysis
+\item \code{group} - group targeted by KRI
+\item \code{total_num_of_sites} - Total number of sites in study
+\item \code{pt_cycle_id} - Cycle ID
+\item \code{pt_data_dt} - Data date
+\item \code{active} - Logical value indicating if kri is currently active
+\item \code{status} - Logical value indicating if kri was successfully run
+\item \code{notes} - User input notes per kri
+\item \code{gsm_analysis_date} - Date that snapshot was created
+}
+\item \code{rpt_kri_threshold_param}, with columns:
 \itemize{
 \item \code{studyid} - Unique Study ID
+\item \code{snapshot_date} - Date that snapshot was created
+\item \code{workflowid} - Unique KRI ID
+\item \code{gsm_version} - version of gsm used for analysis
+\item \code{param} - Parameter used for QTL
+\item \code{index} - Index used for threshold values
+\item \code{default_s} - Default values for parameters
+\item \code{configurable} - Logical field indicating if parameter can be
+configured
+\item \code{pt_cycle_id} - Cycle ID
+\item \code{pt_data_dt} - Data ID
+\item \code{gsm_analysis_date} - Date that snapshot was created
+}
+\item \code{rpt_qtl_analysis}, with columns:
+\itemize{
+\item \code{studyid} - Unique Study ID
+\item \code{snapshot_date} - Date that snapshot was created
+\item \code{workflowid} - Unique QTL ID
+\item \code{param} - Parameter used for QTL
+\item \code{value} - Score for the QTL
+\item \code{pt_cycle_id} - Cycle ID
+\item \code{pt_data_dt} - Data ID
+\item \code{gsm_analysis_date} - Date that snapshot was created
+}
+\item \code{rpt_qtl_details}, with columns:
+\itemize{
+\item \code{studyid} - Unique Study ID
+\item \code{snapshot_date} - Date that snapshot was created
+\item \code{workflowid} - Unique QTL ID
+\item \code{metric} - QTL name
+\item \code{numerator_name} - Name of the numerator used to calculate metric
+\item \code{denominator_name} - Name of the denominator used to calculate
+metric
+\item \code{qtl_value} - QTL numerical metric
+\item \code{base_metric} - Name of numerator over name of denominator
+\item \code{numerator_value} - numerator numerical metric
+\item \code{denominator_value} - denominator numerical metric
+\item \code{qtl_score} - QTL statistical score
+\item \code{flag} - QTL flag value
+\item \code{threshold} - Thershold used to determine score
+\item \code{abbreviation} - Abbreviated QTL name
+\item \code{outcome} - Units representing outcome
+\item \code{model} - Model used for evaluation
+\item \code{meta_score} - Statistical score used
+\item \code{data_inputs} - Data used as inputs for the model
+\item \code{data_filters} - Filters applied to data inputs
+\item \code{gsm_version} - gsm version used for analysis
+\item \code{group} - The grouping used for the analysis
+\item \code{pt_cycle_id} - Cycle ID
+\item \code{pt_data_dt} - Data ID
+\item \code{gsm_analysis_date} - Date that snapshot was created
+}
+\item \code{rpt_qtl_threshold_param}, with columns:
+\itemize{
+\item \code{studyid} - Unique Study ID
+\item \code{snapshot_date} - Date that snapshot was created
+\item \code{workflowid} - Unique QTL ID
+\item \code{gsm_version} - version of gsm used for analysis
+\item \code{param} - Parameter used for QTL
+\item \code{index} - Index used for threshold values
+\item \code{default_s} - Default values for parameters
+\item \code{configurable} - Logical field indicating if parameter can be
+configured
+\item \code{pt_cycle_id} - Cycle ID
+\item \code{pt_data_dt} - Data ID
+\item \code{gsm_analysis_date} - Date that snapshot was created
+}
+\item \code{rpt_site_details}, with columns:
+\itemize{
+\item \code{studyid} - Unique Study ID
+\item \code{snapshot_date} - Date that snapshot was created
 \item \code{siteid} - Unique Site ID
-\item \code{institution} - Institution Name
-\item \code{status} - Site Status
-\item \code{enrolled_participants} - # of enrolled participants
-\item \code{start_date} - Site Activation Date
-\item \code{city} - City
-\item \code{state} - State
-\item \code{country} - Country
-\item \code{invname} - Investigator name
-\item \code{protocol_row_id} - Protocol Row ID
-\item \code{site_num} - Site number
-\item \code{site_row_id} - Site Row ID
-\item \code{pi_number} - Principal Investigator Number
-\item \code{pi_last_name}- Principal Investigator Last Name
-\item \code{pi_first_name} - Principal Investigator First Name
-\item \code{is_satellite} - Is location a satellite campus/site?
-\item \code{gsm_analysis_date} - Date that \code{Make_Snapshot} was run
+\item \code{site_num} - Number of site
+\item \code{institution} - Name of site
+\item \code{status} - Status of site
+\item \code{start_date} - Start date of site
+\item \code{invname} - Investigator’s name
+\item \code{country} - Country site is located
+\item \code{state} - State site is located
+\item \code{city} - City site is located
+\item \code{region} - Region of site
+\item \code{enrolled_participants} - Enrolled participants
+\item \code{planned_participants} - Planned participants
+\item \code{num_of_at_risk_kris} - Total number of amber flags per KRI
+\item \code{num_of_flagged_kris} - Total number of red flags per KRI
+\item \code{pt_cycle_id} - Cycle ID
+\item \code{pt_data_dt} - Data ID
+\item \code{gsm_analysis_date} - Date that snapshot was created
 }
-\item \code{status_workflow}, with columns:
+\item \code{rpt_site_kri_details}, with columns:
 \itemize{
 \item \code{studyid} - Unique Study ID
-\item \code{workflowid} - Unique Workflow ID
-\item \code{gsm_version} - GSM version of workflow
-\item \code{active} - Is workflow active?
-\item \code{status} - Did workflow run?
-\item \code{notes} - Status notes
-\item \code{gsm_analysis_date} - Date that \code{Make_Snapshot} was run
+\item \code{snapshot_date} - Date that snapshot was created
+\item \code{siteid} - Unique Site ID
+\item \code{workflowid} - Unique KRI ID
+\item \code{metric_value} - KRI value
+\item \code{score} - KRI score based on value
+\item \code{numerator_value} - Numerator used to calculate metric
+\item \code{denominator_value} - Denominator used to calculate metric
+\item \code{flag_value} - Flag value reported based on score
+\item \code{no_of_consecutive_loads} - The number of times the site KRI has
+been continuously flagged
+\item \code{upper_threshold} - Value from status_param when index = 3
+\item \code{lower_threshold} - Value from status_param when index = 2
+\item \code{bottom_lower_threshold} - Value from status_param when index = 1
+\item \code{top_upper_threshold} - Value from status_param when index = 4
+\item \code{metric} - Name of KRI
+\item \code{country_aggregate} - Country aggregate
+\item \code{study_aggregate} - Study aggregate
+\item \code{numerator_name} - Description of Numerator
+\item \code{denominator_name} - Description of Denominator
+\item \code{pt_cycle_id} - Cycle ID
+\item \code{pt_data_dt} - Data ID
+\item \code{gsm_analysis_date} - Date that snapshot was created
 }
-\item \code{status_param}, with columns:
+\item \code{rpt_study_details}, with columns:
+\itemize{
+\item \code{studyid} - Unique Study ID
+\item \code{snapshot_date} - Date that snapshot was created
+\item \code{title} - Title of protocol
+\item \code{ta} - Area of therapy
+\item \code{indication} - Protocol indication
+\item \code{phase} - Phase of study
+\item \code{product} - Name of product
+\item \code{enrolled_sites} - Sites enrolled in study
+\item \code{enrolled_participants} - Participants enrolled in study
+\item \code{planned_sites} - Total planned sites for study
+\item \code{planned_participants} - Total planned participants for study
+\item \code{est_fpfv} - First patient first visit
+\item \code{est_lpfv} - Last patient first visit
+\item \code{est_lplv} - Last patient last visit
+\item \code{status} - Study status
+\item \code{fpfv} - First patient first visit
+\item \code{lpfv} - Last patient first visit
+\item \code{lplv} - Last patient last visit
+\item \code{study_age} - Total age of the study in YMD
+\item \code{num_of_sites_flagged} - Total number of sites with red flags
+\item \code{enrolling_sites_with_flagged_kris} - Enrolled sites with flagged
+kris
+\item \code{pt_cycle_id} - Cycle ID
+\item \code{pt_data_dt} - Data ID
+\item \code{gsm_analysis_date} - Date that snapshot was created
+}
+\item \code{rpt_study_snapshot}, with columns:
 \itemize{
 \item \code{study_id} - Unique Study ID
-\item \code{workflowid} - Unique Workflow ID
-\item \code{gsm_version} - GSM version of workflow
-\item \code{param} - Parameter name
-\item \code{index} - Index value for parameter
-\item \code{value} - Value for parameter at index
-\item \code{gsm_analysis_date} - Date that \code{Make_Snapshot} was run
+\item \code{snapshot_date} - Date that snapshot was created
+\item \code{is_latest} - Is this the latest snapshot?
+\item \code{next_snapshot_date} - Next snapshot date
+\item \code{pt_cycle_id} - Cycle ID
+\item \code{pt_data_dt} - Data ID
+\item \code{gsm_analysis_date} - Date that snapshot was created
 }
-\item \code{results_summary}, with columns:
-\itemize{
-\item \code{studyid} - Unique Study ID
-\item \code{workflowid} - Unique Workflow ID
-\item \code{groupid} - Unique Group ID (e.g. SiteID for KRI workflows)
-\item \code{numerator} - Metric numerator
-\item \code{denominator} - Metric denominator
-\item \code{metric} - Metric value
-\item \code{score} - Statistical Score
-\item \code{flag} - Flag
-\item \code{gsm_analysis_date} - Date that \code{Make_Snapshot} was run
 }
-\item \code{results_bounds}, with columns:
-\itemize{
-\item \code{studyid} - Unique Study ID
-\item \code{workflowid} - Unique Workflow ID
-\item \code{threshold} - Threshold
-\item \code{numerator} - Y value
-\item \code{denominator} - X value
-\item \code{log_denominator} - Log X value
-\item \code{gsm_analysis_date} - Date that \code{Make_Snapshot} was run
 }
-\item \code{meta_workflow}, with columns:
-\itemize{
-\item \code{workflowid} - Unique Workflow ID
-\item \code{gsm_version} - GSM Version of workflow
-\item \code{group} - Group for workflow - Site, Country, Region, or Study
-\item \code{abbreviation} - Abbreviation for KRI/assessment
-\item \code{metric} - Metric Label
-\item \code{numerator} - Numerator Label
-\item \code{denominator} - Denominator Label
-\item \code{outcome} - Metric Outcome Type (e.g. rate)
-\item \code{model} - Statistical Model used to create score
-\item \code{score} - Score Label
-\item \code{data_inputs} - Data inputs for workflow
-\item \code{data_filters} - Filters applied in workflow
-\item \code{gsm_analysis_date} - Date that \code{Make_Snapshot} was run
+
+\subsection{lStudyAssessResults}{
+
+A named \code{list} of assessments run using
+\code{\link[=Study_Assess]{Study_Assess()}}.
 }
-\item \code{meta_param}, with columns:
-\itemize{
-\item \code{workflowid} - Unique Workflow ID
-\item \code{gsm_version} - GSM version of workflow
-\item \code{param} - Parameter name
-\item \code{index} - Parameter index
-\item \code{default} - Default value for parameter at index
-\item \code{configurable} - Is parameter configurable?
-\item \code{gsm_analysis_date} - Date that \code{Make_Snapshot} was run
+
+\subsection{lCharts}{
+
+A named \code{list} of htmlwidgets and ggplot2 charts, created when
+\code{bMakeCharts} is \code{TRUE}.
 }
+
+\subsection{lInputs}{
+
+A named \code{list} containing snapshot inputs to the following parameters: -
+\code{lMeta} - \code{lData} - \code{lMapping} - \code{lAssessments}
+}
+
+\subsection{lStackedSnapshots}{
+
+A named \code{list} containing longitudinal data, or the culmination of all
+data provided as \code{lPrevSnapshot}.
 }
 }
 

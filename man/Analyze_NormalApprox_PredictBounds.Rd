@@ -2,7 +2,7 @@
 % Please edit documentation in R/Analyze_NormalApprox_PredictBounds.R
 \name{Analyze_NormalApprox_PredictBounds}
 \alias{Analyze_NormalApprox_PredictBounds}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Funnel Plot Analysis with Normal Approximation - Predicted Boundaries.}
 \usage{
 Analyze_NormalApprox_PredictBounds(
   dfTransformed,
@@ -33,7 +33,7 @@ the thresholds used in \verb{*_Assess()} functions.}
 range of observed values.
 }
 \description{
-Funnel Plot Analysis with Normal Approximation - Predicted Boundaries.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \details{
 Applies a funnel plot analysis with normal approximation to site-level data, and then calculates predicted

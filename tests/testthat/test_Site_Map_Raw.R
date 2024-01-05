@@ -26,7 +26,7 @@ test_that("valid output is returned", {
     all(
       names(output) == as.character(
         gsm::rbm_data_spec$Column[
-          gsm::rbm_data_spec$Table == "status_site" & gsm::rbm_data_spec$Column != "gsm_analysis_date"
+          gsm::rbm_data_spec$Table == "status_site" & !gsm::rbm_data_spec$Column %in% c("gsm_analysis_date", "amber_flags", "red_flags")
         ]
       )
     )

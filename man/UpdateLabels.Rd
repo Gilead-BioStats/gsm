@@ -2,12 +2,14 @@
 % Please edit documentation in R/util-UpdateLabels.R
 \name{UpdateLabels}
 \alias{UpdateLabels}
-\title{lifecycle::badge("stable")}
+\title{Update visualization labels based on metadata.}
 \usage{
-UpdateLabels(lStudyAssessResults, dfMetaWorkflow)
+UpdateLabels(strWorkflowId, lCharts, dfMetaWorkflow)
 }
 \arguments{
-\item{lStudyAssessResults}{\code{list} The output of \code{\link[=Study_Assess]{Study_Assess()}}.}
+\item{strWorkflowId}{\code{character} Name of Workflow ID, e.g., 'kri0001'.}
+
+\item{lCharts}{\code{list} The output of \code{\link[=MakeKRICharts]{MakeKRICharts()}}.}
 
 \item{dfMetaWorkflow}{\code{data.frame} The metadata for a workflow or set of workflows.}
 }
@@ -19,7 +21,7 @@ If visualizations are created outside of a standard snapshot (e.g., \code{\link[
 meaningful labels. \code{UpdateLabels} updates labels for JavaScript visualizations (from \code{rbm-viz}) using metadata provided by \code{dfMetaWorkflow.}
 }
 \details{
-Update visualization labels based on metadata.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 \dontrun{

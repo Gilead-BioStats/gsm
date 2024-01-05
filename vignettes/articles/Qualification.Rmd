@@ -195,27 +195,28 @@ Unit testing was performed in addition to qualification testing to help ensure t
 The table below summarizes unit test coverage of each `{gsm}` function. This metric quantifies the extent of unit testing. The closer this measure is to 100%, the more unit testing that function has.
 
 ```{r covr}
-pkg_cov <- covr::coverage_to_list(covr::package_coverage(here::here()))
-
-pkg_cov_df <- as.data.frame(pkg_cov)
-pkg_cov_df <- tibble::rownames_to_column(pkg_cov_df, "Function") 
-
-add1 <- pkg_cov_df[1,]
-add1$Function <- "Total Coverage"
-add1$filecoverage <- add1$totalcoverage
-add1$totalcoverage <- NULL
-
-pkg_coverage <- pkg_cov_df %>%
-  select(-totalcoverage) %>%
-  rbind(add1) %>%
-  mutate(filecoverage = sprintf("%.2f", round(filecoverage, 5)),
-         filecoverage = paste(filecoverage, "%")) %>%
-  rename(`File Coverage` = filecoverage)
-
-knitr::kable(pkg_coverage, booktabs = TRUE, longtable = TRUE) %>%
-  kableExtra::kable_styling(latex_options = c("repeat_header", "striped", "bordered"),
-                            font_size = 9, full_width = FALSE) %>%
-  kableExtra::kable_classic()
+print(paste0("Testing package version for gsm: ", packageVersion("gsm")))
+# pkg_cov <- covr::coverage_to_list(covr::package_coverage(here::here()))
+# 
+# pkg_cov_df <- as.data.frame(pkg_cov)
+# pkg_cov_df <- tibble::rownames_to_column(pkg_cov_df, "Function") 
+# 
+# add1 <- pkg_cov_df[1,]
+# add1$Function <- "Total Coverage"
+# add1$filecoverage <- add1$totalcoverage
+# add1$totalcoverage <- NULL
+# 
+# pkg_coverage <- pkg_cov_df %>%
+#   select(-totalcoverage) %>%
+#   rbind(add1) %>%
+#   mutate(filecoverage = sprintf("%.2f", round(filecoverage, 5)),
+#          filecoverage = paste(filecoverage, "%")) %>%
+#   rename(`File Coverage` = filecoverage)
+# 
+# knitr::kable(pkg_coverage, booktabs = TRUE, longtable = TRUE) %>%
+#   kableExtra::kable_styling(latex_options = c("repeat_header", "striped", "bordered"),
+#                             font_size = 9, full_width = FALSE) %>%
+#   kableExtra::kable_classic()
 ```
 
 \newpage

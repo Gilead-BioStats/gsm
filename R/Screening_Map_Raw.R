@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Screening Assessment - Raw Mapping
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Convert raw screening data to formatted input data to [gsm::Screening_Assess()].
@@ -37,13 +37,14 @@
 #' @export
 
 Screening_Map_Raw <- function(
-  dfs = list(
-    dfENROLL = clindata::rawplus_enroll
+  dfs = gsm::UseClindata(
+    list(
+      "dfENROLL" = "clindata::rawplus_enroll"
+    )
   ),
   lMapping = gsm::Read_Mapping("rawplus"),
   bReturnChecks = FALSE,
-  bQuiet = TRUE
-) {
+  bQuiet = TRUE) {
   stopifnot(
     "bReturnChecks must be logical" = is.logical(bReturnChecks),
     "bQuiet must be logical" = is.logical(bQuiet)

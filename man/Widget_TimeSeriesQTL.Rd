@@ -2,14 +2,14 @@
 % Please edit documentation in R/Widget_TimeSeriesQTL.R
 \name{Widget_TimeSeriesQTL}
 \alias{Widget_TimeSeriesQTL}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
+\title{Time Series QTL}
 \usage{
 Widget_TimeSeriesQTL(
   qtl,
-  raw_results,
-  raw_workflow,
-  raw_param,
-  raw_analysis,
+  dfSummary,
+  lLabels,
+  dfParams,
+  dfAnalysis,
   selectedGroupIDs = NULL,
   width = NULL,
   height = NULL,
@@ -19,13 +19,13 @@ Widget_TimeSeriesQTL(
 \arguments{
 \item{qtl}{specific qtl to filter to}
 
-\item{raw_results}{TODO}
+\item{dfSummary}{\code{data.frame} Longitudinal data, typically \code{rpt_site_kri_details} from \code{\link[=Make_Snapshot]{Make_Snapshot()}}.}
 
-\item{raw_workflow}{TODO}
+\item{lLabels}{\code{list} Longitudinal workflow/metadata, typically \code{rpt_kri_details} from \code{\link[=Make_Snapshot]{Make_Snapshot()}}.}
 
-\item{raw_param}{TODO}
+\item{dfParams}{\code{data.frame} Longitudinal parameter/configuration data, typically \code{rpt_kri_threshold_param} from \code{\link[=Make_Snapshot]{Make_Snapshot()}}.}
 
-\item{raw_analysis}{TODO}
+\item{dfAnalysis}{\code{data.frame} Longitudinal QTL analysis results, typically \code{rpt_qtl_analysis} from  \code{\link[=Make_Snapshot]{Make_Snapshot()}}.}
 
 \item{selectedGroupIDs}{TODO}
 
@@ -36,7 +36,7 @@ Widget_TimeSeriesQTL(
 \item{elementId}{id of widget, automatically generated if not supplied}
 }
 \description{
-Time Series QTL
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \details{
 A Time Series graphic for qtl data

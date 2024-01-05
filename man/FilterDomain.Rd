@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-FilterDomain.R
 \name{FilterDomain}
 \alias{FilterDomain}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Subset a data frame given a mapping.}
 \usage{
 FilterDomain(
   df,
@@ -40,7 +40,7 @@ If \code{bReturnChecks} is \code{TRUE}, a \code{list} is returned with a filtere
 \code{FilterDomain} is primarily used in a KRI/assessment workflow, and is used to filter or pre-process input data sources before the creation of \code{dfInput} via a \verb{*_Map_Raw} function.
 }
 \details{
-Subset a data frame given a mapping.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 lMapping <- list(dfAE = list(

@@ -2,7 +2,7 @@
 % Please edit documentation in R/QueryAge_Assess.R
 \name{QueryAge_Assess}
 \alias{QueryAge_Assess}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Query Age Assessment}
 \usage{
 QueryAge_Assess(
   dfInput,
@@ -10,8 +10,12 @@ QueryAge_Assess(
   strMethod = "NormalApprox",
   lMapping = yaml::read_yaml(system.file("mappings", "QueryAge_Assess.yaml", package =
     "gsm")),
+  lLabels = list(workflowid = "", group = strGroup, abbreviation = "OQRY", metric =
+    "Outstanding Query Rate", numerator = "Queries Open > 30 Days", denominator =
+    "Total Queries", model = "Normal Approximation", score = "Adjusted Z-Score"),
   strGroup = "Site",
   nMinDenominator = NULL,
+  bMakeCharts = FALSE,
   bQuiet = TRUE
 )
 }
@@ -31,9 +35,13 @@ QueryAge_Assess(
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
 of the column. Default: package-defined Labs Assessment mapping.}
 
+\item{lLabels}{\code{list} Labels used to populate chart labels.}
+
 \item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"}, \code{"Country"}, and \code{"CustomGroup"}.}
 
 \item{nMinDenominator}{\code{numeric} Specifies the minimum denominator required to return a \code{score} and calculate a \code{flag}. Default: NULL}
+
+\item{bMakeCharts}{\code{logical} Boolean value indicating whether to create charts.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
@@ -67,7 +75,7 @@ of the column. Default: package-defined Labs Assessment mapping.}
 Evaluates rate of reported Query Age >30 days.
 }
 \details{
-Query Age Assessment
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 The Query Age Assessment uses the standard \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.

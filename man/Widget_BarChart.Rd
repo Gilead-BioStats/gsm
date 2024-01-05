@@ -2,23 +2,22 @@
 % Please edit documentation in R/Widget_BarChart.R
 \name{Widget_BarChart}
 \alias{Widget_BarChart}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{KRI Bar Chart}
 \usage{
 Widget_BarChart(
-  results = NULL,
-  workflow = list(),
-  threshold = NULL,
-  yaxis = "score",
+  dfSummary = NULL,
+  lLabels = list(),
+  dfThreshold = NULL,
+  strYAxisType = "score",
   selectedGroupIDs = NULL,
   addSiteSelect = TRUE,
   width = NULL,
   height = NULL,
-  elementId = NULL,
-  siteSelectLabelValue = NULL
+  elementId = NULL
 )
 }
 \arguments{
-\item{results}{data with column names:
+\item{dfSummary}{data with column names:
 \itemize{
 \item{\code{studyid}}
 \item{\code{workflowid}}
@@ -30,22 +29,9 @@ Widget_BarChart(
 \item{\code{flag}}
 }}
 
-\item{workflow}{configuration data with columns:
-\itemize{
-\item{\code{workflow}}
-\item{\code{gsm_version}}
-\item{\code{group}}
-\item{\code{metric}}
-\item{\code{numerator}}
-\item{\code{denominator}}
-\item{\code{outcome}}
-\item{\code{model}}
-\item{\code{score}}
-\item{\code{data_inputs}}
-\item{\code{data_filters}}
-}}
+\item{lLabels}{configuration data with columns:}
 
-\item{threshold}{a one row data frame containing columns:
+\item{dfThreshold}{a one row data frame containing columns:
 \itemize{
 \item{\code{workflowid}}
 \item{\code{gsm_version}}
@@ -55,7 +41,7 @@ Widget_BarChart(
 \item{\code{configurable}}
 }}
 
-\item{yaxis}{either \code{'score'} or \code{'metric'}}
+\item{strYAxisType}{either \code{'score'} or \code{'metric'}}
 
 \item{selectedGroupIDs}{group IDs to highlight, \code{NULL} by default, can be a single site or a vector.}
 
@@ -66,15 +52,13 @@ Widget_BarChart(
 \item{height}{height of widget, calculated based on width}
 
 \item{elementId}{ID of container HTML element}
-
-\item{siteSelectLabelValue}{Label used to populate the HTML drop-down menu. Constructed as: 'Highlighted {siteSelectLabelValue}: '.}
 }
 \description{
 A widget that displays a group-level bar chart based on the output of a KRI analysis.
 Bar charts are provided by default in any Assess function, and are suffixed with "JS" to indicate that they are an \code{htmlwidget} ported from the \code{rbm-viz} JavaScript library.
 }
 \details{
-KRI Bar Chart
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 
@@ -101,20 +85,22 @@ ae_summary <- Summarize(
   ae_flag
 )
 
-dfConfig <- MakeDfConfig(
-  strMethod = "NormalApprox",
-  strGroup = "Site",
-  strAbbreviation = "AE",
-  strMetric = "Adverse Event Rate",
-  strNumerator = "Adverse Events",
-  strDenominator = "Days on Study",
-  vThreshold = c(-3, -2, 2, 3)
+# labels list
+lLabels <- list(
+  workflowid = "",
+  group = "Site",
+  abbreviation = "AE",
+  metric = "Adverse Event Rate",
+  numerator = "Adverse Events",
+  denominator = "Days on Study",
+  model = "Normal Approximation",
+  score = "Adjusted Z-Score"
 )
 
 plot <- Widget_BarChart(
-  results = ae_summary,
-  workflow = dfConfig,
-  yaxis = "metric",
+  dfSummary = ae_summary,
+  lLabels = lLabels,
+  strYAxisType = "metric",
   elementId = "aeAssessMetric"
 )
 

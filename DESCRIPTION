@@ -23,6 +23,7 @@ Description: The Good Statistical Monitoring or {gsm} R package provides a frame
 License: Apache License (>= 2)
 Encoding: UTF-8
 Imports:
+    arrow,
     broom,
     cli,
     dplyr,
@@ -37,9 +38,11 @@ Imports:
     htmlwidgets,
     htmltools,
     here,
+    jsonlite,
     knitr,
     lamW,
     lifecycle (>= 1.0.1),
+    lubridate,
     magrittr,
     purrr,
     rmarkdown,
@@ -64,6 +67,8 @@ Suggests:
     testthat (>= 3.0.0),
     tools,
     usethis
+Remotes:
+    clindata=Gilead-BioStats/clindata
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3

@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Check if workflow is valid/contains necessary metadata.
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @param lWorkflow `list` A named list of metadata defining how the workflow should be run.
 #'

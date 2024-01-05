@@ -1,54 +1,121 @@
-#' `r lifecycle::badge("experimental")`
-#'
 #' Time Series QTL
+#'
+#' `r lifecycle::badge("experimental")`
 #'
 #' A Time Series graphic for qtl data
 #'
 #' @param qtl specific qtl to filter to
-#' @param raw_results TODO
-#' @param raw_workflow TODO
-#' @param raw_param TODO
-#' @param raw_analysis TODO
+#' @param dfSummary `data.frame` Longitudinal data, typically `rpt_site_kri_details` from [gsm::Make_Snapshot()].
+#' @param lLabels `list` Longitudinal workflow/metadata, typically `rpt_kri_details` from [gsm::Make_Snapshot()].
+#' @param dfParams `data.frame` Longitudinal parameter/configuration data, typically `rpt_kri_threshold_param` from [gsm::Make_Snapshot()].
+#' @param dfAnalysis `data.frame` Longitudinal QTL analysis results, typically `rpt_qtl_analysis` from  [gsm::Make_Snapshot()].
 #' @param selectedGroupIDs TODO
 #' @param width the width of the widget
 #' @param height the height of the widget
 #' @param elementId id of widget, automatically generated if not supplied
 #'
 #' @import htmlwidgets
+#' @importFrom jsonlite toJSON
 #'
 #' @export
 Widget_TimeSeriesQTL <- function(qtl,
-  raw_results,
-  raw_workflow,
-  raw_param,
-  raw_analysis,
+  dfSummary,
+  lLabels,
+  dfParams,
+  dfAnalysis,
   selectedGroupIDs = NULL,
   width = NULL,
   height = NULL,
   elementId = NULL
 ) {
-  results <- raw_results %>%
+  # results -----------------------------------------------------------------
+  results <- dfSummary %>%
+    dplyr::mutate(
+      gsm_analysis_date = .data$snapshot_date
+    ) %>%
+    dplyr::select(
+      "studyid",
+      "workflowid",
+      "groupid" = "siteid",
+      "numerator" = "numerator_value",
+      "denominator" = "denominator_value",
+      "metric" = "metric_value",
+      "score",
+      "flag" = "flag_value",
+      "gsm_analysis_date",
+      "snapshot_date"
+    ) %>%
     dplyr::filter(.data$workflowid == qtl) %>%
-    dplyr::mutate(snapshot_date = .data$gsm_analysis_date) # contains the string qtl
+    jsonlite::toJSON()
 
-  workflow <- raw_workflow %>%
-    dplyr::filter(.data$workflowid == qtl) %>%
-    dplyr::mutate(selectedGroupIDs = selectedGroupIDs)
 
-  parameters <- raw_param %>%
-    dplyr::filter(.data$workflowid == qtl) %>%
-    mutate(
-      snapshot_date = .data$gsm_analysis_date
-    )
 
-  analysis <- raw_analysis # %>%
-  #   dplyr::filter(grepl("qtl", .data$workflowid))
-
-  if (is.null(selectedGroupIDs)) {
-    selectedGroupIDs <- "None"
+  # workflow ----------------------------------------------------------------
+  if (!is.null(selectedGroupIDs)) {
+    lLabels[["selectedGroupIDs"]] <- selectedGroupIDs
+  } else {
+    lLabels[["selectedGroupIDs"]] <- "None"
   }
 
-  # forward options using x
+  workflow <- jsonlite::toJSON(lLabels)
+
+  # params ------------------------------------------------------------------
+  # {
+  #   "workflowid": "qtl0004",
+  #   "param": "strGroup",
+  #   "index": null,
+  #   "gsm_analysis_date": "2023-12-19",
+  #   "snapshot_date": "2023-12-19",
+  #   "studyid": "AA-AA-000-0000",
+  #   "value": "Study",
+  #   "groupid": ""
+  # }
+
+  parameters <- dfParams %>%
+    dplyr::filter(.data$workflowid == qtl) %>%
+    mutate(
+      value = .data$default_s,
+      groupid = ""
+    ) %>%
+    select(
+      "workflowid",
+      "param",
+      "index",
+      "gsm_analysis_date",
+      "snapshot_date",
+      "studyid",
+      "value",
+      "groupid"
+    ) %>%
+    jsonlite::toJSON()
+
+
+
+
+  # analysis ----------------------------------------------------------------
+
+  # {
+  #   "studyid": "AA-AA-000-0000",
+  #   "workflowid": "qtl0006",
+  #   "param": "LowCI",
+  #   "value": "0",
+  #   "gsm_analysis_date": "2003-12-01",
+  #   "snapshot_date": "2003-12-01"
+  # }
+  #
+  analysis <- dfAnalysis %>%
+    dplyr::filter(.data$workflowid == qtl) %>%
+    select(
+      "studyid",
+      "workflowid",
+      "param",
+      "value",
+      "gsm_analysis_date",
+      "snapshot_date"
+    ) %>%
+    jsonlite::toJSON()
+
+  # widget ------------------------------------------------------------------
   x <- list(
     results = results,
     workflow = workflow,
@@ -68,9 +135,9 @@ Widget_TimeSeriesQTL <- function(qtl,
   )
 }
 
-#' `r lifecycle::badge("experimental")`
-#'
 #' Shiny bindings for timeSeriesQTL
+#'
+#' `r lifecycle::badge("experimental")`
 #'
 #' Output and render functions for using timeSeriesQTL within Shiny
 #' applications and interactive Rmd documents.
@@ -91,8 +158,7 @@ Widget_TimeSeriesQTLOutput <- function(outputId, width = "100%", height = "400px
   htmlwidgets::shinyWidgetOutput(outputId, "Widget_TimeSeriesQTL", width, height, package = "gsm")
 }
 
-#' `r lifecycle::badge("experimental")`
-#'
+
 #' @rdname timeSeriesQTL-shiny
 #' @export
 renderWidget_TimeSeriesQTL <- function(expr, env = parent.frame(), quoted = FALSE) {

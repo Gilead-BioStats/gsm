@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Data Change Rate Assessment - Raw Mapping
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Convert raw data entry data to formatted input data to [gsm::DataChg_Assess()].
@@ -39,14 +39,15 @@
 #' @export
 
 DataChg_Map_Raw <- function(
-  dfs = list(
-    dfSUBJ = clindata::rawplus_dm,
-    dfDATACHG = clindata::edc_data_points
+  dfs = gsm::UseClindata(
+    list(
+      "dfSUBJ" = "clindata::rawplus_dm",
+      "dfDATACHG" = "clindata::edc_data_points"
+    )
   ),
   lMapping = gsm::Read_Mapping(c("rawplus", "edc")),
   bReturnChecks = FALSE,
-  bQuiet = TRUE
-) {
+  bQuiet = TRUE) {
   stopifnot(
     "bReturnChecks must be logical" = is.logical(bReturnChecks),
     "bQuiet must be logical" = is.logical(bQuiet)

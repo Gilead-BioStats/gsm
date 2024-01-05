@@ -3,7 +3,7 @@
     Code
       names(output)
     Output
-      [1] "lData"   "lCharts" "lChecks"
+      [1] "lData"   "lChecks"
 
 ---
 
@@ -18,8 +18,7 @@
     Code
       names(output$lCharts)
     Output
-      [1] "scatter"     "scatterJS"   "barMetric"   "barScore"    "barMetricJS"
-      [6] "barScoreJS" 
+      NULL
 
 ---
 
@@ -107,7 +106,7 @@
     Code
       names(Identity$lCharts)
     Output
-      [1] "barMetric"   "barScore"    "barMetricJS" "barScoreJS" 
+      NULL
 
 # bQuiet works as intended
 
@@ -129,6 +128,4 @@
       v `Analyze_NormalApprox()` returned output with 2 rows.
       v `Flag_NormalApprox()` returned output with 2 rows.
       v `Summarize()` returned output with 2 rows.
-      v Created 2 scatter plots.
-      v Created 4 bar charts.
 

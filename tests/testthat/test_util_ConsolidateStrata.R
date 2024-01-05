@@ -6,6 +6,7 @@ lData <- list(
 )
 lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 lWorkflow <- MakeWorkflowList(bRecursive = TRUE, strNames = "aeGrade")$aeGrade
+lWorkflow$steps[[3]]$params[["bMakeCharts"]] <- TRUE
 lOutput <- RunWorkflow(lWorkflow, lData = lData, lMapping = lMapping, bQuiet = TRUE)
 lStratifiedWorkflow <- MakeStratifiedAssessment(
   lWorkflow,

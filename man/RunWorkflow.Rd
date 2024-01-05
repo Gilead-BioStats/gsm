@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-RunWorkflow.R
 \name{RunWorkflow}
 \alias{RunWorkflow}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Run a single assessment via workflow YAML specification.}
 \usage{
 RunWorkflow(lWorkflow, lData, lMapping, bQuiet = TRUE)
 }
@@ -25,7 +25,7 @@ Attempts to run a single assessment (\code{lWorkflow}) using shared data (\code{
 Calls \code{RunStep} for each item in \code{lWorkflow$workflow} and saves the results to \code{lWorkflow}.
 }
 \details{
-Run a single assessment via workflow YAML specification.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 lAssessments <- MakeWorkflowList()

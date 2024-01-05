@@ -45,6 +45,9 @@ test_that("Given an appropriate subset of Data Entry Lag data, the assessment fu
     "dfSummary" = t8_4_summary
   )
 
+  # remove metadata that is not part of qualification
+  test8_4$lData$dfConfig <- NULL
+
   # compare results
   expect_equal(test8_4$lData, t8_4)
 })

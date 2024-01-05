@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-generate_md_table.R
 \name{generate_md_table}
 \alias{generate_md_table}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Generate Markdown Table}
 \usage{
 generate_md_table(
   domain,
@@ -33,5 +33,5 @@ generate_md_table(
 Combine data mapping and specification, and then output as markdown table.
 }
 \details{
-Generate Markdown Table
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }

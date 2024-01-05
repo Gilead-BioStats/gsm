@@ -1,6 +1,6 @@
-#' `r lifecycle::badge("stable")`
-#'
 #' Data Entry Lag Assessment - Raw Mapping
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
 #' Convert raw data entry data to formatted input data to [gsm::DataEntry_Assess()].
@@ -40,16 +40,16 @@
 #' @export
 
 DataEntry_Map_Raw <- function(
-  dfs = list(
-    dfSUBJ = clindata::rawplus_dm,
-    dfDATAENT = clindata::edc_data_pages
+  dfs = gsm::UseClindata(
+    list(
+      "dfSUBJ" = "clindata::rawplus_dm",
+      "dfDATAENT" = "clindata::edc_data_pages"
+    )
   ),
   lMapping = gsm::Read_Mapping(c("rawplus", "edc")),
   nMaxDataEntryLag = 10,
   bReturnChecks = FALSE,
-  bQuiet = TRUE
-
-) {
+  bQuiet = TRUE) {
   stopifnot(
     "bReturnChecks must be logical" = is.logical(bReturnChecks),
     "bQuiet must be logical" = is.logical(bQuiet)

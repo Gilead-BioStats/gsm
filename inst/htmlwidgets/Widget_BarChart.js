@@ -4,17 +4,14 @@ HTMLWidgets.widget({
     factory: function(el, width, height) {
         return {
             renderValue: function(x) {
-                // bar chart data - points
-                const results = HTMLWidgets.dataframeToD3(x.results)
 
-                // bar chart configuration
-                const workflow = HTMLWidgets.dataframeToD3(x.workflow)[0]
-                workflow.y = x.yaxis;
-                workflow.selectedGroupIDs = number_to_array(x.selectedGroupIDs)
+                const lLabels = x.lLabels
+                lLabels.y = x.strYAxisType;
+                lLabels.selectedGroupIDs = number_to_array(x.selectedGroupIDs)
 
                 // add click event listener to chart
                 if (x.addSiteSelect)
-                    workflow.clickCallback = function(d) { // clickCallback.bind(null, instance, siteSelect);
+                    lLabels.clickCallback = function(d) { // clickCallback.bind(null, instance, siteSelect);
                         instance.data.config.selectedGroupIDs = instance.data.config.selectedGroupIDs.includes(d.groupid)
                             ? 'None'
                             : d.groupid;
@@ -26,21 +23,18 @@ HTMLWidgets.widget({
                         );
                     };
 
-                // threshold annotations
-                const thresholds = HTMLWidgets.dataframeToD3(x.threshold)
-
                 // generate bar chart
                 const instance = rbmViz.default.barChart(
                     el,
-                    results,
-                    workflow,
-                    thresholds
+                    x.dfSummary,
+                    lLabels,
+                    x.dfThreshold
                 );
 
                 // add dropdown that highlights sites
                 let siteSelect;
                 if (x.addSiteSelect)
-                    siteSelect = addSiteSelect(el, results, instance, x.siteSelectLabelValue);
+                    siteSelect = addSiteSelect(el, x.dfSummary, instance, x.siteSelectLabelValue);
             },
             resize: function(width, height) {
             }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/ExportCode.R
 \name{ExportCode}
 \alias{ExportCode}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
+\title{Export gsm analysis script using Data, Mapping, and Workflow.}
 \usage{
 ExportCode(
   lData,
@@ -27,7 +27,7 @@ ExportCode(
 \item{strFileName}{\code{character} Name of file to save.}
 }
 \description{
-Export gsm analysis script using Data, Mapping, and Workflow
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \examples{
 lData <- list(

@@ -1,7 +1,6 @@
 test_valid_output_assess <- function(
   assess_function,
-  dfInput
-) {
+  dfInput) {
   output <- assess_function(dfInput = dfInput)
 
   testthat::expect_true(is.list(output))
@@ -26,8 +25,7 @@ test_valid_output_assess <- function(
 
 test_grouping_assess <- function(
   assess_function,
-  dfInput
-) {
+  dfInput) {
   subsetGroupCols <- function(assessOutput) {
     assessOutput[["lData"]][["dfSummary"]] %>% select("GroupID")
   }
@@ -47,8 +45,7 @@ test_grouping_assess <- function(
 
 test_invalid_data_assess <- function(
   assess_function,
-  dfInput
-) {
+  dfInput) {
   testthat::expect_null(assess_function("Hi")[["lData"]])
   testthat::expect_snapshot_error(assess_function(dfInput, strMethod = 123))
   testthat::expect_snapshot_error(assess_function(dfInput, strMethod = "abacus"))
@@ -63,8 +60,7 @@ test_invalid_data_assess <- function(
 
 test_invalid_data_assess_identity <- function(
   assess_function,
-  dfInput
-) {
+  dfInput) {
   testthat::expect_null(assess_function("Hi")[["lData"]])
   testthat::expect_error(assess_function(dfInput, nThreshold = FALSE), "nThreshold must be numeric")
   testthat::expect_error(assess_function(dfInput, nThreshold = "A"), "nThreshold must be numeric")
@@ -76,8 +72,7 @@ test_invalid_data_assess_identity <- function(
 
 test_missing_column_assess <- function(
   assess_function,
-  dfInput
-) {
+  dfInput) {
   dfInput_test <- dfInput %>% select(-"SiteID")
   missing_req_col <- assess_function(dfInput = dfInput_test)
 
@@ -91,8 +86,7 @@ test_missing_column_assess <- function(
 test_invalid_mapping_assess <- function(
   assess_function,
   dfInput,
-  mapping
-) {
+  mapping) {
   mapping_edited <- mapping
   mapping_edited$dfInput$strSiteCol <- "cupcakes"
   invalid_map <- dfInput %>% assess_function(lMapping = mapping_edited)
@@ -109,8 +103,7 @@ test_invalid_mapping_assess <- function(
 
 test_identity <- function(
   assess_function,
-  dfInput
-) {
+  dfInput) {
   Identity <- assess_function(dfInput, strMethod = "Identity")
 
   testthat::expect_error(assess_function(dfInput, strMethod = "Identity"), NA)
@@ -123,8 +116,7 @@ test_identity <- function(
 
 test_NA_count <- function(
   assess_function,
-  dfInput
-) {
+  dfInput) {
   dfInputNA <- dfInput
   dfInputNA[1, "Count"] <- NA
   count_check <- assess_function(dfInput = dfInputNA)
@@ -138,8 +130,7 @@ test_NA_count <- function(
 
 test_logical_assess_parameters <- function(
   assess_function,
-  dfInput
-) {
+  dfInput) {
   testthat::expect_snapshot(
     assessOutput <- assess_function(dfInput = dfInput, bQuiet = FALSE)
   )

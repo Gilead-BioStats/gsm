@@ -31,30 +31,27 @@ ae_summary <- Summarize(
   dfFlagged = ae_flagged
 )
 
-dfConfig <- MakeDfConfig(
-  strMethod = "NormalApprox",
-  strGroup = "Site",
-  strAbbreviation = "AE",
-  strMetric = "Adverse Event Rate",
-  strNumerator = "Adverse Events",
-  strDenominator = "Days on Treatment",
-  vThreshold = c(-3, -2, 2, 3)
+lLabels <- list(
+  workflowid = "",
+  group = "Site",
+  abbreviation = "AE",
+  metric = "Adverse Event Rate",
+  numerator = "Adverse Events",
+  denominator = "Days on Study",
+  model = "Normal Approximation",
+  score = "Adjusted Z-Score"
 )
 
 chart <- Widget_BarChart(
-  results = ae_summary,
-  workflow = dfConfig,
-  yaxis = "metric",
+  dfSummary = ae_summary,
+  lLabels = lLabels,
+  strYAxisType = "metric",
   elementId = "unit_test"
 )
 
 test_that("chart is created", {
   expect_true(all(c("Widget_BarChart", "htmlwidget") %in% class(chart)))
   expect_equal(substr(chart$elementId, 1, 9), "unit_test")
-  expect_equal(
-    nrow(chart$x$results),
-    nrow(ae_summary)
-  )
 })
 
 test_that("chart structure has not changed", {

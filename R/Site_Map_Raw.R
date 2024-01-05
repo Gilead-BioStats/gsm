@@ -7,13 +7,14 @@
 #' @export
 #' @keywords internal
 Site_Map_Raw <- function(
-  dfs = list(
-    dfSITE = clindata::ctms_site,
-    dfSUBJ = clindata::rawplus_dm
+  dfs = gsm::UseClindata(
+    list(
+      "dfSITE" = "clindata::ctms_site",
+      "dfSUBJ" = "clindata::rawplus_dm"
+    )
   ),
   lMapping = gsm::Read_Mapping(c("ctms", "rawplus")),
-  dfConfig = gsm::config_param
-) {
+  dfConfig = gsm::config_param) {
   status_site <- dfs$dfSITE %>%
     mutate(
       siteid = as.character(
@@ -58,7 +59,7 @@ Site_Map_Raw <- function(
         filter(
           .data$System == "Gismo",
           .data$Table == "status_site",
-          .data$Column != "gsm_analysis_date"
+          !.data$Column %in% c("gsm_analysis_date", "amber_flags", "red_flags")
         ) %>%
         arrange(.data$Order) %>%
         pull(.data$Column)

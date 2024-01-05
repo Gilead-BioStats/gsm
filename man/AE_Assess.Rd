@@ -2,15 +2,19 @@
 % Please edit documentation in R/AE_Assess.R
 \name{AE_Assess}
 \alias{AE_Assess}
-\title{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}}
+\title{Adverse Event Assessment}
 \usage{
 AE_Assess(
   dfInput,
   vThreshold = NULL,
   strMethod = "NormalApprox",
   lMapping = yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
+  lLabels = list(workflowid = "", group = strGroup, abbreviation = "AE", metric =
+    "Adverse Event Rate", numerator = "Adverse Events", denominator = "Days on Study",
+    model = "Normal Approximation", score = "Adjusted Z-Score"),
   strGroup = "Site",
   nMinDenominator = NULL,
+  bMakeCharts = FALSE,
   bQuiet = TRUE
 )
 }
@@ -31,10 +35,14 @@ for a nominal assessment (\code{strMethod = "Identity"}).}
 \item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name
 of the column. Default: package-defined Adverse Event Assessment mapping.}
 
+\item{lLabels}{\code{list} Labels used to populate chart labels.}
+
 \item{strGroup}{\code{character} Grouping variable. \code{"Site"} (the default) uses the column named in \code{mapping$strSiteCol}. Other valid options using the default mapping are \code{"Study"}, \code{"Country"}, and \code{"CustomGroup"}.
 Other valid options using the default mapping are \code{"Study"} and \code{"CustomGroup"}.}
 
 \item{nMinDenominator}{\code{numeric} Specifies the minimum denominator required to return a \code{score} and calculate a \code{flag}. Default: NULL}
+
+\item{bMakeCharts}{\code{logical} Boolean value indicating whether to create charts.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
@@ -69,7 +77,7 @@ when \code{strMethod == "NormalApprox"} or \code{strMethod == "Poisson"}. \code{
 Evaluates Adverse Event (AE) rates to identify sites that may be over- or under-reporting AEs.
 }
 \details{
-Adverse Event Assessment
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 The AE Assessment uses the standard \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.
