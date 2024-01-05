@@ -1,8 +1,8 @@
 ---
-title: "v1_9_0-data-model-update-reference"
+title: "v1.9.0 Data Model Update Reference"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{v1_9_0-data-model-update-reference}
+  %\VignetteIndexEntry{v1.9.0 Data Model Update Reference}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
