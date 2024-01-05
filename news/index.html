@@ -49,6 +49,9 @@
     <li>
       <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
     </li>
+    <li>
+      <a href="../articles/v1_9_0-data-model-update-reference.html">v1.9.0 Data Model Update Reference</a>
+    </li>
   </ul></li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -89,12 +92,16 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="1.9.0" id="gsm-v190">gsm v1.9.0<a class="anchor" aria-label="anchor" href="#gsm-v190"></a></h2>
+<p>This release introduces a new data model to the snapshot logs, reworking the outputs of <code><a href="../reference/Make_Snapshot.html">Make_Snapshot()</a></code> to include longitudinal functionality and new table components. See the <strong><code>v1.9.0</code> Data Model Update Reference</strong> vignette for new data mapping and functionality notes.</p>
+</div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="1.8.4" id="gsm-v184">gsm v1.8.4<a class="anchor" aria-label="anchor" href="#gsm-v184"></a></h2>
 <p>Patch release to address bugfixes for invalid cPath argument of <code>Augment_Snapshot()</code> and variable referencing in <code><a href="../reference/Overview_Table.html">Overview_Table()</a></code></p>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.8.3" id="gsm-v183">gsm v1.8.3<a class="anchor" aria-label="anchor" href="#gsm-v183"></a></h2>
-<p>this release functionalizes reporting and builds out the QTL report options while adding a timeline visualization to all reports. bugfixes were applied to <code>Augment_Snapshot()</code> and <code><a href="../reference/StackSnapshots.html">StackSnapshots()</a></code> to account for folders not formatted in date format.</p>
+<p>This release functionalizes reporting and builds out the QTL report options while adding a timeline visualization to all reports. bugfixes were applied to <code>Augment_Snapshot()</code> and <code>StackSnapshots()</code> to account for folders not formatted in date format.</p>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.8.2" id="gsm-v182">gsm v1.8.2<a class="anchor" aria-label="anchor" href="#gsm-v182"></a></h2>
@@ -173,9 +180,9 @@
 <div class="section level4">
 <h4 id="longitudinal-snapshot-1-7-2">Longitudinal Snapshot<a class="anchor" aria-label="anchor" href="#longitudinal-snapshot-1-7-2"></a></h4>
 <ul><li>
-<code><a href="../reference/StackSnapshots.html">StackSnapshots()</a></code> has been updated to only recognize folders that are named with <code>YYYY-MM-DD</code> format.</li>
+<code>StackSnapshots()</code> has been updated to only recognize folders that are named with <code>YYYY-MM-DD</code> format.</li>
 <li>
-<code><a href="../reference/StackSnapshots.html">StackSnapshots()</a></code> no longer includes multiple <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> versions in the <code>parameters</code> data.frame. The default behavior is to now detect the most recent version of <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>, and throw an informative warning if more than one version is detected.</li>
+<code>StackSnapshots()</code> no longer includes multiple <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> versions in the <code>parameters</code> data.frame. The default behavior is to now detect the most recent version of <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>, and throw an informative warning if more than one version is detected.</li>
 <li>
 <code>AugmentSnapshot()</code> has been updated so that snapshot folders can be specified.</li>
 </ul></div>

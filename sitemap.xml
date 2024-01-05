@@ -31,6 +31,9 @@
     <loc>/articles/index.html</loc>
   </url>
   <url>
+    <loc>/articles/v1_9_0-data-model-update-reference.html</loc>
+  </url>
+  <url>
     <loc>/authors.html</loc>
   </url>
   <url>
@@ -335,9 +338,6 @@
   </url>
   <url>
     <loc>/reference/Site_Map_Raw.html</loc>
-  </url>
-  <url>
-    <loc>/reference/StackSnapshots.html</loc>
   </url>
   <url>
     <loc>/reference/Study_Assess.html</loc>

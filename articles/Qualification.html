@@ -67,6 +67,9 @@
     <li>
       <a href="../articles/QualificationWorkflow.html">Qualification Workflow</a>
     </li>
+    <li>
+      <a href="../articles/v1_9_0-data-model-update-reference.html">v1.9.0 Data Model Update Reference</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -116,7 +119,7 @@
 Package</h1>
             
             <h4 data-toc-skip class="date">Report Run Date:
-2024-01-03</h4>
+2024-01-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/HEAD/vignettes/articles/Qualification.Rmd" class="external-link"><code>vignettes/articles/Qualification.Rmd</code></a></small>
       <div class="hidden name"><code>Qualification.Rmd</code></div>
@@ -5676,866 +5679,7 @@ arise.</p>
 <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> function. This metric quantifies the extent of unit
 testing. The closer this measure is to 100%, the more unit testing that
 function has.</p>
-<table class="table table lightable-classic" style='font-size: 9px; width: auto !important; margin-left: auto; margin-right: auto; font-family: "Arial Narrow", "Source Sans Pro", sans-serif; margin-left: auto; margin-right: auto;'>
-<thead><tr>
-<th style="text-align:left;">
-Function
-</th>
-<th style="text-align:left;">
-File Coverage
-</th>
-</tr></thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-R/AE_Assess.R
-</td>
-<td style="text-align:left;">
-97.85 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/AE_Map_Adam.R
-</td>
-<td style="text-align:left;">
-97.73 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/AE_Map_Raw.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Analyze_Fisher.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Analyze_Identity.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Analyze_NormalApprox_PredictBounds.R
-</td>
-<td style="text-align:left;">
-94.64 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Analyze_NormalApprox.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Analyze_Poisson_PredictBounds.R
-</td>
-<td style="text-align:left;">
-89.80 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Analyze_Poisson.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Analyze_QTL.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/CheckSnapshotInputs.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Consent_Assess.R
-</td>
-<td style="text-align:left;">
-93.02 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Consent_Map_Raw.R
-</td>
-<td style="text-align:left;">
-88.89 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Country_Map_Raw.R
-</td>
-<td style="text-align:left;">
-0.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/DataChg_Assess.R
-</td>
-<td style="text-align:left;">
-93.98 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/DataChg_Map_Raw.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/DataEntry_Assess.R
-</td>
-<td style="text-align:left;">
-93.98 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/DataEntry_Map_Raw.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Disp_Assess.R
-</td>
-<td style="text-align:left;">
-94.68 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Disp_Map_Raw.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/ExportCode.R
-</td>
-<td style="text-align:left;">
-88.79 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Flag_Fisher.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Flag_NormalApprox.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Flag_Poisson.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Flag_QTL.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Flag.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Get_Enrolled.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/GetClass.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/IE_Assess.R
-</td>
-<td style="text-align:left;">
-93.02 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/IE_Map_Raw.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/is_workflow_valid.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/LB_Assess.R
-</td>
-<td style="text-align:left;">
-93.98 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/LB_Map_Raw.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Log.R
-</td>
-<td style="text-align:left;">
-0.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Make_Snapshot.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/MakeAnalysisDate.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/MakeKRICharts.R
-</td>
-<td style="text-align:left;">
-88.37 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/MakeQTLCharts.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/MakeResultsAnalysis.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/MakeResultsBounds.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/MakeResultsSummary.R
-</td>
-<td style="text-align:left;">
-0.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/MakeStatusWorkflow.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Overview_Table.R
-</td>
-<td style="text-align:left;">
-89.97 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/PD_Assess_Binary.R
-</td>
-<td style="text-align:left;">
-93.68 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/PD_Assess_Rate.R
-</td>
-<td style="text-align:left;">
-89.47 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/PD_Map_Raw_Binary.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/PD_Map_Raw_Rate.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/QueryAge_Assess.R
-</td>
-<td style="text-align:left;">
-93.98 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/QueryAge_Map_Raw.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/QueryRate_Assess.R
-</td>
-<td style="text-align:left;">
-86.02 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/QueryRate_Map_Raw.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Read_Mapping.R
-</td>
-<td style="text-align:left;">
-92.86 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/RemapLog.R
-</td>
-<td style="text-align:left;">
-95.45 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/RunQTL.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Save_Snapshot.R
-</td>
-<td style="text-align:left;">
-81.25 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/SaveQTL.R
-</td>
-<td style="text-align:left;">
-92.59 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Screening_Assess.R
-</td>
-<td style="text-align:left;">
-86.17 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Screening_Map_Raw.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Site_Map_Raw.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Study_Assess.R
-</td>
-<td style="text-align:left;">
-87.30 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Study_AssessmentReport.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Study_Map_Raw.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Study_Report.R
-</td>
-<td style="text-align:left;">
-0.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Summarize.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/tests-assess_helpers.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/tests-map_raw_helpers.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Timeline.R
-</td>
-<td style="text-align:left;">
-0.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Transform_Count.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Transform_Rate.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Unlog.R
-</td>
-<td style="text-align:left;">
-0.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/UpdateParams.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/UpdateSnapshotLogs.R
-</td>
-<td style="text-align:left;">
-0.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/util-build_markdown.R
-</td>
-<td style="text-align:left;">
-0.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/util-CheckClindataMeta.R
-</td>
-<td style="text-align:left;">
-0.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/util-CheckInputs.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/util-clindata.R
-</td>
-<td style="text-align:left;">
-50.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/util-ConsolidateStrata.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/util-ExtractDirectoryPaths.R
-</td>
-<td style="text-align:left;">
-0.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/util-ExtractSnapshotDate.R
-</td>
-<td style="text-align:left;">
-0.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/util-FilterData.R
-</td>
-<td style="text-align:left;">
-96.67 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/util-FilterDomain.R
-</td>
-<td style="text-align:left;">
-90.62 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/util-generate_md_table.R
-</td>
-<td style="text-align:left;">
-0.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/util-is_mapping_valid.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/util-kri_directionality_logo.R
-</td>
-<td style="text-align:left;">
-76.92 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/util-MakeSnapshotHelpers.R
-</td>
-<td style="text-align:left;">
-76.57 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/util-MakeStratifiedAssessment.R
-</td>
-<td style="text-align:left;">
-92.86 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/util-MakeWorkflowList.R
-</td>
-<td style="text-align:left;">
-97.87 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/util-MergeSubjects.R
-</td>
-<td style="text-align:left;">
-97.73 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/util-parse_data_mapping.R
-</td>
-<td style="text-align:left;">
-0.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/util-parse_data_spec.R
-</td>
-<td style="text-align:left;">
-0.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/util-ParseWarnings.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/util-rank_chg.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/util-ReportHelpers.R
-</td>
-<td style="text-align:left;">
-0.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/util-RunStep.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/util-RunStratifiedWorkflow.R
-</td>
-<td style="text-align:left;">
-90.62 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/util-RunWorkflow.R
-</td>
-<td style="text-align:left;">
-91.89 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/util-StackSnapshots.R
-</td>
-<td style="text-align:left;">
-0.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/util-UpdateGSMVersion.R
-</td>
-<td style="text-align:left;">
-0.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/util-UpdateLabels.R
-</td>
-<td style="text-align:left;">
-0.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Visualize_Scatter.R
-</td>
-<td style="text-align:left;">
-100.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Visualize_Score.R
-</td>
-<td style="text-align:left;">
-86.21 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Widget_BarChart.R
-</td>
-<td style="text-align:left;">
-83.33 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Widget_ScatterPlot.R
-</td>
-<td style="text-align:left;">
-86.67 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Widget_TimeSeries.R
-</td>
-<td style="text-align:left;">
-0.00 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-R/Widget_TimeSeriesQTL.R
-</td>
-<td style="text-align:left;">
-92.75 %
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Total Coverage
-</td>
-<td style="text-align:left;">
-75.47 %
-</td>
-</tr>
-</tbody>
-</table>
+<p>[1] “Testing package version for gsm: 1.8.4”</p>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
@@ -6734,7 +5878,7 @@ gt
 0.10.0
 </td>
 <td style="text-align:left;">
-0.445
+0.449
 </td>
 </tr>
 <tr>
@@ -6745,7 +5889,7 @@ gggenes
 0.5.1
 </td>
 <td style="text-align:left;">
-0.404
+0.403
 </td>
 </tr>
 <tr>
@@ -6767,7 +5911,7 @@ ggplot2
 3.4.4
 </td>
 <td style="text-align:left;">
-0.394
+0.392
 </td>
 </tr>
 <tr>
@@ -6822,7 +5966,7 @@ knitr
 1.45
 </td>
 <td style="text-align:left;">
-0.459
+0.462
 </td>
 </tr>
 <tr>
@@ -6910,7 +6054,7 @@ stringr
 1.5.1
 </td>
 <td style="text-align:left;">
-0.352
+0.354
 </td>
 </tr>
 <tr>
@@ -6943,7 +6087,7 @@ tidyr
 1.3.0
 </td>
 <td style="text-align:left;">
-0.403
+0.366
 </td>
 </tr>
 <tr>
@@ -6977,6 +6121,84 @@ rlang
 <h2 id="pull-request-history">Pull Request History<a class="anchor" aria-label="anchor" href="#pull-request-history"></a>
 </h2>
 <div class="section level4">
+<h4 id="pull-request-1456-release-v1-9-0-rc1">Pull Request 1456: Release v1.9.0 rc1<a class="anchor" aria-label="anchor" href="#pull-request-1456-release-v1-9-0-rc1"></a>
+</h4>
+<p>Merging release-v1.9.0-rc1 into main</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1456" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1456</a></p>
+<table style="width:83%;" class="table">
+<colgroup>
+<col width="26%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">andersonjake1988</td>
+<td align="center">2024-01-04 17:27:31</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1455-test-ci-for-reporting">Pull Request 1455: test CI for reporting<a class="anchor" aria-label="anchor" href="#pull-request-1455-test-ci-for-reporting"></a>
+</h4>
+<p>Merging fix-1424-reporting into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1455" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1455</a></p>
+<table style="width:76%;" class="table">
+<colgroup>
+<col width="19%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">mattroumaya</td>
+<td align="center">2024-01-02 21:49:12</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1454-fix-1426">Pull Request 1454: Fix 1426<a class="anchor" aria-label="anchor" href="#pull-request-1454-fix-1426"></a>
+</h4>
+<p>Merging fix-1426 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1454" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1454</a></p>
+<table style="width:76%;" class="table">
+<colgroup>
+<col width="19%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">mattroumaya</td>
+<td align="center">2024-01-02 18:25:08</td>
+<td align="center"></td>
+<td align="center">COMMENTED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
 <h4 id="pull-request-1449-fix-1446">Pull Request 1449: Fix 1446<a class="anchor" aria-label="anchor" href="#pull-request-1449-fix-1446"></a>
 </h4>
 <p>Merging fix-1446 into dev</p>
@@ -6998,6 +6220,32 @@ rlang
 <td align="center">mattroumaya</td>
 <td align="center">2023-12-21 02:53:55</td>
 <td align="center">jwildfire</td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1448-created-vignette-template">Pull Request 1448: created vignette template<a class="anchor" aria-label="anchor" href="#pull-request-1448-created-vignette-template"></a>
+</h4>
+<p>Merging fix-1430 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1448" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1448</a></p>
+<table style="width:83%;" class="table">
+<colgroup>
+<col width="26%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">andersonjake1988</td>
+<td align="center">2023-12-20 18:02:48</td>
+<td align="center"></td>
 <td align="center">APPROVED</td>
 </tr></tbody>
 </table>
@@ -9497,32 +8745,6 @@ to workflows.<a class="anchor" aria-label="anchor" href="#pull-request-1232-twea
 <td align="center">collleenmclaughlin</td>
 <td align="center">2023-06-22 17:10:39</td>
 <td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1228-fix-1225">Pull Request 1228: Fix 1225<a class="anchor" aria-label="anchor" href="#pull-request-1228-fix-1225"></a>
-</h4>
-<p>Merging fix-1225 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1228" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1228</a></p>
-<table style="width:76%;" class="table">
-<colgroup>
-<col width="19%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">mattroumaya</td>
-<td align="center">2023-06-21 18:08:12</td>
-<td align="center">jwildfire</td>
 <td align="center">APPROVED</td>
 </tr></tbody>
 </table>
