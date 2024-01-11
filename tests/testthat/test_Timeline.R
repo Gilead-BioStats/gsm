@@ -1,26 +1,45 @@
 # Install and load the `testthat` package
 source(testthat::test_path("testdata/data.R"))
 
-# Load the R script or function you want to test
-# source("path/to/your/script.R")
+test_that("Make_Timeline function works as expected", {
+  lMeta = gsm::UseClindata(
+    list(
+      "config_param" = "gsm::config_param",
+      "config_workflow" = "gsm::config_workflow",
+      "meta_params" = "gsm::meta_param",
+      "meta_site" = "clindata::ctms_site",
+      "meta_study" = "clindata::ctms_study",
+      "meta_workflow" = "gsm::meta_workflow"
+    )
+  )
 
-# Write your test cases using test_that() function
-test_that("Test Case 1: Description of the test case", {
-  # Test code goes here
-  # Use expect_* functions to define expectations
-  
-  # Example:
-  # expect_equal(actual_value, expected_value, "Failure message")
-  # expect_true(condition, "Failure message")
+  lData = gsm::UseClindata(
+    list(
+      "dfSUBJ" = "clindata::rawplus_dm"
+    )
+  )
+
+  lMapping = Read_Mapping()
+
+  lAssessments = MakeWorkflowList(lMeta = lMeta)
+
+  # map ctms data -----------------------------------------------------------
+  status_study <- Study_Map_Raw(
+    dfs = list(
+      dfSTUDY = lMeta$meta_study,
+      dfSUBJ = lData$dfSUBJ
+    ),
+    lMapping = lMapping,
+    dfConfig = lMeta$config_param
+  )
+
+  # Test the function
+  plot <- suppressWarnings(Make_Timeline(status_study, n_breaks = 5, bInteractive = TRUE))
+
+  expect_true(is.list(plot))
+  expect_true(plot$x$uid == "timeline")
+
 })
 
-test_that("Test Case 2: Description of another test case", {
-  # Test code goes here
-  # Use expect_* functions to define expectations
-})
 
-# Additional test cases can be added as needed
 
-# Run the tests
-# To run the tests, use the test_file() function with the filename of this script
-# test_file("path/to/your/test_script.R"

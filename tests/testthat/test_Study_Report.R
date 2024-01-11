@@ -1,26 +1,23 @@
 # Install and load the `testthat` package
 source(testthat::test_path("testdata/data.R"))
 
-# Load the R script or function you want to test
-# source("path/to/your/script.R")
+# Write tests for Study_Report function
+test_that("Study_Report function works as expected", {
+  snapshot <- Make_Snapshot(lData = lData)
 
-# Write your test cases using test_that() function
-test_that("Test Case 1: Description of the test case", {
-  # Test code goes here
-  # Use expect_* functions to define expectations
-  
-  # Example:
-  # expect_equal(actual_value, expected_value, "Failure message")
-  # expect_true(condition, "Failure message")
+  # Create temporary output file path
+  tmp_outpath <- tempfile(fileext = ".html")
+
+  # Test the function with different report types
+  Study_Report(dummy_snapshot, strOutpath = tmp_outpath, strReportType = "site")
+  expect_true(file.exists(tmp_outpath), "Site report file should be created")
+
+  Study_Report(dummy_snapshot, strOutpath = tmp_outpath, strReportType = "country")
+  expect_true(file.exists(tmp_outpath), "Country report file should be created")
+
+  Study_Report(dummy_snapshot, strOutpath = tmp_outpath, strReportType = "QTL")
+  expect_true(file.exists(tmp_outpath), "QTL report file should be created")
+
+  # Clean up - remove the temporary output file
+  unlink(tmp_outpath)
 })
-
-test_that("Test Case 2: Description of another test case", {
-  # Test code goes here
-  # Use expect_* functions to define expectations
-})
-
-# Additional test cases can be added as needed
-
-# Run the tests
-# To run the tests, use the test_file() function with the filename of this script
-# test_file("path/to/your/test_script.R"

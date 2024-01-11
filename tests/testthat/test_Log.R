@@ -1,5 +1,6 @@
 # Install and load the `testthat` package
 source(testthat::test_path("testdata/data.R"))
+getwd()
 
 test_that("Log function creates a log file", {
   # Run the Log function
@@ -13,6 +14,8 @@ test_that("Log function creates a log file", {
 
   # Clean up: remove the created log file
   unlink(log_file)
+  sink()
 })
+
 
 

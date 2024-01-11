@@ -1,26 +1,65 @@
 # Install and load the `testthat` package
 source(testthat::test_path("testdata/data.R"))
 
-# Load the R script or function you want to test
-# source("path/to/your/script.R")
+# Setup Testing Data -----------------------------------------------------------
 
-# Write your test cases using test_that() function
-test_that("Test Case 1: Description of the test case", {
-  # Test code goes here
-  # Use expect_* functions to define expectations
-  
-  # Example:
-  # expect_equal(actual_value, expected_value, "Failure message")
-  # expect_true(condition, "Failure message")
+
+# MakeStudyStatusTable ---------------------------------------------------------
+test_that("Testing util-ReporHelpers - MakeStudyStatusTable():", {
+
 })
 
-test_that("Test Case 2: Description of another test case", {
-  # Test code goes here
-  # Use expect_* functions to define expectations
+# MakeSummaryTable -------------------------------------------------------------
+test_that("Testing util-ReporHelpers - MakeSummaryTable:", {
+
 })
 
-# Additional test cases can be added as needed
+# add_table_theme --------------------------------------------------------------
+test_that("Testing util-ReporHelpers - add_table_theme():", {
 
-# Run the tests
-# To run the tests, use the test_file() function with the filename of this script
-# test_file("path/to/your/test_script.R"
+})
+
+# MakeKRIGlossary --------------------------------------------------------------
+test_that("Testing util-ReporHelpers - MakeKRIGlossary():", {
+
+})
+
+# MakeResultsTable -------------------------------------------------------------
+test_that("Testing util-ReporHelpers - MakeResultsTable():", {
+
+})
+
+# AssessStatus -----------------------------------------------------------------
+test_that("Testing util-ReporHelpers - AssessStatus():", {
+
+})
+
+# MakeReportSetup --------------------------------------------------------------
+test_that("Testing util-ReporHelpers - MakeReportSetup():", {
+
+})
+
+# MakeOverviewMessage ----------------------------------------------------------
+test_that("Testing util-ReporHelpers - MakeOverviewMessage():", {
+
+})
+
+# GetSnapshotDate --------------------------------------------------------------
+test_that("Testing util-ReporHelpers - GetSnapshotDate():", {
+
+})
+
+# MakeErrorLog -----------------------------------------------------------------
+test_that("Testing util-ReporHelpers - MakeErrorLog():", {
+
+})
+
+# qtl_summary ------------------------------------------------------------------
+test_that("Testing util-ReporHelpers - qtl_summary():", {
+
+})
+
+# qtl_analysis -----------------------------------------------------------------
+test_that("Testing util-ReporHelpers - qtl_analysis():", {
+
+})

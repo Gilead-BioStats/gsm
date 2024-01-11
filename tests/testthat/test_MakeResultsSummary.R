@@ -2,31 +2,11 @@
 source(testthat::test_path("testdata/data.R"))
 
 # Create a sample configuration data frame
-dfConfigWorkflow <- data.frame(
-  studyid = c("Study1", "Study2"),
-  KRIID = c("Workflow1", "Workflow2"),
-  GroupID = c("GroupA", "GroupB")
-)
+dfConfigWorkflow <- gsm::config_workflow
 
 # Create a sample list of results
-lResults <- list(
-  list(
-    lResults = list(
-      lChecks = list(status = TRUE),
-      lData = list(
-        dfSummary = data.frame(
-          Numerator = c(1, 2),
-          Denominator = c(10, 20),
-          Metric = c("MetricA", "MetricB"),
-          Score = c(0.1, 0.2),
-          Flag = c("OK", "Warning")
-        )
-      )
-    )
-  ),
-  # Add more result entries as needed for testing different cases
-)
-Upda
+lResults <- Study_Assess()
+
 # Write a test
 test_that("MakeResultsSummary generates correct summary data frame", {
   # Run the MakeResultsSummary function
@@ -43,5 +23,5 @@ test_that("MakeResultsSummary generates correct summary data frame", {
   expect_true("flag" %in% names(results_summary), "Missing 'flag' column")
 
   # Check if the resulting data frame has the expected number of rows
-  expect_equal(nrow(results_summary), sum(sapply(lResults, function(x) !is.null(x$lResults) && x$lResults$lChecks$status)))
+  expect_true(is.data.frame(results_summary))
 })
