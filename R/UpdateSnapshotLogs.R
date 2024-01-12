@@ -9,13 +9,25 @@
 #' @export
 #'
 #' @keywords internal
-UpdateSnapshotLogs <- function(lPrevSnapshot, lMeta = NULL, lData = NULL, lMapping = NULL) {
+UpdateSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping = NULL, version = "1.9") {
+
+  if(!version %in% c("1.8", "1.9")){
+    stop("version argument must be either '1.8' for previous data model or '1.9' for current data model")
+  }
+
+  old_tables <- c("status_study", "status_site", "status_workflow", "status_param", "results_summary",
+                  "results_analysis", "results_bounds", "meta_workflow", "meta_param")
+
   current_tables <- c("rpt_site_details", "rpt_study_details", "rpt_qtl_details",
                       "rpt_kri_details", "rpt_site_kri_details", "rpt_kri_bounds_details",
                       "rpt_qtl_threshold_param", "rpt_kri_threshold_param", "rpt_qtl_analysis")
 
-  if(all(names(lPrevSnapshot$lSnapshot) == current_tables)) {
-    cli::cli_abort("`lPrevSnapshot` already up to date")
+  if(version == "1.9" & all(names(lSnapshot$lSnapshot) == current_tables)) {
+    cli::cli_abort("`lSnapshot` already up to date")
+  }
+
+  if(version == "1.8" & all(names(lSnapshot$lSnapshot) == old_tables)) {
+    cli::cli_abort("`lSnapshot` already up to date")
   }
 
   # Defining Meta Parameters
@@ -59,82 +71,80 @@ UpdateSnapshotLogs <- function(lPrevSnapshot, lMeta = NULL, lData = NULL, lMappi
 
   }
 
-  # Create status_study
-  status_study <- Study_Map_Raw(
-    dfs = list(
-      dfSTUDY = lMeta$meta_study,
-      dfSUBJ = lData$dfSUBJ
-    ),
-    lMapping = lMapping,
-    dfConfig = lMeta$config_param
-  )
-
-  # Create status_site
-  status_site <- Site_Map_Raw(
-    dfs = list(
-      dfSITE = lMeta$meta_site,
-      dfSUBJ = lData$dfSUBJ
-    ),
-    lMapping = lMapping,
-    dfConfig = lMeta$config_param
-  )
-
-  # determine analysis date
-  if ("lSnapshotDate" %in% names(lPrevSnapshot)) {
-    gsm_analysis_date <- lPrevSnapshot$lSnapshotDate
-  } else if(exists("gsm_analysis_date", where = lPrevSnapshot$lSnapshot[[1]])) {
-    gsm_analysis_date <- lPrevSnapshot$lSnapshot[[1]]$gsm_analysis_date
-  } else if(exists("snapshot_date", where = lPrevSnapshot$lSnapshot[[1]])) {
-    gsm_analysis_date <- lPrevSnapshot$lSnapshot[[1]]$snapshot_date
-  }
-
-  # Previous Results
-  StackedlResults <- lPrevSnapshot$lStackedSnapshots
-  lResults <- lPrevSnapshot$lStudyAssessResults
-
-  # create status_workflow
-  status_workflow <- MakeStatusWorkflow(lResults = lResults,
-                                        dfConfigWorkflow = lMeta$config_workflow)
-
-  # define output
-  output <- lPrevSnapshot
-
-  # augment past lSnapshot data
-  output$lSnapshot <- list(
-    rpt_site_details = MakeRptSiteDetails(lResults, status_site, gsm_analysis_date),
-    rpt_study_details = MakeRptStudyDetails(lResults, status_study, gsm_analysis_date),
-    rpt_qtl_details = MakeRptQtlDetails(lResults, lMeta$meta_workflow, lMeta$config_param, gsm_analysis_date),
-    rpt_kri_details = MakeRptKriDetails(lResults, status_site, lMeta$meta_workflow, status_workflow, gsm_analysis_date),
-    rpt_site_kri_details = MakeRptSiteKriDetails(lResults, status_site, lMeta$meta_workflow, lMeta$meta_params, gsm_analysis_date),
-    rpt_kri_bounds_details = MakeRptKriBoundsDetails(lResults, lMeta$config_param, gsm_analysis_date),
-    rpt_qtl_threshold_param = MakeRptThresholdParam(lMeta$meta_params, lMeta$config_param, gsm_analysis_date, type = "qtl"),
-    rpt_kri_threshold_param = MakeRptThresholdParam(lMeta$meta_params, lMeta$config_param, gsm_analysis_date, type = "kri"),
-    rpt_qtl_analysis = MakeRptQtlAnalysis(lResults, gsm_analysis_date)
-  )
-
-  # augment past lStackedSnapshots data if available
-  if ("lStackedSnapshots" %in% names(lPrevSnapshot)) {
-    output$lStackedSnapshots <- list(
-      rpt_site_details = MakeRptSiteDetails(StackedlResults, status_site),
-      rpt_study_details = MakeRptStudyDetails(StackedlResults, status_study),
-      rpt_qtl_details = MakeRptQtlDetails(StackedlResults, lMeta$meta_workflow, lMeta$config_param),
-      rpt_kri_details = MakeRptKriDetails(StackedlResults, status_site, lMeta$meta_workflow, status_workflow),
-      rpt_site_kri_details = MakeRptSiteKriDetails(StackedlResults, status_site, lMeta$meta_workflow, lMeta$meta_params),
-      rpt_kri_bounds_details = MakeRptKriBoundsDetails(StackedlResults, lMeta$config_param),
-      rpt_qtl_threshold_param = MakeRptThresholdParam(lMeta$meta_params, lMeta$config_param, type = "qtl"),
-      rpt_kri_threshold_param = MakeRptThresholdParam(lMeta$meta_params, lMeta$config_param, type = "kri"),
-      rpt_qtl_analysis = MakeRptQtlAnalysis(StackedlResults)
+  if(version == "1.9"){
+    # Create status_study
+    status_study <- Study_Map_Raw(
+      dfs = list(
+        dfSTUDY = lMeta$meta_study,
+        dfSUBJ = lData$dfSUBJ
+      ),
+      lMapping = lMapping,
+      dfConfig = lMeta$config_param
     )
+
+    # Create status_site
+    status_site <- Site_Map_Raw(
+      dfs = list(
+        dfSITE = lMeta$meta_site,
+        dfSUBJ = lData$dfSUBJ
+      ),
+      lMapping = lMapping,
+      dfConfig = lMeta$config_param
+    )
+
+    # determine analysis date
+    if ("lSnapshotDate" %in% names(lPrevSnapshot)) {
+      gsm_analysis_date <- lPrevSnapshot$lSnapshotDate
+    } else if(exists("gsm_analysis_date", where = lPrevSnapshot$lSnapshot[[1]])) {
+      gsm_analysis_date <- lPrevSnapshot$lSnapshot[[1]]$gsm_analysis_date
+    } else if(exists("snapshot_date", where = lPrevSnapshot$lSnapshot[[1]])) {
+      gsm_analysis_date <- lPrevSnapshot$lSnapshot[[1]]$snapshot_date
+    }
+
+    # Previous Results
+    StackedlResults <- lPrevSnapshot$lStackedSnapshots
+    lResults <- lPrevSnapshot$lStudyAssessResults
+
+    # create status_workflow
+    status_workflow <- MakeStatusWorkflow(lResults = lResults,
+                                          dfConfigWorkflow = lMeta$config_workflow)
+
+    # define output
+    output <- lPrevSnapshot
+
+    # augment past lSnapshot data
+    output$lSnapshot <- list(
+      rpt_site_details = MakeRptSiteDetails(lResults, status_site, gsm_analysis_date),
+      rpt_study_details = MakeRptStudyDetails(lResults, status_study, gsm_analysis_date),
+      rpt_qtl_details = MakeRptQtlDetails(lResults, lMeta$meta_workflow, lMeta$config_param, gsm_analysis_date),
+      rpt_kri_details = MakeRptKriDetails(lResults, status_site, lMeta$meta_workflow, status_workflow, gsm_analysis_date),
+      rpt_site_kri_details = MakeRptSiteKriDetails(lResults, status_site, lMeta$meta_workflow, lMeta$meta_params, gsm_analysis_date),
+      rpt_kri_bounds_details = MakeRptKriBoundsDetails(lResults, lMeta$config_param, gsm_analysis_date),
+      rpt_qtl_threshold_param = MakeRptThresholdParam(lMeta$meta_params, lMeta$config_param, gsm_analysis_date, type = "qtl"),
+      rpt_kri_threshold_param = MakeRptThresholdParam(lMeta$meta_params, lMeta$config_param, gsm_analysis_date, type = "kri"),
+      rpt_qtl_analysis = MakeRptQtlAnalysis(lResults, gsm_analysis_date)
+    )
+
+    # augment past lStackedSnapshots data if available
+    if ("lStackedSnapshots" %in% names(lPrevSnapshot)) {
+      output$lStackedSnapshots <- list(
+        rpt_site_details = MakeRptSiteDetails(StackedlResults, status_site),
+        rpt_study_details = MakeRptStudyDetails(StackedlResults, status_study),
+        rpt_qtl_details = MakeRptQtlDetails(StackedlResults, lMeta$meta_workflow, lMeta$config_param),
+        rpt_kri_details = MakeRptKriDetails(StackedlResults, status_site, lMeta$meta_workflow, status_workflow),
+        rpt_site_kri_details = MakeRptSiteKriDetails(StackedlResults, status_site, lMeta$meta_workflow, lMeta$meta_params),
+        rpt_kri_bounds_details = MakeRptKriBoundsDetails(StackedlResults, lMeta$config_param),
+        rpt_qtl_threshold_param = MakeRptThresholdParam(lMeta$meta_params, lMeta$config_param, type = "qtl"),
+        rpt_kri_threshold_param = MakeRptThresholdParam(lMeta$meta_params, lMeta$config_param, type = "kri"),
+        rpt_qtl_analysis = MakeRptQtlAnalysis(StackedlResults)
+      )
+    }
+  } else if(version == "1.8"){
+    output <- RevertSnapshotLogs(lSnapshot, lMeta, lData)
   }
 
   return(output)
 }
-
-
-
-
-
-
 
 
 
