@@ -19,6 +19,8 @@ UpdateSnapshotLogs(
 
 \item{lMapping}{\code{list} lMapping argument of previous snapshot. defaults to \code{Read_Mapping()} output if NULL}
 
+\item{version}{\code{string} specifies the conversion direction '1.8' for old data model '1.9' for new data model}
+
 \item{lPrevSnapshot}{\code{list} snapshot.rds file of archived snapshot}
 }
 \value{

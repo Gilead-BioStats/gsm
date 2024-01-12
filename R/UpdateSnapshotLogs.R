@@ -4,6 +4,7 @@
 #' @param lMeta `list` lMeta data used in previous snapshot defaults to `Make_Snapshot()` lMeta default arguments if NULL
 #' @param lData `list` lData argument of previous snapshot defaults to `Make_Snapshot()` lData default arguments if NULL
 #' @param lMapping `list` lMapping argument of previous snapshot. defaults to `Read_Mapping()` output if NULL
+#' @param version `string` specifies the conversion direction '1.8' for old data model '1.9' for new data model
 #'
 #' @return `list` list of corrected lSnapshot logs and lStackedSnapshots logs if available
 #' @export
