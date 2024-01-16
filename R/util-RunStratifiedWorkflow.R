@@ -56,7 +56,7 @@ RunStratifiedWorkflow <- function(
 ) {
   if (!bQuiet) cli::cli_h1(paste0("Initializing `", lWorkflow$name, "` workflow"))
 
-  
+
 
   lOutput <- RunWorkflow(
     lWorkflow,

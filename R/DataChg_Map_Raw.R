@@ -39,15 +39,15 @@
 #' @export
 
 DataChg_Map_Raw <- function(
-    dfs = gsm::UseClindata(
-      list(
-        "dfSUBJ" = "clindata::rawplus_dm",
-        "dfDATACHG" = "clindata::edc_data_points"
-      )
-    ),
-    lMapping = gsm::Read_Mapping(c("rawplus", "edc")),
-    bReturnChecks = FALSE,
-    bQuiet = TRUE) {
+  dfs = gsm::UseClindata(
+    list(
+      "dfSUBJ" = "clindata::rawplus_dm",
+      "dfDATACHG" = "clindata::edc_data_points"
+    )
+  ),
+  lMapping = gsm::Read_Mapping(c("rawplus", "edc")),
+  bReturnChecks = FALSE,
+  bQuiet = TRUE) {
   stopifnot(
     "bReturnChecks must be logical" = is.logical(bReturnChecks),
     "bQuiet must be logical" = is.logical(bQuiet)

@@ -28,12 +28,11 @@ Widget_TimeSeriesQTL <- function(qtl,
   height = NULL,
   elementId = NULL
 ) {
-
-# results -----------------------------------------------------------------
-  results <- dfSummary  %>%
+  # results -----------------------------------------------------------------
+  results <- dfSummary %>%
     dplyr::mutate(
       gsm_analysis_date = .data$snapshot_date
-      ) %>%
+    ) %>%
     dplyr::select(
       "studyid",
       "workflowid",
@@ -51,7 +50,7 @@ Widget_TimeSeriesQTL <- function(qtl,
 
 
 
-# workflow ----------------------------------------------------------------
+  # workflow ----------------------------------------------------------------
   if (!is.null(selectedGroupIDs)) {
     lLabels[["selectedGroupIDs"]] <- selectedGroupIDs
   } else {
@@ -60,7 +59,7 @@ Widget_TimeSeriesQTL <- function(qtl,
 
   workflow <- jsonlite::toJSON(lLabels)
 
-# params ------------------------------------------------------------------
+  # params ------------------------------------------------------------------
   # {
   #   "workflowid": "qtl0004",
   #   "param": "strGroup",
@@ -93,7 +92,7 @@ Widget_TimeSeriesQTL <- function(qtl,
 
 
 
-# analysis ----------------------------------------------------------------
+  # analysis ----------------------------------------------------------------
 
   # {
   #   "studyid": "AA-AA-000-0000",
@@ -116,7 +115,7 @@ Widget_TimeSeriesQTL <- function(qtl,
     ) %>%
     jsonlite::toJSON()
 
-# widget ------------------------------------------------------------------
+  # widget ------------------------------------------------------------------
   x <- list(
     results = results,
     workflow = workflow,

@@ -41,15 +41,15 @@
 #' @export
 
 PD_Map_Raw_Binary <- function(
-    dfs = gsm::UseClindata(
-      list(
-        "dfSUBJ" = "clindata::rawplus_dm",
-        "dfPD" = "clindata::ctms_protdev"
-      )
-    ),
-    lMapping = gsm::Read_Mapping(c("ctms", "rawplus")),
-    bReturnChecks = FALSE,
-    bQuiet = TRUE) {
+  dfs = gsm::UseClindata(
+    list(
+      "dfSUBJ" = "clindata::rawplus_dm",
+      "dfPD" = "clindata::ctms_protdev"
+    )
+  ),
+  lMapping = gsm::Read_Mapping(c("ctms", "rawplus")),
+  bReturnChecks = FALSE,
+  bQuiet = TRUE) {
   stopifnot(
     "bReturnChecks must be logical" = is.logical(bReturnChecks),
     "bQuiet must be logical" = is.logical(bQuiet)

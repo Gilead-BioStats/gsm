@@ -31,7 +31,6 @@ Widget_TimeSeries <- function(
   addSiteSelect = TRUE,
   siteSelectLabelValue = NULL
 ) {
-
   if (!is.null(siteSelectLabelValue)) {
     siteSelectLabelValue <- paste0("Highlighted ", siteSelectLabelValue, ": ")
   }

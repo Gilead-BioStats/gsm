@@ -44,15 +44,11 @@ study <- Study_Assess()
 Study_Report(study)
 Study_Report(study, strReportType = "country")
 
-# Adding metadata for a single snapshot
+# Adding metadata for a snapshot
 one_snapshot <- Make_Snapshot()
 Study_Report(
-  lSnapshot = one_snapshot,
-  dfStudy = one_snapshot$lSnapshot$status_study
+  lSnapshot = one_snapshot
 )
-
-# Longitudinal Data
-TODO: add example here
 }
 
 }

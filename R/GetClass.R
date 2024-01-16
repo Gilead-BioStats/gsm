@@ -10,7 +10,7 @@
 #' @export
 #'
 #' @keywords internal
-GetClass <- function(df){
+GetClass <- function(df) {
   sapply(df, class) %>%
     as.data.frame() %>%
     tibble::rownames_to_column() %>%

@@ -33,7 +33,6 @@ UpdateSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping =
 
   # Defining Meta Parameters
   if (!"lInputs" %in% names(lPrevSnapshot)) {
-
     # If inputs are not provided, use default lMeta
     if (is.null(lMeta)) {
       lMeta <- list(
@@ -55,9 +54,7 @@ UpdateSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping =
     if (is.null(lMapping)) {
       lMapping <- Read_Mapping()
     }
-
   } else {
-
     if (is.null(lMeta)) {
       lMeta <- lPrevSnapshot$lInputs$lMeta
     }
@@ -69,7 +66,6 @@ UpdateSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping =
     if (is.null(lMapping)) {
       lMapping <- lPrevSnapshot$lInputs$lMapping
     }
-
   }
 
   if(version == "1.9"){
@@ -146,19 +142,4 @@ UpdateSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping =
 
   return(output)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

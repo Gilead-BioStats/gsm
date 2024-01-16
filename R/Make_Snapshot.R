@@ -36,40 +36,40 @@
 #'
 #' @export
 Make_Snapshot <- function(
-    lMeta = gsm::UseClindata(
-      list(
-        "config_param" = "gsm::config_param",
-        "config_workflow" = "gsm::config_workflow",
-        "meta_params" = "gsm::meta_param",
-        "meta_site" = "clindata::ctms_site",
-        "meta_study" = "clindata::ctms_study",
-        "meta_workflow" = "gsm::meta_workflow"
-      )
-    ),
-    lData = gsm::UseClindata(
-      list(
-        "dfSUBJ" = "clindata::rawplus_dm",
-        "dfAE" = "clindata::rawplus_ae",
-        "dfPD" = "clindata::ctms_protdev",
-        "dfCONSENT" = "clindata::rawplus_consent",
-        "dfIE" = "clindata::rawplus_ie",
-        "dfLB" = "clindata::rawplus_lb",
-        "dfSTUDCOMP" = "clindata::rawplus_studcomp",
-        "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp %>%
+  lMeta = gsm::UseClindata(
+    list(
+      "config_param" = "gsm::config_param",
+      "config_workflow" = "gsm::config_workflow",
+      "meta_params" = "gsm::meta_param",
+      "meta_site" = "clindata::ctms_site",
+      "meta_study" = "clindata::ctms_study",
+      "meta_workflow" = "gsm::meta_workflow"
+    )
+  ),
+  lData = gsm::UseClindata(
+    list(
+      "dfSUBJ" = "clindata::rawplus_dm",
+      "dfAE" = "clindata::rawplus_ae",
+      "dfPD" = "clindata::ctms_protdev",
+      "dfCONSENT" = "clindata::rawplus_consent",
+      "dfIE" = "clindata::rawplus_ie",
+      "dfLB" = "clindata::rawplus_lb",
+      "dfSTUDCOMP" = "clindata::rawplus_studcomp",
+      "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp %>%
       filter(.data$phase == 'Blinded Study Drug Completion')",
       "dfDATACHG" = "clindata::edc_data_points",
       "dfDATAENT" = "clindata::edc_data_pages",
       "dfQUERY" = "clindata::edc_queries",
       "dfENROLL" = "clindata::rawplus_enroll"
-      )
-    ),
-    lMapping = Read_Mapping(),
-    lAssessments = MakeWorkflowList(lMeta = lMeta),
-    lPrevSnapshot = NULL,
-    strAnalysisDate = NULL,
-    vAppendFiles = names(lPrevSnapshot$lSnapshot),
-    bMakeCharts = TRUE,
-    bQuiet = TRUE
+    )
+  ),
+  lMapping = Read_Mapping(),
+  lAssessments = MakeWorkflowList(lMeta = lMeta),
+  lPrevSnapshot = NULL,
+  strAnalysisDate = NULL,
+  vAppendFiles = names(lPrevSnapshot$lSnapshot),
+  bMakeCharts = TRUE,
+  bQuiet = TRUE
 ) {
   # run Study_Assess() ------------------------------------------------------
   lResults <- gsm::Study_Assess(
@@ -106,8 +106,10 @@ Make_Snapshot <- function(
   )
 
   # create `status_workflow` ------------------------------------------------
-  status_workflow <- MakeStatusWorkflow(lResults = AppendDroppedWorkflows(lPrevSnapshot, lResults),
-                                        dfConfigWorkflow = lMeta$config_workflow)
+  status_workflow <- MakeStatusWorkflow(
+    lResults = AppendDroppedWorkflows(lPrevSnapshot, lResults),
+    dfConfigWorkflow = lMeta$config_workflow
+  )
 
   # create lSnapshot --------------------------------------------------------
   lSnapshot <- list(
@@ -133,15 +135,12 @@ Make_Snapshot <- function(
 
   if (bMakeCharts) {
     lCharts <- purrr::map(lResults, function(x) {
-
       if (x$bStatus) {
-
         lLabels <- lMeta$meta_workflow %>%
           filter(.data$workflowid == x$name) %>%
           as.list()
 
         if (!grepl("qtl", x$name)) {
-
           lStackedSnapshotsSubset <- SubsetStackedSnapshots(strWorkflowId = x$name, lStackedSnapshots = lStackedSnapshots)
 
           MakeKRICharts(
@@ -149,11 +148,8 @@ Make_Snapshot <- function(
             dfBounds = x$lResults$lData$dfBounds,
             lStackedSnapshots = lStackedSnapshotsSubset,
             lLabels = lLabels
-            )
-
-
+          )
         } else {
-
           MakeQTLCharts(
             strQtlName = x$name,
             dfSummary = lStackedSnapshots$rpt_site_kri_details,
@@ -162,11 +158,8 @@ Make_Snapshot <- function(
             lLabels = lMeta$meta_workflow %>%
               filter(.data$workflowid == x$name)
           )
-
         }
-
       }
-
     }) %>%
       purrr::discard(is.null)
   }

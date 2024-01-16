@@ -37,14 +37,14 @@
 #' @export
 
 Screening_Map_Raw <- function(
-    dfs = gsm::UseClindata(
-      list(
-        "dfENROLL" = "clindata::rawplus_enroll"
-      )
-    ),
-    lMapping = gsm::Read_Mapping("rawplus"),
-    bReturnChecks = FALSE,
-    bQuiet = TRUE) {
+  dfs = gsm::UseClindata(
+    list(
+      "dfENROLL" = "clindata::rawplus_enroll"
+    )
+  ),
+  lMapping = gsm::Read_Mapping("rawplus"),
+  bReturnChecks = FALSE,
+  bQuiet = TRUE) {
   stopifnot(
     "bReturnChecks must be logical" = is.logical(bReturnChecks),
     "bQuiet must be logical" = is.logical(bQuiet)
