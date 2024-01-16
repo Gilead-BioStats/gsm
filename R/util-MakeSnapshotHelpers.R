@@ -71,7 +71,7 @@ ExtractFlags <- function(lResults, group) {
 #'
 #' @importFrom lubridate as.period
 #' @importFrom lubridate interval
-#' @importFrom stringr str_replace
+#' @importFrom stringr str_replace str_extract
 #'
 #' @export
 #'
