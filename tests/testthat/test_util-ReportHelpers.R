@@ -53,25 +53,26 @@ test_that("Testing util-ReporHelpers - MakeReportSetup():", {
 
 # MakeStudyStatusTable ---------------------------------------------------------
 test_that("Testing util-ReporHelpers - MakeStudyStatusTable():", {
-expect_no_error(status_table <- MakeStudyStatusTable(snap$lSnapshot$rpt_study_details, setup$overview_raw_table))
-expect_true(is.list(status_table))
+  expect_no_error(status_table <- MakeStudyStatusTable(snap$lSnapshot$rpt_study_details, setup$overview_raw_table))
+  expect_true(is.list(status_table))
 })
 
 # MakeSummaryTable -------------------------------------------------------------
 test_that("Testing util-ReporHelpers - MakeSummaryTable:", {
- test <- MakeSummaryTable(snap$lStudyAssessResults, snap$lSnapshot$rpt_site_details)
- expect_equal(names(test), names(snap$lStudyAssessResults))
+  test <- MakeSummaryTable(snap$lStudyAssessResults, snap$lSnapshot$rpt_site_details)
+  expect_equal(names(test), names(snap$lStudyAssessResults))
 })
 
 # MakeKRIGlossary --------------------------------------------------------------
 test_that("Testing util-ReporHelpers - MakeKRIGlossary():", {
-kri_glossary <- MakeKRIGlossary(strWorkflowIDs = names(snap$lStudyAssessResults))
-expect_true(is.list(kri_glossary))
-expect_true(
-  all(names(kri_glossary) %in% c("x", "width", "height", "sizingPolicy", "dependencies",
-                                           "elementId", "preRenderHook", "jsHooks"))
-  )
+  kri_glossary <- MakeKRIGlossary(strWorkflowIDs = names(snap$lStudyAssessResults))
+  expect_true(is.list(kri_glossary))
+  expect_true(
+    all(names(kri_glossary) %in% c("x", "width", "height", "sizingPolicy", "dependencies",
+                                             "elementId", "preRenderHook", "jsHooks"))
+    )
 })
+
 
 # GetSnapshotDate --------------------------------------------------------------
 test_that("Testing util-ReporHelpers - GetSnapshotDate():", {
