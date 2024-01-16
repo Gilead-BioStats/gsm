@@ -53,23 +53,23 @@
 #' @export
 
 Consent_Assess <- function(
-    dfInput,
-    nThreshold = 0.5,
-    lMapping = yaml::read_yaml(system.file("mappings", "Consent_Assess.yaml", package = "gsm")),
-    lLabels = list(
-      workflowid = "",
-      group = strGroup,
-      abbreviation = "CONSENT",
-      metric = "Consent Issues",
-      numerator = "Consent Issues",
-      denominator = "",
-      model = "Identity",
-      score = "Count"
-    ),
-    strGroup = "Site",
-    nMinDenominator = NULL,
-    bMakeCharts = FALSE,
-    bQuiet = TRUE) {
+  dfInput,
+  nThreshold = 0.5,
+  lMapping = yaml::read_yaml(system.file("mappings", "Consent_Assess.yaml", package = "gsm")),
+  lLabels = list(
+    workflowid = "",
+    group = strGroup,
+    abbreviation = "CONSENT",
+    metric = "Consent Issues",
+    numerator = "Consent Issues",
+    denominator = "",
+    model = "Identity",
+    score = "Count"
+  ),
+  strGroup = "Site",
+  nMinDenominator = NULL,
+  bMakeCharts = FALSE,
+  bQuiet = TRUE) {
   # data checking -----------------------------------------------------------
   stopifnot(
     "nThreshold must be numeric" = is.numeric(nThreshold),
@@ -133,5 +133,4 @@ Consent_Assess <- function(
     # return data -------------------------------------------------------------
     return(lOutput)
   }
-
 }

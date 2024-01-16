@@ -22,7 +22,6 @@
 #'
 #' @export
 UpdateLabels <- function(strWorkflowId, lCharts, dfMetaWorkflow) {
-
   stopifnot(
     "[ lStudyAssessResults ] must be a list." = is.list(lCharts),
     "[ dfMetaWorkflow ] must be a data.frame" = is.data.frame(dfMetaWorkflow)
@@ -58,7 +57,6 @@ UpdateLabels <- function(strWorkflowId, lCharts, dfMetaWorkflow) {
   )
 
   return(lCharts)
-
 }
 
 AssignLabelsJS <- function(lPlot, strWorkflowID, dfWorkflow) {

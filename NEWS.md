@@ -1,8 +1,13 @@
+# gsm v1.9.0
+
+This release introduces a new data model to the snapshot logs, reworking the outputs of `Make_Snapshot()` to include longitudinal functionality and new table components. See 
+the **`v1.9.0` Data Model Update Reference** vignette for new data mapping and functionality notes. 
+
 # gsm v1.8.4
 Patch release to address bugfixes for invalid cPath argument of `Augment_Snapshot()` and variable referencing in `Overview_Table()`
 
 # gsm v1.8.3
-this release functionalizes reporting and builds out the QTL report options while adding a timeline visualization to all reports. 
+This release functionalizes reporting and builds out the QTL report options while adding a timeline visualization to all reports. 
 bugfixes were applied to `Augment_Snapshot()` and `StackSnapshots()` to account for folders not formatted in date format. 
 
 # gsm v1.8.2

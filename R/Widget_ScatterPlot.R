@@ -110,7 +110,6 @@ Widget_ScatterPlot <- function(
   height = NULL,
   elementId = NULL
 ) {
-
   dfSummary <- dfSummary %>%
     dplyr::rename_with(tolower)
 
@@ -130,8 +129,8 @@ Widget_ScatterPlot <- function(
 
   # forward options using x
   x <- list(
-    dfSummary = jsonlite::toJSON(dfSummary, na = 'string'),
-    lLabels = jsonlite::toJSON(lLabels, na = 'string'),
+    dfSummary = jsonlite::toJSON(dfSummary, na = "string"),
+    lLabels = jsonlite::toJSON(lLabels, na = "string"),
     dfBounds = dfBounds,
     selectedGroupIDs = as.character(selectedGroupIDs),
     addSiteSelect = addSiteSelect,

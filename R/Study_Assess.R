@@ -28,12 +28,12 @@
 #' @export
 
 Study_Assess <- function(
-    lData = NULL,
-    lMapping = NULL,
-    lAssessments = NULL,
-    bQuiet = TRUE,
-    bLogOutput = FALSE,
-    strLogFileName = NULL) {
+  lData = NULL,
+  lMapping = NULL,
+  lAssessments = NULL,
+  bQuiet = TRUE,
+  bLogOutput = FALSE,
+  strLogFileName = NULL) {
   if (bLogOutput) {
     # divert output to .log file
     Log(strFileName = strLogFileName)

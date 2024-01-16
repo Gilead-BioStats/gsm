@@ -10,17 +10,18 @@
 #'
 #' @keywords internal
 UpdateSnapshotLogs <- function(lPrevSnapshot, lMeta = NULL, lData = NULL, lMapping = NULL) {
-  current_tables <- c("rpt_site_details", "rpt_study_details", "rpt_qtl_details",
-                      "rpt_kri_details", "rpt_site_kri_details", "rpt_kri_bounds_details",
-                      "rpt_qtl_threshold_param", "rpt_kri_threshold_param", "rpt_qtl_analysis")
+  current_tables <- c(
+    "rpt_site_details", "rpt_study_details", "rpt_qtl_details",
+    "rpt_kri_details", "rpt_site_kri_details", "rpt_kri_bounds_details",
+    "rpt_qtl_threshold_param", "rpt_kri_threshold_param", "rpt_qtl_analysis"
+  )
 
-  if(all(names(lPrevSnapshot$lSnapshot) == current_tables)) {
+  if (all(names(lPrevSnapshot$lSnapshot) == current_tables)) {
     cli::cli_abort("`lPrevSnapshot` already up to date")
   }
 
   # Defining Meta Parameters
   if (!"lInputs" %in% names(lPrevSnapshot)) {
-
     # If inputs are not provided, use default lMeta
     if (is.null(lMeta)) {
       lMeta <- list(
@@ -42,9 +43,7 @@ UpdateSnapshotLogs <- function(lPrevSnapshot, lMeta = NULL, lData = NULL, lMappi
     if (is.null(lMapping)) {
       lMapping <- Read_Mapping()
     }
-
   } else {
-
     if (is.null(lMeta)) {
       lMeta <- lPrevSnapshot$lInputs$lMeta
     }
@@ -56,7 +55,6 @@ UpdateSnapshotLogs <- function(lPrevSnapshot, lMeta = NULL, lData = NULL, lMappi
     if (is.null(lMapping)) {
       lMapping <- lPrevSnapshot$lInputs$lMapping
     }
-
   }
 
   # Create status_study
@@ -82,9 +80,9 @@ UpdateSnapshotLogs <- function(lPrevSnapshot, lMeta = NULL, lData = NULL, lMappi
   # determine analysis date
   if ("lSnapshotDate" %in% names(lPrevSnapshot)) {
     gsm_analysis_date <- lPrevSnapshot$lSnapshotDate
-  } else if(exists("gsm_analysis_date", where = lPrevSnapshot$lSnapshot[[1]])) {
+  } else if (exists("gsm_analysis_date", where = lPrevSnapshot$lSnapshot[[1]])) {
     gsm_analysis_date <- lPrevSnapshot$lSnapshot[[1]]$gsm_analysis_date
-  } else if(exists("snapshot_date", where = lPrevSnapshot$lSnapshot[[1]])) {
+  } else if (exists("snapshot_date", where = lPrevSnapshot$lSnapshot[[1]])) {
     gsm_analysis_date <- lPrevSnapshot$lSnapshot[[1]]$snapshot_date
   }
 
@@ -93,8 +91,10 @@ UpdateSnapshotLogs <- function(lPrevSnapshot, lMeta = NULL, lData = NULL, lMappi
   lResults <- lPrevSnapshot$lStudyAssessResults
 
   # create status_workflow
-  status_workflow <- MakeStatusWorkflow(lResults = lResults,
-                                        dfConfigWorkflow = lMeta$config_workflow)
+  status_workflow <- MakeStatusWorkflow(
+    lResults = lResults,
+    dfConfigWorkflow = lMeta$config_workflow
+  )
 
   # define output
   output <- lPrevSnapshot
@@ -129,25 +129,3 @@ UpdateSnapshotLogs <- function(lPrevSnapshot, lMeta = NULL, lData = NULL, lMappi
 
   return(output)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -31,6 +31,8 @@ navbar:
           href: articles/Qualification.html
         - text: Qualification Workflow
           href: articles/QualificationWorkflow.html
+        - text: v1.9.0 Data Model Update Reference
+          href: articles/v1_9_0-data-model-update-reference.html
 
 reference:
   - title: Assess

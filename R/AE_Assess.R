@@ -70,24 +70,24 @@
 #' @export
 
 AE_Assess <- function(
-    dfInput,
-    vThreshold = NULL,
-    strMethod = "NormalApprox",
-    lMapping = yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
-    lLabels = list(
-      workflowid = "",
-      group = strGroup,
-      abbreviation = "AE",
-      metric = "Adverse Event Rate",
-      numerator = "Adverse Events",
-      denominator = "Days on Study",
-      model = "Normal Approximation",
-      score = "Adjusted Z-Score"
-    ),
-    strGroup = "Site",
-    nMinDenominator = NULL,
-    bMakeCharts = FALSE,
-    bQuiet = TRUE) {
+  dfInput,
+  vThreshold = NULL,
+  strMethod = "NormalApprox",
+  lMapping = yaml::read_yaml(system.file("mappings", "AE_Assess.yaml", package = "gsm")),
+  lLabels = list(
+    workflowid = "",
+    group = strGroup,
+    abbreviation = "AE",
+    metric = "Adverse Event Rate",
+    numerator = "Adverse Events",
+    denominator = "Days on Study",
+    model = "Normal Approximation",
+    score = "Adjusted Z-Score"
+  ),
+  strGroup = "Site",
+  nMinDenominator = NULL,
+  bMakeCharts = FALSE,
+  bQuiet = TRUE) {
   # data checking -----------------------------------------------------------
   stopifnot(
     "strMethod is not 'NormalApprox', 'Poisson' or 'Identity'" = strMethod %in% c("NormalApprox", "Poisson", "Identity"),

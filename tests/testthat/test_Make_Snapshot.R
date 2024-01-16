@@ -137,9 +137,8 @@ test_that("invalid data throw errors", {
   expect_error(
     expect_warning(
       Make_Snapshot(lMeta = lMeta, lData = lData, lMapping = lMapping, lAssessments = lAssessments_edited)
-      )
+    )
   )
-
 })
 
 ################################################################################################################

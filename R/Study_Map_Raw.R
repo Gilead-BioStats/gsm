@@ -7,14 +7,14 @@
 #' @export
 #' @keywords internal
 Study_Map_Raw <- function(
-    dfs = gsm::UseClindata(
-      list(
-        "dfSTUDY" = "clindata::ctms_study",
-        "dfSUBJ" = "clindata::rawplus_dm"
-      )
-    ),
-    lMapping = gsm::Read_Mapping(c("ctms", "rawplus")),
-    dfConfig = gsm::config_param) {
+  dfs = gsm::UseClindata(
+    list(
+      "dfSTUDY" = "clindata::ctms_study",
+      "dfSUBJ" = "clindata::rawplus_dm"
+    )
+  ),
+  lMapping = gsm::Read_Mapping(c("ctms", "rawplus")),
+  dfConfig = gsm::config_param) {
   status_study <- dfs$dfSTUDY %>%
     select(
       # study name/ID

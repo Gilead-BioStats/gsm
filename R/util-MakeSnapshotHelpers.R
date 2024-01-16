@@ -102,7 +102,9 @@ MakeRptQtlDetails <- function(lResults, dfMetaWorkflow, dfConfigParam, gsm_analy
     cli::cli_alert_warning("lResults argument in `MakeRptQtlDetails()` didn't contain any QTL's, returning blank data frame.")
     qtl_results <- data.frame(
       "studyid" = NA_character_,
-      "snapshot_date" = {if(is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date},
+      "snapshot_date" = {
+        if (is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date
+      },
       "workflowid" = NA_character_,
       "metric" = NA_character_,
       "numerator_name" = NA_character_,
@@ -195,7 +197,9 @@ MakeRptSiteDetails <- function(lResults, status_site, gsm_analysis_date = NULL) 
   rpt_site_details <- status_site %>%
     left_join(results, by = "siteid", relationship = "many-to-many") %>%
     mutate(
-      "snapshot_date" = {if(is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date},
+      "snapshot_date" = {
+        if (is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date
+      },
       "start_date" = as.Date(.data$start_date),
       "region" = "Other",
       "planned_participants" = NA_integer_,
@@ -233,7 +237,9 @@ MakeRptStudyDetails <- function(lResults, status_study, gsm_analysis_date = NULL
   }
   rpt_study_details <- status_study %>%
     mutate(
-      "snapshot_date" = {if(is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date},
+      "snapshot_date" = {
+        if (is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date
+      },
       "num_of_sites_flagged" = num_of_sites_flagged,
       "enrolling_sites_with_flagged_kris" = as.integer(0),
       "study_age" = ExtractStudyAge(.data$fpfv, .data$snapshot_date),
@@ -270,7 +276,9 @@ MakeRptKriDetails <- function(lResults, status_site, meta_workflow, status_workf
     left_join(results, by = c("workflowid"), relationship = "many-to-many") %>%
     replace_na(replace = list("num_of_sites_at_risk" = 0, "num_of_sites_flagged" = 0)) %>%
     mutate(
-      "snapshot_date" = {if(is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date},
+      "snapshot_date" = {
+        if (is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date
+      },
       "studyid" = unique(status_site$studyid),
       "kri_description" = paste(.data$numerator, .data$denominator, sep = " / "),
       "base_metric" = paste(.data$numerator, .data$denominator, sep = " / "),
@@ -320,7 +328,9 @@ MakeRptSiteKriDetails <- function(lResults, status_site, meta_workflow, meta_par
     left_join(status_site, by = c("GroupID" = "siteid"), relationship = "many-to-many") %>%
     mutate(
       "studyid" = unique(status_site$studyid),
-      "snapshot_date" = {if(is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date},
+      "snapshot_date" = {
+        if (is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date
+      },
       "no_of_consecutive_loads" = as.integer(NA),
       "country_aggregate" = as.double(NA),
       "study_aggregate" = as.double(NA),
@@ -328,10 +338,10 @@ MakeRptSiteKriDetails <- function(lResults, status_site, meta_workflow, meta_par
       "pt_data_dt" = NA_character_
     )
 
-    output <- RemapLog(rpt_site_kri_details) %>%
-      mutate(across(c("flag_value", "no_of_consecutive_loads"), as.integer))
+  output <- RemapLog(rpt_site_kri_details) %>%
+    mutate(across(c("flag_value", "no_of_consecutive_loads"), as.integer))
 
-    return(output)
+  return(output)
 }
 
 #' Create rpt_kri_bounds_details output for `Make_Snapshot()`
@@ -348,18 +358,21 @@ MakeRptKriBoundsDetails <- function(lResults, config_workflow, gsm_analysis_date
   if (length(bounds) > 0) {
     rpt_kri_bounds_details <- bounds %>%
       mutate(
-        "snapshot_date" = {if(is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date},
+        "snapshot_date" = {
+          if (is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date
+        },
         "pt_cycle_id" = NA_character_,
         "pt_data_dt" = NA_character_
       )
 
     output <- RemapLog(rpt_kri_bounds_details)
-
   } else {
     cli::cli_alert_warning("lResults argument in `MakeRptKRIBoundsDetails` contains no bounds results for `qtl` only reports, returning blank data frame")
     output <- data.frame(
       "studyid" = NA_character_,
-      "snapshot_date" = {if(is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date},
+      "snapshot_date" = {
+        if (is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date
+      },
       "workflowid" = NA_character_,
       "threshold" = as.double(NA),
       "numerator" = as.double(NA),
@@ -398,7 +411,9 @@ MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date = 
     }
     output <- data.frame(
       "studyid" = NA_character_,
-      "snapshot_date" = {if(is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date},
+      "snapshot_date" = {
+        if (is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date
+      },
       "workflowid" = NA_character_,
       "gsm_version" = NA_character_,
       "param" = NA_character_,
@@ -414,18 +429,19 @@ MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date = 
       cli::cli_alert_warning("`MakeRptQTLThresholdParam()` is missing meta_param, status_param will be used to define defaults")
     }
 
-     table <- status_param %>%
+    table <- status_param %>%
       filter(grepl(type, .data$workflowid)) %>%
       mutate(
-        "snapshot_date" = {if(is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date},
+        "snapshot_date" = {
+          if (is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date
+        },
         "default" = value,
         "configurable" = NA,
         "pt_cycle_id" = NA_character_,
         "pt_data_dt" = NA_character_
       )
 
-     output <- RemapLog(table, table_name = paste0("rpt_", match.call()$type, "_threshold_param"))
-
+    output <- RemapLog(table, table_name = paste0("rpt_", match.call()$type, "_threshold_param"))
   } else if (is.null(status_param) & !is.null(meta_param)) {
     if (verbose) {
       cli::cli_alert_warning("`MakeRptQTLThresholdParam()` is missing status_param, meta_param will be used to define defaults")
@@ -434,14 +450,15 @@ MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date = 
       filter(grepl(type, .data$workflowid)) %>%
       mutate(
         "studyid" = NA_character_,
-        "snapshot_date" = {if(is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date},
+        "snapshot_date" = {
+          if (is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date
+        },
         "pt_cycle_id" = NA_character_,
         "pt_data_dt" = NA_character_
       )
 
     output <- RemapLog(table, table_name = paste0("rpt_", match.call()$type, "_threshold_param"))
   } else {
-
     table <- meta_param %>%
       filter(grepl(type, .data$workflowid)) %>%
       left_join(status_param, by = c("workflowid", "gsm_version", "param", "index"), relationship = "many-to-many") %>%
@@ -452,7 +469,9 @@ MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date = 
           !is.na(index) & !is.na(value) ~ value
         ),
         "studyid" = unique(status_param$studyid),
-        "snapshot_date" = {if(is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date},
+        "snapshot_date" = {
+          if (is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date
+        },
         "pt_cycle_id" = NA_character_,
         "pt_data_dt" = NA_character_
       )
@@ -489,7 +508,9 @@ MakeRptQtlAnalysis <- function(lResults, gsm_analysis_date) {
 
     rpt_qtl_analysis <- analysis %>%
       mutate(
-        "snapshot_date" = {if(is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date},
+        "snapshot_date" = {
+          if (is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date
+        },
         "pt_cycle_id" = NA_character_,
         "pt_data_dt" = NA_character_
       )
@@ -513,8 +534,8 @@ MakeRptQtlAnalysis <- function(lResults, gsm_analysis_date) {
 #' @export
 #'
 #' @keywords internal
-Match_Class <- function(lPrevSnapshot, lSnapshot){
-  if(is.null(lPrevSnapshot)){
+Match_Class <- function(lPrevSnapshot, lSnapshot) {
+  if (is.null(lPrevSnapshot)) {
     return(lSnapshot)
   } else {
     snapshot <- ifelse("lStackedSnapshots" %in% names(lPrevSnapshot), "lStackedSnapshots", "lSnapshot")
@@ -525,7 +546,7 @@ Match_Class <- function(lPrevSnapshot, lSnapshot){
       filter(.data$class.x != .data$class.y)
 
     if (nrow(unmatched_data_class) > 0) {
-      for(i in 1:nrow(unmatched_data_class)){
+      for (i in 1:nrow(unmatched_data_class)) {
         File <- unmatched_data_class$file[i]
 
         lPrevSnapshot[[snapshot]][[File]] <- lPrevSnapshot[[snapshot]][[File]] %>%
@@ -554,15 +575,15 @@ Match_Class <- function(lPrevSnapshot, lSnapshot){
 #' @export
 #'
 #' @keywords internal
-AppendLogs <- function(lPrevSnapshot, lSnapshot, files = names(lPrevSnapshot$lSnapshot), bQuiet = FALSE){
-  if(is.null(lPrevSnapshot)){
+AppendLogs <- function(lPrevSnapshot, lSnapshot, files = names(lPrevSnapshot$lSnapshot), bQuiet = FALSE) {
+  if (is.null(lPrevSnapshot)) {
     if (!bQuiet) cli::cli_alert_warning("`lPrevSnapshot` argument is NULL `lStackedSnapshots` will only contain current lSnapshot logs")
     return(lSnapshot)
   } else {
     snapshot <- ifelse("lStackedSnapshots" %in% names(lPrevSnapshot), "lStackedSnapshots", "lSnapshot")
     prev_snap_fixed <- Match_Class(lPrevSnapshot, lSnapshot)
     appendedlogs <- list()
-    for(i in files[files %in% names(lSnapshot)]){
+    for (i in files[files %in% names(lSnapshot)]) {
       appendedlogs[[i]] <- dplyr::bind_rows(lSnapshot[[i]], prev_snap_fixed[[snapshot]][[i]])
     }
     files_not_appended <- setdiff(names(lSnapshot), names(appendedlogs))
@@ -588,8 +609,8 @@ AppendLogs <- function(lPrevSnapshot, lSnapshot, files = names(lPrevSnapshot$lSn
 #'
 #' @keywords internal
 
-MakeWorkflowHistory <- function(lStackedSnapshots){
-  if("rpt_site_kri_details" %in% names(lStackedSnapshots)){
+MakeWorkflowHistory <- function(lStackedSnapshots) {
+  if ("rpt_site_kri_details" %in% names(lStackedSnapshots)) {
     lStackedSnapshots$rpt_site_kri_details %>%
       distinct(.data$gsm_analysis_date, .data$workflowid) %>%
       group_by(.data$workflowid) %>%
@@ -671,7 +692,6 @@ MakeRptStudySnapshot <- function(lMeta, gsm_analysis_date) {
 #' @keywords internal
 SubsetStackedSnapshots <- function(strWorkflowId, lStackedSnapshots) {
   subset_snapshots <- purrr::map(lStackedSnapshots, function(x) {
-
     if ("workflowid" %in% names(x)) {
       x %>%
         filter(
@@ -680,7 +700,6 @@ SubsetStackedSnapshots <- function(strWorkflowId, lStackedSnapshots) {
     } else {
       x
     }
-
   }) %>%
     purrr::discard(is.null)
 
