@@ -7,9 +7,6 @@
 #' @keywords internal
 #' @export
 #'
-#' @examples
-#' snapshot <- Make_Snapshot()
-#' output <- RevertSnapshotLogs(snapshot)
 #'
 RevertSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL){
   # Define StudyAssessResults
