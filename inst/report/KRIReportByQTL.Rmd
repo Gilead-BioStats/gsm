@@ -16,6 +16,10 @@ params:
     lCharts: NULL
 ---
 
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
 ```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
 library(gsm)
 library(DT)
