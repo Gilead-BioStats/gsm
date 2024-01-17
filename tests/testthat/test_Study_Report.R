@@ -9,13 +9,13 @@ test_that("Study_Report function works as expected", {
   tmp_outpath <- tempfile(fileext = ".html")
 
   # Test the function with different report types
-  Study_Report(dummy_snapshot, strOutpath = tmp_outpath, strReportType = "site")
+  Study_Report(snapshot, strOutpath = tmp_outpath, strReportType = "site")
   expect_true(file.exists(tmp_outpath), "Site report file should be created")
 
-  Study_Report(dummy_snapshot, strOutpath = tmp_outpath, strReportType = "country")
+  Study_Report(snapshot, strOutpath = tmp_outpath, strReportType = "country")
   expect_true(file.exists(tmp_outpath), "Country report file should be created")
 
-  Study_Report(dummy_snapshot, strOutpath = tmp_outpath, strReportType = "QTL")
+  Study_Report(snapshot, strOutpath = tmp_outpath, strReportType = "QTL")
   expect_true(file.exists(tmp_outpath), "QTL report file should be created")
 
   # Clean up - remove the temporary output file

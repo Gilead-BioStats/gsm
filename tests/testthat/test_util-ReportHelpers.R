@@ -1,8 +1,7 @@
-# Install and load the `testthat` package
+# Install and load the `testthat` package --------------------------------------
 source(testthat::test_path("testdata/data.R"))
-
 # Setup Testing Data -----------------------------------------------------------
-snap <- Make_Snapshot()
+snap <- Make_Snapshot(lData = lData)
 setup <- MakeReportSetup(assessment = snap$lStudyAssessResults, dfSite = snap$lSnapshot$rpt_site_details, strType = "kri")
 
 # AssessStatus -----------------------------------------------------------------
@@ -40,7 +39,6 @@ test_that("Testing util-ReporHelpers - AssessStatus():", {
   expect_false(any(!grepl("qtl", names(qtl_test$active))) & any(!grepl("qtl", names(qtl_test$dropped))))
 })
 
-
 # MakeReportSetup --------------------------------------------------------------
 test_that("Testing util-ReporHelpers - MakeReportSetup():", {
   expect_true(all(names(setup) %in% c("active", "dropped", "overview_table", "overview_raw_table", "red_kris",
@@ -53,7 +51,7 @@ test_that("Testing util-ReporHelpers - MakeReportSetup():", {
 
 # MakeStudyStatusTable ---------------------------------------------------------
 test_that("Testing util-ReporHelpers - MakeStudyStatusTable():", {
-  expect_no_error(status_table <- MakeStudyStatusTable(snap$lSnapshot$rpt_study_details, setup$overview_raw_table))
+  expect_no_error(capture.output(status_table <- MakeStudyStatusTable(snap$lSnapshot$rpt_study_details, setup$overview_raw_table), file = nullfile()))
   expect_true(is.list(status_table))
 })
 
@@ -72,7 +70,6 @@ test_that("Testing util-ReporHelpers - MakeKRIGlossary():", {
                                              "elementId", "preRenderHook", "jsHooks"))
     )
 })
-
 
 # GetSnapshotDate --------------------------------------------------------------
 test_that("Testing util-ReporHelpers - GetSnapshotDate():", {
