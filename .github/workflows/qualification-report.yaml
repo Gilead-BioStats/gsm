@@ -3,6 +3,7 @@ on:
     types: [published]
   pull_request:
     branches: main
+  workflow_dispatch:
 
 name: qualification-report
 
@@ -28,13 +29,6 @@ jobs:
 
       - uses: r-lib/actions/setup-tinytex@v2
 
-      - name: Clone clindata
-        run: |
-          cd ..
-          git clone git@github.com:Gilead-BioStats/clindata.git
-          cd clindata
-          cd ../gsm
-
       - name: cache packages
         uses: actions/cache@v2
         with:
@@ -47,13 +41,11 @@ jobs:
         shell: Rscript {0}
         run: |
           install.packages("devtools")
-          devtools::install('../clindata')
           devtools::install(dependencies=TRUE)
 
       - name: build vignette
         run: tools::buildVignette("./vignettes/articles/Qualification.Rmd")
         shell: Rscript {0}
-
 
       # Upload the qulafication report to the release
       - name: Upload report to release
