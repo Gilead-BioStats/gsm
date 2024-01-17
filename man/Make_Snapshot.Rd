@@ -18,7 +18,9 @@ Make_Snapshot(
   lMapping = Read_Mapping(),
   lAssessments = MakeWorkflowList(lMeta = lMeta),
   strAnalysisDate = NULL,
-  bQuiet = TRUE
+  bQuiet = TRUE,
+  bLogOutput = FALSE,
+  strLogFileName = NULL
 )
 }
 \arguments{
@@ -34,6 +36,10 @@ See the Data Model Vignette - Appendix 2 - Data Model Specifications for detaile
 \item{strAnalysisDate}{\code{character} date that the data was pulled/wrangled/snapshot. Note: date should be provided in format: \code{YYYY-MM-DD}.}
 
 \item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}.}
+
+\item{bLogOutput}{\code{logical} Send console output to log file? Default: \code{FALSE}. Note: Setting \code{bQuiet = FALSE} is recommended if logging your output.}
+
+\item{strLogFileName}{\code{character} File name for log file.}
 }
 \value{
 \code{list} \code{lSnapshot}, a named list with a data.frame for each component of the {gsm} data model.

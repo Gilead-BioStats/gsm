@@ -19,8 +19,8 @@ Log <- function(strFileName = NULL) {
   possible_user_identity <- Sys.getenv(c("USER", "USERNAME", "RSTUDIO_USER_IDENTITY"))
 
   con <- file(strFileName)
-  sink(con, append = TRUE)
-  sink(con, append = TRUE, type = "message")
+  sink(con, append = TRUE, split = TRUE)
+  sink(con, append = TRUE, type = "message", split = TRUE)
   cli::cli_h1("BEGIN SESSION INFO")
   print(paste0("User: ", max(possible_user_identity)))
   print(paste0("Time: ", Sys.time()))

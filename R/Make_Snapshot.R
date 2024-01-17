@@ -15,6 +15,8 @@
 #' @param lAssessments `list` a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
 #' @param strAnalysisDate `character` date that the data was pulled/wrangled/snapshot. Note: date should be provided in format: `YYYY-MM-DD`.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`.
+#' @param bLogOutput `logical` Send console output to log file? Default: `FALSE`. Note: Setting `bQuiet = FALSE` is recommended if logging your output.
+#' @param strLogFileName `character` File name for log file.
 #'
 #' @includeRmd ./man/md/Make_Snapshot.md
 #'
@@ -69,14 +71,18 @@ Make_Snapshot <- function(
   lMapping = Read_Mapping(),
   lAssessments = MakeWorkflowList(lMeta = lMeta),
   strAnalysisDate = NULL,
-  bQuiet = TRUE
+  bQuiet = TRUE,
+  bLogOutput = FALSE,
+  strLogFileName = NULL
 ) {
   # run Study_Assess() ------------------------------------------------------
   lResults <- gsm::Study_Assess(
     lData = lData,
     lMapping = lMapping,
     lAssessments = lAssessments,
-    bQuiet = bQuiet
+    bQuiet = bQuiet,
+    bLogOutput = bLogOutput,
+    strLogFileName = strLogFileName
   ) %>%
     UpdateLabels(lMeta$meta_workflow)
 
