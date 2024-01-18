@@ -2,7 +2,7 @@
 source(testthat::test_path("testdata/data.R"))
 
 test_that("UpdateSnapshotLogs outputs tables as intended", {
-  prev_snap <- readRDS(system.file("data-longitudinal", "v1_8_snapshot.rds", package = "clindata"))
+  prev_snap <- readRDS(system.file("gsm_snapshot_archive", "v1.8.x", "v1_8_snapshot.rds", package = "clindata"))
   updated_logs <- UpdateSnapshotLogs(prev_snap)
 
   new_tables <- c( "rpt_site_details",
