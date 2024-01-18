@@ -1,17 +1,23 @@
 # Install and load the `testthat` package
-source(testthat::test_path("testdata/data.R"))
-
-# Load the R script or function you want to test
-# source("path/to/your/script.R")
-
 # Write your test cases using test_that() function
-test_that("Test Case 1: Description of the test case", {
-  # Test code goes here
-  # Use expect_* functions to define expectations
+test_that("Test Case 1: make sure version information is consistent in relevant files", {
+  # setup current version information
+  files <- list.files(system.file("data-raw", package = "gsm"), full.names = TRUE)
+  csvs <- files[(grepl(".csv", files) & !grepl("rbm_data_spec", files))]
 
-  # Example:
-  # expect_equal(actual_value, expected_value, "Failure message")
-  # expect_true(condition, "Failure message")
+  current_ver <- desc::desc_get_version()
+  expect_true(all(current_ver == map_vec(csvs, ~read.csv(., nrows = 1)$gsm_version)))
+
+# this modifies files so I commented it out, but it works as intended as of 1/18/2024
+#   # test functionality
+#   new_ver <- "1.8.0"
+#   UpdateGSMVersion(new_ver)
+#
+#   expect_true(new_ver == desc::desc_get_version())
+#   expect_true(all(new_ver == map_vec(csvs, ~read.csv(., nrows = 1)$gsm_version)))
+#
+#   # revert to previous version
+#   UpdateGSMVersion(current_ver)
 })
 
 
