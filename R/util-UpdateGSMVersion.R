@@ -36,15 +36,11 @@ UpdateGSMVersion <- function(version = NULL) {
 
   purrr::iwalk(lMeta_update, ~ utils::write.csv(.x, file = paste0(here::here("data-raw", .y)), row.names = FALSE))
 
-  description <- yaml::read_yaml("DESCRIPTION")
-  description$Version <- version
-  yaml::write_yaml(description, "DESCRIPTION")
+  desc::desc_set_version(version)
 
   source(here::here("data-raw", "meta_param.R"))
   source(here::here("data-raw", "meta_workflow.R"))
   source(here::here("data-raw", "config_param.R"))
   source(here::here("data-raw", "config_workflow.R"))
-  source(here::here("DESCRIPTION"))
-
 
 }
