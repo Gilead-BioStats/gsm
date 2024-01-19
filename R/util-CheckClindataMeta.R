@@ -12,7 +12,6 @@
 #' CheckClindataMeta()
 #' }
 #'
-#' @importFrom cli cli_alert_danger cli_alert_success
 #' @importFrom purrr imap
 #' @importFrom utils packageVersion
 #' @importFrom glue glue

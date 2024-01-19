@@ -94,7 +94,6 @@ ExtractStudyAge <- function(fpfv, snapshot_date) {
 #' @param gsm_analysis_date `date` Date that `{gsm}` snapshot was run. leave NULL if dealing with stacked results
 #'
 #' @import purrr
-#' @importFrom cli cli_alert_warning
 #' @export
 MakeRptQtlDetails <- function(lResults, dfMetaWorkflow, dfConfigParam, gsm_analysis_date = NULL) {
   qtl_present <- any(grepl("qtl", names(lResults)))
@@ -568,7 +567,6 @@ Match_Class <- function(lPrevSnapshot, lSnapshot) {
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @importFrom dplyr bind_rows
-#' @importFrom cli cli_alert_warning
 #'
 #' @return Appended lSnapshot object
 #'

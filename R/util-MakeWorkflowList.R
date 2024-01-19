@@ -20,7 +20,6 @@
 #'
 #' @return `list` A list of workflows with workflow and parameter metadata.
 #'
-#' @importFrom cli cli_alert_warning
 #' @importFrom purrr map map_chr keep set_names
 #' @importFrom utils hasName
 #' @importFrom yaml read_yaml

@@ -11,8 +11,6 @@
 #'
 #' @return `Date` A date in the format `YYYY-MM-DD`.
 #'
-#' @importFrom cli cli_alert_warning
-#'
 #' @export
 MakeAnalysisDate <- function(strAnalysisDate = NULL, bQuiet = FALSE) {
   # add gsm_analysis_date to all outputs except {gsm} metadata

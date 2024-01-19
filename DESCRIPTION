@@ -32,13 +32,10 @@ Imports:
     cli,
     dplyr,
     DT,
-    fontawesome (>= 0.2.2),
-    fs,
     gggenes,
     ggiraph,
     ggplot2,
     glue,
-    gt,
     here,
     htmltools,
     htmlwidgets,
@@ -51,7 +48,6 @@ Imports:
     purrr,
     rlang (>= 0.4.11),
     rmarkdown,
-    rstudioapi,
     stringr,
     styler,
     tibble,
@@ -60,17 +56,18 @@ Imports:
 Suggests:
     clindata,
     covr,
-    devtools,
+    fontawesome (>= 0.2.2),
+    gt,
     httr,
     kableExtra,
     pander,
     pkgdown,
     riskmetric,
     roxygen2,
+    rstudioapi,
     safetyData,
-    testthat (>= 3.0.0),
-    tools,
-    usethis
+    usethis,
+    testthat (>= 3.0.0)
 VignetteBuilder: 
     knitr
 Remotes:

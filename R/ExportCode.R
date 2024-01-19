@@ -30,8 +30,6 @@
 #'
 #' code <- ExportCode(lData, lMapping, lAssessments)
 #'
-#' @importFrom rstudioapi navigateToFile getSourceEditorContext insertText
-#' @importFrom fs file_create
 #' @importFrom glue glue glue_collapse
 #' @importFrom purrr map imap flatten
 #' @importFrom stringr str_detect
@@ -44,6 +42,9 @@ ExportCode <- function(lData,
   bInsertText = FALSE,
   strPath = NULL,
   strFileName = NULL) {
+
+  rlang::check_installed("rstudioapi", reason = "to use `ExportCode`")
+
   # required packages -------------------------------------------------------
   packages <- glue::glue("library(gsm)
                     library(tidyverse)")
@@ -197,7 +198,7 @@ ExportCode <- function(lData,
     } else {
       file <- paste0(strFileName, ".R")
     }
-    rstudioapi::navigateToFile(fs::file_create(file))
+    rstudioapi::navigateToFile(file.create(file))
     id <- rstudioapi::getSourceEditorContext()$id
     Sys.sleep(1)
     rstudioapi::insertText(c(1, 1), output, id)
