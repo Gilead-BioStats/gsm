@@ -12,7 +12,6 @@
 #' @importFrom cli cli_h2
 #' @importFrom cli cli_text
 #' @importFrom cli col_br_yellow
-#' @importFrom gt gt
 #' @importFrom htmltools h2
 #' @importFrom htmltools h3
 #' @importFrom htmltools h4
@@ -26,5 +25,6 @@
 #' @importFrom htmlwidgets shinyRenderWidget
 #' @importFrom htmlwidgets shinyWidgetOutput
 #' @importFrom lifecycle deprecated
+#' @importFrom rlang check_installed
 ## usethis namespace: end
 NULL

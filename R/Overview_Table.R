@@ -9,7 +9,6 @@
 #'   - `"country"` for country-level KRI summary
 #' @param bInteractive `logical` Display interactive widget? Default: `TRUE`.
 #'
-#' @importFrom DT datatable
 #' @importFrom glue glue
 #' @importFrom purrr map reduce
 #' @importFrom stats na.omit
@@ -29,6 +28,9 @@ Overview_Table <- function(
   strReportType = "site",
   bInteractive = TRUE
 ) {
+
+  rlang::check_installed("DT", reason = "to run `Overview_Table()`")
+
   # input check
   stopifnot(
     "strReportType is not 'site', 'country', or 'QTL'" = strReportType %in% c("site", "country", "QTL", "qtl"),
@@ -340,8 +342,8 @@ Overview_Table <- function(
               orderable = FALSE
             )
           ),
-          headerCallback = JS(headerCallback),
-          drawCallback = JS(tooltipCallback),
+          headerCallback = DT::JS(headerCallback),
+          drawCallback = DT::JS(tooltipCallback),
           pageLength = ifelse(strReportType == "site", end_of_red_kris, nrow(overview_table)),
           lengthMenu = lengthMenuOptions,
           searching = FALSE,

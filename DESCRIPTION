@@ -1,7 +1,7 @@
 Package: gsm
 Title: Good Statistical Monitoring
 Version: 1.9.0
-Authors@R:c(
+Authors@R: c(
     person("George", "Wu", , "george.wu@gilead.com", role = c("aut", "cre")),
     person("Jeremy", "Wildfire", , "jwildfire@gmail.com", role = "aut"),
     person("Matt", "Roumaya", , "Matt.Roumaya@atorusresearch.com", role = "aut",
@@ -32,16 +32,12 @@ Imports:
     cli,
     desc,
     dplyr,
-    DT,
-    gggenes,
-    ggiraph,
     ggplot2,
     glue,
     here,
     htmltools,
     htmlwidgets,
     jsonlite,
-    knitr,
     lamW,
     lifecycle (>= 1.0.1),
     lubridate,
@@ -56,10 +52,14 @@ Imports:
 Suggests:
     clindata,
     covr,
+    DT,
     fontawesome (>= 0.2.2),
+    gggenes,
+    ggiraph,
     gt,
     httr,
     kableExtra,
+    knitr,
     pander,
     pkgdown,
     riskmetric,

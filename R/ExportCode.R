@@ -12,6 +12,8 @@
 #'
 #'
 #' @examples
+#' \dontrun{
+#'
 #' lData <- list(
 #'   dfSUBJ = clindata::rawplus_dm,
 #'   dfAE = clindata::rawplus_ae,
@@ -29,6 +31,7 @@
 #' lAssessments <- gsm::MakeWorkflowList()
 #'
 #' code <- ExportCode(lData, lMapping, lAssessments)
+#' }
 #'
 #' @importFrom glue glue glue_collapse
 #' @importFrom purrr map imap flatten

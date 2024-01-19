@@ -30,6 +30,8 @@ ExportCode(
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \examples{
+\dontrun{
+
 lData <- list(
   dfSUBJ = clindata::rawplus_dm,
   dfAE = clindata::rawplus_ae,
@@ -47,5 +49,6 @@ lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", pack
 lAssessments <- gsm::MakeWorkflowList()
 
 code <- ExportCode(lData, lMapping, lAssessments)
+}
 
 }
