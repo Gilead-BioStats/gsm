@@ -13,6 +13,14 @@
 #' @importFrom cli cli_text
 #' @importFrom cli col_br_yellow
 #' @importFrom gt gt
+#' @importFrom htmltools h2
+#' @importFrom htmltools h3
+#' @importFrom htmltools h4
+#' @importFrom htmltools HTML
+#' @importFrom htmltools p
+#' @importFrom htmltools strong
+#' @importFrom htmltools tagList
+#' @importFrom htmltools tags
 #' @importFrom lifecycle deprecated
 ## usethis namespace: end
 NULL

@@ -49,7 +49,6 @@ Imports:
     rlang (>= 0.4.11),
     rmarkdown,
     stringr,
-    styler,
     tibble,
     tidyr,
     yaml
@@ -66,6 +65,7 @@ Suggests:
     roxygen2,
     rstudioapi,
     safetyData,
+    styler,
     usethis,
     testthat (>= 3.0.0)
 VignetteBuilder: 

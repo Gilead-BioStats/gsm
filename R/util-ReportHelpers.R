@@ -2,8 +2,9 @@
 #' @param dfStudy `data.frame` from `params` within `KRIReport.Rmd`
 #' @param overview_raw_table `data.frame` non interactive output of `Overview_Table()` for the relevant report.
 #' @param longitudinal `data.frame` optional argument for longitudinal study information
-#' @import htmltools
+#'
 #' @importFrom tibble rownames_to_column
+#'
 #' @export
 #' @keywords internal
 MakeStudyStatusTable <- function(dfStudy, overview_raw_table, longitudinal = NULL) {
@@ -139,7 +140,7 @@ MakeStudyStatusTable <- function(dfStudy, overview_raw_table, longitudinal = NUL
 #' Create Summary table in KRIReport.Rmd for each KRI
 #' @param lAssessment `list` List of KRI assessments from `params` within `KRIReport.Rmd`.
 #' @param dfSite `data.frame` Optional site-level metadata.
-#' @importFrom htmltools p strong
+#'
 #' @importFrom DT datatable
 #' @export
 #' @keywords internal
@@ -283,7 +284,7 @@ MakeKRIGlossary <- function(
 #' Create Study Results table for Report
 #' @param assessment `list` a snapshot list containing the parameters to assess
 #' @param summary_table `data.frame` a summary table created from `MakeSummaryTable`
-#' @import htmltools
+#'
 #' @import knitr
 #' @importFrom purrr map
 #' @export

@@ -16,7 +16,6 @@
 #' @param siteSelectLabelValue Label used to populate the HTML drop-down menu. Constructed as: 'Highlighted {siteSelectLabelValue}: '.
 #'
 #' @import htmlwidgets
-#' @import htmltools
 #' @importFrom jsonlite toJSON
 #'
 #' @export
