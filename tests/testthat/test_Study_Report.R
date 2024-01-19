@@ -3,8 +3,6 @@ source(testthat::test_path("testdata/data.R"))
 
 # Write tests for Study_Report function
 test_that("Study_Report function works as expected", {
-  install_version("pandoc", version = "2.9.1")
-
   snapshot <- Make_Snapshot(lData = lData)
 
   # Create temporary output file path
@@ -33,3 +31,4 @@ test_that("Study_Report function works as expected", {
   # Clean up - remove the temporary output file
   unlink(tmp_outpath)
 })
+
