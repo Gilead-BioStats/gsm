@@ -42,11 +42,6 @@
 #'
 #' dfBounds <- Analyze_Poisson_PredictBounds(dfTransformed, c(-5, 5))
 #'
-#' @importFrom lamW lambertWm1 lambertW0
-#' @importFrom stats glm offset poisson qchisq
-#' @importFrom tibble tibble
-#' @importFrom tidyr expand_grid
-#'
 #' @export
 
 Analyze_Poisson_PredictBounds <- function(
@@ -55,6 +50,9 @@ Analyze_Poisson_PredictBounds <- function(
   nStep = NULL,
   bQuiet = TRUE
 ) {
+
+  rlang::check_installed("lamW", reason = "to run `Analyze_Poisson_PredictBounds()`")
+
   if (is.null(vThreshold)) {
     vThreshold <- c(-5, 5)
 

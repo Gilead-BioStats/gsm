@@ -43,11 +43,6 @@
 #' dfInput <- IE_Map_Raw()
 #' ie_assessment <- IE_Assess(dfInput)
 #'
-#' @importFrom yaml read_yaml
-#' @importFrom glue glue
-#' @import dplyr
-#' @importFrom tools toTitleCase
-#'
 #' @export
 
 IE_Assess <- function(

@@ -11,11 +11,9 @@
 #' @return `plot` interactive timeline plot.
 #'
 #' @examples
+#' if (require("gggenes") & require("ggiraph")) {
 #' Make_Timeline(status_study = clindata::ctms_study)
-#'
-#' @import ggplot2
-#' @import dplyr
-#' @importFrom tidyr pivot_longer
+#' }
 #'
 #' @export
 

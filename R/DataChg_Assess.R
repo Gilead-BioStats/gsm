@@ -52,10 +52,6 @@
 #' DataChg_assessment_fisher <- DataChg_Assess(dfInput, strMethod = "Fisher")
 #' DataChg_assessment_identity <- DataChg_Assess(dfInput, strMethod = "Identity")
 #'
-#' @importFrom yaml read_yaml
-#' @importFrom glue glue
-#' @importFrom tools toTitleCase
-#'
 #' @export
 
 DataChg_Assess <- function(

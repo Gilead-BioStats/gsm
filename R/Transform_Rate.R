@@ -41,8 +41,6 @@
 #'   strDenominatorCol = "Exposure"
 #' )
 #'
-#' @import dplyr
-#'
 #' @export
 
 Transform_Rate <- function(

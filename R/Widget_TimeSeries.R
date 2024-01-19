@@ -15,7 +15,6 @@
 #' @param addSiteSelect `logical` add a dropdown to highlight sites? Default: `TRUE`.
 #' @param siteSelectLabelValue Label used to populate the HTML drop-down menu. Constructed as: 'Highlighted {siteSelectLabelValue}: '.
 #'
-#' @importFrom jsonlite toJSON
 #'
 #' @export
 Widget_TimeSeries <- function(

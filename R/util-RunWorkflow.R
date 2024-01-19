@@ -35,10 +35,6 @@
 #'
 #' @return `list` containing `lAssessment` with `workflow`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `checks`, and `lResults` added based on the results of the execution of `assessment$workflow`.
 #'
-#' @importFrom stringr str_detect
-#' @importFrom yaml read_yaml
-#' @importFrom purrr map_df
-#'
 #' @export
 
 RunWorkflow <- function(lWorkflow, lData, lMapping, bQuiet = TRUE) {

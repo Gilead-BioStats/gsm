@@ -8,10 +8,6 @@
 #' @param content `list` data specification
 #' @param file `character` file path of .yaml file
 #'
-#' @import dplyr
-#' @importFrom tibble tibble
-#' @importFrom yaml read_yaml
-#'
 #' @export
 
 parse_data_spec <- function(

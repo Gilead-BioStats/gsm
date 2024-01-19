@@ -21,10 +21,6 @@
 #' report <- Study_AssessmentReport(lAssessments = assessment)
 #' }
 #'
-#' @importFrom purrr discard flatten map map_df pluck
-#' @importFrom tibble enframe
-#' @importFrom tidyr unnest
-#'
 #' @export
 
 Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {

@@ -12,10 +12,6 @@
 #' CheckClindataMeta()
 #' }
 #'
-#' @importFrom purrr imap
-#' @importFrom utils packageVersion
-#' @importFrom glue glue
-#'
 #' @export
 CheckClindataMeta <- function(
   config = list(

@@ -34,9 +34,6 @@
 #' # Run with error checking and message log
 #' dfInput <- AE_Map_Adam(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
-#' @importFrom yaml read_yaml
-#' @import dplyr
-#'
 #' @export
 
 AE_Map_Adam <- function(

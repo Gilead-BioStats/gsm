@@ -43,8 +43,6 @@
 #' `bStatus`, `checks`, and `lResults` added based on the results of the execution of
 #' `lWorkflow$workflow`.
 #'
-#' @importFrom purrr map
-#'
 #' @export
 
 RunStratifiedWorkflow <- function(

@@ -14,10 +14,6 @@
 #' UpdateGSMVersion()
 #' }
 #'
-#' @importFrom utils packageVersion write.csv
-#' @importFrom here here
-#' @importFrom purrr map set_names iwalk
-#'
 #' @export
 UpdateGSMVersion <- function(version = NULL) {
   if (is.null(version)) {

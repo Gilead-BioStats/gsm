@@ -6,8 +6,6 @@
 #'
 #' @return `data.frame` Data frame with one record per country.
 #'
-#' @import dplyr
-#'
 #' @export
 
 Country_Map_Raw <- function(

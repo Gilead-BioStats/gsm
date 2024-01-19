@@ -52,10 +52,6 @@
 #' QueryAge_assessment_fisher <- QueryAge_Assess(dfInput, strMethod = "Fisher")
 #' QueryAge_assessment_identity <- QueryAge_Assess(dfInput, strMethod = "Identity")
 #'
-#' @importFrom yaml read_yaml
-#' @importFrom glue glue
-#' @importFrom tools toTitleCase
-#'
 #' @export
 
 QueryAge_Assess <- function(

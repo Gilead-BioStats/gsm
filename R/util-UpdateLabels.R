@@ -18,8 +18,6 @@
 #' updated_study <- UpdateLabels(study, gsm::meta_workflow)
 #' }
 #'
-#' @importFrom purrr map
-#'
 #' @export
 UpdateLabels <- function(strWorkflowId, lCharts, dfMetaWorkflow) {
   stopifnot(

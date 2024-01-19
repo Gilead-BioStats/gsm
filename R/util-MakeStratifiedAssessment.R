@@ -84,9 +84,6 @@
 #'
 #' @return `list` A list of workflows for each specified strata.
 #'
-#' @importFrom purrr imap map_chr
-#' @importFrom glue glue
-#'
 #' @export
 MakeStratifiedAssessment <- function(
   lWorkflow,

@@ -30,9 +30,6 @@
 #' # Run with error checking and message log.
 #' dfInput <- Screening_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
-#' @importFrom yaml read_yaml
-#' @import dplyr
-#'
 #' @export
 
 Screening_Map_Raw <- function(

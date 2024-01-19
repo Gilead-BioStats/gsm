@@ -52,10 +52,6 @@
 #' lb_assessment_fisher <- LB_Assess(dfInput, strMethod = "Fisher")
 #' lb_assessment_identity <- LB_Assess(dfInput, strMethod = "Identity")
 #'
-#' @importFrom yaml read_yaml
-#' @importFrom glue glue
-#' @importFrom tools toTitleCase
-#'
 #' @export
 LB_Assess <- function(
   dfInput,

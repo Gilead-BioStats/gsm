@@ -12,9 +12,6 @@
 #' results_analysis <- MakeResultsAnalysis(study)
 #' }
 #'
-#' @importFrom purrr imap_dfr
-#' @importFrom tidyr pivot_longer
-#'
 #' @export
 MakeResultsAnalysis <- function(lResults) {
   results_analysis <- purrr::imap_dfr(lResults[grep("qtl", names(lResults))], function(qtl, qtl_name) {
