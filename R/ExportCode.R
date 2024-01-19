@@ -33,7 +33,6 @@
 #' @importFrom glue glue glue_collapse
 #' @importFrom purrr map imap flatten
 #' @importFrom stringr str_detect
-#' @importFrom styler style_text
 #'
 #' @export
 ExportCode <- function(lData,
@@ -44,6 +43,7 @@ ExportCode <- function(lData,
   strFileName = NULL) {
 
   rlang::check_installed("rstudioapi", reason = "to use `ExportCode`")
+  rlang::check_installed("styler", reason = "to use `ExportCode`")
 
   # required packages -------------------------------------------------------
   packages <- glue::glue("library(gsm)
