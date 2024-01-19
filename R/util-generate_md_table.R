@@ -13,8 +13,6 @@
 #' @param out_path `character` file path of .md file
 #' @param header `character` section header
 #'
-#' @importFrom knitr kable
-#'
 #' @export
 
 generate_md_table <- function(
@@ -26,6 +24,9 @@ generate_md_table <- function(
   out_path = "./man/md/",
   header = "# Data specification"
 ) {
+
+  rlang::check_installed("knitr", reason = "to run `generate_md_table()`")
+
   # ------------------------------------------------------------------------------------------------
   # Process data mapping inputs.
   #

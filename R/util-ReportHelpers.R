@@ -141,10 +141,12 @@ MakeStudyStatusTable <- function(dfStudy, overview_raw_table, longitudinal = NUL
 #' @param lAssessment `list` List of KRI assessments from `params` within `KRIReport.Rmd`.
 #' @param dfSite `data.frame` Optional site-level metadata.
 #'
-#' @importFrom DT datatable
 #' @export
 #' @keywords internal
 MakeSummaryTable <- function(lAssessment, dfSite = NULL) {
+
+  rlang::check_installed("DT", reason = "to run `Study_Report()`")
+
   active <- lAssessment[!sapply(lAssessment, is.data.frame)]
   map(active, function(kri) {
     if (kri$bStatus) {
@@ -222,13 +224,15 @@ add_table_theme <- function(x) {
 #' @param dfMetaWorkflow `data.frame` Workflow metadata from `params` within `KRIReport.Rmd`
 #' @param strWorkflowIDs `string` a string of KRI names to display in output
 #' @param lStatus `data.frame` the KRI status output using `Augment_Snapshot`
-#' @importFrom DT datatable
 #' @export
 #' @keywords internal
 MakeKRIGlossary <- function(
   dfMetaWorkflow = gsm::meta_workflow,
   strWorkflowIDs = NULL,
   lStatus = NULL) {
+
+  rlang::check_installed("DT", reason = "to run `MakeKRIGlossary()`")
+
   if (length(lStatus) != 0) {
     strDroppedWorkflowIDs <- lStatus %>%
       filter(!.data$`Currently Active`) %>%
@@ -285,7 +289,6 @@ MakeKRIGlossary <- function(
 #' @param assessment `list` a snapshot list containing the parameters to assess
 #' @param summary_table `data.frame` a summary table created from `MakeSummaryTable`
 #'
-#' @import knitr
 #' @importFrom purrr map
 #' @export
 #' @keywords internal
