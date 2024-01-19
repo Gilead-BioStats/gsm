@@ -16,9 +16,4 @@ RevertSnapshotLogs(lSnapshot, lMeta = NULL, lData = NULL)
 \description{
 Function to revert to 1.8 data model
 }
-\examples{
-snapshot <- Make_Snapshot()
-output <- RevertSnapshotLogs(snapshot)
-
-}
 \keyword{internal}
