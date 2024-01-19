@@ -21,6 +21,10 @@
 #' @importFrom htmltools strong
 #' @importFrom htmltools tagList
 #' @importFrom htmltools tags
+#' @importFrom htmlwidgets createWidget
+#' @importFrom htmlwidgets prependContent
+#' @importFrom htmlwidgets shinyRenderWidget
+#' @importFrom htmlwidgets shinyWidgetOutput
 #' @importFrom lifecycle deprecated
 ## usethis namespace: end
 NULL
