@@ -29,7 +29,7 @@
 #' )
 #' }
 #'
-#' @import rmarkdown
+#' @importFrom rmarkdown render
 #'
 #' @export
 
