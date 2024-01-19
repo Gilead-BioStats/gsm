@@ -1,6 +1,6 @@
 #' Update archived snapshot logs pre v1.9.0 to the data model of post v1.9.0
 #'
-#' @param lPrevSnapshot `list` snapshot.rds file of archived snapshot
+#' @param lSnapshot `list` snapshot.rds file of archived snapshot
 #' @param lMeta `list` lMeta data used in previous snapshot defaults to `Make_Snapshot()` lMeta default arguments if NULL
 #' @param lData `list` lData argument of previous snapshot defaults to `Make_Snapshot()` lData default arguments if NULL
 #' @param lMapping `list` lMapping argument of previous snapshot. defaults to `Read_Mapping()` output if NULL
@@ -32,7 +32,7 @@ UpdateSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping =
   }
 
   # Defining Meta Parameters
-  if (!"lInputs" %in% names(lPrevSnapshot)) {
+  if (!"lInputs" %in% names(lSnapshot)) {
     # If inputs are not provided, use default lMeta
     if (is.null(lMeta)) {
       lMeta <- list(
@@ -56,15 +56,15 @@ UpdateSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping =
     }
   } else {
     if (is.null(lMeta)) {
-      lMeta <- lPrevSnapshot$lInputs$lMeta
+      lMeta <- lSnapshot$lInputs$lMeta
     }
 
     if (is.null(lData)) {
-      lData$dfSUBJ <- lPrevSnapshot$lInputs$lData$dfSUBJ
+      lData$dfSUBJ <- lSnapshot$lInputs$lData$dfSUBJ
     }
 
     if (is.null(lMapping)) {
-      lMapping <- lPrevSnapshot$lInputs$lMapping
+      lMapping <- lSnapshot$lInputs$lMapping
     }
   }
 
@@ -90,24 +90,24 @@ UpdateSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping =
     )
 
     # determine analysis date
-    if ("lSnapshotDate" %in% names(lPrevSnapshot)) {
-      gsm_analysis_date <- lPrevSnapshot$lSnapshotDate
-    } else if(exists("gsm_analysis_date", where = lPrevSnapshot$lSnapshot[[1]])) {
-      gsm_analysis_date <- lPrevSnapshot$lSnapshot[[1]]$gsm_analysis_date
-    } else if(exists("snapshot_date", where = lPrevSnapshot$lSnapshot[[1]])) {
-      gsm_analysis_date <- lPrevSnapshot$lSnapshot[[1]]$snapshot_date
+    if ("lSnapshotDate" %in% names(lSnapshot)) {
+      gsm_analysis_date <- lSnapshot$lSnapshotDate
+    } else if(exists("gsm_analysis_date", where = lSnapshot$lSnapshot[[1]])) {
+      gsm_analysis_date <- lSnapshot$lSnapshot[[1]]$gsm_analysis_date
+    } else if(exists("snapshot_date", where = lSnapshot$lSnapshot[[1]])) {
+      gsm_analysis_date <- lSnapshot$lSnapshot[[1]]$snapshot_date
     }
 
     # Previous Results
-    StackedlResults <- lPrevSnapshot$lStackedSnapshots
-    lResults <- lPrevSnapshot$lStudyAssessResults
+    StackedlResults <- lSnapshot$lStackedSnapshots
+    lResults <- lSnapshot$lStudyAssessResults
 
     # create status_workflow
     status_workflow <- MakeStatusWorkflow(lResults = lResults,
                                           dfConfigWorkflow = lMeta$config_workflow)
 
     # define output
-    output <- lPrevSnapshot
+    output <- lSnapshot
 
     # augment past lSnapshot data
     output$lSnapshot <- list(
@@ -123,7 +123,7 @@ UpdateSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping =
     )
 
     # augment past lStackedSnapshots data if available
-    if ("lStackedSnapshots" %in% names(lPrevSnapshot)) {
+    if ("lStackedSnapshots" %in% names(lSnapshot)) {
       output$lStackedSnapshots <- list(
         rpt_site_details = MakeRptSiteDetails(StackedlResults, status_site),
         rpt_study_details = MakeRptStudyDetails(StackedlResults, status_study),
