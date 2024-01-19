@@ -7,7 +7,7 @@ snap2 <- Make_Snapshot(lData = lData, strAnalysisDate = "2022-01-01", lPrevSnaps
 snap3 <- Make_Snapshot(lData = lData, strAnalysisDate = "2023-01-01", lPrevSnapshot = snap2)
 
 # Tests --------------------------------------------------------------
-test_that("multiplication works", {
+test_that("Widget_TimeSeries() outputs data properly", {
   plot <- Widget_TimeSeries(
       dfSummary = snap3$lStackedSnapshots$rpt_site_kri_details,
       lLabels = snap3$lStackedSnapshots$rpt_kri_details,
