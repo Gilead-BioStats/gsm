@@ -26,6 +26,7 @@ Imports:
     arrow,
     broom,
     cli,
+    desc,
     dplyr,
     DT,
     fontawesome (>= 0.2.2),

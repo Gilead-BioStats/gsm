@@ -19,6 +19,7 @@
 #' @importFrom purrr map set_names iwalk
 #' @importFrom cli cli_alert_success
 #' @importFrom yaml read_yaml write_yaml
+#' @importFrom desc desc_set_version
 #'
 #' @export
 UpdateGSMVersion <- function(version = NULL) {
