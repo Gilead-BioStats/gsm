@@ -1,7 +1,9 @@
-function (expr, env = parent.frame(), quoted = FALSE) {
-    if (!quoted) {
-        expr <- substitute(expr)
-    }
-    htmlwidgets::shinyRenderWidget(expr, Widget_BarChartOutput, 
-        env, quoted = TRUE)
+function(expr, env = parent.frame(), quoted = FALSE) {
+  if (!quoted) {
+    expr <- substitute(expr)
+  }
+  htmlwidgets::shinyRenderWidget(expr, Widget_BarChartOutput,
+    env,
+    quoted = TRUE
+  )
 }

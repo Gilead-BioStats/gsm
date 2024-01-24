@@ -32,14 +32,13 @@
 #'
 #' @export
 MakeDfConfig <- function(
-  strMethod,
-  strGroup,
-  strAbbreviation,
-  strMetric,
-  strNumerator,
-  strDenominator,
-  vThreshold
-) {
+    strMethod,
+    strGroup,
+    strAbbreviation,
+    strMetric,
+    strNumerator,
+    strDenominator,
+    vThreshold) {
   modelLabel <- switch(strMethod,
     NormalApprox = "Normal Approximation",
     Poisson = "Poisson",

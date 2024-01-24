@@ -90,11 +90,10 @@
 #'
 #' @export
 MakeStratifiedAssessment <- function(
-  lWorkflow,
-  lData,
-  lMapping,
-  bQuiet = TRUE
-) {
+    lWorkflow,
+    lData,
+    lMapping,
+    bQuiet = TRUE) {
   stopifnot(
     "[ lWorkflow ] must be a list." = is.list(lWorkflow),
     "[ lWorkflow ] requires a [ group ] property." = "group" %in% names(lWorkflow),

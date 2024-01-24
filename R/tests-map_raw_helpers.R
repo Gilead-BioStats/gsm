@@ -1,9 +1,8 @@
 test_valid_output <- function(
-  map_function,
-  dfs,
-  spec,
-  mapping
-) {
+    map_function,
+    dfs,
+    spec,
+    mapping) {
   output <- map_function(dfs = dfs)
 
   testthat::expect_true(is.data.frame(output))
@@ -14,11 +13,10 @@ test_valid_output <- function(
 }
 
 test_invalid_data <- function(
-  map_function,
-  dfs,
-  spec,
-  mapping
-) {
+    map_function,
+    dfs,
+    spec,
+    mapping) {
   map_domain <- names(dfs)[
     names(dfs) != "dfSUBJ"
   ]

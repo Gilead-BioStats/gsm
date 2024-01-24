@@ -28,13 +28,12 @@
 #' @export
 
 MergeSubjects <- function(
-  dfDomain,
-  dfSUBJ,
-  strIDCol = "SubjectID",
-  vFillZero = NULL,
-  vRemoval = NULL,
-  bQuiet = TRUE
-) {
+    dfDomain,
+    dfSUBJ,
+    strIDCol = "SubjectID",
+    vFillZero = NULL,
+    vRemoval = NULL,
+    bQuiet = TRUE) {
   if (!bQuiet) cli_alert_info("Intializing merge of domain and subject data")
 
   is_domain_valid <- gsm::is_mapping_valid(

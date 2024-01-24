@@ -28,12 +28,11 @@
 #' @export
 
 FilterData <- function(
-  dfInput,
-  strCol,
-  anyVal,
-  bReturnChecks = FALSE,
-  bQuiet = TRUE
-) {
+    dfInput,
+    strCol,
+    anyVal,
+    bReturnChecks = FALSE,
+    bQuiet = TRUE) {
   stopifnot(
     "[ dfInput ] must be a data frame." = is.data.frame(dfInput),
     "[ strCol ] must be character." = is.character(strCol),

@@ -214,10 +214,9 @@ add_table_theme <- function(x) {
 #' @export
 #' @keywords internal
 MakeKRIGlossary <- function(
-  dfMetaWorkflow = gsm::meta_workflow,
-  strWorkflowIDs = NULL,
-  lStatus = NULL
-) {
+    dfMetaWorkflow = gsm::meta_workflow,
+    strWorkflowIDs = NULL,
+    lStatus = NULL) {
   if (length(lStatus) != 0) {
     strDroppedWorkflowIDs <- lStatus %>%
       filter(!.data$`Currently Active`) %>%

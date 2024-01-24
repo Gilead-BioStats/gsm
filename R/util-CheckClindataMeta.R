@@ -19,12 +19,11 @@
 #'
 #' @export
 CheckClindataMeta <- function(
-  config = list(
-    config_param = gsm::config_param,
-    config_workflow = gsm::config_workflow
-  ),
-  ci_check = FALSE
-) {
+    config = list(
+      config_param = gsm::config_param,
+      config_workflow = gsm::config_workflow
+    ),
+    ci_check = FALSE) {
   config <- config %>%
     purrr::imap(
       ~ .x %>%

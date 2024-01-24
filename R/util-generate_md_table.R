@@ -18,14 +18,13 @@
 #' @export
 
 generate_md_table <- function(
-  domain,
-  mapping = NULL,
-  mapping_path = "./inst/mappings/",
-  spec = NULL,
-  spec_path = "./inst/specs/",
-  out_path = "./man/md/",
-  header = "# Data specification"
-) {
+    domain,
+    mapping = NULL,
+    mapping_path = "./inst/mappings/",
+    spec = NULL,
+    spec_path = "./inst/specs/",
+    out_path = "./man/md/",
+    header = "# Data specification") {
   # ------------------------------------------------------------------------------------------------
   # Process data mapping inputs.
   #

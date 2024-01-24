@@ -49,11 +49,10 @@
 #' @export
 
 RunStratifiedWorkflow <- function(
-  lWorkflow,
-  lData,
-  lMapping,
-  bQuiet = TRUE
-) {
+    lWorkflow,
+    lData,
+    lMapping,
+    bQuiet = TRUE) {
   if (!bQuiet) cli::cli_h1(paste0("Initializing `", lWorkflow$name, "` workflow"))
 
   lOutput <- RunWorkflow(

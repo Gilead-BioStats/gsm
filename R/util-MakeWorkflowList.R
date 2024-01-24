@@ -29,11 +29,10 @@
 #' @export
 
 MakeWorkflowList <- function(
-  strNames = NULL,
-  strPath = NULL,
-  bRecursive = FALSE,
-  lMeta = NULL
-) {
+    strNames = NULL,
+    strPath = NULL,
+    bRecursive = FALSE,
+    lMeta = NULL) {
   if (is.null(strPath)) {
     # if `strPath` is not specified, default to reading `inst/workflow` from {gsm}.
     path <- system.file("workflow", package = "gsm")

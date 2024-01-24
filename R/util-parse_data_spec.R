@@ -15,9 +15,8 @@
 #' @export
 
 parse_data_spec <- function(
-  content = NULL,
-  file = NULL
-) {
+    content = NULL,
+    file = NULL) {
   # Read .yaml file.
   if (is.null(content)) {
     if (file.exists(file)) {

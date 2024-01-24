@@ -1,4 +1,4 @@
-function () {
-    sink()
-    sink(type = "message")
+function() {
+  sink()
+  sink(type = "message")
 }
