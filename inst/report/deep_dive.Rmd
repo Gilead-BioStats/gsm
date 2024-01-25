@@ -1,0 +1,208 @@
+---
+title: "GSM - Treatment Discontinuation Deep Dive"
+subtitle: "Generated with the Good Statistical Monitoring {gsm} package"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: scroll
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(gsm)
+library(DT)
+library(gt)
+library(dplyr)
+library(plotly)
+library(shiny)
+```
+
+```{r}
+## Create testing data --------------------------------------------------------
+# Inputs
+dfs = gsm::UseClindata(
+  list(
+    "dfSUBJ" = "clindata::rawplus_dm",
+    "dfSTUDCOMP" = "clindata::rawplus_studcomp",
+    "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp %>% filter(.data$phase == 'Blinded Study Drug Completion')"
+  )
+)
+lMapping = gsm::Read_Mapping("rawplus")
+strContext = "Study"
+bReturnChecks = FALSE
+bQuiet = TRUE
+strDomain <- ifelse(strContext == "Study", "dfSTUDCOMP", "dfSDRGCOMP")
+dfs$dfDISP <- dfs[[strDomain]]
+  
+# Make testing data
+dfDISP <- dfs$dfDISP
+
+dfDISP_mapped <- dfDISP %>% 
+  select(
+    SubjectID = lMapping[[strDomain]][["strIDCol"]],
+    DCReason = lMapping[[strDomain]][[glue::glue("str{strContext}DiscontinuationReasonCol")]],
+    Discontinuation = lMapping[[strDomain]][[glue::glue("str{strContext}DiscontinuationFlagCol")]]
+  ) %>%
+  filter(.data$Discontinuation %in% lMapping[[strDomain]][[glue::glue("str{strContext}DiscontinuationFlagVal")]]) %>%
+  mutate(Count = 1)
+
+dfSUBJ_mapped <- dfs$dfSUBJ %>%
+  select(
+    SubjectID = lMapping[["dfSUBJ"]][["strIDCol"]],
+    any_of(
+      c(
+        SiteID = lMapping[["dfSUBJ"]][["strSiteCol"]],
+        StudyID = lMapping[["dfSUBJ"]][["strStudyCol"]],
+        CountryID = lMapping[["dfSUBJ"]][["strCountryCol"]],
+        CustomGroupID = lMapping[["dfSUBJ"]][["strCustomGroupCol"]]
+      )
+    )
+  )
+
+dfInput <- gsm::MergeSubjects(
+  dfDomain = dfDISP_mapped,
+  dfSUBJ = dfSUBJ_mapped,
+  bQuiet = bQuiet
+) %>%
+  mutate(
+    Count = ifelse(is.na(.data$Count), 0, .data$Count),
+    Total = 1
+  ) %>%
+  group_by(SiteID) %>%
+  mutate(Enrolled = n()) %>%
+  group_by(SiteID, DCReason) %>%
+  mutate(Disc. = n(),
+         `%` = pct(round((Disc. / Enrolled) * 100, digits = 2))) %>%
+  ungroup() %>%
+  filter(!is.na(DCReason)) %>%
+  group_by(SubjectID) %>%
+  mutate(tot = sample(1:365, 1, replace = TRUE)) %>%
+  ungroup() %>%
+  select(SiteID,
+         SubjectID,
+         tot,
+         DCReason,
+         Enrolled, 
+         Disc.,
+         `%`)
+
+
+```
+
+Sidebar {.sidebar}
+------------------------------------------------------------------
+
+`r h4(strong("Study:"))`  `r unique(dfs$dfSUBJ$studyid)`
+
+`r h4(strong("Snapshot:"))`  `r Sys.Date()`
+
+
+```{r}
+# Site selection interactivity
+selectizeInput(inputId = "site_select",
+            label = h4(strong("Site")), 
+            choices = c("All", unique(dfInput$SiteID)),
+            selected = "All",
+            multiple = TRUE,
+            options = list(placeholder = "Select Site"))
+
+# Discontinuation Filter selection interactivity
+checkboxGroupInput(inputId = "disc_reason_filter", 
+                   label = h4(strong("Disc. Reason Filters")), 
+                   choices = c("All", unique(dfInput$DCReason)),
+                   selected = "All")
+
+# Time on Treatment range selection interactivity
+sliderInput("treatment_slider",
+            label = h4(strong("Time  on Treatment (days)")),
+            min = 0,
+            max = 365,
+            value = c(0, 365))
+
+show_df <- reactive({
+  if(any(input$site_select %in% "All")){
+    if(!any(input$disc_reason_filter %in% "All")){
+      dfInput %>%
+        filter(DCReason %in% input$disc_reason_filter) %>%
+        rename("Site" = SiteID,
+               "Subject" = SubjectID,
+               "Time on Treatment" = tot,
+               "Reason for Discontinuation" = DCReason)
+    } else {
+      dfInput %>%
+        rename("Site" = SiteID,
+               "Subject" = SubjectID,
+               "Time on Treatment" = tot,
+               "Reason for Discontinuation" = DCReason)
+    }
+  } else {
+    if(!any(input$disc_reason_filter %in% "All")){
+      dfInput %>%
+        filter(DCReason %in% input$disc_reason_filter,
+               SiteID %in% input$site_select) %>%
+        rename("Site" = SiteID,
+               "Subject" = SubjectID,
+               "Time on Treatment" = tot,
+               "Reason for Discontinuation" = DCReason)
+    } else {
+      dfInput %>%
+        filter(SiteID %in% input$site_select) %>%
+        rename("Site" = SiteID,
+               "Subject" = SubjectID,
+               "Time on Treatment" = tot,
+               "Reason for Discontinuation" = DCReason)
+    }
+  }
+})
+
+show_df2 <- reactive({
+  show_df() %>%
+    filter(`Time on Treatment` >= input$treatment_slider[1],
+           `Time on Treatment` <= input$treatment_slider[2])
+})
+
+# Ploting
+# df_plot <- reactive({
+  df_disp <- Disp_Map_Raw()
+  disp_assessment_NormalApprox <- Disp_Assess(df_disp, strMethod = "NormalApprox", bMakeCharts = TRUE)
+  # gsub(paste0("{\"groupid\":\"",input$si\".*?},", "", disp_assessment_NormalApprox$lCharts$scatterJS$x$dfSummary)
+# })
+
+  # gsub("{\"groupid\":\"180\".*?},", "", disp_assessment_NormalApprox$lCharts$scatterJS$x$dfSummary)
+  # str(disp_assessment_NormalApprox$lCharts$scatterJS$x$dfSummary)
+
+```            
+
+Plot
+----------------------------------------------------------------
+### <font size=5px>**Treatment Discontinuation by Site**</font> 
+
+```{r}
+disp_assessment_NormalApprox$lCharts$scatterJS
+```
+
+valuebox
+----------------------------------------------------------------
+### Total            
+```{r}
+renderValueBox({
+  valueBox(show_df2() %>%
+           nrow(),
+           caption = "Total Patients Matching Criteria",
+           icon = "fa-person")
+})
+``` 
+
+Table
+----------------------------------------------------------------
+### <font size=5px>**Treatment Discontinuation Summary**</font> 
+
+```{r}
+renderDT({
+  show_df2() %>%
+    datatable(rownames = FALSE)
+})
+
+```
+
