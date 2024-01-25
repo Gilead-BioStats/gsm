@@ -2,7 +2,8 @@
 #'
 #' @param lSnapshot `list` the snapshot object to revert
 #' @param lMeta `list` the meta data to use for reversion
-#' @param lData `list` the data to us for reversion
+#' @param lData `list` the data to use for reversion
+#' @param lMapping `list` the mapping to use for reversion
 #'
 #' @keywords internal
 #' @export
