@@ -4,14 +4,16 @@
 \alias{RevertSnapshotLogs}
 \title{Function to revert to 1.8 data model}
 \usage{
-RevertSnapshotLogs(lSnapshot, lMeta = NULL, lData = NULL)
+RevertSnapshotLogs(lSnapshot, lMeta = NULL, lData = NULL, lMapping = NULL)
 }
 \arguments{
 \item{lSnapshot}{\code{list} the snapshot object to revert}
 
 \item{lMeta}{\code{list} the meta data to use for reversion}
 
-\item{lData}{\code{list} the data to us for reversion}
+\item{lData}{\code{list} the data to use for reversion}
+
+\item{lMapping}{\code{list} the mapping to use for reversion}
 }
 \description{
 Function to revert to 1.8 data model
