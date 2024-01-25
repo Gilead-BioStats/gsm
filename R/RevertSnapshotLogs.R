@@ -8,7 +8,7 @@
 #' @export
 #'
 #'
-RevertSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL){
+RevertSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping = NULL){
   # Define StudyAssessResults
   lStudyAssessResults <- lSnapshot$lStudyAssessResults
 
@@ -29,8 +29,16 @@ RevertSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL){
     )
   }
 
+  # Define lMeta if NULL
+  if(is.null(lMapping) & "lInputs" %in% names(lSnapshot)){
+    lMapping <- lSnapshot$lInputs$lMapping
+
+  } else if(is.null(lMeta) & !"lInputs" %in% names(lSnapshot)){
+    lMapping <- Read_Mapping()
+  }
+
   # Define lData if NULL
-  if(is.null(lMeta) & "lInputs" %in% names(lSnapshot)){
+  if(is.null(lData) & "lInputs" %in% names(lSnapshot)){
     lData <- lSnapshot$lInputs$lData
   } else if(is.null(lData) & !"lInputs" %in% names(lSnapshot)){
     lData <- gsm::UseClindata(
@@ -90,7 +98,7 @@ RevertSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL){
 
   # create `gsm_analysis_date` ----------------------------------------------
   gsm_analysis_date <- MakeAnalysisDate(
-    strAnalysisDate = strAnalysisDate,
+    strAnalysisDate = lSnapshot$lSnapshotDate,
     bQuiet = bQuiet
   )
 

@@ -99,7 +99,6 @@ UpdateSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping =
     }
 
     # Previous Results
-    StackedlResults <- lSnapshot$lStackedSnapshots
     lResults <- lSnapshot$lStudyAssessResults
 
     # create status_workflow
@@ -122,20 +121,6 @@ UpdateSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping =
       rpt_qtl_analysis = MakeRptQtlAnalysis(lResults, gsm_analysis_date)
     )
 
-    # augment past lStackedSnapshots data if available
-    if ("lStackedSnapshots" %in% names(lSnapshot)) {
-      output$lStackedSnapshots <- list(
-        rpt_site_details = MakeRptSiteDetails(StackedlResults, status_site),
-        rpt_study_details = MakeRptStudyDetails(StackedlResults, status_study),
-        rpt_qtl_details = MakeRptQtlDetails(StackedlResults, lMeta$meta_workflow, lMeta$config_param),
-        rpt_kri_details = MakeRptKriDetails(StackedlResults, status_site, lMeta$meta_workflow, status_workflow),
-        rpt_site_kri_details = MakeRptSiteKriDetails(StackedlResults, status_site, lMeta$meta_workflow, lMeta$meta_params),
-        rpt_kri_bounds_details = MakeRptKriBoundsDetails(StackedlResults, lMeta$config_param),
-        rpt_qtl_threshold_param = MakeRptThresholdParam(lMeta$meta_params, lMeta$config_param, type = "qtl"),
-        rpt_kri_threshold_param = MakeRptThresholdParam(lMeta$meta_params, lMeta$config_param, type = "kri"),
-        rpt_qtl_analysis = MakeRptQtlAnalysis(StackedlResults)
-      )
-    }
   } else if(version == "1.8"){
     output <- RevertSnapshotLogs(lSnapshot, lMeta, lData)
   }
