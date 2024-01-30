@@ -4,16 +4,24 @@
 \alias{UpdateSnapshotLogs}
 \title{Update archived snapshot logs pre v1.9.0 to the data model of post v1.9.0}
 \usage{
-UpdateSnapshotLogs(lPrevSnapshot, lMeta = NULL, lData = NULL, lMapping = NULL)
+UpdateSnapshotLogs(
+  lSnapshot,
+  lMeta = NULL,
+  lData = NULL,
+  lMapping = NULL,
+  version = "1.9"
+)
 }
 \arguments{
-\item{lPrevSnapshot}{\code{list} snapshot.rds file of archived snapshot}
+\item{lSnapshot}{\code{list} snapshot.rds file of archived snapshot}
 
 \item{lMeta}{\code{list} lMeta data used in previous snapshot defaults to \code{Make_Snapshot()} lMeta default arguments if NULL}
 
 \item{lData}{\code{list} lData argument of previous snapshot defaults to \code{Make_Snapshot()} lData default arguments if NULL}
 
 \item{lMapping}{\code{list} lMapping argument of previous snapshot. defaults to \code{Read_Mapping()} output if NULL}
+
+\item{version}{\code{string} specifies the conversion direction '1.8' for old data model '1.9' for new data model}
 }
 \value{
 \code{list} list of corrected lSnapshot logs and lStackedSnapshots logs if available
