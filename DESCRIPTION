@@ -51,6 +51,7 @@ Imports:
 Suggests:
     clindata,
     covr,
+    desc,
     DT,
     fontawesome (>= 0.2.2),
     gggenes,

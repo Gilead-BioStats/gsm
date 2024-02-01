@@ -63,7 +63,6 @@ ExtractFlags <- function(lResults, group) {
 #'
 #' @param fpfv `date` the date of the first patient visit of the study
 #' @param snapshot_date `date` the date of the snapshot to derive the period of time from the fpfv
-#'
 #' @export
 #'
 #' @keywords internal
