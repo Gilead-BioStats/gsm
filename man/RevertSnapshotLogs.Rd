@@ -4,7 +4,13 @@
 \alias{RevertSnapshotLogs}
 \title{Function to revert to 1.8 data model}
 \usage{
-RevertSnapshotLogs(lSnapshot, lMeta = NULL, lData = NULL, lMapping = NULL)
+RevertSnapshotLogs(
+  lSnapshot,
+  lMeta = NULL,
+  lData = NULL,
+  lMapping = NULL,
+  bQuiet = TRUE
+)
 }
 \arguments{
 \item{lSnapshot}{\code{list} the snapshot object to revert}
@@ -14,6 +20,8 @@ RevertSnapshotLogs(lSnapshot, lMeta = NULL, lData = NULL, lMapping = NULL)
 \item{lData}{\code{list} the data to use for reversion}
 
 \item{lMapping}{\code{list} the mapping to use for reversion}
+
+\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \description{
 Function to revert to 1.8 data model
