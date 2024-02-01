@@ -18,6 +18,7 @@
 #' @importFrom here here
 #' @importFrom purrr map set_names iwalk
 #' @importFrom cli cli_alert_success
+#' @importFrom desc desc_set_version
 #'
 #' @export
 UpdateGSMVersion <- function(version = NULL) {
@@ -34,6 +35,8 @@ UpdateGSMVersion <- function(version = NULL) {
     purrr::set_names(meta_update)
 
   purrr::iwalk(lMeta_update, ~ utils::write.csv(.x, file = paste0(here::here("data-raw", .y)), row.names = FALSE))
+
+  desc::desc_set_version(version)
 
   source(here::here("data-raw", "meta_param.R"))
   source(here::here("data-raw", "meta_workflow.R"))

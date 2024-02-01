@@ -41,16 +41,6 @@ Convert raw screening data to formatted input data to \code{\link[=Screening_Ass
 \code{Screening_Map_Raw} creates an input dataset for the Screening Assessment
 \code{\link[=Screening_Assess]{Screening_Assess()}} by identifying Screen Failures (derived from \code{dfENROLL}).
 }
-\section{Data specification}{
-\tabular{lllll}{
-   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Accept NA/Empty Values?} \cr
-   dfENROLL \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \cr
-   dfENROLL \tab strIDCol \tab subjectid \tab TRUE \tab FALSE \cr
-   dfENROLL \tab strScreenFailCol \tab enrollyn \tab TRUE \tab TRUE \cr
-   dfENROLL \tab strScreenFailReasonCol \tab sfreas \tab TRUE \tab TRUE \cr
-}
-}
-
 \examples{
 # Run with defaults.
 dfInput <- Screening_Map_Raw()

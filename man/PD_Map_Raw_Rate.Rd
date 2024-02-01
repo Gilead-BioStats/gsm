@@ -47,16 +47,6 @@ input data to \code{\link[=PD_Assess_Rate]{PD_Assess_Rate()}}. This function cre
 data (from \code{dfSUBJ}). Note that the function can generate data summaries for specific types of
 PDs by passing filtered PD data to \code{dfPD}.
 }
-\section{Data specification}{
-\tabular{llllll}{
-   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \tab \strong{Accept NA/Empty Values?} \cr
-   dfSUBJ \tab strSiteCol \tab siteid \tab TRUE \tab FALSE \tab FALSE \cr
-   dfSUBJ \tab strIDCol \tab subjid \tab TRUE \tab TRUE \tab FALSE \cr
-   dfSUBJ \tab strTimeOnStudyCol \tab timeonstudy \tab TRUE \tab FALSE \tab TRUE \cr
-   dfPD \tab strIDCol \tab subjid \tab TRUE \tab FALSE \tab FALSE \cr
-}
-}
-
 \examples{
 # Run with defaults.
 dfInput <- PD_Map_Raw_Rate()

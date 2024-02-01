@@ -84,35 +84,6 @@ Evaluates Protocol Deviation (PD) rates to identify sites that may be over- or u
 The Protocol Deviation Assessment uses the standard \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline} to flag possible outliers. Additional details regarding the data pipeline and statistical
 methods are described below.
 }
-\section{Data specification}{
-\tabular{llllll}{
-   \strong{Domain} \tab \strong{Column Key} \tab \strong{Default Value} \tab \strong{Required?} \tab \strong{Require Unique Values?} \tab \strong{Accept NA/Empty Values?} \cr
-   dfInput \tab strIDCol \tab SubjectID \tab TRUE \tab TRUE \tab FALSE \cr
-   dfInput \tab strCountCol \tab Count \tab TRUE \tab FALSE \tab FALSE \cr
-   dfInput \tab strGroupCol \tab SiteID \tab TRUE \tab FALSE \tab FALSE \cr
-   dfInput \tab strExposureCol \tab  \tab FALSE \tab FALSE \tab TRUE \cr
-   dfInput \tab strRateCol \tab  \tab FALSE \tab FALSE \tab TRUE \cr
-}
-}
-
-\section{Statistical assumptions}{
-The default function \code{Analyze_NormalApprox} applies funnel plots using
-asymptotic limits based on normal approximation of binomial distribution
-for the binary outcome, or normal approximation of Poisson distribution
-for the rate outcome with volume (the sample sizes or total exposure of
-the sites) to assess data quality and safety.
-
-Alternatively, a Poisson model is used to generate estimates and
-p-values for each site (as specified with the \code{strMethod} parameter).
-Those model outputs are then used to flag possible outliers using the
-thresholds specified in \code{vThreshold}. Sites with an estimate less than
--5 are flagged as -1 and greater than 5 are flagged as 1 by default.
-
-See \code{\link[=Analyze_NormalApprox]{Analyze_NormalApprox()}} or
-\code{\link[=Analyze_Poisson]{Analyze_Poisson()}} for additional
-details about the statistical methods and their assumptions.
-}
-
 \examples{
 dfInput <- PD_Map_Raw_Binary()
 pd_assessment_NormalApprox <- PD_Assess_Binary(dfInput)
