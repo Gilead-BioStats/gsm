@@ -30,7 +30,6 @@ Imports:
     arrow,
     broom,
     cli,
-    desc,
     dplyr,
     ggplot2,
     glue,
