@@ -36,9 +36,6 @@
 #' # Run with error checking and message log.
 #' dfInput <- Consent_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
-#' @importFrom yaml read_yaml
-#' @import dplyr
-#'
 #' @export
 
 Consent_Map_Raw <- function(

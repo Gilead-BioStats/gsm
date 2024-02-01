@@ -40,9 +40,6 @@
 #'   lStratifiedOutput
 #' )
 #'
-#' @importFrom dplyr bind_rows mutate
-#' @importFrom purrr imap map map_lgl reduce
-#'
 #' @export
 
 ConsolidateStrata <- function(

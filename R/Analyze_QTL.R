@@ -46,9 +46,6 @@
 #' dfAnalyzed <- Analyze_QTL(dfTransformed, strOutcome = "rate")
 #' dfFlagged <- Flag_QTL(dfAnalyzed, vThreshold = 0.01)
 #'
-#' @import dplyr
-#' @importFrom stats binom.test poisson.test
-#'
 #' @export
 
 Analyze_QTL <- function(

@@ -33,10 +33,6 @@
 #' code <- ExportCode(lData, lMapping, lAssessments)
 #' }
 #'
-#' @importFrom glue glue glue_collapse
-#' @importFrom purrr map imap flatten
-#' @importFrom stringr str_detect
-#'
 #' @export
 ExportCode <- function(lData,
   lMapping,

@@ -11,8 +11,6 @@
 #' @param strPath `character` Path to historical QTL data.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @importFrom utils read.csv write.csv
-#'
 #' @examples
 #' \dontrun{
 #' dispQTL <- RunQTL("qtl0006")

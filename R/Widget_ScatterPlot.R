@@ -48,7 +48,6 @@
 #' @param height height of widget, calculated based on width
 #' @param elementId ID of container HTML element
 #'
-#' @importFrom jsonlite toJSON
 #'
 #' @examples
 #' ae <- AE_Map_Raw()

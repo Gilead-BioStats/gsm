@@ -13,9 +13,9 @@ Make_Snapshot(
     "clindata::rawplus_ae", dfPD = "clindata::ctms_protdev", dfCONSENT =
     "clindata::rawplus_consent", dfIE = "clindata::rawplus_ie", dfLB =
     "clindata::rawplus_lb", dfSTUDCOMP = "clindata::rawplus_studcomp", dfSDRGCOMP =
-    "clindata::rawplus_sdrgcomp \%>\%\\n      filter(.data$phase == 'Blinded Study Drug Completion')",
-    dfDATACHG = "clindata::edc_data_points", dfDATAENT = "clindata::edc_data_pages",
-    dfQUERY = "clindata::edc_queries", dfENROLL = "clindata::rawplus_enroll")),
+    "clindata::rawplus_sdrgcomp", dfDATACHG = "clindata::edc_data_points", dfDATAENT =
+    "clindata::edc_data_pages", dfQUERY = "clindata::edc_queries", dfENROLL =
+    "clindata::rawplus_enroll")),
   lMapping = Read_Mapping(),
   lAssessments = MakeWorkflowList(lMeta = lMeta),
   lPrevSnapshot = NULL,

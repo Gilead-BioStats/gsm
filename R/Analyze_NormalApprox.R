@@ -50,8 +50,6 @@
 #' )
 #' dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "rate")
 #'
-#' @import dplyr
-#'
 #' @export
 
 Analyze_NormalApprox <- function(

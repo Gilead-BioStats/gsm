@@ -45,10 +45,6 @@
 #' dfInput <- Consent_Map_Raw()
 #' consent_assessment <- Consent_Assess(dfInput)
 #'
-#' @importFrom yaml read_yaml
-#' @importFrom glue glue
-#' @importFrom tools toTitleCase
-#'
 #' @export
 
 Consent_Assess <- function(

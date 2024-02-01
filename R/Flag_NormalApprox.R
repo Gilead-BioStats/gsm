@@ -49,8 +49,6 @@
 #' dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "rate")
 #' dfFlagged <- Flag_NormalApprox(dfAnalyzed, vThreshold = c(-3, -2, 2, 3))
 #'
-#' @import dplyr
-#'
 #' @export
 
 Flag_NormalApprox <- function(

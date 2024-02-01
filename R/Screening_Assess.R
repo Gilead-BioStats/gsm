@@ -53,10 +53,6 @@
 #' Screening_assessment_fisher <- Screening_Assess(dfInput, strMethod = "Fisher")
 #' Screening_assessment_identity <- Screening_Assess(dfInput, strMethod = "Identity")
 #'
-#' @importFrom yaml read_yaml
-#' @importFrom glue glue
-#' @importFrom tools toTitleCase
-#'
 #' @export
 
 Screening_Assess <- function(

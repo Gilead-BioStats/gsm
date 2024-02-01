@@ -54,9 +54,7 @@
 #' pd_assessment_poisson <- PD_Assess_Binary(dfInput, strMethod = "Poisson")
 #' pd_assessment_identity <- PD_Assess_Binary(dfInput, strMethod = "Identity")
 #'
-#' @importFrom yaml read_yaml
-#' @importFrom glue glue
-#' @importFrom tools toTitleCase
+#'
 #'
 #' @export
 

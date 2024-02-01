@@ -35,9 +35,6 @@
 #' # Run with error checking and message log.
 #' dfInput <- QueryAge_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
-#' @importFrom yaml read_yaml
-#' @import dplyr
-#'
 #' @export
 
 QueryAge_Map_Raw <- function(

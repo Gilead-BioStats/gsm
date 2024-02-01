@@ -16,7 +16,7 @@
 #' @examples
 #' qtl <- RunQTL("qtl0004")
 #'
-#' @importFrom yaml read_yaml
+#' 
 #'
 #' @export
 RunQTL <- function(

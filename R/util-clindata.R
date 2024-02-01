@@ -19,7 +19,6 @@
 #'   )
 #' )
 #'
-#' @importFrom purrr map
 #' @export
 UseClindata <- function(lDomains = NULL) {
   if (!requireNamespace("clindata", quietly = TRUE)) {
@@ -28,6 +27,14 @@ UseClindata <- function(lDomains = NULL) {
     )
   } else {
     clindata_list <- purrr::map(lDomains, ~ eval(parse(text = .x)))
+
+    if ("dfSDRGCOMP" %in% names(clindata_list)) {
+      clindata_list$dfSDRGCOMP <- clindata_list$dfSDRGCOMP %>%
+        filter(
+          .data$phase == "Blinded Study Drug Completion"
+        )
+    }
+
   }
 
   return(clindata_list)

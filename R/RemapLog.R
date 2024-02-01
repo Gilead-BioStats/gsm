@@ -3,9 +3,6 @@
 #' @param table `data.frame` the table of interest from `Make_Snapshot()` lSnapshot log
 #' @param table_name `character` optional argument to define table to remap by name, when the table object name doesn't match
 #'
-#' @importFrom purrr map_chr map_int
-#' @importFrom yaml read_yaml yaml.load
-#'
 #' @export
 #'
 #' @keywords internal

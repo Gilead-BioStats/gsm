@@ -3,7 +3,6 @@
 #' @param overview_raw_table `data.frame` non interactive output of `Overview_Table()` for the relevant report.
 #' @param longitudinal `data.frame` optional argument for longitudinal study information
 #'
-#' @importFrom tibble rownames_to_column
 #'
 #' @export
 #' @keywords internal
@@ -289,7 +288,6 @@ MakeKRIGlossary <- function(
 #' @param assessment `list` a snapshot list containing the parameters to assess
 #' @param summary_table `data.frame` a summary table created from `MakeSummaryTable`
 #'
-#' @importFrom purrr map
 #' @export
 #' @keywords internal
 MakeResultsTable <- function(assessment, summary_table, lCharts) {
@@ -399,7 +397,6 @@ AssessStatus <- function(assessment, strType) {
 #' Create Study Results table for Report
 #' @param assessment `list` a snapshot list containing the parameters to assess
 #' @param dfSite `data.frame` Site-level metadata containing within `params$status_site` of report
-#' @importFrom purrr map
 #' @export
 #' @keywords internal
 MakeReportSetup <- function(assessment, dfSite, strType) {
@@ -480,7 +477,7 @@ MakeReportSetup <- function(assessment, dfSite, strType) {
 #' @param status_study `data.frame` the snapshot status study output created with `Make_Snapshot()$lSnapshot$status_study`
 #' @param overview_raw_table `data.frame` non interactive output of `Overview_Table()` for the relevant report.
 #' @param red_kris `string` a string or number containing the count of red flags in kri's
-#' @importFrom glue glue
+
 #' @export
 #' @keywords internal
 MakeOverviewMessage <- function(report, status_study, overview_raw_table, red_kris) {
@@ -501,7 +498,7 @@ MakeOverviewMessage <- function(report, status_study, overview_raw_table, red_kr
 
 #' Extrapolate study snapshot date and number of patients in study
 #' @param status_study `df` a dataframe containing status of study pulled from `params$status_study` in report
-#' @importFrom glue glue
+
 #' @export
 #' @keywords internal
 GetSnapshotDate <- function(status_study) {
@@ -548,7 +545,6 @@ MakeErrorLog <- function(data) {
 
 #' Compile QTL summary results into data frame
 #' @param lAssessments `list` a list containing active assessments
-#' @importFrom purrr imap_dfr
 #' @export
 #' @keywords internal
 qtl_summary <- function(lAssessments) {
@@ -562,7 +558,6 @@ qtl_summary <- function(lAssessments) {
 #' Compile QTL analysis results into data frame
 #' @param lAssessments `list` a list containing active assessments
 #' @param results_summary compiled results summary from `qtl_summary()`
-#' @importFrom purrr imap_dfr
 #' @export
 #' @keywords internal
 qtl_analysis <- function(lAssessments, results_summary) {

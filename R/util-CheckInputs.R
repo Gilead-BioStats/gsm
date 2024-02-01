@@ -26,9 +26,6 @@
 #'    - tests_if `list` - a named list containing status and warnings for all checks
 #'  - status `logical` - did all checked data pass the checks?
 #'
-#' @importFrom purrr map map_lgl modify_if set_names
-#' @importFrom yaml read_yaml
-#'
 #' @export
 CheckInputs <- function(context, dfs, mapping = NULL, spec = NULL, bQuiet = TRUE) {
   if (!bQuiet) {

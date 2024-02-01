@@ -17,10 +17,7 @@
 #' dfBounds <- Analyze_Poisson_PredictBounds(SafetyAE$lData$dfTransformed, c(-5, 5))
 #' Visualize_Scatter(SafetyAE$lData$dfSummary, dfBounds)
 #'
-#'
 #' # TODO: add stratified example
-#'
-#' @import ggplot2
 #'
 #' @export
 

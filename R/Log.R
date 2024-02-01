@@ -4,8 +4,6 @@
 #'
 #' @keywords internal
 #'
-#' @importFrom utils sessionInfo
-#'
 #' @export
 Log <- function(strFileName = NULL) {
   if (is.null(strFileName)) {

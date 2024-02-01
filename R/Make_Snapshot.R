@@ -28,11 +28,6 @@
 #' snapshot <- Make_Snapshot()
 #' }
 #'
-#' @import purrr
-#' @importFrom tidyr pivot_longer
-#' @importFrom utils write.csv
-#' @importFrom yaml read_yaml
-#'
 #' @export
 Make_Snapshot <- function(
   lMeta = gsm::UseClindata(
@@ -54,8 +49,7 @@ Make_Snapshot <- function(
       "dfIE" = "clindata::rawplus_ie",
       "dfLB" = "clindata::rawplus_lb",
       "dfSTUDCOMP" = "clindata::rawplus_studcomp",
-      "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp %>%
-      filter(.data$phase == 'Blinded Study Drug Completion')",
+      "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp",
       "dfDATACHG" = "clindata::edc_data_points",
       "dfDATAENT" = "clindata::edc_data_pages",
       "dfQUERY" = "clindata::edc_queries",

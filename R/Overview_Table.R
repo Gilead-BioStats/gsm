@@ -9,11 +9,6 @@
 #'   - `"country"` for country-level KRI summary
 #' @param bInteractive `logical` Display interactive widget? Default: `TRUE`.
 #'
-#' @importFrom glue glue
-#' @importFrom purrr map reduce
-#' @importFrom stats na.omit
-#' @importFrom tidyr unite
-#'
 #' @examples
 #' \dontrun{
 #' lAssessments <- Study_Assess()

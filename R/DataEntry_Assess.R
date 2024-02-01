@@ -52,10 +52,6 @@
 #' DataEntry_assessment_fisher <- DataEntry_Assess(dfInput, strMethod = "Fisher")
 #' DataEntry_assessment_identity <- DataEntry_Assess(dfInput, strMethod = "Identity")
 #'
-#' @importFrom yaml read_yaml
-#' @importFrom glue glue
-#' @importFrom tools toTitleCase
-#'
 #' @export
 
 DataEntry_Assess <- function(

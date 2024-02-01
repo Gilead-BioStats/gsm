@@ -26,8 +26,6 @@
 #' dfAnalyzed <- Analyze_QTL(dfTransformed)
 #' dfFlagged <- Flag_QTL(dfAnalyzed, vThreshold = 0.02)
 #'
-#' @import dplyr
-#'
 #' @export
 
 Flag_QTL <- function(

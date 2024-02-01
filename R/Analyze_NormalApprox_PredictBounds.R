@@ -55,9 +55,6 @@
 #' dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "rate")
 #' dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed, c(-3, -2, 2, 3), strType = "rate")
 #'
-#' @import dplyr
-#' @importFrom tidyr expand_grid
-#'
 #' @export
 
 Analyze_NormalApprox_PredictBounds <- function(

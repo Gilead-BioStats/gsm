@@ -35,7 +35,7 @@
 #' # Run with error checking and message log.
 #' dfInput <- PD_Map_Raw_Rate(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
-#' @importFrom yaml read_yaml
+#' 
 #'
 #' @export
 

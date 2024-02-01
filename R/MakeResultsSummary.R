@@ -14,8 +14,6 @@
 #' results_summary <- MakeResultsSummary(study, gsm::config_workflow)
 #' }
 #'
-#' @importFrom purrr discard imap_dfr map
-#'
 #' @export
 MakeResultsSummary <- function(lResults, dfConfigWorkflow) {
   results_summary <- purrr::map(lResults, ~ .x[["lResults"]]) %>%

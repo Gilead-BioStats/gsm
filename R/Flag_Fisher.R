@@ -35,9 +35,6 @@
 #'
 #' dfFlagged <- Flag(dfAnalyzed, vThreshold = c(-5, 5))
 #'
-#' @import dplyr
-#' @importFrom stats median
-#'
 #' @export
 
 Flag_Fisher <- function(

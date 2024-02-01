@@ -22,8 +22,6 @@
 #'
 #' @return `data.frame` with one record per ID variable specified in the `strIDCol` parameter.
 #'
-#' @importFrom tidyr replace_na
-#'
 #' @export
 
 MergeSubjects <- function(
