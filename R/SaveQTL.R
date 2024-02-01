@@ -11,7 +11,6 @@
 #' @param strPath `character` Path to historical QTL data.
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @importFrom cli cli_alert_success
 #' @importFrom utils read.csv write.csv
 #'
 #' @examples

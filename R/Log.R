@@ -4,7 +4,6 @@
 #'
 #' @keywords internal
 #'
-#' @importFrom cli cli_h1
 #' @importFrom utils sessionInfo
 #'
 #' @export

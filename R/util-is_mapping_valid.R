@@ -43,7 +43,6 @@
 #' a list containing checks and a `status` and `warning` (if check does not pass).
 #'
 #' @import dplyr
-#' @importFrom cli cli_alert_danger col_br_yellow
 #' @importFrom purrr keep map map_dbl map_lgl
 #' @importFrom stringr str_subset
 #' @importFrom tidyr pivot_longer

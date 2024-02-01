@@ -39,7 +39,6 @@
 #'
 #' @import dplyr
 #' @importFrom broom augment
-#' @importFrom cli cli_alert_info
 #' @importFrom glue glue
 #' @importFrom stats glm offset poisson pnorm
 #'

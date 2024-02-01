@@ -20,7 +20,6 @@
 #' @return `list` of assessments containing status information and results.
 #'
 #' @import dplyr
-#' @importFrom cli cli_alert_danger
 #' @importFrom purrr discard flatten map safely
 #' @importFrom yaml read_yaml
 #' @importFrom utils hasName

@@ -4,10 +4,12 @@
 #' @param longitudinal `data.frame` optional argument for longitudinal study information
 #' @import htmltools
 #' @importFrom tibble rownames_to_column
-#' @importFrom gt gt
 #' @export
 #' @keywords internal
 MakeStudyStatusTable <- function(dfStudy, overview_raw_table, longitudinal = NULL) {
+
+  rlang::check_installed("gt", reason = "to render table from `MakeStudyStatusTable`")
+
   # -- this vector is used to define a custom sort order for the
   #    Study Status Table in KRIReport.Rmd
   parameterArrangeOrder <- c(
@@ -137,8 +139,7 @@ MakeStudyStatusTable <- function(dfStudy, overview_raw_table, longitudinal = NUL
 #' Create Summary table in KRIReport.Rmd for each KRI
 #' @param lAssessment `list` List of KRI assessments from `params` within `KRIReport.Rmd`.
 #' @param dfSite `data.frame` Optional site-level metadata.
-#' @importFrom htmltools p
-#' @importFrom htmltools strong
+#' @importFrom htmltools p strong
 #' @importFrom DT datatable
 #' @export
 #' @keywords internal
@@ -193,10 +194,12 @@ MakeSummaryTable <- function(lAssessment, dfSite = NULL) {
 
 #' Add a standard theme to a `gt` table.
 #' @param x `data.frame` A data.frame that will be converted to a `gt` table.
-#' @import gt
 #' @export
 #' @keywords internal
 add_table_theme <- function(x) {
+
+  rlang::check_installed("gt", reason = "to use `add_table_theme`")
+
   x %>%
     gt::tab_options(
       table.width = "80%",
