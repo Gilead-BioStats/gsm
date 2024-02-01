@@ -20,6 +20,8 @@ UpdateGSMVersion <- function(version = NULL) {
     version <- as.character(utils::packageVersion("gsm"))
   }
 
+  rlang::check_installed("desc", reason = "to run `UpdateGSMVersion`")
+
   cli::cli_alert_success("Setting {.pkg gsm} version to {.strong {version}}")
 
   meta_update <- c("meta_param.csv", "meta_workflow.csv", "config_param.csv", "config_workflow.csv")
