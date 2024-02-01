@@ -36,7 +36,7 @@ Save the output of \code{\link[=Make_Snapshot]{Make_Snapshot()}}.
 \dontrun{
 
 snapshot <- Make_Snapshot()
-Save_Snapshot(lSnapshot = snapshot, cPath = here::here("data"))
+Save_Snapshot(lSnapshot = snapshot, cPath = paste0(getwd(), "/data"))
 }
 
 }

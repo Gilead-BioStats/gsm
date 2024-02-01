@@ -23,8 +23,6 @@
 #'
 #' @return `data.frame` Data frame provided as `dfInput` and filtered on `strCol` == `anyVal`.
 #'
-#' @importFrom cli cli_alert_info cli_alert_success cli_alert_warning cli_text
-#'
 #' @export
 
 FilterData <- function(

@@ -9,8 +9,6 @@
 #'
 #' @keywords internal
 #'
-#' @importFrom stringr str_extract str_flatten
-#'
 #' @export
 ExtractDirectoryPaths <- function(cPath, file, include.partial.match = TRUE, verbose = TRUE) {
   directories <- list.dirs(cPath, recursive = FALSE)

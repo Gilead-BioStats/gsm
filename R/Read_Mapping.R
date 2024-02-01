@@ -12,11 +12,6 @@
 #'
 #' @return `list` of mappings for each available domain: `ADaM`, `CTMS`, `EDC`, and `rawplus`.
 #'
-#' @importFrom cli cli_alert_danger
-#' @importFrom purrr map list_flatten
-#' @importFrom tools file_path_sans_ext
-#' @importFrom yaml read_yaml
-#'
 #' @export
 Read_Mapping <- function(strDomain = NULL) {
   # regex to read all YAML files that start with "mapping_" inside of `inst/mappings`

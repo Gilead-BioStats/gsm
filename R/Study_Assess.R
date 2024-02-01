@@ -19,12 +19,6 @@
 #'
 #' @return `list` of assessments containing status information and results.
 #'
-#' @import dplyr
-#' @importFrom cli cli_alert_danger
-#' @importFrom purrr discard flatten map safely
-#' @importFrom yaml read_yaml
-#' @importFrom utils hasName
-#'
 #' @export
 
 Study_Assess <- function(
@@ -55,7 +49,8 @@ Study_Assess <- function(
         "dfIE" = "clindata::rawplus_ie",
         "dfLB" = "clindata::rawplus_lb",
         "dfSTUDCOMP" = "clindata::rawplus_studcomp",
-        "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion')",
+        "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp %>%
+          dplyr::filter(.data$phase == 'Blinded Study Drug Completion')",
         "dfDATACHG" = "clindata::edc_data_points",
         "dfDATAENT" = "clindata::edc_data_pages",
         "dfQUERY" = "clindata::edc_queries",

@@ -33,9 +33,6 @@
 #'
 #' dfFlagged <- Flag_Poisson(dfAnalyzed, vThreshold = c(-7, -5, 5, 7))
 #'
-#' @import dplyr
-#' @importFrom stats median
-#'
 #' @export
 
 Flag_Poisson <- function(

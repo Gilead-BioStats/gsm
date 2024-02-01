@@ -21,15 +21,12 @@
 #' report <- Study_AssessmentReport(lAssessments = assessment)
 #' }
 #'
-#' @importFrom fontawesome fa
-#' @importFrom gt fmt_markdown gt
-#' @importFrom purrr discard flatten map map_df pluck
-#' @importFrom tibble enframe
-#' @importFrom tidyr unnest
-#'
 #' @export
 
 Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
+
+  rlang::check_installed("gt", reason = "to render table from `Study_AssessmentReport`")
+
   allChecks <- purrr::map(names(lAssessments), function(assessment) {
     workflow <- lAssessments[[assessment]][["steps"]] %>%
       purrr::imap_dfr(
@@ -126,6 +123,7 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
   } else {
     return(dfSummary %>%
       gt::gt() %>%
-      gt::fmt_markdown(columns = everything()))
+      gt::fmt_markdown(columns = everything())
+      )
   }
 }

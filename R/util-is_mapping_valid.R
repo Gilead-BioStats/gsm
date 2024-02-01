@@ -42,12 +42,6 @@
 #' @return `list` A list is returned with `status` (`TRUE` or `FALSE`), and `tests_if`,
 #' a list containing checks and a `status` and `warning` (if check does not pass).
 #'
-#' @import dplyr
-#' @importFrom cli cli_alert_danger col_br_yellow
-#' @importFrom purrr keep map map_dbl map_lgl
-#' @importFrom stringr str_subset
-#' @importFrom tidyr pivot_longer
-#'
 #' @export
 
 is_mapping_valid <- function(df, mapping, spec, bQuiet = TRUE) {
