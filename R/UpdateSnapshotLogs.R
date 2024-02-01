@@ -127,3 +127,4 @@ UpdateSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping =
 
   return(output)
 }
+
