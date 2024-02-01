@@ -9,15 +9,14 @@
 #' @export
 #'
 #'
-RevertSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping = NULL){
+RevertSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping = NULL) {
   # Define StudyAssessResults
   lStudyAssessResults <- lSnapshot$lStudyAssessResults
 
   # Define lMeta if NULL
-  if(is.null(lMeta) & "lInputs" %in% names(lSnapshot)){
+  if (is.null(lMeta) & "lInputs" %in% names(lSnapshot)) {
     lMeta <- lSnapshot$lInputs$lMeta
-
-  } else if(is.null(lMeta) & !"lInputs" %in% names(lSnapshot)){
+  } else if (is.null(lMeta) & !"lInputs" %in% names(lSnapshot)) {
     lMeta <- gsm::UseClindata(
       list(
         "config_param" = "gsm::config_param",
@@ -31,17 +30,16 @@ RevertSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping =
   }
 
   # Define lMeta if NULL
-  if(is.null(lMapping) & "lInputs" %in% names(lSnapshot)){
+  if (is.null(lMapping) & "lInputs" %in% names(lSnapshot)) {
     lMapping <- lSnapshot$lInputs$lMapping
-
-  } else if(is.null(lMeta) & !"lInputs" %in% names(lSnapshot)){
+  } else if (is.null(lMeta) & !"lInputs" %in% names(lSnapshot)) {
     lMapping <- Read_Mapping()
   }
 
   # Define lData if NULL
-  if(is.null(lData) & "lInputs" %in% names(lSnapshot)){
+  if (is.null(lData) & "lInputs" %in% names(lSnapshot)) {
     lData <- lSnapshot$lInputs$lData
-  } else if(is.null(lData) & !"lInputs" %in% names(lSnapshot)){
+  } else if (is.null(lData) & !"lInputs" %in% names(lSnapshot)) {
     lData <- gsm::UseClindata(
       list(
         "dfSUBJ" = "clindata::rawplus_dm",
@@ -53,10 +51,10 @@ RevertSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping =
         "dfSTUDCOMP" = "clindata::rawplus_studcomp",
         "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp %>%
       filter(.data$phase == 'Blinded Study Drug Completion')",
-      "dfDATACHG" = "clindata::edc_data_points",
-      "dfDATAENT" = "clindata::edc_data_pages",
-      "dfQUERY" = "clindata::edc_queries",
-      "dfENROLL" = "clindata::rawplus_enroll"
+        "dfDATACHG" = "clindata::edc_data_points",
+        "dfDATAENT" = "clindata::edc_data_pages",
+        "dfQUERY" = "clindata::edc_queries",
+        "dfENROLL" = "clindata::rawplus_enroll"
       )
     )
   }
@@ -65,7 +63,6 @@ RevertSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping =
   # -- check if any workflows in `lStudyAssessResults` start with "qtl"
   if (length(grep("qtl", names(lStudyAssessResults))) > 0) {
     results_analysis <- MakeResultsAnalysis(lStudyAssessResults)
-
   } else {
     results_analysis <- data.frame(
       studyid = NA,
@@ -122,19 +119,3 @@ RevertSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping =
 
   return(lSnapshot)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

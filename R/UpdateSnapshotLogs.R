@@ -11,23 +11,26 @@
 #'
 #' @keywords internal
 UpdateSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping = NULL, version = "1.9") {
-
-  if(!version %in% c("1.8", "1.9")){
+  if (!version %in% c("1.8", "1.9")) {
     stop("version argument must be either '1.8' for previous data model or '1.9' for current data model")
   }
 
-  old_tables <- c("status_study", "status_site", "status_workflow", "status_param", "results_summary",
-                  "results_analysis", "results_bounds", "meta_workflow", "meta_param")
+  old_tables <- c(
+    "status_study", "status_site", "status_workflow", "status_param", "results_summary",
+    "results_analysis", "results_bounds", "meta_workflow", "meta_param"
+  )
 
-  current_tables <- c("rpt_site_details", "rpt_study_details", "rpt_qtl_details",
-                      "rpt_kri_details", "rpt_site_kri_details", "rpt_kri_bounds_details",
-                      "rpt_qtl_threshold_param", "rpt_kri_threshold_param", "rpt_qtl_analysis")
+  current_tables <- c(
+    "rpt_site_details", "rpt_study_details", "rpt_qtl_details",
+    "rpt_kri_details", "rpt_site_kri_details", "rpt_kri_bounds_details",
+    "rpt_qtl_threshold_param", "rpt_kri_threshold_param", "rpt_qtl_analysis"
+  )
 
-  if(version == "1.9" & all(names(lSnapshot$lSnapshot) == current_tables)) {
+  if (version == "1.9" & all(names(lSnapshot$lSnapshot) == current_tables)) {
     cli::cli_abort("`lSnapshot` already up to date")
   }
 
-  if(version == "1.8" & all(names(lSnapshot$lSnapshot) == old_tables)) {
+  if (version == "1.8" & all(names(lSnapshot$lSnapshot) == old_tables)) {
     cli::cli_abort("`lSnapshot` already up to date")
   }
 
@@ -68,7 +71,7 @@ UpdateSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping =
     }
   }
 
-  if(version == "1.9"){
+  if (version == "1.9") {
     # Create status_study
     status_study <- Study_Map_Raw(
       dfs = list(
@@ -92,9 +95,9 @@ UpdateSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping =
     # determine analysis date
     if ("lSnapshotDate" %in% names(lSnapshot)) {
       gsm_analysis_date <- lSnapshot$lSnapshotDate
-    } else if(exists("gsm_analysis_date", where = lSnapshot$lSnapshot[[1]])) {
+    } else if (exists("gsm_analysis_date", where = lSnapshot$lSnapshot[[1]])) {
       gsm_analysis_date <- lSnapshot$lSnapshot[[1]]$gsm_analysis_date
-    } else if(exists("snapshot_date", where = lSnapshot$lSnapshot[[1]])) {
+    } else if (exists("snapshot_date", where = lSnapshot$lSnapshot[[1]])) {
       gsm_analysis_date <- lSnapshot$lSnapshot[[1]]$snapshot_date
     }
 
@@ -102,8 +105,10 @@ UpdateSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping =
     lResults <- lSnapshot$lStudyAssessResults
 
     # create status_workflow
-    status_workflow <- MakeStatusWorkflow(lResults = lResults,
-                                          dfConfigWorkflow = lMeta$config_workflow)
+    status_workflow <- MakeStatusWorkflow(
+      lResults = lResults,
+      dfConfigWorkflow = lMeta$config_workflow
+    )
 
     # define output
     output <- lSnapshot
@@ -120,11 +125,9 @@ UpdateSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping =
       rpt_kri_threshold_param = MakeRptThresholdParam(lMeta$meta_params, lMeta$config_param, gsm_analysis_date, type = "kri"),
       rpt_qtl_analysis = MakeRptQtlAnalysis(lResults, gsm_analysis_date)
     )
-
-  } else if(version == "1.8"){
+  } else if (version == "1.8") {
     output <- RevertSnapshotLogs(lSnapshot, lMeta, lData)
   }
 
   return(output)
 }
-

@@ -80,23 +80,23 @@ Study_Assess <- function(
       lAssessments <- lAssessments %>%
         purrr::map(purrr::safely(
           function(lWorkflow) {
-          if (hasName(lWorkflow, "group")) {
-            RunStratifiedWorkflow(
-              lWorkflow,
-              lData = lData,
-              lMapping = lMapping,
-              bQuiet = bQuiet
-            )
-          } else {
-            RunWorkflow(
-              lWorkflow,
-              lData = lData,
-              lMapping = lMapping,
-              bQuiet = bQuiet
-            )
+            if (hasName(lWorkflow, "group")) {
+              RunStratifiedWorkflow(
+                lWorkflow,
+                lData = lData,
+                lMapping = lMapping,
+                bQuiet = bQuiet
+              )
+            } else {
+              RunWorkflow(
+                lWorkflow,
+                lData = lData,
+                lMapping = lMapping,
+                bQuiet = bQuiet
+              )
+            }
           }
-        })
-        )
+        ))
     } else {
       if (!bQuiet) cli::cli_alert_danger("Subject-level data contains 0 rows. Assessment not run.")
       lAssessments <- NULL
