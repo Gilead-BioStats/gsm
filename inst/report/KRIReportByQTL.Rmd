@@ -87,5 +87,9 @@ MakeKRIGlossary(
 ```
 
 
-```{js, file='../utils-0.0.1/showMetaTableDetails.js', echo=FALSE}
+```{r echo=FALSE}
+meta_details <- system.file('utils-0.0.1', 'showMetaTableDetails.js', package = "gsm")
+```
+
+```{js, file={meta_details}, echo=FALSE}
 ```
