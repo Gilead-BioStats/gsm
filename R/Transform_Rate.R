@@ -41,9 +41,6 @@
 #'   strDenominatorCol = "Exposure"
 #' )
 #'
-#' @importFrom cli cli_alert_warning
-#' @import dplyr
-#'
 #' @export
 
 Transform_Rate <- function(

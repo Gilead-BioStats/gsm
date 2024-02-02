@@ -5,6 +5,7 @@ on:
     branches: [main, dev]
   pull_request:
     branches: [main, dev]
+  workflow_dispatch:
 
 name: test-coverage
 
@@ -25,18 +26,11 @@ jobs:
         with:
           use-public-rspm: true
 
-      - name: Clone clindata
-        run: |
-          cd ..
-          git clone git@github.com:Gilead-BioStats/clindata.git
-          cd clindata
-          cd ../gsm
 
       - name: install packages
         shell: Rscript {0}
         run: |
           install.packages("devtools")
-          devtools::install('../clindata')
           devtools::install(dependencies=TRUE)
           install.packages('covr')
           print(sessionInfo())

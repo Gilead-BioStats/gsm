@@ -16,8 +16,6 @@
 #'
 #' @return `data.frame` with columns `studyid`, `workflowid`, `gsm_version`, `active`, `status`, and `notes`.
 #'
-#' @importFrom purrr imap
-#'
 #' @export
 MakeStatusWorkflow <- function(lResults, dfConfigWorkflow) {
   # extract bStatus and create data.frame -----------------------------------

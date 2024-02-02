@@ -11,17 +11,14 @@
 #' @return `plot` interactive timeline plot.
 #'
 #' @examples
+#' if (require("gggenes") & require("ggiraph")) {
 #' Make_Timeline(status_study = clindata::ctms_study)
-#'
-#' @import ggplot2
-#' @import dplyr
-#' @importFrom gggenes geom_gene_arrow
-#' @importFrom ggiraph geom_point_interactive girafe
-#' @importFrom tidyr pivot_longer
+#' }
 #'
 #' @export
 
 Make_Timeline <- function(status_study, longitudinal = NULL, n_breaks = 10, date_format = "%b\n%Y", bInteractive = TRUE) {
+
   history <- length(longitudinal) > 0
 
   if (history) {

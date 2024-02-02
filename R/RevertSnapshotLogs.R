@@ -4,12 +4,13 @@
 #' @param lMeta `list` the meta data to use for reversion
 #' @param lData `list` the data to use for reversion
 #' @param lMapping `list` the mapping to use for reversion
+#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @keywords internal
 #' @export
 #'
 #'
-RevertSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping = NULL) {
+RevertSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping = NULL, bQuiet = TRUE){
   # Define StudyAssessResults
   lStudyAssessResults <- lSnapshot$lStudyAssessResults
 

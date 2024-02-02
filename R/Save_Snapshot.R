@@ -18,10 +18,8 @@
 #' \dontrun{
 #'
 #' snapshot <- Make_Snapshot()
-#' Save_Snapshot(lSnapshot = snapshot, cPath = here::here("data"))
+#' Save_Snapshot(lSnapshot = snapshot, cPath = paste0(getwd(), "/data"))
 #' }
-#'
-#' @importFrom arrow write_parquet
 #'
 #' @export
 Save_Snapshot <- function(lSnapshot, cPath, bCreateDefaultFolder = FALSE, bQuiet = TRUE, strFileFormat = "parquet") {

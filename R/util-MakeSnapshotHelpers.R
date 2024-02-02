@@ -2,8 +2,6 @@
 #'
 #' @param lResults `list` the output of `Study_Assess()` containing results of kri analysis
 #'
-#' @import dplyr
-#'
 #' @export
 #'
 #' @keywords internal
@@ -27,9 +25,6 @@ CompileResultsSummary <- function(lResults) {
 #'
 #' @param lResults `list` the output of `Study_Assess()` containing results of kri analysis
 #' @param group `character` a character field to specify what to use to group flags by. options = "site", "kri"
-#'
-#' @import dplyr
-#' @importFrom tidyr pivot_wider
 #'
 #' @export
 #'
@@ -68,11 +63,6 @@ ExtractFlags <- function(lResults, group) {
 #'
 #' @param fpfv `date` the date of the first patient visit of the study
 #' @param snapshot_date `date` the date of the snapshot to derive the period of time from the fpfv
-#'
-#' @importFrom lubridate as.period
-#' @importFrom lubridate interval
-#' @importFrom stringr str_replace
-#'
 #' @export
 #'
 #' @keywords internal
@@ -93,8 +83,6 @@ ExtractStudyAge <- function(fpfv, snapshot_date) {
 #' @param dfConfigParam `data.frame` Workflow configuration parameters.
 #' @param gsm_analysis_date `date` Date that `{gsm}` snapshot was run. leave NULL if dealing with stacked results
 #'
-#' @import purrr
-#' @importFrom cli cli_alert_warning
 #' @export
 MakeRptQtlDetails <- function(lResults, dfMetaWorkflow, dfConfigParam, gsm_analysis_date = NULL) {
   qtl_present <- any(grepl("qtl", names(lResults)))
@@ -435,7 +423,7 @@ MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date = 
         "snapshot_date" = {
           if (is.null(gsm_analysis_date)) "gsm_analysis_date" else gsm_analysis_date
         },
-        "default" = value,
+        "default" = .data$value,
         "configurable" = NA,
         "pt_cycle_id" = NA_character_,
         "pt_data_dt" = NA_character_
@@ -485,8 +473,6 @@ MakeRptThresholdParam <- function(meta_param, status_param, gsm_analysis_date = 
 #' @param lResults `list` the output from `Study_Assess()`
 #' @param gsm_analysis_date `string` Date of snapshot
 #'
-#' @importFrom purrr map_df
-#'
 #' @export
 #'
 #' @keywords internal
@@ -526,9 +512,6 @@ MakeRptQtlAnalysis <- function(lResults, gsm_analysis_date) {
 #' @param lPrevSnapshot `list` the previous Snapshot object
 #' @param lSnapshot `list` the current Snapshot object
 #'
-#' @import dplyr
-#' @importFrom purrr map_df
-#'
 #' @return Augmented previous snapshot object
 #'
 #' @export
@@ -567,9 +550,6 @@ Match_Class <- function(lPrevSnapshot, lSnapshot) {
 #' @param files `vector` Optional vector of desired files to append, defaults to all files within the previous snapshot
 #' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
-#' @importFrom dplyr bind_rows
-#' @importFrom cli cli_alert_warning
-#'
 #' @return Appended lSnapshot object
 #'
 #' @export
@@ -600,8 +580,6 @@ AppendLogs <- function(lPrevSnapshot, lSnapshot, files = names(lPrevSnapshot$lSn
 #' @param prev_lSnapshot `list` the previous Snapshot object
 #' @param lSnapshot `list` the current Snapshot object
 #' @param files `vector` Optional vector of desired files to append, defaults to all files within the previous snapshot
-#'
-#' @importFrom dplyr bind_rows
 #'
 #' @return Appended lSnapshot object
 #'

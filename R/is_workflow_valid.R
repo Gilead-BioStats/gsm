@@ -19,8 +19,6 @@
 #'
 #' @return `list` with `TRUE`/`FALSE` status for each workflow.
 #'
-#' @import purrr
-#'
 #' @export
 is_workflow_valid <- function(lWorkflow) {
   checks <- list(

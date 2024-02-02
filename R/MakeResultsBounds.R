@@ -13,8 +13,6 @@
 #' results_bounds <- MakeResultsBounds(lResults = study, dfConfigWorkflow = gsm::config_workflow)
 #' }
 #'
-#' @importFrom purrr discard imap_dfr map
-#'
 #' @export
 MakeResultsBounds <- function(lResults, dfConfigWorkflow) {
   # extract dfBounds data.frame ---------------------------------------------

@@ -4,8 +4,6 @@
 #'
 #' @return `data.frame` a data.frame containing the foldername and the associated snapshot date.
 #'
-#' @importFrom tibble rownames_to_column
-#'
 #' @keywords internal
 #'
 #' @export

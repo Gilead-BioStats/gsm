@@ -37,8 +37,6 @@
 #' @param height height of widget, calculated based on width
 #' @param elementId ID of container HTML element
 #'
-#' @import htmlwidgets
-#' @importFrom jsonlite toJSON
 #'
 #' @examples
 #'

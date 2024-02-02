@@ -20,8 +20,6 @@
 #' check_snapshot <- CheckSnapshotInputs(snapshot$lSnapshot)
 #' }
 #'
-#' @importFrom purrr map_int imap_dfr
-#'
 #' @export
 CheckSnapshotInputs <- function(snapshot) {
   # get rbm_data_spec/data model
