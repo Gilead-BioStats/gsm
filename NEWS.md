@@ -1,3 +1,6 @@
+# gsm v1.9.1
+This release hosts a variety of improvements to package referencing, improved function testing, and previous `gsm` version backwards compatability to allow for convertion from 1.8 data model to 1.9 data model and vice versa.
+
 # gsm v1.9.0
 
 This release introduces a new data model to the snapshot logs, reworking the outputs of `Make_Snapshot()` to include longitudinal functionality and new table components. See 

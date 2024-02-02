@@ -10,7 +10,7 @@ test_that("Testing util-ReporHelpers - AssessStatus():", {
   AssessStatus_data <- snap$lStudyAssessResults[c("kri0001", "kri0002", "cou0001", "cou0002", "qtl0004", "qtl0006")]
 
   # make some status false
-  for(i in names(AssessStatus_data[c(1,3,5)])){
+  for (i in names(AssessStatus_data[c(1, 3, 5)])) {
     AssessStatus_data[[i]]$bActive <- FALSE
   }
 
@@ -41,8 +41,10 @@ test_that("Testing util-ReporHelpers - AssessStatus():", {
 
 # MakeReportSetup --------------------------------------------------------------
 test_that("Testing util-ReporHelpers - MakeReportSetup():", {
-  expect_true(all(names(setup) %in% c("active", "dropped", "overview_table", "overview_raw_table", "red_kris",
-                      "amber_kris", "summary_table", "dropped_summary_table", "study_id")))
+  expect_true(all(names(setup) %in% c(
+    "active", "dropped", "overview_table", "overview_raw_table", "red_kris",
+    "amber_kris", "summary_table", "dropped_summary_table", "study_id"
+  )))
   expect_true(all(map_lgl(setup[c("active", "dropped", "overview_table", "summary_table", "dropped_summary_table")], is.list)))
   expect_true(is.data.frame(setup$overview_raw_table))
   expect_true(all(map_lgl(setup[c("red_kris", "amber_kris")], is.integer)))
@@ -66,9 +68,11 @@ test_that("Testing util-ReporHelpers - MakeKRIGlossary():", {
   kri_glossary <- MakeKRIGlossary(strWorkflowIDs = names(snap$lStudyAssessResults))
   expect_true(is.list(kri_glossary))
   expect_true(
-    all(names(kri_glossary) %in% c("x", "width", "height", "sizingPolicy", "dependencies",
-                                             "elementId", "preRenderHook", "jsHooks"))
-    )
+    all(names(kri_glossary) %in% c(
+      "x", "width", "height", "sizingPolicy", "dependencies",
+      "elementId", "preRenderHook", "jsHooks"
+    ))
+  )
 })
 
 # GetSnapshotDate --------------------------------------------------------------
@@ -81,8 +85,10 @@ test_that("Testing util-ReporHelpers - MakeErrorLog():", {
   error_log <- MakeErrorLog(snap$lStudyAssessResults)
   expect_true(is.list(error_log))
   expect_true(
-    all(names(error_log) %in% c("x", "width", "height", "sizingPolicy", "dependencies",
-                                   "elementId", "preRenderHook", "jsHooks"))
+    all(names(error_log) %in% c(
+      "x", "width", "height", "sizingPolicy", "dependencies",
+      "elementId", "preRenderHook", "jsHooks"
+    ))
   )
 })
 
@@ -91,7 +97,7 @@ test_that("Testing util-ReporHelpers - qtl_summary():", {
   qtl_sum <- qtl_summary(snap$lStudyAssessResults)
   expect_equal(
     names(qtl_sum), c("workflowid", "GroupID", "Numerator", "Denominator", "Metric", "Score", "Flag")
-               )
+  )
 })
 
 # qtl_analysis -----------------------------------------------------------------
@@ -100,8 +106,10 @@ test_that("Testing util-ReporHelpers - qtl_analysis():", {
   expect_true(is.data.frame(qtl_an))
   expect_equal(
     names(qtl_an),
-    c("Workflowid", "GroupID", "Numerator", "Denominator", "Metric",
+    c(
+      "Workflowid", "GroupID", "Numerator", "Denominator", "Metric",
       "OverallMetric", "Factor", "Score", "Method", "ConfLevel",
-      "Estimate", "LowCI", "UpCI", "Flag")
+      "Estimate", "LowCI", "UpCI", "Flag"
+    )
   )
 })

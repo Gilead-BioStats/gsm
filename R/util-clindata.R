@@ -34,7 +34,6 @@ UseClindata <- function(lDomains = NULL) {
           .data$phase == "Blinded Study Drug Completion"
         )
     }
-
   }
 
   return(clindata_list)

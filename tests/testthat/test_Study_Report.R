@@ -23,6 +23,4 @@ test_that("Study_Report function works as expected", {
       Study_Report(part_snap)
     )
   )
-
 })
-

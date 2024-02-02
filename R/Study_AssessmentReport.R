@@ -24,7 +24,6 @@
 #' @export
 
 Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
-
   rlang::check_installed("gt", reason = "to render table from `Study_AssessmentReport`")
 
   allChecks <- purrr::map(names(lAssessments), function(assessment) {
@@ -123,7 +122,6 @@ Study_AssessmentReport <- function(lAssessments, bViewReport = FALSE) {
   } else {
     return(dfSummary %>%
       gt::gt() %>%
-      gt::fmt_markdown(columns = everything())
-      )
+      gt::fmt_markdown(columns = everything()))
   }
 }

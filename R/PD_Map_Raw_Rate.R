@@ -35,8 +35,6 @@
 #' # Run with error checking and message log.
 #' dfInput <- PD_Map_Raw_Rate(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
-#' 
-#'
 #' @export
 
 PD_Map_Raw_Rate <- function(

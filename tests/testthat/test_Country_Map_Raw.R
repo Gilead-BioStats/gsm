@@ -1,5 +1,4 @@
 test_that("Country_Map_Raw function works correctly", {
-
   # Create a sample data frame for testing
   test_data <- data.frame(
     country = c("USA", "USA", "Canada", "Canada", "Mexico"),
@@ -26,6 +25,3 @@ test_that("Country_Map_Raw function works correctly", {
 
   expect_error(Country_Map_Raw(error_site))
 })
-
-
-

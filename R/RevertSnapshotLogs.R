@@ -10,7 +10,7 @@
 #' @export
 #'
 #'
-RevertSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping = NULL, bQuiet = TRUE){
+RevertSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping = NULL, bQuiet = TRUE) {
   # Define StudyAssessResults
   lStudyAssessResults <- lSnapshot$lStudyAssessResults
 

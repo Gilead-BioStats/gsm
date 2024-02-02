@@ -43,7 +43,6 @@
 #' )
 #' dfAnalyzed <- Analyze_Fisher(dfTransformed)
 #'
-#'
 #' @export
 
 Analyze_Fisher <- function(

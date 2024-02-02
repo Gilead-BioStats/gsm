@@ -23,7 +23,6 @@ Overview_Table <- function(
   strReportType = "site",
   bInteractive = TRUE
 ) {
-
   rlang::check_installed("DT", reason = "to run `Overview_Table()`")
 
   # input check

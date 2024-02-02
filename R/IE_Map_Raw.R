@@ -35,8 +35,6 @@
 #' # Run with error checking and message log.
 #' dfInput <- IE_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
-#' 
-#'
 #' @export
 
 IE_Map_Raw <- function(

@@ -2,7 +2,7 @@
 source(testthat::test_path("testdata/data.R"))
 
 test_that("Make_Timeline function works as expected", {
-  lMeta = gsm::UseClindata(
+  lMeta <- gsm::UseClindata(
     list(
       "config_param" = "gsm::config_param",
       "config_workflow" = "gsm::config_workflow",
@@ -13,15 +13,15 @@ test_that("Make_Timeline function works as expected", {
     )
   )
 
-  lData = gsm::UseClindata(
+  lData <- gsm::UseClindata(
     list(
       "dfSUBJ" = "clindata::rawplus_dm"
     )
   )
 
-  lMapping = Read_Mapping()
+  lMapping <- Read_Mapping()
 
-  lAssessments = MakeWorkflowList(lMeta = lMeta)
+  lAssessments <- MakeWorkflowList(lMeta = lMeta)
 
   # map ctms data -----------------------------------------------------------
   status_study <- Study_Map_Raw(
@@ -38,8 +38,4 @@ test_that("Make_Timeline function works as expected", {
 
   expect_true(is.list(plot))
   expect_true(plot$x$uid == "timeline")
-
 })
-
-
-

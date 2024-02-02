@@ -16,8 +16,6 @@
 #' @examples
 #' qtl <- RunQTL("qtl0004")
 #'
-#' 
-#'
 #' @export
 RunQTL <- function(
   strName = NULL,
