@@ -30,6 +30,8 @@ Make_Timeline(
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
+if (require("gggenes") & require("ggiraph")) {
 Make_Timeline(status_study = clindata::ctms_study)
+}
 
 }

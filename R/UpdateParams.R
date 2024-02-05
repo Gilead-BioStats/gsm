@@ -8,9 +8,6 @@
 #'
 #' @return `list` lWorkflow - modified list.
 #'
-#' @importFrom purrr map
-#'
-#'
 #' @export
 UpdateParams <- function(lWorkflow, dfConfig, dfMeta) {
   # join config_param and meta_param ----------------------------------------

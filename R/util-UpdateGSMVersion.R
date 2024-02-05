@@ -14,16 +14,13 @@
 #' UpdateGSMVersion()
 #' }
 #'
-#' @importFrom utils packageVersion write.csv
-#' @importFrom here here
-#' @importFrom purrr map set_names iwalk
-#' @importFrom cli cli_alert_success
-#'
 #' @export
 UpdateGSMVersion <- function(version = NULL) {
   if (is.null(version)) {
     version <- as.character(utils::packageVersion("gsm"))
   }
+
+  rlang::check_installed("desc", reason = "to run `UpdateGSMVersion`")
 
   cli::cli_alert_success("Setting {.pkg gsm} version to {.strong {version}}")
 
@@ -34,6 +31,8 @@ UpdateGSMVersion <- function(version = NULL) {
     purrr::set_names(meta_update)
 
   purrr::iwalk(lMeta_update, ~ utils::write.csv(.x, file = paste0(here::here("data-raw", .y)), row.names = FALSE))
+
+  desc::desc_set_version(version)
 
   source(here::here("data-raw", "meta_param.R"))
   source(here::here("data-raw", "meta_workflow.R"))

@@ -34,11 +34,6 @@
 #' # Run with error checking and message log.
 #' dfInput <- Disp_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
-#' @importFrom cli cli_alert_success cli_alert_warning cli_h2
-#' @importFrom glue glue
-#' @importFrom yaml read_yaml
-#' @import dplyr
-#'
 #' @export
 
 Disp_Map_Raw <- function(
@@ -46,7 +41,7 @@ Disp_Map_Raw <- function(
     list(
       "dfSUBJ" = "clindata::rawplus_dm",
       "dfSTUDCOMP" = "clindata::rawplus_studcomp",
-      "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp %>% filter(.data$phase == 'Blinded Study Drug Completion')"
+      "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp"
     )
   ),
   lMapping = gsm::Read_Mapping("rawplus"),

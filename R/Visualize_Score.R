@@ -19,9 +19,6 @@
 #' consent <- Consent_Map_Raw() %>% Consent_Assess()
 #' Visualize_Score(consent$lData$dfSummary, strType = "score") # visualize score
 #'
-#' @import ggplot2
-#' @importFrom stats reorder
-#'
 #' @export
 
 Visualize_Score <- function(

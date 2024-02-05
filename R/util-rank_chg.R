@@ -9,12 +9,12 @@
 #'
 #' @param status `boolean` fontawesome emoji indicator that describes the status of error checking for all assessments run in `Study_Assess()`
 #'
-#' @importFrom fontawesome fa
-#' @importFrom gt html
-#'
 #' @export
 
 rank_chg <- function(status) {
+  rlang::check_installed("gt", reason = "to use `rank_chg`")
+  rlang::check_installed("fontawesome", reason = "to use `rank_chg`")
+
   if (status == 1) {
     logo_out <- fontawesome::fa("circle", fill = "green")
   }

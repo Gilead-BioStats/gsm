@@ -32,8 +32,6 @@
 #' @return `data.frame` Data frame provided as `df` and filtered on `strColParam` == `strValParam`.
 #' If `bReturnChecks` is `TRUE`, a `list` is returned with a filtered `df`, and a list of checks run on input data (`lChecks`).
 #'
-#' @import cli
-#'
 #' @export
 
 FilterDomain <- function(

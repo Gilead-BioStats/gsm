@@ -22,9 +22,6 @@
 #'
 #' @return `data.frame` with one record per ID variable specified in the `strIDCol` parameter.
 #'
-#' @importFrom cli cli_alert_info cli_alert_warning
-#' @importFrom tidyr replace_na
-#'
 #' @export
 
 MergeSubjects <- function(

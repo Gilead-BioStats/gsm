@@ -13,7 +13,7 @@ test_that("output is returned as expected", {
 })
 
 test_that("correct errors shown when specifying workflows", {
-  lWorkflow <- MakeWorkflowList(strNames = "qtl0004", bRecursive = TRUE)$qtl0004
+  lWorkflow <- MakeWorkflowList(strNames = "qtl0004", bRecursive = TRUE)
 
   expect_error(RunQTL("wronginput"))
   expect_error(RunQTL())

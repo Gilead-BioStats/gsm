@@ -29,8 +29,6 @@
 #' )
 #' }
 #'
-#' @importFrom rmarkdown render
-#'
 #' @export
 
 Study_Report <- function(
@@ -40,6 +38,12 @@ Study_Report <- function(
   strOutpath = NULL,
   strReportType = "site"
 ) {
+  rlang::check_installed("rmarkdown", reason = "to run `Study_Report()`")
+  rlang::check_installed("ggiraph", reason = "to run `Study_Report()`")
+  rlang::check_installed("gggenes", reason = "to run `Study_Report()`")
+  rlang::check_installed("knitr", reason = "to run `Study_Report()`")
+  rlang::check_installed("DT", reason = "to run `Study_Report()`")
+
   # input check
   lAssessments <- if ("lStudyAssessResults" %in% names(lSnapshot)) {
     lSnapshot$lStudyAssessResults

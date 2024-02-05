@@ -6,7 +6,7 @@
 \alias{gsm-package}
 \title{gsm: Good Statistical Monitoring}
 \description{
-The Good Statistical Monitoring or {gsm} R package provides a framework for statistical data monitoring.
+The Good Statistical Monitoring or 'gsm' R package provides a framework for statistical data monitoring.
 }
 \seealso{
 Useful links:

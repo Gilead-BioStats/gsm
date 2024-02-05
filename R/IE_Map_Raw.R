@@ -35,9 +35,6 @@
 #' # Run with error checking and message log.
 #' dfInput <- IE_Map_Raw(bReturnChecks = TRUE, bQuiet = FALSE)
 #'
-#' @importFrom cli cli_alert_success cli_alert_warning cli_h2
-#' @importFrom yaml read_yaml
-#'
 #' @export
 
 IE_Map_Raw <- function(
