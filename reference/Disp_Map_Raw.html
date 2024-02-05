@@ -18,7 +18,7 @@ input data to Disp_Assess()."><!-- mathjax --><script src="https://cdnjs.cloudfl
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.1</span>
       </span>
     </div>
 
@@ -101,8 +101,7 @@ input data to <code><a href="Disp_Assess.html">Disp_Assess()</a></code>.</p>
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Disp_Map_Raw</span><span class="op">(</span></span>
 <span>  dfs <span class="op">=</span> <span class="fu">gsm</span><span class="fu">::</span><span class="fu"><a href="UseClindata.html">UseClindata</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>dfSUBJ <span class="op">=</span> <span class="st">"clindata::rawplus_dm"</span>, dfSTUDCOMP <span class="op">=</span></span>
-<span>    <span class="st">"clindata::rawplus_studcomp"</span>, dfSDRGCOMP <span class="op">=</span></span>
-<span>    <span class="st">"clindata::rawplus_sdrgcomp %&gt;% filter(.data$phase == 'Blinded Study Drug Completion')"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="st">"clindata::rawplus_studcomp"</span>, dfSDRGCOMP <span class="op">=</span> <span class="st">"clindata::rawplus_sdrgcomp"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  lMapping <span class="op">=</span> <span class="fu">gsm</span><span class="fu">::</span><span class="fu"><a href="Read_Mapping.html">Read_Mapping</a></span><span class="op">(</span><span class="st">"rawplus"</span><span class="op">)</span>,</span>
 <span>  strContext <span class="op">=</span> <span class="st">"Study"</span>,</span>
 <span>  bReturnChecks <span class="op">=</span> <span class="cn">FALSE</span>,</span>

@@ -19,7 +19,7 @@ Appendix 2 - Data Model Specifications"><!-- mathjax --><script src="https://cdn
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.1</span>
       </span>
     </div>
 
@@ -110,9 +110,9 @@ Appendix 2 - Data Model Specifications</p>
 <span>    <span class="st">"clindata::rawplus_ae"</span>, dfPD <span class="op">=</span> <span class="st">"clindata::ctms_protdev"</span>, dfCONSENT <span class="op">=</span></span>
 <span>    <span class="st">"clindata::rawplus_consent"</span>, dfIE <span class="op">=</span> <span class="st">"clindata::rawplus_ie"</span>, dfLB <span class="op">=</span></span>
 <span>    <span class="st">"clindata::rawplus_lb"</span>, dfSTUDCOMP <span class="op">=</span> <span class="st">"clindata::rawplus_studcomp"</span>, dfSDRGCOMP <span class="op">=</span></span>
-<span>    <span class="st">"clindata::rawplus_sdrgcomp %&gt;%\n      filter(.data$phase == 'Blinded Study Drug Completion')"</span>,</span>
-<span>    dfDATACHG <span class="op">=</span> <span class="st">"clindata::edc_data_points"</span>, dfDATAENT <span class="op">=</span> <span class="st">"clindata::edc_data_pages"</span>,</span>
-<span>    dfQUERY <span class="op">=</span> <span class="st">"clindata::edc_queries"</span>, dfENROLL <span class="op">=</span> <span class="st">"clindata::rawplus_enroll"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="st">"clindata::rawplus_sdrgcomp"</span>, dfDATACHG <span class="op">=</span> <span class="st">"clindata::edc_data_points"</span>, dfDATAENT <span class="op">=</span></span>
+<span>    <span class="st">"clindata::edc_data_pages"</span>, dfQUERY <span class="op">=</span> <span class="st">"clindata::edc_queries"</span>, dfENROLL <span class="op">=</span></span>
+<span>    <span class="st">"clindata::rawplus_enroll"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  lMapping <span class="op">=</span> <span class="fu"><a href="Read_Mapping.html">Read_Mapping</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  lAssessments <span class="op">=</span> <span class="fu"><a href="MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span>lMeta <span class="op">=</span> <span class="va">lMeta</span><span class="op">)</span>,</span>
 <span>  lPrevSnapshot <span class="op">=</span> <span class="cn">NULL</span>,</span>

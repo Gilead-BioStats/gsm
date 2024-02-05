@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.1</span>
       </span>
     </div>
 
@@ -1923,9 +1923,9 @@ designed to accumulate and combine data as snapshots are run.</p>
 <p>For backwards compatibility a new funtion called
 <code>UpdateSnapshotLogs</code> is used to retrofit the past saved
 snapshots, that were saved prior to v1.9.0, to the new data model. This
-function will convert the <code>lSnapshot</code> and
-<code>lStackedSnapshots</code> logs to the new data model logs (rpt_*
-tables)</p>
+function will convert the <code>lSnapshot</code> logs to the new data
+model logs (rpt_* tables) or vice versa from v1.9.0 to v1.8.0 by
+selecting the desired <code>version</code> argument.</p>
 </div>
 </div>
   </div>

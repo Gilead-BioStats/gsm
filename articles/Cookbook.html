@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.1</span>
       </span>
     </div>
 
@@ -395,7 +395,7 @@ assessments run in the <code><a href="../reference/Study_Assess.html">Study_Asse
 <span></span>
 <span><span class="va">multiple_assessments</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Study_Assess.html">Study_Assess</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/Study_Report.html">Study_Report</a></span><span class="op">(</span>lAssessments <span class="op">=</span> <span class="va">multiple_assessments</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/Study_Report.html">Study_Report</a></span><span class="op">(</span>lSnapshot <span class="op">=</span> <span class="va">multiple_assessments</span><span class="op">)</span></span></code></pre></div>
 <p>The report will render and be saved to your current working
 directory. If you would like the report saved in a different location,
 you can set an output directory using the <code>strOutpath</code>
@@ -416,7 +416,7 @@ enhanced <strong>Study Overview</strong> table.</p>
 <span><span class="va">snapshot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Make_Snapshot.html">Make_Snapshot</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/Study_Report.html">Study_Report</a></span><span class="op">(</span></span>
-<span>  lAssessments <span class="op">=</span> <span class="va">snapshot</span><span class="op">$</span><span class="va">lStudyAssessResults</span>,</span>
+<span>  lSnapshot <span class="op">=</span> <span class="va">snapshot</span>,</span>
 <span>  dfSite <span class="op">=</span> <span class="va">snapshot</span><span class="op">$</span><span class="va">lSnapshot</span><span class="op">$</span><span class="va">status_site</span>, </span>
 <span>  dfStudy <span class="op">=</span> <span class="va">snapshot</span><span class="op">$</span><span class="va">lSnapshot</span><span class="op">$</span><span class="va">status_study</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>

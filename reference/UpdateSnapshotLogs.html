@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.1</span>
       </span>
     </div>
 
@@ -97,12 +97,18 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">UpdateSnapshotLogs</span><span class="op">(</span><span class="va">lPrevSnapshot</span>, lMeta <span class="op">=</span> <span class="cn">NULL</span>, lData <span class="op">=</span> <span class="cn">NULL</span>, lMapping <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">UpdateSnapshotLogs</span><span class="op">(</span></span>
+<span>  <span class="va">lSnapshot</span>,</span>
+<span>  lMeta <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lData <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lMapping <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  version <span class="op">=</span> <span class="st">"1.9"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>lPrevSnapshot</dt>
+    <dl><dt>lSnapshot</dt>
 <dd><p><code>list</code> snapshot.rds file of archived snapshot</p></dd>
 
 
@@ -116,6 +122,10 @@
 
 <dt>lMapping</dt>
 <dd><p><code>list</code> lMapping argument of previous snapshot. defaults to <code><a href="Read_Mapping.html">Read_Mapping()</a></code> output if NULL</p></dd>
+
+
+<dt>version</dt>
+<dd><p><code>string</code> specifies the conversion direction '1.8' for old data model '1.9' for new data model</p></dd>
 
 </dl></div>
     <div id="value">

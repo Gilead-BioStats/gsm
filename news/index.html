@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gsm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.9.1</span>
       </span>
     </div>
 
@@ -92,8 +92,32 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="1.9.1" id="gsm-v191">gsm v1.9.1<a class="anchor" aria-label="anchor" href="#gsm-v191"></a></h2>
+<p>This release includes improvements to package namespacing and dependency management, additional unit tests, and previous <code>gsm</code> version backwards-compatability to allow for conversion from <code>v1.8.x</code> data model to <code>v1.9.0+</code> data model and vice-versa.</p>
+<div class="section level4">
+<h4 id="new-functionality-1-9-1">New Functionality<a class="anchor" aria-label="anchor" href="#new-functionality-1-9-1"></a></h4>
+<ul><li>
+<code><a href="../reference/RevertSnapshotLogs.html">RevertSnapshotLogs()</a></code>: This function takes a snapshot from <code>v1.9.0</code> or newer and reverts the data model to one that is compatible with <code>v1.8.x</code>. This is a helper function to assist with breaking changes introduced by a data model refactor.</li>
+</ul></div>
+<div class="section level4">
+<h4 id="namespacing--dependencies-1-9-1">Namespacing / Dependencies<a class="anchor" aria-label="anchor" href="#namespacing--dependencies-1-9-1"></a></h4>
+<ul><li>Previously, <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> listed ~30 packages as <code>Imports</code>. A refactor and reassessment of dependencies has brought this down to 21 <code>Imports</code>, and has moved a number of packages to <code>Suggests</code> that are only needed for reporting or for development of <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>
+</li>
+<li>Note to contributors: Instead of adding <code>@import</code> or <code>@importFrom</code> in the <code>roxygen2</code> headers, we should now use <code>usethis::use_import_from("package", "function")</code>, which will update <code>gsm-package.R</code> as the global package/function import reference.</li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="1.9.0" id="gsm-v190">gsm v1.9.0<a class="anchor" aria-label="anchor" href="#gsm-v190"></a></h2>
 <p>This release introduces a new data model to the snapshot logs, reworking the outputs of <code><a href="../reference/Make_Snapshot.html">Make_Snapshot()</a></code> to include longitudinal functionality and new table components. See the <strong><code>v1.9.0</code> Data Model Update Reference</strong> vignette for new data mapping and functionality notes.</p>
+<div class="section level4">
+<h4 id="data-model-updates-1-9-0">Data Model Updates<a class="anchor" aria-label="anchor" href="#data-model-updates-1-9-0"></a></h4>
+<p><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> v1.9.0 represents a substantial change to the gsm data model. The main changes include new log tables with different names and altered data variables, and new functionality for <code><a href="../reference/Make_Snapshot.html">Make_Snapshot()</a></code>. Moving forward with this new model, data will be cumulatively collected and combined to allow for tracking changes through time of a study.</p>
+<ul><li>
+<code>Augment_Snapshot()</code> has been deprecated due to the data model update described above. Instead of using <code>Augment_Snapshot()</code> to target a directory containing previous snapshots, users should now use the <code>lPrevSnapshot</code> parameter in <code><a href="../reference/Make_Snapshot.html">Make_Snapshot()</a></code>.</li>
+<li>
+<code><a href="../reference/Save_Snapshot.html">Save_Snapshot()</a></code> now defaults to <code>.parquet</code> format. <code>.csv</code> format is still available by setting <code>strFileFormat = "csv"</code>.</li>
+<li>The output of <code><a href="../reference/Make_Snapshot.html">Make_Snapshot()</a></code> now includes <code>lCharts</code> as a top-level object. This allows charts to be extracted easier for reporting and other downstream effects. This will also help for future development plans.</li>
+</ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="1.8.4" id="gsm-v184">gsm v1.8.4<a class="anchor" aria-label="anchor" href="#gsm-v184"></a></h2>
