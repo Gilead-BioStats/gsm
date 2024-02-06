@@ -40,7 +40,6 @@ ExportCode <- function(lData,
   bInsertText = FALSE,
   strPath = NULL,
   strFileName = NULL) {
-
   rlang::check_installed("rstudioapi", reason = "to use `ExportCode`")
   rlang::check_installed("styler", reason = "to use `ExportCode`")
 

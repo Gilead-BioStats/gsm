@@ -24,7 +24,6 @@ generate_md_table <- function(
   out_path = "./man/md/",
   header = "# Data specification"
 ) {
-
   rlang::check_installed("knitr", reason = "to run `generate_md_table()`")
 
   # ------------------------------------------------------------------------------------------------

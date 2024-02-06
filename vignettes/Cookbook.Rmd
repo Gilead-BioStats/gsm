@@ -236,7 +236,7 @@ library(clindata)
 
 multiple_assessments <- Study_Assess()
 
-Study_Report(lAssessments = multiple_assessments)
+Study_Report(lSnapshot = multiple_assessments)
 ```
 
 The report will render and be saved to your current working directory. If you would like the report saved in a different location, you can set an output directory using the `strOutpath` argument in the `Study_Report()` function.
@@ -253,7 +253,7 @@ library(clindata)
 snapshot <- Make_Snapshot()
 
 Study_Report(
-  lAssessments = snapshot$lStudyAssessResults,
+  lSnapshot = snapshot,
   dfSite = snapshot$lSnapshot$status_site, 
   dfStudy = snapshot$lSnapshot$status_study
   )

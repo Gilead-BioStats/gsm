@@ -7,7 +7,6 @@
 #' @export
 #' @keywords internal
 MakeStudyStatusTable <- function(dfStudy, overview_raw_table, longitudinal = NULL) {
-
   rlang::check_installed("gt", reason = "to render table from `MakeStudyStatusTable`")
 
   # -- this vector is used to define a custom sort order for the
@@ -143,7 +142,6 @@ MakeStudyStatusTable <- function(dfStudy, overview_raw_table, longitudinal = NUL
 #' @export
 #' @keywords internal
 MakeSummaryTable <- function(lAssessment, dfSite = NULL) {
-
   rlang::check_installed("DT", reason = "to run `Study_Report()`")
 
   active <- lAssessment[!sapply(lAssessment, is.data.frame)]
@@ -199,7 +197,6 @@ MakeSummaryTable <- function(lAssessment, dfSite = NULL) {
 #' @export
 #' @keywords internal
 add_table_theme <- function(x) {
-
   rlang::check_installed("gt", reason = "to use `add_table_theme`")
 
   x %>%
@@ -229,7 +226,6 @@ MakeKRIGlossary <- function(
   dfMetaWorkflow = gsm::meta_workflow,
   strWorkflowIDs = NULL,
   lStatus = NULL) {
-
   rlang::check_installed("DT", reason = "to run `MakeKRIGlossary()`")
 
   if (length(lStatus) != 0) {

@@ -25221,362 +25221,362 @@
     Output
       $config_param
                  studyid workflowid gsm_version           param index        value
-      1   AA-AA-000-0000    kri0001       1.9.0      vThreshold     1           -3
-      2   AA-AA-000-0000    kri0001       1.9.0      vThreshold     2           -2
-      3   AA-AA-000-0000    kri0001       1.9.0      vThreshold     3            2
-      4   AA-AA-000-0000    kri0001       1.9.0      vThreshold     4            3
-      5   AA-AA-000-0000    kri0001       1.9.0       strMethod    NA NormalApprox
-      6   AA-AA-000-0000    kri0001       1.9.0 nMinDenominator    NA           30
-      7   AA-AA-000-0000    kri0002       1.9.0      vThreshold     1           -3
-      8   AA-AA-000-0000    kri0002       1.9.0      vThreshold     2           -2
-      9   AA-AA-000-0000    kri0002       1.9.0      vThreshold     3            2
-      10  AA-AA-000-0000    kri0002       1.9.0      vThreshold     4            3
-      11  AA-AA-000-0000    kri0002       1.9.0       strMethod    NA NormalApprox
-      12  AA-AA-000-0000    kri0002       1.9.0 nMinDenominator    NA           30
-      13  AA-AA-000-0000    kri0003       1.9.0      vThreshold     1           -3
-      14  AA-AA-000-0000    kri0003       1.9.0      vThreshold     2           -2
-      15  AA-AA-000-0000    kri0003       1.9.0      vThreshold     3            2
-      16  AA-AA-000-0000    kri0003       1.9.0      vThreshold     4            3
-      17  AA-AA-000-0000    kri0003       1.9.0       strMethod    NA NormalApprox
-      18  AA-AA-000-0000    kri0003       1.9.0 nMinDenominator    NA           30
-      19  AA-AA-000-0000    kri0004       1.9.0      vThreshold     1           -3
-      20  AA-AA-000-0000    kri0004       1.9.0      vThreshold     2           -2
-      21  AA-AA-000-0000    kri0004       1.9.0      vThreshold     3            2
-      22  AA-AA-000-0000    kri0004       1.9.0      vThreshold     4            3
-      23  AA-AA-000-0000    kri0004       1.9.0       strMethod    NA NormalApprox
-      24  AA-AA-000-0000    kri0004       1.9.0 nMinDenominator    NA           30
-      25  AA-AA-000-0000    kri0005       1.9.0      vThreshold     1           -3
-      26  AA-AA-000-0000    kri0005       1.9.0      vThreshold     2           -2
-      27  AA-AA-000-0000    kri0005       1.9.0      vThreshold     3            2
-      28  AA-AA-000-0000    kri0005       1.9.0      vThreshold     4            3
-      29  AA-AA-000-0000    kri0005       1.9.0       strMethod    NA NormalApprox
-      30  AA-AA-000-0000    kri0005       1.9.0 nMinDenominator    NA           30
-      31  AA-AA-000-0000    kri0006       1.9.0      vThreshold     1           -3
-      32  AA-AA-000-0000    kri0006       1.9.0      vThreshold     2           -2
-      33  AA-AA-000-0000    kri0006       1.9.0      vThreshold     3            2
-      34  AA-AA-000-0000    kri0006       1.9.0      vThreshold     4            3
-      35  AA-AA-000-0000    kri0006       1.9.0       strMethod    NA NormalApprox
-      36  AA-AA-000-0000    kri0006       1.9.0 nMinDenominator    NA            3
-      37  AA-AA-000-0000    kri0007       1.9.0      vThreshold     1           -3
-      38  AA-AA-000-0000    kri0007       1.9.0      vThreshold     2           -2
-      39  AA-AA-000-0000    kri0007       1.9.0      vThreshold     3            2
-      40  AA-AA-000-0000    kri0007       1.9.0      vThreshold     4            3
-      41  AA-AA-000-0000    kri0007       1.9.0       strMethod    NA NormalApprox
-      42  AA-AA-000-0000    kri0007       1.9.0 nMinDenominator    NA            3
-      43  AA-AA-000-0000    kri0008       1.9.0      vThreshold     1           -3
-      44  AA-AA-000-0000    kri0008       1.9.0      vThreshold     2           -2
-      45  AA-AA-000-0000    kri0008       1.9.0      vThreshold     3            2
-      46  AA-AA-000-0000    kri0008       1.9.0      vThreshold     4            3
-      47  AA-AA-000-0000    kri0008       1.9.0       strMethod    NA NormalApprox
-      48  AA-AA-000-0000    kri0008       1.9.0 nMinDenominator    NA           30
-      49  AA-AA-000-0000    kri0009       1.9.0      vThreshold     1           -3
-      50  AA-AA-000-0000    kri0009       1.9.0      vThreshold     2           -2
-      51  AA-AA-000-0000    kri0009       1.9.0      vThreshold     3            2
-      52  AA-AA-000-0000    kri0009       1.9.0      vThreshold     4            3
-      53  AA-AA-000-0000    kri0009       1.9.0       strMethod    NA NormalApprox
-      54  AA-AA-000-0000    kri0009       1.9.0 nMinDenominator    NA           30
-      55  AA-AA-000-0000    kri0010       1.9.0      vThreshold     1           -3
-      56  AA-AA-000-0000    kri0010       1.9.0      vThreshold     2           -2
-      57  AA-AA-000-0000    kri0010       1.9.0      vThreshold     3            2
-      58  AA-AA-000-0000    kri0010       1.9.0      vThreshold     4            3
-      59  AA-AA-000-0000    kri0010       1.9.0       strMethod    NA NormalApprox
-      60  AA-AA-000-0000    kri0010       1.9.0 nMinDenominator    NA           30
-      61  AA-AA-000-0000    kri0011       1.9.0      vThreshold     1           -3
-      62  AA-AA-000-0000    kri0011       1.9.0      vThreshold     2           -2
-      63  AA-AA-000-0000    kri0011       1.9.0      vThreshold     3            2
-      64  AA-AA-000-0000    kri0011       1.9.0      vThreshold     4            3
-      65  AA-AA-000-0000    kri0011       1.9.0       strMethod    NA NormalApprox
-      66  AA-AA-000-0000    kri0011       1.9.0 nMinDenominator    NA           30
-      67  AA-AA-000-0000    kri0012       1.9.0      vThreshold     1           -3
-      68  AA-AA-000-0000    kri0012       1.9.0      vThreshold     2           -2
-      69  AA-AA-000-0000    kri0012       1.9.0      vThreshold     3            2
-      70  AA-AA-000-0000    kri0012       1.9.0      vThreshold     4            3
-      71  AA-AA-000-0000    kri0012       1.9.0       strMethod    NA NormalApprox
-      72  AA-AA-000-0000    kri0012       1.9.0 nMinDenominator    NA            3
-      73  AA-AA-000-0000    cou0001       1.9.0      vThreshold     1           -3
-      74  AA-AA-000-0000    cou0001       1.9.0      vThreshold     2           -2
-      75  AA-AA-000-0000    cou0001       1.9.0      vThreshold     3            2
-      76  AA-AA-000-0000    cou0001       1.9.0      vThreshold     4            3
-      77  AA-AA-000-0000    cou0001       1.9.0       strMethod    NA NormalApprox
-      78  AA-AA-000-0000    cou0001       1.9.0 nMinDenominator    NA           30
-      79  AA-AA-000-0000    cou0002       1.9.0      vThreshold     1           -3
-      80  AA-AA-000-0000    cou0002       1.9.0      vThreshold     2           -2
-      81  AA-AA-000-0000    cou0002       1.9.0      vThreshold     3            2
-      82  AA-AA-000-0000    cou0002       1.9.0      vThreshold     4            3
-      83  AA-AA-000-0000    cou0002       1.9.0       strMethod    NA NormalApprox
-      84  AA-AA-000-0000    cou0002       1.9.0 nMinDenominator    NA           30
-      85  AA-AA-000-0000    cou0003       1.9.0      vThreshold     1           -3
-      86  AA-AA-000-0000    cou0003       1.9.0      vThreshold     2           -2
-      87  AA-AA-000-0000    cou0003       1.9.0      vThreshold     3            2
-      88  AA-AA-000-0000    cou0003       1.9.0      vThreshold     4            3
-      89  AA-AA-000-0000    cou0003       1.9.0       strMethod    NA NormalApprox
-      90  AA-AA-000-0000    cou0003       1.9.0 nMinDenominator    NA           30
-      91  AA-AA-000-0000    cou0004       1.9.0      vThreshold     1           -3
-      92  AA-AA-000-0000    cou0004       1.9.0      vThreshold     2           -2
-      93  AA-AA-000-0000    cou0004       1.9.0      vThreshold     3            2
-      94  AA-AA-000-0000    cou0004       1.9.0      vThreshold     4            3
-      95  AA-AA-000-0000    cou0004       1.9.0       strMethod    NA NormalApprox
-      96  AA-AA-000-0000    cou0004       1.9.0 nMinDenominator    NA           30
-      97  AA-AA-000-0000    cou0005       1.9.0      vThreshold     1           -3
-      98  AA-AA-000-0000    cou0005       1.9.0      vThreshold     2           -2
-      99  AA-AA-000-0000    cou0005       1.9.0      vThreshold     3            2
-      100 AA-AA-000-0000    cou0005       1.9.0      vThreshold     4            3
-      101 AA-AA-000-0000    cou0005       1.9.0       strMethod    NA NormalApprox
-      102 AA-AA-000-0000    cou0005       1.9.0 nMinDenominator    NA           30
-      103 AA-AA-000-0000    cou0006       1.9.0      vThreshold     1           -3
-      104 AA-AA-000-0000    cou0006       1.9.0      vThreshold     2           -2
-      105 AA-AA-000-0000    cou0006       1.9.0      vThreshold     3            2
-      106 AA-AA-000-0000    cou0006       1.9.0      vThreshold     4            3
-      107 AA-AA-000-0000    cou0006       1.9.0       strMethod    NA NormalApprox
-      108 AA-AA-000-0000    cou0006       1.9.0 nMinDenominator    NA            3
-      109 AA-AA-000-0000    cou0007       1.9.0      vThreshold     1           -3
-      110 AA-AA-000-0000    cou0007       1.9.0      vThreshold     2           -2
-      111 AA-AA-000-0000    cou0007       1.9.0      vThreshold     3            2
-      112 AA-AA-000-0000    cou0007       1.9.0      vThreshold     4            3
-      113 AA-AA-000-0000    cou0007       1.9.0       strMethod    NA NormalApprox
-      114 AA-AA-000-0000    cou0007       1.9.0 nMinDenominator    NA            3
-      115 AA-AA-000-0000    cou0008       1.9.0      vThreshold     1           -3
-      116 AA-AA-000-0000    cou0008       1.9.0      vThreshold     2           -2
-      117 AA-AA-000-0000    cou0008       1.9.0      vThreshold     3            2
-      118 AA-AA-000-0000    cou0008       1.9.0      vThreshold     4            3
-      119 AA-AA-000-0000    cou0008       1.9.0       strMethod    NA NormalApprox
-      120 AA-AA-000-0000    cou0008       1.9.0 nMinDenominator    NA           30
-      121 AA-AA-000-0000    cou0009       1.9.0      vThreshold     1           -3
-      122 AA-AA-000-0000    cou0009       1.9.0      vThreshold     2           -2
-      123 AA-AA-000-0000    cou0009       1.9.0      vThreshold     3            2
-      124 AA-AA-000-0000    cou0009       1.9.0      vThreshold     4            3
-      125 AA-AA-000-0000    cou0009       1.9.0       strMethod    NA NormalApprox
-      126 AA-AA-000-0000    cou0009       1.9.0 nMinDenominator    NA           30
-      127 AA-AA-000-0000    cou0010       1.9.0      vThreshold     1           -3
-      128 AA-AA-000-0000    cou0010       1.9.0      vThreshold     2           -2
-      129 AA-AA-000-0000    cou0010       1.9.0      vThreshold     3            2
-      130 AA-AA-000-0000    cou0010       1.9.0      vThreshold     4            3
-      131 AA-AA-000-0000    cou0010       1.9.0       strMethod    NA NormalApprox
-      132 AA-AA-000-0000    cou0010       1.9.0 nMinDenominator    NA           30
-      133 AA-AA-000-0000    cou0011       1.9.0      vThreshold     1           -3
-      134 AA-AA-000-0000    cou0011       1.9.0      vThreshold     2           -2
-      135 AA-AA-000-0000    cou0011       1.9.0      vThreshold     3            2
-      136 AA-AA-000-0000    cou0011       1.9.0      vThreshold     4            3
-      137 AA-AA-000-0000    cou0011       1.9.0       strMethod    NA NormalApprox
-      138 AA-AA-000-0000    cou0011       1.9.0 nMinDenominator    NA           30
-      139 AA-AA-000-0000    cou0012       1.9.0      vThreshold     1           -3
-      140 AA-AA-000-0000    cou0012       1.9.0      vThreshold     2           -2
-      141 AA-AA-000-0000    cou0012       1.9.0      vThreshold     3            2
-      142 AA-AA-000-0000    cou0012       1.9.0      vThreshold     4            3
-      143 AA-AA-000-0000    cou0012       1.9.0       strMethod    NA NormalApprox
-      144 AA-AA-000-0000    cou0012       1.9.0 nMinDenominator    NA            3
-      145 AA-AA-000-0000    qtl0004       1.9.0      vThreshold     1         0.01
-      146 AA-AA-000-0000    qtl0004       1.9.0       strMethod    NA          qtl
-      147 AA-AA-000-0000    qtl0006       1.9.0      vThreshold     1          0.2
-      148 AA-AA-000-0000    qtl0006       1.9.0       strMethod    NA          qtl
+      1   AA-AA-000-0000    kri0001       1.9.1      vThreshold     1           -3
+      2   AA-AA-000-0000    kri0001       1.9.1      vThreshold     2           -2
+      3   AA-AA-000-0000    kri0001       1.9.1      vThreshold     3            2
+      4   AA-AA-000-0000    kri0001       1.9.1      vThreshold     4            3
+      5   AA-AA-000-0000    kri0001       1.9.1       strMethod    NA NormalApprox
+      6   AA-AA-000-0000    kri0001       1.9.1 nMinDenominator    NA           30
+      7   AA-AA-000-0000    kri0002       1.9.1      vThreshold     1           -3
+      8   AA-AA-000-0000    kri0002       1.9.1      vThreshold     2           -2
+      9   AA-AA-000-0000    kri0002       1.9.1      vThreshold     3            2
+      10  AA-AA-000-0000    kri0002       1.9.1      vThreshold     4            3
+      11  AA-AA-000-0000    kri0002       1.9.1       strMethod    NA NormalApprox
+      12  AA-AA-000-0000    kri0002       1.9.1 nMinDenominator    NA           30
+      13  AA-AA-000-0000    kri0003       1.9.1      vThreshold     1           -3
+      14  AA-AA-000-0000    kri0003       1.9.1      vThreshold     2           -2
+      15  AA-AA-000-0000    kri0003       1.9.1      vThreshold     3            2
+      16  AA-AA-000-0000    kri0003       1.9.1      vThreshold     4            3
+      17  AA-AA-000-0000    kri0003       1.9.1       strMethod    NA NormalApprox
+      18  AA-AA-000-0000    kri0003       1.9.1 nMinDenominator    NA           30
+      19  AA-AA-000-0000    kri0004       1.9.1      vThreshold     1           -3
+      20  AA-AA-000-0000    kri0004       1.9.1      vThreshold     2           -2
+      21  AA-AA-000-0000    kri0004       1.9.1      vThreshold     3            2
+      22  AA-AA-000-0000    kri0004       1.9.1      vThreshold     4            3
+      23  AA-AA-000-0000    kri0004       1.9.1       strMethod    NA NormalApprox
+      24  AA-AA-000-0000    kri0004       1.9.1 nMinDenominator    NA           30
+      25  AA-AA-000-0000    kri0005       1.9.1      vThreshold     1           -3
+      26  AA-AA-000-0000    kri0005       1.9.1      vThreshold     2           -2
+      27  AA-AA-000-0000    kri0005       1.9.1      vThreshold     3            2
+      28  AA-AA-000-0000    kri0005       1.9.1      vThreshold     4            3
+      29  AA-AA-000-0000    kri0005       1.9.1       strMethod    NA NormalApprox
+      30  AA-AA-000-0000    kri0005       1.9.1 nMinDenominator    NA           30
+      31  AA-AA-000-0000    kri0006       1.9.1      vThreshold     1           -3
+      32  AA-AA-000-0000    kri0006       1.9.1      vThreshold     2           -2
+      33  AA-AA-000-0000    kri0006       1.9.1      vThreshold     3            2
+      34  AA-AA-000-0000    kri0006       1.9.1      vThreshold     4            3
+      35  AA-AA-000-0000    kri0006       1.9.1       strMethod    NA NormalApprox
+      36  AA-AA-000-0000    kri0006       1.9.1 nMinDenominator    NA            3
+      37  AA-AA-000-0000    kri0007       1.9.1      vThreshold     1           -3
+      38  AA-AA-000-0000    kri0007       1.9.1      vThreshold     2           -2
+      39  AA-AA-000-0000    kri0007       1.9.1      vThreshold     3            2
+      40  AA-AA-000-0000    kri0007       1.9.1      vThreshold     4            3
+      41  AA-AA-000-0000    kri0007       1.9.1       strMethod    NA NormalApprox
+      42  AA-AA-000-0000    kri0007       1.9.1 nMinDenominator    NA            3
+      43  AA-AA-000-0000    kri0008       1.9.1      vThreshold     1           -3
+      44  AA-AA-000-0000    kri0008       1.9.1      vThreshold     2           -2
+      45  AA-AA-000-0000    kri0008       1.9.1      vThreshold     3            2
+      46  AA-AA-000-0000    kri0008       1.9.1      vThreshold     4            3
+      47  AA-AA-000-0000    kri0008       1.9.1       strMethod    NA NormalApprox
+      48  AA-AA-000-0000    kri0008       1.9.1 nMinDenominator    NA           30
+      49  AA-AA-000-0000    kri0009       1.9.1      vThreshold     1           -3
+      50  AA-AA-000-0000    kri0009       1.9.1      vThreshold     2           -2
+      51  AA-AA-000-0000    kri0009       1.9.1      vThreshold     3            2
+      52  AA-AA-000-0000    kri0009       1.9.1      vThreshold     4            3
+      53  AA-AA-000-0000    kri0009       1.9.1       strMethod    NA NormalApprox
+      54  AA-AA-000-0000    kri0009       1.9.1 nMinDenominator    NA           30
+      55  AA-AA-000-0000    kri0010       1.9.1      vThreshold     1           -3
+      56  AA-AA-000-0000    kri0010       1.9.1      vThreshold     2           -2
+      57  AA-AA-000-0000    kri0010       1.9.1      vThreshold     3            2
+      58  AA-AA-000-0000    kri0010       1.9.1      vThreshold     4            3
+      59  AA-AA-000-0000    kri0010       1.9.1       strMethod    NA NormalApprox
+      60  AA-AA-000-0000    kri0010       1.9.1 nMinDenominator    NA           30
+      61  AA-AA-000-0000    kri0011       1.9.1      vThreshold     1           -3
+      62  AA-AA-000-0000    kri0011       1.9.1      vThreshold     2           -2
+      63  AA-AA-000-0000    kri0011       1.9.1      vThreshold     3            2
+      64  AA-AA-000-0000    kri0011       1.9.1      vThreshold     4            3
+      65  AA-AA-000-0000    kri0011       1.9.1       strMethod    NA NormalApprox
+      66  AA-AA-000-0000    kri0011       1.9.1 nMinDenominator    NA           30
+      67  AA-AA-000-0000    kri0012       1.9.1      vThreshold     1           -3
+      68  AA-AA-000-0000    kri0012       1.9.1      vThreshold     2           -2
+      69  AA-AA-000-0000    kri0012       1.9.1      vThreshold     3            2
+      70  AA-AA-000-0000    kri0012       1.9.1      vThreshold     4            3
+      71  AA-AA-000-0000    kri0012       1.9.1       strMethod    NA NormalApprox
+      72  AA-AA-000-0000    kri0012       1.9.1 nMinDenominator    NA            3
+      73  AA-AA-000-0000    cou0001       1.9.1      vThreshold     1           -3
+      74  AA-AA-000-0000    cou0001       1.9.1      vThreshold     2           -2
+      75  AA-AA-000-0000    cou0001       1.9.1      vThreshold     3            2
+      76  AA-AA-000-0000    cou0001       1.9.1      vThreshold     4            3
+      77  AA-AA-000-0000    cou0001       1.9.1       strMethod    NA NormalApprox
+      78  AA-AA-000-0000    cou0001       1.9.1 nMinDenominator    NA           30
+      79  AA-AA-000-0000    cou0002       1.9.1      vThreshold     1           -3
+      80  AA-AA-000-0000    cou0002       1.9.1      vThreshold     2           -2
+      81  AA-AA-000-0000    cou0002       1.9.1      vThreshold     3            2
+      82  AA-AA-000-0000    cou0002       1.9.1      vThreshold     4            3
+      83  AA-AA-000-0000    cou0002       1.9.1       strMethod    NA NormalApprox
+      84  AA-AA-000-0000    cou0002       1.9.1 nMinDenominator    NA           30
+      85  AA-AA-000-0000    cou0003       1.9.1      vThreshold     1           -3
+      86  AA-AA-000-0000    cou0003       1.9.1      vThreshold     2           -2
+      87  AA-AA-000-0000    cou0003       1.9.1      vThreshold     3            2
+      88  AA-AA-000-0000    cou0003       1.9.1      vThreshold     4            3
+      89  AA-AA-000-0000    cou0003       1.9.1       strMethod    NA NormalApprox
+      90  AA-AA-000-0000    cou0003       1.9.1 nMinDenominator    NA           30
+      91  AA-AA-000-0000    cou0004       1.9.1      vThreshold     1           -3
+      92  AA-AA-000-0000    cou0004       1.9.1      vThreshold     2           -2
+      93  AA-AA-000-0000    cou0004       1.9.1      vThreshold     3            2
+      94  AA-AA-000-0000    cou0004       1.9.1      vThreshold     4            3
+      95  AA-AA-000-0000    cou0004       1.9.1       strMethod    NA NormalApprox
+      96  AA-AA-000-0000    cou0004       1.9.1 nMinDenominator    NA           30
+      97  AA-AA-000-0000    cou0005       1.9.1      vThreshold     1           -3
+      98  AA-AA-000-0000    cou0005       1.9.1      vThreshold     2           -2
+      99  AA-AA-000-0000    cou0005       1.9.1      vThreshold     3            2
+      100 AA-AA-000-0000    cou0005       1.9.1      vThreshold     4            3
+      101 AA-AA-000-0000    cou0005       1.9.1       strMethod    NA NormalApprox
+      102 AA-AA-000-0000    cou0005       1.9.1 nMinDenominator    NA           30
+      103 AA-AA-000-0000    cou0006       1.9.1      vThreshold     1           -3
+      104 AA-AA-000-0000    cou0006       1.9.1      vThreshold     2           -2
+      105 AA-AA-000-0000    cou0006       1.9.1      vThreshold     3            2
+      106 AA-AA-000-0000    cou0006       1.9.1      vThreshold     4            3
+      107 AA-AA-000-0000    cou0006       1.9.1       strMethod    NA NormalApprox
+      108 AA-AA-000-0000    cou0006       1.9.1 nMinDenominator    NA            3
+      109 AA-AA-000-0000    cou0007       1.9.1      vThreshold     1           -3
+      110 AA-AA-000-0000    cou0007       1.9.1      vThreshold     2           -2
+      111 AA-AA-000-0000    cou0007       1.9.1      vThreshold     3            2
+      112 AA-AA-000-0000    cou0007       1.9.1      vThreshold     4            3
+      113 AA-AA-000-0000    cou0007       1.9.1       strMethod    NA NormalApprox
+      114 AA-AA-000-0000    cou0007       1.9.1 nMinDenominator    NA            3
+      115 AA-AA-000-0000    cou0008       1.9.1      vThreshold     1           -3
+      116 AA-AA-000-0000    cou0008       1.9.1      vThreshold     2           -2
+      117 AA-AA-000-0000    cou0008       1.9.1      vThreshold     3            2
+      118 AA-AA-000-0000    cou0008       1.9.1      vThreshold     4            3
+      119 AA-AA-000-0000    cou0008       1.9.1       strMethod    NA NormalApprox
+      120 AA-AA-000-0000    cou0008       1.9.1 nMinDenominator    NA           30
+      121 AA-AA-000-0000    cou0009       1.9.1      vThreshold     1           -3
+      122 AA-AA-000-0000    cou0009       1.9.1      vThreshold     2           -2
+      123 AA-AA-000-0000    cou0009       1.9.1      vThreshold     3            2
+      124 AA-AA-000-0000    cou0009       1.9.1      vThreshold     4            3
+      125 AA-AA-000-0000    cou0009       1.9.1       strMethod    NA NormalApprox
+      126 AA-AA-000-0000    cou0009       1.9.1 nMinDenominator    NA           30
+      127 AA-AA-000-0000    cou0010       1.9.1      vThreshold     1           -3
+      128 AA-AA-000-0000    cou0010       1.9.1      vThreshold     2           -2
+      129 AA-AA-000-0000    cou0010       1.9.1      vThreshold     3            2
+      130 AA-AA-000-0000    cou0010       1.9.1      vThreshold     4            3
+      131 AA-AA-000-0000    cou0010       1.9.1       strMethod    NA NormalApprox
+      132 AA-AA-000-0000    cou0010       1.9.1 nMinDenominator    NA           30
+      133 AA-AA-000-0000    cou0011       1.9.1      vThreshold     1           -3
+      134 AA-AA-000-0000    cou0011       1.9.1      vThreshold     2           -2
+      135 AA-AA-000-0000    cou0011       1.9.1      vThreshold     3            2
+      136 AA-AA-000-0000    cou0011       1.9.1      vThreshold     4            3
+      137 AA-AA-000-0000    cou0011       1.9.1       strMethod    NA NormalApprox
+      138 AA-AA-000-0000    cou0011       1.9.1 nMinDenominator    NA           30
+      139 AA-AA-000-0000    cou0012       1.9.1      vThreshold     1           -3
+      140 AA-AA-000-0000    cou0012       1.9.1      vThreshold     2           -2
+      141 AA-AA-000-0000    cou0012       1.9.1      vThreshold     3            2
+      142 AA-AA-000-0000    cou0012       1.9.1      vThreshold     4            3
+      143 AA-AA-000-0000    cou0012       1.9.1       strMethod    NA NormalApprox
+      144 AA-AA-000-0000    cou0012       1.9.1 nMinDenominator    NA            3
+      145 AA-AA-000-0000    qtl0004       1.9.1      vThreshold     1         0.01
+      146 AA-AA-000-0000    qtl0004       1.9.1       strMethod    NA          qtl
+      147 AA-AA-000-0000    qtl0006       1.9.1      vThreshold     1          0.2
+      148 AA-AA-000-0000    qtl0006       1.9.1       strMethod    NA          qtl
       
       $config_workflow
                 studyid workflowid gsm_version active
-      1  AA-AA-000-0000    kri0001       1.9.0   TRUE
-      2  AA-AA-000-0000    kri0002       1.9.0   TRUE
-      3  AA-AA-000-0000    kri0003       1.9.0   TRUE
-      4  AA-AA-000-0000    kri0004       1.9.0   TRUE
-      5  AA-AA-000-0000    kri0005       1.9.0   TRUE
-      6  AA-AA-000-0000    kri0006       1.9.0   TRUE
-      7  AA-AA-000-0000    kri0007       1.9.0   TRUE
-      8  AA-AA-000-0000    kri0008       1.9.0   TRUE
-      9  AA-AA-000-0000    kri0009       1.9.0   TRUE
-      10 AA-AA-000-0000    kri0010       1.9.0   TRUE
-      11 AA-AA-000-0000    kri0011       1.9.0   TRUE
-      12 AA-AA-000-0000    kri0012       1.9.0   TRUE
-      13 AA-AA-000-0000    cou0001       1.9.0   TRUE
-      14 AA-AA-000-0000    cou0002       1.9.0   TRUE
-      15 AA-AA-000-0000    cou0003       1.9.0   TRUE
-      16 AA-AA-000-0000    cou0004       1.9.0   TRUE
-      17 AA-AA-000-0000    cou0005       1.9.0   TRUE
-      18 AA-AA-000-0000    cou0006       1.9.0   TRUE
-      19 AA-AA-000-0000    cou0007       1.9.0   TRUE
-      20 AA-AA-000-0000    cou0008       1.9.0   TRUE
-      21 AA-AA-000-0000    cou0009       1.9.0   TRUE
-      22 AA-AA-000-0000    cou0010       1.9.0   TRUE
-      23 AA-AA-000-0000    cou0011       1.9.0   TRUE
-      24 AA-AA-000-0000    cou0012       1.9.0   TRUE
-      25 AA-AA-000-0000    qtl0004       1.9.0   TRUE
-      26 AA-AA-000-0000    qtl0006       1.9.0   TRUE
+      1  AA-AA-000-0000    kri0001       1.9.1   TRUE
+      2  AA-AA-000-0000    kri0002       1.9.1   TRUE
+      3  AA-AA-000-0000    kri0003       1.9.1   TRUE
+      4  AA-AA-000-0000    kri0004       1.9.1   TRUE
+      5  AA-AA-000-0000    kri0005       1.9.1   TRUE
+      6  AA-AA-000-0000    kri0006       1.9.1   TRUE
+      7  AA-AA-000-0000    kri0007       1.9.1   TRUE
+      8  AA-AA-000-0000    kri0008       1.9.1   TRUE
+      9  AA-AA-000-0000    kri0009       1.9.1   TRUE
+      10 AA-AA-000-0000    kri0010       1.9.1   TRUE
+      11 AA-AA-000-0000    kri0011       1.9.1   TRUE
+      12 AA-AA-000-0000    kri0012       1.9.1   TRUE
+      13 AA-AA-000-0000    cou0001       1.9.1   TRUE
+      14 AA-AA-000-0000    cou0002       1.9.1   TRUE
+      15 AA-AA-000-0000    cou0003       1.9.1   TRUE
+      16 AA-AA-000-0000    cou0004       1.9.1   TRUE
+      17 AA-AA-000-0000    cou0005       1.9.1   TRUE
+      18 AA-AA-000-0000    cou0006       1.9.1   TRUE
+      19 AA-AA-000-0000    cou0007       1.9.1   TRUE
+      20 AA-AA-000-0000    cou0008       1.9.1   TRUE
+      21 AA-AA-000-0000    cou0009       1.9.1   TRUE
+      22 AA-AA-000-0000    cou0010       1.9.1   TRUE
+      23 AA-AA-000-0000    cou0011       1.9.1   TRUE
+      24 AA-AA-000-0000    cou0012       1.9.1   TRUE
+      25 AA-AA-000-0000    qtl0004       1.9.1   TRUE
+      26 AA-AA-000-0000    qtl0006       1.9.1   TRUE
       
       $meta_params
           workflowid gsm_version           param index      default configurable
-      1      kri0001       1.9.0        strGroup    NA         Site        FALSE
-      2      kri0001       1.9.0      vThreshold     1           -3         TRUE
-      3      kri0001       1.9.0      vThreshold     2           -2         TRUE
-      4      kri0001       1.9.0      vThreshold     3            2         TRUE
-      5      kri0001       1.9.0      vThreshold     4            3         TRUE
-      6      kri0001       1.9.0       strMethod    NA NormalApprox        FALSE
-      7      kri0001       1.9.0 nMinDenominator    NA           30         TRUE
-      8      kri0002       1.9.0        strGroup    NA         Site        FALSE
-      9      kri0002       1.9.0      vThreshold     1           -3         TRUE
-      10     kri0002       1.9.0      vThreshold     2           -2         TRUE
-      11     kri0002       1.9.0      vThreshold     3            2         TRUE
-      12     kri0002       1.9.0      vThreshold     4            3         TRUE
-      13     kri0002       1.9.0       strMethod    NA NormalApprox        FALSE
-      14     kri0002       1.9.0 nMinDenominator    NA           30         TRUE
-      15     kri0003       1.9.0        strGroup    NA         Site        FALSE
-      16     kri0003       1.9.0      vThreshold     1           -3         TRUE
-      17     kri0003       1.9.0      vThreshold     2           -2         TRUE
-      18     kri0003       1.9.0      vThreshold     3            2         TRUE
-      19     kri0003       1.9.0      vThreshold     4            3         TRUE
-      20     kri0003       1.9.0       strMethod    NA NormalApprox        FALSE
-      21     kri0003       1.9.0 nMinDenominator    NA           30         TRUE
-      22     kri0004       1.9.0        strGroup    NA         Site        FALSE
-      23     kri0004       1.9.0      vThreshold     1           -3         TRUE
-      24     kri0004       1.9.0      vThreshold     2           -2         TRUE
-      25     kri0004       1.9.0      vThreshold     3            2         TRUE
-      26     kri0004       1.9.0      vThreshold     4            3         TRUE
-      27     kri0004       1.9.0       strMethod    NA NormalApprox        FALSE
-      28     kri0004       1.9.0 nMinDenominator    NA           30         TRUE
-      29     kri0005       1.9.0        strGroup    NA         Site        FALSE
-      30     kri0005       1.9.0      vThreshold     1           -3         TRUE
-      31     kri0005       1.9.0      vThreshold     2           -2         TRUE
-      32     kri0005       1.9.0      vThreshold     3            2         TRUE
-      33     kri0005       1.9.0      vThreshold     4            3         TRUE
-      34     kri0005       1.9.0       strMethod    NA NormalApprox        FALSE
-      35     kri0005       1.9.0 nMinDenominator    NA           30         TRUE
-      36     kri0006       1.9.0        strGroup    NA         Site        FALSE
-      37     kri0006       1.9.0      vThreshold     1           -3         TRUE
-      38     kri0006       1.9.0      vThreshold     2           -2         TRUE
-      39     kri0006       1.9.0      vThreshold     3            2         TRUE
-      40     kri0006       1.9.0      vThreshold     4            3         TRUE
-      41     kri0006       1.9.0       strMethod    NA NormalApprox        FALSE
-      42     kri0006       1.9.0 nMinDenominator    NA            3         TRUE
-      43     kri0007       1.9.0        strGroup    NA         Site        FALSE
-      44     kri0007       1.9.0      vThreshold     1           -3         TRUE
-      45     kri0007       1.9.0      vThreshold     2           -2         TRUE
-      46     kri0007       1.9.0      vThreshold     3            2         TRUE
-      47     kri0007       1.9.0      vThreshold     4            3         TRUE
-      48     kri0007       1.9.0       strMethod    NA NormalApprox        FALSE
-      49     kri0007       1.9.0 nMinDenominator    NA            3         TRUE
-      50     kri0008       1.9.0        strGroup    NA         Site        FALSE
-      51     kri0008       1.9.0      vThreshold     1           -3         TRUE
-      52     kri0008       1.9.0      vThreshold     2           -2         TRUE
-      53     kri0008       1.9.0      vThreshold     3            2         TRUE
-      54     kri0008       1.9.0      vThreshold     4            3         TRUE
-      55     kri0008       1.9.0       strMethod    NA NormalApprox        FALSE
-      56     kri0008       1.9.0 nMinDenominator    NA           30         TRUE
-      57     kri0009       1.9.0        strGroup    NA         Site        FALSE
-      58     kri0009       1.9.0      vThreshold     1           -3         TRUE
-      59     kri0009       1.9.0      vThreshold     2           -2         TRUE
-      60     kri0009       1.9.0      vThreshold     3            2         TRUE
-      61     kri0009       1.9.0      vThreshold     4            3         TRUE
-      62     kri0009       1.9.0       strMethod    NA NormalApprox        FALSE
-      63     kri0009       1.9.0 nMinDenominator    NA           30         TRUE
-      64     kri0010       1.9.0        strGroup    NA         Site        FALSE
-      65     kri0010       1.9.0      vThreshold     1           -3         TRUE
-      66     kri0010       1.9.0      vThreshold     2           -2         TRUE
-      67     kri0010       1.9.0      vThreshold     3            2         TRUE
-      68     kri0010       1.9.0      vThreshold     4            3         TRUE
-      69     kri0010       1.9.0       strMethod    NA NormalApprox        FALSE
-      70     kri0010       1.9.0 nMinDenominator    NA           30         TRUE
-      71     kri0011       1.9.0        strGroup    NA         Site        FALSE
-      72     kri0011       1.9.0      vThreshold     1           -3         TRUE
-      73     kri0011       1.9.0      vThreshold     2           -2         TRUE
-      74     kri0011       1.9.0      vThreshold     3            2         TRUE
-      75     kri0011       1.9.0      vThreshold     4            3         TRUE
-      76     kri0011       1.9.0       strMethod    NA NormalApprox        FALSE
-      77     kri0011       1.9.0 nMinDenominator    NA           30         TRUE
-      78     kri0012       1.9.0        strGroup    NA         Site        FALSE
-      79     kri0012       1.9.0      vThreshold     1           -3         TRUE
-      80     kri0012       1.9.0      vThreshold     2           -2         TRUE
-      81     kri0012       1.9.0      vThreshold     3            2         TRUE
-      82     kri0012       1.9.0      vThreshold     4            3         TRUE
-      83     kri0012       1.9.0       strMethod    NA NormalApprox        FALSE
-      84     kri0012       1.9.0 nMinDenominator    NA            3         TRUE
-      85     cou0001       1.9.0        strGroup    NA      Country        FALSE
-      86     cou0001       1.9.0      vThreshold     1           -3         TRUE
-      87     cou0001       1.9.0      vThreshold     2           -2         TRUE
-      88     cou0001       1.9.0      vThreshold     3            2         TRUE
-      89     cou0001       1.9.0      vThreshold     4            3         TRUE
-      90     cou0001       1.9.0       strMethod    NA NormalApprox        FALSE
-      91     cou0001       1.9.0 nMinDenominator    NA           30         TRUE
-      92     cou0002       1.9.0        strGroup    NA      Country        FALSE
-      93     cou0002       1.9.0      vThreshold     1           -3         TRUE
-      94     cou0002       1.9.0      vThreshold     2           -2         TRUE
-      95     cou0002       1.9.0      vThreshold     3            2         TRUE
-      96     cou0002       1.9.0      vThreshold     4            3         TRUE
-      97     cou0002       1.9.0       strMethod    NA NormalApprox        FALSE
-      98     cou0002       1.9.0 nMinDenominator    NA           30         TRUE
-      99     cou0003       1.9.0        strGroup    NA      Country        FALSE
-      100    cou0003       1.9.0      vThreshold     1           -3         TRUE
-      101    cou0003       1.9.0      vThreshold     2           -2         TRUE
-      102    cou0003       1.9.0      vThreshold     3            2         TRUE
-      103    cou0003       1.9.0      vThreshold     4            3         TRUE
-      104    cou0003       1.9.0       strMethod    NA NormalApprox        FALSE
-      105    cou0003       1.9.0 nMinDenominator    NA           30         TRUE
-      106    cou0004       1.9.0        strGroup    NA      Country        FALSE
-      107    cou0004       1.9.0      vThreshold     1           -3         TRUE
-      108    cou0004       1.9.0      vThreshold     2           -2         TRUE
-      109    cou0004       1.9.0      vThreshold     3            2         TRUE
-      110    cou0004       1.9.0      vThreshold     4            3         TRUE
-      111    cou0004       1.9.0       strMethod    NA NormalApprox        FALSE
-      112    cou0004       1.9.0 nMinDenominator    NA           30         TRUE
-      113    cou0005       1.9.0        strGroup    NA      Country        FALSE
-      114    cou0005       1.9.0      vThreshold     1           -3         TRUE
-      115    cou0005       1.9.0      vThreshold     2           -2         TRUE
-      116    cou0005       1.9.0      vThreshold     3            2         TRUE
-      117    cou0005       1.9.0      vThreshold     4            3         TRUE
-      118    cou0005       1.9.0       strMethod    NA NormalApprox        FALSE
-      119    cou0005       1.9.0 nMinDenominator    NA           30         TRUE
-      120    cou0006       1.9.0        strGroup    NA      Country        FALSE
-      121    cou0006       1.9.0      vThreshold     1           -3         TRUE
-      122    cou0006       1.9.0      vThreshold     2           -2         TRUE
-      123    cou0006       1.9.0      vThreshold     3            2         TRUE
-      124    cou0006       1.9.0      vThreshold     4            3         TRUE
-      125    cou0006       1.9.0       strMethod    NA NormalApprox        FALSE
-      126    cou0006       1.9.0 nMinDenominator    NA            3         TRUE
-      127    cou0007       1.9.0        strGroup    NA      Country        FALSE
-      128    cou0007       1.9.0      vThreshold     1           -3         TRUE
-      129    cou0007       1.9.0      vThreshold     2           -2         TRUE
-      130    cou0007       1.9.0      vThreshold     3            2         TRUE
-      131    cou0007       1.9.0      vThreshold     4            3         TRUE
-      132    cou0007       1.9.0       strMethod    NA NormalApprox        FALSE
-      133    cou0007       1.9.0 nMinDenominator    NA            3         TRUE
-      134    cou0008       1.9.0        strGroup    NA      Country        FALSE
-      135    cou0008       1.9.0      vThreshold     1           -3         TRUE
-      136    cou0008       1.9.0      vThreshold     2           -2         TRUE
-      137    cou0008       1.9.0      vThreshold     3            2         TRUE
-      138    cou0008       1.9.0      vThreshold     4            3         TRUE
-      139    cou0008       1.9.0       strMethod    NA NormalApprox        FALSE
-      140    cou0008       1.9.0 nMinDenominator    NA           30         TRUE
-      141    cou0009       1.9.0        strGroup    NA      Country        FALSE
-      142    cou0009       1.9.0      vThreshold     1           -3         TRUE
-      143    cou0009       1.9.0      vThreshold     2           -2         TRUE
-      144    cou0009       1.9.0      vThreshold     3            2         TRUE
-      145    cou0009       1.9.0      vThreshold     4            3         TRUE
-      146    cou0009       1.9.0       strMethod    NA NormalApprox        FALSE
-      147    cou0009       1.9.0 nMinDenominator    NA           30         TRUE
-      148    cou0010       1.9.0        strGroup    NA      Country        FALSE
-      149    cou0010       1.9.0      vThreshold     1           -3         TRUE
-      150    cou0010       1.9.0      vThreshold     2           -2         TRUE
-      151    cou0010       1.9.0      vThreshold     3            2         TRUE
-      152    cou0010       1.9.0      vThreshold     4            3         TRUE
-      153    cou0010       1.9.0       strMethod    NA NormalApprox        FALSE
-      154    cou0010       1.9.0 nMinDenominator    NA           30         TRUE
-      155    cou0011       1.9.0        strGroup    NA      Country        FALSE
-      156    cou0011       1.9.0      vThreshold     1           -3         TRUE
-      157    cou0011       1.9.0      vThreshold     2           -2         TRUE
-      158    cou0011       1.9.0      vThreshold     3            2         TRUE
-      159    cou0011       1.9.0      vThreshold     4            3         TRUE
-      160    cou0011       1.9.0       strMethod    NA NormalApprox        FALSE
-      161    cou0011       1.9.0 nMinDenominator    NA           30         TRUE
-      162    cou0012       1.9.0        strGroup    NA      Country        FALSE
-      163    cou0012       1.9.0      vThreshold     1           -3         TRUE
-      164    cou0012       1.9.0      vThreshold     2           -2         TRUE
-      165    cou0012       1.9.0      vThreshold     3            2         TRUE
-      166    cou0012       1.9.0      vThreshold     4            3         TRUE
-      167    cou0012       1.9.0       strMethod    NA NormalApprox        FALSE
-      168    cou0012       1.9.0 nMinDenominator    NA            3         TRUE
-      169    qtl0004       1.9.0        strGroup    NA        Study        FALSE
-      170    qtl0004       1.9.0      vThreshold     1         0.01         TRUE
-      171    qtl0004       1.9.0       strMethod    NA          qtl        FALSE
-      172    qtl0004       1.9.0      strOutcome    NA         rate        FALSE
-      173    qtl0006       1.9.0        strGroup    NA        Study        FALSE
-      174    qtl0006       1.9.0      vThreshold     1          0.2         TRUE
-      175    qtl0006       1.9.0       strMethod    NA          qtl        FALSE
-      176    qtl0006       1.9.0      strOutcome    NA         rate        FALSE
+      1      kri0001       1.9.1        strGroup    NA         Site        FALSE
+      2      kri0001       1.9.1      vThreshold     1           -3         TRUE
+      3      kri0001       1.9.1      vThreshold     2           -2         TRUE
+      4      kri0001       1.9.1      vThreshold     3            2         TRUE
+      5      kri0001       1.9.1      vThreshold     4            3         TRUE
+      6      kri0001       1.9.1       strMethod    NA NormalApprox        FALSE
+      7      kri0001       1.9.1 nMinDenominator    NA           30         TRUE
+      8      kri0002       1.9.1        strGroup    NA         Site        FALSE
+      9      kri0002       1.9.1      vThreshold     1           -3         TRUE
+      10     kri0002       1.9.1      vThreshold     2           -2         TRUE
+      11     kri0002       1.9.1      vThreshold     3            2         TRUE
+      12     kri0002       1.9.1      vThreshold     4            3         TRUE
+      13     kri0002       1.9.1       strMethod    NA NormalApprox        FALSE
+      14     kri0002       1.9.1 nMinDenominator    NA           30         TRUE
+      15     kri0003       1.9.1        strGroup    NA         Site        FALSE
+      16     kri0003       1.9.1      vThreshold     1           -3         TRUE
+      17     kri0003       1.9.1      vThreshold     2           -2         TRUE
+      18     kri0003       1.9.1      vThreshold     3            2         TRUE
+      19     kri0003       1.9.1      vThreshold     4            3         TRUE
+      20     kri0003       1.9.1       strMethod    NA NormalApprox        FALSE
+      21     kri0003       1.9.1 nMinDenominator    NA           30         TRUE
+      22     kri0004       1.9.1        strGroup    NA         Site        FALSE
+      23     kri0004       1.9.1      vThreshold     1           -3         TRUE
+      24     kri0004       1.9.1      vThreshold     2           -2         TRUE
+      25     kri0004       1.9.1      vThreshold     3            2         TRUE
+      26     kri0004       1.9.1      vThreshold     4            3         TRUE
+      27     kri0004       1.9.1       strMethod    NA NormalApprox        FALSE
+      28     kri0004       1.9.1 nMinDenominator    NA           30         TRUE
+      29     kri0005       1.9.1        strGroup    NA         Site        FALSE
+      30     kri0005       1.9.1      vThreshold     1           -3         TRUE
+      31     kri0005       1.9.1      vThreshold     2           -2         TRUE
+      32     kri0005       1.9.1      vThreshold     3            2         TRUE
+      33     kri0005       1.9.1      vThreshold     4            3         TRUE
+      34     kri0005       1.9.1       strMethod    NA NormalApprox        FALSE
+      35     kri0005       1.9.1 nMinDenominator    NA           30         TRUE
+      36     kri0006       1.9.1        strGroup    NA         Site        FALSE
+      37     kri0006       1.9.1      vThreshold     1           -3         TRUE
+      38     kri0006       1.9.1      vThreshold     2           -2         TRUE
+      39     kri0006       1.9.1      vThreshold     3            2         TRUE
+      40     kri0006       1.9.1      vThreshold     4            3         TRUE
+      41     kri0006       1.9.1       strMethod    NA NormalApprox        FALSE
+      42     kri0006       1.9.1 nMinDenominator    NA            3         TRUE
+      43     kri0007       1.9.1        strGroup    NA         Site        FALSE
+      44     kri0007       1.9.1      vThreshold     1           -3         TRUE
+      45     kri0007       1.9.1      vThreshold     2           -2         TRUE
+      46     kri0007       1.9.1      vThreshold     3            2         TRUE
+      47     kri0007       1.9.1      vThreshold     4            3         TRUE
+      48     kri0007       1.9.1       strMethod    NA NormalApprox        FALSE
+      49     kri0007       1.9.1 nMinDenominator    NA            3         TRUE
+      50     kri0008       1.9.1        strGroup    NA         Site        FALSE
+      51     kri0008       1.9.1      vThreshold     1           -3         TRUE
+      52     kri0008       1.9.1      vThreshold     2           -2         TRUE
+      53     kri0008       1.9.1      vThreshold     3            2         TRUE
+      54     kri0008       1.9.1      vThreshold     4            3         TRUE
+      55     kri0008       1.9.1       strMethod    NA NormalApprox        FALSE
+      56     kri0008       1.9.1 nMinDenominator    NA           30         TRUE
+      57     kri0009       1.9.1        strGroup    NA         Site        FALSE
+      58     kri0009       1.9.1      vThreshold     1           -3         TRUE
+      59     kri0009       1.9.1      vThreshold     2           -2         TRUE
+      60     kri0009       1.9.1      vThreshold     3            2         TRUE
+      61     kri0009       1.9.1      vThreshold     4            3         TRUE
+      62     kri0009       1.9.1       strMethod    NA NormalApprox        FALSE
+      63     kri0009       1.9.1 nMinDenominator    NA           30         TRUE
+      64     kri0010       1.9.1        strGroup    NA         Site        FALSE
+      65     kri0010       1.9.1      vThreshold     1           -3         TRUE
+      66     kri0010       1.9.1      vThreshold     2           -2         TRUE
+      67     kri0010       1.9.1      vThreshold     3            2         TRUE
+      68     kri0010       1.9.1      vThreshold     4            3         TRUE
+      69     kri0010       1.9.1       strMethod    NA NormalApprox        FALSE
+      70     kri0010       1.9.1 nMinDenominator    NA           30         TRUE
+      71     kri0011       1.9.1        strGroup    NA         Site        FALSE
+      72     kri0011       1.9.1      vThreshold     1           -3         TRUE
+      73     kri0011       1.9.1      vThreshold     2           -2         TRUE
+      74     kri0011       1.9.1      vThreshold     3            2         TRUE
+      75     kri0011       1.9.1      vThreshold     4            3         TRUE
+      76     kri0011       1.9.1       strMethod    NA NormalApprox        FALSE
+      77     kri0011       1.9.1 nMinDenominator    NA           30         TRUE
+      78     kri0012       1.9.1        strGroup    NA         Site        FALSE
+      79     kri0012       1.9.1      vThreshold     1           -3         TRUE
+      80     kri0012       1.9.1      vThreshold     2           -2         TRUE
+      81     kri0012       1.9.1      vThreshold     3            2         TRUE
+      82     kri0012       1.9.1      vThreshold     4            3         TRUE
+      83     kri0012       1.9.1       strMethod    NA NormalApprox        FALSE
+      84     kri0012       1.9.1 nMinDenominator    NA            3         TRUE
+      85     cou0001       1.9.1        strGroup    NA      Country        FALSE
+      86     cou0001       1.9.1      vThreshold     1           -3         TRUE
+      87     cou0001       1.9.1      vThreshold     2           -2         TRUE
+      88     cou0001       1.9.1      vThreshold     3            2         TRUE
+      89     cou0001       1.9.1      vThreshold     4            3         TRUE
+      90     cou0001       1.9.1       strMethod    NA NormalApprox        FALSE
+      91     cou0001       1.9.1 nMinDenominator    NA           30         TRUE
+      92     cou0002       1.9.1        strGroup    NA      Country        FALSE
+      93     cou0002       1.9.1      vThreshold     1           -3         TRUE
+      94     cou0002       1.9.1      vThreshold     2           -2         TRUE
+      95     cou0002       1.9.1      vThreshold     3            2         TRUE
+      96     cou0002       1.9.1      vThreshold     4            3         TRUE
+      97     cou0002       1.9.1       strMethod    NA NormalApprox        FALSE
+      98     cou0002       1.9.1 nMinDenominator    NA           30         TRUE
+      99     cou0003       1.9.1        strGroup    NA      Country        FALSE
+      100    cou0003       1.9.1      vThreshold     1           -3         TRUE
+      101    cou0003       1.9.1      vThreshold     2           -2         TRUE
+      102    cou0003       1.9.1      vThreshold     3            2         TRUE
+      103    cou0003       1.9.1      vThreshold     4            3         TRUE
+      104    cou0003       1.9.1       strMethod    NA NormalApprox        FALSE
+      105    cou0003       1.9.1 nMinDenominator    NA           30         TRUE
+      106    cou0004       1.9.1        strGroup    NA      Country        FALSE
+      107    cou0004       1.9.1      vThreshold     1           -3         TRUE
+      108    cou0004       1.9.1      vThreshold     2           -2         TRUE
+      109    cou0004       1.9.1      vThreshold     3            2         TRUE
+      110    cou0004       1.9.1      vThreshold     4            3         TRUE
+      111    cou0004       1.9.1       strMethod    NA NormalApprox        FALSE
+      112    cou0004       1.9.1 nMinDenominator    NA           30         TRUE
+      113    cou0005       1.9.1        strGroup    NA      Country        FALSE
+      114    cou0005       1.9.1      vThreshold     1           -3         TRUE
+      115    cou0005       1.9.1      vThreshold     2           -2         TRUE
+      116    cou0005       1.9.1      vThreshold     3            2         TRUE
+      117    cou0005       1.9.1      vThreshold     4            3         TRUE
+      118    cou0005       1.9.1       strMethod    NA NormalApprox        FALSE
+      119    cou0005       1.9.1 nMinDenominator    NA           30         TRUE
+      120    cou0006       1.9.1        strGroup    NA      Country        FALSE
+      121    cou0006       1.9.1      vThreshold     1           -3         TRUE
+      122    cou0006       1.9.1      vThreshold     2           -2         TRUE
+      123    cou0006       1.9.1      vThreshold     3            2         TRUE
+      124    cou0006       1.9.1      vThreshold     4            3         TRUE
+      125    cou0006       1.9.1       strMethod    NA NormalApprox        FALSE
+      126    cou0006       1.9.1 nMinDenominator    NA            3         TRUE
+      127    cou0007       1.9.1        strGroup    NA      Country        FALSE
+      128    cou0007       1.9.1      vThreshold     1           -3         TRUE
+      129    cou0007       1.9.1      vThreshold     2           -2         TRUE
+      130    cou0007       1.9.1      vThreshold     3            2         TRUE
+      131    cou0007       1.9.1      vThreshold     4            3         TRUE
+      132    cou0007       1.9.1       strMethod    NA NormalApprox        FALSE
+      133    cou0007       1.9.1 nMinDenominator    NA            3         TRUE
+      134    cou0008       1.9.1        strGroup    NA      Country        FALSE
+      135    cou0008       1.9.1      vThreshold     1           -3         TRUE
+      136    cou0008       1.9.1      vThreshold     2           -2         TRUE
+      137    cou0008       1.9.1      vThreshold     3            2         TRUE
+      138    cou0008       1.9.1      vThreshold     4            3         TRUE
+      139    cou0008       1.9.1       strMethod    NA NormalApprox        FALSE
+      140    cou0008       1.9.1 nMinDenominator    NA           30         TRUE
+      141    cou0009       1.9.1        strGroup    NA      Country        FALSE
+      142    cou0009       1.9.1      vThreshold     1           -3         TRUE
+      143    cou0009       1.9.1      vThreshold     2           -2         TRUE
+      144    cou0009       1.9.1      vThreshold     3            2         TRUE
+      145    cou0009       1.9.1      vThreshold     4            3         TRUE
+      146    cou0009       1.9.1       strMethod    NA NormalApprox        FALSE
+      147    cou0009       1.9.1 nMinDenominator    NA           30         TRUE
+      148    cou0010       1.9.1        strGroup    NA      Country        FALSE
+      149    cou0010       1.9.1      vThreshold     1           -3         TRUE
+      150    cou0010       1.9.1      vThreshold     2           -2         TRUE
+      151    cou0010       1.9.1      vThreshold     3            2         TRUE
+      152    cou0010       1.9.1      vThreshold     4            3         TRUE
+      153    cou0010       1.9.1       strMethod    NA NormalApprox        FALSE
+      154    cou0010       1.9.1 nMinDenominator    NA           30         TRUE
+      155    cou0011       1.9.1        strGroup    NA      Country        FALSE
+      156    cou0011       1.9.1      vThreshold     1           -3         TRUE
+      157    cou0011       1.9.1      vThreshold     2           -2         TRUE
+      158    cou0011       1.9.1      vThreshold     3            2         TRUE
+      159    cou0011       1.9.1      vThreshold     4            3         TRUE
+      160    cou0011       1.9.1       strMethod    NA NormalApprox        FALSE
+      161    cou0011       1.9.1 nMinDenominator    NA           30         TRUE
+      162    cou0012       1.9.1        strGroup    NA      Country        FALSE
+      163    cou0012       1.9.1      vThreshold     1           -3         TRUE
+      164    cou0012       1.9.1      vThreshold     2           -2         TRUE
+      165    cou0012       1.9.1      vThreshold     3            2         TRUE
+      166    cou0012       1.9.1      vThreshold     4            3         TRUE
+      167    cou0012       1.9.1       strMethod    NA NormalApprox        FALSE
+      168    cou0012       1.9.1 nMinDenominator    NA            3         TRUE
+      169    qtl0004       1.9.1        strGroup    NA        Study        FALSE
+      170    qtl0004       1.9.1      vThreshold     1         0.01         TRUE
+      171    qtl0004       1.9.1       strMethod    NA          qtl        FALSE
+      172    qtl0004       1.9.1      strOutcome    NA         rate        FALSE
+      173    qtl0006       1.9.1        strGroup    NA        Study        FALSE
+      174    qtl0006       1.9.1      vThreshold     1          0.2         TRUE
+      175    qtl0006       1.9.1       strMethod    NA          qtl        FALSE
+      176    qtl0006       1.9.1      strOutcome    NA         rate        FALSE
       
       $meta_site
       # A tibble: 176 x 14
@@ -25610,32 +25610,32 @@
       
       $meta_workflow
          workflowid gsm_version   group abbreviation
-      1     kri0001       1.9.0    Site           AE
-      2     kri0002       1.9.0    Site          SAE
-      3     kri0003       1.9.0    Site           PD
-      4     kri0004       1.9.0    Site          IPD
-      5     kri0005       1.9.0    Site           LB
-      6     kri0006       1.9.0    Site         SDSC
-      7     kri0007       1.9.0    Site         TDSC
-      8     kri0008       1.9.0    Site          QRY
-      9     kri0009       1.9.0    Site         OQRY
-      10    kri0010       1.9.0    Site         ODAT
-      11    kri0011       1.9.0    Site         CDAT
-      12    kri0012       1.9.0    Site           SF
-      13    cou0001       1.9.0 Country           AE
-      14    cou0002       1.9.0 Country          SAE
-      15    cou0003       1.9.0 Country           PD
-      16    cou0004       1.9.0 Country          IPD
-      17    cou0005       1.9.0 Country           LB
-      18    cou0006       1.9.0 Country         SDSC
-      19    cou0007       1.9.0 Country         TDSC
-      20    cou0008       1.9.0 Country          QRY
-      21    cou0009       1.9.0 Country         OQRY
-      22    cou0010       1.9.0 Country         ODAT
-      23    cou0011       1.9.0 Country         CDAT
-      24    cou0012       1.9.0 Country           SF
-      25    qtl0004       1.9.0   Study          IPD
-      26    qtl0006       1.9.0   Study         SDSC
+      1     kri0001       1.9.1    Site           AE
+      2     kri0002       1.9.1    Site          SAE
+      3     kri0003       1.9.1    Site           PD
+      4     kri0004       1.9.1    Site          IPD
+      5     kri0005       1.9.1    Site           LB
+      6     kri0006       1.9.1    Site         SDSC
+      7     kri0007       1.9.1    Site         TDSC
+      8     kri0008       1.9.1    Site          QRY
+      9     kri0009       1.9.1    Site         OQRY
+      10    kri0010       1.9.1    Site         ODAT
+      11    kri0011       1.9.1    Site         CDAT
+      12    kri0012       1.9.1    Site           SF
+      13    cou0001       1.9.1 Country           AE
+      14    cou0002       1.9.1 Country          SAE
+      15    cou0003       1.9.1 Country           PD
+      16    cou0004       1.9.1 Country          IPD
+      17    cou0005       1.9.1 Country           LB
+      18    cou0006       1.9.1 Country         SDSC
+      19    cou0007       1.9.1 Country         TDSC
+      20    cou0008       1.9.1 Country          QRY
+      21    cou0009       1.9.1 Country         OQRY
+      22    cou0010       1.9.1 Country         ODAT
+      23    cou0011       1.9.1 Country         CDAT
+      24    cou0012       1.9.1 Country           SF
+      25    qtl0004       1.9.1   Study          IPD
+      26    qtl0006       1.9.1   Study         SDSC
                                     metric                         numerator
       1                  AE Reporting Rate                               AEs
       2                 SAE Reporting Rate                              SAEs

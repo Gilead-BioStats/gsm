@@ -12,7 +12,6 @@
 #' @export
 
 rank_chg <- function(status) {
-
   rlang::check_installed("gt", reason = "to use `rank_chg`")
   rlang::check_installed("fontawesome", reason = "to use `rank_chg`")
 

@@ -35,7 +35,7 @@
 #' @return `list` containing the results of the `lStep$name` function call should contain `.$checks`
 #'   parameter with results from `is_mapping_vald` for each domain in `lStep$inputs`.
 #'
-#' 
+#'
 #'
 #' @export
 

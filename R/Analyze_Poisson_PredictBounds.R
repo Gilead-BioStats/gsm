@@ -50,7 +50,6 @@ Analyze_Poisson_PredictBounds <- function(
   nStep = NULL,
   bQuiet = TRUE
 ) {
-
   rlang::check_installed("lamW", reason = "to run `Analyze_Poisson_PredictBounds()`")
 
   if (is.null(vThreshold)) {

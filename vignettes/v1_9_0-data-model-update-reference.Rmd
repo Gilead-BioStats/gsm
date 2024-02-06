@@ -429,4 +429,4 @@ Previously `Make_Snapshot` was functionally used to extrapolate meaningful stati
 The new functionality eliminates the need for `Augment_Snapshot` (removed in the v1.9.0 release). `Make_Snapshot` will now have an `lPrevSnapshot` argument for the previous snapshot object (snapshot.rds file), this is designed to accumulate and combine data as snapshots are run. 
 
 ## `UpdateSnapshotLogs`
-For backwards compatibility a new funtion called `UpdateSnapshotLogs` is used to retrofit the past saved snapshots, that were saved prior to v1.9.0, to the new data model. This function will convert the `lSnapshot` and `lStackedSnapshots` logs to the new data model logs (rpt_* tables)
+For backwards compatibility a new funtion called `UpdateSnapshotLogs` is used to retrofit the past saved snapshots, that were saved prior to v1.9.0, to the new data model. This function will convert the `lSnapshot` logs to the new data model logs (rpt_* tables) or vice versa from v1.9.0 to v1.8.0 by selecting the desired `version` argument.
