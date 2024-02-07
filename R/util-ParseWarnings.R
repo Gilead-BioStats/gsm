@@ -26,9 +26,6 @@
 #'
 #' @return `data.frame` With columns `workflowid`, `status`, and `notes`.
 #'
-#' @import purrr
-#' @importFrom stats setNames
-#'
 #' @export
 ParseWarnings <- function(lResults) {
   # lChecks

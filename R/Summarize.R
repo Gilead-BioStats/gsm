@@ -39,8 +39,6 @@
 #'
 #' dfSummary <- Summarize(dfFlagged)
 #'
-#' @import dplyr
-#'
 #' @export
 
 Summarize <- function(

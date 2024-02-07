@@ -1,7 +1,31 @@
+# gsm v1.9.1
+
+This release includes improvements to package namespacing and dependency management, additional unit tests, and previous `gsm` version backwards-compatability to allow for conversion from `v1.8.x` data model to `v1.9.0+` data model and vice-versa.
+
+### New Functionality
+
+- `RevertSnapshotLogs()`: This function takes a snapshot from `v1.9.0` or newer and reverts the data model to one that is compatible with `v1.8.x`. This is a helper function to assist with breaking changes introduced by a data model refactor.
+
+
+### Namespacing / Dependencies
+
+- Previously, `{gsm}` listed ~30 packages as `Imports`. A refactor and reassessment of dependencies has brought this down to 21 `Imports`, and has moved a number of packages to `Suggests` that are only needed for reporting or for development of `{gsm}`
+- Note to contributors: Instead of adding `@import` or `@importFrom` in the `roxygen2` headers, we should now use `usethis::use_import_from("package", "function")`, which will update `gsm-package.R` as the global package/function import reference.
+
 # gsm v1.9.0
 
 This release introduces a new data model to the snapshot logs, reworking the outputs of `Make_Snapshot()` to include longitudinal functionality and new table components. See 
 the **`v1.9.0` Data Model Update Reference** vignette for new data mapping and functionality notes. 
+
+### Data Model Updates
+
+`{gsm}` v1.9.0 represents a substantial change to the gsm data model. The main changes include new log tables with different names and altered data variables, and new functionality for `Make_Snapshot()`. Moving forward with this new model, data will be cumulatively collected and combined to allow for tracking changes through time of a study.
+
+- `Augment_Snapshot()` has been deprecated due to the data model update described above. Instead of using `Augment_Snapshot()` to target a directory containing previous snapshots, users should now use the `lPrevSnapshot` parameter in `Make_Snapshot()`.
+- `Save_Snapshot()` now defaults to `.parquet` format. `.csv` format is still available by setting `strFileFormat = "csv"`.
+- The output of `Make_Snapshot()` now includes `lCharts` as a top-level object. This allows charts to be extracted easier for reporting and other downstream effects. This will also help for future development plans.
+
+
 
 # gsm v1.8.4
 Patch release to address bugfixes for invalid cPath argument of `Augment_Snapshot()` and variable referencing in `Overview_Table()`

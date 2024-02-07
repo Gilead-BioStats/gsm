@@ -16,6 +16,10 @@ params:
     lCharts: NULL
 ---
 
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
 ```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
 library(gsm)
 library(DT)
@@ -118,11 +122,17 @@ if(length(setup$dropped) == 0){
 }
 ```
 
-```{js, file='../utils-0.0.1/overallSiteDropdown.js', echo=FALSE}
+```{r echo=FALSE}
+site_dropdown <- system.file('utils-0.0.1', 'overallSiteDropdown.js', package = "gsm")
+dropdown_drag <- system.file('utils-0.0.1', 'dragOverallSiteDropdown.js', package = "gsm")
+meta_details <- system.file('utils-0.0.1', 'showMetaTableDetails.js', package = "gsm")
 ```
 
-```{js, file='../utils-0.0.1/dragOverallSiteDropdown.js', echo=FALSE}
+```{js, file={site_dropdown}, echo=FALSE}
 ```
 
-```{js, file='../utils-0.0.1/showMetaTableDetails.js', echo=FALSE}
+```{js, file={dropdown_drag}, echo=FALSE}
+```
+
+```{js, file={meta_details}, echo=FALSE}
 ```

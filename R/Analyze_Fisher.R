@@ -43,12 +43,6 @@
 #' )
 #' dfAnalyzed <- Analyze_Fisher(dfTransformed)
 #'
-#' @import dplyr
-#' @importFrom broom glance
-#' @importFrom purrr map
-#' @importFrom stats fisher.test
-#' @importFrom tidyr unnest
-#'
 #' @export
 
 Analyze_Fisher <- function(

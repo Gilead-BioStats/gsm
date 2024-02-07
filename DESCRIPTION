@@ -1,6 +1,6 @@
 Package: gsm
 Title: Good Statistical Monitoring
-Version: 1.9.0
+Version: 1.9.1
 Authors@R:
     c(
         person("George", "Wu", email="george.wu@gilead.com", role = c("aut", "cre")),
@@ -17,64 +17,67 @@ Authors@R:
         person("Jacob", "Anderson", email="jacob.anderson@atorusresearch.com", role = c("aut")),
         person(given = "Gilead Sciences", role = "cph")
     )
+Description: The Good Statistical Monitoring or 'gsm' R package provides a
+    framework for statistical data monitoring.
+License: Apache License (>= 2)
 URL: https://github.com/Gilead-BioStats/gsm
 BugReports: https://github.com/Gilead-BioStats/gsm/issues
-Description: The Good Statistical Monitoring or {gsm} R package provides a framework for statistical data monitoring.
-License: Apache License (>= 2)
-Encoding: UTF-8
+Depends: 
+    R (>= 4.0)
 Imports:
     arrow,
     broom,
     cli,
     dplyr,
-    DT,
-    fontawesome (>= 0.2.2),
-    fs,
-    glue,
-    gt,
-    gggenes,
-    ggiraph,
     ggplot2,
-    htmlwidgets,
+    glue,
     htmltools,
-    here,
+    htmlwidgets,
     jsonlite,
-    knitr,
-    lamW,
     lifecycle (>= 1.0.1),
     lubridate,
     magrittr,
     purrr,
-    rmarkdown,
-    rstudioapi,
+    rlang (>= 0.4.11),
+    stats,
     stringr,
-    styler,
     tibble,
     tidyr,
-    yaml,
-    rlang (>= 0.4.11)
+    tools,
+    utils,
+    yaml
 Suggests:
     clindata,
     covr,
-    devtools,
+    desc,
+    DT,
+    fontawesome (>= 0.2.2),
+    gggenes,
+    ggiraph,
+    gt,
+    here,
     httr,
     kableExtra,
+    knitr,
+    lamW,
     pander,
     pkgdown,
     riskmetric,
+    rmarkdown,
     roxygen2,
+    rstudioapi,
     safetyData,
-    testthat (>= 3.0.0),
-    tools,
-    usethis
+    styler,
+    usethis,
+    testthat (>= 3.0.0)
+VignetteBuilder: 
+    knitr
 Remotes:
     clindata=Gilead-BioStats/clindata
-LazyData: true
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 Config/testthat/start-first: Make_Snapshot, Study_Assess*
-VignetteBuilder: knitr
-Depends: 
-    R (>= 4.0)
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3

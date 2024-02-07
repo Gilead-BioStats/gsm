@@ -35,8 +35,6 @@
 #' dfInput <- Consent_Map_Raw()
 #' dfTransformed <- Transform_Count(dfInput, strCountCol = "Count")
 #'
-#' @import dplyr
-#'
 #' @export
 
 Transform_Count <- function(

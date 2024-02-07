@@ -16,6 +16,10 @@ params:
     lCharts: NULL
 ---
 
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
 ```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
 library(gsm)
 library(DT)
@@ -83,5 +87,9 @@ MakeKRIGlossary(
 ```
 
 
-```{js, file='../utils-0.0.1/showMetaTableDetails.js', echo=FALSE}
+```{r echo=FALSE}
+meta_details <- system.file('utils-0.0.1', 'showMetaTableDetails.js', package = "gsm")
+```
+
+```{js, file={meta_details}, echo=FALSE}
 ```

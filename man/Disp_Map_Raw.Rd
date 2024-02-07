@@ -6,8 +6,7 @@
 \usage{
 Disp_Map_Raw(
   dfs = gsm::UseClindata(list(dfSUBJ = "clindata::rawplus_dm", dfSTUDCOMP =
-    "clindata::rawplus_studcomp", dfSDRGCOMP =
-    "clindata::rawplus_sdrgcomp \%>\% filter(.data$phase == 'Blinded Study Drug Completion')")),
+    "clindata::rawplus_studcomp", dfSDRGCOMP = "clindata::rawplus_sdrgcomp")),
   lMapping = gsm::Read_Mapping("rawplus"),
   strContext = "Study",
   bReturnChecks = FALSE,

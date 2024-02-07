@@ -14,8 +14,6 @@
 #' @param height the height of the widget
 #' @param elementId id of widget, automatically generated if not supplied
 #'
-#' @import htmlwidgets
-#' @importFrom jsonlite toJSON
 #'
 #' @export
 Widget_TimeSeriesQTL <- function(qtl,
