@@ -16,12 +16,9 @@ params:
 library(flexdashboard)
 library(gsm)
 library(DT)
-library(gt)
 library(dplyr)
 library(plotly)
-library(htmltools)
 library(glue)
-devtools::load_all()
 ```
 
 ```{r}
@@ -64,9 +61,23 @@ Study
 
 Sidebar {.sidebar}
 ----------------------------------------------------------------
-`r h4(strong("Study:"))`  `r unique(params$study$studyid)`
-`r h4(strong("Snapshot:"))`  `r Sys.Date()`
-`r h4(strong("Total Patients:"))`  `r n_distinct(params$study$subjectid)`
+```{r results='asis'}
+# Study
+h4(strong("Study:"))
+cat(unique(params$study$studyid))
+
+# Snapshot
+h4(strong("Snapshot:"))
+cat(as.character(Sys.Date()))
+
+# Total Patients
+h4(strong("Total Patients:"))
+cat(n_distinct(params$study$subjectid))
+
+# Total Patients discontinued
+h4(strong("Total Patients Discontinued:"))
+glue("{n_distinct(dfInput_study$`Subject ID`)} ({pct(round(n_distinct(dfInput_study$`Subject ID`)/n_distinct(params$study$subjectid)*100, digits = 2))})")
+```
 
 Scatter Plot
 ----------------------------------------------------------------
@@ -171,9 +182,23 @@ Treatment
 
 Sidebar {.sidebar}
 ----------------------------------------------------------------
-`r h4(strong("Study:"))`  `r unique(params$treatment$studyid)`
-`r h4(strong("Snapshot:"))`  `r Sys.Date()`
-`r h4(strong("Total Patients:"))`  `r n_distinct(params$treatment$subjectid)`
+```{r results='asis'}
+# Study
+h4(strong("Study:"))
+cat(unique(params$study$studyid))
+
+# Snapshot
+h4(strong("Snapshot:"))
+cat(as.character(Sys.Date()))
+
+# Total Patients
+h4(strong("Total Patients:"))
+cat(n_distinct(params$treatment$subjectid))
+
+# Total Patients discontinued
+h4(strong("Total Patients Discontinued:"))
+glue("{n_distinct(dfInput_treat$`Subject ID`)} ({pct(round(n_distinct(dfInput_treat$`Subject ID`)/n_distinct(params$treatment$subjectid)*100, digits = 2))})")
+```
 
 Scatter Plot
 ----------------------------------------------------------------
