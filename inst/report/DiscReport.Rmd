@@ -1,0 +1,272 @@
+---
+title: "GSM - Treatment Discontinuation Deep Dive"
+subtitle: "Generated with the Good Statistical Monitoring {gsm} package"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: scroll
+    css: styles.css
+params:
+    study: NA
+    treatment: NA
+    mapping: NA
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(gsm)
+library(DT)
+library(gt)
+library(dplyr)
+library(plotly)
+library(htmltools)
+library(glue)
+devtools::load_all()
+```
+
+```{r}
+## Create testing data --------------------------------------------------------
+dfInput_study <- params$study %>%
+  select(
+    "Study ID" = params$mapping[["dfSTUDCOMP"]][["strStudyCol"]],
+    "Site ID" = params$mapping[["dfSTUDCOMP"]][["strSiteCol"]],
+    "Subject ID" = params$mapping[["dfSTUDCOMP"]][["strIDCol"]],
+    "Discontinuation Reason" = params$mapping[["dfSTUDCOMP"]][["strStudyDiscontinuationReasonCol"]]
+  ) %>% 
+  group_by(`Site ID`) %>%
+  mutate(Enrolled = n()) %>%
+  filter(!is.empty(`Discontinuation Reason`)) %>%
+  group_by(`Site ID`, `Discontinuation Reason`) %>%
+  mutate(Discontinued = n()) %>%
+  ungroup() %>%
+  mutate(`%` = pct(round(Discontinued/Enrolled * 100, digits = 2)))
+
+dfInput_treat <- params$treatment %>%
+  select(
+    "Study ID" = params$mapping[["dfSDRGCOMP"]][["strStudyCol"]],
+    "Site ID" = params$mapping[["dfSDRGCOMP"]][["strSiteCol"]],
+    "Subject ID" = params$mapping[["dfSDRGCOMP"]][["strIDCol"]],
+    "Discontinuation Reason" = params$mapping[["dfSDRGCOMP"]][["strTreatmentDiscontinuationReasonCol"]]
+  ) %>% 
+  group_by(`Site ID`) %>%
+  mutate(Enrolled = n()) %>%
+  filter(!is.empty(`Discontinuation Reason`)) %>%
+  group_by(`Site ID`, `Discontinuation Reason`) %>%
+  mutate(Discontinued = n()) %>%
+  ungroup() %>%
+  mutate(`%` = pct(round(Discontinued/Enrolled * 100, digits = 2)))
+
+
+```
+
+Study
+================================================================
+
+Sidebar {.sidebar}
+----------------------------------------------------------------
+`r h4(strong("Study:"))`  `r unique(params$study$studyid)`
+`r h4(strong("Snapshot:"))`  `r Sys.Date()`
+`r h4(strong("Total Patients:"))`  `r n_distinct(params$study$subjectid)`
+
+Scatter Plot
+----------------------------------------------------------------
+### <font size=5px>**Study Discontinuation by Site**</font> 
+
+```{r}
+# Ploting
+df_disp <- Disp_Map_Raw()
+disp_assessment_NormalApprox <- Disp_Assess(df_disp, strMethod = "NormalApprox", bMakeCharts = TRUE)
+
+disp_assessment_NormalApprox$lCharts$scatterJS
+
+```
+
+Bar Plot
+----------------------------------------------------------------
+### <font size=5px>**Study Discontinuation Reasons**</font> 
+
+```{r}
+plot_data_study <- dfInput_study %>%
+  filter(!gsm::is.empty(`Discontinuation Reason`)) %>%
+  group_by(`Discontinuation Reason`) %>%
+  summarise(disp = n())
+
+ggplotly(
+  ggplot(plot_data_study, 
+         aes(x = reorder(`Discontinuation Reason`, desc(disp)), 
+             y = disp,
+             text = paste0(
+                      glue("Total Patients: {plot_data_study$disp}"), "</br></br>", 
+                      glue("Reason: {plot_data_study$`Discontinuation Reason`}")
+                    )
+             )
+         ) +
+    geom_col(fill = "dodgerblue", alpha = .8) +
+    xlab("Discontinuation Reason") +
+    ylab("# Patients Disc.") +
+    theme(
+      axis.text.x = element_text(angle = 45),
+      axis.title.x = element_blank(),
+      axis.title.y = element_text(face = "bold", size = 11),
+      panel.background = element_rect(fill = "white"),
+      panel.grid = element_blank(),
+      axis.line = element_line(color = "lightgrey", size = .25)
+    ), tooltip = "text"
+)
+```
+
+Bar Plot by Site
+----------------------------------------------------------------
+### <font size=5px>**Study Discontinuation Reasons by Site**</font>
+```{r}
+plot_data_study <- dfInput_study %>%
+  filter(!is.empty(`Discontinuation Reason`)) %>%
+  group_by(`Site ID`, `Discontinuation Reason`) %>%
+  summarise(disc = n()) %>%
+  group_by(`Site ID`) %>%
+  mutate(total = sum(disc))
+
+ggplotly(
+  ggplot(plot_data_study, 
+         aes(x = reorder(`Site ID`, desc(total)), 
+             y = disc, 
+             fill = `Discontinuation Reason`,
+             text = paste0(
+                      glue("Site: {plot_data_study$`Site ID`}"), "</br></br>", 
+                      glue("Patients Discontinued: {plot_data_study$disc}"), "</br>", 
+                      glue("Reason: {plot_data_study$`Discontinuation Reason`}")
+                    )
+             )
+         ) +
+    geom_col(show.legend = FALSE) +
+    xlab("Discontinuation Reason") +
+    ylab("# Patients Disc.") +
+    expand_limits(y = max(plot_data_study$disc) * 1.1) +
+    theme(
+      axis.text.x = element_text(angle = 90),
+      axis.title.x = element_blank(),
+      axis.title.y = element_text(face = "bold", size = 11),
+      panel.background = element_rect(fill = "white"),
+      panel.grid = element_blank(),
+      axis.line = element_line(color = "lightgrey", size = .25)
+    ), tooltip = "text"
+) 
+
+```
+
+Table
+----------------------------------------------------------------
+### <font size=5px>**Study Discontinuation Reasons Summary**</font> 
+
+```{r}
+dfInput_study %>%
+  filter(!is.empty(`Discontinuation Reason`)) %>%
+  datatable(rownames = FALSE)
+
+```
+
+
+Treatment
+================================================================
+
+Sidebar {.sidebar}
+----------------------------------------------------------------
+`r h4(strong("Study:"))`  `r unique(params$treatment$studyid)`
+`r h4(strong("Snapshot:"))`  `r Sys.Date()`
+`r h4(strong("Total Patients:"))`  `r n_distinct(params$treatment$subjectid)`
+
+Scatter Plot
+----------------------------------------------------------------
+### <font size=5px>**Treatment Discontinuation Reasons by Site**</font> 
+
+```{r}
+df_disp_treat <- Disp_Map_Raw(strContext = "Treatment")
+disp_assessment_treat <- Disp_Assess(df_disp_treat, strMethod = "NormalApprox", bMakeCharts = TRUE)
+
+disp_assessment_treat$lCharts$scatterJS
+
+```
+
+Bar Plot
+----------------------------------------------------------------
+### <font size=5px>**Study-wide Treatment Discontinuation Reasons**</font> 
+
+```{r}
+plot_data_treat <- dfInput_treat %>%
+  filter(!is.empty(`Discontinuation Reason`)) %>%
+  group_by(`Discontinuation Reason`) %>%
+  summarise(disp = n())
+
+ggplotly(
+  ggplot(plot_data_treat, 
+         aes(x = reorder(`Discontinuation Reason`, desc(disp)), 
+             y = disp,
+             text = paste0(
+                      glue("Total Patients: {plot_data_treat$disp}"), "</br></br>", 
+                      glue("Reason: {plot_data_treat$`Discontinuation Reason`}")
+                    )
+             )
+         ) +
+    geom_col(fill = "dodgerblue", alpha = .8) +
+    xlab("Discontinuation Reason") +
+    ylab("# Patients Disc.") +
+    theme(
+      axis.text.x = element_text(angle = 45),
+      axis.title.x = element_blank(),
+      axis.title.y = element_text(face = "bold", size = 11),
+      panel.background = element_rect(fill = "white"),
+      panel.grid = element_blank(),
+      axis.line = element_line(color = "lightgrey", size = .25)
+    ), tooltip = "text"
+)
+```
+
+Bar Plot by Site
+----------------------------------------------------------------
+### <font size=5px>**Treatment Discontinuation Reasons by Site**</font>
+```{r}
+plot_data_treat <- dfInput_treat %>%
+  filter(!is.empty(`Discontinuation Reason`)) %>%
+  group_by(`Site ID`, `Discontinuation Reason`) %>%
+  summarise(disc = n()) %>%
+  group_by(`Site ID`) %>%
+  mutate(total = sum(disc))
+
+ggplotly(
+  ggplot(plot_data_treat, 
+         aes(x = reorder(`Site ID`, desc(total)), 
+             y = disc, 
+             fill = `Discontinuation Reason`,
+             text = paste0(
+                      glue("Site: {plot_data_treat$`Site ID`}"), "</br></br>", 
+                      glue("Patients Discontinued: {plot_data_treat$disc}"), "</br>", 
+                      glue("Reason: {plot_data_treat$`Discontinuation Reason`}")
+                    )
+             )
+         ) +
+    geom_col(show.legend = FALSE) +
+    xlab("Discontinuation Reason") +
+    ylab("# Patients Disc.") +
+    expand_limits(y = max(plot_data_treat$disc) * 1.1) +
+    theme(
+      axis.text.x = element_text(angle = 90),
+      axis.title.x = element_blank(),
+      axis.title.y = element_text(face = "bold", size = 11),
+      panel.background = element_rect(fill = "white"),
+      panel.grid = element_blank(),
+      axis.line = element_line(color = "lightgrey", size = .25)
+    ), tooltip = "text"
+) 
+
+```
+
+Table
+----------------------------------------------------------------
+### <font size=5px>**Treatment Discontinuation Reasons Summary**</font> 
+
+```{r}
+dfInput_treat %>%
+  filter(!is.empty(`Discontinuation Reason`)) %>%
+  datatable(rownames = FALSE)
+
+```

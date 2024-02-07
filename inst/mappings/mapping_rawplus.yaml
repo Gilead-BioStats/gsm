@@ -45,13 +45,17 @@ dfCONSENT:
   strConsentTypeCol: conscat
   strConsentTypeVal: MAINCONSENT
 dfSTUDCOMP:
+  strStudyCol: studyid
   strIDCol: subjid
+  strSiteCol: siteid
   strStudyDiscontinuationFlagCol: compyn
   strStudyDiscontinuationFlagVal: "N"
   strStudyDiscontinuationReasonCol: compreas
   strStudyDiscontinuationReasonVal: WITHDRAWAL BY SUBJECT
 dfSDRGCOMP:
+  strStudyCol: studyid
   strIDCol: subjid
+  strSiteCol: siteid
   strTreatmentDiscontinuationFlagCol: sdrgyn
   strTreatmentDiscontinuationFlagVal: "N"
   strTreatmentDiscontinuationReasonCol: sdrgreas
