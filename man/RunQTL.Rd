@@ -28,6 +28,4 @@ run a QTL for any supported \verb{*_Assess} function.
 \examples{
 qtl <- RunQTL("qtl0004")
 
-
-
 }

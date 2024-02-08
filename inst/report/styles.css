@@ -61,7 +61,7 @@ table.dataTable.compact thead th, table.dataTable.compact thead td {
 .overall-site-select {
   position: fixed;
   width: 128px;
-  top: 64px;
+  top: 51px;
   right: 32px;
   background-color: var(--blue-button-color);
   color: white;
