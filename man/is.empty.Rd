@@ -7,7 +7,7 @@
 is.empty(x)
 }
 \arguments{
-\item{x}{}
+\item{x}{\code{variable} the variable to perform logical checks to}
 }
 \description{
 detect empty spaces in variables

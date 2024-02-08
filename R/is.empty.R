@@ -1,6 +1,6 @@
 #' detect empty spaces in variables
 #'
-#' @param x
+#' @param x `variable` the variable to perform logical checks to
 #'
 #' @export
 #'
