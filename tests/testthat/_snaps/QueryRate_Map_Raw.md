@@ -521,14 +521,24 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strStudyDiscontinuationFlagCol", "strStudyDiscontinuationFlagVal", "strStudyDiscontinuationReasonCol", "strStudyDiscontinuationReasonVal"]
+              "value": ["strStudyCol", "strIDCol", "strSiteCol", "strStudyDiscontinuationFlagCol", "strStudyDiscontinuationFlagVal", "strStudyDiscontinuationReasonCol", "strStudyDiscontinuationReasonVal"]
             }
           },
           "value": [
             {
               "type": "character",
               "attributes": {},
+              "value": ["studyid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
               "value": ["subjid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["siteid"]
             },
             {
               "type": "character",
@@ -558,14 +568,24 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["strIDCol", "strTreatmentDiscontinuationFlagCol", "strTreatmentDiscontinuationFlagVal", "strTreatmentDiscontinuationReasonCol", "strTreatmentDiscontinuationReasonVal", "strTreatmentPhaseCol", "strTreatmentPhaseVal"]
+              "value": ["strStudyCol", "strIDCol", "strSiteCol", "strTreatmentDiscontinuationFlagCol", "strTreatmentDiscontinuationFlagVal", "strTreatmentDiscontinuationReasonCol", "strTreatmentDiscontinuationReasonVal", "strTreatmentPhaseCol", "strTreatmentPhaseVal"]
             }
           },
           "value": [
             {
               "type": "character",
               "attributes": {},
+              "value": ["studyid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
               "value": ["subjid"]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["siteid"]
             },
             {
               "type": "character",
