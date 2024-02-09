@@ -12,3 +12,4 @@ is.empty(x)
 \description{
 detect empty spaces in variables
 }
+\keyword{internal}
