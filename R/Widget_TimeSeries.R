@@ -108,7 +108,7 @@ Widget_TimeSeries <- function(
         htmltools::tags$label(siteSelectLabelValue),
         htmltools::tags$select(
           class = "site-select--time-series",
-          id = glue::glue("site-select--time-series_{lLabels$workflowid}"),
+          id = glue::glue("site-select--time-series_{unique(lLabels$workflowid)}"),
           purrr::map(
             c("None", uniqueSiteSelections),
             ~ htmltools::HTML(paste0(
