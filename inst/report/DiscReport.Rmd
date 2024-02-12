@@ -28,8 +28,13 @@ library(htmltools)
 ```{r}
 ## Create data --------------------------------------------------------
 dfInput_study <- Disc_Study_Map(params$study, params$mapping)
-
 dfInput_treat <- Disc_Treatment_Map(params$treatment, params$mapping)
+
+study_plot_studdata <- Make_Plot_Data(dfInput_study, strGroup = "Study")
+study_plot_sitedata <- Make_Plot_Data(dfInput_study, strGroup = "Site")
+
+treat_plot_studdata <- Make_Plot_Data(dfInput_treat, strGroup = "Study")
+treat_plot_sitedata <- Make_Plot_Data(dfInput_treat, strGroup = "Site")
 
 ```
 
@@ -87,19 +92,19 @@ disc_study_assessment$lCharts$barMetricJS
 disc_study_assessment$lCharts$barScoreJS
 ```
 
-Bar Plot
+Bar Plot 
 ----------------------------------------------------------------
 ### <font size=5px>**Study Discontinuation Reasons**</font> 
 
 ```{r}
-Disc_Bar_Plot(dfInput_study, strGroup = "Study")
+Disc_Bar_Plot(study_plot_studdata, strGroup = "Study")
 ```
 
-Bar Plot by Site
+Bar Plot by Site {data-height=`r round(26.06 * nrow(study_plot_sitedata) + 108.35)`}
 ----------------------------------------------------------------
 ### <font size=5px>**Study Discontinuation Reasons by Site**</font>
 ```{r}
-Disc_Bar_Plot(dfInput_study, strGroup = "Site")
+Disc_Bar_Plot(study_plot_sitedata, strGroup = "Site")
 ```
 
 Table
@@ -173,14 +178,14 @@ Bar Plot
 ### <font size=5px>**Study-wide Treatment Discontinuation Reasons**</font> 
 
 ```{r}
-Disc_Bar_Plot(dfInput_treat, strGroup = "Study")
+Disc_Bar_Plot(treat_plot_studdata, strGroup = "Study")
 ```
 
-Bar Plot by Site
+Bar Plot by Site {data-height=`r round(26.06 * nrow(treat_plot_sitedata) + 108.35)`}
 ----------------------------------------------------------------
 ### <font size=5px>**Treatment Discontinuation Reasons by Site**</font>
 ```{r}
-Disc_Bar_Plot(dfInput_treat, strGroup = "Site")
+Disc_Bar_Plot(treat_plot_sitedata, strGroup = "Site")
 ```
 
 Table
