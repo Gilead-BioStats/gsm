@@ -1,0 +1,116 @@
+---
+title: "GSM - Treatment Discontinuation Deep Dive"
+subtitle: "Generated with the Good Statistical Monitoring {gsm} package"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: scroll
+    css: styles.css
+params:
+  demographics: NA
+  study: NA
+  treatment: NA
+  mapping: NA
+  method: NA
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(gsm)
+library(DT)
+library(gt)
+library(dplyr)
+library(plotly)
+library(glue)
+library(htmltools)
+```
+
+```{r}
+## Create data --------------------------------------------------------
+dfInput <- AE_Map_Raw()
+dfInput <- AE_Assess(dfmapped)
+
+```
+
+KRI0001 AE Reporting Rate
+================================================================
+
+Sidebar {.sidebar}
+----------------------------------------------------------------
+```{r results='asis'}
+# Study
+h4(strong("Study:"))
+# cat(unique(params$study$studyid))
+
+# Snapshot
+h4(strong("Snapshot:"))
+# cat(as.character(Sys.Date()))
+
+# Total Patients
+h4(strong("Total Patients:"))
+# cat(n_distinct(params$study$subjectid))
+
+```
+
+Scatter Plot {.tabset .tabset-fade}
+----------------------------------------------------------------
+
+```{r results='asis'}
+# tab_title("Study Discontinuation by Site")
+```
+
+### <font size=3px>**Scatter Plot**</font> 
+```{r}
+# Ploting
+disc_study <- Disp_Map_Raw(dfs = list(
+                                   dfSUBJ = params$demographics,
+                                   dfSTUDCOMP = params$study,
+                                   dfSDRGCOMP = params$treatment
+                                   ),
+                           lMapping = params$mapping, 
+                           strContext = "Study")
+
+disc_study_assessment <- Disp_Assess(disc_study, strMethod = params$method, bMakeCharts = TRUE)
+
+disc_study_assessment$lCharts$scatterJS
+
+```
+
+### <font size=3px>**Bar Plot (Metric)**</font> 
+```{r}
+disc_study_assessment$lCharts$barMetricJS
+```
+
+### <font size=3px>**Bar Plot (Score)**</font> 
+```{r}
+disc_study_assessment$lCharts$barScoreJS
+```
+
+Bar Plot 
+----------------------------------------------------------------
+### <font size=5px>**Study Discontinuation Reasons**</font> 
+
+```{r}
+Disc_Bar_Plot(study_plot_studdata, strGroup = "Study")
+```
+
+Bar Plot by Site {data-height=`r round(26.06 * nrow(study_plot_sitedata) + 108.35)`}
+----------------------------------------------------------------
+### <font size=5px>**Study Discontinuation Reasons by Site**</font>
+```{r}
+Disc_Bar_Plot(study_plot_sitedata, strGroup = "Site")
+```
+
+Table
+----------------------------------------------------------------
+### <font size=5px>**Study Discontinuation Reasons Summary**</font> 
+
+```{r}
+dfInput_study %>%
+  filter(!is.empty(`Discontinuation Reason`)) %>%
+  datatable(rownames = FALSE)
+
+```
+
+
+
