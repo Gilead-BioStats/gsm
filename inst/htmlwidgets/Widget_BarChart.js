@@ -35,6 +35,28 @@ HTMLWidgets.widget({
                 let siteSelect;
                 if (x.addSiteSelect)
                     siteSelect = addSiteSelect(el, x.dfSummary, instance, x.siteSelectLabelValue);
+
+
+              lLabels.clickCallback = function(d) {
+                instance.data.config.selectedGroupIDs = instance.data.config.selectedGroupIDs.includes(d.groupid)
+                        ? 'None'
+                        : d.groupid;
+
+                if (!!Shiny) {
+                        console.log(
+                            `Selected site ID: ${instance.data.config.selectedGroupIDs}`
+                        );
+
+                        //const namespace = el.id.split('-')[0];
+                        const namespace = 'gsmApp';
+
+                        Shiny.setInputValue(
+                            'site',
+                            instance.data.config.selectedGroupIDs
+                        );
+                }
+              }
+
             },
             resize: function(width, height) {
             }
