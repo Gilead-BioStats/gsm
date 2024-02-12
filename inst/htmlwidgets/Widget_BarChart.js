@@ -23,13 +23,7 @@ HTMLWidgets.widget({
                         );
                     };
 
-                // generate bar chart
-                const instance = rbmViz.default.barChart(
-                    el,
-                    x.dfSummary,
-                    lLabels,
-                    x.dfThreshold
-                );
+
 
                 // add dropdown that highlights sites
                 let siteSelect;
@@ -55,7 +49,21 @@ HTMLWidgets.widget({
                             instance.data.config.selectedGroupIDs
                         );
                 }
+
+                instance.helpers.updateConfig(
+                  instance,
+                  instance.data.config
+                )
+
               }
+
+                // generate bar chart
+                const instance = rbmViz.default.barChart(
+                    el,
+                    x.dfSummary,
+                    lLabels,
+                    x.dfThreshold
+                );
 
             },
             resize: function(width, height) {
