@@ -421,8 +421,14 @@
       
       
       $dfSTUDCOMP
+      $dfSTUDCOMP$strStudyCol
+      [1] "studyid"
+      
       $dfSTUDCOMP$strIDCol
       [1] "subjid"
+      
+      $dfSTUDCOMP$strSiteCol
+      [1] "siteid"
       
       $dfSTUDCOMP$strStudyDiscontinuationFlagCol
       [1] "compyn"
@@ -438,8 +444,14 @@
       
       
       $dfSDRGCOMP
+      $dfSDRGCOMP$strStudyCol
+      [1] "studyid"
+      
       $dfSDRGCOMP$strIDCol
       [1] "subjid"
+      
+      $dfSDRGCOMP$strSiteCol
+      [1] "siteid"
       
       $dfSDRGCOMP$strTreatmentDiscontinuationFlagCol
       [1] "sdrgyn"

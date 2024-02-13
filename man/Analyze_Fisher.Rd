@@ -60,5 +60,4 @@ dfTransformed <- Transform_Rate(
 )
 dfAnalyzed <- Analyze_Fisher(dfTransformed)
 
-
 }
