@@ -14,6 +14,8 @@ dfSUBJ:
   strEnrollCol: enrollyn
   strEnrollVal: "Y"
 dfAE:
+  strStudyCol: studyid
+  strSiteCol: siteid
   strIDCol: subjid
   strStartDateCol: aest_dt
   strEndDateCol: aeen_dt
@@ -45,12 +47,16 @@ dfCONSENT:
   strConsentTypeCol: conscat
   strConsentTypeVal: MAINCONSENT
 dfSTUDCOMP:
+  strStudyCol: studyid
+  strSiteCol: siteid
   strIDCol: subjid
   strStudyDiscontinuationFlagCol: compyn
   strStudyDiscontinuationFlagVal: "N"
   strStudyDiscontinuationReasonCol: compreas
   strStudyDiscontinuationReasonVal: WITHDRAWAL BY SUBJECT
 dfSDRGCOMP:
+  strStudyCol: studyid
+  strSiteCol: siteid
   strIDCol: subjid
   strTreatmentDiscontinuationFlagCol: sdrgyn
   strTreatmentDiscontinuationFlagVal: "N"
