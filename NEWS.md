@@ -1,3 +1,7 @@
+# gsm v1.9.2
+
+This minor patch release addresses a reporting bug that was preventing the user from highlighting longitudinal site trends by clicking on a site within the timeseries plot. 
+
 # gsm v1.9.1
 
 This release includes improvements to package namespacing and dependency management, additional unit tests, and previous `gsm` version backwards-compatability to allow for conversion from `v1.8.x` data model to `v1.9.0+` data model and vice-versa.

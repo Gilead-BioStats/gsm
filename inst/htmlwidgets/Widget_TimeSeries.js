@@ -13,7 +13,7 @@ HTMLWidgets.widget({
         lLabels.clickCallback = function(d) {
             // Update site dropdown.
             const siteDropdown = document
-                .getElementById(`site-select--time-series_${workflow.workflowid}`)
+                .getElementById(`site-select--time-series_${lLabels.workflowid}`)
             siteDropdown.value = d.groupid;
 
             // Update chart (closure allows access to `instance` prior to initialization).
