@@ -5,9 +5,10 @@ HTMLWidgets.widget({
         return {
             renderValue: function(x) {
 
-                const lLabels = x.lLabels
+                // bar chart configuration
+                const lLabels = x.lLabels;
                 lLabels.y = x.strYAxisType;
-                lLabels.selectedGroupIDs = number_to_array(x.selectedGroupIDs)
+                lLabels.selectedGroupIDs = number_to_array(x.selectedGroupIDs);
 
                 // add click event listener to chart
                 if (x.addSiteSelect)
@@ -21,6 +22,24 @@ HTMLWidgets.widget({
                             instance.data.config,
                             instance.data._thresholds_
                         );
+
+
+                  if (typeof Shiny !== 'undefined') {
+
+                    const namespace = 'gsmApp';
+
+                    if (instance.data.config.selectedGroupIDs.length > 0) {
+                      console.log(
+                        `Selected site ID: ${instance.data.config.selectedGroupIDs}`
+                      )
+
+                            Shiny.setInputValue(
+                              'site',
+                              instance.data.config.selectedGroupIDs
+                            )
+                    }
+
+                  }
                     };
 
                 // generate bar chart

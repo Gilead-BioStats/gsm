@@ -9,7 +9,7 @@ HTMLWidgets.widget({
                 const lLabels = x.lLabels;
                 lLabels.selectedGroupIDs = number_to_array(x.selectedGroupIDs);
 
-                console.log(lLabels.selectedGroupIDs.length)
+
 
                 if (x.addSiteSelect)
                     lLabels.clickCallback = function(d) { // clickCallback.bind(null, instance, siteSelect);
