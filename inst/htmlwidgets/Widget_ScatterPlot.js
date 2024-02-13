@@ -16,6 +16,26 @@ HTMLWidgets.widget({
                             : d.groupid;
                         siteSelect.value = instance.data.config.selectedGroupIDs;
                         instance.helpers.updateConfig(instance, instance.data.config);
+
+
+                        if (!!Shiny) {
+                          console.log(
+                            `Selected site ID: ${instance.data.config.selectedGroupIDs}`
+                          );
+
+                          const namespace = 'gsmApp';
+
+                          Shiny.setInputValue(
+                            'site',
+                            instance.data.config.selectedGroupIDs
+                          )
+                        }
+
+                        instance.helpers.updateConfig(
+                          instance,
+                          instance.data.config
+                        )
+
                     };
 
 

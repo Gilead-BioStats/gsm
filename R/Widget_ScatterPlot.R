@@ -127,9 +127,9 @@ Widget_ScatterPlot <- function(
 
   # forward options using x
   x <- list(
-    dfSummary = jsonlite::toJSON(dfSummary, na = "string"),
-    lLabels = jsonlite::toJSON(lLabels, na = "string"),
-    dfBounds = dfBounds,
+    dfSummary = jsonlite::toJSON(dfSummary, na = "string"),   # data
+    lLabels = jsonlite::toJSON(lLabels, na = "string"),       # config
+    dfBounds = dfBounds,                                      # bounds
     selectedGroupIDs = as.character(selectedGroupIDs),
     addSiteSelect = addSiteSelect,
     siteSelectLabelValue = siteSelectLabelValue
