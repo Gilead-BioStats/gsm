@@ -9,8 +9,13 @@ HTMLWidgets.widget({
                 const lLabels = x.lLabels;
                 lLabels.selectedGroupIDs = number_to_array(x.selectedGroupIDs);
 
+                console.log(lLabels.selectedGroupIDs.length)
+
                 if (x.addSiteSelect)
                     lLabels.clickCallback = function(d) { // clickCallback.bind(null, instance, siteSelect);
+
+
+
                         instance.data.config.selectedGroupIDs = instance.data.config.selectedGroupIDs.includes(d.groupid)
                             ? 'None'
                             : d.groupid;
@@ -18,17 +23,23 @@ HTMLWidgets.widget({
                         instance.helpers.updateConfig(instance, instance.data.config);
 
 
-                        if (!!Shiny) {
-                          console.log(
-                            `Selected site ID: ${instance.data.config.selectedGroupIDs}`
-                          );
+                        if (typeof Shiny !== 'undefined') {
 
                           const namespace = 'gsmApp';
 
-                          Shiny.setInputValue(
-                            'site',
-                            instance.data.config.selectedGroupIDs
-                          )
+                          if (instance.data.config.selectedGroupIDs.length > 0) {
+
+                            console.log(
+                              `Selected site ID: ${instance.data.config.selectedGroupIDs}`
+                            );
+
+                            Shiny.setInputValue(
+                              'site',
+                              instance.data.config.selectedGroupIDs
+                            )
+
+                          }
+
                         }
 
                         instance.helpers.updateConfig(
