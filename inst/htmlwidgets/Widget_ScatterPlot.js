@@ -23,8 +23,6 @@ HTMLWidgets.widget({
                 if (instance.data.config.selectedGroupIDs.length > 0) {
                   console.log(`Selected site ID: ${instance.data.config.selectedGroupIDs}`);
 
-                  instance.data.config.selectedGroupIDs = instance.data.config.selectedGroupIDs.includes(d.groupid) ? "None" : d.groupid          ;
-                  siteSelect.value = instance.data.config.selectedGroupIDs;
                   instance.helpers.updateConfig(instance, instance.data.config);
 
                   Shiny.setInputValue("site", instance.data.config.selectedGroupIDs);
