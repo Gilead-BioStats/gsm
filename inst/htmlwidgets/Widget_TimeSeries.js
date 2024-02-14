@@ -11,13 +11,42 @@ HTMLWidgets.widget({
 
 
         lLabels.clickCallback = function(d) {
-            // Update site dropdown.
-            const siteDropdown = document
-                .getElementById(`site-select--time-series_${lLabels.workflowid}`)
-            siteDropdown.value = d.groupid;
 
-            // Update chart (closure allows access to `instance` prior to initialization).
-            instance.helpers.updateSelectedGroupIDs(d.groupid);
+          // initialize groupids
+          instance.helpers.updateSelectedGroupIDs(d.groupid);
+
+                  if (typeof Shiny !== 'undefined') {
+
+                    const namespace = 'gsmApp';
+
+                    console.log(instance.data.config.selectedGroupIDs)
+
+
+                    if (instance.data.config.selectedGroupIDs.length > 0) {
+                      console.log(
+                        `Selected site ID: ${instance.data.config.selectedGroupIDs}`
+                      )
+
+                            Shiny.setInputValue(
+                              'site',
+                              instance.data.config.selectedGroupIDs
+                            )
+
+                            instance.helpers.updateSelectedGroupIDs(
+                              instance.data.config.selectedGroupIDs
+                            )
+
+                    }
+
+                  } else {
+                    // Update site dropdown.
+                    const siteDropdown = document.getElementById(`site-select--time-series_${lLabels.workflowid}`)
+                    siteDropdown.value = d.groupid;
+
+                    // Update chart (closure allows access to `instance` prior to initialization).
+                    instance.helpers.updateSelectedGroupIDs(d.groupid);
+                  }
+
         };
 
         // chart
