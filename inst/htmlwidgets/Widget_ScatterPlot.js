@@ -5,64 +5,42 @@ HTMLWidgets.widget({
         return {
             renderValue: function(x) {
 
-                // scatter plot configuration
-                const lLabels = x.lLabels;
-                lLabels.selectedGroupIDs = number_to_array(x.selectedGroupIDs);
+          // scatter plot configuration
+          const lLabels = x.lLabels;
+          lLabels.selectedGroupIDs = number_to_array(x.selectedGroupIDs);
 
+          if (x.addSiteSelect)
+            lLabels.clickCallback = function (d) {
+              // clickCallback.bind(null, instance, siteSelect);
 
+              instance.data.config.selectedGroupIDs = instance.data.config.selectedGroupIDs.includes(d.groupid) ? "None" : d.groupid;
+              siteSelect.value = instance.data.config.selectedGroupIDs;
+              instance.helpers.updateConfig(instance, instance.data.config);
 
-                if (x.addSiteSelect)
-                    lLabels.clickCallback = function(d) { // clickCallback.bind(null, instance, siteSelect);
+              if (typeof Shiny !== "undefined") {
+                const namespace = "gsmApp";
 
+                if (instance.data.config.selectedGroupIDs.length > 0) {
+                  console.log(`Selected site ID: ${instance.data.config.selectedGroupIDs}`);
 
+                  instance.data.config.selectedGroupIDs = instance.data.config.selectedGroupIDs.includes(d.groupid) ? "None" : d.groupid          ;
+                  siteSelect.value = instance.data.config.selectedGroupIDs;
+                  instance.helpers.updateConfig(instance, instance.data.config);
 
-                        instance.data.config.selectedGroupIDs = instance.data.config.selectedGroupIDs.includes(d.groupid)
-                            ? 'None'
-                            : d.groupid;
-                        siteSelect.value = instance.data.config.selectedGroupIDs;
-                        instance.helpers.updateConfig(instance, instance.data.config);
+                  Shiny.setInputValue("site", instance.data.config.selectedGroupIDs);
+                }
+              }
 
+              instance.helpers.updateConfig(instance, instance.data.config);
+            };
 
-                        if (typeof Shiny !== 'undefined') {
+          // generate scatter plot
+          const instance = rbmViz.default.scatterPlot(el, x.dfSummary, lLabels, x.dfBounds);
 
-                          const namespace = 'gsmApp';
+          // add dropdown that highlights sites
+          let siteSelect;
+          if (x.addSiteSelect) siteSelect = addSiteSelect(el, x.dfSummary, instance, x.siteSelectLabelValue);
 
-                          if (instance.data.config.selectedGroupIDs.length > 0) {
-
-                            console.log(
-                              `Selected site ID: ${instance.data.config.selectedGroupIDs}`
-                            );
-
-                            Shiny.setInputValue(
-                              'site',
-                              instance.data.config.selectedGroupIDs
-                            )
-
-                          }
-
-                        }
-
-                        instance.helpers.updateConfig(
-                          instance,
-                          instance.data.config
-                        )
-
-                    };
-
-
-                // generate scatter plot
-                const instance = rbmViz.default.scatterPlot(
-                    el,
-                    x.dfSummary,
-                    lLabels,
-                    x.dfBounds
-                );
-
-
-                // add dropdown that highlights sites
-                let siteSelect;
-                if (x.addSiteSelect)
-                    siteSelect = addSiteSelect(el, x.dfSummary, instance, x.siteSelectLabelValue);
             },
             resize: function(width, height) {
             }
