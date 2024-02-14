@@ -8,7 +8,7 @@ HTMLWidgets.widget({
           // scatter plot configuration
           const lLabels = x.lLabels;
 
-          if (x.selectedGroupIDs.length > 0) {
+          if (typeof x.selectedGroupIDs !== 'undefined') {
             lLabels.selectedGroupIDs = number_to_array(x.selectedGroupIDs);
           }
 
