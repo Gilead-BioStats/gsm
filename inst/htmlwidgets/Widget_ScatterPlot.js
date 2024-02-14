@@ -11,11 +11,7 @@ HTMLWidgets.widget({
 
           if (x.addSiteSelect)
             lLabels.clickCallback = function (d) {
-              // clickCallback.bind(null, instance, siteSelect);
 
-              instance.data.config.selectedGroupIDs = instance.data.config.selectedGroupIDs.includes(d.groupid) ? "None" : d.groupid;
-              siteSelect.value = instance.data.config.selectedGroupIDs;
-              instance.helpers.updateConfig(instance, instance.data.config);
 
               if (typeof Shiny !== "undefined") {
                 const namespace = "gsmApp";
@@ -27,17 +23,28 @@ HTMLWidgets.widget({
 
                   Shiny.setInputValue("site", instance.data.config.selectedGroupIDs);
                 }
-              }
+              } else {
+              // clickCallback.bind(null, instance, siteSelect);
+
+              instance.data.config.selectedGroupIDs = instance.data.config.selectedGroupIDs.includes(d.groupid) ? "None" : d.groupid;
+              siteSelect.value = instance.data.config.selectedGroupIDs;
+              instance.helpers.updateConfig(instance, instance.data.config);
+
 
               instance.helpers.updateConfig(instance, instance.data.config);
+              }
+
             };
+
 
           // generate scatter plot
           const instance = rbmViz.default.scatterPlot(el, x.dfSummary, lLabels, x.dfBounds);
 
           // add dropdown that highlights sites
           let siteSelect;
-          if (x.addSiteSelect) siteSelect = addSiteSelect(el, x.dfSummary, instance, x.siteSelectLabelValue);
+          if (x.addSiteSelect) {
+            siteSelect = addSiteSelect(el, x.dfSummary, instance, x.siteSelectLabelValue);
+          }
 
             },
             resize: function(width, height) {
