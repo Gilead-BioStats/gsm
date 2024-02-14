@@ -8,7 +8,11 @@ HTMLWidgets.widget({
                 // bar chart configuration
               const lLabels = x.lLabels;
               lLabels.y = x.strYAxisType;
-              lLabels.selectedGroupIDs = number_to_array(x.selectedGroupIDs);
+
+              if (x.selectedGroupIDs.length > 0 ) {
+                lLabels.selectedGroupIDs = number_to_array(x.selectedGroupIDs);
+              }
+
 
               // add click event listener to chart
 

@@ -7,7 +7,10 @@ HTMLWidgets.widget({
 
           // scatter plot configuration
           const lLabels = x.lLabels;
-          lLabels.selectedGroupIDs = number_to_array(x.selectedGroupIDs);
+
+          if (x.selectedGroupIDs.length > 0) {
+            lLabels.selectedGroupIDs = number_to_array(x.selectedGroupIDs);
+          }
 
           if (x.addSiteSelect)
             lLabels.clickCallback = function (d) {
