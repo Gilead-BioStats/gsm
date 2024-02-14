@@ -24,30 +24,19 @@ HTMLWidgets.widget({
                         instance.helpers.updateConfig(instance, instance.data.config);
 
                         if (typeof Shiny !== 'undefined') {
-
-                          const namespace = 'gsmApp';
-
                           if (instance.data.config.selectedGroupIDs.length > 0) {
-
-                            console.log(
-                              `Selected site ID: ${instance.data.config.selectedGroupIDs}`
-                            );
-
                             Shiny.setInputValue(
                               'site',
                               instance.data.config.selectedGroupIDs
                             )
-
                           }
-
                         }
 
                         instance.helpers.updateConfig(
                           instance,
                           instance.data.config
                         )
-
-                    };
+                  };
 
 
                 // generate scatter plot
@@ -64,7 +53,8 @@ HTMLWidgets.widget({
                 if (x.addSiteSelect)
                     siteSelect = addSiteSelect(el, x.dfSummary, instance, x.siteSelectLabelValue);
 
-                if (x.bIsShiny) {
+                // hide dropdown if in a Shiny environment
+                if (x.bHideDropdown) {
                   siteSelect.style.display = "none";
                 }
             },

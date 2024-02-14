@@ -16,26 +16,15 @@ HTMLWidgets.widget({
           instance.helpers.updateSelectedGroupIDs(d.groupid);
 
                   if (typeof Shiny !== 'undefined') {
-
-                    const namespace = 'gsmApp';
-
-                    console.log(instance.data.config.selectedGroupIDs)
-
-
                     if (instance.data.config.selectedGroupIDs.length > 0) {
-                      console.log(
-                        `Selected site ID: ${instance.data.config.selectedGroupIDs}`
+                      Shiny.setInputValue(
+                        'site',
+                        instance.data.config.selectedGroupIDs
                       )
 
-                            Shiny.setInputValue(
-                              'site',
-                              instance.data.config.selectedGroupIDs
-                            )
-
-                            instance.helpers.updateSelectedGroupIDs(
-                              instance.data.config.selectedGroupIDs
-                            )
-
+                      instance.helpers.updateSelectedGroupIDs(
+                        instance.data.config.selectedGroupIDs
+                      )
                     }
 
                   } else {

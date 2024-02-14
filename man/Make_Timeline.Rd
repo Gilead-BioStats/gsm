@@ -31,7 +31,7 @@ Make_Timeline(
 }
 \examples{
 if (require("gggenes") & require("ggiraph")) {
-Make_Timeline(status_study = clindata::ctms_study)
+  Make_Timeline(status_study = clindata::ctms_study)
 }
 
 }

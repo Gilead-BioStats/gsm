@@ -26,8 +26,7 @@ Widget_TimeSeries <- function(
   height = NULL,
   elementId = NULL,
   addSiteSelect = TRUE,
-  siteSelectLabelValue = NULL,
-  bIsShiny = FALSE
+  siteSelectLabelValue = NULL
 ) {
   if (!is.null(siteSelectLabelValue)) {
     siteSelectLabelValue <- paste0("Highlighted ", siteSelectLabelValue, ": ")
@@ -91,8 +90,7 @@ Widget_TimeSeries <- function(
     lLabels = lLabels,
     dfParams = jsonlite::toJSON(dfParams, na = "string"),
     addSiteSelect = addSiteSelect,
-    selectedGroupIDs = c(as.character(selectedGroupIDs)),
-    bIsShiny = bIsShiny
+    selectedGroupIDs = c(as.character(selectedGroupIDs))
   )
 
   # create standalone timeseries widget
