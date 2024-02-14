@@ -16,12 +16,12 @@ HTMLWidgets.widget({
 
 
 
+
                         instance.data.config.selectedGroupIDs = instance.data.config.selectedGroupIDs.includes(d.groupid)
                             ? 'None'
                             : d.groupid;
                         siteSelect.value = instance.data.config.selectedGroupIDs;
                         instance.helpers.updateConfig(instance, instance.data.config);
-
 
                         if (typeof Shiny !== 'undefined') {
 
@@ -63,6 +63,10 @@ HTMLWidgets.widget({
                 let siteSelect;
                 if (x.addSiteSelect)
                     siteSelect = addSiteSelect(el, x.dfSummary, instance, x.siteSelectLabelValue);
+
+                if (x.bIsShiny) {
+                  siteSelect.style.display = "none";
+                }
             },
             resize: function(width, height) {
             }

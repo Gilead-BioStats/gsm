@@ -90,6 +90,7 @@ Widget_BarChart <- function(
   strYAxisType = "score",
   selectedGroupIDs = NULL,
   addSiteSelect = TRUE,
+  bIsShiny = FALSE,
   width = NULL,
   height = NULL,
   elementId = NULL
@@ -118,7 +119,8 @@ Widget_BarChart <- function(
     strYAxisType = strYAxisType,
     selectedGroupIDs = as.character(selectedGroupIDs),
     addSiteSelect = addSiteSelect,
-    siteSelectLabelValue = siteSelectLabelValue
+    siteSelectLabelValue = siteSelectLabelValue,
+    bIsShiny = bIsShiny
   )
 
   # create widget

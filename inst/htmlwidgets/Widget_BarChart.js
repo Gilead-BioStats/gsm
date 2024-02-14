@@ -54,6 +54,10 @@ HTMLWidgets.widget({
                 let siteSelect;
                 if (x.addSiteSelect)
                     siteSelect = addSiteSelect(el, x.dfSummary, instance, x.siteSelectLabelValue);
+
+                if (x.bIsShiny) {
+                  siteSelect.style.display = "none";
+                }
             },
             resize: function(width, height) {
             }

@@ -104,6 +104,7 @@ Widget_ScatterPlot <- function(
   dfBounds,
   selectedGroupIDs = NULL,
   addSiteSelect = TRUE,
+  bIsShiny = FALSE,
   width = NULL,
   height = NULL,
   elementId = NULL
@@ -132,7 +133,8 @@ Widget_ScatterPlot <- function(
     dfBounds = dfBounds,                                      # bounds
     selectedGroupIDs = as.character(selectedGroupIDs),
     addSiteSelect = addSiteSelect,
-    siteSelectLabelValue = siteSelectLabelValue
+    siteSelectLabelValue = siteSelectLabelValue,
+    bIsShiny = bIsShiny
   )
 
 
