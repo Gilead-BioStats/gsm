@@ -50,7 +50,6 @@ dfSTUDCOMP:
   strStudyCol: studyid
   strSiteCol: siteid
   strIDCol: subjid
-  strSiteCol: siteid
   strStudyDiscontinuationFlagCol: compyn
   strStudyDiscontinuationFlagVal: "N"
   strStudyDiscontinuationReasonCol: compreas
@@ -59,7 +58,6 @@ dfSDRGCOMP:
   strStudyCol: studyid
   strSiteCol: siteid
   strIDCol: subjid
-  strSiteCol: siteid
   strTreatmentDiscontinuationFlagCol: sdrgyn
   strTreatmentDiscontinuationFlagVal: "N"
   strTreatmentDiscontinuationReasonCol: sdrgreas

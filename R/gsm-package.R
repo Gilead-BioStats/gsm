@@ -4,8 +4,8 @@
 ## usethis namespace: start
 
 #' @import dplyr
-#' @import purrr
 #' @import ggplot2
+#' @import purrr
 #' @importFrom arrow write_parquet
 #' @importFrom broom augment
 #' @importFrom broom glance
@@ -19,6 +19,7 @@
 #' @importFrom cli cli_h2
 #' @importFrom cli cli_text
 #' @importFrom cli col_br_yellow
+#' @importFrom glue glue
 #' @importFrom glue glue_collapse
 #' @importFrom htmltools h1
 #' @importFrom htmltools h2
@@ -37,6 +38,9 @@
 #' @importFrom lifecycle deprecated
 #' @importFrom lubridate as.period
 #' @importFrom lubridate interval
+#' @importFrom plotly add_trace
+#' @importFrom plotly layout
+#' @importFrom plotly plot_ly
 #' @importFrom rlang check_installed
 #' @importFrom stats binom.test
 #' @importFrom stats fisher.test

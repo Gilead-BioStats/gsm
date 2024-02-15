@@ -37,6 +37,7 @@ Imports:
     lifecycle (>= 1.0.1),
     lubridate,
     magrittr,
+    plotly,
     purrr,
     rlang (>= 0.4.11),
     stats,

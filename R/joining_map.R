@@ -24,5 +24,5 @@ joining_map <- function(dist_list, lMapping, strDomain, strSubjCol, has_site){
   }
   return(list(by_left = by_left, by_right = by_right))
 }
-lMapping$dfPD
+
 
