@@ -44,7 +44,7 @@ plots <- Covariate_Charts(lInput)
 
 ```
 
-kri0001 AE Reporting Rate
+kri0001 AE Reporting Rate {data-navmenu='Select Report'}
 ================================================================
 
 Sidebar {.sidebar}
@@ -107,7 +107,7 @@ lInput$kri0001$site %>%
 
 
 
-kri0002 SAE Reporting Rate
+kri0002 SAE Reporting Rate {data-navmenu='Select Report'}
 ================================================================
 
 Sidebar {.sidebar}
@@ -168,24 +168,15 @@ lInput$kri0002$site %>%
   datatable(rownames = FALSE)
 ```
 
-kri0003 PD Reporting Rate
+kri0003 PD Reporting Rate {data-navmenu='Select Report'}
 ================================================================
 
 Sidebar {.sidebar}
 ----------------------------------------------------------------
 ```{r results='asis'}
-# Study
-h4(strong("Study:"))
-cat(unique(lInput$kri0003$study$`Study ID`))
-
-# params$snapshot
-h4(strong("params$snapshot:"))
-cat(as.character(params$snapshot$lSnapshotDate))
-
-# Total Patients
-h4(strong("Total Patients:"))
-cat(n_distinct(lInput$kri0003$site$`Subject ID`))
-
+create_sidebar(study = unique(lInput$kri0003$study$`Study ID`),
+               date = as.character(snapshot$lSnapshotDate),
+               total = unique(lInput$kri0003$study$Enrolled))
 ```
 
 Scatter Plot {.tabset .tabset-fade}
@@ -238,24 +229,15 @@ lInput$kri0003$site %>%
   datatable(rownames = FALSE)
 ```
 
-kri0004 IPD Reporting Rate
+kri0004 IPD Reporting Rate {data-navmenu='Select Report'}
 ================================================================
 
 Sidebar {.sidebar}
 ----------------------------------------------------------------
 ```{r results='asis'}
-# Study
-h4(strong("Study:"))
-cat(unique(lInput$kri0004$study$`Study ID`))
-
-# params$snapshot
-h4(strong("params$snapshot:"))
-cat(as.character(params$snapshot$lSnapshotDate))
-
-# Total Patients
-h4(strong("Total Patients:"))
-cat(n_distinct(lInput$kri0004$site$`Subject ID`))
-
+create_sidebar(study = unique(lInput$kri0004$study$`Study ID`),
+               date = as.character(snapshot$lSnapshotDate),
+               total = unique(lInput$kri0004$study$Enrolled))
 ```
 
 Scatter Plot {.tabset .tabset-fade}
@@ -310,24 +292,15 @@ lInput$kri0004$site %>%
 
 
 
-kri0005 LB Reporting Rate
+kri0005 LB Reporting Rate {data-navmenu='Select Report'}
 ================================================================
 
 Sidebar {.sidebar}
 ----------------------------------------------------------------
 ```{r results='asis'}
-# Study
-h4(strong("Study:"))
-cat(unique(lInput$kri0005$study$`Study ID`))
-
-# params$snapshot
-h4(strong("params$snapshot:"))
-cat(as.character(params$snapshot$lSnapshotDate))
-
-# Total Patients
-h4(strong("Total Patients:"))
-cat(n_distinct(lInput$kri0005$site$`Subject ID`))
-
+create_sidebar(study = unique(lInput$kri0005$study$`Study ID`),
+               date = as.character(snapshot$lSnapshotDate),
+               total = unique(lInput$kri0005$study$Enrolled))
 ```
 
 Scatter Plot {.tabset .tabset-fade}
@@ -382,24 +355,15 @@ lInput$kri0005$site %>%
 
 
 
-kri0006 SDSC Reporting Rate
+kri0006 SDSC Reporting Rate {data-navmenu='Select Report'}
 ================================================================
 
 Sidebar {.sidebar}
 ----------------------------------------------------------------
 ```{r results='asis'}
-# Study
-h4(strong("Study:"))
-cat(unique(lInput$kri0006$study$`Study ID`))
-
-# params$snapshot
-h4(strong("params$snapshot:"))
-cat(as.character(params$snapshot$lSnapshotDate))
-
-# Total Patients
-h4(strong("Total Patients:"))
-cat(n_distinct(lInput$kri0006$site$`Subject ID`))
-
+create_sidebar(study = unique(lInput$kri0006$study$`Study ID`),
+               date = as.character(snapshot$lSnapshotDate),
+               total = unique(lInput$kri0006$study$Enrolled))
 ```
 
 Scatter Plot {.tabset .tabset-fade}
@@ -454,24 +418,15 @@ lInput$kri0006$site %>%
 
 
 
-kri0007 TDSC Reporting Rate
+kri0007 TDSC Reporting Rate {data-navmenu='Select Report'}
 ================================================================
 
 Sidebar {.sidebar}
 ----------------------------------------------------------------
 ```{r results='asis'}
-# Study
-h4(strong("Study:"))
-cat(unique(lInput$kri0007$study$`Study ID`))
-
-# params$snapshot
-h4(strong("params$snapshot:"))
-cat(as.character(params$snapshot$lSnapshotDate))
-
-# Total Patients
-h4(strong("Total Patients:"))
-cat(n_distinct(lInput$kri0007$site$`Subject ID`))
-
+create_sidebar(study = unique(lInput$kri0007$study$`Study ID`),
+               date = as.character(snapshot$lSnapshotDate),
+               total = unique(lInput$kri0007$study$Enrolled))
 ```
 
 Scatter Plot {.tabset .tabset-fade}
@@ -526,24 +481,15 @@ lInput$kri0007$site %>%
 
 
 
-kri0009 OQRY Reporting Rate
+kri0009 OQRY Reporting Rate {data-navmenu='Select Report'}
 ================================================================
 
 Sidebar {.sidebar}
 ----------------------------------------------------------------
 ```{r results='asis'}
-# Study
-h4(strong("Study:"))
-cat(unique(lInput$kri0009$study$`Study ID`))
-
-# params$snapshot
-h4(strong("params$snapshot:"))
-cat(as.character(params$snapshot$lSnapshotDate))
-
-# Total Patients
-h4(strong("Total Patients:"))
-cat(n_distinct(lInput$kri0009$site$`Subject ID`))
-
+create_sidebar(study = unique(lInput$kri0009$study$`Study ID`),
+               date = as.character(snapshot$lSnapshotDate),
+               total = unique(lInput$kri0009$study$Enrolled))
 ```
 
 Scatter Plot {.tabset .tabset-fade}
@@ -598,24 +544,15 @@ lInput$kri0009$site %>%
 
 
 
-kri0010 ODAT Reporting Rate
+kri0010 ODAT Reporting Rate {data-navmenu='Select Report'}
 ================================================================
 
 Sidebar {.sidebar}
 ----------------------------------------------------------------
 ```{r results='asis'}
-# Study
-h4(strong("Study:"))
-cat(unique(lInput$kri0010$study$`Study ID`))
-
-# params$snapshot
-h4(strong("params$snapshot:"))
-cat(as.character(params$snapshot$lSnapshotDate))
-
-# Total Patients
-h4(strong("Total Patients:"))
-cat(n_distinct(lInput$kri0010$site$`Subject ID`))
-
+create_sidebar(study = unique(lInput$kri0010$study$`Study ID`),
+               date = as.character(snapshot$lSnapshotDate),
+               total = unique(lInput$kri0010$study$Enrolled))
 ```
 
 Scatter Plot {.tabset .tabset-fade}
@@ -670,24 +607,15 @@ lInput$kri0010$site %>%
 
 
 
-kri0011 CDAT Reporting Rate
+kri0011 CDAT Reporting Rate {data-navmenu='Select Report'}
 ================================================================
 
 Sidebar {.sidebar}
 ----------------------------------------------------------------
 ```{r results='asis'}
-# Study
-h4(strong("Study:"))
-cat(unique(lInput$kri0011$study$`Study ID`))
-
-# params$snapshot
-h4(strong("params$snapshot:"))
-cat(as.character(params$snapshot$lSnapshotDate))
-
-# Total Patients
-h4(strong("Total Patients:"))
-cat(n_distinct(lInput$kri0011$site$`Subject ID`))
-
+create_sidebar(study = unique(lInput$kri0011$study$`Study ID`),
+               date = as.character(snapshot$lSnapshotDate),
+               total = unique(lInput$kri0011$study$Enrolled))
 ```
 
 Scatter Plot {.tabset .tabset-fade}
@@ -742,24 +670,15 @@ lInput$kri0011$site %>%
 
 
 
-kri0012 SF Reporting Rate
+kri0012 SF Reporting Rate {data-navmenu='Select Report'}
 ================================================================
 
 Sidebar {.sidebar}
 ----------------------------------------------------------------
 ```{r results='asis'}
-# Study
-h4(strong("Study:"))
-cat(unique(lInput$kri0012$study$`Study ID`))
-
-# params$snapshot
-h4(strong("params$snapshot:"))
-cat(as.character(params$snapshot$lSnapshotDate))
-
-# Total Patients
-h4(strong("Total Patients:"))
-cat(n_distinct(lInput$kri0012$site$`Subject ID`))
-
+create_sidebar(study = unique(lInput$kri0012$study$`Study ID`),
+               date = as.character(snapshot$lSnapshotDate),
+               total = unique(lInput$kri0012$study$Enrolled))
 ```
 
 Scatter Plot {.tabset .tabset-fade}
