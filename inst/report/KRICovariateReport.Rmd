@@ -1,5 +1,5 @@
 ---
-title: "GSM - Treatment Discontinuation Deep Dive"
+title: "GSM - Covariate Report"
 subtitle: "Generated with the Good Statistical Monitoring {gsm} package"
 output: 
   flexdashboard::flex_dashboard:
@@ -39,29 +39,20 @@ dist_list <- list(
   kri0012 = c("dfENROLL", "sfreas")
 )
 
-lInput <- Distribution_Map(params$snapshot, dist_list)
-plots <- Distribution_Charts(lInput)
+lInput <- Covariate_Map(params$snapshot, dist_list)
+plots <- Covariate_Charts(lInput)
 
 ```
 
-AE Reporting Rate
+kri0001 AE Reporting Rate
 ================================================================
 
 Sidebar {.sidebar}
 ----------------------------------------------------------------
 ```{r results='asis'}
-# Study
-h4(strong("Study:"))
-cat(unique(lInput$kri0001$study$`Study ID`))
-
-# Snapshot
-h4(strong("Snapshot:"))
-cat(as.character(snapshot$lSnapshotDate))
-
-# Total Patients
-h4(strong("Total Patients:"))
-cat(n_distinct(lInput$kri0001$site$`Subject ID`))
-
+create_sidebar(study = unique(lInput$kri0001$study$`Study ID`),
+               date = as.character(snapshot$lSnapshotDate),
+               total = unique(lInput$kri0001$study$Enrolled))
 ```
 
 Scatter Plot {.tabset .tabset-fade}
@@ -101,7 +92,7 @@ Bar Plot Site
 ----------------------------------------------------------------
 
 ### <font size=5px>**Site-wide Adverse Effects**</font>
-```{r fig.height={fig_bar_site} }
+```{r fig.height={fig_bar_site}}
 plots$kri0001$site
 ```
 
@@ -116,7 +107,68 @@ lInput$kri0001$site %>%
 
 
 
-KRI0003 PD Reporting Rate
+kri0002 SAE Reporting Rate
+================================================================
+
+Sidebar {.sidebar}
+----------------------------------------------------------------
+```{r results='asis'}
+create_sidebar(study = unique(lInput$kri0002$study$`Study ID`),
+               date = as.character(snapshot$lSnapshotDate),
+               total = unique(lInput$kri0002$study$Enrolled))
+```
+
+Scatter Plot {.tabset .tabset-fade}
+----------------------------------------------------------------
+```{r results='asis'}
+tab_title("SAE Reporting Rate by Site")
+```
+
+### <font size=3px>**Scatter Plot**</font> 
+```{r}
+snapshot$lCharts$kri0002$scatterJS
+```
+
+### <font size=3px>**Bar Plot (Metric)**</font> 
+```{r}
+snapshot$lCharts$kri0002$barMetricJS
+```
+
+### <font size=3px>**Bar Plot (Score)**</font> 
+```{r}
+snapshot$lCharts$kri0002$barScoreJS
+```
+
+Bar Plot Study
+----------------------------------------------------------------
+```{r}
+fig_bar_study <- round(length(unique(lInput$kri0002$study$Metric))/3)
+fig_bar_site <- round(length(unique(lInput$kri0002$site$`Site ID`))/3)
+```
+
+### <font size=5px>**Study-wide Serious Adverse Effects**</font> 
+```{r fig.height={fig_bar_study} }
+plots$kri0002$study
+```
+
+Bar Plot Site 
+----------------------------------------------------------------
+
+### <font size=5px>**Site-wide Serious Adverse Effects**</font>
+```{r fig.height={fig_bar_site}}
+plots$kri0002$site
+```
+
+Table
+----------------------------------------------------------------
+
+### <font size=5px>**AE Reasons Summary**</font> 
+```{r}
+lInput$kri0002$site %>%
+  datatable(rownames = FALSE)
+```
+
+kri0003 PD Reporting Rate
 ================================================================
 
 Sidebar {.sidebar}
@@ -173,7 +225,7 @@ Bar Plot Site
 ----------------------------------------------------------------
 
 ### <font size=5px>**Site-wide Adverse Effects**</font>
-```{r }
+```{r fig.height={fig_bar_site}}
 plots$kri0003$site
 ```
 
@@ -186,7 +238,7 @@ lInput$kri0003$site %>%
   datatable(rownames = FALSE)
 ```
 
-KRI0004 IPD Reporting Rate
+kri0004 IPD Reporting Rate
 ================================================================
 
 Sidebar {.sidebar}
@@ -243,7 +295,7 @@ Bar Plot Site
 ----------------------------------------------------------------
 
 ### <font size=5px>**Site-wide Adverse Effects**</font>
-```{r }
+```{r fig.height={fig_bar_site} }
 plots$kri0004$site
 ```
 
@@ -258,7 +310,7 @@ lInput$kri0004$site %>%
 
 
 
-KRI0005 LB Reporting Rate
+kri0005 LB Reporting Rate
 ================================================================
 
 Sidebar {.sidebar}
@@ -315,7 +367,7 @@ Bar Plot Site
 ----------------------------------------------------------------
 
 ### <font size=5px>**Site-wide Adverse Effects**</font>
-```{r }
+```{r fig.height={fig_bar_site} }
 plots$kri0005$site
 ```
 
@@ -330,7 +382,7 @@ lInput$kri0005$site %>%
 
 
 
-KRI0006 SDSC Reporting Rate
+kri0006 SDSC Reporting Rate
 ================================================================
 
 Sidebar {.sidebar}
@@ -387,7 +439,7 @@ Bar Plot Site
 ----------------------------------------------------------------
 
 ### <font size=5px>**Site-wide Adverse Effects**</font>
-```{r}
+```{r fig.height={fig_bar_site} }
 plots$kri0006$site
 ```
 
@@ -402,7 +454,7 @@ lInput$kri0006$site %>%
 
 
 
-KRI0007 TDSC Reporting Rate
+kri0007 TDSC Reporting Rate
 ================================================================
 
 Sidebar {.sidebar}
@@ -459,7 +511,7 @@ Bar Plot Site
 ----------------------------------------------------------------
 
 ### <font size=5px>**Site-wide Adverse Effects**</font>
-```{r }
+```{r  fig.height={fig_bar_site} }
 plots$kri0007$site
 ```
 
@@ -474,7 +526,7 @@ lInput$kri0007$site %>%
 
 
 
-KRI0009 OQRY Reporting Rate
+kri0009 OQRY Reporting Rate
 ================================================================
 
 Sidebar {.sidebar}
@@ -531,7 +583,7 @@ Bar Plot Site
 ----------------------------------------------------------------
 
 ### <font size=5px>**Site-wide Adverse Effects**</font>
-```{r }
+```{r fig.height={fig_bar_site} }
 plots$kri0009$site
 ```
 
@@ -546,7 +598,7 @@ lInput$kri0009$site %>%
 
 
 
-KRI0010 ODAT Reporting Rate
+kri0010 ODAT Reporting Rate
 ================================================================
 
 Sidebar {.sidebar}
@@ -603,7 +655,7 @@ Bar Plot Site
 ----------------------------------------------------------------
 
 ### <font size=5px>**Site-wide Adverse Effects**</font>
-```{r }
+```{r fig.height={fig_bar_site} }
 plots$kri0010$site
 ```
 
@@ -618,7 +670,7 @@ lInput$kri0010$site %>%
 
 
 
-KRI0011 CDAT Reporting Rate
+kri0011 CDAT Reporting Rate
 ================================================================
 
 Sidebar {.sidebar}
@@ -675,7 +727,7 @@ Bar Plot Site
 ----------------------------------------------------------------
 
 ### <font size=5px>**Site-wide Adverse Effects**</font>
-```{r }
+```{r fig.height={fig_bar_site} }
 plots$kri0011$site
 ```
 
@@ -690,7 +742,7 @@ lInput$kri0011$site %>%
 
 
 
-KRI0012 SF Reporting Rate
+kri0012 SF Reporting Rate
 ================================================================
 
 Sidebar {.sidebar}
@@ -747,7 +799,7 @@ Bar Plot Site
 ----------------------------------------------------------------
 
 ### <font size=5px>**Site-wide Adverse Effects**</font>
-```{r }
+```{r fig.height={fig_bar_site} }
 plots$kri0012$site
 ```
 

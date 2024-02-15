@@ -5,7 +5,7 @@
 #' @export
 #' @keywords Internal
 Covariate_Report <- function(snapshot){
-  projectTemplate <- system.file("report", "KRIDistributionReport.Rmd", package = "gsm")
+  projectTemplate <- system.file("report", "KRICovariateReport.Rmd", package = "gsm")
   strOutpath <- paste0(getwd(), "/gsm_covariate_report.html")
 
   rmarkdown::render(
