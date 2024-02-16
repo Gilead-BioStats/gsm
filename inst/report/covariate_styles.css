@@ -11,6 +11,7 @@
 
 body {
   font-family: 'Roboto', sans-serif;
+  padding-top: 50px;
 }
 
 #navbar {
@@ -37,5 +38,11 @@ body {
 .nav-tabs-custom > .nav-tabs > li.active {
   border-top-color: var(--blue-button-color);
 }
+
+.navbar{
+  visibility: hidden
+}
+
+
 
 

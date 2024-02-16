@@ -45,22 +45,48 @@ MakeCovariateDashboard <- function(lSnapshot, lCovariateTables, lCovariateCharts
   )
 
   # Create Page title ----------------------------------------------------
+
+  # for getting the current/single workflow
   page_title <- lSnapshot$lInputs$lMeta$meta_workflow %>%
     filter(workflowid == strKRI) %>%
     pull(metric)
 
+
+  # for getting all workflows for the sidebar
+  all_workflows <- lSnapshot$lInputs$lMeta$meta_workflow %>%
+    filter(workflowid %in% names(lCovariateTables)) %>%
+    pull(metric)
+
+  all_workflows_href <- lSnapshot$lInputs$lMeta$meta_workflow %>%
+    filter(workflowid %in% names(lCovariateTables)) %>%
+    mutate(
+      href = tolower(gsub("[[:space:]]", "", metric)),
+      href = gsub("[^[:alnum:] ]", "", href)
+    ) %>%
+    pull(href)
+
   # Create Page ----------------------------------------------------------
-  cat(paste0(page_title, "\n"))
+  page_title_href <- tolower(gsub("[[:space:]]", "", page_title))
+  page_title_href <- gsub("[^[:alnum:] ]", "", page_title_href)
+  cat(paste0(page_title, " {#", page_title_href, "}\n"))
   cat("================================================================\n")
 
   # Create Page Sidebar --------------------------------------------------
   cat("Sidebar {.sidebar}\n")
   cat("----------------------------------------------------------------\n")
 
+  cat("\n")
+  cat("<label class='kri-label'>KRI: </label>")
+  cat("<select name='kri-dropdown' class='kri-dropdown'>")
+  cat(glue::glue("<option value='{all_workflows}' id='{all_workflows}' class = '{all_workflows_href}'>{all_workflows}</option>"))
+  cat("</select>")
+  cat("\n")
+
   create_sidebar(study = unique(lCovariateTables$kri0001$study$`Study ID`),
-                 date = as.character(snapshot$lSnapshotDate),
+                 date = as.character(lSnapshot$lSnapshotDate),
                  total = unique(lCovariateTables$kri0001$study$Enrolled))
-  #
+
+
   # # Create KRI JS plots Section -------------------------------------------
   cat("\n\n Scatter Plot {.tabset .tabset-fade} \n")
   cat("----------------------------------------------------------------\n")
