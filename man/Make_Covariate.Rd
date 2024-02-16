@@ -9,6 +9,16 @@ Make_Covariate(lSnapshot)
 \arguments{
 \item{lSnapshot}{\code{list} a snapshot object from \code{Make_Snapshot()}}
 }
+\value{
+\code{list} containing covariate tables and charts for \link{Covariate_Report}.
+}
 \description{
 Make Covariate Data
+}
+\examples{
+\dontrun{
+snapshot <- Make_Snapshot()
+covariate <- Make_Covariate(snapshot)
+}
+
 }

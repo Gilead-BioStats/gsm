@@ -157,10 +157,10 @@ Process_Distribution_Page <- function(lSnapshot, lCovariateTables, lCovariateCha
 
 ```{r results='asis'}
 purrr::map(names(params$lCovariateTables), 
-  ~ Process_Distribution_Page(
+  ~ MakeCovariateDashboard(
   lSnapshot = params$lSnapshot, 
   lCovariateTables = params$lCovariateTables, 
   lCovariateCharts = params$lCovariateCharts,
-  kri = .x)
+  strKRI = .x)
 )
 ```

@@ -27,6 +27,7 @@ body {
 
 .navbar-inverse .navbar-nav>li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
   background-color: var(--less-good-gray)
+  border-color: #fff;
 }
 
 .section.sidebar {
@@ -36,3 +37,5 @@ body {
 .nav-tabs-custom > .nav-tabs > li.active {
   border-top-color: var(--blue-button-color);
 }
+
+
