@@ -4,15 +4,17 @@
 #'
 #' @export
 #' @keywords Internal
-Covariate_Report <- function(snapshot){
-  projectTemplate <- system.file("report", "KRICovariateReport.Rmd", package = "gsm")
+Covariate_Report <- function(lSnapshot, lCovariate){
+  projectTemplate <- system.file("report", "CovariateReport.Rmd", package = "gsm")
   strOutpath <- paste0(getwd(), "/gsm_covariate_report.html")
 
   rmarkdown::render(
     projectTemplate,
     output_file = strOutpath,
     params = list(
-      snapshot = snapshot
+      lSnapshot = lSnapshot,
+      lCovariateTables = lCovariate$lCovariateTables,
+      lCovariateCharts = lCovariate$lCovariateCharts
     ),
     envir = new.env(parent = globalenv())
   )

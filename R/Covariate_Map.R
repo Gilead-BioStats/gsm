@@ -1,13 +1,30 @@
 #' Map through raw data for distribution of causes checked in kri's
 #'
 #' @param lSnapshot `list` a snapshot object from `Make_Snapshot()`
-#' @param dist_list `list` a list of data and linked category columns
 #'
 #' @keywords internal
 #'
 #' @export
 #'
-Covariate_Map <- function(lSnapshot, dist_list){
+Covariate_Map <- function(lSnapshot){
+
+  # hardcode for now - will be included in lSnapshot$lStudyAssessResults[[kri]]$config
+  dist_list <- list(
+    kri0001 = c("dfAE", "mdrsoc_nsv"),
+    kri0002 = c("dfAE", "mdrsoc_nsv"),
+    kri0003 = c("dfPD", "companycategory"),
+    kri0004 = c("dfPD", "companycategory"),
+    kri0005 = c("dfLB", "lbtstnam"),
+    kri0006 = c("dfSTUDCOMP", "compreas"),
+    kri0007 = c("dfSDRGCOMP", "sdrgreas"),
+    #kri0008 = params$snapshot$lInputs$lData$dfAE, #?
+    kri0009 = c("dfQUERY", "formoid"),
+    kri0010 = c("dfDATAENT", "formoid"),
+    kri0011 = c("dfDATACHG", "formoid"),
+    kri0012 = c("dfENROLL", "sfreas")
+  )
+
+
   # Define Mapping
   lMapping <- lSnapshot$lInputs$lMapping
   # Create filte for dfSUBJ to include only relevent columns

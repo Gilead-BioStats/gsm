@@ -1,3 +1,8 @@
+config:
+  covariates:
+    - domain: dfSDRGCOMP
+      column: strTreatmentDiscontinuationReasonCol
+      description: "Treatment Discontinuation Reason"
 steps:
   - name: FilterDomain
     inputs: dfSUBJ

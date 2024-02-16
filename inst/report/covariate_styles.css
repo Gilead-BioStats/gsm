@@ -1,0 +1,38 @@
+/* MAIN */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400');
+
+:root {
+  --good-red: #c51f3f;
+  --good-gray: #9D9D9D;
+  --less-good-gray: #4e4e4e
+  --blue-button-color: #3C587F;
+  --default: 'Roboto', sans-serif;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+#navbar {
+  background-color: var(--good-red);
+}
+
+.container-fluid{
+  background-color: var(--good-red);
+}
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover, .navbar-inverse .navbar-nav>.active>a:focus {
+  background-color: var(--good-gray);
+}
+
+.navbar-inverse .navbar-nav>li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+  background-color: var(--less-good-gray)
+}
+
+.section.sidebar {
+  background-color: #fff;
+}
+
+.nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: var(--blue-button-color);
+}

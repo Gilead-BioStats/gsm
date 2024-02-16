@@ -28,6 +28,7 @@ dfAE:
   strSOCCol: mdrsoc_nsv
   strTreatmentEmergentCol: treatmentemergent
   strTreatmentEmergentVal: "Y"
+  strSystemOrganClassCol: mdrsoc_nsv
 dfIE:
   strIDCol: subjid
   strVersionCol: tiver

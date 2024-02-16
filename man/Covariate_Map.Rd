@@ -4,12 +4,10 @@
 \alias{Covariate_Map}
 \title{Map through raw data for distribution of causes checked in kri's}
 \usage{
-Covariate_Map(lSnapshot, dist_list)
+Covariate_Map(lSnapshot)
 }
 \arguments{
 \item{lSnapshot}{\code{list} a snapshot object from \code{Make_Snapshot()}}
-
-\item{dist_list}{\code{list} a list of data and linked category columns}
 }
 \description{
 Map through raw data for distribution of causes checked in kri's

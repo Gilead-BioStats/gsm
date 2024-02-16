@@ -1,3 +1,8 @@
+config:
+  covariates:
+    - domain: dfPD
+      column: strCategoryCol
+      description: "Protocol Deviation Category"
 steps:
   - name: FilterDomain
     inputs: dfSUBJ

@@ -1,0 +1,166 @@
+---
+title: "GSM Covariate Report"
+subtitle: "Generated with the Good Statistical Monitoring {gsm} package"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: scroll
+    css: covariate_styles.css
+params:
+  lSnapshot: NA
+  lCovariateTables: NA
+  lCovariateCharts: NA
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(gsm)
+library(DT)
+library(gt)
+library(dplyr)
+library(plotly)
+library(glue)
+library(htmltools)
+devtools::load_all()
+```
+
+<style>
+.navbar-inverse .navbar-nav>li>a {
+  text-overflow: ellipsis;
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: clip;
+}
+</style>
+
+```{r}
+
+create_sidebar <- function(study, date, total){
+  # Study
+  print(h4(strong("Study:")))
+  cat(study)
+  
+  # Snapshot
+  print(h4(strong("Snapshot:")))
+  cat(date)
+  
+  # # Total Patients
+  print(h4(strong("Total Patients:")))
+  cat(total)
+}
+
+Process_Distribution_Page <- function(lSnapshot, lCovariateTables, lCovariateCharts, kri){
+  
+  # Setup
+  # -- select only JS charts to add additional metadata for rendering
+  # -- https://github.com/rstudio/rmarkdown/issues/1877
+  rbmviz_charts <- params$lSnapshot$lCharts[[kri]][grepl("JS", names(params$lSnapshot$lCharts[[kri]]))]
+  covariate_charts <- params$lCovariateCharts[[kri]]
+  covariate_tables <- params$lCovariateTables[[kri]] %>% 
+    purrr::map( ~ DT::datatable(.x, options = list(rownames= FALSE)))
+  
+  purrr::map(
+    rbmviz_charts,
+    ~ .x %>% 
+      knitr::knit_print() %>%
+      attr("knit_meta") %>%
+      knitr::knit_meta_add() %>%
+      invisible()
+  )
+  
+  purrr::map(
+    covariate_charts,
+    ~ .x %>% 
+      knitr::knit_print() %>%
+      attr("knit_meta") %>%
+      knitr::knit_meta_add() %>%
+      invisible()
+  )
+  
+  purrr::map(
+    covariate_tables,
+    ~ .x %>% 
+      knitr::knit_print() %>%
+      attr("knit_meta") %>%
+      knitr::knit_meta_add() %>%
+      invisible()
+  )
+  
+  # Create Page title ----------------------------------------------------
+  page_title <- lSnapshot$lInputs$lMeta$meta_workflow %>%
+    filter(workflowid == kri) %>%
+    pull(metric)
+  
+  # Create Page ----------------------------------------------------------
+  cat(paste0(page_title, "\n"))
+  cat("================================================================\n")
+  
+  # Create Page Sidebar --------------------------------------------------
+  cat("Sidebar {.sidebar}\n")
+  cat("----------------------------------------------------------------\n")
+
+  create_sidebar(study = unique(lCovariateTables$kri0001$study$`Study ID`),
+                 date = as.character(snapshot$lSnapshotDate),
+                 total = unique(lCovariateTables$kri0001$study$Enrolled))
+  # 
+  # # Create KRI JS plots Section -------------------------------------------
+  cat("\n\n Scatter Plot {.tabset .tabset-fade} \n")
+  cat("----------------------------------------------------------------\n")
+
+  ## Create KRI JS plots section title
+  tab_title(page_title)
+
+  ## Create Scatter JS plot
+  cat("### <font size=3px>**Scatter Plot**</font>", "\n")
+  cat(knitr::knit_print(htmltools::tagList(rbmviz_charts$scatterJS)))
+  
+  # Create Bar Metric JS plot
+  cat("### <font size=3px>**Bar Plot (Metric)**</font>", "\n")
+  cat(knitr::knit_print(htmltools::tagList(rbmviz_charts$barMetricJS)))
+  # 
+  # ## Create Bar Score JS plot
+  cat("### <font size=3px>**Bar Plot (Score)**</font>", "\n")
+  cat(knitr::knit_print(htmltools::tagList(rbmviz_charts$barScoreJS)))
+
+  # Create Study Bar Plot Section -----------------------------------------
+  cat("\n")
+  cat("Bar Plot Study", "\n")
+  cat("----------------------------------------------------------------\n")
+  
+  # Make Title
+  cat("### <font size=5px>**Study-wide Metrics**</font>", "\n")
+  cat(knitr::knit_print(htmltools::tagList(covariate_charts$study)))
+
+  # Create Site Bar Plot Section ------------------------------------------
+  cat("\n")
+  cat("Bar Plot Site", "\n")
+  cat("----------------------------------------------------------------\n")
+  
+  # Make Title
+  cat("### <font size=5px>**Site-wide Metrics**</font>", "\n")
+  cat(knitr::knit_print(htmltools::tagList(covariate_charts$site)))
+
+  # Create Site Bar Plot Section ------------------------------------------
+  cat("\n")
+  cat("\n\n Tables {.tabset .tabset-fade} \n")
+  cat("----------------------------------------------------------------\n")
+  # Make Title  
+  cat("### <font size=5px>**Study Table**</font>", "\n")
+  cat(knitr::knit_print(htmltools::tagList(covariate_tables$study)))
+  
+  cat("### <font size=5px>**Site Table**</font>", "\n")
+  cat(knitr::knit_print(htmltools::tagList(covariate_tables$site)))
+  
+}
+```
+
+
+```{r results='asis'}
+purrr::map(names(params$lCovariateTables), 
+  ~ Process_Distribution_Page(
+  lSnapshot = params$lSnapshot, 
+  lCovariateTables = params$lCovariateTables, 
+  lCovariateCharts = params$lCovariateCharts,
+  kri = .x)
+)
+```
