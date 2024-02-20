@@ -24,49 +24,27 @@ library(htmltools)
 devtools::load_all()
 ```
 
-<style>
-.navbar-inverse .navbar-nav>li>a {
-  text-overflow: ellipsis;
-  max-width: 200px;
-  white-space: nowrap;
-  overflow: clip;
-}
-</style>
-
-```{r}
-
-create_sidebar <- function(study, date, total){
-  # Study
-  print(h4(strong("Study:")))
-  cat(study)
-  
-  # Snapshot
-  print(h4(strong("Snapshot:")))
-  cat(date)
-  
-  # # Total Patients
-  print(h4(strong("Total Patients:")))
-  cat(total)
-}
-
-```
-
 
 ```{r results='asis'}
-purrr::map(names(params$lCovariateTables), 
+purrr::imap(names(params$lCovariateTables), 
   ~ MakeCovariateDashboard(
   lSnapshot = params$lSnapshot, 
   lCovariateTables = params$lCovariateTables, 
   lCovariateCharts = params$lCovariateCharts,
-  strKRI = .x)
+  strKRI = .x,
+  elementId = .y)
 )
 ```
 
 ```{r, echo = FALSE}
 covariate_dropdown <- system.file('utils-0.0.1', 'covariateDropDown.js', package = "gsm")
+covariate_highlight_site <- system.file('utils-0.0.1', 'covariateHighlightSite.js', package = "gsm")
 ```
 
 
 ```{js, file={covariate_dropdown}, echo=FALSE}
+```
+
+```{js, file={covariate_highlight_site}, echo=FALSE}
 ```
 

@@ -4,7 +4,13 @@
 \alias{MakeCovariateDashboard}
 \title{Helper functions for the covariate report.}
 \usage{
-MakeCovariateDashboard(lSnapshot, lCovariateTables, lCovariateCharts, strKRI)
+MakeCovariateDashboard(
+  lSnapshot,
+  lCovariateTables,
+  lCovariateCharts,
+  strKRI,
+  elementId = NULL
+)
 }
 \arguments{
 \item{lSnapshot}{\code{list} a snapshot object from \code{Make_Snapshot()}}

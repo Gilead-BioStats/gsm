@@ -7,7 +7,7 @@
 #'
 #' @keywords internal
 #' @export
-MakeCovariateDashboard <- function(lSnapshot, lCovariateTables, lCovariateCharts, strKRI){
+MakeCovariateDashboard <- function(lSnapshot, lCovariateTables, lCovariateCharts, strKRI, elementId = NULL){
 
   # Setup
   # -- select only JS charts to add additional metadata for rendering
@@ -65,6 +65,8 @@ MakeCovariateDashboard <- function(lSnapshot, lCovariateTables, lCovariateCharts
     ) %>%
     pull(href)
 
+  all_workflows_id <- glue::glue("{all_workflows}-{elementId}")
+
   # Create Page ----------------------------------------------------------
   page_title_href <- tolower(gsub("[[:space:]]", "", page_title))
   page_title_href <- gsub("[^[:alnum:] ]", "", page_title_href)
@@ -77,14 +79,16 @@ MakeCovariateDashboard <- function(lSnapshot, lCovariateTables, lCovariateCharts
 
   cat("\n")
   cat("<label class='kri-label'>KRI: </label>")
-  cat("<select name='kri-dropdown' class='kri-dropdown'>")
-  cat(glue::glue("<option value='{all_workflows}' id='{all_workflows}' class = '{all_workflows_href}'>{all_workflows}</option>"))
+  cat("<select name='kri-dropdown' class='kri-dropdown' onchange = 'onCovariateChange(this.value)'>")
+  cat(glue::glue("<option value='{all_workflows}' id='{all_workflows_id}' class = '{all_workflows_href}'>{all_workflows}</option>"))
   cat("</select>")
   cat("\n")
 
   create_sidebar(study = unique(lCovariateTables$kri0001$study$`Study ID`),
                  date = as.character(lSnapshot$lSnapshotDate),
-                 total = unique(lCovariateTables$kri0001$study$Enrolled))
+                 total = unique(lCovariateTables$kri0001$study$Enrolled),
+                 var = "placeholder...",
+                 domain = page_title)
 
 
   # # Create KRI JS plots Section -------------------------------------------
@@ -112,8 +116,9 @@ MakeCovariateDashboard <- function(lSnapshot, lCovariateTables, lCovariateCharts
   cat("----------------------------------------------------------------\n")
 
   # Make Title
-  cat("### <font size=5px>**Study-wide Metrics**</font>", "\n")
-  cat(knitr::knit_print(htmltools::tagList(covariate_charts$study)))
+  cat("### <font size=5px>**Site-wide Metrics**</font>", "\n")
+  cat(knitr::knit_print(htmltools::tagList(covariate_charts$site)))
+
 
   # Create Site Bar Plot Section ------------------------------------------
   cat("\n")
@@ -121,8 +126,9 @@ MakeCovariateDashboard <- function(lSnapshot, lCovariateTables, lCovariateCharts
   cat("----------------------------------------------------------------\n")
 
   # Make Title
-  cat("### <font size=5px>**Site-wide Metrics**</font>", "\n")
-  cat(knitr::knit_print(htmltools::tagList(covariate_charts$site)))
+  cat("### <font size=5px>**Study-wide Metrics**</font>", "\n")
+  cat(knitr::knit_print(htmltools::tagList(covariate_charts$study)))
+
 
   # Create Site Bar Plot Section ------------------------------------------
   cat("\n")
@@ -135,4 +141,35 @@ MakeCovariateDashboard <- function(lSnapshot, lCovariateTables, lCovariateCharts
   cat("### <font size=5px>**Site Table**</font>", "\n")
   cat(knitr::knit_print(htmltools::tagList(covariate_tables$site)))
 
+}
+
+
+#' Create sidebar component for Covariate Report.
+#'
+#' @param study `character` a snapshot object from `Make_Snapshot()`
+#' @param date `character` a snapshot object from `Make_Snapshot()`
+#' @param total `character` a snapshot object from `Make_Snapshot()`
+#' @param var `character` a snapshot object from `Make_Snapshot()`
+#' @param domain `character` a snapshot object from `Make_Snapshot()`
+#'
+#' @keywords internal
+#' @export
+create_sidebar <- function(study, date, total, var, domain){
+  # Study
+  print(h4(strong("Study:")))
+  cat(study)
+
+  # Snapshot
+  print(h4(strong("Snapshot:")))
+  cat(date)
+
+  # # Total Patients
+  print(h4(strong("Total Patients:")))
+  cat(total)
+
+  print(h4(strong("Domain: ")))
+  cat(domain)
+
+  print(h4(strong("Categorical Variable: ")))
+  cat(var)
 }

@@ -1,24 +1,28 @@
-function addCovariateDropdown() {
+const main = window.location.href;
 
-  const main = window.location.href
+function onCovariateChange(value) {
+  const dropdowns = [...document.querySelectorAll('.kri-dropdown')];
+  let matchingIds = [];
 
-  console.log('hello')
+  dropdowns.forEach(el => {
+    if (typeof value !== 'undefined') {
+      el.value = value;
+    } else {
+      el.value = el.options[0].value;
+    }
 
+    let elements = document.querySelectorAll(`[id^="${el.value}-"]`);
+    elements.forEach(element => {
+      matchingIds.push(element.className);
+    });
+  });
 
-  const dropdowns = [...document.querySelectorAll('.kri-dropdown')]
-
-  dropdowns.map(el => {
-      el.addEventListener("change", function(e){
-          var selected = document.getElementById(`${e.target.value}`)
-          window.location.href = `${main}#${selected.className}`
-      })
-  })
-
-  console.log(main)
-
+  if (typeof matchingIds !== 'undefined' && matchingIds.length > 0) {
+    console.log('selected metric: ', matchingIds);
+    window.location.href = `${main}#${matchingIds[0]}`;
+  }
 }
 
-
 document.addEventListener("DOMContentLoaded", function () {
-  addCovariateDropdown()
-})
+  onCovariateChange();
+});
