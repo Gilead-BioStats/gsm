@@ -11,6 +11,7 @@ Widget_BarChart(
   strYAxisType = "score",
   selectedGroupIDs = NULL,
   addSiteSelect = TRUE,
+  bHideDropdown = FALSE,
   width = NULL,
   height = NULL,
   elementId = NULL
@@ -46,6 +47,9 @@ Widget_BarChart(
 \item{selectedGroupIDs}{group IDs to highlight, \code{NULL} by default, can be a single site or a vector.}
 
 \item{addSiteSelect}{\code{logical} add a dropdown to highlight sites? Default: \code{TRUE}.}
+
+\item{bHideDropdown}{\code{logical} should the dropdown be hidden? Default: \code{FALSE}. This is primarily used for the Shiny app \code{{gsmApp}} to hide the drop-down site selector,
+since it is an additional element that needs to be updated based on user interactivity.}
 
 \item{width}{width of widget, full screen by default}
 
