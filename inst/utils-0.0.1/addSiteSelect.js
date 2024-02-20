@@ -21,6 +21,7 @@ const addSiteSelect = function(el, results, instance, siteSelectLabelValue) {
 
     // add dropdown label
     const siteSelectLabel = document.createElement('span');
+    siteSelectLabel.classList.add("gsm-site-select-label")
     siteSelectLabel.innerHTML = siteSelectLabelValue;
     siteSelectContainer.appendChild(siteSelectLabel)
 
