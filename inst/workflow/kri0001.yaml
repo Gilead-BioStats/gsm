@@ -1,3 +1,8 @@
+config:
+  covariates:
+    - domain: dfAE
+      column: strSystemOrganClassCol
+      description: "System Organ Class"
 steps:
   - name: FilterDomain
     inputs: dfSUBJ

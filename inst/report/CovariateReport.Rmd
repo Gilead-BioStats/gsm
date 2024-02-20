@@ -1,0 +1,50 @@
+---
+title: "GSM Covariate Report"
+subtitle: "Generated with the Good Statistical Monitoring {gsm} package"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: scroll
+    css: covariate_styles.css
+params:
+  lSnapshot: NA
+  lCovariateTables: NA
+  lCovariateCharts: NA
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(gsm)
+library(DT)
+library(gt)
+library(dplyr)
+library(plotly)
+library(glue)
+library(htmltools)
+devtools::load_all()
+```
+
+
+```{r results='asis'}
+purrr::imap(names(params$lCovariateTables), 
+  ~ MakeCovariateDashboard(
+  lSnapshot = params$lSnapshot, 
+  lCovariateTables = params$lCovariateTables, 
+  lCovariateCharts = params$lCovariateCharts,
+  strKRI = .x,
+  elementId = .y)
+)
+```
+
+```{r, echo = FALSE}
+covariate_dropdown <- system.file('utils-0.0.1', 'covariateDropDown.js', package = "gsm")
+covariate_highlight_site <- system.file('utils-0.0.1', 'covariateHighlightSite.js', package = "gsm")
+```
+
+
+```{js, file={covariate_dropdown}, echo=FALSE}
+```
+
+```{js, file={covariate_highlight_site}, echo=FALSE}
+```
+

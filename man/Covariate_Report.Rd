@@ -4,7 +4,7 @@
 \alias{Covariate_Report}
 \title{Create and output Covariate Report}
 \usage{
-Covariate_Report(snapshot)
+Covariate_Report(lSnapshot, lCovariate)
 }
 \arguments{
 \item{snapshot}{\code{list} snapshot object output from \code{Make_Snapshot()}}

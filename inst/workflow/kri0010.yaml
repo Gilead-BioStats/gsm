@@ -1,3 +1,8 @@
+config:
+  covariates:
+    - domain: dfDATAENT
+      column: strFormCol
+      description: "Data Entry Form Description"
 steps:
   - name: FilterDomain
     inputs: dfSUBJ

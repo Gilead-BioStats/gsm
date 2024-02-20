@@ -28,8 +28,11 @@ Covariate_Charts <- function(lInput){
                           titlefont = list(size = 16)),
              margin = list(pad = 4)
       )
+
+
     ## create site level bar plot
     plot_output$site <- plot_ly(kri$site) %>%
+      highlight_key(~ `Site ID`) %>%
       add_trace(
         y = ~reorder(`Site ID`, Total),
         x = ~Total,
@@ -44,11 +47,18 @@ Covariate_Charts <- function(lInput){
         textposition = "none",
         hoverinfo = "text"
       ) %>%
-      layout(xaxis = list(title = ""),
-             yaxis = list(title = list(text = "<b>Number of Patients</b>"),
+      layout(xaxis = list(title = "<b>Number of Patients</b>"),
+             yaxis = list(title = list(text = ""),
                           titlefont = list(size = 16)),
              barmode = "stack",
-             margin = list(pad = 4))
+             margin = list(pad = 4)) %>%
+      highlight(on = "plotly_click",off = "plotly_doubleclick") %>%
+      htmlwidgets::onRender("
+      function(el, x) {
+        el.classList.add('covariate-scatter-plot');
+  }")
+
+
     return(plot_output)
   })
   return(mapped_plots)

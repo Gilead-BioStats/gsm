@@ -1,3 +1,8 @@
+config:
+  covariates:
+    - domain: dfDATACHG
+      column: strFormCol
+      description: "Data Change Form Description"
 steps:
   - name: FilterDomain
     inputs: dfSUBJ

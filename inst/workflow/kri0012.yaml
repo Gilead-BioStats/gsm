@@ -1,3 +1,8 @@
+config:
+  covariates:
+    - domain: dfENROLL
+      column: strScreenFailReasonCol
+      description: "Screen Failure Reason"
 steps:
   - name: Screening_Map_Raw
     inputs:
