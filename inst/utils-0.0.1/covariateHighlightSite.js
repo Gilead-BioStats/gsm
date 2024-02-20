@@ -36,6 +36,7 @@ function covariateHighlightSite() {
     el.addEventListener("click", function (e) {
       setTimeout(function () {
         let currentSite = e.target.clickEvent.data.groupid;
+        console.log(currentSite)
 
         // Check if the currentSite has changed
         if (currentSite !== previousSite) {

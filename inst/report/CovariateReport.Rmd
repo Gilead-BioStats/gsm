@@ -42,8 +42,7 @@ covariate_highlight_site <- system.file('utils-0.0.1', 'covariateHighlightSite.j
 ```
 
 
-```{js, file={covariate_dropdown}, echo=FALSE}
-```
+
 
 ```{js, file={covariate_highlight_site}, echo=FALSE}
 ```

@@ -3,6 +3,9 @@ config:
     - domain: dfAE
       column: strSystemOrganClassCol
       description: "System Organ Class"
+    - domain: dfAE
+      column: strBlah
+      description: "whatever"
 steps:
   - name: FilterDomain
     inputs: dfSUBJ
