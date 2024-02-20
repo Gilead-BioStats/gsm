@@ -9,14 +9,34 @@ HTMLWidgets.widget({
                 const lLabels = x.lLabels;
                 lLabels.selectedGroupIDs = number_to_array(x.selectedGroupIDs);
 
+
+
                 if (x.addSiteSelect)
                     lLabels.clickCallback = function(d) { // clickCallback.bind(null, instance, siteSelect);
+
+
+
+
                         instance.data.config.selectedGroupIDs = instance.data.config.selectedGroupIDs.includes(d.groupid)
                             ? 'None'
                             : d.groupid;
                         siteSelect.value = instance.data.config.selectedGroupIDs;
                         instance.helpers.updateConfig(instance, instance.data.config);
-                    };
+
+                        if (typeof Shiny !== 'undefined') {
+                          if (instance.data.config.selectedGroupIDs.length > 0) {
+                            Shiny.setInputValue(
+                              'site',
+                              instance.data.config.selectedGroupIDs
+                            )
+                          }
+                        }
+
+                        instance.helpers.updateConfig(
+                          instance,
+                          instance.data.config
+                        )
+                  };
 
 
                 // generate scatter plot
@@ -32,6 +52,11 @@ HTMLWidgets.widget({
                 let siteSelect;
                 if (x.addSiteSelect)
                     siteSelect = addSiteSelect(el, x.dfSummary, instance, x.siteSelectLabelValue);
+
+                // hide dropdown if in a Shiny environment
+                if (x.bHideDropdown) {
+                  siteSelect.style.display = "none";
+                }
             },
             resize: function(width, height) {
             }

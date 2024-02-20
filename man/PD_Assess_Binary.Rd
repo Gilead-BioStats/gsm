@@ -119,6 +119,4 @@ pd_assessment_NormalApprox <- PD_Assess_Binary(dfInput)
 pd_assessment_poisson <- PD_Assess_Binary(dfInput, strMethod = "Poisson")
 pd_assessment_identity <- PD_Assess_Binary(dfInput, strMethod = "Identity")
 
-
-
 }

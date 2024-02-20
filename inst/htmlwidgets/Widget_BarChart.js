@@ -5,9 +5,10 @@ HTMLWidgets.widget({
         return {
             renderValue: function(x) {
 
-                const lLabels = x.lLabels
+                // bar chart configuration
+                const lLabels = x.lLabels;
                 lLabels.y = x.strYAxisType;
-                lLabels.selectedGroupIDs = number_to_array(x.selectedGroupIDs)
+                lLabels.selectedGroupIDs = number_to_array(x.selectedGroupIDs);
 
                 // add click event listener to chart
                 if (x.addSiteSelect)
@@ -21,7 +22,16 @@ HTMLWidgets.widget({
                             instance.data.config,
                             instance.data._thresholds_
                         );
-                    };
+
+                  if (typeof Shiny !== 'undefined') {
+                    if (instance.data.config.selectedGroupIDs.length > 0) {
+                      Shiny.setInputValue(
+                        'site',
+                        instance.data.config.selectedGroupIDs
+                      )
+                    }
+                  }
+                };
 
                 // generate bar chart
                 const instance = rbmViz.default.barChart(
@@ -35,6 +45,11 @@ HTMLWidgets.widget({
                 let siteSelect;
                 if (x.addSiteSelect)
                     siteSelect = addSiteSelect(el, x.dfSummary, instance, x.siteSelectLabelValue);
+
+                // hide dropdown if in a Shiny environment
+                if (x.bHideDropdown) {
+                  siteSelect.style.display = "none";
+                }
             },
             resize: function(width, height) {
             }

@@ -44,6 +44,8 @@
 #'
 #' @param selectedGroupIDs group IDs to highlight, \code{NULL} by default, can be a single site or a vector.
 #' @param addSiteSelect `logical` add a dropdown to highlight sites? Default: `TRUE`.
+#' @param bHideDropdown `logical` should the dropdown be hidden? Default: `FALSE`. This is primarily used for the Shiny app `{gsmApp}` to hide the drop-down site selector,
+#' since it is an additional element that needs to be updated based on user interactivity.
 #' @param width width of widget, full screen by default
 #' @param height height of widget, calculated based on width
 #' @param elementId ID of container HTML element
@@ -104,6 +106,7 @@ Widget_ScatterPlot <- function(
   dfBounds,
   selectedGroupIDs = NULL,
   addSiteSelect = TRUE,
+  bHideDropdown = FALSE,
   width = NULL,
   height = NULL,
   elementId = NULL
@@ -127,12 +130,13 @@ Widget_ScatterPlot <- function(
 
   # forward options using x
   x <- list(
-    dfSummary = jsonlite::toJSON(dfSummary, na = "string"),
-    lLabels = jsonlite::toJSON(lLabels, na = "string"),
-    dfBounds = dfBounds,
+    dfSummary = jsonlite::toJSON(dfSummary, na = "string"),   # data
+    lLabels = jsonlite::toJSON(lLabels, na = "string"),       # config
+    dfBounds = dfBounds,                                      # bounds
     selectedGroupIDs = as.character(selectedGroupIDs),
     addSiteSelect = addSiteSelect,
-    siteSelectLabelValue = siteSelectLabelValue
+    siteSelectLabelValue = siteSelectLabelValue,
+    bHideDropdown = bHideDropdown
   )
 
 
