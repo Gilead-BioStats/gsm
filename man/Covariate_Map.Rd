@@ -4,12 +4,10 @@
 \alias{Covariate_Map}
 \title{Covariate Map}
 \usage{
-Covariate_Map(dfCovariate, strCovariate, strCovariteColName, strWorkflowId)
+Covariate_Map(dfCovariate, strCovariteColName, strWorkflowId)
 }
 \arguments{
 \item{dfCovariate}{\code{data.frame} dataframe of kri covariate of interest}
-
-\item{strCovariate}{\code{string} name of covariate df}
 
 \item{strCovariteColName}{\code{string} name of covariate column of interest}
 

@@ -1,14 +1,15 @@
 #' Covariate Map
 #'
 #' @param dfCovariate `data.frame` dataframe of kri covariate of interest
-#' @param strCovariate `string` name of covariate df
 #' @param strCovariteColName `string` name of covariate column of interest
 #' @param strWorkflowId `string` name of kri workflowid
 #'
 #' @export
 #'
-Covariate_Map <- function(dfCovariate, strCovariate, strCovariteColName, strWorkflowId) {
+Covariate_Map <- function(dfCovariate, strCovariteColName, strWorkflowId) {
+  # make blank output list
   output <- list()
+
   # do the mapping
   initial <- dfCovariate %>%
     select(
