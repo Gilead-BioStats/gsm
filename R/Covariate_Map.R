@@ -7,8 +7,6 @@
 #' @export
 #'
 Covariate_Map <- function(dfCovariate, strCovariateColName, strWorkflowId) {
-  # make blank output list
-  output <- list()
   # make variable stop logic
   if(is.data.frame(dfCovariate) & !strCovariateColName %in% names(dfCovariate)){
     stop("`strCovariateColName` not present in `dfCovariate` check spelling or input variables to select the right column")
@@ -19,6 +17,8 @@ Covariate_Map <- function(dfCovariate, strCovariateColName, strWorkflowId) {
   if(!is.data.frame(dfCovariate)){
     stop("`dfCovariate` is not a data frame, check input and try again")
   }
+
+
   # do the mapping
   initial <- dfCovariate %>%
     select(
@@ -30,10 +30,12 @@ Covariate_Map <- function(dfCovariate, strCovariateColName, strWorkflowId) {
     distinct()
 
   # return table with count and percentage of each covariate
+  output <- list()
   output[[strWorkflowId]] <- list(
     study = filter_covariate(initial, strGroup = "study"),
     site = filter_covariate(initial, strGroup = "site")
-  )
+    )
+
 
   return(output)
 
