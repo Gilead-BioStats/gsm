@@ -15,7 +15,7 @@ MakeCovariateDashboard <- function(lSnapshot, lCovariateTables, lCovariateCharts
   rbmviz_charts <- lSnapshot$lCharts[[strKRI]][grepl("JS", names(lSnapshot$lCharts[[strKRI]]))]
   covariate_charts <- lCovariateCharts[[strKRI]]
   covariate_tables <- lCovariateTables[[strKRI]] %>%
-    purrr::map( ~ DT::datatable(.x, options = list(rownames= FALSE)))
+    purrr::map( ~ map(.[!names(.x) == "description"], ~DT::datatable(.x, options = list(rownames= FALSE))))
 
   purrr::map(
     rbmviz_charts,

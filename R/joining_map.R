@@ -1,6 +1,5 @@
 #' a function for defining columns to join by within Distribution map function
 #'
-#' @param dist_list `list` a list of data and linked category columns
 #' @param lMapping `list` a list of predefined columns to map over
 #' @param strDomain `string` the name of the raw data domain to use
 #' @param strSubjCol `string` the name of the subject id column found within specified domain
@@ -9,7 +8,7 @@
 #' @export
 #'
 #' @keywords internal
-joining_map <- function(dist_list, lMapping, strDomain, strSubjCol, has_site){
+joining_map <- function(lMapping, strDomain, strSubjCol, has_site){
   if(has_site){
     by_right <- c(lMapping[[strDomain]][['strStudyCol']],
                  lMapping[[strDomain]][['strSiteCol']],

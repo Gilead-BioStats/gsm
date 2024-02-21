@@ -4,11 +4,9 @@
 \alias{joining_map}
 \title{a function for defining columns to join by within Distribution map function}
 \usage{
-joining_map(dist_list, lMapping, strDomain, strSubjCol, has_site)
+joining_map(lMapping, strDomain, strSubjCol, has_site)
 }
 \arguments{
-\item{dist_list}{\code{list} a list of data and linked category columns}
-
 \item{lMapping}{\code{list} a list of predefined columns to map over}
 
 \item{strDomain}{\code{string} the name of the raw data domain to use}

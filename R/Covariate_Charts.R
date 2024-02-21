@@ -10,56 +10,58 @@ Covariate_Charts <- function(lInput){
   plot_output <- list()
   # map over dfInput to generate chart for each list component
   mapped_plots <- map(lInput, function(kri){
-    ## create study level bar plot
-    plot_output$study <- plot_ly(kri$study) %>%
-      add_trace(
-        y = ~reorder(Metric, Total),
-        x = ~Total,
-        type = "bar",
-        orientation = "h",
-        text = paste0(
-          glue("Total Patients: {kri$study$Total}"), "</br></br>",
-          glue("Reason: {kri$study$Metric}")
-        ),
-        textposition = "none",
-        hoverinfo = "text") %>%
-      layout(yaxis = list(title = ""),
-             xaxis = list(title = list(text = "<b>Number of Patients</b>"),
-                          titlefont = list(size = 16)),
-             margin = list(pad = 4)
-      )
+    map(kri, function(data){
+      ## create study level bar plotl
+      plot_output$study <- plot_ly(data$study) %>%
+        add_trace(
+          y = ~reorder(Metric, `# Patients`),
+          x = ~`# Patients`,
+          type = "bar",
+          orientation = "h",
+          text = paste0(
+            glue("Total Patients: {data$study$`# Patients`}"), "</br></br>",
+            glue("Reason: {data$study$Metric}")
+          ),
+          textposition = "none",
+          hoverinfo = "text") %>%
+        layout(yaxis = list(title = ""),
+               xaxis = list(title = list(text = "<b>Number of Patients</b>"),
+                            titlefont = list(size = 16)),
+               margin = list(pad = 4)
+        )
 
 
-    ## create site level bar plot
-    plot_output$site <- plot_ly(kri$site) %>%
-      highlight_key(~ `Site ID`) %>%
-      add_trace(
-        y = ~reorder(`Site ID`, Total),
-        x = ~Total,
-        color = ~Metric,
-        type = "bar",
-        # orientation = "h",
-        text = paste0(
-          glue("Site: {kri$site$`Site ID`}"), "</br></br>",
-          glue("Patient Count: {kri$site$Total}"), "</br>",
-          glue("Metric: {kri$site$Metric}")
-        ),
-        textposition = "none",
-        hoverinfo = "text"
-      ) %>%
-      layout(xaxis = list(title = "<b>Number of Patients</b>"),
-             yaxis = list(title = list(text = ""),
-                          titlefont = list(size = 16)),
-             barmode = "stack",
-             margin = list(pad = 4)) %>%
-      highlight(on = "plotly_click",off = "plotly_doubleclick") %>%
-      htmlwidgets::onRender("
+      ## create site level bar plot
+      plot_output$site <- plot_ly(data$site) %>%
+        highlight_key(~ `Site ID`) %>%
+        add_trace(
+          y = ~reorder(`Site ID`, `# Patients`),
+          x = ~`# Patients`,
+          color = ~Metric,
+          type = "bar",
+          # orientation = "h",
+          text = paste0(
+            glue("Site: {data$site$`Site ID`}"), "</br></br>",
+            glue("Patient Count: {data$site$`# Patients`}"), "</br>",
+            glue("Metric: {data$site$Metric}")
+          ),
+          textposition = "none",
+          hoverinfo = "text"
+        ) %>%
+        layout(xaxis = list(title = "<b>Number of Patients</b>"),
+               yaxis = list(title = list(text = ""),
+                            titlefont = list(size = 16)),
+               barmode = "stack",
+               margin = list(pad = 4)) %>%
+        highlight(on = "plotly_click",off = "plotly_doubleclick") %>%
+        htmlwidgets::onRender("
       function(el, x) {
         el.classList.add('covariate-scatter-plot');
   }")
 
 
-    return(plot_output)
+      return(plot_output)
+    })
   })
   return(mapped_plots)
 }
