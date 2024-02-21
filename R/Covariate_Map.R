@@ -25,7 +25,7 @@ Covariate_Map <- function(dfCovariate, strCovariateColName, strWorkflowId) {
       "Study ID" = studyid,
       "Site ID" = siteid,
       "Subject ID" = subjid,
-      "Metric" = strCovariateColName
+      "Metric" = all_of(strCovariateColName)
     ) %>%
     distinct()
 
