@@ -63,7 +63,8 @@ Covariate_Map <- function(lSnapshot){
       filter(!is.empty(Metric)) %>%
       group_by(`Site ID`, Metric, Enrolled) %>%
       summarize(Total = n_distinct(`Subject ID`), .groups = "drop") %>%
-      mutate(`%` = gt::pct(round(Total/Enrolled * 100, digits = 2)))
+      mutate(`%` = gt::pct(round(Total/Enrolled * 100, digits = 2)),
+             raw_percent = round(Total/Enrolled * 100, digits = 2))
 
     ## Make Study level Distribution Data
     output$study <- initial %>%
@@ -72,7 +73,8 @@ Covariate_Map <- function(lSnapshot){
       filter(!is.empty(Metric)) %>%
       group_by(`Study ID`, Metric, Enrolled) %>%
       summarise(Total = n_distinct(`Subject ID`), .groups = "drop") %>%
-      mutate(`%` = gt::pct(round(Total/Enrolled * 100, digits = 2)))
+      mutate(`%` = gt::pct(round(Total/Enrolled * 100, digits = 2)),
+             raw_percent = round(Total/Enrolled * 100, digits = 2))
 
     ## return output
     return(output)

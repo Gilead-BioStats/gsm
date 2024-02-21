@@ -67,11 +67,42 @@ MakeCovariateDashboard <- function(lSnapshot, lCovariateTables, lCovariateCharts
 
   all_workflows_id <- glue::glue("{all_workflows}-{elementId}")
 
+  awf <- glue::glue("[{all_workflows}](#{all_workflows_href})")
+
   # Create Page ----------------------------------------------------------
   page_title_href <- tolower(gsub("[[:space:]]", "", page_title))
   page_title_href <- gsub("[^[:alnum:] ]", "", page_title_href)
   cat(paste0(page_title, " {#", page_title_href, "}\n"))
   cat("================================================================\n")
+
+  summary_data <- dplyr::tibble(
+    "Study ID" = as.character(unique(lCovariateTables[[1]]$study$`Study ID`)),
+    "Snapshot Date" = as.character(lSnapshot$lSnapshotDate),
+    "Enrolled Patients" = as.character(unique(lCovariateTables[[1]]$study$Enrolled))
+  ) %>%
+    tidyr::pivot_longer(everything()) %>%
+    gt::gt() %>%
+    tab_options(
+      column_labels.hidden = TRUE,
+      table_body.hlines.style = "none",
+      table.align = "left",
+      table.font.size = 20,
+      table.background.color = "#e6e6e6",
+      table.border.right.style = "solid",
+      table.border.left.style = "solid",
+      table.margin.left = "10%",
+      table.border.top.width = "10px",
+      table.border.bottom.width = "10px",
+      table.border.right.width = "10px",
+      table.border.left.width = "10px",
+      table.border.left.color = "black",
+      table.border.right.color = "black",
+      table.border.top.color = "black",
+      table.border.bottom.color = "black"
+      )
+
+  cat(knitr::knit_print(htmltools::tagList(summary_data)))
+
 
   # Create Page Sidebar --------------------------------------------------
   cat("Sidebar {.sidebar}\n")
@@ -79,16 +110,8 @@ MakeCovariateDashboard <- function(lSnapshot, lCovariateTables, lCovariateCharts
 
   cat("\n")
   cat("<label class='kri-label'>KRI: </label>")
-  cat("<select name='kri-dropdown' class='kri-dropdown' onchange = 'onCovariateChange(this.value)'>")
-  cat(glue::glue("<option value='{all_workflows}' id='{all_workflows_id}' class = '{all_workflows_href}'>{all_workflows}</option>"))
-  cat("</select>")
+  cat(glue::glue("<ul id='{all_workflows_id}' class = '{all_workflows_href}'>{awf}</ul>"))
   cat("\n")
-
-  create_sidebar(study = unique(lCovariateTables$kri0001$study$`Study ID`),
-                 date = as.character(lSnapshot$lSnapshotDate),
-                 total = unique(lCovariateTables$kri0001$study$Enrolled),
-                 var = "placeholder...",
-                 domain = page_title)
 
 
   # # Create KRI JS plots Section -------------------------------------------
@@ -144,32 +167,3 @@ MakeCovariateDashboard <- function(lSnapshot, lCovariateTables, lCovariateCharts
 }
 
 
-#' Create sidebar component for Covariate Report.
-#'
-#' @param study `character` a snapshot object from `Make_Snapshot()`
-#' @param date `character` a snapshot object from `Make_Snapshot()`
-#' @param total `character` a snapshot object from `Make_Snapshot()`
-#' @param var `character` a snapshot object from `Make_Snapshot()`
-#' @param domain `character` a snapshot object from `Make_Snapshot()`
-#'
-#' @keywords internal
-#' @export
-create_sidebar <- function(study, date, total, var, domain){
-  # Study
-  print(h4(strong("Study:")))
-  cat(study)
-
-  # Snapshot
-  print(h4(strong("Snapshot:")))
-  cat(date)
-
-  # # Total Patients
-  print(h4(strong("Total Patients:")))
-  cat(total)
-
-  print(h4(strong("Domain: ")))
-  cat(domain)
-
-  print(h4(strong("Categorical Variable: ")))
-  cat(var)
-}

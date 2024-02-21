@@ -3,6 +3,9 @@ config:
     - domain: dfQUERY
       column: strFormCol
       description: "Form Description"
+      strFilterCol: strStatusCol
+      strFilterVal: 30
+      strFilterType: ">"
 steps:
   - name: FilterDomain
     inputs: dfSUBJ

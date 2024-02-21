@@ -45,5 +45,6 @@ body {
 }
 
 
-
-
+.navbar-nav.navbar-left > li > .nav-link {
+    display: none;
+}
