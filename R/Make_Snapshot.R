@@ -72,6 +72,8 @@ Make_Snapshot <- function(
     bQuiet = bQuiet
   )
 
+
+
   # map ctms data -----------------------------------------------------------
   status_study <- Study_Map_Raw(
     dfs = list(
@@ -175,6 +177,7 @@ Make_Snapshot <- function(
     lStackedSnapshots = lStackedSnapshots
   )
 
+  browser()
   # return snapshot ------------------------------------------------------------
 
   return(snapshot)

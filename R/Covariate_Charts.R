@@ -22,9 +22,10 @@ Covariate_Charts <- function(lInput){
           glue("Reason: {kri$study$Metric}")
         ),
         textposition = "none",
-        hoverinfo = "text") %>%
+        hoverinfo = "text",
+        width = 0.4) %>%
       layout(yaxis = list(title = ""),
-             xaxis = list(title = list(text = "<b>Number of Patients</b>"),
+             xaxis = list(title = list(text = "<b>Metric Count</b>"),
                           titlefont = list(size = 16)),
              margin = list(pad = 4)
       )
@@ -32,8 +33,7 @@ Covariate_Charts <- function(lInput){
 
     ## create site level bar plot
     plot_output$site <- plot_ly(kri$site) %>%
-      highlight_key(~ `Site ID`) %>%
-      add_trace(
+      add_bars(
         y = ~reorder(`Site ID`, Total),
         x = ~Total,
         color = ~Metric,
@@ -45,18 +45,20 @@ Covariate_Charts <- function(lInput){
           glue("Metric: {kri$site$Metric}")
         ),
         textposition = "none",
-        hoverinfo = "text"
+        hoverinfo = "text"#,
+        # width = 0.8
       ) %>%
-      layout(xaxis = list(title = "<b>Number of Patients</b>"),
+      layout(xaxis = list(title = "<b>Metric Count</b>"),
              yaxis = list(title = list(text = ""),
                           titlefont = list(size = 16)),
              barmode = "stack",
-             margin = list(pad = 4)) %>%
-      highlight(on = "plotly_click",off = "plotly_doubleclick") %>%
+             margin = list(pad = 4),
+             bargap = 10
+             ) %>%
       htmlwidgets::onRender("
       function(el, x) {
         el.classList.add('covariate-scatter-plot');
-  }")
+      }")
 
 
     return(plot_output)
@@ -64,3 +66,42 @@ Covariate_Charts <- function(lInput){
   return(mapped_plots)
 }
 
+
+#' Create site chart for distribution of kri metrics
+#'
+#' @param lInput `list` output from `Distribution_Map()` function
+#'
+#' @export
+#'
+#' @keywords internal
+CovariateSiteChart <- function(lInput) {
+
+
+  kri <- lInput$lCovariateTables[[1]]
+
+  chart <- plot_ly(kri$site) %>%
+    add_bars(
+      y = ~reorder(`Site ID`, Total),
+      x = ~Total,
+      color = ~Metric,
+      type = "bar",
+      text = paste0(
+        glue("Site: {kri$site$`Site ID`}"), "</br></br>",
+        glue("Patient Count: {kri$site$Total}"), "</br>",
+        glue("Metric: {kri$site$Metric}")
+      ),
+      textposition = "none",
+      hoverinfo = "text",
+    ) %>%
+    layout(
+      xaxis = list(title = "<b>Metric Count</b>"),
+      yaxis = list(title = list(text = ""), titlefont = list(size = 16)),
+      barmode = "stack",
+      margin = list(pad = 4),
+      bargap = 10
+    ) %>%
+    htmlwidgets::onRender("
+      function(el, x) {
+        el.classList.add('covariate-scatter-plot');
+      }")
+}

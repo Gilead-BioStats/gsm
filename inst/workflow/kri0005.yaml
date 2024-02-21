@@ -3,6 +3,8 @@ config:
     - domain: dfLB
       column: strTestCol
       description: "Lab Test Description"
+      filterCol: strGradeCol
+      filterVal: strGradeHighVal
 steps:
   - name: FilterDomain
     inputs: dfSUBJ
