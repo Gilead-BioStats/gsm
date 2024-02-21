@@ -6,17 +6,26 @@
 #'
 #' @export
 #'
-Covariate_Map <- function(dfCovariate, strCovariteColName, strWorkflowId) {
+Covariate_Map <- function(dfCovariate, strCovariateColName, strWorkflowId) {
   # make blank output list
   output <- list()
-
+  # make variable stop logic
+  if(is.data.frame(dfCovariate) & !strCovariateColName %in% names(dfCovariate)){
+    stop("`strCovariateColName` not present in `dfCovariate` check spelling or input variables to select the right column")
+  }
+  if(!strWorkflowId %in% sprintf("kri00%02d", 1:12)){
+    stop("invalid `strWorkflowId`, check spelling and try again, format should be 'kri00' followed by 2 digits (01 thru 12)")
+  }
+  if(!is.data.frame(dfCovariate)){
+    stop("`dfCovariate` is not a data frame, check input and try again")
+  }
   # do the mapping
   initial <- dfCovariate %>%
     select(
       "Study ID" = studyid,
       "Site ID" = siteid,
       "Subject ID" = subjid,
-      "Metric" = strCovariteColName
+      "Metric" = strCovariateColName
     ) %>%
     distinct()
 
