@@ -4,7 +4,7 @@
 #'
 #' @export
 #' @keywords Internal
-Covariate_Report <- function(lSnapshot){
+Covariate_Report <- function(lSnapshot, lStudyCompCharts, lTreatmentCompCharts, dfStudyComp, dfTreatmentComp){
   projectTemplate <- system.file("report", "CovariateReport.Rmd", package = "gsm")
   strOutpath <- paste0(getwd(), "/gsm_covariate_report.html")
 
@@ -12,7 +12,11 @@ Covariate_Report <- function(lSnapshot){
     projectTemplate,
     output_file = strOutpath,
     params = list(
-      snapshot = lSnapshot
+      lSnapshot = lSnapshot,
+      dfStudyComp = dfStudyComp,
+      dfTreatmentComp = dfTreatmentComp,
+      lStudyCompCharts = lStudyCompCharts,
+      lTreatmentCompCharts = lTreatmentCompCharts
     ),
     envir = new.env(parent = globalenv())
   )

@@ -7,7 +7,11 @@ output:
     vertical_layout: scroll
     css: styles.css
 params:
-  snapshot: NA
+  lSnapshot: NA
+  dfStudyComp: NA
+  dfTreatmentComp: NA
+  lTreatmentCompCharts: NA
+  lStudyCompCharts: NA
 ---
 
 ```{r setup, include=FALSE}
@@ -23,20 +27,20 @@ devtools::load_all()
 ```
 
 ```{r}
-## Create data --------------------------------------------------------
-study_comp <- Covariate_Map(dfCovariate = params$snapshot$lStudyAssessResults$kri0006$lData$dfSTUDCOMP,
-              strCovariateColName = "compreas", 
-              strWorkflowId = "kri0006"
-              )
- 
-treat_comp <- Covariate_Map(dfCovariate = params$snapshot$lStudyAssessResults$kri0007$lData$dfSDRGCOMP,
-              strCovariateColName = "sdrgreas", 
-              strWorkflowId = "kri0007"
-              )
-
-study_comp_charts <- Covariate_Charts(study_comp)
-
-treat_comp_charts <- Covariate_Charts(treat_comp)
+# ## Create data --------------------------------------------------------
+# study_comp <- Covariate_Map(dfCovariate = params$snapshot$lStudyAssessResults$kri0006$lData$dfSTUDCOMP,
+#               strCovariateColName = "compreas", 
+#               strWorkflowId = "kri0006"
+#               )
+#  
+# treat_comp <- Covariate_Map(dfCovariate = params$snapshot$lStudyAssessResults$kri0007$lData$dfSDRGCOMP,
+#               strCovariateColName = "sdrgreas", 
+#               strWorkflowId = "kri0007"
+#               )
+# 
+# study_comp_charts <- Covariate_Charts(study_comp)
+# 
+# treat_comp_charts <- Covariate_Charts(treat_comp)
 ```
 
 Study Discontinuation
@@ -47,11 +51,11 @@ Sidebar {.sidebar}
 ```{r results='asis'}
 # Study
 h4(strong("Study:"))
-cat(unique(study_comp$kri0006$study$`Study ID`))
+cat(unique(params$dfStudyComp$kri0006$study$`Study ID`))
 
 # Snapshot
 h4(strong("Snapshot:"))
-cat(as.character(params$snapshot$lSnapshotDate))
+cat(as.character(params$lSnapshot$lSnapshotDate))
 
 ```
 
@@ -63,17 +67,17 @@ tab_title("Study-wide Discontinuation Reasons")
 
 ### <font size=3px>**Scatter Plot**</font> 
 ```{r}
-params$snapshot$lCharts$kri0006$scatterJS
+params$lSnapshot$lCharts$kri0006$scatterJS
 ```
 
 ### <font size=3px>**Bar Plot (Metric)**</font> 
 ```{r}
-params$snapshot$lCharts$kri0006$barMetricJS
+params$lSnapshot$lCharts$kri0006$barMetricJS
 ```
 
 ### <font size=3px>**Bar Plot (Score)**</font> 
 ```{r}
-params$snapshot$lCharts$kri0006$barScoreJS
+params$lSnapshot$lCharts$kri0006$barScoreJS
 ```
 
 Bar Plot Study {.tabset .tabset-fade}
@@ -83,34 +87,18 @@ tab_title("Study-wide Discontinuation Reasons")
 ```
 
 ```{r}
-fig_bar_study <- round(length(unique(study_comp$kri0006$study$Metric))/3)
-fig_bar_site <- round(length(unique(study_comp$kri0006$site$`Site ID`))/3)
+fig_bar_study <- round(length(unique(params$dfStudyComp$kri0006$study$Metric))/3)
+fig_bar_site <- round(length(unique(params$dfStudyComp$kri0006$site$`Site ID`))/3)
 ```
 
 ### <font size=3px>**Number**</font> 
 ```{r fig.height={fig_bar_study} }
-study_comp_charts$kri0006$study
+params$lStudyCompCharts$study_total
 ```
 
 ### <font size=3px>**Percent**</font>
 ```{r fig.height={fig_bar_study} }
-plot_ly(study_comp$kri0006$study) %>%
-  add_trace(
-    y = ~reorder(Metric, Percent),
-    x = ~Percent,
-    type = "bar",
-    orientation = "h",
-    text = paste0(
-      glue("Percent of Total: {study_comp$kri0006$study$`%`}"), "</br></br>",
-      glue("Reason: {study_comp$kri0006$study$Metric}")
-    ),
-    textposition = "none",
-    hoverinfo = "text") %>%
-  layout(yaxis = list(title = ""),
-         xaxis = list(title = list(text = "<b>Distribution of Discontinuation Reasons</b>"),
-                      titlefont = list(size = 16)),
-         margin = list(pad = 4)
-  )
+params$lStudyCompCharts$study_percent
 ```
 
 Bar Plot Site {.tabset .tabset-fade}
@@ -121,31 +109,12 @@ tab_title("Site-wide Discontinuation Reasons")
 
 ### <font size=3px>**Number**</font>
 ```{r fig.height={fig_bar_site} }
-study_comp_charts$kri0006$site
+params$lStudyCompCharts$site_total
 ```
 
 ### <font size=3px>**Percent**</font>
 ```{r fig.height={fig_bar_site} }
-plot_ly(study_comp$kri0006$site) %>%
-  add_trace(
-    y = ~reorder(`Site ID`, `Total Site`),
-    x = ~Percent,
-    color = ~Metric,
-    type = "bar",
-    # orientation = "h",
-    text = paste0(
-      glue("Site: {treat_comp$kri0007$site$`Site ID`}"), "</br></br>",
-      glue("Patient Count: {treat_comp$kri0007$site$`Total Metric`}"), "</br>",
-      glue("Metric: {treat_comp$kri0007$site$Metric}")
-    ),
-    textposition = "none",
-    hoverinfo = "text"
-  ) %>%
-  layout(xaxis = list(title = "<b>Percentage of Discontinuation Reasons</b>"),
-         yaxis = list(title = list(text = ""),
-                      titlefont = list(size = 16)),
-         barmode = "stack",
-         margin = list(pad = 4))
+params$lStudyCompCharts$site_percent
 ```
 
 Treatment Discontinuation
@@ -156,11 +125,11 @@ Sidebar {.sidebar}
 ```{r results='asis'}
 # Study
 h4(strong("Study:"))
-cat(unique(treat_comp$kri0007$study$`Study ID`))
+cat(unique(params$dfTreatmentComp$kri0007$study$`Study ID`))
 
 # Snapshot
 h4(strong("Snapshot:"))
-cat(as.character(params$snapshot$lSnapshotDate))
+cat(as.character(params$lSnapshot$lSnapshotDate))
 
 ```
 
@@ -172,17 +141,17 @@ tab_title("Treatment Discontinuation Rate by Site")
 
 ### <font size=3px>**Scatter Plot**</font> 
 ```{r}
-params$snapshot$lCharts$kri0007$scatterJS
+params$lSnapshot$lCharts$kri0007$scatterJS
 ```
 
 ### <font size=3px>**Bar Plot (Metric)**</font> 
 ```{r}
-params$snapshot$lCharts$kri0007$barMetricJS
+params$lSnapshot$lCharts$kri0007$barMetricJS
 ```
 
 ### <font size=3px>**Bar Plot (Score)**</font> 
 ```{r}
-params$snapshot$lCharts$kri0007$barScoreJS
+params$lSnapshot$lCharts$kri0007$barScoreJS
 ```
 
 Bar Plot Study {.tabset .tabset-fade}
@@ -192,34 +161,18 @@ tab_title("Study-wide Discontinuation Reasons")
 ```
 
 ```{r}
-fig_bar_study <- round(length(unique(treat_comp$kri0007$study$Metric))/3)
-fig_bar_site <- round(length(unique(treat_comp$kri0007$site$`Site ID`))/3)
+fig_bar_study <- round(length(unique(params$dfTreatmentComp$kri0007$study$Metric))/3)
+fig_bar_site <- round(length(unique(params$dfTreatmentComp$kri0007$site$`Site ID`))/3)
 ```
 
 ### <font size=3px>**Number**</font>
 ```{r fig.height={fig_bar_study} }
-treat_comp_charts$kri0007$study
+params$lTreatmentCompCharts$site_total
 ```
 
 ### <font size=3px>**Percent**</font>
 ```{r fig.height={fig_bar_study} }
-plot_ly(treat_comp$kri0007$study) %>%
-  add_trace(
-    y = ~reorder(Metric, Percent),
-    x = ~Percent,
-    type = "bar",
-    orientation = "h",
-    text = paste0(
-      glue("Percent of Total: {treat_comp$kri0007$study$`%`}"), "</br></br>",
-      glue("Reason: {treat_comp$kri0007$study$Metric}")
-    ),
-    textposition = "none",
-    hoverinfo = "text") %>%
-  layout(yaxis = list(title = ""),
-         xaxis = list(title = list(text = "<b>Distribution of Discontinuation Reasons</b>"),
-                      titlefont = list(size = 16)),
-         margin = list(pad = 4)
-  )
+params$lTreatmentCompCharts$site_percent
 ```
 
 Bar Plot Site {.tabset .tabset-fade}
@@ -230,29 +183,10 @@ tab_title("Site-wide Discontinuation Reasons")
 
 ### <font size=3px>**Number**</font>
 ```{r fig.height={fig_bar_site} }
-treat_comp_charts$kri0007$site
+params$lTreatmentCompCharts$study_total
 ```
 
 ### <font size=3px>**Percent**</font>
 ```{r fig.height={fig_bar_site} }
-plot_ly(treat_comp$kri0007$site) %>%
-  add_trace(
-    y = ~reorder(`Site ID`, `Total Site`),
-    x = ~Percent,
-    color = ~Metric,
-    type = "bar",
-    # orientation = "h",
-    text = paste0(
-      glue("Site: {treat_comp$kri0007$site$`Site ID`}"), "</br></br>",
-      glue("Patient Count: {treat_comp$kri0007$site$`Total Metric`}"), "</br>",
-      glue("Metric: {treat_comp$kri0007$site$Metric}")
-    ),
-    textposition = "none",
-    hoverinfo = "text"
-  ) %>%
-  layout(xaxis = list(title = "<b>Number of Patients</b>"),
-         yaxis = list(title = list(text = ""),
-                      titlefont = list(size = 16)),
-         barmode = "stack",
-         margin = list(pad = 4))
+params$lTreatmentCompCharts$study_percent
 ```
