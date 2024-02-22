@@ -17,15 +17,16 @@ filter_covariate <- function(df, strGroup = "study"){
       arrange(desc(`Total`))
 
   } else if(strGroup == "site"){
-    output <- df %>%
+    output <- df  %>%
       filter(!is.empty(Metric)) %>%
-      group_by(`Site ID`, Metric) %>%
-      summarise("Total" = n_distinct(`Subject ID`), .groups = "drop") %>%
       group_by(`Site ID`) %>%
-      mutate(`%` = gt::pct(round(`Total`/sum(`Total`) * 100)),
-             Percent = `Total`/sum(`Total`) * 100) %>%
-      arrange(desc(`Total`))
-
+      mutate("Total Site" = n()) %>%
+      group_by(`Site ID`, `Total Site`, Metric) %>%
+      summarise("Total Metric" = n_distinct(`Subject ID`), .groups = "drop") %>%
+      mutate(`%` = gt::pct(round(`Total Metric`/`Total Site` * 100)),
+             Percent = `Total Metric`/`Total Site` * 100) %>%
+      select( `Site ID`, Metric, `Total Site`, `Total Metric`, `%`, Percent) %>%
+      arrange(desc(`Total Site`))
   }
   return(output)
 }
