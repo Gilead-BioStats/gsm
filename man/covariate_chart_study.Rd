@@ -2,14 +2,19 @@
 % Please edit documentation in R/Covariate_Chart.R
 \name{covariate_chart_study}
 \alias{covariate_chart_study}
-\title{Title}
+\title{Make covariate study chart.}
 \usage{
-covariate_chart_study(dfCovariate)
+covariate_chart_study(dfCovariate, strType)
 }
 \arguments{
-\item{dfCovariate}{}
+\item{dfCovariate}{\code{data.frame} study-level data.frame returned by \link{Covariate_Map}.}
+
+\item{strType}{\code{character} one of "total" or "percent".}
+}
+\value{
+\code{plotly} chart.
 }
 \description{
-Title
+Make covariate study chart.
 }
 \keyword{internal}

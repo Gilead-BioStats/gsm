@@ -2,14 +2,19 @@
 % Please edit documentation in R/Covariate_Chart.R
 \name{covariate_chart_site}
 \alias{covariate_chart_site}
-\title{Title}
+\title{Make covariate site chart.}
 \usage{
 covariate_chart_site(dfCovariate, strType = "total")
 }
 \arguments{
-\item{strType}{one of 'total' or 'percent'}
+\item{dfCovariate}{\code{data.frame} site-level data.frame returned by \link{Covariate_Map}.}
+
+\item{strType}{\code{character} one of "total" or "percent".}
+}
+\value{
+\code{plotly} chart.
 }
 \description{
-Title
+Make covariate site chart.
 }
 \keyword{internal}

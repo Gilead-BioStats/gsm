@@ -7,8 +7,25 @@
 Covariate_Chart(dfCovariate)
 }
 \arguments{
-\item{dfCovariate}{}
+\item{dfCovariate}{data.frame returned by \link{Covariate_Map}.}
+}
+\value{
+\code{list} of Plotly chart objects.
 }
 \description{
 Covariate Charts
+}
+\examples{
+\dontrun{
+snapshot <- Make_Snapshot()
+
+study_comp <- Covariate_Map(
+  dfCovariate = snapshot$lStudyAssessResults$kri0006$lData$dfSTUDCOMP,
+  strCovariteColName = "compreas",
+  strWorkflowId = "kri0006"
+)
+
+charts <- Covariate_Chart(study_comp)
+}
+
 }
