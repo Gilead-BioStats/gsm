@@ -100,7 +100,7 @@ covariate_chart_study <- function(dfCovariate, strType) {
       type = "bar",
       orientation = "h",
       text = paste0(
-        glue::glue("Total Patients: {dfCovariate[[strType]]}"), "</br></br>",
+        glue::glue("Study {strType}: {dfCovariate[[strType]]}"), "</br></br>",
         glue::glue("Reason: {dfCovariate$Metric}")
       ),
       textposition = "none",

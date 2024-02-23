@@ -20,13 +20,13 @@ filter_covariate <- function(df, strGroup = "study"){
     output <- df  %>%
       filter(!is.empty(Metric)) %>%
       group_by(`Site ID`) %>%
-      mutate("Total Site" = n()) %>%
-      group_by(`Site ID`, `Total Site`, Metric) %>%
+      mutate("Total" = n()) %>%
+      group_by(`Site ID`, `Total`, Metric) %>%
       summarise("Total Metric" = n_distinct(`Subject ID`), .groups = "drop") %>%
-      mutate(`%` = gt::pct(round(`Total Metric`/`Total Site` * 100, digits = 2)),
-             Percent = `Total Metric`/`Total Site` * 100) %>%
-      select( `Site ID`, Metric, `Total Site`, `Total Metric`, `%`, Percent) %>%
-      arrange(desc(`Total Site`))
+      mutate(`%` = gt::pct(round(`Total Metric`/`Total` * 100, digits = 2)),
+             Percent = `Total Metric`/`Total` * 100) %>%
+      select( `Site ID`, Metric, `Total`, `Total Metric`, `%`, Percent) %>%
+      arrange(desc(`Total`))
   }
   return(output)
 }
