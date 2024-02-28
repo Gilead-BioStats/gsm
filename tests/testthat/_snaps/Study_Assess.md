@@ -857,8 +857,14 @@
       
       
       $AE_Map_Raw$mapping$dfSTUDCOMP
+      $AE_Map_Raw$mapping$dfSTUDCOMP$strStudyCol
+      [1] "studyid"
+      
       $AE_Map_Raw$mapping$dfSTUDCOMP$strIDCol
       [1] "subjid"
+      
+      $AE_Map_Raw$mapping$dfSTUDCOMP$strSiteCol
+      [1] "siteid"
       
       $AE_Map_Raw$mapping$dfSTUDCOMP$strStudyDiscontinuationFlagCol
       [1] "compyn"
@@ -874,8 +880,14 @@
       
       
       $AE_Map_Raw$mapping$dfSDRGCOMP
+      $AE_Map_Raw$mapping$dfSDRGCOMP$strStudyCol
+      [1] "studyid"
+      
       $AE_Map_Raw$mapping$dfSDRGCOMP$strIDCol
       [1] "subjid"
+      
+      $AE_Map_Raw$mapping$dfSDRGCOMP$strSiteCol
+      [1] "siteid"
       
       $AE_Map_Raw$mapping$dfSDRGCOMP$strTreatmentDiscontinuationFlagCol
       [1] "sdrgyn"
