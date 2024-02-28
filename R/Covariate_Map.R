@@ -26,8 +26,7 @@ Covariate_Map <- function(dfCovariate, strCovariateColName, strWorkflowId) {
       "Site ID" = siteid,
       "Subject ID" = subjid,
       "Metric" = all_of(strCovariateColName)
-    ) %>%
-    distinct()
+    )
 
   # return table with count and percentage of each covariate
   output <- list()

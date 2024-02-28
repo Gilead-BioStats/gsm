@@ -5,7 +5,9 @@ output:
   flexdashboard::flex_dashboard:
     orientation: rows
     vertical_layout: scroll
-    css: styles.css
+    css: 
+      - covariate_styles.css
+      - styles.css
 params:
   snapshot: NA
 ---
@@ -15,11 +17,86 @@ library(flexdashboard)
 library(gsm)
 library(DT)
 library(gt)
+library(tidyverse)
+
 library(dplyr)
 library(plotly)
 library(glue)
 library(htmltools)
 devtools::load_all()
+
+rpgSelect <- function (inputId, label, choices, selected = NULL, multiple = FALSE, 
+          size = NULL) 
+{
+  selectTag <- shiny::selectInput(inputId, label, choices, 
+                                  selected, multiple, selectize = FALSE, width = NULL, 
+                                  size)
+  selectTag$attribs$class <- NULL
+  selectTag$children[[1]]$attribs$class <- NULL
+  selectTag$children[[2]] <- selectTag$children[[2]]$children[[1]]
+  selectTag$children[[2]]$attribs$class <- if (is.null(size)) {
+    "rpgui-dropdown"
+  }
+  else {
+    "rpgui-list"
+  }
+  selectTag
+}
+
+SiteStudyOverlayCharts <- function(dfStudy, dfSite){
+  chart_list <- list()
+  for(i in unique(dfSite$`Site ID`)){
+    # filter site
+    site <- dfSite %>%
+      filter(`Site ID` == i)
+    # overlay site to number plot
+    chart_list[['number']][[paste0("site_", i)]] <- ggplotly(
+      ggplot() +
+        geom_col(data = dfStudy, aes(x = Total, y = reorder(Metric, Total)),
+                 alpha = .7, 
+                 width = .75, 
+                 color = 'blue', 
+                 fill = 'dodgerblue') +
+        geom_col(data = site, aes(x = `Total Metric`, y = Metric),
+                 alpha = .7, 
+                 width = .5, 
+                 color = 'red', 
+                 fill = 'orangered') +
+        theme(panel.grid.major.x = element_line(color = "lightgrey", linetype = 4, linewidth = .1),
+              panel.grid.minor.x = element_line(color = "lightgrey", linetype = 3, linewidth = .2),
+              axis.title.x = element_blank(),
+              axis.title.y = element_blank(),
+              axis.text.y = element_text(margin = margin(r=5)),
+              panel.background = element_rect(fill = "white"),
+              panel.grid = element_blank(),
+              panel.border = element_rect(color = "lightgrey", fill = NA, linewidth = .25)
+        ) +
+        scale_x_continuous(limits = c(0,max(dfStudy$Total) + max(dfStudy$Total) * .05), expand = c(0,0)) 
+    )
+    # overlay site to percent plot
+    chart_list[['percent']][[paste0("site_", i)]] <- ggplotly(
+      ggplot() +
+        geom_col(data = dfStudy, aes(x = Percent, y = "Study Metric", fill = Metric),
+                 alpha = .7,  
+                 position = "stack") +
+        geom_col(data = site, aes(x = Percent, y = "Site Metric", fill = Metric),
+                 alpha = .7, 
+                 position = "stack") +
+        theme(panel.grid.major.x = element_line(color = "lightgrey", linetype = 4, linewidth = .1),
+              panel.grid.minor.x = element_line(color = "lightgrey", linetype = 3, linewidth = .2),
+              axis.title.x = element_blank(),
+              axis.title.y = element_blank(),
+              axis.text.y = element_text(margin = margin(r=5)),
+              panel.background = element_rect(fill = "white"),
+              panel.grid = element_blank(),
+              panel.border = element_rect(color = "lightgrey", fill = NA, linewidth = .25),
+              legend.position = "none"
+        ) +
+        scale_x_continuous(limits = c(0,105), expand = c(0,0)),
+    )
+  }
+  return(chart_list)
+}
 ```
 
 ```{r}
@@ -34,9 +111,13 @@ treat_comp <- Covariate_Map(dfCovariate = params$snapshot$lStudyAssessResults$kr
               strWorkflowId = "kri0007"
               )
 
-study_comp_charts <- Covariate_Charts(study_comp)
+study_comp_charts <- Covariate_Chart(study_comp)
 
-treat_comp_charts <- Covariate_Charts(treat_comp)
+treat_comp_charts <- Covariate_Chart(treat_comp)
+
+chart_list <- SiteStudyOverlayCharts(study_comp$kri0006$study, study_comp$kri0006$site)
+  
+
 ```
 
 Study Discontinuation
@@ -49,8 +130,8 @@ Sidebar {.sidebar}
 h4(strong("Study:"))
 cat(unique(study_comp$kri0006$study$`Study ID`))
 
-# Snapshot
-h4(strong("Snapshot:"))
+# snapshot
+h4(strong("Snapshot Date:"))
 cat(as.character(params$snapshot$lSnapshotDate))
 
 ```
@@ -83,35 +164,78 @@ tab_title("Study-wide Discontinuation Reasons")
 ```
 
 ```{r}
-fig_bar_study <- round(length(unique(study_comp$kri0006$study$Metric))/3)
+fig_bar_study <- round(length(unique(study_comp$kri0006$study$Metric))/1.75)
 fig_bar_site <- round(length(unique(study_comp$kri0006$site$`Site ID`))/3)
 ```
 
+
 ### <font size=3px>**Number**</font> 
 ```{r fig.height={fig_bar_study} }
-study_comp_charts$kri0006$study
+opts <- choice <-  as.character(unique(study_comp$kri0006$site$`Site ID`)) # this line replaces last 3 lines
+namedChoices = setNames(opts, choice)
+
+newInput <- rpgSelect(         # <----- I'm new; the dropdown
+  "selectBox",
+  "Site",
+  namedChoices,
+  multiple = F)
+
+newInput$children[[2]]$attribs$onchange <- "getPlot(this)"
+
+newInput 
+```
+<div id="plots" style="margin-top:3rem; margin-bottom:3rem;">
+
+```{r dynoPlots,results='asis'}
+
+tagList(chart_list$number) # print every plot (so they're all in the HTML)
+
+```
+
+</div>
+
+```{r giveItUp,results='asis',engine='js'}
+
+/* doesn't catch that the first plot is default, set manually */
+setTimeout(function(){
+  $('select').select2();                /* connect to the select2 library */
+  plt = document.querySelectorAll('div.plotly.html-widget');
+  for(i = 0; i < plt.length; i++) {
+    if(i === 0) {
+      plt[i].style.display = 'block';
+    } else {
+      plt[i].style.display = 'none';
+    }
+  }
+}, 200) /* run once; allow for loading*/
+
+/* goes with the dropdown; this shows/hides plots based on dropdown */
+function getPlot(opt) {
+  plt = document.querySelectorAll('div.plotly.html-widget');
+  for(i = 0; i < plt.length; i++) {     /* switched to plt from opt here */
+    opti = opt.options[i];
+    if(opti.selected) {
+      plt[i].style.display = 'block';
+    } else {
+      plt[i].style.display = 'none'
+    }
+  }
+}
+
 ```
 
 ### <font size=3px>**Percent**</font>
-```{r fig.height={fig_bar_study} }
-plot_ly(study_comp$kri0006$study) %>%
-  add_trace(
-    y = ~reorder(Metric, Percent),
-    x = ~Percent,
-    type = "bar",
-    orientation = "h",
-    text = paste0(
-      glue("Percent of Total: {study_comp$kri0006$study$`%`}"), "</br></br>",
-      glue("Reason: {study_comp$kri0006$study$Metric}")
-    ),
-    textposition = "none",
-    hoverinfo = "text") %>%
-  layout(yaxis = list(title = ""),
-         xaxis = list(title = list(text = "<b>Distribution of Discontinuation Reasons</b>"),
-                      titlefont = list(size = 16)),
-         margin = list(pad = 4)
-  )
+
+<div id="plots2" style="margin-top:3rem; margin-bottom:3rem;">
+
+```{r results='asis'}
+
+tagList(chart_list$percent) # print every plot (so they're all in the HTML)
+
 ```
+
+</div>
+
 
 Bar Plot Site {.tabset .tabset-fade}
 ----------------------------------------------------------------
@@ -121,31 +245,12 @@ tab_title("Site-wide Discontinuation Reasons")
 
 ### <font size=3px>**Number**</font>
 ```{r fig.height={fig_bar_site} }
-study_comp_charts$kri0006$site
+study_comp_charts$site_total
 ```
 
 ### <font size=3px>**Percent**</font>
 ```{r fig.height={fig_bar_site} }
-plot_ly(study_comp$kri0006$site) %>%
-  add_trace(
-    y = ~reorder(`Site ID`, `Total Site`),
-    x = ~Percent,
-    color = ~Metric,
-    type = "bar",
-    # orientation = "h",
-    text = paste0(
-      glue("Site: {treat_comp$kri0007$site$`Site ID`}"), "</br></br>",
-      glue("Patient Count: {treat_comp$kri0007$site$`Total Metric`}"), "</br>",
-      glue("Metric: {treat_comp$kri0007$site$Metric}")
-    ),
-    textposition = "none",
-    hoverinfo = "text"
-  ) %>%
-  layout(xaxis = list(title = "<b>Percentage of Discontinuation Reasons</b>"),
-         yaxis = list(title = list(text = ""),
-                      titlefont = list(size = 16)),
-         barmode = "stack",
-         margin = list(pad = 4))
+study_comp_charts$site_percent
 ```
 
 Treatment Discontinuation
@@ -159,7 +264,7 @@ h4(strong("Study:"))
 cat(unique(treat_comp$kri0007$study$`Study ID`))
 
 # Snapshot
-h4(strong("Snapshot:"))
+h4(strong("Snapshot Date:"))
 cat(as.character(params$snapshot$lSnapshotDate))
 
 ```
@@ -198,28 +303,12 @@ fig_bar_site <- round(length(unique(treat_comp$kri0007$site$`Site ID`))/3)
 
 ### <font size=3px>**Number**</font>
 ```{r fig.height={fig_bar_study} }
-treat_comp_charts$kri0007$study
+treat_comp_charts$study_total
 ```
 
 ### <font size=3px>**Percent**</font>
 ```{r fig.height={fig_bar_study} }
-plot_ly(treat_comp$kri0007$study) %>%
-  add_trace(
-    y = ~reorder(Metric, Percent),
-    x = ~Percent,
-    type = "bar",
-    orientation = "h",
-    text = paste0(
-      glue("Percent of Total: {treat_comp$kri0007$study$`%`}"), "</br></br>",
-      glue("Reason: {treat_comp$kri0007$study$Metric}")
-    ),
-    textposition = "none",
-    hoverinfo = "text") %>%
-  layout(yaxis = list(title = ""),
-         xaxis = list(title = list(text = "<b>Distribution of Discontinuation Reasons</b>"),
-                      titlefont = list(size = 16)),
-         margin = list(pad = 4)
-  )
+treat_comp_charts$study_percent
 ```
 
 Bar Plot Site {.tabset .tabset-fade}
@@ -230,29 +319,18 @@ tab_title("Site-wide Discontinuation Reasons")
 
 ### <font size=3px>**Number**</font>
 ```{r fig.height={fig_bar_site} }
-treat_comp_charts$kri0007$site
+treat_comp_charts$site_total
 ```
 
 ### <font size=3px>**Percent**</font>
 ```{r fig.height={fig_bar_site} }
-plot_ly(treat_comp$kri0007$site) %>%
-  add_trace(
-    y = ~reorder(`Site ID`, `Total Site`),
-    x = ~Percent,
-    color = ~Metric,
-    type = "bar",
-    # orientation = "h",
-    text = paste0(
-      glue("Site: {treat_comp$kri0007$site$`Site ID`}"), "</br></br>",
-      glue("Patient Count: {treat_comp$kri0007$site$`Total Metric`}"), "</br>",
-      glue("Metric: {treat_comp$kri0007$site$Metric}")
-    ),
-    textposition = "none",
-    hoverinfo = "text"
-  ) %>%
-  layout(xaxis = list(title = "<b>Number of Patients</b>"),
-         yaxis = list(title = list(text = ""),
-                      titlefont = list(size = 16)),
-         barmode = "stack",
-         margin = list(pad = 4))
+treat_comp_charts$site_percent
 ```
+
+```{r echo=FALSE}
+covariate <- system.file('utils-0.0.1', 'covariate_test.js', package = "gsm")
+```
+
+```{js, file={covariate}, echo=FALSE}
+```
+

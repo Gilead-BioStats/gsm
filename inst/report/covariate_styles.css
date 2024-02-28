@@ -1,0 +1,29 @@
+/* study drop down */
+.select2-container--default .select2-selection--single{ /* outer container of dropdown */
+  min-height: 30px;
+  padding: 3px 3px;
+  width: 175px;
+  position: relative;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+  right: 0px;
+  width: 20px;
+  min-height: 34px;   /* parent min-height, minus top padding 40 - 6 */
+  position: absolute;
+}
+.select2-dropdown { /* the chunk requires 'important' */
+  width: 175px !important; /* so they're the same width */
+  top: 50%;
+  padding: 6px; 12px;
+}
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+  background-color: #F5F0E3;
+  color: black;    /* in dropdown, item hovered on bg and text */
+}                  /* default is background-color: #5897fb; default blue  */
+.select2-container--default .select2-results__option--selected {
+  background-color: #fbfaf5;
+  color: black;    /* in dropdown, PREVIOUS selection bg and text  */
+}                  /* default background-color: #ddd; yucky grey */
+option {
+  font-family: verdana;       /*  to match plotly  */
+}

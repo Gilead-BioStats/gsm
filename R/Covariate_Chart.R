@@ -47,12 +47,12 @@ Covariate_Chart <- function(dfCovariate) {
 #' @export
 covariate_chart_site <- function(dfCovariate, strType = "total") {
 
-  strType <- switch(strType, total = "Total", percent = "Percent")
+  strType <- switch(strType, total = "Total Site", percent = "Percent")
 
   plot <- plotly::plot_ly(dfCovariate) %>%
     plotly::add_bars(
       y = ~reorder(`Site ID`, .data[[strType]]),
-      x = ~.data[[strType]],
+      x = ~`Total Metric`,
       color = ~Metric,
       type = "bar",
       text = paste0(
