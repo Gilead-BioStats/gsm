@@ -70,10 +70,10 @@ covariate_chart_site <- function(dfCovariate, strType = "total") {
                    margin = list(pad = 4),
                    bargap = 10
     ) %>%
-    htmlwidgets::onRender("
+    htmlwidgets::onRender(glue::glue("
       function(el, x) {
-        el.classList.add('covariate-scatter-plot-site');
-      }")
+        el.classList.add('covariate-scatter-plot-site-<<strType>>');
+      }", open = "<<", close = ">>"))
 
   return(plot)
 }
@@ -110,10 +110,10 @@ covariate_chart_study <- function(dfCovariate, strType) {
            xaxis = list(title = list(text = glue::glue("<b>Metric ({strType})</b>")),
                         titlefont = list(size = 16)),
            margin = list(pad = 4)) %>%
-    htmlwidgets::onRender("
+    htmlwidgets::onRender(glue::glue("
       function(el, x) {
-        el.classList.add('covariate-scatter-plot-study');
-      }")
+        el.classList.add('covariate-scatter-plot-study-<<strType>>');
+      }", open = "<<", close = ">>"))
 
 
   return(plot)
