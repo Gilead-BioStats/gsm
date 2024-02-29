@@ -6,7 +6,6 @@ output:
     orientation: rows
     vertical_layout: scroll
     css: 
-      - covariate_styles.css
       - styles.css
 params:
   snapshot: NA
@@ -18,97 +17,21 @@ library(gsm)
 library(DT)
 library(gt)
 library(tidyverse)
-library(crosstalk)
 library(dplyr)
 library(plotly)
 library(glue)
 library(htmltools)
 devtools::load_all()
-
-rpgSelect <- function (inputId, label, choices, selected = NULL, multiple = FALSE, 
-          size = NULL) 
-{
-  selectTag <- shiny::selectInput(inputId, label, choices, 
-                                  selected, multiple, selectize = FALSE, width = NULL, 
-                                  size)
-  selectTag$attribs$class <- NULL
-  selectTag$children[[1]]$attribs$class <- NULL
-  selectTag$children[[2]] <- selectTag$children[[2]]$children[[1]]
-  selectTag$children[[2]]$attribs$class <- if (is.null(size)) {
-    "rpgui-dropdown"
-  }
-  else {
-    "rpgui-list"
-  }
-  selectTag
-}
-
-SiteStudyOverlayCharts <- function(dfStudy, dfSite){
-  chart_list <- list()
-  for(i in unique(dfSite$`Site ID`)){
-    # filter site
-    site <- dfSite %>%
-      filter(`Site ID` == i)
-    # overlay site to number plot
-    chart_list[['number']][[paste0("site_", i)]] <- ggplotly(
-      ggplot() +
-        geom_col(data = dfStudy, aes(x = Total, y = reorder(Metric, Total)),
-                 alpha = .7, 
-                 width = .75, 
-                 color = 'blue', 
-                 fill = 'dodgerblue') +
-        geom_col(data = site, aes(x = `Total Metric`, y = Metric),
-                 alpha = .7, 
-                 width = .5, 
-                 color = 'red', 
-                 fill = 'orangered') +
-        theme(panel.grid.major.x = element_line(color = "lightgrey", linetype = 4, linewidth = .1),
-              panel.grid.minor.x = element_line(color = "lightgrey", linetype = 3, linewidth = .2),
-              axis.title.x = element_blank(),
-              axis.title.y = element_blank(),
-              axis.text.y = element_text(margin = margin(r=5)),
-              panel.background = element_rect(fill = "white"),
-              panel.grid = element_blank(),
-              panel.border = element_rect(color = "lightgrey", fill = NA, linewidth = .25)
-        ) +
-        scale_x_continuous(limits = c(0,max(dfStudy$Total) + max(dfStudy$Total) * .05), expand = c(0,0)) 
-    )
-    # overlay site to percent plot
-    chart_list[['percent']][[paste0("site_", i)]] <- ggplotly(
-      ggplot() +
-        geom_col(data = dfStudy, aes(x = Percent, y = "Study Metric", fill = Metric),
-                 alpha = .7,  
-                 position = "stack") +
-        geom_col(data = site, aes(x = Percent, y = "Site Metric", fill = Metric),
-                 alpha = .7, 
-                 position = "stack") +
-        theme(panel.grid.major.x = element_line(color = "lightgrey", linetype = 4, linewidth = .1),
-              panel.grid.minor.x = element_line(color = "lightgrey", linetype = 3, linewidth = .2),
-              axis.title.x = element_blank(),
-              axis.title.y = element_blank(),
-              axis.text.y = element_text(margin = margin(r=5)),
-              panel.background = element_rect(fill = "white"),
-              panel.grid = element_blank(),
-              panel.border = element_rect(color = "lightgrey", fill = NA, linewidth = .25),
-              legend.position = "none"
-        ) +
-        scale_x_continuous(limits = c(0,105), expand = c(0,0)),
-    )
-  }
-  return(chart_list)
-}
 ```
 
 ```{r}
 ## Create data --------------------------------------------------------
-snapshot <- Make_Snapshot()
-
-study_comp <- Covariate_Map(dfCovariate = snapshot$lStudyAssessResults$kri0006$lData$dfSTUDCOMP,
+study_comp <- Covariate_Map(dfCovariate = params$snapshot$lStudyAssessResults$kri0006$lData$dfSTUDCOMP,
               strCovariateColName = "compreas", 
               strWorkflowId = "kri0006"
               )
  
-treat_comp <- Covariate_Map(dfCovariate = snapshot$lStudyAssessResults$kri0007$lData$dfSDRGCOMP,
+treat_comp <- Covariate_Map(dfCovariate = params$snapshot$lStudyAssessResults$kri0007$lData$dfSDRGCOMP,
               strCovariateColName = "sdrgreas", 
               strWorkflowId = "kri0007"
               )
@@ -117,63 +40,7 @@ study_comp_charts <- Covariate_Chart(study_comp)
 
 treat_comp_charts <- Covariate_Chart(treat_comp)
 
-chart_list <- SiteStudyOverlayCharts(study_comp$kri0006$study, study_comp$kri0006$site)
-chart_list2 <- SiteStudyOverlayCharts(treat_comp$kri0007$study, treat_comp$kri0007$site)  
-
-```
-
-Study Discontinuation
-================================================================
-
-Sidebar {.sidebar}
-----------------------------------------------------------------
-```{r results='asis'}
-# Study
-h4(strong("Study:"))
-cat(unique(study_comp$kri0006$study$`Study ID`))
-
-# snapshot
-h4(strong("Snapshot Date:"))
-cat(as.character(snapshot$lSnapshotDate))
-
-```
-
-Scatter Plot {.tabset .tabset-fade}
-----------------------------------------------------------------
-```{r results='asis'}
-tab_title("Study-wide Discontinuation Reasons")
-```
-
-### <font size=3px>**Scatter Plot**</font> 
-```{r}
-snapshot$lCharts$kri0006$scatterJS
-```
-
-### <font size=3px>**Bar Plot (Metric)**</font> 
-```{r}
-snapshot$lCharts$kri0006$barMetricJS
-```
-
-### <font size=3px>**Bar Plot (Score)**</font> 
-```{r}
-snapshot$lCharts$kri0006$barScoreJS
-```
-
-Bar Plot Study {.tabset .tabset-fade}
-----------------------------------------------------------------
-```{r results='asis'}
-tab_title("Study-wide Discontinuation Reasons")
-```
-
-```{r}
-fig_bar_study <- round(length(unique(study_comp$kri0006$study$Metric))/1.75)
-fig_bar_site <- round(length(unique(study_comp$kri0006$site$`Site ID`))/3)
-```
-
-
-### <font size=3px>**Number**</font> 
-```{r fig.height={fig_bar_study} }
-raw_data <- snapshot$lStudyAssessResults$kri0006$lData$dfSTUDCOMP %>%
+raw_data_study <- snapshot$lStudyAssessResults$kri0006$lData$dfSTUDCOMP %>%
   select(
     "Study ID" = studyid,
     "Site ID" = siteid,
@@ -191,49 +58,103 @@ raw_data <- snapshot$lStudyAssessResults$kri0006$lData$dfSTUDCOMP %>%
   mutate(`Study %` = round(`Total`/n_distinct(`Subject ID`) * 100, digits = 2),
          `Site %` = round(`Total Metric`/`Total Site` * 100, digits = 2))
 
-sd <- SharedData$new(raw_data, group = 'Site ID')
+raw_data_treat <- snapshot$lStudyAssessResults$kri0007$lData$dfSDRGCOMP %>%
+  select(
+    "Study ID" = studyid,
+    "Site ID" = siteid,
+    "Subject ID" = subjid,
+    "Metric" = sdrgreas
+  ) %>%
+  filter(!is.empty(Metric)) %>%
+  group_by(`Study ID`, Metric) %>%
+  mutate("Total" = n_distinct(`Subject ID`)) %>% 
+  group_by(`Site ID`) %>%
+  mutate("Total Site" = n()) %>%
+  group_by(`Site ID`, `Total Site`, Metric) %>%
+  mutate("Total Metric" = n_distinct(`Subject ID`)) %>% 
+  ungroup() %>%
+  mutate(`Study %` = round(`Total`/n_distinct(`Subject ID`) * 100, digits = 2),
+         `Site %` = round(`Total Metric`/`Total Site` * 100, digits = 2))
 
-plt <- ggplot(sd) +
-    geom_bar(aes(x = Total, y = reorder(Metric, Total)), 
-             width = .75, 
-             color = 'blue', 
-             fill = 'dodgerblue',
-             stat = "identity", 
-             position = "identity") +
-    geom_bar(aes(x = `Total Metric`, y = Metric),
-             width = .5,
-             color = 'red',
-             fill = 'orangered',
-             stat = "identity",
-             position = "identity") +
-    theme(panel.grid.major.x = element_line(color = "lightgrey", linetype = 4, linewidth = .1),
-          panel.grid.minor.x = element_line(color = "lightgrey", linetype = 3, linewidth = .2),
-          axis.title.x = element_blank(),
-          axis.title.y = element_blank(),
-          axis.text.y = element_text(margin = margin(r=5)),
-          panel.background = element_rect(fill = "white"),
-          panel.grid = element_blank(),
-          panel.border = element_rect(color = "lightgrey", fill = NA, linewidth = .25)
-    ) +
-  scale_x_continuous(limits = c(0,max(raw_data$Total) + max(raw_data$Total) * .05), expand = c(0,0)) 
+```
+
+Study Discontinuation
+================================================================
+
+Sidebar {.sidebar}
+----------------------------------------------------------------
+```{r results='asis'}
+# Study
+h4(strong("Study:"))
+cat(unique(study_comp$kri0006$study$`Study ID`))
+
+# snapshot
+h4(strong("Snapshot Date:"))
+cat(as.character(params$snapshot$lSnapshotDate))
+
+```
+
+Scatter Plot {.tabset .tabset-fade}
+----------------------------------------------------------------
+```{r results='asis'}
+tab_title("Study-wide Discontinuation Reasons")
+```
+
+### <font size=3px>**Scatter Plot**</font> 
+```{r}
+params$snapshot$lCharts$kri0006$scatterJS
+```
+
+### <font size=3px>**Bar Plot (Metric)**</font> 
+```{r}
+params$snapshot$lCharts$kri0006$barMetricJS
+```
+
+### <font size=3px>**Bar Plot (Score)**</font> 
+```{r}
+params$snapshot$lCharts$kri0006$barScoreJS
+```
+
+Bar Plot Study {.tabset .tabset-fade}
+----------------------------------------------------------------
+```{r results='asis'}
+tab_title("Study-wide Discontinuation Reasons")
+```
+
+```{r}
+fig_bar_study <- round(length(unique(study_comp$kri0006$study$Metric))/1.75)
+fig_bar_site <- round(length(unique(study_comp$kri0006$site$`Site ID`))/3)
+```
 
 
-gg_plt <- ggplotly(plt)
-
-filt <- filter_select(
-  id = "siteselect",
-  label = "Site",
-  sharedData = sd,
-  group = ~`Site ID`
-)
-
-bscols(filt, gg_plt, widths = 10)
+### <font size=3px>**Number**</font> 
+```{r fig.height={fig_bar_study} }
+raw_data_study %>%
+  plot_ly() %>%
+  add_bars(x = ~Total, y = ~reorder(Metric, Total)) %>%
+  add_bars(
+    width = .7,
+    color = I("red"),
+    x = ~`Total Metric`,
+    y = ~Metric,
+    transforms = list(
+      list(
+        type = 'filter',
+        target = ~`Site ID`,
+        operation = '=',
+        value = unique(raw_data$`Site ID`)[1]
+      )
+  )) %>% layout(
+    showlegend = F,
+    barmode = "overlay",
+    updatemenus = add_dropdown(unique(raw_data_study$`Site ID`))
+  )
 
 ```
 
 ### <font size=3px>**Percent**</font>
 ```{r results='asis'}
-tagList(chart_list$percent)
+
 
 ```
 
@@ -265,33 +186,35 @@ cat(unique(treat_comp$kri0007$study$`Study ID`))
 
 # Snapshot
 h4(strong("Snapshot Date:"))
-cat(as.character(snapshot$lSnapshotDate))
+cat(as.character(params$snapshot$lSnapshotDate))
 
 ```
 
 Scatter Plot {.tabset .tabset-fade}
 ----------------------------------------------------------------
+
 ```{r results='asis'}
 tab_title("Treatment Discontinuation Rate by Site")
 ```
 
 ### <font size=3px>**Scatter Plot**</font> 
 ```{r}
-snapshot$lCharts$kri0007$scatterJS
+params$snapshot$lCharts$kri0007$scatterJS
 ```
 
 ### <font size=3px>**Bar Plot (Metric)**</font> 
 ```{r}
-snapshot$lCharts$kri0007$barMetricJS
+params$snapshot$lCharts$kri0007$barMetricJS
 ```
 
 ### <font size=3px>**Bar Plot (Score)**</font> 
 ```{r}
-snapshot$lCharts$kri0007$barScoreJS
+params$snapshot$lCharts$kri0007$barScoreJS
 ```
 
 Bar Plot Study {.tabset .tabset-fade}
 ----------------------------------------------------------------
+
 ```{r results='asis'}
 tab_title("Study-wide Discontinuation Reasons")
 ```
@@ -303,56 +226,26 @@ fig_bar_site <- round(length(unique(treat_comp$kri0007$site$`Site ID`))/3)
 
 ### <font size=3px>**Number**</font>
 ```{r fig.height={fig_bar_study} }
-opts <- choice <-  as.character(unique(treat_comp$kri0007$site$`Site ID`)) # this line replaces last 3 lines
-namedChoices = setNames(opts, choice)
-
-newInput <- rpgSelect(         # <----- I'm new; the dropdown
-  "selectBox",
-  "Site",
-  namedChoices,
-  multiple = F)
-
-newInput$children[[2]]$attribs$onchange <- "getPlot(this)"
-
-newInput 
-```
-<div id="plots" style="margin-top:3rem; margin-bottom:3rem;">
-
-```{r dynoPlots2,results='asis'}
-
-tagList(chart_list2$number) # print every plot (so they're all in the HTML)
-
-```
-
-</div>
-
-```{r giveItUp,results='asis',engine='js'}
-
-/* doesn't catch that the first plot is default, set manually */
-setTimeout(function(){
-  $('select').select2();                /* connect to the select2 library */
-  plt = document.querySelectorAll('div.plotly.html-widget');
-  for(i = 0; i < plt.length; i++) {
-    if(i === 0) {
-      plt[i].style.display = 'block';
-    } else {
-      plt[i].style.display = 'none';
-    }
-  }
-}, 200) /* run once; allow for loading*/
-
-/* goes with the dropdown; this shows/hides plots based on dropdown */
-function getPlot(opt) {
-  plt = document.querySelectorAll('div.plotly.html-widget');
-  for(i = 0; i < plt.length; i++) {     /* switched to plt from opt here */
-    opti = opt.options[i];
-    if(opti.selected) {
-      plt[i].style.display = 'block';
-    } else {
-      plt[i].style.display = 'none'
-    }
-  }
-}
+raw_data_treat %>%
+  plot_ly() %>%
+  add_bars(x = ~Total, y = ~reorder(Metric, Total)) %>%
+  add_bars(
+  width = .7,
+  color = I("red"),
+  x = ~`Total Metric`,
+  y = ~Metric,
+  transforms = list(
+    list(
+      type = 'filter',
+      target = ~`Site ID`,
+      operation = '=',
+      value = unique(raw_data$`Site ID`)[1]
+    )
+  )) %>% layout(
+    showlegend = F,
+    barmode = "overlay",
+    updatemenus = add_dropdown(unique(raw_data_treat$`Site ID`))
+  )
 
 ```
 
@@ -363,6 +256,7 @@ treat_comp_charts$study_percent
 
 Bar Plot Site {.tabset .tabset-fade}
 ----------------------------------------------------------------
+
 ```{r results='asis'}
 tab_title("Site-wide Discontinuation Reasons")
 ```
@@ -377,10 +271,7 @@ treat_comp_charts$site_total
 treat_comp_charts$site_percent
 ```
 
-```{r echo=FALSE}
-covariate <- system.file('utils-0.0.1', 'covariate_test.js', package = "gsm")
-```
 
-```{js, file={covariate}, echo=FALSE}
-```
+
+
 
