@@ -4,8 +4,8 @@ function bringCovariateBarToTop() {
   // get all rbm-viz scatterplots
   let rbmVizPlots = [...document.querySelectorAll(".Widget_ScatterPlot, .Widget_BarChart")];
   // get all plotly site scatter plots
-  let covariateSiteScatterPlots = [...document.querySelectorAll(".covariate-scatter-plot-site")];
-  let covariateStudyScatterPlots = [...document.querySelectorAll(".covariate-scatter-plot-study")];
+  let covariateSiteScatterPlots = [...document.querySelectorAll(".covariate-scatter-plot-site-Percent"), ...document.querySelectorAll(".covariate-scatter-plot-site-Total")];
+  let covariateStudyScatterPlots = [...document.querySelectorAll(".covariate-scatter-plot-study-Percent"), ...document.querySelectorAll(".covariate-scatter-plot-study-Total")];
 
   // get data //
   let covariateSiteData = covariateSiteScatterPlots.map((el) => {

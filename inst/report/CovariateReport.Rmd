@@ -192,8 +192,13 @@ params$lTreatmentCompCharts$site_percent
 ```
 
 ```{r echo=FALSE}
-cbar <- system.file('utils-0.0.1', 'bringCovariateBarToTop.js', package = "gsm")
+bringCovariateBarToTop <- system.file('utils-0.0.1', 'bringCovariateBarToTop.js', package = "gsm")
+addCovariateScatterplotOverlay <- system.file('utils-0.0.1', 'addCovariateScatterplotOverlay.js', package = "gsm")
 ```
 
-```{js, file={cbar}, echo=FALSE}
+```{js, file={bringCovariateBarToTop}, echo=FALSE}
+```
+
+
+```{js, file={addCovariateScatterplotOverlay}, echo=FALSE}
 ```
