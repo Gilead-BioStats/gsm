@@ -6,6 +6,7 @@
 #' Read default mapping files from `inst/mappings`.
 #'
 #' @param strDomain `character` vector of length 1 or greater. Valid values include: `adam`, `ctms`, `edc`, and `rawplus`. Additionally, for very specific use-cases, `domain` is a valid option.
+#' @param package `character` a string of the package name to define the path to the mapping yaml files
 #'
 #' @examples
 #' mappings <- Read_Mapping(c("ctms", "rawplus"))
@@ -13,9 +14,9 @@
 #' @return `list` of mappings for each available domain: `ADaM`, `CTMS`, `EDC`, and `rawplus`.
 #'
 #' @export
-Read_Mapping <- function(strDomain = NULL) {
+Read_Mapping <- function(strDomain = NULL, package = "gsm") {
   # regex to read all YAML files that start with "mapping_" inside of `inst/mappings`
-  file_names <- list.files(system.file("mappings", package = "gsm"),
+  file_names <- list.files(system.file("mappings", package = package),
     pattern = "^mapping_.*\\.yaml$",
     full.names = TRUE
   )

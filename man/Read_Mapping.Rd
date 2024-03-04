@@ -4,10 +4,12 @@
 \alias{Read_Mapping}
 \title{Read Mapping}
 \usage{
-Read_Mapping(strDomain = NULL)
+Read_Mapping(strDomain = NULL, package = "gsm")
 }
 \arguments{
 \item{strDomain}{\code{character} vector of length 1 or greater. Valid values include: \code{adam}, \code{ctms}, \code{edc}, and \code{rawplus}. Additionally, for very specific use-cases, \code{domain} is a valid option.}
+
+\item{package}{\code{character} a string of the package name to define the path to the mapping yaml files}
 }
 \value{
 \code{list} of mappings for each available domain: \code{ADaM}, \code{CTMS}, \code{EDC}, and \code{rawplus}.
