@@ -45,6 +45,7 @@ jobs:
           install.packages("devtools")
           devtools::install(dependencies=TRUE)
           install.packages('rcmdcheck')
+          install.packages("curl")
 
       - uses: r-lib/actions/check-r-package@v2
 
