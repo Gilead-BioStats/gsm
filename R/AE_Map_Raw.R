@@ -67,8 +67,7 @@ AE_Map_Raw <- function(
     dfAE_mapped <- dfs$dfAE %>%
       select(SubjectID = lMapping[["dfAE"]][["strIDCol"]])
 
-
-    dfSUBJ_mapped <- MapSubjectLevel(dfs$dfSUBJ, lMapping)
+    dfSUBJ_mapped <- MapSubjectLevel(dfs$dfSUBJ, strDomain = "dfAE")
 
     # Create Subject Level AE Counts and merge dfSUBJ
     dfInput <- dfAE_mapped %>%
