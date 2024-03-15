@@ -1,0 +1,55 @@
+dfSUBJ:
+  domain: Demographics
+  numerator_dataset:
+  subject_id_mapping_name: strIDCol
+  subject_level_dataset: dfSUBJ
+dfAE:
+  domain: Adverse Events
+  subject_id_mapping_name: strIDCol
+  subject_level_dataset: dfSUBJ
+  subject_level_columns:
+    - "strIDCol"
+    - "strSiteCol"
+    - "strStudyCol"
+    - "strCountryCol"
+    - "strCustomGroupCol"
+    - "strTimeOnStudyCol"
+  subject_level_names:
+    - "SubjectID"
+    - "SiteID"
+    - "StudyID"
+    - "CountryID"
+    - "CustomGroupID"
+    - "Exposure"
+dfIE:
+  domain: Inclusion/Exclusion Criteria
+  subject_id_mapping_name: strIDCol
+  subject_level_dataset: dfSUBJ
+dfCONSENT:
+  domain: Informed Consent
+  subject_id_mapping_name: strIDCol
+  subject_level_dataset: dfSUBJ
+dfSTUDCOMP:
+  domain: Study Disposition
+  subject_id_mapping_name: strIDCol
+  subject_level_dataset: dfSUBJ
+dfSDRGCOMP:
+  domain: Treatment Disposition
+  subject_id_mapping_name: strIDCol
+  subject_level_dataset: dfSUBJ
+dfLB:
+  domain: Labs
+  subject_id_mapping_name: strIDCol
+  subject_level_dataset: dfSUBJ
+dfENROLL:
+  domain: Screening Disposition
+  subject_level_dataset: dfENROLL
+dfPD:
+  domain: Protocol Deviations
+dfDATACHG:
+  domain: Data Points
+dfDATAENT:
+  domain: Data Pages
+dfQUERY:
+  domain: Queries
+
