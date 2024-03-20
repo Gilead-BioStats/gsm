@@ -8,6 +8,7 @@
 #' @param dfSummary `data.frame` the stacked output of `Make_Snapshot()$lStackedSnapshots$rpt_site_kri_details`, containing a minimum of two unique values for `gsm_analysis_date`.
 #' @param lLabels `list` chart labels, typically defined by `Make_Snapshot()$lStackedSnapshots$rpt_site_kri_details`.
 #' @param dfParams `data.frame` the stacked output of `Make_Snapshot()$lStackedSnapshots$rpt_kri_threshold_param`.
+#' @param yAxis `character` the name of a column from `lLabels` to be passed to the y-axis on the widget plot.
 #' @param selectedGroupIDs `character` group IDs to highlight, \code{NULL} by default, can be a single site or a vector.
 #' @param width `numeric` width of widget.
 #' @param height `numeric` height of widget.
@@ -21,6 +22,7 @@ Widget_TimeSeries <- function(
   dfSummary,
   lLabels,
   dfParams,
+  yAxis = "score",
   selectedGroupIDs = NULL,
   width = NULL,
   height = NULL,
@@ -69,26 +71,35 @@ Widget_TimeSeries <- function(
       "data_inputs",
       "data_filters",
       "gsm_analysis_date"
-    )
+    ) %>%
+    mutate("y" = yAxis)
 
-  dfParams <- dfParams %>%
-    select(
-      "workflowid",
-      "param",
-      "index",
-      "gsm_analysis_date",
-      "snapshot_date",
-      "studyid",
-      "value" = "default_s"
-    )
+  if (yAxis == "score") {
 
+    dfParams <- dfParams %>%
+      select(
+        "workflowid",
+        "param",
+        "index",
+        "gsm_analysis_date",
+        "snapshot_date",
+        "studyid",
+        "value" = "default_s"
+      )
 
+    dfParams <- jsonlite::toJSON(dfParams, na = "string")
+
+  } else {
+
+    dfParams = NULL
+
+  }
 
   # forward options using x
   x <- list(
     dfSummary = jsonlite::toJSON(dfSummary, na = "string"),
     lLabels = lLabels,
-    dfParams = jsonlite::toJSON(dfParams, na = "string"),
+    dfParams = dfParams,
     addSiteSelect = addSiteSelect,
     selectedGroupIDs = c(as.character(selectedGroupIDs))
   )
