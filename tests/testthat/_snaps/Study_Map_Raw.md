@@ -843,7 +843,7 @@
       tryCatch(Study_Map_Raw(dfs = dfs, lMapping = input_mapping_edited, dfConfig = input_config),
       error = conditionMessage)
     Output
-      [1] "Can't subset columns that don't exist.\nx Column `Sadie` doesn't exist."
+      [1] "Can't select columns that don't exist.\nx Column `Sadie` doesn't exist."
 
 # missing column throws error
 
@@ -851,5 +851,5 @@
       tryCatch(Study_Map_Raw(dfs = dfs_edited, lMapping = input_mapping, dfConfig = input_config),
       error = conditionMessage)
     Output
-      [1] "Can't subset columns that don't exist.\nx Column `protocol_number` doesn't exist."
+      [1] "Can't select columns that don't exist.\nx Column `protocol_number` doesn't exist."
 
