@@ -309,12 +309,12 @@ MakeResultsTable <- function(assessment, summary_table, lCharts) {
       chart_key <- names(charts)[j]
       chart <- charts[[chart_key]]
       chart_name <- switch(chart_key,
-        scatterJS = "Scatter Plot",
-        barScoreJS = "Bar Chart (KRI Score)",
-        barMetricJS = "Bar Chart (KRI Metric)",
-        timeSeriesContinuousScoreJS = "Time Series (Score)",
-        timeSeriesContinuousMetricJS = "Time Series (KRI Metric)",
-        timeSeriesContinuousNumeratorJS = "Time Series (Numerator)"
+        scatterJS = paste0(fontawesome::fa("chart-line", fill = "#337ab7"), "  Summary"),
+        barScoreJS = paste0(fontawesome::fa("chart-simple", fill = "#337ab7"), "  KRI Score"),
+        barMetricJS = paste0(fontawesome::fa("chart-simple", fill = "#337ab7"), "  KRI Metric"),
+        timeSeriesContinuousScoreJS = paste0(fontawesome::fa("chart-line", fill = "#337ab7"), "  KRI Score"),
+        timeSeriesContinuousMetricJS = paste0(fontawesome::fa("chart-line", fill = "#337ab7") ,"  KRI Metric"),
+        timeSeriesContinuousNumeratorJS = paste0(fontawesome::fa("chart-line", fill = "#337ab7"), "  Numerator")
       )
 
       ##### chart tab /
