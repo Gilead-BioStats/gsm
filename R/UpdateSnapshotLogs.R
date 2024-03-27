@@ -129,5 +129,18 @@ UpdateSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping =
     output <- RevertSnapshotLogs(lSnapshot, lMeta, lData)
   }
 
+
+# Extract lCharts ---------------------------------------------------------
+  output$lCharts <- ExtractCharts(
+    lResults = lResults
+  )
+
+
+  browser()
+
+
+# Reconfigure stacked snapshots -------------------------------------------
+output$lStackedSnapshots <- ReformatStackedSnapshots(lSnapshot$lStackedSnapshots)
+
   return(output)
 }
