@@ -14,7 +14,7 @@ Widget_TimeSeries(
   height = NULL,
   elementId = NULL,
   addSiteSelect = TRUE,
-  siteSelectLabelValue = NULL
+  siteSelectLabelValue = "Site"
 )
 }
 \arguments{

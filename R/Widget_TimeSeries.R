@@ -28,10 +28,12 @@ Widget_TimeSeries <- function(
   height = NULL,
   elementId = NULL,
   addSiteSelect = TRUE,
-  siteSelectLabelValue = NULL
+  siteSelectLabelValue = "Site"
 ) {
   if (!is.null(siteSelectLabelValue)) {
     siteSelectLabelValue <- paste0("Highlighted ", siteSelectLabelValue, ": ")
+  } else {
+    siteSelectLabelValue <- "Highlighted:"
   }
 
   # rename results to account for rpt_* table refactor
@@ -54,7 +56,7 @@ Widget_TimeSeries <- function(
   if (all(grepl("^[0-9]$", dfSummary$groupid))) {
     uniqueSiteSelections <- sort(unique(as.numeric(dfSummary$groupid)))
   } else {
-    uniqueSiteSelections <- sort(unique(dfSummary$groupid))
+    uniqueSiteSelections <- sort(unique(as.numeric(dfSummary$groupid)))
   }
 
   lLabels <- lLabels %>%
@@ -101,7 +103,8 @@ Widget_TimeSeries <- function(
     lLabels = lLabels,
     dfParams = dfParams,
     addSiteSelect = addSiteSelect,
-    selectedGroupIDs = c(as.character(selectedGroupIDs))
+    selectedGroupIDs = c(as.character(selectedGroupIDs)),
+    siteSelectLabelValue = siteSelectLabelValue
   )
 
   # create standalone timeseries widget
@@ -116,7 +119,7 @@ Widget_TimeSeries <- function(
     htmlwidgets::prependContent(
       htmltools::tags$div(
         class = "select-group-container",
-        htmltools::tags$label(siteSelectLabelValue),
+        htmltools::tags$span(siteSelectLabelValue),
         htmltools::tags$select(
           class = "site-select--time-series",
           id = glue::glue("site-select--time-series_{unique(lLabels$workflowid)}"),
