@@ -59,13 +59,30 @@ MakeKRICharts <- function(dfSummary, dfBounds, lLabels = NULL, lStackedSnapshots
     number_of_snapshots <- length(unique(lStackedSnapshots$rpt_site_kri_details$snapshot_date))
 
     if (number_of_snapshots > 1) {
-      lCharts$timeSeriesContinuousJS <- Widget_TimeSeries(
+
+      lCharts$timeSeriesContinuousScoreJS <- Widget_TimeSeries(
         dfSummary = lStackedSnapshots$rpt_site_kri_details,
         lLabels = lStackedSnapshots$rpt_kri_details,
-        dfParams = lStackedSnapshots$rpt_kri_threshold_param
+        dfParams = lStackedSnapshots$rpt_kri_threshold_param,
+        yAxis = "score"
+      )
+
+      lCharts$timeSeriesContinuousMetricJS <- Widget_TimeSeries(
+        dfSummary = lStackedSnapshots$rpt_site_kri_details,
+        lLabels = lStackedSnapshots$rpt_kri_details,
+        dfParams = lStackedSnapshots$rpt_kri_threshold_param,
+        yAxis = "metric"
+      )
+
+      lCharts$timeSeriesContinuousNumeratorJS <- Widget_TimeSeries(
+        dfSummary = lStackedSnapshots$rpt_site_kri_details,
+        lLabels = lStackedSnapshots$rpt_kri_details,
+        dfParams = lStackedSnapshots$rpt_kri_threshold_param,
+        yAxis = "numerator"
       )
     }
   }
 
   return(lCharts)
 }
+

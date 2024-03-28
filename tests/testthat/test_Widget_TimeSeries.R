@@ -36,7 +36,7 @@ test_that("Widget_TimeSeries() outputs data properly", {
   # lLabels -----------------------------------------------------------------------------
   lLabel_names <- c(
     "workflowid", "group", "abbreviation", "metric", "numerator", "denominator",
-    "outcome", "model", "score", "data_inputs", "data_filters", "gsm_analysis_date"
+    "outcome", "model", "score", "data_inputs", "data_filters", "gsm_analysis_date", "y"
   )
 
   expect_equal(lLabel_names, names(plot$x$lLabels))
