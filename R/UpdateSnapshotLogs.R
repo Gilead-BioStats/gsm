@@ -136,9 +136,6 @@ UpdateSnapshotLogs <- function(lSnapshot, lMeta = NULL, lData = NULL, lMapping =
   )
 
 
-  browser()
-
-
 # Reconfigure stacked snapshots -------------------------------------------
 output$lStackedSnapshots <- ReformatStackedSnapshots(lSnapshot$lStackedSnapshots)
 
