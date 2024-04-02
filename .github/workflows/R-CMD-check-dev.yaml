@@ -42,10 +42,11 @@ jobs:
       - name: install packages
         shell: Rscript {0}
         run: |
-          install.packages("devtools")
+          install.packages('devtools')
           devtools::install(dependencies=TRUE)
           install.packages('rcmdcheck')
           install.packages('curl')
+          install.packages('arrow', type = 'source')
 
       - uses: r-lib/actions/check-r-package@v2
 
