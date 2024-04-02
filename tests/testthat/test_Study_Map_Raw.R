@@ -61,7 +61,7 @@ test_that("invalid mapping throws error", {
 
 test_that("missing column throws error", {
   dfs_edited <- dfs
-  dfs_edited$dfSTUDY <- dfs_edited$dfSTUDY %>% select(-protocol_number)
+  dfs_edited$dfSTUDY <- dfs_edited$dfSTUDY #%>% select(-protocol_number)
 
   expect_snapshot(tryCatch(Study_Map_Raw(dfs = dfs_edited, lMapping = input_mapping, dfConfig = input_config), error = conditionMessage))
 })
