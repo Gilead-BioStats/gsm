@@ -851,5 +851,14 @@
       tryCatch(Study_Map_Raw(dfs = dfs_edited, lMapping = input_mapping, dfConfig = input_config),
       error = conditionMessage)
     Output
-      [1] "Can't select columns that don't exist.\nx Column `protocol_number` doesn't exist."
+      # A tibble: 1 x 24
+        studyid        enrolled_sites enrolled_participants planned_sites
+        <chr>                   <int>                 <int>         <int>
+      1 AA-AA-000-0000              3                     3           190
+      # i 20 more variables: planned_participants <int>, title <chr>, nickname <chr>,
+      #   enrolled_sites_ctms <int>, enrolled_participants_ctms <int>, fpfv <chr>,
+      #   lpfv <chr>, lplv <chr>, ta <chr>, indication <chr>, phase <chr>,
+      #   status <chr>, rbm_flag <chr>, product <chr>, protocol_type <chr>,
+      #   protocol_row_id <chr>, est_fpfv <chr>, est_lpfv <chr>, est_lplv <chr>,
+      #   protocol_product_number <int>
 

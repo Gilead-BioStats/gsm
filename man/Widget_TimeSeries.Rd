@@ -8,12 +8,13 @@ Widget_TimeSeries(
   dfSummary,
   lLabels,
   dfParams,
+  yAxis = "score",
   selectedGroupIDs = NULL,
   width = NULL,
   height = NULL,
   elementId = NULL,
   addSiteSelect = TRUE,
-  siteSelectLabelValue = NULL
+  siteSelectLabelValue = "Site"
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ Widget_TimeSeries(
 \item{lLabels}{\code{list} chart labels, typically defined by \code{Make_Snapshot()$lStackedSnapshots$rpt_site_kri_details}.}
 
 \item{dfParams}{\code{data.frame} the stacked output of \code{Make_Snapshot()$lStackedSnapshots$rpt_kri_threshold_param}.}
+
+\item{yAxis}{\code{character} the name of a column from \code{lLabels} to be passed to the y-axis on the widget plot.}
 
 \item{selectedGroupIDs}{\code{character} group IDs to highlight, \code{NULL} by default, can be a single site or a vector.}
 

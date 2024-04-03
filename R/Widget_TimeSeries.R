@@ -8,6 +8,7 @@
 #' @param dfSummary `data.frame` the stacked output of `Make_Snapshot()$lStackedSnapshots$rpt_site_kri_details`, containing a minimum of two unique values for `gsm_analysis_date`.
 #' @param lLabels `list` chart labels, typically defined by `Make_Snapshot()$lStackedSnapshots$rpt_site_kri_details`.
 #' @param dfParams `data.frame` the stacked output of `Make_Snapshot()$lStackedSnapshots$rpt_kri_threshold_param`.
+#' @param yAxis `character` the name of a column from `lLabels` to be passed to the y-axis on the widget plot.
 #' @param selectedGroupIDs `character` group IDs to highlight, \code{NULL} by default, can be a single site or a vector.
 #' @param width `numeric` width of widget.
 #' @param height `numeric` height of widget.
@@ -21,15 +22,18 @@ Widget_TimeSeries <- function(
   dfSummary,
   lLabels,
   dfParams,
+  yAxis = "score",
   selectedGroupIDs = NULL,
   width = NULL,
   height = NULL,
   elementId = NULL,
   addSiteSelect = TRUE,
-  siteSelectLabelValue = NULL
+  siteSelectLabelValue = "Site"
 ) {
   if (!is.null(siteSelectLabelValue)) {
     siteSelectLabelValue <- paste0("Highlighted ", siteSelectLabelValue, ": ")
+  } else {
+    siteSelectLabelValue <- "Highlighted:"
   }
 
   # rename results to account for rpt_* table refactor
@@ -52,7 +56,7 @@ Widget_TimeSeries <- function(
   if (all(grepl("^[0-9]$", dfSummary$groupid))) {
     uniqueSiteSelections <- sort(unique(as.numeric(dfSummary$groupid)))
   } else {
-    uniqueSiteSelections <- sort(unique(dfSummary$groupid))
+    uniqueSiteSelections <- sort(unique(as.numeric(dfSummary$groupid)))
   }
 
   lLabels <- lLabels %>%
@@ -69,28 +73,38 @@ Widget_TimeSeries <- function(
       "data_inputs",
       "data_filters",
       "gsm_analysis_date"
-    )
+    ) %>%
+    mutate("y" = yAxis)
 
-  dfParams <- dfParams %>%
-    select(
-      "workflowid",
-      "param",
-      "index",
-      "gsm_analysis_date",
-      "snapshot_date",
-      "studyid",
-      "value" = "default_s"
-    )
+  if (yAxis == "score") {
 
+    dfParams <- dfParams %>%
+      select(
+        "workflowid",
+        "param",
+        "index",
+        "gsm_analysis_date",
+        "snapshot_date",
+        "studyid",
+        "value" = "default_s"
+      )
 
+    dfParams <- jsonlite::toJSON(dfParams, na = "string")
+
+  } else {
+
+    dfParams = NULL
+
+  }
 
   # forward options using x
   x <- list(
     dfSummary = jsonlite::toJSON(dfSummary, na = "string"),
     lLabels = lLabels,
-    dfParams = jsonlite::toJSON(dfParams, na = "string"),
+    dfParams = dfParams,
     addSiteSelect = addSiteSelect,
-    selectedGroupIDs = c(as.character(selectedGroupIDs))
+    selectedGroupIDs = c(as.character(selectedGroupIDs)),
+    siteSelectLabelValue = siteSelectLabelValue
   )
 
   # create standalone timeseries widget
@@ -105,7 +119,7 @@ Widget_TimeSeries <- function(
     htmlwidgets::prependContent(
       htmltools::tags$div(
         class = "select-group-container",
-        htmltools::tags$label(siteSelectLabelValue),
+        htmltools::tags$span(siteSelectLabelValue),
         htmltools::tags$select(
           class = "site-select--time-series",
           id = glue::glue("site-select--time-series_{unique(lLabels$workflowid)}"),

@@ -302,17 +302,19 @@ MakeResultsTable <- function(assessment, summary_table, lCharts) {
     cat("#### Summary Charts {.tabset} \n")
 
     charts <- lCharts[[kri_key]][
-      names(lCharts[[kri_key]]) %in% c("scatterJS", "barMetricJS", "barScoreJS", "timeSeriesContinuousJS", "timeseriesQtl")
+      names(lCharts[[kri_key]]) %in% c("scatterJS", "barMetricJS", "barScoreJS", "timeSeriesContinuousScoreJS", "timeSeriesContinuousMetricJS", "timeSeriesContinuousNumeratorJS", "timeseriesQtl")
     ]
 
     for (j in seq_along(charts)) {
       chart_key <- names(charts)[j]
       chart <- charts[[chart_key]]
       chart_name <- switch(chart_key,
-        scatterJS = "Scatter Plot",
-        barScoreJS = "Bar Chart (KRI Score)",
-        barMetricJS = "Bar Chart (KRI Metric)",
-        timeSeriesContinuousJS = "Time Series (Continuous)"
+        scatterJS = paste0(fontawesome::fa("arrow-up-right-dots", fill = "#337ab7"), "  Summary"),
+        barScoreJS = paste0(fontawesome::fa("chart-simple", fill = "#337ab7"), "  KRI Score"),
+        barMetricJS = paste0(fontawesome::fa("chart-simple", fill = "#337ab7"), "  KRI Metric"),
+        timeSeriesContinuousScoreJS = paste0(fontawesome::fa("chart-line", fill = "#337ab7"), "  KRI Score"),
+        timeSeriesContinuousMetricJS = paste0(fontawesome::fa("chart-line", fill = "#337ab7") ,"  KRI Metric"),
+        timeSeriesContinuousNumeratorJS = paste0(fontawesome::fa("chart-line", fill = "#337ab7"), "  Numerator")
       )
 
       ##### chart tab /
