@@ -53,7 +53,8 @@
 
 Flag_NormalApprox <- function(
   dfAnalyzed,
-  vThreshold = NULL
+  vThreshold = NULL,
+  bQuiet = FALSE
 ) {
   stopifnot(
     "dfAnalyzed is not a data frame" = is.data.frame(dfAnalyzed),

@@ -46,54 +46,31 @@ RunWorkflow <- function(lWorkflow, lData, lMapping, bQuiet = TRUE) {
     unlist() %>%
     unique()
 
-  lWorkflow$lData <- lData[vDataDomains]
-  lWorkflow$lChecks <- list()
-  lWorkflow$bStatus <- TRUE
-  lWorkflow$lWorkflowChecks <- is_workflow_valid(lWorkflow)
+  # lWorkflow$lData <- lData[vDataDomains]
+  lWorkflow$lData <- lData
 
+  # Run through each step in lWorkflow$workflow
+  stepCount <- 1
+  for (step in lWorkflow$steps) {
+    if (!bQuiet) cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lWorkflow$steps), ": `", step$name, "`"))
 
+    result <- gsm::RunStep(
+      lStep = step,
+      lMapping = lMapping,
+      lData = lWorkflow$lData,
+      bQuiet = bQuiet
+    )
 
-  if (lWorkflow$lWorkflowChecks$bStatus) {
-    # Run through each step in lWorkflow$workflow
-
-    stepCount <- 1
-    for (step in lWorkflow$steps) {
-      if (!bQuiet) cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lWorkflow$steps), ": `", step$name, "`"))
-      if (lWorkflow$bStatus) {
-        result <- gsm::RunStep(
-          lStep = step,
-          lMapping = lMapping,
-          lData = lWorkflow$lData,
-          bQuiet = bQuiet
-        )
-
-        lWorkflow$lChecks[[stepCount]] <- result$lChecks
-        names(lWorkflow$lChecks)[[stepCount]] <- step$name
-        lWorkflow$bStatus <- result$lChecks$status
-
-        if (result$lChecks$status) {
-          if (!bQuiet) cli::cli_alert_success("{.fn {step$name}} Successful")
-        } else {
-          if (!bQuiet) cli::cli_alert_warning("{.fn {step$name}} Failed - Skipping remaining steps")
-        }
-
-        if (stringr::str_detect(step$output, "^df")) {
-          if (!bQuiet) cli::cli_text("Saving {step$output} to `lWorkflow$lData`")
-          lWorkflow$lData[[step$output]] <- result$df
-        } else {
-          if (!bQuiet) cli::cli_text("Saving {step$output} to `lWorkflow`")
-          lWorkflow[[step$output]] <- result
-        }
-      } else {
-        if (!bQuiet) cli::cli_text("Skipping {.fn {step$name}} ...")
-      }
-      stepCount <- stepCount + 1
+    if (stringr::str_detect(step$output, "^df")) {
+      if (!bQuiet) cli::cli_text("Saving {step$output} to `lWorkflow$lData`")
+      lWorkflow$lData[[step$output]] <- result
+    } else {
+      if (!bQuiet) cli::cli_text("Saving {step$output} to `lWorkflow`")
+      lWorkflow[[step$output]] <- result
     }
-  } else {
-    if (!bQuiet) cli::cli_alert_warning("Workflow not found for {lWorkflow$name} assessment - Skipping remaining steps")
-    lWorkflow$bStatus <- FALSE
-  }
 
+    stepCount <- stepCount + 1
+  }
 
   return(lWorkflow)
 }

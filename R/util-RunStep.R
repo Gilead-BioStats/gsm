@@ -48,24 +48,32 @@ RunStep <- function(lStep, lMapping, lData, bQuiet) {
   # prepare data inputs by function type
   if (stringr::str_detect(lStep$name, "_Map")) {
     params$lMapping <- lMapping
-    params$dfs <- lData[lStep$inputs]
-    params$bReturnChecks <- TRUE
   } else if (stringr::str_detect(lStep$name, "_Assess")) {
-    params$dfInput <- lData[[lStep$inputs]]
+    # params$dfInput <- lData[[lStep$inputs]]
   } else if (lStep$name == "FilterDomain") {
     params$lMapping <- lMapping
-    params$df <- lData[[lStep$inputs]]
-    params$bReturnChecks <- TRUE
-
-    if (is.null(params$df)) {
-      params$df <- NA
-    }
   } else if (lStep$name == "FilterData") {
-    params$dfInput <- lData[[lStep$inputs]]
-    params$bReturnChecks <- TRUE
+    #params$dfInput <- lData[[lStep$inputs]]
   }
 
-
+  # Pull data frames in params from lData
+  for(paramName in names(params)){
+    paramVal <- params[[paramName]]
+    if (stringr::str_detect(paramName, "^df")) {
+      #print(names(lData))
+      #browser()
+      if(all(paramVal %in% names(lData))){
+        if (!bQuiet) cli::cli_text("Found data for {paramVal}. Proceeding ...")
+        if(length(paramVal)==1){
+          params[[paramName]] <- lData[[paramVal]]
+        }else{
+          params[[paramName]] <- lData[paramVal]
+        }
+      } else {
+        cli::cli_alert_warning("Data for {paramVal} not found in workflow. This might bomb soon ...")
+      }      
+    }
+  }
 
   if (!bQuiet) cli::cli_text("Calling {.fn {lStep$name}} ...")
   return(do.call(lStep$name, params))

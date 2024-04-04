@@ -85,17 +85,17 @@ workflow_has_steps <- function(lWorkflow) {
 steps_are_valid <- function(lWorkflow) {
   check <- purrr::map(lWorkflow$steps, function(step) {
     status_function_is_valid <- exists("name", step) && step$name %in% getNamespaceExports("gsm")
-    status_input_is_valid <- exists("inputs", where = step)
+    #status_input_is_valid <- exists("inputs", where = step)
     status_output_is_valid <- exists("output", where = step)
 
     message_function_is_valid <- ifelse(status_function_is_valid, "", "Function not found in list of {gsm} functions")
-    message_input_is_valid <- ifelse(status_input_is_valid, "", "Input(s) not found.")
+    #message_input_is_valid <- ifelse(status_input_is_valid, "", "Input(s) not found.")
     message_output_is_valid <- ifelse(status_output_is_valid, "", "Output(s) not found")
 
     return(
       list(
         function_is_valid = list(status = status_function_is_valid, message = message_function_is_valid),
-        input_is_valid = list(status = status_input_is_valid, message = message_input_is_valid),
+        #input_is_valid = list(status = status_input_is_valid, message = message_input_is_valid),
         output_is_valid = list(status = status_output_is_valid, message = message_output_is_valid)
       )
     )
