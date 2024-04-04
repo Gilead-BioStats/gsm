@@ -33,12 +33,14 @@ HTMLWidgets.widget({
                   }
                 };
 
+                console.log(x);
                 // generate bar chart
                 const instance = rbmViz.default.barChart(
                     el,
                     x.dfSummary,
                     lLabels,
-                    x.dfThreshold
+                    x.dfThreshold,
+                    x.dfSite
                 );
 
                 // add dropdown that highlights sites

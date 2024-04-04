@@ -16,12 +16,12 @@
 #' @param addSiteSelect `logical` add a dropdown to highlight sites? Default: `TRUE`.
 #' @param siteSelectLabelValue Label used to populate the HTML drop-down menu. Constructed as: 'Highlighted {siteSelectLabelValue}: '.
 #'
-#'
 #' @export
 Widget_TimeSeries <- function(
   dfSummary,
   lLabels,
-  dfParams,
+  dfSite = NULL,
+  dfParams = NULL,
   yAxis = "score",
   selectedGroupIDs = NULL,
   width = NULL,
@@ -97,11 +97,16 @@ Widget_TimeSeries <- function(
 
   }
 
+  if (!is.null(dfSite)) {
+    dfSite <- jsonlite::toJSON(dfSite, na = "string")
+  }
+
   # forward options using x
   x <- list(
     dfSummary = jsonlite::toJSON(dfSummary, na = "string"),
     lLabels = lLabels,
     dfParams = dfParams,
+    dfSite = dfSite,
     addSiteSelect = addSiteSelect,
     selectedGroupIDs = c(as.character(selectedGroupIDs)),
     siteSelectLabelValue = siteSelectLabelValue

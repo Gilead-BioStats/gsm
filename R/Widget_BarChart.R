@@ -86,8 +86,9 @@
 #'
 #' @export
 Widget_BarChart <- function(
-  dfSummary = NULL,
-  lLabels = list(),
+  dfSummary,
+  lLabels,
+  dfSite = NULL,
   dfThreshold = NULL,
   strYAxisType = "score",
   selectedGroupIDs = NULL,
@@ -113,11 +114,16 @@ Widget_BarChart <- function(
     dfThreshold <- jsonlite::toJSON(dfThreshold, na = "string")
   }
 
+  if (!is.null(dfSite)) {
+    dfSite <- jsonlite::toJSON(dfSite, na = "string")
+  }
+
   # forward options using x
   x <- list(
     dfSummary = jsonlite::toJSON(dfSummary, na = "string"),
     lLabels = jsonlite::toJSON(lLabels, na = "string"),
     dfThreshold = dfThreshold,
+    dfSite = dfSite,
     strYAxisType = strYAxisType,
     selectedGroupIDs = as.character(selectedGroupIDs),
     addSiteSelect = addSiteSelect,

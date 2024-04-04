@@ -204,7 +204,11 @@ QueryRate_Assess <- function(
     )
 
     if (bMakeCharts) {
-      lOutput$lCharts <- MakeKRICharts(dfSummary = lData$dfSummary, dfBounds = lData$dfBounds, lLabels = lLabels)
+        lOutput$lCharts <- MakeKRICharts(
+            dfSummary = lData$dfSummary,
+            lLabels = lLabels,
+            dfBounds = lData$dfBounds
+        )
       if (!bQuiet) cli::cli_alert_success("Created {length(lOutput$lCharts)} chart{?s}.")
     }
 

@@ -122,10 +122,7 @@ Make_Snapshot <- function(
   # create `lStackedSnapshots` ----------------------------------------------
   lStackedSnapshots <- AppendLogs(lPrevSnapshot, lSnapshot, vAppendFiles, bQuiet = bQuiet)
 
-
   # create lCharts ----------------------------------------------------------
-
-
   if (bMakeCharts) {
     lCharts <- purrr::map(lResults, function(x) {
       if (x$bStatus) {
@@ -138,9 +135,10 @@ Make_Snapshot <- function(
 
           MakeKRICharts(
             dfSummary = x$lResults$lData$dfSummary,
+            lLabels = lLabels,
+            dfSite = status_site,
             dfBounds = x$lResults$lData$dfBounds,
-            lStackedSnapshots = lStackedSnapshotsSubset,
-            lLabels = lLabels
+            lStackedSnapshots = lStackedSnapshotsSubset
           )
         } else {
           MakeQTLCharts(

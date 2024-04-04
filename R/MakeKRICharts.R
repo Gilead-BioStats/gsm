@@ -11,13 +11,20 @@
 #'
 #'
 #' @export
-MakeKRICharts <- function(dfSummary, dfBounds, lLabels = NULL, lStackedSnapshots = NULL) {
+MakeKRICharts <- function(
+    dfSummary,
+    lLabels = NULL,
+    dfSite = NULL,
+    dfBounds = NULL,
+    lStackedSnapshots = NULL
+) {
   lCharts <- list()
 
   if (tolower(lLabels$model) != "identity") {
     lCharts$scatterJS <- gsm::Widget_ScatterPlot(
       dfSummary = dfSummary,
       lLabels = lLabels,
+      dfSite = dfSite,
       dfBounds = dfBounds,
       elementId = paste0(tolower(lLabels$abbreviation), "AssessScatter")
     )
@@ -32,6 +39,7 @@ MakeKRICharts <- function(dfSummary, dfBounds, lLabels = NULL, lStackedSnapshots
   lCharts$barMetricJS <- gsm::Widget_BarChart(
     dfSummary = dfSummary,
     lLabels = lLabels,
+    dfSite = dfSite,
     strYAxisType = "metric",
     elementId = paste0(tolower(lLabels$abbreviation), "AssessMetric")
   )
@@ -39,6 +47,7 @@ MakeKRICharts <- function(dfSummary, dfBounds, lLabels = NULL, lStackedSnapshots
   lCharts$barScoreJS <- gsm::Widget_BarChart(
     dfSummary = dfSummary,
     lLabels = lLabels,
+    dfSite = dfSite,
     strYAxisType = "score",
     elementId = paste0(tolower(lLabels$abbreviation), "AssessScore")
   )
@@ -63,6 +72,7 @@ MakeKRICharts <- function(dfSummary, dfBounds, lLabels = NULL, lStackedSnapshots
       lCharts$timeSeriesContinuousScoreJS <- Widget_TimeSeries(
         dfSummary = lStackedSnapshots$rpt_site_kri_details,
         lLabels = lStackedSnapshots$rpt_kri_details,
+        dfSite = dfSite,
         dfParams = lStackedSnapshots$rpt_kri_threshold_param,
         yAxis = "score"
       )
@@ -70,6 +80,7 @@ MakeKRICharts <- function(dfSummary, dfBounds, lLabels = NULL, lStackedSnapshots
       lCharts$timeSeriesContinuousMetricJS <- Widget_TimeSeries(
         dfSummary = lStackedSnapshots$rpt_site_kri_details,
         lLabels = lStackedSnapshots$rpt_kri_details,
+        dfSite = dfSite,
         dfParams = lStackedSnapshots$rpt_kri_threshold_param,
         yAxis = "metric"
       )
@@ -77,6 +88,7 @@ MakeKRICharts <- function(dfSummary, dfBounds, lLabels = NULL, lStackedSnapshots
       lCharts$timeSeriesContinuousNumeratorJS <- Widget_TimeSeries(
         dfSummary = lStackedSnapshots$rpt_site_kri_details,
         lLabels = lStackedSnapshots$rpt_kri_details,
+        dfSite = dfSite,
         dfParams = lStackedSnapshots$rpt_kri_threshold_param,
         yAxis = "numerator"
       )
