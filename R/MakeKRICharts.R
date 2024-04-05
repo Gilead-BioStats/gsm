@@ -11,7 +11,7 @@
 #'
 #'
 #' @export
-MakeKRICharts <- function(dfSummary, dfBounds, lLabels = NULL, lStackedSnapshots = NULL) {
+MakeKRICharts <- function(dfSummary, dfBounds, lLabels = NULL, lStackedSnapshots = NULL, bQuiet = FALSE) {
   lCharts <- list()
 
   if (tolower(lLabels$model) != "identity") {

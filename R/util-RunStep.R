@@ -39,29 +39,32 @@
 #'
 #' @export
 
-RunStep <- function(lStep, lMapping, lData, bQuiet) {
+RunStep <- function(lStep, lMapping, lMeta, lData, bQuiet) {
   # prepare parameter list inputs
   if (!bQuiet) cli::cli_text("Preparing parameters for  {.fn {lStep$name}} ...")
 
   params <- lStep$params
-  params$bQuiet <- bQuiet
-  # prepare data inputs by function type
-  if (stringr::str_detect(lStep$name, "_Map")) {
-    params$lMapping <- lMapping
-  } else if (stringr::str_detect(lStep$name, "_Assess")) {
-    # params$dfInput <- lData[[lStep$inputs]]
-  } else if (lStep$name == "FilterDomain") {
-    params$lMapping <- lMapping
-  } else if (lStep$name == "FilterData") {
-    #params$dfInput <- lData[[lStep$inputs]]
-  }
 
-  # Pull data frames in params from lData
+  # This loop iterates over each parameter in the 'params' object.
   for(paramName in names(params)){
     paramVal <- params[[paramName]]
+
+    # If the parameter value is lMeta, provides the list of metadata from the workflow header
+    if(length(paramVal) == 1 && paramVal == "lMeta"){
+      if (!bQuiet) cli::cli_text("Found metadata. Proceeding ...")
+      params[[paramName]] <- lMeta
+    }
+
+    # If the parameter value is lMapping, provides the mapping passed to the workflow
+    if (length(paramVal) == 1 && paramVal == "lMapping"){
+      if (!bQuiet) cli::cli_text("Found mapping. Proceeding ...")
+      params[[paramName]] <- lMapping
+    }
+
+    # If the parameter name starts with 'df', it checks if the corresponding value exists in the 'lData' object.
+    # If the value exists, it updates the parameter value with the corresponding data.frame from 'lData'.
+    # If the value does not exist, it displays a warning message.
     if (stringr::str_detect(paramName, "^df")) {
-      #print(names(lData))
-      #browser()
       if(all(paramVal %in% names(lData))){
         if (!bQuiet) cli::cli_text("Found data for {paramVal}. Proceeding ...")
         if(length(paramVal)==1){
@@ -73,8 +76,10 @@ RunStep <- function(lStep, lMapping, lData, bQuiet) {
         cli::cli_alert_warning("Data for {paramVal} not found in workflow. This might bomb soon ...")
       }      
     }
+  
   }
 
+  params$bQuiet <- bQuiet
   if (!bQuiet) cli::cli_text("Calling {.fn {lStep$name}} ...")
   return(do.call(lStep$name, params))
 }

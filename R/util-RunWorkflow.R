@@ -48,6 +48,7 @@ RunWorkflow <- function(lWorkflow, lData, lMapping, bQuiet = TRUE) {
 
   # lWorkflow$lData <- lData[vDataDomains]
   lWorkflow$lData <- lData
+  
 
   # Run through each step in lWorkflow$workflow
   stepCount <- 1
@@ -57,6 +58,7 @@ RunWorkflow <- function(lWorkflow, lData, lMapping, bQuiet = TRUE) {
     result <- gsm::RunStep(
       lStep = step,
       lMapping = lMapping,
+      lMeta= lWorkflow$meta,
       lData = lWorkflow$lData,
       bQuiet = bQuiet
     )
