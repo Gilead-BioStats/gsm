@@ -19,6 +19,7 @@
 #' }
 #'
 #' @param lLabels configuration data with columns:
+#' @param dfSite `data.frame` Site metadata returned by [gsm::Site_Map_Raw()].
 #'
 #' @param dfThreshold a one row data frame containing columns:
 #' \itemize{

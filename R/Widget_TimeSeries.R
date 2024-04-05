@@ -7,6 +7,7 @@
 #'
 #' @param dfSummary `data.frame` the stacked output of `Make_Snapshot()$lStackedSnapshots$rpt_site_kri_details`, containing a minimum of two unique values for `gsm_analysis_date`.
 #' @param lLabels `list` chart labels, typically defined by `Make_Snapshot()$lStackedSnapshots$rpt_site_kri_details`.
+#' @param dfSite `data.frame` Site metadata returned by [gsm::Site_Map_Raw()].
 #' @param dfParams `data.frame` the stacked output of `Make_Snapshot()$lStackedSnapshots$rpt_kri_threshold_param`.
 #' @param yAxis `character` the name of a column from `lLabels` to be passed to the y-axis on the widget plot.
 #' @param selectedGroupIDs `character` group IDs to highlight, \code{NULL} by default, can be a single site or a vector.

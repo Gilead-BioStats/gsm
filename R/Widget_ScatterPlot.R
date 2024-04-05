@@ -33,6 +33,8 @@
 #'  \item{\code{data_filters}}
 #' }
 #'
+#' @param dfSite `data.frame` Site metadata returned by [gsm::Site_Map_Raw()].
+#'
 #' @param dfBounds chart bounds data with columns:
 #' \itemize{
 #'  \item{\code{threshold}}
