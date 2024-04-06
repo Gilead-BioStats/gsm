@@ -4,7 +4,7 @@
 \alias{Flag_NormalApprox}
 \title{Flag_NormalApprox}
 \usage{
-Flag_NormalApprox(dfAnalyzed, vThreshold = NULL)
+Flag_NormalApprox(dfAnalyzed, vThreshold = NULL, bQuiet = FALSE)
 }
 \arguments{
 \item{dfAnalyzed}{\code{data.frame} where flags should be added.}

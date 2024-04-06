@@ -4,7 +4,13 @@
 \alias{MakeKRICharts}
 \title{MakeKRICharts Function}
 \usage{
-MakeKRICharts(dfSummary, dfBounds, lLabels = NULL, lStackedSnapshots = NULL)
+MakeKRICharts(
+  dfSummary,
+  dfBounds,
+  lLabels = NULL,
+  lStackedSnapshots = NULL,
+  bQuiet = FALSE
+)
 }
 \arguments{
 \item{dfSummary}{\code{data.frame} A data.frame returned by \code{\link[=Summarize]{Summarize()}}.}

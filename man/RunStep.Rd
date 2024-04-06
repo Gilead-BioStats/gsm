@@ -4,7 +4,7 @@
 \alias{RunStep}
 \title{Run a single step in a workflow.}
 \usage{
-RunStep(lStep, lMapping, lData, bQuiet)
+RunStep(lStep, lMapping, lMeta, lData, bQuiet)
 }
 \arguments{
 \item{lStep}{\code{list} single workflow step (typically defined in \code{lWorkflow$workflow}). Should
