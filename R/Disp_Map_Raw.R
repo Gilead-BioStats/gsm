@@ -74,7 +74,6 @@ Disp_Map_Raw <- function(
     dfDISP_mapped <- dfDISP %>%
       select(
         SubjectID = lMapping[[strDomain]][["strIDCol"]],
-        DCReason = lMapping[[strDomain]][[glue::glue("str{strContext}DiscontinuationReasonCol")]],
         Discontinuation = lMapping[[strDomain]][[glue::glue("str{strContext}DiscontinuationFlagCol")]]
       ) %>%
       filter(.data$Discontinuation %in% lMapping[[strDomain]][[glue::glue("str{strContext}DiscontinuationFlagVal")]]) %>%

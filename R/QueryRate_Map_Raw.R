@@ -64,26 +64,19 @@ QueryRate_Map_Raw <- function(
   if (checks$status) {
     if (!bQuiet) cli::cli_h2("Initializing {.fn QueryRate_Map_Raw}")
     # Standarize Column Names
-
-
-
     dfQUERY_mapped <- dfs$dfQUERY %>%
       select(
-        SubjectID = lMapping[["dfQUERY"]][["strIDCol"]],
-        VisitID = lMapping[["dfQUERY"]][["strVisitCol"]],
-        FormID = lMapping[["dfQUERY"]][["strFormCol"]]
+        SubjectID = lMapping[["dfQUERY"]][["strIDCol"]]
       ) %>%
-      group_by(.data$SubjectID, .data$VisitID, .data$FormID) %>%
+      group_by(.data$SubjectID) %>%
       summarize(Count = n()) %>%
       ungroup()
 
     dfDATACHG_mapped <- dfs$dfDATACHG %>%
       select(
-        SubjectID = lMapping[["dfDATACHG"]][["strIDCol"]],
-        VisitID = lMapping[["dfDATACHG"]][["strVisitCol"]],
-        FormID = lMapping[["dfDATACHG"]][["strFormCol"]]
+        SubjectID = lMapping[["dfDATACHG"]][["strIDCol"]]
       ) %>%
-      group_by(.data$SubjectID, .data$VisitID, .data$FormID) %>%
+      group_by(.data$SubjectID) %>%
       summarize(DataPoint = n()) %>%
       ungroup()
 
@@ -105,7 +98,7 @@ QueryRate_Map_Raw <- function(
     dfInput <- dfQUERY_mapped %>%
       full_join(
         dfDATACHG_mapped,
-        c("SubjectID", "VisitID", "FormID")
+        c("SubjectID")
       ) %>%
       group_by(.data$SubjectID) %>%
       summarize(

@@ -71,8 +71,7 @@ Screening_Map_Raw <- function(
           )
         ),
         SubjectID = lMapping[["dfENROLL"]][["strIDCol"]],
-        ScreenFail = lMapping[["dfENROLL"]][["strScreenFailCol"]],
-        ScreenFailReason = lMapping[["dfENROLL"]][["strScreenFailReasonCol"]]
+        ScreenFail = lMapping[["dfENROLL"]][["strScreenFailCol"]]
       ) %>%
       mutate(
         Count = as.numeric(

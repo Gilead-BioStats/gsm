@@ -1,17 +1,9 @@
 dfQUERY:
   vRequired:
     - strIDCol
-    - strVisitCol
-    - strFormCol
-  vNACols:
-    - strVisitCol
 dfDATACHG:
   vRequired:
     - strIDCol
-    - strVisitCol
-    - strFormCol
-  vNACols:
-    - strVisitCol
 dfSUBJ:
   vRequired:
     - strEDCIDCol
