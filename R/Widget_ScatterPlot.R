@@ -33,6 +33,8 @@
 #'  \item{\code{data_filters}}
 #' }
 #'
+#' @param dfSite `data.frame` Site metadata returned by [gsm::Site_Map_Raw()].
+#'
 #' @param dfBounds chart bounds data with columns:
 #' \itemize{
 #'  \item{\code{threshold}}
@@ -103,7 +105,8 @@
 Widget_ScatterPlot <- function(
   dfSummary,
   lLabels,
-  dfBounds,
+  dfSite = NULL,
+  dfBounds = NULL,
   selectedGroupIDs = NULL,
   addSiteSelect = TRUE,
   bHideDropdown = FALSE,
@@ -128,11 +131,16 @@ Widget_ScatterPlot <- function(
     siteSelectLabelValue <- paste0("Highlighted ", lLabels$group, ": ")
   }
 
+  if (!is.null(dfSite)) {
+    dfSite <- jsonlite::toJSON(dfSite, na = "string")
+  }
+
   # forward options using x
   x <- list(
     dfSummary = jsonlite::toJSON(dfSummary, na = "string"),   # data
     lLabels = jsonlite::toJSON(lLabels, na = "string"),       # config
     dfBounds = dfBounds,                                      # bounds
+    dfSite = dfSite,
     selectedGroupIDs = as.character(selectedGroupIDs),
     addSiteSelect = addSiteSelect,
     siteSelectLabelValue = siteSelectLabelValue,

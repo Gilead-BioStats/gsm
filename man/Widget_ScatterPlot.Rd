@@ -7,7 +7,8 @@
 Widget_ScatterPlot(
   dfSummary,
   lLabels,
-  dfBounds,
+  dfSite = NULL,
+  dfBounds = NULL,
   selectedGroupIDs = NULL,
   addSiteSelect = TRUE,
   bHideDropdown = FALSE,
@@ -43,6 +44,8 @@ Widget_ScatterPlot(
 \item{\code{data_inputs}}
 \item{\code{data_filters}}
 }}
+
+\item{dfSite}{\code{data.frame} Site metadata returned by \code{\link[=Site_Map_Raw]{Site_Map_Raw()}}.}
 
 \item{dfBounds}{chart bounds data with columns:
 \itemize{

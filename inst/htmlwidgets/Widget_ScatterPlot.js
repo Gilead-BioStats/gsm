@@ -9,14 +9,9 @@ HTMLWidgets.widget({
                 const lLabels = x.lLabels;
                 lLabels.selectedGroupIDs = number_to_array(x.selectedGroupIDs);
 
-
-
+                // add click event listener to chart
                 if (x.addSiteSelect)
                     lLabels.clickCallback = function(d) { // clickCallback.bind(null, instance, siteSelect);
-
-
-
-
                         instance.data.config.selectedGroupIDs = instance.data.config.selectedGroupIDs.includes(d.groupid)
                             ? 'None'
                             : d.groupid;
@@ -38,15 +33,14 @@ HTMLWidgets.widget({
                         )
                   };
 
-
                 // generate scatter plot
                 const instance = rbmViz.default.scatterPlot(
                     el,
                     x.dfSummary,
                     lLabels,
-                    x.dfBounds
+                    x.dfBounds,
+                    x.dfSite
                 );
-
 
                 // add dropdown that highlights sites
                 let siteSelect;

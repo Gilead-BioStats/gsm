@@ -5,8 +5,9 @@
 \title{KRI Bar Chart}
 \usage{
 Widget_BarChart(
-  dfSummary = NULL,
-  lLabels = list(),
+  dfSummary,
+  lLabels,
+  dfSite = NULL,
   dfThreshold = NULL,
   strYAxisType = "score",
   selectedGroupIDs = NULL,
@@ -31,6 +32,8 @@ Widget_BarChart(
 }}
 
 \item{lLabels}{configuration data with columns:}
+
+\item{dfSite}{\code{data.frame} Site metadata returned by \code{\link[=Site_Map_Raw]{Site_Map_Raw()}}.}
 
 \item{dfThreshold}{a one row data frame containing columns:
 \itemize{

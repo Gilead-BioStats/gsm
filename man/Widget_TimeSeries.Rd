@@ -7,7 +7,8 @@
 Widget_TimeSeries(
   dfSummary,
   lLabels,
-  dfParams,
+  dfSite = NULL,
+  dfParams = NULL,
   yAxis = "score",
   selectedGroupIDs = NULL,
   width = NULL,
@@ -21,6 +22,8 @@ Widget_TimeSeries(
 \item{dfSummary}{\code{data.frame} the stacked output of \code{Make_Snapshot()$lStackedSnapshots$rpt_site_kri_details}, containing a minimum of two unique values for \code{gsm_analysis_date}.}
 
 \item{lLabels}{\code{list} chart labels, typically defined by \code{Make_Snapshot()$lStackedSnapshots$rpt_site_kri_details}.}
+
+\item{dfSite}{\code{data.frame} Site metadata returned by \code{\link[=Site_Map_Raw]{Site_Map_Raw()}}.}
 
 \item{dfParams}{\code{data.frame} the stacked output of \code{Make_Snapshot()$lStackedSnapshots$rpt_kri_threshold_param}.}
 
