@@ -33,7 +33,6 @@ HTMLWidgets.widget({
                   }
                 };
 
-                console.log(x);
                 // generate bar chart
                 const instance = rbmViz.default.barChart(
                     el,
