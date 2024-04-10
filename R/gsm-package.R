@@ -39,6 +39,7 @@
 #' @importFrom lubridate as.period
 #' @importFrom lubridate interval
 #' @importFrom rlang check_installed
+#' @importFrom sqldf sqldf
 #' @importFrom stats binom.test
 #' @importFrom stats fisher.test
 #' @importFrom stats glm

@@ -4,7 +4,7 @@
 \alias{RunQuery}
 \title{Run a SQL query with mapping and data}
 \usage{
-RunQuery(strQuery, lMapping, df)
+RunQuery(strQuery, lMapping, df, bQuiet = FALSE)
 }
 \arguments{
 \item{strQuery}{\code{character} SQL query to run using the format expected by glue_sql. Mapping values provided in curly braces will be replaced with the appropriate column names.}

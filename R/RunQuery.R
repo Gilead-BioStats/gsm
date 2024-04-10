@@ -49,7 +49,7 @@ RunQuery <- function(strQuery, lMapping, df, bQuiet = FALSE) {
         cli::cli_text("Parsed Query: {parsedQuery}")
 
         # run the query
-        result <- sqldf(parsedQuery)
+        result <- sqldf::sqldf(parsedQuery)
         cli::cli_text("SQL Query complete: {nrow(result)} rows returned.")
 
         return(result)
