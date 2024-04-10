@@ -1,28 +1,76 @@
+name: KRI0002
+meta:
+  file: kri0002.yaml
+  workflowid: kri0002
+  group: site
+  abbreviation: SAE
+  metric: Serious Adverse Event Rate
+  numerator: Serious Adverse Events
+  denominator: Days on Study
+  model: Normal Approximation
+  score: Adjusted Z-Score
 steps:
-  - name: FilterDomain
-    inputs: dfSUBJ
-    output: dfSUBJ
+  - name: RunQuery
+    output: dfSubjects
     params:
-      strDomain: dfSUBJ
-      strColParam: strEnrollCol
-      strValParam: strEnrollVal
-  - name: FilterDomain
-    inputs: dfAE
-    output: dfAE
+      df: dfSUBJ
+      lMapping: lMapping$dfSUBJ
+      strQuery: "SELECT * FROM df WHERE {`strEnrollCol`} == {`strEnrollVal`}"
+  - name: RunQuery
+    output: dfDenominator
     params:
-      strDomain: dfAE
-      strColParam: strSeriousCol
-      strValParam: strSeriousVal
-  - name: AE_Map_Raw
-    inputs:
-      - dfAE
-      - dfSUBJ
+      df: dfSUBJ
+      lMapping: lMapping
+      strQuery: "SELECT * FROM df"
+  - name: RunQuery
+    output: dfNumerator
+    params:
+      df: dfAE
+      lMapping: lMapping$dfAE
+      strQuery: "SELECT * FROM df Where {`strSeriousCol`} == {`strSeriousVal`}"
+  - name: Make_Input_Rate
     output: dfInput
-  - name: AE_Assess
-    inputs: dfInput
-    output: lResults
     params:
-      strGroup: "Site"
-      vThreshold: null
-      strMethod: "NormalApprox"
-      nMinDenominator: 30
+      dfs:
+        - dfSubjects
+        - dfNumerator
+        - dfDenominator
+      lMapping: lMapping
+      lDomains: 
+        dfSubjects: dfSUBJ
+        dfNumerator: dfAE
+        dfDenominator: dfSUBJ
+      strNumeratorMethod: Count
+      strDenominatorMethod: Sum
+      strDenominatorCol: strTimeOnStudyCol
+  - name: Transform_Rate
+    output: dfTransformed
+    params:
+      dfInput: dfInput
+  - name: Analyze_NormalApprox
+    output: dfAnalyzed
+    params:
+      dfTransformed: dfTransformed 
+  - name: Analyze_NormalApprox_PredictBounds
+    output: dfBounds
+    params:
+      dfTransformed: dfTransformed
+  - name: Flag_NormalApprox
+    output: dfFlagged
+    params:
+      dfAnalyzed: dfAnalyzed
+      vThreshold: 
+        - -3
+        - -2
+        - 2
+        - 3
+  - name: Summarize
+    output: dfSummary
+    params: 
+      dfFlagged: dfFlagged
+  - name: MakeKRICharts
+    output: lCharts
+    params:
+      dfSummary: dfSummary
+      dfBounds: dfBounds
+      lLabels: lMeta

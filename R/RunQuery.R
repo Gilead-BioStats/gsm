@@ -34,7 +34,10 @@ RunQuery <- function(strQuery, lMapping, df, bQuiet = FALSE) {
     # check that all templated columns in strQuery are found in lMapping
     queryCols <- stringr::str_extract_all(strQuery, "`([^`]+)`")[[1]]
     queryCols <- gsub("`", "", queryCols)
+    queryCols <- gsub("\\*", "", queryCols)
+    print(queryCols)
     if (!all(queryCols %in% names(lMapping))) {
+        missingCols <- queryCols[!queryCols %in% names(lMapping)]
         stop("All templated columns in strQuery must be found in lMapping")
     }
     

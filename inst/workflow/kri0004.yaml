@@ -1,28 +1,76 @@
+name: KRI0004
+meta:
+  file: kri0004.yaml
+  workflowid: kri0004
+  group: site
+  abbreviation: PD
+  metric: Important Protocol Deviation Rate
+  numerator: Important Protocol Deviations
+  denominator: Days on Study
+  model: Normal Approximation
+  score: Adjusted Z-Score
 steps:
-  - name: FilterDomain
-    inputs: dfSUBJ
-    output: dfSUBJ
+  - name: RunQuery
+    output: dfSubjects
     params:
-      strDomain: dfSUBJ
-      strColParam: strEnrollCol
-      strValParam: strEnrollVal
-  - name: FilterDomain
-    inputs: dfPD
-    output: dfPD
+      df: dfSUBJ
+      lMapping: lMapping$dfSUBJ
+      strQuery: "SELECT * FROM df WHERE {`strEnrollCol`} == {`strEnrollVal`}"
+  - name: RunQuery
+    output: dfDenominator
     params:
-      strDomain: dfPD
-      strColParam: strImportantCol
-      strValParam: strImportantVal
-  - name: PD_Map_Raw_Rate
-    inputs:
-      - dfSUBJ
-      - dfPD
+      df: dfSUBJ
+      lMapping: lMapping
+      strQuery: "SELECT * FROM df"
+  - name: RunQuery
+    output: dfNumerator
+    params:
+      df: dfPD
+      lMapping: lMapping$dfPD
+      strQuery: "SELECT * FROM df WHERE {`strImportantCol`} == {`strImportantVal`}"  
+  - name: Make_Input_Rate
     output: dfInput
-  - name: PD_Assess_Rate
-    inputs: dfInput
-    output: lResults
     params:
-      strGroup: "Site"
-      vThreshold: null
-      strMethod: "NormalApprox"
-      nMinDenominator: 30
+      dfs:
+        - dfSubjects
+        - dfNumerator
+        - dfDenominator
+      lMapping: lMapping
+      lDomains: 
+        dfSubjects: dfSUBJ
+        dfNumerator: dfPD
+        dfDenominator: dfSUBJ
+      strNumeratorMethod: Count
+      strDenominatorMethod: Sum
+      strDenominatorCol: strTimeOnStudyCol
+  - name: Transform_Rate
+    output: dfTransformed
+    params:
+      dfInput: dfInput
+  - name: Analyze_NormalApprox
+    output: dfAnalyzed
+    params:
+      dfTransformed: dfTransformed 
+  - name: Analyze_NormalApprox_PredictBounds
+    output: dfBounds
+    params:
+      dfTransformed: dfTransformed
+  - name: Flag_NormalApprox
+    output: dfFlagged
+    params:
+      dfAnalyzed: dfAnalyzed
+      vThreshold: 
+        - -3
+        - -2
+        - 2
+        - 3
+  - name: Summarize
+    output: dfSummary
+    params: 
+      dfFlagged: dfFlagged
+  - name: MakeKRICharts
+    output: lCharts
+    params:
+      dfSummary: dfSummary
+      dfBounds: dfBounds
+      lLabels: lMeta

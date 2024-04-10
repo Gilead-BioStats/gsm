@@ -1,4 +1,4 @@
-name: textwf # nolint
+name: KRI0001 
 meta:
   file: ae.yaml
   workflowid: kri0001
@@ -10,27 +10,43 @@ meta:
   model: Normal Approximation
   score: Adjusted Z-Score
 steps:
-  - name: FilterDomain
-    output: dfSUBJ
+  - name: RunQuery
+    output: dfSubjects
     params:
       df: dfSUBJ
-      strDomain: dfSUBJ
-      strColParam: strEnrollCol
-      strValParam: strEnrollVal
+      lMapping: lMapping$dfSUBJ
+      strQuery: "SELECT * FROM df WHERE {`strEnrollCol`} == {`strEnrollVal`}"
+  - name: RunQuery
+    output: dfDenominator
+    params:
+      df: dfSUBJ
       lMapping: lMapping
-  - name: AE_Map_Raw
+      strQuery: "SELECT * FROM df"
+  - name: RunQuery
+    output: dfNumerator
+    params:
+      df: dfAE
+      lMapping: lMapping
+      strQuery: "SELECT * FROM df"
+  - name: Make_Input_Rate
     output: dfInput
     params:
       dfs:
-        - dfAE
-        - dfSUBJ
+        - dfSubjects
+        - dfNumerator
+        - dfDenominator
       lMapping: lMapping
+      lDomains: 
+        dfSubjects: dfSUBJ
+        dfNumerator: dfAE
+        dfDenominator: dfSUBJ
+      strNumeratorMethod: Count
+      strDenominatorMethod: Sum
+      strDenominatorCol: strTimeOnStudyCol
   - name: Transform_Rate
     output: dfTransformed
     params:
       dfInput: dfInput
-      strNumeratorCol: Count
-      strDenominatorCol: Exposure
   - name: Analyze_NormalApprox
     output: dfAnalyzed
     params:
@@ -40,7 +56,7 @@ steps:
     params:
       dfTransformed: dfTransformed
   - name: Flag_NormalApprox
-    output: dfFlagged2
+    output: dfFlagged
     params:
       dfAnalyzed: dfAnalyzed
       vThreshold: 
@@ -51,7 +67,7 @@ steps:
   - name: Summarize
     output: dfSummary
     params: 
-      dfFlagged: dfFlagged2
+      dfFlagged: dfFlagged
   - name: MakeKRICharts
     output: lCharts
     params:
