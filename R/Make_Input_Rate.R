@@ -103,15 +103,15 @@ numeratorMapping <- lMapping[[lDomains$dfNumerator]]
 dfNumerator <- dfs$dfNumerator
 dfNumerator$SubjectID <- dfNumerator[[numeratorMapping[["strIDCol"]]]]
 if(strNumeratorMethod == "Count"){
-    dfNumerator$numerator <- 1
+    dfNumerator$Numerator <- 1
 } else {
-    dfNumerator$numerator <- dfNumerator[[numeratorMapping[[strNumeratorCol]]]]
+    dfNumerator$Numerator <- dfNumerator[[numeratorMapping[[strNumeratorCol]]]]
 }
 
 dfNumerator_subj <- dfNumerator %>%
-    select(SubjectID, numerator) %>%
+    select(SubjectID, Numerator) %>%
     group_by(SubjectID) %>%
-    summarise(numerator= sum(numerator)) %>%
+    summarise(Numerator= sum(Numerator)) %>%
     ungroup()
 
 #Calculate Denominator
@@ -119,27 +119,26 @@ denominatorMapping <- lMapping[[lDomains$dfDenominator]]
 dfDenominator <- dfs$dfDenominator
 dfDenominator$SubjectID <- dfDenominator[[denominatorMapping[["strIDCol"]]]]
 if(strDenominatorMethod == "Count"){
-    dfDenominator$denominator <- 1
+    dfDenominator$Denominator <- 1
 } else {
-    dfDenominator$denominator <- dfDenominator[[denominatorMapping[[strDenominatorCol]]]]
+    dfDenominator$Denominator <- dfDenominator[[denominatorMapping[[strDenominatorCol]]]]
 }
 
 
 dfDenominator_subj <- dfDenominator %>%  
-    select(SubjectID, denominator) %>%
+    select(SubjectID, Denominator) %>%
     group_by(SubjectID) %>%
-    summarise(denominator= sum(denominator)) %>%
+    summarise(Denominator= sum(Denominator)) %>%
     ungroup()
 
 # Merge Numerator and Denominator with Subject Data. Keep all data in Subject. Fill in missing numerator/denominators with 0
 dfInput <- dfSUBJ_mapped %>%
     left_join(dfNumerator_subj, by = "SubjectID") %>%
     left_join(dfDenominator_subj, by = "SubjectID") %>%
-    mutate(numerator = if_else(is.na(numerator), 0, numerator),
-           denominator = if_else(is.na(denominator), 0, denominator)
+    mutate(Numerator = if_else(is.na(Numerator), 0, Numerator),
+           Denominator = if_else(is.na(Denominator), 0, Denominator)
     ) %>%
-    select(SubjectID, numerator, denominator) %>%
-    mutate(rate = numerator/denominator)
+    mutate(Rate = Numerator/Denominator)
 print(head(dfInput))
 return(dfInput)
 }

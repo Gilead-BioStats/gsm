@@ -45,8 +45,8 @@
 
 Transform_Rate <- function(
   dfInput,
-  strNumeratorCol,
-  strDenominatorCol = NULL,
+  strNumeratorCol = "Numerator",
+  strDenominatorCol = "Denominator",
   strGroupCol = "SiteID",
   bQuiet = TRUE
 ) {

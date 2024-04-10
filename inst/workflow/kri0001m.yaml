@@ -47,8 +47,6 @@ steps:
     output: dfTransformed
     params:
       dfInput: dfInput
-      strNumeratorCol: Count
-      strDenominatorCol: Exposure
   - name: Analyze_NormalApprox
     output: dfAnalyzed
     params:
