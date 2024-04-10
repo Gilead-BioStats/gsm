@@ -55,10 +55,26 @@ RunStep <- function(lStep, lMapping, lMeta, lData, bQuiet) {
       params[[paramName]] <- lMeta
     }
 
-    # If the parameter value is lMapping, provides the mapping passed to the workflow
-    if (length(paramVal) == 1 && paramVal == "lMapping"){
-      if (!bQuiet) cli::cli_text("Found mapping. Proceeding ...")
-      params[[paramName]] <- lMapping
+    # If the parameter value starts with "lMapping", provides the mapping passed to the workflow
+    if (stringr::str_detect(paramName, "^lMapping") & length(paramVal) == 1) {
+      paramVal <- params[[paramName]]
+      if(paramVal == "lMapping"){
+        if (!bQuiet) cli::cli_text("Found mapping. Proceeding ...")
+        params[[paramName]] <- lMapping
+      } else if(stringr::str_detect(paramVal, "^lMapping\\$")){
+        #if paramName starts with 'lMapping$', it removes 'lMapping$' from the parameter name and assigns the value to 'lMappingName
+        lMappingDomain <- stringr::str_remove(paramVal, "lMapping\\$")
+
+        #Check that lMappingName is a valid key in lMapping and lMapping starts with 'lMapping$'
+        if(lMappingDomain %in% names(lMapping)){
+          if (!bQuiet) cli::cli_text("Found mapping for `{lMappingDomain}``. Proceeding ...")
+          params[[paramName]] <- lMapping[[lMappingDomain]]
+        }else{
+          cli::cli_alert_warning("`{lMappingDomain}` not found in Mapping. This might bomb soon ...")
+        }
+      } else {
+        cli::cli_alert_warning("Invalid lMapping parameter specified name. This might bomb soon ...")
+      }
     }
 
     # If the parameter name starts with 'df', it checks if the corresponding value exists in the 'lData' object.

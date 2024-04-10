@@ -39,7 +39,8 @@ Make_Input_Rate <- function(
     strNumeratorMethod = "Count",
     strDenominatorMethod = "Count",
     strNumeratorCol = NULL,
-    strDenominatorCol = NULL       
+    strDenominatorCol = NULL,
+    bQuiet = TRUE       
 ) {
 
 #Get needed columns in dfSUBJ
@@ -56,7 +57,6 @@ dfSUBJ_mapped <- dfs$dfSubjects %>%
           )
         )
       )
-print(head(dfSUBJ_mapped))
 
 #Calculate Numerator
 numeratorMapping <- lMapping[[lDomains$dfNumerator]]

@@ -14,8 +14,8 @@ steps:
     output: dfSUBJ
     params:
       df: dfSUBJ
-      lMapping: lMapping
-      strQuery: "SELECT * FROM df WHERE {`dfSUBJ$strEnrollCol`} == {`dfSUBJ$strEnrollVal`}"
+      lMapping: lMapping$dfSUBJ
+      strQuery: "SELECT * FROM df WHERE {`strEnrollCol`} == {`strEnrollVal`}"
   - name: RunQuery
     output: dfDenominator
     params:
@@ -25,7 +25,7 @@ steps:
   - name: RunQuery
     output: dfNumerator
     params:
-      dfs: dfAE
+      df: dfAE
       lMapping: lMapping
       strQuery: "SELECT * FROM df"
   - name: Make_Input_Rate
