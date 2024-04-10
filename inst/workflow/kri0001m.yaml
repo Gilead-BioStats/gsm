@@ -11,7 +11,7 @@ meta:
   score: Adjusted Z-Score
 steps:
   - name: RunQuery
-    output: dfSUBJ
+    output: dfSubjects
     params:
       df: dfSUBJ
       lMapping: lMapping$dfSUBJ
@@ -32,17 +32,17 @@ steps:
     output: dfInput
     params:
       dfs:
-        - dfSubjects: dfSUBJ
-        - dfNumerator: dfNumerator
-        - dfDenominator: dfDenominator
+        - dfSubjects
+        - dfNumerator
+        - dfDenominator
       lMapping: lMapping
       lDomains: 
-        - dfSubjects: dfSUBJ
-        - dfNumerator: dfAE
-        - dfDenominator: dfSUBJ
+        dfSubjects: dfSUBJ
+        dfNumerator: dfAE
+        dfDenominator: dfSUBJ
       strNumeratorMethod: Count
       strDenominatorMethod: Sum
-      strNumeratorCol: strTimeOnStudyCol
+      strDenominatorCol: strTimeOnStudyCol
   - name: Transform_Rate
     output: dfTransformed
     params:

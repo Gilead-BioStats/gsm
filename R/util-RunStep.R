@@ -81,18 +81,16 @@ RunStep <- function(lStep, lMapping, lMeta, lData, bQuiet) {
     # If the value exists, it updates the parameter value with the corresponding data.frame from 'lData'.
     # If the value does not exist, it displays a warning message.
     if (stringr::str_detect(paramName, "^df")) {
-      if(all(paramVal %in% names(lData))){
+      if(length(paramVal)==1 & all(paramVal %in% names(lData))){
         if (!bQuiet) cli::cli_text("Found data for {paramVal}. Proceeding ...")
-        if(length(paramVal)==1){
-          params[[paramName]] <- lData[[paramVal]]
-        }else{
-          params[[paramName]] <- lData[paramVal]
-        }
+        params[[paramName]] <- lData[[paramVal]]
+      } else if(length(paramVal) > 1 & all(paramVal %in% names(lData))){
+        if (!bQuiet) cli::cli_text("Found data for {paramVal}. Proceeding ...")
+        params[[paramName]] <- lData[paramVal]
       } else {
         cli::cli_alert_warning("Data for {paramVal} not found in workflow. This might bomb soon ...")
       }      
     }
-  
   }
 
   params$bQuiet <- bQuiet

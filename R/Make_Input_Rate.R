@@ -43,6 +43,46 @@ Make_Input_Rate <- function(
     bQuiet = TRUE       
 ) {
 
+#Check if dfs, lMapping, and lDomains are NULL
+if(is.null(dfs) | is.null(lMapping) | is.null(lDomains)){
+    stop("dfs, lMapping, and lDomains must be provided")
+}
+
+# Check if dfs, lMapping, and lDomains are NULL or not lists
+if (!is.list(dfs) | !is.list(lMapping) | !is.list(lDomains)) {
+    stop("dfs, lMapping, and lDomains must be provided as lists")
+}
+
+# check that dfs and domains have 3 elements each
+if (length(dfs) != 3 | length(lDomains) != 3) {
+    stop("dfs and lDomains must have 3 elements each")
+}
+
+# Check if strNumeratorMethod and strDenominatorMethod are valid
+if (!strNumeratorMethod %in% c("Count", "Sum") | !strDenominatorMethod %in% c("Count", "Sum")) {
+    stop("strNumeratorMethod and strDenominator method must be 'Count' or 'Sum'")
+}
+
+# Check if strNumeratorCol is Null when strNumeratorMethod is 'Sum'
+if (strNumeratorMethod == "Sum" & is.null(strNumeratorCol)) {
+    stop("strNumeratorCol must be provided when strNumeratorMethod is 'Sum'")
+}
+
+# Check if strDenominatorCol is Null when strDenominatorMethod is 'Sum'
+if (strDenominatorMethod == "Sum" & is.null(strDenominatorCol)) {
+    stop("strDenominatorCol must be provided when strDenominatorMethod is 'Sum'")
+}
+
+# if dfs are not named, name them
+if (is.null(names(dfs))) {
+    names(dfs) <- c("dfSubjects", "dfNumerator", "dfDenominator")
+}
+
+# Check if dfs contains dfSubjects, dfNumerator, and dfDenominator
+if (!all(c("dfSubjects", "dfNumerator", "dfDenominator") %in% names(dfs))) {
+    stop("dfs must contain dfSubjects, dfNumerator, and dfDenominator")
+}
+
 #Get needed columns in dfSUBJ
 subjMapping <- lMapping[[lDomains$dfSubjects]]
 dfSUBJ_mapped <- dfs$dfSubjects %>%
@@ -100,6 +140,6 @@ dfInput <- dfSUBJ_mapped %>%
     ) %>%
     select(SubjectID, numerator, denominator) %>%
     mutate(rate = numerator/denominator)
-
+print(head(dfInput))
 return(dfInput)
 }
