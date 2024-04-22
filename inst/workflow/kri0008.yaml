@@ -1,29 +1,75 @@
+name: KRI0008
+meta:
+  file: kri0008.yaml
+  workflowid: kri0008
+  group: site
+  abbreviation: QRY
+  metric: Query Rate
+  numerator: Queries
+  denominator: Total Data Points
+  model: Normal Approximation
+  score: Adjusted Z-Score
 steps:
-  - name: FilterDomain
-    inputs: dfSUBJ
-    output: dfSUBJ
+  - name: RunQuery
+    output: dfSubjects
     params:
-      strDomain: dfSUBJ
-      strColParam: strEnrollCol
-      strValParam: strEnrollVal
-  - name: FilterDomain
-    inputs: dfQUERY
-    output: dfQUERY
+      df: dfSUBJ
+      lMapping: lMapping$dfSUBJ
+      strQuery: "SELECT * FROM df WHERE {`strEnrollCol`} == {`strEnrollVal`}"
+  - name: RunQuery
+    output: dfDenominator
     params:
-      strDomain: dfQUERY
-      strColParam: strStatusCol
-      strValParam: strStatusVal
-  - name: QueryRate_Map_Raw
-    inputs:
-      - dfSUBJ
-      - dfQUERY
-      - dfDATACHG
+      df: dfDATACHG
+      lMapping: lMapping$dfDATACHG
+      strQuery: "SELECT * FROM df"
+  - name: RunQuery
+    output: dfNumerator
+    params:
+      df: dfQUERY
+      lMapping: lMapping$dfQUERY
+      strQuery: "SELECT * FROM df"  
+  - name: Make_Input_Rate
     output: dfInput
-  - name: QueryRate_Assess
-    inputs: dfInput
-    output: lResults
     params:
-      strGroup: "Site"
-      vThreshold: null
-      strMethod: "NormalApprox"
-      nMinDenominator: 30
+      dfs:
+        - dfSubjects
+        - dfNumerator
+        - dfDenominator
+      lMapping: lMapping
+      lDomains: 
+        dfSubjects: dfSUBJ
+        dfNumerator: dfQUERY
+        dfDenominator: dfDATACHG
+      strNumeratorMethod: Count
+      strDenominatorMethod: Count
+  - name: Transform_Rate
+    output: dfTransformed
+    params:
+      dfInput: dfInput
+  - name: Analyze_NormalApprox
+    output: dfAnalyzed
+    params:
+      dfTransformed: dfTransformed 
+  - name: Analyze_NormalApprox_PredictBounds
+    output: dfBounds
+    params:
+      dfTransformed: dfTransformed
+  - name: Flag_NormalApprox
+    output: dfFlagged
+    params:
+      dfAnalyzed: dfAnalyzed
+      vThreshold: 
+        - -3
+        - -2
+        - 2
+        - 3
+  - name: Summarize
+    output: dfSummary
+    params: 
+      dfFlagged: dfFlagged
+  - name: MakeKRICharts
+    output: lCharts
+    params:
+      dfSummary: dfSummary
+      dfBounds: dfBounds
+      lLabels: lMeta

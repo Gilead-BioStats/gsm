@@ -1,23 +1,75 @@
+name: KRI0006
+meta:
+  file: kri0006.yaml
+  workflowid: kri0006
+  group: site
+  abbreviation: SDSC
+  metric: Study Discontinuation Rate
+  numerator: Subjects Discontinued - Study
+  denominator: Enrolled Subjects
+  model: Normal Approximation
+  score: Adjusted Z-Score
 steps:
-  - name: FilterDomain
-    inputs: dfSUBJ
-    output: dfSUBJ
+  - name: RunQuery
+    output: dfSubjects
     params:
-      strDomain: dfSUBJ
-      strColParam: strEnrollCol
-      strValParam: strEnrollVal
-  - name: Disp_Map_Raw
-    inputs:
-      - dfSUBJ
-      - dfSTUDCOMP
+      df: dfSUBJ
+      lMapping: lMapping$dfSUBJ
+      strQuery: "SELECT * FROM df WHERE {`strEnrollCol`} == {`strEnrollVal`}"
+  - name: RunQuery
+    output: dfDenominator
+    params:
+      df: dfSUBJ
+      lMapping: lMapping
+      strQuery: "SELECT * FROM df"
+  - name: RunQuery
+    output: dfNumerator
+    params:
+      df: dfSTUDCOMP
+      lMapping: lMapping$dfSTUDCOMP
+      strQuery: "SELECT * FROM df WHERE {`strStudyDiscontinuationFlagCol`} IN ({`strStudyDiscontinuationFlagVal`*})"  
+  - name: Make_Input_Rate
     output: dfInput
     params:
-      strContext: Study
-  - name: Disp_Assess
-    inputs: dfInput
-    output: lResults
+      dfs:
+        - dfSubjects
+        - dfNumerator
+        - dfDenominator
+      lMapping: lMapping
+      lDomains: 
+        dfSubjects: dfSUBJ
+        dfNumerator: dfLB
+        dfDenominator: dfLB
+      strNumeratorMethod: Count
+      strDenominatorMethod: Count
+  - name: Transform_Rate
+    output: dfTransformed
     params:
-      strGroup: "Site"
-      vThreshold: null
-      strMethod: "NormalApprox"
-      nMinDenominator: 3
+      dfInput: dfInput
+  - name: Analyze_NormalApprox
+    output: dfAnalyzed
+    params:
+      dfTransformed: dfTransformed 
+  - name: Analyze_NormalApprox_PredictBounds
+    output: dfBounds
+    params:
+      dfTransformed: dfTransformed
+  - name: Flag_NormalApprox
+    output: dfFlagged
+    params:
+      dfAnalyzed: dfAnalyzed
+      vThreshold: 
+        - -3
+        - -2
+        - 2
+        - 3
+  - name: Summarize
+    output: dfSummary
+    params: 
+      dfFlagged: dfFlagged
+  - name: MakeKRICharts
+    output: lCharts
+    params:
+      dfSummary: dfSummary
+      dfBounds: dfBounds
+      lLabels: lMeta
