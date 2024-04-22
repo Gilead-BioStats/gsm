@@ -6,20 +6,15 @@
 \usage{
 Make_Input_Rate(
   dfs = NULL,
-  lMapping = NULL,
-  lDomains = NULL,
   strNumeratorMethod = "Count",
   strDenominatorMethod = "Count",
   strNumeratorCol = NULL,
-  strDenominatorCol = NULL
+  strDenominatorCol = NULL,
+  bQuiet = TRUE
 )
 }
 \arguments{
 \item{dfs}{\code{list} of \code{data.frame}s including dfSUBJ, dfNumerator, and dfDenominator. Default: NULL}
-
-\item{lMapping}{\code{list} Column metadata with structure \code{domain$key}, where \code{key} contains the name}
-
-\item{lDomains}{\code{list} List of domains to use for mapping subj, domain and mapping dfata defaults. Default: NULL}
 
 \item{strNumeratorMethod}{\code{character} Method to calculate numerator. Default: "Count"}
 
@@ -28,6 +23,8 @@ Make_Input_Rate(
 \item{strNumeratorCol}{\code{character} Column name in \code{dfNumerator} to use for numerator calculation. Default: NULL}
 
 \item{strDenominatorCol}{\code{character} Column name in \code{dfDenominator} to use for denominator calculation. Default: NULL}
+
+\item{strIDCol}{\code{character} Column name in to use for subject ID - should be included in all \code{dfs}. Default: NULL}
 }
 \value{
 \code{data.frame} with calculated input rate
@@ -43,15 +40,10 @@ dfInput <- Make_Input_Rate(
   dfNumerator = clindata::rawplus_ae,
   dfDenominator = clindata::rawplus_dm
 ),
-lMapping = gsm::Read_Mapping("rawplus"),
-lDomains = list(
- dfSubjects="dfSUBJ",
- dfNumerator="dfAE",
- dfDenominator="dfSUBJ"
-),
+strIDCol = "subjid",
 strNumeratorMethod = "Count",
 strDenominatorMethod = "Sum",
-strDenominatorCol = "strTimeOnStudyCol"
+strDenominatorCol = "timeontreatment"
 )
 
 }

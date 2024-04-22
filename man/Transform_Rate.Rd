@@ -6,8 +6,8 @@
 \usage{
 Transform_Rate(
   dfInput,
-  strNumeratorCol,
-  strDenominatorCol = NULL,
+  strNumeratorCol = "Numerator",
+  strDenominatorCol = "Denominator",
   strGroupCol = "SiteID",
   bQuiet = TRUE
 )

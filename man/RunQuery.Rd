@@ -4,12 +4,10 @@
 \alias{RunQuery}
 \title{Run a SQL query with mapping and data}
 \usage{
-RunQuery(strQuery, lMapping, df, bQuiet = FALSE)
+RunQuery(strQuery, df, bQuiet = FALSE)
 }
 \arguments{
 \item{strQuery}{\code{character} SQL query to run using the format expected by glue_sql. Mapping values provided in curly braces will be replaced with the appropriate column names.}
-
-\item{lMapping}{\code{list} A named list linking mapping values (e.g. \code{strIDCol}) to columns names (e.g. \code{"siteid"}) in df.}
 
 \item{df}{\code{data.frame} A data frame to use in the SQL query}
 }
@@ -20,14 +18,13 @@ RunQuery(strQuery, lMapping, df, bQuiet = FALSE)
 Run a SQL query via DBI::dbGetQuery using the format expected by glue_sql. Values from lMapping provided using the format expected by qlue_sql (e.g.  {\code{strIDCol}}) will be replaced with the appropriate column names/values.
 }
 \examples{
-lMapping <- list(age_threshold = "30", age_col = "Age")
 df <- data.frame(
  Name = c("John", "Jane", "Bob"),
  Age = c(25, 30, 35),
  Salary = c(50000, 60000, 70000)
 )
-query <- "SELECT * FROM df WHERE {`age_col`} > {`age_threshold`}"
+query <- "SELECT * FROM df WHERE AGE > 30"
 
-result <- RunQuery(query, lMapping, df) 
+result <- RunQuery(query, df) 
 
 }
