@@ -7,6 +7,7 @@
 #'
 #' @param dfSummary `data.frame` the stacked output of `Make_Snapshot()$lStackedSnapshots$rpt_site_kri_details`, containing a minimum of two unique values for `gsm_analysis_date`.
 #' @param lLabels `list` chart labels, typically defined by `Make_Snapshot()$lStackedSnapshots$rpt_site_kri_details`.
+#' @param dfSite `data.frame` Site metadata returned by [gsm::Site_Map_Raw()].
 #' @param dfParams `data.frame` the stacked output of `Make_Snapshot()$lStackedSnapshots$rpt_kri_threshold_param`.
 #' @param yAxis `character` the name of a column from `lLabels` to be passed to the y-axis on the widget plot.
 #' @param selectedGroupIDs `character` group IDs to highlight, \code{NULL} by default, can be a single site or a vector.
@@ -16,12 +17,12 @@
 #' @param addSiteSelect `logical` add a dropdown to highlight sites? Default: `TRUE`.
 #' @param siteSelectLabelValue Label used to populate the HTML drop-down menu. Constructed as: 'Highlighted {siteSelectLabelValue}: '.
 #'
-#'
 #' @export
 Widget_TimeSeries <- function(
   dfSummary,
   lLabels,
-  dfParams,
+  dfSite = NULL,
+  dfParams = NULL,
   yAxis = "score",
   selectedGroupIDs = NULL,
   width = NULL,
@@ -97,11 +98,16 @@ Widget_TimeSeries <- function(
 
   }
 
+  if (!is.null(dfSite)) {
+    dfSite <- jsonlite::toJSON(dfSite, na = "string")
+  }
+
   # forward options using x
   x <- list(
     dfSummary = jsonlite::toJSON(dfSummary, na = "string"),
     lLabels = lLabels,
     dfParams = dfParams,
+    dfSite = dfSite,
     addSiteSelect = addSiteSelect,
     selectedGroupIDs = c(as.character(selectedGroupIDs)),
     siteSelectLabelValue = siteSelectLabelValue

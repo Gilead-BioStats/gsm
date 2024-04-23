@@ -27,7 +27,8 @@ Study_Assess <- function(
   lAssessments = NULL,
   bQuiet = TRUE,
   bLogOutput = FALSE,
-  strLogFileName = NULL) {
+  strLogFileName = NULL
+) {
   if (bLogOutput) {
     # divert output to .log file
     Log(strFileName = strLogFileName)

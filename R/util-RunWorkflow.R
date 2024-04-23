@@ -37,7 +37,12 @@
 #'
 #' @export
 
-RunWorkflow <- function(lWorkflow, lData, lMapping, bQuiet = TRUE) {
+RunWorkflow <- function(
+    lWorkflow,
+    lData,
+    lMapping,
+    bQuiet = TRUE
+) {
   if (!bQuiet) cli::cli_h1(paste0("Initializing `", lWorkflow$name, "` assessment"))
 
   vDataDomains <- purrr::map(lWorkflow$steps, function(x) {
@@ -49,7 +54,6 @@ RunWorkflow <- function(lWorkflow, lData, lMapping, bQuiet = TRUE) {
   # lWorkflow$lData <- lData[vDataDomains]
   lWorkflow$lData <- lData
   
-
   # Run through each step in lWorkflow$workflow
   stepCount <- 1
   for (step in lWorkflow$steps) {

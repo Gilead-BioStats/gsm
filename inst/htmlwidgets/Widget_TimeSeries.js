@@ -43,7 +43,9 @@ HTMLWidgets.widget({
             el,
             x.dfSummary,
             lLabels,
-            x.dfParams
+            x.dfParams,
+            null,
+            x.dfSite
         );
 
         // Add event listener to site dropdown that updates chart on change.
