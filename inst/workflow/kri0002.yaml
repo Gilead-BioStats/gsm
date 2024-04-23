@@ -43,10 +43,12 @@ steps:
     output: dfAnalyzed
     params:
       dfTransformed: dfTransformed 
+      strType: rate
   - name: Analyze_NormalApprox_PredictBounds
     output: dfBounds
     params:
       dfTransformed: dfTransformed
+      strType: rate
   - name: Flag_NormalApprox
     output: dfFlagged
     params:
