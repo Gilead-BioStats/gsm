@@ -14,20 +14,17 @@ steps:
     output: dfSubjects
     params:
       df: dfSUBJ
-      lMapping: lMapping$dfSUBJ
-      strQuery: "SELECT * FROM df WHERE {`strEnrollCol`} == {`strEnrollVal`}"
+      strQuery: "SELECT subjid as SubjectID, siteid as SiteID, country as CountryID, studyid as StudyID FROM df WHERE enrollyn == 'Y'"
   - name: RunQuery
     output: dfDenominator
     params:
       df: dfLB
-      lMapping: lMapping$dfLB
-      strQuery: "SELECT * FROM df WHERE {`strGradeCol`} IN ({`strGradeAnyVal`*})"
+      strQuery: "SELECT subjid as SubjectID, * FROM df WHERE toxgrg_nsv IN ('0', '1', '2', '3', '4')"
   - name: RunQuery
     output: dfNumerator
     params:
       df: dfLB
-      lMapping: lMapping$dfLB
-      strQuery: "SELECT * FROM df WHERE {`strGradeCol`} IN ({`strGradeHighVal`*})"  
+      strQuery: "SELECT subjid as SubjectID, * FROM df WHERE toxgrg_nsv IN ('3', '4')"
   - name: Make_Input_Rate
     output: dfInput
     params:
@@ -35,11 +32,6 @@ steps:
         - dfSubjects
         - dfNumerator
         - dfDenominator
-      lMapping: lMapping
-      lDomains: 
-        dfSubjects: dfSUBJ
-        dfNumerator: dfLB
-        dfDenominator: dfLB
       strNumeratorMethod: Count
       strDenominatorMethod: Count
   - name: Transform_Rate

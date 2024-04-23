@@ -14,20 +14,17 @@ steps:
     output: dfSubjects
     params:
       df: dfSUBJ
-      lMapping: lMapping$dfSUBJ
-      strQuery: "SELECT * FROM df WHERE {`strEnrollCol`} == {`strEnrollVal`}"
+      strQuery: "SELECT subjid as SubjectID, siteid as SiteID, country as CountryID, studyid as StudyID FROM df WHERE enrollyn == 'Y'"
   - name: RunQuery
     output: dfDenominator
     params:
       df: dfSUBJ
-      lMapping: lMapping
-      strQuery: "SELECT * FROM df"
+      strQuery: "SELECT subjid as SubjectID FROM df"
   - name: RunQuery
     output: dfNumerator
     params:
       df: dfSDRGCOMP
-      lMapping: lMapping$dfSDRGCOMP
-      strQuery: "SELECT * FROM df WHERE {`strTreatmentDiscontinuationFlagCol`} IN ({`strTreatmentDiscontinuationFlagVal`*})"  
+      strQuery: "SELECT subjid as SubjectID, * FROM df WHERE sdrgyn IN ('N')"  
   - name: Make_Input_Rate
     output: dfInput
     params:
@@ -35,11 +32,6 @@ steps:
         - dfSubjects
         - dfNumerator
         - dfDenominator
-      lMapping: lMapping
-      lDomains: 
-        dfSubjects: dfSUBJ
-        dfNumerator: dfLB
-        dfDenominator: dfLB
       strNumeratorMethod: Count
       strDenominatorMethod: Count
   - name: Transform_Rate
@@ -73,6 +65,3 @@ steps:
       dfSummary: dfSummary
       dfBounds: dfBounds
       lLabels: lMeta
-
-
-

@@ -36,7 +36,6 @@ RunQuery <- function(strQuery, df, bQuiet = FALSE) {
         # run the query
         result <- sqldf::sqldf(strQuery)
         cli::cli_text("SQL Query complete: {nrow(result)} rows returned.")
-
         return(result)
     }
 }
