@@ -8,7 +8,7 @@ HTMLWidgets.widget({
                 const instance = rbmViz.default.siteOverview(
                     el,
                     x.dfSummary,
-                    x.lLabels,
+                    x.lConfig,
                     x.dfSite,
                     x.dfWorkflow
                 );

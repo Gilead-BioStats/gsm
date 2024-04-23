@@ -46,21 +46,22 @@
 #' @param elementId ID of container HTML element
 #'
 #' @examples
-#' assessment <- Study_Assess()
+#' study_assessment <- Study_Assess()
 #'
-#' widget <- Widget_SiteOverview(
-#'     dfSummary = assessment %>%
-#'         imap_dfr(function(kri, workflowid) {
-#'             kri$lResults$lData$dfSummary %>%
-#'                 rename_with(tolower) %>%
-#'                 mutate(
-#'                     workflowid = !!workflowid
-#'                 )
-#'         }) %>%
-#'         filter(grepl('^kri', workflowid))
-#' )
+#' kri_results <- study_assessment %>%
+#'     imap_dfr(function(kri, workflowid) {
+#'         kri$lResults$lData$dfSummary %>%
+#'             rename_with(tolower) %>%
+#'             mutate(
+#'                 workflowid = !!workflowid
+#'             )
+#'     }) %>%
+#'     filter(grepl('^kri', workflowid))
+#'
+#' Widget_SiteOverview(kri_results)
 #'
 #' @export
+
 Widget_SiteOverview <- function(
   dfSummary,
   lConfig = list(),
