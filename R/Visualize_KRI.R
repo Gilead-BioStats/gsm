@@ -1,6 +1,6 @@
-#' MakeKRICharts Function
+#' Visualize_KRI Function
 #'
-#' The function MakeKRICharts creates three different types of charts (scatter plot and two bar charts) using the gsm package.
+#' The function Visualize_KRI creates three different types of charts (scatter plot and two bar charts) using the gsm package.
 #'
 #' @param dfSummary `data.frame` A data.frame returned by [gsm::Summarize()].
 #' @param lLabels `list` Workflow metadata. See [gsm::meta_workflow].
@@ -12,7 +12,7 @@
 #'
 #' @export
 
-MakeKRICharts <- function(
+Visualize_KRI <- function(
     dfSummary,
     lLabels = NULL,
     dfSite = NULL,

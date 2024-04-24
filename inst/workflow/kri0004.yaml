@@ -25,7 +25,7 @@ steps:
     params:
       df: dfPD
       strQuery: "SELECT subjectenrollmentnumber as SubjectID, * FROM df WHERE deemedimportant == 'Yes'"
-  - name: Make_Input_Rate
+  - name: Input_Rate
     output: dfInput
     params:
       dfs:
@@ -62,7 +62,7 @@ steps:
     output: dfSummary
     params: 
       dfFlagged: dfFlagged
-  - name: MakeKRICharts
+  - name: Visualize_KRI
     output: lCharts
     params:
       dfSummary: dfSummary

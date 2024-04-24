@@ -1,4 +1,4 @@
-#' MakeQTLCharts
+#' Visualize_QTL
 #'
 #' @description
 #' Make cross-sectional timeseries charts in `[gsm::Make_Snapshot()]`.
@@ -12,7 +12,7 @@
 #'
 #' @return `list` of HTML widgets.
 #' @export
-MakeQTLCharts <- function(strQtlName, dfSummary, dfParams, dfAnalysis, lLabels) {
+Visualize_QTL <- function(strQtlName, dfSummary, dfParams, dfAnalysis, lLabels) {
   stopifnot(
     "[ `dfSummary` ] must be a `data.frame`." = is.data.frame(dfSummary),
     "[ `lLabels` ] must be a `list`." = is.list(lLabels),

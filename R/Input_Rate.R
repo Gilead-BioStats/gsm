@@ -1,24 +1,48 @@
-#' @title Make_Input_Rate
+#' @title Input_Rate
+#' 
 #' @description Calculate a subject level rate from numerator and denominator data
 #' 
+#' This function takes in a list of data frames including dfSUBJ, dfNumerator, and dfDenominator,
+#' and calculates a subject level rate based on the specified numerator and denominator methods (either 
+#' "Count" or "Sum"). If the method is "Count", the function simply counts the number of rows in the 
+#' provided data frame. If the numerator method is "Sum", the function takes the sum of the values in 
+#' the specified column (strNumeratorCol or strDenominatorCol). The function returns a data frame with
+#' the calculated input rate for each subject.
+#' 
+#' The data requirements for the function are as follows: 
+#' 
+#' - dfSubjects: A data frame with columns for SubjectID, SiteID, StudyID, and CountryID
+#' - dfNumerator: A data frame with a column for SubjectID and `strNumeratorCol` if `strNumeratorMethod` is "Sum"
+#' - dfDenominator: A data frame with a column for SubjectID and `strDenominatorCol` if `strDenominatorMethod` is "Sum"
+#' 
+#' All other columns are dropped from the output data frame. Note that if no values for a subject are 
+#' found in dfNumerator/dfDenominator numerator and denominator values are filled with 0 in the output data frame.
+#' 
 #' @param dfs `list` of `data.frame`s including dfSUBJ, dfNumerator, and dfDenominator. Default: NULL
-#' @param strIDCol `character` Column name in to use for subject ID - should be included in all `dfs`. Default: NULL
 #' @param strNumeratorMethod `character` Method to calculate numerator. Default: "Count"
 #' @param strDenominatorMethod `character` Method to calculate denominator. Default: "Count"
 #' @param strNumeratorCol `character` Column name in `dfNumerator` to use for numerator calculation. Default: NULL
 #' @param strDenominatorCol `character` Column name in `dfDenominator` to use for denominator calculation. Default: NULL
 #' 
-#' @return `data.frame` with calculated input rate
+#' @return `data.frame` with the following columns:
+#' 
+#' - SubjectID: The subject ID
+#' - SiteID: The site ID
+#' - StudyID: The study ID
+#' - CountryID: The country ID
+#' - Numerator: The calculated numerator value
+#' - Denominator: The calculated denominator value
+#' - Rate: The calculated input rate
+#' 
 #' 
 #' @examples
 #' # Run for AE KRI
-#' dfInput <- Make_Input_Rate(
+#' dfInput <- Input_Rate(
 #'  dfs = list(
 #'   dfSubjects = clindata::rawplus_dm,
 #'   dfNumerator = clindata::rawplus_ae,
 #'   dfDenominator = clindata::rawplus_dm
 #' ),
-#' strIDCol = "subjid",
 #' strNumeratorMethod = "Count",
 #' strDenominatorMethod = "Sum",
 #' strDenominatorCol = "timeontreatment"
@@ -26,7 +50,7 @@
 #' 
 #' @export
 
-Make_Input_Rate <- function(
+Input_Rate <- function(
     dfs = NULL,
     strNumeratorMethod = "Count",
     strDenominatorMethod = "Count",
@@ -115,6 +139,6 @@ dfInput <- dfSubjects %>%
            Denominator = if_else(is.na(Denominator), 0, Denominator)
     ) %>%
     mutate(Rate = Numerator/Denominator)
-print(head(dfInput))
+
 return(dfInput)
 }
