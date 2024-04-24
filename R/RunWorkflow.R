@@ -1,4 +1,4 @@
-#' Run a single assessment via workflow YAML specification.
+#' Run a workflow via it's YAML specification.
 #'
 #' `r lifecycle::badge("stable")`
 #'
@@ -8,7 +8,6 @@
 #'
 #' @param lWorkflow `list` A named list of metadata defining how the workflow should be run.
 #' @param lData `list` A named list of domain-level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
-#' @param lMapping `list` A named list identifying the columns needed in each data domain.
 #'
 #' @return `list` containing objects named: `steps`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `lWorkflowChecks`, and `lResults`.
 #'
@@ -24,32 +23,15 @@
 #'   dfSUBJ = clindata::rawplus_dm
 #' )
 #'
-#' lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
-#'
-#' output <- RunWorkflow(
-#'   lAssessments$kri0001, # adverse event workflow
-#'   lData,
-#'   lMapping
-#' )
+#' output <- RunWorkflow(lAssessments$kri0001, lData)
 #'
 #' @return `list` containing `lAssessment` with `workflow`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `checks`, and `lResults` added based on the results of the execution of `assessment$workflow`.
 #'
 #' @export
 
-RunWorkflow <- function(
-    lWorkflow,
-    lData,
-    lMapping
-) {
+RunWorkflow <- function(lWorkflow,lData) {
   cli::cli_h1(paste0("Initializing `", lWorkflow$name, "` assessment"))
 
-  vDataDomains <- purrr::map(lWorkflow$steps, function(x) {
-    data <- c(x$inputs[x$inputs != "dfInput"])
-  }) %>%
-    unlist() %>%
-    unique()
-
-  # lWorkflow$lData <- lData[vDataDomains]
   lWorkflow$lData <- lData
   
   # Run through each step in lWorkflow$workflow
@@ -57,12 +39,7 @@ RunWorkflow <- function(
   for (step in lWorkflow$steps) {
     cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lWorkflow$steps), ": `", step$name, "`"))
 
-    result <- gsm::RunStep(
-      lStep = step,
-      lMapping = lMapping,
-      lMeta= lWorkflow$meta,
-      lData = lWorkflow$lData
-    )
+    result <- gsm::RunStep(lStep = step, lData = lWorkflow$lData)
 
     if (stringr::str_detect(step$output, "^df")) {
       cli::cli_text("Saving {step$output} to `lWorkflow$lData`")

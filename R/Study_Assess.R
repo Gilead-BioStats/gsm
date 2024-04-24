@@ -6,11 +6,8 @@
 #' Attempts to run one or more assessments (`lAssessments`) using shared data (`lData`) and metadata (`lMapping`). By default, the sample `rawplus` data from the {clindata} package is used, and all assessments defined in `inst/workflow` are evaluated. Individual assessments are run using `gsm::RunAssessment()`
 #'
 #' @param lData `list` A named list of domain level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
-#' @param lMapping `list` A named list identifying the columns needed in each data domain.
-#' @param lAssessments `list` A named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
-#' @param bLogOutput `logical` Send console output to log file? Default: `FALSE`. 
-#' @param strLogFileName `character` File name for log file.
-#'
+#' @param lWorkflows `list` A named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
+#' 
 #' @examples
 #' \dontrun{
 #' results <- Study_Assess() # run using defaults
@@ -22,21 +19,9 @@
 
 Study_Assess <- function(
   lData = NULL,
-  lMapping = NULL,
-  lAssessments = NULL,
-  bLogOutput = FALSE,
-  strLogFileName = NULL
+  lAssessments = NULL
 ) {
-  if (bLogOutput) {
-    # divert output to .log file
-    Log(strFileName = strLogFileName)
 
-    on.exit({
-      Unlog()
-    })
-  }
-
-  #### --- load defaults --- ###
   # lData from clindata
   if (is.null(lData)) {
     lData <- gsm::UseClindata(
@@ -58,11 +43,6 @@ Study_Assess <- function(
     )
   }
 
-  # lMapping from clindata
-  if (is.null(lMapping)) {
-    lMapping <- gsm::Read_Mapping()
-  }
-
   # lAssessments from gsm inst/workflow
   if (is.null(lAssessments)) {
     lAssessments <- gsm::MakeWorkflowList()
@@ -76,8 +56,7 @@ Study_Assess <- function(
           function(lWorkflow) {
               RunWorkflow(
                 lWorkflow,
-                lData = lData,
-                lMapping = lMapping
+                lData = lData
               )
             }
         ))
@@ -89,12 +68,6 @@ Study_Assess <- function(
     cli::cli_alert_danger("Subject-level data not found. Assessment not run.")
     lAssessments <- NULL
   }
-
-  # extract results
-  lAssessments <- purrr::map(lAssessments, function(x) {
-    purrr::discard(x, is.null) %>%
-      purrr::flatten()
-  })
 
   return(lAssessments)
 }

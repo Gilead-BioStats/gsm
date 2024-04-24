@@ -3,8 +3,10 @@
 #' `r lifecycle::badge("stable")`
 #'
 #' @description
-#' Runs a single step of an assessment workflow. Currently supports `Filter`, `Map`, and `Assess`
-#' functions.
+#' Runs a single step of an assessment workflow. This function is called by `RunWorkflow` for each 
+#' step in the workflow. It prepares the parameters for the function call, including the metadata,
+#' mapping, and data inputs. It then calls the function specified in `lStep$name` with the prepared
+#' parameters.
 #'
 #' @param lStep `list` single workflow step (typically defined in `lWorkflow$workflow`). Should
 #'   include the name of the function to run (`lStep$name`), data inputs (`lStep$inputs`), name of
@@ -16,8 +18,6 @@
 #' @examples
 #' lStep <- MakeWorkflowList()[["kri0001"]][["steps"]][[1]]
 #'
-#' lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
-#'
 #' lData <- list(
 #'   dfSUBJ = clindata::rawplus_dm,
 #'   dfAE = clindata::rawplus_ae,
@@ -27,7 +27,7 @@
 #' )
 #'
 #'
-#' ae_step <- RunStep(lStep = lStep, lMapping = lMapping, lData = lData)
+#' ae_step <- RunStep(lStep = lStep, lData = lData)
 #'
 #' @return `list` containing the results of the `lStep$name` function call should contain `.$checks`
 #'   parameter with results from `is_mapping_vald` for each domain in `lStep$inputs`.
@@ -36,7 +36,7 @@
 #'
 #' @export
 
-RunStep <- function(lStep, lMapping, lMeta, lData) {
+RunStep <- function(lStep, lData) {
   # prepare parameter list inputs
   cli::cli_text("Preparing parameters for  {.fn {lStep$name}} ...")
 
@@ -45,34 +45,6 @@ RunStep <- function(lStep, lMapping, lMeta, lData) {
   # This loop iterates over each parameter in the 'params' object.
   for(paramName in names(params)){
     paramVal <- params[[paramName]]
-
-    # If the parameter value is lMeta, provides the list of metadata from the workflow header
-    if(length(paramVal) == 1 && paramVal == "lMeta"){
-      cli::cli_text("Found metadata. Proceeding ...")
-      params[[paramName]] <- lMeta
-    }
-
-    # If the parameter value starts with "lMapping", provides the mapping passed to the workflow
-    if (stringr::str_detect(paramName, "^lMapping") & length(paramVal) == 1) {
-      paramVal <- params[[paramName]]
-      if(paramVal == "lMapping"){
-        cli::cli_text("Found mapping. Proceeding ...")
-        params[[paramName]] <- lMapping
-      } else if(stringr::str_detect(paramVal, "^lMapping\\$")){
-        #if paramName starts with 'lMapping$', it removes 'lMapping$' from the parameter name and assigns the value to 'lMappingName
-        lMappingDomain <- stringr::str_remove(paramVal, "lMapping\\$")
-
-        #Check that lMappingName is a valid key in lMapping and lMapping starts with 'lMapping$'
-        if(lMappingDomain %in% names(lMapping)){
-          cli::cli_text("Found mapping for `{lMappingDomain}``. Proceeding ...")
-          params[[paramName]] <- lMapping[[lMappingDomain]]
-        }else{
-          cli::cli_alert_warning("`{lMappingDomain}` not found in Mapping. This might bomb soon ...")
-        }
-      } else {
-        cli::cli_alert_warning("Invalid lMapping parameter specified name. This might bomb soon ...")
-      }
-    }
 
     # If the parameter name starts with 'df', it checks if the corresponding value exists in the 'lData' object.
     # If the value exists, it updates the parameter value with the corresponding data.frame from 'lData'.
