@@ -4,12 +4,10 @@
 \alias{Analyze_Poisson}
 \title{Poisson Analysis - Site Residuals.}
 \usage{
-Analyze_Poisson(dfTransformed, bQuiet = TRUE)
+Analyze_Poisson(dfTransformed)
 }
 \arguments{
 \item{dfTransformed}{data.frame in format produced by \code{\link{Transform_Rate}}. Must include GroupID, Numerator, Denominator and Metric.}
-
-\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
 \code{data.frame} with one row per site with columns: GroupID, Numerator, Denominator, Metric, Score, and PredictedCount.

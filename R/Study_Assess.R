@@ -8,8 +8,7 @@
 #' @param lData `list` A named list of domain level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
 #' @param lMapping `list` A named list identifying the columns needed in each data domain.
 #' @param lAssessments `list` A named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
-#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
-#' @param bLogOutput `logical` Send console output to log file? Default: `FALSE`. Note: Setting `bQuiet = FALSE` is recommended if logging your output.
+#' @param bLogOutput `logical` Send console output to log file? Default: `FALSE`. 
 #' @param strLogFileName `character` File name for log file.
 #'
 #' @examples
@@ -25,7 +24,6 @@ Study_Assess <- function(
   lData = NULL,
   lMapping = NULL,
   lAssessments = NULL,
-  bQuiet = TRUE,
   bLogOutput = FALSE,
   strLogFileName = NULL
 ) {
@@ -76,29 +74,19 @@ Study_Assess <- function(
       lAssessments <- lAssessments %>%
         purrr::map(purrr::safely(
           function(lWorkflow) {
-            if (hasName(lWorkflow, "group")) {
-              RunStratifiedWorkflow(
-                lWorkflow,
-                lData = lData,
-                lMapping = lMapping,
-                bQuiet = bQuiet
-              )
-            } else {
               RunWorkflow(
                 lWorkflow,
                 lData = lData,
-                lMapping = lMapping,
-                bQuiet = bQuiet
+                lMapping = lMapping
               )
             }
-          }
         ))
     } else {
-      if (!bQuiet) cli::cli_alert_danger("Subject-level data contains 0 rows. Assessment not run.")
+      cli::cli_alert_danger("Subject-level data contains 0 rows. Assessment not run.")
       lAssessments <- NULL
     }
   } else {
-    if (!bQuiet) cli::cli_alert_danger("Subject-level data not found. Assessment not run.")
+    cli::cli_alert_danger("Subject-level data not found. Assessment not run.")
     lAssessments <- NULL
   }
 

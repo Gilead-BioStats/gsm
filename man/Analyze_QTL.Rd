@@ -4,12 +4,7 @@
 \alias{Analyze_QTL}
 \title{QTL Analysis for Binary and Rate Outcomes.}
 \usage{
-Analyze_QTL(
-  dfTransformed,
-  nConfLevel = 0.95,
-  strOutcome = "binary",
-  bQuiet = TRUE
-)
+Analyze_QTL(dfTransformed, nConfLevel = 0.95, strOutcome = "binary")
 }
 \arguments{
 \item{dfTransformed}{\code{data.frame} in format produced by \code{\link{Transform_Rate}}}
@@ -17,8 +12,6 @@ Analyze_QTL(
 \item{nConfLevel}{\code{numeric} specified confidence interval for QTL analysis.}
 
 \item{strOutcome}{\code{character} indicates statistical test used for QTL analysis. One of \code{rate} or \code{binary}.}
-
-\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
 \code{data.frame} with one row with columns: GroupID, Numerator, Denominator, Metric, Method, ConfLevel, Estimate, LowCI, UpCI and Score.

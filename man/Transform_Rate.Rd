@@ -8,8 +8,7 @@ Transform_Rate(
   dfInput,
   strNumeratorCol = "Numerator",
   strDenominatorCol = "Denominator",
-  strGroupCol = "SiteID",
-  bQuiet = TRUE
+  strGroupCol = "SiteID"
 )
 }
 \arguments{
@@ -20,8 +19,6 @@ Transform_Rate(
 \item{strDenominatorCol}{\code{numeric} Required. Numerical \code{Exposure} column.}
 
 \item{strGroupCol}{\code{character} Required. Name of column for grouping variable. Default: \code{"SiteID"}}
-
-\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
 \code{data.frame} with one row per site with columns \code{GroupID}, \code{Numerator}, \code{Denominator}, and \code{Metric}.

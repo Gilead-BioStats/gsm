@@ -27,7 +27,6 @@
 #' @param strType `character` Statistical method. Valid values:
 #'   - `"binary"` (default)
 #'   - `"rate"`
-#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `data.frame` containing predicted boundary values with upper and lower bounds across the
 #' range of observed values.
@@ -61,14 +60,11 @@ Analyze_NormalApprox_PredictBounds <- function(
   dfTransformed,
   vThreshold = c(-3, -2, 2, 3),
   strType = "binary",
-  nStep = NULL,
-  bQuiet = TRUE
+  nStep = NULL
 ) {
   if (is.null(vThreshold)) {
     vThreshold <- c(-3, -2, 2, 3)
-    if (bQuiet == FALSE) {
-      cli::cli_alert("vThreshold was not provided. Setting default threshold to {vThreshold}")
-    }
+    cli::cli_alert("vThreshold was not provided. Setting default threshold to {vThreshold}")
   }
 
   # Set [ nStep ] to the range of the denominator divided by 250.
@@ -81,9 +77,8 @@ Analyze_NormalApprox_PredictBounds <- function(
       nStep <- 1
     }
 
-    if (bQuiet == FALSE) {
-      cli::cli_alert("nStep was not provided. Setting default step to {nStep}")
-    }
+    cli::cli_alert("nStep was not provided. Setting default step to {nStep}")
+    
   }
 
   # add a 0 threhsold to calcultate estimate without an offset

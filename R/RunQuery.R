@@ -20,7 +20,7 @@
 #' 
 #' @export
 
-RunQuery <- function(strQuery, df, bQuiet = FALSE) {
+RunQuery <- function(strQuery, df) {
     # Check inputs
     stopifnot(is.character(strQuery), is.data.frame(df))
     

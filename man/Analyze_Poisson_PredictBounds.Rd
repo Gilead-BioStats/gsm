@@ -7,8 +7,7 @@
 Analyze_Poisson_PredictBounds(
   dfTransformed,
   vThreshold = c(-5, 5),
-  nStep = NULL,
-  bQuiet = TRUE
+  nStep = NULL
 )
 }
 \arguments{
@@ -19,8 +18,6 @@ Analyze_Poisson_PredictBounds(
 the thresholds used AE_Assess().}
 
 \item{nStep}{\code{numeric} step size of imputed bounds.}
-
-\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}.}
 }
 \value{
 \code{data.frame} containing predicted boundary values with upper and lower bounds across the

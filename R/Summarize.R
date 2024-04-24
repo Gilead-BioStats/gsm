@@ -19,7 +19,6 @@
 #' @param dfFlagged data.frame in format produced by \code{\link{Flag}}
 #' @param nMinDenominator `numeric` Specifies the minimum denominator required to return a `score` and calculate a `flag`. Default: NULL
 #' @param strScoreCol column from analysis results to be copied to `dfSummary$Score`
-#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return Simplified finding data.frame with columns for GroupID, Metric, Score, Flag
 #' when associated with a workflow.
@@ -44,8 +43,8 @@
 Summarize <- function(
   dfFlagged,
   nMinDenominator = NULL,
-  strScoreCol = "Score",
-  bQuiet = TRUE) {
+  strScoreCol = "Score"
+  ) {
   stopifnot(
     "dfFlagged is not a data frame" = is.data.frame(dfFlagged),
     "One or more of these columns: GroupID, Flag , strScoreCol, not found in dfFlagged" = all(c("GroupID", "Flag", strScoreCol) %in% names(dfFlagged))
@@ -75,14 +74,12 @@ Summarize <- function(
     dfSummary$Score[dfSummary$Denominator < nMinDenominator] <- NA
     dfSummary$Flag[dfSummary$Denominator < nMinDenominator] <- NA
 
-    if (!bQuiet) {
-      cli::cli_alert_info(
-        paste0(
-          sum(dfSummary$Denominator < nMinDenominator),
-          " Site(s) have insufficient sample size due to KRI denominator less than {nMinDenominator}. \nThese site(s) will not have KRI score and flag summarized."
-        )
+    cli::cli_alert_info(
+      paste0(
+        sum(dfSummary$Denominator < nMinDenominator),
+        " Site(s) have insufficient sample size due to KRI denominator less than {nMinDenominator}. \nThese site(s) will not have KRI score and flag summarized."
       )
-    }
+    )
   }
 
   return(dfSummary)

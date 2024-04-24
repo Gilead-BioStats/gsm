@@ -4,14 +4,12 @@
 \alias{Analyze_Fisher}
 \title{Fisher's Exact Test Analysis.}
 \usage{
-Analyze_Fisher(dfTransformed, strOutcome = "Numerator", bQuiet = TRUE)
+Analyze_Fisher(dfTransformed, strOutcome = "Numerator")
 }
 \arguments{
 \item{dfTransformed}{\code{data.frame} in format produced by \code{\link{Transform_Rate}}.}
 
 \item{strOutcome}{\code{character} required, name of column in \code{dfTransformed} dataset to perform Fisher's exact test on. Default is "Numerator".}
-
-\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}.}
 }
 \value{
 \code{data.frame} with one row per site with columns: GroupID, Numerator, Numerator_Other, Denominator, Denominator_Other, Prop, Prop_Other, Metric, Estimate, and Score.

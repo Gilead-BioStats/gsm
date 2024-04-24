@@ -29,7 +29,6 @@
 #'
 #' @param dfTransformed `data.frame` in format produced by \code{\link{Transform_Rate}}.
 #' @param strOutcome `character` required, name of column in `dfTransformed` dataset to perform Fisher's exact test on. Default is "Numerator".
-#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`.
 #'
 #' @return `data.frame` with one row per site with columns: GroupID, Numerator, Numerator_Other, Denominator, Denominator_Other, Prop, Prop_Other, Metric, Estimate, and Score.
 #'
@@ -47,8 +46,7 @@
 
 Analyze_Fisher <- function(
   dfTransformed,
-  strOutcome = "Numerator",
-  bQuiet = TRUE
+  strOutcome = "Numerator"
 ) {
   stopifnot(
     "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),

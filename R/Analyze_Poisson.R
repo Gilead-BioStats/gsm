@@ -23,7 +23,6 @@
 #' - `Metric` - Rate of exposure (Numerator / Denominator)
 #'
 #' @param dfTransformed data.frame in format produced by \code{\link{Transform_Rate}}. Must include GroupID, Numerator, Denominator and Metric.
-#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `data.frame` with one row per site with columns: GroupID, Numerator, Denominator, Metric, Score, and PredictedCount.
 #'
@@ -39,7 +38,7 @@
 #'
 #' @export
 
-Analyze_Poisson <- function(dfTransformed, bQuiet = TRUE) {
+Analyze_Poisson <- function(dfTransformed) {
   stopifnot(
     "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
     "One or more of these columns not found: GroupID, Denominator, Numerator, Metric" =
@@ -50,13 +49,12 @@ Analyze_Poisson <- function(dfTransformed, bQuiet = TRUE) {
   dfModel <- dfTransformed %>%
     mutate(LogDenominator = log(.data$Denominator))
 
-  if (!bQuiet) {
-    cli::cli_alert_info(
-      glue::glue(
-        "Fitting log-linked Poisson generalized linear model of [ Numerator ] ~ [ log( Denominator ) ]."
-      )
+  cli::cli_alert_info(
+    glue::glue(
+      "Fitting log-linked Poisson generalized linear model of [ Numerator ] ~ [ log( Denominator ) ]."
     )
-  }
+  )
+
 
   cModel <- stats::glm(
     Numerator ~ stats::offset(LogDenominator),

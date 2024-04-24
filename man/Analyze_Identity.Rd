@@ -4,14 +4,12 @@
 \alias{Analyze_Identity}
 \title{Identity Analysis.}
 \usage{
-Analyze_Identity(dfTransformed, strValueCol = "Metric", bQuiet = TRUE)
+Analyze_Identity(dfTransformed, strValueCol = "Metric")
 }
 \arguments{
 \item{dfTransformed}{\code{data.frame} created by \code{\link{Transform_Count}}}
 
 \item{strValueCol}{\code{character} Name of column that will be copied as \code{Score}}
-
-\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
 \code{data.frame} with one row per site with columns: GroupID, TotalCount, Metric, and Score.

@@ -55,8 +55,7 @@ Input_Rate <- function(
     strNumeratorMethod = "Count",
     strDenominatorMethod = "Count",
     strNumeratorCol = NULL,
-    strDenominatorCol = NULL,
-    bQuiet = TRUE       
+    strDenominatorCol = NULL
 ) {
 
 #Check if dfs is NULL

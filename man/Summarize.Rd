@@ -4,12 +4,7 @@
 \alias{Summarize}
 \title{Make Summary Data Frame}
 \usage{
-Summarize(
-  dfFlagged,
-  nMinDenominator = NULL,
-  strScoreCol = "Score",
-  bQuiet = TRUE
-)
+Summarize(dfFlagged, nMinDenominator = NULL, strScoreCol = "Score")
 }
 \arguments{
 \item{dfFlagged}{data.frame in format produced by \code{\link{Flag}}}
@@ -17,8 +12,6 @@ Summarize(
 \item{nMinDenominator}{\code{numeric} Specifies the minimum denominator required to return a \code{score} and calculate a \code{flag}. Default: NULL}
 
 \item{strScoreCol}{column from analysis results to be copied to \code{dfSummary$Score}}
-
-\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
 Simplified finding data.frame with columns for GroupID, Metric, Score, Flag

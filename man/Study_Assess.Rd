@@ -8,7 +8,6 @@ Study_Assess(
   lData = NULL,
   lMapping = NULL,
   lAssessments = NULL,
-  bQuiet = TRUE,
   bLogOutput = FALSE,
   strLogFileName = NULL
 )
@@ -20,9 +19,7 @@ Study_Assess(
 
 \item{lAssessments}{\code{list} A named list of metadata defining how each assessment should be run. By default, \code{MakeWorkflowList()} imports YAML specifications from \code{inst/workflow}.}
 
-\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
-
-\item{bLogOutput}{\code{logical} Send console output to log file? Default: \code{FALSE}. Note: Setting \code{bQuiet = FALSE} is recommended if logging your output.}
+\item{bLogOutput}{\code{logical} Send console output to log file? Default: \code{FALSE}.}
 
 \item{strLogFileName}{\code{character} File name for log file.}
 }

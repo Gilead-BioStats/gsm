@@ -30,7 +30,6 @@
 #' @param strNumeratorCol Required. Numerical or logical. Column to be counted.
 #' @param strDenominatorCol `numeric` Required. Numerical `Exposure` column.
 #' @param strGroupCol `character` Required. Name of column for grouping variable. Default: `"SiteID"`
-#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `data.frame` with one row per site with columns `GroupID`, `Numerator`, `Denominator`, and `Metric`.
 #'
@@ -47,8 +46,7 @@ Transform_Rate <- function(
   dfInput,
   strNumeratorCol = "Numerator",
   strDenominatorCol = "Denominator",
-  strGroupCol = "SiteID",
-  bQuiet = TRUE
+  strGroupCol = "SiteID"
 ) {
   stopifnot(
     "dfInput is not a data frame" = is.data.frame(dfInput),
@@ -73,11 +71,9 @@ Transform_Rate <- function(
     ) # issue arises where a site has enrolled a participant but participant has not started treatment > exposure is 0 > rate is NaN or Inf
 
   if (nrow(dfTransformed) < length(unique(dfInput[[strGroupCol]]))) {
-    if (!bQuiet) {
-      cli::cli_alert_warning(
-        "{length(unique(dfInput[[ strGroupCol ]])) - nrow(dfTransformed)} values of [ {strGroupCol} ] with a [ {strDenominatorCol} ] value of 0 removed."
-      )
-    }
+    cli::cli_alert_warning(
+      "{length(unique(dfInput[[ strGroupCol ]])) - nrow(dfTransformed)} values of [ {strGroupCol} ] with a [ {strDenominatorCol} ] value of 0 removed."
+    )
   }
 
   return(dfTransformed)

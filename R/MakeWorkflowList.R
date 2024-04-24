@@ -23,7 +23,7 @@
 MakeWorkflowList <- function(
   strNames = NULL,
   strPath = NULL,
-  bRecursive = FALSE,
+  bRecursive = FALSE
 ) {
   if (is.null(strPath)) {
     # if `strPath` is not specified, default to reading `inst/workflow` from {gsm}.

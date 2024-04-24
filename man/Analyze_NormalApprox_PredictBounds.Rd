@@ -8,8 +8,7 @@ Analyze_NormalApprox_PredictBounds(
   dfTransformed,
   vThreshold = c(-3, -2, 2, 3),
   strType = "binary",
-  nStep = NULL,
-  bQuiet = TRUE
+  nStep = NULL
 )
 }
 \arguments{
@@ -25,8 +24,6 @@ the thresholds used in \verb{*_Assess()} functions.}
 }}
 
 \item{nStep}{\code{numeric} step size of imputed bounds.}
-
-\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
 \code{data.frame} containing predicted boundary values with upper and lower bounds across the

@@ -9,7 +9,6 @@
 #' @param lWorkflow `list` A named list of metadata defining how the workflow should be run.
 #' @param lData `list` A named list of domain-level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
 #' @param lMapping `list` A named list identifying the columns needed in each data domain.
-#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `list` containing objects named: `steps`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `lWorkflowChecks`, and `lResults`.
 #'
@@ -40,10 +39,9 @@
 RunWorkflow <- function(
     lWorkflow,
     lData,
-    lMapping,
-    bQuiet = TRUE
+    lMapping
 ) {
-  if (!bQuiet) cli::cli_h1(paste0("Initializing `", lWorkflow$name, "` assessment"))
+  cli::cli_h1(paste0("Initializing `", lWorkflow$name, "` assessment"))
 
   vDataDomains <- purrr::map(lWorkflow$steps, function(x) {
     data <- c(x$inputs[x$inputs != "dfInput"])
@@ -57,21 +55,20 @@ RunWorkflow <- function(
   # Run through each step in lWorkflow$workflow
   stepCount <- 1
   for (step in lWorkflow$steps) {
-    if (!bQuiet) cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lWorkflow$steps), ": `", step$name, "`"))
+    cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lWorkflow$steps), ": `", step$name, "`"))
 
     result <- gsm::RunStep(
       lStep = step,
       lMapping = lMapping,
       lMeta= lWorkflow$meta,
-      lData = lWorkflow$lData,
-      bQuiet = bQuiet
+      lData = lWorkflow$lData
     )
 
     if (stringr::str_detect(step$output, "^df")) {
-      if (!bQuiet) cli::cli_text("Saving {step$output} to `lWorkflow$lData`")
+      cli::cli_text("Saving {step$output} to `lWorkflow$lData`")
       lWorkflow$lData[[step$output]] <- result
     } else {
-      if (!bQuiet) cli::cli_text("Saving {step$output} to `lWorkflow`")
+      cli::cli_text("Saving {step$output} to `lWorkflow`")
       lWorkflow[[step$output]] <- result
     }
 

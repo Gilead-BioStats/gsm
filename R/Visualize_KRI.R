@@ -17,8 +17,7 @@ Visualize_KRI <- function(
     lLabels = NULL,
     dfSite = NULL,
     dfBounds = NULL,
-    lStackedSnapshots = NULL,
-    bQuiet = FALSE
+    lStackedSnapshots = NULL
 ) {
   lCharts <- list()
 

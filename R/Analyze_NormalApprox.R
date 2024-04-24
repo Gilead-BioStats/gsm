@@ -25,7 +25,6 @@
 #' @param strType `character` Statistical outcome type. Valid values:
 #'   - `"binary"` (default)
 #'   - `"rate"`
-#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `data.frame` with one row per site with columns: GroupID, Numerator, Denominator, Metric, OverallMetric, Factor, and Score.
 #'
@@ -54,8 +53,7 @@
 
 Analyze_NormalApprox <- function(
   dfTransformed,
-  strType = "binary",
-  bQuiet = TRUE
+  strType = "binary"
 ) {
   stopifnot(
     "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
@@ -113,9 +111,8 @@ Analyze_NormalApprox <- function(
     ) %>%
     arrange(.data$Score)
 
-  if (!bQuiet) {
-    cli::cli_text("{.var OverallMetric}, {.var Factor}, and {.var Score} columns created from normal approximation.")
-  }
+  cli::cli_text("{.var OverallMetric}, {.var Factor}, and {.var Score} columns created from normal approximation.")
+  
 
   return(dfAnalyzed)
 }

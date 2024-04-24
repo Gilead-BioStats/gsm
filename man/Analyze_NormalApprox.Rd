@@ -4,7 +4,7 @@
 \alias{Analyze_NormalApprox}
 \title{Funnel Plot Analysis with Normal Approximation for Binary and Rate Outcomes.}
 \usage{
-Analyze_NormalApprox(dfTransformed, strType = "binary", bQuiet = TRUE)
+Analyze_NormalApprox(dfTransformed, strType = "binary")
 }
 \arguments{
 \item{dfTransformed}{\code{data.frame} in format produced by \code{\link{Transform_Rate}}}
@@ -14,8 +14,6 @@ Analyze_NormalApprox(dfTransformed, strType = "binary", bQuiet = TRUE)
 \item \code{"binary"} (default)
 \item \code{"rate"}
 }}
-
-\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
 \code{data.frame} with one row per site with columns: GroupID, Numerator, Denominator, Metric, OverallMetric, Factor, and Score.

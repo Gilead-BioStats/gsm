@@ -21,7 +21,6 @@
 #' @param dfTransformed `data.frame` in format produced by \code{\link{Transform_Rate}}
 #' @param nConfLevel `numeric` specified confidence interval for QTL analysis.
 #' @param strOutcome `character` indicates statistical test used for QTL analysis. One of `rate` or `binary`.
-#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `data.frame` with one row with columns: GroupID, Numerator, Denominator, Metric, Method, ConfLevel, Estimate, LowCI, UpCI and Score.
 #'
@@ -51,8 +50,7 @@
 Analyze_QTL <- function(
   dfTransformed,
   nConfLevel = 0.95,
-  strOutcome = "binary",
-  bQuiet = TRUE
+  strOutcome = "binary"
 ) {
   stopifnot(
     "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),

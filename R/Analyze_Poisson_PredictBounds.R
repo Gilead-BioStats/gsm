@@ -26,7 +26,6 @@
 #' @param vThreshold `numeric` upper and lower boundaries in residual space. Should be identical to
 #' the thresholds used AE_Assess().
 #' @param nStep `numeric` step size of imputed bounds.
-#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`.
 #'
 #' @return `data.frame` containing predicted boundary values with upper and lower bounds across the
 #' range of observed values.
@@ -47,17 +46,14 @@
 Analyze_Poisson_PredictBounds <- function(
   dfTransformed,
   vThreshold = c(-5, 5),
-  nStep = NULL,
-  bQuiet = TRUE
+  nStep = NULL
 ) {
   rlang::check_installed("lamW", reason = "to run `Analyze_Poisson_PredictBounds()`")
 
   if (is.null(vThreshold)) {
     vThreshold <- c(-5, 5)
 
-    if (bQuiet == FALSE) {
-      cli::cli_alert("vThreshold was not provided. Setting default threshold to c(-5, 5)")
-    }
+    cli::cli_alert("vThreshold was not provided. Setting default threshold to c(-5, 5)")
   }
 
   # add a 0 threhsold to calcultate estimate without an offset
@@ -80,9 +76,8 @@ Analyze_Poisson_PredictBounds <- function(
       nStep <- .05
     }
 
-    if (bQuiet == FALSE) {
-      cli::cli_alert("nStep was not provided. Setting default step to {nStep}")
-    }
+    cli::cli_alert("nStep was not provided. Setting default step to {nStep}")
+    
   }
 
   # Fit GLM of number of events at each site predicted by total exposure.
