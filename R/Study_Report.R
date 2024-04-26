@@ -1,144 +1,45 @@
-#' Study Report
+#' KRI_Report function
 #'
-#' `r lifecycle::badge("experimental")`
+#' This function generates a KRI report based on the provided inputs.
 #'
-#' Create HTML summary report using the results of `Study_Assess`, including tables, charts, and error checking.
+#' @param lCharts A list of charts to include in the report.
+#' @param dfSummary A data frame containing summary information.
+#' @param dfStudy A data frame containing study metadata (e.g., from CTMS).
+#' @param dfSite A data frame containing site metadata (e.g., from CTMS).
+#' @param dfMetrics A data frame containing metric metadata (e.g., from workflows).
+#' @param strOutpath The output path for the generated report. If not provided, the report will be saved in the current working directory with the name "kri_report.html".
 #'
-#' @param lSnapshot `list` The results of multiple assessments run using `Study_Assess` or `Make_Snapshot`.
-#' @param dfStudy `data.frame` A data.frame containing study status metadata. Typically output from `Make_Snapshot()$lSnapshot$status_study`
-#' @param dfSite `data.frame` A data.frame containing site status metadata. Typically output from `Make_Snapshot()$lSnapshot$status_site`
-#' @param strOutpath `character` File path; location where the report will be saved.
-#' @param strReportType `character` The type of report to be generated. Valid values:
-#'   - `"site"` for site-level KRI summary (default). The site-level report is stable and is under active development.
-#'   - `"country"` for country-level KRI summary. The country-level report is stable and is under active development.
-#'   - `"QTL"` for QTL summary. The QTL report is in early draft mode and is under active development.
-#'
-#' @return HTML report of study data.
-#'
-#' @examples
-#' \dontrun{
-#' # Using `Study_Assess()`
-#' study <- Study_Assess()
-#' Study_Report(study)
-#' Study_Report(study, strReportType = "country")
-#'
-#' # Adding metadata for a snapshot
-#' one_snapshot <- Make_Snapshot()
-#' Study_Report(
-#'   lSnapshot = one_snapshot
-#' )
-#' }
-#'
-#' @export
+#' @return None
 
-Study_Report <- function(
-  strReportType = "site",
+#' @keywords KRI report
+#' @export
+#' 
+
+KRI_Report <- function(
   lCharts = NULL,
   dfSummary = NULL,
-  dfSummaryOverTime = NULL, # Drop this and just pull charts directly? 
-  dfStudy = NULL, # Study metadata (e.g. from CTMS)
-  dfSite = NULL, # Site metadata (e.g. from CTMS)
-  dfMetrics = NULL, # Metric Metadata (e.g. from workflows)
+  dfStudy = NULL,
+  dfSite = NULL,
+  dfMetrics = NULL,
   strOutpath = NULL
 ) {
   rlang::check_installed("rmarkdown", reason = "to run `Study_Report()`")
-  rlang::check_installed("ggiraph", reason = "to run `Study_Report()`")
-  rlang::check_installed("gggenes", reason = "to run `Study_Report()`")
   rlang::check_installed("knitr", reason = "to run `Study_Report()`")
-  rlang::check_installed("DT", reason = "to run `Study_Report()`")
-
-  # input check
-  lAssessments <- if ("lStudyAssessResults" %in% names(lSnapshot)) {
-    lSnapshot$lStudyAssessResults
-  } else {
-    lSnapshot
-  }
-
-  lStatus <- if ("lStatus" %in% names(lSnapshot)) {
-    lSnapshot$lStatus
-  } else {
-    NULL
-  }
-
-  lLongitudinal <- if ("lStackedSnapshots" %in% names(lSnapshot)) {
-    lSnapshot$lStackedSnapshots
-  } else {
-    NULL
-  }
-
-  lCharts <- if ("lCharts" %in% names(lSnapshot)) {
-    lSnapshot$lCharts
-  } else {
-    NULL
-  }
-
-  if (is.null(dfStudy)) {
-    dfStudy <- if ("rpt_study_details" %in% names(lSnapshot$lSnapshot)) {
-      lSnapshot$lSnapshot$rpt_study_details
-    } else if ("lInputs" %in% names(lSnapshot)) {
-      Study_Map_Raw(
-        dfs = list(
-          dfSTUDY = lSnapshot$lInputs$lMeta$meta_study,
-          dfSUBJ = lSnapshot$lInputs$lData$dfSUBJ
-        ),
-        lMapping = lSnapshot$lInputs$lMapping,
-        dfConfig = lSnapshot$lInputs$lMeta$config_param
-      )
-    } else {
-      NULL
-    }
-  }
-
-  if (is.null(dfSite)) {
-    dfSite <- if ("rpt_study_details" %in% names(lSnapshot$lSnapshot)) {
-      lSnapshot$lSnapshot$rpt_site_details
-    } else if ("lInputs" %in% names(lSnapshot)) {
-      Site_Map_Raw(
-        dfs = list(
-          dfSITE = lSnapshot$lInputs$lMeta$meta_site,
-          dfSUBJ = lSnapshot$lInputs$lData$dfSUBJ
-        ),
-        lMapping = lSnapshot$lInputs$lMapping,
-        dfConfig = lSnapshot$lInputs$lMeta$config_param
-      )
-    } else {
-      NULL
-    }
-  }
-
-  stopifnot(
-    "strReportType is not 'site' or 'country' or 'QTL'" = strReportType %in% c("site", "country", "QTL"),
-    "strReportType must be length 1" = length(strReportType) == 1
-  )
+  rlang::check_installed("kableExtra", reason = "to run `Study_Report()`")
 
   # set output path
-  if (is.null(strOutpath) & strReportType == "site") {
-    strOutpath <- paste0(getwd(), "/gsm_site_report.html")
-  } else if (is.null(strOutpath) & strReportType == "country") {
-    strOutpath <- paste0(getwd(), "/gsm_country_report.html")
-  } else if (is.null(strOutpath) & strReportType == "QTL") {
-    strOutpath <- paste0(getwd(), "/gsm_QTL_report.html")
-  }
+  if (is.null(strOutpath)) { strOutpath <- paste0(getwd(), "/kri_report.html") }
 
-  # set Rmd template
-  if (strReportType == "site") {
-    projectTemplate <- system.file("report", "KRIReportBySite.Rmd", package = "gsm")
-  } else if (strReportType == "country") {
-    projectTemplate <- system.file("report", "KRIReportByCountry.Rmd", package = "gsm")
-  } else if (strReportType == "QTL") {
-    projectTemplate <- system.file("report", "KRIReportByQTL.Rmd", package = "gsm")
-  }
 
-  # render
   rmarkdown::render(
-    projectTemplate,
+    system.file("report", "KRIReportBySite.Rmd", package = "gsm"),
     output_file = strOutpath,
     params = list(
-      assessment = lAssessments,
-      status_study = dfStudy,
-      status_site = dfSite,
-      status_snap = lStatus,
-      longitudinal = lLongitudinal,
+      lCharts = lCharts,
+      dfSummary = dfSummary, 
+      dfSite = dfSite,
+      dfStudy = dfStudy,
+      dfMetrics = dfMetrics,
       lCharts = lCharts
     ),
     envir = new.env(parent = globalenv())
