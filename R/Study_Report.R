@@ -32,11 +32,14 @@
 #' @export
 
 Study_Report <- function(
-  lSnapshot,
-  dfStudy = NULL,
-  dfSite = NULL,
-  strOutpath = NULL,
-  strReportType = "site"
+  strReportType = "site",
+  lCharts = NULL,
+  dfSummary = NULL,
+  dfSummaryOverTime = NULL, # Drop this and just pull charts directly? 
+  dfStudy = NULL, # Study metadata (e.g. from CTMS)
+  dfSite = NULL, # Site metadata (e.g. from CTMS)
+  dfMetrics = NULL, # Metric Metadata (e.g. from workflows)
+  strOutpath = NULL
 ) {
   rlang::check_installed("rmarkdown", reason = "to run `Study_Report()`")
   rlang::check_installed("ggiraph", reason = "to run `Study_Report()`")

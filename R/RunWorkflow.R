@@ -39,7 +39,7 @@ RunWorkflow <- function(lWorkflow,lData) {
   for (step in lWorkflow$steps) {
     cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lWorkflow$steps), ": `", step$name, "`"))
 
-    result <- gsm::RunStep(lStep = step, lData = lWorkflow$lData)
+    result <- gsm::RunStep(lStep = step, lData = lWorkflow$lData, lMeta = lWorkflow$meta)
 
     if (stringr::str_detect(step$output, "^df")) {
       cli::cli_text("Saving {step$output} to `lWorkflow$lData`")

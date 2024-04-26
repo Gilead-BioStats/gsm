@@ -5,15 +5,23 @@
 \title{Study Report}
 \usage{
 Study_Report(
-  lSnapshot,
+  strReportType = "site",
+  lCharts = NULL,
+  dfSummary = NULL,
+  dfSummaryOverTime = NULL,
   dfStudy = NULL,
   dfSite = NULL,
-  strOutpath = NULL,
-  strReportType = "site"
+  dfMetrics = NULL,
+  strOutpath = NULL
 )
 }
 \arguments{
-\item{lSnapshot}{\code{list} The results of multiple assessments run using \code{Study_Assess} or \code{Make_Snapshot}.}
+\item{strReportType}{\code{character} The type of report to be generated. Valid values:
+\itemize{
+\item \code{"site"} for site-level KRI summary (default). The site-level report is stable and is under active development.
+\item \code{"country"} for country-level KRI summary. The country-level report is stable and is under active development.
+\item \code{"QTL"} for QTL summary. The QTL report is in early draft mode and is under active development.
+}}
 
 \item{dfStudy}{\code{data.frame} A data.frame containing study status metadata. Typically output from \code{Make_Snapshot()$lSnapshot$status_study}}
 
@@ -21,12 +29,7 @@ Study_Report(
 
 \item{strOutpath}{\code{character} File path; location where the report will be saved.}
 
-\item{strReportType}{\code{character} The type of report to be generated. Valid values:
-\itemize{
-\item \code{"site"} for site-level KRI summary (default). The site-level report is stable and is under active development.
-\item \code{"country"} for country-level KRI summary. The country-level report is stable and is under active development.
-\item \code{"QTL"} for QTL summary. The QTL report is in early draft mode and is under active development.
-}}
+\item{lSnapshot}{\code{list} The results of multiple assessments run using \code{Study_Assess} or \code{Make_Snapshot}.}
 }
 \value{
 HTML report of study data.

@@ -2,16 +2,14 @@
 % Please edit documentation in R/RunWorkflow.R
 \name{RunWorkflow}
 \alias{RunWorkflow}
-\title{Run a single assessment via workflow YAML specification.}
+\title{Run a workflow via it's YAML specification.}
 \usage{
-RunWorkflow(lWorkflow, lData, lMapping)
+RunWorkflow(lWorkflow, lData)
 }
 \arguments{
 \item{lWorkflow}{\code{list} A named list of metadata defining how the workflow should be run.}
 
 \item{lData}{\code{list} A named list of domain-level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
-
-\item{lMapping}{\code{list} A named list identifying the columns needed in each data domain.}
 }
 \value{
 \code{list} containing objects named: \code{steps}, \code{path}, \code{name}, \code{lData}, \code{lChecks}, \code{bStatus}, \code{lWorkflowChecks}, and \code{lResults}.
@@ -37,12 +35,6 @@ lData <- list(
   dfSUBJ = clindata::rawplus_dm
 )
 
-lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
-
-output <- RunWorkflow(
-  lAssessments$kri0001, # adverse event workflow
-  lData,
-  lMapping
-)
+output <- RunWorkflow(lAssessments$kri0001, lData)
 
 }

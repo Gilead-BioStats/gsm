@@ -1,0 +1,41 @@
+#' Calculate needed values for report
+#' 
+#' Calculates the following: 
+#' - Snapshot date: dfStudy$SnapshotDate (if available) or Sys.Date()
+#' - Study ID: dfStudy$StudyID (if available)  or "Unknown"
+
+
+#' @param dfStudy `data.frame` Site-level metadata containing within `params$status_site` of report
+#'
+#' @export
+#' @keywords internal
+#' 
+#' 
+Report_Setup <- function(dfStudy) {
+
+  ## create output list
+  output <- list()
+  output$SnapshotDate <- if("SnapshotDate" %in% names(dfStudy)) {
+    dfStudy$SnapshotDate[[1]]
+  } else {
+    Sys.Date()
+  }
+
+  output$StudyID <- if("StudyID" %in% names(dfStudy)) {
+    dfStudy$StudyID[[1]]
+  } else {
+    "Unknown"
+  }
+
+  output$red_kris <- dfSummary %>%
+    mutate(red_flag = ifelse(.data[["Flag"]] %in% c(-2, 2), 1, 0)) %>%
+    pull(.data[["red_flag"]]) %>%
+    sum()
+
+  output$amber_kris <- dfSummary %>%
+    mutate(amber_flag = ifelse(.data[["Flag"]] %in% c(-1, 1), 1, 0)) %>%
+    pull(.data[["amber_flag"]]) %>%
+    sum()
+
+  return(output)
+}

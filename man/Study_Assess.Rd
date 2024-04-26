@@ -4,24 +4,12 @@
 \alias{Study_Assess}
 \title{Run Multiple Assessments on a Study}
 \usage{
-Study_Assess(
-  lData = NULL,
-  lMapping = NULL,
-  lAssessments = NULL,
-  bLogOutput = FALSE,
-  strLogFileName = NULL
-)
+Study_Assess(lData = NULL, lAssessments = NULL)
 }
 \arguments{
 \item{lData}{\code{list} A named list of domain level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
 
-\item{lMapping}{\code{list} A named list identifying the columns needed in each data domain.}
-
-\item{lAssessments}{\code{list} A named list of metadata defining how each assessment should be run. By default, \code{MakeWorkflowList()} imports YAML specifications from \code{inst/workflow}.}
-
-\item{bLogOutput}{\code{logical} Send console output to log file? Default: \code{FALSE}.}
-
-\item{strLogFileName}{\code{character} File name for log file.}
+\item{lWorkflows}{\code{list} A named list of metadata defining how each assessment should be run. By default, \code{MakeWorkflowList()} imports YAML specifications from \code{inst/workflow}.}
 }
 \value{
 \code{list} of assessments containing status information and results.

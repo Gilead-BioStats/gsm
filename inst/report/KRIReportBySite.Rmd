@@ -1,4 +1,5 @@
 ---
+
 subtitle: "Generated with the Good Statistical Monitoring {gsm} package"
 output:
   html_document:
@@ -8,12 +9,13 @@ output:
        smooth_scroll: true
     css: styles.css
 params:
-    assessment: NA
-    status_study: NA
-    status_site: NA
-    status_snap: NA
-    longitudinal: NULL
-    lCharts: NULL
+  lCharts: NA
+  dfSummary: NA
+  dfSummaryOverTime: NA
+  dfStudy: NA
+  dfSite: NA
+  dfMetrics: NA
+
 ---
 
 ```{r setup, include=FALSE} 
@@ -25,32 +27,21 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 library(gsm)
 library(DT)
 
-setup <- MakeReportSetup(
-  assessment = params$assessment, 
-  dfSite = params$status_site,
-  strType = "kri"
-)
+setup <- Report_Setup(dfStudy =  params$dfStudy)
 
 ```
 
 ---
-title: "`r setup$study_id` Assessment Overview"
----
+title: "`r setup$study_id` Metric Overview"
+--- 
+
+date: "Snapshot Date: `r setup$snapshot_date`
 
 ::: {#overall-site-select .overall-site-select title="Selected site will be highlighted in all charts for all KRIs."}
 :::
 
-```{r, echo=FALSE, results='asis'}
-## metadata report if longitudinal data is provided
-status_study_exists <- exists('status_study', where = params) && !is.null(params$status_study)
-if (status_study_exists) {
-  date <- GetSnapshotDate(params$status_study)
-}
-```
-
-```{r, echo=FALSE, results='asis', eval=status_study_exists, fig.height=2}
-MakeStudyStatusTable(dfStudy = params$status_study, overview_raw_table = setup$overview_raw_table, longitudinal = params$longitudinal)
-Make_Timeline(status_study = params$status_study, longitudinal = params$longitudinal)
+```{r, echo=FALSE, results='asis', fig.height=2}
+Report_StudyInfo(dfStudy = params$dfStudy)
 ```
 
 ## Study Overview
@@ -66,59 +57,46 @@ Make_Timeline(status_study = params$status_study, longitudinal = params$longitud
 :::
 
 ::: gsm-overview-table
-```{r echo=FALSE, warning=FALSE}
-setup$overview_table
-```
 
-`r if(length(setup$dropped) > 0){glue::glue("{length(setup$dropped)} {ifelse(length(setup$dropped) == 1, 'KRI', 'KRIs')} dropped in Report see [KRI Glossary]")}`
+
+```{r echo=FALSE, warning=FALSE}
+htmltools::div(
+  style = "table-layout: fixed; width: 100%; overflow: auto;",
+  Widget_SiteOverview(dfSummary=dfSummary %>% rename_with(tolower) %>% mutate(workflowid=metricid), dfSite=dfSite)
+)
+```
 
 :::
 
-```{r, echo=FALSE, results = 'asis', eval=status_study_exists}
-MakeOverviewMessage(
-  report = "site",
-  status_study = params$status_study,
-  overview_raw_table = setup$overview_raw_table, 
-  red_kris = setup$red_kris
-)
+```{r, echo=FALSE, results = 'asis'}
+#MakeOverviewMessage(
+#  report = "site",
+#  status_study = params$status_study,
+#  overview_raw_table = setup$overview_raw_table, 
+#  red_kris = setup$red_kris
+#)
 
 ```
 
 ## Results
 
 ```{r, echo=FALSE, results='asis'}
-MakeResultsTable(
-  assessment = setup$active, 
-  summary_table = setup$summary_table, 
-  lCharts = params$lCharts
+for (i in seq_along(lCharts)) {
+  MetricID <- names(lCharts)[[i]]
+
+  print(htmltools::h3(MetricID))
+  
+  Report_MetricCharts(
+    lCharts = lCharts[[i]]
   )
-```
 
-## KRI Glossary
+  dfMetricSummary <- params$dfSummary[params$dfSummary$MetricID == MetricID,]
+  cat(Report_SummaryTable(dfSummary = dfMetricSummary, dfSite= dfSite))
+  #summaryTable <- Report_SummaryTable(dfSummary = dfMetricSummary, dfSite= dfSite)
+  #kbl(summaryTable, format="html", escape=FALSE)%>%kable_minimal()%>%print
 
-```{r, echo = FALSE}
-MakeKRIGlossary(
-  strWorkflowIDs = names(setup$active),
-  lStatus = params$status_snap
-)
-```
-
-## Error Log
-
-```{r echo = FALSE}
-MakeErrorLog(setup$active)
-```
-
-`r if(!is.null(setup$dropped)){"## Inactive KRI's"}`
-
-```{r, echo=FALSE, results='asis', eval=!is.null(setup$dropped)}
-if(length(setup$dropped) > 0){
-MakeResultsTable(setup$dropped,
-                 setup$dropped_summary_table)
 }
-if(length(setup$dropped) == 0){
-  cat("No Inactive KRI's")
-}
+
 ```
 
 ```{r echo=FALSE}

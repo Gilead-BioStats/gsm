@@ -36,7 +36,7 @@
 #'
 #' @export
 
-RunStep <- function(lStep, lData) {
+RunStep <- function(lStep, lData, lMeta) {
   # prepare parameter list inputs
   cli::cli_text("Preparing parameters for  {.fn {lStep$name}} ...")
 
@@ -45,6 +45,12 @@ RunStep <- function(lStep, lData) {
   # This loop iterates over each parameter in the 'params' object.
   for(paramName in names(params)){
     paramVal <- params[[paramName]]
+    
+    # If the parameter value is lMeta, provides the list of metadata from the workflow header
+    if(length(paramVal) == 1 && paramVal == "lMeta"){
+      cli::cli_text("Found metadata. Proceeding ...")
+      params[[paramName]] <- lMeta
+    }
 
     # If the parameter name starts with 'df', it checks if the corresponding value exists in the 'lData' object.
     # If the value exists, it updates the parameter value with the corresponding data.frame from 'lData'.

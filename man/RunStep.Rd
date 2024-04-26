@@ -4,7 +4,7 @@
 \alias{RunStep}
 \title{Run a single step in a workflow.}
 \usage{
-RunStep(lStep, lMapping, lMeta, lData)
+RunStep(lStep, lData, lMeta)
 }
 \arguments{
 \item{lStep}{\code{list} single workflow step (typically defined in \code{lWorkflow$workflow}). Should
@@ -20,16 +20,16 @@ from \code{X_Map_Raw}.}
 parameter with results from \code{is_mapping_vald} for each domain in \code{lStep$inputs}.
 }
 \description{
-Runs a single step of an assessment workflow. Currently supports \code{Filter}, \code{Map}, and \code{Assess}
-functions.
+Runs a single step of an assessment workflow. This function is called by \code{RunWorkflow} for each
+step in the workflow. It prepares the parameters for the function call, including the metadata,
+mapping, and data inputs. It then calls the function specified in \code{lStep$name} with the prepared
+parameters.
 }
 \details{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 lStep <- MakeWorkflowList()[["kri0001"]][["steps"]][[1]]
-
-lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
 
 lData <- list(
   dfSUBJ = clindata::rawplus_dm,
@@ -40,6 +40,6 @@ lData <- list(
 )
 
 
-ae_step <- RunStep(lStep = lStep, lMapping = lMapping, lData = lData)
+ae_step <- RunStep(lStep = lStep, lData = lData)
 
 }

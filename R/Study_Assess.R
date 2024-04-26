@@ -52,14 +52,14 @@ Study_Assess <- function(
     if (nrow(lData$dfSUBJ) > 0) {
       ### --- Attempt to run each assessment --- ###
       lAssessments <- lAssessments %>%
-        purrr::map(purrr::safely(
+        purrr::map(
           function(lWorkflow) {
               RunWorkflow(
                 lWorkflow,
                 lData = lData
               )
             }
-        ))
+        )
     } else {
       cli::cli_alert_danger("Subject-level data contains 0 rows. Assessment not run.")
       lAssessments <- NULL
