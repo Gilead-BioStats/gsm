@@ -11,13 +11,13 @@
 #'
 #' @export
 
-Report_SummaryTable <- function(dfSummary, dfSite) {
+Report_MetricTable <- function(dfSummary, dfSite) {
     rlang::check_installed("DT", reason = "to run `Study_Report()`")
 
     dfSummary <- dfSummary %>%
         left_join(
-            dfSite %>% select("siteid", "country", "status", "enrolled_participants"),
-            c("GroupID" = "siteid")
+            dfSite %>% select("SiteID", "pi_last_name","country", "site_status"),
+            c("GroupID" = "SiteID")
         )
 
 
@@ -36,7 +36,8 @@ Report_SummaryTable <- function(dfSummary, dfSite) {
                 any_of(c(
                     "Site" = "GroupID",
                     "Country" = "country",
-                    "Status" = "status",
+                    "Status" = "site_status",
+                    "PI" = "pi_last_name",
                     "Subjects" = "enrolled_participants"
                 )),
                 everything()
