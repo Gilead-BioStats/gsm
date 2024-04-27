@@ -9,8 +9,8 @@
 #' @param title `character` Data that will be passed to the <title> tag.
 #'
 #' @export
-kri_directionality_logo <- function(flag_value, title = NULL) {
-  rlang::check_installed("fontawesome", reason = "to use `kri_directionality_logo`")
+Report_FormatFlag <- function(flag_value, title = NULL) {
+  rlang::check_installed("fontawesome", reason = "to use `Report_FormatFlag()`")
 
   if (is.na(flag_value)) {
     return(fontawesome::fa("minus", fill = "#aaa", title = title))

@@ -26,7 +26,7 @@ Report_MetricTable <- function(dfSummary, dfSite) {
             filter(.data$Flag != 0) %>%
             arrange(desc(abs(.data$Score))) %>%
             mutate(
-                Flag = map(.data$Flag, kri_directionality_logo),
+                Flag = map(.data$Flag, Report_FormatFlag),
                 across(
                     where(is.numeric),
                     ~ round(.x, 3)
