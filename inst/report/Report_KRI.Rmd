@@ -94,8 +94,7 @@ for (i in seq_along(lCharts)) {
 
   dfMetricSummary <- params$dfSummary[params$dfSummary$MetricID == MetricID,]
   cat(Report_MetricTable(dfSummary = dfMetricSummary, dfSite= dfSite))
-  #summaryTable <- Report_SummaryTable(dfSummary = dfMetricSummary, dfSite= dfSite)
-  #kbl(summaryTable, format="html", escape=FALSE)%>%kable_minimal()%>%print
+
 
 }
 

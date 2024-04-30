@@ -1,23 +1,69 @@
+meta:
+  file: cou0010.yaml
+  workflowid: cou0010
+  group: country
+  abbreviation: ODAT
+  metric: Outstanding Data Entry Rate
+  numerator: Data Pages Entered > 10 Days
+  denominator: Total Data Pages
+  model: Normal Approximation
+  score: Adjusted Z-Score
 steps:
-  - name: FilterDomain
-    inputs: dfSUBJ
-    output: dfSUBJ
+  - name: RunQuery
+    output: dfSubjects
     params:
-      strDomain: dfSUBJ
-      strColParam: strEnrollCol
-      strValParam: strEnrollVal
-  - name: DataEntry_Map_Raw
-    inputs:
-      - dfSUBJ
-      - dfDATAENT
+      df: dfSUBJ
+      strQuery: "SELECT subject_nsv as SubjectID, siteid as SiteID, country as CountryID, studyid as StudyID FROM df WHERE enrollyn == 'Y'"
+  - name: RunQuery
+    output: dfDenominator
+    params:
+      df: dfDATAENT
+      strQuery: "SELECT subjectname as SubjectID FROM df"
+  - name: RunQuery
+    output: dfNumerator
+    params:
+      df: dfDATAENT
+      strQuery: "SELECT subjectname as SubjectID, * FROM df WHERE data_entry_lag > 10"  
+  - name: Input_Rate
     output: dfInput
     params:
-      nMaxDataEntryLag: 10
-  - name: DataEntry_Assess
-    inputs: dfInput
-    output: lResults
+      dfs:
+        - dfSubjects
+        - dfNumerator
+        - dfDenominator
+      strNumeratorMethod: Count
+      strDenominatorMethod: Count
+  - name: Transform_Rate
+    output: dfTransformed
     params:
-      strGroup: "Country"
-      vThreshold: null
-      strMethod: "NormalApprox"
-      nMinDenominator: 30
+      dfInput: dfInput
+      strGroupCol: CountryID
+  - name: Analyze_NormalApprox
+    output: dfAnalyzed
+    params:
+      dfTransformed: dfTransformed 
+      strType: binary
+  - name: Analyze_NormalApprox_PredictBounds
+    output: dfBounds
+    params:
+      dfTransformed: dfTransformed
+      strType: binary
+  - name: Flag_NormalApprox
+    output: dfFlagged
+    params:
+      dfAnalyzed: dfAnalyzed
+      vThreshold: 
+        - -3
+        - -2
+        - 2
+        - 3
+  - name: Summarize
+    output: dfSummary
+    params: 
+      dfFlagged: dfFlagged
+  - name: Visualize_KRI
+    output: lCharts
+    params:
+      dfSummary: dfSummary
+      dfBounds: dfBounds
+      lLabels: lMeta

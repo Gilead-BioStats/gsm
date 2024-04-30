@@ -1,21 +1,69 @@
+meta:
+  file: cou0011.yaml
+  workflowid: cou0011
+  group: country
+  abbreviation: CDAT
+  metric: Data Change Rate
+  numerator: Data Points with 1+ Change
+  denominator: Total Data Points
+  model: Normal Approximation
+  score: Adjusted Z-Score
 steps:
-  - name: FilterDomain
-    inputs: dfSUBJ
-    output: dfSUBJ
+  - name: RunQuery
+    output: dfSubjects
     params:
-      strDomain: dfSUBJ
-      strColParam: strEnrollCol
-      strValParam: strEnrollVal
-  - name: DataChg_Map_Raw
-    inputs:
-      - dfSUBJ
-      - dfDATACHG
+      df: dfSUBJ
+      strQuery: "SELECT subject_nsv as SubjectID, siteid as SiteID, country as CountryID, studyid as StudyID FROM df WHERE enrollyn == 'Y'"
+  - name: RunQuery
+    output: dfDenominator
+    params:
+      df: dfDATACHG
+      strQuery: "SELECT subjectname as SubjectID FROM df"
+  - name: RunQuery
+    output: dfNumerator
+    params:
+      df: dfDATACHG
+      strQuery: "SELECT subjectname as SubjectID, * FROM df WHERE n_changes > 0"  
+  - name: Input_Rate
     output: dfInput
-  - name: DataChg_Assess
-    inputs: dfInput
-    output: lResults
     params:
-      strGroup: "Country"
-      vThreshold: null
-      strMethod: "NormalApprox"
-      nMinDenominator: 30
+      dfs:
+        - dfSubjects
+        - dfNumerator
+        - dfDenominator
+      strNumeratorMethod: Count
+      strDenominatorMethod: Count
+  - name: Transform_Rate
+    output: dfTransformed
+    params:
+      dfInput: dfInput
+      strGroupCol: CountryID
+  - name: Analyze_NormalApprox
+    output: dfAnalyzed
+    params:
+      dfTransformed: dfTransformed 
+      strType: binary
+  - name: Analyze_NormalApprox_PredictBounds
+    output: dfBounds
+    params:
+      dfTransformed: dfTransformed
+      strType: binary
+  - name: Flag_NormalApprox
+    output: dfFlagged
+    params:
+      dfAnalyzed: dfAnalyzed
+      vThreshold: 
+        - -3
+        - -2
+        - 2
+        - 3
+  - name: Summarize
+    output: dfSummary
+    params: 
+      dfFlagged: dfFlagged
+  - name: Visualize_KRI
+    output: lCharts
+    params:
+      dfSummary: dfSummary
+      dfBounds: dfBounds
+      lLabels: lMeta
