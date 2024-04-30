@@ -1,4 +1,4 @@
-#' KRI_Report function
+#' Report_KRI function
 #'
 #' This function generates a KRI report based on the provided inputs.
 #'
@@ -15,7 +15,7 @@
 #' @export
 #' 
 
-KRI_Report <- function(
+Report_KRI <- function(
   lCharts = NULL,
   dfSummary = NULL,
   dfStudy = NULL,
@@ -32,7 +32,7 @@ KRI_Report <- function(
 
 
   rmarkdown::render(
-    system.file("report", "KRIReportBySite.Rmd", package = "gsm"),
+    system.file("report", "Report_KRI.Rmd", package = "gsm"),
     output_file = strOutpath,
     params = list(
       lCharts = lCharts,
