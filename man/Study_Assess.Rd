@@ -4,7 +4,7 @@
 \alias{Study_Assess}
 \title{Run Multiple Assessments on a Study}
 \usage{
-Study_Assess(lData = NULL, lAssessments = NULL)
+Study_Assess(lData = NULL, lWorkflows = NULL)
 }
 \arguments{
 \item{lData}{\code{list} A named list of domain level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
