@@ -8,10 +8,18 @@
 #' @keywords internal
 #'
 #'
-Report_Setup <- function(dfStudy) {
+Report_Setup <- function(dfStudy=NULL, dfMetrics=NULL) {
 
-  ## create output list
+
   output <- list()
+  # Get type of report
+  group <- unique(dfMetrics$group)
+  if(length( group )==1) {
+    output$group <- group %>% stringr::str_to_title()
+  } else {
+    output$group <- ""
+  }
+
   output$SnapshotDate <- if("SnapshotDate" %in% names(dfStudy)) {
     dfStudy$SnapshotDate[[1]]
   } else {

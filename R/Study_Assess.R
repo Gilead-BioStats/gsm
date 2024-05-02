@@ -1,9 +1,9 @@
-#' Run Multiple Assessments on a Study
+#' Run Multiple Workflows on a Study
 #'
 #' `r lifecycle::badge("stable")`
 #'
 #' @description
-#' Attempts to run one or more assessments (`lAssessments`) using shared data (`lData`) and metadata (`lMapping`). By default, the sample `rawplus` data from the {clindata} package is used, and all assessments defined in `inst/workflow` are evaluated. Individual assessments are run using `gsm::RunAssessment()`
+#' Attempts to run one or more workflows (`lWorkflows`) using shared data (`lData`). By default, the sample `rawplus` data from the {clindata} package is used, and all assessments defined in `inst/workflow` are evaluated. Individual assessments are run using `gsm::RunAssessment()`
 #'
 #' @param lData `list` A named list of domain level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
 #' @param lWorkflows `list` A named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`.
@@ -13,13 +13,13 @@
 #' results <- Study_Assess() # run using defaults
 #' }
 #'
-#' @return `list` of assessments containing status information and results.
+#' @return `list` of results for the specified workflows.
 #'
 #' @export
 
 Study_Assess <- function(
   lData = NULL,
-  lAssessments = NULL
+  lWorkflows = NULL
 ) {
 
   # lData from clindata
@@ -43,15 +43,15 @@ Study_Assess <- function(
     )
   }
 
-  # lAssessments from gsm inst/workflow
-  if (is.null(lAssessments)) {
-    lAssessments <- gsm::MakeWorkflowList()
+  # lWorkflows from gsm inst/workflow
+  if (is.null(lWorkflows)) {
+    lWorkflows <- gsm::MakeWorkflowList()
   }
 
   if (exists("dfSUBJ", where = lData)) {
     if (nrow(lData$dfSUBJ) > 0) {
       ### --- Attempt to run each assessment --- ###
-      lAssessments <- lAssessments %>%
+      lResults <- lWorkflows %>%
         purrr::map(
           function(lWorkflow) {
               RunWorkflow(
@@ -61,13 +61,13 @@ Study_Assess <- function(
             }
         )
     } else {
-      cli::cli_alert_danger("Subject-level data contains 0 rows. Assessment not run.")
-      lAssessments <- NULL
+      cli::cli_alert_danger("Subject-level data contains 0 rows. Workflow not run.")
+      lResults <- NULL
     }
   } else {
     cli::cli_alert_danger("Subject-level data not found. Assessment not run.")
-    lAssessments <- NULL
+    lResults <- NULL
   }
 
-  return(lAssessments)
+  return(lResults)
 }
