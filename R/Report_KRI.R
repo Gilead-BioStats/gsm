@@ -21,7 +21,8 @@ Report_KRI <- function(
   dfStudy = NULL,
   dfSite = NULL,
   dfMetrics = NULL,
-  strOutpath = NULL
+  strOutpath = NULL,
+  strType = NULL
 ) {
   rlang::check_installed("rmarkdown", reason = "to run `Report_KRI()`")
   rlang::check_installed("knitr", reason = "to run `Report_KRI()`")
@@ -40,7 +41,8 @@ Report_KRI <- function(
       dfSite = dfSite,
       dfStudy = dfStudy,
       dfMetrics = dfMetrics,
-      lCharts = lCharts
+      lCharts = lCharts,
+      strType = strType
     ),
     envir = new.env(parent = globalenv())
   )

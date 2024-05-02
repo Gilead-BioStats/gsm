@@ -14,6 +14,7 @@ params:
   dfStudy: NA
   dfSite: NA
   dfMetrics: NA
+  strType: NA
 
 ---
 
@@ -71,6 +72,19 @@ htmltools::div(
 :::
 
 ```{r, echo=FALSE, results = 'asis'}
+
+Report_OverviewText(
+  strType = params$strType,
+  setup = setup,
+  dfSummary = params$dfSummary, 
+  dfStudy = params$dfStudy
+  )
+
+  # lCharts: NA
+  # dfSummary: NA
+  # dfStudy: NA
+  # dfSite: NA
+  # dfMetrics: NA
 #MakeOverviewMessage(
 #  report = "site",
 #  status_study = params$status_study,

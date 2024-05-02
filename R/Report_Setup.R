@@ -1,16 +1,13 @@
 #' Calculate needed values for report
-#' 
-#' Calculates the following: 
+#'
+#' Calculates the following:
 #' - Snapshot date: dfStudy$SnapshotDate (if available) or Sys.Date()
 #' - Study ID: dfStudy$StudyID (if available)  or "Unknown"
-
-
-#' @param dfStudy `data.frame` Site-level metadata containing within `params$status_site` of report
-#'
+#' @param dfStudy `data.frame` Site-level metadata.
 #' @export
 #' @keywords internal
-#' 
-#' 
+#'
+#'
 Report_Setup <- function(dfStudy) {
 
   ## create output list

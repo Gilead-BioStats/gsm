@@ -1,25 +1,26 @@
 #' Create message describing study summary for Report
-#' @param report `string` type of report being run
-#' @param status_study `data.frame` the snapshot status study output created with `Make_Snapshot()$lSnapshot$status_study`
-#' @param overview_raw_table `data.frame` non interactive output of `Overview_Table()` for the relevant report.
-#' @param red_kris `string` a string or number containing the count of red flags in kri's
-
+#' @param strType `string` type of report being run. Must be `country` or `site`.
+#' @param lSetup `list` that is produced by `Report_StudyInfo(dfStudy = params$dfStudy)`.
+#' @param dfSummary `data.frame` containing summary information.
+#' @param dfStudy `data.frame` contains site-level metadata.
 #' @export
 #' @keywords internal
-Report_OverviewText <- function(strType, dfSummary, dfStudy) {
-    #TODO: Implement this function
-    cat('Nice summary coming soon')
-#   if (strType == "site") {
-#     cat(glue::glue("<div>As of {status_study$gsm_analysis_date}, {status_study$studyid} has {round(sum(as.numeric(overview_raw_table$Subjects)))} participants enrolled across
-# {nrow(overview_raw_table)} sites. {red_kris} Site-KRI combinations have been flagged as red across {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} sites as shown in the Study Overview Table above.</div>
-#   - <div>{overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} sites have at least one red KRI</div>
-#   - <div>{overview_raw_table %>% filter(.data$`Red KRIs` != 0 | .data$`Amber KRIs` != 0) %>% nrow()} sites have at least one red or amber KRI</div>
-#   - <div>{overview_raw_table %>% filter(.data$`Red KRIs` == 0 & .data$`Amber KRIs` == 0) %>% nrow()} sites have neither red nor amber KRIs and are not shown</div>"), sep = "\n")
-#   } else if (report == "country") {
-#     cat(glue::glue("<div>As of {status_study$gsm_analysis_date}, {status_study$studyid} has {round(sum(as.numeric(overview_raw_table$Subjects)))} participants enrolled across
-# {nrow(overview_raw_table)} countries. {red_kris} Country-KRI combinations have been flagged as red across {overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} countries as shown in the Study Overview Table above.</div>
-#   - <div>{overview_raw_table %>% filter(.data$`Red KRIs` != 0) %>% nrow()} countries have at least one red KRI</div>
-#   - <div>{overview_raw_table %>% filter(.data$`Red KRIs` != 0 | .data$`Amber KRIs` != 0) %>% nrow()} countries have at least one red or amber KRI</div>
-#   - <div>{overview_raw_table %>% filter(.data$`Red KRIs` == 0 & .data$`Amber KRIs` == 0) %>% nrow()} countries have neither red nor amber KRIs</div>"), sep = "\n")
-#   }
+Report_OverviewText <- function(strType, lSetup, dfSummary, dfStudy) {
+
+    red_KRI_groups <- dfSummary %>% filter(Flag %in% c(-2,2)) %>% select(GroupID) %>% .$GroupID
+    amber_or_red_KRI_groups <- dfSummary %>% filter(Flag %in% c(-2,2,-1,1)) %>% select(GroupID) %>% .$GroupID
+    no_alert_groups <- dfSummary %>% filter(Flag %in% !c(-2,2,1,-1)) %>% select(GroupID) %>% .$GroupID
+
+    if (strType == "site") {
+      group_type = "sites"
+    } else if (strType == "country") {
+      group_type = "countries"
+    }
+
+    cat(glue::glue("
+        <div style = 'margin-top: 2em;'>As of {lSetup$SnapshotDate}, {lSetup$StudyID} has {as.numeric(dfStudy$num_enrolled_subj_m)} participants enrolled across {dfStudy$num_site_actl} {group_type}. {length(red_KRI_groups)} Site-KRI combinations have been flagged across {length(unique(red_KRI_groups))} {group_type} as shown in the Study Overview Table above.</div>
+       - <div>{length(unique(red_KRI_groups))} {group_type} have at least one red KRI</div>
+       - <div>{length(unique(amber_or_red_KRI_groups))} have at least one red or amber KRI</div>
+       - <div>{length(unique(no_alert_groups))} have neither red nor amber KRIS and are not shown</div>"))
+
 }
