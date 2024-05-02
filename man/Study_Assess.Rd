@@ -2,7 +2,7 @@
 % Please edit documentation in R/Study_Assess.R
 \name{Study_Assess}
 \alias{Study_Assess}
-\title{Run Multiple Assessments on a Study}
+\title{Run Multiple Workflows on a Study}
 \usage{
 Study_Assess(lData = NULL, lWorkflows = NULL)
 }
@@ -12,10 +12,10 @@ Study_Assess(lData = NULL, lWorkflows = NULL)
 \item{lWorkflows}{\code{list} A named list of metadata defining how each assessment should be run. By default, \code{MakeWorkflowList()} imports YAML specifications from \code{inst/workflow}.}
 }
 \value{
-\code{list} of assessments containing status information and results.
+\code{list} of results for the specified workflows.
 }
 \description{
-Attempts to run one or more assessments (\code{lAssessments}) using shared data (\code{lData}) and metadata (\code{lMapping}). By default, the sample \code{rawplus} data from the {clindata} package is used, and all assessments defined in \code{inst/workflow} are evaluated. Individual assessments are run using \code{gsm::RunAssessment()}
+Attempts to run one or more workflows (\code{lWorkflows}) using shared data (\code{lData}). By default, the sample \code{rawplus} data from the {clindata} package is used, and all assessments defined in \code{inst/workflow} are evaluated. Individual assessments are run using \code{gsm::RunAssessment()}
 }
 \details{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}

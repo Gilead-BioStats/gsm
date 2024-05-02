@@ -6,22 +6,21 @@
 \usage{
 Visualize_KRI(
   dfSummary,
-  lLabels = NULL,
   dfSite = NULL,
   dfBounds = NULL,
-  lStackedSnapshots = NULL
+  dfParams = NULL,
+  lLabels = NULL,
+  strSnapshotDate = NULL
 )
 }
 \arguments{
 \item{dfSummary}{\code{data.frame} A data.frame returned by \code{\link[=Summarize]{Summarize()}}.}
 
-\item{lLabels}{\code{list} Workflow metadata. See \link{meta_workflow}.}
-
 \item{dfSite}{\code{data.frame} Site metadata returned by \code{\link[=Site_Map_Raw]{Site_Map_Raw()}}.}
 
 \item{dfBounds}{\code{data.frame}, A data.frame returned by \code{\link[=Analyze_NormalApprox_PredictBounds]{Analyze_NormalApprox_PredictBounds()}} or \code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}}}
 
-\item{lStackedSnapshots}{\code{list} A list returned by \code{\link[=Make_Snapshot]{Make_Snapshot()}} containing flat files for snapshot/assessment data.}
+\item{lLabels}{\code{list} Workflow metadata. See \link{meta_workflow}.}
 }
 \value{
 A list (lCharts) containing three charts - scatterJS, barMetricJS, and barScoreJS.
