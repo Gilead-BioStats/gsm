@@ -24,15 +24,17 @@
 #' @param strNumeratorCol `character` Column name in `dfNumerator` to use for numerator calculation. Default: NULL
 #' @param strDenominatorCol `character` Column name in `dfDenominator` to use for denominator calculation. Default: NULL
 #' 
-#' @return `data.frame` with the following columns:
+#' @return `data.frame` with the following specification:
 #' 
-#' - SubjectID: The subject ID
-#' - SiteID: The site ID
-#' - StudyID: The study ID
-#' - CountryID: The country ID
-#' - Numerator: The calculated numerator value
-#' - Denominator: The calculated denominator value
-#' - Rate: The calculated input rate
+#' | Column Name  | Description                          | Type     |
+#' |--------------|--------------------------------------|----------|
+#' | SubjectID    | The subject ID                       | Character|
+#' | SiteID       | The site ID                          | Character|
+#' | StudyID      | The study ID                         | Character|
+#' | CountryID    | The country ID                       | Character|
+#' | Numerator    | The calculated numerator value       | Numeric  |
+#' | Denominator  | The calculated denominator value     | Numeric  |
+#' | Rate         | The calculated input rate            | Numeric  |
 #' 
 #' 
 #' @examples
