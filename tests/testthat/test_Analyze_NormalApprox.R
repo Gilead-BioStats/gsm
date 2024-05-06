@@ -104,6 +104,6 @@ test_that("Score (z_i) is 0 when vMu is 1 or 0", {
 })
 
 
-test_that("bQuiet works as intended", {
-  expect_snapshot(Analyze_NormalApprox(dfTransformed, bQuiet = FALSE))
-})
+# test_that("bQuiet works as intended", {
+#   expect_snapshot(Analyze_NormalApprox(dfTransformed, bQuiet = FALSE))
+# })

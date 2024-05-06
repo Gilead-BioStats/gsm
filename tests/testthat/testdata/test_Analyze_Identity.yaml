@@ -1,0 +1,40 @@
+meta:
+  file: test_Analyze_Identity.yaml
+  workflowid: test_Analyze_Identity
+  group: site
+  metric: Count
+  model: Identity Approximation
+steps:
+  - name: RunQuery
+    output: dfSubjects
+    params:
+      df: dfSUBJ
+      strQuery: "SELECT subjid as SubjectID, siteid as SiteID, country as CountryID, studyid as StudyID FROM df WHERE enrollyn == 'Y'"
+  - name: RunQuery
+    output: dfNumerator
+    params:
+      df: dfCONSENT
+      strQuery: "SELECT subjid as SubjectID, consdt as ConsentDate, conscat as ConsentType, consyn as ConsentStatus FROM df"
+  - name: RunQuery
+    output: dfDenominator
+    params:
+      df: dfSUBJ
+      strQuery: "SELECT subjid as SubjectID, siteid as SiteID, country as CountryID, studyid as StudyID FROM df WHERE enrollyn == 'Y'"
+  - name: Input_Rate
+    output: dfInput
+    params:
+      dfs:
+        - dfSubjects
+        - dfNumerator
+        - dfDenominator
+  - name: Transform_Count
+    output: dfTransformed
+    params:
+      dfInput: dfInput
+      strCountCol: Numerator
+      strGroupCol: SiteID
+  - name: Analyze_Identity
+    output: dfAnalyzed
+    params:
+      dfTransformed: dfTransformed
+
