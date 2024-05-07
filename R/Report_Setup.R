@@ -10,7 +10,6 @@
 #'
 Report_Setup <- function(dfStudy = NULL, dfMetrics = NULL) {
 
-
   output <- list()
   # Get type of report
 

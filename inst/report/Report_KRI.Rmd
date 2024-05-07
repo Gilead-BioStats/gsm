@@ -29,10 +29,11 @@ setup <- Report_Setup(dfStudy =  params$dfStudy, dfMetrics = params$dfMetrics)
 
 ```
 
+
 ---
-title: "`r setup$study_id` Metric Overview"
+title: "`r setup$group` KRI Overview"
 date: "Snapshot Date: `r setup$SnapshotDate`"
----
+--- 
 
 ::: {#overall-site-select .overall-site-select title="Selected site will be highlighted in all charts for all KRIs."}
 :::
@@ -76,17 +77,6 @@ Report_OverviewText(
   dfStudy = params$dfStudy
   )
 
-  # lCharts: NA
-  # dfSummary: NA
-  # dfStudy: NA
-  # dfSite: NA
-  # dfMetrics: NA
-#MakeOverviewMessage(
-#  report = "site",
-#  status_study = params$status_study,
-#  overview_raw_table = setup$overview_raw_table, 
-#  red_kris = setup$red_kris
-#)
 
 ```
 
@@ -95,8 +85,13 @@ Report_OverviewText(
 ```{r, echo=FALSE, results='asis'}
 for (i in seq_along(lCharts)) {
   MetricID <- names(lCharts)[[i]]
-
-  print(htmltools::h3(MetricID))
+  if(!is.null(dfMetrics)){
+    MetricName <- dfMetrics$metric[dfMetrics$workflowid == MetricID]
+  } else { 
+    MetricName <- MetricID
+  }
+    
+  print(htmltools::h3(MetricName))
   
   Report_MetricCharts(
     lCharts = lCharts[[i]]
@@ -110,6 +105,15 @@ for (i in seq_along(lCharts)) {
 
 ```
 
+## Metric Details
+```{r, echo=FALSE, results='asis'}
+#print dfMetrics table
+dfMetrics %>%
+kbl(format="html", escape=FALSE) %>%
+kable_styling ("striped", full_width = FALSE) %>%
+cat
+
+```
 ```{r echo=FALSE}
 site_dropdown <- system.file('utils-0.0.1', 'overallSiteDropdown.js', package = "gsm")
 dropdown_drag <- system.file('utils-0.0.1', 'dragOverallSiteDropdown.js', package = "gsm")
