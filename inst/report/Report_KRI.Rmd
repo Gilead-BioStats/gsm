@@ -1,5 +1,4 @@
 ---
-subtitle: "Generated with the Good Statistical Monitoring {gsm} package"
 output:
   html_document:
     toc: true
@@ -32,6 +31,7 @@ setup <- Report_Setup(dfStudy =  params$dfStudy, dfMetrics = params$dfMetrics)
 
 ---
 title: "`r setup$group` KRI Overview"
+subtitle: "Study: `r setup$StudyID`"
 date: "Snapshot Date: `r setup$SnapshotDate`"
 --- 
 
