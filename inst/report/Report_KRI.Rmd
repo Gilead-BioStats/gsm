@@ -1,12 +1,11 @@
 ---
-
 subtitle: "Generated with the Good Statistical Monitoring {gsm} package"
 output:
   html_document:
     toc: true
     toc_float:
-       collapsed: false
-       smooth_scroll: true
+      collapsed: false
+      smooth_scroll: true
     css: styles.css
 params:
   lCharts: NA
@@ -14,7 +13,6 @@ params:
   dfStudy: NA
   dfSite: NA
   dfMetrics: NA
-  strType: NA
 
 ---
 
@@ -27,15 +25,14 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 library(gsm)
 library(DT)
 
-setup <- Report_Setup(dfStudy =  params$dfStudy)
+setup <- Report_Setup(dfStudy =  params$dfStudy, dfMetrics = params$dfMetrics)
 
 ```
 
 ---
 title: "`r setup$study_id` Metric Overview"
---- 
-
-date: "Snapshot Date: `r setup$snapshot_date`
+date: "Snapshot Date: `r setup$SnapshotDate`"
+---
 
 ::: {#overall-site-select .overall-site-select title="Selected site will be highlighted in all charts for all KRIs."}
 :::
@@ -74,8 +71,7 @@ htmltools::div(
 ```{r, echo=FALSE, results = 'asis'}
 
 Report_OverviewText(
-  strType = params$strType,
-  setup = setup,
+  lSetup = setup,
   dfSummary = params$dfSummary, 
   dfStudy = params$dfStudy
   )
