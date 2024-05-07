@@ -1,24 +1,37 @@
-# source(testthat::test_path("testdata/data.R"))
+source(testthat::test_path("testdata/data.R"))
+
+dfSubjects <- dfSUBJ %>%
+  filter(enrollyn == 'Y') %>%
+  select(SubjectID = subjid,
+         SiteID    = siteid,
+         CountryID = country,
+         StudyID   = studyid)
+dfConsent <- dfCONSENT %>%
+  select(SubjectID     = subjid,
+         ConsentDate   = consdt,
+         ConsentType   = conscat,
+         ConsentStatus = consyn)
+
+dfInput <- Input_Rate(
+  dfs = list(
+    dfSubjects = dfSubjects,
+    dfNumerator = dfConsent,
+    dfDenominator = dfSubjects,
+  )
+)
+dfTransformed <- Transform_Count(
+  dfInput,
+  strCountCol = "Numerator",
+  strGroupCol = "SiteID"
+)
+dfAnalyzed <- Analyze_Identity(dfTransformed)
+
+# wfs <- MakeWorkflowList(strNames="test_Analyze_Identity",
+#                         strPath = "tests/testthat/testdata/")
+# result <- Study_Assess(lAssessments=wfs)
 #
-# dfInput <- Consent_Map_Raw(
-#   dfs = list(
-#     dfCONSENT = dfCONSENT,
-#     dfSUBJ = dfSUBJ
-#   )
-# )
-# dfTransformed <- Transform_Count(
-#   result$test_Analyze_Identity$lData$dfInput,
-#   strCountCol = "Numerator",
-#   strGroupCol = "SiteID"
-# )
-# dfAnalyzed <- Analyze_Identity(dfTransformed)
-
-wfs <- MakeWorkflowList(strNames="test_Analyze_Identity",
-                        strPath = "tests/testthat/testdata/")
-result <- Study_Assess(lAssessments=wfs)
-
-dfTransformed <- result$test_Analyze_Identity$lData$dfTransformed
-dfAnalyzed <- result$test_Analyze_Identity$lData$dfAnalyzed
+# dfTransformed <- result$test_Analyze_Identity$lData$dfTransformed
+# dfAnalyzed <- result$test_Analyze_Identity$lData$dfAnalyzed
 
 test_that("output created as expected and has correct structure", {
   expect_true(is.data.frame(dfAnalyzed))
