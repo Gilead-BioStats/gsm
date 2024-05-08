@@ -3,8 +3,8 @@ output:
   html_document:
     toc: true
     toc_float:
-       collapsed: false
-       smooth_scroll: true
+      collapsed: false
+      smooth_scroll: true
     css: styles.css
 params:
   lCharts: NA
@@ -34,7 +34,6 @@ title: "`r setup$group` KRI Overview"
 subtitle: "Study: `r setup$StudyID`"
 date: "Snapshot Date: `r setup$SnapshotDate`"
 --- 
-
 
 ::: {#overall-site-select .overall-site-select title="Selected site will be highlighted in all charts for all KRIs."}
 :::
@@ -71,12 +70,13 @@ htmltools::div(
 :::
 
 ```{r, echo=FALSE, results = 'asis'}
-#MakeOverviewMessage(
-#  report = "site",
-#  status_study = params$status_study,
-#  overview_raw_table = setup$overview_raw_table, 
-#  red_kris = setup$red_kris
-#)
+
+Report_OverviewText(
+  lSetup = setup,
+  dfSummary = params$dfSummary, 
+  dfStudy = params$dfStudy
+  )
+
 
 ```
 
