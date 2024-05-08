@@ -1,28 +1,69 @@
+meta:
+  file: cou0005.yaml
+  workflowid: cou0005
+  group: country
+  abbreviation: LB
+  metric: Grade 3+ Lab Abnormality Rate
+  numerator: Grade 3+ Abnormal Labs Samples
+  denominator: Total Lab Samples
+  model: Normal Approximation
+  score: Adjusted Z-Score
 steps:
-  - name: FilterDomain
-    inputs: dfSUBJ
-    output: dfSUBJ
+  - name: RunQuery
+    output: dfSubjects
     params:
-      strDomain: dfSUBJ
-      strColParam: strEnrollCol
-      strValParam: strEnrollVal
-  - name: FilterDomain
-    inputs: dfLB
-    output: dfLB
+      df: dfSUBJ
+      strQuery: "SELECT subjid as SubjectID, siteid as SiteID, country as CountryID, studyid as StudyID FROM df WHERE enrollyn == 'Y'"
+  - name: RunQuery
+    output: dfDenominator
     params:
-      strDomain: dfLB
-      strColParam: strGradeCol
-      strValParam: strGradeAnyVal
-  - name: LB_Map_Raw
-    inputs:
-      - dfSUBJ
-      - dfLB
+      df: dfLB
+      strQuery: "SELECT subjid as SubjectID, * FROM df WHERE toxgrg_nsv IN ('0', '1', '2', '3', '4')"
+  - name: RunQuery
+    output: dfNumerator
+    params:
+      df: dfLB
+      strQuery: "SELECT subjid as SubjectID, * FROM df WHERE toxgrg_nsv IN ('3', '4')"
+  - name: Input_Rate
     output: dfInput
-  - name: LB_Assess
-    inputs: dfInput
-    output: lResults
     params:
-      strGroup: "Country"
-      vThreshold: null
-      strMethod: "NormalApprox"
-      nMinDenominator: 30
+      dfs:
+        - dfSubjects
+        - dfNumerator
+        - dfDenominator
+      strNumeratorMethod: Count
+      strDenominatorMethod: Count
+  - name: Transform_Rate
+    output: dfTransformed
+    params:
+      dfInput: dfInput
+      strGroupCol: CountryID
+  - name: Analyze_NormalApprox
+    output: dfAnalyzed
+    params:
+      dfTransformed: dfTransformed 
+      strType: binary
+  - name: Analyze_NormalApprox_PredictBounds
+    output: dfBounds
+    params:
+      dfTransformed: dfTransformed
+      strType: binary
+  - name: Flag_NormalApprox
+    output: dfFlagged
+    params:
+      dfAnalyzed: dfAnalyzed
+      vThreshold: 
+        - -3
+        - -2
+        - 2
+        - 3
+  - name: Summarize
+    output: dfSummary
+    params: 
+      dfFlagged: dfFlagged
+  - name: Visualize_KRI
+    output: lCharts
+    params:
+      dfSummary: dfSummary
+      dfBounds: dfBounds
+      lLabels: lMeta

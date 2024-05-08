@@ -62,6 +62,7 @@ Widget_TimeSeries <- function(
 
   lLabels <- lLabels %>%
     select(
+      any_of(c(
       "workflowid",
       "group",
       "abbreviation",
@@ -74,6 +75,7 @@ Widget_TimeSeries <- function(
       "data_inputs",
       "data_filters",
       "gsm_analysis_date"
+      ))
     ) %>%
     mutate("y" = yAxis)
 

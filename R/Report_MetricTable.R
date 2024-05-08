@@ -47,7 +47,7 @@ Report_MetricTable <- function(dfSummary, dfSite) {
             kable_styling("striped", full_width = FALSE)
             
     } else {
-        SummaryTable<- htmltools::p("Nothing flagged for this KRI.")
+        SummaryTable<- "Nothing flagged for this KRI."
     }
     
     return(SummaryTable)
