@@ -5,13 +5,12 @@ test_that("RunQuery returns correct result", {
         Age = c(25, 30, 35),
         Salary = c(50000, 60000, 70000)
     )
-    
+
     # Define the query and mapping
-    query <- "SELECT * FROM df WHERE {`age_col`} >= {`age_threshold`}"
-    mapping <- list(age_threshold = "30", age_col = "Age")
+    query <- "SELECT * FROM df WHERE Age >= 30"
 
     # Call the RunQuery function
-    result <- RunQuery(query, mapping, df)
+    result <- RunQuery(query, df)
 
     # Check if the result is correct
     expect_equal(nrow(result), 2)
@@ -24,14 +23,13 @@ test_that("RunQuery returns correct result", {
 test_that("RunQuery handles empty df", {
     # Create an empty data frame
     df <- data.frame()
-    
+
     # Define the query and mapping
-    query <- "SELECT * FROM df WHERE {`age_col`} > {`age_threshold`}"
-    mapping <- list(age_threshold = "30", age_col = "Age")
-    
+    query <- "SELECT * FROM df WHERE Age >= 30"
+
     # Call the RunQuery function
-    result <- RunQuery(query, mapping, df)
-    
+    result <- RunQuery(query, df)
+
     # Check if the result is empty
     expect_equal(nrow(result), 0)
 })
@@ -43,13 +41,12 @@ test_that("RunQuery handles invalid input", {
         Age = c(25, 30, 35),
         Salary = c(50000, 60000, 70000)
     )
-    
+
     # Define the query and mapping with invalid input types
     query <- 123
-    mapping <- "invalid"
-    
+
     # Call the RunQuery function and expect an error
-    expect_error(RunQuery(query, mapping, df))
+    expect_error(RunQuery(query, df))
 })
 
 test_that("RunQuery checks if strQuery contains 'FROM df'", {
@@ -59,13 +56,12 @@ test_that("RunQuery checks if strQuery contains 'FROM df'", {
     Age = c(25, 30, 35),
     Salary = c(50000, 60000, 70000)
   )
-  
+
   # Define the query and mapping
-  query <- "SELECT * FROM myData WHERE {`age_col`} >= {`age_threshold`}"
-  mapping <- list(age_threshold = "30", age_col = "Age")
-  
+  query <- "SELECT * FROM mydata WHERE Age >= 30"
+
   # Call the RunQuery function and expect an error
-  expect_error(RunQuery(query, mapping, df), "strQuery must contain 'FROM df'")
+  expect_error(RunQuery(query, df), "strQuery must contain 'FROM df'")
 })
 
 test_that("RunQuery checks if all templated columns are found in lMapping", {
@@ -75,13 +71,12 @@ test_that("RunQuery checks if all templated columns are found in lMapping", {
     Age = c(25, 30, 35),
     Salary = c(50000, 60000, 70000)
   )
-  
+
   # Define the query and mapping
-  query <- "SELECT * FROM df WHERE {`age_col`} >= {`age_threshold`}"
-  mapping <- list(age_threshold = "30", age_col = "Age")
-  
+  query <- "SELECT * FROM df WHERE Age >= 30"
+
   # Call the RunQuery function and expect no error
-  expect_no_error(RunQuery(query, mapping, df))
+  expect_no_error(RunQuery(query, df))
 })
 
 test_that("RunQuery throws an error if templated columns are not found in lMapping", {
@@ -91,11 +86,4 @@ test_that("RunQuery throws an error if templated columns are not found in lMappi
     Age = c(25, 30, 35),
     Salary = c(50000, 60000, 70000)
   )
-  
-  # Define the query and mapping with missing templated column
-  query <- "SELECT * FROM df WHERE {`age_col`} >= {`age_threshold`}"
-  mapping <- list(age_threshold = "30")
-  
-  # Call the RunQuery function and expect an error
-  expect_error(RunQuery(query, mapping, df), "All templated columns in strQuery must be found in lMapping")
 })
