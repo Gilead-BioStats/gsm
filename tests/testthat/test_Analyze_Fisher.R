@@ -1,7 +1,12 @@
-wfs <- MakeWorkflowList(strNames="kri0001")
-result <- Study_Assess(lAssessments=wfs)
-dfSummary <- result %>% imap_dfr(~.x$lData$dfSummary %>% mutate(MetricID = .y))
-df <- dfSummary[1:3,]
+df <- tibble::tibble(
+  GroupID     = c("83", "43", "75"),
+  Numerator   = c(6, 8, 10),
+  Denominator = c(100, 50, 300),
+  Metric      = c(0.06, 0.16, 0.033),
+  Score       = c(3.14, 6.55, 3.04),
+  Flag        = c(2, 2, 2),
+  MetricID    = c("kri0001", "kri0001", "kri0001")
+)
 
 test_that("output created as expected and has correct structure", {
 
@@ -40,3 +45,4 @@ test_that("NAs are handled correctly", {
 
   expect_error(createNA(data = df, variable = "GroupID"))
 })
+

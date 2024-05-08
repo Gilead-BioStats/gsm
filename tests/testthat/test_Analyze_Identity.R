@@ -1,37 +1,9 @@
-source(testthat::test_path("testdata/data.R"))
-
-dfSubjects <- dfSUBJ %>%
-  filter(enrollyn == 'Y') %>%
-  select(SubjectID = subjid,
-         SiteID    = siteid,
-         CountryID = country,
-         StudyID   = studyid)
-dfConsent <- dfCONSENT %>%
-  select(SubjectID     = subjid,
-         ConsentDate   = consdt,
-         ConsentType   = conscat,
-         ConsentStatus = consyn)
-
-dfInput <- Input_Rate(
-  dfs = list(
-    dfSubjects = dfSubjects,
-    dfNumerator = dfConsent,
-    dfDenominator = dfSubjects,
-  )
-)
-dfTransformed <- Transform_Count(
-  dfInput,
-  strCountCol = "Numerator",
-  strGroupCol = "SiteID"
+dfTransformed <- tibble::tibble(
+  GroupID = c(1,2,3,4),
+  TotalCount = c(2,4,15,3),
+  Metric = c(2,4,15,3)
 )
 dfAnalyzed <- Analyze_Identity(dfTransformed)
-
-# wfs <- MakeWorkflowList(strNames="test_Analyze_Identity",
-#                         strPath = "tests/testthat/testdata/")
-# result <- Study_Assess(lAssessments=wfs)
-#
-# dfTransformed <- result$test_Analyze_Identity$lData$dfTransformed
-# dfAnalyzed <- result$test_Analyze_Identity$lData$dfAnalyzed
 
 test_that("output created as expected and has correct structure", {
   expect_true(is.data.frame(dfAnalyzed))
@@ -58,6 +30,3 @@ test_that("strValueCol works as intended", {
   expect_equal(names(dfAnalyzed), c("GroupID", "TotalCount", "customKRI", "Score"))
 })
 
-# test_that("bQuiet works as intended", {
-#   expect_snapshot(Analyze_Identity(dfTransformed, bQuiet = FALSE))
-# })
