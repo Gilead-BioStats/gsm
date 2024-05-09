@@ -1,20 +1,19 @@
-source(testthat::test_path("testdata/data.R"))
-
-dfTransformed <- Transform_Rate(
-  dfInput = dfInputDISP,
-  strGroupCol = "SiteID",
-  strNumeratorCol = "Count",
-  strDenominatorCol = "Total"
+dfAnalyzed <- tibble::tribble(
+  ~GroupID, ~Numerator, ~Denominator, ~Metric, ~OverallMetric, ~Factor, ~Score,
+  "139", 0, 2, 0, 0.08, 0.910, -0.437,
+  "173", 0, 2, 0, 0.08, 0.910, -0.437,
+  "189", 0, 2, 0, 0.08, 0.910, -0.437,
+  "29", 0, 2, 0, 0.08, 0.910, -0.437,
+  "5", 0, 2, 0, 0.08, 0.910, -0.437,
+  "62", 0, 2, 0, 0.08, 0.910, -0.437
 )
-
-dfAnalyzed <- Analyze_NormalApprox(dfTransformed)
 
 ################################################################################
 
 test_that("output is created as expected", {
   dfFlagged <- Flag_NormalApprox(dfAnalyzed, vThreshold = c(-3, -2, 2, 3))
   expect_true(is.data.frame(dfFlagged))
-  expect_equal(sort(unique(dfInputDISP$SiteID)), sort(dfFlagged$GroupID))
+  expect_equal(sort(unique(dfAnalyzed$GroupID)), sort(dfFlagged$GroupID))
   expect_true(all(names(dfAnalyzed) %in% names(dfFlagged)))
   expect_equal(names(dfFlagged), c("GroupID", "Numerator", "Denominator", "Metric", "OverallMetric", "Factor", "Score", "Flag"))
   expect_equal(length(unique(dfAnalyzed$GroupID)), length(unique(dfFlagged$GroupID)))
@@ -47,3 +46,4 @@ test_that("flagging works correctly", {
   expect_silent(dfFlagged <- Flag_NormalApprox(dfAnalyzedCustom, vThreshold = c(-3, -2, 2, 3)))
   expect_equal(dfFlagged$Flag, c(2, 1, 0, 0))
 })
+

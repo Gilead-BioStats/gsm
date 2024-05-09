@@ -37,7 +37,7 @@ test_that("Make_Input_Rate calculates rate with 2 counts correctly", {
       SubjectID = c(1, 2, 3)
     )
   )
-  
+
   # Define mapping and domains
   lMapping <- list(
     dfSUBJ = list(
@@ -57,10 +57,10 @@ test_that("Make_Input_Rate calculates rate with 2 counts correctly", {
     dfNumerator="dfAE",
     dfDenominator="dfSUBJ"
   )
-  
+
   # Call the Make_Input_Rate function
   result <- Make_Input_Rate(dfs=dfs, lMapping=lMapping, lDomains=lDomains)
-  
+
   # Check if the rate is calculated correctly
   expect_equal(nrow(result), 3)
   expect_equal(colnames(result), c("SubjectID", "numerator", "denominator", "rate"))
@@ -89,7 +89,7 @@ test_that("Make_Input_Rate calculates rate when dfNumeratorMethod=sum", {
         SubjectID = c(1, 2, 3)
         )
     )
-    
+
     # Define mapping and domains
     lMapping <- list(
         dfSUBJ = list(
