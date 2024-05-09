@@ -4218,3 +4218,10 @@
       
       
 
+# invalid data returns list NULL elements
+
+    Code
+      wf_list <- MakeWorkflowList(strNames = "kri8675309", bRecursive = bRecursive)
+    Message
+      ! "kri8675309" is not a supported workflow! Check the output of `MakeWorkflowList()` for NULL values.
+
