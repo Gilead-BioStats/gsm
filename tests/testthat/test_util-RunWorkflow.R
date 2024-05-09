@@ -1,71 +1,84 @@
-source(testthat::test_path("testdata/data.R"))
-sae_meta <- yaml::read_yaml(system.file("workflow/experimental/sae.yaml", package = "gsm"))
-rawDataMap <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
-
-dfAE <- dfAE %>%
-  tidyr::expand(dfAE, ae_serious = dfAE$aeser)
-
-dfAE <- dfAE %>%
-  tidyr::expand(dfAE, treatmentemergent_flag = dfAE$treatmentemergent) %>%
-  select(-c(ae_serious, treatmentemergent_flag))
-
 # Valid Assessment Input
-aeData <- list(dfSUBJ = dfSUBJ, dfAE = dfAE)
-sae <- RunWorkflow(sae_meta, lData = aeData, lMapping = rawDataMap, bQuiet = TRUE) %>%
-  suppressWarnings()
+lData <- gsm::UseClindata(
+  list(
+    "dfSUBJ" = "clindata::rawplus_dm",
+    "dfAE" = "clindata::rawplus_ae",
+    "dfPD" = "clindata::ctms_protdev",
+    "dfCONSENT" = "clindata::rawplus_consent",
+    "dfIE" = "clindata::rawplus_ie",
+    "dfLB" = "clindata::rawplus_lb",
+    "dfSTUDCOMP" = "clindata::rawplus_studcomp",
+    "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp %>%
+          dplyr::filter(.data$phase == 'Blinded Study Drug Completion')",
+    "dfDATACHG" = "clindata::edc_data_points",
+    "dfDATAENT" = "clindata::edc_data_pages",
+    "dfQUERY" = "clindata::edc_queries",
+    "dfENROLL" = "clindata::rawplus_enroll"
+  )
+)
 
-# Invalid Assessment Input
-aeData_inv <- list(dfSUBJ = dfSUBJ, dfAE = dfAE)
-aeData_inv$dfAE$subjid <- NA
+workflows <- MakeWorkflowList(strNames = sprintf("kri%04d", 1:12))
+result <- map(workflows, ~RunWorkflow(., lData))
 
-
-sae_inv <- RunWorkflow(sae_meta, lData = aeData_inv, lMapping = rawDataMap, bQuiet = TRUE) %>%
-  suppressWarnings()
-
-
-test_that("Assessment data filtered as expected", {
-  te_ae <- dfAE %>%
-    filter(.data$treatmentemergent == "Y" & .data$aeser == "Y")
-
-  expect_equal(sae$lData$dfAE %>% nrow(), te_ae %>% nrow())
+test_that("RunWorkflow preserves inputs", {
+  expect_true(
+    all(
+      map_lgl(
+        imap(workflows,
+             function(kri, name){
+               names(kri) %in% names(result[[name]])
+             }
+             ),
+        all
+      )
+    )
+  )
 })
 
-test_that("Assessment correctly labeled as valid", {
-  expect_true(sae$bStatus)
-  expect_false(sae_inv$bStatus)
+test_that("RunWorkflow contains all outputs from yaml steps", {
+  yaml_outputs <- map(map(workflows, ~map_vec(.x$step, ~.x$output)), ~.x[!grepl("lCharts", .x)])
+  expect_true(
+    all(
+      map_lgl(
+        imap(result,
+             function(kri, name){
+               yaml_outputs[[name]] %in% names(kri$lData) &
+                 any("lCharts" %in% names(kri))
+             }
+        ),
+        all
+      )
+    )
+  )
 })
 
-test_that("workflow with multiple FilterDomain steps is reported correctly", {
-  dfAE <- data.frame(
-    stringsAsFactors = FALSE,
-    subjid = c("1234", "1234", "5678", "5678"),
-    aeser = c("Yes", "Yes", "Yes", "Yes"),
-    treatmentemergent = c(TRUE, TRUE, FALSE, TRUE),
-    aetoxgr = c(1, 3, 1, 4)
+test_that("RunWorkflow contains all outputs from yaml steps with populated fields (contains rows of data)", {
+  yaml_outputs <- map(map(workflows, ~map(.x$steps, ~.x$output)), ~.x[!grepl("lCharts", .x)])
+  rows <- vector()
+  for(kri in names(yaml_outputs)){
+    for(df in yaml_outputs[[kri]]){
+      rows <- c(rows,dim(result[[kri]]$lData[[df]])[1])
+    }
+  }
+  expect_true(
+    all(rows > 0)
   )
-
-  dfSUBJ <- data.frame(
-    stringsAsFactors = FALSE,
-    subjid = c("1234", "5678", "9876"),
-    siteid = c("X010X", "X102X", "X999X"),
-    timeontreatment = c(3455, 1745, 1233),
-    timeonstudy = c(1234, 2345, 4567),
-    rfpen_dt = c("2012-09-02", "2017-05-08", "2018-05-20")
-  )
-
-  lAssessments <- MakeWorkflowList(bRecursive = TRUE, strNames = "sae")
-
-  lData <- list(
-    dfAE = dfAE,
-    dfSUBJ = dfSUBJ
-  )
-
-  lMapping <- yaml::read_yaml(system.file("mappings", "mapping_rawplus.yaml", package = "gsm"))
-
-
-
-  sae_assessment <- RunWorkflow(lAssessments$sae, lData = lData, lMapping = lMapping, bQuiet = TRUE)
-
-
-  expect_equal(names(sae_assessment$lChecks), c("FilterDomain", "FilterDomain", "AE_Map_Raw", "AE_Assess"))
 })
+
+test_that("RunWorkflow updates workflow object correctly", {
+  # check for lData and lCharts in output
+  expect_true(
+    all(
+      map_lgl(
+        imap(workflows,
+             function(kri, name){
+              c("lData", "lCharts") %in% names(result[[name]])
+             }
+        ),
+        all
+      )
+    )
+  )
+})
+
+expect_snapshot(result)

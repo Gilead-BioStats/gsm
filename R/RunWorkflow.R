@@ -33,7 +33,7 @@ RunWorkflow <- function(lWorkflow,lData) {
   cli::cli_h1(paste0("Initializing `", lWorkflow$name, "` assessment"))
 
   lWorkflow$lData <- lData
-  
+
   # Run through each step in lWorkflow$workflow
   stepCount <- 1
   for (step in lWorkflow$steps) {

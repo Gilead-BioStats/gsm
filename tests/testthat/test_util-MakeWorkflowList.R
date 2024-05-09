@@ -1,19 +1,6 @@
-lMeta <- list(
-  config_param = clindata::config_param,
-  config_workflow = clindata::config_workflow,
-  meta_params = gsm::meta_param,
-  meta_site = clindata::ctms_site,
-  meta_study = clindata::ctms_study,
-  meta_workflow = gsm::meta_workflow
-)
+strNames <- unique(gsm::meta_workflow$workflowid)
 
-strNames <- c(unique(lMeta$meta_workflow$workflowid))
-
-strPath <- "workflow"
-
-bRecursive <- FALSE
-
-wf_list <- MakeWorkflowList(strNames = strNames, bRecursive = bRecursive)
+wf_list <- MakeWorkflowList(strNames = strNames)
 
 ################################################################################################################
 
@@ -56,55 +43,3 @@ test_that("invalid data returns list NULL elements", {
 })
 
 
-test_that("if lMeta is detected, only active workflows are kept", {
-  lMeta <- list(
-    config_param = gsm::config_param,
-    config_workflow = gsm::config_workflow,
-    meta_params = gsm::meta_param,
-    meta_site = clindata::ctms_site,
-    meta_study = clindata::ctms_study,
-    meta_workflow = gsm::meta_workflow
-  )
-
-  lMeta$config_workflow <- lMeta$config_workflow %>%
-    mutate(
-      active = ifelse(workflowid == "kri0001", TRUE, FALSE)
-    )
-
-  workflow <- MakeWorkflowList(lMeta = lMeta)
-
-  expect_length(workflow, 1)
-  expect_equal(names(workflow), "kri0001")
-})
-
-
-test_that("if lMeta is detected, UpdateParams works as intended", {
-  # lMeta$meta_params:  contains default parameters
-  # lMeta$config_param: contains custom parameters
-
-  lMeta <- list(
-    config_param = gsm::config_param,
-    config_workflow = gsm::config_workflow,
-    meta_params = gsm::meta_param,
-    meta_site = clindata::ctms_site,
-    meta_study = clindata::ctms_study,
-    meta_workflow = gsm::meta_workflow
-  )
-
-  lMeta$config_param <- lMeta$config_param %>%
-    mutate(
-      value = ifelse(param == "vThreshold", as.numeric(value) + 10, value)
-    ) %>%
-    suppressWarnings()
-
-  workflow <- MakeWorkflowList(lMeta = lMeta)
-
-  thresholds <- purrr::map(workflow, pluck, "steps") %>%
-    purrr::flatten() %>%
-    purrr::compact() %>%
-    purrr::map(pluck, "params", "vThreshold") %>%
-    purrr::discard(is.null)
-
-  expect_length(thresholds, 26)
-  expect_snapshot(thresholds)
-})
