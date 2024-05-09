@@ -42,6 +42,7 @@ Imports:
     rlang (>= 0.4.11),
     stats,
     stringr,
+    testthat,
     tibble,
     tidyr,
     tools,
@@ -68,8 +69,7 @@ Suggests:
     rstudioapi,
     safetyData,
     styler,
-    usethis,
-    testthat (>= 3.0.0)
+    usethis
 VignetteBuilder: 
     knitr
 Remotes:

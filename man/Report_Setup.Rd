@@ -7,7 +7,7 @@
 Report_Setup(dfStudy = NULL, dfMetrics = NULL)
 }
 \arguments{
-\item{dfStudy}{\code{data.frame} Site-level metadata containing within \code{params$status_site} of report}
+\item{dfStudy}{\code{data.frame} Site-level metadata.}
 }
 \description{
 Calculates the following:

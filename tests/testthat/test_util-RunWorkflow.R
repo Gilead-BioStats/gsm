@@ -81,4 +81,3 @@ test_that("RunWorkflow updates workflow object correctly", {
   )
 })
 
-expect_snapshot(result)
