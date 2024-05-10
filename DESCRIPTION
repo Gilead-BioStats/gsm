@@ -34,6 +34,7 @@ Imports:
     htmltools,
     htmlwidgets,
     jsonlite,
+    kableExtra,
     lifecycle (>= 1.0.1),
     lubridate,
     magrittr,
@@ -41,6 +42,7 @@ Imports:
     rlang (>= 0.4.11),
     stats,
     stringr,
+    testthat,
     tibble,
     tidyr,
     tools,
@@ -57,7 +59,6 @@ Suggests:
     gt,
     here,
     httr,
-    kableExtra,
     knitr,
     lamW,
     pander,
@@ -68,8 +69,7 @@ Suggests:
     rstudioapi,
     safetyData,
     styler,
-    usethis,
-    testthat (>= 3.0.0)
+    usethis
 VignetteBuilder: 
     knitr
 Remotes:

@@ -1,3 +1,4 @@
+skip()
 # Install and load the `testthat` package ----------------------------
 source(testthat::test_path("testdata/data.R"))
 

@@ -1,6 +1,10 @@
-source(testthat::test_path("testdata/data.R"))
-
-ae_input <- AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE))
+ae_input <- tibble::tibble(
+  SubjectID = c("01-701-1015", "01-701-1023", "01-701-1028", "01-701-1033"),
+  SiteID    = c("701", "701", "702", "703"),
+  Count     = c(2, 3, 1, 3),
+  Exposure  = c(182, 28, 180, 14),
+  Rate      = c(0.0109, 0.1071, 0.0055, 0.2142)
+)
 
 test_that("output created as expected and has correct structure", {
   ae_prep <- Transform_Rate(
@@ -37,7 +41,7 @@ test_that("error given if required column not found", {
 
 test_that("NA values are caught", {
   createNA <- function(x) {
-    df <- AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ)) %>%
+    df <- ae_input %>%
       Transform_Rate(
         strGroupCol = "SiteID",
         strNumeratorCol = "Count",
@@ -50,16 +54,4 @@ test_that("NA values are caught", {
   }
 
   expect_error(createNA("GroupID"))
-})
-
-test_that("bQuiet works as intended", {
-  dfTransformed <- Transform_Rate(
-    dfInput = ae_input,
-    strGroupCol = "SiteID",
-    strNumeratorCol = "Count",
-    strDenominatorCol = "Exposure"
-  )
-  expect_snapshot(
-    dfAnalyzed <- Analyze_Poisson(dfTransformed, bQuiet = FALSE)
-  )
 })

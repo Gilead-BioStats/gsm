@@ -3,7 +3,7 @@
 #' `r lifecycle::badge("stable")`
 #'
 #' @description
-#' Runs a single step of an assessment workflow. This function is called by `RunWorkflow` for each 
+#' Runs a single step of an assessment workflow. This function is called by `RunWorkflow` for each
 #' step in the workflow. It prepares the parameters for the function call, including the metadata,
 #' mapping, and data inputs. It then calls the function specified in `lStep$name` with the prepared
 #' parameters.
@@ -45,7 +45,7 @@ RunStep <- function(lStep, lData, lMeta) {
   # This loop iterates over each parameter in the 'params' object.
   for(paramName in names(params)){
     paramVal <- params[[paramName]]
-    
+
     # If the parameter value is lMeta, provides the list of metadata from the workflow header
     if(length(paramVal) == 1 && paramVal == "lMeta"){
       cli::cli_text("Found metadata. Proceeding ...")
@@ -64,7 +64,7 @@ RunStep <- function(lStep, lData, lMeta) {
         params[[paramName]] <- lData[paramVal]
       } else {
         cli::cli_alert_warning("Data for {paramVal} not found in workflow. This might bomb soon ...")
-      }      
+      }
     }
   }
 

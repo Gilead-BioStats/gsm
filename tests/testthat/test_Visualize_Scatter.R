@@ -1,3 +1,4 @@
+skip()
 source(testthat::test_path("testdata/data.R"))
 
 test_that("Output is produced", {

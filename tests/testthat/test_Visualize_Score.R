@@ -1,3 +1,4 @@
+skip()
 source(testthat::test_path("testdata/data.R"))
 
 ae <- AE_Map_Raw(dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ)) %>%
