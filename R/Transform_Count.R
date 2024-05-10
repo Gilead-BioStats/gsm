@@ -11,11 +11,6 @@
 #'
 #' @section Data Specification:
 #'
-#' The input data (`dfInput`) for the Consent and IE Assessments is typically created using any of these functions:
-#'  \code{\link{Consent_Map_Raw}}
-#'  \code{\link{IE_Map_Raw}}
-#'
-#'
 #' (`dfInput`) must include the columns specified by `strCountCol` and `strGroupCol`.
 #' Required columns include:
 #' - `SiteID` - Site ID

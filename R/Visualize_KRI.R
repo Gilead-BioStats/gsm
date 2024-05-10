@@ -3,9 +3,11 @@
 #' The function Visualize_KRI creates three different types of charts (scatter plot and two bar charts) using the gsm package.
 #'
 #' @param dfSummary `data.frame` A data.frame returned by [gsm::Summarize()].
-#' @param dfSite `data.frame` Site metadata returned by [gsm::Site_Map_Raw()].
+#' @param dfSite `data.frame` Site metadata.
 #' @param dfBounds `data.frame`, A data.frame returned by [gsm::Analyze_NormalApprox_PredictBounds()] or [gsm::Analyze_Poisson_PredictBounds()]
-#' @param lLabels `list` Workflow metadata. See [gsm::meta_workflow].
+#' @param dfParams `data.frame` A data.frame containing parameters to use for longitudinal charts
+#' @param lLabels `list` Workflow metadata.
+#' @param strSnapshotDate `character` a sting in yyyy-mm-dd format containing date of snapshot
 #'
 #' @return A list (lCharts) containing three charts - scatterJS, barMetricJS, and barScoreJS.
 #'
@@ -82,7 +84,7 @@ Visualize_KRI <- function(
       strType = "score",
       vThreshold = unlist(lLabels$thresholds)
     )
-  } 
+  }
   # Continuous Charts -------------------------------------------------------
   if ( number_of_snapshots <= 1 ) {
     cli::cli_alert_info("Only one snapshot found. Time series charts will not be generated.")

@@ -11,9 +11,9 @@ RunStep(lStep, lData, lMeta)
 include the name of the function to run (\code{lStep$name}), data inputs (\code{lStep$inputs}), name of
 output (\code{lStep$output}) and configurable parameters (\code{lStep$params}) (if any)}
 
-\item{lData}{\code{list} a named list of domain level data frames. Names should match the values
-specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs
-from \code{X_Map_Raw}.}
+\item{lData}{\code{list} a named list of domain level data frames.}
+
+\item{lMeta}{\code{list} a named list of meta data.}
 }
 \value{
 \code{list} containing the results of the \code{lStep$name} function call should contain \code{.$checks}

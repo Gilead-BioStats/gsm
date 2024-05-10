@@ -32,7 +32,7 @@
 #'  \item{\code{data_filters}}
 #' }
 #'
-#' @param dfSite `data.frame` Site metadata returned by [gsm::Site_Map_Raw()].
+#' @param dfSite `data.frame` Site metadata.
 #'
 #' @param dfWorkflow `data.frame` Workflow metadata with columns:
 #' \itemize{

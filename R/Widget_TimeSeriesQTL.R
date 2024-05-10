@@ -5,10 +5,10 @@
 #' A Time Series graphic for qtl data
 #'
 #' @param qtl specific qtl to filter to
-#' @param dfSummary `data.frame` Longitudinal data, typically `rpt_site_kri_details` from [gsm::Make_Snapshot()].
-#' @param lLabels `list` Longitudinal workflow/metadata, typically `rpt_kri_details` from [gsm::Make_Snapshot()].
-#' @param dfParams `data.frame` Longitudinal parameter/configuration data, typically `rpt_kri_threshold_param` from [gsm::Make_Snapshot()].
-#' @param dfAnalysis `data.frame` Longitudinal QTL analysis results, typically `rpt_qtl_analysis` from  [gsm::Make_Snapshot()].
+#' @param dfSummary `data.frame` Longitudinal data.
+#' @param lLabels `list` Longitudinal workflow/metadata.
+#' @param dfParams `data.frame` Longitudinal parameter/configuration data.
+#' @param dfAnalysis `data.frame` Longitudinal QTL analysis results.
 #' @param selectedGroupIDs TODO
 #' @param width the width of the widget
 #' @param height the height of the widget

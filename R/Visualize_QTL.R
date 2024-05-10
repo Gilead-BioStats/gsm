@@ -1,14 +1,14 @@
 #' Visualize_QTL
 #'
 #' @description
-#' Make cross-sectional timeseries charts in `[gsm::Make_Snapshot()]`.
+#' Make cross-sectional timeseries charts.
 #'
 #'
 #' @param strQtlName `character` Name of QTL workflow, e.g., "qtl0004".
-#' @param dfSummary `data.frame` Longitudinal data, typically `rpt_site_kri_details` from [gsm::Make_Snapshot()].
-#' @param dfParams `data.frame` Longitudinal parameter/configuration data, typically `rpt_kri_threshold_param` from [gsm::Make_Snapshot()].
-#' @param dfAnalysis `data.frame` Longitudinal QTL analysis results, typically `rpt_qtl_analysis` from  [gsm::Make_Snapshot()].
-#' @param lLabels `list` Longitudinal workflow/metadata, typically `rpt_kri_details` from [gsm::Make_Snapshot()].
+#' @param dfSummary `data.frame` Longitudinal data.
+#' @param dfParams `data.frame` Longitudinal parameter/configuration data.
+#' @param dfAnalysis `data.frame` Longitudinal QTL analysis results.
+#' @param lLabels `list` Longitudinal workflow/metadata.
 #'
 #' @return `list` of HTML widgets.
 #' @export

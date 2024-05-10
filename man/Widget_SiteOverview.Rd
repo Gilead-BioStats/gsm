@@ -42,7 +42,7 @@ Widget_SiteOverview(
 \item{\code{data_filters}}
 }}
 
-\item{dfSite}{\code{data.frame} Site metadata returned by \code{\link[=Site_Map_Raw]{Site_Map_Raw()}}.}
+\item{dfSite}{\code{data.frame} Site metadata.}
 
 \item{dfWorkflow}{\code{data.frame} Workflow metadata with columns:
 \itemize{

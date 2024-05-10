@@ -16,11 +16,15 @@ Visualize_KRI(
 \arguments{
 \item{dfSummary}{\code{data.frame} A data.frame returned by \code{\link[=Summarize]{Summarize()}}.}
 
-\item{dfSite}{\code{data.frame} Site metadata returned by \code{\link[=Site_Map_Raw]{Site_Map_Raw()}}.}
+\item{dfSite}{\code{data.frame} Site metadata.}
 
 \item{dfBounds}{\code{data.frame}, A data.frame returned by \code{\link[=Analyze_NormalApprox_PredictBounds]{Analyze_NormalApprox_PredictBounds()}} or \code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}}}
 
-\item{lLabels}{\code{list} Workflow metadata. See \link{meta_workflow}.}
+\item{dfParams}{\code{data.frame} A data.frame containing parameters to use for longitudinal charts}
+
+\item{lLabels}{\code{list} Workflow metadata.}
+
+\item{strSnapshotDate}{\code{character} a sting in yyyy-mm-dd format containing date of snapshot}
 }
 \value{
 A list (lCharts) containing three charts - scatterJS, barMetricJS, and barScoreJS.
