@@ -7,7 +7,7 @@
 Widget_SiteOverview(
   dfSummary,
   lConfig = list(),
-  dfSite = Site_Map_Raw(),
+  dfSite = clindata::ctms_site,
   dfWorkflow = gsm::meta_workflow,
   width = NULL,
   height = NULL,
@@ -64,17 +64,17 @@ A widget that displays a site overview table based on the output of \code{\link[
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
-study_assessment <- Study_Assess()
+study_assessment <- Study_Assess(lWorkflows = MakeWorkflowList(strNames = c("kri0001", "cou0001")))
 
 kri_results <- study_assessment \%>\%
-    imap_dfr(function(kri, workflowid) {
-        kri$lResults$lData$dfSummary \%>\%
-            rename_with(tolower) \%>\%
-            mutate(
+    purrr::imap_dfr(function(kri, workflowid) {
+        kri$lData$dfSummary \%>\%
+            dplyr::rename_with(tolower) \%>\%
+            dplyr::mutate(
                 workflowid = !!workflowid
             )
     }) \%>\%
-    filter(grepl('^kri', workflowid))
+    dplyr::filter(grepl('^kri', workflowid))
 
 Widget_SiteOverview(kri_results)
 

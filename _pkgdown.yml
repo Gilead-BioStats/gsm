@@ -137,7 +137,6 @@ reference:
   - contents:
       - config_param
       - config_workflow
-      - input_data_schema
       - meta_param
       - meta_workflow
       - rbm_data_spec
