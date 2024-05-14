@@ -1,22 +1,20 @@
 #' Calculate needed values for report
-#' 
-#' Calculates the following: 
+#'
+#' Calculates the following:
 #' - Snapshot date: dfStudy$SnapshotDate (if available) or Sys.Date()
 #' - Study ID: dfStudy$StudyID (if available)  or "Unknown"
-
-
-#' @param dfStudy `data.frame` Site-level metadata containing within `params$status_site` of report
-#'
+#' @param dfStudy `data.frame` Site-level metadata.
 #' @export
 #' @keywords internal
-#' 
-#' 
-Report_Setup <- function(dfStudy=NULL, dfMetrics=NULL) {
-
+#'
+#'
+Report_Setup <- function(dfStudy = NULL, dfMetrics = NULL) {
 
   output <- list()
   # Get type of report
+
   group <- unique(dfMetrics$group)
+
   if(length( group )==1) {
     output$group <- group %>% stringr::str_to_title()
   } else {

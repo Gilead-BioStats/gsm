@@ -13,7 +13,7 @@
 
 #' @keywords KRI report
 #' @export
-#' 
+#'
 
 Report_KRI <- function(
   lCharts = NULL,
@@ -23,9 +23,9 @@ Report_KRI <- function(
   dfMetrics = NULL,
   strOutpath = NULL
 ) {
-  rlang::check_installed("rmarkdown", reason = "to run `Study_Report()`")
-  rlang::check_installed("knitr", reason = "to run `Study_Report()`")
-  rlang::check_installed("kableExtra", reason = "to run `Study_Report()`")
+  rlang::check_installed("rmarkdown", reason = "to run `Report_KRI()`")
+  rlang::check_installed("knitr", reason = "to run `Report_KRI()`")
+  rlang::check_installed("kableExtra", reason = "to run `Report_KRI()`")
 
   # set output path
   if (is.null(strOutpath)) { strOutpath <- paste0(getwd(), "/kri_report.html") }
@@ -36,7 +36,7 @@ Report_KRI <- function(
     output_file = strOutpath,
     params = list(
       lCharts = lCharts,
-      dfSummary = dfSummary, 
+      dfSummary = dfSummary,
       dfSite = dfSite,
       dfStudy = dfStudy,
       dfMetrics = dfMetrics,
