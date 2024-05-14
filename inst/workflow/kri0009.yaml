@@ -9,33 +9,14 @@ meta:
   model: Normal Approximation
   score: Adjusted Z-Score
 steps:
-  - name: RunQuery
-    output: dfSubjects
-    params:
-      df: dfSUBJ
-      strQuery: "SELECT subject_nsv as SubjectID, siteid as SiteID, country as CountryID, studyid as StudyID FROM df WHERE enrollyn == 'Y'"
-  - name: RunQuery
-    output: dfQUERY
-    params:
-      df: dfQUERY
-      strQuery: "SELECT * FROM df WHERE querystatus IN ('Open', 'Answered', 'Closed')"
-  - name: RunQuery
-    output: dfDenominator
-    params:
-      df: dfQUERY
-      strQuery: "SELECT subjectname as SubjectID FROM df"
-  - name: RunQuery
-    output: dfNumerator
-    params:
-      df: dfQUERY
-      strQuery: "SELECT subjectname as SubjectID, * FROM df WHERE queryage > 30"  
   - name: Input_Rate
     output: dfInput
     params:
-      dfs:
-        - dfSubjects
-        - dfNumerator
-        - dfDenominator
+      dfSubjects: dfEnrolled
+      dfNumerator: dfOldValidQueries
+      dfDenominator: dfValidQueries
+      strSubjectCol: subject_nsv
+      strGroupCol: siteid
       strNumeratorMethod: Count
       strDenominatorMethod: Count
   - name: Transform_Rate
@@ -65,9 +46,3 @@ steps:
     output: dfSummary
     params: 
       dfFlagged: dfFlagged
-  - name: Visualize_KRI
-    output: lCharts
-    params:
-      dfSummary: dfSummary
-      dfBounds: dfBounds
-      lLabels: lMeta

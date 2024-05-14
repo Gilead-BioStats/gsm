@@ -9,30 +9,16 @@ meta:
   model: Normal Approximation
   score: Adjusted Z-Score
 steps:
-  - name: RunQuery
-    output: dfSubjects
-    params:
-      df: dfSUBJ
-      strQuery: "SELECT subject_nsv as SubjectID, siteid as SiteID, country as CountryID, studyid as StudyID FROM df WHERE enrollyn == 'Y'"
-  - name: RunQuery
-    output: dfDenominator
-    params:
-      df: dfDATACHG
-      strQuery: "SELECT subjectname as SubjectID FROM df"
-  - name: RunQuery
-    output: dfNumerator
-    params:
-      df: dfDATACHG
-      strQuery: "SELECT subjectname as SubjectID, * FROM df WHERE n_changes > 0"  
   - name: Input_Rate
     output: dfInput
     params:
-      dfs:
-        - dfSubjects
-        - dfNumerator
-        - dfDenominator
+      dfSubjects: dfEnrolled
+      dfNumerator: dfChangedDataPoints
+      dfDenominator: dfDataChanges
+      strSubjectCol: subject_nsv
+      strGroupCol: siteid
       strNumeratorMethod: Count
-      strDenominatorMethod: Count
+      strDenominatorMethod: Count 
   - name: Transform_Rate
     output: dfTransformed
     params:
@@ -60,9 +46,3 @@ steps:
     output: dfSummary
     params: 
       dfFlagged: dfFlagged
-  - name: Visualize_KRI
-    output: lCharts
-    params:
-      dfSummary: dfSummary
-      dfBounds: dfBounds
-      lLabels: lMeta

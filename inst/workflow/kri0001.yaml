@@ -12,9 +12,9 @@ steps:
   - name: Input_Rate
     output: dfInput
     params:
-      dfSubjects: dfSUBJ
+      dfSubjects: dfEnrolled
       dfNumerator: dfAE
-      dfDenominator: dfSUBJ
+      dfDenominator: dfEnrolled
       strSubjectCol: subjid
       strGroupCol: siteid
       strNumeratorMethod: Count
@@ -47,10 +47,3 @@ steps:
     output: dfSummary
     params: 
       dfFlagged: dfFlagged
-  - name: Visualize_KRI
-    output: lCharts
-    params:
-      dfSummary: dfSummary
-      dfBounds: dfBounds
-      dfSite: dfSite
-      lLabels: lMeta

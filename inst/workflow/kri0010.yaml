@@ -9,28 +9,14 @@ meta:
   model: Normal Approximation
   score: Adjusted Z-Score
 steps:
-  - name: RunQuery
-    output: dfSubjects
-    params:
-      df: dfSUBJ
-      strQuery: "SELECT subject_nsv as SubjectID, siteid as SiteID, country as CountryID, studyid as StudyID FROM df WHERE enrollyn == 'Y'"
-  - name: RunQuery
-    output: dfDenominator
-    params:
-      df: dfDATAENT
-      strQuery: "SELECT subjectname as SubjectID FROM df"
-  - name: RunQuery
-    output: dfNumerator
-    params:
-      df: dfDATAENT
-      strQuery: "SELECT subjectname as SubjectID, * FROM df WHERE data_entry_lag > 10"  
   - name: Input_Rate
     output: dfInput
     params:
-      dfs:
-        - dfSubjects
-        - dfNumerator
-        - dfDenominator
+      dfSubjects: dfEnrolled
+      dfNumerator: dfSlowDataEntry
+      dfDenominator: dfDataEntry
+      strSubjectCol: subject_nsv
+      strGroupCol: siteid
       strNumeratorMethod: Count
       strDenominatorMethod: Count
   - name: Transform_Rate

@@ -13,7 +13,7 @@ steps:
     output: dfSubjects
     params:
       df: dfSUBJ
-      strQuery: "SELECT subjid as SubjectID, siteid as SiteID, country as CountryID, studyid as StudyID FROM df WHERE enrollyn == 'Y'"
+      strQuery: "SELECT subjid as SubjectID, country FROM df WHERE enrollyn == 'Y'"
   - name: RunQuery
     output: dfDenominator
     params:
@@ -38,7 +38,7 @@ steps:
     output: dfTransformed
     params:
       dfInput: dfInput
-      strGroupCol: CountryID
+      strGroupCol: country
   - name: Analyze_NormalApprox
     output: dfAnalyzed
     params:

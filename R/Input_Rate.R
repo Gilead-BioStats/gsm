@@ -22,7 +22,7 @@
 #' @param dfSubjects `data.frame` with columns for SubjectID and any other relevant subject information
 #' @param dfNumerator `data.frame` with a column for SubjectID and `strNumeratorCol` if `strNumeratorMethod` is "Sum"
 #' @param dfDenominator `data.frame` with a column for SubjectID and `strDenominatorCol` if `strDenominatorMethod` is "Sum"
-#' @param dfGroupCol `character` Column name in `dfSubjects` to use for grouping. Default: "SiteID"
+#' @param strGroupCol `character` Column name in `dfSubjects` to use for grouping. Default: "SiteID"
 #' @param strSubjectCol `character` Column name in `dfSubjects` to use for subject ID. Default: "SubjectID"
 #' @param strNumeratorMethod `character` Method to calculate numerator. Default: "Count"
 #' @param strDenominatorMethod `character` Method to calculate denominator. Default: "Count"

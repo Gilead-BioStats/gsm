@@ -37,7 +37,7 @@ steps:
     output: dfTransformed
     params:
       dfInput: dfInput
-      strGroupCol: CountryID
+      strGroupCol: country
   - name: Analyze_NormalApprox
     output: dfAnalyzed
     params:

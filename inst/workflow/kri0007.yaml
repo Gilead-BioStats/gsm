@@ -9,28 +9,14 @@ meta:
   model: Normal Approximation
   score: Adjusted Z-Score
 steps:
-  - name: RunQuery
-    output: dfSubjects
-    params:
-      df: dfSUBJ
-      strQuery: "SELECT subjid as SubjectID, siteid as SiteID, country as CountryID, studyid as StudyID FROM df WHERE enrollyn == 'Y'"
-  - name: RunQuery
-    output: dfDenominator
-    params:
-      df: dfSUBJ
-      strQuery: "SELECT subjid as SubjectID FROM df"
-  - name: RunQuery
-    output: dfNumerator
-    params:
-      df: dfSDRGCOMP
-      strQuery: "SELECT subjid as SubjectID, * FROM df WHERE sdrgyn IN ('N')"  
   - name: Input_Rate
     output: dfInput
     params:
-      dfs:
-        - dfSubjects
-        - dfNumerator
-        - dfDenominator
+      dfSubjects: dfEnrolled
+      dfNumerator: dfTreatmentDropouts
+      dfDenominator: dfEnrolled
+      strSubjectCol: subjid
+      strGroupCol: siteid
       strNumeratorMethod: Count
       strDenominatorMethod: Count
   - name: Transform_Rate
@@ -60,9 +46,4 @@ steps:
     output: dfSummary
     params: 
       dfFlagged: dfFlagged
-  - name: Visualize_KRI
-    output: lCharts
-    params:
-      dfSummary: dfSummary
-      dfBounds: dfBounds
-      lLabels: lMeta
+

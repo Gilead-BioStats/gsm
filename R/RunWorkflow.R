@@ -29,8 +29,8 @@
 #'
 #' @export
 
-RunWorkflow <- function(lWorkflow,lData) {
-  cli::cli_h1(paste0("Initializing `", lWorkflow$name, "` assessment"))
+RunWorkflow <- function(lWorkflow, lData) {
+  cli::cli_h1(paste0("Initializing `", lWorkflow$file, "` Workflow"))
 
   lWorkflow$lData <- lData
   
@@ -40,15 +40,16 @@ RunWorkflow <- function(lWorkflow,lData) {
     cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lWorkflow$steps), ": `", step$name, "`"))
 
     result <- gsm::RunStep(lStep = step, lData = lWorkflow$lData, lMeta = lWorkflow$meta)
-
-    if (stringr::str_detect(step$output, "^df")) {
-      cli::cli_text("Saving {step$output} to `lWorkflow$lData`")
-      lWorkflow$lData[[step$output]] <- result
+    
+    lWorkflow$lData[[step$output]] <- result
+    
+    if(is.data.frame(result)){
+      cli::cli_h3("{paste(dim(result),collapse='x')} data.frame saved as `lData${step$output}`.")
     } else {
-      cli::cli_text("Saving {step$output} to `lWorkflow`")
-      lWorkflow[[step$output]] <- result
-    }
+      cli::cli_h3("{typeof(result)} of length {length(result)} saved as `lData${step$output}`.")
 
+    }
+    
     stepCount <- stepCount + 1
   }
 

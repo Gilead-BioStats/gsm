@@ -61,6 +61,7 @@ Summarize <- function(
   dfSummary <- dfFlagged %>%
     select(
       "GroupID",
+      "GroupType",
       "Numerator",
       "Denominator",
       "Metric",
