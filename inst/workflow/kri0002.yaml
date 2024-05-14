@@ -1,6 +1,6 @@
 meta:
   file: kri0002.yaml
-  workflowid: kri0002
+  MetricID: kri0002
   group: site
   abbreviation: SAE
   metric: Serious Adverse Event Rate
@@ -16,7 +16,7 @@ steps:
       dfNumerator: dfSeriousAE
       dfDenominator: dfEnrolled
       strSubjectCol: subjid
-      strGroupCol: country
+      strGroupCol: siteid
       strNumeratorMethod: Count
       strDenominatorMethod: Sum
       strDenominatorCol: timeonstudy

@@ -1,6 +1,6 @@
 meta:
   file: kri0003.yaml
-  workflowid: kri0003
+  MetricID: kri0003
   group: site
   abbreviation: PD
   metric: Non-Important Protocol Deviation Rate

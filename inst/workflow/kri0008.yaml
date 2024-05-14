@@ -1,6 +1,6 @@
 meta:
   file: kri0008.yaml
-  workflowid: kri0008
+  MetricID: kri0008
   group: site
   abbreviation: QRY
   metric: Query Rate

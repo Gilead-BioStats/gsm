@@ -1,6 +1,6 @@
 meta:
   file: kri0006.yaml
-  workflowid: kri0006
+  MetricID: kri0006
   group: site
   abbreviation: SDSC
   metric: Study Discontinuation Rate

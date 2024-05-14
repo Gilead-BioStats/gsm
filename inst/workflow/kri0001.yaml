@@ -1,6 +1,6 @@
 meta:
-  file: ae.yaml
-  workflowid: kri0001
+  MetricID: kri0001
+  file: kri0001.yaml
   group: site
   abbreviation: AE
   metric: Adverse Event Rate

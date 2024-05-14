@@ -1,6 +1,6 @@
 meta:
   file: cou0011.yaml
-  workflowid: cou0011
+  MetricID: cou0011
   group: country
   abbreviation: CDAT
   metric: Data Change Rate

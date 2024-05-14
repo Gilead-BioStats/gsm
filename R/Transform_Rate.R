@@ -69,6 +69,7 @@ Transform_Rate <- function(
       Numerator = sum(.data[[strNumeratorCol]]),
       Denominator = sum(.data[[strDenominatorCol]])
     ) %>%
+    ungroup() %>%
     mutate(Metric = .data$Numerator / .data$Denominator) %>% 
     filter(
       !is.nan(.data$Metric),

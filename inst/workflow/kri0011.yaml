@@ -1,6 +1,6 @@
 meta:
   file: kri0011.yaml
-  workflowid: kri0011
+  MetricID: kri0011
   group: site
   abbreviation: CDAT
   metric: Data Change Rate

@@ -30,7 +30,7 @@
 #' @export
 
 RunWorkflow <- function(lWorkflow, lData) {
-  cli::cli_h1(paste0("Initializing `", lWorkflow$file, "` Workflow"))
+  cli::cli_h1(paste0("Initializing `", lWorkflow$meta$file, "` Workflow"))
 
   lWorkflow$lData <- lData
   

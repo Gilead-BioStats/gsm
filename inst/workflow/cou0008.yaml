@@ -1,6 +1,6 @@
 meta:
   file: cou0008.yaml
-  workflowid: cou0008
+  MetricID: cou0008
   group: country
   abbreviation: QRY
   metric: Query Rate

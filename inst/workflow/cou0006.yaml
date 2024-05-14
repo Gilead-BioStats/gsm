@@ -1,6 +1,6 @@
 meta:
   file: cou0006.yaml
-  workflowid: cou0006
+  MetricID: cou0006
   group: country
   abbreviation: SDSC
   metric: Study Discontinuation Rate

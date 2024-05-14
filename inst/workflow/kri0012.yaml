@@ -1,6 +1,6 @@
 meta:
   file: kri0012.yaml
-  workflowid: kri0012
+  MetricID: kri0012
   group: site
   abbreviation: SF
   metric: Screen Failure Rate

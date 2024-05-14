@@ -1,6 +1,6 @@
 meta:
   file: kri0007.yaml
-  workflowid: kri0007
+  MetricID: kri0007
   group: site
   abbreviation: TDSC
   metric: Treatment Discontinuation Rate

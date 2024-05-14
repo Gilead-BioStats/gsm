@@ -1,6 +1,6 @@
 meta:
   file: ae.yaml
-  workflowid: cou0001
+  MetricID: cou0001
   group: country
   abbreviation: AE
   metric: Adverse Event Rate

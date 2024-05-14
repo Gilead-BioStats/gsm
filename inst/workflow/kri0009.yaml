@@ -1,6 +1,6 @@
 meta:
   file: kri0009.yaml
-  workflowid: kri0009
+  MetricID: kri0009
   group: site
   abbreviation: OQRY
   metric: Outstanding Query Rate

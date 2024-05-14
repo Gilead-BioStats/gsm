@@ -1,6 +1,6 @@
 meta:
   file: cou0002.yaml
-  workflowid: cou0002
+  MetricID: cou0002
   group: country
   abbreviation: SAE
   metric: Serious Adverse Event Rate

@@ -1,6 +1,6 @@
 meta:
   file: cou0007.yaml
-  workflowid: cou0007
+  MetricID: cou0007
   group: country
   abbreviation: TDSC
   metric: Treatment Discontinuation Rate
