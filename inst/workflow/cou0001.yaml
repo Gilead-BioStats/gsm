@@ -21,7 +21,7 @@ steps:
       dfNumerator: dfAE
       dfDenominator: dfSUBJ
       strSubjectCol: subjid
-      strGroupCol: siteid
+      strGroupCol: country
       strNumeratorMethod: Count
       strDenominatorMethod: Sum
       strDenominatorCol: timeonstudy
@@ -29,7 +29,6 @@ steps:
     output: dfTransformed
     params:
       dfInput: dfInput
-      strGroupCol: country
   - name: Analyze_NormalApprox
     output: dfAnalyzed
     params:
