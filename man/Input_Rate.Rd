@@ -5,7 +5,11 @@
 \title{Input_Rate}
 \usage{
 Input_Rate(
-  dfs = NULL,
+  dfSubjects,
+  dfNumerator,
+  dfDenominator,
+  strGroupCol = "GroupID",
+  strSubjectCol = "SubjectID",
   strNumeratorMethod = "Count",
   strDenominatorMethod = "Count",
   strNumeratorCol = NULL,
@@ -13,7 +17,15 @@ Input_Rate(
 )
 }
 \arguments{
-\item{dfs}{\code{list} of \code{data.frame}s including dfSUBJ, dfNumerator, and dfDenominator. Default: NULL}
+\item{dfSubjects}{\code{data.frame} with columns for SubjectID and any other relevant subject information}
+
+\item{dfNumerator}{\code{data.frame} with a column for SubjectID and \code{strNumeratorCol} if \code{strNumeratorMethod} is "Sum"}
+
+\item{dfDenominator}{\code{data.frame} with a column for SubjectID and \code{strDenominatorCol} if \code{strDenominatorMethod} is "Sum"}
+
+\item{strGroupCol}{\code{character} Column name in \code{dfSubjects} to use for grouping. Default: "SiteID"}
+
+\item{strSubjectCol}{\code{character} Column name in \code{dfSubjects} to use for subject ID. Default: "SubjectID"}
 
 \item{strNumeratorMethod}{\code{character} Method to calculate numerator. Default: "Count"}
 
@@ -24,15 +36,14 @@ Input_Rate(
 \item{strDenominatorCol}{\code{character} Column name in \code{dfDenominator} to use for denominator calculation. Default: NULL}
 }
 \value{
-\code{data.frame} with the following columns:
-\itemize{
-\item SubjectID: The subject ID
-\item SiteID: The site ID
-\item StudyID: The study ID
-\item CountryID: The country ID
-\item Numerator: The calculated numerator value
-\item Denominator: The calculated denominator value
-\item Rate: The calculated input rate
+\code{data.frame} with the following specification:\tabular{lll}{
+   Column Name \tab Description \tab Type \cr
+   SubjectID \tab The subject ID \tab Character \cr
+   GroupID \tab The group ID \tab Character \cr
+   GroupType \tab The group type \tab Character \cr
+   Numerator \tab The calculated numerator value \tab Numeric \cr
+   Denominator \tab The calculated denominator value \tab Numeric \cr
+   Rate \tab The calculated input rate \tab Numeric \cr
 }
 }
 \description{
@@ -47,7 +58,7 @@ the calculated input rate for each subject.
 
 The data requirements for the function are as follows:
 \itemize{
-\item dfSubjects: A data frame with columns for SubjectID, SiteID, StudyID, and CountryID
+\item dfSubjects: A data frame with columns for SubjectID and any other relevant subject information
 \item dfNumerator: A data frame with a column for SubjectID and \code{strNumeratorCol} if \code{strNumeratorMethod} is "Sum"
 \item dfDenominator: A data frame with a column for SubjectID and \code{strDenominatorCol} if \code{strDenominatorMethod} is "Sum"
 }
