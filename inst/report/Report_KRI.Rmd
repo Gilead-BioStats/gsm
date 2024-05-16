@@ -23,6 +23,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
 library(gsm)
 library(DT)
+library(kableExtra)
 
 setup <- Report_Setup(dfStudy =  params$dfStudy, dfMetrics = params$dfMetrics)
 
@@ -86,11 +87,11 @@ Report_OverviewText(
 for (i in seq_along(lCharts)) {
   MetricID <- names(lCharts)[[i]]
   if(!is.null(dfMetrics)){
-    MetricName <- dfMetrics$metric[dfMetrics$MetricID == MetricID]
+    MetricName <- unique(dfMetrics$metric[dfMetrics$MetricID == MetricID])
   } else { 
     MetricName <- MetricID
   }
-    
+
   print(htmltools::h3(MetricName))
   
   Report_MetricCharts(
