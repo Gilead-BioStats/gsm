@@ -8,7 +8,7 @@ meta:
   denominator: Total Lab Samples
   model: Normal Approximation
   score: Adjusted Z-Score
-vThreshold:
+  vThreshold:
     - -3
     - -2
     - 2
