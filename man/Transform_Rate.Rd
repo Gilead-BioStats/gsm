@@ -7,8 +7,7 @@
 Transform_Rate(
   dfInput,
   strNumeratorCol = "Numerator",
-  strDenominatorCol = "Denominator",
-  strGroupCol = "SiteID"
+  strDenominatorCol = "Denominator"
 )
 }
 \arguments{
@@ -21,7 +20,7 @@ Transform_Rate(
 \item{strGroupCol}{\code{character} Required. Name of column for grouping variable. Default: \code{"SiteID"}}
 }
 \value{
-\code{data.frame} with one row per site with columns \code{GroupID}, \code{Numerator}, \code{Denominator}, and \code{Metric}.
+\code{data.frame} with one row per site with columns \code{GroupID}, \code{GroupType}, \code{Numerator}, \code{Denominator}, and \code{Metric}.
 }
 \description{
 Convert from input data format to needed input format to derive KRI for an Assessment. Calculate a site-level rate.
@@ -53,10 +52,17 @@ Required columns include:
 }
 
 \examples{
-dfInput <- AE_Map_Raw()
-dfTransformed <- Transform_Rate(dfInput,
-  strNumeratorCol = "Count",
-  strDenominatorCol = "Exposure"
+dfInput <- tibble::tibble(
+ GroupID = c("G1", "G1", "G2", "G2"),
+ GroupType = rep("site",4),
+ Numerator = c(1, 2, 3, 4),
+ Denominator = c(10, 20, 30, 40)
+)
+
+dfTransformed <- Transform_Rate(
+  dfInput,
+  strNumeratorCol = "Numerator",
+  strDenominatorCol = "Denominator",
 )
 
 }

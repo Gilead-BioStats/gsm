@@ -1,6 +1,6 @@
 meta:
   file: cou0003.yaml
-  workflowid: cou0003
+  MetricID: cou0003
   group: country
   abbreviation: PD
   metric: Non-Important Protocol Deviation Rate
@@ -8,6 +8,11 @@ meta:
   denominator: Days on Study
   model: Normal Approximation
   score: Adjusted Z-Score
+  vThreshold:
+    - -3
+    - -2
+    - 2
+    - 3
 steps:
   - name: RunQuery
     output: dfSubjects
@@ -27,10 +32,11 @@ steps:
   - name: Input_Rate
     output: dfInput
     params:
-      dfs:
-        - dfSubjects
-        - dfNumerator
-        - dfDenominator
+      dfSubjects: dfEnrolled
+      dfNumerator: dfNonimportantPD
+      dfDenominator: dfEnrolled
+      strSubjectCol: subjid
+      strGroupCol: country
       strNumeratorMethod: Count
       strDenominatorMethod: Sum
       strDenominatorCol: timeonstudy
@@ -38,33 +44,23 @@ steps:
     output: dfTransformed
     params:
       dfInput: dfInput
-      strGroupCol: CountryID
   - name: Analyze_NormalApprox
     output: dfAnalyzed
     params:
-      dfTransformed: dfTransformed 
+      dfTransformed: dfTransformed
       strType: rate
   - name: Analyze_NormalApprox_PredictBounds
     output: dfBounds
     params:
       dfTransformed: dfTransformed
       strType: rate
+      vThreshold: vThreshold
   - name: Flag_NormalApprox
     output: dfFlagged
     params:
       dfAnalyzed: dfAnalyzed
-      vThreshold: 
-        - -3
-        - -2
-        - 2
-        - 3
+      vThreshold: vThreshold
   - name: Summarize
     output: dfSummary
-    params: 
-      dfFlagged: dfFlagged
-  - name: Visualize_KRI
-    output: lCharts
     params:
-      dfSummary: dfSummary
-      dfBounds: dfBounds
-      lLabels: lMeta
+      dfFlagged: dfFlagged

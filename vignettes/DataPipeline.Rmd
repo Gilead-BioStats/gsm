@@ -28,11 +28,15 @@ As an overview, clinical and operational data are analyzed using the `{gsm}` R p
 
 ![](data-pipeline.PNG){width="125%"}
 
+TODO: Update/Delete Graphic
+
 In the context of clinical research, a KRI is a measure of risk associated with the conduct of a clinical trial. Examples of KRIs include the rate of adverse events or amount of missing data at a site or across sites. Defining and deploying KRIs during study start-up allows sponsors to continually monitor risks to the integrity of the trial and take corrective actions accordingly.
 
 The default KRI data pipeline begins with one or more clinical datasets related to the KRI. An optional participant-level subset is then applied to each dataset before aggregating by participant to quantify the KRI at the participant level. This aggregated dataset is then further summarized by site to obtain site-level metrics.
 
 ## Generating Input Data
+
+TODO: Update to discuss new framework
 
 Generating input data is outside the scope of the assessment pipeline. The specifications for input data (i.e., `dfInput`) are designed to be flexible enough so that this data frame can be generated from multiple clinical data standards (e.g., Raw, rawplus, or CDISC-compliant ADaM). Most assessment workflows have `Map()` functions that can be used to generate input data. 
 
@@ -85,61 +89,32 @@ Study_Report(results)
 
 Additional examples are provided in the [Cookbook Vignette](https://gilead-biostats.github.io/gsm/articles/Cookbook.html).
 
-# Appendix 1 - Metadata Technical Specifications {#Appendix-1-Metadata-Technical-Specifications}
+# Appendix 1 - Data Pipeline Specifications
 
-`{gsm}` has several standardized metadata models that are used to facilitate a standardized, reusable workflow for RBQM. The default metadata used by `{gsm}` are stored as YAML files in the `inst` folder, and can be customized for any given study.
+The following section provides a detailed specifications for the required columns for the data pipeline used in the `{gsm}` package.The following tables are used in the data pipeline:
 
-Detailed specifications for each type of metadata is provided below, and example data for the Adverse Events (AE) domain is provided.
+-   `dfInput`: Input data; Cross-domain participant-level input data with all needed data for KRI derivation.
+-   `dfTransformed`: Transformed data; Group-level transformed data including KRI calculation.
+-   `dfAnalyzed`: Analyzed data; Group-level analysis results data with `Score` column added providing a statistical score for the group.
+-   `dfFlagged`: Flagged data; Group-level analysis results with `Flag` column added to indicate potential statistical outliers.
 
-## Data Specification Metadata
+Many columns are shared across tables
 
-Input data specifications define the data requirements for a given `{gsm}` function and are saved in `inst/specs`.
+| Table    | Column Name  | Description                          | Type     |
+|----------|--------------|--------------------------------------|----------|
+| All      | MetricID     | The Metric ID                        | Character|
+| All      | StudyID      | The Study ID                         | Character|
+| All      | GroupID      | The group ID for the metric          | Character|
+| All      | SnapshotDate | The Date of the snapshot             | Date     |
+| All      | Numerator    | The calculated numerator value       | Numeric  |
+| All      | Denominator  | The calculated denominator value     | Numeric  |
+| All      | Metric       | The calculated rate/metric value     | Numeric  |
+| dfInput  | SubjectID    | The subject ID                       | Character|
+| dfAnalyzed/dfFlagged | Score        | The Stastical Score      | Numeric  |
+| dfFlagged | Flag         | The Flag value                      | Numeric  |
 
-Each input data specification lists the data domains required for the function and specifies the following parameters for each domain:
 
--   `vRequired`: list of parameters that should be defined in `mapping` (see more details in the following section)
--   `vUniqueCols`: list of column parameters that should not contain duplicate values
--   `vNACols`: list of column parameters where NA and empty string values are acceptable
-
-The specification for the AE mapping function (`inst/specs/AE_Map_Raw.yaml`) is shown below:
-
-```         
-dfAE:
-  vRequired:
-    - strIDCol
-dfSUBJ:
-  vRequired:
-    - strIDCol
-    - strSiteCol
-    - strTimeOnTreatmentCol
-  vUniqueCols:
-    - strIDCol
-  vNACols:
-    - strTimeOnTreatmentCol
-```
-
-## Data Mappings Metadata
-
-Mapping specifications in `{gsm}` define a "mapping" of column and field-level inputs needed for a function. This mapping can be used in combination with a specification to confirm that input data meets the requirements for a function.
-
-Each mapping object lists the required parameters for all required data domains and specifies the column and field values for specific datasets.
-
-For example, the following could be passed to the `mapping` parameter for the `AE_Map_Raw()` function to be used with the default data from `clindata::rawplus_ae` and `clindata::rawplus_dm`:
-
-```{r eval = FALSE, include = TRUE}
-list(
-  dfAE = list(strIDCol = 'SubjectID'),
-  dfSUBJ = list(
-    strIDCol = 'SubjectID',
-    strSiteCol = 'SiteID',
-    strTimeOnTreatmentCol = 'TimeOnTreatment'
-  )
-)
-```
-
-Note that `Study_Assess()` is designed to share a `mapping` object across multiple assessments. The default mapping is saved as a [YAML file](https://github.com/Gilead-BioStats/gsm/blob/dev/inst/mappings/mapping_rawplus.yaml). However, users can also create a custom mapping object for their use cases by making a custom YAML file, or by creating or modifying a `list` like that returned by `gsm::Read_Mapping()`.
-
-## Assessment Workflow Metadata
+## Appendix 2 - Workflow Specifications
 
 Assessment workflow metadata objects are passed to the `lAssessments` parameter in `Study_Assess()` to define functions and parameters (including `mappings` and `specs`) across multiple studies.
 
@@ -176,128 +151,3 @@ steps:
       strMethod: "NormalApprox"
       nMinDenominator: 30
 ```
-
-# Appendix 2 - Data Model Specifications
-
-## `{gsm}` Input Specifications
-
-Input data for `{gsm}` is pulled from several systems. The data sources for `{gsm}` are:
-
--   **Clinical Data:** Study-level clinical data across multiple data domains saved in the rawplus format *(detailed specification in future releases)*
--   **Operational Data:** Study-level operational data including operational metadata from EDC and adjudicated Protocol Deviation data *(detailed specification in future releases)*
--   **CTMS Data:** Study-level and site-level metadata from CTMS
--   **Metric Data:** Systems Metric and Parameter Definitions (saved directly in `{gsm}`) and Study-Specific Metric Specification data (imported from RACT)
--   **Scheduling Data:** Study-Specific Custom Snapshot Schedule Data
-
-Full details are provided below. Note that Table Name includes all configurable outputs to `Make_Snapshot()`.
-
-### [Tables in `{gsm}` Input Data Model]{.underline}:
-
-```{r echo = FALSE}
-gsm_input <- read.csv("gsm_inputs.csv")
-
-gsm_input %>%
-  gt() %>%
-  cols_label(Table.Source = md("**Table Source**"),
-             Table.Name = md("**Table Name**"),
-             Structure = md("**Structure**"),
-             Description = md("**Description**"),
-             Sample.Data.Equivalent = md("**Sample Data Equivalent**")) %>%
-  tab_style(style = cell_text(size = "small"),
-            locations = cells_body(columns = everything(), rows = everything())) %>%
-  tab_style(style = cell_text(size = "small"),
-            locations = cells_column_labels(columns = everything()))
-```
-
-*\* = Full spec coming in future version*
-
-### [Columns in `{gsm}` Data Transfer (from above)]{.underline}:
-
-```{r echo = FALSE}
-gsm_output <- gsm::rbm_data_spec %>% 
-  filter(System == "GSM") %>% 
-  select(Table, Column, Description)
-
-gsm_output %>%
-  gt() %>%
-  cols_label(Table = md("**Table Name**"),
-             Column = md("**Column Name**"),
-             Description = md("**Description**")) %>%
-  tab_style(style = cell_text(size = "small"),
-            locations = cells_body(columns = everything(), rows = everything())) %>%
-  tab_style(style = cell_text(size = "small"),
-            locations = cells_column_labels(columns = everything()))
-```
-
-## Standardized Data Tool Input Specifications
-
-Input data for a standardized data tool is generated by `{gsm}` using clinical and operational data along with associated metadata. All inputs are transferred as .csv files.
-
-Three types of tables are included in the input data model:
-
--   **Status Files:** Capture the most recent metadata associated with the RBQM analytics for a single study
-
--   **Result Files:** Capture analytics results including flag status for all workflows run on a single study
-
--   **Metadata Files:** Capture workflow details for all analytics currently available in `{gsm}` and are shared across all studies
-
-### [Tables in Standardized Data Tool Transfer]{.underline}:
-
-```{r echo = FALSE}
-tool_input <- read.csv("standardized_inputs.csv")
-
-tool_input %>%
-  gt() %>%
-  cols_label(Table.Type = md("**Table Type**"),
-             Table.Name = md("**Table Name**"),
-             Structure = md("**Structure**"),
-             Description = md("**Description**")) %>%
-  tab_style(style = cell_text(size = "small"),
-            locations = cells_body(columns = everything(), rows = everything())) %>%
-  tab_style(style = cell_text(size = "small"),
-            locations = cells_column_labels(columns = everything()))
-```
-
-### [Columns in Standardized Data Tool Transfer (from above)]{.underline}:
-
-The following tables are all contained in the output of `gsm::Make_Snapshot()`:
-
-```{r echo = FALSE}
-gsm::rbm_data_spec %>%
-  filter(System == "Gismo") %>% 
-  select(-System) %>% 
-  gt() %>%
-  cols_label(Table = md("**Table Name**"),
-             Column = md("**Column Name**"),
-             Description = md("**Description**")) %>%
-  tab_style(style = cell_text(size = "small"),
-            locations = cells_body(columns = everything(), rows = everything())) %>%
-  tab_style(style = cell_text(size = "small"),
-            locations = cells_column_labels(columns = everything()))
-```
-
-# Appendix 3 - Workflow ID Basic Specs {#Appendix-3-Workflow-ID-Specs}
-
-Workflow IDs are named using the following practices:
-
-**{type}{workflowid}{\_strata}{\_param}** where:
-
--   **{type}:** Basic analysis unit of the workflow
-    -   kri: site-level
-    -   cou: country-level
-    -   qtl: study-level
--   **{workflowid}:** 0-padded 4 digit number (e.g., "0001") specifying the workflow used for the assessment
-    -   May contain filter, mapping and assessment functions
--   **{\_strata}:** Optional flag indicating a stratified analysis
-    -   Format is `_S1`, `_S2`, etc.
--   **{\_param}:** Optional flag indicating a custom parameterization
-    -   Format is `_P1`, `_P2`, etc.
-
-Here are a few examples and how they translate:
-
--   kri0001: site-level assessment for workflow 0001
--   qtl0001: study-level assessment for workflow 0001
--   cou0001: country-level assessment for workflow 0001
--   kri0002_s1: stratified site-level assessment for workflow 0002
--   cou0002_p2: country-level assessment for workflow 0002 run with custom parameters
--   cou0002_p2_s1: stratified country-level assessment for workflow 0002 run with custom parameters
