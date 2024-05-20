@@ -1,68 +1,92 @@
-# Prep test data
-dfSubjects <- data.frame(
-  SubjectID = 1:10,
-  SiteID = rep(1:2, each = 5),
-  StudyID = rep(1:2, each = 5),
-  CountryID = rep("CountryA", times = 10)
-)
+context("Testing Input_Rate Function")
 
-dfNumerator <- data.frame(
-  SubjectID = 1:10,
-  Value = c(seq(10, 50, 10), seq(50, 10, -10))
-)
-
-dfDenominator <- data.frame(
-  SubjectID = 1:10,
-  Value = rep(seq(2, 10, 2), 2)
-)
-
-dfs <- list(dfSubjects = dfSubjects, dfNumerator = dfNumerator, dfDenominator = dfDenominator)
-
-test_that("Should stop if dfs is NULL", {
-  expect_error(Input_Rate(dfs = NULL), "dfs, must be provided")
+test_that("all input data frames must be non-null", {
+  expect_error(Input_Rate(NULL, data.frame(), data.frame()))
+  expect_error(Input_Rate(data.frame(), NULL, data.frame()))
+  expect_error(Input_Rate(data.frame(), data.frame(), NULL))
 })
 
-test_that("Correct error on invalid strNumeratorMethod or strDenominatorMethod", {
-  expect_error(Input_Rate(dfs = dfs, strNumeratorMethod = "InvalidMethod"), 'strNumeratorMethod and strDenominator method must be \'Count\' or \'Sum\'')
-  expect_error(Input_Rate(dfs = dfs, strDenominatorMethod = "Invalid"),
-               'strNumeratorMethod and strDenominator method must be \'Count\' or \'Sum\'')
+test_that("strNumeratorMethod and strDenominatorMethod must be 'Count' or 'Sum'", {
+  test_df <- data.frame(SubjectID = 1:5)
+  expect_error(Input_Rate(test_df, test_df, test_df, strNumeratorMethod = "Invalid", strDenominatorMethod = "Count"))
+  expect_error(Input_Rate(test_df, test_df, test_df, strNumeratorMethod = "Sum", strDenominatorMethod = "Invalid"))
+  expect_error(Input_Rate(test_df, test_df, test_df, strNumeratorMethod = "Average", strDenominatorMethod = "Average"))
 })
 
-test_that("Stops if strNumeratorCol or strDenominatorCol is not provided when needed", {
-  expect_error(Input_Rate(dfs = dfs, strNumeratorMethod = "Sum"),
-               'strNumeratorCol must be provided when strNumeratorMethod is \'Sum\'')
-  expect_error(Input_Rate(dfs = dfs, strDenominatorMethod = "Sum"),
-               'strDenominatorCol must be provided when strDenominatorMethod is \'Sum\'')
+test_that("strNumeratorCol and strDenominatorCol must be provided when respective method is 'Sum'", {
+  test_df <- data.frame(SubjectID = 1:5, Amount = 1:5)
+  expect_error(Input_Rate(test_df, test_df, test_df, strNumeratorMethod = "Sum"))
+  expect_error(Input_Rate(test_df, test_df, test_df, strDenominatorMethod = "Sum"))
 })
 
-test_that("Stops if mandatory data frames or columns are missing", {
-  broken_dfs <- list(dfNumerator = dfNumerator, dfDenominator = dfDenominator)
-  expect_error(Input_Rate(dfs = broken_dfs),
-               "dfs must contain dfSubjects, dfNumerator, and dfDenominator")
-
-  brokenSubjects <- dfSubjects[, -which(names(dfSubjects) %in% "StudyID"), drop = FALSE]
-  broken_dfs <- list(dfSubjects = brokenSubjects, dfNumerator = dfNumerator, dfDenominator = dfDenominator)
-  expect_error(Input_Rate(dfs = broken_dfs),
-               "dfSubjects must contain columns for SubjectID, SiteID, StudyID, and CountryID")
+test_that("strSubjectCol must exist in all data frames", {
+  test_df_1 <- data.frame(SubjectID = 1:5)
+  test_df_2 <- data.frame(DifferentID = 1:5)
+  expect_error(Input_Rate(test_df_1, test_df_1, test_df_2, strSubjectCol = "SubjectID"))
 })
 
-test_that("Calculates rate correctly with Count method", {
-  df <- Input_Rate(dfs = dfs, strNumeratorMethod = "Count", strDenominatorMethod = "Count")
-  expected <- c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
-  expect_equal(df$Rate, expected)
+test_that("basic functionality with count method works", {
+  subjects <- data.frame(SubjectID = 1:3,
+                         GroupID = 10:12)
+  numerators <- data.frame(SubjectID = c(1, 1, 2),
+                           GroupID = 10:12,
+                           Count = c(6, 13, 8))
+  denominators <- data.frame(SubjectID = c(1, 2, 3),
+                             GroupID = 10:12,
+                             Count = c(6, 13, 8))
+
+  result <- Input_Rate(subjects, numerators, denominators)
+  expected <- data.frame(
+    SubjectID = 1:3,
+    GroupID = 10:12,
+    GroupType = "GroupID",
+    Numerator = c(2, 1, 0),
+    Denominator = c(1, 1, 1),
+    Rate = c(2, 1, 0)
+  )
+  expect_equal(result, expected)
 })
 
-test_that("Calculates rate correctly with Sum method using provided columns", {
-  df <- Input_Rate(dfs = dfs, strNumeratorMethod = "Sum", strDenominatorMethod = "Sum",
-                   strNumeratorCol = "Value", strDenominatorCol = "Value")
-  expected <- c(5, 5, 5, 5, 5, 25, 10, 5, 2.5, 1)
-  expect_equal(df$Rate, expected)
+test_that("test with method 'Sum' where columns are provided", {
+  subjects <- data.frame(SubjectID = 1:3,
+                         GroupID = 10:12)
+  numerators <- data.frame(SubjectID = c(1, 1, 2),
+                           GroupID = 10:12,
+                           Amount = c(10, 5, 10))
+  denominators <- data.frame(SubjectID = c(1, 2, 3),
+                             GroupID = 10:12,
+                             Amount = c(15, 5, 20))
+
+  result <- Input_Rate(subjects, numerators, denominators, strNumeratorMethod = "Sum", strDenominatorMethod = "Sum", strNumeratorCol = "Amount", strDenominatorCol = "Amount")
+  expected <- data.frame(
+    SubjectID = 1:3,
+    GroupID = 10:12,
+    GroupType = "GroupID",
+    Numerator = c(15, 10, 0),
+    Denominator = c(15, 5, 20),
+    Rate = c(1, 2, 0)
+  )
+  expect_equal(result, expected)
 })
 
-test_that("Works with partial and uneven data sets", {
-  partialDenominator <- dfDenominator[-c(4,5), ]
-  custom_dfs <- list(dfSubjects = dfSubjects, dfNumerator = dfNumerator, dfDenominator = partialDenominator)
-  df <- Input_Rate(dfs = custom_dfs, strNumeratorMethod = "Sum", strDenominatorMethod = "Sum", strNumeratorCol = "Value", strDenominatorCol = "Value")
-  expected_rate <- c(5, 5, 5, Inf, Inf, 25, 10, 5, 2.5, 1)
-  expect_equal(df$Rate, expected_rate)
+test_that("handling of zero denominators and missing data", {
+  subjects <- data.frame(SubjectID = 1:4,
+                         GroupID = 10:13)
+  numerators <- data.frame(SubjectID = c(1, 1),
+                           GroupID = 10:11)
+  denominators <- data.frame(SubjectID = c(1, 2),
+                             GroupID = 12:13)
+
+  result <- Input_Rate(subjects, numerators, denominators)
+
+  expected <- data.frame(
+    SubjectID = 1:4,
+    GroupID = 10:13,
+    GroupType = "GroupID",
+    Numerator = c(2, 0, 0, 0),
+    Denominator = c(1, 1, 0, 0),
+    Rate = c(2, 0, NaN, NaN)  # NaN because denominator is zero
+  )
+
+  expect_equal(result, expected)
 })

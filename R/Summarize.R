@@ -47,7 +47,7 @@ Summarize <- function(
   ) {
   stopifnot(
     "dfFlagged is not a data frame" = is.data.frame(dfFlagged),
-    "One or more of these columns: GroupID, Flag , strScoreCol, not found in dfFlagged" = all(c("GroupID", "Flag", strScoreCol) %in% names(dfFlagged))
+    "One or more of these columns: GroupID, GroupType, Flag , strScoreCol, not found in dfFlagged" = all(c("GroupID", "GroupType", "Flag", strScoreCol) %in% names(dfFlagged))
   )
 
   if (!("Numerator" %in% colnames(dfFlagged))) {

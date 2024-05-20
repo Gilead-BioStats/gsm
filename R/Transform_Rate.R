@@ -40,7 +40,7 @@
 #'  Numerator = c(1, 2, 3, 4),
 #'  Denominator = c(10, 20, 30, 40)
 #' )
-#' 
+#'
 #' dfTransformed <- Transform_Rate(
 #'   dfInput,
 #'   strNumeratorCol = "Numerator",
@@ -70,7 +70,7 @@ Transform_Rate <- function(
       Denominator = sum(.data[[strDenominatorCol]])
     ) %>%
     ungroup() %>%
-    mutate(Metric = .data$Numerator / .data$Denominator) %>% 
+    mutate(Metric = .data$Numerator / .data$Denominator) %>%
     filter(
       !is.nan(.data$Metric),
       .data$Metric != Inf
@@ -78,7 +78,7 @@ Transform_Rate <- function(
 
   if (nrow(dfTransformed) < length(unique(dfInput$GroupID))) {
     cli::cli_alert_warning(
-      "{length(unique(dfInput[[ strGroupCol ]])) - nrow(dfTransformed)} values of [ {strGroupCol} ] with a [ {strDenominatorCol} ] value of 0 removed."
+      "{length(unique(dfInput[['GroupID']])) - nrow(dfTransformed)} values of [ GroupID ] with a [ {strDenominatorCol} ] value of 0 removed."
     )
   }
 
