@@ -57,7 +57,7 @@ Analyze_NormalApprox <- function(
 ) {
   stopifnot(
     "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
-    "One or more of these columns not found: GroupID, Denominator, Numerator, Metric" =
+    "One or more of these columns not found: GroupID, GroupType, Denominator, Numerator, Metric" =
       all(c("GroupID", "GroupType", "Denominator", "Numerator", "Metric") %in% names(dfTransformed)),
     "NA value(s) found in GroupID" = all(!is.na(dfTransformed[["GroupID"]])),
     "strType is not 'binary' or 'rate'" = strType %in% c("binary", "rate")
@@ -113,7 +113,7 @@ Analyze_NormalApprox <- function(
     arrange(.data$Score)
 
   cli::cli_text("{.var OverallMetric}, {.var Factor}, and {.var Score} columns created from normal approximation.")
-  
+
 
   return(dfAnalyzed)
 }
