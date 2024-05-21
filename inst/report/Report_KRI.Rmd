@@ -84,12 +84,10 @@ Report_OverviewText(
 ## Results
 
 ```{r, echo=FALSE, results='asis'}
-lCharts <- params$lCharts
-dfMetrics <- params$dfMetrics
-for (i in seq_along(lCharts)) {
-  MetricID <- names(lCharts)[[i]]
-  if(!is.null(dfMetrics)){
-    MetricName <- unique(dfMetrics$metric[dfMetrics$MetricID == MetricID])
+for (i in seq_along(params$lCharts)) {
+  MetricID <- names(params$lCharts)[[i]]
+  if(!is.null(params$dfMetrics)){
+    MetricName <- unique(params$dfMetrics$metric[params$dfMetrics$MetricID == MetricID])
   } else { 
     MetricName <- MetricID
   }
@@ -97,7 +95,7 @@ for (i in seq_along(lCharts)) {
   print(htmltools::h3(MetricName))
   
   Report_MetricCharts(
-    lCharts = lCharts[[i]]
+    lCharts = params$lCharts[[i]]
   )
 
   dfMetricSummary <- params$dfSummary[params$dfSummary$MetricID == MetricID,]
@@ -111,7 +109,7 @@ for (i in seq_along(lCharts)) {
 ## Metric Details
 ```{r, echo=FALSE, results='asis'}
 #print dfMetrics table
-dfMetrics %>%
+params$dfMetrics %>%
 kbl(format="html", escape=FALSE) %>%
 kable_styling ("striped", full_width = FALSE) %>%
 cat

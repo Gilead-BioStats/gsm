@@ -8,7 +8,7 @@
 #' @keywords internal
 #'
 #'
-Report_Setup <- function(dfStudy = NULL, dfMetrics = NULL, dfSummary = dfSummary) {
+Report_Setup <- function(dfStudy = NULL, dfMetrics = NULL, dfSummary = NULL) {
 
   output <- list()
   # Get type of report
