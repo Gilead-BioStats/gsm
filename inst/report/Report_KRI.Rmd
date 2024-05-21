@@ -25,7 +25,7 @@ library(gsm)
 library(DT)
 library(kableExtra)
 
-setup <- Report_Setup(dfStudy =  params$dfStudy, dfMetrics = params$dfMetrics)
+setup <- Report_Setup(dfStudy =  params$dfStudy, dfMetrics = params$dfMetrics, dfSummary = params$dfSummary)
 
 ```
 
@@ -62,8 +62,8 @@ Report_StudyInfo(dfStudy = params$dfStudy)
 htmltools::div(
   style = "table-layout: fixed; width: 100%; overflow: auto;",
   Widget_SiteOverview(
-    dfSummary=dfSummary %>% rename_with(tolower),
-    dfSite=dfSite
+    dfSummary= params$dfSummary %>% rename_with(tolower),
+    dfSite= params$dfSite
   )
 )
 ```
@@ -84,10 +84,10 @@ Report_OverviewText(
 ## Results
 
 ```{r, echo=FALSE, results='asis'}
-for (i in seq_along(lCharts)) {
-  MetricID <- names(lCharts)[[i]]
-  if(!is.null(dfMetrics)){
-    MetricName <- unique(dfMetrics$metric[dfMetrics$MetricID == MetricID])
+for (i in seq_along(params$lCharts)) {
+  MetricID <- names(params$lCharts)[[i]]
+  if(!is.null(params$dfMetrics)){
+    MetricName <- unique(params$dfMetrics$metric[params$dfMetrics$MetricID == MetricID])
   } else { 
     MetricName <- MetricID
   }
@@ -95,11 +95,11 @@ for (i in seq_along(lCharts)) {
   print(htmltools::h3(MetricName))
   
   Report_MetricCharts(
-    lCharts = lCharts[[i]]
+    lCharts = params$lCharts[[i]]
   )
 
   dfMetricSummary <- params$dfSummary[params$dfSummary$MetricID == MetricID,]
-  cat(Report_MetricTable(dfSummary = dfMetricSummary, dfSite= dfSite))
+  cat(Report_MetricTable(dfSummary = dfMetricSummary, dfSite= params$dfSite))
 
 
 }
@@ -109,7 +109,7 @@ for (i in seq_along(lCharts)) {
 ## Metric Details
 ```{r, echo=FALSE, results='asis'}
 #print dfMetrics table
-dfMetrics %>%
+params$dfMetrics %>%
 kbl(format="html", escape=FALSE) %>%
 kable_styling ("striped", full_width = FALSE) %>%
 cat

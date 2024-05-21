@@ -4,10 +4,10 @@
 \alias{Report_Setup}
 \title{Calculate needed values for report}
 \usage{
-Report_Setup(dfStudy = NULL, dfMetrics = NULL)
+Report_Setup(dfStudy = NULL, dfMetrics = NULL, dfSummary = NULL)
 }
 \arguments{
-\item{dfStudy}{\code{data.frame} Site-level metadata containing within \code{params$status_site} of report}
+\item{dfStudy}{\code{data.frame} Site-level metadata.}
 }
 \description{
 Calculates the following:
