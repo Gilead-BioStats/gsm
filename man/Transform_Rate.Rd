@@ -7,8 +7,7 @@
 Transform_Rate(
   dfInput,
   strNumeratorCol = "Numerator",
-  strDenominatorCol = "Denominator",
-  strGroupCol = "SiteID"
+  strDenominatorCol = "Denominator"
 )
 }
 \arguments{
@@ -21,7 +20,7 @@ Transform_Rate(
 \item{strGroupCol}{\code{character} Required. Name of column for grouping variable. Default: \code{"SiteID"}}
 }
 \value{
-\code{data.frame} with one row per site with columns \code{GroupID}, \code{Numerator}, \code{Denominator}, and \code{Metric}.
+\code{data.frame} with one row per site with columns \code{GroupID}, \code{GroupType}, \code{Numerator}, \code{Denominator}, and \code{Metric}.
 }
 \description{
 Convert from input data format to needed input format to derive KRI for an Assessment. Calculate a site-level rate.
@@ -46,23 +45,17 @@ Required columns include:
 }
 
 \examples{
-dfInput <- tibble::tribble(
-  ~SubjectID, ~SiteID, ~StudyID, ~CountryID, ~CustomGroupID, ~Exposure, ~Count, ~Rate,
-  "0496", "5", "AA-AA-000-0000", "US", "0X167", 730, 5, 5/720,
-  "1350", "78", "AA-AA-000-0000", "US", "0X002", 50, 2, 2/50,
-  "0539", "139", "AA-AA-000-0000", "US", "0X052", 901, 5, 5/901,
-  "0329", "162", "AA-AA-000-0000", "US", "0X049", 370, 3, 3/370,
-  "0429", "29", "AA-AA-000-0000", "Japan", "0X116", 450, 2, 2/450,
-  "1218", "143", "AA-AA-000-0000", "US", "0X153", 170, 3, 3/170,
-  "0808", "173", "AA-AA-000-0000", "US", "0X124", 680, 6, 6/680,
-  "1314", "189", "AA-AA-000-0000", "US", "0X093", 815, 4, 4/815,
-  "1236", "58", "AA-AA-000-0000", "China", "0X091", 225, 1, 1/225,
-  "0163", "167", "AA-AA-000-0000", "US", "0X059", 360, 3, 3/360
+dfInput <- tibble::tibble(
+ GroupID = c("G1", "G1", "G2", "G2"),
+ GroupType = rep("site",4),
+ Numerator = c(1, 2, 3, 4),
+ Denominator = c(10, 20, 30, 40)
 )
 
-dfTransformed <- Transform_Rate(dfInput,
-  strNumeratorCol = "Count",
-  strDenominatorCol = "Exposure"
+dfTransformed <- Transform_Rate(
+  dfInput,
+  strNumeratorCol = "Numerator",
+  strDenominatorCol = "Denominator",
 )
 
 }

@@ -1,24 +1,35 @@
-#' Visualize_KRI Function
+#' Visualize_Metric Function
 #'
-#' The function Visualize_KRI creates three different types of charts (scatter plot and two bar charts) using the gsm package.
+#' The function creates all available charts for a metric using the data provided
 #'
 #' @param dfSummary `data.frame` A data.frame returned by [gsm::Summarize()].
-#' @param dfSite `data.frame` Site metadata.
 #' @param dfBounds `data.frame`, A data.frame returned by [gsm::Analyze_NormalApprox_PredictBounds()] or [gsm::Analyze_Poisson_PredictBounds()]
-#' @param dfParams `data.frame` A data.frame containing parameters to use for longitudinal charts
-#' @param lLabels `list` Workflow metadata.
-#' @param strSnapshotDate `character` a sting in yyyy-mm-dd format containing date of snapshot
+#' @param dfMetrics `data.frame` Metrics metadata.
+#' @param dfSite `data.frame` Site metadata.
+#' @param dfParams `data.frame` Parameters metadata.
+#' @param strMetricID `character` MetricID to subset the data.
+#' @param strSnapshotDate `character` Snapshot date to subset the data.
 #'
-#' @return A list (lCharts) containing three charts - scatterJS, barMetricJS, and barScoreJS.
+#' @return A list containing the following charts:
+#' - scatterJS: A scatter plot using JavaScript.
+#' - scatter: A scatter plot using ggplot2.
+#' - barMetricJS: A bar chart using JavaScript with metric on the y-axis.
+#' - barScoreJS: A bar chart using JavaScript with score on the y-axis.
+#' - barMetric: A bar chart using ggplot2 with metric on the y-axis.
+#' - barScore: A bar chart using ggplot2 with score on the y-axis.
+#' - timeSeriesContinuousScoreJS: A time series chart using JavaScript with score on the y-axis.
+#' - timeSeriesContinuousMetricJS: A time series chart using JavaScript with metric on the y-axis.
+#' - timeSeriesContinuousNumeratorJS: A time series chart using JavaScript with numerator on the y-axis.
 #'
 #' @export
 
-Visualize_KRI <- function(
+Visualize_Metric <- function(
     dfSummary,
-    dfSite = NULL,
     dfBounds = NULL,
+    dfSite = NULL,
+    dfMetrics = NULL,
     dfParams = NULL,
-    lLabels = NULL,
+    strMetricID = NULL,
     strSnapshotDate = NULL
 ) {
 
@@ -36,6 +47,24 @@ Visualize_KRI <- function(
     strSnapshotDate <- max(dfSummary$snapshot_date)
   }
 
+  # Filter to selected MetricID ----------------------------------------------
+  if(!is.null(strMetricID)){
+
+    if(!(strMetricID %in% unique(dfSummary$MetricID))){
+      cli::cli_alert_error("MetricID not found in dfSummary. No charts will be generated.")
+      return(NULL)
+    }else{
+      dfSummary <- dfSummary %>% filter(MetricID == strMetricID)
+      dfBounds <- dfBounds %>% filter(MetricID == strMetricID)
+      dfMetrics <- dfMetrics %>% filter(MetricID == strMetricID)
+    }
+  }
+
+  if(length(unique(dfSummary$MetricID)) > 1 | length(unique(dfBounds$MetricID)) > 1 | length(unique(dfMetrics$MetricID)) > 1){
+    cli_abort("Multiple MetricIDs found in dfSummary, dfBounds or dfMetrics. Specify `MetricID` to subset. No charts will be generated.")
+    return(NULL)
+  }
+
   # Cross-sectional Charts using most recent snapshot ------------------------
   lCharts <- list()
   dfSummary_current <- dfSummary %>% filter(snapshot_date == strSnapshotDate)
@@ -43,6 +72,8 @@ Visualize_KRI <- function(
   if(nrow(dfSummary_current) == 0){
     cli::cli_alert_warning("No data found for specified snapshot date: {strSnapshotDate}. No charts will be generated.")
   } else {
+    lLabels <- dfMetrics %>% as.list()
+
     lCharts$scatterJS <- gsm::Widget_ScatterPlot(
       dfSummary = dfSummary_current,
       lLabels = lLabels,
