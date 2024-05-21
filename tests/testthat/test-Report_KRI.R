@@ -4,6 +4,7 @@ lCharts <- list(
 
 dfSummary <- tibble::tibble(
  GroupID = c("10", "100", "101", "102", "103"),
+ GroupType = rep("Site", 5),
  Numerator = seq(2,10,2),
  Denomicator = seq(10,50,10),
  Metric = c(0.02, 0.02, 0.02, 0.02, 0.02),
@@ -17,7 +18,7 @@ dfSite <- clindata::ctms_site %>% rename(SiteID = site_num)
 dfMetrics <- tibble::tibble(
   metric = "Adverse Event Rate",
   workflowid = "kri0001",
-  group = "site"
+  group = "Site"
 )
 
 test_that("Check default output path when strOutpath is NULL", {
