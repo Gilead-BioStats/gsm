@@ -79,11 +79,3 @@ test_that("RunQuery checks if all templated columns are found in lMapping", {
   expect_no_error(RunQuery(query, df))
 })
 
-test_that("RunQuery throws an error if templated columns are not found in lMapping", {
-  # Create a sample data frame
-  df <- data.frame(
-    Name = c("John", "Jane", "Bob"),
-    Age = c(25, 30, 35),
-    Salary = c(50000, 60000, 70000)
-  )
-})

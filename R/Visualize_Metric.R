@@ -9,7 +9,7 @@
 #' @param dfParams `data.frame` Parameters metadata.
 #' @param strMetricID `character` MetricID to subset the data.
 #' @param strSnapshotDate `character` Snapshot date to subset the data.
-#' 
+#'
 #' @return A list containing the following charts:
 #' - scatterJS: A scatter plot using JavaScript.
 #' - scatter: A scatter plot using ggplot2.
@@ -20,7 +20,7 @@
 #' - timeSeriesContinuousScoreJS: A time series chart using JavaScript with score on the y-axis.
 #' - timeSeriesContinuousMetricJS: A time series chart using JavaScript with metric on the y-axis.
 #' - timeSeriesContinuousNumeratorJS: A time series chart using JavaScript with numerator on the y-axis.
-#' 
+#'
 #' @export
 
 Visualize_Metric <- function(
@@ -73,7 +73,7 @@ Visualize_Metric <- function(
     cli::cli_alert_warning("No data found for specified snapshot date: {strSnapshotDate}. No charts will be generated.")
   } else {
     lLabels <- dfMetrics %>% as.list()
-    
+
     lCharts$scatterJS <- gsm::Widget_ScatterPlot(
       dfSummary = dfSummary_current,
       lLabels = lLabels,
@@ -115,7 +115,7 @@ Visualize_Metric <- function(
       strType = "score",
       vThreshold = unlist(lLabels$thresholds)
     )
-  } 
+  }
   # Continuous Charts -------------------------------------------------------
   if ( number_of_snapshots <= 1 ) {
     cli::cli_alert_info("Only one snapshot found. Time series charts will not be generated.")

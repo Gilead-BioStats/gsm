@@ -1,62 +1,71 @@
-# # Create dummy data for testing
 # dfSummary <- data.frame(
-#   MetricID = c("metric1", "metric1"),
-#   snapshot_date = as.Date(c("2024-01-01", "2024-01-02")),
-#   value = c(100, 200)
+#   MetricID = rep("M1", 5),
+#   snapshot_date = as.Date(c("2024-01-01", "2024-01-01", "2024-01-02", "2024-01-02", "2024-01-02")),
+#   group = rep("Group A", 5),
+#   Metric = 1:5,
+#   Score = 6:10
 # )
 #
 # dfBounds <- data.frame(
-#   MetricID = c("metric1"),
-#   lower_bound = c(50),
-#   upper_bound = c(150)
+#   MetricID = "M1",
+#   Threshold = 0,
+#   LowBound = -1,
+#   HighBound = 1
 # )
 #
 # dfMetrics <- data.frame(
-#   MetricID = c("metric1"),
-#   abbreviation = c("M1"),
-#   group = c("Group1"),
-#   thresholds = I(list(c(80, 120)))
+#   MetricID = "M1",
+#   group = "Group A",
+#   abbreviation = "Metric A",
+#   thresholds = c(-1, 0, 1)
 # )
 #
 # dfParams <- data.frame(
-#   param1 = c(1, 2),
-#   param2 = c(3, 4)
+#   workflowid = rep("qtl0004", 5),
+#   param = "strGroup",
+#   default_s = "Group A"
 # )
 #
-# test_that("Sets snapshot_date to today if missing", {
-#   dfSummary_no_date <- dfSummary %>% select(-snapshot_date)
-#   result <- Visualize_Metric(dfSummary_no_date)
-#   expect_equal(unique(result$scatterJS$dfSummary$snapshot_date), Sys.Date())
+# dfSite <- data.frame(
+#   siteid = "Site A",
+#   sitename = "Site A Name"
+# )
+#
+# # Start testing
+# test_that("Visualize_Metric processes data correctly", {
+#   charts <- Visualize_Metric(dfSummary, dfBounds, dfSite, dfMetrics, dfParams, strMetricID = "M1")
+#
+#   # Test if the function returns a list of charts
+#   expect_true(is.list(charts))
+#
+#   # Test if the list contains expected chart names
+#   expect_true("scatterJS" %in% names(charts))
+#   expect_true("scatter" %in% names(charts))
+#   expect_true("barMetricJS" %in% names(charts))
+#   expect_true("barScoreJS" %in% names(charts))
+#   expect_true("barMetric" %in% names(charts))
+#   expect_true("barScore" %in% names(charts))
+#   expect_true("timeSeriesContinuousScoreJS" %in% names(charts))
+#   expect_true("timeSeriesContinuousMetricJS" %in% names(charts))
+#   expect_true("timeSeriesContinuousNumeratorJS" %in% names(charts))
 # })
 #
-# test_that("Uses most recent snapshot date if strSnapshotDate is missing", {
-#   result <- Visualize_Metric(dfSummary)
-#   expect_equal(result$scatterJS$dfSummary$snapshot_date, as.Date("2024-01-02"))
+# test_that("Visualize_Metric handles missing MetricID", {
+#   charts <- Visualize_Metric(dfSummary, dfBounds, dfSite, dfMetrics, dfParams, strMetricID = "M2")
+#
+#   # Test if the function returns NULL when MetricID is not found
+#   expect_null(charts)
 # })
 #
-# test_that("Returns NULL and logs error if MetricID not found", {
-#   expect_output({
-#     result <- Visualize_Metric(dfSummary, strMetricID = "nonexistent_metric")
-#   }, "MetricID not found in dfSummary. No charts will be generated.")
-#   expect_null(result)
-# })
+# test_that("Visualize_Metric handles multiple snapshots", {
+#   # Add another snapshot to the data frame
+#   dfSummary <- bind_rows(dfSummary, mutate(dfSummary, snapshot_date = as.Date("2024-01-03")))
 #
-# test_that("Returns NULL and logs error if multiple MetricIDs found", {
-#   dfSummary_multiple_metrics <- rbind(dfSummary, data.frame(MetricID = "metric2", snapshot_date = as.Date("2024-01-01"), value = 300))
-#   expect_output({
-#     result <- Visualize_Metric(dfSummary_multiple_metrics)
-#   }, "Multiple MetricIDs found in dfSummary, dfBounds or dfMetrics. Specify `MetricID` to subset. No charts will be generated.")
-#   expect_null(result)
-# })
+#   charts <- Visualize_Metric(dfSummary, dfBounds, dfSite, dfMetrics, dfParams, strMetricID = "M1")
 #
-# test_that("Generates charts correctly for valid data", {
-#   result <- Visualize_Metric(dfSummary, dfBounds, NULL, dfMetrics, dfParams)
-#   expect_true("scatterJS" %in% names(result))
-#   expect_true("barMetricJS" %in% names(result))
-#   expect_true("barScoreJS" %in% names(result))
-#   expect_true("barMetric" %in% names(result))
-#   expect_true("barScore" %in% names(result))
-#
-#   expect_equal(result$scatterJS$dfSummary$snapshot_date, as.Date("2024-01-02"))
-#   expect_equal(result$scatterJS$lLabels$abbreviation, "M1")
+#   # Test if time series charts are generated when there are multiple snapshots
+#   expect_true("timeSeriesContinuousScoreJS" %in% names(charts))
+#   expect_true("timeSeriesContinuousMetricJS" %in% names(charts))
+#   expect_true("timeSeriesContinuousNumeratorJS" %in% names(charts))
 # })
+
