@@ -4,16 +4,14 @@
 \alias{Report_OverviewText}
 \title{Create message describing study summary for Report}
 \usage{
-Report_OverviewText(strType, dfSummary, dfStudy)
+Report_OverviewText(lSetup, dfSummary, dfStudy)
 }
 \arguments{
-\item{report}{\code{string} type of report being run}
+\item{lSetup}{\code{list} that is produced by \code{Report_StudyInfo(dfStudy = params$dfStudy)}.}
 
-\item{status_study}{\code{data.frame} the snapshot status study output created with \code{Make_Snapshot()$lSnapshot$status_study}}
+\item{dfSummary}{\code{data.frame} containing summary information.}
 
-\item{overview_raw_table}{\code{data.frame} non interactive output of \code{Overview_Table()} for the relevant report.}
-
-\item{red_kris}{\code{string} a string or number containing the count of red flags in kri's}
+\item{dfStudy}{\code{data.frame} contains site-level metadata.}
 }
 \description{
 Create message describing study summary for Report
