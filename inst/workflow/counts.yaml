@@ -1,0 +1,20 @@
+meta:
+  file: counts.yaml
+  desctipion: site- and study-level participant and site counts
+steps:
+  - name: RunQuery
+    output: dfSiteCounts
+    params:
+      df: dfSUBJ
+      strQuery: "SELECT siteid as GroupID, COUNT(DISTINCT subjectid) as nSubjects, COUNT(DISTINCT siteid) as nSites FROM df GROUP BY siteid"  
+  - name: RunQuery
+    output: dfStudyCounts
+    params:
+      df: dfSUBJ
+      strQuery: "SELECT studyid as GroupID, COUNT(DISTINCT subjectid) as nSubjects, COUNT(DISTINCT siteid) as nSites FROM df GROUP BY studyid"
+  - name: bind_rows
+    output: dfCounts
+    params:
+      Site: dfSiteCounts
+      Study: dfStudyCounts
+      .id: 'GroupType'
