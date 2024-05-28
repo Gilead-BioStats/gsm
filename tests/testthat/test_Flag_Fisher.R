@@ -1,18 +1,12 @@
-source(testthat::test_path("testdata/data.R"))
-
-dfTransformed <- Transform_Rate(
-  dfInput = dfInputLB,
-  strGroupCol = "SiteID",
-  strNumeratorCol = "Count",
-  strDenominatorCol = "Total"
+dfAnalyzed <- tibble::tribble(
+  ~GroupID, ~Numerator, ~Numerator_Other, ~Denominator, ~Denominator_Other, ~Prop, ~Prop_Other, ~Metric, ~Estimate, ~Score,
+  "5", 26, 8, 846, 154, 0.0307, 0.0519, 0.0307, 0.579, 0.222,
+  "78", 8, 26, 154, 846, 0.0519, 0.0307, 0.0519, 1.73, 0.222
 )
-
-dfAnalyzed <- Analyze_Fisher(dfTransformed)
-
 test_that("output is created as expected", {
   dfFlagged <- Flag_Fisher(dfAnalyzed, vThreshold = c(-.05, .05))
   expect_true(is.data.frame(dfFlagged))
-  expect_equal(sort(unique(dfInputLB$SiteID)), sort(dfFlagged$GroupID))
+  expect_equal(sort(unique(dfAnalyzed$GroupID)), sort(dfFlagged$GroupID))
   expect_true(all(names(dfAnalyzed) %in% names(dfFlagged)))
   expect_equal(names(dfFlagged), c("GroupID", "Numerator", "Numerator_Other", "Denominator", "Denominator_Other", "Prop", "Prop_Other", "Metric", "Estimate", "Score", "Flag"))
   expect_equal(length(unique(dfAnalyzed$GroupID)), length(unique(dfFlagged$GroupID)))

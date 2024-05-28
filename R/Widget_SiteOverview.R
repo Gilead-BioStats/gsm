@@ -32,7 +32,7 @@
 #'  \item{\code{data_filters}}
 #' }
 #'
-#' @param dfSite `data.frame` Site metadata returned by [gsm::Site_Map_Raw()].
+#' @param dfSite `data.frame` Site metadata.
 #'
 #' @param dfWorkflow `data.frame` Workflow metadata with columns:
 #' \itemize{
@@ -46,17 +46,17 @@
 #' @param elementId ID of container HTML element
 #'
 #' @examples
-#' study_assessment <- Study_Assess()
+#' study_assessment <- Study_Assess(lWorkflows = MakeWorkflowList(strNames = c("kri0001", "cou0001")))
 #'
 #' kri_results <- study_assessment %>%
-#'     imap_dfr(function(kri, workflowid) {
-#'         kri$lResults$lData$dfSummary %>%
-#'             rename_with(tolower) %>%
-#'             mutate(
+#'     purrr::imap_dfr(function(kri, workflowid) {
+#'         kri$lData$dfSummary %>%
+#'             dplyr::rename_with(tolower) %>%
+#'             dplyr::mutate(
 #'                 workflowid = !!workflowid
 #'             )
 #'     }) %>%
-#'     filter(grepl('^kri', workflowid))
+#'     dplyr::filter(grepl('^kri', workflowid))
 #'
 #' Widget_SiteOverview(kri_results)
 #'
@@ -65,7 +65,7 @@
 Widget_SiteOverview <- function(
   dfSummary,
   lConfig = list(),
-  dfSite = Site_Map_Raw(),
+  dfSite = clindata::ctms_site,
   dfWorkflow = gsm::meta_workflow,
   width = NULL,
   height = NULL,

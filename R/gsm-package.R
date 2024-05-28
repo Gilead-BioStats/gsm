@@ -4,8 +4,8 @@
 ## usethis namespace: start
 
 #' @import dplyr
-#' @import purrr
 #' @import ggplot2
+#' @import purrr
 #' @importFrom arrow write_parquet
 #' @importFrom broom augment
 #' @importFrom broom glance
@@ -38,6 +38,7 @@
 #' @importFrom lifecycle deprecated
 #' @importFrom lubridate as.period
 #' @importFrom lubridate interval
+#' @importFrom purrr map
 #' @importFrom rlang check_installed
 #' @importFrom sqldf sqldf
 #' @importFrom stats binom.test
@@ -58,6 +59,7 @@
 #' @importFrom stringr str_replace
 #' @importFrom stringr str_subset
 #' @importFrom stringr word
+#' @importFrom testthat test_that
 #' @importFrom tibble enframe
 #' @importFrom tibble rownames_to_column
 #' @importFrom tibble tibble

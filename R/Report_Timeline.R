@@ -77,9 +77,8 @@ Make_Timeline <- function(status_study, longitudinal = NULL, n_breaks = 10, date
         legend.position = c(0.5, 0.35),
         legend.title = element_text(vjust = 2.5),
         legend.key = element_rect(fill = "white"),
-        legend.text.align = 0,
         legend.box = "horizontal",
-        legend.text = element_text(size = 8),
+        legend.text = element_text(hjust = 0, size = 8),
         legend.margin = margin(
           t = 1,
           r = 1,
@@ -98,7 +97,7 @@ Make_Timeline <- function(status_study, longitudinal = NULL, n_breaks = 10, date
     }
 
     # Generate Plot
-    a <- ggplot(d, aes_string(d$date, d$disp)) +
+    a <- ggplot(d, aes(date, disp)) +
       scale_x_date(
         date_labels = date_format,
         limits = c(

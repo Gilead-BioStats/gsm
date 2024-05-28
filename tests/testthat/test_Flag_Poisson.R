@@ -1,18 +1,19 @@
-source(testthat::test_path("testdata/data.R"))
-
-dfTransformed <- Transform_Rate(
-  dfInput = dfInputAE,
-  strGroupCol = "SiteID",
-  strNumeratorCol = "Count",
-  strDenominatorCol = "Exposure"
+dfAnalyzed <- tibble::tribble(
+  ~GroupID, ~Numerator, ~Denominator, ~Metric, ~Score, ~PredictedCount,
+  "109", 0, 848, 0, -3.39, 5.74,
+  "144", 0, 761, 0, -3.31, 5.48,
+  "177", 0, 676, 0, -3.23, 5.22,
+  "176", 0, 673, 0, -3.23, 5.21,
+  "127", 0, 569, 0, -3.12, 4.86,
+  "15", 1, 842, 0.00119, -2.44, 5.72,
+  "34", 1, 841, 0.00119, -2.44, 5.72,
+  "146", 1, 836, 0.00120, -2.43, 5.70
 )
-
-dfAnalyzed <- Analyze_Poisson(dfTransformed)
 
 test_that("output is created as expected", {
   dfFlagged <- Flag_Poisson(dfAnalyzed, vThreshold = c(-.05, -.005, .005, .05))
   expect_true(is.data.frame(dfFlagged))
-  expect_equal(sort(unique(dfInputAE$SiteID)), sort(dfFlagged$GroupID))
+  expect_equal(sort(unique(dfAnalyzed$GroupID)), sort(dfFlagged$GroupID))
   expect_true(all(names(dfAnalyzed) %in% names(dfFlagged)))
   expect_equal(names(dfFlagged), c("GroupID", "Numerator", "Denominator", "Metric", "Score", "PredictedCount", "Flag"))
   expect_equal(length(unique(dfAnalyzed$GroupID)), length(unique(dfFlagged$GroupID)))

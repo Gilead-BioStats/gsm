@@ -66,17 +66,4 @@ The data requirements for the function are as follows:
 All other columns are dropped from the output data frame. Note that if no values for a subject are
 found in dfNumerator/dfDenominator numerator and denominator values are filled with 0 in the output data frame.
 }
-\examples{
-# Run for AE KRI
-dfInput <- Input_Rate(
- dfs = list(
-  dfSubjects = clindata::rawplus_dm,
-  dfNumerator = clindata::rawplus_ae,
-  dfDenominator = clindata::rawplus_dm
-),
-strNumeratorMethod = "Count",
-strDenominatorMethod = "Sum",
-strDenominatorCol = "timeontreatment"
-)
-
-}
+\keyword{interal}

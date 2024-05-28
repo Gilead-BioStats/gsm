@@ -1,21 +1,19 @@
 # binary outcome ----------------------------------------------------------
-dfInput <- Disp_Map_Raw()
-dfTransformed <- Transform_Rate(
-  dfInput,
-  strNumeratorCol = "Count",
-  strDenominatorCol = "Total",
-  strGroupCol = "StudyID"
+dfTransformed <- tibble::tibble(
+  GroupID      = c("AA-AA-000-0000"),
+  Numerator    = c(122),
+  Denominator  = c(1301),
+  Metric       = c(0.0938)
 )
 dfAnalyzed <- Analyze_QTL(dfTransformed, strOutcome = "binary")
 
 
 # rate outcome ------------------------------------------------------------
-dfInputRate <- PD_Map_Raw_Rate()
-dfTransformedRate <- Transform_Rate(
-  dfInputRate,
-  strGroupCol = "StudyID",
-  strNumeratorCol = "Count",
-  strDenominatorCol = "Rate"
+dfTransformedRate <- tibble::tibble(
+  GroupID      = c("AA-AA-000-0000"),
+  Numerator    = c(4473),
+  Denominator  = c(6.19),
+  Metric       = c(723)
 )
 dfAnalyzedRate <- Analyze_QTL(dfTransformedRate, strOutcome = "rate")
 

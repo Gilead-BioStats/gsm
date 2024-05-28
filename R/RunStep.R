@@ -3,7 +3,7 @@
 #' `r lifecycle::badge("stable")`
 #'
 #' @description
-#' Runs a single step of an assessment workflow. This function is called by `RunWorkflow` for each 
+#' Runs a single step of an assessment workflow. This function is called by `RunWorkflow` for each
 #' step in the workflow. It prepares the parameters for the function call, including the metadata,
 #' mapping, and data inputs. It then calls the function specified in `lStep$name` with the prepared
 #' parameters.
@@ -11,9 +11,8 @@
 #' @param lStep `list` single workflow step (typically defined in `lWorkflow$workflow`). Should
 #'   include the name of the function to run (`lStep$name`), data inputs (`lStep$inputs`), name of
 #'   output (`lStep$output`) and configurable parameters (`lStep$params`) (if any)
-#' @param lData `list` a named list of domain level data frames. Names should match the values
-#'   specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs
-#'   from `X_Map_Raw`.
+#' @param lData `list` a named list of domain level data frames.
+#' @param lMeta `list` a named list of meta data.
 #'
 #' @examples
 #' lStep <- MakeWorkflowList()[["kri0001"]][["steps"]][[1]]
@@ -79,7 +78,7 @@ RunStep <- function(lStep, lData, lMeta) {
     #     params[[paramName]] <- lData[paramVal]
     #   } else {
     #     cli::cli_alert_warning("Data for {paramVal} not found in workflow. This might bomb soon ...")
-    #   }      
+    #   }
     # }
   }
 

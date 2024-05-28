@@ -28,6 +28,7 @@ Imports:
     arrow,
     broom,
     cli,
+    DBI,
     dplyr,
     ggplot2,
     glue,
@@ -40,8 +41,10 @@ Imports:
     magrittr,
     purrr,
     rlang (>= 0.4.11),
+    sqldf,
     stats,
     stringr,
+    testthat,
     tibble,
     tidyr,
     tools,
@@ -68,8 +71,7 @@ Suggests:
     rstudioapi,
     safetyData,
     styler,
-    usethis,
-    testthat (>= 3.0.0)
+    usethis
 VignetteBuilder: 
     knitr
 Remotes:
