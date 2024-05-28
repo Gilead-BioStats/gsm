@@ -12,9 +12,15 @@ steps:
     params:
       df: dfEnrolled
       strQuery: "SELECT studyid as GroupID, COUNT(DISTINCT subjectid) as nSubjects, COUNT(DISTINCT siteid) as nSites FROM df GROUP BY studyid"
+  - name: RunQuery
+    output: dfCountryCounts   
+    params:
+      df: dfEnrolled
+      strQuery: "SELECT country as GroupID, COUNT(DISTINCT subjectid) as nSubjects, COUNT(DISTINCT siteid) as nSites FROM df GROUP BY country"
   - name: bind_rows
     output: dfCounts
     params:
       Site: dfSiteCounts
       Study: dfStudyCounts
+      Country: dfCountryCounts
       .id: 'GroupType'
