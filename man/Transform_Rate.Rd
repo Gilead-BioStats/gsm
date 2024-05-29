@@ -33,13 +33,6 @@ This function transforms data to prepare it for the analysis step. It is current
 \section{Data Specification}{
 
 
-The input data (\code{dfInput}) for the Assessment is typically created using any of these functions:
-\code{\link{AE_Map_Raw}}
-\code{\link{AE_Map_Adam}}
-\code{\link{Disp_Map_Raw}}
-\code{\link{LB_Map_Raw}}
-\code{\link{PD_Map_Raw_Rate}}
-
 (\code{dfInput}) must include the columns specified by \code{strNumeratorCol}, \code{strDenominatorCol} and \code{strGroupCol}.
 Required columns include:
 \itemize{

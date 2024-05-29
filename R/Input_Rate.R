@@ -54,6 +54,7 @@
 #' )
 #'
 #' @export
+#' @keywords interal
 
 Input_Rate <- function(
     dfSubjects,

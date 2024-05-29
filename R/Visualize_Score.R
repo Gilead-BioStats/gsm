@@ -11,13 +11,26 @@
 #' @return group-level ggplot2 object.
 #'
 #' @examples
-#' ae <- AE_Map_Raw() %>% AE_Assess()
-#'
-#' Visualize_Score(ae$lData$dfSummary) # visualize KRI (default)
-#' Visualize_Score(ae$lData$dfSummary, bFlagFilter = TRUE) # drop non-flagged groups
-#'
-#' consent <- Consent_Map_Raw() %>% Consent_Assess()
-#' Visualize_Score(consent$lData$dfSummary, strType = "score") # visualize score
+#' lData <- gsm::UseClindata(
+#' list(
+#'   "dfSUBJ" = "clindata::rawplus_dm",
+#'   "dfAE" = "clindata::rawplus_ae",
+#'   "dfPD" = "clindata::ctms_protdev",
+#'   "dfCONSENT" = "clindata::rawplus_consent",
+#'   "dfIE" = "clindata::rawplus_ie",
+#'   "dfLB" = "clindata::rawplus_lb",
+#'   "dfSTUDCOMP" = "clindata::rawplus_studcomp",
+#'   "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp %>%
+#'           dplyr::filter(.data$phase == 'Blinded Study Drug Completion')",
+#'   "dfDATACHG" = "clindata::edc_data_points",
+#'   "dfDATAENT" = "clindata::edc_data_pages",
+#'   "dfQUERY" = "clindata::edc_queries",
+#'   "dfENROLL" = "clindata::rawplus_enroll"
+#' )
+#' )
+#' ae_workflow <- MakeWorkflowList(strNames = "kri0001")
+#' AE <- purrr::map(ae_workflow, ~RunWorkflow(., lData))
+#' Visualize_Score(AE$kri0001$lData$dfSummary, dfBounds)
 #'
 #' @export
 

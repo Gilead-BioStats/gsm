@@ -11,9 +11,8 @@
 #' @param lStep `list` single workflow step (typically defined in `lWorkflow$workflow`). Should
 #'   include the name of the function to run (`lStep$name`), data inputs (`lStep$inputs`), name of
 #'   output (`lStep$output`) and configurable parameters (`lStep$params`) (if any)
-#' @param lData `list` a named list of domain level data frames. Names should match the values
-#'   specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs
-#'   from `X_Map_Raw`.
+#' @param lData `list` a named list of domain level data frames.
+#' @param lMeta `list` a named list of meta data.
 #'
 #' @examples
 #' lStep <- MakeWorkflowList()[["kri0001"]][["steps"]][[1]]

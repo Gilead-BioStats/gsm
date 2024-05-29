@@ -19,13 +19,13 @@ Widget_TimeSeriesQTL(
 \arguments{
 \item{qtl}{specific qtl to filter to}
 
-\item{dfSummary}{\code{data.frame} Longitudinal data, typically \code{rpt_site_kri_details} from \code{\link[=Make_Snapshot]{Make_Snapshot()}}.}
+\item{dfSummary}{\code{data.frame} Longitudinal data.}
 
-\item{lLabels}{\code{list} Longitudinal workflow/metadata, typically \code{rpt_kri_details} from \code{\link[=Make_Snapshot]{Make_Snapshot()}}.}
+\item{lLabels}{\code{list} Longitudinal workflow/metadata.}
 
-\item{dfParams}{\code{data.frame} Longitudinal parameter/configuration data, typically \code{rpt_kri_threshold_param} from \code{\link[=Make_Snapshot]{Make_Snapshot()}}.}
+\item{dfParams}{\code{data.frame} Longitudinal parameter/configuration data.}
 
-\item{dfAnalysis}{\code{data.frame} Longitudinal QTL analysis results, typically \code{rpt_qtl_analysis} from  \code{\link[=Make_Snapshot]{Make_Snapshot()}}.}
+\item{dfAnalysis}{\code{data.frame} Longitudinal QTL analysis results.}
 
 \item{selectedGroupIDs}{TODO}
 

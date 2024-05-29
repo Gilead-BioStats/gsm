@@ -12,12 +12,28 @@
 #' @return group-level plot object.
 #'
 #' @examples
-#' dfInput <- AE_Map_Adam()
-#' SafetyAE <- AE_Assess(dfInput)
-#' dfBounds <- Analyze_Poisson_PredictBounds(SafetyAE$lData$dfTransformed, c(-5, 5))
-#' Visualize_Scatter(SafetyAE$lData$dfSummary, dfBounds)
+#' lData <- gsm::UseClindata(
+#'   list(
+#'     "dfSUBJ" = "clindata::rawplus_dm",
+#'     "dfAE" = "clindata::rawplus_ae",
+#'     "dfPD" = "clindata::ctms_protdev",
+#'     "dfCONSENT" = "clindata::rawplus_consent",
+#'     "dfIE" = "clindata::rawplus_ie",
+#'     "dfLB" = "clindata::rawplus_lb",
+#'     "dfSTUDCOMP" = "clindata::rawplus_studcomp",
+#'     "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp %>%
+#'           dplyr::filter(.data$phase == 'Blinded Study Drug Completion')",
+#'     "dfDATACHG" = "clindata::edc_data_points",
+#'     "dfDATAENT" = "clindata::edc_data_pages",
+#'     "dfQUERY" = "clindata::edc_queries",
+#'     "dfENROLL" = "clindata::rawplus_enroll"
+#'   )
+#' )
+#' ae <- MakeWorkflowList(strNames = "kri0001")
+#' SafetyAE <- purrr::map(ae, ~RunWorkflow(., lData))
+#' dfBounds <- Analyze_Poisson_PredictBounds(SafetyAE$kri0001$lData$dfTransformed, c(-5, 5))
+#' Visualize_Scatter(SafetyAE$kri0001$lData$dfSummary, dfBounds)
 #'
-#' # TODO: add stratified example
 #'
 #' @export
 

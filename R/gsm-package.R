@@ -43,6 +43,7 @@
 #' @importFrom lifecycle deprecated
 #' @importFrom lubridate as.period
 #' @importFrom lubridate interval
+#' @importFrom purrr map
 #' @importFrom rlang check_installed
 #' @importFrom sqldf sqldf
 #' @importFrom stats binom.test

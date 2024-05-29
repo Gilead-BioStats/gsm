@@ -11,13 +11,6 @@
 #'
 #' @section Data Specification:
 #'
-#' The input data (`dfInput`) for the Assessment is typically created using any of these functions:
-#'  \code{\link{AE_Map_Raw}}
-#'  \code{\link{AE_Map_Adam}}
-#'  \code{\link{Disp_Map_Raw}}
-#'  \code{\link{LB_Map_Raw}}
-#'  \code{\link{PD_Map_Raw_Rate}}
-#'
 #' (`dfInput`) must include the columns specified by `strNumeratorCol`, `strDenominatorCol` and `strGroupCol`.
 #' Required columns include:
 #' - `SiteID` - Site ID
