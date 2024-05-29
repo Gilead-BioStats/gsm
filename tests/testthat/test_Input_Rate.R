@@ -1,5 +1,3 @@
-context("Testing Input_Rate Function")
-
 test_that("all input data frames must be non-null", {
   expect_error(Input_Rate(NULL, data.frame(), data.frame()))
   expect_error(Input_Rate(data.frame(), NULL, data.frame()))
