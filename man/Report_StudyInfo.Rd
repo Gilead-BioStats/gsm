@@ -17,3 +17,4 @@ None
 \description{
 This function generates a table summarizing study metadata.
 }
+\keyword{internal}
