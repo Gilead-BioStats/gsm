@@ -11,16 +11,30 @@
 #'
 #' @export
 
-Report_MetricTable <- function(dfSummary, dfSite) {
+Report_MetricTable <- function(dfSummary, dfSite, strSnapshotDate = NULL) { 
     rlang::check_installed("DT", reason = "to run `Study_Report()`")
 
+    # Check for multiple snapshots --------------------------------------------
+    # if snapshot_date is missing set it to today for all records
+    if (!"snapshot_date" %in% colnames(dfSummary)) {
+        dfSummary$snapshot_date <- as.Date(Sys.Date())
+    }
+
+    # use most recent snapshot date if strSnapshotDate is missing
+    if(is.null(strSnapshotDate)){
+        strSnapshotDate <- max(dfSummary$snapshot_date)
+    }
+
+    dfSummary <- dfSummary %>% filter(snapshot_date == strSnapshotDate)
+
+    # Add Site Metadata ------------------------------------------------------------
     dfSummary <- dfSummary %>%
         left_join(
             dfSite %>% select("SiteID", "pi_last_name","country", "site_status"),
             c("GroupID" = "SiteID")
         )
 
-
+    # Select Flagged metrics and format table -----------------------------------
     if (nrow(dfSummary) > 0 & any(c(-2, -1, 1, 2) %in% unique(dfSummary$Flag))) {
         SummaryTable <- dfSummary %>%
             filter(.data$Flag != 0) %>%

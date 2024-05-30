@@ -41,15 +41,16 @@ Widget_TimeSeries <- function(
   # -- this is the data format expected by JS library {rbm-viz}
 
   dfSummary <- dfSummary %>%
+    dplyr::rename_with(tolower) %>%
     select(
       "studyid",
-      "groupid" = "siteid",
-      "numerator" = "numerator_value",
-      "denominator" = "denominator_value",
-      "metric" = "metric_value",
+      "groupid",
+      "numerator" ,
+      "denominator",
+      "metric",
       "score",
-      "flag" = "flag_value",
-      "gsm_analysis_date",
+      "flag",
+      #"gsm_analysis_date",
       "snapshot_date"
     )
 
@@ -61,9 +62,10 @@ Widget_TimeSeries <- function(
   }
 
   lLabels <- lLabels %>%
+    dplyr::rename_with(tolower) %>%
     select(
       any_of(c(
-      "workflowid",
+      "metricid",
       "group",
       "abbreviation",
       "metric",
@@ -83,13 +85,12 @@ Widget_TimeSeries <- function(
 
     dfParams <- dfParams %>%
       select(
-        "workflowid",
+        "metricid",
         "param",
         "index",
-        "gsm_analysis_date",
         "snapshot_date",
         "studyid",
-        "value" = "default_s"
+        "value"
       )
 
     dfParams <- jsonlite::toJSON(dfParams, na = "string")
@@ -130,7 +131,7 @@ Widget_TimeSeries <- function(
         htmltools::tags$span(siteSelectLabelValue),
         htmltools::tags$select(
           class = "site-select--time-series",
-          id = glue::glue("site-select--time-series_{unique(lLabels$workflowid)}"),
+          id = glue::glue("site-select--time-series_{unique(lLabels$metricid)}"),
           purrr::map(
             c("None", uniqueSiteSelections),
             ~ htmltools::HTML(paste0(

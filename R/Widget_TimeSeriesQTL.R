@@ -33,7 +33,7 @@ Widget_TimeSeriesQTL <- function(qtl,
     ) %>%
     dplyr::select(
       "studyid",
-      "workflowid",
+      "metricid",
       "groupid" = "siteid",
       "numerator" = "numerator_value",
       "denominator" = "denominator_value",
@@ -43,7 +43,7 @@ Widget_TimeSeriesQTL <- function(qtl,
       "gsm_analysis_date",
       "snapshot_date"
     ) %>%
-    dplyr::filter(.data$workflowid == qtl) %>%
+    dplyr::filter(.data$metricid == qtl) %>%
     jsonlite::toJSON()
 
 
@@ -70,7 +70,7 @@ Widget_TimeSeriesQTL <- function(qtl,
   # }
 
   parameters <- dfParams %>%
-    dplyr::filter(.data$workflowid == qtl) %>%
+    dplyr::filter(.data$metricid == qtl) %>%
     mutate(
       value = .data$default_s,
       groupid = ""
@@ -105,7 +105,7 @@ Widget_TimeSeriesQTL <- function(qtl,
     dplyr::filter(.data$workflowid == qtl) %>%
     select(
       "studyid",
-      "workflowid",
+      "metricid",
       "param",
       "value",
       "gsm_analysis_date",
