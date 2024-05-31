@@ -4,7 +4,7 @@
 \alias{Report_MetricTable}
 \title{Generate a summary table for a report}
 \usage{
-Report_MetricTable(dfSummary, dfSite)
+Report_MetricTable(dfSummary, dfSite, strSnapshotDate = NULL)
 }
 \arguments{
 \item{dfSummary}{The summary data frame}
