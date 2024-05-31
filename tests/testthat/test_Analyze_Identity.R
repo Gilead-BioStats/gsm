@@ -1,13 +1,9 @@
-dfTransformed <- tibble::tibble(
-  GroupID = c(1,2,3,4),
-  TotalCount = c(2,4,15,3),
-  Metric = c(2,4,15,3)
-)
+dfTransformed <- Transform_Rate(sampleInput)
 dfAnalyzed <- Analyze_Identity(dfTransformed)
 
 test_that("output created as expected and has correct structure", {
   expect_true(is.data.frame(dfAnalyzed))
-  expect_equal(names(dfAnalyzed), c("GroupID", "TotalCount", "Metric", "Score"))
+  expect_equal(names(dfAnalyzed), c("GroupID", "GroupType", "Numerator", "Denominator", "Metric", "Score"))
   expect_equal(dfAnalyzed$Metric, dfAnalyzed$Score)
 })
 
@@ -27,6 +23,6 @@ test_that("strValueCol works as intended", {
   dfAnalyzed <- Analyze_Identity(dfTransformed, strValueCol = "customKRI")
 
   #expect_silent(Analyze_Identity(dfTransformed, strValueCol = "customKRI"))
-  expect_equal(names(dfAnalyzed), c("GroupID", "TotalCount", "customKRI", "Score"))
+  expect_equal(names(dfAnalyzed), c("GroupID", "GroupType", "Numerator", "Denominator", "customKRI", "Score"))
 })
 

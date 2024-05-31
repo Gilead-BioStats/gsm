@@ -1,8 +1,4 @@
-dfAnalyzed <- tibble::tribble(
-  ~GroupID, ~Numerator, ~Numerator_Other, ~Denominator, ~Denominator_Other, ~Prop, ~Prop_Other, ~Metric, ~Estimate, ~Score,
-  "5", 26, 8, 846, 154, 0.0307, 0.0519, 0.0307, 0.579, 0.222,
-  "78", 8, 26, 154, 846, 0.0519, 0.0307, 0.0519, 1.73, 0.222
-)
+dfAnalyzed <- Transform_Rate(sampleInput) %>% Analyze_Fisher()
 test_that("output is created as expected", {
   dfFlagged <- Flag_Fisher(dfAnalyzed, vThreshold = c(-.05, .05))
   expect_true(is.data.frame(dfFlagged))
