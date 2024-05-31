@@ -5,11 +5,15 @@
 #' @param dfStudy A data frame containing study information.
 #' @param dfStudyLabels A data frame containing study labels. Default is NULL.
 #'
+#' @export
+#'
 #' @return None
+#'
+#' @keywords internal
 
 
 Report_StudyInfo <- function(
-    dfStudy, 
+    dfStudy,
     dfStudyLabels=NULL
 ) {
   rlang::check_installed("gt", reason = "to render table from `MakeStudyStatusTable`")
@@ -83,14 +87,14 @@ Report_StudyInfo <- function(
     select(
       "Parameter" = "Description",
       "Value"
-    ) 
+    )
 
   show_table <- study_status_table %>%
     slice(1:5) %>%
     gt::gt(id = "study_table")
 
   hide_table <- study_status_table %>%
-    gt::gt(id = "study_table_hide") 
+    gt::gt(id = "study_table_hide")
 
   toggle_switch <- glue::glue('<label class="toggle">
   <input class="toggle-checkbox btn-show-details" type="checkbox">

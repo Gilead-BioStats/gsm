@@ -62,7 +62,7 @@ Report_StudyInfo(dfStudy = params$dfStudy)
 htmltools::div(
   style = "table-layout: fixed; width: 100%; overflow: auto;",
   Widget_SiteOverview(
-    dfSummary= params$dfSummary %>% rename_with(tolower),
+    dfSummary= params$dfSummary %>% dplyr::rename_with(tolower),
     dfSite= params$dfSite
   )
 )

@@ -63,3 +63,19 @@ test_that("RunQuery checks if strQuery contains 'FROM df'", {
   # Call the RunQuery function and expect an error
   expect_error(RunQuery(query, df), "strQuery must contain 'FROM df'")
 })
+
+test_that("RunQuery checks if all templated columns are found in lMapping", {
+  # Create a sample data frame
+  df <- data.frame(
+    Name = c("John", "Jane", "Bob"),
+    Age = c(25, 30, 35),
+    Salary = c(50000, 60000, 70000)
+  )
+
+  # Define the query and mapping
+  query <- "SELECT * FROM df WHERE Age >= 30"
+
+  # Call the RunQuery function and expect no error
+  expect_no_error(RunQuery(query, df))
+})
+
