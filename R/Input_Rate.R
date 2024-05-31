@@ -35,7 +35,7 @@
 #' |--------------|--------------------------------------|----------|
 #' | SubjectID    | The subject ID                       | Character|
 #' | GroupID      | The group ID                         | Character|
-#' | GroupType    | The group type                       | Character|
+#' | GroupLevel    | The group type                       | Character|
 #' | Numerator    | The calculated numerator value       | Numeric  |
 #' | Denominator  | The calculated denominator value     | Numeric  |
 #' | Rate         | The calculated input rate            | Numeric  |
@@ -100,9 +100,9 @@ Input_Rate <- function(
         mutate(
             SubjectID = .data[[strSubjectCol]],
             GroupID = .data[[strGroupCol]],
-            GroupType = strGroupCol
+            GroupLevel = strGroupCol
         ) %>%
-        select(SubjectID, GroupID, GroupType)
+        select(SubjectID, GroupID, GroupLevel)
 
     #Calculate Numerator
     dfNumerator <- dfNumerator %>%
