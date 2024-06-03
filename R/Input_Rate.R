@@ -106,7 +106,7 @@ Input_Rate <- function(
 
     #Calculate Numerator
     dfNumerator <- dfNumerator %>%
-        rename(SubjectID = .data[[strSubjectCol]])
+        rename('SubjectID' = !!strSubjectCol)
 
     if(strNumeratorMethod == "Count"){
         dfNumerator$Numerator <- 1
@@ -122,7 +122,7 @@ Input_Rate <- function(
 
     #Calculate Denominator
     dfDenominator <- dfDenominator %>%
-        rename(SubjectID = .data[[strSubjectCol]])
+        rename('SubjectID' = !!strSubjectCol)
 
     if(strDenominatorMethod == "Count"){
         dfDenominator$Denominator <- 1
