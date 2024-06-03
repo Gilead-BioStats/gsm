@@ -1,6 +1,6 @@
 #' QTL Analysis for Binary and Rate Outcomes.
 #'
-#' `r lifecycle::badge("stable")`
+#' `r lifecycle::badge("experimental")`
 #'
 #' @details
 #' Creates confidence intervals for the observed proportion of participants for the event of interest. Uses the exact binomial (`stats::binom.test`) or poisson test (`stats::poisson.test`).
