@@ -40,7 +40,7 @@ Input_Rate(
    Column Name \tab Description \tab Type \cr
    SubjectID \tab The subject ID \tab Character \cr
    GroupID \tab The group ID \tab Character \cr
-   GroupType \tab The group type \tab Character \cr
+   GroupLevel \tab The group type \tab Character \cr
    Numerator \tab The calculated numerator value \tab Numeric \cr
    Denominator \tab The calculated denominator value \tab Numeric \cr
    Rate \tab The calculated input rate \tab Numeric \cr

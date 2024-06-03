@@ -1,7 +1,7 @@
 ae_input <- tibble::tibble(
   SubjectID = c("01-701-1015", "01-701-1023", "01-701-1028", "01-701-1033"),
   GroupID    = c("701", "701", "702", "703"),
-  GroupType  = c("site", "site", "site", "site"),
+  GroupLevel  = c("site", "site", "site", "site"),
   Count     = c(2, 3, 1, 3),
   Exposure  = c(182, 28, 180, 14),
   Rate      = c(0.0109, 0.1071, 0.0055, 0.2142)
