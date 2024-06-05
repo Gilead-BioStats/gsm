@@ -13,10 +13,10 @@
 #'
 #' (`dfInput`) must include the columns specified by `strCountCol` and `strGroupCol`.
 #' Required columns include:
-#' - `SiteID` - Site ID
-#' - `StudyID` - Study ID
-#' - `CustomGroupID` - Custom Group ID
-#' - `Count` - Number of events of interest; the actual name of this column is specified by the parameter `strCountCol.`
+#' - `GroupID` - Group ID
+#' - `GroupLevel` - Group Type
+#' - `Numerator` - Number of events of interest; the actual name of this column is specified by the parameter `strNumeratorCol`
+#' - `Denominator` - Number of days on treatment; the actual name of this column is specified by the parameter `strDenominatorCol`
 #'
 #' The input data has one or more rows per site. `Transform_Count()` sums `strCountCol` for a `TotalCount` for each site. `Metric` is set to `TotalCount` to be used downstream in the workflow.
 #'
@@ -28,7 +28,7 @@
 #'
 #' @examples
 #'
-#' dfTransformed <- Transform_Count(sampleInput, strCountCol = "Count")
+#' dfTransformed <- Transform_Count(sampleInput, strCountCol = "Numerator")
 #'
 #' @export
 
