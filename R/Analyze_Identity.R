@@ -12,7 +12,7 @@
 #'
 #' The input data (`dfTransformed`) for `Analyze_Identity` is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
 #' - `GroupID` - Group ID
-#' - `GroupType` - Group Type
+#' - `GroupLevel` - Group Type
 #' - `Numerator` - Total number of participants at site with event of interest.
 #' - `Denominator` - Total number of participants at site/Total number of days of exposure at site.
 #' - `Metric` - Proportion of participants at site with event of interest/Rate of events at site (Numerator / Denominator).

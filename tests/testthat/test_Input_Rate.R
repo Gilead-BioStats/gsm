@@ -37,7 +37,7 @@ test_that("basic functionality with count method works", {
   expected <- data.frame(
     SubjectID = 1:3,
     GroupID = 10:12,
-    GroupType = "GroupID",
+    GroupLevel = "GroupID",
     Numerator = c(2, 1, 0),
     Denominator = c(1, 1, 1),
     Rate = c(2, 1, 0)
@@ -59,7 +59,7 @@ test_that("test with method 'Sum' where columns are provided", {
   expected <- data.frame(
     SubjectID = 1:3,
     GroupID = 10:12,
-    GroupType = "GroupID",
+    GroupLevel = "GroupID",
     Numerator = c(15, 10, 0),
     Denominator = c(15, 5, 20),
     Rate = c(1, 2, 0)
@@ -80,7 +80,7 @@ test_that("handling of zero denominators and missing data", {
   expected <- data.frame(
     SubjectID = 1:4,
     GroupID = 10:13,
-    GroupType = "GroupID",
+    GroupLevel = "GroupID",
     Numerator = c(2, 0, 0, 0),
     Denominator = c(1, 1, 0, 0),
     Rate = c(2, 0, NaN, NaN)  # NaN because denominator is zero

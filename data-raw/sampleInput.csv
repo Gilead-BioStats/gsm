@@ -1,4 +1,4 @@
-"SubjectID","GroupID","GroupType","Numerator","Denominator"
+"SubjectID","GroupID","GroupLevel","Numerator","Denominator"
 "ABC1","G1","Site",1,77
 "ABC8","G1","Site",5,73
 "ABC15","G1","Site",9,94

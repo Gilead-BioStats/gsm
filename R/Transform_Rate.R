@@ -14,7 +14,7 @@
 #' (`dfInput`) must include the columns specified by `strNumeratorCol` and `strDenominatorCol`.
 #' Required columns include:
 #' - `GroupID` - Group ID
-#' - `GroupType` - Group Type
+#' - `GroupLevel` - Group Type
 #' - `Numerator` - Number of events of interest; the actual name of this column is specified by the parameter `strNumeratorCol`
 #' - `Denominator` - Number of days on treatment; the actual name of this column is specified by the parameter `strDenominatorCol`
 #'
