@@ -18,7 +18,7 @@ Flag_QTL(dfAnalyzed, vThreshold = NULL)
 This function flags a study-level QTL metric by comparing the mean and lower confidence bound for the metric to a single threshold.
 }
 \details{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \section{Data Specification}{
 
@@ -28,14 +28,25 @@ calculate a new \code{Flag} column.
 }
 
 \examples{
-dfInput <- Disp_Map_Raw()
-dfTransformed <- Transform_Rate(
-  dfInput,
-  strGroupCol = "StudyID",
-  strNumeratorCol = "Count",
-  strDenominatorCol = "Total"
+# binary
+dfTransformed <- tibble::tibble(
+  GroupID      = c("AA-AA-000-0000"),
+  Numerator    = c(122),
+  Denominator  = c(1301),
+  Metric       = c(0.0938)
 )
-dfAnalyzed <- Analyze_QTL(dfTransformed)
-dfFlagged <- Flag_QTL(dfAnalyzed, vThreshold = 0.02)
+
+dfAnalyzed <- Analyze_QTL(dfTransformed, strOutcome = "binary")
+dfFlagged <- Flag_QTL(dfAnalyzed, vThreshold = 0.2)
+
+# rate
+dfTransformedRate <- tibble::tibble(
+  GroupID      = c("AA-AA-000-0000"),
+  Numerator    = c(4473),
+  Denominator  = c(6.19),
+  Metric       = c(723)
+)
+dfAnalyzed <- Analyze_QTL(dfTransformedRate, strOutcome = "rate")
+dfFlagged <- Flag_QTL(dfAnalyzed, vThreshold = 0.01)
 
 }

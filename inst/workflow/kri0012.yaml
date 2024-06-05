@@ -1,13 +1,50 @@
+meta:
+  file: kri0012.yaml
+  MetricID: kri0012
+  group: site
+  abbreviation: SF
+  metric: Screen Failure Rate
+  numerator: Screen Failures
+  denominator: Screened Subjects
+  model: Normal Approximation
+  score: Adjusted Z-Score
+  vThreshold:
+    - -3
+    - -2
+    - 2
+    - 3
 steps:
-  - name: Screening_Map_Raw
-    inputs:
-      - dfENROLL
+  - name: Input_Rate
     output: dfInput
-  - name: Screening_Assess
-    inputs: dfInput
-    output: lResults
     params:
-      strGroup: "Site"
-      vThreshold: null
-      strMethod: "NormalApprox"
-      nMinDenominator: 3
+      dfSubjects: dfScreened
+      dfNumerator: dfScreenFail
+      dfDenominator: dfScreened
+      strSubjectCol: subjectid
+      strGroupCol: siteid
+      strNumeratorMethod: Count
+      strDenominatorMethod: Count
+  - name: Transform_Rate
+    output: dfTransformed
+    params:
+      dfInput: dfInput
+  - name: Analyze_NormalApprox
+    output: dfAnalyzed
+    params:
+      dfTransformed: dfTransformed
+      strType: binary
+  - name: Analyze_NormalApprox_PredictBounds
+    output: dfBounds
+    params:
+      dfTransformed: dfTransformed
+      strType: binary
+      vThreshold: vThreshold
+  - name: Flag_NormalApprox
+    output: dfFlagged
+    params:
+      dfAnalyzed: dfAnalyzed
+      vThreshold: vThreshold
+  - name: Summarize
+    output: dfSummary
+    params:
+      dfFlagged: dfFlagged

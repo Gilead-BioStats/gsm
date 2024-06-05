@@ -1,29 +1,51 @@
+meta:
+  file: kri0008.yaml
+  MetricID: kri0008
+  group: site
+  abbreviation: QRY
+  metric: Query Rate
+  numerator: Queries
+  denominator: Total Data Points
+  model: Normal Approximation
+  score: Adjusted Z-Score
+  vThreshold:
+    - -3
+    - -2
+    - 2
+    - 3
 steps:
-  - name: FilterDomain
-    inputs: dfSUBJ
-    output: dfSUBJ
-    params:
-      strDomain: dfSUBJ
-      strColParam: strEnrollCol
-      strValParam: strEnrollVal
-  - name: FilterDomain
-    inputs: dfQUERY
-    output: dfQUERY
-    params:
-      strDomain: dfQUERY
-      strColParam: strStatusCol
-      strValParam: strStatusVal
-  - name: QueryRate_Map_Raw
-    inputs:
-      - dfSUBJ
-      - dfQUERY
-      - dfDATACHG
+  - name: Input_Rate
     output: dfInput
-  - name: QueryRate_Assess
-    inputs: dfInput
-    output: lResults
     params:
-      strGroup: "Site"
-      vThreshold: null
-      strMethod: "NormalApprox"
-      nMinDenominator: 30
+      dfSubjects: dfEnrolled
+      dfNumerator: dfQuery
+      dfDenominator: dfDataChanges
+      strSubjectCol: subject_nsv
+      strGroupCol: siteid
+      strNumeratorMethod: Count
+      strDenominatorMethod: Count
+  - name: Transform_Rate
+    output: dfTransformed
+    params:
+      dfInput: dfInput
+  - name: Analyze_NormalApprox
+    output: dfAnalyzed
+    params:
+      dfTransformed: dfTransformed
+      strType: rate
+  - name: Analyze_NormalApprox_PredictBounds
+    output: dfBounds
+    params:
+      dfTransformed: dfTransformed
+      strType: rate
+      vThreshold: vThreshold
+  - name: Flag_NormalApprox
+    output: dfFlagged
+    params:
+      dfAnalyzed: dfAnalyzed
+      vThreshold: vThreshold
+  - name: Summarize
+    output: dfSummary
+    params:
+      dfFlagged: dfFlagged
+

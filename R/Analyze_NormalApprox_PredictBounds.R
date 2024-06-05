@@ -27,31 +27,30 @@
 #' @param strType `character` Statistical method. Valid values:
 #'   - `"binary"` (default)
 #'   - `"rate"`
-#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `data.frame` containing predicted boundary values with upper and lower bounds across the
 #' range of observed values.
 #'
 #' @examples
 #' # Binary
-#' dfInput <- Disp_Map_Raw()
-#' dfTransformed <- Transform_Rate(
-#'   dfInput,
-#'   strGroupCol = "SiteID",
-#'   strNumeratorCol = "Count",
-#'   strDenominatorCol = "Total"
+#' dfTransformed <- tibble::tribble(
+#'   ~GroupID,  ~Numerator,  ~Denominator,  ~Metric,
+#'   139, 5, 901, 0.00555,
+#'   143, 3, 170, 0.0176,
+#'   162, 3, 370, 0.00811,
+#'   167, 3, 360, 0.00833,
+#'   173, 6, 680, 0.00882,
+#'   189, 4, 815, 0.00491,
+#'   29,  2, 450, 0.00444,
+#'   5, 5, 730, 0.00685,
+#'   58, 1, 225, 0.00444,
+#'   78, 2, 50, 0.04
 #' )
+#'
 #' dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "binary")
 #' dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed, c(-3, -2, 2, 3), strType = "binary")
 #'
 #' # Rate
-#' dfInput <- AE_Map_Raw() %>% na.omit()
-#' dfTransformed <- Transform_Rate(
-#'   dfInput,
-#'   strGroupCol = "SiteID",
-#'   strNumeratorCol = "Count",
-#'   strDenominatorCol = "Exposure"
-#' )
 #' dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "rate")
 #' dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed, c(-3, -2, 2, 3), strType = "rate")
 #'
@@ -61,14 +60,11 @@ Analyze_NormalApprox_PredictBounds <- function(
   dfTransformed,
   vThreshold = c(-3, -2, 2, 3),
   strType = "binary",
-  nStep = NULL,
-  bQuiet = TRUE
+  nStep = NULL
 ) {
   if (is.null(vThreshold)) {
     vThreshold <- c(-3, -2, 2, 3)
-    if (bQuiet == FALSE) {
-      cli::cli_alert("vThreshold was not provided. Setting default threshold to {vThreshold}")
-    }
+    cli::cli_alert("vThreshold was not provided. Setting default threshold to {vThreshold}")
   }
 
   # Set [ nStep ] to the range of the denominator divided by 250.
@@ -81,9 +77,8 @@ Analyze_NormalApprox_PredictBounds <- function(
       nStep <- 1
     }
 
-    if (bQuiet == FALSE) {
-      cli::cli_alert("nStep was not provided. Setting default step to {nStep}")
-    }
+    cli::cli_alert("nStep was not provided. Setting default step to {nStep}")
+
   }
 
   # add a 0 threhsold to calcultate estimate without an offset

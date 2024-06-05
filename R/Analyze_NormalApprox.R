@@ -25,42 +25,40 @@
 #' @param strType `character` Statistical outcome type. Valid values:
 #'   - `"binary"` (default)
 #'   - `"rate"`
-#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `data.frame` with one row per site with columns: GroupID, Numerator, Denominator, Metric, OverallMetric, Factor, and Score.
 #'
 #' @examples
 #' # Binary
-#' dfInput <- Disp_Map_Raw()
-#' dfTransformed <- Transform_Rate(
-#'   dfInput,
-#'   strGroupCol = "SiteID",
-#'   strNumeratorCol = "Count",
-#'   strDenominatorCol = "Total"
+#' dfTransformed <- tibble::tribble(
+#'   ~GroupID,  ~Numerator,  ~Denominator,  ~Metric,
+#'   139, 5, 901, 0.00555,
+#'   143, 3, 170, 0.0176,
+#'   162, 3, 370, 0.00811,
+#'   167, 3, 360, 0.00833,
+#'   173, 6, 680, 0.00882,
+#'   189, 4, 815, 0.00491,
+#'   29,  2, 450, 0.00444,
+#'   5, 5, 730, 0.00685,
+#'   58, 1, 225, 0.00444,
+#'   78, 2, 50, 0.04
 #' )
+#'
 #' dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "binary")
 #'
 #' # Rate
-#' dfInput <- AE_Map_Raw() %>% na.omit()
-#' dfTransformed <- Transform_Rate(
-#'   dfInput,
-#'   strGroupCol = "SiteID",
-#'   strNumeratorCol = "Count",
-#'   strDenominatorCol = "Exposure"
-#' )
 #' dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "rate")
 #'
 #' @export
 
 Analyze_NormalApprox <- function(
   dfTransformed,
-  strType = "binary",
-  bQuiet = TRUE
+  strType = "binary"
 ) {
   stopifnot(
     "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
-    "One or more of these columns not found: GroupID, Denominator, Numerator, Metric" =
-      all(c("GroupID", "Denominator", "Numerator", "Metric") %in% names(dfTransformed)),
+    "One or more of these columns not found: GroupID, GroupLevel, Denominator, Numerator, Metric" =
+      all(c("GroupID", "GroupLevel", "Denominator", "Numerator", "Metric") %in% names(dfTransformed)),
     "NA value(s) found in GroupID" = all(!is.na(dfTransformed[["GroupID"]])),
     "strType is not 'binary' or 'rate'" = strType %in% c("binary", "rate")
   )
@@ -104,6 +102,7 @@ Analyze_NormalApprox <- function(
   dfAnalyzed <- dfScore %>%
     select(
       "GroupID",
+      "GroupLevel",
       "Numerator",
       "Denominator",
       "Metric",
@@ -113,9 +112,8 @@ Analyze_NormalApprox <- function(
     ) %>%
     arrange(.data$Score)
 
-  if (!bQuiet) {
-    cli::cli_text("{.var OverallMetric}, {.var Factor}, and {.var Score} columns created from normal approximation.")
-  }
+  cli::cli_text("{.var OverallMetric}, {.var Factor}, and {.var Score} columns created from normal approximation.")
+
 
   return(dfAnalyzed)
 }

@@ -5,10 +5,10 @@
 #' @description
 #' A widget that displays a time-series plot based on longitudinal snapshots using `{gsm}`.
 #'
-#' @param dfSummary `data.frame` the stacked output of `Make_Snapshot()$lStackedSnapshots$rpt_site_kri_details`, containing a minimum of two unique values for `gsm_analysis_date`.
-#' @param lLabels `list` chart labels, typically defined by `Make_Snapshot()$lStackedSnapshots$rpt_site_kri_details`.
-#' @param dfSite `data.frame` Site metadata returned by [gsm::Site_Map_Raw()].
-#' @param dfParams `data.frame` the stacked output of `Make_Snapshot()$lStackedSnapshots$rpt_kri_threshold_param`.
+#' @param dfSummary `data.frame` summary data containing a minimum of two unique values for `gsm_analysis_date`.
+#' @param lLabels `list` chart labels.
+#' @param dfSite `data.frame` Site metadata.
+#' @param dfParams `data.frame` the stacked output.
 #' @param yAxis `character` the name of a column from `lLabels` to be passed to the y-axis on the widget plot.
 #' @param selectedGroupIDs `character` group IDs to highlight, \code{NULL} by default, can be a single site or a vector.
 #' @param width `numeric` width of widget.
@@ -41,15 +41,16 @@ Widget_TimeSeries <- function(
   # -- this is the data format expected by JS library {rbm-viz}
 
   dfSummary <- dfSummary %>%
+    dplyr::rename_with(tolower) %>%
     select(
       "studyid",
-      "groupid" = "siteid",
-      "numerator" = "numerator_value",
-      "denominator" = "denominator_value",
-      "metric" = "metric_value",
+      "groupid",
+      "numerator" ,
+      "denominator",
+      "metric",
       "score",
-      "flag" = "flag_value",
-      "gsm_analysis_date",
+      "flag",
+      #"gsm_analysis_date",
       "snapshot_date"
     )
 
@@ -61,8 +62,10 @@ Widget_TimeSeries <- function(
   }
 
   lLabels <- lLabels %>%
+    dplyr::rename_with(tolower) %>%
     select(
-      "workflowid",
+      any_of(c(
+      "metricid",
       "group",
       "abbreviation",
       "metric",
@@ -74,6 +77,7 @@ Widget_TimeSeries <- function(
       "data_inputs",
       "data_filters",
       "gsm_analysis_date"
+      ))
     ) %>%
     mutate("y" = yAxis)
 
@@ -81,13 +85,12 @@ Widget_TimeSeries <- function(
 
     dfParams <- dfParams %>%
       select(
-        "workflowid",
+        "metricid",
         "param",
         "index",
-        "gsm_analysis_date",
         "snapshot_date",
         "studyid",
-        "value" = "default_s"
+        "value"
       )
 
     dfParams <- jsonlite::toJSON(dfParams, na = "string")
@@ -128,7 +131,7 @@ Widget_TimeSeries <- function(
         htmltools::tags$span(siteSelectLabelValue),
         htmltools::tags$select(
           class = "site-select--time-series",
-          id = glue::glue("site-select--time-series_{unique(lLabels$workflowid)}"),
+          id = glue::glue("site-select--time-series_{unique(lLabels$metricid)}"),
           purrr::map(
             c("None", uniqueSiteSelections),
             ~ htmltools::HTML(paste0(

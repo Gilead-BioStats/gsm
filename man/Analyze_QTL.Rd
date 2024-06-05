@@ -4,12 +4,7 @@
 \alias{Analyze_QTL}
 \title{QTL Analysis for Binary and Rate Outcomes.}
 \usage{
-Analyze_QTL(
-  dfTransformed,
-  nConfLevel = 0.95,
-  strOutcome = "binary",
-  bQuiet = TRUE
-)
+Analyze_QTL(dfTransformed, nConfLevel = 0.95, strOutcome = "binary")
 }
 \arguments{
 \item{dfTransformed}{\code{data.frame} in format produced by \code{\link{Transform_Rate}}}
@@ -17,14 +12,12 @@ Analyze_QTL(
 \item{nConfLevel}{\code{numeric} specified confidence interval for QTL analysis.}
 
 \item{strOutcome}{\code{character} indicates statistical test used for QTL analysis. One of \code{rate} or \code{binary}.}
-
-\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
 \code{data.frame} with one row with columns: GroupID, Numerator, Denominator, Metric, Method, ConfLevel, Estimate, LowCI, UpCI and Score.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \details{
 Creates confidence intervals for the observed proportion of participants for the event of interest. Uses the exact binomial (\code{stats::binom.test}) or poisson test (\code{stats::poisson.test}).
@@ -49,24 +42,23 @@ The input data (\code{dfTransformed}) for \code{Analyze_QTL} is typically create
 }
 
 \examples{
-dfInput <- Disp_Map_Raw()
-dfTransformed <- Transform_Rate(dfInput,
-  strNumeratorCol = "Count",
-  strDenominatorCol = "Total",
-  strGroupCol = "StudyID"
+# binary
+dfTransformed <- tibble::tibble(
+  GroupID      = c("AA-AA-000-0000"),
+  Numerator    = c(122),
+  Denominator  = c(1301),
+  Metric       = c(0.0938)
 )
 
 dfAnalyzed <- Analyze_QTL(dfTransformed, strOutcome = "binary")
-dfFlagged <- Flag_QTL(dfAnalyzed, vThreshold = 0.2)
 
-dfInput <- PD_Map_Raw_Binary()
-dfTransformed <- Transform_Rate(dfInput,
-  strGroupCol = "StudyID",
-  strNumeratorCol = "Count",
-  strDenominatorCol = "Total"
+# rate
+dfTransformedRate <- tibble::tibble(
+  GroupID      = c("AA-AA-000-0000"),
+  Numerator    = c(4473),
+  Denominator  = c(6.19),
+  Metric       = c(723)
 )
-
-dfAnalyzed <- Analyze_QTL(dfTransformed, strOutcome = "rate")
-dfFlagged <- Flag_QTL(dfAnalyzed, vThreshold = 0.01)
+dfAnalyzed <- Analyze_QTL(dfTransformedRate, strOutcome = "rate")
 
 }

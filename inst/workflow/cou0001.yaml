@@ -1,21 +1,52 @@
+meta:
+  file: ae.yaml
+  MetricID: cou0001
+  group: country
+  abbreviation: AE
+  metric: Adverse Event Rate
+  numerator: Adverse Events
+  denominator: Days on Study
+  model: Normal Approximation
+  score: Adjusted Z-Score
+  vThreshold:
+    - -2
+    - -1
+    - 2
+    - 3
 steps:
-  - name: FilterDomain
-    inputs: dfSUBJ
-    output: dfSUBJ
-    params:
-      strDomain: dfSUBJ
-      strColParam: strEnrollCol
-      strValParam: strEnrollVal
-  - name: AE_Map_Raw
-    inputs:
-      - dfAE
-      - dfSUBJ
+  - name: Input_Rate
     output: dfInput
-  - name: AE_Assess
-    inputs: dfInput
-    output: lResults
     params:
-      strGroup: "Country"
-      vThreshold: null
-      strMethod: "NormalApprox"
-      nMinDenominator: 30
+      dfSubjects: dfEnrolled
+      dfNumerator: dfAE
+      dfDenominator: dfSUBJ
+      strSubjectCol: subjid
+      strGroupCol: country
+      strNumeratorMethod: Count
+      strDenominatorMethod: Sum
+      strDenominatorCol: timeonstudy
+  - name: Transform_Rate
+    output: dfTransformed
+    params:
+      dfInput: dfInput
+  - name: Analyze_NormalApprox
+    output: dfAnalyzed
+    params:
+      dfTransformed: dfTransformed
+      strType: rate
+  - name: Analyze_NormalApprox_PredictBounds
+    output: dfBounds
+    params:
+      dfTransformed: dfTransformed
+      strType: rate
+      vThreshold: vThreshold
+  - name: Flag_NormalApprox
+    output: dfFlagged
+    params:
+      dfAnalyzed: dfAnalyzed
+      vThreshold: vThreshold
+  - name: Summarize
+    output: dfSummary
+    params:
+      dfFlagged: dfFlagged
+

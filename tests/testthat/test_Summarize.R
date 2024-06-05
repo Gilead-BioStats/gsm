@@ -1,32 +1,30 @@
-source(testthat::test_path("testdata/data.R"))
-
-ae_input <- AE_Map_Adam(dfs = list(dfADSL = dfADSL, dfADAE = dfADAE))
-
-dfTransformed <- Transform_Rate(
-  dfInput = ae_input,
-  strNumeratorCol = "Count",
-  strDenominatorCol = "Exposure",
-  strGroupCol = "SiteID"
+dfFlagged <- tibble::tibble(
+  GroupID = c("702", "703", "701"),
+  GroupLevel = rep("site", 3),
+  Numerator = c(1, 3, 5),
+  Denominator = c(180, 14, 210),
+  Metric = c(0.0055, 0.2142, 0.0238),
+  Score = c(-1.37, 0.0684, 1.01),
+  PredictedCount = c(3.05, 2.88, 3.06),
+  Flag = c(0, 0, 0)
 )
-dfAnalyzed <- gsm::Analyze_Poisson(dfTransformed)
-dfFlagged <- gsm::Flag(dfAnalyzed, vThreshold = c(-5, 5))
 
 test_that("output created as expected and has correct structure", {
   ae_default <- Summarize(dfFlagged, strScoreCol = "Score")
   expect_true(is.data.frame(ae_default))
   expect_equal(
     names(ae_default),
-    c("GroupID", "Numerator", "Denominator", "Metric", "Score", "Flag")
+    c("GroupID", "GroupLevel", "Numerator", "Denominator", "Metric", "Score", "Flag")
   )
-  expect_equal(sort(unique(ae_input$SiteID)), sort(ae_default$GroupID))
+  expect_equal(sort(unique(dfFlagged$GroupID)), sort(ae_default$GroupID))
 
   ae_finding <- Summarize(dfFlagged, strScoreCol = "Score")
   expect_true(is.data.frame(ae_finding))
   expect_equal(
     names(ae_finding),
-    c("GroupID", "Numerator", "Denominator", "Metric", "Score", "Flag")
+    c("GroupID", "GroupLevel", "Numerator", "Denominator", "Metric", "Score", "Flag")
   )
-  expect_equal(sort(unique(ae_input$SiteID)), sort(ae_finding$GroupID))
+  expect_equal(sort(unique(dfFlagged$GroupID)), sort(ae_finding$GroupID))
 })
 
 test_that("incorrect inputs throw errors", {
@@ -39,6 +37,7 @@ test_that("incorrect inputs throw errors", {
 test_that("output is correctly sorted by Flag and Score", {
   sim1 <- data.frame(
     GroupID = seq(1:100),
+    GroupLevel = rep("site", 100),
     N = seq(1:100),
     Metric = rep(NA, 100),
     Score = c(rep(0, 20), rep(1, 80)),
@@ -49,6 +48,7 @@ test_that("output is correctly sorted by Flag and Score", {
 
   sim1 <- data.frame(
     GroupID = seq(1, 100),
+    GroupLevel = rep("site", 100),
     N = seq(1, 100),
     Metric = c(seq(1, 5), seq(6, 1), rep(11, 89)),
     Score = c(seq(1, 5), seq(6, 1), rep(11, 89)),
@@ -57,3 +57,4 @@ test_that("output is correctly sorted by Flag and Score", {
 
   expect_equal(Summarize(sim1)$Score, c(6, 5, 5, 4, 4, 3, 3, 2, 1, rep(11, 89), 2, 1))
 })
+

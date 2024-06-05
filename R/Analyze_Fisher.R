@@ -29,17 +29,29 @@
 #'
 #' @param dfTransformed `data.frame` in format produced by \code{\link{Transform_Rate}}.
 #' @param strOutcome `character` required, name of column in `dfTransformed` dataset to perform Fisher's exact test on. Default is "Numerator".
-#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`.
 #'
 #' @return `data.frame` with one row per site with columns: GroupID, Numerator, Numerator_Other, Denominator, Denominator_Other, Prop, Prop_Other, Metric, Estimate, and Score.
 #'
 #' @examples
-#' dfInput <- Disp_Map_Raw()
+#' dfInput <- tibble::tribble(
+#'   ~SubjectID, ~SiteID, ~StudyID, ~CountryID, ~CustomGroupID, ~Exposure, ~Count, ~Rate,
+#'   "0496", "5", "AA-AA-000-0000", "US", "0X167", 730, 5, 5/720,
+#'   "1350", "78", "AA-AA-000-0000", "US", "0X002", 50, 2, 2/50,
+#'   "0539", "139", "AA-AA-000-0000", "US", "0X052", 901, 5, 5/901,
+#'   "0329", "162", "AA-AA-000-0000", "US", "0X049", 370, 3, 3/370,
+#'   "0429", "29", "AA-AA-000-0000", "Japan", "0X116", 450, 2, 2/450,
+#'   "1218", "143", "AA-AA-000-0000", "US", "0X153", 170, 3, 3/170,
+#'   "0808", "173", "AA-AA-000-0000", "US", "0X124", 680, 6, 6/680,
+#'   "1314", "189", "AA-AA-000-0000", "US", "0X093", 815, 4, 4/815,
+#'   "1236", "58", "AA-AA-000-0000", "China", "0X091", 225, 1, 1/225,
+#'   "0163", "167", "AA-AA-000-0000", "US", "0X059", 360, 3, 3/360
+#' )
+
 #' dfTransformed <- Transform_Rate(
 #'   dfInput,
 #'   strGroupCol = "SiteID",
 #'   strNumeratorCol = "Count",
-#'   strDenominatorCol = "Total"
+#'   strDenominatorCol = "Exposure"
 #' )
 #' dfAnalyzed <- Analyze_Fisher(dfTransformed)
 #'
@@ -47,8 +59,7 @@
 
 Analyze_Fisher <- function(
   dfTransformed,
-  strOutcome = "Numerator",
-  bQuiet = TRUE
+  strOutcome = "Numerator"
 ) {
   stopifnot(
     "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),

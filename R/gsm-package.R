@@ -4,8 +4,8 @@
 ## usethis namespace: start
 
 #' @import dplyr
-#' @import purrr
 #' @import ggplot2
+#' @import purrr
 #' @importFrom arrow write_parquet
 #' @importFrom broom augment
 #' @importFrom broom glance
@@ -19,6 +19,7 @@
 #' @importFrom cli cli_h2
 #' @importFrom cli cli_text
 #' @importFrom cli col_br_yellow
+#' @importFrom DBI dbGetQuery
 #' @importFrom glue glue_collapse
 #' @importFrom htmltools h1
 #' @importFrom htmltools h2
@@ -33,11 +34,18 @@
 #' @importFrom htmlwidgets prependContent
 #' @importFrom htmlwidgets shinyRenderWidget
 #' @importFrom htmlwidgets shinyWidgetOutput
+#' @importFrom kableExtra kable_styling
+#' @importFrom kableExtra kbl
 #' @importFrom jsonlite toJSON
+#' @importFrom jsonlite fromJSON
+#' @importFrom lamW lambertW0
+#' @importFrom lamW lambertWm1
 #' @importFrom lifecycle deprecated
 #' @importFrom lubridate as.period
 #' @importFrom lubridate interval
+#' @importFrom purrr map
 #' @importFrom rlang check_installed
+#' @importFrom sqldf sqldf
 #' @importFrom stats binom.test
 #' @importFrom stats fisher.test
 #' @importFrom stats glm
@@ -56,6 +64,7 @@
 #' @importFrom stringr str_replace
 #' @importFrom stringr str_subset
 #' @importFrom stringr word
+#' @importFrom testthat test_that
 #' @importFrom tibble enframe
 #' @importFrom tibble rownames_to_column
 #' @importFrom tibble tibble

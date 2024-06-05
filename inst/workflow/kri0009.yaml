@@ -1,30 +1,50 @@
+meta:
+  file: kri0009.yaml
+  MetricID: kri0009
+  group: site
+  abbreviation: OQRY
+  metric: Outstanding Query Rate
+  numerator: Queries Open > 30 Days
+  denominator: Total Queries
+  model: Normal Approximation
+  score: Adjusted Z-Score
+  vThreshold:
+    - -3
+    - -2
+    - 2
+    - 3
 steps:
-  - name: FilterDomain
-    inputs: dfSUBJ
-    output: dfSUBJ
-    params:
-      strDomain: dfSUBJ
-      strColParam: strEnrollCol
-      strValParam: strEnrollVal
-  - name: FilterDomain
-    inputs: dfQUERY
-    output: dfQUERY
-    params:
-      strDomain: dfQUERY
-      strColParam: strStatusCol
-      strValParam: strStatusVal
-  - name: QueryAge_Map_Raw
-    inputs:
-      - dfSUBJ
-      - dfQUERY
+  - name: Input_Rate
     output: dfInput
     params:
-      nMaxQueryAge: 30
-  - name: QueryAge_Assess
-    inputs: dfInput
-    output: lResults
+      dfSubjects: dfEnrolled
+      dfNumerator: dfOldValidQueries
+      dfDenominator: dfValidQueries
+      strSubjectCol: subject_nsv
+      strGroupCol: siteid
+      strNumeratorMethod: Count
+      strDenominatorMethod: Count
+  - name: Transform_Rate
+    output: dfTransformed
     params:
-      strGroup: "Site"
-      vThreshold: null
-      strMethod: "NormalApprox"
-      nMinDenominator: 30
+      dfInput: dfInput
+  - name: Analyze_NormalApprox
+    output: dfAnalyzed
+    params:
+      dfTransformed: dfTransformed
+      strType: binary
+  - name: Analyze_NormalApprox_PredictBounds
+    output: dfBounds
+    params:
+      dfTransformed: dfTransformed
+      strType: binary
+      vThreshold: vThreshold
+  - name: Flag_NormalApprox
+    output: dfFlagged
+    params:
+      dfAnalyzed: dfAnalyzed
+      vThreshold: vThreshold
+  - name: Summarize
+    output: dfSummary
+    params:
+      dfFlagged: dfFlagged

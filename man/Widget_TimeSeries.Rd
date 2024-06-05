@@ -19,13 +19,13 @@ Widget_TimeSeries(
 )
 }
 \arguments{
-\item{dfSummary}{\code{data.frame} the stacked output of \code{Make_Snapshot()$lStackedSnapshots$rpt_site_kri_details}, containing a minimum of two unique values for \code{gsm_analysis_date}.}
+\item{dfSummary}{\code{data.frame} summary data containing a minimum of two unique values for \code{gsm_analysis_date}.}
 
-\item{lLabels}{\code{list} chart labels, typically defined by \code{Make_Snapshot()$lStackedSnapshots$rpt_site_kri_details}.}
+\item{lLabels}{\code{list} chart labels.}
 
-\item{dfSite}{\code{data.frame} Site metadata returned by \code{\link[=Site_Map_Raw]{Site_Map_Raw()}}.}
+\item{dfSite}{\code{data.frame} Site metadata.}
 
-\item{dfParams}{\code{data.frame} the stacked output of \code{Make_Snapshot()$lStackedSnapshots$rpt_kri_threshold_param}.}
+\item{dfParams}{\code{data.frame} the stacked output.}
 
 \item{yAxis}{\code{character} the name of a column from \code{lLabels} to be passed to the y-axis on the widget plot.}
 

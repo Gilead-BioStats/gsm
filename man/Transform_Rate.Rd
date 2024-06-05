@@ -6,10 +6,8 @@
 \usage{
 Transform_Rate(
   dfInput,
-  strNumeratorCol,
-  strDenominatorCol = NULL,
-  strGroupCol = "SiteID",
-  bQuiet = TRUE
+  strNumeratorCol = "Numerator",
+  strDenominatorCol = "Denominator"
 )
 }
 \arguments{
@@ -20,11 +18,9 @@ Transform_Rate(
 \item{strDenominatorCol}{\code{numeric} Required. Numerical \code{Exposure} column.}
 
 \item{strGroupCol}{\code{character} Required. Name of column for grouping variable. Default: \code{"SiteID"}}
-
-\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-\code{data.frame} with one row per site with columns \code{GroupID}, \code{Numerator}, \code{Denominator}, and \code{Metric}.
+\code{data.frame} with one row per site with columns \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, and \code{Metric}.
 }
 \description{
 Convert from input data format to needed input format to derive KRI for an Assessment. Calculate a site-level rate.
@@ -36,13 +32,6 @@ This function transforms data to prepare it for the analysis step. It is current
 }
 \section{Data Specification}{
 
-
-The input data (\code{dfInput}) for the Assessment is typically created using any of these functions:
-\code{\link{AE_Map_Raw}}
-\code{\link{AE_Map_Adam}}
-\code{\link{Disp_Map_Raw}}
-\code{\link{LB_Map_Raw}}
-\code{\link{PD_Map_Raw_Rate}}
 
 (\code{dfInput}) must include the columns specified by \code{strNumeratorCol}, \code{strDenominatorCol} and \code{strGroupCol}.
 Required columns include:
@@ -56,10 +45,17 @@ Required columns include:
 }
 
 \examples{
-dfInput <- AE_Map_Raw()
-dfTransformed <- Transform_Rate(dfInput,
-  strNumeratorCol = "Count",
-  strDenominatorCol = "Exposure"
+dfInput <- tibble::tibble(
+ GroupID = c("G1", "G1", "G2", "G2"),
+ GroupLevel = rep("site",4),
+ Numerator = c(1, 2, 3, 4),
+ Denominator = c(10, 20, 30, 40)
+)
+
+dfTransformed <- Transform_Rate(
+  dfInput,
+  strNumeratorCol = "Numerator",
+  strDenominatorCol = "Denominator",
 )
 
 }

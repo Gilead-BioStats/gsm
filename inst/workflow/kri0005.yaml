@@ -1,28 +1,50 @@
+meta:
+  file: kri0005.yaml
+  MetricID: kri0005
+  group: site
+  abbreviation: LB
+  metric: Grade 3+ Lab Abnormality Rate
+  numerator: Grade 3+ Abnormal Labs Samples
+  denominator: Total Lab Samples
+  model: Normal Approximation
+  score: Adjusted Z-Score
+  vThreshold:
+    - -3
+    - -2
+    - 2
+    - 3
 steps:
-  - name: FilterDomain
-    inputs: dfSUBJ
-    output: dfSUBJ
-    params:
-      strDomain: dfSUBJ
-      strColParam: strEnrollCol
-      strValParam: strEnrollVal
-  - name: FilterDomain
-    inputs: dfLB
-    output: dfLB
-    params:
-      strDomain: dfLB
-      strColParam: strGradeCol
-      strValParam: strGradeAnyVal
-  - name: LB_Map_Raw
-    inputs:
-      - dfSUBJ
-      - dfLB
+  - name: Input_Rate
     output: dfInput
-  - name: LB_Assess
-    inputs: dfInput
-    output: lResults
     params:
-      strGroup: "Site"
-      vThreshold: null
-      strMethod: "NormalApprox"
-      nMinDenominator: 30
+      dfSubjects: dfEnrolled
+      dfNumerator: dfToxLabs
+      dfDenominator: dfAllLabs
+      strSubjectCol: subjid
+      strGroupCol: siteid
+      strNumeratorMethod: Count
+      strDenominatorMethod: Count
+  - name: Transform_Rate
+    output: dfTransformed
+    params:
+      dfInput: dfInput
+  - name: Analyze_NormalApprox
+    output: dfAnalyzed
+    params:
+      dfTransformed: dfTransformed
+      strType: binary
+  - name: Analyze_NormalApprox_PredictBounds
+    output: dfBounds
+    params:
+      dfTransformed: dfTransformed
+      strType: binary
+      vThreshold: vThreshold
+  - name: Flag_NormalApprox
+    output: dfFlagged
+    params:
+      dfAnalyzed: dfAnalyzed
+      vThreshold: vThreshold
+  - name: Summarize
+    output: dfSummary
+    params:
+      dfFlagged: dfFlagged

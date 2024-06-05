@@ -1,23 +1,50 @@
+meta:
+  file: kri0010.yaml
+  MetricID: kri0010
+  group: site
+  abbreviation: ODAT
+  metric: Outstanding Data Entry Rate
+  numerator: Data Pages Entered > 10 Days
+  denominator: Total Data Pages
+  model: Normal Approximation
+  score: Adjusted Z-Score
+  vThreshold:
+    - -3
+    - -2
+    - 2
+    - 3
 steps:
-  - name: FilterDomain
-    inputs: dfSUBJ
-    output: dfSUBJ
-    params:
-      strDomain: dfSUBJ
-      strColParam: strEnrollCol
-      strValParam: strEnrollVal
-  - name: DataEntry_Map_Raw
-    inputs:
-      - dfSUBJ
-      - dfDATAENT
+  - name: Input_Rate
     output: dfInput
     params:
-      nMaxDataEntryLag: 10
-  - name: DataEntry_Assess
-    inputs: dfInput
-    output: lResults
+      dfSubjects: dfEnrolled
+      dfNumerator: dfSlowDataEntry
+      dfDenominator: dfDataEntry
+      strSubjectCol: subject_nsv
+      strGroupCol: siteid
+      strNumeratorMethod: Count
+      strDenominatorMethod: Count
+  - name: Transform_Rate
+    output: dfTransformed
     params:
-      strGroup: "Site"
-      vThreshold: null
-      strMethod: "NormalApprox"
-      nMinDenominator: 30
+      dfInput: dfInput
+  - name: Analyze_NormalApprox
+    output: dfAnalyzed
+    params:
+      dfTransformed: dfTransformed
+      strType: binary
+  - name: Analyze_NormalApprox_PredictBounds
+    output: dfBounds
+    params:
+      dfTransformed: dfTransformed
+      strType: binary
+      vThreshold: vThreshold
+  - name: Flag_NormalApprox
+    output: dfFlagged
+    params:
+      dfAnalyzed: dfAnalyzed
+      vThreshold: vThreshold
+  - name: Summarize
+    output: dfSummary
+    params:
+      dfFlagged: dfFlagged

@@ -68,17 +68,17 @@ The data frame `dfInput` for an AE assessment will be created by running `AE_Map
 -   `Rate`: Rate of Event Incidence (calculated as `Exposure`/`Count`; per subject)
 
 ```{r}
-dfInput <- AE_Map_Raw(
-  dfs = list(
-    dfSUBJ = clindata::rawplus_dm,
-    dfAE = clindata::rawplus_ae
-  )
-) 
+# dfInput <- AE_Map_Raw(
+#   dfs = list(
+#     dfSUBJ = clindata::rawplus_dm,
+#     dfAE = clindata::rawplus_ae
+#   )
+# ) 
 ```
 
 ```{r echo = FALSE}
-dt(dfInput) %>% 
-  formatRound(columns = "Rate", digits = 3)
+# dt(dfInput) %>% 
+#   formatRound(columns = "Rate", digits = 3)
 ```
 
 ------------------------------------------------------------------------
@@ -95,16 +95,16 @@ The resulting `dfTransformed` data frame will contain site-level transformed dat
 -   `Metric`: Rate of Event(s) of Interest (in this example, number of AEs reported over the course of treatment in days)
 
 ```{r}
-dfTransformed <- Transform_Rate(
-  dfInput,
-  strNumeratorCol = "Count",
-  strDenominatorCol = "Exposure"
-) 
+# dfTransformed <- Transform_Rate(
+#   dfInput,
+#   strNumeratorCol = "Count",
+#   strDenominatorCol = "Exposure"
+# ) 
 ```
 
 ```{r, echo = FALSE}
-dt(dfTransformed) %>% 
-  formatRound(columns = "Metric", digits = 3)
+# dt(dfTransformed) %>% 
+  # formatRound(columns = "Metric", digits = 3)
 ```
 
 ------------------------------------------------------------------------
@@ -124,12 +124,12 @@ Using our example AE data, `dfAnalyzed` contains the following columns:
 -   `Score`: Calculated Residual (per site).
 
 ```{r}
-dfAnalyzed <- Analyze_NormalApprox(dfTransformed)
+# dfAnalyzed <- Analyze_NormalApprox(dfTransformed)
 ```
 
 ```{r, echo = FALSE}
-dt(dfAnalyzed) %>% 
-  formatRound(columns = c("Metric", "OverallMetric", "Factor", "Score"), digits = 3)
+# dt(dfAnalyzed) %>% 
+#   formatRound(columns = c("Metric", "OverallMetric", "Factor", "Score"), digits = 3)
 ```
 
 ------------------------------------------------------------------------
@@ -150,11 +150,11 @@ The default flagging function for the normal approximation method is `Flag_Norma
 -   `Flag`: Flag Indicating Possible Statistical Outliers; Valid values for this variable include -2, -1, 0, 1, and 2, which determine the "extremeness" of the outlier. -2 and 2 represent more extreme outliers, -1 and 1 represent less extreme outliers, and 0 represents a non-outlier.
 
 ```{r}
-dfFlagged <- Flag_NormalApprox(dfAnalyzed, vThreshold = c(-3, -2, 2, 3))
+# dfFlagged <- Flag_NormalApprox(dfAnalyzed, vThreshold = c(-3, -2, 2, 3))
 ```
 
 ```{r, echo = FALSE}
-dt(dfFlagged)
+# dt(dfFlagged)
 ```
 
 ------------------------------------------------------------------------
@@ -171,11 +171,11 @@ The data frame `dfSummary` is derived from `dfFlagged` using the `Summarize()` f
 -   `Flag`: Flag Indicating Possible Statistical Outliers; Valid values for this variable include -2, -1, 0, 1, and 2, which determine the "extremeness" of the outlier. -2 and 2 represent more extreme outliers, -1 and 1 represent less extreme outliers, and 0 represents a non-outlier.
 
 ```{r}
-dfSummary <- Summarize(dfFlagged)
+# dfSummary <- Summarize(dfFlagged)
 ```
 
 ```{r, echo = FALSE}
-dt(dfSummary)
+# dt(dfSummary)
 ```
 
 ------------------------------------------------------------------------
@@ -185,13 +185,13 @@ dt(dfSummary)
 Data visualizations are built into each `Assess()` function/KRI. For a Poisson AE assessment, a scatter plot of Total Exposure (in days, on log scale) vs Total Number of Event(s) of Interest (on linear scale) is created. Each data point represents one site with outliers displayed in yellow or red, depending on the "extremeness" of the KRI value. The `Visualize_Scatter()` function takes inputs of `dfTransformed` to define bounds and `dfFlagged` to plot the data. Using our example AE data, we see the following scatter plot:
 
 ```{r}
-dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed, vThreshold = c(-3, -2, 2, 3))
+# dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed, vThreshold = c(-3, -2, 2, 3))
 
-chart <- Visualize_Scatter(dfFlagged, dfBounds)
+# chart <- Visualize_Scatter(dfFlagged, dfBounds)
 ```
 
 ```{r, echo = FALSE, fig.width=7, fig.height=5}
-chart
+# chart
 ```
 
 ------------------------------------------------------------------------

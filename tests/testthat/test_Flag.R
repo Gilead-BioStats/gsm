@@ -1,12 +1,9 @@
-source(testthat::test_path("testdata/data.R"))
-
-dfTransformed <- Transform_Count(
-  dfInput = dfInputCONSENT,
-  strCountCol = "Count",
-  strGroupCol = "SiteID"
+dfAnalyzed <- tibble::tibble(
+  GroupID    = c("123", "45", "67", "101"),
+  TotalCount = c(1, 1, 2, 2),
+  Metric     = c(1, 1, 2, 2),
+  Score      = c(1, 1, 2, 2)
 )
-
-dfAnalyzed <- Analyze_Identity(dfTransformed)
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {
@@ -59,3 +56,4 @@ test_that("NA values in strColumn result in NA in Flag column", {
   NAsim <- Flag(data.frame(GroupID = seq(1:100), vals = c(seq(1:90), rep(NA, 10))), strColumn = "vals", vThreshold = c(10, NA))
   expect_equal(NAsim$Flag, c(rep(-1, 9), rep(0, 81), rep(NA, 10)))
 })
+
