@@ -22,7 +22,7 @@
 #' @param strNumeratorCol `string` Column to be counted. Defaults to "Numerator".
 #' @param strDenominatorCol `string` Column name for the numerical `Exposure` column. Defaults to "Denominator".
 #'
-#' @return `data.frame` with one row per site with columns `GroupID`, `GroupType`, `Numerator`, `Denominator`, and `Metric`.
+#' @return `data.frame` with one row per site with columns `GroupID`, `GroupLevel`, `Numerator`, `Denominator`, and `Metric`.
 #'
 #' @examples
 #' dfTransformed <- Transform_Rate(
@@ -44,11 +44,11 @@ Transform_Rate <- function(
     "strDenominatorColumn is not numeric" = is.numeric(dfInput[[strDenominatorCol]]),
     "NA's found in numerator" = !anyNA(dfInput[[strNumeratorCol]]),
     "NA's found in denominator" = !anyNA(dfInput[[strDenominatorCol]]),
-    "Required columns not found in input data" = c(strNumeratorCol, strDenominatorCol, 'GroupID','GroupType') %in% names(dfInput)
+    "Required columns not found in input data" = c(strNumeratorCol, strDenominatorCol, 'GroupID','GroupLevel') %in% names(dfInput)
   )
 
   dfTransformed <- dfInput %>%
-    group_by(GroupID, GroupType) %>%
+    group_by(GroupID, GroupLevel) %>%
     summarise(
       Numerator = sum(.data[[strNumeratorCol]]),
       Denominator = sum(.data[[strDenominatorCol]])

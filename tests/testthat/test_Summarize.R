@@ -1,6 +1,6 @@
 dfFlagged <- tibble::tibble(
   GroupID = c("702", "703", "701"),
-  GroupType = rep("site", 3),
+  GroupLevel = rep("site", 3),
   Numerator = c(1, 3, 5),
   Denominator = c(180, 14, 210),
   Metric = c(0.0055, 0.2142, 0.0238),
@@ -14,7 +14,7 @@ test_that("output created as expected and has correct structure", {
   expect_true(is.data.frame(ae_default))
   expect_equal(
     names(ae_default),
-    c("GroupID", "GroupType", "Numerator", "Denominator", "Metric", "Score", "Flag")
+    c("GroupID", "GroupLevel", "Numerator", "Denominator", "Metric", "Score", "Flag")
   )
   expect_equal(sort(unique(dfFlagged$GroupID)), sort(ae_default$GroupID))
 
@@ -22,7 +22,7 @@ test_that("output created as expected and has correct structure", {
   expect_true(is.data.frame(ae_finding))
   expect_equal(
     names(ae_finding),
-    c("GroupID", "GroupType", "Numerator", "Denominator", "Metric", "Score", "Flag")
+    c("GroupID", "GroupLevel", "Numerator", "Denominator", "Metric", "Score", "Flag")
   )
   expect_equal(sort(unique(dfFlagged$GroupID)), sort(ae_finding$GroupID))
 })
@@ -37,7 +37,7 @@ test_that("incorrect inputs throw errors", {
 test_that("output is correctly sorted by Flag and Score", {
   sim1 <- data.frame(
     GroupID = seq(1:100),
-    GroupType = rep("site", 100),
+    GroupLevel = rep("site", 100),
     N = seq(1:100),
     Metric = rep(NA, 100),
     Score = c(rep(0, 20), rep(1, 80)),
@@ -48,7 +48,7 @@ test_that("output is correctly sorted by Flag and Score", {
 
   sim1 <- data.frame(
     GroupID = seq(1, 100),
-    GroupType = rep("site", 100),
+    GroupLevel = rep("site", 100),
     N = seq(1, 100),
     Metric = c(seq(1, 5), seq(6, 1), rep(11, 89)),
     Score = c(seq(1, 5), seq(6, 1), rep(11, 89)),

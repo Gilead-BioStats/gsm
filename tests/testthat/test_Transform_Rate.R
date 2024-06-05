@@ -1,5 +1,5 @@
 input <- tibble::tribble(
-  ~SubjectID, ~GroupID, ~GroupType, ~StudyID, ~CountryID, ~CustomGroupID, ~Exposure, ~Count, ~Rate,
+  ~SubjectID, ~GroupID, ~GroupLevel, ~StudyID, ~CountryID, ~CustomGroupID, ~Exposure, ~Count, ~Rate,
   "0496", "5", "site", "AA-AA-000-0000", "US", "0X167", 730, 5, 5/720,
   "1350", "78", "site", "AA-AA-000-0000", "US", "0X002", 50, 2, 2/50,
   "0539", "139", "site", "AA-AA-000-0000", "US", "0X052", 901, 5, 5/901,
@@ -20,7 +20,7 @@ test_that("output is created as expected", {
   )
 
   expect_true(is.data.frame(dfTransformed))
-  expect_equal(names(dfTransformed), c("GroupID", "GroupType", "Numerator", "Denominator", "Metric"))
+  expect_equal(names(dfTransformed), c("GroupID", "GroupLevel", "Numerator", "Denominator", "Metric"))
   expect_equal(sort(unique(input$GroupID)), sort(dfTransformed$GroupID))
   expect_equal(length(unique(input$GroupID)), length(unique(dfTransformed$GroupID)))
   expect_equal(length(unique(input$GroupID)), nrow(dfTransformed))

@@ -40,7 +40,7 @@ Input_Rate(
    Column Name \tab Description \tab Type \cr
    SubjectID \tab The subject ID \tab Character \cr
    GroupID \tab The group ID \tab Character \cr
-   GroupType \tab The group type \tab Character \cr
+   GroupLevel \tab The group type \tab Character \cr
    Numerator \tab The calculated numerator value \tab Numeric \cr
    Denominator \tab The calculated denominator value \tab Numeric \cr
    Rate \tab The calculated input rate \tab Numeric \cr
@@ -65,5 +65,19 @@ The data requirements for the function are as follows:
 
 All other columns are dropped from the output data frame. Note that if no values for a subject are
 found in dfNumerator/dfDenominator numerator and denominator values are filled with 0 in the output data frame.
+}
+\examples{
+# Run for AE KRI
+dfInput <- Input_Rate(
+ dfs = list(
+  dfSubjects = clindata::rawplus_dm,
+  dfNumerator = clindata::rawplus_ae,
+  dfDenominator = clindata::rawplus_dm
+),
+strNumeratorMethod = "Count",
+strDenominatorMethod = "Sum",
+strDenominatorCol = "timeontreatment"
+)
+
 }
 \keyword{interal}

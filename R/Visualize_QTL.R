@@ -1,5 +1,7 @@
 #' Visualize_QTL
 #'
+#' `r lifecycle::badge("experimental")`
+#'
 #' @description
 #' Make cross-sectional timeseries charts.
 #'
