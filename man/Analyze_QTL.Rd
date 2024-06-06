@@ -34,6 +34,7 @@ TODO Coming soon ...
 The input data (\code{dfTransformed}) for \code{Analyze_QTL} is typically created using \code{\link{Transform_Rate}} and should be one record for the entire study with required columns for:
 \itemize{
 \item \code{GroupID} - GroupID should be the StudyID
+\item \code{GroupLevel} - Group Type
 \item \code{N} - Total number of participants at site
 \item \code{Numerator} - Total number of participants at site with event of interest
 \item \code{Denominator} - Total number of participants at a site

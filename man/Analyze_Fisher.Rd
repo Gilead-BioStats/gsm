@@ -42,6 +42,7 @@ The significance level was set at a common choice.
 The input data (\code{dfTransformed}) for \code{Analyze_Fisher} is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
 \itemize{
 \item \code{GroupID} - Site ID
+\item \code{GroupLevel} - Group Type
 \item \code{Numerator} - Total number of participants at site with event of interest.
 \item \code{Denominator} - Total number of participants at site/Total number of days of exposure at site.
 \item \code{Metric} - Proportion of participants at site with event of interest/Rate of events at site (Numerator / Denominator).
@@ -49,24 +50,10 @@ The input data (\code{dfTransformed}) for \code{Analyze_Fisher} is typically cre
 }
 
 \examples{
-dfInput <- tibble::tribble(
-  ~SubjectID, ~SiteID, ~StudyID, ~CountryID, ~CustomGroupID, ~Exposure, ~Count, ~Rate,
-  "0496", "5", "AA-AA-000-0000", "US", "0X167", 730, 5, 5/720,
-  "1350", "78", "AA-AA-000-0000", "US", "0X002", 50, 2, 2/50,
-  "0539", "139", "AA-AA-000-0000", "US", "0X052", 901, 5, 5/901,
-  "0329", "162", "AA-AA-000-0000", "US", "0X049", 370, 3, 3/370,
-  "0429", "29", "AA-AA-000-0000", "Japan", "0X116", 450, 2, 2/450,
-  "1218", "143", "AA-AA-000-0000", "US", "0X153", 170, 3, 3/170,
-  "0808", "173", "AA-AA-000-0000", "US", "0X124", 680, 6, 6/680,
-  "1314", "189", "AA-AA-000-0000", "US", "0X093", 815, 4, 4/815,
-  "1236", "58", "AA-AA-000-0000", "China", "0X091", 225, 1, 1/225,
-  "0163", "167", "AA-AA-000-0000", "US", "0X059", 360, 3, 3/360
-)
 dfTransformed <- Transform_Rate(
-  dfInput,
-  strGroupCol = "SiteID",
-  strNumeratorCol = "Count",
-  strDenominatorCol = "Exposure"
+  sampleInput,
+  strNumeratorCol = "Numerator",
+  strDenominatorCol = "Denominator",
 )
 dfAnalyzed <- Analyze_Fisher(dfTransformed)
 

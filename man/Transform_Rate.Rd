@@ -11,13 +11,11 @@ Transform_Rate(
 )
 }
 \arguments{
-\item{dfInput}{A data.frame with one record per subject.}
+\item{dfInput}{\code{df} A data.frame with one record per subject.}
 
-\item{strNumeratorCol}{Required. Numerical or logical. Column to be counted.}
+\item{strNumeratorCol}{\code{string} Column to be counted. Defaults to "Numerator".}
 
-\item{strDenominatorCol}{\code{numeric} Required. Numerical \code{Exposure} column.}
-
-\item{strGroupCol}{\code{character} Required. Name of column for grouping variable. Default: \code{"SiteID"}}
+\item{strDenominatorCol}{\code{string} Column name for the numerical \code{Exposure} column. Defaults to "Denominator".}
 }
 \value{
 \code{data.frame} with one row per site with columns \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, and \code{Metric}.
@@ -33,27 +31,19 @@ This function transforms data to prepare it for the analysis step. It is current
 \section{Data Specification}{
 
 
-(\code{dfInput}) must include the columns specified by \code{strNumeratorCol}, \code{strDenominatorCol} and \code{strGroupCol}.
+(\code{dfInput}) must include the columns specified by \code{strNumeratorCol} and \code{strDenominatorCol}.
 Required columns include:
 \itemize{
-\item \code{SiteID} - Site ID
-\item \code{StudyID} - Study ID
-\item \code{CustomGroupID} - Custom Group ID
-\item \code{Count} - Number of events of interest; the actual name of this column is specified by the parameter \code{strNumeratorCol}
-\item \code{Exposure} - Number of days on treatment; the actual name of this column is specified by the parameter \code{strDenominatorCol}
+\item \code{GroupID} - Group ID
+\item \code{GroupLevel} - Group Type
+\item \code{Numerator} - Number of events of interest; the actual name of this column is specified by the parameter \code{strNumeratorCol}
+\item \code{Denominator} - Number of days on treatment; the actual name of this column is specified by the parameter \code{strDenominatorCol}
 }
 }
 
 \examples{
-dfInput <- tibble::tibble(
- GroupID = c("G1", "G1", "G2", "G2"),
- GroupLevel = rep("site",4),
- Numerator = c(1, 2, 3, 4),
- Denominator = c(10, 20, 30, 40)
-)
-
 dfTransformed <- Transform_Rate(
-  dfInput,
+  sampleInput,
   strNumeratorCol = "Numerator",
   strDenominatorCol = "Denominator",
 )
