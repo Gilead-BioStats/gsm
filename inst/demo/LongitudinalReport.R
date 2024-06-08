@@ -26,7 +26,7 @@ AddAEs <- function(df, n=100, startDate, endDate, dfParticipants){
   return(df)
 }
 
-dfSite <- clindata::ctms_site %>% rename(SiteID = site_num)
+dfSite <- clindata::ctms_site %>% rename(GroupID = site_num)
 dfStudy <- clindata::ctms_study %>% rename(StudyID = protocol_number)
 
 wf_mapping <- MakeWorkflowList(strNames="mapping")[[1]]
@@ -128,3 +128,5 @@ strOutpath <- "gsm_site_report_overTime.html"
 Report_KRI( lCharts = lCharts, dfSummary = dfSummary,  dfSite = dfSite, dfStudy = dfStudy, dfMetrics = dfMetrics, strOutpath = strOutpath )
 
 
+# Test FlagOverTime chart
+FlagOverTime(dfSummary, dfSite, dfMetrics)
