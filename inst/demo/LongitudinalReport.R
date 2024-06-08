@@ -34,7 +34,6 @@ wf_mapping$steps <- wf_mapping$steps[1:2]
 wf_metrics <- MakeWorkflowList(strNames=paste0("kri",sprintf("%04d", 1:2)))
 
 
-
 ## Simulate data for 12 months
 startDate <- seq(as.Date("2012-01-01"),length=12, by="months")
 endDate <- seq(as.Date("2012-02-01"),length=12, by="months")-1
@@ -85,7 +84,7 @@ dfBounds <- lResults %>%
     mutate(StudyID = "ABC-123") %>%
     mutate(snapshot_date = endDate[i])
 
-dfParams <- structure(
+dfParams1 <- structure(
   list(
     metricid = c("kri0001", "kri0001", "kri0001", "kri0001"), 
     param = c("vThreshold", "vThreshold", "vThreshold", "vThreshold"), 
@@ -97,6 +96,20 @@ dfParams <- structure(
   row.names = c(NA, -4L), 
   class = "data.frame"
 )
+
+dfParams2 <- structure(
+  list(
+    metricid = c("kri0001", "kri0001", "kri0001", "kri0001"), 
+    param = c("vThreshold", "vThreshold", "vThreshold", "vThreshold"), 
+    index = 1:4, 
+    snapshot_date = rep(as.Date('2012-05-31'),4), 
+    studyid = rep("ABC-123",4), 
+    value = c("-3", "-2", "2", "3")
+  ), 
+  row.names = c(NA, -4L), 
+  class = "data.frame"
+)
+dfParams <- bind_rows(dfParams1, dfParams2)
 
 lCharts <- unique(dfSummary$MetricID) %>% map(
   ~Visualize_Metric(
@@ -113,3 +126,5 @@ lCharts <- unique(dfSummary$MetricID) %>% map(
 
 strOutpath <- "gsm_site_report_overTime.html"
 Report_KRI( lCharts = lCharts, dfSummary = dfSummary,  dfSite = dfSite, dfStudy = dfStudy, dfMetrics = dfMetrics, strOutpath = strOutpath )
+
+

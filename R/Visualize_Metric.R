@@ -2,11 +2,11 @@
 #'
 #' The function creates all available charts for a metric using the data provided
 #'
-#' @param dfSummary `data.frame` A data.frame returned by [gsm::Summarize()].
-#' @param dfBounds `data.frame`, A data.frame returned by [gsm::Analyze_NormalApprox_PredictBounds()] or [gsm::Analyze_Poisson_PredictBounds()]
+#' @param dfSummary `data.frame` A data.frame returned by [gsm::Summarize()]. Longitudinal data supported. 
+#' @param dfBounds `data.frame`, A data.frame returned by [gsm::Analyze_NormalApprox_PredictBounds()] or [gsm::Analyze_Poisson_PredictBounds()]. Longitudinal data not supported. 
 #' @param dfMetrics `data.frame` Metrics metadata.
 #' @param dfSite `data.frame` Site metadata.
-#' @param dfParams `data.frame` Parameters metadata.
+#' @param dfParams `data.frame` Parameters metadata. #TODO remove this and use dfMetrics$vThreshold instead. 
 #' @param strMetricID `character` MetricID to subset the data.
 #' @param strSnapshotDate `character` Snapshot date to subset the data.
 #'
@@ -76,7 +76,7 @@ Visualize_Metric <- function(
 
     lCharts$scatterJS <- gsm::Widget_ScatterPlot(
       dfSummary = dfSummary_current,
-      lLabels = lLabels,
+      dfMetrics = dfMetrics,
       dfSite = NULL,
       #dfSite = dfSite,
       dfBounds = dfBounds,
