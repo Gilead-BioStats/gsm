@@ -31,6 +31,10 @@
 #'  \item{\code{configurable}}
 #' }
 #'
+#' @param dfSummary `data.frame` A data.frame returned by [gsm::Summarize()].
+#' @param lLabels `list` Metrics metadata.
+#' @param dfSite `data.frame` Site metadata.
+#' @param dfThreshold `data.frame` Threshold metadata.
 #' @param strYAxisType either \code{'score'} or \code{'metric'}
 #' @param selectedGroupIDs group IDs to highlight, \code{NULL} by default, can be a single site or a vector.
 #' @param addSiteSelect `logical` add a dropdown to highlight sites? Default: `TRUE`.

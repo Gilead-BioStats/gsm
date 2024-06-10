@@ -44,6 +44,10 @@
 #'  \item{\code{logdenominator}}
 #' }
 #'
+#' @param dfSummary `data.frame` A data.frame returned by [gsm::Summarize()].
+#' @param lLabels `list` Metrics metadata.
+#' @param dfSite `data.frame` Site metadata.
+#' @param dfBounds `data.frame`, A data.frame returned by [gsm::Analyze_NormalApprox_PredictBounds()] or [gsm::Analyze_Poisson_PredictBounds()]
 #' @param selectedGroupIDs group IDs to highlight, \code{NULL} by default, can be a single site or a vector.
 #' @param addSiteSelect `logical` add a dropdown to highlight sites? Default: `TRUE`.
 #' @param bHideDropdown `logical` should the dropdown be hidden? Default: `FALSE`. This is primarily used for the Shiny app `{gsmApp}` to hide the drop-down site selector,
@@ -55,7 +59,7 @@
 #'
 #' @examples
 #' ae_transform <- Transform_Rate(
-#'   dfInput = sampleID)
+#'   dfInput = sampleInput)
 #'
 #' ae_analyze <- Analyze_NormalApprox(
 #'   dfTransformed = ae_transform,

@@ -18,43 +18,13 @@ Widget_ScatterPlot(
 )
 }
 \arguments{
-\item{dfSummary}{data with columns:
-\itemize{
-\item{\code{studyid}}
-\item{\code{workflowid}}
-\item{\code{groupid}}
-\item{\code{numerator}}
-\item{\code{denominator}}
-\item{\code{metric}}
-\item{\code{score}}
-\item{\code{flag}}
-}}
+\item{dfSummary}{\code{data.frame} A data.frame returned by \code{\link[=Summarize]{Summarize()}}.}
 
-\item{lLabels}{configuration with columns:
-\itemize{
-\item{\code{workflow}}
-\item{\code{gsm_version}}
-\item{\code{group}}
-\item{\code{metric}}
-\item{\code{numerator}}
-\item{\code{denominator}}
-\item{\code{outcome}}
-\item{\code{model}}
-\item{\code{score}}
-\item{\code{data_inputs}}
-\item{\code{data_filters}}
-}}
+\item{lLabels}{\code{list} Metrics metadata.}
 
 \item{dfSite}{\code{data.frame} Site metadata.}
 
-\item{dfBounds}{chart bounds data with columns:
-\itemize{
-\item{\code{threshold}}
-\item{\code{numerator}}
-\item{\code{denominator}}
-\item{\code{metric}}
-\item{\code{logdenominator}}
-}}
+\item{dfBounds}{\code{data.frame}, A data.frame returned by \code{\link[=Analyze_NormalApprox_PredictBounds]{Analyze_NormalApprox_PredictBounds()}} or \code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}}}
 
 \item{selectedGroupIDs}{group IDs to highlight, \code{NULL} by default, can be a single site or a vector.}
 
@@ -78,7 +48,7 @@ Scatter plots are provided by default in any Assess function, and are suffixed w
 }
 \examples{
 ae_transform <- Transform_Rate(
-  dfInput = sampleID)
+  dfInput = sampleInput)
 
 ae_analyze <- Analyze_NormalApprox(
   dfTransformed = ae_transform,

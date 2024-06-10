@@ -19,31 +19,13 @@ Widget_BarChart(
 )
 }
 \arguments{
-\item{dfSummary}{data with column names:
-\itemize{
-\item{\code{studyid}}
-\item{\code{workflowid}}
-\item{\code{groupid}}
-\item{\code{numerator}}
-\item{\code{denominator}}
-\item{\code{metric}}
-\item{\code{score}}
-\item{\code{flag}}
-}}
+\item{dfSummary}{\code{data.frame} A data.frame returned by \code{\link[=Summarize]{Summarize()}}.}
 
-\item{lLabels}{configuration data with columns:}
+\item{lLabels}{\code{list} Metrics metadata.}
 
 \item{dfSite}{\code{data.frame} Site metadata.}
 
-\item{dfThreshold}{a one row data frame containing columns:
-\itemize{
-\item{\code{workflowid}}
-\item{\code{gsm_version}}
-\item{\code{param}}
-\item{\code{index}}
-\item{\code{default}}
-\item{\code{configurable}}
-}}
+\item{dfThreshold}{\code{data.frame} Threshold metadata.}
 
 \item{strYAxisType}{either \code{'score'} or \code{'metric'}}
 
