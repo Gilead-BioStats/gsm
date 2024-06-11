@@ -13,6 +13,7 @@ meta:
     - -2
     - 2
     - 3
+  nMinDenominator: 30
 steps:
   - name: RunQuery
     output: dfSubjects
@@ -64,3 +65,4 @@ steps:
     output: dfSummary
     params:
       dfFlagged: dfFlagged
+      nMinDenominator: nMinDenominator

@@ -13,6 +13,7 @@ meta:
     - -2
     - 2
     - 3
+  nMinDenominator: 30
 steps:
   - name: Input_Rate
     output: dfInput
@@ -48,4 +49,5 @@ steps:
     output: dfSummary
     params:
       dfFlagged: dfFlagged
+      nMinDenominator: nMinDenominator
 
