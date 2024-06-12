@@ -1,6 +1,6 @@
 dfSummary <- tibble::tibble(
   GroupID = c("10", "100", "101", "102", "103"),
-  GroupType = rep("Site", 5),
+  GroupLevel = rep("Site", 5),
   Numerator = seq(2,10,2),
   Denomicator = seq(10,50,10),
   Metric = c(0.02, 0.02, 0.02, 0.02, 0.02),

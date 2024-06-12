@@ -1,12 +1,4 @@
-dfAnalyzed <- tibble::tribble(
-  ~GroupID, ~Numerator, ~Denominator, ~Metric, ~OverallMetric, ~Factor, ~Score,
-  "139", 0, 2, 0, 0.08, 0.910, -0.437,
-  "173", 0, 2, 0, 0.08, 0.910, -0.437,
-  "189", 0, 2, 0, 0.08, 0.910, -0.437,
-  "29", 0, 2, 0, 0.08, 0.910, -0.437,
-  "5", 0, 2, 0, 0.08, 0.910, -0.437,
-  "62", 0, 2, 0, 0.08, 0.910, -0.437
-)
+dfAnalyzed <- Transform_Rate(sampleInput) %>% Analyze_NormalApprox()
 
 ################################################################################
 
@@ -15,7 +7,7 @@ test_that("output is created as expected", {
   expect_true(is.data.frame(dfFlagged))
   expect_equal(sort(unique(dfAnalyzed$GroupID)), sort(dfFlagged$GroupID))
   expect_true(all(names(dfAnalyzed) %in% names(dfFlagged)))
-  expect_equal(names(dfFlagged), c("GroupID", "Numerator", "Denominator", "Metric", "OverallMetric", "Factor", "Score", "Flag"))
+  expect_equal(names(dfFlagged), c("GroupID", "GroupLevel", "Numerator", "Denominator", "Metric", "OverallMetric", "Factor", "Score", "Flag"))
   expect_equal(length(unique(dfAnalyzed$GroupID)), length(unique(dfFlagged$GroupID)))
   expect_equal(length(unique(dfAnalyzed$GroupID)), nrow(dfFlagged))
 })

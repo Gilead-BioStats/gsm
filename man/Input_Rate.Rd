@@ -23,7 +23,7 @@ Input_Rate(
 
 \item{dfDenominator}{\code{data.frame} with a column for SubjectID and \code{strDenominatorCol} if \code{strDenominatorMethod} is "Sum"}
 
-\item{strGroupCol}{\code{character} Column name in \code{dfSubjects} to use for grouping. Default: "SiteID"}
+\item{strGroupCol}{\code{character} Column name in \code{dfSubjects} to use for grouping. Default: "GroupID"}
 
 \item{strSubjectCol}{\code{character} Column name in \code{dfSubjects} to use for subject ID. Default: "SubjectID"}
 
