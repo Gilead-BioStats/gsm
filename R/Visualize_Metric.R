@@ -80,13 +80,13 @@ Visualize_Metric <- function(
       dfSite = NULL,
       #dfSite = dfSite,
       dfBounds = dfBounds,
-      elementId = paste0(tolower(lLabels$abbreviation), "AssessScatter")
+      elementId = paste0(tolower(lLabels$Abbreviation), "AssessScatter")
     )
 
     lCharts$scatter <- gsm::Visualize_Scatter(
       dfSummary = dfSummary_current,
       dfBounds = dfBounds,
-      strGroupLabel = lLabels$group
+      strGroupLabel = lLabels$Group
     )
 
     lCharts$barMetricJS <- gsm::Widget_BarChart(
@@ -94,7 +94,7 @@ Visualize_Metric <- function(
       lLabels = lLabels,
       dfSite = dfSite,
       strYAxisType = "metric",
-      elementId = paste0(tolower(lLabels$abbreviation), "AssessMetric")
+      elementId = paste0(tolower(lLabels$Abbreviation), "AssessMetric")
     )
 
     lCharts$barScoreJS <- gsm::Widget_BarChart(
@@ -102,7 +102,7 @@ Visualize_Metric <- function(
       lLabels = lLabels,
       dfSite = dfSite,
       strYAxisType = "score",
-      elementId = paste0(tolower(lLabels$abbreviation), "AssessScore")
+      elementId = paste0(tolower(lLabels$Abbreviation), "AssessScore")
     )
 
     lCharts$barMetric <- gsm::Visualize_Score(
@@ -113,7 +113,7 @@ Visualize_Metric <- function(
     lCharts$barScore <- gsm::Visualize_Score(
       dfSummary = dfSummary_current,
       strType = "score",
-      vThreshold = unlist(lLabels$thresholds)
+      vThreshold = unlist(lLabels$vThresholds)
     )
   }
   # Continuous Charts -------------------------------------------------------

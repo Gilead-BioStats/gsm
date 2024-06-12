@@ -87,7 +87,7 @@ Report_OverviewText(
 for (i in seq_along(params$lCharts)) {
   MetricID <- names(params$lCharts)[[i]]
   if(!is.null(params$dfMetrics)){
-    MetricName <- unique(params$dfMetrics$metric[params$dfMetrics$MetricID == MetricID])
+    MetricName <- unique(params$dfMetrics$Metric[params$dfMetrics$MetricID == MetricID])
   } else { 
     MetricName <- MetricID
   }

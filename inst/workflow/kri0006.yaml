@@ -1,13 +1,13 @@
 meta:
-  file: kri0006.yaml
+  File: kri0006.yaml
   MetricID: kri0006
-  group: site
-  abbreviation: SDSC
-  metric: Study Discontinuation Rate
-  numerator: Subjects Discontinued - Study
-  denominator: Enrolled Subjects
-  model: Normal Approximation
-  score: Adjusted Z-Score
+  Group: site
+  Abbreviation: SDSC
+  Metric: Study Discontinuation Rate
+  Numerator: Subjects Discontinued - Study
+  Denominator: Enrolled Subjects
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
   vThreshold:
     - -3
     - -2

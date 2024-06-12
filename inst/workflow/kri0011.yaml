@@ -1,13 +1,13 @@
 meta:
-  file: kri0011.yaml
+  File: kri0011.yaml
   MetricID: kri0011
-  group: site
-  abbreviation: CDAT
-  metric: Data Change Rate
-  numerator: Data Points with 1+ Change
-  denominator: Total Data Points
-  model: Normal Approximation
-  score: Adjusted Z-Score
+  Group: site
+  Abbreviation: CDAT
+  Metric: Data Change Rate
+  Numerator: Data Points with 1+ Change
+  Denominator: Total Data Points
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
   vThreshold:
     - -3
     - -2

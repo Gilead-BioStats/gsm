@@ -1,13 +1,13 @@
 meta:
-  file: cou0007.yaml
+  File: cou0007.yaml
   MetricID: cou0007
-  group: country
-  abbreviation: TDSC
-  metric: Treatment Discontinuation Rate
-  numerator: Subjects Discontinued - Treatment
-  denominator: Enrolled Subjects
-  model: Normal Approximation
-  score: Adjusted Z-Score
+  Group: country
+  Abbreviation: TDSC
+  Metric: Treatment Discontinuation Rate
+  Numerator: Subjects Discontinued - Treatment
+  Denominator: Enrolled Subjects
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
   vThreshold:
     - -3
     - -2

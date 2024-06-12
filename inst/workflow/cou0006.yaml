@@ -1,13 +1,13 @@
 meta:
-  file: cou0006.yaml
+  File: cou0006.yaml
   MetricID: cou0006
-  group: country
-  abbreviation: SDSC
-  metric: Study Discontinuation Rate
-  numerator: Subjects Discontinued - Study
-  denominator: Enrolled Subjects
-  model: Normal Approximation
-  score: Adjusted Z-Score
+  Group: country
+  Abbreviation: SDSC
+  Metric: Study Discontinuation Rate
+  Numerator: Subjects Discontinued - Study
+  Denominator: Enrolled Subjects
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
   vThreshold:
     - -3
     - -2

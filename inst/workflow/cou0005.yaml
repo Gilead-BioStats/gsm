@@ -1,13 +1,13 @@
 meta:
-  file: cou0005.yaml
+  File: cou0005.yaml
   MetricID: cou0005
-  group: country
-  abbreviation: LB
-  metric: Grade 3+ Lab Abnormality Rate
-  numerator: Grade 3+ Abnormal Labs Samples
-  denominator: Total Lab Samples
-  model: Normal Approximation
-  score: Adjusted Z-Score
+  Group: country
+  Abbreviation: LB
+  Metric: Grade 3+ Lab Abnormality Rate
+  Numerator: Grade 3+ Abnormal Labs Samples
+  Denominator: Total Lab Samples
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
   vThreshold:
     - -3
     - -2
