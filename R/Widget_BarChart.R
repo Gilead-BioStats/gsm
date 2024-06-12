@@ -112,8 +112,7 @@ Widget_BarChart <- function(
   elementId = NULL
 ) {
   dfSummary <- dfSummary %>%
-    dplyr::mutate(across(everything(), as.character)) %>%
-    dplyr::rename_with(tolower)
+    dplyr::mutate(across(everything(), as.character))
 
   if (!is.null(elementId)) {
     elementId <- paste(elementId, as.numeric(Sys.time()) * 1000, sep = "-")

@@ -126,12 +126,8 @@ Widget_ScatterPlot <- function(
   height = NULL,
   elementId = NULL
 ) {
-  dfSummary <- dfSummary %>%
-    dplyr::rename_with(tolower)
-
   if (!is.null(dfBounds)) {
     dfBounds <- dfBounds %>%
-      dplyr::rename_with(tolower) %>%
       jsonlite::toJSON()
   }
 
