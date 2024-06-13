@@ -11,28 +11,31 @@
 #'
 #' @export
 
-Report_MetricTable <- function(dfSummary, dfSite, strSnapshotDate = NULL) { 
+Report_MetricTable <- function(dfSummary, dfSite, strSnapshotDate = NULL) {
     rlang::check_installed("DT", reason = "to run `Study_Report()`")
 
     # Check for multiple snapshots --------------------------------------------
-    # if snapshot_date is missing set it to today for all records
-    if (!"snapshot_date" %in% colnames(dfSummary)) {
-        dfSummary$snapshot_date <- as.Date(Sys.Date())
-    }
-
     # use most recent snapshot date if strSnapshotDate is missing
     if(is.null(strSnapshotDate)){
-        strSnapshotDate <- max(dfSummary$snapshot_date)
+        if ("snapshot_date" %in% colnames(dfSummary) & nrow(dfSummary) > 0) {
+            strSnapshotDate <- max(dfSummary$snapshot_date)
+        } else if (!"snapshot_date" %in% colnames(dfSummary) & nrow(dfSummary) > 0){
+            strSnapshotDate <- as.Date(Sys.Date())
+            dfSummary$snapshot_date <- strSnapshotDate
+        }
     }
 
-    dfSummary <- dfSummary %>% filter(snapshot_date == strSnapshotDate)
-
+    if(nrow(dfSummary) > 0){
+        dfSummary <- dfSummary %>% filter(snapshot_date == strSnapshotDate)
+    }
     # Add Site Metadata ------------------------------------------------------------
-    dfSummary <- dfSummary %>%
-        left_join(
-            dfSite %>% select("SiteID", "pi_last_name","country", "site_status"),
-            c("GroupID" = "SiteID")
-        )
+    if(nrow(dfSummary) > 0 & nrow(dfSite) > 0){
+        dfSummary <- dfSummary %>%
+            left_join(
+                dfSite %>% select("SiteID", "pi_last_name","country", "site_status"),
+                c("GroupID" = "SiteID")
+            )
+    }
 
     # Select Flagged metrics and format table -----------------------------------
     if (nrow(dfSummary) > 0 & any(c(-2, -1, 1, 2) %in% unique(dfSummary$Flag))) {
@@ -59,10 +62,10 @@ Report_MetricTable <- function(dfSummary, dfSite, strSnapshotDate = NULL) {
             select(-MetricID) %>%
             kbl(format="html", escape=FALSE) %>%
             kable_styling("striped", full_width = FALSE)
-            
+
     } else {
         SummaryTable<- "Nothing flagged for this KRI."
     }
-    
+
     return(SummaryTable)
 }

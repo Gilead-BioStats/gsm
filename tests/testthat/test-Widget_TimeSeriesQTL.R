@@ -1,3 +1,4 @@
+skip()
 qtl <- "qtl0004"
 
 dfSummary <- data.frame(

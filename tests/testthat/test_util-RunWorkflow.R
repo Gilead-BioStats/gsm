@@ -1,15 +1,18 @@
-wf_mapping <- MakeWorkflowList(strNames="mapping")[[1]]
+wf_mapping <- MakeWorkflowList(strNames="mapping")
 workflows <- MakeWorkflowList(strNames=paste0("kri",sprintf("%04d", 1:4)))
 
 # Pull Raw Data - this will overwrite the previous data pull
-lRaw <- gsm::UseClindata(
+lData <- gsm::UseClindata(
   list(
     "dfSUBJ" = "clindata::rawplus_dm",
     "dfAE" = "clindata::rawplus_ae",
     "dfPD" = "clindata::ctms_protdev",
+    "dfCONSENT" = "clindata::rawplus_consent",
+    "dfIE" = "clindata::rawplus_ie",
     "dfLB" = "clindata::rawplus_lb",
     "dfSTUDCOMP" = "clindata::rawplus_studcomp",
-    "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp",
+    "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp %>%
+            dplyr::filter(.data$phase == 'Blinded Study Drug Completion')",
     "dfDATACHG" = "clindata::edc_data_points",
     "dfDATAENT" = "clindata::edc_data_pages",
     "dfQUERY" = "clindata::edc_queries",
@@ -18,10 +21,10 @@ lRaw <- gsm::UseClindata(
 )
 
 # Create Mapped Data
-lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$lData
+lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lData)
 
 # Run Metrics
-result <-workflows %>% map(~RunWorkflow(lWorkflow=.x, lData=lMapped))
+result <-RunWorkflow(lWorkflow = workflows, lData = lMapped$mapping$lResults)
 
 test_that("RunWorkflow preserves inputs", {
   expect_true(
@@ -45,7 +48,7 @@ test_that("RunWorkflow contains all outputs from yaml steps", {
       map_lgl(
         imap(result,
              function(kri, name){
-               yaml_outputs[[name]] %in% names(kri$lData)
+               yaml_outputs[[name]] %in% names(kri$lResults)
              }
         ),
         all
@@ -59,7 +62,7 @@ test_that("RunWorkflow contains all outputs from yaml steps with populated field
   rows <- vector()
   for(kri in names(yaml_outputs)){
     for(df in yaml_outputs[[kri]]){
-      rows <- c(rows,dim(result[[kri]]$lData[[df]])[1])
+      rows <- c(rows,dim(result[[kri]]$lResult[[df]])[1])
     }
   }
   expect_true(

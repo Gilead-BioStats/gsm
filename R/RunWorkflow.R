@@ -30,28 +30,47 @@
 #' @export
 
 RunWorkflow <- function(lWorkflow, lData) {
-  cli::cli_h1(paste0("Initializing `", lWorkflow$meta$file, "` Workflow"))
+  output <- imap(lWorkflow, function(workflow, name){
+    cli::cli_h1(paste0("Initializing `", workflow$meta$file, "` Workflow"))
 
-  lWorkflow$lData <- lData
+    workflow$lData <- lData
+    workflow$lResults <- lData
 
-  # Run through each step in lWorkflow$workflow
-  stepCount <- 1
-  for (step in lWorkflow$steps) {
-    cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lWorkflow$steps), ": `", step$name, "`"))
+    # Run through each step in lWorkflow$workflow
 
-    result <- gsm::RunStep(lStep = step, lData = lWorkflow$lData, lMeta = lWorkflow$meta)
-    
-    lWorkflow$lData[[step$output]] <- result
-    
-    if(is.data.frame(result)){
-      cli::cli_h3("{paste(dim(result),collapse='x')} data.frame saved as `lData${step$output}`.")
-    } else {
-      cli::cli_h3("{typeof(result)} of length {length(result)} saved as `lData${step$output}`.")
+    stepCount <- 1
+    for (step in workflow$steps) {
+      cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(workflow$steps), ": `", step$name, "`"))
 
+      result0 <- purrr::safely(~gsm::RunStep(lStep = step, lData = workflow$lResults, lMeta = workflow$meta))()
+      if(names(result0[!map_vec(result0, is.null)]) == "error"){
+        cli::cli_alert_danger(paste0('Error:`', result0$error$message, '`: ', "error message stored as result"))
+        result1 <- result0$error$message
+      } else {
+        result1 <- result0$result
+      }
+
+      workflow$lResults[[step$output]] <- result1
+
+      if(is.data.frame(result1)){
+        cli::cli_h3("{paste(dim(result1),collapse='x')} data.frame saved as `lData${step$output}`.")
+      } else {
+        cli::cli_h3("{typeof(result1)} of length {length(result1)} saved as `lData${step$output}`.")
+
+      }
+
+      stepCount <- stepCount + 1
     }
-    
-    stepCount <- stepCount + 1
-  }
 
-  return(lWorkflow)
+    if(name != "mapping"){
+      workflow$lResults <- c(workflow$lResults[!names(workflow$lResults) %in% names(workflow$lData)],
+                           workflow$lResults[imap_lgl(workflow$lResults[names(workflow$lResults) %in% names(workflow$lData)], function(result, name){
+                             !identical(result, workflow$lData[[name]])
+                           })]
+                          )
+    }
+    return(workflow)
+  })
+
+  return(output)
 }
