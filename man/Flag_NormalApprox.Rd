@@ -27,7 +27,7 @@ the \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM 
 \section{Data Specification}{
 
 \code{Flag_NormalApprox} is designed to support the input data (\code{dfAnalyzed}) from \code{Analyze_NormalApprox} function.
-At a minimum, the input data must have a \code{SiteID} column and a column of numeric values (identified
+At a minimum, the input data must have a \code{GroupID} column and a column of numeric values (identified
 by the \code{strColumn} parameter) that will be compared to the specified thresholds (\code{vThreshold}) to
 calculate a new \code{Flag} column.
 In short, the following columns are considered:

@@ -11,7 +11,7 @@ Transform_Count(dfInput, strCountCol, strGroupCol = "GroupID")
 
 \item{strCountCol}{Required. Numerical or logical. Column to be counted.}
 
-\item{strGroupCol}{\code{character} Name of column for grouping variable. Default: \code{"SiteID"}}
+\item{strGroupCol}{\code{character} Name of column for grouping variable. Default: \code{"GroupID"}}
 }
 \value{
 \code{data.frame} with one row per site with columns \code{GroupID}, \code{TotalCount}, and \code{Metric.}
