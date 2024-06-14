@@ -16,7 +16,7 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-      - uses: webfactory/ssh-agent@v0.9.0
+      - uses: webfactory/ssh-agent@v0.6.0
         with:
           ssh-private-key: ${{ secrets.LOAD_CLINDATA }}
 
@@ -26,11 +26,14 @@ jobs:
         with:
           use-public-rspm: true
 
-      - name: Install Packages
+
+      - name: install packages
         shell: Rscript {0}
         run: |
-          install.packages("devtools", dependencies = TRUE)
-          install.packages("covr", dependencies = TRUE)
+          install.packages("devtools")
+          devtools::install(dependencies=TRUE)
+          install.packages('covr')
+          print(sessionInfo())
 
       - name: Test coverage
         shell: Rscript {0}
@@ -40,4 +43,3 @@ jobs:
             clean = FALSE,
             install_path = file.path(normalizePath(Sys.getenv("RUNNER_TEMP"), winslash = "/"), "package")
           )
-
