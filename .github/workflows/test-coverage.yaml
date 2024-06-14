@@ -36,5 +36,11 @@ jobs:
           print(sessionInfo())
 
       - name: Test coverage
-        run: covr::package_coverage()
         shell: Rscript {0}
+        run: |
+          covr::package_coverage(
+            quiet = FALSE,
+            clean = FALSE,
+            install_path = file.path(normalizePath(Sys.getenv("RUNNER_TEMP"), winslash = "/"), "package")
+          )
+
