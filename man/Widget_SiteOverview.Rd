@@ -58,12 +58,13 @@ Widget_SiteOverview(
 \item{elementId}{ID of container HTML element}
 }
 \description{
-A widget that displays a site overview table based on the output of \code{\link[=Study_Assess]{Study_Assess()}}.
+A widget that displays a site overview table based on the output of KRI pipelines.
 }
 \details{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
+\dontrun{
 wf_mapping <- MakeWorkflowList(strNames="mapping")[[1]]
 wf_metrics <- MakeWorkflowList(strNames=paste0("kri",sprintf("\%04d", 1:2)))
 dfMetrics <- wf_metrics \%>\% map_df(function(wf){
@@ -95,13 +96,13 @@ lRaw <- gsm::UseClindata(
 lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$lData
 
 # Run Metrics
-lResults <-wf_metrics \%>\% map(~RunWorkflow(lWorkflow=.x, lData=lMapped)) <-wf_metrics \%>\% map(~RunWorkflow(lWorkflow=.x, lData=lMapped))
+lResults <-RunWorkflow(lWorkflow=wf_metrics, lData=lMapped)
 
 dfSummary <- lResults \%>\%
-imap_dfr(~.x$lData$dfSummary \%>\% mutate(MetricID = .y)) \%>\%
+imap_dfr(~.x$lResults$dfSummary \%>\% mutate(MetricID = .y)) \%>\%
   mutate(StudyID = "ABC-123") \%>\%
   mutate(SnapshotDate = Sys.Date())
 
 Widget_SiteOverview(dfSummary = dfSummary)
-
+}
 }

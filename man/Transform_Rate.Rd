@@ -45,7 +45,7 @@ Required columns include:
 dfTransformed <- Transform_Rate(
   sampleInput,
   strNumeratorCol = "Numerator",
-  strDenominatorCol = "Denominator",
+  strDenominatorCol = "Denominator"
 )
 
 }

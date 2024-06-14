@@ -12,7 +12,8 @@
 #' @return `list` containing objects named: `steps`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `lWorkflowChecks`, and `lResults`.
 #'
 #' @examples
-#' lAssessments <- MakeWorkflowList()
+#' \dontrun{
+#' lAssessments <- MakeWorkflowList("kri0001")
 #' lData <- list(
 #'   dfAE = clindata::rawplus_ae,
 #'   dfCONSENT = clindata::rawplus_consent,
@@ -22,9 +23,11 @@
 #'   dfPD = clindata::ctms_protdev,
 #'   dfSUBJ = clindata::rawplus_dm
 #' )
+#' wf_mapping <- MakeWorkflowList("mapping")
+#' lMapped <- RunWorkflow(wf_mapping, LData)$mapping$lResults
 #'
-#' output <- RunWorkflow(lAssessments$kri0001, lData)
-#'
+#' output <- RunWorkflow(lAssessments, lMapped)
+#' }
 #' @return `list` containing `lAssessment` with `workflow`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `checks`, and `lResults` added based on the results of the execution of `assessment$workflow`.
 #'
 #' @export

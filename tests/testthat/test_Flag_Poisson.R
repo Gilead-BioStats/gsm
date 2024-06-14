@@ -5,7 +5,7 @@ test_that("output is created as expected", {
   expect_true(is.data.frame(dfFlagged))
   expect_equal(sort(unique(dfAnalyzed$GroupID)), sort(dfFlagged$GroupID))
   expect_true(all(names(dfAnalyzed) %in% names(dfFlagged)))
-  expect_equal(names(dfFlagged), c("GroupID", "Numerator", "Denominator", "Metric", "Score", "PredictedCount", "Flag"))
+  expect_equal(names(dfFlagged), c("GroupID", "GroupLevel", "Numerator", "Denominator", "Metric", "Score", "PredictedCount", "Flag"))
   expect_equal(length(unique(dfAnalyzed$GroupID)), length(unique(dfFlagged$GroupID)))
   expect_equal(length(unique(dfAnalyzed$GroupID)), nrow(dfFlagged))
 })

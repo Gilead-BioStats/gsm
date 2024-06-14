@@ -24,7 +24,8 @@ Calls \code{RunStep} for each item in \code{lWorkflow$workflow} and saves the re
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
-lAssessments <- MakeWorkflowList()
+\dontrun{
+lAssessments <- MakeWorkflowList("kri0001")
 lData <- list(
   dfAE = clindata::rawplus_ae,
   dfCONSENT = clindata::rawplus_consent,
@@ -34,7 +35,9 @@ lData <- list(
   dfPD = clindata::ctms_protdev,
   dfSUBJ = clindata::rawplus_dm
 )
+wf_mapping <- MakeWorkflowList("mapping")
+lMapped <- RunWorkflow(wf_mapping, LData)$mapping$lResults
 
-output <- RunWorkflow(lAssessments$kri0001, lData)
-
+output <- RunWorkflow(lAssessments, lMapped)
+}
 }

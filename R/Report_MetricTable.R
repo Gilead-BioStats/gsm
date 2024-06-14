@@ -6,6 +6,7 @@
 #'
 #' @param dfSummary The summary data frame
 #' @param dfSite The site data frame
+#' @param strSnapshotDate user specified snapshot date as string
 #'
 #' @return A datatable containing the summary table
 #'
@@ -23,10 +24,12 @@ Report_MetricTable <- function(dfSummary, dfSite, strSnapshotDate = NULL) {
             strSnapshotDate <- as.Date(Sys.Date())
             dfSummary$snapshot_date <- strSnapshotDate
         }
+    } else {
+        strSnapshotDate <- as.Date(strSnapshotDate)
     }
 
     if(nrow(dfSummary) > 0){
-        dfSummary <- dfSummary %>% filter(snapshot_date == strSnapshotDate)
+        dfSummary <- dfSummary %>% filter(.data$snapshot_date == strSnapshotDate)
     }
     # Add Site Metadata ------------------------------------------------------------
     if(nrow(dfSummary) > 0 & nrow(dfSite) > 0){
@@ -43,7 +46,7 @@ Report_MetricTable <- function(dfSummary, dfSite, strSnapshotDate = NULL) {
             filter(.data$Flag != 0) %>%
             arrange(desc(abs(.data$Score))) %>%
             mutate(
-                Flag = map(.data$Flag, Report_FormatFlag),
+                'Flag' = map(.data$Flag, Report_FormatFlag),
                 across(
                     where(is.numeric),
                     ~ round(.x, 3)
@@ -59,7 +62,7 @@ Report_MetricTable <- function(dfSummary, dfSite, strSnapshotDate = NULL) {
                 )),
                 everything()
             ) %>%
-            select(-MetricID) %>%
+            select(-'MetricID') %>%
             kbl(format="html", escape=FALSE) %>%
             kable_styling("striped", full_width = FALSE)
 

@@ -11,6 +11,7 @@
 #' @return group-level ggplot2 object.
 #'
 #' @examples
+#' \dontrun{
 #' lData <- gsm::UseClindata(
 #' list(
 #'   "dfSUBJ" = "clindata::rawplus_dm",
@@ -28,10 +29,12 @@
 #'   "dfENROLL" = "clindata::rawplus_enroll"
 #' )
 #' )
+#' wf_mapping <- MakeWorkflowList("mapping")
 #' ae_workflow <- MakeWorkflowList(strNames = "kri0001")
-#' AE <- purrr::map(ae_workflow, ~RunWorkflow(., lData))
-#' Visualize_Score(AE$kri0001$lData$dfSummary, dfBounds)
-#'
+#' lMapped <- RunWorkflow(wf_mapping, lData)$mapping$lResults
+#' AE <- RunWorkflow(ae_workflow, lMapped)
+#' Visualize_Score(AE$kri0001$lResults$dfSummary, dfBounds)
+#' }
 #' @export
 
 Visualize_Score <- function(

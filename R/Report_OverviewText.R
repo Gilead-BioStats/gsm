@@ -6,9 +6,9 @@
 #' @keywords internal
 Report_OverviewText <- function(lSetup, dfSummary, dfStudy) {
 
-    red_KRI_groups <- dfSummary %>% filter(Flag %in% c(-2,2)) %>% select(GroupID) %>% .$GroupID
-    amber_or_red_KRI_groups <- dfSummary %>% filter(Flag %in% c(-2,2,-1,1)) %>% select(GroupID) %>% .$GroupID
-    no_alert_groups <- dfSummary %>% filter(Flag %in% !c(-2,2,1,-1)) %>% select(GroupID) %>% .$GroupID
+    red_KRI_groups <- dfSummary %>% filter(Flag %in% c(-2,2)) %>% select(.data$GroupID) %>% .$GroupID
+    amber_or_red_KRI_groups <- dfSummary %>% filter(Flag %in% c(-2,2,-1,1)) %>% select(.data$GroupID) %>% .$GroupID
+    no_alert_groups <- dfSummary %>% filter(Flag %in% !c(-2,2,1,-1)) %>% select(.data$GroupID) %>% .$GroupID
 
     if (lSetup$group == "Site") {
       group_type = "sites"
