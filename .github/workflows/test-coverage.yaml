@@ -26,15 +26,6 @@ jobs:
         with:
           use-public-rspm: true
 
-
-      - name: install packages
-        shell: Rscript {0}
-        run: |
-          install.packages("devtools")
-          devtools::install(dependencies=TRUE)
-          install.packages('covr')
-          print(sessionInfo())
-
       - name: Test coverage
         shell: Rscript {0}
         run: |
