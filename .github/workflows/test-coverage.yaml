@@ -26,15 +26,15 @@ jobs:
         with:
           use-public-rspm: true
 
-      - name: Install covr
+      - name: Install Packages
         shell: Rscript {0}
         run: |
+          install.packages("devtools", dependencies = TRUE)
           install.packages("covr", dependencies = TRUE)
 
       - name: Test coverage
         shell: Rscript {0}
         run: |
-          dir.create(tempdir())
           covr::package_coverage(
             quiet = FALSE,
             clean = FALSE,
