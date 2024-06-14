@@ -29,7 +29,7 @@ jobs:
       - name: Install covr
         shell: Rscript {0}
         run: |
-          install.packages("covr")
+          install.packages("covr", dependencies = TRUE)
 
       - name: Test coverage
         shell: Rscript {0}
