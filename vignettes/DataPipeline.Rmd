@@ -26,27 +26,20 @@ As an overview, clinical and operational data are analyzed using the `{gsm}` R p
 
 # KRI Data Pipeline
 
-![](data-pipeline.PNG){width="125%"}
-
-TODO: Update/Delete Graphic
-
 In the context of clinical research, a KRI is a measure of risk associated with the conduct of a clinical trial. Examples of KRIs include the rate of adverse events or amount of missing data at a site or across sites. Defining and deploying KRIs during study start-up allows sponsors to continually monitor risks to the integrity of the trial and take corrective actions accordingly.
 
 The default KRI data pipeline begins with one or more clinical datasets related to the KRI. An optional participant-level subset is then applied to each dataset before aggregating by participant to quantify the KRI at the participant level. This aggregated dataset is then further summarized by site to obtain site-level metrics.
 
 ## Generating Input Data
 
-TODO: Update to discuss new framework
-
-Generating input data is outside the scope of the assessment pipeline. The specifications for input data (i.e., `dfInput`) are designed to be flexible enough so that this data frame can be generated from multiple clinical data standards (e.g., Raw, rawplus, or CDISC-compliant ADaM). Most assessment workflows have `Map()` functions that can be used to generate input data. 
+Generating input data is outside the scope of the assessment pipeline. The specifications for input data (i.e., `dfInput`) are designed to be flexible enough so that this data frame can be generated from multiple clinical data standards (e.g., Raw, rawplus, or CDISC-compliant ADaM). In order to generate input data, the user uses the dataframes outputted by the `mappings.yaml` file along with the `Input_Rate()` function to generate the `dfInput` needed for a particular 
 
 For example, the Adverse Event assessment has two `Map()` functions:
 
--   `AE_Map_Raw()`: creates input data from rawplus data
+TODO: add example
 
--   `AE_Map_Adam()`: creates input data from CDISC-compliant ADaM data
 
-These `Map()` functions are provided for convenience, but may not work for all clinical studies. When no `Map()` function is available for a given assessment, the user is expected to manually create input data following the specifications for that assessment. Details on this can be found in the [Cookbook Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Cookbook-Vignette).
+This `mapping.yaml` file is provided for convenience, but may not work for all clinical studies. When no relevant data.frame is produced with the `mapping.yaml`, the user can use the `RunQuery()` function to write a SQL query that produces the properly mapped and filtered dataframe. Details on this can be found in the [Cookbook Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Cookbook-Vignette).
 
 ## Assessment Data Pipeline
 
@@ -60,9 +53,9 @@ The image above provides an overview of the default KRI assessment pipeline. The
 4.  `dfFlagged`: Flagged data; Site-level analysis results with flags added to indicate potential statistical outliers. Created by passing numeric thresholds to a `Flag()` function.
 5.  `dfSummary`: Summary data; Standardized subset of the flagged data. This summary data has the same structure for all assessments and always includes both KRI and Flag values so that a user can easily look at trends for any given site across multiple assessments. Created using the `Summarize()` function.
 
-Each assessment has an `Assess()` function that sequentially executes all 4 of the supporting functions and returns a list of datasets and visualizations. The 4 standard datasets that are always returned are `dfTransformed`, `dfAnalyzed`, `dfFlagged`, and `dfSummary`. An additional dataset, called `dfBounds`, is generated only when a supported statistical model is being used. A step-by-step example of the data assessment workflow can be found in the [Data Analysis Vignette](https://gilead-biostats.github.io/gsm/articles/DataAnalysis.html).
+Each KRI has a `.yaml` file that sequentially executes all of the supporting functions and returns a list of datasets and visualizations per the specifications of the .yaml file. The 4 standard datasets that are always returned are `dfTransformed`, `dfAnalyzed`, `dfFlagged`, and `dfSummary`. An additional dataset, called `dfBounds`, is generated only when a supported statistical model is being used. A step-by-step example of the data assessment workflow can be found in the [Data Analysis Vignette](https://gilead-biostats.github.io/gsm/articles/DataAnalysis.html).
 
-Note that each step in this data pipeline can be customized based on the requirements for a specific KRI. The graphic below shows three such workflows.
+Note that each step in this data pipeline can be customized based on the requirements for a specific KRI. The graphic below shows four such workflows.
 
 ![](data-analysis-combined.PNG){width="170%"}
 
@@ -76,15 +69,75 @@ The default KRI data pipeline runs site-level analyses on sourced clinical data.
 
 Running multiple assessments simultaneously for a single study is a common use case of `{gsm}` and the package provides workflow and reporting functions to streamline this process.
 
-`Study_Assess()` attempts to run one or more assessment workflows using shared data and metadata. The metadata used for this study-level assessment is described in detail in [Appendix 1](#Appendix-1-Metadata-Technical-Specifications). The `Study_Assess()` function returns a list of assessments containing status information and results that is used as input for the reporting functions described below.
+TODO: update this to discuss use of yaml and MakeWorkflowList, RunWorkflow and RunStep
 
-`Study_Report()` creates a detailed report showing both charts and listings summarizing each KRI that was run for the study, along with a study-level table (via `Study_Table()`) and a summary of the workflow run to generate each KRI (via `Study_AssessmentReport()`) .
+`RunWorkflow()` attempts to run one or more assessment workflows using shared data and metadata. The metadata used for this study-level assessment is described in detail in [Appendix 1](#Appendix-1-Metadata-Technical-Specifications). The `RunWorkflow()` function returns a list of assessments containing status information and results that is used as input for the reporting functions described below.
 
-To see a sample report, simply run:
+talk about `VisualizeMetric()` here
+
+`Report_KRI()` creates a detailed report showing both charts and listings summarizing each KRI that was run for the study, along with a study-level table (via `Study_Table()`) and a summary of the workflow run to generate each KRI (via `Study_AssessmentReport()`) .
+
+To see a sample report, run:
 
 ```{r, eval = FALSE}
-results <- Study_Assess()
-Study_Report(results)
+# Prepare Workflows
+wf_mapping <- MakeWorkflowList(strNames="mapping")[[1]]
+wf_metrics <- MakeWorkflowList(strNames=paste0("kri",sprintf("%04d", 1:2)))
+dfMetrics <- wf_metrics %>% map_df(~.x$meta)
+
+# Import Site+Study Metadata
+dfStudy<-clindata::ctms_study %>% rename(StudyID = protocol_number)
+dfSite<- clindata::ctms_site %>% rename(SiteID = site_num)
+
+# Pull Raw Data - this will overwrite the previous data pull
+lRaw <- gsm::UseClindata(
+  list(
+    "dfSUBJ" = "clindata::rawplus_dm",
+    "dfAE" = "clindata::rawplus_ae",
+    "dfPD" = "clindata::ctms_protdev",
+    "dfLB" = "clindata::rawplus_lb",
+    "dfSTUDCOMP" = "clindata::rawplus_studcomp",
+    "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp",
+    "dfDATACHG" = "clindata::edc_data_points",
+    "dfDATAENT" = "clindata::edc_data_pages",
+    "dfQUERY" = "clindata::edc_queries",
+    "dfENROLL" = "clindata::rawplus_enroll"
+  )
+)
+
+# Create Mapped Data
+lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$lData
+
+# Run Metrics
+lResults <-wf_metrics %>% map(~RunWorkflow(lWorkflow=.x, lData=lMapped))
+
+dfBounds <- lResults %>% 
+  imap_dfr(~.x$lData$dfBounds %>% mutate(MetricID = .y)) %>%
+  mutate(StudyID = "ABC-123") %>%
+  mutate(SnapshotDate = Sys.Date())
+
+dfSummary <- lResults %>% 
+  imap_dfr(~.x$lData$dfSummary %>% mutate(MetricID = .y)) %>%
+  mutate(StudyID = "ABC-123") %>%
+  mutate(SnapshotDate = Sys.Date())
+
+lCharts <- unique(dfSummary$MetricID) %>% map(~Visualize_Metric(
+  dfSummary = dfSummary, 
+  dfBounds = dfBounds, 
+  dfSite = dfSite,
+  dfMetrics = dfMetrics, 
+  strMetricID = .x
+)
+) %>% setNames(unique(dfSummary$MetricID)) 
+
+# Run reports 
+strOutpath <- "gsm_site_report.html"
+Report_KRI( lCharts = lCharts, 
+            dfSummary = dfSummary,  
+            dfSite = dfSite, 
+            dfStudy = dfStudy, 
+            dfMetrics = dfMetrics,
+            strOutpath = strOutpath )
 ```
 
 Additional examples are provided in the [Cookbook Vignette](https://gilead-biostats.github.io/gsm/articles/Cookbook.html).
@@ -116,7 +169,7 @@ Many columns are shared across tables
 
 ## Appendix 2 - Workflow Specifications
 
-Assessment workflow metadata objects are passed to the `lAssessments` parameter in `Study_Assess()` to define functions and parameters (including `mappings` and `specs`) across multiple studies.
+Assessment workflow metadata objects are passed to the `lWorkflow` parameter in `RunWorkflow()` to define functions and parameters (including `mappings` and `specs`) across multiple studies.
 
 The `lAssessment` object is a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`. Each item in `lAssessments` expects the following parameters:
 
