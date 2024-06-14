@@ -34,6 +34,7 @@ jobs:
       - name: Test coverage
         shell: Rscript {0}
         run: |
+          dir.create(tempdir())
           covr::package_coverage(
             quiet = FALSE,
             clean = FALSE,
