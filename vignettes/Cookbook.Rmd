@@ -91,14 +91,19 @@ Once the data is loaded into the R session, we can begin running our workflows t
 
 All assessments can be run as standalone workflows that create useful data summaries and visualizations. `{gsm}` is configured to accept rawplus data by default, and that data standard is used here. If using YAML files to specify the workflow(s), the process for running one assessment or multiple assessments is identical.
 
-EXPLAIN YAML FILE STRUCTURE
+EXPLAIN YAML FILE STRUCTURE?
 
-With all necessary data loaded into the session, running assessments is a 2-step process, both using the same `RunWorkflow()` function. The steps are as follows:
+With all necessary data loaded into the session, running assessments is a 3-step process, both using the same `RunWorkflow()` function. The steps are as follows:
 
-1.  Map domain-level data to the input data standard for the assessment(s)
-2.  Run the assessment(s) using an appropriate statistical method as specified in the YAML file
+1.  Prepare the workflow lists with `MakeWorkflowList()`
+2.  Map domain-level data to the input data standard for the assessment(s)
+3.  Run the assessment(s) using an appropriate statistical method as specified in the YAML file
 
-First, the `mapping.yaml` workflow is helpful run in order to create the necessary `data.frames` for use in the assessment workflow. This file runs a series of `RunQuery()` calls to create the appropriately filtered and specified data.frames. The full `mapping.yaml` workflow is below, in Appendix A. Here, you will see a subset of the `mapping.yaml` that is relevant to the Important Protocol Deviation Rate workflow.
+First, we must convert the YAML files into usable lists in R with the use of `MakeWorkflowList()`. This function takes a directory path `strPath` and an optional file name(s) argument `strNames`. There is also a `bRecursive` logical argument that specifies whether or not you want the function to find files in nested folder (default is `FALSE`). The output of this step is a named list of workfloes with workflow and parameter metadata. Running `MakeWorkflowList()` with no arguments specified will make a workflow list from the yaml files in the `/inst/workflows` directory of the `{gsm}` package.
+
+Second, we will create the mapping data to be used when creating the Metrics in the next step. The `mapping.yaml` workflow creates the necessary `data.frames` for use in the default assessment workflows. Now that the workflow lists are prepared from the previous step, running `RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)` will produce a list containing all raw data `$lData` and mapped data `$lResult` for use in calculating metrics in the next step.
+
+This YAML file runs a series of `RunQuery()` calls to create the appropriately filtered and specified data.frames. The full `mapping.yaml` workflow is below, in Appendix A. Here, you will see a subset of the `mapping.yaml` that is relevant to the Important Protocol Deviation Rate workflow (KRI0004), which is the example we will focus on throughout this vignette. 
 
 
     meta:
@@ -117,7 +122,7 @@ First, the `mapping.yaml` workflow is helpful run in order to create the necessa
           strQuery: "SELECT subjectenrollmentnumber as subjid, * FROM df WHERE deemedimportant == 'Yes'"
 
 
-The second step is to run the assessment workflow.
+The final step is to run the assessment workflow, which uses `RunWorkflow()` again, as we did in the previous step. Each KRI has its own yaml workflow file, but an example of the PD KRI workflow is as follows:
 
 
     meta:
@@ -173,7 +178,7 @@ The second step is to run the assessment workflow.
           dfFlagged: dfFlagged
 
 
-Putting these steps together to run all 12 KRI workflows at once looks like this:
+Putting these three steps together to run all 12 KRI workflows at once looks like this:
 
 ```{r eval = FALSE, include = TRUE}
 library(clindata)
@@ -191,15 +196,14 @@ lResults <- RunWorkflow(lWorkflow = wf_metrics,
                         lData = lMapped$mapping$lResults)
 ```
 
-Each assessment has representative examples in the help files. The example above can be reviewed by entering `?AE_Assess` into the console.
 
 ## Example 2 - Running a Single Assessment Step-by-Step Using Standard Data
 
-Let's look at an illustrative example of everything that happens behind the scenes when running an individual `Assess()` function. It may be helpful to reference this example alongside the [Data Analysis Vignette](https://gilead-biostats.github.io/gsm/articles/DataAnalysis.html), which goes into significantly more detail about each nested function involved in this workflow. The image below is a high-level summary:
+Let's look at an illustrative example of everything that happens behind the scenes when running through a YAML file via the `RunWorkflow()` function. It may be helpful to reference this example alongside the [Data Analysis Vignette](https://gilead-biostats.github.io/gsm/articles/DataAnalysis.html), which goes into significantly more detail about each nested function involved in this workflow. The image below is a high-level summary:
 
 ![](data-analysis.PNG)
 
-As displayed in the YAML files of Example 1, we will use the PD workflow (KRI0004) for this example.
+As displayed in the YAML files of Example 1, we will use the PD workflow (KRI0004) for this example. OR USE RUNQUERY()!!
 
 ```{r eval = FALSE, include = TRUE}
 library(clindata)
