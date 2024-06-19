@@ -78,10 +78,10 @@
 #' lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$lData
 #'
 #' # Run Metrics
-#' lResults <-RunWorkflow(lWorkflow=wf_metrics, lData=lMapped)
+#' lResults <-map(wf_metrics, ~RunWorkflow(., lData=lMapped))
 #'
 #' dfSummary <- lResults %>%
-#' imap_dfr(~.x$lResults$dfSummary %>% mutate(MetricID = .y)) %>%
+#' imap_dfr(~.x$lData$dfSummary %>% mutate(MetricID = .y)) %>%
 #'   mutate(StudyID = "ABC-123") %>%
 #'   mutate(SnapshotDate = Sys.Date())
 #'

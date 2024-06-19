@@ -32,10 +32,10 @@
 #' )
 #' wf_mapping <- MakeWorkflowList("mapping")
 #' ae <- MakeWorkflowList(strNames = "kri0001")
-#' lMapped <- RunWorkflow(wf_mapping, lData)$mapping$lResults
-#' SafetyAE <- RunWorkflow(ae, lMapped)
-#' dfBounds <- Analyze_Poisson_PredictBounds(SafetyAE$kri0001$lResults$dfTransformed, c(-5, 5))
-#' Visualize_Scatter(SafetyAE$kri0001$lResults$dfSummary, dfBounds)
+#' lMapped <- RunWorkflow(wf_mapping, lData)$lData
+#' SafetyAE <- map(ae, ~RunWorkflow(., lMapped))
+#' dfBounds <- Analyze_Poisson_PredictBounds(SafetyAE$kri0001$lData$dfTransformed, c(-5, 5))
+#' Visualize_Scatter(SafetyAE$kri0001$lData$dfSummary, dfBounds)
 #' }
 #'
 #' @export

@@ -24,9 +24,9 @@
 #'   dfSUBJ = clindata::rawplus_dm
 #' )
 #' wf_mapping <- MakeWorkflowList("mapping")
-#' lMapped <- RunWorkflow(wf_mapping, LData)$mapping$lResults
+#' lMapped <- RunWorkflow(wf_mapping, LData)$lData
 #'
-#' output <- RunWorkflow(lAssessments, lMapped)
+#' output <- map(lAssessments, ~RunWorkflow(., lMapped))
 #' }
 #' @return `list` containing `lAssessment` with `workflow`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `checks`, and `lResults` added based on the results of the execution of `assessment$workflow`.
 #'

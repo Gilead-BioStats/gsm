@@ -26,7 +26,7 @@
 #'   dfCONSENT = clindata::rawplus_consent,
 #'   dfIE = clindata::rawplus_ie
 #' )
-#' lMapped <- RunWorkflow(wf_mapping, lData)$mapping$lResults
+#' lMapped <- RunWorkflow(wf_mapping, lData)$lData
 #'
 #' ae_step <- RunStep(lStep = lStep, lData = lMapped, lMeta = lMeta)
 #' }

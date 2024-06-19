@@ -59,19 +59,19 @@ lRaw <- gsm::UseClindata(
 )
 
 # Create Mapped Data
-lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$mapping$lResults
+lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$lData
 
 # Run Metrics
-lResults <-RunWorkflow(lWorkflow = wf_metrics, lData = lMapped)
+lResults <-map(wf_metrics, ~RunWorkflow(lWorkflow = ., lData = lMapped))
 
 dfBounds <- lResults \%>\%
-  purrr::imap_dfr(~.x$lResults$dfBounds \%>\%
+  purrr::imap_dfr(~.x$lData$dfBounds \%>\%
   dplyr::mutate(MetricID = .y)) \%>\%
   dplyr::mutate(StudyID = "ABC-123",
     SnapshotDate = Sys.Date())
 
 dfSummary <- lResults \%>\%
-  purrr::imap_dfr(~.x$lResults$dfSummary \%>\%
+  purrr::imap_dfr(~.x$lData$dfSummary \%>\%
   dplyr::mutate(MetricID = .y)) \%>\%
   dplyr::mutate(StudyID = "ABC-123",
     SnapshotDate = Sys.Date())

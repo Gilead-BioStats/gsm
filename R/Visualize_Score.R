@@ -31,9 +31,9 @@
 #' )
 #' wf_mapping <- MakeWorkflowList("mapping")
 #' ae_workflow <- MakeWorkflowList(strNames = "kri0001")
-#' lMapped <- RunWorkflow(wf_mapping, lData)$mapping$lResults
-#' AE <- RunWorkflow(ae_workflow, lMapped)
-#' Visualize_Score(AE$kri0001$lResults$dfSummary, dfBounds)
+#' lMapped <- RunWorkflow(wf_mapping, lData)$lData
+#' AE <- map(ae_workflow, ~RunWorkflow(., lMapped))
+#' Visualize_Score(AE$kri0001$lData$dfSummary, dfBounds)
 #' }
 #' @export
 
