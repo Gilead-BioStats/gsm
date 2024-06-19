@@ -52,29 +52,143 @@ To use the most recent development version from GitHub, run:
 devtools::install_github("Gilead-BioStats/gsm", ref = "dev")
 ```
 
-## Example 1 - Running a Single Assessment on Standard Data
+## Data Prep Using Sample Data from `{clindata}`
 
-All assessments can be run as standalone workflow that creates useful data summaries and visualizations. `{gsm}` is configured to accept rawplus data by default, and that data standard is used here. 
+To run multiple assessments using the sample rawplus data from `{clindata}`, the user can run the following:
 
-Running a single assessment is a 2-step process. We will use the Adverse Event (AE) workflow as an example:
+It is important to note that `lData` expects a *named* list. To see a list of default data frame names, run `names(gsm::Read_Mapping())`.
 
-1.  Map domain-level data to the input data standard for the selected assessment (e.g., `dfInput <- AE_Map_Raw()`)
-2.  Run the assessment using an appropriate statistical method (e.g., `ae_assess <- AE_Assess(dfInput, strMethod = "NormalApprox)`)
+```{r eval = FALSE, include = TRUE}
+library(gsm)
+library(clindata)
+library(dplyr)
 
-Putting these steps together looks like this:
+# Import Site+Study Metadata
+dfStudy<-clindata::ctms_study %>% rename(StudyID = protocol_number)
+dfSite<- clindata::ctms_site %>% rename(SiteID = site_num)
+
+# Pull Raw Data - this will overwrite the previous data pull
+lRaw <- gsm::UseClindata(
+  list(
+    "dfSUBJ" = "clindata::rawplus_dm",
+    "dfAE" = "clindata::rawplus_ae",
+    "dfPD" = "clindata::ctms_protdev",
+    "dfLB" = "clindata::rawplus_lb",
+    "dfSTUDCOMP" = "clindata::rawplus_studcomp",
+    "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp %>%
+      dplyr::filter(.data$phase == 'Blinded Study Drug Completion')",
+    "dfDATACHG" = "clindata::edc_data_points",
+    "dfDATAENT" = "clindata::edc_data_pages",
+    "dfQUERY" = "clindata::edc_queries",
+    "dfENROLL" = "clindata::rawplus_enroll"
+  )
+)
+```
+
+Once the data is loaded into the R session, we can begin running our workflows to produce analytics and reporting outputs.
+
+## Example 1 - Running Assessments on Standard Data with YAML files
+
+All assessments can be run as standalone workflows that create useful data summaries and visualizations. `{gsm}` is configured to accept rawplus data by default, and that data standard is used here. If using YAML files to specify the workflow(s), the process for running one assessment or multiple assessments is identical.
+
+EXPLAIN YAML FILE STRUCTURE
+
+With all necessary data loaded into the session, running assessments is a 2-step process, both using the same `RunWorkflow()` function. The steps are as follows:
+
+1.  Map domain-level data to the input data standard for the assessment(s)
+2.  Run the assessment(s) using an appropriate statistical method as specified in the YAML file
+
+First, the `mapping.yaml` workflow is helpful run in order to create the necessary `data.frames` for use in the assessment workflow. This file runs a series of `RunQuery()` calls to create the appropriately filtered and specified data.frames. The full `mapping.yaml` workflow is below, in Appendix A. Here, you will see a subset of the `mapping.yaml` that is relevant to the Important Protocol Deviation Rate workflow.
+
+
+    meta:
+      file: mapping.yaml
+      desctipion: Data Mappings to prepare for metric calculations
+    steps:
+      - name: RunQuery
+        output: dfEnrolled
+        params:
+          df: dfSUBJ
+          strQuery: "SELECT subjectid as raw_subjectid, * FROM df WHERE enrollyn == 'Y'"
+      - name: RunQuery
+        output: dfImportantPD
+        params:
+          df: dfPD
+          strQuery: "SELECT subjectenrollmentnumber as subjid, * FROM df WHERE deemedimportant == 'Yes'"
+
+
+The second step is to run the assessment workflow.
+
+
+    meta:
+      file: kri0004.yaml
+      MetricID: kri0004
+      group: site
+      abbreviation: PD
+      metric: Important Protocol Deviation Rate
+      numerator: Important Protocol Deviations
+      denominator: Days on Study
+      model: Normal Approximation
+      score: Adjusted Z-Score
+    vThreshold:
+      - -3
+      - -2
+      - 2
+      - 3
+    steps:
+      - name: Input_Rate
+        output: dfInput
+        params:
+          dfSubjects: dfEnrolled
+          dfNumerator: dfImportantPD
+          dfDenominator: dfEnrolled
+          strSubjectCol: subjid
+          strGroupCol: siteid
+          strNumeratorMethod: Count
+          strDenominatorMethod: Sum
+          strDenominatorCol: timeonstudy
+      - name: Transform_Rate
+        output: dfTransformed
+        params:
+         dfInput: dfInput
+      - name: Analyze_NormalApprox
+        output: dfAnalyzed
+        params:
+          dfTransformed: dfTransformed
+          strType: rate
+      - name: Analyze_NormalApprox_PredictBounds
+        output: dfBounds
+        params:
+          dfTransformed: dfTransformed
+          strType: rate
+          vThreshold: vThreshold
+      - name: Flag_NormalApprox
+        output: dfFlagged
+        params:
+          dfAnalyzed: dfAnalyzed
+          vThreshold: vThreshold
+      - name: Summarize
+        output: dfSummary
+        params:
+          dfFlagged: dfFlagged
+
+
+Putting these steps together to run all 12 KRI workflows at once looks like this:
 
 ```{r eval = FALSE, include = TRUE}
 library(clindata)
 library(gsm)
 
-## Map domain-level data to the input data standard for the selected assessment.
-## In this case, we are making dfInput from rawplus clinical data
-dfInput <- AE_Map_Raw()
+# Prepare Workflows
+wf_mapping <- MakeWorkflowList(strNames="mapping")
+wf_metrics <- MakeWorkflowList(strNames=paste0("kri",sprintf("%04d", 1:12)))
 
-## Run the assessment with the appropriate statistical model.
-##For AE, the choices are 'NormalApprox' or 'Poisson' or 'Identity'
-ae_assessment_NormalApprox <- AE_Assess(dfInput)
-ae_assessment_poisson <- AE_Assess(dfInput, strMethod = "Poisson")
+# Create Mapped Data
+lMapped <- RunWorkflow(lWorkflow = wf_mapping, 
+                       lData = lRaw)
+# Run KRI workflows
+lResults <- RunWorkflow(lWorkflow = wf_metrics, 
+                        lData = lMapped$mapping$lResults)
 ```
 
 Each assessment has representative examples in the help files. The example above can be reviewed by entering `?AE_Assess` into the console.
@@ -85,26 +199,44 @@ Let's look at an illustrative example of everything that happens behind the scen
 
 ![](data-analysis.PNG)
 
-As in Example 1, we will use the AE workflow for this example.
-
-Start by creating `dfInput` using sample rawplus data from `{clindata}`. Note that `AE_Map_Raw()` requires two specific datasets from `{clindata}`, which include a subject-level demographics/exposure dataset (`dfSUBJ`) and a domain-level dataset (`dfAE`) that records every adverse event per subject.
+As displayed in the YAML files of Example 1, we will use the PD workflow (KRI0004) for this example.
 
 ```{r eval = FALSE, include = TRUE}
-dfInput <- AE_Map_Raw(
-  dfs = list(
-    dfAE = clindata::rawplus_ae,
-    dfSUBJ = clindata::rawplus_dm
-  )
+library(clindata)
+library(gsm)
+
+# Prepare Workflow
+wf_mapping <- MakeWorkflowList(strNames="mapping")
+
+# Create Mapped Data
+lMapped <- RunWorkflow(lWorkflow = wf_mapping, 
+                       lData = lRaw)
+```
+
+Start by creating `dfInput` using sample rawplus data from `{clindata}`. Note that `Input_Rate()` requires three specific datasets from `{clindata}`, which include a subject-level demographics/exposure dataset (`dfSubjects`) and a domain-level dataset (`dfNumerator`) that records every adverse event per subject. 
+
+Since `Input_Rate()` is a generalized function, it is also required that you specify the relevant column names for the Subject (`strSubjectCol`), Group (`strGroupCol`) and optionally the Denominator (`strDenominatorCol`) and Numerator (`strNumeratorCol`) when it is not simply "Denominator" or "Numerator", respectively.
+
+Finally, the method for calculating the Numerator and Denominator is specified in `strNumeratorMethod` and `strDenominatorMethod` as either "Count" or "Sum".  If the method is "Count", the function simply counts the number of rows in the provided data frame. If the numerator method is "Sum", the function takes the sum of the values in the specified column (strNumeratorCol or strDenominatorCol). The function returns a data frame with the calculated input rate for each subject.
+
+```{r eval = FALSE, include = TRUE}
+dfInput <- Input_Rate(
+              dfSubjects =  lMapped$mapping$lResults$dfEnrolled
+              dfNumerator = lMapped$mapping$lResults$dfImportantPD
+              dfDenominator = lMapped$mapping$lResults$dfEnrolled
+              strSubjectCol = "subjid"
+              strGroupCol = "siteid"
+              strNumeratorMethod = "Count"
+              strDenominatorMethod = "Sum"
+              strDenominatorCol = "timeonstudy"
 )
 ```
 
-The second step is to transform `dfInput` into site-level summary data, which is needed to derive the KRI. Two `Transform()` functions are available, `Transform_Rate()` and `Transform_Count()`, and `Transform_Rate()` is the function that is used with the AE assessment. Note that `strNumeratorCol` is a required numeric column, and `strDenominatorCol` is an optional numeric column.
+The second step is to transform `dfInput` into site-level summary data, which is needed to derive the KRI. Two `Transform()` functions are available, `Transform_Rate()` and `Transform_Count()`, and `Transform_Rate()` is the function that is used with the PD assessment. Note that `strNumeratorCol`and `strDenominatorCol` are optional, with the default values being "Numerator" and "Denominator".
 
 ```{r eval = FALSE, include = TRUE}
 dfTransformed <- Transform_Rate(
-  dfInput,
-  strNumeratorCol = "Count",
-  strDenominatorCol = "Exposure"
+  dfInput
   )
 ```
 
@@ -114,7 +246,7 @@ The third step is to analyze the transformed data. Certain assessments support m
 dfAnalyzed <- Analyze_NormalApprox(dfTransformed)
 ```
 
-After analyzing the transformed data, we will flag sites based on at least one statistical threshold. Similar to the previous step, multiple flag functions exist to support the assessment functions. The `Flag_NormalApprox()` function is one of several options for the AE assessment, and has default thresholds of `c(-3, -2, 2, 3)`. 
+After analyzing the transformed data, we will flag sites based on at least one statistical threshold. Similar to the previous step, multiple flag functions exist to support the assessment functions. The `Flag_NormalApprox()` function is one of several options for the PD assessment. 
 
 - If a site falls outside of the (-2, 2) range, it is considered to be "Amber" and will be assigned a value of -1 or 1. 
 - If a site falls outside of the (-3, 3) range, it is considered "Red" and will be assigned a value of -2 or 2. 
@@ -141,88 +273,24 @@ chart <- Visualize_Scatter(dfFlagged, dfBounds)
 ```
 
 
-Reviewing this step-by-step example will allow the user to better understand each intermediate function that runs within an `Assess()` function during KRI derivation. `{gsm}` allows the user to generate the same results in Example 1 and Example 2, with additional error-checking and metadata, and interactive data visualizations. For reference, the code from Example 1 is repeated below:
+Reviewing this step-by-step example will allow the user to better understand each intermediate function that runs within a YAML workflow file during KRI derivation. `{gsm}` allows the user to generate the same results in Example 1 and Example 2, with additional error-checking and metadata, and interactive data visualizations. For reference, the code from Example 1 is specified below, only running the PD workflow (KRI0004):
 
 ```{r eval = FALSE, include = TRUE}
-dfInput <- AE_Map_Raw()
-ae_assessment <- AE_Assess(dfInput)
+# Prepare Workflows
+wf_mapping <- MakeWorkflowList(strNames = "mapping")
+wf_metrics <- MakeWorkflowList(strNames = "kri0004")
+
+# Create Mapped Data
+lMapped <- RunWorkflow(lWorkflow = wf_mapping, 
+                       lData = lRaw)
+# Run KRI workflows
+lResults <- RunWorkflow(lWorkflow = wf_metrics, 
+                        lData = lMapped$mapping$lResults)
 ```
-
-## Example 3 - Running Multiple Assessments Using Standard Data
-
-Let's take a look at running multiple assessments at once, instead of focusing solely on AEs.
-
-Running multiple assessments in `{gsm}` is made possible by the `Study_Assess()` function. By default, `Study_Assess()` uses sample rawplus data from `{clindata}` that is hard-coded to the `lData` parameter. Users can also provide their own rawplus input data to the `lData` parameter.
-
-### Using Sample Data from `{clindata}`
-
-To run multiple assessments using the sample rawplus data from `{clindata}`, the user can run the following:
-
-```{r eval = FALSE, include = TRUE}
-library(gsm)
-library(clindata)
-
-multiple_assessments <- Study_Assess()
-```
-
-### Using User-Provided rawplus Data
-
-User-provided rawplus data will likely come from rawplus case report data. The example below illustrates that a user can pass a named list of rawplus data to the `lData` parameter. 
-
-It is important to note that `lData` expects a *named* list. To see a list of default data frame names, run `names(gsm::Read_Mapping())`.
-
-```{r eval = FALSE, include = TRUE}
-library(gsm)
-library(clindata)
-library(dplyr)
-
-## Include AE data where aetoxgr (Standard Toxicity Grade) is not "MILD"
-dfAE <- clindata::rawplus_ae %>% 
-  filter(
-    aetoxgr != "MILD"
-  )
-
-## Specify rawplus data domains
-dfSUBJ <- clindata::rawplus_dm
-dfIE <- clindata::rawplus_ie
-dfPD <- clindata::ctms_protdev
-dfCONSENT <- clindata::rawplus_consent
-
-## Create named list of assessment data
-assessment_data <- list(
-  dfAE = dfAE,
-  dfIE = dfIE,
-  dfPD = dfPD,
-  dfCONSENT = dfCONSENT,
-  dfSUBJ = dfSUBJ
-)
-
-## Run multiple assessments
-multiple_assessments <- Study_Assess(lData = assessment_data)
-```
-
-Note that `Study_Assess()` provides verbose console output alerting the user to success, warnings, or errors with the workflow.
-
-## Example 4 - Creating a Snapshot
-
-The `Make_Snapshot()` function is a wrapper around `Study_Assess()`, but differs in that it provides aggregated metadata to supplement the analyses run via `Study_Assess()`. This includes study and site-level CTMS data, as well as workflow and configuration metadata, that is used in downstream applications such as reporting, Shiny apps, and more.
-
-To create a snapshot using the default inputs from `{gsm}` and `{clindata}`, simply run the following:
-
-```{r eval = FALSE, include = TRUE}
-library(gsm)
-snapshot <- Make_Snapshot()
-```
-
-The `snapshot` object contains three elements:
-- `lSnapshotDate`: The date that the snapshot was created. Can be provided as an argument to `strAnalysisDate`, or if no date is provided, the current date is used.
-- `lSnapshot`: List of aggregated analysis results and metadata.
-- `lStudyAssessResults`: Output of `Study_Assess()`.
-
 
 # Reporting
 
-## Example 5 - Creating an Assessment Overview Report for Multiple Assessments
+## Example 3 - Creating an Assessment Overview Report for Multiple Assessments
 
 ### Standard Report via `Study_Assess()`
 
