@@ -1,4 +1,4 @@
-wf_mapping <- MakeWorkflowList(strNames="mapping")
+wf_mapping <- MakeWorkflowList(strNames="mapping")$mapping
 workflows <- MakeWorkflowList(strNames=paste0("kri",sprintf("%04d", 1:4)))
 
 # Pull Raw Data - this will overwrite the previous data pull
@@ -21,10 +21,10 @@ lData <- gsm::UseClindata(
 )
 
 # Create Mapped Data
-lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lData)
+lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lData)$lData
 
 # Run Metrics
-result <-RunWorkflow(lWorkflow = workflows, lData = lMapped$mapping$lResults)
+result <-map(workflows, ~RunWorkflow(lWorkflow = .x, lData = lMapped))
 
 test_that("RunWorkflow preserves inputs", {
   expect_true(
@@ -48,7 +48,7 @@ test_that("RunWorkflow contains all outputs from yaml steps", {
       map_lgl(
         imap(result,
              function(kri, name){
-               yaml_outputs[[name]] %in% names(kri$lResults)
+               yaml_outputs[[name]] %in% names(kri$lData)
              }
         ),
         all
@@ -62,7 +62,7 @@ test_that("RunWorkflow contains all outputs from yaml steps with populated field
   rows <- vector()
   for(kri in names(yaml_outputs)){
     for(df in yaml_outputs[[kri]]){
-      rows <- c(rows,dim(result[[kri]]$lResult[[df]])[1])
+      rows <- c(rows,dim(result[[kri]]$lData[[df]])[1])
     }
   }
   expect_true(
