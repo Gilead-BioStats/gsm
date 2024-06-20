@@ -1,4 +1,4 @@
-# AE KRI Workflow
+# AE KRI Workflow with Charts and Report
 
 dfInput <- Input_Rate(
   dfSubjects= clindata::rawplus_dm,
