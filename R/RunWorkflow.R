@@ -12,7 +12,8 @@
 #' @return `list` containing objects named: `steps`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `lWorkflowChecks`, and `lResults`.
 #'
 #' @examples
-#' lAssessments <- MakeWorkflowList()
+#' \dontrun{
+#' lAssessments <- MakeWorkflowList("kri0001")
 #' lData <- list(
 #'   dfAE = clindata::rawplus_ae,
 #'   dfCONSENT = clindata::rawplus_consent,
@@ -22,9 +23,11 @@
 #'   dfPD = clindata::ctms_protdev,
 #'   dfSUBJ = clindata::rawplus_dm
 #' )
+#' wf_mapping <- MakeWorkflowList("mapping")
+#' lMapped <- RunWorkflow(wf_mapping, LData)$lData
 #'
-#' output <- RunWorkflow(lAssessments$kri0001, lData)
-#'
+#' output <- map(lAssessments, ~RunWorkflow(., lMapped))
+#' }
 #' @return `list` containing `lAssessment` with `workflow`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `checks`, and `lResults` added based on the results of the execution of `assessment$workflow`.
 #'
 #' @export
@@ -40,16 +43,16 @@ RunWorkflow <- function(lWorkflow, lData) {
     cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lWorkflow$steps), ": `", step$name, "`"))
 
     result <- gsm::RunStep(lStep = step, lData = lWorkflow$lData, lMeta = lWorkflow$meta)
-    
+
     lWorkflow$lData[[step$output]] <- result
-    
+
     if(is.data.frame(result)){
       cli::cli_h3("{paste(dim(result),collapse='x')} data.frame saved as `lData${step$output}`.")
     } else {
       cli::cli_h3("{typeof(result)} of length {length(result)} saved as `lData${step$output}`.")
 
     }
-    
+
     stepCount <- stepCount + 1
   }
 

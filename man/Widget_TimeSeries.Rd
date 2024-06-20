@@ -39,7 +39,7 @@ Widget_TimeSeries(
 
 \item{addSiteSelect}{\code{logical} add a dropdown to highlight sites? Default: \code{TRUE}.}
 
-\item{siteSelectLabelValue}{Label used to populate the HTML drop-down menu. Constructed as: 'Highlighted {siteSelectLabelValue}: '.}
+\item{siteSelectLabelValue}{Label used to populate the HTML drop-down menu.}
 }
 \description{
 A widget that displays a time-series plot based on longitudinal snapshots using \code{{gsm}}.

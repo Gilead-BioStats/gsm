@@ -40,26 +40,13 @@ In short, the following columns are considered:
 }
 
 \examples{
+dfTransformed <- Transform_Rate(sampleInput)
+
 # Binary
-dfTransformed <- tibble::tribble(
-  ~GroupID,  ~Numerator,  ~Denominator,  ~Metric,
-  139, 5, 901, 0.00555,
-  143, 3, 170, 0.0176,
-  162, 3, 370, 0.00811,
-  167, 3, 360, 0.00833,
-  173, 6, 680, 0.00882,
-  189, 4, 815, 0.00491,
-  29,  2, 450, 0.00444,
-  5, 5, 730, 0.00685,
-  58, 1, 225, 0.00444,
-  78, 2, 50, 0.04
-)
 dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "binary")
 dfFlagged <- Flag_NormalApprox(dfAnalyzed, vThreshold = c(-3, -2, 2, 3))
 
 # Rate
-dfTransformed <- Transform_Rate(sampleInput)
-
 dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "rate")
 dfFlagged <- Flag_NormalApprox(dfAnalyzed, vThreshold = c(-3, -2, 2, 3))
 

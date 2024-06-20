@@ -47,15 +47,15 @@ reference:
       - starts_with("Widget_")
       - Analyze_NormalApprox_PredictBounds
       - Analyze_Poisson_PredictBounds
-      - UpdateLabels
-      - MakeKRICharts
+      # - UpdateLabels
+      # - MakeKRICharts
       - Make_Timeline
-      - MakeQTLCharts
+      # - MakeQTLCharts
 
-  - title: Map
-    desc: Generate input data from multiple clinical data standards (generally rawplus or SDTM-)
-  - contents:
-      - matches("*_Map_*")
+  # - title: Map
+  #   desc: Generate input data from multiple clinical data standards (generally rawplus or SDTM-)
+  # - contents:
+  #     - matches("*_Map_*")
 
   - title: Analyze
     desc: Conduct statistical analysis based on input data
@@ -68,6 +68,7 @@ reference:
   - title: Data Pipeline
     desc: Create site-level summary, analyzed, and flagged data for an assessment
   - contents:
+      - Input_Rate
       - Transform_Count
       - Transform_Rate
       - Flag
@@ -80,57 +81,61 @@ reference:
   - title: Reporting
     desc: Creates summary tables and HTML objects to create a report
   - contents:
-      - Study_Report
-      - Study_AssessmentReport
-      - Overview_Table
-      - rank_chg
-      - kri_directionality_logo
+      - Report_FormatFlag
+      - Report_KRI
+      - Report_MetricCharts
+      - Report_MetricTable
+      # - Study_AssessmentReport
+      # - Overview_Table
+      # - rank_chg
+      # - kri_directionality_logo
 
   - title: QTL
     desc: Runs QTL analysis for longitudinal metrics
   - contents:
       - Analyze_QTL
-      - RunQTL
-      - SaveQTL
-      - MakeRptQtlDetails
+      # - RunQTL
+      # - SaveQTL
+      # - MakeRptQtlDetails
 
-  - title: Longitudinal
-    desc: Utility functions to analyze longitudinal/trend data.
-  - contents:
-      - Save_Snapshot
+  # - title: Longitudinal
+  #   desc: Utility functions to analyze longitudinal/trend data.
+  # - contents:
+  #     - Save_Snapshot
 
   - title: Utility
     desc: Utility functions for use within the Data Pipeline
   - contents:
-     -  CheckClindataMeta
-     -  CheckInputs
-     -  CheckSnapshotInputs
-     -  ConsolidateStrata
-     -  ExportCode
-     -  FilterData
-     -  FilterDomain
-     -  Get_Enrolled
-     -  MakeAnalysisDate
-     -  MakeResultsAnalysis
-     -  MakeResultsBounds
-     -  MakeResultsSummary
-     -  MakeStatusWorkflow
-     -  MakeStratifiedAssessment
+     # -  CheckClindataMeta
+     # -  CheckInputs
+     # -  CheckSnapshotInputs
+     # -  ConsolidateStrata
+     # -  ExportCode
+     # -  FilterData
+     # -  FilterDomain
+     # -  Get_Enrolled
+     # -  MakeAnalysisDate
+     # -  MakeResultsAnalysis
+     # -  MakeResultsBounds
+     # -  MakeResultsSummary
+     # -  MakeStatusWorkflow
+     # -  MakeStratifiedAssessment
      -  MakeWorkflowList
-     -  Make_Snapshot
-     -  MergeSubjects
-     -  ParseWarnings
+     # -  Make_Snapshot
+     # -  MergeSubjects
+     # -  ParseWarnings
      -  RunStep
-     -  RunStratifiedWorkflow
+     -  RunQuery
+     # -  RunStratifiedWorkflow
      -  RunWorkflow
      -  UseClindata
-     -  UpdateGSMVersion
-     -  UpdateParams
-     -  generate_md_table
-     -  is_mapping_valid
-     -  is_workflow_valid
-     -  parse_data_mapping
-     -  parse_data_spec
+     # -  UpdateGSMVersion
+     # -  UpdateParams
+     # -  generate_md_table
+     # -  is_mapping_valid
+     # -  is_workflow_valid
+     # -  parse_data_mapping
+     # -  parse_data_spec
 
   - title: Data
     desc: Metadata used to create workflows
@@ -140,3 +145,8 @@ reference:
       - meta_param
       - meta_workflow
       - rbm_data_spec
+
+  - title: Testing Data
+    desc: data used for examples and testing
+  - contents:
+      - sampleInput

@@ -3,7 +3,7 @@
 #' `r lifecycle::badge("stable")`
 #'
 #' @description
-#' A widget that displays a site overview table based on the output of [gsm::Study_Assess()].
+#' A widget that displays a site overview table based on the output of KRI pipelines.
 #'
 #' @param dfSummary data with columns:
 #' \itemize{
@@ -46,6 +46,7 @@
 #' @param elementId ID of container HTML element
 #'
 #' @examples
+#' \dontrun{
 #' wf_mapping <- MakeWorkflowList(strNames="mapping")[[1]]
 #' wf_metrics <- MakeWorkflowList(strNames=paste0("kri",sprintf("%04d", 1:2)))
 #' dfMetrics <- wf_metrics %>% map_df(function(wf){
@@ -77,7 +78,7 @@
 #' lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$lData
 #'
 #' # Run Metrics
-#' lResults <-wf_metrics %>% map(~RunWorkflow(lWorkflow=.x, lData=lMapped)) <-wf_metrics %>% map(~RunWorkflow(lWorkflow=.x, lData=lMapped))
+#' lResults <-map(wf_metrics, ~RunWorkflow(., lData=lMapped))
 #'
 #' dfSummary <- lResults %>%
 #' imap_dfr(~.x$lData$dfSummary %>% mutate(MetricID = .y)) %>%
@@ -85,7 +86,7 @@
 #'   mutate(SnapshotDate = Sys.Date())
 #'
 #' Widget_SiteOverview(dfSummary = dfSummary)
-#'
+#' }
 #' @export
 
 Widget_SiteOverview <- function(

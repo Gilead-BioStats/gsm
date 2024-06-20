@@ -69,15 +69,15 @@ found in dfNumerator/dfDenominator numerator and denominator values are filled w
 \examples{
 # Run for AE KRI
 dfInput <- Input_Rate(
- dfs = list(
-  dfSubjects = clindata::rawplus_dm,
-  dfNumerator = clindata::rawplus_ae,
-  dfDenominator = clindata::rawplus_dm
-),
-strNumeratorMethod = "Count",
-strDenominatorMethod = "Sum",
-strDenominatorCol = "timeontreatment"
-)
+    dfSubjects = clindata::rawplus_dm,
+    dfNumerator = clindata::rawplus_ae,
+    dfDenominator = clindata::rawplus_dm,
+    strSubjectCol = "subjid",
+    strGroupCol = "siteid",
+    strNumeratorMethod = "Count",
+    strDenominatorMethod = "Sum",
+    strDenominatorCol = "timeontreatment"
+  )
 
 }
 \keyword{interal}

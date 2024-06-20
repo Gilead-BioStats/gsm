@@ -33,13 +33,14 @@ None
 This function generates a KRI report based on the provided inputs.
 }
 \examples{
-wf_mapping <- MakeWorkflowList(strNames="mapping")[[1]]
+ \dontrun{
+wf_mapping <- MakeWorkflowList(strNames="mapping")
 wf_metrics <- MakeWorkflowList(strNames=paste0("kri",sprintf("\%04d", 1:12)))
-dfMetrics <- wf_metrics \%>\% map_df(~.x$meta)
+dfMetrics <- wf_metrics \%>\% purrr::map_df(~.x$meta)
 
 # Import Site+Study Metadata
-dfStudy<-clindata::ctms_study \%>\% rename(StudyID = protocol_number)
-dfSite<- clindata::ctms_site \%>\% rename(SiteID = site_num)
+dfStudy<-clindata::ctms_study \%>\% dplyr::rename(StudyID = protocol_number)
+dfSite<- clindata::ctms_site \%>\% dplyr::rename(SiteID = site_num)
 
 # Pull Raw Data - this will overwrite the previous data pull
 lRaw <- gsm::UseClindata(
@@ -61,32 +62,41 @@ lRaw <- gsm::UseClindata(
 lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$lData
 
 # Run Metrics
-lResults <-wf_metrics \%>\% map(~RunWorkflow(lWorkflow=.x, lData=lMapped))
+lResults <-map(wf_metrics, ~RunWorkflow(lWorkflow = ., lData = lMapped))
 
 dfBounds <- lResults \%>\%
-  imap_dfr(~.x$lData$dfBounds \%>\% mutate(MetricID = .y)) \%>\%
-  mutate(StudyID = "ABC-123") \%>\%
-  mutate(SnapshotDate = Sys.Date())
+  purrr::imap_dfr(~.x$lData$dfBounds \%>\%
+  dplyr::mutate(MetricID = .y)) \%>\%
+  dplyr::mutate(StudyID = "ABC-123",
+    SnapshotDate = Sys.Date())
 
 dfSummary <- lResults \%>\%
-  imap_dfr(~.x$lData$dfSummary \%>\% mutate(MetricID = .y)) \%>\%
-  mutate(StudyID = "ABC-123") \%>\%
-  mutate(SnapshotDate = Sys.Date())
+  purrr::imap_dfr(~.x$lData$dfSummary \%>\%
+  dplyr::mutate(MetricID = .y)) \%>\%
+  dplyr::mutate(StudyID = "ABC-123",
+    SnapshotDate = Sys.Date())
 
 # Create charts
-lCharts <- unique(dfSummary$MetricID) \%>\% map(~Visualize_Metric(
+lCharts <- unique(dfSummary$MetricID) \%>\% purrr::map(~Visualize_Metric(
   dfSummary = dfSummary,
   dfBounds = dfBounds,
   dfSite = dfSite,
   dfMetrics = dfMetrics,
   strMetricID = .x
 )
-) \%>\% setNames(unique(dfSummary$MetricID))
+) \%>\% stats::setNames(unique(dfSummary$MetricID))
 
 # Run reports
 strOutpath <- "StandardSiteReport.html"
-Report_KRI( lCharts = lCharts, dfSummary = dfSummary,  dfSite = dfSite, dfStudy = dfStudy, dfMetrics =dfMetrics, strOutpath = strOutpath )
-
+Report_KRI(
+  lCharts = lCharts,
+  dfSummary = dfSummary,
+  dfSite = dfSite,
+  dfStudy = dfStudy,
+  dfMetrics =dfMetrics,
+  strOutpath = strOutpath
+  )
+}
 
 }
 \keyword{KRI}

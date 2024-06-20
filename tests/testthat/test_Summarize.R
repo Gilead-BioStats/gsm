@@ -10,7 +10,7 @@ dfFlagged <- tibble::tibble(
 )
 
 test_that("output created as expected and has correct structure", {
-  ae_default <- Summarize(dfFlagged, strScoreCol = "Score")
+  ae_default <- Summarize(dfFlagged)
   expect_true(is.data.frame(ae_default))
   expect_equal(
     names(ae_default),
@@ -18,7 +18,7 @@ test_that("output created as expected and has correct structure", {
   )
   expect_equal(sort(unique(dfFlagged$GroupID)), sort(ae_default$GroupID))
 
-  ae_finding <- Summarize(dfFlagged, strScoreCol = "Score")
+  ae_finding <- Summarize(dfFlagged)
   expect_true(is.data.frame(ae_finding))
   expect_equal(
     names(ae_finding),

@@ -59,7 +59,7 @@ The following column is considered optional:
 }
 
 \examples{
-dfTransformed <- Transform_Count(sampleInput)
+dfTransformed <- Transform_Count(sampleInput, strCountCol = "Numerator")
 
 dfAnalyzed <- Analyze_Identity(dfTransformed)
 
