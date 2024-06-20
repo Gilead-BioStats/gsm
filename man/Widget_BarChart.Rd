@@ -9,7 +9,7 @@ Widget_BarChart(
   lLabels,
   dfSite = NULL,
   dfThreshold = NULL,
-  strYAxisType = "score",
+  strYAxisType = "Score",
   selectedGroupIDs = NULL,
   addSiteSelect = TRUE,
   bHideDropdown = FALSE,
