@@ -91,8 +91,6 @@ Once the data is loaded into the R session, we can begin running our workflows t
 
 All assessments can be run as standalone workflows that create useful data summaries and visualizations. `{gsm}` is configured to accept rawplus data by default, and that data standard is used here. If using YAML files to specify the workflow(s), the process for running one assessment or multiple assessments is identical.
 
-EXPLAIN YAML FILE STRUCTURE?
-
 With all necessary data loaded into the session, running assessments is a 3-step process, both using the same `RunWorkflow()` function. The steps are as follows:
 
 1.  Prepare the workflow lists with `MakeWorkflowList()`
@@ -292,11 +290,22 @@ lResults <- RunWorkflow(lWorkflow = wf_metrics,
 
 # Visualizations
 
-##THIS IS NOT CURRENTLY THE CASE. MUST RUN `Visualize_*()` to create viz
+To create all visualization for a given workflow (or list of workflows), the `Visualize_Metric()` returns a list with all relevant visualizations for each metric. In order to get a list of charts for all metrics in the pipeline, the following script can be run using the data frames returned in `lResults` in the examples above.
 
-To create all visualization for a given workflow (or list of workflows), The `Visuailze_Metric()` 
+```{r eval = FALSE, include = TRUE}
+lCharts <- unique(dfSummary$MetricID) %>% map(~Visualize_Metric(
+  dfSummary = dfSummary, 
+  dfBounds = dfBounds, 
+  dfSite = dfSite,
+  dfMetrics = dfMetrics, 
+  strMetricID = .x
+)
+) %>% setNames(unique(dfSummary$MetricID)) 
+```
 
-## Example 7 - Creating a Scatter Plot
+Below we will walk through 
+
+## Example 3 - Creating a Scatter Plot
 
 `{gsm}` creates static and interactive charts using `{ggplot2}` and a custom JavaScript charting library `{rbm-viz}`. 
 
@@ -317,7 +326,7 @@ dfMetrics <- wf_metrics %>% map_df(~.x$meta)
 lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$lData
 
 # Run Metrics
-lResults <- RunWorkflow(lWorkflow=wf_metrics, lData=lMapped$mapping$lResults)
+lResults <- RunWorkflow(lWorkflow=wf_metrics, lData=lMapped)
 
 # Update dfBounds and dfSummary with StudyID and SnapshotDate
 dfBounds <- lResults %>% 
@@ -340,7 +349,7 @@ Visualize_Scatter(
 
 # Reporting
 
-## Example 3 - Creating an Assessment Overview Report for Multiple Assessments
+## Example 4 - Creating an Assessment Overview Report for Multiple Assessments
 
 ### Standard Report via `Report_KRI()`
 
@@ -352,31 +361,39 @@ Let's create a report using sample data from `{clindata}`:
 library(gsm)
 library(clindata)
 
-multiple_assessments <- Study_Assess()
+# Prepare Workflows
+wf_mapping <- MakeWorkflowList(strNames="mapping")[[1]]
+wf_metrics <- MakeWorkflowList(strNames=paste0("kri",sprintf("%04d", 1:2)))
+dfMetrics <- wf_metrics %>% map_df(~.x$meta)
 
-Report_KRI(lSnapshot = multiple_assessments)
+# Create Mapped Data
+lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$lData
+
+# Run Metrics
+lResults <- RunWorkflow(lWorkflow=wf_metrics, lData=lMapped)
+
+# Update dfBounds and dfSummary with StudyID and SnapshotDate
+dfBounds <- lResults %>% 
+  imap_dfr(~.x$lResults$dfBounds %>% mutate(MetricID = .y)) %>%
+  mutate(StudyID = "ABC-123") %>%
+  mutate(SnapshotDate = Sys.Date())
+
+dfSummary <- lResults %>% 
+  imap_dfr(~.x$lResults$dfSummary %>% mutate(MetricID = .y)) %>%
+  mutate(StudyID = "ABC-123") %>%
+  mutate(SnapshotDate = Sys.Date())
+
+# Generate Report
+strOutpath <- "~/gsm_site_report_db.html"
+Report_KRI( lCharts = lCharts, 
+            dfSummary = dfSummary,  
+            dfSite = dfSite, 
+            dfStudy = dfStudy, 
+            dfMetrics =dfMetrics, 
+            strOutpath = strOutpath )
 ```
 
 The report will render and be saved to your current working directory. If you would like the report saved in a different location, you can set an output directory using the `strOutpath` argument in the `Study_Report()` function.
-
-
-### Enhanced Report via `Make_Snapshot()`
-
-The `Study_Report()` function also takes on optional arguments (`dfSite` and `dfStudy`) that are used to provide site and study-level reporting. This includes study-level CTMS data displayed in a summary table at the top of the report, and an enhanced **Study Overview** table. 
-
-```{r eval = FALSE, include = TRUE}
-library(gsm)
-library(clindata)
-
-snapshot <- Make_Snapshot()
-
-Study_Report(
-  lSnapshot = snapshot,
-  dfSite = snapshot$lSnapshot$status_site, 
-  dfStudy = snapshot$lSnapshot$status_study
-  )
-```
-
 
 # Custom Mapping/YAML Specifications
 
@@ -388,110 +405,234 @@ Let's take a look at a few examples of editing YAML files for a custom workflow 
 
 ## Example 8 - Adding a Filtering Step
 
-There are filter steps in the default specification for the AE Assessment, but we want to add an additional filter. Let's add a step that filters the `dfAE` data frame so all values of `aetoxgr == "MODERATE"` (i.e., we select for AEs with a moderate toxicity grade):
+There are filter steps in the default specification for the AE Assessment, but we want to add an additional filter. Let's add a step that filters the `dfImportantPD` data frame so all values of `companycategory == "WRONG TREATMENT OR INCORRECT DOSE"`:
 
-The default mappings for the AE Assessment are saved under KRI 0001, i.e., `kri0001.yaml`:
+The default mappings for the PD Assessment are saved under KRI 0004, i.e., `kri0004.yaml`:
 
+    meta:
+      file: kri0004.yaml
+      MetricID: kri0004
+      group: site
+      abbreviation: PD
+      metric: Important Protocol Deviation Rate
+      numerator: Important Protocol Deviations
+      denominator: Days on Study
+      model: Normal Approximation
+      score: Adjusted Z-Score
+    vThreshold:
+      - -3
+      - -2
+      - 2
+      - 3
     steps:
-      - name: FilterDomain
-        inputs: dfAE
-        output: dfAE
-        params:
-          strDomain: dfAE
-          strColParam: strTreatmentEmergentCol
-          strValParam: strTreatmentEmergentVal
-      - name: FilterDomain
-        inputs: dfAE
-        output: dfAE
-        params:
-          strDomain: dfAE
-          strColParam: strSeriousCol
-          strValParam: strNonSeriousVal
-      - name: AE_Map_Raw
-        inputs:
-          - dfAE
-          - dfSUBJ
+      - name: Input_Rate
         output: dfInput
-      - name: AE_Assess
-        inputs: dfInput
-        output: lResults
         params:
-          strGroup: "Site"
-          vThreshold: null
-          strMethod: "Poisson"
+          dfSubjects: dfEnrolled
+          dfNumerator: dfImportantPD_wrong_trt
+          dfDenominator: dfEnrolled
+          strSubjectCol: subjid
+          strGroupCol: siteid
+          strNumeratorMethod: Count
+          strDenominatorMethod: Sum
+          strDenominatorCol: timeonstudy
+      - name: Transform_Rate
+        output: dfTransformed
+        params:
+         dfInput: dfInput
+      - name: Analyze_NormalApprox
+        output: dfAnalyzed
+        params:
+          dfTransformed: dfTransformed
+          strType: rate
+      - name: Analyze_NormalApprox_PredictBounds
+        output: dfBounds
+        params:
+          dfTransformed: dfTransformed
+          strType: rate
+          vThreshold: vThreshold
+      - name: Flag_NormalApprox
+        output: dfFlagged
+        params:
+          dfAnalyzed: dfAnalyzed
+          vThreshold: vThreshold
+      - name: Summarize
+        output: dfSummary
+        params:
+          dfFlagged: dfFlagged
 
-First, we want to add an additional `FilterDomain()` step to the workflow specification to select only moderate AEs. Because `dfAE` needs to be filtered before it is used in `AE_Map_Raw()`, the filter steps need to be placed first in the workflow.
+First, we want to add an additional `RunQuery()` step to the workflow specification to select only PDs categorized as "WRONG TREATMENT OR INCORRECT DOSE". Because `dfImportantPD` needs to be filtered before it is used in `Input_Rate()`, the filter steps need to be placed first in the workflow.
 
-Let's name the custom YAML file `ae_assessment_moderate.yaml`. It reads as follows:
+Let's name the custom YAML file `kri0004_filtered.yaml`. It reads as follows:
 
+    meta:
+      file: kri0004.yaml
+      MetricID: kri0004
+      group: site
+      abbreviation: PD
+      metric: Important Protocol Deviation Rate
+      numerator: Important Protocol Deviations
+      denominator: Days on Study
+      model: Normal Approximation
+      score: Adjusted Z-Score
+    vThreshold:
+      - -3
+      - -2
+      - 2
+      - 3
     steps:
-      - name: FilterDomain
-        inputs: dfAE
-        output: dfAE
+     - name: RunQuery
+        output: dfImportantPD_wrong_trt
         params:
-          strDomain: dfAE
-          strColParam: strTreatmentEmergentCol
-          strValParam: strTreatmentEmergentVal
-      - name: FilterDomain
-        inputs: dfAE
-        output: dfAE
-        params:
-          strDomain: dfAE
-          strColParam: strSeriousCol
-          strValParam: strNonSeriousVal
-      - name: FilterDomain
-        inputs: dfAE
-        output: dfAE
-        params:
-          strDomain: dfAE
-          strColParam: strModerateCol
-          strValParam: strModerateVal
-      - name: AE_Map_Raw
-        inputs:
-          - dfAE
-          - dfSUBJ
+          df: dfImportantPD
+          strQuery: "SELECT * FROM df WHERE companycategory == 'WRONG TREATMENT OR INCORRECT DOSE'"
+      - name: Input_Rate
         output: dfInput
-      - name: AE_Assess
-        inputs: dfInput
-        output: lResults
         params:
-          strGroup: "Site"
-          vThreshold: null
-          strMethod: "Poisson"
+          dfSubjects: dfEnrolled
+          dfNumerator: dfImportantPD
+          dfDenominator: dfEnrolled
+          strSubjectCol: subjid
+          strGroupCol: siteid
+          strNumeratorMethod: Count
+          strDenominatorMethod: Sum
+          strDenominatorCol: timeonstudy
+      - name: Transform_Rate
+        output: dfTransformed
+        params:
+         dfInput: dfInput
+      - name: Analyze_NormalApprox
+        output: dfAnalyzed
+        params:
+          dfTransformed: dfTransformed
+          strType: rate
+      - name: Analyze_NormalApprox_PredictBounds
+        output: dfBounds
+        params:
+          dfTransformed: dfTransformed
+          strType: rate
+          vThreshold: vThreshold
+      - name: Flag_NormalApprox
+        output: dfFlagged
+        params:
+          dfAnalyzed: dfAnalyzed
+          vThreshold: vThreshold
+      - name: Summarize
+        output: dfSummary
+        params:
+          dfFlagged: dfFlagged
 
-After setting up the custom YAML mapping, there are a few more steps a user must take before executing `Study_Assess()`:
-
-1.  Read in the default workflow mapping from `gsm::MakeWorkflowList()`.
-2.  Overwrite `lAssessmentsCustom$kri0001` with the custom YAML file (`ae_assessment_moderate.yaml`).
-3.  Add a name value to the custom assessment list.
-4.  Add a relative path to the custom assessment list, to show where the custom YAML file is stored.
-5.  Read in the default rawplus mappings from `{clindata}`.
-6.  Add the value to sort `strTypeCol` on.
-7.  Run the `Study_Assess()` workflow.
+Now that this new workflow has been saved with a unique file name, we can call it with `MakeWorkflowList()` as above
 
 ```{r eval = FALSE, include = TRUE}
 library(gsm)
 library(clindata)
 library(yaml)
 
-## 1. Read in default workflow mapping
-lAssessmentsCustom <- MakeWorkflowList()
+## Read in workflow mapping
+wf_mapping <- MakeWorkflowList(strNames = "mapping")
+wfmetrics_custom <- MakeWorkflowList("kri0004_filtered")
+dfMetrics <- wf_metrics %>% map_df(~.x$meta)
 
-## 2. Apply custom AE assessment mapping
-lAssessmentsCustom$kri0001 <- yaml::read_yaml("ae_assessment_moderate.yaml")
+# Create Mapped Data
+lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$lData
 
-## 3. Add a name value, i.e., the variable you want to filter on
-lAssessmentsCustom$kri0001$name <- "aetoxgr"
-
-## 4. Add the location of the custom YAML file
-lAssessmentsCustom$kri0001$path <- getwd()
-
-## 5. Read in default data set mappings from `{clindata}`
-lMappingCustom <- gsm::Read_Mapping()
-
-## 6. Add strTypeVal, i.e., the value for strTypeCol to filter on
-lMappingCustom$dfAE$strGradeCol <- "MODERATE"
-
-## 7. Run the Study_Assess workflow
-customStudy <- Study_Assess(lMapping = lMappingCustom, lAssessments = lAssessmentsCustom)
+# Run Metrics
+lResults <- RunWorkflow(lWorkflow=wfmetrics_custom, lData=lMapped)
 ```
+
+
+# Appendix A: Full `mapping.yaml` file specification
+
+The following YAML file creates all modified rawplus dataframes needed to run all default workflows specified in the `{gsm}` package. Additional `RunQuery()` steps can be added to this file for additional user-defined workflows.
+
+    meta:
+      file: mapping.yaml
+      description: Data Mappings to prepare for metric calculations
+    steps:
+      - name: RunQuery
+        output: dfEnrolled
+       params:
+         df: dfSUBJ
+         strQuery: "SELECT subjectid as raw_subjectid, * FROM df WHERE enrollyn == 'Y'"
+     - name: RunQuery
+       output: dfSeriousAE
+        params:
+         df: dfAE
+         strQuery: "SELECT * FROM df WHERE aeser = 'Y'"  
+     - name: RunQuery
+        output: dfNonimportantPD
+        params:
+          df: dfPD
+          strQuery: "SELECT subjectenrollmentnumber as subjid, * FROM df WHERE deemedimportant == 'No'"
+      - name: RunQuery
+        output: dfImportantPD
+        params:
+          df: dfPD
+          strQuery: "SELECT subjectenrollmentnumber as subjid, * FROM df WHERE deemedimportant == 'Yes'"
+      - name: RunQuery
+        output: dfAllLabs
+        params:
+          df: dfLB
+          strQuery: "SELECT * FROM df WHERE toxgrg_nsv IN ('0', '1', '2', '3', '4')"
+      - name: RunQuery
+        output: dfToxLabs
+        params:
+          df: dfLB
+          strQuery: "SELECT * FROM df WHERE toxgrg_nsv IN ('3', '4')"
+      - name: RunQuery
+        output: dfStudyDropouts
+        params:
+          df: dfSTUDCOMP
+          strQuery: "SELECT * FROM df WHERE compyn IN ('N')"  
+      - name: RunQuery
+        output: dfTreatmentDropouts
+        params:
+          df: dfSDRGCOMP
+          strQuery: "SELECT * FROM df WHERE sdrgyn IN ('N') AND phase = 'Blinded Study Drug Completion'"  
+      - name: RunQuery
+        output: dfValidQueries
+        params:
+          df: dfQUERY
+          strQuery: "SELECT subjectname as subject_nsv, * FROM df WHERE querystatus IN ('Open', 'Answered', 'Closed')"
+      - name: RunQuery
+        output: dfOldValidQueries
+        params:
+          df: dfValidQueries
+          strQuery: "SELECT * FROM df WHERE queryage > 30"  
+      - name: RunQuery
+        output: dfDataChanges
+        params:
+          df: dfDATACHG
+          strQuery: "SELECT subjectname as subject_nsv, * FROM df"    
+      - name: RunQuery
+        output: dfQuery
+        params:
+          df: dfQUERY
+          strQuery: "SELECT subjectname as subject_nsv, * FROM df"  
+      - name: RunQuery
+        output: dfDataEntry
+        params:
+          df: dfDATAENT
+          strQuery: "SELECT subjectname as subject_nsv, * FROM df"
+      - name: RunQuery
+        output: dfSlowDataEntry
+        params:
+          df: dfDATAENT
+          strQuery: "SELECT subjectname as subject_nsv, * FROM df WHERE data_entry_lag > 10"  
+      - name: RunQuery
+        output: dfChangedDataPoints
+        params:
+          df: dfDATACHG
+          strQuery: "SELECT subjectname as subject_nsv, * FROM df WHERE n_changes > 0"  
+      - name: RunQuery
+        output: dfScreened
+        params:
+          df: dfENROLL
+          strQuery: "SELECT * FROM df"
+      - name: RunQuery
+        output: dfScreenFail
+        params:
+          df: dfENROLL
+          strQuery: "SELECT * FROM df WHERE enrollyn = 'N'" 
+
