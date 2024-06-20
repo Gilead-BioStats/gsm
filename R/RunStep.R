@@ -15,8 +15,10 @@
 #' @param lMeta `list` a named list of meta data.
 #'
 #' @examples
-#' lStep <- MakeWorkflowList()[["kri0001"]][["steps"]][[1]]
-#'
+#' \dontrun{
+#' wf_mapping <- MakeWorkflowList("mapping")
+#' lStep <- MakeWorkflowList("kri0001")[["kri0001"]][["steps"]][[1]]
+#' lMeta <- MakeWorkflowList("kri0001")[["kri0001"]][["meta"]]
 #' lData <- list(
 #'   dfSUBJ = clindata::rawplus_dm,
 #'   dfAE = clindata::rawplus_ae,
@@ -24,10 +26,10 @@
 #'   dfCONSENT = clindata::rawplus_consent,
 #'   dfIE = clindata::rawplus_ie
 #' )
+#' lMapped <- RunWorkflow(wf_mapping, lData)$lData
 #'
-#'
-#' ae_step <- RunStep(lStep = lStep, lData = lData)
-#'
+#' ae_step <- RunStep(lStep = lStep, lData = lMapped, lMeta = lMeta)
+#' }
 #' @return `list` containing the results of the `lStep$name` function call should contain `.$checks`
 #'   parameter with results from `is_mapping_vald` for each domain in `lStep$inputs`.
 #'

@@ -60,6 +60,7 @@ Analyze_Poisson <- function(dfTransformed) {
   dfAnalyzed <- broom::augment(cModel, dfModel, type.predict = "response") %>%
     select(
       "GroupID",
+      "GroupLevel",
       "Numerator",
       "Denominator",
       "Metric",

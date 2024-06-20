@@ -50,6 +50,7 @@ Imports:
     tidyr,
     tools,
     utils,
+    withr,
     yaml
 Suggests:
     clindata,

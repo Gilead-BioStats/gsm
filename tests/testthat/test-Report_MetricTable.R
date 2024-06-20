@@ -44,3 +44,4 @@ test_that("Score rounding works correctly", {
   result <- Report_MetricTable(dfSummary, dfSite)
   expect_true(grepl("2.235", result))
 })
+

@@ -43,15 +43,15 @@
 #' @examples
 #' # Run for AE KRI
 #' dfInput <- Input_Rate(
-#'  dfs = list(
-#'   dfSubjects = clindata::rawplus_dm,
-#'   dfNumerator = clindata::rawplus_ae,
-#'   dfDenominator = clindata::rawplus_dm
-#' ),
-#' strNumeratorMethod = "Count",
-#' strDenominatorMethod = "Sum",
-#' strDenominatorCol = "timeontreatment"
-#' )
+#'     dfSubjects = clindata::rawplus_dm,
+#'     dfNumerator = clindata::rawplus_ae,
+#'     dfDenominator = clindata::rawplus_dm,
+#'     strSubjectCol = "subjid",
+#'     strGroupCol = "siteid",
+#'     strNumeratorMethod = "Count",
+#'     strDenominatorMethod = "Sum",
+#'     strDenominatorCol = "timeontreatment"
+#'   )
 #'
 #' @export
 #' @keywords interal
@@ -98,11 +98,11 @@ Input_Rate <- function(
     #Rename SubjectID in dfSubjects
     dfSubjects <- dfSubjects %>%
         mutate(
-            SubjectID = .data[[strSubjectCol]],
-            GroupID = .data[[strGroupCol]],
-            GroupLevel = strGroupCol
+            'SubjectID' = .data[[strSubjectCol]],
+            'GroupID' = .data[[strGroupCol]],
+            'GroupLevel' = strGroupCol
         ) %>%
-        select(SubjectID, GroupID, GroupLevel)
+        select('SubjectID', 'GroupID', 'GroupLevel')
 
     #Calculate Numerator
     dfNumerator <- dfNumerator %>%
@@ -115,9 +115,9 @@ Input_Rate <- function(
     }
 
     dfNumerator_subj <- dfNumerator %>%
-        select(SubjectID, Numerator) %>%
-        group_by(SubjectID) %>%
-        summarise(Numerator= sum(Numerator)) %>%
+        select('SubjectID', 'Numerator') %>%
+        group_by(.data$SubjectID) %>%
+        summarise('Numerator' = sum(.data$Numerator)) %>%
         ungroup()
 
     #Calculate Denominator
@@ -131,19 +131,19 @@ Input_Rate <- function(
     }
 
     dfDenominator_subj <- dfDenominator %>%
-        select(SubjectID, Denominator) %>%
-        group_by(SubjectID) %>%
-        summarise(Denominator= sum(Denominator)) %>%
+        select('SubjectID', 'Denominator') %>%
+        group_by(.data$SubjectID) %>%
+        summarise('Denominator' = sum(.data$Denominator)) %>%
         ungroup()
 
     # Merge Numerator and Denominator with Subject Data. Keep all data in Subject. Fill in missing numerator/denominators with 0
     dfInput <- dfSubjects %>%
         left_join(dfNumerator_subj, by = "SubjectID") %>%
         left_join(dfDenominator_subj, by = "SubjectID") %>%
-        mutate(Numerator = if_else(is.na(Numerator), 0, Numerator),
-            Denominator = if_else(is.na(Denominator), 0, Denominator)
+        mutate('Numerator' = if_else(is.na(.data$Numerator), 0, .data$Numerator),
+            'Denominator' = if_else(is.na(.data$Denominator), 0, .data$Denominator)
         ) %>%
-        mutate(Rate = Numerator/Denominator)
+        mutate(Rate = .data$Numerator/.data$Denominator)
 
     return(dfInput)
 }
