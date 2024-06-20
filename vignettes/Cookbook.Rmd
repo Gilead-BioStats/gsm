@@ -290,7 +290,7 @@ lResults <- RunWorkflow(lWorkflow = wf_metrics,
 
 # Visualizations
 
-To create all visualization for a given workflow (or list of workflows), the `Visualize_Metric()` returns a list with all relevant visualizations for each metric. In order to get a list of charts for all metrics in the pipeline, the following script can be run using the data frames returned in `lResults` in the examples above.
+To create all visualization for a given workflow (or list of workflows), the `Visualize_Metric()` returns a list with all relevant visualizations for each metric. In order to get a list of charts for all metrics in the pipeline, the following script can be run using the data frames returned in `lResults` in the examples above. 
 
 ```{r eval = FALSE, include = TRUE}
 lCharts <- unique(dfSummary$MetricID) %>% map(~Visualize_Metric(
@@ -303,8 +303,22 @@ lCharts <- unique(dfSummary$MetricID) %>% map(~Visualize_Metric(
 ) %>% setNames(unique(dfSummary$MetricID)) 
 ```
 
-Below we will walk through 
+`Visualize_Metric()` calls all relevant helper functions in order to create the following charts:
 
+ - `scatterJS`: A scatter plot using JavaScript.
+ - `scatter`: A scatter plot using ggplot2.
+ - `barMetricJS`: A bar chart using JavaScript with metric on the y-axis.
+ - `barScoreJS`: A bar chart using JavaScript with score on the y-axis.
+ - `barMetric`: A bar chart using ggplot2 with metric on the y-axis.
+ - `barScore`: A bar chart using ggplot2 with score on the y-axis.
+ - `timeSeriesContinuousScoreJS`: A time series chart using JavaScript with score on the y-axis.
+ - `timeSeriesContinuousMetricJS`: A time series chart using JavaScript with metric on the y-axis.
+ - `timeSeriesContinuousNumeratorJS`: A time series chart using JavaScript with numerator on the y-axis.
+ 
+ 
+ An example of how to create a single static `scatter` chart is outlined in the following example.
+ 
+ 
 ## Example 3 - Creating a Scatter Plot
 
 `{gsm}` creates static and interactive charts using `{ggplot2}` and a custom JavaScript charting library `{rbm-viz}`. 
