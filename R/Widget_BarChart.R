@@ -46,12 +46,8 @@
 #'
 #'
 #' @examples
-#' ae_transform <- Transform_Rate(
-#'   dfInput = sampleInput,
-#'   strGroupCol = "SiteID",
-#'   strNumeratorCol = "Count",
-#'   strDenominatorCol = "Exposure"
-#' )
+#' \dontrun{
+#' ae_transform <- Transform_Rate(sampleInput)
 #'
 #' ae_analyze <- Analyze_NormalApprox(
 #'   dfTransformed = ae_transform,
@@ -85,7 +81,7 @@
 #'   strYAxisType = "metric",
 #'   elementId = "aeAssessMetric"
 #' )
-#'
+#' }
 #' @export
 Widget_BarChart <- function(
   dfSummary,

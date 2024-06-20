@@ -28,7 +28,7 @@
 #' dfTransformed <- Transform_Rate(
 #'   sampleInput,
 #'   strNumeratorCol = "Numerator",
-#'   strDenominatorCol = "Denominator",
+#'   strDenominatorCol = "Denominator"
 #' )
 #'
 #' @export
@@ -48,7 +48,7 @@ Transform_Rate <- function(
   )
 
   dfTransformed <- dfInput %>%
-    group_by(GroupID, GroupLevel) %>%
+    group_by(.data$GroupID, .data$GroupLevel) %>%
     summarise(
       Numerator = sum(.data[[strNumeratorCol]]),
       Denominator = sum(.data[[strDenominatorCol]])

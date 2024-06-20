@@ -33,6 +33,7 @@ group-level plot object.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
+\dontrun{
 lData <- gsm::UseClindata(
   list(
     "dfSUBJ" = "clindata::rawplus_dm",
@@ -50,10 +51,12 @@ lData <- gsm::UseClindata(
     "dfENROLL" = "clindata::rawplus_enroll"
   )
 )
+wf_mapping <- MakeWorkflowList("mapping")
 ae <- MakeWorkflowList(strNames = "kri0001")
-SafetyAE <- purrr::map(ae, ~RunWorkflow(., lData))
+lMapped <- RunWorkflow(wf_mapping, lData)$lData
+SafetyAE <- map(ae, ~RunWorkflow(., lMapped))
 dfBounds <- Analyze_Poisson_PredictBounds(SafetyAE$kri0001$lData$dfTransformed, c(-5, 5))
 Visualize_Scatter(SafetyAE$kri0001$lData$dfSummary, dfBounds)
-
+}
 
 }
