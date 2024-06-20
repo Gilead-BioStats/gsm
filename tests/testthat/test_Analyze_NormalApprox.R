@@ -21,13 +21,7 @@ test_that("binary output created as expected and has correct structure", {
 ################################################################################
 
 test_that("rate output created as expected and has correct structure", {
-  dfTransformed <- tibble::tibble(
-    GroupID      = c("166", "76", "86"),
-    GroupLevel    = c("site", "site", "site"),
-    Numerator    = c(5, 2, 5),
-    Denominator  = c(901, 50, 730),
-    Metric       = c(0.0055, 0.0400, 0.0068)
-  )
+  dfTransformed <- Transform_Rate(sampleInput)
 
   rate <- Analyze_NormalApprox(dfTransformed, strType = "rate")
 
@@ -35,7 +29,7 @@ test_that("rate output created as expected and has correct structure", {
   expect_equal(names(rate), c("GroupID", "GroupLevel", "Numerator", "Denominator", "Metric", "OverallMetric", "Factor", "Score"))
   expect_type(rate$GroupID, "character")
   expect_type(c(rate$Numerator, rate$Denominator, rate$Metric, rate$OverallMetric, rate$Factor, rate$Score), "double")
-  expect_equal(unique(rate$GroupID), c("166", "86", "76"))
+  expect_equal(unique(rate$GroupID)[1:5], c("G1", "G4" ,"G7", "G3", "G2"))
 })
 
 ################################################################################

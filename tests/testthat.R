@@ -1,4 +1,1 @@
-library(testthat)
-library(gsm)
-
-test_check("gsm")
+testthat::test_check("gsm")

@@ -23,7 +23,7 @@ Input_Rate(
 
 \item{dfDenominator}{\code{data.frame} with a column for SubjectID and \code{strDenominatorCol} if \code{strDenominatorMethod} is "Sum"}
 
-\item{strGroupCol}{\code{character} Column name in \code{dfSubjects} to use for grouping. Default: "SiteID"}
+\item{strGroupCol}{\code{character} Column name in \code{dfSubjects} to use for grouping. Default: "GroupID"}
 
 \item{strSubjectCol}{\code{character} Column name in \code{dfSubjects} to use for subject ID. Default: "SubjectID"}
 
@@ -69,15 +69,15 @@ found in dfNumerator/dfDenominator numerator and denominator values are filled w
 \examples{
 # Run for AE KRI
 dfInput <- Input_Rate(
- dfs = list(
-  dfSubjects = clindata::rawplus_dm,
-  dfNumerator = clindata::rawplus_ae,
-  dfDenominator = clindata::rawplus_dm
-),
-strNumeratorMethod = "Count",
-strDenominatorMethod = "Sum",
-strDenominatorCol = "timeontreatment"
-)
+    dfSubjects = clindata::rawplus_dm,
+    dfNumerator = clindata::rawplus_ae,
+    dfDenominator = clindata::rawplus_dm,
+    strSubjectCol = "subjid",
+    strGroupCol = "siteid",
+    strNumeratorMethod = "Count",
+    strDenominatorMethod = "Sum",
+    strDenominatorCol = "timeontreatment"
+  )
 
 }
 \keyword{interal}

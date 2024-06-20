@@ -15,7 +15,7 @@
 #' @param height `numeric` height of widget.
 #' @param elementId `character` ID of container HTML element.
 #' @param addSiteSelect `logical` add a dropdown to highlight sites? Default: `TRUE`.
-#' @param siteSelectLabelValue Label used to populate the HTML drop-down menu. Constructed as: 'Highlighted {siteSelectLabelValue}: '.
+#' @param siteSelectLabelValue Label used to populate the HTML drop-down menu.
 #'
 #' @export
 Widget_TimeSeries <- function(

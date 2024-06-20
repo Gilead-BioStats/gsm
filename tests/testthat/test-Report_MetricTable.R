@@ -1,6 +1,6 @@
 dfSummary <- tibble::tibble(
   GroupID = c("10", "100", "101", "102", "103"),
-  GroupType = rep("Site", 5),
+  GroupLevel = rep("Site", 5),
   Numerator = seq(2,10,2),
   Denomicator = seq(10,50,10),
   Metric = c(0.02, 0.02, 0.02, 0.02, 0.02),
@@ -44,3 +44,4 @@ test_that("Score rounding works correctly", {
   result <- Report_MetricTable(dfSummary, dfSite)
   expect_true(grepl("2.235", result))
 })
+

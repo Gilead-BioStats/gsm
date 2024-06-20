@@ -50,6 +50,7 @@ The input data (\code{dfTransformed}) for \code{Analyze_NormalApprox_PredictBoun
 \code{\link{Transform_Rate}} and should be one record per site with columns for:
 \itemize{
 \item \code{GroupID} - Site ID
+\item \code{GroupLevel} - Group Type
 \item \code{Numerator} - Total number of participants at site with event of interest/Total number of events of interest at site
 \item \code{Denominator} - Total number of participants at site/Total number of days of exposure at site
 \item \code{Metric} - Proportion of participants at site with event of interest/Rate of events at site (Numerator / Denominator)
@@ -58,19 +59,7 @@ The input data (\code{dfTransformed}) for \code{Analyze_NormalApprox_PredictBoun
 
 \examples{
 # Binary
-dfTransformed <- tibble::tribble(
-  ~GroupID,  ~Numerator,  ~Denominator,  ~Metric,
-  139, 5, 901, 0.00555,
-  143, 3, 170, 0.0176,
-  162, 3, 370, 0.00811,
-  167, 3, 360, 0.00833,
-  173, 6, 680, 0.00882,
-  189, 4, 815, 0.00491,
-  29,  2, 450, 0.00444,
-  5, 5, 730, 0.00685,
-  58, 1, 225, 0.00444,
-  78, 2, 50, 0.04
-)
+dfTransformed <- Transform_Rate(sampleInput)
 
 dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "binary")
 dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed, c(-3, -2, 2, 3), strType = "binary")

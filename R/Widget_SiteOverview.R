@@ -3,7 +3,7 @@
 #' `r lifecycle::badge("stable")`
 #'
 #' @description
-#' A widget that displays a site overview table based on the output of [gsm::Study_Assess()].
+#' A widget that displays a site overview table based on the output of KRI pipelines.
 #'
 #' @param dfSummary data with columns:
 #' \itemize{
@@ -46,20 +46,47 @@
 #' @param elementId ID of container HTML element
 #'
 #' @examples
-#' study_assessment <- Study_Assess(lWorkflows = MakeWorkflowList(strNames = c("kri0001", "cou0001")))
+#' \dontrun{
+#' wf_mapping <- MakeWorkflowList(strNames="mapping")[[1]]
+#' wf_metrics <- MakeWorkflowList(strNames=paste0("kri",sprintf("%04d", 1:2)))
+#' dfMetrics <- wf_metrics %>% map_df(function(wf){
+#'   wf$meta$vThreshold <- paste(wf$meta$vThreshold, collapse = ",")
+#'   return(wf$meta)
+#' })
 #'
-#' kri_results <- study_assessment %>%
-#'     purrr::imap_dfr(function(kri, workflowid) {
-#'         kri$lData$dfSummary %>%
-#'             dplyr::rename_with(tolower) %>%
-#'             dplyr::mutate(
-#'                 workflowid = !!workflowid
-#'             )
-#'     }) %>%
-#'     dplyr::filter(grepl('^kri', workflowid))
+#' # Import Site+Study Metadata
+#' dfStudy<-clindata::ctms_study %>% rename(StudyID = protocol_number)
+#' dfSite<- clindata::ctms_site %>% rename(SiteID = site_num)
 #'
-#' Widget_SiteOverview(kri_results)
+#' # Pull Raw Data - this will overwrite the previous data pull
+#' lRaw <- gsm::UseClindata(
+#'   list(
+#'     "dfSUBJ" = "clindata::rawplus_dm",
+#'     "dfAE" = "clindata::rawplus_ae",
+#'     "dfPD" = "clindata::ctms_protdev",
+#'     "dfLB" = "clindata::rawplus_lb",
+#'     "dfSTUDCOMP" = "clindata::rawplus_studcomp",
+#'     "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp",
+#'     "dfDATACHG" = "clindata::edc_data_points",
+#'     "dfDATAENT" = "clindata::edc_data_pages",
+#'     "dfQUERY" = "clindata::edc_queries",
+#'     "dfENROLL" = "clindata::rawplus_enroll"
+#'   )
+#' )
 #'
+#' # Create Mapped Data
+#' lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$lData
+#'
+#' # Run Metrics
+#' lResults <-map(wf_metrics, ~RunWorkflow(., lData=lMapped))
+#'
+#' dfSummary <- lResults %>%
+#' imap_dfr(~.x$lData$dfSummary %>% mutate(MetricID = .y)) %>%
+#'   mutate(StudyID = "ABC-123") %>%
+#'   mutate(SnapshotDate = Sys.Date())
+#'
+#' Widget_SiteOverview(dfSummary = dfSummary)
+#' }
 #' @export
 
 Widget_SiteOverview <- function(

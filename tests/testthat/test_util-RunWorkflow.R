@@ -1,15 +1,18 @@
-wf_mapping <- MakeWorkflowList(strNames="mapping")[[1]]
+wf_mapping <- MakeWorkflowList(strNames="mapping")$mapping
 workflows <- MakeWorkflowList(strNames=paste0("kri",sprintf("%04d", 1:4)))
 
 # Pull Raw Data - this will overwrite the previous data pull
-lRaw <- gsm::UseClindata(
+lData <- gsm::UseClindata(
   list(
     "dfSUBJ" = "clindata::rawplus_dm",
     "dfAE" = "clindata::rawplus_ae",
     "dfPD" = "clindata::ctms_protdev",
+    "dfCONSENT" = "clindata::rawplus_consent",
+    "dfIE" = "clindata::rawplus_ie",
     "dfLB" = "clindata::rawplus_lb",
     "dfSTUDCOMP" = "clindata::rawplus_studcomp",
-    "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp",
+    "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp %>%
+            dplyr::filter(.data$phase == 'Blinded Study Drug Completion')",
     "dfDATACHG" = "clindata::edc_data_points",
     "dfDATAENT" = "clindata::edc_data_pages",
     "dfQUERY" = "clindata::edc_queries",
@@ -18,10 +21,10 @@ lRaw <- gsm::UseClindata(
 )
 
 # Create Mapped Data
-lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$lData
+lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lData)$lData
 
 # Run Metrics
-result <-workflows %>% map(~RunWorkflow(lWorkflow=.x, lData=lMapped))
+result <-map(workflows, ~RunWorkflow(lWorkflow = .x, lData = lMapped))
 
 test_that("RunWorkflow preserves inputs", {
   expect_true(

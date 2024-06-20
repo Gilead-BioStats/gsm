@@ -3,7 +3,7 @@
 #' `r lifecycle::badge("stable")`
 #'
 #' @details
-#' `MakeWorkflowList()` is a utility function that creates a list of workflows for use in [gsm::Study_Assess()].
+#' `MakeWorkflowList()` is a utility function that creates a list of workflows for use in KRI pipelines.
 #'
 #' @param strNames `array of character` List of workflows to include. NULL (the default) includes all workflows in the specified locations.
 #' @param strPath `character` The location of workflow YAML files. If package is specified, function will look in `/inst` folder.
