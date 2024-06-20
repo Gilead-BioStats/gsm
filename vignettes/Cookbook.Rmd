@@ -239,9 +239,7 @@ dfInput <- Input_Rate(
 The second step is to transform `dfInput` into site-level summary data, which is needed to derive the KRI. Two `Transform()` functions are available, `Transform_Rate()` and `Transform_Count()`, and `Transform_Rate()` is the function that is used with the PD assessment. Note that `strNumeratorCol`and `strDenominatorCol` are optional, with the default values being "Numerator" and "Denominator".
 
 ```{r eval = FALSE, include = TRUE}
-dfTransformed <- Transform_Rate(
-  dfInput
-  )
+dfTransformed <- Transform_Rate(dfInput)
 ```
 
 The third step is to analyze the transformed data. Certain assessments support multiple statistical models/`Analyze()` functions, so the user needs to specify certain parameters for the intended analysis to run. We use the normal approximation method in this example (the default method for all standard KRIs).
@@ -292,13 +290,61 @@ lResults <- RunWorkflow(lWorkflow = wf_metrics,
                         lData = lMapped$mapping$lResults)
 ```
 
+# Visualizations
+
+##THIS IS NOT CURRENTLY THE CASE. MUST RUN `Visualize_*()` to create viz
+
+To create all visualization for a given workflow (or list of workflows), The `Visuailze_Metric()` 
+
+## Example 7 - Creating a Scatter Plot
+
+`{gsm}` creates static and interactive charts using `{ggplot2}` and a custom JavaScript charting library `{rbm-viz}`. 
+
+Customizing interactive JavaScript widgets will be covered in a separate vignette.
+
+Below is an example of creating a static `{ggplot2}` scatter plot that uses the default normal approximation method for PD Metrics and rawplus data from `{clindata}`:
+
+```{r eval = FALSE, include = TRUE}
+library(gsm)
+library(clindata)
+
+# Prepare Workflows
+wf_mapping <- MakeWorkflowList(strNames="mapping")[[1]]
+wf_metrics <- MakeWorkflowList(strNames=paste0("kri",sprintf("%04d", 1:2)))
+dfMetrics <- wf_metrics %>% map_df(~.x$meta)
+
+# Create Mapped Data
+lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$lData
+
+# Run Metrics
+lResults <- RunWorkflow(lWorkflow=wf_metrics, lData=lMapped$mapping$lResults)
+
+# Update dfBounds and dfSummary with StudyID and SnapshotDate
+dfBounds <- lResults %>% 
+  imap_dfr(~.x$lResults$dfBounds %>% mutate(MetricID = .y)) %>%
+  mutate(StudyID = "ABC-123") %>%
+  mutate(SnapshotDate = Sys.Date())
+
+dfSummary <- lResults %>% 
+  imap_dfr(~.x$lResults$dfSummary %>% mutate(MetricID = .y)) %>%
+  mutate(StudyID = "ABC-123") %>%
+  mutate(SnapshotDate = Sys.Date())
+
+# Create the visualization
+Visualize_Scatter(
+  dfSummary = dfSummary, 
+  dfBounds = dfBounds
+  )
+```
+
+
 # Reporting
 
 ## Example 3 - Creating an Assessment Overview Report for Multiple Assessments
 
-### Standard Report via `Study_Assess()`
+### Standard Report via `Report_KRI()`
 
-The `Study_Report()` function creates the **Assessment Overview Report**, which is an HTML document that contains tables, visualizations, and error logging for all assessments run in the `Study_Assess()` workflow.
+The `Report_KRI()` function creates the **Assessment Overview Report**, which is an HTML document that contains tables, visualizations, and error logging for all assessments run in the `Run_Workflow()` workflow.
 
 Let's create a report using sample data from `{clindata}`:
 
@@ -308,7 +354,7 @@ library(clindata)
 
 multiple_assessments <- Study_Assess()
 
-Study_Report(lSnapshot = multiple_assessments)
+Report_KRI(lSnapshot = multiple_assessments)
 ```
 
 The report will render and be saved to your current working directory. If you would like the report saved in a different location, you can set an output directory using the `strOutpath` argument in the `Study_Report()` function.
@@ -331,55 +377,6 @@ Study_Report(
   )
 ```
 
-## Example 6 - Viewing the Error Checking Report
-
-The **Assessment Overview Report** contains a Data Check Summary table in the appendix, which can be helpful for troubleshooting issues with input data provided to `lData` in `Study_Assess()`.
-
-To view the report directly as an object in your IDE, run:
-
-```{r eval = FALSE, include = TRUE}
-library(gsm)
-library(clindata)
-
-multiple_assessments <- Study_Assess()
-
-Study_AssessmentReport(lAssessments = multiple_assessments, bViewReport = TRUE)
-```
-
-# Visualizations
-
-By default, all `Assess()` functions return a visualization whether run individually or within the `Study_Assess()` workflow. For example, the scatter plot for the AE assessment can be viewed by calling `AE_Assess(dfInput)$lCharts$scatter`.
-
-## Example 7 - Creating a Scatter Plot
-
-`{gsm}` creates static and interactive charts using `{ggplot2}` and a custom JavaScript charting library `{rbm-viz}`. 
-
-Customizing interactive JavaScript widgets will be covered in a separate vignette.
-
-Below is an example of creating a static `{ggplot2}` scatter plot that uses the default normal approximation method for `AE_Assess()` and rawplus data from `{clindata}`:
-
-```{r eval = FALSE, include = TRUE}
-library(gsm)
-library(clindata)
-
-## Map domain-level data to the input data standard for the selected assessment
-dfInput <- AE_Map_Raw()
-
-## Run the assessment
-ae_assessment <- AE_Assess(dfInput)
-
-## Create threshold boundaries 
-dfBounds <- Analyze_NormalApprox_PredictBounds(
-  dfTransformed = ae_assessment$lData$dfTransformed,
-  vThreshold = c(-3, -2, 2, 3)
-  )
-
-## Create the visualization
-Visualize_Scatter(
-  dfSummary = ae_assessment$lData$dfFlagged, 
-  dfBounds = dfBounds
-  )
-```
 
 # Custom Mapping/YAML Specifications
 
