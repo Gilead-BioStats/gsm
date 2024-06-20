@@ -48,7 +48,7 @@ Visualize_Score <- function(
     "strTitle must be character" = is.character(strTitle),
     "bFlagFilter must be logical" = is.logical(bFlagFilter),
     "dfSummary must be a data.frame" = is.data.frame(dfSummary),
-    "strType must be 'metric' or 'score'" = strType %in% c("Metric", "Score"),
+    "strType must be 'Metric' or 'Score'" = strType %in% c("Metric", "Score"),
     "strType must be length 1" = length(strType) == 1
   )
 
