@@ -53,13 +53,15 @@ Summarize <- function(
 
   dfSummary <- dfFlagged %>%
     select(
-      "GroupID",
-      "GroupLevel",
-      "Numerator",
-      "Denominator",
-      "Metric",
-      "Score",
-      "Flag"
+      any_of(
+       c("GroupID",
+        "GroupLevel",
+        "Numerator",
+        "Denominator",
+        "Metric",
+        "Score",
+        "Flag")
+      )
     ) %>%
     arrange(desc(abs(.data$Metric))) %>%
     arrange(match(.data$Flag, c(2, -2, 1, -1, 0)))

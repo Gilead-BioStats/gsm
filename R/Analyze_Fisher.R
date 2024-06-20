@@ -35,9 +35,7 @@
 #'
 #' @examples
 #' dfTransformed <- Transform_Rate(
-#'   sampleInput,
-#'   strNumeratorCol = "Numerator",
-#'   strDenominatorCol = "Denominator",
+#'   sampleInput
 #' )
 #' dfAnalyzed <- Analyze_Fisher(dfTransformed)
 #'

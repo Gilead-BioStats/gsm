@@ -29,8 +29,10 @@ parameters.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
-lStep <- MakeWorkflowList()[["kri0001"]][["steps"]][[1]]
-
+\dontrun{
+wf_mapping <- MakeWorkflowList("mapping")
+lStep <- MakeWorkflowList("kri0001")[["kri0001"]][["steps"]][[1]]
+lMeta <- MakeWorkflowList("kri0001")[["kri0001"]][["meta"]]
 lData <- list(
   dfSUBJ = clindata::rawplus_dm,
   dfAE = clindata::rawplus_ae,
@@ -38,8 +40,8 @@ lData <- list(
   dfCONSENT = clindata::rawplus_consent,
   dfIE = clindata::rawplus_ie
 )
+lMapped <- RunWorkflow(wf_mapping, lData)$lData
 
-
-ae_step <- RunStep(lStep = lStep, lData = lData)
-
+ae_step <- RunStep(lStep = lStep, lData = lMapped, lMeta = lMeta)
+}
 }

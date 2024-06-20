@@ -73,5 +73,16 @@
 #' @source Generated from `rbm_data_spec.csv` dataset in the `gsm` package.
 "rbm_data_spec"
 
-
+#' sampleInput Dataset
+#'
+#' @format A data frame with 25 rows and 5 columns:
+#' \describe{
+#'   \item{SubjectID}{unique subject identifier}
+#'   \item{GroupID}{grouping variable}
+#'   \item{GroupLevel}{level of grouping variable}
+#'   \item{Numerator}{number of flags in group}
+#'   \item{Denominator}{total subjects in group}
+#' }
+#' @source Generated from `sampleInput.csv` dataset in the `gsm` package.
+"sampleInput"
 

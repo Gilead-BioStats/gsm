@@ -42,7 +42,7 @@
 #' @return `data.frame` with one row per site with columns: `GroupID`, `TotalCount`, `Metric`, `Score`, `Flag`
 #'
 #' @examples
-#' dfTransformed <- Transform_Count(sampleInput)
+#' dfTransformed <- Transform_Count(sampleInput, strCountCol = "Numerator")
 #'
 #' dfAnalyzed <- Analyze_Identity(dfTransformed)
 #'
