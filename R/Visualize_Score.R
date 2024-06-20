@@ -37,7 +37,7 @@
 Visualize_Score <- function(
   dfSummary,
   vThreshold = NULL,
-  strType = "metric",
+  strType = "Metric",
   bFlagFilter = FALSE,
   strTitle = ""
 ) {
@@ -45,7 +45,7 @@ Visualize_Score <- function(
     "strTitle must be character" = is.character(strTitle),
     "bFlagFilter must be logical" = is.logical(bFlagFilter),
     "dfSummary must be a data.frame" = is.data.frame(dfSummary),
-    "strType must be 'metric' or 'score'" = strType %in% c("metric", "score"),
+    "strType must be 'metric' or 'score'" = strType %in% c("Metric", "Score"),
     "strType must be length 1" = length(strType) == 1
   )
 
@@ -60,7 +60,7 @@ Visualize_Score <- function(
       )
   }
 
-  if (strType == "metric") {
+  if (strType == "Metric") {
     dfSummaryWithTooltip <- dfSummary %>%
       mutate(
         tooltip = paste(
@@ -100,7 +100,7 @@ Visualize_Score <- function(
     }
   }
 
-  if (strType == "score") {
+  if (strType == "Score") {
     if (!is.null(vThreshold)) {
       ThresholdLow <- min(vThreshold)
       ThresholdHigh <- max(vThreshold)

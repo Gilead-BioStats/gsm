@@ -93,7 +93,7 @@ Visualize_Metric <- function(
       dfSummary = dfSummary_current,
       lLabels = lLabels,
       dfSite = dfSite,
-      strYAxisType = "metric",
+      strYAxisType = "Metric",
       elementId = paste0(tolower(lLabels$Abbreviation), "AssessMetric")
     )
 
@@ -101,18 +101,18 @@ Visualize_Metric <- function(
       dfSummary = dfSummary_current,
       lLabels = lLabels,
       dfSite = dfSite,
-      strYAxisType = "score",
+      strYAxisType = "Score",
       elementId = paste0(tolower(lLabels$Abbreviation), "AssessScore")
     )
 
     lCharts$barMetric <- gsm::Visualize_Score(
       dfSummary = dfSummary_current,
-      strType = "metric"
+      strType = "Metric"
     )
 
     lCharts$barScore <- gsm::Visualize_Score(
       dfSummary = dfSummary_current,
-      strType = "score",
+      strType = "Score",
       vThreshold = unlist(lLabels$vThresholds)
     )
   }
@@ -125,7 +125,7 @@ Visualize_Metric <- function(
       lLabels = lLabels %>% map_dfr(~.x),
       #dfSite = dfSite,
       dfParams = dfParams,
-      yAxis = "score"
+      yAxis = "Score"
     )
 
     lCharts$timeSeriesContinuousMetricJS <- Widget_TimeSeries(
@@ -133,7 +133,7 @@ Visualize_Metric <- function(
       lLabels = lLabels %>% map_dfr(~.x),
       #dfSite = dfSite,
       dfParams = dfParams,
-      yAxis = "metric"
+      yAxis = "Metric"
     )
 
     lCharts$timeSeriesContinuousNumeratorJS <- Widget_TimeSeries(
@@ -141,7 +141,7 @@ Visualize_Metric <- function(
       lLabels = lLabels %>% map_dfr(~.x),
       #dfSite = dfSite,
       dfParams = dfParams,
-      yAxis = "numerator"
+      yAxis = "Numerator"
     )
   }
 
