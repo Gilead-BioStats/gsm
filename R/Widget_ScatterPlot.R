@@ -83,13 +83,13 @@
 #'
 #' lLabels <- list(
 #'   workflowid = "",
-#'   group = "Site",
-#'   abbreviation = "AE",
-#'   metric = "Adverse Event Rate",
-#'   numerator = "Adverse Events",
-#'   denominator = "Days on Study",
-#'   model = "Normal Approximation",
-#'   score = "Adjusted Z-Score"
+#'   Group = "Site",
+#'   Abbreviation = "AE",
+#'   Metric = "Adverse Event Rate",
+#'   Numerator = "Adverse Events",
+#'   Denominator = "Days on Study",
+#'   Model = "Normal Approximation",
+#'   Score = "Adjusted Z-Score"
 #' )
 #'
 #' plot <- Widget_ScatterPlot(
