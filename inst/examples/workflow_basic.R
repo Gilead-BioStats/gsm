@@ -1,5 +1,4 @@
 # AE KRI Workflow
-
 dfInput <- Input_Rate(
   dfSubjects= clindata::rawplus_dm,
   dfNumerator= clindata::rawplus_ae,
