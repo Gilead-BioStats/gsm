@@ -54,24 +54,25 @@
 #'     )
 #' )
 #'
-#' data_mapped <- RunWorkflow(workflows$mapping, lDataRaw)$lData
-#'
 #' workflows <- MakeWorkflowList()
+#'
+#' data_mapped <- RunWorkflow(workflows$mapping, data_raw)$lData
 #'
 #' results <- workflows[ grepl('^kri', names(workflows) ) ] %>%
 #'     map(\(workflow) RunWorkflow(workflow, data_mapped))
 #'
-#' dfSummary <- lResults %>% map_dfr(~ {
+#' dfSummary <- results %>% map_dfr(~ {
 #'     data <- .x$lData$dfSummary
 #'     data$workflowid <- .x$name
 #'     data
 #' })
-#'
+#' 
 #' counts <- RunWorkflow(workflows$counts, data_mapped)
-#'
+#' 
 #' dfSite <- clindata::ctms_site %>%
 #'     mutate(
-#'         siteid = .data$site_num %>% trimws %>% as.integer %>% sprintf('%05d', .)
+#'         siteid = .data$site_num,
+#'         invname = paste(.data$pi_last_name, .data$pi_first_name, sep = ', ')
 #'     ) %>%
 #'     left_join(
 #'         counts$lData$dfSiteCounts,
@@ -81,14 +82,14 @@
 #'         status = site_status,
 #'         enrolled_participants = nSubjects
 #'     )
-#'
-#' dfMetrics <- lResults %>% map_dfr(~ {
+#' 
+#' dfMetrics <- results %>% map_dfr(~ {
 #'     metric <- .x$meta
 #'     metric$workflowid <- metric$MetricID
 #'     metric$vThreshold <- paste(metric$vThreshold, collapse = ',')
 #'     metric
 #' })
-#'
+#' 
 #' Widget_SiteOverview(
 #'   dfSummary,
 #'   dfSite,
