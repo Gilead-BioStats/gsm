@@ -45,7 +45,7 @@ The {gsm} package establishes a data pipeline for RBM using R. The package provi
 
 All {gsm} assessments use a standardized 6 step data pipeline: 
 
-1.  **Map** (*Optional*) - Converts `raw` data to `input` data.
+1.  **Input_Rate** - Converts `raw` data to `input` data.
 2.  **Transform** - Converts `input` data to `transformed` data.
 3.  **Analyze** - Converts `transformed` data to `analyzed` data.
 4.  **Threshold** - Uses `analyzed` data to create one or more numeric `thresholds`.
