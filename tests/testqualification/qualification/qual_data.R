@@ -15,6 +15,6 @@ lData <- gsm::UseClindata(
     "dfENROLL" = "clindata::rawplus_enroll"
   )
 )
-mapping_workflow <- MakeWorkflowList("mapping")
-lData_mapped <- suppressMessages(RunWorkflow(lWorkflow = mapping_workflow, lData = lData))$mapping$lResults
+mapping_workflow <- flatten(MakeWorkflowList("mapping"))
+lData_mapped <- suppressMessages(RunWorkflow(lWorkflow = mapping_workflow, lData = lData)$lData)
 kri_workflows <- MakeWorkflowList(c(sprintf("kri%04d", 1:12), sprintf("cou%04d", 1:12)))
