@@ -55,6 +55,8 @@ devtools::install_github("Gilead-BioStats/gsm", ref = "dev")
 
 ## Example 1 - Running an Assessment on Standard Data
 
+Below is the script for running an AE assessment corresponding to kri0001. Using Raw+ data from `clindata`, we are able to create the mapped input data (via `InputRate()`), prepare that data for analysis (via `Transform_Rate()`), analyze the data with the Normal Approximation method (via `Analyze_NormalApprox()`) and flag and summarize the analyzed data (via `Flag_NormalApprox()` and `Summarize()`, respectively) in order to produce a table which aggregates site level flags for the AE risk signal.
+
 
 ```{r eval = FALSE, include = TRUE}
 dfInput <- Input_Rate(
@@ -76,7 +78,7 @@ table(dfSummarized$Flag)
 
 ```
 
-Can also be done with pipes, if desired 
+This can also be done with pipes, if desired.
 
 ```{r eval = FALSE, include = TRUE}
 SAE_KRI <- Input_Rate(
@@ -99,6 +101,8 @@ table(SAE_KRI$Flag)
 ```
 
 ## Example 2 - Running a Single Assessment with Charts and Report
+
+In order to create charts and a report for the AE assessment, a few additional steps must be taken. First, `Analyze_NormalApprox_PredictBounds()` must be run to create a data.frame with the upper/lower bounds of the prections (`dfBounds`). Then, a data.frame with all relevant meta information is constructed (`dfMetrics`) prior to running `Visualize_Metric()` and `Report_KRI()` which create the charts and report, respectively.
 
 
 ```{r eval = FALSE, include = TRUE}
@@ -125,14 +129,14 @@ dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed = dfTransformed,
 ##create dfMetrics meta object for charts
 dfMetrics <- data.frame(
   MetricID =  "kri0001",
-  file = "kri0001.yaml",
-  group = "site",
-  abbreviation = "AE",
-  metric = "Adverse Event Rate",
-  numerator = "Adverse Events",
-  denominator = "Days on Study",
-  model = "Normal Approximation",
-  score = "Adjusted Z-Score"
+  File = "kri0001.yaml",
+  Group = "site",
+  Abbreviation = "AE",
+  Metric = "Adverse Event Rate",
+  Numerator = "Adverse Events",
+  Denominator = "Days on Study",
+  Model = "Normal Approximation",
+  Score = "Adjusted Z-Score"
 )
 
 #add Study and Snapshot information to dfBounds and dfSummarized
@@ -167,20 +171,20 @@ Report_KRI(lCharts = lCharts,
 
 ```
 
-# Using YAML files to run workflows 
+# Using YAML files to run workflows
 
-## Example 3 - YAML workflow for multiple KRIs
+All assessments can be specified with YAML files, which run through the process explained in the previous section using the follwing three steps:
+  
+1.  Prepare the workflow lists with `MakeWorkflowList()`
+2.  Map domain-level data to the input data standard for the assessment(s) with `RunWorkflow()`.
+3.  Run the assessment(s) using an appropriate statistical method as specified in the YAML file with `RunWorkflow`.
+
+## Example 3 - YAML workflow for AE KRI
+
+Here, we run the YAML workflow for the AE KRI (kri0001). The table produced at the end of this script will match the tables produced in Example 1 above.
 
 
 ```{r eval = FALSE, include = TRUE}
-# Prepare Workflows
-wf_mapping <- MakeWorkflowList(strNames = "mapping")[[1]]
-wf_metrics <- MakeWorkflowList(strNames = "kri0001")
-dfMetrics <- wf_metrics %>% map_df(function(wf){
-  wf$meta$vThreshold <- paste(wf$meta$vThreshold, collapse = ",")
-  return(wf$meta)
-})
-
 # Import Site+Study Metadata
 dfStudy<-clindata::ctms_study %>% rename(StudyID = protocol_number)
 dfSite<- clindata::ctms_site %>% rename(SiteID = site_num)
@@ -202,15 +206,25 @@ lRaw <- gsm::UseClindata(
   )
 )
 
+# Prepare Workflows
+wf_mapping <- MakeWorkflowList(strNames = "mapping")[[1]]
+wf_metrics <- MakeWorkflowList(strNames = "kri0001")
+dfMetrics <- wf_metrics %>% map_df(function(wf){
+  wf$meta$vThreshold <- paste(wf$meta$vThreshold, collapse = ",")
+  return(wf$meta)
+})
+
 # Create Mapped Data
 lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$lData
-# Run Metrics
+# Run Assessments
 lResults <-wf_metrics %>% map(~RunWorkflow(lWorkflow=.x, lData=lMapped))
 
 table(lResults$kri0001$lData$dfSummary$Flag)
 ```
 
 ## Example 4 - Generate Charts with yaml workflow for multiple KRIs
+
+In this example, we run multiple KRIs and once by feeding a vector of KRI file names into `MakeWorkflowList()`. Then, to make charts, we add study information to `dfBounds` and `dfSummary` and feed all relevant data.frames into the `Visualize_Metric()` function using `purrr:map()` since we are making charts for all 12 KRIs. 
 
 
 ```{r eval = FALSE, include = TRUE}
@@ -248,6 +262,7 @@ lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$lData
 ## Run Metrics
 lResults <-wf_metrics %>% map(~RunWorkflow(lWorkflow=.x, lData=lMapped))
 
+#add Study and Snapshot information to dfBounds and dfSummarized
 dfBounds <- lResults %>%
   imap_dfr(~.x$lData$dfBounds %>% mutate(MetricID = .y)) %>%
   mutate(StudyID = "ABC-123") %>%
@@ -258,7 +273,7 @@ dfSummary <- lResults %>%
   mutate(StudyID = "ABC-123") %>%
   mutate(SnapshotDate = Sys.Date())
 
-# create Visualizations
+# create Charts
 lCharts <- unique(dfSummary$MetricID) %>% map(~Visualize_Metric(
   dfSummary = dfSummary,
   dfBounds = dfBounds,
@@ -275,6 +290,8 @@ lCharts$kri0001$barMetricJS
 ```
 
 ## Example 5: Generate Site Report with yaml workflow for multiple KRIs
+
+Here, we create the site-level report using `Report_KRI()` with the data.frames produced by the yaml workflow and the charts created with `Visualize_Metric()`. 
 
 ```{r eval = FALSE, include = TRUE}
 ## Prepare Workflows
@@ -343,6 +360,8 @@ Report_KRI(lCharts = lCharts,
 ```
 
 ## Example 6: Generate Country Report with yaml workflow for multiple KRIs
+
+Using the same process as the site-level report, we create a country-level report by using the Country KRI yaml files, which begin with `cou` instead of `kri`.
 
 ```{r eval = FALSE, include = TRUE}
 # Prepare Workflows
