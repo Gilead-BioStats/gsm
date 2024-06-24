@@ -34,17 +34,17 @@ Visualize_Metric <- function(
 ) {
 
   # Check for multiple snapshots --------------------------------------------
-  # if snapshot_date is missing set it to today for all records
-  if (!"snapshot_date" %in% colnames(dfSummary)) {
-    dfSummary$snapshot_date <- as.Date(Sys.Date())
+  # if SnapshotDate is missing set it to today for all records
+  if (!"SnapshotDate" %in% colnames(dfSummary)) {
+    dfSummary$SnapshotDate <- as.Date(Sys.Date())
   }
 
   # get number of snapshots
-  number_of_snapshots <- length(unique(dfSummary$snapshot_date))
+  number_of_snapshots <- length(unique(dfSummary$SnapshotDate))
 
   # use most recent snapshot date if strSnapshotDate is missing
   if(is.null(strSnapshotDate)){
-    strSnapshotDate <- max(dfSummary$snapshot_date)
+    strSnapshotDate <- max(dfSummary$SnapshotDate)
   }
 
   # Filter to selected MetricID ----------------------------------------------
@@ -67,7 +67,7 @@ Visualize_Metric <- function(
 
   # Cross-sectional Charts using most recent snapshot ------------------------
   lCharts <- list()
-  dfSummary_current <- dfSummary %>% filter(.data$snapshot_date == strSnapshotDate)
+  dfSummary_current <- dfSummary %>% filter(.data$SnapshotDate == strSnapshotDate)
 
   if(nrow(dfSummary_current) == 0){
     cli::cli_alert_warning("No data found for specified snapshot date: {strSnapshotDate}. No charts will be generated.")
