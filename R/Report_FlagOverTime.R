@@ -12,14 +12,14 @@ FlagOverTime <- function(dfSummary, dfSite, dfMetrics) {
   dfFlagOverTime <- dfSummary %>%
     left_join(dfSite, by = "GroupID") %>%
     left_join(dfMetrics, by = "MetricID") %>%
-    select(GroupID, GroupType, MetricID, abbreviation, snapshot_date, Flag) %>%
+    select(GroupID, GroupLevel, MetricID, abbreviation, snapshot_date, Flag) %>%
     tidyr::spread(key = snapshot_date, value = Flag) 
 
     ncol <- dim(dfFlagOverTime)[2]
   
   # Create a  table with flags over time for each site/KRI combination
-  dfFlagOverTime %>% 
-    group_by(GroupType, GroupID) %>%
+  gt_table <- dfFlagOverTime %>% 
+    group_by(GroupLevel, GroupID) %>%
     gt() %>%
     data_color(
         method = "numeric",
@@ -60,5 +60,5 @@ FlagOverTime <- function(dfSummary, dfSite, dfMetrics) {
 
         
 
-  return(dfFlagOverTime)
+  return(gt_table)
 }
