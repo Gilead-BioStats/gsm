@@ -3,8 +3,8 @@ meta:
   MetricID: kri0003
   group: site
   abbreviation: PD
-  metric: Non-Important Protocol Deviation Rate
-  numerator: Non-Important Protocol Deviations
+  metric: Non-important Protocol Deviation Rate
+  numerator: Non-important Protocol Deviations
   denominator: Days on Study
   model: Normal Approximation
   score: Adjusted Z-Score

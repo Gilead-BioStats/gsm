@@ -30,11 +30,11 @@ The {gsm} package performs risk assessments primarily focused on detecting diffe
 
 The {gsm} package establishes a data pipeline for RBM using R. The package provides a framework that allows users to **assess** and **visualize** site-level risk in clinical trial data. The package currently provides assessments for the following domains:
 
-1.  AE Reporting Rate
-2.  SAE Reporting Rate
-3.  Non-important PD Rate
-4.  Important PD Rate
-5.  G3+ Lab Abnormality Rate
+1.  Adverse Event Reporting Rate
+2.  Serious Adverse Event Reporting Rate
+3.  Non-important Protocol Deviation Rate
+4.  Important Protocol Deviation Rate
+5.  Grade 3+ Lab Abnormality Rate
 6.  Study Discontinuation Rate
 7.  Treatment Discontinuation Rate
 8.  Query Rate
