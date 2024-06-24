@@ -1,6 +1,6 @@
 #' QTL Analysis for Binary and Rate Outcomes.
 #'
-#' `r lifecycle::badge("stable")`
+#' `r lifecycle::badge("experimental")`
 #'
 #' @details
 #' Creates confidence intervals for the observed proportion of participants for the event of interest. Uses the exact binomial (`stats::binom.test`) or poisson test (`stats::poisson.test`).
@@ -13,6 +13,7 @@
 #'
 #' The input data (`dfTransformed`) for `Analyze_QTL` is typically created using \code{\link{Transform_Rate}} and should be one record for the entire study with required columns for:
 #' - `GroupID` - GroupID should be the StudyID
+#' - `GroupLevel` - Group Type
 #' - `N` - Total number of participants at site
 #' - `Numerator` - Total number of participants at site with event of interest
 #' - `Denominator` - Total number of participants at a site

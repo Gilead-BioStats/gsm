@@ -11,33 +11,24 @@
 #'
 #' @section Data Specification:
 #'
-#' (`dfInput`) must include the columns specified by `strNumeratorCol`, `strDenominatorCol` and `strGroupCol`.
+#' (`dfInput`) must include the columns specified by `strNumeratorCol` and `strDenominatorCol`.
 #' Required columns include:
-#' - `SiteID` - Site ID
-#' - `StudyID` - Study ID
-#' - `CustomGroupID` - Custom Group ID
-#' - `Count` - Number of events of interest; the actual name of this column is specified by the parameter `strNumeratorCol`
-#' - `Exposure` - Number of days on treatment; the actual name of this column is specified by the parameter `strDenominatorCol`
+#' - `GroupID` - Group ID
+#' - `GroupLevel` - Group Type
+#' - `Numerator` - Number of events of interest; the actual name of this column is specified by the parameter `strNumeratorCol`
+#' - `Denominator` - Number of days on treatment; the actual name of this column is specified by the parameter `strDenominatorCol`
 #'
-#' @param dfInput A data.frame with one record per subject.
-#' @param strNumeratorCol Required. Numerical or logical. Column to be counted.
-#' @param strDenominatorCol `numeric` Required. Numerical `Exposure` column.
-#' @param strGroupCol `character` Required. Name of column for grouping variable. Default: `"SiteID"`
+#' @param dfInput `df` A data.frame with one record per subject.
+#' @param strNumeratorCol `string` Column to be counted. Defaults to "Numerator".
+#' @param strDenominatorCol `string` Column name for the numerical `Exposure` column. Defaults to "Denominator".
 #'
-#' @return `data.frame` with one row per site with columns `GroupID`, `GroupType`, `Numerator`, `Denominator`, and `Metric`.
+#' @return `data.frame` with one row per site with columns `GroupID`, `GroupLevel`, `Numerator`, `Denominator`, and `Metric`.
 #'
 #' @examples
-#' dfInput <- tibble::tibble(
-#'  GroupID = c("G1", "G1", "G2", "G2"),
-#'  GroupType = rep("site",4),
-#'  Numerator = c(1, 2, 3, 4),
-#'  Denominator = c(10, 20, 30, 40)
-#' )
-#'
 #' dfTransformed <- Transform_Rate(
-#'   dfInput,
+#'   sampleInput,
 #'   strNumeratorCol = "Numerator",
-#'   strDenominatorCol = "Denominator",
+#'   strDenominatorCol = "Denominator"
 #' )
 #'
 #' @export
@@ -53,11 +44,11 @@ Transform_Rate <- function(
     "strDenominatorColumn is not numeric" = is.numeric(dfInput[[strDenominatorCol]]),
     "NA's found in numerator" = !anyNA(dfInput[[strNumeratorCol]]),
     "NA's found in denominator" = !anyNA(dfInput[[strDenominatorCol]]),
-    "Required columns not found in input data" = c(strNumeratorCol, strDenominatorCol, 'GroupID','GroupType') %in% names(dfInput)
+    "Required columns not found in input data" = c(strNumeratorCol, strDenominatorCol, 'GroupID','GroupLevel') %in% names(dfInput)
   )
 
   dfTransformed <- dfInput %>%
-    group_by(GroupID, GroupType) %>%
+    group_by(.data$GroupID, .data$GroupLevel) %>%
     summarise(
       Numerator = sum(.data[[strNumeratorCol]]),
       Denominator = sum(.data[[strDenominatorCol]])

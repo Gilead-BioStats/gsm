@@ -36,6 +36,7 @@ Imports:
     htmlwidgets,
     jsonlite,
     kableExtra,
+    lamW,
     lifecycle (>= 1.0.1),
     lubridate,
     magrittr,
@@ -49,6 +50,7 @@ Imports:
     tidyr,
     tools,
     utils,
+    withr,
     yaml
 Suggests:
     clindata,
@@ -62,7 +64,6 @@ Suggests:
     here,
     httr,
     knitr,
-    lamW,
     pander,
     pkgdown,
     riskmetric,

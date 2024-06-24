@@ -4,12 +4,14 @@
 \alias{Report_MetricTable}
 \title{Generate a summary table for a report}
 \usage{
-Report_MetricTable(dfSummary, dfSite)
+Report_MetricTable(dfSummary, dfSite, strSnapshotDate = NULL)
 }
 \arguments{
 \item{dfSummary}{The summary data frame}
 
 \item{dfSite}{The site data frame}
+
+\item{strSnapshotDate}{user specified snapshot date as string}
 }
 \value{
 A datatable containing the summary table

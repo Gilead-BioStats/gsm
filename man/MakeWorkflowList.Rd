@@ -20,7 +20,7 @@ MakeWorkflowList(strNames = NULL, strPath = NULL, bRecursive = FALSE)
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \details{
-\code{MakeWorkflowList()} is a utility function that creates a list of workflows for use in \code{\link[=Study_Assess]{Study_Assess()}}.
+\code{MakeWorkflowList()} is a utility function that creates a list of workflows for use in KRI pipelines.
 }
 \examples{
 # use default

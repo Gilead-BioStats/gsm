@@ -51,12 +51,12 @@ Visualize_Metric <- function(
   if(!is.null(strMetricID)){
 
     if(!(strMetricID %in% unique(dfSummary$MetricID))){
-      cli::cli_alert_error("MetricID not found in dfSummary. No charts will be generated.")
+      cli::cli_alert_danger("MetricID not found in dfSummary. No charts will be generated.")
       return(NULL)
     }else{
-      dfSummary <- dfSummary %>% filter(MetricID == strMetricID)
-      dfBounds <- dfBounds %>% filter(MetricID == strMetricID)
-      dfMetrics <- dfMetrics %>% filter(MetricID == strMetricID)
+      dfSummary <- dfSummary %>% filter(.data$MetricID == strMetricID)
+      dfBounds <- dfBounds %>% filter(.data$MetricID == strMetricID)
+      dfMetrics <- dfMetrics %>% filter(.data$MetricID == strMetricID)
     }
   }
 
@@ -67,7 +67,7 @@ Visualize_Metric <- function(
 
   # Cross-sectional Charts using most recent snapshot ------------------------
   lCharts <- list()
-  dfSummary_current <- dfSummary %>% filter(snapshot_date == strSnapshotDate)
+  dfSummary_current <- dfSummary %>% filter(.data$snapshot_date == strSnapshotDate)
 
   if(nrow(dfSummary_current) == 0){
     cli::cli_alert_warning("No data found for specified snapshot date: {strSnapshotDate}. No charts will be generated.")

@@ -17,7 +17,7 @@ Analyze_QTL(dfTransformed, nConfLevel = 0.95, strOutcome = "binary")
 \code{data.frame} with one row with columns: GroupID, Numerator, Denominator, Metric, Method, ConfLevel, Estimate, LowCI, UpCI and Score.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \details{
 Creates confidence intervals for the observed proportion of participants for the event of interest. Uses the exact binomial (\code{stats::binom.test}) or poisson test (\code{stats::poisson.test}).
@@ -34,6 +34,7 @@ TODO Coming soon ...
 The input data (\code{dfTransformed}) for \code{Analyze_QTL} is typically created using \code{\link{Transform_Rate}} and should be one record for the entire study with required columns for:
 \itemize{
 \item \code{GroupID} - GroupID should be the StudyID
+\item \code{GroupLevel} - Group Type
 \item \code{N} - Total number of participants at site
 \item \code{Numerator} - Total number of participants at site with event of interest
 \item \code{Denominator} - Total number of participants at a site

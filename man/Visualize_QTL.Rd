@@ -23,3 +23,6 @@ Visualize_QTL(strQtlName, dfSummary, dfParams, dfAnalysis, lLabels)
 \description{
 Make cross-sectional timeseries charts.
 }
+\details{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+}
