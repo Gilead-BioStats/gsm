@@ -30,22 +30,22 @@ The {gsm} package performs risk assessments primarily focused on detecting diffe
 
 The {gsm} package establishes a data pipeline for RBM using R. The package provides a framework that allows users to **assess** and **visualize** site-level risk in clinical trial data. The package currently provides assessments for the following domains:
 
-1.  Adverse Event Frequency
-2.  Serious Adverse Event Frequency
-3.  Protocol Deviation Frequency
-4.  Important Protocol Deviation Frequency
-5.  Lab Abnormality Frequency
-6.  Subject Discontinuation Frequency
-7.  Treatment Discontinuation
+1.  Adverse Event Reporting Rate
+2.  Serious Adverse Event Reporting Rate
+3.  Non-important Protocol Deviation Rate
+4.  Important Protocol Deviation Rate
+5.  Grade 3+ Lab Abnormality Rate
+6.  Study Discontinuation Rate
+7.  Treatment Discontinuation Rate
 8.  Query Rate
-9.  Query Age
-10. Data Entry Lag
+9.  Outstanding Query Rate
+10. Outstanding Data Entry Rate
 11. Data Change Rate
-12. Screen Failure
+12. Screen Failure Rate
 
 All {gsm} assessments use a standardized 6 step data pipeline: 
 
-1.  **Map** (*Optional*) - Converts `raw` data to `input` data.
+1.  **Input_Rate** - Converts `raw` data to `input` data.
 2.  **Transform** - Converts `input` data to `transformed` data.
 3.  **Analyze** - Converts `transformed` data to `analyzed` data.
 4.  **Threshold** - Uses `analyzed` data to create one or more numeric `thresholds`.
