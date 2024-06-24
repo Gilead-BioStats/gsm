@@ -34,6 +34,7 @@ HTMLWidgets.widget({
                   };
 
                 // generate scatter plot
+                console.log(x)
                 const instance = rbmViz.default.scatterPlot(
                     el,
                     x.dfSummary,

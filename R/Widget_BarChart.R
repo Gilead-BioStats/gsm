@@ -85,7 +85,7 @@
 #' @export
 Widget_BarChart <- function(
   dfSummary,
-  lLabels,
+  dfMetrics,
   dfSite = NULL,
   dfThreshold = NULL,
   strYAxisType = "Score",
@@ -99,12 +99,14 @@ Widget_BarChart <- function(
   dfSummary <- dfSummary %>%
     dplyr::mutate(across(everything(), as.character))
 
+  lMetrics <- as.list(dfMetrics)
+
   if (!is.null(elementId)) {
     elementId <- paste(elementId, as.numeric(Sys.time()) * 1000, sep = "-")
   }
 
-  if (!is.null(lLabels$Group)) {
-    siteSelectLabelValue <- paste0("Highlighted ", lLabels$Group, ": ")
+  if (!is.null(lMetrics$Group)) {
+    siteSelectLabelValue <- paste0("Highlighted ", lMetrics$Group, ": ")
   }
 
   if (!is.null(dfThreshold)) {
@@ -118,7 +120,7 @@ Widget_BarChart <- function(
   # forward options using x
   x <- list(
     dfSummary = jsonlite::toJSON(dfSummary, na = "string"),
-    lLabels = jsonlite::toJSON(lLabels, na = "string"),
+    lLabels = jsonlite::toJSON(lMetrics, na = "string"),
     dfThreshold = dfThreshold,
     dfSite = dfSite,
     strYAxisType = strYAxisType,

@@ -18,7 +18,7 @@
 #'  \item{\code{flag}}
 #' }
 #'
-#' @param lLabels configuration with columns:
+#' @param dfMetrics configuration with columns:
 #' \itemize{
 #'  \item{\code{workflow}}
 #'  \item{\code{gsm_version}}
@@ -45,7 +45,7 @@
 #' }
 #'
 #' @param dfSummary `data.frame` A data.frame returned by [gsm::Summarize()].
-#' @param lLabels `list` Metrics metadata.
+#' @param dfMetrics `data.frame` Metric metadata - for labels, etc.
 #' @param dfSite `data.frame` Site metadata.
 #' @param dfBounds `data.frame`, A data.frame returned by [gsm::Analyze_NormalApprox_PredictBounds()] or [gsm::Analyze_Poisson_PredictBounds()]
 #' @param selectedGroupIDs group IDs to highlight, \code{NULL} by default, can be a single site or a vector.
@@ -81,7 +81,7 @@
 #'   ae_flag
 #' )
 #'
-#' lLabels <- list(
+#' dfMetrics <- data.frame(
 #'   workflowid = "",
 #'   Group = "Site",
 #'   Abbreviation = "AE",
@@ -100,9 +100,10 @@
 #' )
 #'
 #' @export
+
 Widget_ScatterPlot <- function(
   dfSummary,
-  lLabels,
+  dfMetrics,
   dfSite = NULL,
   dfBounds = NULL,
   selectedGroupIDs = NULL,
@@ -112,6 +113,12 @@ Widget_ScatterPlot <- function(
   height = NULL,
   elementId = NULL
 ) {
+  if(nrow(dfMetrics)!=1){
+    cli:cli_abort("Multiple rows found in dfMetrics. Subset to a single row for the selected metric.")
+  }
+
+  lMetrics <- as.list(dfMetrics)
+   
   if (!is.null(dfBounds)) {
     dfBounds <- dfBounds %>%
       jsonlite::toJSON()
@@ -121,8 +128,10 @@ Widget_ScatterPlot <- function(
     elementId <- paste(elementId, as.numeric(Sys.time()) * 1000, sep = "-")
   }
 
-  if (!is.null(lLabels$Group)) {
-    siteSelectLabelValue <- paste0("Highlighted ", lLabels$Group, ": ")
+  if (!is.null(lMetrics$Group)) {
+    siteSelectLabelValue <- paste0("Highlighted ", lMetrics$Group, ": ")
+  } else {
+    siteSelectLabelValue <- "Highlighted Values: "
   }
 
   if (!is.null(dfSite)) {
@@ -131,8 +140,8 @@ Widget_ScatterPlot <- function(
 
   # forward options using x
   x <- list(
-    dfSummary = jsonlite::toJSON(dfSummary, na = "string"),   # data
-    lLabels = jsonlite::toJSON(lLabels, na = "string"),       # config
+    dfSummary = jsonlite::toJSON(dfSummary , na = "string"),   # data
+    lLabels = jsonlite::toJSON(lMetrics, na = "string"),       # config
     dfBounds = dfBounds,                                      # bounds
     dfSite = dfSite,
     selectedGroupIDs = as.character(selectedGroupIDs),
