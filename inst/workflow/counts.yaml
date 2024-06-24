@@ -1,5 +1,5 @@
 meta:
-  file: counts.yaml
+  File: counts.yaml
   desctipion: participant and site counts at site- and study-level
 steps:
   - name: RunQuery

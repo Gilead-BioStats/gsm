@@ -8,8 +8,8 @@ test_that("Visualize_Score stops on incorrect input types", {
   expect_error(Visualize_Score(list(), strTitle = ""),
                "dfSummary must be a data.frame")
   expect_error(Visualize_Score(dfSummary, strType = "invalid"),
-               "strType must be 'metric' or 'score'")
-  expect_error(Visualize_Score(dfSummary, strType = c("metric", "score")),
+               "strType must be 'Metric' or 'Score'")
+  expect_error(Visualize_Score(dfSummary, strType = c("Metric", "Score")),
                "strType must be length 1")
 })
 
@@ -22,7 +22,7 @@ test_that("Visualize_Score handles 'metric' type correctly", {
     Denominator = c(100, 100, 100)
   )
 
-  p <- Visualize_Score(dfSummary, strType = "metric")
+  p <- Visualize_Score(dfSummary, strType = "Metric")
   plot_data <- ggplot_build(p)$data[[1]]
 
   expect_equal(plot_data$x %>% as.numeric(), c(3, 2, 1)) # reordered by Metric
@@ -39,7 +39,7 @@ test_that("Visualize_Score handles 'score' type correctly with thresholds", {
 
   vThreshold <- c(0.4, 0.7)
 
-  p <- Visualize_Score(dfSummary, strType = "score", vThreshold = vThreshold)
+  p <- Visualize_Score(dfSummary, strType = "Score", vThreshold = vThreshold)
   plot_data <- ggplot_build(p)$data[[1]]
 
   expect_equal(plot_data$x %>% as.numeric(), c(2, 1, 3)) # reordered by Score
@@ -58,7 +58,7 @@ test_that("Visualize_Score handles flag filtering correctly", {
     Flag = c(0, 1, 2)
   )
 
-  p <- Visualize_Score(dfSummary, strType = "metric", bFlagFilter = TRUE)
+  p <- Visualize_Score(dfSummary, strType = "Metric", bFlagFilter = TRUE)
   plot_data <- ggplot_build(p)$data[[1]]
 
   expect_equal(plot_data$x %>% as.numeric(), c(2, 1)) # only B and C should remain
@@ -74,7 +74,7 @@ test_that("Visualize_Score sets plot title correctly", {
 
   strTitle <- "Test Title"
 
-  p <- Visualize_Score(dfSummary, strType = "metric", strTitle = strTitle)
+  p <- Visualize_Score(dfSummary, strType = "Metric", strTitle = strTitle)
   plot_title <- ggplot_build(p)$plot$labels$title
 
   expect_equal(plot_title, strTitle)

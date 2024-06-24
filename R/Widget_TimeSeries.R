@@ -41,39 +41,37 @@ Widget_TimeSeries <- function(
   # -- this is the data format expected by JS library {rbm-viz}
 
   dfSummary <- dfSummary %>%
-    dplyr::rename_with(tolower) %>%
     select(
-      "studyid",
-      "groupid",
-      "numerator" ,
-      "denominator",
-      "metric",
-      "score",
-      "flag",
+      "StudyID",
+      "GroupID",
+      "Numerator" ,
+      "Denominator",
+      "Metric",
+      "Score",
+      "Flag",
       #"gsm_analysis_date",
-      "snapshot_date"
+      "SnapshotDate"
     )
 
   # get unique sites
-  if (all(grepl("^[0-9]$", dfSummary$groupid))) {
-    uniqueSiteSelections <- sort(unique(as.numeric(dfSummary$groupid)))
+  if (all(grepl("^[0-9]$", dfSummary$GroupID))) {
+    uniqueSiteSelections <- sort(unique(as.numeric(dfSummary$GroupID)))
   } else {
-    uniqueSiteSelections <- sort(unique(as.numeric(dfSummary$groupid)))
+    uniqueSiteSelections <- sort(unique(as.numeric(dfSummary$GroupID)))
   }
 
   lLabels <- lLabels %>%
-    dplyr::rename_with(tolower) %>%
     select(
       any_of(c(
-      "metricid",
-      "group",
-      "abbreviation",
-      "metric",
-      "numerator",
-      "denominator",
+      "MetricID",
+      "Group",
+      "Abbreviation",
+      "Metric",
+      "Numerator",
+      "Denominator",
       "outcome",
-      "model",
-      "score",
+      "Model",
+      "Score",
       "data_inputs",
       "data_filters",
       "gsm_analysis_date"
@@ -85,12 +83,12 @@ Widget_TimeSeries <- function(
 
     dfParams <- dfParams %>%
       select(
-        "metricid",
-        "param",
-        "index",
-        "snapshot_date",
-        "studyid",
-        "value"
+        "MetricID",
+        "Param",
+        "Index",
+        "SnapshotDate",
+        "StudyID",
+        "Value"
       )
 
     dfParams <- jsonlite::toJSON(dfParams, na = "string")
@@ -131,7 +129,7 @@ Widget_TimeSeries <- function(
         htmltools::tags$span(siteSelectLabelValue),
         htmltools::tags$select(
           class = "site-select--time-series",
-          id = glue::glue("site-select--time-series_{unique(lLabels$metricid)}"),
+          id = glue::glue("site-select--time-series_{unique(lLabels$MetricID)}"),
           purrr::map(
             c("None", uniqueSiteSelections),
             ~ htmltools::HTML(paste0(
