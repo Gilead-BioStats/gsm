@@ -98,9 +98,6 @@ Widget_SiteOverview <- function(
   height = NULL,
   elementId = NULL
 ) {
-  dfSummary <- dfSummary %>%
-    dplyr::rename_with(tolower)
-
   if (!is.null(elementId)) {
     elementId <- paste(elementId, as.numeric(Sys.time()) * 1000, sep = "-")
   }

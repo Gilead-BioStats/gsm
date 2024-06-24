@@ -1,18 +1,19 @@
 meta:
-  file: cou0010.yaml
+  File: cou0010.yaml
   MetricID: cou0010
-  group: country
-  abbreviation: ODAT
-  metric: Outstanding Data Entry Rate
-  numerator: Data Pages Entered > 10 Days
-  denominator: Total Data Pages
-  model: Normal Approximation
-  score: Adjusted Z-Score
+  Group: country
+  Abbreviation: ODAT
+  Metric: Outstanding Data Entry Rate
+  Numerator: Data Pages Entered > 10 Days
+  Denominator: Total Data Pages
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
   vThreshold:
     - -3
     - -2
     - 2
     - 3
+  nMinDenominator: 30
 steps:
   - name: Input_Rate
     output: dfInput
@@ -48,3 +49,4 @@ steps:
     output: dfSummary
     params:
       dfFlagged: dfFlagged
+      nMinDenominator: nMinDenominator

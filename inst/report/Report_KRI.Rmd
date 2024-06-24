@@ -62,7 +62,7 @@ Report_StudyInfo(dfStudy = params$dfStudy)
 htmltools::div(
   style = "table-layout: fixed; width: 100%; overflow: auto;",
   Widget_SiteOverview(
-    dfSummary= params$dfSummary %>% dplyr::rename_with(tolower),
+    dfSummary= params$dfSummary,
     dfSite= params$dfSite
   )
 )
@@ -87,7 +87,7 @@ Report_OverviewText(
 for (i in seq_along(params$lCharts)) {
   MetricID <- names(params$lCharts)[[i]]
   if(!is.null(params$dfMetrics)){
-    MetricName <- unique(params$dfMetrics$metric[params$dfMetrics$MetricID == MetricID])
+    MetricName <- unique(params$dfMetrics$Metric[params$dfMetrics$MetricID == MetricID])
   } else { 
     MetricName <- MetricID
   }

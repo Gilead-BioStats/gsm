@@ -1,5 +1,5 @@
 meta:
-  file: mapping.yaml
+  File: mapping.yaml
   desctipion: Data Mappings to prepare for metric calculations
 steps:
   - name: RunQuery

@@ -80,40 +80,40 @@ Visualize_Metric <- function(
       dfSite = NULL,
       #dfSite = dfSite,
       dfBounds = dfBounds,
-      elementId = paste0(tolower(lLabels$abbreviation), "AssessScatter")
+      elementId = paste0(tolower(lLabels$Abbreviation), "AssessScatter")
     )
 
     lCharts$scatter <- gsm::Visualize_Scatter(
       dfSummary = dfSummary_current,
       dfBounds = dfBounds,
-      strGroupLabel = lLabels$group
+      strGroupLabel = lLabels$Group
     )
 
     lCharts$barMetricJS <- gsm::Widget_BarChart(
       dfSummary = dfSummary_current,
       lLabels = lLabels,
       dfSite = dfSite,
-      strYAxisType = "metric",
-      elementId = paste0(tolower(lLabels$abbreviation), "AssessMetric")
+      strYAxisType = "Metric",
+      elementId = paste0(tolower(lLabels$Abbreviation), "AssessMetric")
     )
 
     lCharts$barScoreJS <- gsm::Widget_BarChart(
       dfSummary = dfSummary_current,
       lLabels = lLabels,
       dfSite = dfSite,
-      strYAxisType = "score",
-      elementId = paste0(tolower(lLabels$abbreviation), "AssessScore")
+      strYAxisType = "Score",
+      elementId = paste0(tolower(lLabels$Abbreviation), "AssessScore")
     )
 
     lCharts$barMetric <- gsm::Visualize_Score(
       dfSummary = dfSummary_current,
-      strType = "metric"
+      strType = "Metric"
     )
 
     lCharts$barScore <- gsm::Visualize_Score(
       dfSummary = dfSummary_current,
-      strType = "score",
-      vThreshold = unlist(lLabels$thresholds)
+      strType = "Score",
+      vThreshold = unlist(lLabels$vThresholds)
     )
   }
   # Continuous Charts -------------------------------------------------------
@@ -125,7 +125,7 @@ Visualize_Metric <- function(
       lLabels = lLabels %>% map_dfr(~.x),
       #dfSite = dfSite,
       dfParams = dfParams,
-      yAxis = "score"
+      yAxis = "Score"
     )
 
     lCharts$timeSeriesContinuousMetricJS <- Widget_TimeSeries(
@@ -133,7 +133,7 @@ Visualize_Metric <- function(
       lLabels = lLabels %>% map_dfr(~.x),
       #dfSite = dfSite,
       dfParams = dfParams,
-      yAxis = "metric"
+      yAxis = "Metric"
     )
 
     lCharts$timeSeriesContinuousNumeratorJS <- Widget_TimeSeries(
@@ -141,7 +141,7 @@ Visualize_Metric <- function(
       lLabels = lLabels %>% map_dfr(~.x),
       #dfSite = dfSite,
       dfParams = dfParams,
-      yAxis = "numerator"
+      yAxis = "Numerator"
     )
   }
 

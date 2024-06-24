@@ -83,13 +83,13 @@
 #'
 #' lLabels <- list(
 #'   workflowid = "",
-#'   group = "Site",
-#'   abbreviation = "AE",
-#'   metric = "Adverse Event Rate",
-#'   numerator = "Adverse Events",
-#'   denominator = "Days on Study",
-#'   model = "Normal Approximation",
-#'   score = "Adjusted Z-Score"
+#'   Group = "Site",
+#'   Abbreviation = "AE",
+#'   Metric = "Adverse Event Rate",
+#'   Numerator = "Adverse Events",
+#'   Denominator = "Days on Study",
+#'   Model = "Normal Approximation",
+#'   Score = "Adjusted Z-Score"
 #' )
 #'
 #' plot <- Widget_ScatterPlot(
@@ -112,12 +112,8 @@ Widget_ScatterPlot <- function(
   height = NULL,
   elementId = NULL
 ) {
-  dfSummary <- dfSummary %>%
-    dplyr::rename_with(tolower)
-
   if (!is.null(dfBounds)) {
     dfBounds <- dfBounds %>%
-      dplyr::rename_with(tolower) %>%
       jsonlite::toJSON()
   }
 
@@ -125,8 +121,8 @@ Widget_ScatterPlot <- function(
     elementId <- paste(elementId, as.numeric(Sys.time()) * 1000, sep = "-")
   }
 
-  if (!is.null(lLabels$group)) {
-    siteSelectLabelValue <- paste0("Highlighted ", lLabels$group, ": ")
+  if (!is.null(lLabels$Group)) {
+    siteSelectLabelValue <- paste0("Highlighted ", lLabels$Group, ": ")
   }
 
   if (!is.null(dfSite)) {

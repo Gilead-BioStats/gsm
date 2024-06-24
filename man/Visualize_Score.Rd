@@ -7,7 +7,7 @@
 Visualize_Score(
   dfSummary,
   vThreshold = NULL,
-  strType = "metric",
+  strType = "Metric",
   bFlagFilter = FALSE,
   strTitle = ""
 )
