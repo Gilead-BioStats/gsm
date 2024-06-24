@@ -16,7 +16,7 @@ dfAnalyzed <- Analyze_NormalApprox(dfTransformed,
                                    strType = "rate")
 dfFlagged <- Flag_NormalApprox(dfAnalyzed,
                                vThreshold = c(-3,-2,2,3))
-dfSummarized <- Summarize(dfFlagged)
+dfSummary <- Summarize(dfFlagged)
 dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed = dfTransformed,
                                                vThreshold = c(-3,-2,2,3))
 
@@ -39,7 +39,7 @@ dfBounds <- dfBounds %>%
   mutate(SnapshotDate = Sys.Date()) %>%
   mutate(MetricID = dfMetrics$MetricID)
 
-dfSummarized <- dfSummarized %>%
+dfSummary <- dfSummary %>%
   mutate(StudyID = "ABC-123") %>%
   mutate(SnapshotDate = Sys.Date()) %>%
   mutate(MetricID = dfMetrics$MetricID)
@@ -47,7 +47,7 @@ dfSummarized <- dfSummarized %>%
 
 # create Visualizations
 lCharts <- Visualize_Metric(
-  dfSummary = dfSummarized,
+  dfSummary = dfSummary,
   dfBounds = dfBounds,
   dfSite = clindata::ctms_site %>% rename(SiteID = site_num),
   dfMetrics = dfMetrics,
