@@ -51,9 +51,6 @@ test_that("lData is correctly mapped for processing using `mapping.yaml` in conj
   expect_true(all(new_names_present))
 
   ## filtering cols
-  step <- mapping_yaml$steps[[17]]
-  str_extract(step$params$strQuery, "(?<=WHERE ).*")
-
   mapping_filter_config <-  map_df(mapping_yaml$steps, function(step){
     data.frame('input' = step$params$df,
                'output' = step$output,
