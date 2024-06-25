@@ -18,9 +18,18 @@ steps:
       df: dfEnrolled
       strQuery: "SELECT country as GroupID, COUNT(DISTINCT subjectid) as nSubjects, COUNT(DISTINCT siteid) as nSites FROM df GROUP BY country"
   - name: bind_rows
-    output: dfCounts
+    output: dfCountsWide
     params:
       Site: dfSiteCounts
       Study: dfStudyCounts
       Country: dfCountryCounts
       .id: 'GroupLevel'
+  - name: pivot_longer
+    output: dfCounts
+    params:
+      data: dfCountsWide
+      cols: 
+        - 'nSubjects'
+        - 'nSites'
+      names_to: 'Param'
+      values_to: 'Value'
