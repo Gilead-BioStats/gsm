@@ -1,0 +1,71 @@
+meta:
+  File: reporting_ctms.yaml
+  desctipion: Site metadata from ctms
+steps:
+  # Get CTMS data
+  - name: RunQuery # Need to add additional renames
+    output: dfCTMSSiteWide 
+    params:
+      df: ctms_site
+      strQuery: "SELECT site_num as GroupID, * FROM df"  
+  - name: MakeGroupInfo 
+    output: dfCTMSSite
+    params:
+      data: dfCTMSSiteWide
+      strGroupLevel: 'Site'
+  - name: RunQuery
+    output: dfCTMSStudyWide
+    params:
+      df: ctms_study
+      strQuery: "SELECT protocol_number as GroupID, * FROM df"  
+  - name: MakeGroupInfo
+    output: dfCTMSStudy
+    params:
+      data: dfCTMSStudyWide
+      strGroupLevel: "Study"
+
+  # Get Particiapnt and Site counts for Country, Site and Study
+  - name: RunQuery
+    output: dfSiteCountsWide
+    params:
+      df: dfEnrolled
+      strQuery: "SELECT siteid as GroupID, COUNT(DISTINCT subjectid) as nSubjects, COUNT(DISTINCT siteid) as nSites FROM df GROUP BY siteid"  
+  - name: MakeGroupInfo
+    output: dfSiteCounts
+    params:
+      data: dfSiteCountsWide
+      strGroupLevel: "Site"
+  - name: RunQuery
+    output: dfStudyCountsWide
+    params:
+      df: dfEnrolled
+      strQuery: "SELECT studyid as GroupID, COUNT(DISTINCT subjectid) as nSubjects, COUNT(DISTINCT siteid) as nSites FROM df GROUP BY studyid"
+  - name: MakeGroupInfo
+    output: dfStudyCounts
+    params:
+      data: dfStudyCountsWide
+      strGroupLevel: "Study"
+  - name: RunQuery
+    output: dfCountryCountsWide   
+    params:
+      df: dfEnrolled
+      strQuery: "SELECT country as GroupID, COUNT(DISTINCT subjectid) as nSubjects, COUNT(DISTINCT siteid) as nSites FROM df GROUP BY country"
+  - name: MakeGroupInfo
+    output: dfCountryCounts
+    params:
+      data: dfCountryCountsWide
+      strGroupLevel: "Country"
+  # Combine CTMS and Counts data
+  - name: bind_rows
+    output: dfGroups
+    params:
+      SiteCounts: dfSiteCounts
+      StudyCounts: dfStudyCounts
+      CountryCounts: dfCountryCounts
+      Site: dfCTMSSite
+      Study: dfCTMSStudy
+
+
+
+
+
