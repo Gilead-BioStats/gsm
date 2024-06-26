@@ -105,8 +105,7 @@ Widget_SiteOverview <- function(
 ) {
   # forward options using x
   x <- list(
-    dfSummary = dfSummary %>%
-      dplyr::rename_with(tolower),
+    dfSummary = dfSummary,
     dfSite = dfSite,
     dfMetrics = dfMetrics
   )
