@@ -1,18 +1,19 @@
 meta:
-  file: kri0007.yaml
+  File: kri0007.yaml
   MetricID: kri0007
-  group: site
-  abbreviation: TDSC
-  metric: Treatment Discontinuation Rate
-  numerator: Subjects Discontinued - Treatment
-  denominator: Enrolled Subjects
-  model: Normal Approximation
-  score: Adjusted Z-Score
+  Group: site
+  Abbreviation: TDSC
+  Metric: Treatment Discontinuation Rate
+  Numerator: Subjects Discontinued - Treatment
+  Denominator: Enrolled Subjects
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
   vThreshold:
     - -3
     - -2
     - 2
     - 3
+  nMinDenominator: 3
 steps:
   - name: Input_Rate
     output: dfInput
@@ -48,4 +49,5 @@ steps:
     output: dfSummary
     params:
       dfFlagged: dfFlagged
+      nMinDenominator: nMinDenominator
 

@@ -88,7 +88,7 @@ Widget_BarChart <- function(
   lLabels,
   dfSite = NULL,
   dfThreshold = NULL,
-  strYAxisType = "score",
+  strYAxisType = "Score",
   selectedGroupIDs = NULL,
   addSiteSelect = TRUE,
   bHideDropdown = FALSE,
@@ -97,15 +97,14 @@ Widget_BarChart <- function(
   elementId = NULL
 ) {
   dfSummary <- dfSummary %>%
-    dplyr::mutate(across(everything(), as.character)) %>%
-    dplyr::rename_with(tolower)
+    dplyr::mutate(across(everything(), as.character))
 
   if (!is.null(elementId)) {
     elementId <- paste(elementId, as.numeric(Sys.time()) * 1000, sep = "-")
   }
 
-  if (!is.null(lLabels$group)) {
-    siteSelectLabelValue <- paste0("Highlighted ", lLabels$group, ": ")
+  if (!is.null(lLabels$Group)) {
+    siteSelectLabelValue <- paste0("Highlighted ", lLabels$Group, ": ")
   }
 
   if (!is.null(dfThreshold)) {
