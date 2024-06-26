@@ -65,10 +65,23 @@ steps:
       Site: dfCTMSSite
       Study: dfCTMSStudy
 # Create Metric Medatadata
-  - name: MakeMetricInfo
-    output: dfMetrics
+  - name: BindResults
+    output: dfSummary
     params:
-      lWorkflows: lWorkflows
+      lResults: lAnalysis
+      strName: "dfSummary"
+      lColValues: 
+        SnapshotDate: dSnapshotDate
+        StudyID: strStudyID
+  - name: BindResults
+    output: dfBounds
+    params:
+      lResults: lAnalysis
+      strName: "dfBounds"
+      lColValues: 
+        SnapshotDate: dSnapshotDate
+        StudyID: strStudyID
+
 
 
 
