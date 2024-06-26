@@ -32,9 +32,9 @@ dt <- function(data){
 
 # Introduction
 
-This vignette walks users through the mechanics of the `Assess()` functions within the `{gsm}` package. `{gsm}` leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level and site-level Risk Based Monitoring for clinical trials.
+This vignette walks users through the mechanics of the functions that produce all of the within the `{gsm}` package. `{gsm}` leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level and site-level Risk Based Monitoring for clinical trials.
 
-The `Assess()` functions provide data frames, visualizations, and metadata to be used in reporting and error checking at clinical sites. The image below illustrates the supporting functions that feed into the workflow of the `Assess()` functions.
+These functions provide data frames, visualizations, and metadata to be used in reporting and error checking at clinical sites. The image below illustrates the supporting functions that feed into the `yaml` workflow that is specified in each analysis workflow.
 
 ![](data-analysis.PNG){width="100%"}
 
@@ -74,16 +74,14 @@ dfInput <- Input_Rate(
 )
 ```
 
-The data frame `dfInput` for an AE assessment will be created by running `InputRate()` and will have one record per subject, with the following columns:
+The data frame `dfInput` for an AE assessment will be created by running `Input_Rate()` and will have one record per subject, with the following columns:
 
 -   `SubjectID`: Subject Identifier
--   `SiteID`: Site Identifier
--   `StudyID`: Study Identifier
--   `CountryID`: Country Identifier
--   `CustomGroupID`: Custom Group Identifier (in this example, set to Investigator ID)
--   `Exposure`: Total Time on Treatment (measured in days; per subject)
--   `Count`: Total Number of Event(s) of Interest (in this example, the number of AEs reported; per subject)
--   `Rate`: Rate of Event Incidence (calculated as `Exposure`/`Count`; per subject)
+-   `GroupID`: Group Identifier
+-   `GroupLevel`: Type of Group specified in `GroupID` (Country, Site, QTL)
+-   `Numerator`: Total Time on Treatment (measured in days; per subject)
+-   `Denominator`: Total Number of Event(s) of Interest (in this example, the number of AEs reported; per subject)
+-   `Metric`: Rate of Event Incidence (calculated as `Exposure`/`Count`; per subject)
 
 ```{r echo = FALSE}
 dt(dfInput) %>%
