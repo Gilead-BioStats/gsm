@@ -74,7 +74,7 @@ MakeWorkflowList <- function(
     if (bExact) {
       workflows <- purrr::keep(workflows, names(workflows) %in% strNames)
     } else {
-      workflows <- purrr::keep(workflows, grepl(paste(strNames, collapse = "|"), MetricNames))
+      workflows <- purrr::keep(workflows, grepl(paste(strNames, collapse = "|"), names(workflows)))
     }
   }
 

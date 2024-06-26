@@ -1,6 +1,6 @@
 meta:
-  File: reporting_ctms.yaml
-  desctipion: Site metadata from ctms
+  File: reporting.yaml
+  desctipion: Generate reporting data model including site-, country- and study-level metadata (dfGroups), metric metadata (dfMetrics) and results data with added study-level columsn (dfSummary and dfBounds).
 steps:
   # Get CTMS data
   - name: RunQuery # Need to add additional renames
@@ -55,7 +55,7 @@ steps:
     params:
       data: dfCountryCountsWide
       strGroupLevel: "Country"
-  # Combine CTMS and Counts data
+  # Combine CTMS and Counts data as dfGroups
   - name: bind_rows
     output: dfGroups
     params:
@@ -64,8 +64,11 @@ steps:
       CountryCounts: dfCountryCounts
       Site: dfCTMSSite
       Study: dfCTMSStudy
-
-
+# Create Metric Medatadata
+  - name: MakeMetricInfo
+    output: dfMetrics
+    params:
+      lWorkflows: lWorkflows
 
 
 

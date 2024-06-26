@@ -1,6 +1,6 @@
 #' Helper function to compile "long" group metadata
 #'
-#' This function takes a data frame and a string specifying the group columns, and returns a long format data frame.
+#' Used to format group-level metadata (dfGroups) for use in charts and reports. This function takes a data frame and a string specifying the group columns, and returns a long format data frame.
 #'
 #' @param df The input data frame.
 #' @param strGroupCols A string specifying the group columns.
