@@ -16,7 +16,7 @@
 MakeGroupInfo <- function(data, strGroupLevel, strGroupCols="GroupID"){
     param_cols <- names(data)[!(names(data) %in% strGroupCols)]
     data <- data %>% mutate(across(everything(), as.character))
-    print(param_cols)
+
     df_long <- pivot_longer(
         data, 
         cols = param_cols, 

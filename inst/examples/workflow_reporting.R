@@ -38,8 +38,8 @@ lReporting_Input <- list(
 lReporting <- RunWorkflow(lWorkflow = wf_reporting, lData = lReporting_Input)
 
 dfGroups <- lReporting$lData$dfGroups
-head(lReporting)
-table(paste(lReporting$GroupLevel, dfGroups$Param))
+head(dfGroups)
+table(paste(dfGroups$GroupLevel, dfGroups$Param))
 
 dfMetrics <- lReporting$lData$dfMetrics
 head(dfMetrics)
