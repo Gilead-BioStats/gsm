@@ -25,7 +25,8 @@
 #'  \item{\code{status}}
 #'  \item{\code{country}}
 #'  \item{\code{enrolled_participants} (derived)}
-#'
+#' }
+#' 
 #' @param dfMetrics `data.frame` Workflow metadata with columns:
 #' \itemize{
 #'  \item{\code{workflowid}}

@@ -8,7 +8,7 @@
 #' @param dfSummary `data.frame` summary data containing a minimum of two unique values for `gsm_analysis_date`.
 #' @param lLabels `list` chart labels.
 #' @param dfSite `data.frame` Site metadata.
-#' @param dfParams `data.frame` the stacked output.
+#' @param vThresholds `numeric` vector of threhsolds
 #' @param yAxis `character` the name of a column from `lLabels` to be passed to the y-axis on the widget plot.
 #' @param selectedGroupIDs `character` group IDs to highlight, \code{NULL} by default, can be a single site or a vector.
 #' @param width `numeric` width of widget.
@@ -22,7 +22,7 @@ Widget_TimeSeries <- function(
   dfSummary,
   lLabels,
   dfSite = NULL,
-  dfParams = NULL,
+  vThresholds = NULL,
   yAxis = "score",
   selectedGroupIDs = NULL,
   width = NULL,
@@ -79,23 +79,13 @@ Widget_TimeSeries <- function(
     ) %>%
     mutate("y" = yAxis)
 
-  if (yAxis == "score") {
+  if (tolower(yAxis) == "score") {
 
-    dfParams <- dfParams %>%
-      select(
-        "MetricID",
-        "Param",
-        "Index",
-        "SnapshotDate",
-        "StudyID",
-        "Value"
-      )
-
-    dfParams <- jsonlite::toJSON(dfParams, na = "string")
+    vThresholds <- jsonlite::toJSON(vThresholds, na = "string")
 
   } else {
 
-    dfParams = NULL
+    vThresholds = NULL
 
   }
 
@@ -107,7 +97,8 @@ Widget_TimeSeries <- function(
   x <- list(
     dfSummary = jsonlite::toJSON(dfSummary, na = "string"),
     lLabels = lLabels,
-    dfParams = dfParams,
+    #vThresholds = vThresholds,
+    vThresholds = NULL,
     dfSite = dfSite,
     addSiteSelect = addSiteSelect,
     selectedGroupIDs = c(as.character(selectedGroupIDs)),

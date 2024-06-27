@@ -72,37 +72,37 @@ Visualize_Metric <- function(
   if(nrow(dfSummary_current) == 0){
     cli::cli_alert_warning("No data found for specified snapshot date: {strSnapshotDate}. No charts will be generated.")
   } else {
-    lLabels <- dfMetrics %>% as.list()
+    lMetrics <- dfMetrics %>% as.list()
 
     lCharts$scatterJS <- gsm::Widget_ScatterPlot(
       dfSummary = dfSummary_current,
-      lLabels = lLabels,
+      lLabels = lMetrics,
       dfSite = NULL,
       #dfSite = dfSite,
       dfBounds = dfBounds,
-      elementId = paste0(tolower(lLabels$Abbreviation), "AssessScatter")
+      elementId = paste0(tolower(lMetrics$Abbreviation), "AssessScatter")
     )
 
     lCharts$scatter <- gsm::Visualize_Scatter(
       dfSummary = dfSummary_current,
       dfBounds = dfBounds,
-      strGroupLabel = lLabels$Group
+      strGroupLabel = lMetrics$Group
     )
 
     lCharts$barMetricJS <- gsm::Widget_BarChart(
       dfSummary = dfSummary_current,
-      lLabels = lLabels,
+      lLabels = lMetrics,
       dfSite = dfSite,
       strYAxisType = "Metric",
-      elementId = paste0(tolower(lLabels$Abbreviation), "AssessMetric")
+      elementId = paste0(tolower(lMetrics$Abbreviation), "AssessMetric")
     )
 
     lCharts$barScoreJS <- gsm::Widget_BarChart(
       dfSummary = dfSummary_current,
-      lLabels = lLabels,
+      lLabels = lMetrics,
       dfSite = dfSite,
       strYAxisType = "Score",
-      elementId = paste0(tolower(lLabels$Abbreviation), "AssessScore")
+      elementId = paste0(tolower(lMetrics$Abbreviation), "AssessScore")
     )
 
     lCharts$barMetric <- gsm::Visualize_Score(
@@ -113,7 +113,7 @@ Visualize_Metric <- function(
     lCharts$barScore <- gsm::Visualize_Score(
       dfSummary = dfSummary_current,
       strType = "Score",
-      vThreshold = unlist(lLabels$vThresholds)
+      vThreshold = ParseThreshold(lMetrics$strThreshold)
     )
   }
   # Continuous Charts -------------------------------------------------------
@@ -122,25 +122,23 @@ Visualize_Metric <- function(
   } else {
     lCharts$timeSeriesContinuousScoreJS <- Widget_TimeSeries(
       dfSummary = dfSummary,
-      lLabels = lLabels %>% map_dfr(~.x),
-      #dfSite = dfSite,
-      dfParams = dfParams,
+      lLabels = dfMetrics,
+      dfSite = dfSite,
+      vThresholds = ParseThreshold(lMetrics$strThreshold),
       yAxis = "Score"
     )
 
     lCharts$timeSeriesContinuousMetricJS <- Widget_TimeSeries(
       dfSummary = dfSummary,
-      lLabels = lLabels %>% map_dfr(~.x),
-      #dfSite = dfSite,
-      dfParams = dfParams,
+      lLabels = dfMetrics,
+      dfSite = dfSite,
       yAxis = "Metric"
     )
 
     lCharts$timeSeriesContinuousNumeratorJS <- Widget_TimeSeries(
       dfSummary = dfSummary,
-      lLabels = lLabels %>% map_dfr(~.x),
-      #dfSite = dfSite,
-      dfParams = dfParams,
+      lLabels = dfMetrics,
+      dfSite = dfSite,
       yAxis = "Numerator"
     )
   }

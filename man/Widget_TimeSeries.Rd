@@ -8,7 +8,7 @@ Widget_TimeSeries(
   dfSummary,
   lLabels,
   dfSite = NULL,
-  dfParams = NULL,
+  vThresholds = NULL,
   yAxis = "score",
   selectedGroupIDs = NULL,
   width = NULL,
@@ -25,7 +25,7 @@ Widget_TimeSeries(
 
 \item{dfSite}{\code{data.frame} Site metadata.}
 
-\item{dfParams}{\code{data.frame} the stacked output.}
+\item{vThresholds}{\code{numeric} vector of threhsolds}
 
 \item{yAxis}{\code{character} the name of a column from \code{lLabels} to be passed to the y-axis on the widget plot.}
 

@@ -39,11 +39,13 @@ HTMLWidgets.widget({
         };
 
         // chart
+        console.log(x)
         const instance = rbmViz.default.timeSeries(
             el,
             x.dfSummary,
             lLabels,
-            x.dfParams,
+            x.vThresholds,
+            //null,
             null,
             x.dfSite
         );
