@@ -82,4 +82,39 @@ test_that("Score (z_i) is 0 when vMu is 1 or 0", {
   expect_true(all(result_zero$Score == 0))
 })
 
+################################################################################
+test_that("yaml workflow produces same table as R function", {
+  #yaml workflow
+  test_wf <- MakeWorkflowList(strPath = test_path("testdata"), strNames = "test_workflow")
+  test_mapping <- MakeWorkflowList(strPath = test_path("testdata"), strNames = "mapping")
+  lRaw <- gsm::UseClindata(
+    list(
+      "dfSUBJ" = "clindata::rawplus_dm",
+      "dfAE" = "clindata::rawplus_ae"
+    )
+  )
+  lMapped <- RunWorkflow(lWorkflow = test_mapping[[1]], lData = lRaw)$lData
+  lResults <- RunWorkflow(lWorkflow=test_wf[[1]], lData=lMapped)
+
+  #functional workflow
+  dfInput <- Input_Rate(
+    dfSubjects= clindata::rawplus_dm,
+    dfNumerator= clindata::rawplus_ae,
+    dfDenominator = clindata::rawplus_dm,
+    strSubjectCol = "subjid",
+    strGroupCol = "siteid",
+    strNumeratorMethod= "Count",
+    strDenominatorMethod= "Sum",
+    strDenominatorCol= "timeonstudy"
+  )
+  dfTransformed <- Transform_Rate(dfInput)
+  dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "rate")
+
+  expect_equal(dfAnalyzed$Metric, lResults$lData$dfAnalyzed$Metric)
+  expect_equal(dim(lResults$lData$dfAnalyzed), dim(dfAnalyzed))
+
+})
+
+
+
 
