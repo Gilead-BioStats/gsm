@@ -58,47 +58,51 @@
 #'
 #'
 #' @examples
-#' ae_transform <- Transform_Rate(
-#'   dfInput = sampleInput)
-#'
-#' ae_analyze <- Analyze_NormalApprox(
-#'   dfTransformed = ae_transform,
-#'   strType = "rate"
+#' \dontrun{
+#' lData <- list(
+#'     dfSTUDY = clindata::ctms_study,
+#'     dfSITE = clindata::ctms_site,
+#'     dfSUBJ = clindata::rawplus_dm,
+#'     dfAE = clindata::rawplus_ae
 #' )
-#'
-#' dfBounds <- Analyze_NormalApprox_PredictBounds(
-#'   dfTransformed = ae_transform,
-#'   vThreshold = c(-3, -2, 2, 3),
-#'   strType = "rate"
+#' 
+#' mapping_workflow <- MakeWorkflowList('mapping')$mapping
+#' 
+#' mapping_workflow$steps <- mapping_workflow$steps %>%
+#'     purrr::keep(~ .x$params$df %in% names(lData))
+#' 
+#' lDataMapped <- RunWorkflow(
+#'     mapping_workflow,
+#'     lData
+#' )$lData
+#' 
+#' workflowid <- 'kri0001'
+#' kri_workflow <- MakeWorkflowList(workflowid)[[ workflowid ]]
+#' 
+#' lResults <- RunWorkflow(
+#'     kri_workflow,
+#'     lDataMapped
 #' )
-#'
-#' ae_flag <- Flag_NormalApprox(
-#'   ae_analyze,
-#'   vThreshold = c(-3, -2, 2, 3)
+#' 
+#' dfSite <- clindata::ctms_site %>%
+#'     left_join(
+#'         lDataMapped$dfEnrolled %>%
+#'             group_by(siteid) %>%
+#'             tally(name = 'enrolled_participants'),
+#'         c('site_num' = 'siteid')
+#'     ) %>%
+#'     rename(
+#'         SiteID = site_num,
+#'         status = site_status
+#'     )
+#' 
+#' Widget_ScatterPlot(
+#'     lResults$lData$dfSummary,
+#'     kri_workflow$meta,
+#'     dfSite,
+#'     lResults$lData$dfBounds
 #' )
-#'
-#' ae_summary <- Summarize(
-#'   ae_flag
-#' )
-#'
-#' lLabels <- list(
-#'   workflowid = "",
-#'   Group = "Site",
-#'   Abbreviation = "AE",
-#'   Metric = "Adverse Event Rate",
-#'   Numerator = "Adverse Events",
-#'   Denominator = "Days on Study",
-#'   Model = "Normal Approximation",
-#'   Score = "Adjusted Z-Score"
-#' )
-#'
-#' plot <- Widget_ScatterPlot(
-#'   dfSummary = ae_summary,
-#'   lLabels = lLabels,
-#'   dfBounds = dfBounds,
-#'   elementId = "aeAssessScatter"
-#' )
-#'
+#' }
 #' @export
 Widget_ScatterPlot <- function(
   dfSummary,
