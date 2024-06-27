@@ -32,13 +32,13 @@ dt <- function(data){
 
 # Introduction
 
-This vignette walks users through the mechanics of the functions that produce all of the within the `{gsm}` package. `{gsm}` leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level and site-level Risk Based Monitoring for clinical trials.
+This vignette walks users through the mechanics of the functions that produce all of the Analytics output within the `{gsm}` package. `{gsm}` leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level and site-level Risk Based Monitoring for clinical trials.
 
 These functions provide data frames, visualizations, and metadata to be used in reporting and error checking at clinical sites. The image below illustrates the supporting functions that feed into the `yaml` workflow that is specified in each analysis workflow.
 
 ![](data-analysis.PNG){width="100%"}
 
-All of these functions will run automatically and sequentially when a user calls upon a given `RunWorkflow()` function.
+All of these functions will run automatically and sequentially when a user calls upon the `RunWorkflow()` function with a specified `yaml` file for KRI metrics.
 
 Each of these individual functions can also be run independently outside of a specified `yaml` workflow.
 
