@@ -1,7 +1,7 @@
 meta:
   File: kri0007.yaml
   MetricID: kri0007
-  Group: site
+  GroupLevel: site
   Abbreviation: TDSC
   Metric: Treatment Discontinuation Rate
   Numerator: Subjects Discontinued - Treatment

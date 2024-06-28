@@ -1,7 +1,7 @@
 meta:
   File: kri0011.yaml
   MetricID: kri0011
-  Group: site
+  GroupLevel: site
   Abbreviation: CDAT
   Metric: Data Change Rate
   Numerator: Data Points with 1+ Change

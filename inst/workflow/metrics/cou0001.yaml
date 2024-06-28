@@ -1,7 +1,7 @@
 meta:
   File: ae.yaml
   MetricID: cou0001
-  Group: country
+  GroupLevel: country
   Abbreviation: AE
   Metric: Adverse Event Rate
   Numerator: Adverse Events

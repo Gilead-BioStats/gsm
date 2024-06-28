@@ -1,7 +1,7 @@
 meta:
   File: kri0003.yaml
   MetricID: kri0003
-  Group: site
+  GroupLevel: site
   Abbreviation: PD
   Metric: Non-Important Protocol Deviation Rate
   Numerator: Non-Important Protocol Deviations

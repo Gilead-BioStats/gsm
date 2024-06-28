@@ -1,7 +1,7 @@
 meta:
   File: cou0010.yaml
   MetricID: cou0010
-  Group: country
+  GroupLevel: country
   Abbreviation: ODAT
   Metric: Outstanding Data Entry Rate
   Numerator: Data Pages Entered > 10 Days

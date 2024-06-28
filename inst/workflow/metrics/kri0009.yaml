@@ -1,7 +1,7 @@
 meta:
   File: kri0009.yaml
   MetricID: kri0009
-  Group: site
+  GroupLevel: site
   Abbreviation: OQRY
   Metric: Outstanding Query Rate
   Numerator: Queries Open > 30 Days

@@ -2,6 +2,7 @@ meta:
   File: snapshot.yaml
   desctipion: run all steps in a snapshot
 steps:
+  # Generate Mapping Data Model
   - name: MakeWorkflowList
     output: wf_mapping
     params:
@@ -12,6 +13,8 @@ steps:
       lData: lData 
       lWorkflow: wf_mapping
       bKeepInputData: FALSE
+  
+  # Run KRIs
   - name: MakeWorkflowList
     output: lWorkflows
     params:
@@ -22,7 +25,9 @@ steps:
       lWorkflows: lWorkflows
       lData: lMapped  
       bKeepInputData: FALSE
-  # Minor hack to regenerate dfEnrolled in the core lData object
+  
+  # Generate Reporting Data Model 
+  # Minor hack to regenerate dfEnrolled in the core lData object. Can pull from mapping database in prod
   - name: RunQuery
     output: dfEnrolled
     params:

@@ -1,7 +1,7 @@
 meta:
   File: cou0009.yaml
   MetricID: cou0009
-  Group: country
+  GroupLevel: country
   Abbreviation: OQRY
   Metric: Outstanding Query Rate
   Numerator: Queries Open > 30 Days

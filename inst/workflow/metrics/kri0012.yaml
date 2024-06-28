@@ -1,7 +1,7 @@
 meta:
   File: kri0012.yaml
   MetricID: kri0012
-  Group: site
+  GroupLevel: site
   Abbreviation: SF
   Metric: Screen Failure Rate
   Numerator: Screen Failures

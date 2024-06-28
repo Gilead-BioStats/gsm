@@ -1,7 +1,7 @@
 meta:
   File: kri0002.yaml
   MetricID: kri0002
-  Group: site
+  GroupLevel: site
   Abbreviation: SAE
   Metric: Serious Adverse Event Rate
   Numerator: Serious Adverse Events

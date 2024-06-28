@@ -1,7 +1,7 @@
 meta:
   File: kri0008.yaml
   MetricID: kri0008
-  Group: site
+  GroupLevel: site
   Abbreviation: QRY
   Metric: Query Rate
   Numerator: Queries

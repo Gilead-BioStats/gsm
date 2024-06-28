@@ -1,7 +1,7 @@
 meta:
   File: cou0002.yaml
   MetricID: cou0002
-  Group: country
+  GroupLevel: country
   Abbreviation: SAE
   Metric: Serious Adverse Event Rate
   Numerator: Serious Adverse Events

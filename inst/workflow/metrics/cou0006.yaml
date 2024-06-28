@@ -1,7 +1,7 @@
 meta:
   File: cou0006.yaml
   MetricID: cou0006
-  Group: country
+  GroupLevel: country
   Abbreviation: SDSC
   Metric: Study Discontinuation Rate
   Numerator: Subjects Discontinued - Study

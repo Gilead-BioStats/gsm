@@ -1,7 +1,7 @@
 meta:
   File: cou0003.yaml
   MetricID: cou0003
-  Group: country
+  GroupLevel: country
   Abbreviation: PD
   Metric: Non-Important Protocol Deviation Rate
   Numerator: Non-Important Protocol Deviations

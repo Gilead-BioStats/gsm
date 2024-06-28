@@ -17,7 +17,7 @@ steps:
     inputs: dfInput
     output: lResults
     params:
-      strGroup: "Study"
+      strGroupLevel: "Study"
       vThreshold: null
       strMethod: "QTL"
       nConfLevel: 0.95

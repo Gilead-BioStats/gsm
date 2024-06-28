@@ -1,7 +1,7 @@
 meta:
   File: kri0006.yaml
   MetricID: kri0006
-  Group: site
+  GroupLevel: site
   Abbreviation: SDSC
   Metric: Study Discontinuation Rate
   Numerator: Subjects Discontinued - Study

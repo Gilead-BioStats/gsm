@@ -1,7 +1,7 @@
 meta:
   File: cou0007.yaml
   MetricID: cou0007
-  Group: country
+  GroupLevel: country
   Abbreviation: TDSC
   Metric: Treatment Discontinuation Rate
   Numerator: Subjects Discontinued - Treatment
