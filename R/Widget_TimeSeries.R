@@ -62,24 +62,24 @@
 #'     }
 #' )
 #' 
-dfGroups <- clindata::ctms_site %>%
-    left_join(
-        lDataMapped$dfEnrolled %>%
-            group_by(siteid) %>%
-            tally(name = 'enrolled_participants'),
-        c('site_num' = 'siteid')
-    ) %>%
-    rename(
-        SiteID = site_num,
-        status = site_status
-    )
-
-Widget_TimeSeries(
-    dfSummary = dfSummary,
-    lMetric = lMetricWorkflow$meta,
-    dfGroups = dfGroups,
-    vThreshold = lMetricWorkflow$meta$vThreshold
-)
+#' dfGroups <- clindata::ctms_site %>%
+#'     left_join(
+#'         lDataMapped$dfEnrolled %>%
+#'             group_by(siteid) %>%
+#'             tally(name = 'enrolled_participants'),
+#'         c('site_num' = 'siteid')
+#'     ) %>%
+#'     rename(
+#'         SiteID = site_num,
+#'         status = site_status
+#'     )
+#' 
+#' Widget_TimeSeries(
+#'     dfSummary = dfSummary,
+#'     lMetric = lMetricWorkflow$meta,
+#'     dfGroups = dfGroups,
+#'     vThreshold = lMetricWorkflow$meta$vThreshold
+#' )
 #' }
 #' @export
 
