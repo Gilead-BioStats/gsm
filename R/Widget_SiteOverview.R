@@ -113,7 +113,7 @@ Widget_SiteOverview <- function(
   # create widget
   htmlwidgets::createWidget(
     name = "Widget_SiteOverview",
-    x %>% map(\(x) jsonlite::toJSON(x, na = "string")),
+    x %>% map(~ jsonlite::toJSON(.x, na = "string")),
     package = "gsm"
   )
 }
