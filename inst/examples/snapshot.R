@@ -19,7 +19,21 @@ lData <- list(
     strStudyID = "ABC-123"
 )
 ss_wf <- MakeWorkflowList(strNames = "snapshot")
-ss_wf$snapshot$steps <- ss_wf$snapshot$steps[1:3]
-snapshot <- RunWorkflows(ss_wf, lData, bReturnData = FALSE, bKeepInputData = TRUE)
+snapshot <- RunWorkflows(ss_wf, lData, bKeepInputData = TRUE)
+
+# check reporting data
+dfGroups <- snapshot$lReporting$dfGroups
+head(dfGroups)
+table(paste(dfGroups$GroupLevel, dfGroups$Param))
+
+dfMetrics <-snapshot$lReporting$dfMetrics
+head(dfMetrics)
+
+dfSummary <- snapshot$lReporting$dfSummary
+head(dfSummary)
+table(dfSummary$MetricID, dfSummary$Flag)
+
+dfBounds <-snapshot$lReporting$dfBounds
+head(dfBounds)
 
 
