@@ -10,6 +10,11 @@
 #' @param dfMetrics `list` Metric metadata, captured at the top of metric workflows and returned by
 #' [gsm::MakeMetricInfo()].
 #' @param dfGroups `data.frame` Group metadata.
+#' @param strGroupSubset `character` Subset of groups to include in the table. Default: 'red'. Options:
+#' - 'all': All groups.
+#' - 'red': Groups with 1+ red flags.
+#' - 'red/amber': Groups with 1+ red/amber flag.
+#' - 'amber': Groups with 1+ amber flag.
 #' @param bDebug `logical` Print debug messages? Default: `FALSE`.
 #'
 #' @examples
@@ -87,13 +92,15 @@ Widget_SiteOverview <- function(
       SiteID = site_num,
       status = site_status
     ),
+  strGroupSubset = 'red',
   bDebug = FALSE
 ) {
   # forward options using x
   input <- list(
     dfSummary = dfSummary,
     dfMetrics = dfMetrics,
-    dfGroups = dfGroups
+    dfGroups = dfGroups,
+    strGroupSubset = strGroupSubset
   )
 
   # create widget
@@ -108,6 +115,7 @@ Widget_SiteOverview <- function(
           auto_unbox = TRUE
       )
     ),
+    width = "100%",
     package = "gsm"
   )
 
