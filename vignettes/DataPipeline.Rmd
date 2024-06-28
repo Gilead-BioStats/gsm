@@ -32,32 +32,28 @@ The default KRI data pipeline begins with one or more clinical datasets related 
 
 ## Generating Input Data
 
-Generating input data is outside the scope of the assessment pipeline. The specifications for input data (i.e., `dfInput`) are designed to be flexible enough so that this data frame can be generated from multiple clinical data standards (e.g., Raw, rawplus, or CDISC-compliant ADaM). In order to generate input data, the user uses the dataframes outputted by the `mappings.yaml` file along with the `Input_Rate()` function to generate the `dfInput` needed for a particular 
-
-For example, the Adverse Event assessment has two `Map()` functions:
-
-TODO: add example
+Generating input data is outside the scope of the assessment pipeline. The specifications for input data (i.e., `dfInput`) are designed to be flexible enough so that this data frame can be generated from multiple clinical data standards (e.g., Raw, rawplus, or CDISC-compliant ADaM). In order to generate input data, the user uses the data frames outputted by the `mappings.yaml` file along with the `Input_Rate()` function to generate the `dfInput` needed for a particular KRI.
 
 
 This `mapping.yaml` file is provided for convenience, but may not work for all clinical studies. When no relevant data.frame is produced with the `mapping.yaml`, the user can use the `RunQuery()` function to write a SQL query that produces the properly mapped and filtered dataframe. Details on this can be found in the [Cookbook Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Cookbook-Vignette).
 
 ## Assessment Data Pipeline
 
-![](data-analysis.PNG){width="170%"}
+![](data-analysis.PNG){width="100%"}
 
-The image above provides an overview of the default KRI assessment pipeline. The pipeline is a standardized four-step process for assessing data issues by going from participant-level input data to a standardized site-level summary of model results. The functions used in each step of the data pipeline along with the input and output datasets are described in more detail below.
+The image above provides an overview of the default KRI assessment pipeline. The pipeline is a standardized five-step process for assessing data issues by going from participant-level input data to a standardized site-level summary of model results. The functions used in each step of the data pipeline along with the input and output datasets are described in more detail below.
 
-1.  `dfInput`: Input data; Cross-domain participant-level input data with all needed data for KRI derivation. Created by `Map()` functions as needed.
+1.  `dfInput`: Input data; Cross-domain participant-level input data with all needed data for KRI derivation. Created by the `Input_Rate()` function as needed.
 2.  `dfTransformed`: Transformed data; Site-level transformed data including KRI calculation. Created by `Transform()` functions.
 3.  `dfAnalyzed`: Analyzed data; Site-level analysis results data. Created by `Analyze()` functions.
 4.  `dfFlagged`: Flagged data; Site-level analysis results with flags added to indicate potential statistical outliers. Created by passing numeric thresholds to a `Flag()` function.
 5.  `dfSummary`: Summary data; Standardized subset of the flagged data. This summary data has the same structure for all assessments and always includes both KRI and Flag values so that a user can easily look at trends for any given site across multiple assessments. Created using the `Summarize()` function.
 
-Each KRI has a `.yaml` file that sequentially executes all of the supporting functions and returns a list of datasets and visualizations per the specifications of the .yaml file. The 4 standard datasets that are always returned are `dfTransformed`, `dfAnalyzed`, `dfFlagged`, and `dfSummary`. An additional dataset, called `dfBounds`, is generated only when a supported statistical model is being used. A step-by-step example of the data assessment workflow can be found in the [Data Analysis Vignette](https://gilead-biostats.github.io/gsm/articles/DataAnalysis.html).
+Each KRI has a `.yaml` file that sequentially executes all of the supporting functions and returns a list of datasets and visualizations per the specifications of the .yaml file. In the default `yaml` files included in the `inst/workflow` directory of this package, the 5 standard datasets that are always returned are `dfTransformed`, `dfAnalyzed`, `dfFlagged`, `dfBounds`, and `dfSummary`. A step-by-step example of the data assessment workflow can be found in the [Data Analysis Vignette](https://gilead-biostats.github.io/gsm/articles/DataAnalysis.html).
 
 Note that each step in this data pipeline can be customized based on the requirements for a specific KRI. The graphic below shows four such workflows.
 
-![](data-analysis-combined.PNG){width="170%"}
+![](data-analysis-combined.PNG){width="100%"}
 
 # Custom Pipelines
 
@@ -142,65 +138,372 @@ Report_KRI( lCharts = lCharts,
 
 Additional examples are provided in the [Cookbook Vignette](https://gilead-biostats.github.io/gsm/articles/Cookbook.html).
 
-# Appendix 1 - Data Pipeline Specifications
+# Appendix 1 - Data Model
 
-The following section provides a detailed specifications for the required columns for the data pipeline used in the `{gsm}` package.The following tables are used in the data pipeline:
+# Overview 
+![](data-model.PNG){width="100%"}
 
--   `dfInput`: Input data; Cross-domain participant-level input data with all needed data for KRI derivation.
--   `dfTransformed`: Transformed data; Group-level transformed data including KRI calculation.
--   `dfAnalyzed`: Analyzed data; Group-level analysis results data with `Score` column added providing a statistical score for the group.
--   `dfFlagged`: Flagged data; Group-level analysis results with `Flag` column added to indicate potential statistical outliers.
 
-Many columns are shared across tables
+# Analytics data model
 
-| Table    | Column Name  | Description                          | Type     |
-|----------|--------------|--------------------------------------|----------|
-| All      | MetricID     | The Metric ID                        | Character|
-| All      | StudyID      | The Study ID                         | Character|
-| All      | GroupID      | The group ID for the metric          | Character|
-| All      | SnapshotDate | The Date of the snapshot             | Date     |
-| All      | Numerator    | The calculated numerator value       | Numeric  |
-| All      | Denominator  | The calculated denominator value     | Numeric  |
-| All      | Metric       | The calculated rate/metric value     | Numeric  |
-| dfInput  | SubjectID    | The subject ID                       | Character|
-| dfAnalyzed/dfFlagged | Score        | The Stastical Score      | Numeric  |
-| dfFlagged | Flag         | The Flag value                      | Numeric  |
+The KRI analytics pipeline is a standardized process for **Analyzing** data issues by going from participant-level `input` data to a standardized site-level `summary` of model results. The data sets used in each step of the data pipeline are described in detail below.
+
+1. `input` data - Cross-domain participant-level input data with all needed data for KRI derivation.
+2. `transformed` data - Site-level transformed data including KRI calculation. Created by `Transform` functions. 
+3. `analyzed` data - Site-level analysis result data. Created by `Analyze` functions. 
+4. `flagged` data - Site-level analysis results with flags added. Created by passing numeric `thresholds` to a `Flag` function.
+5. `summary` data - Standardized subset the flagged data. This summary data has the same structure for all assessments and always includes both `KRI` and `Flag` values so that we can easily look at trends for any given site across multiple assessments. Created using a `Summarize` Function. 
+
+During this process, we also create `bounded` data that creates upper- and lower- bounds across the full range of exposure values. This is created in the analytics pipeline, but primarily used in the reporting pipeline.
+
+## Analytics Data Tables
+  
+### `dfInput`
+  - Function(s) used to create table: 
+    - `Input_Rate()`
+  - Inputs: 
+    - `dfSubjects`
+    - `dfNumerator`
+    - `dfDenominator`
+  - Usage: The base data.frame for all Analytics workflows. Feeds into the `Transform_XX` functions.
+  - Structure:
+
+  | Table    | Column Name  | Description                          | Type     | Optional  | 
+  |----------|--------------|--------------------------------------|----------|--|
+  | dfInput  | SubjectID    | The subject ID                       | Character| |
+  | dfInput  | GroupID      | The group ID for the metric          | Character| | |
+  | dfInput  | GroupLevel   | The group type for the metric (e.g. "Site")    | Character| | 
+  | dfInput  | Numerator    | The calculated numerator value       | Numeric  | |
+  | dfInput  | Denominator  | The calculated denominator value     | Numeric | |
+  | dfInput  | Metric       | The calculated rate/metric value     | Numeric  | |
+
+
+### `dfTransformed`
+  - Function(s) used to create table:
+    - `Transform_Rate()`
+    - `Transform_Count()`
+  - Inputs: `dfInput`
+  - Usage: Convert from input data format to needed format to derive KRI for an Assessment via the `Analyze_XX` functions.
+  - Structure:
+
+  | Table    | Column Name  | Description                          | Type     | Optional  | 
+  |----------|--------------|--------------------------------------|----------|--|
+  | dfTransformed | GroupID      | The group ID for the metric          | Character| | |
+  | dfTransformed | GroupLevel   | The group type for the metric (e.g. "Site")    | Character| | 
+  | dfTransformed | Numerator    | The calculated numerator value       | Numeric  | |
+  | dfTransformed | Denominator  | The calculated denominator value     | Numeric | |
+  | dfTransformed | Metric       | The calculated rate/metric value     | Numeric  | |
+
+###  `dfAnalyzed`
+  - Function(s) used to create table:
+    - `Analyze_Fisher()`
+    - `Analyze_Identity()`
+    - `Analyze_NormalApprox()`
+    - `Analyze_Poisson()`
+    - `Analyze_QTL()`
+  - Inputs: `dfTransformed`
+  - Usage: Prepare the data for `Flag_XX` by performing the specified test on the metric provided.
+  - Structure:
+
+  | Table    | Column Name  | Description                          | Type     | Optional  | 
+  |----------|--------------|--------------------------------------|----------|--|
+  | dfAnalyzed | GroupID      | The group ID for the metric          | Character| | |
+  | dfAnalyzed | GroupLevel   | The group type for the metric (e.g. "Site")    | Character| | 
+  | dfAnalyzed | Numerator    | The calculated numerator value       | Numeric  | |
+  | dfAnalyzed | Denominator  | The calculated denominator value     | Numeric | |
+  | dfAnalyzed | Metric       | The calculated rate/metric value     | Numeric  | |
+  | dfAnalyzed | Score        | The Statistical Score      | Numeric  | |
+  | dfAnalyzed | Overall Metric |       | Numeric  |* |
+  | dfAnalyzed | Factor |      | Numeric  |* |
+  | dfAnalyzed | Predicted Count |      | Numeric  |* |
+
+
+### `dfBounds`
+  - Function(s) used to create table:
+    - `Analyze_NormalApprox_PredictBounds()`
+    - `Analyze_Poisson_PredictBounds()`
+  - Inputs: `dfTransformed`
+  - Usage: Calculates predicted percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values for reporting.
+  - Structure:
+
+  | Table    | Column Name  | Description                          | Type     | Optional  | 
+  |----------|--------------|--------------------------------------|----------|--|
+  | dfBounds | Threshold    | The number of standard deviations that the upper and lower bounds are based on   | Numeric| | |
+  | dfBounds | Denominator  | The calculated denominator value     | Numeric | |
+  | dfBounds | LogDenominator  | The calculated log denominator value     | Numeric | |
+  | dfBounds | Numerator    | The calculated numerator value       | Numeric  | |
+  | dfBounds | Metric       | The calculated rate/metric value     | Numeric  | |
+  | dfBounds | MetricID     | The Metric ID                        | Character| * |
+  | dfBounds | StudyID      | The Study ID                         | Character| * |
+  | dfBounds | SnapshotDate | The Date of the snapshot             | Date     | * |
+  
+### `dfFlagged`
+  - Function(s) used to create table:
+    - `Flag_Fisher()`
+    - `Flag_Identity()`
+    - `Flag_NormalApprox()`
+    - `Flag_Poisson()`
+    - `Flag_QTL()`
+  - Inputs: `dfAnalyzed`
+  - Usage: Flag a group-level metric to be summarized via `Summarize()` and used for reporting.
+  - Structure:
+
+  | Table    | Column Name  | Description                          | Type     | Optional  | 
+  |----------|--------------|--------------------------------------|----------|--|
+  | dfFlagged | GroupID      | The group ID for the metric          | Character| | |
+  | dfFlagged | GroupLevel   | The group type for the metric (e.g. "Site")    | Character| | 
+  | dfFlagged | Numerator    | The calculated numerator value       | Numeric  | |
+  | dfFlagged | Denominator  | The calculated denominator value     | Numeric | |
+  | dfFlagged | Metric       | The calculated rate/metric value     | Numeric  | |
+  | dfFlagged | Score        | The Statistical Score     | Numeric  | |  
+  | dfFlagged | Flag        | The ordinal Flag to be applied     | Numeric  | |  
+  | dfFlagged | Overall Metric |       | Numeric  |* |
+  | dfFlagged | Factor |      | Numeric  |* |
+  | dfFlagged | Predicted Count |      | Numeric  |* |
+
+###  `dfSummary`
+  - Function(s) used to create table:
+    - `Summarize()`
+  - Inputs: `dfFlagged`
+  - Usage: Summarize KRI at the group level for reporting.
+  - Structure:
+
+  | Table    | Column Name  | Description                          | Type     | Optional  | 
+  |----------|--------------|--------------------------------------|----------|--|
+  | dfSummary      | GroupID      | The group ID for the metric          | Character| | |
+  | dfSummary      | GroupLevel   | The group type for the metric (e.g. "Site")    | Character| | 
+  | dfSummary      | Numerator    | The calculated numerator value       | Numeric  | |
+  | dfSummary      | Denominator  | The calculated denominator value     | Numeric | |
+  | dfSummary      | Metric       | The calculated rate/metric value     | Numeric  | |
+  | dfSummary      | MetricID     | The Metric ID                        | Character| * |
+  | dfSummary      | StudyID      | The Study ID                         | Character| * |
+  | dfSummary      | SnapshotDate | The Date of the snapshot             | Date     | * |
+
+# Overview of Reporting data model
+  
+## Reporting Data Tables
+  
+###  `dfSummary`
+  - Function(s) used to create table:
+    - `Summarize()`
+  - Inputs: `dfFlagged`
+  - Usage: Summarize KRI at the group level for reporting.
+  - Structure:
+
+  | Table    | Column Name  | Description                          | Type     | Optional  |  rbm-viz Column Name |
+  |----------|--------------|--------------------------------------|----------|--|-----------|
+  | dfSummary      | GroupID      | The group ID for the metric          | Character| | groupid |
+  | dfSummary      | GroupLevel   | The group type for the metric (e.g. "Site")    | Character| | - |
+  | dfSummary      | Numerator    | The calculated numerator value       | Numeric  | | numerator |
+  | dfSummary      | Denominator  | The calculated denominator value     | Numeric | | denominator |
+  | dfSummary      | Metric       | The calculated rate/metric value     | Numeric  | | metric |
+  | dfSummary      | Score        | The calculated metric score          | Numeric  | | score |
+  | dfSummary      | Flag         | The calculated flag                  | Numeric  | | flag |
+  | dfSummary      | MetricID     | The Metric ID                        | Character| * | workflowid |
+  | dfSummary      | StudyID      | The Study ID                         | Character| * | studyid |
+  | dfSummary      | SnapshotDate | The Date of the snapshot             | Date     | * | snapshot_date |
+
+### `dfBounds`
+  - Function(s) used to create table:
+    - `Analyze_NormalApprox_PredictBounds()`
+    - `Analyze_Poisson_PredictBounds()`
+  - Inputs: `dfTransformed`
+  - Usage: Calculates predicted percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values for reporting.
+  - Structure:
+
+  | Table    | Column Name  | Description                          | Type     | Optional  |   rbm-viz Column Name |
+  |----------|--------------|--------------------------------------|----------|--|----------|
+  | dfBounds | Threshold    | The number of standard deviations that the upper and lower bounds are based on   | Numeric| | threshold |
+  | dfBounds | Denominator  | The calculated denominator value     | Numeric | | denominator |
+  | dfBounds | LogDenominator  | The calculated log denominator value     | Numeric | | log_denominator |
+  | dfBounds | Numerator    | The calculated numerator value       | Numeric  | | numerator |
+  | dfBounds | Metric       | The calculated rate/metric value     | Numeric  | | - |
+  | dfBounds | MetricID     | The Metric ID                        | Character| * | workflowid |
+  | dfBounds | StudyID      | The Study ID                         | Character| * | studyid |
+  | dfBounds | SnapshotDate | The Date of the snapshot             | Date     | * | snapshot_date |
+
+###  `dfGroups`
+  - Workflow used to create table: `GroupMeta`
+  - Inputs: CTMS site, study and country data
+  - Usage: Group-level metadata dictionary.
+  - Structure: Long data frame, with certain `Param` required for given `GroupLevel`
+
+
+| Table       | Column                | Description                       |Type      | Optional  |  
+|-------------|-----------------------|-----------------------------------|----------|-----------|
+| dfGroups | ProtocolID               | Protocol ID                       | Character | |
+| dfGroups | SnapshotDate             | Snapshot Date                     | Character | |
+| dfGroups | GroupID                  | Unique Group ID                   | Character| | 
+| dfGroups | GroupLevel               | Group Level (e.g. Site, Country)  | Character| |
+| dfGroups | Param                    | Parameter Name (e.g. "Status")  | Character| | 
+| dfGroups | Value                    | Parameter Value (e.g. "Active")        | Character| | 
+
+Expected `Param` by `GroupLevel` for use in gsm reporting. Fine to add other Param values as needed. 
+
+| GroupLevel  | Param                | Description                       |Value Type      |
+|-------------|----------------------|-----------------------------------|----------|
+| Study       | Status               | Study Status                      | Character| 
+| Study       | Title       | Protocol Title       | Numeric | 
+| Study       | ParticipantCount       | # of Enrolled Participants        | Numeric | 
+| Study       | SiteCount              | # of Activated Sites                 | Numeric| 
+| Study       | ParticipantsPlanned        | # of Planned Participants        | Numeric| 
+| Study       | SitesPlanned               | # of Planned Sites        | Numeric| 
+| Site       | ParticipantCount       | # of Enrolled Participants        | Numeric | 
+| Site       | Status       | Site Status       | Character | 
+| Site       | InvestigatorFirstName       | Investigator First name        | Character | 
+| Site       | InvestigatorLastName       | Investigator Last name        | Character | 
+| Site       | City        | City       | Character| 
+| Site       | State       | State      | Character | 
+| Site       | Country       | Country       | Character | 
+| Country       | EnrolledParticipants       | # of Enrolled Participants        | Numeric | 
+
+
+###  `dfMetrics`
+  - Function used to create table:
+  - Inputs:
+  - Usage:
+  - Structure:
+
+  | Table    | Column Name  | Description                          | Type     | Optional  | rbm-viz Column Name |
+  |----------|--------------|--------------------------------------|----------|--| -------------- |
+  | dfMetrics| File         | The yaml file for workflow          | Character| | file          | 
+  | dfMetrics| MetricID     | ID for the Metric   | Character| | workflowid |
+  | dfMetrics| Group        | The group type for the metric (e.g. "Site")      | Character| | group |
+  | dfMetrics| Abbreviation | Abbreviation for the metric   | Character| | abbreviations |
+  | dfMetrics| Metric       | Name of the metric    | Character| | metric |
+  | dfMetrics| Numerator    | Data source for the Numerator          | Character| |numerator      |
+  | dfMetrics| Denominator  | Data source for the Denominator | Character| | denominator   |
+  | dfMetrics| Model        | Model used to calculate metric     | Character| | model         |
+  | dfMetrics| Score        | Type of Score reported      | Character| | score         |
+  | dfMetrics| strThreshold   | Thresholds to be used for bounds and flags     | Character| | vthreshold    |
+
+
+# Previous Versions
+
+###  `dfSite`
+  - Function used to create table:
+  - Inputs:
+  - Usage:
+  - Structure:
+
+| Table       | Column                | Description                       |Type      | Optional  |   rbm-viz Column Name |
+|-------------|-----------------------|-----------------------------------|----------|-----------|-----------|
+| dfSite | protocol_row_id       | Protocol row ID                   | Character | |protocol_row_id  | 
+| dfSite | SiteID                | Unique Site ID                    | Character| | site_id  |
+| dfSite | site_row_id           | Site row ID                       | Character| | site_row_id  |
+| dfSite | protocol              | Protocol ID                       | Character| | protocol  |
+| dfSite | pi_number             | Principal Investigator Number     | Character| | pi_number |
+| dfSite | pi_last_name          | Principal Investigator Last Name  | Character| | pi_last_name|
+| dfSite | pi_first_name         | Principal Investigator First Name | Character| | pi_first_name |
+| dfSite | site_status           | Site Status                       | Character | | site_status |
+| dfSite | is_satellite          | Is site a satellite location      | Character| | is_satellite  |
+| dfSite | account               |                                   | Character| | account   |
+| dfSite | site_active_dt        | Date that Site became active      | Character| | site_active_dt |
+| dfSite | city                  | Site City                         | Character| | city |
+| dfSite | state                 | Site State                        | Character| | state  |
+| dfSite | country               | Site Country                      | Character| | country |
+
+###  `dfStudy`
+  - Function used to create table:
+  - Inputs:
+  - Usage:
+  - Structure:
+
+| Table       | Column                | Description                       |Type      | Optional  |
+|-------------|-----------------------|-----------------------------------|----------|-----------|
+| dfStudy| protocol_row_id       | Protocol row ID                   | Character | |
+| dfStudy| StudyID               | Unique Study ID                   | Character| |
+| dfStudy| protocol_title        | Protocol Title                    | Character| |
+| dfStudy| nickname              | Protocol Nickname  | Character| |
+| dfStudy| protocol_type         | Protocol Type                     | Character| |
+| dfStudy| phase                 | Study phase  | Character| |
+| dfStudy| num_plan_site         | Number of planned sites in the study | Character| |
+| dfStudy| num_site_actl         | Number of active sites in the study | Character | |
+| dfStudy| est_fpfv              | Estimated first patient first visit      | Date   | |
+| dfStudy| act_fpfv              | Actual first patient first visit      | Date   | |
+| dfStudy| est_lplv              | Estimated last patient last visit     | Date   | |
+| dfStudy| act_lplv              | Actual last patient last visit       | Date   | |
+| dfStudy| est_lpfv              | Estimated last patient first visit     | Date   | |
+| dfStudy| act_lpfv              | Actual last patient first visit       | Date   | |
+| dfStudy| status                | Study Status                       | Character| |
+| dfStudy| num_plan_subj         | Number of planned subjects in study      | Numeric | |
+| dfStudy| num_enrolled_subj_m   | Number of enrolled subjects in study | Numeric | |
+| dfStudy| protocol_indication   | Protocol Indication                        | Character| |
+| dfStudy| product               | Product                      | Character| |
+| dfStudy| therapeutic_area      | Therapeutic Area                 | Character| |
+| dfStudy| protocol_product_number| Protocol Product Number                      | Numeric | |
+| dfStudy| x_rbm_flg             | Is RBM Flagged                      | Character| |
+
 
 
 ## Appendix 2 - Workflow Specifications
 
-Assessment workflow metadata objects are passed to the `lWorkflow` parameter in `RunWorkflow()` to define functions and parameters (including `mappings` and `specs`) across multiple studies.
+Assessment workflow metadata objects are passed to the `lWorkflow` parameter in `RunWorkflow()` to define functions and parameters across multiple studies.
 
-The `lAssessment` object is a named list of metadata defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`. Each item in `lAssessments` expects the following parameters:
+The `lWorkflow` object is a named list of metadata and steps defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`. Each item in `lWorkflow` expects the following parameters in the `steps` section:
 
 -   `workflow`: Array defining one or more functions to be executed as part of the workflow for a given assessment
     -   `workflow[]$name`: name of the `{gsm}` function.
     -   `workflow[]$inputs`: specifies the required input data
     -   `workflow[]$output`: specifies the output data from the workflow step, which can be used as an input in the next step in the workflow
     -   `workflow[]$params`: specifies parameters to be passed to the function
+    
+Additionally, there is `meta` information passed through that varies depending on the type of workflow. For 
 
 For example, the default workflow for the AE assessment (`inst/workflow/kri0001.yaml`) is shown below:
 
 ```{yaml, eval = FALSE}
+meta:
+  MetricID: kri0001
+  File: kri0001.yaml
+  Group: site
+  Abbreviation: AE
+  Metric: Adverse Event Rate
+  Numerator: Adverse Events
+  Denominator: Days on Study
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
+  vThreshold: 
+    - -2
+    - -1
+    - 2
+    - 3
+  nMinDenominator: 30
 steps:
-  - name: FilterDomain
-    inputs: dfSUBJ
-    output: dfSUBJ
-    params:
-      strDomain: dfSUBJ
-      strColParam: strEnrollCol
-      strValParam: strEnrollVal
-  - name: AE_Map_Raw
-    inputs:
-      - dfAE
-      - dfSUBJ
+  - name: Input_Rate
     output: dfInput
-  - name: AE_Assess
-    inputs: dfInput
-    output: lResults
     params:
-      strGroup: "Site"
-      vThreshold: null
-      strMethod: "NormalApprox"
-      nMinDenominator: 30
+      dfSubjects: dfEnrolled
+      dfNumerator: dfAE
+      dfDenominator: dfEnrolled
+      strSubjectCol: subjid
+      strGroupCol: siteid
+      strNumeratorMethod: Count
+      strDenominatorMethod: Sum
+      strDenominatorCol: timeonstudy
+  - name: Transform_Rate
+    output: dfTransformed
+    params:
+      dfInput: dfInput
+  - name: Analyze_NormalApprox
+    output: dfAnalyzed
+    params:
+      dfTransformed: dfTransformed
+      strType: rate
+  - name: Analyze_NormalApprox_PredictBounds
+    output: dfBounds
+    params:
+      dfTransformed: dfTransformed
+      vThreshold: vThreshold
+      strType: rate
+  - name: Flag_NormalApprox
+    output: dfFlagged
+    params:
+      dfAnalyzed: dfAnalyzed
+      vThreshold: vThreshold
+  - name: Summarize
+    output: dfSummary
+    params: 
+      dfFlagged: dfFlagged
+      nMinDenominator: nMinDenominator
 ```
