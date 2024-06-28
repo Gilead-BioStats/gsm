@@ -57,7 +57,15 @@ const addGroupSelect = function(el, results, instance, groupSelectLabelValue) {
     // add event listener to dropdown that updates chart
     groupSelect.addEventListener('change', event => {
         instance.data.config.selectedGroupIDs = event.target.value; // group
-        instance.helpers.updateConfig(instance, instance.data.config, instance.data._thresholds_);
+
+        // scatterPlot and barChart
+        if (Object.keys(instance.helpers).includes('updateConfig')) {
+            instance.helpers.updateConfig(instance, instance.data.config, instance.data._thresholds_);
+        }
+        // timeSeries
+        else if (Object.keys(instance.helpers).includes('updateSelectedGroupIDs')) {
+            instance.helpers.updateSelectedGroupIDs(instance.data.config.selectedGroupIDs);
+        }
     });
 
     return groupSelect;
