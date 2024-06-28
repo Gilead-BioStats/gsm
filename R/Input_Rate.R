@@ -38,7 +38,7 @@
 #' | GroupLevel   | The group type                       | Character|
 #' | Numerator    | The calculated numerator value       | Numeric  |
 #' | Denominator  | The calculated denominator value     | Numeric  |
-#' | Rate         | The calculated input rate            | Numeric  |
+#' | Metric       | The calculated input rate/metric     | Numeric  |
 #'
 #' @examples
 #' # Run for AE KRI
@@ -143,7 +143,7 @@ Input_Rate <- function(
         mutate('Numerator' = if_else(is.na(.data$Numerator), 0, .data$Numerator),
             'Denominator' = if_else(is.na(.data$Denominator), 0, .data$Denominator)
         ) %>%
-        mutate(Rate = .data$Numerator/.data$Denominator)
+        mutate(Metric = .data$Numerator/.data$Denominator)
 
     return(dfInput)
 }
