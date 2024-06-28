@@ -1,0 +1,37 @@
+meta:
+  File: snapshot.yaml
+  desctipion: run all steps in a snapshot
+steps:
+  - name: MakeWorkflowList
+    output: wf_mapping
+    params:
+      strNames: mapping 
+  - name: RunWorkflows
+    output: lMapped
+    params:
+      lData: lData 
+      lWorkflow: wf_mapping
+  - name: MakeWorkflowList
+    output: lWorkflows
+    params:
+      strNames: kri
+  - name: RunWorkflows
+    output: lAnalysis
+    params:
+      lData: lMapped 
+      lWorkflow: lWorkflows
+  # Minor hack to regenerate dfEnrolled in the core lData object
+  - name: RunQuery
+    output: dfEnrolled
+    params:
+      df: dfSUBJ
+      strQuery: "SELECT subjectid as raw_subjectid, * FROM df WHERE enrollyn == 'Y'"
+  - name: MakeWorkflowList
+    output: wf_reporting
+    params:
+      strNames: reporting
+  - name: RunWorkflows
+    output: lReporting
+    params:
+      lData: lData 
+      lWorkflow: wf_reporting 

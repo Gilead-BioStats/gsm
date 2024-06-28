@@ -4,14 +4,16 @@
 \alias{BindResults}
 \title{Helper function to bind results from multiple workflows}
 \usage{
-BindResults(lResults, strName, lColValues = NULL)
+BindResults(lResults, strName, dSnapshotDate = sys.date(), strStudyID)
 }
 \arguments{
 \item{lResults}{List of results in the format returned by RunWorkflows()}
 
 \item{strName}{Name of the object to stack. Pulled from lResults$lData.}
 
-\item{lColValues}{List of column names/values to add to all rows in the final data frame. e.g. l(SnapshotDate = sys.date(), StudyID = "ABC-123"),  Default is NULL.}
+\item{dSnapshotDate}{Date of the snapshot. Default is sys.date().}
+
+\item{strStudyID}{study ID. Default is 'ABC-123'.}
 }
 \value{
 A data frame.
