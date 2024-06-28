@@ -6,11 +6,11 @@
 #' A widget that generates a bar chart of group-level metric results, plotting groups on the x-axis
 #' and the outcome (numerator, denominator, metric, or score) on the y-axis.
 #'
-#' @param dfSummary `data.frame` Output of [gsm::Summarize()]
+#' @param dfSummary `data.frame` Output of [gsm::Summarize()].
 #' @param lMetric `list` Metric metadata, captured at the top of metric workflows and returned by
 #' [gsm::MakeMetricInfo()].
 #' @param dfGroups `data.frame` Group metadata.
-#' @param vThreshold `numeric` Threshold value(s).
+#' @param vThreshold `numeric` Threshold values.
 #' @param strOutcome `character` Outcome variable. Default: 'Score'.
 #' @param bAddGroupSelect `logical` Add a dropdown to highlight sites? Default: `TRUE`.
 #' @param bDebug `logical` Print debug messages? Default: `FALSE`.

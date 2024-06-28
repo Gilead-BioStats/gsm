@@ -1,4 +1,3 @@
-
 HTMLWidgets.widget({
     name: 'Widget_BarChart',
     type: 'output',
@@ -8,14 +7,15 @@ HTMLWidgets.widget({
                 if (input.bDebug)
                     console.log(input);
 
+                // Update y-axis variable.
                 input.lMetric.y = input.strOutcome;
 
                 // add click event listener to chart
                 if (input.bAddGroupSelect)
                     input.lMetric.clickCallback = function(d) {
-                        instance.data.config.selectedGroupIDs = instance.data.config.selectedGroupIDs.includes(d.groupid)
+                        instance.data.config.selectedGroupIDs = instance.data.config.selectedGroupIDs.includes(d.GroupID)
                             ? 'None'
-                            : d.groupid;
+                            : d.GroupID;
                         groupSelect.value = instance.data.config.selectedGroupIDs;
                         instance.helpers.updateConfig(
                             instance,
@@ -23,6 +23,7 @@ HTMLWidgets.widget({
                             instance.data._thresholds_
                         );
 
+                        // Update Shiny input if in Shiny environment.
                         if (typeof Shiny !== 'undefined') {
                           if (instance.data.config.selectedGroupIDs.length > 0) {
                             Shiny.setInputValue(
@@ -31,11 +32,6 @@ HTMLWidgets.widget({
                             )
                           }
                         }
-
-                        instance.helpers.updateConfig(
-                          instance,
-                          instance.data.config
-                        )
                   };
 
                 // generate bar chart

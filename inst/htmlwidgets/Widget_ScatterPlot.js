@@ -10,12 +10,16 @@ HTMLWidgets.widget({
                 // add click event listener to chart
                 if (input.bAddGroupSelect)
                     input.lMetric.clickCallback = function(d) {
-                        instance.data.config.selectedGroupIDs = instance.data.config.selectedGroupIDs.includes(d.groupid)
+                        instance.data.config.selectedGroupIDs = instance.data.config.selectedGroupIDs.includes(d.GroupID)
                             ? 'None'
-                            : d.groupid;
+                            : d.GroupID;
                         groupSelect.value = instance.data.config.selectedGroupIDs;
-                        instance.helpers.updateConfig(instance, instance.data.config);
+                        instance.helpers.updateConfig(
+                            instance,
+                            instance.data.config
+                        );
 
+                        // Update Shiny input if in Shiny environment.
                         if (typeof Shiny !== 'undefined') {
                           if (instance.data.config.selectedGroupIDs.length > 0) {
                             Shiny.setInputValue(
@@ -24,11 +28,6 @@ HTMLWidgets.widget({
                             )
                           }
                         }
-
-                        instance.helpers.updateConfig(
-                          instance,
-                          instance.data.config
-                        )
                   };
 
                 // generate scatter plot

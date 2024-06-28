@@ -6,7 +6,7 @@
 #' A widget that generates a scatter plot of group-level metric results, plotting the denominator
 #' on the x-axis and the numerator on the y-axis.
 #'
-#' @param dfSummary `data.frame` Output of [gsm::Summarize()]
+#' @param dfSummary `data.frame` Output of [gsm::Summarize()].
 #' @param lMetric `list` Metric metadata, captured at the top of metric workflows and returned by
 #' [gsm::MakeMetricInfo()].
 #' @param dfGroups `data.frame` Group metadata.
