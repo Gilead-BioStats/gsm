@@ -43,11 +43,12 @@ HTMLWidgets.widget({
                 // add dropdown that highlights groups
                 let groupSelect;
                 if (input.bAddGroupSelect) {
+                    console
                     groupSelect = addGroupSelect(
                         el,
                         input.dfSummary,
                         instance,
-                        `Highlighted ${input.lMetrics$Group || 'group'}: `
+                        `Highlighted ${input.lMetric.Group || 'group'}: `
                     );
                 }
             },

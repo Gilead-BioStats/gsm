@@ -1,4 +1,4 @@
-#' Metric Scatter Plot
+#' Scatter Plot Widget
 #'
 #' `r lifecycle::badge("stable")`
 #'
@@ -7,9 +7,11 @@
 #' on the x-axis and the numerator on the y-axis.
 #'
 #' @param dfSummary `data.frame` Output of [gsm::Summarize()]
-#' @param lMetric `list` Metric metadata.
+#' @param lMetric `list` Metric metadata, captured at the top of metric workflows and returned by
+#' [gsm::MakeMetricInfo()].
 #' @param dfGroups `data.frame` Group metadata.
-#' @param dfBounds `data.frame` Output of [gsm::Analyze_NormalApprox_PredictBounds()] or [gsm::Analyze_Poisson_PredictBounds()]
+#' @param dfBounds `data.frame` Output of [gsm::Analyze_NormalApprox_PredictBounds()] or
+#' [gsm::Analyze_Poisson_PredictBounds()]
 #' @param bAddGroupSelect `logical` Add a dropdown to highlight sites? Default: `TRUE`.
 #' @param bDebug `logical` Print debug messages? Default: `FALSE`.
 #'
