@@ -37,7 +37,7 @@ Generating input data is outside the scope of the assessment pipeline. The speci
 
 This `mapping.yaml` file is provided for convenience, but may not work for all clinical studies. When no relevant data.frame is produced with the `mapping.yaml`, the user can use the `RunQuery()` function to write a SQL query that produces the properly mapped and filtered dataframe. Details on this can be found in the [Cookbook Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Cookbook-Vignette).
 
-## Assessment Data Pipeline
+## Analytics Data Pipeline
 
 ![](data-analysis.PNG){width="100%"}
 
@@ -55,21 +55,23 @@ Note that each step in this data pipeline can be customized based on the require
 
 ![](data-analysis-combined.PNG){width="100%"}
 
+## Reporting Data Pipeline
+
 # Custom Pipelines
 
 ## QTL and Country Analysis
 
-The default KRI data pipeline runs site-level analyses on sourced clinical data. `{gsm}` also has the capability to run overall study-level analyses using Quality Tolerance Limits, or QTLs. For example, a user can evaluate the protocol deviation rate at a study-level. Analyses can also be categorized by country identifiers if desired. A user can also run custom pipelines (e.g. stratified analysis) as well (see [Appendix 3](#Appendix-3-Workflow-ID-Specs) for workflow nomenclature and examples).
+The default KRI data pipeline runs site-level analyses on sourced clinical data. `{gsm}` also has the capability to run overall study-level analyses using Quality Tolerance Limits, or QTLs. For example, a user can evaluate the protocol deviation rate at a study-level. Analyses can also be categorized by country identifiers if desired. A user can also run custom pipelines (e.g. stratified analysis) as well (see [Appendix 2](#Appendix-2-Workflow-ID-Specs) for workflow nomenclature and examples).
 
 ## Running Multiple Assessments
 
 Running multiple assessments simultaneously for a single study is a common use case of `{gsm}` and the package provides workflow and reporting functions to streamline this process.
 
-TODO: update this to discuss use of yaml and MakeWorkflowList, RunWorkflow and RunStep
-
 `RunWorkflow()` attempts to run one or more assessment workflows using shared data and metadata. The metadata used for this study-level assessment is described in detail in [Appendix 1](#Appendix-1-Metadata-Technical-Specifications). The `RunWorkflow()` function returns a list of assessments containing status information and results that is used as input for the reporting functions described below.
 
-talk about `VisualizeMetric()` here
+talk about default 
+
+talk about the reporting workflow here- some areas for customization in these yamls makes sense.
 
 `Report_KRI()` creates a detailed report showing both charts and listings summarizing each KRI that was run for the study, along with a study-level table (via `Study_Table()`) and a summary of the workflow run to generate each KRI (via `Study_AssessmentReport()`) .
 
@@ -436,11 +438,11 @@ Expected `Param` by `GroupLevel` for use in gsm reporting. Fine to add other Par
 
 
 
-## Appendix 2 - Workflow Specifications
+## Appendix 2 - Analytics Workflow Specifications
 
 Assessment workflow metadata objects are passed to the `lWorkflow` parameter in `RunWorkflow()` to define functions and parameters across multiple studies.
 
-The `lWorkflow` object is a named list of metadata and steps defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow`. Each item in `lWorkflow` expects the following parameters in the `steps` section:
+The `lWorkflow` object is a named list of metadata and steps defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow/metrics`. Each item in `lWorkflow` expects the following parameters in the `steps` section:
 
 -   `workflow`: Array defining one or more functions to be executed as part of the workflow for a given assessment
     -   `workflow[]$name`: name of the `{gsm}` function.
