@@ -3,127 +3,118 @@
 #' `r lifecycle::badge("stable")`
 #'
 #' @description
-#' A widget that displays a site overview table based on the output of [gsm::Study_Assess()].
+#' A widget that displays a site overview table based on the output of KRI pipelines.
 #'
-#' @param dfSummary data with columns:
+#' @param dfSummary `data.frame` Analysis results data with columns:
+#' \itemize{
+#'  \item{\code{GroupID}}
+#'  \item{\code{WorkflowID}}
+#'  \item{\code{Numerator}}
+#'  \item{\code{Denominator}}
+#'  \item{\code{Metric}}
+#'  \item{\code{Score}}
+#'  \item{\code{Flag}}
+#' }
+#'
+#' @param dfSite `data.frame` Site metadata with columns:
 #' \itemize{
 #'  \item{\code{studyid}}
-#'  \item{\code{workflowid}}
-#'  \item{\code{groupid}}
-#'  \item{\code{numerator}}
-#'  \item{\code{denominator}}
-#'  \item{\code{metric}}
-#'  \item{\code{score}}
-#'  \item{\code{flag}}
-#' }
+#'  \item{\code{siteid} (derived from \code{pi_number})}
+#'  \item{\code{account}}
+#'  \item{\code{pi_last_name}}
+#'  \item{\code{status}}
+#'  \item{\code{country}}
+#'  \item{\code{enrolled_participants} (derived)}
 #'
-#' @param lConfig configuration with columns:
-#' \itemize{
-#'  \item{\code{workflow}}
-#'  \item{\code{gsm_version}}
-#'  \item{\code{group}}
-#'  \item{\code{metric}}
-#'  \item{\code{numerator}}
-#'  \item{\code{denominator}}
-#'  \item{\code{outcome}}
-#'  \item{\code{model}}
-#'  \item{\code{score}}
-#'  \item{\code{data_inputs}}
-#'  \item{\code{data_filters}}
-#' }
-#'
-#' @param dfSite `data.frame` Site metadata.
-#'
-#' @param dfWorkflow `data.frame` Workflow metadata with columns:
+#' @param dfMetrics `data.frame` Workflow metadata with columns:
 #' \itemize{
 #'  \item{\code{workflowid}}
-#'  \item{\code{description}}
 #'  \item{\code{abbreviation}}
+#'  \item{\code{numerator}}
+#'  \item{\code{denominator}}
+#'  \item{\code{metric}}
+#'  \item{\code{score}}
 #' }
-#'
-#' @param width width of widget, full screen by default
-#' @param height height of widget, calculated based on width
-#' @param elementId ID of container HTML element
 #'
 #' @examples
-#' wf_mapping <- MakeWorkflowList(strNames="mapping")[[1]]
-#' wf_metrics <- MakeWorkflowList(strNames=paste0("kri",sprintf("%04d", 1:2)))
-#' dfMetrics <- wf_metrics %>% map_df(function(wf){
-#'   wf$meta$vThreshold <- paste(wf$meta$vThreshold, collapse = ",")
-#'   return(wf$meta)
-#' })
-#'
-#' # Import Site+Study Metadata
-#' dfStudy<-clindata::ctms_study %>% rename(StudyID = protocol_number)
-#' dfSite<- clindata::ctms_site %>% rename(SiteID = site_num)
-#'
-#' # Pull Raw Data - this will overwrite the previous data pull
-#' lRaw <- gsm::UseClindata(
-#'   list(
-#'     "dfSUBJ" = "clindata::rawplus_dm",
-#'     "dfAE" = "clindata::rawplus_ae",
-#'     "dfPD" = "clindata::ctms_protdev",
-#'     "dfLB" = "clindata::rawplus_lb",
-#'     "dfSTUDCOMP" = "clindata::rawplus_studcomp",
-#'     "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp",
-#'     "dfDATACHG" = "clindata::edc_data_points",
-#'     "dfDATAENT" = "clindata::edc_data_pages",
-#'     "dfQUERY" = "clindata::edc_queries",
-#'     "dfENROLL" = "clindata::rawplus_enroll"
-#'   )
+#' \dontrun{
+#' data_raw <- gsm::UseClindata(
+#'     list(
+#'         "dfSUBJ" = "clindata::rawplus_dm",
+#'         "dfAE" = "clindata::rawplus_ae",
+#'         "dfPD" = "clindata::ctms_protdev",
+#'         "dfLB" = "clindata::rawplus_lb",
+#'         "dfSTUDCOMP" = "clindata::rawplus_studcomp",
+#'         "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp %>%
+#'       dplyr::filter(.data$phase == 'Blinded Study Drug Completion')",
+#'         "dfDATACHG" = "clindata::edc_data_points",
+#'         "dfDATAENT" = "clindata::edc_data_pages",
+#'         "dfQUERY" = "clindata::edc_queries",
+#'         "dfENROLL" = "clindata::rawplus_enroll"
+#'     )
 #' )
 #'
-#' # Create Mapped Data
-#' lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$lData
+#' workflows <- MakeWorkflowList()
 #'
-#' # Run Metrics
-#' lResults <-wf_metrics %>% map(~RunWorkflow(lWorkflow=.x, lData=lMapped)) <-wf_metrics %>% map(~RunWorkflow(lWorkflow=.x, lData=lMapped))
+#' data_mapped <- RunWorkflow(workflows$mapping, data_raw)$lData
 #'
-#' dfSummary <- lResults %>%
-#' imap_dfr(~.x$lData$dfSummary %>% mutate(MetricID = .y)) %>%
-#'   mutate(StudyID = "ABC-123") %>%
-#'   mutate(SnapshotDate = Sys.Date())
+#' results <- workflows[ grepl('^kri', names(workflows) ) ] %>%
+#'     map(\(workflow) RunWorkflow(workflow, data_mapped))
 #'
-#' Widget_SiteOverview(dfSummary = dfSummary)
-#'
+#' dfSummary <- results %>% map_dfr(~ {
+#'     data <- .x$lData$dfSummary
+#'     data$workflowid <- .x$name
+#'     data
+#' })
+#' 
+#' counts <- RunWorkflow(workflows$counts, data_mapped)
+#' 
+#' dfSite <- clindata::ctms_site %>%
+#'     mutate(
+#'         siteid = .data$site_num,
+#'         invname = paste(.data$pi_last_name, .data$pi_first_name, sep = ', ')
+#'     ) %>%
+#'     left_join(
+#'         counts$lData$dfSiteCounts,
+#'         c('site_num' = 'GroupID')
+#'     ) %>%
+#'     rename(
+#'         status = site_status,
+#'         enrolled_participants = nSubjects
+#'     )
+#' 
+#' dfMetrics <- results %>% map_dfr(~ {
+#'     metric <- .x$meta
+#'     metric$workflowid <- metric$MetricID
+#'     metric$vThreshold <- paste(metric$vThreshold, collapse = ',')
+#'     metric
+#' })
+#' 
+#' Widget_SiteOverview(
+#'   dfSummary,
+#'   dfSite,
+#'   dfMetrics
+#' )
+#' }
 #' @export
 
 Widget_SiteOverview <- function(
   dfSummary,
-  lConfig = list(),
   dfSite = clindata::ctms_site,
-  dfWorkflow = gsm::meta_workflow,
-  width = NULL,
-  height = NULL,
-  elementId = NULL
+  dfMetrics = gsm::meta_workflow
 ) {
-  dfSummary <- dfSummary %>%
-    dplyr::rename_with(tolower)
-
-  if (!is.null(elementId)) {
-    elementId <- paste(elementId, as.numeric(Sys.time()) * 1000, sep = "-")
-  }
-
-  if (!is.null(dfSite)) {
-    dfSite <- jsonlite::toJSON(dfSite, na = "string")
-  }
-
   # forward options using x
   x <- list(
-    dfSummary = jsonlite::toJSON(dfSummary, na = "string"),   # data
-    lConfig = jsonlite::toJSON(lConfig, na = "string"),       # config
-    dfSite = dfSite,                                          # site metadata
-    dfWorkflow = jsonlite::toJSON(dfWorkflow, na = "string")  # workflow metadata
+    dfSummary = dfSummary,
+    dfSite = dfSite,
+    dfMetrics = dfMetrics
   )
 
   # create widget
   htmlwidgets::createWidget(
     name = "Widget_SiteOverview",
-    x,
-    width = width,
-    height = height,
-    package = "gsm",
-    elementId = elementId
+    x %>% map(\(x) jsonlite::toJSON(x, na = "string")),
+    package = "gsm"
   )
 }
 

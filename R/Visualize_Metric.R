@@ -51,12 +51,12 @@ Visualize_Metric <- function(
   if(!is.null(strMetricID)){
 
     if(!(strMetricID %in% unique(dfSummary$MetricID))){
-      cli::cli_alert_error("MetricID not found in dfSummary. No charts will be generated.")
+      cli::cli_alert_danger("MetricID not found in dfSummary. No charts will be generated.")
       return(NULL)
     }else{
-      dfSummary <- dfSummary %>% filter(MetricID == strMetricID)
-      dfBounds <- dfBounds %>% filter(MetricID == strMetricID)
-      dfMetrics <- dfMetrics %>% filter(MetricID == strMetricID)
+      dfSummary <- dfSummary %>% filter(.data$MetricID == strMetricID)
+      dfBounds <- dfBounds %>% filter(.data$MetricID == strMetricID)
+      dfMetrics <- dfMetrics %>% filter(.data$MetricID == strMetricID)
     }
   }
 
@@ -67,7 +67,7 @@ Visualize_Metric <- function(
 
   # Cross-sectional Charts using most recent snapshot ------------------------
   lCharts <- list()
-  dfSummary_current <- dfSummary %>% filter(snapshot_date == strSnapshotDate)
+  dfSummary_current <- dfSummary %>% filter(.data$snapshot_date == strSnapshotDate)
 
   if(nrow(dfSummary_current) == 0){
     cli::cli_alert_warning("No data found for specified snapshot date: {strSnapshotDate}. No charts will be generated.")
@@ -80,40 +80,40 @@ Visualize_Metric <- function(
       dfSite = NULL,
       #dfSite = dfSite,
       dfBounds = dfBounds,
-      elementId = paste0(tolower(lLabels$abbreviation), "AssessScatter")
+      elementId = paste0(tolower(lLabels$Abbreviation), "AssessScatter")
     )
 
     lCharts$scatter <- gsm::Visualize_Scatter(
       dfSummary = dfSummary_current,
       dfBounds = dfBounds,
-      strGroupLabel = lLabels$group
+      strGroupLabel = lLabels$Group
     )
 
     lCharts$barMetricJS <- gsm::Widget_BarChart(
       dfSummary = dfSummary_current,
       lLabels = lLabels,
       dfSite = dfSite,
-      strYAxisType = "metric",
-      elementId = paste0(tolower(lLabels$abbreviation), "AssessMetric")
+      strYAxisType = "Metric",
+      elementId = paste0(tolower(lLabels$Abbreviation), "AssessMetric")
     )
 
     lCharts$barScoreJS <- gsm::Widget_BarChart(
       dfSummary = dfSummary_current,
       lLabels = lLabels,
       dfSite = dfSite,
-      strYAxisType = "score",
-      elementId = paste0(tolower(lLabels$abbreviation), "AssessScore")
+      strYAxisType = "Score",
+      elementId = paste0(tolower(lLabels$Abbreviation), "AssessScore")
     )
 
     lCharts$barMetric <- gsm::Visualize_Score(
       dfSummary = dfSummary_current,
-      strType = "metric"
+      strType = "Metric"
     )
 
     lCharts$barScore <- gsm::Visualize_Score(
       dfSummary = dfSummary_current,
-      strType = "score",
-      vThreshold = unlist(lLabels$thresholds)
+      strType = "Score",
+      vThreshold = unlist(lLabels$vThresholds)
     )
   }
   # Continuous Charts -------------------------------------------------------
@@ -125,7 +125,7 @@ Visualize_Metric <- function(
       lLabels = lLabels %>% map_dfr(~.x),
       #dfSite = dfSite,
       dfParams = dfParams,
-      yAxis = "score"
+      yAxis = "Score"
     )
 
     lCharts$timeSeriesContinuousMetricJS <- Widget_TimeSeries(
@@ -133,7 +133,7 @@ Visualize_Metric <- function(
       lLabels = lLabels %>% map_dfr(~.x),
       #dfSite = dfSite,
       dfParams = dfParams,
-      yAxis = "metric"
+      yAxis = "Metric"
     )
 
     lCharts$timeSeriesContinuousNumeratorJS <- Widget_TimeSeries(
@@ -141,7 +141,7 @@ Visualize_Metric <- function(
       lLabels = lLabels %>% map_dfr(~.x),
       #dfSite = dfSite,
       dfParams = dfParams,
-      yAxis = "numerator"
+      yAxis = "Numerator"
     )
   }
 

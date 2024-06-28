@@ -46,12 +46,8 @@
 #'
 #'
 #' @examples
-#' ae_transform <- Transform_Rate(
-#'   dfInput = sampleInput,
-#'   strGroupCol = "SiteID",
-#'   strNumeratorCol = "Count",
-#'   strDenominatorCol = "Exposure"
-#' )
+#' \dontrun{
+#' ae_transform <- Transform_Rate(sampleInput)
 #'
 #' ae_analyze <- Analyze_NormalApprox(
 #'   dfTransformed = ae_transform,
@@ -85,14 +81,14 @@
 #'   strYAxisType = "metric",
 #'   elementId = "aeAssessMetric"
 #' )
-#'
+#' }
 #' @export
 Widget_BarChart <- function(
   dfSummary,
   lLabels,
   dfSite = NULL,
   dfThreshold = NULL,
-  strYAxisType = "score",
+  strYAxisType = "Score",
   selectedGroupIDs = NULL,
   addSiteSelect = TRUE,
   bHideDropdown = FALSE,
@@ -101,15 +97,14 @@ Widget_BarChart <- function(
   elementId = NULL
 ) {
   dfSummary <- dfSummary %>%
-    dplyr::mutate(across(everything(), as.character)) %>%
-    dplyr::rename_with(tolower)
+    dplyr::mutate(across(everything(), as.character))
 
   if (!is.null(elementId)) {
     elementId <- paste(elementId, as.numeric(Sys.time()) * 1000, sep = "-")
   }
 
-  if (!is.null(lLabels$group)) {
-    siteSelectLabelValue <- paste0("Highlighted ", lLabels$group, ": ")
+  if (!is.null(lLabels$Group)) {
+    siteSelectLabelValue <- paste0("Highlighted ", lLabels$Group, ": ")
   }
 
   if (!is.null(dfThreshold)) {

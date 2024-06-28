@@ -23,7 +23,7 @@ test_that("Widget_SiteOverview processes data correctly", {
   widget <- Widget_SiteOverview(dfSummary, lConfig, dfSite, dfWorkflow)
 
   # Test that dfSummary is converted to lowercase
-  expect_true(all(names(fromJSON(widget$x$dfSummary)) == c("studyid", "groupid", "metric")))
+  expect_true(all(names(fromJSON(widget$x$dfSummary)) == c("StudyID", "GroupID", "Metric")))
 
   # Test that dfSite and dfWorkflow are converted to JSON
   expect_true(class(fromJSON(widget$x$dfSite)) == "data.frame")

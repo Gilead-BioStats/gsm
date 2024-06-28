@@ -9,7 +9,7 @@ Widget_BarChart(
   lLabels,
   dfSite = NULL,
   dfThreshold = NULL,
-  strYAxisType = "score",
+  strYAxisType = "Score",
   selectedGroupIDs = NULL,
   addSiteSelect = TRUE,
   bHideDropdown = FALSE,
@@ -50,12 +50,8 @@ Bar charts are provided by default in any Assess function, and are suffixed with
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
-ae_transform <- Transform_Rate(
-  dfInput = sampleInput,
-  strGroupCol = "SiteID",
-  strNumeratorCol = "Count",
-  strDenominatorCol = "Exposure"
-)
+\dontrun{
+ae_transform <- Transform_Rate(sampleInput)
 
 ae_analyze <- Analyze_NormalApprox(
   dfTransformed = ae_transform,
@@ -89,5 +85,5 @@ plot <- Widget_BarChart(
   strYAxisType = "metric",
   elementId = "aeAssessMetric"
 )
-
+}
 }

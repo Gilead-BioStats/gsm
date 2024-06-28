@@ -197,6 +197,9 @@
       $cou0001[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
+      $cou0001[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
+      
       
       
       
@@ -309,6 +312,9 @@
       $cou0002[[6]]$params
       $cou0002[[6]]$params$dfFlagged
       [1] "dfFlagged"
+      
+      $cou0002[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -471,6 +477,9 @@
       $cou0003[[9]]$params$dfFlagged
       [1] "dfFlagged"
       
+      $cou0003[[9]]$params$nMinDenominator
+      [1] "nMinDenominator"
+      
       
       
       
@@ -584,6 +593,9 @@
       $cou0004[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
+      $cou0004[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
+      
       
       
       
@@ -693,6 +705,9 @@
       $cou0005[[6]]$params
       $cou0005[[6]]$params$dfFlagged
       [1] "dfFlagged"
+      
+      $cou0005[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -804,6 +819,9 @@
       $cou0006[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
+      $cou0006[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
+      
       
       
       
@@ -913,6 +931,9 @@
       $cou0007[[6]]$params
       $cou0007[[6]]$params$dfFlagged
       [1] "dfFlagged"
+      
+      $cou0007[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -1024,6 +1045,9 @@
       $cou0008[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
+      $cou0008[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
+      
       
       
       
@@ -1133,6 +1157,9 @@
       $cou0009[[6]]$params
       $cou0009[[6]]$params$dfFlagged
       [1] "dfFlagged"
+      
+      $cou0009[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -1244,6 +1271,9 @@
       $cou0010[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
+      $cou0010[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
+      
       
       
       
@@ -1354,6 +1384,9 @@
       $cou0011[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
+      $cou0011[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
+      
       
       
       
@@ -1463,6 +1496,9 @@
       $cou0012[[6]]$params
       $cou0012[[6]]$params$dfFlagged
       [1] "dfFlagged"
+      
+      $cou0012[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -1577,6 +1613,9 @@
       $kri0001[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
+      $kri0001[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
+      
       
       
       
@@ -1689,6 +1728,9 @@
       $kri0002[[6]]$params
       $kri0002[[6]]$params$dfFlagged
       [1] "dfFlagged"
+      
+      $kri0002[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -1803,6 +1845,9 @@
       $kri0003[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
+      $kri0003[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
+      
       
       
       
@@ -1916,6 +1961,9 @@
       $kri0004[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
+      $kri0004[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
+      
       
       
       
@@ -2025,6 +2073,9 @@
       $kri0005[[6]]$params
       $kri0005[[6]]$params$dfFlagged
       [1] "dfFlagged"
+      
+      $kri0005[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -2136,6 +2187,9 @@
       $kri0006[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
+      $kri0006[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
+      
       
       
       
@@ -2245,6 +2299,9 @@
       $kri0007[[6]]$params
       $kri0007[[6]]$params$dfFlagged
       [1] "dfFlagged"
+      
+      $kri0007[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -2356,6 +2413,9 @@
       $kri0008[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
+      $kri0008[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
+      
       
       
       
@@ -2465,6 +2525,9 @@
       $kri0009[[6]]$params
       $kri0009[[6]]$params$dfFlagged
       [1] "dfFlagged"
+      
+      $kri0009[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -2576,6 +2639,9 @@
       $kri0010[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
+      $kri0010[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
+      
       
       
       
@@ -2686,6 +2752,9 @@
       $kri0011[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
+      $kri0011[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
+      
       
       
       
@@ -2795,6 +2864,9 @@
       $kri0012[[6]]$params
       $kri0012[[6]]$params$dfFlagged
       [1] "dfFlagged"
+      
+      $kri0012[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       

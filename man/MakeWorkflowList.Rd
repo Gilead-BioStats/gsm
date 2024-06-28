@@ -4,12 +4,19 @@
 \alias{MakeWorkflowList}
 \title{Load workflows from a package/directory.}
 \usage{
-MakeWorkflowList(strNames = NULL, strPath = NULL, bRecursive = FALSE)
+MakeWorkflowList(
+  strNames = NULL,
+  strPath = NULL,
+  bExact = FALSE,
+  bRecursive = FALSE
+)
 }
 \arguments{
 \item{strNames}{\verb{array of character} List of workflows to include. NULL (the default) includes all workflows in the specified locations.}
 
 \item{strPath}{\code{character} The location of workflow YAML files. If package is specified, function will look in \verb{/inst} folder.}
+
+\item{bExact}{\code{logical} Should strName matches be exact? If false, partial matches will be included. Default FALSE.}
 
 \item{bRecursive}{\code{logical} Find files in nested folders? Default FALSE.}
 }
@@ -20,7 +27,7 @@ MakeWorkflowList(strNames = NULL, strPath = NULL, bRecursive = FALSE)
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \details{
-\code{MakeWorkflowList()} is a utility function that creates a list of workflows for use in \code{\link[=Study_Assess]{Study_Assess()}}.
+\code{MakeWorkflowList()} is a utility function that creates a list of workflows for use in KRI pipelines.
 }
 \examples{
 # use default

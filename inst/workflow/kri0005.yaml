@@ -1,18 +1,19 @@
 meta:
-  file: kri0005.yaml
+  File: kri0005.yaml
   MetricID: kri0005
-  group: site
-  abbreviation: LB
-  metric: Grade 3+ Lab Abnormality Rate
-  numerator: Grade 3+ Abnormal Labs Samples
-  denominator: Total Lab Samples
-  model: Normal Approximation
-  score: Adjusted Z-Score
+  Group: site
+  Abbreviation: LB
+  Metric: Grade 3+ Lab Abnormality Rate
+  Numerator: Grade 3+ Abnormal Labs Samples
+  Denominator: Total Lab Samples
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
   vThreshold:
     - -3
     - -2
     - 2
     - 3
+  nMinDenominator: 30
 steps:
   - name: Input_Rate
     output: dfInput
@@ -48,3 +49,4 @@ steps:
     output: dfSummary
     params:
       dfFlagged: dfFlagged
+      nMinDenominator: nMinDenominator

@@ -47,9 +47,9 @@ Make_Timeline <- function(status_study, longitudinal = NULL, n_breaks = 10, date
         if (history) bind_rows(., snapshots) else .
       } %>%
       mutate(
-        date = as.Date(.data$date),
-        estimate = grepl("est", .data$activity),
-        disp = case_when(
+        'date' = as.Date(.data$date),
+        'estimate' = grepl("est", .data$activity),
+        'disp' = case_when(
           grepl("\n", date_format) & .data$estimate ~ 3.75,
           grepl("\n", date_format) &
             !.data$estimate ~ -3.75,
@@ -97,7 +97,7 @@ Make_Timeline <- function(status_study, longitudinal = NULL, n_breaks = 10, date
     }
 
     # Generate Plot
-    a <- ggplot(d, aes(date, disp)) +
+    a <- ggplot(d, aes(.data$date, .data$disp)) +
       scale_x_date(
         date_labels = date_format,
         limits = c(

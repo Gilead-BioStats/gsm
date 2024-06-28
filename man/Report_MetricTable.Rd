@@ -10,6 +10,8 @@ Report_MetricTable(dfSummary, dfSite, strSnapshotDate = NULL)
 \item{dfSummary}{The summary data frame}
 
 \item{dfSite}{The site data frame}
+
+\item{strSnapshotDate}{user specified snapshot date as string}
 }
 \value{
 A datatable containing the summary table

@@ -1,9 +1,0 @@
-dfENROLL:
-  vRequired:
-    - strSiteCol
-    - strIDCol
-    - strScreenFailCol
-    - strScreenFailReasonCol
-  vNACols:
-    - strScreenFailCol
-    - strScreenFailReasonCol

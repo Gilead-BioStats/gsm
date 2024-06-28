@@ -1,7 +1,0 @@
-dfInput:
-  vRequired:
-    - "strIDCol"
-    - "strGroupCol"
-    - "strCountCol"
-  vUniqueCols:
-    - "strIDCol"
