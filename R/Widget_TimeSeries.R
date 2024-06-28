@@ -41,25 +41,45 @@
 #'     lMetricWorkflow,
 #'     lDataMapped
 #' )
-#' 
-#' dfGroups <- clindata::ctms_site %>%
-#'     left_join(
-#'         lDataMapped$dfEnrolled %>%
-#'             group_by(siteid) %>%
-#'             tally(name = 'enrolled_participants'),
-#'         c('site_num' = 'siteid')
-#'     ) %>%
-#'     rename(
-#'         SiteID = site_num,
-#'         status = site_status
-#'     )
-#' 
-#' Widget_TimeSeries(
-#'     dfSummary = lResults$lData$dfSummary,
-#'     lMetric = lMetricWorkflow$meta,
-#'     dfGroups = dfGroups,
-#'     vThreshold = lMetricWorkflow$meta$vThreshold
+#'
+#' # Simulate longitudinal snapshot data.
+#' SnapshotDates <- paste0('20', 13:24, '-01-01')
+#'
+#' dfSummary <- purrr::map_dfr(
+#'     SnapshotDates,
+#'     ~ {
+#'         order <- sample(1:nrow(lResults$lData$dfSummary))
+#'         dfSummary <- lResults$lData$dfSummary %>%
+#'             mutate(
+#'                 SnapshotDate = .x,
+#'                 Numerator = Numerator[order],
+#'                 Denominator = Denominator[order],
+#'                 Metric = Metric[order],
+#'                 Score = Score[order],
+#'                 Flag = Flag[order]
+#'             )
+#'         return(dfSummary)
+#'     }
 #' )
+#' 
+dfGroups <- clindata::ctms_site %>%
+    left_join(
+        lDataMapped$dfEnrolled %>%
+            group_by(siteid) %>%
+            tally(name = 'enrolled_participants'),
+        c('site_num' = 'siteid')
+    ) %>%
+    rename(
+        SiteID = site_num,
+        status = site_status
+    )
+
+Widget_TimeSeries(
+    dfSummary = dfSummary,
+    lMetric = lMetricWorkflow$meta,
+    dfGroups = dfGroups,
+    vThreshold = lMetricWorkflow$meta$vThreshold
+)
 #' }
 #' @export
 
