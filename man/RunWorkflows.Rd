@@ -4,12 +4,12 @@
 \alias{RunWorkflows}
 \title{Convienience function to easily run multiple workflows}
 \usage{
-RunWorkflows(lWorkflows, lData)
+RunWorkflows(lWorkflows, ...)
 }
 \arguments{
 \item{lWorkflows}{A list of workflows to be run}
 
-\item{lData}{A list of data to be used in the workflows}
+\item{...}{Additional arguments to be passed to \code{RunWorkflow}.}
 }
 \value{
 A named list of results, where the names correspond to the names of

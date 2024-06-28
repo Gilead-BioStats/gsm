@@ -19,4 +19,7 @@ lData <- list(
     strStudyID = "ABC-123"
 )
 ss_wf <- MakeWorkflowList(strNames = "snapshot")
-snapshot <- RunWorkflows(ss_wf, lData)
+ss_wf$snapshot$steps <- ss_wf$snapshot$steps[1:3]
+snapshot <- RunWorkflows(ss_wf, lData, bReturnData = FALSE, bKeepInputData = TRUE)
+
+

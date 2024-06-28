@@ -4,14 +4,16 @@
 \alias{RunWorkflow}
 \title{Run a workflow via it's YAML specification.}
 \usage{
-RunWorkflow(lWorkflow, lData, bReturnData = TRUE)
+RunWorkflow(lWorkflow, lData, bReturnData = TRUE, bKeepInputData = FALSE)
 }
 \arguments{
 \item{lWorkflow}{\code{list} A named list of metadata defining how the workflow should be run.}
 
 \item{lData}{\code{list} A named list of domain-level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
 
-\item{bReturnData}{\code{list} should function return only bData or should meta and steps be included? Default is \code{TRUE}.}
+\item{bReturnData}{\code{boolean} should function return only bData or should meta and steps be included? Default is \code{TRUE}.}
+
+\item{bKeepInputData}{\code{boolean} should the input data be returned? Default is \code{FALSE}.}
 }
 \value{
 \code{list} containing objects named: \code{steps}, \code{path}, \code{name}, \code{lData}, \code{lChecks}, \code{bStatus}, \code{lWorkflowChecks}, and \code{lResults}.

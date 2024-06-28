@@ -4,16 +4,24 @@
 \alias{BindResults}
 \title{Helper function to bind results from multiple workflows}
 \usage{
-BindResults(lResults, strName, dSnapshotDate = sys.date(), strStudyID)
+BindResults(
+  lResults,
+  strName,
+  dSnapshotDate = sys.date(),
+  strStudyID,
+  bUselData = FALSE
+)
 }
 \arguments{
-\item{lResults}{List of results in the format returned by RunWorkflows()}
+\item{lResults}{Named List of analysis results in the format returned by RunWorkflows()}
 
 \item{strName}{Name of the object to stack. Pulled from lResults$lData.}
 
 \item{dSnapshotDate}{Date of the snapshot. Default is sys.date().}
 
-\item{strStudyID}{study ID. Default is 'ABC-123'.}
+\item{strStudyID}{Study ID.}
+
+\item{bUselData}{Should the function bind results from an \code{lData} object (or look directly in the root elements of \code{lResults})? Default is FALSE.}
 }
 \value{
 A data frame.

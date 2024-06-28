@@ -11,6 +11,7 @@ steps:
     params:
       lData: lData 
       lWorkflow: wf_mapping
+      bKeepInputData: FALSE
   - name: MakeWorkflowList
     output: lWorkflows
     params:
@@ -18,8 +19,9 @@ steps:
   - name: RunWorkflows
     output: lAnalysis
     params:
-      lData: lMapped 
-      lWorkflow: lWorkflows
+      lWorkflows: lWorkflows
+      lData: lMapped  
+      bKeepInputData: FALSE
   # Minor hack to regenerate dfEnrolled in the core lData object
   - name: RunQuery
     output: dfEnrolled
@@ -33,5 +35,7 @@ steps:
   - name: RunWorkflows
     output: lReporting
     params:
+      lWorkflows: wf_reporting 
       lData: lData 
-      lWorkflow: wf_reporting 
+      bKeepInputData: FALSE
+      
