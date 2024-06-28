@@ -52,7 +52,7 @@ RunStep <- function(lStep, lData, lMeta) {
       cli::cli_alert_success("{paramName} = {paramVal}:  Passing full lMeta object.")
       params[[paramName]] <- lMeta
     } else if(length(paramVal) == 1 && paramVal == "lData"){
-      # If the parameter value is named "lData", the lData parameter (typically from the workflow header) is passed
+      # If the parameter value is named "lData", the lData parameter is passed
       cli::cli_alert_success("{paramName} = {paramVal}: Passing full lData object.")
       params[[paramName]] <- lData
     } else if(length(paramVal) == 1 && paramVal %in% names(lMeta)){
@@ -67,21 +67,6 @@ RunStep <- function(lStep, lData, lMeta) {
       # If the parameter value is not found in 'lMeta' or 'lData', pass the parameter value as a string.
       cli::cli_alert_info("{paramName} = {paramVal}: No matching data found. Passing '{paramVal}' as a string.")
     }
-
-    # If the parameter name starts with 'df', it checks if the corresponding value exists in the 'lData' object.
-    # If the value exists, it updates the parameter value with the corresponding data.frame from 'lData'.
-    # If the value does not exist, it displays a warning message.
-    # if (stringr::str_detect(paramName, "^df")) {
-    #   if(length(paramVal)==1 & all(paramVal %in% names(lData))){
-    #     cli::cli_text("Found data for {paramVal}. Proceeding ...")
-    #     params[[paramName]] <- lData[[paramVal]]
-    #   } else if(length(paramVal) > 1 & all(paramVal %in% names(lData))){
-    #     cli::cli_text("Found data for {paramVal}. Proceeding ...")
-    #     params[[paramName]] <- lData[paramVal]
-    #   } else {
-    #     cli::cli_alert_warning("Data for {paramVal} not found in workflow. This might bomb soon ...")
-    #   }
-    # }
   }
 
   cli::cli_h3("Calling {.fn {lStep$name}}")

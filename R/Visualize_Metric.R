@@ -34,17 +34,17 @@ Visualize_Metric <- function(
 ) {
 
   # Check for multiple snapshots --------------------------------------------
-  # if snapshot_date is missing set it to today for all records
-  if (!"snapshot_date" %in% colnames(dfSummary)) {
-    dfSummary$snapshot_date <- as.Date(Sys.Date())
+  # if SnapshotDate is missing set it to today for all records
+  if (!"SnapshotDate" %in% colnames(dfSummary)) {
+    dfSummary$SnapshotDate <- as.Date(Sys.Date())
   }
 
   # get number of snapshots
-  number_of_snapshots <- length(unique(dfSummary$snapshot_date))
+  number_of_snapshots <- length(unique(dfSummary$SnapshotDate))
 
   # use most recent snapshot date if strSnapshotDate is missing
   if(is.null(strSnapshotDate)){
-    strSnapshotDate <- max(dfSummary$snapshot_date)
+    strSnapshotDate <- max(dfSummary$SnapshotDate)
   }
 
   # Filter to selected MetricID ----------------------------------------------
@@ -67,42 +67,42 @@ Visualize_Metric <- function(
 
   # Cross-sectional Charts using most recent snapshot ------------------------
   lCharts <- list()
-  dfSummary_current <- dfSummary %>% filter(.data$snapshot_date == strSnapshotDate)
+  dfSummary_current <- dfSummary %>% filter(.data$SnapshotDate == strSnapshotDate)
 
   if(nrow(dfSummary_current) == 0){
     cli::cli_alert_warning("No data found for specified snapshot date: {strSnapshotDate}. No charts will be generated.")
   } else {
-    lLabels <- dfMetrics %>% as.list()
+    lMetrics <- dfMetrics %>% as.list()
 
     lCharts$scatterJS <- gsm::Widget_ScatterPlot(
       dfSummary = dfSummary_current,
-      lLabels = lLabels,
+      lLabels = lMetrics,
       dfSite = NULL,
       #dfSite = dfSite,
       dfBounds = dfBounds,
-      elementId = paste0(tolower(lLabels$Abbreviation), "AssessScatter")
+      elementId = paste0(tolower(lMetrics$Abbreviation), "AssessScatter")
     )
 
     lCharts$scatter <- gsm::Visualize_Scatter(
       dfSummary = dfSummary_current,
       dfBounds = dfBounds,
-      strGroupLabel = lLabels$Group
+      strGroupLabel = lMetrics$Group
     )
 
     lCharts$barMetricJS <- gsm::Widget_BarChart(
       dfSummary = dfSummary_current,
-      lLabels = lLabels,
+      lLabels = lMetrics,
       dfSite = dfSite,
       strYAxisType = "Metric",
-      elementId = paste0(tolower(lLabels$Abbreviation), "AssessMetric")
+      elementId = paste0(tolower(lMetrics$Abbreviation), "AssessMetric")
     )
 
     lCharts$barScoreJS <- gsm::Widget_BarChart(
       dfSummary = dfSummary_current,
-      lLabels = lLabels,
+      lLabels = lMetrics,
       dfSite = dfSite,
       strYAxisType = "Score",
-      elementId = paste0(tolower(lLabels$Abbreviation), "AssessScore")
+      elementId = paste0(tolower(lMetrics$Abbreviation), "AssessScore")
     )
 
     lCharts$barMetric <- gsm::Visualize_Score(
@@ -113,7 +113,7 @@ Visualize_Metric <- function(
     lCharts$barScore <- gsm::Visualize_Score(
       dfSummary = dfSummary_current,
       strType = "Score",
-      vThreshold = unlist(lLabels$vThresholds)
+      vThreshold = ParseThreshold(lMetrics$strThreshold)
     )
   }
   # Continuous Charts -------------------------------------------------------
@@ -122,25 +122,23 @@ Visualize_Metric <- function(
   } else {
     lCharts$timeSeriesContinuousScoreJS <- Widget_TimeSeries(
       dfSummary = dfSummary,
-      lLabels = lLabels %>% map_dfr(~.x),
-      #dfSite = dfSite,
-      dfParams = dfParams,
+      lLabels = dfMetrics,
+      dfSite = dfSite,
+      vThresholds = ParseThreshold(lMetrics$strThreshold),
       yAxis = "Score"
     )
 
     lCharts$timeSeriesContinuousMetricJS <- Widget_TimeSeries(
       dfSummary = dfSummary,
-      lLabels = lLabels %>% map_dfr(~.x),
-      #dfSite = dfSite,
-      dfParams = dfParams,
+      lLabels = dfMetrics,
+      dfSite = dfSite,
       yAxis = "Metric"
     )
 
     lCharts$timeSeriesContinuousNumeratorJS <- Widget_TimeSeries(
       dfSummary = dfSummary,
-      lLabels = lLabels %>% map_dfr(~.x),
-      #dfSite = dfSite,
-      dfParams = dfParams,
+      lLabels = dfMetrics,
+      dfSite = dfSite,
       yAxis = "Numerator"
     )
   }
