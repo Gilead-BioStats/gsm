@@ -21,7 +21,32 @@ lData <- list(
 ss_wf <- MakeWorkflowList(strNames = "snapshot")
 snapshot <- RunWorkflows(ss_wf, lData, bKeepInputData = TRUE)
 
-# check reporting data
+# ---------------------------------------------------------------------------
+# --- Test out chart creation -----------------------------------------------
+# ---------------------------------------------------------------------------
+
+dfSummary_long <- bind_rows(
+  snapshot$lReporting$dfSummary %>% mutate(SnapshotDate = Sys.Date()),
+  snapshot$lReporting$dfSummary %>% mutate(SnapshotDate = Sys.Date() - 7),
+  snapshot$lReporting$dfSummary %>% mutate(SnapshotDate = Sys.Date() - 14)
+)
+
+#Create Charts for all metrics
+options(vsc.viewer = FALSE)
+metrics<- unique(snapshot$lReporting$dfMetrics$MetricID)
+charts <- metrics %>% map(~Visualize_Metric(
+  dfSummary = dfSummary_long,
+  dfBounds = snapshot$lReporting$dfBounds,
+  dfGroups = snapshot$lReporting$dfGroups,
+  dfMetrics = snapshot$lReporting$dfMetrics,
+  strMetricID = .x
+)
+) %>% setNames(metrics)
+
+# ---------------------------------------------------------------------------
+# --- check reporting data --------------------------------------------------
+# ---------------------------------------------------------------------------
+
 dfGroups <- snapshot$lReporting$dfGroups
 head(dfGroups)
 table(paste(dfGroups$GroupLevel, dfGroups$Param))

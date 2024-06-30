@@ -13,15 +13,15 @@ lRaw <- list(
     dfENROLL = clindata::rawplus_enroll
 )
 
-wf_mapping <- MakeWorkflowList(strNames = "mapping")[[1]]
-wf_kri <- MakeWorkflowList(strNames="kri")
-wf_reporting <- MakeWorkflowList(strNames = "reporting")[[1]]
+wf_mapping <- MakeWorkflowList(strNames = "mapping")
+wf_kri <- MakeWorkflowList(strNames="kri0001")
+wf_reporting <- MakeWorkflowList(strNames = "reporting")
 
 # Generate Mapped Data
-lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$lData
+lMapped <- RunWorkflows(lWorkflow = wf_mapping, lData = lRaw)
 
 # Generate Analysis Results Data
-lAnalysis <- wf_kri %>% map(~RunWorkflow(lWorkflow = .x, lData = lMapped))
+lAnalysis <- RunWorkflows(lWorkflow = wf_kri, lData = lMapped)
 
 # Generate Reporting Data
 lReporting_Input <- list(
@@ -29,18 +29,18 @@ lReporting_Input <- list(
     ctms_study = clindata::ctms_study,
     dfEnrolled =lMapped$dfEnrolled,
     lWorkflows = wf_kri,
-    lAnalysis = lAnalysis, 
+    lAnalysis = list(kri0001 = lAnalysis), 
     dSnapshotDate = Sys.Date(),
     strStudyID = "ABC-123"
 )
 
-lReporting <- RunWorkflow(lWorkflow = wf_reporting, lData = lReporting_Input)
+lReporting <- RunWorkflows(lWorkflow = wf_reporting, lData = lReporting_Input)
 
 # Convience Mappings
-dfGroups <- lReporting$lData$dfGroups
-dfMetrics <- lReporting$lData$dfMetrics
-dfSummary <- lReporting$lData$dfSummary
-dfBounds <- lReporting$lData$dfBounds
+dfGroups <- lReporting$dfGroups
+dfMetrics <- lReporting$dfMetrics
+dfSummary <- lReporting$dfSummary
+dfBounds <- lReporting$dfBounds
 
 # Create dfSites and dfStudy pending rbm-viz update to use dfGroups
 dfSite <- dfSites <- dfGroups %>% 
@@ -63,7 +63,7 @@ dfSummary_long <- bind_rows(
 
 #Create Charts for all metrics
 options(vsc.viewer = FALSE)
-metrics <- dfMetrics %>% pull(MetricID)
+metrics<- unique(dfMetrics$MetricID)
 charts <- metrics %>% map(~Visualize_Metric(
   dfSummary = dfSummary_long,
   dfBounds = dfBounds,
@@ -74,21 +74,26 @@ charts <- metrics %>% map(~Visualize_Metric(
 ) %>% setNames(metrics)
 
 # Just one metric 
-charts <- Visualize_Metric(
+lCharts <- Visualize_Metric(
   dfSummary = dfSummary_long,
   dfBounds = dfBounds,
-  dfSite = dfSite,
+  dfGroups = dfGroups,
   dfMetrics = dfMetrics,
-  strMetricID = "kri0001"
+  strMetricID = "kri0001",
+  bDebug = TRUE
 )
 
 ## Individual Cross sectional charts (for testing)
-lMetrics <- as.list(dfMetrics)
+ lMetric <- as.list(dfMetrics %>%  mutate(Group=GroupLevel))
+ vThreshold <- gsm::ParseThreshold(lMetric$strThreshold)
+ 
+ devtools::load_all()
  gsm::Widget_ScatterPlot(
   dfSummary = dfSummary,
-  lLabels = lMetrics,
-  dfSite = dfSites,
-  dfBounds = dfBounds
+  lMetric = lMetric,
+  dfGroups = dfSites,
+  dfBounds = dfBounds,
+  bDebug=TRUE
 )
 
 gsm::Visualize_Scatter(
@@ -99,16 +104,17 @@ gsm::Visualize_Scatter(
 
  gsm::Widget_BarChart(
   dfSummary = dfSummary,
-  lLabels = lMetrics,
-  dfSite = dfSites,
-  strYAxisType = "Metric"
+  lMetric = lMetric,
+  dfGroups = dfSites,
+  strOutcome = "Metric"
 )
 
 gsm::Widget_BarChart(
   dfSummary = dfSummary,
-  lLabels = lMetrics,
-  dfSite = dfSites,
-  strYAxisType = "Score"
+  lMetric = lMetric,
+  dfGroups = dfSites,
+  vThreshold = vThreshold,
+  strOutcome = "Score"
 )
 
 gsm::Visualize_Score(
@@ -130,26 +136,27 @@ dfSummary_long <- bind_rows(
 )
 
 Widget_TimeSeries(
-      dfSummary = dfSummary_long,
-      lLabels = dfMetrics,
-      dfSite = dfSite,
-      vThresholds = ParseThreshold(lMetrics$strThreshold),
-      yAxis = "Score"
-    )
+  dfSummary = dfSummary_long,
+  lMetric = lMetric,
+  dfGroups = dfSites,
+  vThreshold = vThreshold,
+  strOutcome = "Score"
+)
 
 Widget_TimeSeries(
-      dfSummary = dfSummary_long,
-      lLabels = dfMetrics,
-      dfSite = dfSite,
-      yAxis = "Metric"
-    )
+  dfSummary = dfSummary_long,
+  lMetric = lMetric,
+  dfGroups = dfSites,
+  strOutcome = "Metric",
+  bDebug = TRUE
+)
 
 Widget_TimeSeries(
-      dfSummary = dfSummary_long,
-      lLabels = dfMetrics,
-      dfSite = dfSite,
-      yAxis = "Numerator"
-    )
+  dfSummary = dfSummary_long,
+  lMetric = lMetric,
+  dfGroups = dfSite,
+  strOutcome = "Numerator"
+)
 
 
 
