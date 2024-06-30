@@ -61,6 +61,10 @@ RunWorkflow <- function(
 
     result <- gsm::RunStep(lStep = step, lData = lWorkflow$lData, lMeta = lWorkflow$meta)
 
+    if(step$output %in% names(lData)){
+      cli::cli_alert_warning("Overwriting existing data in `lData`.")
+    }
+
     lWorkflow$lData[[step$output]] <- result
 
     if(is.data.frame(result)){
