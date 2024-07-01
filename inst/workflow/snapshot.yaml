@@ -1,0 +1,46 @@
+meta:
+  File: snapshot.yaml
+  description: run all steps in a snapshot
+steps:
+  # Generate Mapping Data Model
+  - name: MakeWorkflowList
+    output: wf_mapping
+    params:
+      strNames: mapping
+  - name: RunWorkflows
+    output: lMapped
+    params:
+      lData: lData
+      lWorkflow: wf_mapping
+      bKeepInputData: FALSE
+
+  # Run KRIs
+  - name: MakeWorkflowList
+    output: lWorkflows
+    params:
+      strNames: kri
+  - name: RunWorkflows
+    output: lAnalysis
+    params:
+      lWorkflows: lWorkflows
+      lData: lMapped
+      bKeepInputData: FALSE
+
+  # Generate Reporting Data Model
+  # Minor hack to regenerate dfEnrolled in the core lData object. Can pull from mapping database in prod
+  - name: RunQuery
+    output: dfEnrolled
+    params:
+      df: dfSUBJ
+      strQuery: "SELECT subjectid as raw_subjectid, * FROM df WHERE enrollyn == 'Y'"
+  - name: MakeWorkflowList
+    output: wf_reporting
+    params:
+      strNames: reporting
+  - name: RunWorkflows
+    output: lReporting
+    params:
+      lWorkflows: wf_reporting
+      lData: lData
+      bKeepInputData: FALSE
+

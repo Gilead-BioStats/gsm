@@ -17,7 +17,7 @@ renderWidget_BarChart(expr, env = parent.frame(), quoted = FALSE)
 \code{'400px'}, \code{'auto'}) or a number, which will be coerced to a
 string and have \code{'px'} appended.}
 
-\item{expr}{An expression that generates a barChart}
+\item{expr}{An expression that generates a Widget_BarChart}
 
 \item{env}{The environment in which to evaluate \code{expr}.}
 
@@ -28,6 +28,6 @@ is useful if you want to save an expression in a variable.}
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \details{
-Output and render functions for using barChart within Shiny
+Output and render functions for using Widget_BarChart within Shiny
 applications and interactive Rmd documents.
 }
