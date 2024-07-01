@@ -12,14 +12,6 @@ test_that("Widget_SiteOverview processes data correctly", {
   expect_s3_class(fromJSON(widget$x$strGroupSubset), "data.frame")
 })
 
-# test_that("Widget_SiteOverview generates unique elementId", {
-#   source(test_path("testdata", "create_simple_data.R"), local = TRUE)
-#   widget1 <- Widget_SiteOverview(dfSummary, lConfig, dfSite, dfWorkflow, elementId = "siteOverview")
-#   widget2 <- Widget_SiteOverview(dfSummary, lConfig, dfSite, dfWorkflow, elementId = "siteOverview")
-#
-#   expect_true(!identical(widget1$elementId, widget2$elementId))
-# })
-
 test_that("Widget_SiteOverview creates a valid HTML widget", {
   source(test_path("testdata", "create_simple_data.R"), local = TRUE)
   widget <- Widget_SiteOverview(dfSummary, lConfig, dfSite, dfWorkflow)
