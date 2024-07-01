@@ -2,49 +2,39 @@
 % Please edit documentation in R/Widget_SiteOverview.R
 \name{Widget_SiteOverview}
 \alias{Widget_SiteOverview}
-\title{Site Overview Table}
+\title{Site Overview Widget}
 \usage{
 Widget_SiteOverview(
   dfSummary,
-  dfSite = clindata::ctms_site,
-  dfMetrics = gsm::meta_workflow
+  dfMetrics = gsm::meta_workflow,
+  dfGroups = clindata::ctms_site \%>\% dplyr::left_join(clindata::rawplus_dm \%>\%
+    dplyr::group_by(siteid) \%>\% dplyr::tally(name = "enrolled_participants"),
+    c(site_num = "siteid")) \%>\% dplyr::rename(SiteID = site_num, status = site_status),
+  strGroupSubset = "red",
+  bDebug = FALSE
 )
 }
 \arguments{
-\item{dfSummary}{\code{data.frame} Analysis results data with columns:
+\item{dfSummary}{\code{data.frame} Output of \code{\link[=Summarize]{Summarize()}}.}
+
+\item{dfMetrics}{\code{list} Metric metadata, captured at the top of metric workflows and returned by
+\code{\link[=MakeMetricInfo]{MakeMetricInfo()}}.}
+
+\item{dfGroups}{\code{data.frame} Group metadata.}
+
+\item{strGroupSubset}{\code{character} Subset of groups to include in the table. Default: 'red'. Options:
 \itemize{
-\item{\code{GroupID}}
-\item{\code{WorkflowID}}
-\item{\code{Numerator}}
-\item{\code{Denominator}}
-\item{\code{Metric}}
-\item{\code{Score}}
-\item{\code{Flag}}
+\item 'all': All groups.
+\item 'red': Groups with 1+ red flags.
+\item 'red/amber': Groups with 1+ red/amber flag.
+\item 'amber': Groups with 1+ amber flag.
 }}
 
-\item{dfSite}{\code{data.frame} Site metadata with columns:
-\itemize{
-\item{\code{studyid}}
-\item{\code{siteid} (derived from \code{pi_number})}
-\item{\code{account}}
-\item{\code{pi_last_name}}
-\item{\code{status}}
-\item{\code{country}}
-\item{\code{enrolled_participants} (derived)}
-}}
-
-\item{dfMetrics}{\code{data.frame} Workflow metadata with columns:
-\itemize{
-\item{\code{workflowid}}
-\item{\code{abbreviation}}
-\item{\code{numerator}}
-\item{\code{denominator}}
-\item{\code{metric}}
-\item{\code{score}}
-}}
+\item{bDebug}{\code{logical} Print debug messages? Default: \code{FALSE}.}
 }
 \description{
-A widget that displays a site overview table based on the output of KRI pipelines.
+A widget that generates a site overview table of group-level metric results across one or more
+metrics.
 }
 \details{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
@@ -72,41 +62,40 @@ workflows <- MakeWorkflowList()
 data_mapped <- RunWorkflow(workflows$mapping, data_raw)$lData
 
 results <- workflows[ grepl('^kri', names(workflows) ) ] \%>\%
-    map(\(workflow) RunWorkflow(workflow, data_mapped))
+    map(~ RunWorkflow(.x, data_mapped))
 
 dfSummary <- results \%>\% map_dfr(~ {
     data <- .x$lData$dfSummary
-    data$workflowid <- .x$name
+    data$MetricID <- .x$name
     data
 })
 
 counts <- RunWorkflow(workflows$counts, data_mapped)
 
-dfSite <- clindata::ctms_site \%>\%
-    mutate(
-        siteid = .data$site_num,
-        invname = paste(.data$pi_last_name, .data$pi_first_name, sep = ', ')
-    ) \%>\%
-    left_join(
-        counts$lData$dfSiteCounts,
-        c('site_num' = 'GroupID')
-    ) \%>\%
-    rename(
-        status = site_status,
-        enrolled_participants = nSubjects
-    )
+# TODO: use [ clindata::rawplus_dm$invid ] and [ clindata::ctms_site$pi_number ] insstead of
+# [ clindata::rawplus_dm$siteid ] and [ clindata::ctms_site$site_num ].
+dfGroups <- clindata::ctms_site \%>\%
+  dplyr::left_join(
+    clindata::rawplus_dm \%>\%
+      dplyr::group_by(siteid) \%>\%
+      dplyr::tally(name = "enrolled_participants"),
+    c('site_num' = 'siteid')
+  ) \%>\%
+  dplyr::rename(
+    SiteID = site_num,
+    status = site_status
+  )
 
 dfMetrics <- results \%>\% map_dfr(~ {
     metric <- .x$meta
-    metric$workflowid <- metric$MetricID
     metric$vThreshold <- paste(metric$vThreshold, collapse = ',')
     metric
 })
 
 Widget_SiteOverview(
   dfSummary,
-  dfSite,
-  dfMetrics
+  dfMetrics,
+  dfGroups
 )
 }
 }

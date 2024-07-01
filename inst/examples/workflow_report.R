@@ -23,14 +23,14 @@ dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed = dfTransformed,
 ##create dfMetrics meta object for charts
 dfMetrics <- data.frame(
   MetricID =  "kri0001",
-  file = "kri0001.yaml",
-  group = "site",
-  abbreviation = "AE",
-  metric = "Adverse Event Rate",
-  numerator = "Adverse Events",
-  denominator = "Days on Study",
-  model = "Normal Approximation",
-  score = "Adjusted Z-Score"
+  File = "kri0001.yaml",
+  Group = "site",
+  Abbreviation = "AE",
+  Metric = "Adverse Event Rate",
+  Numerator = "Adverse Events",
+  Denominator = "Days on Study",
+  Model = "Normal Approximation",
+  Score = "Adjusted Z-Score"
 )
 
 #add Study and Snapshot information to dfBounds and dfSummarized
@@ -60,5 +60,5 @@ Report_KRI(lCharts = lCharts,
            dfSummary = dfSummarized,
            dfSite = dfSite,
            dfStudy = dfStudy,
-           dfMetrics =dfMetrics,
+           dfMetrics = dfMetrics,
            strOutpath = strOutpath)

@@ -1,19 +1,19 @@
 meta:
   File: snapshot.yaml
-  desctipion: run all steps in a snapshot
+  description: run all steps in a snapshot
 steps:
   # Generate Mapping Data Model
   - name: MakeWorkflowList
     output: wf_mapping
     params:
-      strNames: mapping 
+      strNames: mapping
   - name: RunWorkflows
     output: lMapped
     params:
-      lData: lData 
+      lData: lData
       lWorkflow: wf_mapping
       bKeepInputData: FALSE
-  
+
   # Run KRIs
   - name: MakeWorkflowList
     output: lWorkflows
@@ -23,10 +23,10 @@ steps:
     output: lAnalysis
     params:
       lWorkflows: lWorkflows
-      lData: lMapped  
+      lData: lMapped
       bKeepInputData: FALSE
-  
-  # Generate Reporting Data Model 
+
+  # Generate Reporting Data Model
   # Minor hack to regenerate dfEnrolled in the core lData object. Can pull from mapping database in prod
   - name: RunQuery
     output: dfEnrolled
@@ -40,7 +40,7 @@ steps:
   - name: RunWorkflows
     output: lReporting
     params:
-      lWorkflows: wf_reporting 
-      lData: lData 
+      lWorkflows: wf_reporting
+      lData: lData
       bKeepInputData: FALSE
-      
+

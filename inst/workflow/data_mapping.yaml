@@ -1,6 +1,6 @@
 meta:
   File: mapping.yaml
-  desctipion: Data Mappings to prepare for metric calculations
+  description: Data Mappings to prepare for metric calculations
 steps:
   - name: RunQuery
     output: dfEnrolled
@@ -11,12 +11,12 @@ steps:
     output: dfSeriousAE
     params:
       df: dfAE
-      strQuery: "SELECT * FROM df WHERE aeser = 'Y'"  
+      strQuery: "SELECT * FROM df WHERE aeser = 'Y'"
   - name: RunQuery
     output: dfAE
     params:
       df: dfAE
-      strQuery: "SELECT * FROM df"  
+      strQuery: "SELECT * FROM df"
   - name: RunQuery
     output: dfNonimportantPD
     params:
@@ -41,12 +41,12 @@ steps:
     output: dfStudyDropouts
     params:
       df: dfSTUDCOMP
-      strQuery: "SELECT * FROM df WHERE compyn IN ('N')"  
+      strQuery: "SELECT * FROM df WHERE compyn IN ('N')"
   - name: RunQuery
     output: dfTreatmentDropouts
     params:
       df: dfSDRGCOMP
-      strQuery: "SELECT * FROM df WHERE sdrgyn IN ('N') AND phase = 'Blinded Study Drug Completion'"  
+      strQuery: "SELECT * FROM df WHERE sdrgyn IN ('N') AND phase = 'Blinded Study Drug Completion'"
   - name: RunQuery
     output: dfValidQueries
     params:
@@ -56,17 +56,17 @@ steps:
     output: dfOldValidQueries
     params:
       df: dfValidQueries
-      strQuery: "SELECT * FROM df WHERE queryage > 30"  
+      strQuery: "SELECT * FROM df WHERE queryage > 30"
   - name: RunQuery
     output: dfDataChanges
     params:
       df: dfDATACHG
-      strQuery: "SELECT subjectname as subject_nsv, * FROM df"    
+      strQuery: "SELECT subjectname as subject_nsv, * FROM df"
   - name: RunQuery
     output: dfQuery
     params:
       df: dfQUERY
-      strQuery: "SELECT subjectname as subject_nsv, * FROM df"  
+      strQuery: "SELECT subjectname as subject_nsv, * FROM df"
   - name: RunQuery
     output: dfDataEntry
     params:
@@ -76,12 +76,12 @@ steps:
     output: dfSlowDataEntry
     params:
       df: dfDATAENT
-      strQuery: "SELECT subjectname as subject_nsv, * FROM df WHERE data_entry_lag > 10"  
+      strQuery: "SELECT subjectname as subject_nsv, * FROM df WHERE data_entry_lag > 10"
   - name: RunQuery
     output: dfChangedDataPoints
     params:
       df: dfDATACHG
-      strQuery: "SELECT subjectname as subject_nsv, * FROM df WHERE n_changes > 0"  
+      strQuery: "SELECT subjectname as subject_nsv, * FROM df WHERE n_changes > 0"
   - name: RunQuery
     output: dfScreened
     params:
@@ -91,4 +91,4 @@ steps:
     output: dfScreenFail
     params:
       df: dfENROLL
-      strQuery: "SELECT * FROM df WHERE enrollyn = 'N'" 
+      strQuery: "SELECT * FROM df WHERE enrollyn = 'N'"
