@@ -25,11 +25,11 @@ lAnalysis <- RunWorkflows(lWorkflow = wf_kri, lData = lMapped)
 
 # Generate Reporting Data
 lReporting_Input <- list(
-    ctms_site = clindata::ctms_site, 
+    ctms_site = clindata::ctms_site,
     ctms_study = clindata::ctms_study,
     dfEnrolled =lMapped$dfEnrolled,
     lWorkflows = wf_kri,
-    lAnalysis = list(kri0001 = lAnalysis), 
+    lAnalysis = list(kri0001 = lAnalysis),
     dSnapshotDate = Sys.Date(),
     strStudyID = "ABC-123"
 )
@@ -43,16 +43,16 @@ dfSummary <- lReporting$dfSummary
 dfBounds <- lReporting$dfBounds
 
 # Create dfSites and dfStudy pending rbm-viz update to use dfGroups
-dfSite <- dfSites <- dfGroups %>% 
-  filter(GroupLevel == "Site") %>% 
+dfSite <- dfSites <- dfGroups %>%
+  filter(GroupLevel == "Site") %>%
   pivot_wider(names_from=Param, values_from=Value) %>%
   rename(
-    SiteID = GroupID, 
+    SiteID = GroupID,
     status = Status,
     enrolled_participants = ParticipantCount
-  ) 
+  )
 
-dfStudy <- dfStudies <- dfGroups %>% filter(GroupLevel == "Study") %>% pivot_wider(names_from=Param, values_from=Value)  
+dfStudy <- dfStudies <- dfGroups %>% filter(GroupLevel == "Study") %>% pivot_wider(names_from=Param, values_from=Value)
 
 # Lazy longitudinal data
 dfSummary_long <- bind_rows(
@@ -67,13 +67,13 @@ metrics<- unique(dfMetrics$MetricID)
 charts <- metrics %>% map(~Visualize_Metric(
   dfSummary = dfSummary_long,
   dfBounds = dfBounds,
-  dfSite = dfSite,
+  dfGroups = dfGroups,
   dfMetrics = dfMetrics,
   strMetricID = .x
 )
 ) %>% setNames(metrics)
 
-# Just one metric 
+# Just one metric
 lCharts <- Visualize_Metric(
   dfSummary = dfSummary_long,
   dfBounds = dfBounds,
@@ -86,7 +86,7 @@ lCharts <- Visualize_Metric(
 ## Individual Cross sectional charts (for testing)
  lMetric <- as.list(dfMetrics %>%  mutate(Group=GroupLevel))
  vThreshold <- gsm::ParseThreshold(lMetric$strThreshold)
- 
+
  devtools::load_all()
  gsm::Widget_ScatterPlot(
   dfSummary = dfSummary,
@@ -99,7 +99,7 @@ lCharts <- Visualize_Metric(
 gsm::Visualize_Scatter(
   dfSummary = dfSummary,
   dfBounds = dfBounds,
-  strGroupLabel = lMetrics$Group
+  strGroupLabel = lMetric$Group
 )
 
  gsm::Widget_BarChart(
@@ -125,7 +125,7 @@ gsm::Visualize_Score(
 gsm::Visualize_Score(
   dfSummary = dfSummary,
   strType = "Score",
-  vThreshold = gsm::ParseThreshold(lMetrics$strThreshold)
+  vThreshold = gsm::ParseThreshold(lMetric$strThreshold)
 )
 
 # Longitudinal charts
@@ -161,14 +161,14 @@ Widget_TimeSeries(
 
 
 # Check Reporting outputs (for testing)
-dfGroups <- lReporting$lData$dfGroups
+dfGroups <- lReporting$dfGroups
 head(dfGroups)
 table(paste(dfGroups$GroupLevel, dfGroups$Param))
 
-dfMetrics <- lReporting$lData$dfMetrics
+dfMetrics <- lReporting$dfMetrics
 head(dfMetrics)
 
-dfSummary <- lReporting$lData$dfSummary
+dfSummary <- lReporting$dfSummary
 head(dfSummary)
 table(dfSummary$MetricID, dfSummary$Flag)
 

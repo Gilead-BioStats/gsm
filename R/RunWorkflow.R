@@ -9,8 +9,8 @@
 #' @param lWorkflow `list` A named list of metadata defining how the workflow should be run.
 #' @param lData `list` A named list of domain-level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
 #' @param bKeepInputData `boolean` should the input data be returned? Default is `FALSE`.
-#' @param bReturnData `boolean` should function return only bData or should meta and steps be included? Default is `TRUE`.
-#' 
+#' @param bReturnData `boolean` should function return only lData or should meta and steps be included? Default is `TRUE`.
+#'
 #' @return `list` containing objects named: `steps`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `lWorkflowChecks`, and `lResults`.
 #'
 #' @examples
@@ -35,15 +35,15 @@
 #' @export
 
 RunWorkflow <- function(
-  lWorkflow, 
-  lData, 
-  bReturnData = TRUE, 
+  lWorkflow,
+  lData,
+  bReturnData = TRUE,
   bKeepInputData = FALSE
 ) {
   cli::cli_h1(paste0("Initializing `", lWorkflow$meta$File, "` Workflow"))
   print(names(lData))
 
-  # check that the workflow has steps 
+  # check that the workflow has steps
   if(length(lWorkflow$steps) == 0) {
     cli::cli_alert("Workflow `{lWorkflow$Meta$File}` has no `steps` property.")
   }
@@ -81,10 +81,10 @@ RunWorkflow <- function(
     outputs <- lWorkflow$steps %>% purrr::map_chr(~.x$output)
     lWorkflow$lData <- lWorkflow$lData[outputs]
     cli::cli_alert_info("Returning workflow outputs: {names(lWorkflow$lData)}")
-  } else{ 
+  } else{
     cli::cli_alert_info("Returning workflow inputs and outputs: {names(lWorkflow$lData)}")
   }
-  
+
   cli::cli_h1(paste0("Completed `", lWorkflow$meta$File, "` Workflow"))
   if(bReturnData){
     return(lWorkflow$lData)
