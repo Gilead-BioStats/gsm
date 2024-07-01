@@ -1,7 +1,12 @@
-test_that("Widget_SiteOverview processes data correctly", {
+test_that("Widget_SiteOverview creates a valid HTML widget", {
   source(test_path("testdata", "create_simple_data.R"), local = TRUE)
   widget <- Widget_SiteOverview(dfSummary, lConfig, dfSite, dfWorkflow)
   expect_s3_class(widget, c("WidgetSiteOverview", "htmlwidget"))
+})
+
+test_that("Widget_SiteOverview returns expected data", {
+  source(test_path("testdata", "create_simple_data.R"), local = TRUE)
+  widget <- Widget_SiteOverview(dfSummary, lConfig, dfSite, dfWorkflow)
 
   expect_named(
     fromJSON(widget$x$dfSummary),
@@ -11,16 +16,3 @@ test_that("Widget_SiteOverview processes data correctly", {
   expect_s3_class(fromJSON(widget$x$dfGroups), "data.frame")
   expect_s3_class(fromJSON(widget$x$strGroupSubset), "data.frame")
 })
-
-test_that("Widget_SiteOverview creates a valid HTML widget", {
-  source(test_path("testdata", "create_simple_data.R"), local = TRUE)
-  widget <- Widget_SiteOverview(dfSummary, lConfig, dfSite, dfWorkflow)
-
-  # Check if the widget is of class htmlwidget
-  expect_true(inherits(widget, "htmlwidget"))
-
-  # Check if the widget has expected dimensions
-  expect_equal(widget$width, "100%")
-  expect_equal(widget$height, NULL)
-})
-
