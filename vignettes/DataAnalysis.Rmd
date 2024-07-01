@@ -61,15 +61,15 @@ Since `Input_Rate()` is a generalized function, it is also required that you spe
 Finally, the method for calculating the Numerator and Denominator is specified in `strNumeratorMethod` and `strDenominatorMethod` as either "Count" or "Sum".  If the method is "Count", the function simply counts the number of rows in the provided data frame. If the numerator method is "Sum", the function takes the sum of the values in the specified column (strNumeratorCol or strDenominatorCol). 
 
 
-```{r eval = FALSE, include = TRUE}
+```{r include = TRUE}
 dfInput <- Input_Rate(
-              dfSubjects= clindata::rawplus_dm,
-              dfNumerator= clindata::rawplus_ae,
+              dfSubjects = clindata::rawplus_dm,
+              dfNumerator = clindata::rawplus_ae,
               dfDenominator = clindata::rawplus_dm,
-              strSubjectCol = "subjid"
-              strGroupCol = "siteid"
-              strNumeratorMethod = "Count"
-              strDenominatorMethod = "Sum"
+              strSubjectCol = "subjid",
+              strGroupCol = "siteid",
+              strNumeratorMethod = "Count",
+              strDenominatorMethod = "Sum",
               strDenominatorCol = "timeonstudy"
 )
 ```
@@ -94,7 +94,7 @@ dt(dfInput) %>%
 
 The data frame `dfTransformed` is derived from `dfInput` using a `Transform()` function. In our example, the analysis pipeline pulls in `Transform_Rate()` since the default metric for AEs is the number of AEs reported over the course of treatment per site, i.e., a rate.
 
-```{r eval = FALSE, include = TRUE}
+```{r include = TRUE}
 dfTransformed <- Transform_Rate(dfInput)
 ```
 
@@ -117,7 +117,7 @@ formatRound(columns = "Metric", digits = 3)
 
 The data frame `dfAnalyzed` is derived from `dfTransformed` using an `Analyze()` function, which incorporates a specific statistical model. The resulting `dfAnalyzed` data frame will contain site-level analysis results data. The normal approximation method is the default statistical model for AE data, so the analysis pipeline automatically runs `Analyze_NormalApprox()`.
 
-```{r eval = FALSE, include = TRUE}
+```{r include = TRUE}
 dfAnalyzed <- Analyze_NormalApprox(dfTransformed)
 ```
 
@@ -143,7 +143,7 @@ dt(dfAnalyzed) %>%
 
 The data frame `dfFlagged` is derived from `dfAnalyzed` using a `Flag()` function. The resulting `dfFlagged` data frame will contain site-level analysis results data with flagging incorporated based on a pre-specified statistical threshold to highlight possible outliers.
 
-```{r eval = FALSE, include = TRUE}
+```{r include = TRUE}
 dfFlagged <- Flag_NormalApprox(dfAnalyzed, vThreshold = c(-3, -2, 2, 3))
 ```
 
@@ -177,7 +177,7 @@ The data frame `dfSummary` is derived from `dfFlagged` using the `Summarize()` f
 -   `Score`: Calculated Residual (per site)
 -   `Flag`: Flag Indicating Possible Statistical Outliers; Valid values for this variable include -2, -1, 0, 1, and 2, which determine the "extremeness" of the outlier. -2 and 2 represent more extreme outliers, -1 and 1 represent less extreme outliers, and 0 represents a non-outlier.
 
-```{r eval = FALSE, include = TRUE}
+```{r include = TRUE}
 dfSummary <- Summarize(dfFlagged)
 ```
 
