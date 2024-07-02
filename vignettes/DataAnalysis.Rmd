@@ -182,7 +182,7 @@ dfSummary <- Summarize(dfFlagged)
 ```
 
 ```{r, echo = FALSE}
-dt(dfSummary)
+dt(dfSummary[-1,])
 ```
 
 ------------------------------------------------------------------------
