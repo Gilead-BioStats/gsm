@@ -16,3 +16,8 @@ test_that("Widget_SiteOverview returns expected data", {
   expect_s3_class(fromJSON(widget$x$dfGroups), "data.frame")
   expect_s3_class(fromJSON(widget$x$strGroupSubset), "data.frame")
 })
+
+test_that("Widget_SiteOverviewOutput returns correct class", {
+  widgetOutput <- Widget_SiteOverviewOutput("test")
+  expect_s3_class(widgetOutput, c("shiny.tag.list", "list"))
+})

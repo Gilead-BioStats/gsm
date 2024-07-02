@@ -47,9 +47,9 @@
 #'     data$MetricID <- .x$name
 #'     data
 #' })
-#' 
+#'
 #' counts <- RunWorkflow(workflows$counts, data_mapped)
-#' 
+#'
 #' # TODO: use [ clindata::rawplus_dm$invid ] and [ clindata::ctms_site$pi_number ] insstead of
 #' # [ clindata::rawplus_dm$siteid ] and [ clindata::ctms_site$site_num ].
 #' dfGroups <- clindata::ctms_site %>%
@@ -63,13 +63,13 @@
 #'     SiteID = site_num,
 #'     status = site_status
 #'   )
-#' 
+#'
 #' dfMetrics <- results %>% map_dfr(~ {
 #'     metric <- .x$meta
 #'     metric$vThreshold <- paste(metric$vThreshold, collapse = ',')
 #'     metric
 #' })
-#' 
+#'
 #' Widget_SiteOverview(
 #'   dfSummary,
 #'   dfMetrics,
