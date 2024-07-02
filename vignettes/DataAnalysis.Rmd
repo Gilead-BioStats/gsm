@@ -32,17 +32,17 @@ dt <- function(data){
 
 # Introduction
 
-This vignette walks users through the mechanics of the `Assess()` functions within the `{gsm}` package. `{gsm}` leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level and site-level Risk Based Monitoring for clinical trials.
+This vignette walks users through the mechanics of the functions that produce all of the Analytics output within the `{gsm}` package. `{gsm}` leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level and site-level Risk Based Monitoring for clinical trials.
 
-The `Assess()` functions provide data frames, visualizations, and metadata to be used in reporting and error checking at clinical sites. The image below illustrates the supporting functions that feed into the workflow of the `Assess()` functions.
+These functions provide data frames, visualizations, and metadata to be used in reporting and error checking at clinical sites. The image below illustrates the supporting functions that feed into the `yaml` workflow that is specified in each analysis workflow.
 
 ![](data-analysis.PNG){width="100%"}
 
-All of these functions will run automatically and sequentially when a user calls upon a given `Assess()` function.
+All of these functions will run automatically and sequentially when a user calls upon the `RunWorkflow()` function with a specified `yaml` file for KRI metrics.
 
-Each of these individual functions can also be run independently outside of an `Assess()` function.
+Each of these individual functions can also be run independently outside of a specified `yaml` workflow.
 
-For the purposes of this documentation, we will evaluate the input(s) and output(s) of each individual function for a specific KRI to show the stepwise progression of how `Assess()` handles and processes data.
+For the purposes of this documentation, we will evaluate the input(s) and output(s) of each individual function for a specific KRI to show the stepwise progression of how a  `yaml` workflow is set up to handle and process data.
 
 ------------------------------------------------------------------------
 
@@ -54,31 +54,38 @@ Additional statistical methods and supporting functions are explored in [Appendi
 
 ### 1. Create `dfInput`
 
-Generating input data is outside the scope of the assessment pipeline itself. However, the specifications for `dfInput` are designed to be flexible enough so that this data frame can be generated from multiple clinical data standards. For example, users can run the `Map_Raw()` function, which will create `dfInput` from rawplus data.
+Start by creating `dfInput` using sample rawplus data from `{clindata}`. Note that `Input_Rate()` requires three specific datasets from `{clindata}`, which include a subject-level demographics/exposure dataset (`dfSubjects`) and a domain-level dataset (`dfNumerator`) that records every adverse event per subject. 
 
-The data frame `dfInput` for an AE assessment will be created by running `AE_Map_Raw()` and will have one record per subject, with the following columns:
+Since `Input_Rate()` is a generalized function, it is also required that you specify the relevant column names for the Subject (`strSubjectCol`), Group (`strGroupCol`) and optionally the Denominator (`strDenominatorCol`) and Numerator (`strNumeratorCol`) when it is not simply "Denominator" or "Numerator", respectively.
 
--   `SubjectID`: Subject Identifier
--   `SiteID`: Site Identifier
--   `StudyID`: Study Identifier
--   `CountryID`: Country Identifier
--   `CustomGroupID`: Custom Group Identifier (in this example, set to Investigator ID)
--   `Exposure`: Total Time on Treatment (measured in days; per subject)
--   `Count`: Total Number of Event(s) of Interest (in this example, the number of AEs reported; per subject)
--   `Rate`: Rate of Event Incidence (calculated as `Exposure`/`Count`; per subject)
+Finally, the method for calculating the Numerator and Denominator is specified in `strNumeratorMethod` and `strDenominatorMethod` as either "Count" or "Sum".  If the method is "Count", the function simply counts the number of rows in the provided data frame. If the numerator method is "Sum", the function takes the sum of the values in the specified column (strNumeratorCol or strDenominatorCol). 
 
-```{r}
-# dfInput <- AE_Map_Raw(
-#   dfs = list(
-#     dfSUBJ = clindata::rawplus_dm,
-#     dfAE = clindata::rawplus_ae
-#   )
-# ) 
+
+```{r include = TRUE}
+dfInput <- Input_Rate(
+              dfSubjects = clindata::rawplus_dm,
+              dfNumerator = clindata::rawplus_ae,
+              dfDenominator = clindata::rawplus_dm,
+              strSubjectCol = "subjid",
+              strGroupCol = "siteid",
+              strNumeratorMethod = "Count",
+              strDenominatorMethod = "Sum",
+              strDenominatorCol = "timeonstudy"
+)
 ```
 
+The data frame `dfInput` for an AE assessment will be created by running `Input_Rate()` and will have one record per subject, with the following columns:
+
+-   `SubjectID`: Subject Identifier
+-   `GroupID`: Group Identifier
+-   `GroupLevel`: Type of Group specified in `GroupID` (Country, Site, QTL)
+-   `Numerator`: Total Time on Treatment (measured in days; per subject)
+-   `Denominator`: Total Number of Event(s) of Interest (in this example, the number of AEs reported; per subject)
+-   `Metric`: Rate of Event Incidence (calculated as `Exposure`/`Count`; per subject)
+
 ```{r echo = FALSE}
-# dt(dfInput) %>% 
-#   formatRound(columns = "Rate", digits = 3)
+dt(dfInput) %>%
+  formatRound(columns = "Rate", digits = 3)
 ```
 
 ------------------------------------------------------------------------
@@ -87,24 +94,21 @@ The data frame `dfInput` for an AE assessment will be created by running `AE_Map
 
 The data frame `dfTransformed` is derived from `dfInput` using a `Transform()` function. In our example, the analysis pipeline pulls in `Transform_Rate()` since the default metric for AEs is the number of AEs reported over the course of treatment per site, i.e., a rate.
 
+```{r include = TRUE}
+dfTransformed <- Transform_Rate(dfInput)
+```
+
 The resulting `dfTransformed` data frame will contain site-level transformed data, including KRI calculation. Using our example AE data, `dfTransformed` contains the following columns:
 
 -   `GroupID`: Group Identifier (default is Site ID)
+-   `GroupLevel`: Type of Group specified in `GroupID` (Country, Site, QTL)
 -   `Numerator`: Cumulative Number of Event(s) of Interest (in this example, number of AEs reported across subjects)
 -   `Denominator`: Cumulative Time on Treatment (in days, across subjects)
 -   `Metric`: Rate of Event(s) of Interest (in this example, number of AEs reported over the course of treatment in days)
 
-```{r}
-# dfTransformed <- Transform_Rate(
-#   dfInput,
-#   strNumeratorCol = "Count",
-#   strDenominatorCol = "Exposure"
-# ) 
-```
-
 ```{r, echo = FALSE}
-# dt(dfTransformed) %>% 
-  # formatRound(columns = "Metric", digits = 3)
+dt(dfTransformed) %>%
+formatRound(columns = "Metric", digits = 3)
 ```
 
 ------------------------------------------------------------------------
@@ -113,9 +117,14 @@ The resulting `dfTransformed` data frame will contain site-level transformed dat
 
 The data frame `dfAnalyzed` is derived from `dfTransformed` using an `Analyze()` function, which incorporates a specific statistical model. The resulting `dfAnalyzed` data frame will contain site-level analysis results data. The normal approximation method is the default statistical model for AE data, so the analysis pipeline automatically runs `Analyze_NormalApprox()`.
 
+```{r include = TRUE}
+dfAnalyzed <- Analyze_NormalApprox(dfTransformed)
+```
+
 Using our example AE data, `dfAnalyzed` contains the following columns:
 
 -   `GroupID`: Group Identifier (default is Site ID)
+-   `GroupLevel`: Type of Group specified in `GroupID` (Country, Site, QTL)
 -   `Numerator`: Cumulative Number of Event(s) of Interest (in this example, number of AEs reported across subjects); Carried from `dfTransformed`.
 -   `Denominator`: Cumulative Time on Treatment (in days, across subjects); Carried from `dfTransformed`.
 -   `Metric`: Rate of Event(s) of Interest (in this example, number of AEs reported over the course of treatment in days); Carried from `dfTransformed`.
@@ -123,13 +132,9 @@ Using our example AE data, `dfAnalyzed` contains the following columns:
 -   `Factor`: Calculated over-dispersion adjustment factor (mean of the z-score sum of squares calculated in the analysis functions).
 -   `Score`: Calculated Residual (per site).
 
-```{r}
-# dfAnalyzed <- Analyze_NormalApprox(dfTransformed)
-```
-
 ```{r, echo = FALSE}
-# dt(dfAnalyzed) %>% 
-#   formatRound(columns = c("Metric", "OverallMetric", "Factor", "Score"), digits = 3)
+dt(dfAnalyzed) %>%
+  formatRound(columns = c("Metric", "OverallMetric", "Factor", "Score"), digits = 3)
 ```
 
 ------------------------------------------------------------------------
@@ -138,9 +143,14 @@ Using our example AE data, `dfAnalyzed` contains the following columns:
 
 The data frame `dfFlagged` is derived from `dfAnalyzed` using a `Flag()` function. The resulting `dfFlagged` data frame will contain site-level analysis results data with flagging incorporated based on a pre-specified statistical threshold to highlight possible outliers.
 
+```{r include = TRUE}
+dfFlagged <- Flag_NormalApprox(dfAnalyzed, vThreshold = c(-3, -2, 2, 3))
+```
+
 The default flagging function for the normal approximation method is `Flag_NormalApprox()` and the default threshold is (-3, -2, 2, 3). Using our example AE data, `dfFlagged` contains the following columns:
 
 -   `GroupID`: Group Identifier (default is Site ID)
+-   `GroupLevel`: Type of Group specified in `GroupID` (Country, Site, QTL)
 -   `Numerator`: Cumulative Number of Event(s) of Interest (in this example, number of AEs reported across subjects); Carried from `dfAnalyzed`
 -   `Denominator`: Cumulative Time on Treatment (in days, across subjects); Carried from `dfAnalyzed`
 -   `Metric`: Rate of Event(s) of Interest (in this example, number of AEs reported over the course of treatment in days); Carried from `dfAnalyzed`
@@ -149,12 +159,8 @@ The default flagging function for the normal approximation method is `Flag_Norma
 -   `Score`: Calculated Residual (per site); Carried from `dfAnalyzed`
 -   `Flag`: Flag Indicating Possible Statistical Outliers; Valid values for this variable include -2, -1, 0, 1, and 2, which determine the "extremeness" of the outlier. -2 and 2 represent more extreme outliers, -1 and 1 represent less extreme outliers, and 0 represents a non-outlier.
 
-```{r}
-# dfFlagged <- Flag_NormalApprox(dfAnalyzed, vThreshold = c(-3, -2, 2, 3))
-```
-
 ```{r, echo = FALSE}
-# dt(dfFlagged)
+dt(dfFlagged)
 ```
 
 ------------------------------------------------------------------------
@@ -164,57 +170,60 @@ The default flagging function for the normal approximation method is `Flag_Norma
 The data frame `dfSummary` is derived from `dfFlagged` using the `Summarize()` function. The resulting `dfSummary` data frame will contain the most relevant columns from `dfFlagged` with data sorted in a meaningful way to provide a concise overview of the assessment. Flagged sites will sort earlier than non-flagged sites, with the more "extreme" outliers displayed first. The columns in `dfSummary` include:
 
 -   `GroupID`: Group Identifier (default is Site ID)
+-   `GroupLevel`: Type of Group specified in `GroupID` (Country, Site, QTL)
 -   `Numerator`: Cumulative Number of Event(s) of Interest (in this example, number of AEs reported across subjects); Carried from `dfAnalyzed`
 -   `Denominator`: Cumulative Time on Treatment (in days, across subjects); Carried from `dfAnalyzed`
 -   `Metric`: Rate of Event(s) of Interest (in this example, number of AEs reported over the course of treatment in days)
 -   `Score`: Calculated Residual (per site)
 -   `Flag`: Flag Indicating Possible Statistical Outliers; Valid values for this variable include -2, -1, 0, 1, and 2, which determine the "extremeness" of the outlier. -2 and 2 represent more extreme outliers, -1 and 1 represent less extreme outliers, and 0 represents a non-outlier.
 
-```{r}
-# dfSummary <- Summarize(dfFlagged)
+```{r include = TRUE}
+dfSummary <- Summarize(dfFlagged)
 ```
 
 ```{r, echo = FALSE}
-# dt(dfSummary)
+dt(dfSummary[-1,])
 ```
 
 ------------------------------------------------------------------------
 
 ### 6. Data Visualization
 
-Data visualizations are built into each `Assess()` function/KRI. For a Poisson AE assessment, a scatter plot of Total Exposure (in days, on log scale) vs Total Number of Event(s) of Interest (on linear scale) is created. Each data point represents one site with outliers displayed in yellow or red, depending on the "extremeness" of the KRI value. The `Visualize_Scatter()` function takes inputs of `dfTransformed` to define bounds and `dfFlagged` to plot the data. Using our example AE data, we see the following scatter plot:
+For a Normal Approximation AE assessment, a scatter plot of Total Exposure (in days, on log scale) vs Total Number of Event(s) of Interest (on linear scale) is created. Each data point represents one site with outliers displayed in yellow or red, depending on the "extremeness" of the KRI value. The `Visualize_Scatter()` function takes inputs of `dfBounds`-- which defines bounds based on the statistical model, `dfTransformed` and thresholds using `Analyze_NormalApprox_PredictBounds()`-- and `dfFlagged` to plot the data. Using our example AE data, we see the following scatter plot:
 
-```{r}
-# dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed, vThreshold = c(-3, -2, 2, 3))
+```{r include = TRUE}
+dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed, vThreshold = c(-3, -2, 2, 3))
 
-# chart <- Visualize_Scatter(dfFlagged, dfBounds)
+chart <- Visualize_Scatter(dfFlagged, dfBounds)
 ```
 
 ```{r, echo = FALSE, fig.width=7, fig.height=5}
-# chart
+chart
 ```
+
+A full explanation of all Data Visualizations in the `{gsm}` package is outlined in the Reporting Workflow vignette (ADD LINK).
 
 ------------------------------------------------------------------------
 
 # Recap - Normal Approximation Adverse Event KRI
 
--   `dfInput` used as original input using `AE_Map_Raw()`
+-   `dfInput` used as original input using `Input_Rate()`
 -   `dfTransformed` created from `dfInput` using `Transform_Rate()`
 -   `dfAnalyzed` created from `dfTransformed` using `Analyze_NormalApprox()`
 -   `dfFlagged` created from `dfAnalyzed` using `Flag_NormalApprox()`
 -   `dfSummary` created from `dfFlagged` using `Summarize()`
--   Scatter plot created from `Visualize_Scatter()` using `dfTransformed` and `dfFlagged`
+-   Scatter plot created from `dfTransformed` and `dfFlagged` using `Visualize_Scatter()`
 
 ------------------------------------------------------------------------
 
 # Appendix 1 - Supporting Functions {#appendix-1}
 
-The following sections include various examples of supporting functions and statistical models that can be employed in the `Assess()` functions. Please note that this is **not** an exhaustive list, but includes some of the most commonly called upon functions.
+The following sections include various examples of supporting functions and statistical models that can be employed in the Analytics workflow. Please note that this is **not** an exhaustive list, but includes some of the most commonly called upon functions.
 
 ### Mapping Functions
 
--   `Map_Raw()`: Creates input data using rawplus data
--   `Map_Adam()`: Creates input data using CDISC-compliant ADaM data
+-   `RunQuery()`: Run a SQL query to create new data.frames with filtering and column name specifications.
+-   `Input_Rate()`: Calculate a subject level rate from raw numerator and denominator data
 
 ### Transform Functions
 
@@ -237,12 +246,13 @@ The following sections include various examples of supporting functions and stat
 
 ### Visualization Functions
 
--   `Visualize_Scatter`: Creates scatter plot of Total Exposure (in days, on log scale) vs Total Number of Event(s) of Interest (on linear scale). Each data point represents one site. Outliers are plotted in red with the site label attached. This plot is only created when statistical method is **not** defined as `identity`.
--   `Visualize_Score`: Provides a standard visualization for Score or KRI
+-   `Visualize_Scatter()`: Creates scatter plot of Total Exposure (in days, on log scale) vs Total Number of Event(s) of Interest (on linear scale). Each data point represents one site. Outliers are plotted in red with the site label attached. This plot is only created when statistical method is **not** defined as `identity`.
+-   `Visualize_Score()`: Provides a standard visualization for Score or KRI.
+-   `Visualize_Metric()`: Creates all available charts for a metric using the data provided.
 
 ### What Statistical Models Are Available For Each Assessment?
 
--   By default, all assessments use the [normal approximation](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-normal-approximation-method) method.
+-   By default, all `yaml` workflow assessments specified in the `inst/workflows/` directory use the [normal approximation](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-normal-approximation-method) method.
 -   Optionally, other statistical methods include: [**Poisson**](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-poisson-regression-method), [**Fisher's Exact**](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-fishers-exact-method), and [**Identity**](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-identity-method).
 
 ![](data-analysis-combined.PNG){width="100%"}
