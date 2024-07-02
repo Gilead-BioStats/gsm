@@ -7,6 +7,10 @@ dependencies:
     version: 0.0.1
     src: 'utils-0.0.1'
     script: 'number_to_array.js'
+  - name: addCountrySelect
+    version: 0.0.1
+    src: 'utils-0.0.1'
+    script: 'addCountrySelect.js'
   - name: addSiteSelect
     version: 0.0.1
     src: 'utils-0.0.1'

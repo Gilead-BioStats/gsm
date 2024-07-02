@@ -7,7 +7,7 @@
  *
  * @returns {Node} HTML select element
  */
-const addSiteSelect = function(el, results, instance, siteSelectLabelValue) {
+const addSiteSelect = function(el, results, instance, siteSelectLabelValue, countrySelect) {
     el.style.position = 'relative';
 
     // add container in which to place dropdown
@@ -36,7 +36,7 @@ const addSiteSelect = function(el, results, instance, siteSelectLabelValue) {
 
     // get sorted array of sites
     const sites = [
-        ...new Set(results.map(d => d.groupid))
+        ...new Set(results.map(d => d.GroupID))
     ];
     const numericSites = sites.every(site => /^\d+$/.test(site));
     sites.sort((a,b) => {
@@ -54,11 +54,6 @@ const addSiteSelect = function(el, results, instance, siteSelectLabelValue) {
         siteSelect.classList.add('site-select');
     }
 
-    // add event listener to dropdown that updates chart
-    siteSelect.addEventListener('change', event => {
-        instance.data.config.selectedGroupIDs = event.target.value; // site
-        instance.helpers.updateConfig(instance, instance.data.config, instance.data._thresholds_);
-    });
 
     return siteSelect;
 }
