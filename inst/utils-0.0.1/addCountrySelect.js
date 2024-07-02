@@ -2,7 +2,7 @@
  * Adds a dropdown to highlight the selected country in the chart
  *
  * @param {Node} el - an element in the DOM
- * @param {Array} siteDetails - Site details (dfSite)
+ * @param {Array} results - KRI results (dfSummary)
  * @param {Object} instance - Chart.js chart object
  *
  * @returns {Node} HTML select element
@@ -10,7 +10,7 @@
 
 
 // Add event listener to highlight countries.
-const addCountrySelect = function(el, siteDetails, instance, siteSelect) {
+const addCountrySelect = function(el, results, instance, groupSelect) {
 
     el.style.position = 'relative';
 
@@ -40,7 +40,7 @@ const addCountrySelect = function(el, siteDetails, instance, siteSelect) {
 
     // get sorted array of country
     const countries = [
-        ...new Set(siteDetails.map(d => d.country))
+        ...new Set(results.map(d => d.site.country))
     ];
     const numericCountry = countries.every(country => /^\d+$/.test(country));
     countries.sort((a,b) => {
@@ -57,6 +57,20 @@ const addCountrySelect = function(el, siteDetails, instance, siteSelect) {
         countrySelect.appendChild(countryOption);
         countrySelect.classList.add('country-select');
     }
+
+
+    // add event listener to dropdown that updates chart
+    countrySelect.addEventListener('change', event => {
+        groupSelect.value = "None";
+        countryFilter =
+        instance.data.config.selectedGroupIDs = results.filter(d => d.site.country === event.target.value).map(d => d.GroupID); // country
+        instance.helpers.updateConfig(instance, instance.data.config, instance.data._thresholds_);
+    });
+
+        // add event listener to dropdown that updates chart
+    groupSelect.addEventListener('change', event => {
+        countrySelect.value = "None";
+    });
 
 
     return countrySelect;

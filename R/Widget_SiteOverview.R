@@ -1,40 +1,21 @@
-#' Site Overview Table
+#' Site Overview Widget
 #'
 #' `r lifecycle::badge("stable")`
 #'
 #' @description
-#' A widget that displays a site overview table based on the output of KRI pipelines.
+#' A widget that generates a site overview table of group-level metric results across one or more
+#' metrics.
 #'
-#' @param dfSummary `data.frame` Analysis results data with columns:
-#' \itemize{
-#'  \item{\code{GroupID}}
-#'  \item{\code{WorkflowID}}
-#'  \item{\code{Numerator}}
-#'  \item{\code{Denominator}}
-#'  \item{\code{Metric}}
-#'  \item{\code{Score}}
-#'  \item{\code{Flag}}
-#' }
-#'
-#' @param dfSite `data.frame` Site metadata with columns:
-#' \itemize{
-#'  \item{\code{studyid}}
-#'  \item{\code{siteid} (derived from \code{pi_number})}
-#'  \item{\code{account}}
-#'  \item{\code{pi_last_name}}
-#'  \item{\code{status}}
-#'  \item{\code{country}}
-#'  \item{\code{enrolled_participants} (derived)}
-#'
-#' @param dfMetrics `data.frame` Workflow metadata with columns:
-#' \itemize{
-#'  \item{\code{workflowid}}
-#'  \item{\code{abbreviation}}
-#'  \item{\code{numerator}}
-#'  \item{\code{denominator}}
-#'  \item{\code{metric}}
-#'  \item{\code{score}}
-#' }
+#' @param dfSummary `data.frame` Output of [gsm::Summarize()].
+#' @param dfMetrics `list` Metric metadata, captured at the top of metric workflows and returned by
+#' [gsm::MakeMetricInfo()].
+#' @param dfGroups `data.frame` Group metadata.
+#' @param strGroupSubset `character` Subset of groups to include in the table. Default: 'red'. Options:
+#' - 'all': All groups.
+#' - 'red': Groups with 1+ red flags.
+#' - 'red/amber': Groups with 1+ red/amber flag.
+#' - 'amber': Groups with 1+ amber flag.
+#' @param bDebug `logical` Print debug messages? Default: `FALSE`.
 #'
 #' @examples
 #' \dontrun{
@@ -59,63 +40,93 @@
 #' data_mapped <- RunWorkflow(workflows$mapping, data_raw)$lData
 #'
 #' results <- workflows[ grepl('^kri', names(workflows) ) ] %>%
-#'     map(\(workflow) RunWorkflow(workflow, data_mapped))
+#'     map(~ RunWorkflow(.x, data_mapped))
 #'
 #' dfSummary <- results %>% map_dfr(~ {
 #'     data <- .x$lData$dfSummary
-#'     data$workflowid <- .x$name
+#'     data$MetricID <- .x$name
 #'     data
 #' })
 #' 
 #' counts <- RunWorkflow(workflows$counts, data_mapped)
 #' 
-#' dfSite <- clindata::ctms_site %>%
-#'     mutate(
-#'         siteid = .data$site_num,
-#'         invname = paste(.data$pi_last_name, .data$pi_first_name, sep = ', ')
-#'     ) %>%
-#'     left_join(
-#'         counts$lData$dfSiteCounts,
-#'         c('site_num' = 'GroupID')
-#'     ) %>%
-#'     rename(
-#'         status = site_status,
-#'         enrolled_participants = nSubjects
-#'     )
+#' # TODO: use [ clindata::rawplus_dm$invid ] and [ clindata::ctms_site$pi_number ] insstead of
+#' # [ clindata::rawplus_dm$siteid ] and [ clindata::ctms_site$site_num ].
+#' dfGroups <- clindata::ctms_site %>%
+#'   dplyr::left_join(
+#'     clindata::rawplus_dm %>%
+#'       dplyr::group_by(siteid) %>%
+#'       dplyr::tally(name = "enrolled_participants"),
+#'     c('site_num' = 'siteid')
+#'   ) %>%
+#'   dplyr::rename(
+#'     SiteID = site_num,
+#'     status = site_status
+#'   )
 #' 
 #' dfMetrics <- results %>% map_dfr(~ {
 #'     metric <- .x$meta
-#'     metric$workflowid <- metric$MetricID
 #'     metric$vThreshold <- paste(metric$vThreshold, collapse = ',')
 #'     metric
 #' })
 #' 
 #' Widget_SiteOverview(
 #'   dfSummary,
-#'   dfSite,
-#'   dfMetrics
+#'   dfMetrics,
+#'   dfGroups
 #' )
 #' }
 #' @export
 
 Widget_SiteOverview <- function(
   dfSummary,
-  dfSite = clindata::ctms_site,
-  dfMetrics = gsm::meta_workflow
+  dfMetrics = gsm::meta_workflow,
+  dfGroups = clindata::ctms_site %>%
+    dplyr::left_join(
+      clindata::rawplus_dm %>%
+        dplyr::group_by(siteid) %>%
+        dplyr::tally(name = "enrolled_participants"),
+      c('site_num' = 'siteid')
+    ) %>%
+    dplyr::rename(
+      SiteID = site_num,
+      status = site_status
+    ),
+  strGroupSubset = 'red',
+  bDebug = FALSE
 ) {
   # forward options using x
-  x <- list(
+  input <- list(
     dfSummary = dfSummary,
-    dfSite = dfSite,
-    dfMetrics = dfMetrics
+    dfMetrics = dfMetrics,
+    dfGroups = dfGroups,
+    strGroupSubset = strGroupSubset
   )
 
   # create widget
-  htmlwidgets::createWidget(
+  widget <- htmlwidgets::createWidget(
     name = "Widget_SiteOverview",
-    x %>% map(\(x) jsonlite::toJSON(x, na = "string")),
+    purrr::map(
+      input,
+      ~ jsonlite::toJSON(
+          .x,
+          null = "null",
+          na = "string",
+          auto_unbox = TRUE
+      )
+    ),
+    width = "100%",
     package = "gsm"
   )
+
+  if (bDebug) {
+    viewer <- getOption('viewer')
+    options(viewer = NULL)
+    print(widget)
+    options(viewer = viewer)
+  }
+
+  return(widget)
 }
 
 #' Shiny bindings for Widget_SiteOverview

@@ -3,3 +3,15 @@ dependencies:
     version: 1.2.0
     src: 'rbm-viz-1.2.0'
     script: 'rbm-viz.js'
+  - name: number_to_array
+    version: 0.0.1
+    src: 'utils-0.0.1'
+    script: 'number_to_array.js'
+  - name: addGroupSelect
+    version: 0.0.1
+    src: 'utils-0.0.1'
+    script: 'addGroupSelect.js'
+  - name: clickCallback
+    version: 0.0.1
+    src: 'utils-0.0.1'
+    script: 'clickCallback.js'

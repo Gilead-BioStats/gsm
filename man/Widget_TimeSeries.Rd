@@ -2,48 +2,105 @@
 % Please edit documentation in R/Widget_TimeSeries.R
 \name{Widget_TimeSeries}
 \alias{Widget_TimeSeries}
-\title{Time-Series Continuous Plot}
+\title{Time Series Widget}
 \usage{
 Widget_TimeSeries(
   dfSummary,
-  lLabels,
-  dfSite = NULL,
-  dfParams = NULL,
-  yAxis = "score",
-  selectedGroupIDs = NULL,
-  width = NULL,
-  height = NULL,
-  elementId = NULL,
-  addSiteSelect = TRUE,
-  siteSelectLabelValue = "Site"
+  lMetric,
+  dfGroups = NULL,
+  vThreshold = NULL,
+  strOutcome = "Score",
+  bAddGroupSelect = TRUE,
+  bDebug = FALSE
 )
 }
 \arguments{
-\item{dfSummary}{\code{data.frame} summary data containing a minimum of two unique values for \code{gsm_analysis_date}.}
+\item{dfSummary}{\code{data.frame} Output of \code{\link[=Summarize]{Summarize()}}. Must contain a 'SnapshotDate' column.}
 
-\item{lLabels}{\code{list} chart labels.}
+\item{lMetric}{\code{list} Metric metadata, captured at the top of metric workflows and returned by
+\code{\link[=MakeMetricInfo]{MakeMetricInfo()}}.}
 
-\item{dfSite}{\code{data.frame} Site metadata.}
+\item{dfGroups}{\code{data.frame} Group metadata.}
 
-\item{dfParams}{\code{data.frame} the stacked output.}
+\item{vThreshold}{\code{numeric} Threshold value(s).}
 
-\item{yAxis}{\code{character} the name of a column from \code{lLabels} to be passed to the y-axis on the widget plot.}
+\item{strOutcome}{\code{character} Outcome variable. Default: 'Score'.}
 
-\item{selectedGroupIDs}{\code{character} group IDs to highlight, \code{NULL} by default, can be a single site or a vector.}
+\item{bAddGroupSelect}{\code{logical} Add a dropdown to highlight sites? Default: \code{TRUE}.}
 
-\item{width}{\code{numeric} width of widget.}
-
-\item{height}{\code{numeric} height of widget.}
-
-\item{elementId}{\code{character} ID of container HTML element.}
-
-\item{addSiteSelect}{\code{logical} add a dropdown to highlight sites? Default: \code{TRUE}.}
-
-\item{siteSelectLabelValue}{Label used to populate the HTML drop-down menu.}
+\item{bDebug}{\code{logical} Print debug messages? Default: \code{FALSE}.}
 }
 \description{
-A widget that displays a time-series plot based on longitudinal snapshots using \code{{gsm}}.
+A widget that generates a time series of group-level metric results over time, plotting snapshot
+date on the x-axis and the outcome (numerator, denominator, metric, or score) on the y-axis.
 }
 \details{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+}
+\examples{
+\dontrun{
+lDataRaw <- list(
+    dfSTUDY = clindata::ctms_study,
+    dfSITE = clindata::ctms_site,
+    dfSUBJ = clindata::rawplus_dm,
+    dfAE = clindata::rawplus_ae
+)
+
+lMappingWorkflow <- MakeWorkflowList('mapping')$mapping
+
+lMappingWorkflow$steps <- lMappingWorkflow$steps \%>\%
+    purrr::keep(~ .x$params$df \%in\% names(lDataRaw))
+
+lDataMapped <- RunWorkflow(
+    lMappingWorkflow,
+    lDataRaw
+)$lData
+
+strMetricID <- 'kri0001'
+lMetricWorkflow <- MakeWorkflowList(strMetricID)[[ strMetricID ]]
+
+lResults <- RunWorkflow(
+    lMetricWorkflow,
+    lDataMapped
+)
+
+# Simulate longitudinal snapshot data.
+SnapshotDates <- paste0('20', 13:24, '-01-01')
+
+dfSummary <- purrr::map_dfr(
+    SnapshotDates,
+    ~ {
+        order <- sample(1:nrow(lResults$lData$dfSummary))
+        dfSummary <- lResults$lData$dfSummary \%>\%
+            mutate(
+                SnapshotDate = .x,
+                Numerator = Numerator[order],
+                Denominator = Denominator[order],
+                Metric = Metric[order],
+                Score = Score[order],
+                Flag = Flag[order]
+            )
+        return(dfSummary)
+    }
+)
+
+dfGroups <- clindata::ctms_site \%>\%
+    left_join(
+        lDataMapped$dfEnrolled \%>\%
+            group_by(siteid) \%>\%
+            tally(name = 'enrolled_participants'),
+        c('site_num' = 'siteid')
+    ) \%>\%
+    rename(
+        SiteID = site_num,
+        status = site_status
+    )
+
+Widget_TimeSeries(
+    dfSummary = dfSummary,
+    lMetric = lMetricWorkflow$meta,
+    dfGroups = dfGroups,
+    vThreshold = lMetricWorkflow$meta$vThreshold
+)
+}
 }
