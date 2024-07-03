@@ -5,8 +5,7 @@
 #' @param dfSummary `data.frame` A data.frame returned by [gsm::Summarize()].
 #' @param dfBounds `data.frame`, A data.frame returned by [gsm::Analyze_NormalApprox_PredictBounds()] or [gsm::Analyze_Poisson_PredictBounds()]
 #' @param dfMetrics `data.frame` Metrics metadata.
-#' @param dfSite `data.frame` Site metadata.
-#' @param dfParams `data.frame` Parameters metadata.
+#' @param dfGroups `data.frame` Site metadata.
 #' @param strMetricID `character` MetricID to subset the data.
 #' @param strSnapshotDate `character` Snapshot date to subset the data.
 #'
@@ -26,25 +25,25 @@
 Visualize_Metric <- function(
     dfSummary,
     dfBounds = NULL,
-    dfSite = NULL,
+    dfGroups = NULL,
     dfMetrics = NULL,
-    dfParams = NULL,
     strMetricID = NULL,
-    strSnapshotDate = NULL
+    strSnapshotDate = NULL,
+    bDebug = FALSE
 ) {
 
   # Check for multiple snapshots --------------------------------------------
-  # if snapshot_date is missing set it to today for all records
-  if (!"snapshot_date" %in% colnames(dfSummary)) {
-    dfSummary$snapshot_date <- as.Date(Sys.Date())
+  # if SnapshotDate is missing set it to today for all records
+  if (!"SnapshotDate" %in% colnames(dfSummary)) {
+    dfSummary$SnapshotDate <- as.Date(Sys.Date())
   }
 
   # get number of snapshots
-  number_of_snapshots <- length(unique(dfSummary$snapshot_date))
+  number_of_snapshots <- length(unique(dfSummary$SnapshotDate))
 
   # use most recent snapshot date if strSnapshotDate is missing
   if(is.null(strSnapshotDate)){
-    strSnapshotDate <- max(dfSummary$snapshot_date)
+    strSnapshotDate <- max(dfSummary$SnapshotDate)
   }
 
   # Filter to selected MetricID ----------------------------------------------
@@ -65,55 +64,76 @@ Visualize_Metric <- function(
     return(NULL)
   }
 
+  # Prep chart inputs ---------------------------------------------------------
+  lMetric <- dfMetrics %>% as.list()
+  vThreshold <- ParseThreshold(lMetric$strThreshold)
+
+ 
+  # Stopgap Long to Wide Conversion for dfGroups -----------------------------
+  # TODO remove this and just use the long version of dfGroups? Only working for Sites for the moment
+
+  lMetric$Group <- lMetric$GroupLevel
+  dfGroups_Wide <- dfGroups %>% 
+    filter(tolower(GroupLevel) == tolower(lMetric$GroupLevel)) %>%
+    pivot_wider(names_from = Param, values_from = Value) 
+  
+  # TODO update expected names in rbmviz
+  if(tolower(lMetric$GroupLevel) == "site"){
+    dfGroups_Wide <- dfGroups_Wide %>%
+      rename(
+        SiteID = GroupID, 
+        status = Status,
+        enrolled_participants = ParticipantCount
+      ) 
+  }
+  
   # Cross-sectional Charts using most recent snapshot ------------------------
   lCharts <- list()
-  dfSummary_current <- dfSummary %>% filter(.data$snapshot_date == strSnapshotDate)
+  dfSummary_current <- dfSummary %>% filter(.data$SnapshotDate == strSnapshotDate)
 
   if(nrow(dfSummary_current) == 0){
     cli::cli_alert_warning("No data found for specified snapshot date: {strSnapshotDate}. No charts will be generated.")
   } else {
-    lLabels <- dfMetrics %>% as.list()
 
     lCharts$scatterJS <- gsm::Widget_ScatterPlot(
       dfSummary = dfSummary_current,
-      lLabels = lLabels,
-      dfSite = NULL,
-      #dfSite = dfSite,
-      dfBounds = dfBounds,
-      elementId = paste0(tolower(lLabels$Abbreviation), "AssessScatter")
+      lMetric = lMetric,
+      dfGroups = dfGroups_Wide,
+      dfBounds = dfBounds, 
+      bDebug = bDebug
     )
 
     lCharts$scatter <- gsm::Visualize_Scatter(
       dfSummary = dfSummary_current,
       dfBounds = dfBounds,
-      strGroupLabel = lLabels$Group
+      strGroupLabel = lMetric$GroupLevel
     )
 
     lCharts$barMetricJS <- gsm::Widget_BarChart(
       dfSummary = dfSummary_current,
-      lLabels = lLabels,
-      dfSite = dfSite,
-      strYAxisType = "Metric",
-      elementId = paste0(tolower(lLabels$Abbreviation), "AssessMetric")
+      lMetric = lMetric,
+      dfGroups = dfGroups_Wide,
+      strOutcome = "Metric", 
+      bDebug = bDebug
     )
 
     lCharts$barScoreJS <- gsm::Widget_BarChart(
       dfSummary = dfSummary_current,
-      lLabels = lLabels,
-      dfSite = dfSite,
-      strYAxisType = "Score",
-      elementId = paste0(tolower(lLabels$Abbreviation), "AssessScore")
+      lMetric = lMetric,
+      dfGroups = dfGroups_Wide,
+      strOutcome = "Score", 
+      bDebug = bDebug
     )
 
     lCharts$barMetric <- gsm::Visualize_Score(
       dfSummary = dfSummary_current,
-      strType = "Metric"
+      strType = "Metric" 
     )
 
     lCharts$barScore <- gsm::Visualize_Score(
       dfSummary = dfSummary_current,
       strType = "Score",
-      vThreshold = unlist(lLabels$vThresholds)
+      vThreshold = vThreshold
     )
   }
   # Continuous Charts -------------------------------------------------------
@@ -122,26 +142,27 @@ Visualize_Metric <- function(
   } else {
     lCharts$timeSeriesContinuousScoreJS <- Widget_TimeSeries(
       dfSummary = dfSummary,
-      lLabels = lLabels %>% map_dfr(~.x),
-      #dfSite = dfSite,
-      dfParams = dfParams,
-      yAxis = "Score"
+      lMetric = lMetric,
+      dfGroups = dfGroups_Wide,
+      vThreshold =vThreshold,
+      strOutcome = "Score", 
+      bDebug = bDebug
     )
 
     lCharts$timeSeriesContinuousMetricJS <- Widget_TimeSeries(
       dfSummary = dfSummary,
-      lLabels = lLabels %>% map_dfr(~.x),
-      #dfSite = dfSite,
-      dfParams = dfParams,
-      yAxis = "Metric"
+      lMetric = lMetric,
+      dfGroups = dfGroups_Wide,
+      strOutcome = "Metric", 
+      bDebug = bDebug
     )
 
     lCharts$timeSeriesContinuousNumeratorJS <- Widget_TimeSeries(
       dfSummary = dfSummary,
-      lLabels = lLabels %>% map_dfr(~.x),
-      #dfSite = dfSite,
-      dfParams = dfParams,
-      yAxis = "Numerator"
+      lMetric = lMetric,
+      dfGroups = dfGroups_Wide,
+      strOutcome = "Numerator", 
+      bDebug = bDebug
     )
   }
 

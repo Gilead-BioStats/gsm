@@ -8,7 +8,7 @@ MakeWorkflowList(
   strNames = NULL,
   strPath = NULL,
   bExact = FALSE,
-  bRecursive = FALSE
+  bRecursive = TRUE
 )
 }
 \arguments{
@@ -18,7 +18,7 @@ MakeWorkflowList(
 
 \item{bExact}{\code{logical} Should strName matches be exact? If false, partial matches will be included. Default FALSE.}
 
-\item{bRecursive}{\code{logical} Find files in nested folders? Default FALSE.}
+\item{bRecursive}{\code{logical} Find files in nested folders? Default TRUE}
 }
 \value{
 \code{list} A list of workflows with workflow and parameter metadata.

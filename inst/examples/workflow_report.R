@@ -16,21 +16,21 @@ dfAnalyzed <- Analyze_NormalApprox(dfTransformed,
                                    strType = "rate")
 dfFlagged <- Flag_NormalApprox(dfAnalyzed,
                                vThreshold = c(-3,-2,2,3))
-dfSummarized <- Summarize(dfFlagged)
+dfSummary <- Summarize(dfFlagged)
 dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed = dfTransformed,
                                                vThreshold = c(-3,-2,2,3))
 
 ##create dfMetrics meta object for charts
 dfMetrics <- data.frame(
   MetricID =  "kri0001",
-  file = "kri0001.yaml",
-  group = "site",
-  abbreviation = "AE",
-  metric = "Adverse Event Rate",
-  numerator = "Adverse Events",
-  denominator = "Days on Study",
-  model = "Normal Approximation",
-  score = "Adjusted Z-Score"
+  File = "kri0001.yaml",
+  Group = "site",
+  Abbreviation = "AE",
+  Metric = "Adverse Event Rate",
+  Numerator = "Adverse Events",
+  Denominator = "Days on Study",
+  Model = "Normal Approximation",
+  Score = "Adjusted Z-Score"
 )
 
 #add Study and Snapshot information to dfBounds and dfSummarized
@@ -39,7 +39,7 @@ dfBounds <- dfBounds %>%
   mutate(SnapshotDate = Sys.Date()) %>%
   mutate(MetricID = dfMetrics$MetricID)
 
-dfSummarized <- dfSummarized %>%
+dfSummary <- dfSummary %>%
   mutate(StudyID = "ABC-123") %>%
   mutate(SnapshotDate = Sys.Date()) %>%
   mutate(MetricID = dfMetrics$MetricID)
@@ -47,7 +47,7 @@ dfSummarized <- dfSummarized %>%
 
 # create Visualizations
 lCharts <- Visualize_Metric(
-  dfSummary = dfSummarized,
+  dfSummary = dfSummary,
   dfBounds = dfBounds,
   dfSite = clindata::ctms_site %>% rename(SiteID = site_num),
   dfMetrics = dfMetrics,
@@ -60,5 +60,5 @@ Report_KRI(lCharts = lCharts,
            dfSummary = dfSummarized,
            dfSite = dfSite,
            dfStudy = dfStudy,
-           dfMetrics =dfMetrics,
+           dfMetrics = dfMetrics,
            strOutpath = strOutpath)

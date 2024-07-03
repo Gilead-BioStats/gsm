@@ -1,10 +1,8 @@
 # Prepare Workflows
 wf_mapping <- MakeWorkflowList(strNames = "mapping")[[1]]
 wf_metrics <- MakeWorkflowList(strNames = "kri0001")
-dfMetrics <- wf_metrics %>% map_df(function(wf){
-  wf$meta$vThreshold <- paste(wf$meta$vThreshold, collapse = ",")
-  return(wf$meta)
-})
+dfMetrics <- wf_metrics$kri0001$meta
+
 
 # Import Site+Study Metadata
 dfStudy<-clindata::ctms_study %>% rename(StudyID = protocol_number)

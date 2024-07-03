@@ -40,7 +40,7 @@ test_that("basic functionality with count method works", {
     GroupLevel = "GroupID",
     Numerator = c(2, 1, 0),
     Denominator = c(1, 1, 1),
-    Rate = c(2, 1, 0)
+    Metric = c(2, 1, 0)
   )
   expect_equal(result, expected)
 })
@@ -62,7 +62,7 @@ test_that("test with method 'Sum' where columns are provided", {
     GroupLevel = "GroupID",
     Numerator = c(15, 10, 0),
     Denominator = c(15, 5, 20),
-    Rate = c(1, 2, 0)
+    Metric = c(1, 2, 0)
   )
   expect_equal(result, expected)
 })
@@ -83,7 +83,7 @@ test_that("handling of zero denominators and missing data", {
     GroupLevel = "GroupID",
     Numerator = c(2, 0, 0, 0),
     Denominator = c(1, 1, 0, 0),
-    Rate = c(2, 0, NaN, NaN)  # NaN because denominator is zero
+    Metric = c(2, 0, NaN, NaN)  # NaN because denominator is zero
   )
 
   expect_equal(result, expected)

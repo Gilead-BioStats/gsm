@@ -8,7 +8,7 @@
 #' @param strNames `array of character` List of workflows to include. NULL (the default) includes all workflows in the specified locations.
 #' @param strPath `character` The location of workflow YAML files. If package is specified, function will look in `/inst` folder.
 #' @param bExact `logical` Should strName matches be exact? If false, partial matches will be included. Default FALSE.
-#' @param bRecursive `logical` Find files in nested folders? Default FALSE.
+#' @param bRecursive `logical` Find files in nested folders? Default TRUE
 #'
 #' @examples
 #' # use default
@@ -25,7 +25,7 @@ MakeWorkflowList <- function(
   strNames = NULL,
   strPath = NULL,
   bExact = FALSE,
-  bRecursive = FALSE
+  bRecursive = TRUE
 ) {
   if (is.null(strPath)) {
     # if `strPath` is not specified, default to reading `inst/workflow` from {gsm}.
