@@ -26,6 +26,8 @@ Visualize_Metric(
 \item{strMetricID}{\code{character} MetricID to subset the data.}
 
 \item{strSnapshotDate}{\code{character} Snapshot date to subset the data.}
+
+\item{bDebug}{\code{logical} Display console in html viewer for debugging. Default is \code{FALSE}.}
 }
 \value{
 A list containing the following charts:

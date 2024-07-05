@@ -7,7 +7,7 @@
 BindResults(
   lResults,
   strName,
-  dSnapshotDate = sys.date(),
+  dSnapshotDate = Sys.Date(),
   strStudyID,
   bUselData = FALSE
 )
@@ -17,7 +17,7 @@ BindResults(
 
 \item{strName}{Name of the object to stack. Pulled from lResults$lData.}
 
-\item{dSnapshotDate}{Date of the snapshot. Default is sys.date().}
+\item{dSnapshotDate}{Date of the snapshot. Default is Sys.Date().}
 
 \item{strStudyID}{Study ID.}
 

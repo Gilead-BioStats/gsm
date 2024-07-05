@@ -8,13 +8,13 @@ test_that("ParseThreshold with valid input returns sorted numeric vector", {
 
 # Test Case 2 - Invalid Input (Non-Numeric Values)
 test_that("ParseThreshold with non-numeric values returns NULL", {
-  expect_warning(result <- ParseThreshold("a,b,c"))
+  expect_snapshot(result <- ParseThreshold("a,b,c"))
   expect_null(result)
 })
 
 # Test Case 3 - Empty String
 test_that("ParseThreshold with empty string returns NULL", {
-  expect_warning(result <- ParseThreshold(""))
+  expect_snapshot(result <- ParseThreshold(""))
   expect_null(result)
 })
 
