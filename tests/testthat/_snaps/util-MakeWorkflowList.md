@@ -3,6 +3,12 @@
     Code
       map(wf_list, ~ names(.))
     Output
+      $data_mapping
+      [1] "meta"  "steps" "path"  "name" 
+      
+      $data_reporting
+      [1] "meta"  "steps" "path"  "name" 
+      
       $cou0001
       [1] "meta"  "steps" "path"  "name" 
       
@@ -81,12 +87,549 @@
       $qtl0006
       [1] "steps" "path"  "name" 
       
+      $snapshot
+      [1] "meta"  "steps" "path"  "name" 
+      
 
 # Metadata is returned as expected
 
     Code
       map(wf_list, ~ .x$steps)
     Output
+      $data_mapping
+      $data_mapping[[1]]
+      $data_mapping[[1]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[1]]$output
+      [1] "dfEnrolled"
+      
+      $data_mapping[[1]]$params
+      $data_mapping[[1]]$params$df
+      [1] "dfSUBJ"
+      
+      $data_mapping[[1]]$params$strQuery
+      [1] "SELECT subjectid as raw_subjectid, * FROM df WHERE enrollyn == 'Y'"
+      
+      
+      
+      $data_mapping[[2]]
+      $data_mapping[[2]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[2]]$output
+      [1] "dfSeriousAE"
+      
+      $data_mapping[[2]]$params
+      $data_mapping[[2]]$params$df
+      [1] "dfAE"
+      
+      $data_mapping[[2]]$params$strQuery
+      [1] "SELECT * FROM df WHERE aeser = 'Y'"
+      
+      
+      
+      $data_mapping[[3]]
+      $data_mapping[[3]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[3]]$output
+      [1] "dfAE"
+      
+      $data_mapping[[3]]$params
+      $data_mapping[[3]]$params$df
+      [1] "dfAE"
+      
+      $data_mapping[[3]]$params$strQuery
+      [1] "SELECT * FROM df"
+      
+      
+      
+      $data_mapping[[4]]
+      $data_mapping[[4]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[4]]$output
+      [1] "dfNonimportantPD"
+      
+      $data_mapping[[4]]$params
+      $data_mapping[[4]]$params$df
+      [1] "dfPD"
+      
+      $data_mapping[[4]]$params$strQuery
+      [1] "SELECT subjectenrollmentnumber as subjid, * FROM df WHERE deemedimportant == 'No'"
+      
+      
+      
+      $data_mapping[[5]]
+      $data_mapping[[5]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[5]]$output
+      [1] "dfImportantPD"
+      
+      $data_mapping[[5]]$params
+      $data_mapping[[5]]$params$df
+      [1] "dfPD"
+      
+      $data_mapping[[5]]$params$strQuery
+      [1] "SELECT subjectenrollmentnumber as subjid, * FROM df WHERE deemedimportant == 'Yes'"
+      
+      
+      
+      $data_mapping[[6]]
+      $data_mapping[[6]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[6]]$output
+      [1] "dfAllLabs"
+      
+      $data_mapping[[6]]$params
+      $data_mapping[[6]]$params$df
+      [1] "dfLB"
+      
+      $data_mapping[[6]]$params$strQuery
+      [1] "SELECT * FROM df WHERE toxgrg_nsv IN ('0', '1', '2', '3', '4')"
+      
+      
+      
+      $data_mapping[[7]]
+      $data_mapping[[7]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[7]]$output
+      [1] "dfToxLabs"
+      
+      $data_mapping[[7]]$params
+      $data_mapping[[7]]$params$df
+      [1] "dfLB"
+      
+      $data_mapping[[7]]$params$strQuery
+      [1] "SELECT * FROM df WHERE toxgrg_nsv IN ('3', '4')"
+      
+      
+      
+      $data_mapping[[8]]
+      $data_mapping[[8]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[8]]$output
+      [1] "dfStudyDropouts"
+      
+      $data_mapping[[8]]$params
+      $data_mapping[[8]]$params$df
+      [1] "dfSTUDCOMP"
+      
+      $data_mapping[[8]]$params$strQuery
+      [1] "SELECT * FROM df WHERE compyn IN ('N')"
+      
+      
+      
+      $data_mapping[[9]]
+      $data_mapping[[9]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[9]]$output
+      [1] "dfTreatmentDropouts"
+      
+      $data_mapping[[9]]$params
+      $data_mapping[[9]]$params$df
+      [1] "dfSDRGCOMP"
+      
+      $data_mapping[[9]]$params$strQuery
+      [1] "SELECT * FROM df WHERE sdrgyn IN ('N') AND phase = 'Blinded Study Drug Completion'"
+      
+      
+      
+      $data_mapping[[10]]
+      $data_mapping[[10]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[10]]$output
+      [1] "dfValidQueries"
+      
+      $data_mapping[[10]]$params
+      $data_mapping[[10]]$params$df
+      [1] "dfQUERY"
+      
+      $data_mapping[[10]]$params$strQuery
+      [1] "SELECT subjectname as subject_nsv, * FROM df WHERE querystatus IN ('Open', 'Answered', 'Closed')"
+      
+      
+      
+      $data_mapping[[11]]
+      $data_mapping[[11]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[11]]$output
+      [1] "dfOldValidQueries"
+      
+      $data_mapping[[11]]$params
+      $data_mapping[[11]]$params$df
+      [1] "dfValidQueries"
+      
+      $data_mapping[[11]]$params$strQuery
+      [1] "SELECT * FROM df WHERE queryage > 30"
+      
+      
+      
+      $data_mapping[[12]]
+      $data_mapping[[12]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[12]]$output
+      [1] "dfDataChanges"
+      
+      $data_mapping[[12]]$params
+      $data_mapping[[12]]$params$df
+      [1] "dfDATACHG"
+      
+      $data_mapping[[12]]$params$strQuery
+      [1] "SELECT subjectname as subject_nsv, * FROM df"
+      
+      
+      
+      $data_mapping[[13]]
+      $data_mapping[[13]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[13]]$output
+      [1] "dfQuery"
+      
+      $data_mapping[[13]]$params
+      $data_mapping[[13]]$params$df
+      [1] "dfQUERY"
+      
+      $data_mapping[[13]]$params$strQuery
+      [1] "SELECT subjectname as subject_nsv, * FROM df"
+      
+      
+      
+      $data_mapping[[14]]
+      $data_mapping[[14]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[14]]$output
+      [1] "dfDataEntry"
+      
+      $data_mapping[[14]]$params
+      $data_mapping[[14]]$params$df
+      [1] "dfDATAENT"
+      
+      $data_mapping[[14]]$params$strQuery
+      [1] "SELECT subjectname as subject_nsv, * FROM df"
+      
+      
+      
+      $data_mapping[[15]]
+      $data_mapping[[15]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[15]]$output
+      [1] "dfSlowDataEntry"
+      
+      $data_mapping[[15]]$params
+      $data_mapping[[15]]$params$df
+      [1] "dfDATAENT"
+      
+      $data_mapping[[15]]$params$strQuery
+      [1] "SELECT subjectname as subject_nsv, * FROM df WHERE data_entry_lag > 10"
+      
+      
+      
+      $data_mapping[[16]]
+      $data_mapping[[16]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[16]]$output
+      [1] "dfChangedDataPoints"
+      
+      $data_mapping[[16]]$params
+      $data_mapping[[16]]$params$df
+      [1] "dfDATACHG"
+      
+      $data_mapping[[16]]$params$strQuery
+      [1] "SELECT subjectname as subject_nsv, * FROM df WHERE n_changes > 0"
+      
+      
+      
+      $data_mapping[[17]]
+      $data_mapping[[17]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[17]]$output
+      [1] "dfScreened"
+      
+      $data_mapping[[17]]$params
+      $data_mapping[[17]]$params$df
+      [1] "dfENROLL"
+      
+      $data_mapping[[17]]$params$strQuery
+      [1] "SELECT * FROM df"
+      
+      
+      
+      $data_mapping[[18]]
+      $data_mapping[[18]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[18]]$output
+      [1] "dfScreenFail"
+      
+      $data_mapping[[18]]$params
+      $data_mapping[[18]]$params$df
+      [1] "dfENROLL"
+      
+      $data_mapping[[18]]$params$strQuery
+      [1] "SELECT * FROM df WHERE enrollyn = 'N'"
+      
+      
+      
+      
+      $data_reporting
+      $data_reporting[[1]]
+      $data_reporting[[1]]$name
+      [1] "RunQuery"
+      
+      $data_reporting[[1]]$output
+      [1] "dfCTMSSiteWide"
+      
+      $data_reporting[[1]]$params
+      $data_reporting[[1]]$params$df
+      [1] "ctms_site"
+      
+      $data_reporting[[1]]$params$strQuery
+      [1] "SELECT site_num as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df"
+      
+      
+      
+      $data_reporting[[2]]
+      $data_reporting[[2]]$name
+      [1] "MakeGroupInfo"
+      
+      $data_reporting[[2]]$output
+      [1] "dfCTMSSite"
+      
+      $data_reporting[[2]]$params
+      $data_reporting[[2]]$params$data
+      [1] "dfCTMSSiteWide"
+      
+      $data_reporting[[2]]$params$strGroupLevel
+      [1] "Site"
+      
+      
+      
+      $data_reporting[[3]]
+      $data_reporting[[3]]$name
+      [1] "RunQuery"
+      
+      $data_reporting[[3]]$output
+      [1] "dfCTMSStudyWide"
+      
+      $data_reporting[[3]]$params
+      $data_reporting[[3]]$params$df
+      [1] "ctms_study"
+      
+      $data_reporting[[3]]$params$strQuery
+      [1] "SELECT protocol_number as GroupID, status as Status, * FROM df"
+      
+      
+      
+      $data_reporting[[4]]
+      $data_reporting[[4]]$name
+      [1] "MakeGroupInfo"
+      
+      $data_reporting[[4]]$output
+      [1] "dfCTMSStudy"
+      
+      $data_reporting[[4]]$params
+      $data_reporting[[4]]$params$data
+      [1] "dfCTMSStudyWide"
+      
+      $data_reporting[[4]]$params$strGroupLevel
+      [1] "Study"
+      
+      
+      
+      $data_reporting[[5]]
+      $data_reporting[[5]]$name
+      [1] "RunQuery"
+      
+      $data_reporting[[5]]$output
+      [1] "dfSiteCountsWide"
+      
+      $data_reporting[[5]]$params
+      $data_reporting[[5]]$params$df
+      [1] "dfEnrolled"
+      
+      $data_reporting[[5]]$params$strQuery
+      [1] "SELECT siteid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT siteid) as SiteCount FROM df GROUP BY siteid"
+      
+      
+      
+      $data_reporting[[6]]
+      $data_reporting[[6]]$name
+      [1] "MakeGroupInfo"
+      
+      $data_reporting[[6]]$output
+      [1] "dfSiteCounts"
+      
+      $data_reporting[[6]]$params
+      $data_reporting[[6]]$params$data
+      [1] "dfSiteCountsWide"
+      
+      $data_reporting[[6]]$params$strGroupLevel
+      [1] "Site"
+      
+      
+      
+      $data_reporting[[7]]
+      $data_reporting[[7]]$name
+      [1] "RunQuery"
+      
+      $data_reporting[[7]]$output
+      [1] "dfStudyCountsWide"
+      
+      $data_reporting[[7]]$params
+      $data_reporting[[7]]$params$df
+      [1] "dfEnrolled"
+      
+      $data_reporting[[7]]$params$strQuery
+      [1] "SELECT studyid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT siteid) as SiteCount FROM df GROUP BY studyid"
+      
+      
+      
+      $data_reporting[[8]]
+      $data_reporting[[8]]$name
+      [1] "MakeGroupInfo"
+      
+      $data_reporting[[8]]$output
+      [1] "dfStudyCounts"
+      
+      $data_reporting[[8]]$params
+      $data_reporting[[8]]$params$data
+      [1] "dfStudyCountsWide"
+      
+      $data_reporting[[8]]$params$strGroupLevel
+      [1] "Study"
+      
+      
+      
+      $data_reporting[[9]]
+      $data_reporting[[9]]$name
+      [1] "RunQuery"
+      
+      $data_reporting[[9]]$output
+      [1] "dfCountryCountsWide"
+      
+      $data_reporting[[9]]$params
+      $data_reporting[[9]]$params$df
+      [1] "dfEnrolled"
+      
+      $data_reporting[[9]]$params$strQuery
+      [1] "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT siteid) as SiteCount FROM df GROUP BY country"
+      
+      
+      
+      $data_reporting[[10]]
+      $data_reporting[[10]]$name
+      [1] "MakeGroupInfo"
+      
+      $data_reporting[[10]]$output
+      [1] "dfCountryCounts"
+      
+      $data_reporting[[10]]$params
+      $data_reporting[[10]]$params$data
+      [1] "dfCountryCountsWide"
+      
+      $data_reporting[[10]]$params$strGroupLevel
+      [1] "Country"
+      
+      
+      
+      $data_reporting[[11]]
+      $data_reporting[[11]]$name
+      [1] "bind_rows"
+      
+      $data_reporting[[11]]$output
+      [1] "dfGroups"
+      
+      $data_reporting[[11]]$params
+      $data_reporting[[11]]$params$SiteCounts
+      [1] "dfSiteCounts"
+      
+      $data_reporting[[11]]$params$StudyCounts
+      [1] "dfStudyCounts"
+      
+      $data_reporting[[11]]$params$CountryCounts
+      [1] "dfCountryCounts"
+      
+      $data_reporting[[11]]$params$Site
+      [1] "dfCTMSSite"
+      
+      $data_reporting[[11]]$params$Study
+      [1] "dfCTMSStudy"
+      
+      
+      
+      $data_reporting[[12]]
+      $data_reporting[[12]]$name
+      [1] "MakeMetricInfo"
+      
+      $data_reporting[[12]]$output
+      [1] "dfMetrics"
+      
+      $data_reporting[[12]]$params
+      $data_reporting[[12]]$params$lWorkflows
+      [1] "lWorkflows"
+      
+      
+      
+      $data_reporting[[13]]
+      $data_reporting[[13]]$name
+      [1] "BindResults"
+      
+      $data_reporting[[13]]$output
+      [1] "dfSummary"
+      
+      $data_reporting[[13]]$params
+      $data_reporting[[13]]$params$lResults
+      [1] "lAnalysis"
+      
+      $data_reporting[[13]]$params$strName
+      [1] "dfSummary"
+      
+      $data_reporting[[13]]$params$dSnapshotDate
+      [1] "dSnapshotDate"
+      
+      $data_reporting[[13]]$params$strStudyID
+      [1] "strStudyID"
+      
+      
+      
+      $data_reporting[[14]]
+      $data_reporting[[14]]$name
+      [1] "BindResults"
+      
+      $data_reporting[[14]]$output
+      [1] "dfBounds"
+      
+      $data_reporting[[14]]$params
+      $data_reporting[[14]]$params$lResults
+      [1] "lAnalysis"
+      
+      $data_reporting[[14]]$params$strName
+      [1] "dfBounds"
+      
+      $data_reporting[[14]]$params$dSnapshotDate
+      [1] "dSnapshotDate"
+      
+      $data_reporting[[14]]$params$strStudyID
+      [1] "strStudyID"
+      
+      
+      
+      
       $cou0001
       $cou0001[[1]]
       $cou0001[[1]]$name
@@ -3326,6 +3869,120 @@
       
       $qtl0006[[3]]$params$nConfLevel
       [1] 0.95
+      
+      
+      
+      
+      $snapshot
+      $snapshot[[1]]
+      $snapshot[[1]]$name
+      [1] "MakeWorkflowList"
+      
+      $snapshot[[1]]$output
+      [1] "wf_mapping"
+      
+      $snapshot[[1]]$params
+      $snapshot[[1]]$params$strNames
+      [1] "mapping"
+      
+      
+      
+      $snapshot[[2]]
+      $snapshot[[2]]$name
+      [1] "RunWorkflows"
+      
+      $snapshot[[2]]$output
+      [1] "lMapped"
+      
+      $snapshot[[2]]$params
+      $snapshot[[2]]$params$lData
+      [1] "lData"
+      
+      $snapshot[[2]]$params$lWorkflow
+      [1] "wf_mapping"
+      
+      $snapshot[[2]]$params$bKeepInputData
+      [1] FALSE
+      
+      
+      
+      $snapshot[[3]]
+      $snapshot[[3]]$name
+      [1] "MakeWorkflowList"
+      
+      $snapshot[[3]]$output
+      [1] "lWorkflows"
+      
+      $snapshot[[3]]$params
+      $snapshot[[3]]$params$strNames
+      [1] "kri"
+      
+      
+      
+      $snapshot[[4]]
+      $snapshot[[4]]$name
+      [1] "RunWorkflows"
+      
+      $snapshot[[4]]$output
+      [1] "lAnalysis"
+      
+      $snapshot[[4]]$params
+      $snapshot[[4]]$params$lWorkflows
+      [1] "lWorkflows"
+      
+      $snapshot[[4]]$params$lData
+      [1] "lMapped"
+      
+      $snapshot[[4]]$params$bKeepInputData
+      [1] FALSE
+      
+      
+      
+      $snapshot[[5]]
+      $snapshot[[5]]$name
+      [1] "RunQuery"
+      
+      $snapshot[[5]]$output
+      [1] "dfEnrolled"
+      
+      $snapshot[[5]]$params
+      $snapshot[[5]]$params$df
+      [1] "dfSUBJ"
+      
+      $snapshot[[5]]$params$strQuery
+      [1] "SELECT subjectid as raw_subjectid, * FROM df WHERE enrollyn == 'Y'"
+      
+      
+      
+      $snapshot[[6]]
+      $snapshot[[6]]$name
+      [1] "MakeWorkflowList"
+      
+      $snapshot[[6]]$output
+      [1] "wf_reporting"
+      
+      $snapshot[[6]]$params
+      $snapshot[[6]]$params$strNames
+      [1] "reporting"
+      
+      
+      
+      $snapshot[[7]]
+      $snapshot[[7]]$name
+      [1] "RunWorkflows"
+      
+      $snapshot[[7]]$output
+      [1] "lReporting"
+      
+      $snapshot[[7]]$params
+      $snapshot[[7]]$params$lWorkflows
+      [1] "wf_reporting"
+      
+      $snapshot[[7]]$params$lData
+      [1] "lData"
+      
+      $snapshot[[7]]$params$bKeepInputData
+      [1] FALSE
       
       
       
