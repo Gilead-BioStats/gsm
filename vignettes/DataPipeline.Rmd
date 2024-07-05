@@ -489,8 +489,6 @@ The `lWorkflow` object is a named list of metadata and steps defining how each a
         -   `workflow[]$steps$inputs`: specifies the required input data
         -   `workflow[]$steps$output`: specifies the output data from the workflow step, which can be used as an input in the next step in the workflow
         -   `workflow[]$steps$params`: specifies parameters to be passed to the function
-    
-Additionally, there is `meta` information passed through that varies depending on the type of workflow. For 
 
 For example, the default workflow for the AE assessment (`inst/workflow/metrics/kri0001.yaml`) is shown below:
 
