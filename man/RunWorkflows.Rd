@@ -7,13 +7,13 @@
 RunWorkflows(lWorkflows, lData, bReturnData = TRUE, bKeepInputData = FALSE)
 }
 \arguments{
+\item{lWorkflows}{\code{list} A named list of metadata defining how the workflow should be run.}
+
 \item{lData}{\code{list} A named list of domain-level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
 
 \item{bReturnData}{\code{boolean} should function return only bData or should meta and steps be included? Default is \code{TRUE}.}
 
 \item{bKeepInputData}{\code{boolean} should the input data be returned? Default is \code{FALSE}.}
-
-\item{lWorkflow}{\code{list} A named list of metadata defining how the workflow should be run.}
 }
 \value{
 A named list of results, where the names correspond to the names of

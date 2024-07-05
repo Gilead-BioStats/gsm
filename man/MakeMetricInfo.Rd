@@ -16,7 +16,7 @@ A data frame.
 Used to format metric metadata (dfMetrics) for use in charts and reports. This function takes a list of workflows and returns a data frame with one row per MetricID.
 }
 \examples{
-lWorkflows <- makeWorkflowList(strNames = "kri")
-MakeGroupInfo(df, "GroupID")
+lWorkflows <- MakeWorkflowList(strNames = "kri")
+dfMetrics <- MakeMetricInfo(lWorkflows)
 
 }

@@ -7,8 +7,8 @@
 #' @return A data frame.
 #'
 #' @examples
-#' lWorkflows <- makeWorkflowList(strNames = "kri")
-#' MakeGroupInfo(df, "GroupID")
+#' lWorkflows <- MakeWorkflowList(strNames = "kri")
+#' dfMetrics <- MakeMetricInfo(lWorkflows)
 #'
 #' @export
 
