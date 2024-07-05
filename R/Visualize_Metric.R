@@ -8,6 +8,7 @@
 #' @param dfGroups `data.frame` Site metadata.
 #' @param strMetricID `character` MetricID to subset the data.
 #' @param strSnapshotDate `character` Snapshot date to subset the data.
+#' @param bDebug `logical` Display console in html viewer for debugging. Default is `FALSE`.
 #'
 #' @return A list containing the following charts:
 #' - scatterJS: A scatter plot using JavaScript.
@@ -68,25 +69,25 @@ Visualize_Metric <- function(
   lMetric <- dfMetrics %>% as.list()
   vThreshold <- ParseThreshold(lMetric$strThreshold)
 
- 
+
   # Stopgap Long to Wide Conversion for dfGroups -----------------------------
   # TODO remove this and just use the long version of dfGroups? Only working for Sites for the moment
 
   lMetric$Group <- lMetric$GroupLevel
-  dfGroups_Wide <- dfGroups %>% 
+  dfGroups_Wide <- dfGroups %>%
     filter(tolower(GroupLevel) == tolower(lMetric$GroupLevel)) %>%
-    pivot_wider(names_from = Param, values_from = Value) 
-  
+    pivot_wider(names_from = Param, values_from = Value)
+
   # TODO update expected names in rbmviz
   if(tolower(lMetric$GroupLevel) == "site"){
     dfGroups_Wide <- dfGroups_Wide %>%
       rename(
-        SiteID = GroupID, 
+        SiteID = GroupID,
         status = Status,
         enrolled_participants = ParticipantCount
-      ) 
+      )
   }
-  
+
   # Cross-sectional Charts using most recent snapshot ------------------------
   lCharts <- list()
   dfSummary_current <- dfSummary %>% filter(.data$SnapshotDate == strSnapshotDate)
@@ -99,7 +100,7 @@ Visualize_Metric <- function(
       dfSummary = dfSummary_current,
       lMetric = lMetric,
       dfGroups = dfGroups_Wide,
-      dfBounds = dfBounds, 
+      dfBounds = dfBounds,
       bDebug = bDebug
     )
 
@@ -113,7 +114,7 @@ Visualize_Metric <- function(
       dfSummary = dfSummary_current,
       lMetric = lMetric,
       dfGroups = dfGroups_Wide,
-      strOutcome = "Metric", 
+      strOutcome = "Metric",
       bDebug = bDebug
     )
 
@@ -121,13 +122,13 @@ Visualize_Metric <- function(
       dfSummary = dfSummary_current,
       lMetric = lMetric,
       dfGroups = dfGroups_Wide,
-      strOutcome = "Score", 
+      strOutcome = "Score",
       bDebug = bDebug
     )
 
     lCharts$barMetric <- gsm::Visualize_Score(
       dfSummary = dfSummary_current,
-      strType = "Metric" 
+      strType = "Metric"
     )
 
     lCharts$barScore <- gsm::Visualize_Score(
@@ -145,7 +146,7 @@ Visualize_Metric <- function(
       lMetric = lMetric,
       dfGroups = dfGroups_Wide,
       vThreshold =vThreshold,
-      strOutcome = "Score", 
+      strOutcome = "Score",
       bDebug = bDebug
     )
 
@@ -153,7 +154,7 @@ Visualize_Metric <- function(
       dfSummary = dfSummary,
       lMetric = lMetric,
       dfGroups = dfGroups_Wide,
-      strOutcome = "Metric", 
+      strOutcome = "Metric",
       bDebug = bDebug
     )
 
@@ -161,7 +162,7 @@ Visualize_Metric <- function(
       dfSummary = dfSummary,
       lMetric = lMetric,
       dfGroups = dfGroups_Wide,
-      strOutcome = "Numerator", 
+      strOutcome = "Numerator",
       bDebug = bDebug
     )
   }

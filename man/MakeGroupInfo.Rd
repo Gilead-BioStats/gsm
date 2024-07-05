@@ -7,9 +7,11 @@
 MakeGroupInfo(data, strGroupLevel, strGroupCols = "GroupID")
 }
 \arguments{
-\item{strGroupCols}{A string specifying the group columns.}
+\item{data}{The input data frame.}
 
-\item{df}{The input data frame.}
+\item{strGroupLevel}{A string specifying the group type.}
+
+\item{strGroupCols}{A string specifying the group columns.}
 }
 \value{
 A long format data frame.

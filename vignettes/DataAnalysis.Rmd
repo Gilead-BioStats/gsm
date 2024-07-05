@@ -85,7 +85,7 @@ The data frame `dfInput` for an AE assessment will be created by running `Input_
 
 ```{r echo = FALSE}
 dt(dfInput) %>%
-  formatRound(columns = "Rate", digits = 3)
+  formatRound(columns = "Metric", digits = 3)
 ```
 
 ------------------------------------------------------------------------
