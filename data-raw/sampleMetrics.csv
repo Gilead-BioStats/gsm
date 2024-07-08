@@ -1,0 +1,2 @@
+"","MetricID","File","GroupLevel","Abbreviation","Metric","Numerator","Denominator","Model","Score","strThreshold","nMinDenominator"
+"1","kri0001","kri0001.yaml","site","AE","Adverse Event Rate","Adverse Events","Days on Study","Normal Approximation","Adjusted Z-Score","-2,-1,2,3",30
