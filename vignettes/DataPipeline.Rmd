@@ -46,9 +46,9 @@ This `data_mapping.yaml` file is provided for convenience, but may not work for 
 The image above provides an overview of the default KRI analysis pipeline. The pipeline is a standardized five-step process for assessing data issues by going from participant-level input data to a standardized site-level summary of model results. The functions used in each step of the data pipeline along with the input and output datasets are described in more detail below.
 
 1.  `dfInput`: Input data; Cross-domain participant-level input data with all needed data for KRI derivation. Created by the `Input_Rate()` function as needed.
-2.  `dfTransformed`: Transformed data; Site-level transformed data including KRI calculation. Created by `Transform()` functions.
-3.  `dfAnalyzed`: Analyzed data; Site-level analysis results data. Created by `Analyze()` functions.
-4.  `dfFlagged`: Flagged data; Site-level analysis results with flags added to indicate potential statistical outliers. Created by passing numeric thresholds to a `Flag()` function.
+2.  `dfTransformed`: Transformed data; Site-level transformed data including KRI calculation. Created by `Transform_*()` functions.
+3.  `dfAnalyzed`: Analyzed data; Site-level analysis results data. Created by `Analyze_*()` functions.
+4.  `dfFlagged`: Flagged data; Site-level analysis results with flags added to indicate potential statistical outliers. Created by passing numeric thresholds to a `Flag_*()` function.
 5.  `dfSummary`: Summary data; Standardized subset of the flagged data. This summary data has the same structure for all assessments and always includes both KRI and Flag values so that a user can easily look at trends for any given site across multiple assessments. Created using the `Summarize()` function.
 
 Each KRI has a `.yaml` file that sequentially executes all of the supporting functions and returns a list of datasets and visualizations per the specifications of the .yaml file. In the default `yaml` files included in the `inst/workflow/metrics` directory of this package, the 5 standard datasets that are always returned are `dfTransformed`, `dfAnalyzed`, `dfFlagged`, `dfBounds`, and `dfSummary`. A step-by-step example of the data assessment workflow can be found in the [Data Analysis Vignette](https://gilead-biostats.github.io/gsm/articles/DataAnalysis.html).
@@ -62,9 +62,8 @@ Note that each step in this data pipeline can be customized based on the require
 The pipeline discussed here is a standardized process for creating datasets by going from a standardized site-level summary of model results and external data sources to a series of datasets that provide all group-level data and metadata needed to create charts and reports for a given KRI. Unlike the analysis workflow, there is a single workflow for reporting, as all metric-specific information was captured in the analysis phase of the overall pipeline. The functions used in each step of the data pipeline along with the input and output datasets are described in more detail below.
 
 1. `dfSummary`: Summary data; Standardized subset of the flagged data. This summary data has the same structure for all assessments and always includes both KRI and Flag values so that a user can easily look at trends for any given site across multiple assessments. Created using the `Summarize()` function.
-4. `dfFlagged`: Flagged data; Site-level analysis results with flags added to indicate potential statistical outliers. Created by passing numeric thresholds to a `Flag()` function.
-3. `dfBounds`: Bounded data; A data.frame containing predicted boundary values with upper and lower bounds across the
-#' range of observed values. Created with an `Analyze_*_PredictBounds()` function.
+4. `dfFlagged`: Flagged data; Site-level analysis results with flags added to indicate potential statistical outliers. Created by passing numeric thresholds to a `Flag_*()` function.
+3. `dfBounds`: Bounded data; A data.frame containing predicted boundary values with upper and lower bounds across the range of observed values. Created with an `Analyze_*_PredictBounds()` function.
 4. `dfGroups`: Grouped data; Long data.frame of summarized group CTMS data with site, study, and country level counts and metrics. Constructed by binding data.frames created with `MakeGroupInfo()`.
 5. `dfMetrics`: Metric metadata; Metric-specific metadata for use in charts and reporting. Created by passing an `lWorkflow` object to the `MakeMetricInfo()` function.
 
@@ -90,7 +89,7 @@ Running multiple assessments simultaneously for a single study is a common use c
 
 `RunWorkflows()` attempts to run one or more assessment workflows using shared data and metadata. The metadata used for this study-level assessment is described in detail in [Appendix 1](#Appendix-1-Metadata-Technical-Specifications). The `RunWorkflows()` function returns a list of assessments containing status information and results that is used as input for the reporting workflow and charting and reporting functions described below.
 
-Once all reporting data.frames are created using the `data_reporting.yaml` workflow as discussed above, a user will create charts for all of the metrics specified in the analysis pipeline. `Visualize_Metric()` is a function creates all available charts for a metric using the data provided. If the `dfSummary` provided to `Visualize_Metric()` contains multiple data with multiple dates, then the `timeSeries` charts will be included in the list of charts returned. The output of this function is a list containing the following charts:
+Once all reporting data.frames are created using the `data_reporting.yaml` workflow as discussed above, a user will create charts for all of the metrics specified in the analysis pipeline. `Visualize_Metric()` is a function that creates all available charts for a metric using the data provided. If the `dfSummary` provided to `Visualize_Metric()` contains multiple data with multiple dates, then the `timeSeries` charts will be included in the list of charts returned. The output of this function is a list containing the following charts:
 
  - `scatterJS`: A scatter plot using JavaScript.
  - `scatter`: A scatter plot using ggplot2.
@@ -98,8 +97,8 @@ Once all reporting data.frames are created using the `data_reporting.yaml` workf
  - `barScoreJS`: A bar chart using JavaScript with score on the y-axis.
  - `barMetric`: A bar chart using ggplot2 with metric on the y-axis.
  - `barScore`: A bar chart using ggplot2 with score on the y-axis.
- - `timeSeriesContinuousScoreJS`: A time series chart using JavaScript with score on the y-axis.
  - `timeSeriesContinuousMetricJS`: A time series chart using JavaScript with metric on the y-axis.
+ - `timeSeriesContinuousScoreJS`: A time series chart using JavaScript with score on the y-axis.
  - `timeSeriesContinuousNumeratorJS`: A time series chart using JavaScript with numerator on the y-axis.
 
 Now that all imputs for the `Report_KRI()` function have been produced, it can be called to create a detailed report showing both charts and listings summarizing each KRI that was run for the study.
@@ -120,7 +119,7 @@ lRaw <- list(
     dfENROLL = clindata::rawplus_enroll
 )
 
-#make workflow lists
+# Make Workflow Lists
 wf_mapping <- MakeWorkflowList(strNames = "mapping")
 wf_kri <- MakeWorkflowList(strNames="kri0001")
 wf_reporting <- MakeWorkflowList(strNames = "reporting")
@@ -164,7 +163,7 @@ dfStudy <-  dfGroups %>%
   filter(GroupLevel == "Study") %>% 
   pivot_wider(names_from=Param, values_from=Value)
 
-#Create Charts for all metrics
+# Create Charts for all metrics
 options(vsc.viewer = FALSE)
 metrics <- unique(dfMetrics$MetricID)
 charts <- metrics %>% map(~Visualize_Metric(
@@ -173,8 +172,7 @@ charts <- metrics %>% map(~Visualize_Metric(
   dfGroups = dfGroups,
   dfMetrics = dfMetrics,
   strMetricID = .x
-)
-) %>% setNames(metrics)
+)) %>% setNames(metrics)
 
 ##function not currently working!
 # Report_KRI(lCharts = charts,
@@ -205,7 +203,7 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
     - `dfSubjects`
     - `dfNumerator`
     - `dfDenominator`
-  - Usage: The base data.frame for all Analytics workflows. Feeds into the `Transform_XX` functions.
+  - Usage: The base data.frame for all Analytics workflows. Feeds into the `Transform_*()` functions.
   - Structure:
 
   | Table    | Column Name  | Description                          | Type     | Optional  | 
@@ -223,7 +221,7 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
     - `Transform_Rate()`
     - `Transform_Count()`
   - Inputs: `dfInput`
-  - Usage: Convert from input data format to needed format to derive KRI for an Assessment via the `Analyze_XX` functions.
+  - Usage: Convert from input data format to needed format to derive KRI for an Assessment via the `Analyze_*()` functions.
   - Structure:
 
   | Table    | Column Name  | Description                          | Type     | Optional  | 
@@ -242,7 +240,7 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
     - `Analyze_Poisson()`
     - `Analyze_QTL()`
   - Inputs: `dfTransformed`
-  - Usage: Prepare the data for `Flag_XX` by performing the specified test on the metric provided.
+  - Usage: Prepare the data for `Flag_*()` by performing the specified test on the metric provided.
   - Structure:
 
   | Table    | Column Name  | Description                          | Type     | Optional  | 
