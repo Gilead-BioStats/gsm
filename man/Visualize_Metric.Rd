@@ -7,11 +7,11 @@
 Visualize_Metric(
   dfSummary,
   dfBounds = NULL,
-  dfSite = NULL,
+  dfGroups = NULL,
   dfMetrics = NULL,
-  dfParams = NULL,
   strMetricID = NULL,
-  strSnapshotDate = NULL
+  strSnapshotDate = NULL,
+  bDebug = FALSE
 )
 }
 \arguments{
@@ -19,15 +19,15 @@ Visualize_Metric(
 
 \item{dfBounds}{\code{data.frame}, A data.frame returned by \code{\link[=Analyze_NormalApprox_PredictBounds]{Analyze_NormalApprox_PredictBounds()}} or \code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}}}
 
-\item{dfSite}{\code{data.frame} Site metadata.}
+\item{dfGroups}{\code{data.frame} Site metadata.}
 
 \item{dfMetrics}{\code{data.frame} Metrics metadata.}
-
-\item{dfParams}{\code{data.frame} Parameters metadata.}
 
 \item{strMetricID}{\code{character} MetricID to subset the data.}
 
 \item{strSnapshotDate}{\code{character} Snapshot date to subset the data.}
+
+\item{bDebug}{\code{logical} Display console in html viewer for debugging. Default is \code{FALSE}.}
 }
 \value{
 A list containing the following charts:

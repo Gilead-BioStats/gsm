@@ -1,0 +1,68 @@
+meta:
+  File: cou0003.yaml
+  MetricID: cou0003
+  GroupLevel: country
+  Abbreviation: PD
+  Metric: Non-Important Protocol Deviation Rate
+  Numerator: Non-Important Protocol Deviations
+  Denominator: Days on Study
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
+  strThreshold: -3,-2,2,3
+  nMinDenominator: 30
+steps:
+  - name: ParseThreshold
+    output: vThreshold
+    params:
+      strThreshold: strThreshold
+  - name: RunQuery
+    output: dfSubjects
+    params:
+      df: dfSUBJ
+      strQuery: "SELECT subjid as SubjectID, siteid as SiteID, country as CountryID, studyid as StudyID FROM df WHERE enrollyn == 'Y'"
+  - name: RunQuery
+    output: dfDenominator
+    params:
+      df: dfSUBJ
+      strQuery: "SELECT subjid as SubjectID, timeonstudy FROM df"
+  - name: RunQuery
+    output: dfNumerator
+    params:
+      df: dfPD
+      strQuery: "SELECT subjectenrollmentnumber as SubjectID, * FROM df WHERE deemedimportant == 'No'"
+  - name: Input_Rate
+    output: dfInput
+    params:
+      dfSubjects: dfEnrolled
+      dfNumerator: dfNonimportantPD
+      dfDenominator: dfEnrolled
+      strSubjectCol: subjid
+      strGroupCol: country
+      strNumeratorMethod: Count
+      strDenominatorMethod: Sum
+      strDenominatorCol: timeonstudy
+  - name: Transform_Rate
+    output: dfTransformed
+    params:
+      dfInput: dfInput
+  - name: Analyze_NormalApprox
+    output: dfAnalyzed
+    params:
+      dfTransformed: dfTransformed
+      strType: rate
+  - name: Analyze_NormalApprox_PredictBounds
+    output: dfBounds
+    params:
+      dfTransformed: dfTransformed
+      strType: rate
+      vThreshold: vThreshold
+  - name: Flag_NormalApprox
+    output: dfFlagged
+    params:
+      dfAnalyzed: dfAnalyzed
+      vThreshold: vThreshold
+  - name: Summarize
+    output: dfSummary
+    params:
+      dfFlagged: dfFlagged
+      nMinDenominator: nMinDenominator

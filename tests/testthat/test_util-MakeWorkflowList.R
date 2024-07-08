@@ -1,4 +1,4 @@
-strNames <- unique(gsm::meta_workflow$workflowid)
+strNames <- names(MakeWorkflowList())
 
 wf_list <- MakeWorkflowList(strNames = strNames)
 bRecursive <- TRUE

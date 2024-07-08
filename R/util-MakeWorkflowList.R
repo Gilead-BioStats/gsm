@@ -7,7 +7,8 @@
 #'
 #' @param strNames `array of character` List of workflows to include. NULL (the default) includes all workflows in the specified locations.
 #' @param strPath `character` The location of workflow YAML files. If package is specified, function will look in `/inst` folder.
-#' @param bRecursive `logical` Find files in nested folders? Default FALSE.
+#' @param bExact `logical` Should strName matches be exact? If false, partial matches will be included. Default FALSE.
+#' @param bRecursive `logical` Find files in nested folders? Default TRUE
 #'
 #' @examples
 #' # use default
@@ -23,7 +24,8 @@
 MakeWorkflowList <- function(
   strNames = NULL,
   strPath = NULL,
-  bRecursive = FALSE
+  bExact = FALSE,
+  bRecursive = TRUE
 ) {
   if (is.null(strPath)) {
     # if `strPath` is not specified, default to reading `inst/workflow` from {gsm}.
@@ -67,20 +69,17 @@ MakeWorkflowList <- function(
 
   # if `strNames` is not null, subset the workflow list to only include
   # files that match the character vector (`strNames`)
+  
   if (!is.null(strNames)) {
-    not_found <- strNames[!strNames %in% names(workflows)]
-
-    if (length(not_found) > 0) {
-      cli::cli_alert_warning("{.val {not_found}} {?is/are} not {?a /}supported workflow{?/s}! Check the output of {.fn MakeWorkflowList} for NULL values.")
-
-      workflows <- c(
-        vector(mode = "list", length = length(not_found)) %>%
-          purrr::set_names(nm = not_found),
-        purrr::keep(workflows, names(workflows) %in% strNames)
-      )
-    } else {
+    if (bExact) {
       workflows <- purrr::keep(workflows, names(workflows) %in% strNames)
+    } else {
+      workflows <- purrr::keep(workflows, grepl(paste(strNames, collapse = "|"), names(workflows)))
     }
+  }
+
+  if(length(workflows) == 0) {
+    cli::cli_alert_warning("No workflows found.")
   }
 
   return(workflows)

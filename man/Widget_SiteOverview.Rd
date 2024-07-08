@@ -2,107 +2,100 @@
 % Please edit documentation in R/Widget_SiteOverview.R
 \name{Widget_SiteOverview}
 \alias{Widget_SiteOverview}
-\title{Site Overview Table}
+\title{Site Overview Widget}
 \usage{
 Widget_SiteOverview(
   dfSummary,
-  lConfig = list(),
-  dfSite = clindata::ctms_site,
-  dfWorkflow = gsm::meta_workflow,
-  width = NULL,
-  height = NULL,
-  elementId = NULL
+  dfMetrics = gsm::meta_workflow,
+  dfGroups = clindata::ctms_site \%>\% dplyr::left_join(clindata::rawplus_dm \%>\%
+    dplyr::group_by(siteid) \%>\% dplyr::tally(name = "enrolled_participants"),
+    c(site_num = "siteid")) \%>\% dplyr::rename(SiteID = site_num, status = site_status),
+  strGroupSubset = "red",
+  bDebug = FALSE
 )
 }
 \arguments{
-\item{dfSummary}{data with columns:
+\item{dfSummary}{\code{data.frame} Output of \code{\link[=Summarize]{Summarize()}}.}
+
+\item{dfMetrics}{\code{list} Metric metadata, captured at the top of metric workflows and returned by
+\code{\link[=MakeMetricInfo]{MakeMetricInfo()}}.}
+
+\item{dfGroups}{\code{data.frame} Group metadata.}
+
+\item{strGroupSubset}{\code{character} Subset of groups to include in the table. Default: 'red'. Options:
 \itemize{
-\item{\code{studyid}}
-\item{\code{workflowid}}
-\item{\code{groupid}}
-\item{\code{numerator}}
-\item{\code{denominator}}
-\item{\code{metric}}
-\item{\code{score}}
-\item{\code{flag}}
+\item 'all': All groups.
+\item 'red': Groups with 1+ red flags.
+\item 'red/amber': Groups with 1+ red/amber flag.
+\item 'amber': Groups with 1+ amber flag.
 }}
 
-\item{lConfig}{configuration with columns:
-\itemize{
-\item{\code{workflow}}
-\item{\code{gsm_version}}
-\item{\code{group}}
-\item{\code{metric}}
-\item{\code{numerator}}
-\item{\code{denominator}}
-\item{\code{outcome}}
-\item{\code{model}}
-\item{\code{score}}
-\item{\code{data_inputs}}
-\item{\code{data_filters}}
-}}
-
-\item{dfSite}{\code{data.frame} Site metadata.}
-
-\item{dfWorkflow}{\code{data.frame} Workflow metadata with columns:
-\itemize{
-\item{\code{workflowid}}
-\item{\code{description}}
-\item{\code{abbreviation}}
-}}
-
-\item{width}{width of widget, full screen by default}
-
-\item{height}{height of widget, calculated based on width}
-
-\item{elementId}{ID of container HTML element}
+\item{bDebug}{\code{logical} Print debug messages? Default: \code{FALSE}.}
 }
 \description{
-A widget that displays a site overview table based on the output of KRI pipelines.
+A widget that generates a site overview table of group-level metric results across one or more
+metrics.
 }
 \details{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 \dontrun{
-wf_mapping <- MakeWorkflowList(strNames="mapping")[[1]]
-wf_metrics <- MakeWorkflowList(strNames=paste0("kri",sprintf("\%04d", 1:2)))
-dfMetrics <- wf_metrics \%>\% map_df(function(wf){
-  wf$meta$vThreshold <- paste(wf$meta$vThreshold, collapse = ",")
-  return(wf$meta)
-})
-
-# Import Site+Study Metadata
-dfStudy<-clindata::ctms_study \%>\% rename(StudyID = protocol_number)
-dfSite<- clindata::ctms_site \%>\% rename(SiteID = site_num)
-
-# Pull Raw Data - this will overwrite the previous data pull
-lRaw <- gsm::UseClindata(
-  list(
-    "dfSUBJ" = "clindata::rawplus_dm",
-    "dfAE" = "clindata::rawplus_ae",
-    "dfPD" = "clindata::ctms_protdev",
-    "dfLB" = "clindata::rawplus_lb",
-    "dfSTUDCOMP" = "clindata::rawplus_studcomp",
-    "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp",
-    "dfDATACHG" = "clindata::edc_data_points",
-    "dfDATAENT" = "clindata::edc_data_pages",
-    "dfQUERY" = "clindata::edc_queries",
-    "dfENROLL" = "clindata::rawplus_enroll"
-  )
+data_raw <- gsm::UseClindata(
+    list(
+        "dfSUBJ" = "clindata::rawplus_dm",
+        "dfAE" = "clindata::rawplus_ae",
+        "dfPD" = "clindata::ctms_protdev",
+        "dfLB" = "clindata::rawplus_lb",
+        "dfSTUDCOMP" = "clindata::rawplus_studcomp",
+        "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp \%>\%
+      dplyr::filter(.data$phase == 'Blinded Study Drug Completion')",
+        "dfDATACHG" = "clindata::edc_data_points",
+        "dfDATAENT" = "clindata::edc_data_pages",
+        "dfQUERY" = "clindata::edc_queries",
+        "dfENROLL" = "clindata::rawplus_enroll"
+    )
 )
 
-# Create Mapped Data
-lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$lData
+workflows <- MakeWorkflowList()
 
-# Run Metrics
-lResults <-map(wf_metrics, ~RunWorkflow(., lData=lMapped))
+data_mapped <- RunWorkflow(workflows$mapping, data_raw)$lData
 
-dfSummary <- lResults \%>\%
-imap_dfr(~.x$lData$dfSummary \%>\% mutate(MetricID = .y)) \%>\%
-  mutate(StudyID = "ABC-123") \%>\%
-  mutate(SnapshotDate = Sys.Date())
+results <- workflows[ grepl('^kri', names(workflows) ) ] \%>\%
+    map(~ RunWorkflow(.x, data_mapped))
 
-Widget_SiteOverview(dfSummary = dfSummary)
+dfSummary <- results \%>\% map_dfr(~ {
+    data <- .x$lData$dfSummary
+    data$MetricID <- .x$name
+    data
+})
+
+counts <- RunWorkflow(workflows$counts, data_mapped)
+
+# TODO: use [ clindata::rawplus_dm$invid ] and [ clindata::ctms_site$pi_number ] insstead of
+# [ clindata::rawplus_dm$siteid ] and [ clindata::ctms_site$site_num ].
+dfGroups <- clindata::ctms_site \%>\%
+  dplyr::left_join(
+    clindata::rawplus_dm \%>\%
+      dplyr::group_by(siteid) \%>\%
+      dplyr::tally(name = "enrolled_participants"),
+    c('site_num' = 'siteid')
+  ) \%>\%
+  dplyr::rename(
+    SiteID = site_num,
+    status = site_status
+  )
+
+dfMetrics <- results \%>\% map_dfr(~ {
+    metric <- .x$meta
+    metric$vThreshold <- paste(metric$vThreshold, collapse = ',')
+    metric
+})
+
+Widget_SiteOverview(
+  dfSummary,
+  dfMetrics,
+  dfGroups
+)
 }
 }

@@ -1,60 +1,60 @@
 HTMLWidgets.widget({
-  name: 'Widget_TimeSeries',
-  type: 'output',
-  factory: function(el, width, height) {
-    return {
-      renderValue: function(x) {
+    name: 'Widget_TimeSeries',
+    type: 'output',
+    factory: function(el, width, height) {
+        return {
+            renderValue: function(input) {
+                if (input.bDebug)
+                    console.log(input);
 
-        // chart configuration
-        const lLabels = HTMLWidgets.dataframeToD3(x.lLabels)[0]
-        lLabels.selectedGroupIDs = x.selectedGroupIDs
+                // Update y-axis variable.
+                input.lMetric.y = input.strOutcome;
 
+                // add click event listener to chart
+                if (input.bAddGroupSelect)
+                    input.lMetric.clickCallback = function(d) {
+                        instance.data.config.selectedGroupIDs = instance.data.config.selectedGroupIDs.includes(d.GroupID)
+                            ? 'None'
+                            : d.GroupID;
+                        groupSelect.value = instance.data.config.selectedGroupIDs;
+                        instance.helpers.updateSelectedGroupIDs(
+                            instance.data.config.selectedGroupIDs
+                        );
 
-        lLabels.clickCallback = function(d) {
+                        // Update Shiny input if in Shiny environment.
+                        if (typeof Shiny !== 'undefined') {
+                          if (instance.data.config.selectedGroupIDs.length > 0) {
+                            Shiny.setInputValue(
+                              'site',
+                              instance.data.config.selectedGroupIDs
+                            )
+                          }
+                        }
+                  };
 
-          // initialize groupids
-          instance.helpers.updateSelectedGroupIDs(d.groupid);
+                // generate time series
+                const instance = rbmViz.default.timeSeries(
+                    el,
+                    input.dfSummary,
+                    input.lMetric,
+                    input.vThreshold,
+                    null, // confidence intervals parameter
+                    input.dfGroups
+                );
 
-                  if (typeof Shiny !== 'undefined') {
-                    if (instance.data.config.selectedGroupIDs.length > 0) {
-                      Shiny.setInputValue(
-                        'site',
-                        instance.data.config.selectedGroupIDs
-                      )
-
-                      instance.helpers.updateSelectedGroupIDs(
-                        instance.data.config.selectedGroupIDs
-                      )
-                    }
-
-                  } else {
-                    // Update site dropdown.
-                    const siteDropdown = document.getElementById(`site-select--time-series_${lLabels.workflowid}`)
-                    siteDropdown.value = d.groupid;
-
-                    // Update chart (closure allows access to `instance` prior to initialization).
-                    instance.helpers.updateSelectedGroupIDs(d.groupid);
-                  }
-
+                // add dropdown that highlights groups
+                let groupSelect;
+                if (input.bAddGroupSelect) {
+                    groupSelect = addGroupSelect(
+                        el,
+                        input.dfSummary,
+                        instance,
+                        `Highlighted ${input.lMetric.Group || 'group'}: `
+                    );
+                }
+            },
+            resize: function(width, height) {
+            }
         };
-
-        // chart
-        const instance = rbmViz.default.timeSeries(
-            el,
-            x.dfSummary,
-            lLabels,
-            x.dfParams,
-            null,
-            x.dfSite
-        );
-
-        // Add event listener to site dropdown that updates chart on change.
-        el.previousElementSibling.addEventListener('change', (event) => {
-          instance.helpers.updateSelectedGroupIDs(event.target.value);
-        });
-      },
-      resize: function(width, height) {
-      }
-    };
-  }
+    }
 });

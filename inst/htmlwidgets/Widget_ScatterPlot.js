@@ -3,21 +3,23 @@ HTMLWidgets.widget({
     type: 'output',
     factory: function(el, width, height) {
         return {
-            renderValue: function(x) {
-
-                // scatter plot configuration
-                const lLabels = x.lLabels;
-                lLabels.selectedGroupIDs = number_to_array(x.selectedGroupIDs);
+            renderValue: function(input) {
+                if (input.bDebug)
+                    console.log(input);
 
                 // add click event listener to chart
-                if (x.addSiteSelect)
-                    lLabels.clickCallback = function(d) { // clickCallback.bind(null, instance, siteSelect);
-                        instance.data.config.selectedGroupIDs = instance.data.config.selectedGroupIDs.includes(d.groupid)
+                if (input.bAddGroupSelect)
+                    input.lMetric.clickCallback = function(d) {
+                        instance.data.config.selectedGroupIDs = instance.data.config.selectedGroupIDs.includes(d.GroupID)
                             ? 'None'
-                            : d.groupid;
-                        siteSelect.value = instance.data.config.selectedGroupIDs;
-                        instance.helpers.updateConfig(instance, instance.data.config);
+                            : d.GroupID;
+                        groupSelect.value = instance.data.config.selectedGroupIDs;
+                        instance.helpers.updateConfig(
+                            instance,
+                            instance.data.config
+                        );
 
+                        // Update Shiny input if in Shiny environment.
                         if (typeof Shiny !== 'undefined') {
                           if (instance.data.config.selectedGroupIDs.length > 0) {
                             Shiny.setInputValue(
@@ -26,30 +28,27 @@ HTMLWidgets.widget({
                             )
                           }
                         }
-
-                        instance.helpers.updateConfig(
-                          instance,
-                          instance.data.config
-                        )
                   };
 
                 // generate scatter plot
                 const instance = rbmViz.default.scatterPlot(
                     el,
-                    x.dfSummary,
-                    lLabels,
-                    x.dfBounds,
-                    x.dfSite
+                    input.dfSummary,
+                    input.lMetric,
+                    input.dfBounds,
+                    input.dfGroups
                 );
 
-                // add dropdown that highlights sites
-                let siteSelect;
-                if (x.addSiteSelect)
-                    siteSelect = addSiteSelect(el, x.dfSummary, instance, x.siteSelectLabelValue);
-
-                // hide dropdown if in a Shiny environment
-                if (x.bHideDropdown) {
-                  siteSelect.style.display = "none";
+                // add dropdown that highlights groups
+                let groupSelect;
+                if (input.bAddGroupSelect) {
+                    console
+                    groupSelect = addGroupSelect(
+                        el,
+                        input.dfSummary,
+                        instance,
+                        `Highlighted ${input.lMetric.Group || 'group'}: `
+                    );
                 }
             },
             resize: function(width, height) {
