@@ -7,27 +7,34 @@
 # @return A data frame with the following columns: SiteID, SiteName, MetricID, MetricName, snapshot_date, flag
 
 FlagOverTime <- function(dfSummary, dfSite, dfMetrics) {
-  
+  rlang::check_installed("gt")
   # Create a table that shows flags over time for each site/KRI combination
   dfFlagOverTime <- dfSummary %>%
-    left_join(dfSite, by = "GroupID") %>%
-    left_join(dfMetrics, by = "MetricID") %>%
-    select(GroupID, GroupLevel, MetricID, abbreviation, snapshot_date, Flag) %>%
-    tidyr::spread(key = snapshot_date, value = Flag) 
+    dplyr::left_join(dfSite, by = "GroupID") %>%
+    dplyr::left_join(dfMetrics, by = "MetricID") %>%
+    dplyr::select(
+      "GroupID",
+      "GroupLevel",
+      "MetricID",
+      "abbreviation",
+      "snapshot_date",
+      "Flag"
+    ) %>%
+    tidyr::spread(key = "snapshot_date", value = "Flag")
 
     ncol <- dim(dfFlagOverTime)[2]
-  
+
   # Create a  table with flags over time for each site/KRI combination
-  gt_table <- dfFlagOverTime %>% 
-    group_by(GroupLevel, GroupID) %>%
-    gt() %>%
-    data_color(
+  gt_table <- dfFlagOverTime %>%
+    dplyr::group_by(GroupLevel, GroupID) %>%
+    gt::gt() %>%
+    gt::data_color(
         method = "numeric",
         palette =  c("#000000","#FF0000", "#FFA500", "#008000", "#FFA500", "#FF0000","#000000"),
-        domain= c(-2.5,-1.5,-0.5,0.5,1.5,2.5)
-    ) %>% 
-    text_transform(
-        locations = cells_body(columns = 5:ncol),
+        domain = c(-2.5,-1.5,-0.5,0.5,1.5,2.5)
+    ) %>%
+    gt::text_transform(
+        locations = gt::cells_body(columns = 5:ncol),
         fn = function(x) {
             dplyr::case_when(
                 x == -2 ~ "-",
@@ -38,27 +45,21 @@ FlagOverTime <- function(dfSummary, dfSite, dfMetrics) {
                 TRUE ~ ""
             )
         }
-    ) %>% 
-    cols_align(
+    ) %>%
+    gt::cols_align(
         columns = 5:ncol,
         align = "center"
-    ) %>% 
-    opt_vertical_padding(0.5) %>%
-    opt_vertical_padding(0.5) %>%
-    tab_header(
+    ) %>%
+    gt::opt_vertical_padding(0.5) %>%
+    gt::opt_vertical_padding(0.5) %>%
+    gt::tab_header(
         title = "Flag Over Time",
         subtitle = "Flags over time for each site/KRI combination"
     ) %>%
-    tab_spanner(
+    gt::tab_spanner(
         label = "Flag",
         columns = 5:ncol
-    ) 
-
-
-
-
-
-        
+    )
 
   return(gt_table)
 }
