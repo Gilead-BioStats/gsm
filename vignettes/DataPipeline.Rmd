@@ -51,7 +51,7 @@ The image above provides an overview of the default KRI analysis pipeline. The p
 4.  `dfFlagged`: Flagged data; Site-level analysis results with flags added to indicate potential statistical outliers. Created by passing numeric thresholds to a `Flag()` function.
 5.  `dfSummary`: Summary data; Standardized subset of the flagged data. This summary data has the same structure for all assessments and always includes both KRI and Flag values so that a user can easily look at trends for any given site across multiple assessments. Created using the `Summarize()` function.
 
-Each KRI has a `.yaml` file that sequentially executes all of the supporting functions and returns a list of datasets and visualizations per the specifications of the .yaml file. In the default `yaml` files included in the `inst/workflow/metrics` directory of this package, the 5 standard datasets that are always returned are `dfTransformed`, `dfAnalyzed`, `dfFlagged`, `dfBounds`, and `dfSummary`. A step-by-step example of the data assessment workflow can be found in the [Data Analysis Vignette](https://gilead-biostats.github.io/gsm/articles/DataAnalysis.html).
+Each KRI has a `.yaml` file that sequentially executes all of the supporting functions and returns a list of datasets and visualizations per the specifications of the .yaml file. In the default `yaml` files included in the `workflow/metrics` directory of this package, the 5 standard datasets that are always returned are `dfTransformed`, `dfAnalyzed`, `dfFlagged`, `dfBounds`, and `dfSummary`. A step-by-step example of the data assessment workflow can be found in the [Data Analysis Vignette](https://gilead-biostats.github.io/gsm/articles/DataAnalysis.html).
 
 Note that each step in this data pipeline can be customized based on the requirements for a specific KRI. The graphic below shows four such workflows.
 
@@ -68,7 +68,7 @@ The pipeline discussed here is a standardized process for creating datasets by g
 4. `dfGroups`: Grouped data; Long data.frame of summarized group CTMS data with site, study, and country level counts and metrics. Constructed by binding data.frames created with `MakeGroupInfo()`.
 5. `dfMetrics`: Metric metadata; Metric-specific metadata for use in charts and reporting. Created by passing an `lWorkflow` object to the `MakeMetricInfo()` function.
 
-The reporting data pipeline has a `yaml` file that runs through all steps to produce all five of these data.frames so that they can be used to create charts and reports. This `yaml` file can be found in `inst/workflows./data_reporting.yaml`. The `lData` list required to run this workflow with `RunWorkflow()` must contain the following elements:
+The reporting data pipeline has a `yaml` file that runs through all steps to produce all five of these data.frames so that they can be used to create charts and reports. This `yaml` file, and all analysis workflow yaml files can be found  at `system.file("workflow/metrics", package = "gsm")`. The `lData` list required to run this workflow with `RunWorkflow()` must contain the following elements:
 
 1. `ctms_site`: CTMS site-level data set.
 2. `ctms_study`: CTMS study-level data set.
@@ -480,7 +480,7 @@ Expected `Param` by `GroupLevel` for use in gsm reporting. Fine to add other Par
 
 Assessment workflow metadata objects are passed to the `lWorkflow` parameter in `RunWorkflow()` to define functions and parameters across multiple studies.
 
-The `lWorkflow` object is a named list of metadata and steps defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `inst/workflow/metrics`. Each item in `lWorkflow` expects the following parameters in the `steps` section:
+The `lWorkflow` object is a named list of metadata and steps defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `workflow/metrics`. Each item in `lWorkflow` expects the following parameters in the `steps` section:
 
 -   `workflow`: Array defining one or more functions to be executed as part of the workflow for a given assessment
     -   `workflow[]$meta`: specifies all of the metadata information for the KRI.
@@ -490,7 +490,7 @@ The `lWorkflow` object is a named list of metadata and steps defining how each a
         -   `workflow[]$steps$output`: specifies the output data from the workflow step, which can be used as an input in the next step in the workflow
         -   `workflow[]$steps$params`: specifies parameters to be passed to the function
 
-For example, the default workflow for the AE assessment (`inst/workflow/metrics/kri0001.yaml`) is shown below:
+For example, the default workflow for the AE assessment (`workflow/metrics/kri0001.yaml`) is shown below:
 
 ```{yaml, eval = FALSE}
 meta:
