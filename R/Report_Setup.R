@@ -13,7 +13,7 @@ Report_Setup <- function(dfStudy = NULL, dfMetrics = NULL, dfSummary = NULL) {
   output <- list()
   # Get type of report
 
-  group <- unique(dfMetrics$Group)
+  group <- unique(dfMetrics$GroupLevel)
 
   if(length( group )==1) {
     output$Group <- group %>% stringr::str_to_title()

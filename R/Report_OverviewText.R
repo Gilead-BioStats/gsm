@@ -10,9 +10,9 @@ Report_OverviewText <- function(lSetup, dfSummary, dfStudy) {
     amber_or_red_KRI_groups <- dfSummary %>% filter(Flag %in% c(-2,2,-1,1)) %>% select('GroupID') %>% .$GroupID
     no_alert_groups <- dfSummary %>% filter(Flag %in% !c(-2,2,1,-1)) %>% select('GroupID') %>% .$GroupID
 
-    if (lSetup$group == "Site") {
+    if (lSetup$Group == "Site") {
       group_type = "sites"
-    } else if (lSetup$group == "Country") {
+    } else if (lSetup$Group == "Country") {
       group_type = "countries"
     }
 

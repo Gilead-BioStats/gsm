@@ -63,7 +63,7 @@ htmltools::div(
   style = "table-layout: fixed; width: 100%; overflow: auto;",
   Widget_SiteOverview(
     dfSummary= params$dfSummary,
-    dfSite= params$dfSite
+    dfGroups= params$dfSite
   )
 )
 ```
