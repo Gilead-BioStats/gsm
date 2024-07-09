@@ -15,7 +15,7 @@
 MakeCharts <- function(dfSummary, dfBounds, dfGroups, dfMetrics){
     metrics<- unique(dfMetrics$MetricID)
     charts <- metrics %>% map(~Visualize_Metric(
-        dfSummary = dfSummary_long,
+        dfSummary = dfSummary,
         dfBounds = dfBounds,
         dfGroups = dfGroups,
         dfMetrics = dfMetrics,

@@ -37,7 +37,7 @@ lReporting_Input <- list(
 
 lReporting <- RunWorkflows(lWorkflow = wf_reporting, lData = lReporting_Input)
 
-# Generate Report 
+# Generate Report
 devtools::load_all()
 wf_reports <- MakeWorkflowList(strNames = "reports")
 lReports <- RunWorkflows(lWorkflow = wf_reports, lData = lReporting)
@@ -50,7 +50,8 @@ dfSite <- dfSites <- dfGroups %>%
     SiteID = GroupID,
     status = Status,
     enrolled_participants = ParticipantCount
-  
+  )
+
 dfStudy <- dfStudies <- dfGroups %>% filter(GroupLevel == "Study") %>% pivot_wider(names_from=Param, values_from=Value)
 
 # Lazy longitudinal data
@@ -76,18 +77,18 @@ charts <- metrics %>% map(~Visualize_Metric(
 devtools::load_all()
 Report_KRI(
   lCharts = charts,
-  dfSummary = dfSummary_long, 
-  dfStudy = dfStudy, 
-  dfSite = dfSite, 
-  dfMetrics = dfMetrics, 
+  dfSummary = dfSummary_long,
+  dfStudy = dfStudy,
+  dfSite = dfSite,
+  dfMetrics = dfMetrics,
   strOutpath = "test.html"
 )
- 
+
 # Overview Table
   Widget_SiteOverview(
     dfSummary= dfSummary_long,
-    dfGroups= dfSite, 
-    dfMetrics= dfMetrics, 
+    dfGroups= dfSite,
+    dfMetrics= dfMetrics,
     bDebug=TRUE
   )
 

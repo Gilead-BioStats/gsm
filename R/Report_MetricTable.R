@@ -35,8 +35,8 @@ Report_MetricTable <- function(dfSummary, dfSite, strSnapshotDate = NULL) {
     if(nrow(dfSummary) > 0 & nrow(dfSite) > 0){
         dfSummary <- dfSummary %>%
             left_join(
-                dfSite %>% select("SiteID", "pi_last_name","country", "site_status"),
-                c("GroupID" = "SiteID")
+                dfSite %>% select("GroupID", "InvestigatorLastName", "Country", "Status"),
+                "GroupID"
             )
     }
 
@@ -55,10 +55,10 @@ Report_MetricTable <- function(dfSummary, dfSite, strSnapshotDate = NULL) {
             select(
                 any_of(c(
                     "Site" = "GroupID",
-                    "Country" = "country",
-                    "Status" = "site_status",
-                    "PI" = "pi_last_name",
-                    "Subjects" = "enrolled_participants"
+                    "Country",
+                    "Status",
+                    "PI" = "InvestigatorLastName",
+                    "Subjects" = "ParticipantCount"
                 )),
                 everything()
             ) %>%
