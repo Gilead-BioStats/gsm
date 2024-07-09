@@ -14,8 +14,9 @@ lRaw <- list(
 )
 
 wf_mapping <- MakeWorkflowList(strNames = "mapping")
-wf_kri <- MakeWorkflowList(strNames="kri0001")
+wf_kri <- MakeWorkflowList(strNames="kri")
 wf_reporting <- MakeWorkflowList(strNames = "reporting")
+wf_reports <- MakeWorkflowList(strNames = "reports")
 
 # Generate Mapped Data
 lMapped <- RunWorkflows(lWorkflow = wf_mapping, lData = lRaw)
@@ -29,18 +30,17 @@ lReporting_Input <- list(
     ctms_study = clindata::ctms_study,
     dfEnrolled =lMapped$dfEnrolled,
     lWorkflows = wf_kri,
-    lAnalysis = list(kri0001 = lAnalysis),
+    lAnalysis = lAnalysis,
     dSnapshotDate = Sys.Date(),
     strStudyID = "ABC-123"
 )
 
 lReporting <- RunWorkflows(lWorkflow = wf_reporting, lData = lReporting_Input)
 
-# Convience Mappings
-dfGroups <- lReporting$dfGroups
-dfMetrics <- lReporting$dfMetrics
-dfSummary <- lReporting$dfSummary
-dfBounds <- lReporting$dfBounds
+# Generate Report 
+devtools::load_all()
+wf_reports <- MakeWorkflowList(strNames = "reports")
+lReports <- RunWorkflows(lWorkflow = wf_reports, lData = lReporting)
 
 # Create dfSites and dfStudy pending rbm-viz update to use dfGroups
 dfSite <- dfSites <- dfGroups %>%
@@ -50,8 +50,7 @@ dfSite <- dfSites <- dfGroups %>%
     SiteID = GroupID,
     status = Status,
     enrolled_participants = ParticipantCount
-  )
-
+  
 dfStudy <- dfStudies <- dfGroups %>% filter(GroupLevel == "Study") %>% pivot_wider(names_from=Param, values_from=Value)
 
 # Lazy longitudinal data
@@ -72,6 +71,25 @@ charts <- metrics %>% map(~Visualize_Metric(
   strMetricID = .x
 )
 ) %>% setNames(metrics)
+
+
+devtools::load_all()
+Report_KRI(
+  lCharts = charts,
+  dfSummary = dfSummary_long, 
+  dfStudy = dfStudy, 
+  dfSite = dfSite, 
+  dfMetrics = dfMetrics, 
+  strOutpath = "test.html"
+)
+ 
+# Overview Table
+  Widget_SiteOverview(
+    dfSummary= dfSummary_long,
+    dfGroups= dfSite, 
+    dfMetrics= dfMetrics, 
+    bDebug=TRUE
+  )
 
 # Just one metric
 lCharts <- Visualize_Metric(

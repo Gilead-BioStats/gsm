@@ -69,21 +69,12 @@ Visualize_Metric <- function(
   lMetric <- dfMetrics %>% as.list()
   vThreshold <- ParseThreshold(lMetric$strThreshold)
 
-
-  # Stopgap Long to Wide Conversion for dfGroups -----------------------------
-  # TODO remove this and just use the long version of dfGroups? Only working for Sites for the moment
-
-  lMetric$Group <- lMetric$GroupLevel
-  dfGroups_Wide <- dfGroups %>%
-    filter(tolower(GroupLevel) == tolower(lMetric$GroupLevel)) %>%
-    pivot_wider(names_from = Param, values_from = Value)
-
   # TODO update expected names in rbmviz
   if(tolower(lMetric$GroupLevel) == "site"){
-    dfGroups_Wide <- dfGroups_Wide %>%
+    dfGroups <- dfGroups %>%
       rename(
         SiteID = GroupID,
-        status = Status,
+       # status = Status,
         enrolled_participants = ParticipantCount
       )
   }
@@ -99,7 +90,7 @@ Visualize_Metric <- function(
     lCharts$scatterJS <- gsm::Widget_ScatterPlot(
       dfSummary = dfSummary_current,
       lMetric = lMetric,
-      dfGroups = dfGroups_Wide,
+      dfGroups = dfGroups,
       dfBounds = dfBounds,
       bDebug = bDebug
     )
@@ -113,7 +104,7 @@ Visualize_Metric <- function(
     lCharts$barMetricJS <- gsm::Widget_BarChart(
       dfSummary = dfSummary_current,
       lMetric = lMetric,
-      dfGroups = dfGroups_Wide,
+      dfGroups = dfGroups,
       strOutcome = "Metric",
       bDebug = bDebug
     )
@@ -121,7 +112,7 @@ Visualize_Metric <- function(
     lCharts$barScoreJS <- gsm::Widget_BarChart(
       dfSummary = dfSummary_current,
       lMetric = lMetric,
-      dfGroups = dfGroups_Wide,
+      dfGroups = dfGroups,
       strOutcome = "Score",
       bDebug = bDebug
     )
@@ -144,7 +135,7 @@ Visualize_Metric <- function(
     lCharts$timeSeriesContinuousScoreJS <- Widget_TimeSeries(
       dfSummary = dfSummary,
       lMetric = lMetric,
-      dfGroups = dfGroups_Wide,
+      dfGroups = dfGroups,
       vThreshold =vThreshold,
       strOutcome = "Score",
       bDebug = bDebug
@@ -153,7 +144,7 @@ Visualize_Metric <- function(
     lCharts$timeSeriesContinuousMetricJS <- Widget_TimeSeries(
       dfSummary = dfSummary,
       lMetric = lMetric,
-      dfGroups = dfGroups_Wide,
+      dfGroups = dfGroups,
       strOutcome = "Metric",
       bDebug = bDebug
     )
@@ -161,7 +152,7 @@ Visualize_Metric <- function(
     lCharts$timeSeriesContinuousNumeratorJS <- Widget_TimeSeries(
       dfSummary = dfSummary,
       lMetric = lMetric,
-      dfGroups = dfGroups_Wide,
+      dfGroups = dfGroups,
       strOutcome = "Numerator",
       bDebug = bDebug
     )
