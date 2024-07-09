@@ -50,7 +50,7 @@
 #'
 #' counts <- RunWorkflow(workflows$counts, data_mapped)
 #'
-#' # TODO: use [ clindata::rawplus_dm$invid ] and [ clindata::ctms_site$pi_number ] insstead of
+#' # TODO: use [ clindata::rawplus_dm$invid ] and [ clindata::ctms_site$pi_number ] instead of
 #' # [ clindata::rawplus_dm$siteid ] and [ clindata::ctms_site$site_num ].
 #' dfGroups <- clindata::ctms_site %>%
 #'   dplyr::left_join(
@@ -80,18 +80,8 @@
 
 Widget_SiteOverview <- function(
   dfSummary,
-  dfMetrics = meta_workflow,
-  dfGroups = clindata::ctms_site %>%
-    dplyr::left_join(
-      clindata::rawplus_dm %>%
-        dplyr::group_by("siteid") %>%
-        dplyr::tally(name = "enrolled_participants"),
-      c('site_num' = 'siteid')
-    ) %>%
-    dplyr::rename(
-      SiteID = "site_num",
-      status = "site_status"
-    ),
+  dfMetrics = example_metrics(),
+  dfGroups = example_groups(),
   strGroupSubset = 'red',
   bDebug = FALSE
 ) {

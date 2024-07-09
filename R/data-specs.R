@@ -60,6 +60,43 @@
 #' @source Generated from `meta_workflow.csv` dataset in the `gsm` package.
 "meta_workflow"
 
+#' Load the meta_workflow Dataset
+#'
+#' @description
+#' A convenience function to load the \code{\link{meta_workflow}} dataset.
+#'
+#' @return The `meta_workflow` dataset.
+#' @export
+#'
+#' @examples
+#' example_metrics()
+example_metrics <- function() {
+  .meta_workflow
+}
+
+#' Load Default Clindata Groups
+#'
+#' Load and clean group data for use as default values.
+#'
+#' @return A data frame with group data.
+#' @export
+#'
+#' @examples
+#' example_groups()
+example_groups <- function() {
+  clindata::ctms_site %>%
+    dplyr::left_join(
+      clindata::rawplus_dm %>%
+        dplyr::group_by(.data$siteid) %>%
+        dplyr::tally(name = "enrolled_participants"),
+      c('site_num' = 'siteid')
+    ) %>%
+    dplyr::rename(
+      SiteID = "site_num",
+      status = "site_status"
+    )
+}
+
 #' rbm_data_spec Dataset
 #'
 #' @format A data frame with 479 rows and 5 columns:
