@@ -60,20 +60,6 @@
 #' @source Generated from `meta_workflow.csv` dataset in the `gsm` package.
 "meta_workflow"
 
-#' Load the meta_workflow Dataset
-#'
-#' @description
-#' A convenience function to load the \code{\link{meta_workflow}} dataset.
-#'
-#' @return The `meta_workflow` dataset.
-#' @export
-#'
-#' @examples
-#' example_metrics()
-example_metrics <- function() {
-  .meta_workflow
-}
-
 #' Load Default Clindata Groups
 #'
 #' Load and clean group data for use as default values.

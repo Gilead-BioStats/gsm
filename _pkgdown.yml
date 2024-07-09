@@ -155,5 +155,4 @@ reference:
     desc: data used for examples and testing
   - contents:
       - example_groups
-      - example_metrics
       - sampleInput
