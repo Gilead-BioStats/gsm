@@ -1,16 +1,14 @@
 # Create a table that shows flags over time for each site/KRI combination
 
-# @param dfSummary A data frame with the following columns: SiteID, MetricID, snapshot_date, flag
-# @param dfSite A data frame with the following columns: SiteID, SiteName
-# @param dfMetrics A data frame with the following columns: MetricID, MetricName
+# @param dfSummary A data frame with the following columns: GroupID, GroupLevel, MetricID, snapshot_date, Flag
+# @param dfMetrics A data frame with the following columns: MetricID, abbreviation
 #
-# @return A data frame with the following columns: SiteID, SiteName, MetricID, MetricName, snapshot_date, flag
+# @return An object of class `gt_tbl`.
 
-FlagOverTime <- function(dfSummary, dfSite, dfMetrics) {
+FlagOverTime <- function(dfSummary, dfMetrics) {
   rlang::check_installed("gt")
   # Create a table that shows flags over time for each site/KRI combination
   dfFlagOverTime <- dfSummary %>%
-    dplyr::left_join(dfSite, by = "GroupID") %>%
     dplyr::left_join(dfMetrics, by = "MetricID") %>%
     dplyr::select(
       "GroupID",
@@ -20,7 +18,7 @@ FlagOverTime <- function(dfSummary, dfSite, dfMetrics) {
       "snapshot_date",
       "Flag"
     ) %>%
-    tidyr::spread(key = "snapshot_date", value = "Flag")
+    tidyr::pivot_wider(names_from = "snapshot_date", values_from = "Flag")
 
     ncol <- dim(dfFlagOverTime)[2]
 
