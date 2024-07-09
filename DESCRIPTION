@@ -25,7 +25,6 @@ BugReports: https://github.com/Gilead-BioStats/gsm/issues
 Depends: 
     R (>= 4.0)
 Imports:
-    arrow,
     broom,
     cli,
     DBI,
@@ -35,44 +34,40 @@ Imports:
     htmltools,
     htmlwidgets,
     jsonlite,
-    kableExtra,
-    lamW,
-    lifecycle (>= 1.0.1),
-    lubridate,
     magrittr,
     purrr,
     rlang (>= 0.4.11),
-    sqldf,
     stats,
     stringr,
-    testthat,
     tibble,
     tidyr,
     tools,
     utils,
-    withr,
     yaml
 Suggests:
     clindata,
     covr,
-    desc,
     DT,
     fontawesome (>= 0.2.2),
     gggenes,
     ggiraph,
     gt,
     here,
-    httr,
+    kableExtra,
     knitr,
+    lamW,
+    lifecycle (>= 1.0.1),
     pander,
     pkgdown,
     riskmetric,
     rmarkdown,
     roxygen2,
-    rstudioapi,
     safetyData,
+    sqldf,
     styler,
-    usethis
+    testthat,
+    usethis,
+    withr
 VignetteBuilder: 
     knitr
 Remotes:
@@ -83,4 +78,4 @@ Config/testthat/start-first: Make_Snapshot, Study_Assess*
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
