@@ -6,9 +6,9 @@
 #' A widget that generates a time series of group-level metric results over time, plotting snapshot
 #' date on the x-axis and the outcome (numerator, denominator, metric, or score) on the y-axis.
 #'
-#' @param dfSummary `data.frame` Output of [gsm::Summarize()]. Must contain a 'SnapshotDate' column.
+#' @param dfSummary `data.frame` Output of [Summarize()]. Must contain a 'SnapshotDate' column.
 #' @param lMetric `list` Metric metadata, captured at the top of metric workflows and returned by
-#' [gsm::MakeMetricInfo()].
+#' [MakeMetricInfo()].
 #' @param dfGroups `data.frame` Group metadata.
 #' @param vThreshold `numeric` Threshold value(s).
 #' @param strOutcome `character` Outcome variable. Default: 'Score'.
@@ -33,10 +33,10 @@
 #'     lMappingWorkflow,
 #'     lDataRaw
 #' )$lData
-#' 
+#'
 #' strMetricID <- 'kri0001'
 #' lMetricWorkflow <- MakeWorkflowList(strMetricID)[[ strMetricID ]]
-#' 
+#'
 #' lResults <- RunWorkflow(
 #'     lMetricWorkflow,
 #'     lDataMapped
@@ -61,7 +61,7 @@
 #'         return(dfSummary)
 #'     }
 #' )
-#' 
+#'
 #' dfGroups <- clindata::ctms_site %>%
 #'     left_join(
 #'         lDataMapped$dfEnrolled %>%
@@ -73,7 +73,7 @@
 #'         SiteID = site_num,
 #'         status = site_status
 #'     )
-#' 
+#'
 #' Widget_TimeSeries(
 #'     dfSummary = dfSummary,
 #'     lMetric = lMetricWorkflow$meta,

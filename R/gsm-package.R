@@ -36,6 +36,7 @@
 #' @importFrom jsonlite fromJSON
 #' @importFrom jsonlite toJSON
 #' @importFrom purrr map
+#' @importFrom rlang .data
 #' @importFrom rlang check_installed
 #' @importFrom stats binom.test
 #' @importFrom stats fisher.test

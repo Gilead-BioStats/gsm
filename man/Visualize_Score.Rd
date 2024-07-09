@@ -31,7 +31,7 @@ group-level ggplot2 object.
 }
 \examples{
 \dontrun{
-lData <- gsm::UseClindata(
+lData <- UseClindata(
 list(
   "dfSUBJ" = "clindata::rawplus_dm",
   "dfAE" = "clindata::rawplus_ae",

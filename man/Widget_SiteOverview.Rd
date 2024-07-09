@@ -6,10 +6,11 @@
 \usage{
 Widget_SiteOverview(
   dfSummary,
-  dfMetrics = gsm::meta_workflow,
+  dfMetrics = meta_workflow,
   dfGroups = clindata::ctms_site \%>\% dplyr::left_join(clindata::rawplus_dm \%>\%
-    dplyr::group_by(siteid) \%>\% dplyr::tally(name = "enrolled_participants"),
-    c(site_num = "siteid")) \%>\% dplyr::rename(SiteID = site_num, status = site_status),
+    dplyr::group_by("siteid") \%>\% dplyr::tally(name = "enrolled_participants"),
+    c(site_num = "siteid")) \%>\% dplyr::rename(SiteID = "site_num", status =
+    "site_status"),
   strGroupSubset = "red",
   bDebug = FALSE
 )
@@ -41,7 +42,7 @@ metrics.
 }
 \examples{
 \dontrun{
-data_raw <- gsm::UseClindata(
+data_raw <- UseClindata(
     list(
         "dfSUBJ" = "clindata::rawplus_dm",
         "dfAE" = "clindata::rawplus_ae",
