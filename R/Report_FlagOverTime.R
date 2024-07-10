@@ -79,7 +79,7 @@ fmt_sign <- function(data,
 n_to_sign <- function(x) {
   dplyr::case_when(
     # Note: this is an actual minus sign for better printing, not a dash.
-    x < 0 ~ "−",
+    x < 0 ~ "\u2212",
     x > 0 ~ "+",
     TRUE ~ ""
   )
