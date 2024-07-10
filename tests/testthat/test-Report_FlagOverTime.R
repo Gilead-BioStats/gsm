@@ -12,5 +12,5 @@ test_that("Report_FlagOverTime returns the expected object", {
   )
   x <- Report_FlagOverTime(dfSummary, dfMetrics)
   expect_s3_class(x, "gt_tbl")
-  expect_snapshot(unclass(x))
+  expect_snapshot(unclass(x), transform = scrub_bytecode)
 })
