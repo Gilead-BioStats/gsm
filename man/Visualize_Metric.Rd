@@ -15,9 +15,9 @@ Visualize_Metric(
 )
 }
 \arguments{
-\item{dfSummary}{\code{data.frame} A data.frame returned by \code{\link[=Summarize]{Summarize()}}.}
+\item{dfSummary}{\code{data.frame} A data.frame returned by \code{\link[=Summarize]{Summarize()}}. Longitudinal data supported.}
 
-\item{dfBounds}{\code{data.frame}, A data.frame returned by \code{\link[=Analyze_NormalApprox_PredictBounds]{Analyze_NormalApprox_PredictBounds()}} or \code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}}}
+\item{dfBounds}{\code{data.frame}, A data.frame returned by \code{\link[=Analyze_NormalApprox_PredictBounds]{Analyze_NormalApprox_PredictBounds()}} or \code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}}. Longitudinal data not supported.}
 
 \item{dfGroups}{\code{data.frame} Site metadata.}
 

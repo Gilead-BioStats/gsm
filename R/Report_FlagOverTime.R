@@ -1,7 +1,9 @@
 # Create a table that shows flags over time for each site/KRI combination
 
-# @param dfSummary A data frame with the following columns: GroupID, GroupLevel, MetricID, snapshot_date, Flag
-# @param dfMetrics A data frame with the following columns: MetricID, abbreviation
+# @param dfSummary A data frame with the following columns: GroupID, GroupLevel,
+#   MetricID, SnapshotDate, Flag
+# @param dfMetrics A data frame with the following columns: MetricID,
+#   Abbreviation
 #
 # @return An object of class `gt_tbl`.
 
@@ -28,9 +30,7 @@ widen_summary <- function(dfSummary, dfMetrics) {
   dfMetrics_join <- dfMetrics %>%
     dplyr::select(
       "MetricID",
-      # "GroupLevel",
-      "Abbreviation",
-      "MetricDescription" = "Metric"
+      "Abbreviation"
     )
   dfSummary %>%
     dplyr::left_join(dfMetrics_join, by = c("MetricID")) %>%
@@ -38,9 +38,7 @@ widen_summary <- function(dfSummary, dfMetrics) {
       "GroupID",
       "GroupLevel",
       "MetricID",
-      # "StudyID",
       "Abbreviation",
-      # "MetricDescription",
       "SnapshotDate",
       "Flag"
     ) %>%
@@ -49,8 +47,8 @@ widen_summary <- function(dfSummary, dfMetrics) {
 }
 
 fmt_flag_rag <- function(data,
-                         columns = gt::everything(),
-                         rows = gt::everything()) {
+  columns = gt::everything(),
+  rows = gt::everything()) {
   fmt_sign_rag(data, columns = columns) %>%
     cols_label_month(columns = columns) %>%
     gt::tab_spanner(label = "Flag", columns = columns)
@@ -59,8 +57,8 @@ fmt_flag_rag <- function(data,
 # Cells ------------------------------------------------------------------------
 
 fmt_sign_rag <- function(data,
-                         columns = gt::everything(),
-                         rows = gt::everything()) {
+  columns = gt::everything(),
+  rows = gt::everything()) {
   data_color_rag(data, columns = columns, rows = rows) %>%
     fmt_sign(columns = columns, rows = rows)
 }
