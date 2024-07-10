@@ -16,7 +16,7 @@ Report_FlagOverTime <- function(dfSummary, dfMetrics) {
   dfFlagOverTime %>%
     dplyr::group_by(.data$GroupLevel, .data$GroupID) %>%
     gt::gt() %>%
-    fmt_flags_change(columns = date_cols) %>%
+    fmt_flag_rag(columns = date_cols) %>%
     gt::tab_header(
       title = "Flag Over Time",
       subtitle = "Flags over time for each site/KRI combination"
@@ -25,29 +25,42 @@ Report_FlagOverTime <- function(dfSummary, dfMetrics) {
 }
 
 widen_summary <- function(dfSummary, dfMetrics) {
+  dfMetrics_join <- dfMetrics %>%
+    dplyr::select(
+      "MetricID",
+      # "GroupLevel",
+      "Abbreviation",
+      "MetricDescription" = "Metric"
+    )
   dfSummary %>%
-    dplyr::left_join(dfMetrics, by = "MetricID") %>%
+    dplyr::left_join(dfMetrics_join, by = c("MetricID")) %>%
     dplyr::select(
       "GroupID",
       "GroupLevel",
       "MetricID",
-      "abbreviation",
-      "snapshot_date",
+      # "StudyID",
+      "Abbreviation",
+      # "MetricDescription",
+      "SnapshotDate",
       "Flag"
     ) %>%
-    tidyr::pivot_wider(names_from = "snapshot_date", values_from = "Flag")
+    dplyr::arrange(GroupID, MetricID, SnapshotDate) %>%
+    tidyr::pivot_wider(names_from = "SnapshotDate", values_from = "Flag")
 }
 
-fmt_flags_change <- function(data,
-  columns = gt::everything(),
-  rows = gt::everything()) {
-  fmt_sign_rag(data, columns = columns, rows = rows) %>%
+fmt_flag_rag <- function(data,
+                         columns = gt::everything(),
+                         rows = gt::everything()) {
+  fmt_sign_rag(data, columns = columns) %>%
+    cols_label_month(columns = columns) %>%
     gt::tab_spanner(label = "Flag", columns = columns)
 }
 
+# Cells ------------------------------------------------------------------------
+
 fmt_sign_rag <- function(data,
-  columns = gt::everything(),
-  rows = gt::everything()) {
+                         columns = gt::everything(),
+                         rows = gt::everything()) {
   data_color_rag(data, columns = columns, rows = rows) %>%
     fmt_sign(columns = columns, rows = rows)
 }
@@ -103,4 +116,23 @@ colorScheme <- function(color_name) {
     grey = "#AAAAAA"
   )
   colors[[color_name]]
+}
+
+# Headers ----------------------------------------------------------------------
+
+cols_label_month <- function(data, columns = gt::everything()) {
+  gt::cols_label_with(
+    data,
+    columns = columns,
+    fn = function(x) {
+      lubridate::month(x, label = TRUE) %>%
+        as.character()
+    }
+  ) %>%
+    gt::tab_spanner_delim(
+      delim = "-",
+      columns = columns,
+      split = "first",
+      limit = 1
+    )
 }

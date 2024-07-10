@@ -1,17 +1,17 @@
 test_that("Report_FlagOverTime returns the expected object", {
-  # This is insane but it's my best guess to stabilize the snapshot between my
-  # local machine and github.
-  dfSummary <- data.frame(
-    GroupID = c(100, 100, 100, 200, 200, 200),
-    GroupLevel = rep("Site", 6),
-    MetricID = rep("kri1", 6),
-    snapshot_date = rep(c("2021-01-01", "2021-02-01", "2021-03-01"), 2),
-    Flag = c(-2, -1, 0, NA, 1, -1)
-  )
-  dfMetrics <- data.frame(
-    MetricID = c("kri1", "kri2"),
-    abbreviation = c("AE", "SAE")
-  )
+  # When available, use built-in datasets, which are temporarily duplicated in
+  # testdata.
+  dfSummary <- read.csv(test_path("testdata", "sampleSummaryLong.csv")) %>%
+    # Use a subset to keep things fast.
+    dplyr::filter(GroupID %in% c(3, 4, 40)) %>%
+    dplyr::mutate(
+      # Fast-forward the dates so we span 2 years.
+      SnapshotDate = SnapshotDate %>%
+        lubridate::ymd() %>%
+        lubridate::rollforward(roll_to_first = TRUE) %>%
+        lubridate::rollforward()
+    )
+  dfMetrics <- read.csv(test_path("testdata", "sampleMetrics.csv"))
   x <- Report_FlagOverTime(dfSummary, dfMetrics)
   expect_s3_class(x, "gt_tbl")
   expect_snapshot({
