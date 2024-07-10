@@ -1,4 +1,7 @@
 test_that("Report_FlagOverTime returns the expected object", {
+  # This is insane but it's my best guess to stabilize the snapshot between my
+  # local machine and github.
+  library(tibble)
   dfSummary <- data.frame(
     GroupID = c(100, 100, 100, 200, 200, 200),
     GroupLevel = rep("Site", 6),
