@@ -7,7 +7,7 @@ test_that("Report_FlagOverTime returns the expected object", {
     Flag = c(-2, -1, 0, NA, 1, -1)
   )
   dfMetrics <- data.frame(
-    MetricID = c('kri1', 'kri2'),
+    MetricID = c("kri1", "kri2"),
     abbreviation = c("AE", "SAE")
   )
   x <- Report_FlagOverTime(dfSummary, dfMetrics)

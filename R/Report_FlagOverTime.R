@@ -39,22 +39,22 @@ widen_summary <- function(dfSummary, dfMetrics) {
 }
 
 fmt_flags_change <- function(data,
-                             columns = gt::everything(),
-                             rows = gt::everything()) {
+  columns = gt::everything(),
+  rows = gt::everything()) {
   fmt_sign_rag(data, columns = columns, rows = rows) %>%
     gt::tab_spanner(label = "Flag", columns = columns)
 }
 
 fmt_sign_rag <- function(data,
-                         columns = gt::everything(),
-                         rows = gt::everything()) {
+  columns = gt::everything(),
+  rows = gt::everything()) {
   data_color_rag(data, columns = columns, rows = rows) %>%
     fmt_sign(columns = columns, rows = rows)
 }
 
 data_color_rag <- function(data,
-                           columns = gt::everything(),
-                           rows = gt::everything()) {
+  columns = gt::everything(),
+  rows = gt::everything()) {
   gt::data_color(
     data,
     columns = columns,
@@ -64,8 +64,8 @@ data_color_rag <- function(data,
 }
 
 fmt_sign <- function(data,
-                     columns = gt::everything(),
-                     rows = gt::everything()) {
+  columns = gt::everything(),
+  rows = gt::everything()) {
   gt::fmt(
     data,
     columns = columns,
