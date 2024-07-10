@@ -1,7 +1,6 @@
 test_that("Report_FlagOverTime returns the expected object", {
   # This is insane but it's my best guess to stabilize the snapshot between my
   # local machine and github.
-  library(tibble)
   dfSummary <- data.frame(
     GroupID = c(100, 100, 100, 200, 200, 200),
     GroupLevel = rep("Site", 6),
@@ -15,5 +14,9 @@ test_that("Report_FlagOverTime returns the expected object", {
   )
   x <- Report_FlagOverTime(dfSummary, dfMetrics)
   expect_s3_class(x, "gt_tbl")
-  expect_snapshot(unclass(x), transform = scrub_bytecode)
+  expect_snapshot({
+    names(x)
+    dplyr::as_tibble(x$`_styles`)
+    x$`_styles`$styles
+  })
 })
