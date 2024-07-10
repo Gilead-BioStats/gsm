@@ -149,20 +149,6 @@ dfMetrics <- lReporting$dfMetrics
 dfSummary <- lReporting$dfSummary
 dfBounds <- lReporting$dfBounds
 
-# Create dfSite and dfStudy for charts
-dfSite <- dfGroups %>%
-  filter(GroupLevel == "Site") %>%
-  pivot_wider(names_from=Param, values_from=Value) %>%
-  rename(
-    SiteID = GroupID,
-    status = Status,
-    enrolled_participants = ParticipantCount
-  )
-
-dfStudy <-  dfGroups %>% 
-  filter(GroupLevel == "Study") %>% 
-  pivot_wider(names_from=Param, values_from=Value)
-
 # Create Charts for all metrics
 options(vsc.viewer = FALSE)
 metrics <- unique(dfMetrics$MetricID)
@@ -174,13 +160,13 @@ charts <- metrics %>% map(~Visualize_Metric(
   strMetricID = .x
 )) %>% setNames(metrics)
 
-##function not currently working!
-# Report_KRI(lCharts = charts,
-#            dfSummary = dfSummary, 
-#            dfSite = dfSite,
-#            dfStudy = dfStudy,
-#            dfMetrics = dfMetrics,
-#            strOutput = "~/test_report_kri.html")
+#function not currently working!
+Report_KRI(lCharts = charts,
+           dfSummary = dfSummary,
+           dfSite = dfSite,
+           dfStudy = dfStudy,
+           dfMetrics = dfMetrics,
+           strOutput = "~/test_report_kri.html")
 ```
 
 Additional examples are provided in the [Cookbook Vignette](Cookbook.html).
@@ -361,7 +347,7 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
   | dfBounds | SnapshotDate | The Date of the snapshot             | Date     | * | snapshot_date |
 
 ###  `dfGroups`
-  - Workflow used to create table: `GroupMeta`
+  - Workflow used to create table: `data_reporting`
   - Inputs: CTMS site, study and country data
   - Usage: Group-level metadata dictionary.
   - Structure: Long data frame, with certain `Param` required for given `GroupLevel`
@@ -397,9 +383,9 @@ Expected `Param` by `GroupLevel` for use in gsm reporting. Fine to add other Par
 
 
 ###  `dfMetrics`
-  - Function used to create table:
-  - Inputs:
-  - Usage:
+  - Workflow used to create table: 
+  - Inputs: Metadata from the corresponding kri `.yaml` file
+  - Usage: Metadata used for charts and tables
   - Structure:
 
   | Table    | Column Name  | Description                          | Type     | Optional  | rbm-viz Column Name |
@@ -419,9 +405,9 @@ Expected `Param` by `GroupLevel` for use in gsm reporting. Fine to add other Par
 # Previous Versions
 
 ###  `dfSite`
-  - Function used to create table:
-  - Inputs:
-  - Usage:
+  - Function used to create table: Simple transformation of CTMS data using `RunQuery()`
+  - Inputs: Site-level CTMS data
+  - Usage: Site-level data for gsm reporting
   - Structure:
 
 | Table       | Column                | Description                       |Type      | Optional  |   rbm-viz Column Name |
@@ -442,9 +428,9 @@ Expected `Param` by `GroupLevel` for use in gsm reporting. Fine to add other Par
 | dfSite | country               | Site Country                      | Character| | country |
 
 ###  `dfStudy`
-  - Function used to create table:
-  - Inputs:
-  - Usage:
+  - Function used to create table: Simple transformation of CTMS data using `RunQuery()`
+  - Inputs: Study-level CTMS data
+  - Usage: Study-level data for gsm reporting
   - Structure:
 
 | Table       | Column                | Description                       |Type      | Optional  |
