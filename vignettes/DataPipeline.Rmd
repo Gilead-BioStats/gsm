@@ -37,7 +37,7 @@ The default KRI data pipeline begins with one or more clinical datasets related 
 Generating input data is outside the scope of the assessment pipeline. The specifications for input data (i.e., `dfInput`) are designed to be flexible enough so that this data frame can be generated from multiple clinical data standards (e.g., Raw, rawplus, or CDISC-compliant ADaM). In order to generate input data, the user uses the data frames outputted by the `data_mappings.yaml` file along with the `Input_Rate()` function to generate the `dfInput` needed for a particular KRI.
 
 
-This `data_mapping.yaml` file is provided for convenience, but may not work for all clinical studies. When no relevant data.frame is produced with the `data_mapping.yaml`, the user can use the `RunQuery()` function to write a SQL query that produces the properly mapped and filtered dataframe. Details on this can be found in the [Cookbook Vignette](https://github.com/Gilead-BioStats/gsm/wiki/Cookbook-Vignette).
+This `data_mapping.yaml` file is provided for convenience, but may not work for all clinical studies. When no relevant data.frame is produced with the `data_mapping.yaml`, the user can use the `RunQuery()` function to write a SQL query that produces the properly mapped and filtered dataframe. Details on this can be found in the [Cookbook Vignette](Cookbook.html).
 
 ## Analysis Data Pipeline
 
@@ -51,7 +51,7 @@ The image above provides an overview of the default KRI analysis pipeline. The p
 4.  `dfFlagged`: Flagged data; Site-level analysis results with flags added to indicate potential statistical outliers. Created by passing numeric thresholds to a `Flag_*()` function.
 5.  `dfSummary`: Summary data; Standardized subset of the flagged data. This summary data has the same structure for all assessments and always includes both KRI and Flag values so that a user can easily look at trends for any given site across multiple assessments. Created using the `Summarize()` function.
 
-Each KRI has a `.yaml` file that sequentially executes all of the supporting functions and returns a list of datasets and visualizations per the specifications of the .yaml file. In the default `yaml` files included in the `workflow/metrics` directory of this package, the 5 standard datasets that are always returned are `dfTransformed`, `dfAnalyzed`, `dfFlagged`, `dfBounds`, and `dfSummary`. A step-by-step example of the data assessment workflow can be found in the [Data Analysis Vignette](https://gilead-biostats.github.io/gsm/articles/DataAnalysis.html).
+Each KRI has a `.yaml` file that sequentially executes all of the supporting functions and returns a list of datasets and visualizations per the specifications of the .yaml file. In the default `yaml` files included in the `system.file("workflow/metrics", package = "gsm")` directory of this package, the 5 standard datasets that are always returned are `dfTransformed`, `dfAnalyzed`, `dfFlagged`, `dfBounds`, and `dfSummary`. A step-by-step example of the data assessment workflow can be found in the [Data Analysis Vignette](DataAnalysis.html).
 
 Note that each step in this data pipeline can be customized based on the requirements for a specific KRI. The graphic below shows four such workflows.
 
@@ -183,7 +183,7 @@ charts <- metrics %>% map(~Visualize_Metric(
 #            strOutput = "~/test_report_kri.html")
 ```
 
-Additional examples are provided in the [Cookbook Vignette](https://gilead-biostats.github.io/gsm/articles/Cookbook.html).
+Additional examples are provided in the [Cookbook Vignette](Cookbook.html).
 
 # Appendix 1 - Data Model
 
