@@ -1,7 +1,7 @@
 scrub_bytecode <- function(x) {
   stringr::str_subset(
     x,
-    "$<bytecode:",
+    "<bytecode:",
     negate = TRUE
   )
 }
