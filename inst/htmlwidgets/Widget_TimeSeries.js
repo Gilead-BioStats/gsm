@@ -17,6 +17,7 @@ HTMLWidgets.widget({
                             ? 'None'
                             : d.GroupID;
                         groupSelect.value = instance.data.config.selectedGroupIDs;
+                    //    countrySelect.value = "None"; Will add after refactor done in rbm-viz
                         instance.helpers.updateSelectedGroupIDs(
                             instance.data.config.selectedGroupIDs
                         );
@@ -27,6 +28,10 @@ HTMLWidgets.widget({
                             Shiny.setInputValue(
                               'site',
                               instance.data.config.selectedGroupIDs
+                            )
+                            Shiny.setInputValue(
+                              'country',
+                              instance.data.config.selectedCountryIDs
                             )
                           }
                         }
@@ -44,13 +49,17 @@ HTMLWidgets.widget({
 
                 // add dropdown that highlights groups
                 let groupSelect;
+               // let countrySelect;
                 if (input.bAddGroupSelect) {
+
                     groupSelect = addGroupSelect(
                         el,
                         input.dfSummary,
                         instance,
                         `Highlighted ${input.lMetric.Group || 'group'}: `
                     );
+                //    countrySelect = addCountrySelect(el, input.dfGroups, instance, groupSelect);
+
                 }
             },
             resize: function(width, height) {

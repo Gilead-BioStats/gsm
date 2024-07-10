@@ -14,23 +14,29 @@ const addCountrySelect = function(el, results, instance, groupSelect) {
 
     el.style.position = 'relative';
 
+    // Selecting the group filters div to add the country select
+    const filterDivs = document.getElementById('group-filters');
+
     // add container in which to place dropdown
     const countrySelectContainer = document.createElement('div');
-    el.appendChild(countrySelectContainer);
+    filterDivs.appendChild(countrySelectContainer);
 
-    // position container absolutely in upper left corner of `el`.
-    countrySelectContainer.style.position = 'absolute';
-    countrySelectContainer.style.top = 0;
-    countrySelectContainer.style.left = "175px";
+    countrySelectContainer.style.marginTop = '5px';
+    countrySelectContainer.style.marginLeft = '5px';
+    countrySelectContainer.style.display = 'inline-block';
+    countrySelectContainer.style.alignItems = 'center';
 
     // add dropdown label
     const countrySelectLabel = document.createElement('span');
-    countrySelectLabel.classList.add("gsm-country-select-label")
-    countrySelectLabel.innerHTML = "Country: ";
+    countrySelectLabel.classList.add("gsm-country-select-label");
+    countrySelectLabel.style.display = 'inline-block';
+    countrySelectLabel.style.marginRight = '2px';
+    countrySelectLabel.innerHTML = "Country:";
     countrySelectContainer.appendChild(countrySelectLabel)
 
     // add dropdown
     const countrySelect = document.createElement('select');
+    countrySelect.style.marginLeft = 'auto';
     countrySelectContainer.appendChild(countrySelect);
 
     // add default option
@@ -40,9 +46,10 @@ const addCountrySelect = function(el, results, instance, groupSelect) {
 
     // get sorted array of country
     const countries = [
-        ...new Set(results.map(d => d.site.country))
+        ...new Set(results.map(d => d.Country))
     ];
-    const numericCountry = countries.every(country => /^\d+$/.test(country));
+
+    const numericCountry = countries.every(Country => /^\d+$/.test(Country));
     countries.sort((a,b) => {
         return numericCountry
             ? a - b
@@ -62,9 +69,18 @@ const addCountrySelect = function(el, results, instance, groupSelect) {
     // add event listener to dropdown that updates chart
     countrySelect.addEventListener('change', event => {
         groupSelect.value = "None";
-        countryFilter =
-        instance.data.config.selectedGroupIDs = results.filter(d => d.site.country === event.target.value).map(d => d.GroupID); // country
-        instance.helpers.updateConfig(instance, instance.data.config, instance.data._thresholds_);
+        countryFilter = results.filter(d => d.Country === event.target.value);
+        instance.data.config.selectedGroupIDs = countryFilter.map(d => d.SiteID);
+
+        if (Object.keys(instance.helpers).includes('updateConfig')) {
+            instance.helpers.updateConfig(instance, instance.data.config, instance.data._thresholds_);
+
+
+        }
+        else if (Object.keys(instance.helpers).includes('updateSelectedGroupIDs')) {
+            instance.helpers.updateSelectedGroupIDs(instance.data.config.selectedGroupIDs);
+        }
+
     });
 
         // add event listener to dropdown that updates chart

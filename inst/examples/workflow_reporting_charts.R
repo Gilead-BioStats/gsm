@@ -87,8 +87,7 @@ lCharts <- Visualize_Metric(
  lMetric <- as.list(dfMetrics %>%  mutate(Group=GroupLevel))
  vThreshold <- gsm::ParseThreshold(lMetric$strThreshold)
 
- devtools::load_all()
- gsm::Widget_ScatterPlot(
+gsm::Widget_ScatterPlot(
   dfSummary = dfSummary,
   lMetric = lMetric,
   dfGroups = dfSites,

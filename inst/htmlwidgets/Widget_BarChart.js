@@ -17,6 +17,7 @@ HTMLWidgets.widget({
                             ? 'None'
                             : d.GroupID;
                         groupSelect.value = instance.data.config.selectedGroupIDs;
+                        countrySelect.value = "None";
                         instance.helpers.updateConfig(
                             instance,
                             instance.data.config,
@@ -29,6 +30,10 @@ HTMLWidgets.widget({
                             Shiny.setInputValue(
                               'site',
                               instance.data.config.selectedGroupIDs
+                            )
+                            Shiny.setInputValue(
+                              'country',
+                              instance.data.config.selectedCountryIDs
                             )
                           }
                         }
@@ -45,6 +50,7 @@ HTMLWidgets.widget({
 
                 // add dropdown that highlights groups
                 let groupSelect;
+                let countrySelect;
                 if (input.bAddGroupSelect) {
                     groupSelect = addGroupSelect(
                         el,
@@ -52,6 +58,7 @@ HTMLWidgets.widget({
                         instance,
                         `Highlighted ${input.lMetric.Group || 'group'}: `
                     );
+                    countrySelect = addCountrySelect(el, input.dfGroups, instance, groupSelect);
                 }
             },
             resize: function(width, height) {

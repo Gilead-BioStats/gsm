@@ -49,16 +49,14 @@ HTMLWidgets.widget({
                 let groupSelect;
                 let countrySelect;
                 if (input.bAddGroupSelect) {
-                    console
+
                     groupSelect = addGroupSelect(
                         el,
                         input.dfSummary,
                         instance,
                         `Highlighted ${input.lMetric.Group || 'group'}: `
                     );
-                   // console.log(input.dfSummary);
-                    countrySelect = addCountrySelect(el, input.dfSummary, instance, groupSelect);
-                    //siteSelect = addSiteSelect(el, x.dfSummary, instance, x.siteSelectLabelValue, countrySelect);
+                    countrySelect = addCountrySelect(el, input.dfGroups, instance, groupSelect);
 
                 }
             },
