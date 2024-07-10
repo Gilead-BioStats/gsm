@@ -32,7 +32,7 @@
       [[1]]
       $cell_fill
       $color
-      [1] "#A52A2A"
+      [1] "#FF0040"
       
       attr(,"class")
       [1] "cell_fill"  "cell_style"
@@ -43,7 +43,7 @@
       [[2]]
       $cell_fill
       $color
-      [1] "#808080"
+      [1] "#AAAAAA"
       
       attr(,"class")
       [1] "cell_fill"  "cell_style"
@@ -65,7 +65,7 @@
       [[4]]
       $cell_text
       $color
-      [1] "#FFFFFF"
+      [1] "#000000"
       
       attr(,"class")
       [1] "cell_text"  "cell_style"
@@ -76,7 +76,7 @@
       [[5]]
       $cell_fill
       $color
-      [1] "#FFA500"
+      [1] "#FFBF00"
       
       attr(,"class")
       [1] "cell_fill"  "cell_style"
@@ -87,7 +87,7 @@
       [[6]]
       $cell_fill
       $color
-      [1] "#FFA500"
+      [1] "#FFBF00"
       
       attr(,"class")
       [1] "cell_fill"  "cell_style"
@@ -120,7 +120,7 @@
       [[9]]
       $cell_fill
       $color
-      [1] "#008000"
+      [1] "#52C41A"
       
       attr(,"class")
       [1] "cell_fill"  "cell_style"
@@ -131,7 +131,7 @@
       [[10]]
       $cell_fill
       $color
-      [1] "#FFA500"
+      [1] "#FFBF00"
       
       attr(,"class")
       [1] "cell_fill"  "cell_style"
@@ -142,7 +142,7 @@
       [[11]]
       $cell_text
       $color
-      [1] "#FFFFFF"
+      [1] "#000000"
       
       attr(,"class")
       [1] "cell_text"  "cell_style"

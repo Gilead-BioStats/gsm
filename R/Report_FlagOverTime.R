@@ -87,9 +87,20 @@ n_to_sign <- function(x) {
 
 n_to_rag <- function(x) {
   dplyr::case_when(
-    x == 0 ~ "#52C41A",
-    abs(x) >= 2 ~ "#FF0040",
-    abs(x) >= 1 ~ "#FFBF00",
-    TRUE ~ "#AAAAAA"
+    x == 0 ~ colorScheme("green"),
+    abs(x) >= 2 ~ colorScheme("red"),
+    abs(x) >= 1 ~ colorScheme("amber"),
+    TRUE ~ colorScheme("gray")
   )
+}
+
+colorScheme <- function(color_name) {
+  colors <- c(
+    red = "#FF0040",
+    amber = "#FFBF00",
+    green = "#52C41A",
+    gray = "#AAAAAA",
+    grey = "#AAAAAA"
+  )
+  colors[[color_name]]
 }
