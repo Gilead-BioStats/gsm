@@ -6,7 +6,7 @@
 # @return An object of class `gt_tbl`.
 
 Report_FlagOverTime <- function(dfSummary, dfMetrics) {
-  dfFlagOverTime <- .widen_summary(dfSummary, dfMetrics)
+  dfFlagOverTime <- widen_summary(dfSummary, dfMetrics)
   date_cols <- stringr::str_which(
     colnames(dfFlagOverTime),
     r"(\d{4}-\d{2}-\d{2})"
@@ -24,7 +24,7 @@ Report_FlagOverTime <- function(dfSummary, dfMetrics) {
     gt::opt_vertical_padding(0.5)
 }
 
-.widen_summary <- function(dfSummary, dfMetrics) {
+widen_summary <- function(dfSummary, dfMetrics) {
   dfSummary %>%
     dplyr::left_join(dfMetrics, by = "MetricID") %>%
     dplyr::select(
