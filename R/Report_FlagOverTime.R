@@ -16,8 +16,7 @@ Report_FlagOverTime <- function(dfSummary, dfMetrics) {
   dfFlagOverTime %>%
     dplyr::group_by(.data$GroupLevel, .data$GroupID) %>%
     gt::gt() %>%
-    fmt_sign_rag(columns = date_cols) %>%
-    gt::tab_spanner(label = "Flag", columns = date_cols) %>%
+    fmt_flags_change(columns = date_cols) %>%
     gt::tab_header(
       title = "Flag Over Time",
       subtitle = "Flags over time for each site/KRI combination"
@@ -39,6 +38,13 @@ Report_FlagOverTime <- function(dfSummary, dfMetrics) {
     tidyr::pivot_wider(names_from = "snapshot_date", values_from = "Flag")
 }
 
+fmt_flags_change <- function(data,
+                             columns = gt::everything(),
+                             rows = gt::everything()) {
+  fmt_sign_rag(data, columns = columns, rows = rows) %>%
+    gt::tab_spanner(label = "Flag", columns = columns)
+}
+
 fmt_sign_rag <- function(data,
                          columns = gt::everything(),
                          rows = gt::everything()) {
@@ -53,7 +59,7 @@ data_color_rag <- function(data,
     data,
     columns = columns,
     rows = rows,
-    fn = .n_to_rag
+    fn = n_to_rag
   )
 }
 
@@ -65,24 +71,25 @@ fmt_sign <- function(data,
     columns = columns,
     rows = rows,
     compat = c("numeric", "integer"),
-    fns = .n_to_sign
+    fns = n_to_sign
   ) %>%
     gt::cols_align(align = "center", columns = columns)
 }
 
-.n_to_sign <- function(x) {
+n_to_sign <- function(x) {
   dplyr::case_when(
-    x < 0 ~ "-",
+    # Note: this is an actual minus sign for better printing, not a dash.
+    x < 0 ~ "−",
     x > 0 ~ "+",
     TRUE ~ ""
   )
 }
 
-.n_to_rag <- function(x) {
+n_to_rag <- function(x) {
   dplyr::case_when(
-    is.na(x) ~ "#808080",
-    abs(x) == 2 ~ "#A52A2A",
-    abs(x) == 1 ~ "#FFA500",
-    TRUE ~ "#008000"
+    x == 0 ~ "#008000",
+    abs(x) >= 2 ~ "#A52A2A",
+    abs(x) >= 1 ~ "#FFA500",
+    TRUE ~ "#808080"
   )
 }
