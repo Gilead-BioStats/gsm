@@ -87,9 +87,9 @@ n_to_sign <- function(x) {
 
 n_to_rag <- function(x) {
   dplyr::case_when(
-    x == 0 ~ "#008000",
-    abs(x) >= 2 ~ "#A52A2A",
-    abs(x) >= 1 ~ "#FFA500",
-    TRUE ~ "#808080"
+    x == 0 ~ "#52C41A",
+    abs(x) >= 2 ~ "#FF0040",
+    abs(x) >= 1 ~ "#FFBF00",
+    TRUE ~ "#AAAAAA"
   )
 }
