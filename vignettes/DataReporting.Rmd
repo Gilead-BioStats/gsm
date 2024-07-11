@@ -46,9 +46,9 @@ For the purposes of this documentation, we will evaluate the input(s) and output
 
 ------------------------------------------------------------------------
   
-  ## Case Study - Step-by-Step Adverse Event KRI
+## Case Study - Step-by-Step Adverse Event KRI
   
-  We will use sample clinical data from the [`{clindata}`](https://github.com/Gilead-BioStats/clindata) package to run the Adverse Events (AE) Assessment, i.e., `AE_Assess()`, using the normal approximation method.
+We will use sample clinical data from the [`{clindata}`](https://github.com/Gilead-BioStats/clindata) package to run the Adverse Events (AE) Assessment, i.e., `AE_Assess()`, using the normal approximation method.
 
 Additional statistical methods and supporting functions are explored in [Appendix 1](#appendix-1).
 
@@ -61,18 +61,18 @@ Additional statistical methods and supporting functions are explored in [Appendi
   - Usage: Summarize KRI at the group level for reporting.
   - Structure:
 
-  | Table    | Column Name  | Description                          | Type     | Optional  |  rbm-viz Column Name |
-  |----------|--------------|--------------------------------------|----------|--|-----------|
-  | dfSummary      | GroupID      | The group ID for the metric          | Character| | groupid |
-  | dfSummary      | GroupLevel   | The group type for the metric (e.g. "Site")    | Character| | - |
-  | dfSummary      | Numerator    | The calculated numerator value       | Numeric  | | numerator |
-  | dfSummary      | Denominator  | The calculated denominator value     | Numeric | | denominator |
-  | dfSummary      | Metric       | The calculated rate/metric value     | Numeric  | | metric |
-  | dfSummary      | Score        | The calculated metric score          | Numeric  | | score |
-  | dfSummary      | Flag         | The calculated flag                  | Numeric  | | flag |
-  | dfSummary      | MetricID     | The Metric ID                        | Character| * | workflowid |
-  | dfSummary      | StudyID      | The Study ID                         | Character| * | studyid |
-  | dfSummary      | SnapshotDate | The Date of the snapshot             | Date     | * | snapshot_date |
+  | Table     | Column Name  | Description                                 | Type     | Optional | rbm-viz Column Name |
+  |-----------|--------------|---------------------------------------------|----------|----------|---------------------|
+  | dfSummary | GroupID      | The group ID for the metric                 | Character|          | groupid             |
+  | dfSummary | GroupLevel   | The group type for the metric (e.g. "Site") | Character|          | -                   |
+  | dfSummary | Numerator    | The calculated numerator value              | Numeric  |          | numerator           |
+  | dfSummary | Denominator  | The calculated denominator value            | Numeric  |          | denominator         |
+  | dfSummary | Metric       | The calculated rate/metric value            | Numeric  |          | metric              |
+  | dfSummary | Score        | The calculated metric score                 | Numeric  |          | score               |
+  | dfSummary | Flag         | The calculated flag                         | Numeric  |          | flag                |
+  | dfSummary | MetricID     | The Metric ID                               | Character| *        | workflowid          |
+  | dfSummary | StudyID      | The Study ID                                | Character| *        | studyid             |
+  | dfSummary | SnapshotDate | The Date of the snapshot                    | Date     | *        | snapshot_date       |
 
 ### `dfBounds`
   - Function(s) used to create table:
@@ -82,17 +82,16 @@ Additional statistical methods and supporting functions are explored in [Appendi
   - Usage: Calculates predicted percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values for reporting.
   - Structure:
 
-  | Table    | Column Name  | Description                          | Type     | Optional  |   rbm-viz Column Name |
-  |----------|--------------|--------------------------------------|----------|--|----------|
-  | dfBounds | Threshold    | The number of standard deviations that the upper and lower bounds are based on   | Numeric| | threshold |
-  | dfBounds | Denominator  | The calculated denominator value     | Numeric | | denominator |
-  | dfBounds | LogDenominator  | The calculated log denominator value     | Numeric | | log_denominator |
-  | dfBounds | Numerator    | The calculated numerator value       | Numeric  | | numerator |
-  | dfBounds | Metric       | The calculated rate/metric value     | Numeric  | | - |
-  | dfBounds | MetricID     | The Metric ID                        | Character| * | workflowid |
-  | dfBounds | StudyID      | The Study ID                         | Character| * | studyid |
-  | dfBounds | SnapshotDate | The Date of the snapshot             | Date     | * | snapshot_date |
-
+  | Table    | Column Name    | Description                                                                    | Type     | Optional  | rbm-viz Column Name |
+  |----------|----------------|--------------------------------------------------------------------------------|----------|-----------|---------------------|
+  | dfBounds | Threshold      | The number of standard deviations that the upper and lower bounds are based on | Numeric| |           | threshold           |
+  | dfBounds | Denominator    | The calculated denominator value                                               | Numeric  |           | denominator         |
+  | dfBounds | LogDenominator | The calculated log denominator value                                           | Numeric  |           | log_denominator     |
+  | dfBounds | Numerator      | The calculated numerator value                                                 | Numeric  |           | numerator           |
+  | dfBounds | Metric         | The calculated rate/metric value                                               | Numeric  |           | -                   |
+  | dfBounds | MetricID       | The Metric ID                                                                  | Character| *         | workflowid          |
+  | dfBounds | StudyID        | The Study ID                                                                   | Character| *         | studyid             |
+  | dfBounds | SnapshotDate   | The Date of the snapshot                                                       | Date     | *         | snapshot_date       |
 
 
 ###  `dfMetrics`
@@ -101,146 +100,146 @@ Additional statistical methods and supporting functions are explored in [Appendi
   - Usage:
   - Structure:
 
-  | Table    | Column Name  | Description                          | Type     | Optional  | rbm-viz Column Name |
-  |----------|--------------|--------------------------------------|----------|--| -------------- |
-  | dfMetrics| File         | The yaml file for workflow          | Character| | file          | 
-  | dfMetrics| MetricID     | ID for the Metric   | Character| | workflowid |
-  | dfMetrics| Group        | The group type for the metric (e.g. "Site")      | Character| | group |
-  | dfMetrics| Abbreviation | Abbreviation for the metric   | Character| | abbreviations |
-  | dfMetrics| Metric       | Name of the metric    | Character| | metric |
-  | dfMetrics| Numerator    | Data source for the Numerator          | Character| |numerator      |
-  | dfMetrics| Denominator  | Data source for the Denominator | Character| | denominator   |
-  | dfMetrics| Model        | Model used to calculate metric     | Character| | model         |
-  | dfMetrics| Score        | Type of Score reported      | Character| | score         |
-  | dfMetrics| strThreshold   | Thresholds to be used for bounds and flags     | Character| | vthreshold    |
+  | Table     | Column Name  | Description                                 | Type      | Optional | rbm-viz Column Name |
+  |-----------|--------------|---------------------------------------------|-----------|----------|---------------------|
+  | dfMetrics | File         | The yaml file for workflow                  | Character |          | file                | 
+  | dfMetrics | MetricID     | ID for the Metric                           | Character |          | workflowid          |
+  | dfMetrics | Group        | The group type for the metric (e.g. "Site") | Character |          | group               |
+  | dfMetrics | Abbreviation | Abbreviation for the metric                 | Character |          | abbreviations       |
+  | dfMetrics | Metric       | Name of the metric                          | Character |          | metric              |
+  | dfMetrics | Numerator    | Data source for the Numerator               | Character |          |numerator            |
+  | dfMetrics | Denominator  | Data source for the Denominator             | Character |          | denominator         |
+  | dfMetrics | Model        | Model used to calculate metric              | Character |          | model               |
+  | dfMetrics | Score        | Type of Score reported                      | Character |          | score               |
+  | dfMetrics | strThreshold | Thresholds to be used for bounds and flags  | Character |          | vthreshold          |
 
   
-  ### 1. Transform CTMS data to create `dfGroups`
-  
-  ###  `dfGroups`
+### 1. Transform CTMS data to create `dfGroups`
+
+###  `dfGroups`
   - Workflow used to create table: `GroupMeta`
   - Inputs: CTMS site, study and country data
   - Usage: Group-level metadata dictionary.
   - Structure: Long data frame, with certain `Param` required for given `GroupLevel`
 
-
-| Table       | Column                | Description                       |Type      | Optional  |  
-|-------------|-----------------------|-----------------------------------|----------|-----------|
-| dfGroups | ProtocolID               | Protocol ID                       | Character | |
-| dfGroups | SnapshotDate             | Snapshot Date                     | Character | |
-| dfGroups | GroupID                  | Unique Group ID                   | Character| | 
-| dfGroups | GroupLevel               | Group Level (e.g. Site, Country)  | Character| |
-| dfGroups | Param                    | Parameter Name (e.g. "Status")  | Character| | 
-| dfGroups | Value                    | Parameter Value (e.g. "Active")        | Character| | 
+  | Table    | Column       | Description                      |Type       | Optional |  
+  |----------|--------------|----------------------------------|-----------|----------|
+  | dfGroups | ProtocolID   | Protocol ID                      | Character |          |
+  | dfGroups | SnapshotDate | Snapshot Date                    | Character |          |
+  | dfGroups | GroupID      | Unique Group ID                  | Character |          | 
+  | dfGroups | GroupLevel   | Group Level (e.g. Site, Country) | Character |          |
+  | dfGroups | Param        | Parameter Name (e.g. "Status")   | Character |          | 
+  | dfGroups | Value        | Parameter Value (e.g. "Active")  | Character |          | 
 
 Expected `Param` by `GroupLevel` for use in gsm reporting. Fine to add other Param values as needed. 
 
-| GroupLevel  | Param                | Description                       |Value Type      |
-|-------------|----------------------|-----------------------------------|----------|
-| Study       | Status               | Study Status                      | Character| 
-| Study       | Title       | Protocol Title       | Numeric | 
-| Study       | ParticipantCount       | # of Enrolled Participants        | Numeric | 
-| Study       | SiteCount              | # of Activated Sites                 | Numeric| 
-| Study       | ParticipantsPlanned        | # of Planned Participants        | Numeric| 
-| Study       | SitesPlanned               | # of Planned Sites        | Numeric| 
-| Site       | ParticipantCount       | # of Enrolled Participants        | Numeric | 
-| Site       | Status       | Site Status       | Character | 
-| Site       | InvestigatorFirstName       | Investigator First name        | Character | 
-| Site       | InvestigatorLastName       | Investigator Last name        | Character | 
-| Site       | City        | City       | Character| 
-| Site       | State       | State      | Character | 
-| Site       | Country       | Country       | Character | 
-| Country       | EnrolledParticipants       | # of Enrolled Participants        | Numeric | 
+  | GroupLevel | Param                 | Description                |Value Type |
+  |------------|-----------------------|----------------------------|-----------|
+  | Study      | Status                | Study Status               | Character | 
+  | Study      | Title                 | Protocol Title             | Numeric   | 
+  | Study      | ParticipantCount      | # of Enrolled Participants | Numeric   | 
+  | Study      | SiteCount             | # of Activated Sites       | Numeric   | 
+  | Study      | ParticipantsPlanned   | # of Planned Participants  | Numeric   | 
+  | Study      | SitesPlanned          | # of Planned Sites         | Numeric   | 
+  | Site       | ParticipantCount      | # of Enrolled Participants | Numeric   | 
+  | Site       | Status                | Site Status                | Character | 
+  | Site       | InvestigatorFirstName | Investigator First name    | Character | 
+  | Site       | InvestigatorLastName  | Investigator Last name     | Character | 
+  | Site       | City                  | City                       | Character | 
+  | Site       | State                 | State                      | Character | 
+  | Site       | Country               | Country                    | Character | 
+  | Country    | EnrolledParticipants  | # of Enrolled Participants | Numeric   | 
   
-  Start by creating `dfInput` using sample rawplus data from `{clindata}`. Note that `Input_Rate()` requires three specific datasets from `{clindata}`, which include a subject-level demographics/exposure dataset (`dfSubjects`) and a domain-level dataset (`dfNumerator`) that records every adverse event per subject. 
-  
-  Since `Input_Rate()` is a generalized function, it is also required that you specify the relevant column names for the Subject (`strSubjectCol`), Group (`strGroupCol`) and optionally the Denominator (`strDenominatorCol`) and Numerator (`strNumeratorCol`) when it is not simply "Denominator" or "Numerator", respectively.
-  
-  Finally, the method for calculating the Numerator and Denominator is specified in `strNumeratorMethod` and `strDenominatorMethod` as either "Count" or "Sum".  If the method is "Count", the function simply counts the number of rows in the provided data frame. If the numerator method is "Sum", the function takes the sum of the values in the specified column (strNumeratorCol or strDenominatorCol). 
+Start by creating `dfInput` using sample rawplus data from `{clindata}`. Note that `Input_Rate()` requires three specific datasets from `{clindata}`, which include a subject-level demographics/exposure dataset (`dfSubjects`) and a domain-level dataset (`dfNumerator`) that records every adverse event per subject. 
+
+Since `Input_Rate()` is a generalized function, it is also required that you specify the relevant column names for the Subject (`strSubjectCol`), Group (`strGroupCol`) and optionally the Denominator (`strDenominatorCol`) and Numerator (`strNumeratorCol`) when it is not simply "Denominator" or "Numerator", respectively.
+
+Finally, the method for calculating the Numerator and Denominator is specified in `strNumeratorMethod` and `strDenominatorMethod` as either "Count" or "Sum".  If the method is "Count", the function simply counts the number of rows in the provided data frame. If the numerator method is "Sum", the function takes the sum of the values in the specified column (strNumeratorCol or strDenominatorCol). 
   
   
 ```{r include = TRUE}
-  dfInput <- Input_Rate(
-    dfSubjects = clindata::rawplus_dm,
-    dfNumerator = clindata::rawplus_ae,
-    dfDenominator = clindata::rawplus_dm,
-    strSubjectCol = "subjid",
-    strGroupCol = "siteid",
-    strNumeratorMethod = "Count",
-    strDenominatorMethod = "Sum",
-    strDenominatorCol = "timeonstudy"
-  )
+dfInput <- Input_Rate(
+  dfSubjects = clindata::rawplus_dm,
+  dfNumerator = clindata::rawplus_ae,
+  dfDenominator = clindata::rawplus_dm,
+  strSubjectCol = "subjid",
+  strGroupCol = "siteid",
+  strNumeratorMethod = "Count",
+  strDenominatorMethod = "Sum",
+  strDenominatorCol = "timeonstudy"
+)
 ```
   
-  The data frame `dfInput` for an AE assessment will be created by running `Input_Rate()` and will have one record per subject, with the following columns:
-    
-  -   `SubjectID`: Subject Identifier
-  -   `GroupID`: Group Identifier
-  -   `GroupLevel`: Type of Group specified in `GroupID` (Country, Site, QTL)
-  -   `Numerator`: Total Time on Treatment (measured in days; per subject)
-  -   `Denominator`: Total Number of Event(s) of Interest (in this example, the number of AEs reported; per subject)
-  -   `Metric`: Rate of Event Incidence (calculated as `Exposure`/`Count`; per subject)
+The data frame `dfInput` for an AE assessment will be created by running `Input_Rate()` and will have one record per subject, with the following columns:
+  
+-   `SubjectID`: Subject Identifier
+-   `GroupID`: Group Identifier
+-   `GroupLevel`: Type of Group specified in `GroupID` (Country, Site, QTL)
+-   `Numerator`: Total Time on Treatment (measured in days; per subject)
+-   `Denominator`: Total Number of Event(s) of Interest (in this example, the number of AEs reported; per subject)
+-   `Metric`: Rate of Event Incidence (calculated as `Exposure`/`Count`; per subject)
   
 ```{r echo = FALSE}
-  dt(dfInput) %>%
-    formatRound(columns = "Metric", digits = 3)
+dt(dfInput) %>%
+  formatRound(columns = "Metric", digits = 3)
 ```
   
 ------------------------------------------------------------------------
     
 ### 2. Create `dfMetrics`
 
-  `dfMetrics`
-  - Function used to create table:
-  - Inputs:
-  - Usage:
-  - Structure:
+`dfMetrics`
 
-  | Table    | Column Name  | Description                          | Type     | Optional  | rbm-viz Column Name |
-  |----------|--------------|--------------------------------------|----------|--| -------------- |
-  | dfMetrics| File         | The yaml file for workflow          | Character| | file          | 
-  | dfMetrics| MetricID     | ID for the Metric   | Character| | workflowid |
-  | dfMetrics| Group        | The group type for the metric (e.g. "Site")      | Character| | group |
-  | dfMetrics| Abbreviation | Abbreviation for the metric   | Character| | abbreviations |
-  | dfMetrics| Metric       | Name of the metric    | Character| | metric |
-  | dfMetrics| Numerator    | Data source for the Numerator          | Character| |numerator      |
-  | dfMetrics| Denominator  | Data source for the Denominator | Character| | denominator   |
-  | dfMetrics| Model        | Model used to calculate metric     | Character| | model         |
-  | dfMetrics| Score        | Type of Score reported      | Character| | score         |
-  | dfMetrics| strThreshold   | Thresholds to be used for bounds and flags     | Character| | vthreshold    |
+- Function used to create table:
+- Inputs:
+- Usage:
+- Structure:
+
+  | Table    | Column Name     | Description                                 | Type      | Optional | rbm-viz Column Name |
+  |----------|-----------------|---------------------------------------------|-----------|----------|---------------------|
+  | dfMetrics| File            | The yaml file for workflow                  | Character |          | file                | 
+  | dfMetrics| MetricID        | ID for the Metric                           | Character |          | workflowid          |
+  | dfMetrics| Group           | The group type for the metric (e.g. "Site") | Character |          | group               |
+  | dfMetrics| Abbreviation    | Abbreviation for the metric                 | Character |          | abbreviations       |
+  | dfMetrics| Metric          | Name of the metric                          | Character |          | metric              |
+  | dfMetrics| Numerator       | Data source for the Numerator               | Character |          |numerator            |
+  | dfMetrics| Denominator     | Data source for the Denominator             | Character |          | denominator         |
+  | dfMetrics| Model           | Model used to calculate metric              | Character |          | model               |
+  | dfMetrics| Score           | Type of Score reported                      | Character |          | score               |
+  | dfMetrics| strThreshold    | Thresholds to be used for bounds and flags  | Character |          | vthreshold          |
     
 The data frame `dfTransformed` is derived from `dfInput` using a `Transform()` function. In our example, the analysis pipeline pulls in `Transform_Rate()` since the default metric for AEs is the number of AEs reported over the course of treatment per site, i.e., a rate.
   
 ```{r include = TRUE}
-  dfTransformed <- Transform_Rate(dfInput)
+dfTransformed <- Transform_Rate(dfInput)
 ```
   
   The resulting `dfTransformed` data frame will contain site-level transformed data, including KRI calculation. Using our example AE data, `dfTransformed` contains the following columns:
     
-    -   `GroupID`: Group Identifier (default is Site ID)
+  -   `GroupID`: Group Identifier (default is Site ID)
   -   `GroupLevel`: Type of Group specified in `GroupID` (Country, Site, QTL)
   -   `Numerator`: Cumulative Number of Event(s) of Interest (in this example, number of AEs reported across subjects)
   -   `Denominator`: Cumulative Time on Treatment (in days, across subjects)
   -   `Metric`: Rate of Event(s) of Interest (in this example, number of AEs reported over the course of treatment in days)
-  
+
 ```{r, echo = FALSE}
-  dt(dfTransformed) %>%
-    formatRound(columns = "Metric", digits = 3)
+dt(dfTransformed) %>%
+  formatRound(columns = "Metric", digits = 3)
 ```
   
-  ------------------------------------------------------------------------
+------------------------------------------------------------------------
     
 ### 3. Update `dfSummary` and `dfBounds`
     
 The data frame `dfAnalyzed` is derived from `dfTransformed` using an `Analyze()` function, which incorporates a specific statistical model. The resulting `dfAnalyzed` data frame will contain site-level analysis results data. The normal approximation method is the default statistical model for AE data, so the analysis pipeline automatically runs `Analyze_NormalApprox()`.
   
 ```{r include = TRUE}
-  dfAnalyzed <- Analyze_NormalApprox(dfTransformed)
+dfAnalyzed <- Analyze_NormalApprox(dfTransformed)
 ```
   
-  Using our example AE data, `dfAnalyzed` contains the following columns:
+Using our example AE data, `dfAnalyzed` contains the following columns:
     
-    -   `GroupID`: Group Identifier (default is Site ID)
+  -   `GroupID`: Group Identifier (default is Site ID)
   -   `GroupLevel`: Type of Group specified in `GroupID` (Country, Site, QTL)
   -   `Numerator`: Cumulative Number of Event(s) of Interest (in this example, number of AEs reported across subjects); Carried from `dfTransformed`.
   -   `Denominator`: Cumulative Time on Treatment (in days, across subjects); Carried from `dfTransformed`.
@@ -250,8 +249,8 @@ The data frame `dfAnalyzed` is derived from `dfTransformed` using an `Analyze()`
   -   `Score`: Calculated Residual (per site).
   
 ```{r, echo = FALSE}
-  dt(dfAnalyzed) %>%
-    formatRound(columns = c("Metric", "OverallMetric", "Factor", "Score"), digits = 3)
+dt(dfAnalyzed) %>%
+  formatRound(columns = c("Metric", "OverallMetric", "Factor", "Score"), digits = 3)
 ```
   
 ------------------------------------------------------------------------
@@ -261,7 +260,7 @@ The data frame `dfAnalyzed` is derived from `dfTransformed` using an `Analyze()`
 The data frame `dfFlagged` is derived from `dfAnalyzed` using a `Flag()` function. The resulting `dfFlagged` data frame will contain site-level analysis results data with flagging incorporated based on a pre-specified statistical threshold to highlight possible outliers.
   
 ```{r include = TRUE}
-  dfFlagged <- Flag_NormalApprox(dfAnalyzed, vThreshold = c(-3, -2, 2, 3))
+dfFlagged <- Flag_NormalApprox(dfAnalyzed, vThreshold = c(-3, -2, 2, 3))
 ```
   
 The default flagging function for the normal approximation method is `Flag_NormalApprox()` and the default threshold is (-3, -2, 2, 3). Using our example AE data, `dfFlagged` contains the following columns:
@@ -277,7 +276,7 @@ The default flagging function for the normal approximation method is `Flag_Norma
 -   `Flag`: Flag Indicating Possible Statistical Outliers; Valid values for this variable include -2, -1, 0, 1, and 2, which determine the "extremeness" of the outlier. -2 and 2 represent more extreme outliers, -1 and 1 represent less extreme outliers, and 0 represents a non-outlier.
   
 ```{r, echo = FALSE}
-  dt(dfFlagged)
+dt(dfFlagged)
 ```
   
 ------------------------------------------------------------------------
@@ -309,13 +308,13 @@ dt(dfSummary[-1,])
 For a Normal Approximation AE assessment, a scatter plot of Total Exposure (in days, on log scale) vs Total Number of Event(s) of Interest (on linear scale) is created. Each data point represents one site with outliers displayed in yellow or red, depending on the "extremeness" of the KRI value. The `Visualize_Scatter()` function takes inputs of `dfBounds`-- which defines bounds based on the statistical model, `dfTransformed` and thresholds using `Analyze_NormalApprox_PredictBounds()`-- and `dfFlagged` to plot the data. Using our example AE data, we see the following scatter plot:
 
 ```{r include = TRUE}
-  dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed, vThreshold = c(-3, -2, 2, 3))
-  
-  chart <- Visualize_Scatter(dfFlagged, dfBounds)
+dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed, vThreshold = c(-3, -2, 2, 3))
+
+chart <- Visualize_Scatter(dfFlagged, dfBounds)
 ```
   
 ```{r, echo = FALSE, fig.width=7, fig.height=5}
-  chart
+chart
 ```
   
 A full explanation of all Data Visualizations in the `{gsm}` package is outlined in the Reporting Workflow vignette (ADD LINK).
