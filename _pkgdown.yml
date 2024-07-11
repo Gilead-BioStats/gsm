@@ -35,11 +35,6 @@ navbar:
           href: articles/v1_9_0-data-model-update-reference.html
 
 reference:
-  - title: Assess
-    desc: Sequentially execute the Assessment Pipeline Functions (Transform, Analyze, Flag, and Summarize)
-  - contents:
-      - matches("*_Assess_*")
-
   - title: Visualize
     desc: Generate a visualization from the Assessment results
   - contents:
