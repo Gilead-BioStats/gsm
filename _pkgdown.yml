@@ -106,6 +106,7 @@ reference:
   - title: Utility
     desc: Utility functions for use within the Data Pipeline
   - contents:
+     -  BindResults
      # -  CheckClindataMeta
      # -  CheckInputs
      # -  CheckSnapshotInputs
@@ -120,14 +121,18 @@ reference:
      # -  MakeResultsSummary
      # -  MakeStatusWorkflow
      # -  MakeStratifiedAssessment
+     -  MakeGroupInfo
+     -  MakeMetricInfo
      -  MakeWorkflowList
      # -  Make_Snapshot
      # -  MergeSubjects
+     -  ParseThreshold
      # -  ParseWarnings
      -  RunStep
      -  RunQuery
      # -  RunStratifiedWorkflow
      -  RunWorkflow
+     -  RunWorkflows
      -  UseClindata
      # -  UpdateGSMVersion
      # -  UpdateParams
@@ -149,4 +154,5 @@ reference:
   - title: Testing Data
     desc: data used for examples and testing
   - contents:
+      - example_groups
       - sampleInput
