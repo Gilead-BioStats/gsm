@@ -86,3 +86,63 @@
 #' @source Generated from `sampleInput.csv` dataset in the `gsm` package.
 "sampleInput"
 
+#' sampleSummary Dataset
+#'
+#' @format A data frame with 2126 rows and 7 columns:
+#' \describe{
+#'   \item{GroupID}{grouping variable}
+#'   \item{GroupLevel}{level of grouping variable}
+#'   \item{Numerator}{number of flags in group}
+#'   \item{Denominator}{total subjects in group}
+#'   \item{Metric}{The calculated rate/metric value}
+#'   \item{Score}{The statistical score}
+#'   \item{Flag}{The ordinal flag to be applied}
+#' }
+#' @source Generated from `sampleSummary.csv` dataset in the `gsm` package.
+"sampleSummary"
+
+#' sampleBounds Dataset
+#'
+#' @format A data frame with 12667 rows and 8 columns:
+#' \describe{
+#'   \item{Threshold}{The number of standard deviations that the upper and lower bounds are based on}
+#'   \item{Denominator}{The calculated denominator value}
+#'   \item{LogDenominator}{The calculated log denominator value}
+#'   \item{Numerator}{The calculated numerator value}
+#'   \item{Metric}{The calculated rate/metric value}
+#'   \item{MetricID}{The Metric ID}
+#'   \item{StudyID}{The Study ID}
+#'   \item{SnapshotDate}{The Date of the snapshot}
+#' }
+#' @source Generated from `sampleBounds.csv` dataset in the `gsm` package.
+"sampleBounds"
+
+#' sampleResults Dataset
+#'
+#' @format A data frame with 2574 rows and 10 columns:
+#' \describe{
+#'   \item{GroupID}{grouping variable}
+#'   \item{GroupLevel}{level of grouping variable}
+#'   \item{Numerator}{number of flags in group}
+#'   \item{Denominator}{total subjects in group}
+#'   \item{Metric}{The calculated rate/metric value}
+#'   \item{Score}{The statistical score}
+#'   \item{Flag}{The ordinal flag to be applied}
+#'   \item{MetricID}{The Metric ID}
+#'   \item{StudyID}{The Study ID}
+#'   \item{SnapshotDate}{The Date of the snapshot}
+#' }
+#' @source Generated from `sampleResults.csv` dataset in the `gsm` package.
+"sampleResults"
+
+#' sampleGroups Dataset
+#'
+#' @format A data frame with 3903 rows and 4 columns:
+#' \describe{
+#'   \item{GroupID}{grouping variable}
+#'   \item{GroupLevel}{level of grouping variable}
+#'   \item{Param}{Parameter of interest for the group}
+#'   \item{Value}{Value of specified Param}
+#' }
+#' @source Generated from `sampleGroups.csv` dataset in the `gsm` package.
+"sampleGroups"
