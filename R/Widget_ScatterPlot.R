@@ -6,12 +6,12 @@
 #' A widget that generates a scatter plot of group-level metric results, plotting the denominator
 #' on the x-axis and the numerator on the y-axis.
 #'
-#' @param dfSummary `data.frame` Output of [gsm::Summarize()].
+#' @param dfSummary `data.frame` Output of [Summarize()].
 #' @param lMetric `list` Metric metadata, captured at the top of metric workflows and returned by
-#' [gsm::MakeMetricInfo()].
+#' [MakeMetricInfo()].
 #' @param dfGroups `data.frame` Group metadata.
-#' @param dfBounds `data.frame` Output of [gsm::Analyze_NormalApprox_PredictBounds()] or
-#' [gsm::Analyze_Poisson_PredictBounds()]
+#' @param dfBounds `data.frame` Output of [Analyze_NormalApprox_PredictBounds()] or
+#' [Analyze_Poisson_PredictBounds()]
 #' @param bAddGroupSelect `logical` Add a dropdown to highlight sites? Default: `TRUE`.
 #' @param bDebug `logical` Print debug messages? Default: `FALSE`.
 #'
@@ -33,15 +33,15 @@
 #'     lMappingWorkflow,
 #'     lDataRaw
 #' )$lData
-#' 
+#'
 #' strMetricID <- 'kri0001'
 #' lMetricWorkflow <- MakeWorkflowList(strMetricID)[[ strMetricID ]]
-#' 
+#'
 #' lResults <- RunWorkflow(
 #'     lMetricWorkflow,
 #'     lDataMapped
 #' )
-#' 
+#'
 #' dfGroups <- clindata::ctms_site %>%
 #'     left_join(
 #'         lDataMapped$dfEnrolled %>%
@@ -53,7 +53,7 @@
 #'         SiteID = site_num,
 #'         status = site_status
 #'     )
-#' 
+#'
 #' Widget_ScatterPlot(
 #'     dfSummary = lResults$lData$dfSummary,
 #'     lMetric = lMetricWorkflow$meta,
