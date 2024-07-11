@@ -43,7 +43,7 @@
 #' lDataMapped <- RunWorkflow(lWorkflows$data_mapping, lDataRaw)
 #'
 #' lResults <- map(
-#'     lMetricWorkflows %>%
+#'     lMetricWorkflows,
 #'     ~ RunWorkflow(.x, lDataMapped)
 #' )
 #'
