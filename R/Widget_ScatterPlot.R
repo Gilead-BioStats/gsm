@@ -52,7 +52,7 @@
 
 Widget_ScatterPlot <- function(
   dfSummary,
-  lMetric = list(),
+  lMetric = list(), # TODO: coerce list to object instead of array with jsonlite::toJSON()
   dfGroups = NULL,
   dfBounds = NULL,
   bAddGroupSelect = TRUE,
