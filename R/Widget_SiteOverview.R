@@ -80,7 +80,7 @@
 
 Widget_SiteOverview <- function(
   dfSummary,
-  dfMetrics = gsm::meta_workflow,
+  dfMetrics,
   dfGroups = example_groups(),
   strGroupSubset = 'red',
   bDebug = FALSE

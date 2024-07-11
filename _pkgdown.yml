@@ -143,7 +143,6 @@ reference:
       - config_param
       - config_workflow
       - meta_param
-      - meta_workflow
 
   - title: Sample Data
     desc: data used for examples and testing
