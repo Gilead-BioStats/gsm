@@ -1,7 +1,7 @@
 meta:
   File: kri0005.yaml
   MetricID: kri0005
-  GroupLevel: site
+  GroupLevel: Site
   Abbreviation: LB
   Metric: Grade 3+ Lab Abnormality Rate
   Numerator: Grade 3+ Abnormal Labs Samples

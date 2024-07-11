@@ -1,7 +1,7 @@
 meta:
   File: kri0010.yaml
   MetricID: kri0010
-  GroupLevel: site
+  GroupLevel: Site
   Abbreviation: ODAT
   Metric: Outstanding Data Entry Rate
   Numerator: Data Pages Entered > 10 Days
