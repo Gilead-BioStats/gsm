@@ -42,7 +42,7 @@ widen_summary <- function(dfSummary, dfMetrics) {
       "SnapshotDate",
       "Flag"
     ) %>%
-    dplyr::arrange(GroupID, MetricID, SnapshotDate) %>%
+    dplyr::arrange(.data$GroupID, .data$MetricID, .data$SnapshotDate) %>%
     tidyr::pivot_wider(names_from = "SnapshotDate", values_from = "Flag")
 }
 
