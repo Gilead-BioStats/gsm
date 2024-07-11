@@ -123,8 +123,7 @@ cols_label_month <- function(data, columns = gt::everything()) {
     data,
     columns = columns,
     fn = function(x) {
-      lubridate::month(x, label = TRUE) %>%
-        as.character()
+      months(as.Date(x), abbreviate = TRUE)
     }
   ) %>%
     gt::tab_spanner_delim(
