@@ -6,9 +6,9 @@
 #' A widget that generates a bar chart of group-level metric results, plotting groups on the x-axis
 #' and the outcome (numerator, denominator, metric, or score) on the y-axis.
 #'
-#' @param dfSummary `data.frame` Output of [gsm::Summarize()].
+#' @param dfSummary `data.frame` Output of [Summarize()].
 #' @param lMetric `list` Metric metadata, captured at the top of metric workflows and returned by
-#' [gsm::MakeMetricInfo()].
+#' [MakeMetricInfo()].
 #' @param dfGroups `data.frame` Group metadata.
 #' @param vThreshold `numeric` Threshold values.
 #' @param strOutcome `character` Outcome variable. Default: 'Score'.
@@ -33,15 +33,15 @@
 #'     lMappingWorkflow,
 #'     lDataRaw
 #' )$lData
-#' 
+#'
 #' strMetricID <- 'kri0001'
 #' lMetricWorkflow <- MakeWorkflowList(strMetricID)[[ strMetricID ]]
-#' 
+#'
 #' lResults <- RunWorkflow(
 #'     lMetricWorkflow,
 #'     lDataMapped
 #' )
-#' 
+#'
 #' dfGroups <- clindata::ctms_site %>%
 #'     left_join(
 #'         lDataMapped$dfEnrolled %>%
@@ -53,7 +53,7 @@
 #'         SiteID = site_num,
 #'         status = site_status
 #'     )
-#' 
+#'
 #' Widget_BarChart(
 #'     dfSummary = lResults$lData$dfSummary,
 #'     lMetric = lMetricWorkflow$meta,

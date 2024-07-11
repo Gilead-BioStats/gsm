@@ -1,5 +1,4 @@
 library(testthat)
-library(gsm)
 
 devtools::load_all()
 
