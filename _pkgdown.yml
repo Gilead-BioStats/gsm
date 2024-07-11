@@ -150,8 +150,13 @@ reference:
       - meta_param
       - meta_workflow
 
-  - title: Testing Data
+  - title: Sample Data
     desc: data used for examples and testing
   - contents:
       - example_groups
+      - sampleBounds
+      - sampleGroups
       - sampleInput
+      - sampleMetrics
+      - sampleResults
+      - sampleSummary
