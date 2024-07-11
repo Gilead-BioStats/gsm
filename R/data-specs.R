@@ -1,15 +1,3 @@
-#' config_workflow Dataset
-#'
-#' @format A data frame with 26 rows and 4 columns:
-#' \describe{
-#'   \item{studyid}{Study ID, chr, constant value "AA-AA-000-0000"}
-#'   \item{workflowid}{workflow ID, chr, kri value "kri0001"}
-#'   \item{gsm_version}{gsm version used, chr, most recent version installed i.e. "1.9.2"}
-#'   \item{active}{active status of workflow, lgl}
-#' }
-#' @source Generated from `config_workflow.csv` dataset in the `gsm` package.
-"config_workflow"
-
 #' meta_param Dataset
 #'
 #' @format A data frame with 176 rows and 6 columns:
