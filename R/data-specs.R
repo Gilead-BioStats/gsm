@@ -1,18 +1,3 @@
-#' meta_param Dataset
-#'
-#' @format A data frame with 176 rows and 6 columns:
-#' \describe{
-#'   \item{workflowid}{workflow ID, chr, kri value "kri0001"}
-#'   \item{gsm_version}{gsm version used, chr, most recent version installed i.e. "1.9.2"}
-#'   \item{param}{parameter name, chr, i.e. "vThreshold"}
-#'   \item{index}{index value for parameter, int}
-#'   \item{default}{default value for parameter at index, int, i.e. -3}
-#'   \item{configurable}{is parameter configuable, lgl}
-#' }
-#'
-#' @source Generated from `meta_param.csv` dataset in the `gsm` package.
-"meta_param"
-
 #' Load Default Clindata Groups
 #'
 #' Load and clean group data for use as default values.
