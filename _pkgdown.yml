@@ -140,7 +140,6 @@ reference:
   - title: Data
     desc: Metadata used to create workflows
   - contents:
-      - config_param
       - config_workflow
       - meta_param
 

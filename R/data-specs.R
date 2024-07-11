@@ -1,17 +1,3 @@
-#' config_param Dataset
-#'
-#' @format A data frame with 148 rows and 6 columns:
-#' \describe{
-#'   \item{studyid}{Study ID, chr, constant value "AA-AA-000-0000"}
-#'   \item{workflowid}{workflow ID, chr, kri value "kri0001"}
-#'   \item{gsm_version}{gsm version used, chr, most recent version installed i.e. "1.9.2"}
-#'   \item{param}{parameter name, chr, i.e. "vThreshold"}
-#'   \item{index}{index value for parameter, int}
-#'   \item{value}{value for parameter at index, int, i.e. -3}
-#' }
-#' @source Generated from `config_param.csv` dataset in the `gsm` package.
-"config_param"
-
 #' config_workflow Dataset
 #'
 #' @format A data frame with 26 rows and 4 columns:
