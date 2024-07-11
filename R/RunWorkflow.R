@@ -59,15 +59,15 @@ RunWorkflow <- function(
   for (step in lWorkflow$steps) {
     cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lWorkflow$steps), ": `", step$name, "`"))
 
-    result <- gsm::RunStep(lStep = step, lData = lWorkflow$lData, lMeta = lWorkflow$meta)
+    result <- RunStep(lStep = step, lData = lWorkflow$lData, lMeta = lWorkflow$meta)
 
-    if(step$output %in% names(lData)){
+    if (step$output %in% names(lData)) {
       cli::cli_alert_warning("Overwriting existing data in `lData`.")
     }
 
     lWorkflow$lData[[step$output]] <- result
 
-    if(is.data.frame(result)){
+    if (is.data.frame(result)) {
       cli::cli_h3("{paste(dim(result),collapse='x')} data.frame saved as `lData${step$output}`.")
     } else {
       cli::cli_h3("{typeof(result)} of length {length(result)} saved as `lData${step$output}`.")
@@ -77,7 +77,7 @@ RunWorkflow <- function(
     stepCount <- stepCount + 1
   }
 
-  if(!bKeepInputData){
+  if (!bKeepInputData) {
     outputs <- lWorkflow$steps %>% purrr::map_chr(~.x$output)
     lWorkflow$lData <- lWorkflow$lData[outputs]
     cli::cli_alert_info("Returning workflow outputs: {names(lWorkflow$lData)}")
@@ -86,9 +86,9 @@ RunWorkflow <- function(
   }
 
   cli::cli_h1(paste0("Completed `", lWorkflow$meta$File, "` Workflow"))
-  if(bReturnData){
+  if (bReturnData) {
     return(lWorkflow$lData)
-  }else{
+  } else{
     return(lWorkflow)
   }
 }

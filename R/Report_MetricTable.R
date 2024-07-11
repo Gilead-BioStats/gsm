@@ -14,6 +14,7 @@
 
 Report_MetricTable <- function(dfSummary, dfSite, strSnapshotDate = NULL) {
     rlang::check_installed("DT", reason = "to run `Study_Report()`")
+    rlang::check_installed("kableExtra", reason = "to run `Study_Report()`")
 
     # Check for multiple snapshots --------------------------------------------
     # use most recent snapshot date if strSnapshotDate is missing
@@ -63,8 +64,8 @@ Report_MetricTable <- function(dfSummary, dfSite, strSnapshotDate = NULL) {
                 everything()
             ) %>%
             select(-'MetricID') %>%
-            kbl(format="html", escape=FALSE) %>%
-            kable_styling("striped", full_width = FALSE)
+            kableExtra::kbl(format="html", escape=FALSE) %>%
+            kableExtra::kable_styling("striped", full_width = FALSE)
 
     } else {
         SummaryTable<- "Nothing flagged for this KRI."

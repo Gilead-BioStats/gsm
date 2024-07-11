@@ -2,7 +2,7 @@
 #'
 #' `r lifecycle::badge("stable")`
 #'
-#' @param dfSummary `data.frame` returned by [gsm::Summarize()]
+#' @param dfSummary `data.frame` returned by [Summarize()]
 #' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to NULL.
 #' @param strType `character` One of `"KRI"` or `"score"`.
 #' @param bFlagFilter `logical` Filter out non-flagged groups? Default: `FALSE`
@@ -12,7 +12,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' lData <- gsm::UseClindata(
+#' lData <- UseClindata(
 #' list(
 #'   "dfSUBJ" = "clindata::rawplus_dm",
 #'   "dfAE" = "clindata::rawplus_ae",

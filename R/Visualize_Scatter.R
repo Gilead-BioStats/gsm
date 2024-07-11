@@ -2,7 +2,7 @@
 #'
 #' `r lifecycle::badge("stable")`
 #'
-#' @param dfSummary `data.frame` returned by [gsm::Summarize()]
+#' @param dfSummary `data.frame` returned by [Summarize()]
 #' @param dfBounds `data.frame` data.frame giving prediction bounds for range of denominator in dfSummary.
 #' @param strGroupCol `character` name of stratification column for facet wrap Default: `NULL`
 #' @param strGroupLabel `character` name of group, used for labeling axes. Default: `NULL`
@@ -13,7 +13,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' lData <- gsm::UseClindata(
+#' lData <- UseClindata(
 #'   list(
 #'     "dfSUBJ" = "clindata::rawplus_dm",
 #'     "dfAE" = "clindata::rawplus_ae",
