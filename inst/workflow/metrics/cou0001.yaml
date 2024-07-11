@@ -1,7 +1,7 @@
 meta:
   File: cou0001.yaml
   MetricID: cou0001
-  GroupLevel: country
+  GroupLevel: Country
   Abbreviation: AE
   Metric: Adverse Event Rate
   Numerator: Adverse Events
@@ -23,6 +23,7 @@ steps:
       dfDenominator: dfSUBJ
       strSubjectCol: subjid
       strGroupCol: country
+      strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Sum
       strDenominatorCol: timeonstudy

@@ -6,7 +6,7 @@
 \usage{
 Widget_BarChart(
   dfSummary,
-  lMetric,
+  lMetric = list(),
   dfGroups = NULL,
   vThreshold = NULL,
   strOutcome = "Score",
@@ -39,48 +39,35 @@ and the outcome (numerator, denominator, metric, or score) on the y-axis.
 }
 \examples{
 \dontrun{
-lDataRaw <- list(
-    dfSTUDY = clindata::ctms_study,
-    dfSITE = clindata::ctms_site,
-    dfSUBJ = clindata::rawplus_dm,
+lWorkflows <- MakeWorkflowList()
+strMetricID <- 'kri0001'
+lMetricWorkflow <- lWorkflows[[ strMetricID ]]
+lMetricWorkflow$meta$GroupLevel <- 'Site'
+
+lData <- list(
+    dfEnrolled = clindata::rawplus_dm \%>\% filter(enrollyn == 'Y'),
     dfAE = clindata::rawplus_ae
 )
 
-lMappingWorkflow <- MakeWorkflowList('mapping')$mapping
-
-lMappingWorkflow$steps <- lMappingWorkflow$steps \%>\%
-    purrr::keep(~ .x$params$df \%in\% names(lDataRaw))
-
-lDataMapped <- RunWorkflow(
-    lMappingWorkflow,
-    lDataRaw
-)$lData
-
-strMetricID <- 'kri0001'
-lMetricWorkflow <- MakeWorkflowList(strMetricID)[[ strMetricID ]]
-
 lResults <- RunWorkflow(
     lMetricWorkflow,
-    lDataMapped
+    lData
 )
 
-dfGroups <- clindata::ctms_site \%>\%
-    left_join(
-        lDataMapped$dfEnrolled \%>\%
-            group_by(siteid) \%>\%
-            tally(name = 'enrolled_participants'),
-        c('site_num' = 'siteid')
-    ) \%>\%
-    rename(
-        SiteID = site_num,
-        status = site_status
-    )
+dfGroups <- bind_rows(
+    "SELECT site_num as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df" \%>\%
+        RunQuery(clindata::ctms_site) \%>\%
+        MakeLongMeta('Site'),
+    "SELECT siteid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT siteid) as SiteCount FROM df GROUP BY siteid" \%>\%
+        RunQuery(lData$dfEnrolled) \%>\%
+        MakeLongMeta('Site')
+)
 
 Widget_BarChart(
-    dfSummary = lResults$lData$dfSummary,
+    dfSummary = lResults$dfSummary,
     lMetric = lMetricWorkflow$meta,
     dfGroups = dfGroups,
-    vThreshold = lMetricWorkflow$meta$vThreshold
+    vThreshold = lMetricWorkflow$meta$strThreshold
 )
 }
 }

@@ -1,7 +1,7 @@
 meta:
   File: kri0007.yaml
   MetricID: kri0007
-  GroupLevel: site
+  GroupLevel: Site
   Abbreviation: TDSC
   Metric: Treatment Discontinuation Rate
   Numerator: Subjects Discontinued - Treatment
@@ -23,6 +23,7 @@ steps:
       dfDenominator: dfEnrolled
       strSubjectCol: subjid
       strGroupCol: siteid
+      strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count
   - name: Transform_Rate
