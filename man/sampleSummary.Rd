@@ -9,11 +9,14 @@ A data frame with 2126 rows and 7 columns:
 \describe{
 \item{GroupID}{grouping variable}
 \item{GroupLevel}{level of grouping variable}
+\item{MetricID}{unique metric identifier}
 \item{Numerator}{number of flags in group}
 \item{Denominator}{total subjects in group}
-\item{Metric}{The calculated rate/metric value}
-\item{Score}{The statistical score}
-\item{Flag}{The ordinal flag to be applied}
+\item{Metric}{calculated rate/metric value}
+\item{Score}{statistical score}
+\item{Flag}{ordinal flag to be applied}
+\item{StudyID}{unique study identifier}
+\item{SnapshotDate}{date of the snapshot}
 }
 }
 \source{

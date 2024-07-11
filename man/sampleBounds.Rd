@@ -7,14 +7,14 @@
 \format{
 A data frame with 12667 rows and 8 columns:
 \describe{
-\item{Threshold}{The number of standard deviations that the upper and lower bounds are based on}
-\item{Denominator}{The calculated denominator value}
-\item{LogDenominator}{The calculated log denominator value}
-\item{Numerator}{The calculated numerator value}
-\item{Metric}{The calculated rate/metric value}
-\item{MetricID}{The Metric ID}
-\item{StudyID}{The Study ID}
-\item{SnapshotDate}{The Date of the snapshot}
+\item{Threshold}{number of standard deviations that the upper and lower bounds are based on}
+\item{Denominator}{calculated denominator value}
+\item{LogDenominator}{calculated log denominator value}
+\item{Numerator}{calculated numerator value}
+\item{Metric}{calculated rate/metric value}
+\item{MetricID}{unique metric identifier}
+\item{StudyID}{unique study identifier}
+\item{SnapshotDate}{date of the snapshot}
 }
 }
 \source{

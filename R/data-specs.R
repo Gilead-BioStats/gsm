@@ -87,14 +87,14 @@ example_groups <- function() {
 #'
 #' @format A data frame with 12667 rows and 8 columns:
 #' \describe{
-#'   \item{Threshold}{The number of standard deviations that the upper and lower bounds are based on}
-#'   \item{Denominator}{The calculated denominator value}
-#'   \item{LogDenominator}{The calculated log denominator value}
-#'   \item{Numerator}{The calculated numerator value}
-#'   \item{Metric}{The calculated rate/metric value}
-#'   \item{MetricID}{The Metric ID}
-#'   \item{StudyID}{The Study ID}
-#'   \item{SnapshotDate}{The Date of the snapshot}
+#'   \item{Threshold}{number of standard deviations that the upper and lower bounds are based on}
+#'   \item{Denominator}{calculated denominator value}
+#'   \item{LogDenominator}{calculated log denominator value}
+#'   \item{Numerator}{calculated numerator value}
+#'   \item{Metric}{calculated rate/metric value}
+#'   \item{MetricID}{unique metric identifier}
+#'   \item{StudyID}{unique study identifier}
+#'   \item{SnapshotDate}{date of the snapshot}
 #' }
 #' @source Generated from `sampleBounds.csv` dataset in the `gsm` package.
 "sampleBounds"
@@ -128,10 +128,11 @@ example_groups <- function() {
 #'
 #' @format A data frame with 12 rows and 11 columns:
 #' \describe{
-#'   \item{MetricId}{unique metric identifier}
+#'   \item{MetricID}{unique metric identifier}
 #'   \item{File}{yaml file for workflow}
 #'   \item{GroupLevel}{level of grouping variable}
 #'   \item{Abbreviation}{abbreviation for the metric}
+#'   \item{Metric}{name of the metric}
 #'   \item{Numerator}{data source for the numerator}
 #'   \item{Denominator}{data source for the denominator}
 #'   \item{Model}{model used to calculate metric}
@@ -150,12 +151,12 @@ example_groups <- function() {
 #'   \item{GroupLevel}{level of grouping variable}
 #'   \item{Numerator}{number of flags in group}
 #'   \item{Denominator}{total subjects in group}
-#'   \item{Metric}{The calculated rate/metric value}
-#'   \item{Score}{The statistical score}
-#'   \item{Flag}{The ordinal flag to be applied}
-#'   \item{MetricID}{The Metric ID}
-#'   \item{StudyID}{The Study ID}
-#'   \item{SnapshotDate}{The Date of the snapshot}
+#'   \item{Metric}{calculated rate/metric value}
+#'   \item{Score}{statistical score}
+#'   \item{Flag}{ordinal flag to be applied}
+#'   \item{MetricID}{unique metric identifier}
+#'   \item{StudyID}{unique study identifier}
+#'   \item{SnapshotDate}{date of the snapshot}
 #' }
 #' @source Generated from `sampleResults.csv` dataset in the `gsm` package.
 "sampleResults"
@@ -166,11 +167,14 @@ example_groups <- function() {
 #' \describe{
 #'   \item{GroupID}{grouping variable}
 #'   \item{GroupLevel}{level of grouping variable}
+#'   \item{MetricID}{unique metric identifier}
 #'   \item{Numerator}{number of flags in group}
 #'   \item{Denominator}{total subjects in group}
-#'   \item{Metric}{The calculated rate/metric value}
-#'   \item{Score}{The statistical score}
-#'   \item{Flag}{The ordinal flag to be applied}
+#'   \item{Metric}{calculated rate/metric value}
+#'   \item{Score}{statistical score}
+#'   \item{Flag}{ordinal flag to be applied}
+#'   \item{StudyID}{unique study identifier}
+#'   \item{SnapshotDate}{date of the snapshot}
 #' }
 #' @source Generated from `sampleSummary.csv` dataset in the `gsm` package.
 "sampleSummary"

@@ -11,12 +11,12 @@ A data frame with 2574 rows and 10 columns:
 \item{GroupLevel}{level of grouping variable}
 \item{Numerator}{number of flags in group}
 \item{Denominator}{total subjects in group}
-\item{Metric}{The calculated rate/metric value}
-\item{Score}{The statistical score}
-\item{Flag}{The ordinal flag to be applied}
-\item{MetricID}{The Metric ID}
-\item{StudyID}{The Study ID}
-\item{SnapshotDate}{The Date of the snapshot}
+\item{Metric}{calculated rate/metric value}
+\item{Score}{statistical score}
+\item{Flag}{ordinal flag to be applied}
+\item{MetricID}{unique metric identifier}
+\item{StudyID}{unique study identifier}
+\item{SnapshotDate}{date of the snapshot}
 }
 }
 \source{

@@ -7,10 +7,11 @@
 \format{
 A data frame with 12 rows and 11 columns:
 \describe{
-\item{MetricId}{unique metric identifier}
+\item{MetricID}{unique metric identifier}
 \item{File}{yaml file for workflow}
 \item{GroupLevel}{level of grouping variable}
 \item{Abbreviation}{abbreviation for the metric}
+\item{Metric}{name of the metric}
 \item{Numerator}{data source for the numerator}
 \item{Denominator}{data source for the denominator}
 \item{Model}{model used to calculate metric}
