@@ -44,7 +44,7 @@ lDataRaw <- list(
     dfAE = clindata::rawplus_ae
 )
 
-lMappingWorkflow <- MakeWorkflowList('mapping')$mapping
+lMappingWorkflow <- MakeWorkflowList('mapping')$data_mapping
 
 lMappingWorkflow$steps <- lMappingWorkflow$steps \%>\%
     purrr::keep(~ .x$params$df \%in\% names(lDataRaw))
@@ -52,7 +52,7 @@ lMappingWorkflow$steps <- lMappingWorkflow$steps \%>\%
 lDataMapped <- RunWorkflow(
     lMappingWorkflow,
     lDataRaw
-)$lData
+)
 
 strMetricID <- 'kri0001'
 lMetricWorkflow <- MakeWorkflowList(strMetricID)[[ strMetricID ]]

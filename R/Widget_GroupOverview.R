@@ -1,9 +1,9 @@
-#' Site Overview Widget
+#' Group Overview Widget
 #'
 #' `r lifecycle::badge("stable")`
 #'
 #' @description
-#' A widget that generates a site overview table of group-level metric results across one or more
+#' A widget that generates a group overview table of group-level metric results across one or more
 #' metrics.
 #'
 #' @param dfSummary `data.frame` Output of [gsm::Summarize()].
@@ -60,7 +60,7 @@
 #'     c('site_num' = 'siteid')
 #'   ) %>%
 #'   dplyr::rename(
-#'     SiteID = site_num,
+#'     GroupID = site_num,
 #'     status = site_status
 #'   )
 #'
@@ -70,7 +70,7 @@
 #'     metric
 #' })
 #'
-#' Widget_SiteOverview(
+#' Widget_GroupOverview(
 #'   dfSummary,
 #'   dfMetrics,
 #'   dfGroups
@@ -78,21 +78,13 @@
 #' }
 #' @export
 
-Widget_SiteOverview <- function(
+Widget_GroupOverview <- function(
   dfSummary,
   dfMetrics = gsm::meta_workflow,
-  dfGroups = clindata::ctms_site %>%
-    dplyr::left_join(
-      clindata::rawplus_dm %>%
-        dplyr::group_by(siteid) %>%
-        dplyr::tally(name = "enrolled_participants"),
-      c('site_num' = 'siteid')
-    ) %>%
-    dplyr::rename(
-      SiteID = site_num,
-      status = site_status
-    ),
+  dfGroups = NULL,
+  strGroupLevel = 'Site',
   strGroupSubset = 'red',
+  strGroupLabelKey = 'InvestigatorLastName',
   bDebug = FALSE
 ) {
   # forward options using x
@@ -100,12 +92,14 @@ Widget_SiteOverview <- function(
     dfSummary = dfSummary,
     dfMetrics = dfMetrics,
     dfGroups = dfGroups,
-    strGroupSubset = strGroupSubset
+    strGroupLevel = strGroupLevel,
+    strGroupSubset = strGroupSubset,
+    strGroupLabelKey = strGroupLabelKey
   )
 
   # create widget
   widget <- htmlwidgets::createWidget(
-    name = "Widget_SiteOverview",
+    name = "Widget_GroupOverview",
     purrr::map(
       input,
       ~ jsonlite::toJSON(
@@ -129,34 +123,34 @@ Widget_SiteOverview <- function(
   return(widget)
 }
 
-#' Shiny bindings for Widget_SiteOverview
+#' Shiny bindings for Widget_GroupOverview
 #'
 #' `r lifecycle::badge("stable")`
 #'
-#' Output and render functions for using Widget_SiteOverview within Shiny
+#' Output and render functions for using Widget_GroupOverview within Shiny
 #' applications and interactive Rmd documents.
 #'
 #' @param outputId output variable to read from
 #' @param width,height Must be a valid CSS unit (like \code{'100\%'},
 #'   \code{'400px'}, \code{'auto'}) or a number, which will be coerced to a
 #'   string and have \code{'px'} appended.
-#' @param expr An expression that generates a Widget_SiteOverview
+#' @param expr An expression that generates a Widget_GroupOverview
 #' @param env The environment in which to evaluate \code{expr}.
 #' @param quoted Is \code{expr} a quoted expression (with \code{quote()})? This
 #'   is useful if you want to save an expression in a variable.
 #'
-#' @name Widget_SiteOverview-shiny
+#' @name Widget_GroupOverview-shiny
 #'
 #' @export
-Widget_SiteOverviewOutput <- function(outputId, width = "100%", height = "400px") {
-  htmlwidgets::shinyWidgetOutput(outputId, "Widget_SiteOverview", width, height, package = "gsm")
+Widget_GroupOverviewOutput <- function(outputId, width = "100%", height = "400px") {
+  htmlwidgets::shinyWidgetOutput(outputId, "Widget_GroupOverview", width, height, package = "gsm")
 }
 
-#' @rdname Widget_SiteOverview-shiny
+#' @rdname Widget_GroupOverview-shiny
 #' @export
-renderWidget_SiteOverview <- function(expr, env = parent.frame(), quoted = FALSE) {
+renderWidget_GroupOverview <- function(expr, env = parent.frame(), quoted = FALSE) {
   if (!quoted) {
     expr <- substitute(expr)
   } # force quoted
-  htmlwidgets::shinyRenderWidget(expr, Widget_SiteOverviewOutput, env, quoted = TRUE)
+  htmlwidgets::shinyRenderWidget(expr, Widget_GroupOverviewOutput, env, quoted = TRUE)
 }
