@@ -6,8 +6,9 @@ articles:
   Cookbook: Cookbook.html
   DataAnalysis: DataAnalysis.html
   DataPipeline: DataPipeline.html
+  DataReporting: DataReporting.html
   articles/KRI Method: KRI Method.html
   articles/Qualification: Qualification.html
   articles/QualificationWorkflow: QualificationWorkflow.html
   v1_9_0-data-model-update-reference: v1_9_0-data-model-update-reference.html
-last_built: 2024-07-11T14:08Z
+last_built: 2024-07-11T16:37Z

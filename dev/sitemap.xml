@@ -4,6 +4,7 @@
 <url><loc>/articles/Cookbook.html</loc></url>
 <url><loc>/articles/DataAnalysis.html</loc></url>
 <url><loc>/articles/DataPipeline.html</loc></url>
+<url><loc>/articles/DataReporting.html</loc></url>
 <url><loc>/articles/KRI Method.html</loc></url>
 <url><loc>/articles/Qualification.html</loc></url>
 <url><loc>/articles/QualificationWorkflow.html</loc></url>
@@ -67,8 +68,12 @@
 <url><loc>/reference/meta_param.html</loc></url>
 <url><loc>/reference/meta_workflow.html</loc></url>
 <url><loc>/reference/pipe.html</loc></url>
-<url><loc>/reference/rbm_data_spec.html</loc></url>
+<url><loc>/reference/sampleBounds.html</loc></url>
+<url><loc>/reference/sampleGroups.html</loc></url>
 <url><loc>/reference/sampleInput.html</loc></url>
+<url><loc>/reference/sampleMetrics.html</loc></url>
+<url><loc>/reference/sampleResults.html</loc></url>
+<url><loc>/reference/sampleSummary.html</loc></url>
 <url><loc>/reference/tidyeval.html</loc></url>
 <url><loc>/reference/timeSeriesQTL-shiny.html</loc></url>
 </urlset>
