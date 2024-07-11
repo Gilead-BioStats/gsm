@@ -20,7 +20,6 @@
 #' lWorkflows <- MakeWorkflowList()
 #' strMetricID <- 'kri0001'
 #' lMetricWorkflow <- lWorkflows[[ strMetricID ]]
-#' lMetricWorkflow$meta$GroupLevel <- 'Site'
 #'
 #' lData <- list(
 #'     dfEnrolled = clindata::rawplus_dm %>% filter(enrollyn == 'Y'),
