@@ -139,13 +139,14 @@ concurrently on a study and/or create custom data workflows.</p>
 <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> R package, which generate standardized outputs and
 reports suitable for use in various RBQM activities. The Appendices of
 this document provide detailed data input and output specifications for
-<a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>.</p>
+<a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>. Below is a figure that depicts the full data
+pipeline, including both the Analysis and Reporting sections of the
+process.</p>
+<p><img src="data-model.PNG" style="width:100.0%"></p>
 </div>
 <div class="section level2">
 <h2 id="kri-data-pipeline">KRI Data Pipeline<a class="anchor" aria-label="anchor" href="#kri-data-pipeline"></a>
 </h2>
-<p><img src="data-pipeline.PNG" style="width:125.0%"></p>
-<p>TODO: Update/Delete Graphic</p>
 <p>In the context of clinical research, a KRI is a measure of risk
 associated with the conduct of a clinical trial. Examples of KRIs
 include the rate of adverse events or amount of missing data at a site
@@ -160,34 +161,27 @@ then further summarized by site to obtain site-level metrics.</p>
 <div class="section level3">
 <h3 id="generating-input-data">Generating Input Data<a class="anchor" aria-label="anchor" href="#generating-input-data"></a>
 </h3>
-<p>TODO: Update to discuss new framework</p>
 <p>Generating input data is outside the scope of the assessment
 pipeline. The specifications for input data (i.e., <code>dfInput</code>)
 are designed to be flexible enough so that this data frame can be
 generated from multiple clinical data standards (e.g., Raw, rawplus, or
-CDISC-compliant ADaM). Most assessment workflows have <code><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Map()</a></code>
-functions that can be used to generate input data.</p>
-<p>For example, the Adverse Event assessment has two <code><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Map()</a></code>
-functions:</p>
-<ul>
-<li><p><code>AE_Map_Raw()</code>: creates input data from rawplus
-data</p></li>
-<li><p><code>AE_Map_Adam()</code>: creates input data from
-CDISC-compliant ADaM data</p></li>
-</ul>
-<p>These <code><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Map()</a></code> functions are provided for convenience, but
-may not work for all clinical studies. When no <code><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Map()</a></code>
-function is available for a given assessment, the user is expected to
-manually create input data following the specifications for that
-assessment. Details on this can be found in the <a href="https://github.com/Gilead-BioStats/gsm/wiki/Cookbook-Vignette" class="external-link">Cookbook
-Vignette</a>.</p>
+CDISC-compliant ADaM). In order to generate input data, the user uses
+the data frames outputted by the <code>data_mappings.yaml</code> file
+along with the <code><a href="../reference/Input_Rate.html">Input_Rate()</a></code> function to generate the
+<code>dfInput</code> needed for a particular KRI.</p>
+<p>This <code>data_mapping.yaml</code> file is provided for convenience,
+but may not work for all clinical studies. When no relevant data.frame
+is produced with the <code>data_mapping.yaml</code>, the user can use
+the <code><a href="../reference/RunQuery.html">RunQuery()</a></code> function to write a SQL query that produces
+the properly mapped and filtered dataframe. Details on this can be found
+in the <a href="Cookbook.html">Cookbook Vignette</a>.</p>
 </div>
 <div class="section level3">
-<h3 id="assessment-data-pipeline">Assessment Data Pipeline<a class="anchor" aria-label="anchor" href="#assessment-data-pipeline"></a>
+<h3 id="analysis-data-pipeline">Analysis Data Pipeline<a class="anchor" aria-label="anchor" href="#analysis-data-pipeline"></a>
 </h3>
-<p><img src="data-analysis.PNG" style="width:170.0%"></p>
-<p>The image above provides an overview of the default KRI assessment
-pipeline. The pipeline is a standardized four-step process for assessing
+<p><img src="data-analysis.PNG" style="width:100.0%"></p>
+<p>The image above provides an overview of the default KRI analysis
+pipeline. The pipeline is a standardized five-step process for assessing
 data issues by going from participant-level input data to a standardized
 site-level summary of model results. The functions used in each step of
 the data pipeline along with the input and output datasets are described
@@ -195,19 +189,19 @@ in more detail below.</p>
 <ol style="list-style-type: decimal">
 <li>
 <code>dfInput</code>: Input data; Cross-domain participant-level
-input data with all needed data for KRI derivation. Created by
-<code><a href="https://rdrr.io/r/base/funprog.html" class="external-link">Map()</a></code> functions as needed.</li>
+input data with all needed data for KRI derivation. Created by the
+<code><a href="../reference/Input_Rate.html">Input_Rate()</a></code> function as needed.</li>
 <li>
 <code>dfTransformed</code>: Transformed data; Site-level transformed
-data including KRI calculation. Created by <code>Transform()</code>
+data including KRI calculation. Created by <code>Transform_*()</code>
 functions.</li>
 <li>
 <code>dfAnalyzed</code>: Analyzed data; Site-level analysis results
-data. Created by <code>Analyze()</code> functions.</li>
+data. Created by <code>Analyze_*()</code> functions.</li>
 <li>
 <code>dfFlagged</code>: Flagged data; Site-level analysis results
 with flags added to indicate potential statistical outliers. Created by
-passing numeric thresholds to a <code><a href="../reference/Flag.html">Flag()</a></code> function.</li>
+passing numeric thresholds to a <code>Flag_*()</code> function.</li>
 <li>
 <code>dfSummary</code>: Summary data; Standardized subset of the
 flagged data. This summary data has the same structure for all
@@ -215,19 +209,90 @@ assessments and always includes both KRI and Flag values so that a user
 can easily look at trends for any given site across multiple
 assessments. Created using the <code><a href="../reference/Summarize.html">Summarize()</a></code> function.</li>
 </ol>
-<p>Each assessment has an <code>Assess()</code> function that
-sequentially executes all 4 of the supporting functions and returns a
-list of datasets and visualizations. The 4 standard datasets that are
-always returned are <code>dfTransformed</code>, <code>dfAnalyzed</code>,
-<code>dfFlagged</code>, and <code>dfSummary</code>. An additional
-dataset, called <code>dfBounds</code>, is generated only when a
-supported statistical model is being used. A step-by-step example of the
-data assessment workflow can be found in the <a href="https://gilead-biostats.github.io/gsm/articles/DataAnalysis.html" class="external-link">Data
-Analysis Vignette</a>.</p>
+<p>Each KRI has a <code>.yaml</code> file that sequentially executes all
+of the supporting functions and returns a list of datasets and
+visualizations per the specifications of the .yaml file. In the default
+<code>yaml</code> files included in the
+<code>system.file("workflow/metrics", package = "gsm")</code> directory
+of this package, the 5 standard datasets that are always returned are
+<code>dfTransformed</code>, <code>dfAnalyzed</code>,
+<code>dfFlagged</code>, <code>dfBounds</code>, and
+<code>dfSummary</code>. A step-by-step example of the data assessment
+workflow can be found in the <a href="DataAnalysis.html">Data Analysis
+Vignette</a>.</p>
 <p>Note that each step in this data pipeline can be customized based on
-the requirements for a specific KRI. The graphic below shows three such
+the requirements for a specific KRI. The graphic below shows four such
 workflows.</p>
-<p><img src="data-analysis-combined.PNG" style="width:170.0%"></p>
+<p><img src="data-analysis-combined.PNG" style="width:100.0%"></p>
+</div>
+<div class="section level3">
+<h3 id="reporting-data-pipeline">Reporting Data Pipeline<a class="anchor" aria-label="anchor" href="#reporting-data-pipeline"></a>
+</h3>
+<p>The pipeline discussed here is a standardized process for creating
+datasets by going from a standardized site-level summary of model
+results and external data sources to a series of datasets that provide
+all group-level data and metadata needed to create charts and reports
+for a given KRI. Unlike the analysis workflow, there is a single
+workflow for reporting, as all metric-specific information was captured
+in the analysis phase of the overall pipeline. The functions used in
+each step of the data pipeline along with the input and output datasets
+are described in more detail below.</p>
+<ol style="list-style-type: decimal">
+<li>
+<code>dfSummary</code>: Summary data; Standardized subset of the
+flagged data. This summary data has the same structure for all
+assessments and always includes both KRI and Flag values so that a user
+can easily look at trends for any given site across multiple
+assessments. Created using the <code><a href="../reference/Summarize.html">Summarize()</a></code> function.</li>
+<li>
+<code>dfFlagged</code>: Flagged data; Site-level analysis results
+with flags added to indicate potential statistical outliers. Created by
+passing numeric thresholds to a <code>Flag_*()</code> function.</li>
+<li>
+<code>dfBounds</code>: Bounded data; A data.frame containing
+predicted boundary values with upper and lower bounds across the range
+of observed values. Created with an
+<code>Analyze_*_PredictBounds()</code> function.</li>
+<li>
+<code>dfGroups</code>: Grouped data; Long data.frame of summarized
+group CTMS data with site, study, and country level counts and metrics.
+Constructed by binding data.frames created with
+<code><a href="../reference/MakeGroupInfo.html">MakeGroupInfo()</a></code>.</li>
+<li>
+<code>dfMetrics</code>: Metric metadata; Metric-specific metadata
+for use in charts and reporting. Created by passing an
+<code>lWorkflow</code> object to the <code><a href="../reference/MakeMetricInfo.html">MakeMetricInfo()</a></code>
+function.</li>
+</ol>
+<p>The reporting data pipeline has a <code>yaml</code> file that runs
+through all steps to produce all five of these data.frames so that they
+can be used to create charts and reports. This <code>yaml</code> file,
+and all analysis workflow yaml files can be found at
+<code>system.file("workflow/metrics", package = "gsm")</code>. The
+<code>lData</code> list required to run this workflow with
+<code><a href="../reference/RunWorkflow.html">RunWorkflow()</a></code> must contain the following elements:</p>
+<ol style="list-style-type: decimal">
+<li>
+<code>ctms_site</code>: CTMS site-level data set.</li>
+<li>
+<code>ctms_study</code>: CTMS study-level data set.</li>
+<li>
+<code>dfEnrolled</code>: data.frame of enrolled participants for
+this study.</li>
+<li>
+<code>lWorkflows</code>: List of workflows, created with
+<code><a href="../reference/MakeWorkflowList.html">MakeWorkflowList()</a></code>.<br>
+</li>
+<li>
+<code>lAnalysis</code>: List of data.frames from the analysis
+workflow.</li>
+<li>
+<code>dSnapshotDate</code>: Date of the snapshot (typically current
+date via <code><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date()</a></code>).</li>
+<li>
+<code>strStudyID</code>: String of the study ID to be appended to
+data for use in charts and reports.</li>
+</ol>
 </div>
 </div>
 <div class="section level2">
@@ -242,189 +307,1646 @@ study-level analyses using Quality Tolerance Limits, or QTLs. For
 example, a user can evaluate the protocol deviation rate at a
 study-level. Analyses can also be categorized by country identifiers if
 desired. A user can also run custom pipelines (e.g. stratified analysis)
-as well (see <a href="#Appendix-3-Workflow-ID-Specs">Appendix 3</a> for
+as well (see <a href="#Appendix-2-Workflow-ID-Specs">Appendix 2</a> for
 workflow nomenclature and examples).</p>
 </div>
 <div class="section level3">
-<h3 id="running-multiple-assessments">Running Multiple Assessments<a class="anchor" aria-label="anchor" href="#running-multiple-assessments"></a>
+<h3 id="running-multiple-kris">Running Multiple KRIs<a class="anchor" aria-label="anchor" href="#running-multiple-kris"></a>
 </h3>
 <p>Running multiple assessments simultaneously for a single study is a
 common use case of <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> and the package provides workflow
 and reporting functions to streamline this process.</p>
-<p><code>Study_Assess()</code> attempts to run one or more assessment
+<p><code><a href="../reference/RunWorkflows.html">RunWorkflows()</a></code> attempts to run one or more assessment
 workflows using shared data and metadata. The metadata used for this
 study-level assessment is described in detail in <a href="#Appendix-1-Metadata-Technical-Specifications">Appendix 1</a>. The
-<code>Study_Assess()</code> function returns a list of assessments
+<code><a href="../reference/RunWorkflows.html">RunWorkflows()</a></code> function returns a list of assessments
 containing status information and results that is used as input for the
-reporting functions described below.</p>
-<p><code>Study_Report()</code> creates a detailed report showing both
-charts and listings summarizing each KRI that was run for the study,
-along with a study-level table (via <code>Study_Table()</code>) and a
-summary of the workflow run to generate each KRI (via
-<code>Study_AssessmentReport()</code>) .</p>
-<p>To see a sample report, simply run:</p>
+reporting workflow and charting and reporting functions described
+below.</p>
+<p>Once all reporting data.frames are created using the
+<code>data_reporting.yaml</code> workflow as discussed above, a user
+will create charts for all of the metrics specified in the analysis
+pipeline. <code><a href="../reference/Visualize_Metric.html">Visualize_Metric()</a></code> is a function that creates all
+available charts for a metric using the data provided. If the
+<code>dfSummary</code> provided to <code><a href="../reference/Visualize_Metric.html">Visualize_Metric()</a></code>
+contains multiple data with multiple dates, then the
+<code>timeSeries</code> charts will be included in the list of charts
+returned. The output of this function is a list containing the following
+charts:</p>
+<ul>
+<li>
+<code>scatterJS</code>: A scatter plot using JavaScript.</li>
+<li>
+<code>scatter</code>: A scatter plot using ggplot2.</li>
+<li>
+<code>barMetricJS</code>: A bar chart using JavaScript with metric
+on the y-axis.</li>
+<li>
+<code>barScoreJS</code>: A bar chart using JavaScript with score on
+the y-axis.</li>
+<li>
+<code>barMetric</code>: A bar chart using ggplot2 with metric on the
+y-axis.</li>
+<li>
+<code>barScore</code>: A bar chart using ggplot2 with score on the
+y-axis.</li>
+<li>
+<code>timeSeriesContinuousMetricJS</code>: A time series chart using
+JavaScript with metric on the y-axis.</li>
+<li>
+<code>timeSeriesContinuousScoreJS</code>: A time series chart using
+JavaScript with score on the y-axis.</li>
+<li>
+<code>timeSeriesContinuousNumeratorJS</code>: A time series chart
+using JavaScript with numerator on the y-axis.</li>
+</ul>
+<p>Now that all imputs for the <code><a href="../reference/Report_KRI.html">Report_KRI()</a></code> function have
+been produced, it can be called to create a detailed report showing both
+charts and listings summarizing each KRI that was run for the study.</p>
+<p>Putting all of these steps together, the following script will create
+a sample report using both the analysis and reporting workflows for the
+AE KRI.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">Study_Assess</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="fu">Study_Report</span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></code></pre></div>
-<p>Additional examples are provided in the <a href="https://gilead-biostats.github.io/gsm/articles/Cookbook.html" class="external-link">Cookbook
-Vignette</a>.</p>
+<code class="sourceCode R"><span><span class="va">lRaw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span>
+<span>    dfAE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_ae.html" class="external-link">rawplus_ae</a></span>,</span>
+<span>    dfPD <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_protdev.html" class="external-link">ctms_protdev</a></span>,</span>
+<span>    dfLB <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_lb.html" class="external-link">rawplus_lb</a></span>,</span>
+<span>    dfSTUDCOMP <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_studcomp.html" class="external-link">rawplus_studcomp</a></span>,</span>
+<span>    dfSDRGCOMP <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_sdrgcomp.html" class="external-link">rawplus_sdrgcomp</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">.data</span><span class="op">$</span><span class="va">phase</span> <span class="op">==</span> <span class="st">'Blinded Study Drug Completion'</span><span class="op">)</span>,</span>
+<span>    dfDATACHG <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/edc_data_points.html" class="external-link">edc_data_points</a></span>,</span>
+<span>    dfDATAENT <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/edc_data_pages.html" class="external-link">edc_data_pages</a></span>,</span>
+<span>    dfQUERY <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/edc_queries.html" class="external-link">edc_queries</a></span>,</span>
+<span>    dfENROLL <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_enroll</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Make Workflow Lists</span></span>
+<span><span class="va">wf_mapping</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span>strNames <span class="op">=</span> <span class="st">"mapping"</span><span class="op">)</span></span>
+<span><span class="va">wf_kri</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span>strNames<span class="op">=</span><span class="st">"kri0001"</span><span class="op">)</span></span>
+<span><span class="va">wf_reporting</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span>strNames <span class="op">=</span> <span class="st">"reporting"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Generate Mapped Data</span></span>
+<span><span class="va">lMapped</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/RunWorkflows.html">RunWorkflows</a></span><span class="op">(</span>lWorkflow <span class="op">=</span> <span class="va">wf_mapping</span>, lData <span class="op">=</span> <span class="va">lRaw</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Generate Analysis Results Data</span></span>
+<span><span class="va">lAnalysis</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/RunWorkflows.html">RunWorkflows</a></span><span class="op">(</span>lWorkflow <span class="op">=</span> <span class="va">wf_kri</span>, lData <span class="op">=</span> <span class="va">lMapped</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Generate Reporting Data</span></span>
+<span><span class="va">lReporting_Input</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    ctms_site <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_site.html" class="external-link">ctms_site</a></span>,</span>
+<span>    ctms_study <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_study.html" class="external-link">ctms_study</a></span>,</span>
+<span>    dfEnrolled <span class="op">=</span><span class="va">lMapped</span><span class="op">$</span><span class="va">dfEnrolled</span>,</span>
+<span>    lWorkflows <span class="op">=</span> <span class="va">wf_kri</span>,</span>
+<span>    lAnalysis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>kri0001 <span class="op">=</span> <span class="va">lAnalysis</span><span class="op">)</span>,</span>
+<span>    dSnapshotDate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    strStudyID <span class="op">=</span> <span class="st">"ABC-123"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">lReporting</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/RunWorkflows.html">RunWorkflows</a></span><span class="op">(</span>lWorkflow <span class="op">=</span> <span class="va">wf_reporting</span>, lData <span class="op">=</span> <span class="va">lReporting_Input</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Convenience Mappings</span></span>
+<span><span class="va">dfGroups</span> <span class="op">&lt;-</span> <span class="va">lReporting</span><span class="op">$</span><span class="va">dfGroups</span></span>
+<span><span class="va">dfMetrics</span> <span class="op">&lt;-</span> <span class="va">lReporting</span><span class="op">$</span><span class="va">dfMetrics</span></span>
+<span><span class="va">dfSummary</span> <span class="op">&lt;-</span> <span class="va">lReporting</span><span class="op">$</span><span class="va">dfSummary</span></span>
+<span><span class="va">dfBounds</span> <span class="op">&lt;-</span> <span class="va">lReporting</span><span class="op">$</span><span class="va">dfBounds</span></span>
+<span></span>
+<span><span class="co"># Create Charts for all metrics</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>vsc.viewer <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">metrics</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">dfMetrics</span><span class="op">$</span><span class="va">MetricID</span><span class="op">)</span></span>
+<span><span class="va">charts</span> <span class="op">&lt;-</span> <span class="va">metrics</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">map</span><span class="op">(</span><span class="op">~</span><span class="fu"><a href="../reference/Visualize_Metric.html">Visualize_Metric</a></span><span class="op">(</span></span>
+<span>  dfSummary <span class="op">=</span> <span class="va">dfSummary</span>,</span>
+<span>  dfBounds <span class="op">=</span> <span class="va">dfBounds</span>,</span>
+<span>  dfGroups <span class="op">=</span> <span class="va">dfGroups</span>,</span>
+<span>  dfMetrics <span class="op">=</span> <span class="va">dfMetrics</span>,</span>
+<span>  strMetricID <span class="op">=</span> <span class="va">.x</span></span>
+<span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html" class="external-link">setNames</a></span><span class="op">(</span><span class="va">metrics</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## this is currently working in fix-reports branch. will uncomment when that is merged into dev</span></span>
+<span><span class="co"># Report_KRI(lCharts = charts,</span></span>
+<span><span class="co">#            dfSummary = dfSummary,</span></span>
+<span><span class="co">#            dfGroups = dfGroups,</span></span>
+<span><span class="co">#            dfMetrics = dfMetrics,</span></span>
+<span><span class="co">#            strOutput = "~/test_report_kri.html")</span></span></code></pre></div>
+<p>Additional examples are provided in the <a href="Cookbook.html">Cookbook Vignette</a>.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="appendix-1---data-pipeline-specifications">Appendix 1 - Data Pipeline Specifications<a class="anchor" aria-label="anchor" href="#appendix-1---data-pipeline-specifications"></a>
+<h2 id="appendix-1---data-model">Appendix 1 - Data Model<a class="anchor" aria-label="anchor" href="#appendix-1---data-model"></a>
 </h2>
-<p>The following section provides a detailed specifications for the
-required columns for the data pipeline used in the <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>
-package.The following tables are used in the data pipeline:</p>
+</div>
+<div class="section level2">
+<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h2>
+<p><img src="data-model.PNG" style="width:100.0%"></p>
+</div>
+<div class="section level2">
+<h2 id="analytics-data-model">Analytics data model<a class="anchor" aria-label="anchor" href="#analytics-data-model"></a>
+</h2>
+<p>The KRI analytics pipeline is a standardized process for
+<strong>Analyzing</strong> data issues by going from participant-level
+<code>input</code> data to a standardized site-level
+<code>summary</code> of model results. The data sets used in each step
+of the data pipeline are described in detail below.</p>
+<div class="section level3">
+<h3 id="analytics-data-tables">Analytics Data Tables<a class="anchor" aria-label="anchor" href="#analytics-data-tables"></a>
+</h3>
+<div class="section level4">
+<h4 id="dfinput">
+<code>dfInput</code><a class="anchor" aria-label="anchor" href="#dfinput"></a>
+</h4>
 <ul>
-<li>
-<code>dfInput</code>: Input data; Cross-domain participant-level
-input data with all needed data for KRI derivation.</li>
-<li>
-<code>dfTransformed</code>: Transformed data; Group-level
-transformed data including KRI calculation.</li>
-<li>
-<code>dfAnalyzed</code>: Analyzed data; Group-level analysis results
-data with <code>Score</code> column added providing a statistical score
-for the group.</li>
-<li>
-<code>dfFlagged</code>: Flagged data; Group-level analysis results
-with <code>Flag</code> column added to indicate potential statistical
-outliers.</li>
+<li>Function(s) used to create table:
+<ul>
+<li><code><a href="../reference/Input_Rate.html">Input_Rate()</a></code></li>
 </ul>
-<p>Many columns are shared across tables</p>
+</li>
+<li>Inputs:
+<ul>
+<li><code>dfSubjects</code></li>
+<li><code>dfNumerator</code></li>
+<li><code>dfDenominator</code></li>
+</ul>
+</li>
+<li>Usage: The base data.frame for all Analytics workflows. Feeds into
+the <code>Transform_*()</code> functions.</li>
+<li>Structure:</li>
+</ul>
 <table class="table">
 <colgroup>
 <col width="13%">
-<col width="19%">
-<col width="52%">
+<col width="18%">
+<col width="51%">
 <col width="13%">
+<col width="2%">
 </colgroup>
 <thead><tr class="header">
 <th>Table</th>
 <th>Column Name</th>
 <th>Description</th>
 <th>Type</th>
+<th>Optional</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>All</td>
-<td>MetricID</td>
-<td>The Metric ID</td>
-<td>Character</td>
-</tr>
-<tr class="even">
-<td>All</td>
-<td>StudyID</td>
-<td>The Study ID</td>
-<td>Character</td>
-</tr>
-<tr class="odd">
-<td>All</td>
-<td>GroupID</td>
-<td>The group ID for the metric</td>
-<td>Character</td>
-</tr>
-<tr class="even">
-<td>All</td>
-<td>SnapshotDate</td>
-<td>The Date of the snapshot</td>
-<td>Date</td>
-</tr>
-<tr class="odd">
-<td>All</td>
-<td>Numerator</td>
-<td>The calculated numerator value</td>
-<td>Numeric</td>
-</tr>
-<tr class="even">
-<td>All</td>
-<td>Denominator</td>
-<td>The calculated denominator value</td>
-<td>Numeric</td>
-</tr>
-<tr class="odd">
-<td>All</td>
-<td>Metric</td>
-<td>The calculated rate/metric value</td>
-<td>Numeric</td>
-</tr>
-<tr class="even">
 <td>dfInput</td>
 <td>SubjectID</td>
 <td>The subject ID</td>
 <td>Character</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfInput</td>
+<td>GroupID</td>
+<td>The group ID for the metric</td>
+<td>Character</td>
+<td></td>
 </tr>
 <tr class="odd">
-<td>dfAnalyzed/dfFlagged</td>
-<td>Score</td>
-<td>The Stastical Score</td>
+<td>dfInput</td>
+<td>GroupLevel</td>
+<td>The group type for the metric (e.g. “Site”)</td>
+<td>Character</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfInput</td>
+<td>Numerator</td>
+<td>The calculated numerator value</td>
 <td>Numeric</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>dfInput</td>
+<td>Denominator</td>
+<td>The calculated denominator value</td>
+<td>Numeric</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfInput</td>
+<td>Metric</td>
+<td>The calculated rate/metric value</td>
+<td>Numeric</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="dftransformed">
+<code>dfTransformed</code><a class="anchor" aria-label="anchor" href="#dftransformed"></a>
+</h4>
+<ul>
+<li>Function(s) used to create table:
+<ul>
+<li><code><a href="../reference/Transform_Rate.html">Transform_Rate()</a></code></li>
+<li><code><a href="../reference/Transform_Count.html">Transform_Count()</a></code></li>
+</ul>
+</li>
+<li>Inputs: <code>dfInput</code>
+</li>
+<li>Usage: Convert from input data format to needed format to derive KRI
+for an Assessment via the <code>Analyze_*()</code> functions.</li>
+<li>Structure:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col width="13%">
+<col width="18%">
+<col width="51%">
+<col width="13%">
+<col width="2%">
+</colgroup>
+<thead><tr class="header">
+<th>Table</th>
+<th>Column Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Optional</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>dfTransformed</td>
+<td>GroupID</td>
+<td>The group ID for the metric</td>
+<td>Character</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfTransformed</td>
+<td>GroupLevel</td>
+<td>The group type for the metric (e.g. “Site”)</td>
+<td>Character</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>dfTransformed</td>
+<td>Numerator</td>
+<td>The calculated numerator value</td>
+<td>Numeric</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfTransformed</td>
+<td>Denominator</td>
+<td>The calculated denominator value</td>
+<td>Numeric</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>dfTransformed</td>
+<td>Metric</td>
+<td>The calculated rate/metric value</td>
+<td>Numeric</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="dfanalyzed">
+<code>dfAnalyzed</code><a class="anchor" aria-label="anchor" href="#dfanalyzed"></a>
+</h4>
+<ul>
+<li>Function(s) used to create table:
+<ul>
+<li><code><a href="../reference/Analyze_Fisher.html">Analyze_Fisher()</a></code></li>
+<li><code><a href="../reference/Analyze_Identity.html">Analyze_Identity()</a></code></li>
+<li><code><a href="../reference/Analyze_NormalApprox.html">Analyze_NormalApprox()</a></code></li>
+<li><code><a href="../reference/Analyze_Poisson.html">Analyze_Poisson()</a></code></li>
+<li><code><a href="../reference/Analyze_QTL.html">Analyze_QTL()</a></code></li>
+</ul>
+</li>
+<li>Inputs: <code>dfTransformed</code>
+</li>
+<li>Usage: Prepare the data for <code>Flag_*()</code> by performing the
+specified test on the metric provided.</li>
+<li>Structure:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col width="13%">
+<col width="18%">
+<col width="51%">
+<col width="13%">
+<col width="2%">
+</colgroup>
+<thead><tr class="header">
+<th>Table</th>
+<th>Column Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Optional</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>dfAnalyzed</td>
+<td>GroupID</td>
+<td>The group ID for the metric</td>
+<td>Character</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfAnalyzed</td>
+<td>GroupLevel</td>
+<td>The group type for the metric (e.g. “Site”)</td>
+<td>Character</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>dfAnalyzed</td>
+<td>Numerator</td>
+<td>The calculated numerator value</td>
+<td>Numeric</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfAnalyzed</td>
+<td>Denominator</td>
+<td>The calculated denominator value</td>
+<td>Numeric</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>dfAnalyzed</td>
+<td>Metric</td>
+<td>The calculated rate/metric value</td>
+<td>Numeric</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfAnalyzed</td>
+<td>Score</td>
+<td>The Statistical Score</td>
+<td>Numeric</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>dfAnalyzed</td>
+<td>Overall Metric</td>
+<td></td>
+<td>Numeric</td>
+<td>*</td>
+</tr>
+<tr class="even">
+<td>dfAnalyzed</td>
+<td>Factor</td>
+<td></td>
+<td>Numeric</td>
+<td>*</td>
+</tr>
+<tr class="odd">
+<td>dfAnalyzed</td>
+<td>Predicted Count</td>
+<td></td>
+<td>Numeric</td>
+<td>*</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="dfbounds">
+<code>dfBounds</code><a class="anchor" aria-label="anchor" href="#dfbounds"></a>
+</h4>
+<ul>
+<li>Function(s) used to create table:
+<ul>
+<li><code><a href="../reference/Analyze_NormalApprox_PredictBounds.html">Analyze_NormalApprox_PredictBounds()</a></code></li>
+<li><code><a href="../reference/Analyze_Poisson_PredictBounds.html">Analyze_Poisson_PredictBounds()</a></code></li>
+</ul>
+</li>
+<li>Inputs: <code>dfTransformed</code>
+</li>
+<li>Usage: Calculates predicted percentages/rates and upper- and
+lower-bounds across the full range of sample sizes/total exposure values
+for reporting.</li>
+<li>Structure:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col width="13%">
+<col width="18%">
+<col width="51%">
+<col width="13%">
+<col width="2%">
+</colgroup>
+<thead><tr class="header">
+<th>Table</th>
+<th>Column Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Optional</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>dfBounds</td>
+<td>Threshold</td>
+<td>The number of standard deviations that the upper and lower bounds
+are based on</td>
+<td>Numeric</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfBounds</td>
+<td>Denominator</td>
+<td>The calculated denominator value</td>
+<td>Numeric</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>dfBounds</td>
+<td>LogDenominator</td>
+<td>The calculated log denominator value</td>
+<td>Numeric</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfBounds</td>
+<td>Numerator</td>
+<td>The calculated numerator value</td>
+<td>Numeric</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>dfBounds</td>
+<td>Metric</td>
+<td>The calculated rate/metric value</td>
+<td>Numeric</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfBounds</td>
+<td>MetricID</td>
+<td>The Metric ID</td>
+<td>Character</td>
+<td>*</td>
+</tr>
+<tr class="odd">
+<td>dfBounds</td>
+<td>StudyID</td>
+<td>The Study ID</td>
+<td>Character</td>
+<td>*</td>
+</tr>
+<tr class="even">
+<td>dfBounds</td>
+<td>SnapshotDate</td>
+<td>The Date of the snapshot</td>
+<td>Date</td>
+<td>*</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="dfflagged">
+<code>dfFlagged</code><a class="anchor" aria-label="anchor" href="#dfflagged"></a>
+</h4>
+<ul>
+<li>Function(s) used to create table:
+<ul>
+<li><code><a href="../reference/Flag_Fisher.html">Flag_Fisher()</a></code></li>
+<li><code>Flag_Identity()</code></li>
+<li><code><a href="../reference/Flag_NormalApprox.html">Flag_NormalApprox()</a></code></li>
+<li><code><a href="../reference/Flag_Poisson.html">Flag_Poisson()</a></code></li>
+<li><code><a href="../reference/Flag_QTL.html">Flag_QTL()</a></code></li>
+</ul>
+</li>
+<li>Inputs: <code>dfAnalyzed</code>
+</li>
+<li>Usage: Flag a group-level metric to be summarized via
+<code><a href="../reference/Summarize.html">Summarize()</a></code> and used for reporting.</li>
+<li>Structure:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col width="13%">
+<col width="18%">
+<col width="51%">
+<col width="13%">
+<col width="2%">
+</colgroup>
+<thead><tr class="header">
+<th>Table</th>
+<th>Column Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Optional</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>dfFlagged</td>
+<td>GroupID</td>
+<td>The group ID for the metric</td>
+<td>Character</td>
+<td></td>
 </tr>
 <tr class="even">
 <td>dfFlagged</td>
+<td>GroupLevel</td>
+<td>The group type for the metric (e.g. “Site”)</td>
+<td>Character</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>dfFlagged</td>
+<td>Numerator</td>
+<td>The calculated numerator value</td>
+<td>Numeric</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfFlagged</td>
+<td>Denominator</td>
+<td>The calculated denominator value</td>
+<td>Numeric</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>dfFlagged</td>
+<td>Metric</td>
+<td>The calculated rate/metric value</td>
+<td>Numeric</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfFlagged</td>
+<td>Score</td>
+<td>The Statistical Score</td>
+<td>Numeric</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>dfFlagged</td>
 <td>Flag</td>
-<td>The Flag value</td>
+<td>The ordinal Flag to be applied</td>
+<td>Numeric</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfFlagged</td>
+<td>Overall Metric</td>
+<td></td>
+<td>Numeric</td>
+<td>*</td>
+</tr>
+<tr class="odd">
+<td>dfFlagged</td>
+<td>Factor</td>
+<td></td>
+<td>Numeric</td>
+<td>*</td>
+</tr>
+<tr class="even">
+<td>dfFlagged</td>
+<td>Predicted Count</td>
+<td></td>
+<td>Numeric</td>
+<td>*</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="dfsummary">
+<code>dfSummary</code><a class="anchor" aria-label="anchor" href="#dfsummary"></a>
+</h4>
+<ul>
+<li>Function(s) used to create table:
+<ul>
+<li><code><a href="../reference/Summarize.html">Summarize()</a></code></li>
+</ul>
+</li>
+<li>Inputs: <code>dfFlagged</code>
+</li>
+<li>Usage: Summarize KRI at the group level for reporting.</li>
+<li>Structure:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col width="13%">
+<col width="18%">
+<col width="51%">
+<col width="13%">
+<col width="2%">
+</colgroup>
+<thead><tr class="header">
+<th>Table</th>
+<th>Column Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Optional</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>dfSummary</td>
+<td>GroupID</td>
+<td>The group ID for the metric</td>
+<td>Character</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfSummary</td>
+<td>GroupLevel</td>
+<td>The group type for the metric (e.g. “Site”)</td>
+<td>Character</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>dfSummary</td>
+<td>Numerator</td>
+<td>The calculated numerator value</td>
+<td>Numeric</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfSummary</td>
+<td>Denominator</td>
+<td>The calculated denominator value</td>
+<td>Numeric</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>dfSummary</td>
+<td>Metric</td>
+<td>The calculated rate/metric value</td>
+<td>Numeric</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfSummary</td>
+<td>MetricID</td>
+<td>The Metric ID</td>
+<td>Character</td>
+<td>*</td>
+</tr>
+<tr class="odd">
+<td>dfSummary</td>
+<td>StudyID</td>
+<td>The Study ID</td>
+<td>Character</td>
+<td>*</td>
+</tr>
+<tr class="even">
+<td>dfSummary</td>
+<td>SnapshotDate</td>
+<td>The Date of the snapshot</td>
+<td>Date</td>
+<td>*</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="overview-of-reporting-data-model">Overview of Reporting data model<a class="anchor" aria-label="anchor" href="#overview-of-reporting-data-model"></a>
+</h2>
+<div class="section level3">
+<h3 id="reporting-data-tables">Reporting Data Tables<a class="anchor" aria-label="anchor" href="#reporting-data-tables"></a>
+</h3>
+<div class="section level4">
+<h4 id="dfsummary-1">
+<code>dfSummary</code><a class="anchor" aria-label="anchor" href="#dfsummary-1"></a>
+</h4>
+<ul>
+<li>Function(s) used to create table:
+<ul>
+<li><code><a href="../reference/Summarize.html">Summarize()</a></code></li>
+</ul>
+</li>
+<li>Inputs: <code>dfFlagged</code>
+</li>
+<li>Usage: Summarize KRI at the group level for reporting.</li>
+<li>Structure:</li>
+</ul>
+<table style="width:100%;" class="table">
+<colgroup>
+<col width="11%">
+<col width="16%">
+<col width="44%">
+<col width="11%">
+<col width="2%">
+<col width="12%">
+</colgroup>
+<thead><tr class="header">
+<th>Table</th>
+<th>Column Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Optional</th>
+<th>rbm-viz Column Name</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>dfSummary</td>
+<td>GroupID</td>
+<td>The group ID for the metric</td>
+<td>Character</td>
+<td></td>
+<td>groupid</td>
+</tr>
+<tr class="even">
+<td>dfSummary</td>
+<td>GroupLevel</td>
+<td>The group type for the metric (e.g. “Site”)</td>
+<td>Character</td>
+<td></td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td>dfSummary</td>
+<td>Numerator</td>
+<td>The calculated numerator value</td>
+<td>Numeric</td>
+<td></td>
+<td>numerator</td>
+</tr>
+<tr class="even">
+<td>dfSummary</td>
+<td>Denominator</td>
+<td>The calculated denominator value</td>
+<td>Numeric</td>
+<td></td>
+<td>denominator</td>
+</tr>
+<tr class="odd">
+<td>dfSummary</td>
+<td>Metric</td>
+<td>The calculated rate/metric value</td>
+<td>Numeric</td>
+<td></td>
+<td>metric</td>
+</tr>
+<tr class="even">
+<td>dfSummary</td>
+<td>Score</td>
+<td>The calculated metric score</td>
+<td>Numeric</td>
+<td></td>
+<td>score</td>
+</tr>
+<tr class="odd">
+<td>dfSummary</td>
+<td>Flag</td>
+<td>The calculated flag</td>
+<td>Numeric</td>
+<td></td>
+<td>flag</td>
+</tr>
+<tr class="even">
+<td>dfSummary</td>
+<td>MetricID</td>
+<td>The Metric ID</td>
+<td>Character</td>
+<td>*</td>
+<td>workflowid</td>
+</tr>
+<tr class="odd">
+<td>dfSummary</td>
+<td>StudyID</td>
+<td>The Study ID</td>
+<td>Character</td>
+<td>*</td>
+<td>studyid</td>
+</tr>
+<tr class="even">
+<td>dfSummary</td>
+<td>SnapshotDate</td>
+<td>The Date of the snapshot</td>
+<td>Date</td>
+<td>*</td>
+<td>snapshot_date</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="dfbounds-1">
+<code>dfBounds</code><a class="anchor" aria-label="anchor" href="#dfbounds-1"></a>
+</h4>
+<ul>
+<li>Function(s) used to create table:
+<ul>
+<li><code><a href="../reference/Analyze_NormalApprox_PredictBounds.html">Analyze_NormalApprox_PredictBounds()</a></code></li>
+<li><code><a href="../reference/Analyze_Poisson_PredictBounds.html">Analyze_Poisson_PredictBounds()</a></code></li>
+</ul>
+</li>
+<li>Inputs: <code>dfTransformed</code>
+</li>
+<li>Usage: Calculates predicted percentages/rates and upper- and
+lower-bounds across the full range of sample sizes/total exposure values
+for reporting.</li>
+<li>Structure:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col width="11%">
+<col width="16%">
+<col width="45%">
+<col width="11%">
+<col width="2%">
+<col width="11%">
+</colgroup>
+<thead><tr class="header">
+<th>Table</th>
+<th>Column Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Optional</th>
+<th>rbm-viz Column Name</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>dfBounds</td>
+<td>Threshold</td>
+<td>The number of standard deviations that the upper and lower bounds
+are based on</td>
+<td>Numeric</td>
+<td></td>
+<td>threshold</td>
+</tr>
+<tr class="even">
+<td>dfBounds</td>
+<td>Denominator</td>
+<td>The calculated denominator value</td>
+<td>Numeric</td>
+<td></td>
+<td>denominator</td>
+</tr>
+<tr class="odd">
+<td>dfBounds</td>
+<td>LogDenominator</td>
+<td>The calculated log denominator value</td>
+<td>Numeric</td>
+<td></td>
+<td>log_denominator</td>
+</tr>
+<tr class="even">
+<td>dfBounds</td>
+<td>Numerator</td>
+<td>The calculated numerator value</td>
+<td>Numeric</td>
+<td></td>
+<td>numerator</td>
+</tr>
+<tr class="odd">
+<td>dfBounds</td>
+<td>Metric</td>
+<td>The calculated rate/metric value</td>
+<td>Numeric</td>
+<td></td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td>dfBounds</td>
+<td>MetricID</td>
+<td>The Metric ID</td>
+<td>Character</td>
+<td>*</td>
+<td>workflowid</td>
+</tr>
+<tr class="odd">
+<td>dfBounds</td>
+<td>StudyID</td>
+<td>The Study ID</td>
+<td>Character</td>
+<td>*</td>
+<td>studyid</td>
+</tr>
+<tr class="even">
+<td>dfBounds</td>
+<td>SnapshotDate</td>
+<td>The Date of the snapshot</td>
+<td>Date</td>
+<td>*</td>
+<td>snapshot_date</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="dfgroups">
+<code>dfGroups</code><a class="anchor" aria-label="anchor" href="#dfgroups"></a>
+</h4>
+<ul>
+<li>Workflow used to create table: <code>data_reporting</code>
+</li>
+<li>Inputs: CTMS site, study and country data</li>
+<li>Usage: Group-level metadata dictionary.</li>
+<li>Structure: Long data frame, with certain <code>Param</code> required
+for given <code>GroupLevel</code>
+</li>
+</ul>
+<table class="table">
+<colgroup>
+<col width="14%">
+<col width="25%">
+<col width="38%">
+<col width="10%">
+<col width="11%">
+</colgroup>
+<thead><tr class="header">
+<th>Table</th>
+<th>Column</th>
+<th>Description</th>
+<th>Type</th>
+<th>Optional</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>dfGroups</td>
+<td>ProtocolID</td>
+<td>Protocol ID</td>
+<td>Character</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfGroups</td>
+<td>SnapshotDate</td>
+<td>Snapshot Date</td>
+<td>Character</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>dfGroups</td>
+<td>GroupID</td>
+<td>Unique Group ID</td>
+<td>Character</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfGroups</td>
+<td>GroupLevel</td>
+<td>Group Level (e.g. Site, Country)</td>
+<td>Character</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>dfGroups</td>
+<td>Param</td>
+<td>Parameter Name (e.g. “Status”)</td>
+<td>Character</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfGroups</td>
+<td>Value</td>
+<td>Parameter Value (e.g. “Active”)</td>
+<td>Character</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Expected <code>Param</code> by <code>GroupLevel</code> for use in gsm
+reporting. Fine to add other Param values as needed.</p>
+<table class="table">
+<colgroup>
+<col width="16%">
+<col width="27%">
+<col width="43%">
+<col width="12%">
+</colgroup>
+<thead><tr class="header">
+<th>GroupLevel</th>
+<th>Param</th>
+<th>Description</th>
+<th>Value Type</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Study</td>
+<td>Status</td>
+<td>Study Status</td>
+<td>Character</td>
+</tr>
+<tr class="even">
+<td>Study</td>
+<td>Title</td>
+<td>Protocol Title</td>
+<td>Numeric</td>
+</tr>
+<tr class="odd">
+<td>Study</td>
+<td>ParticipantCount</td>
+<td># of Enrolled Participants</td>
+<td>Numeric</td>
+</tr>
+<tr class="even">
+<td>Study</td>
+<td>SiteCount</td>
+<td># of Activated Sites</td>
+<td>Numeric</td>
+</tr>
+<tr class="odd">
+<td>Study</td>
+<td>ParticipantsPlanned</td>
+<td># of Planned Participants</td>
+<td>Numeric</td>
+</tr>
+<tr class="even">
+<td>Study</td>
+<td>SitesPlanned</td>
+<td># of Planned Sites</td>
+<td>Numeric</td>
+</tr>
+<tr class="odd">
+<td>Site</td>
+<td>ParticipantCount</td>
+<td># of Enrolled Participants</td>
+<td>Numeric</td>
+</tr>
+<tr class="even">
+<td>Site</td>
+<td>Status</td>
+<td>Site Status</td>
+<td>Character</td>
+</tr>
+<tr class="odd">
+<td>Site</td>
+<td>InvestigatorFirstName</td>
+<td>Investigator First name</td>
+<td>Character</td>
+</tr>
+<tr class="even">
+<td>Site</td>
+<td>InvestigatorLastName</td>
+<td>Investigator Last name</td>
+<td>Character</td>
+</tr>
+<tr class="odd">
+<td>Site</td>
+<td>City</td>
+<td>City</td>
+<td>Character</td>
+</tr>
+<tr class="even">
+<td>Site</td>
+<td>State</td>
+<td>State</td>
+<td>Character</td>
+</tr>
+<tr class="odd">
+<td>Site</td>
+<td>Country</td>
+<td>Country</td>
+<td>Character</td>
+</tr>
+<tr class="even">
+<td>Country</td>
+<td>EnrolledParticipants</td>
+<td># of Enrolled Participants</td>
 <td>Numeric</td>
 </tr>
 </tbody>
 </table>
+</div>
+<div class="section level4">
+<h4 id="dfmetrics">
+<code>dfMetrics</code><a class="anchor" aria-label="anchor" href="#dfmetrics"></a>
+</h4>
+<ul>
+<li>Function used to create table: <code><a href="../reference/MakeMetricInfo.html">MakeMetricInfo()</a></code>
+</li>
+<li>Inputs: <code>lWorkflow</code> - metadata from the corresponding kri
+<code>.yaml</code> file</li>
+<li>Usage: Metadata used for charts and tables</li>
+<li>Structure:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col width="11%">
+<col width="15%">
+<col width="43%">
+<col width="11%">
+<col width="2%">
+<col width="15%">
+</colgroup>
+<thead><tr class="header">
+<th>Table</th>
+<th>Column Name</th>
+<th>Description</th>
+<th>Type</th>
+<th>Optional</th>
+<th>rbm-viz Column Name</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>dfMetrics</td>
+<td>File</td>
+<td>The yaml file for workflow</td>
+<td>Character</td>
+<td></td>
+<td>file</td>
+</tr>
+<tr class="even">
+<td>dfMetrics</td>
+<td>MetricID</td>
+<td>ID for the Metric</td>
+<td>Character</td>
+<td></td>
+<td>workflowid</td>
+</tr>
+<tr class="odd">
+<td>dfMetrics</td>
+<td>Group</td>
+<td>The group type for the metric (e.g. “Site”)</td>
+<td>Character</td>
+<td></td>
+<td>group</td>
+</tr>
+<tr class="even">
+<td>dfMetrics</td>
+<td>Abbreviation</td>
+<td>Abbreviation for the metric</td>
+<td>Character</td>
+<td></td>
+<td>abbreviations</td>
+</tr>
+<tr class="odd">
+<td>dfMetrics</td>
+<td>Metric</td>
+<td>Name of the metric</td>
+<td>Character</td>
+<td></td>
+<td>metric</td>
+</tr>
+<tr class="even">
+<td>dfMetrics</td>
+<td>Numerator</td>
+<td>Data source for the Numerator</td>
+<td>Character</td>
+<td></td>
+<td>numerator</td>
+</tr>
+<tr class="odd">
+<td>dfMetrics</td>
+<td>Denominator</td>
+<td>Data source for the Denominator</td>
+<td>Character</td>
+<td></td>
+<td>denominator</td>
+</tr>
+<tr class="even">
+<td>dfMetrics</td>
+<td>Model</td>
+<td>Model used to calculate metric</td>
+<td>Character</td>
+<td></td>
+<td>model</td>
+</tr>
+<tr class="odd">
+<td>dfMetrics</td>
+<td>Score</td>
+<td>Type of Score reported</td>
+<td>Character</td>
+<td></td>
+<td>score</td>
+</tr>
+<tr class="even">
+<td>dfMetrics</td>
+<td>strThreshold</td>
+<td>Thresholds to be used for bounds and flags</td>
+<td>Character</td>
+<td></td>
+<td>vthreshold</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="previous-versions">Previous Versions<a class="anchor" aria-label="anchor" href="#previous-versions"></a>
+</h2>
+<div class="section level4">
+<h4 id="dfsite">
+<code>dfSite</code><a class="anchor" aria-label="anchor" href="#dfsite"></a>
+</h4>
+<ul>
+<li>Function used to create table: Simple transformation of CTMS data
+using <code><a href="../reference/RunQuery.html">RunQuery()</a></code>
+</li>
+<li>Inputs: Site-level CTMS data</li>
+<li>Usage: Site-level data for gsm reporting</li>
+<li>Structure:</li>
+</ul>
+<table style="width:100%;" class="table">
+<colgroup>
+<col width="12%">
+<col width="22%">
+<col width="33%">
+<col width="9%">
+<col width="10%">
+<col width="10%">
+</colgroup>
+<thead><tr class="header">
+<th>Table</th>
+<th>Column</th>
+<th>Description</th>
+<th>Type</th>
+<th>Optional</th>
+<th>rbm-viz Column Name</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>dfSite</td>
+<td>protocol_row_id</td>
+<td>Protocol row ID</td>
+<td>Character</td>
+<td></td>
+<td>protocol_row_id</td>
+</tr>
+<tr class="even">
+<td>dfSite</td>
+<td>SiteID</td>
+<td>Unique Site ID</td>
+<td>Character</td>
+<td></td>
+<td>site_id</td>
+</tr>
+<tr class="odd">
+<td>dfSite</td>
+<td>site_row_id</td>
+<td>Site row ID</td>
+<td>Character</td>
+<td></td>
+<td>site_row_id</td>
+</tr>
+<tr class="even">
+<td>dfSite</td>
+<td>protocol</td>
+<td>Protocol ID</td>
+<td>Character</td>
+<td></td>
+<td>protocol</td>
+</tr>
+<tr class="odd">
+<td>dfSite</td>
+<td>pi_number</td>
+<td>Principal Investigator Number</td>
+<td>Character</td>
+<td></td>
+<td>pi_number</td>
+</tr>
+<tr class="even">
+<td>dfSite</td>
+<td>pi_last_name</td>
+<td>Principal Investigator Last Name</td>
+<td>Character</td>
+<td></td>
+<td>pi_last_name</td>
+</tr>
+<tr class="odd">
+<td>dfSite</td>
+<td>pi_first_name</td>
+<td>Principal Investigator First Name</td>
+<td>Character</td>
+<td></td>
+<td>pi_first_name</td>
+</tr>
+<tr class="even">
+<td>dfSite</td>
+<td>site_status</td>
+<td>Site Status</td>
+<td>Character</td>
+<td></td>
+<td>site_status</td>
+</tr>
+<tr class="odd">
+<td>dfSite</td>
+<td>is_satellite</td>
+<td>Is site a satellite location</td>
+<td>Character</td>
+<td></td>
+<td>is_satellite</td>
+</tr>
+<tr class="even">
+<td>dfSite</td>
+<td>account</td>
+<td></td>
+<td>Character</td>
+<td></td>
+<td>account</td>
+</tr>
+<tr class="odd">
+<td>dfSite</td>
+<td>site_active_dt</td>
+<td>Date that Site became active</td>
+<td>Character</td>
+<td></td>
+<td>site_active_dt</td>
+</tr>
+<tr class="even">
+<td>dfSite</td>
+<td>city</td>
+<td>Site City</td>
+<td>Character</td>
+<td></td>
+<td>city</td>
+</tr>
+<tr class="odd">
+<td>dfSite</td>
+<td>state</td>
+<td>Site State</td>
+<td>Character</td>
+<td></td>
+<td>state</td>
+</tr>
+<tr class="even">
+<td>dfSite</td>
+<td>country</td>
+<td>Site Country</td>
+<td>Character</td>
+<td></td>
+<td>country</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="dfstudy">
+<code>dfStudy</code><a class="anchor" aria-label="anchor" href="#dfstudy"></a>
+</h4>
+<ul>
+<li>Function used to create table: Simple transformation of CTMS data
+using <code><a href="../reference/RunQuery.html">RunQuery()</a></code>
+</li>
+<li>Inputs: Study-level CTMS data</li>
+<li>Usage: Study-level data for gsm reporting</li>
+<li>Structure:</li>
+</ul>
+<table class="table">
+<colgroup>
+<col width="14%">
+<col width="25%">
+<col width="38%">
+<col width="10%">
+<col width="11%">
+</colgroup>
+<thead><tr class="header">
+<th>Table</th>
+<th>Column</th>
+<th>Description</th>
+<th>Type</th>
+<th>Optional</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>dfStudy</td>
+<td>protocol_row_id</td>
+<td>Protocol row ID</td>
+<td>Character</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfStudy</td>
+<td>StudyID</td>
+<td>Unique Study ID</td>
+<td>Character</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>dfStudy</td>
+<td>protocol_title</td>
+<td>Protocol Title</td>
+<td>Character</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfStudy</td>
+<td>nickname</td>
+<td>Protocol Nickname</td>
+<td>Character</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>dfStudy</td>
+<td>protocol_type</td>
+<td>Protocol Type</td>
+<td>Character</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfStudy</td>
+<td>phase</td>
+<td>Study phase</td>
+<td>Character</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>dfStudy</td>
+<td>num_plan_site</td>
+<td>Number of planned sites in the study</td>
+<td>Character</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfStudy</td>
+<td>num_site_actl</td>
+<td>Number of active sites in the study</td>
+<td>Character</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>dfStudy</td>
+<td>est_fpfv</td>
+<td>Estimated first patient first visit</td>
+<td>Date</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfStudy</td>
+<td>act_fpfv</td>
+<td>Actual first patient first visit</td>
+<td>Date</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>dfStudy</td>
+<td>est_lplv</td>
+<td>Estimated last patient last visit</td>
+<td>Date</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfStudy</td>
+<td>act_lplv</td>
+<td>Actual last patient last visit</td>
+<td>Date</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>dfStudy</td>
+<td>est_lpfv</td>
+<td>Estimated last patient first visit</td>
+<td>Date</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfStudy</td>
+<td>act_lpfv</td>
+<td>Actual last patient first visit</td>
+<td>Date</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>dfStudy</td>
+<td>status</td>
+<td>Study Status</td>
+<td>Character</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfStudy</td>
+<td>num_plan_subj</td>
+<td>Number of planned subjects in study</td>
+<td>Numeric</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>dfStudy</td>
+<td>num_enrolled_subj_m</td>
+<td>Number of enrolled subjects in study</td>
+<td>Numeric</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfStudy</td>
+<td>protocol_indication</td>
+<td>Protocol Indication</td>
+<td>Character</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>dfStudy</td>
+<td>product</td>
+<td>Product</td>
+<td>Character</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfStudy</td>
+<td>therapeutic_area</td>
+<td>Therapeutic Area</td>
+<td>Character</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>dfStudy</td>
+<td>protocol_product_number</td>
+<td>Protocol Product Number</td>
+<td>Numeric</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>dfStudy</td>
+<td>x_rbm_flg</td>
+<td>Is RBM Flagged</td>
+<td>Character</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="section level3">
-<h3 id="appendix-2---workflow-specifications">Appendix 2 - Workflow Specifications<a class="anchor" aria-label="anchor" href="#appendix-2---workflow-specifications"></a>
+<h3 id="appendix-2---analysis-workflow-specifications">Appendix 2 - Analysis Workflow Specifications<a class="anchor" aria-label="anchor" href="#appendix-2---analysis-workflow-specifications"></a>
 </h3>
 <p>Assessment workflow metadata objects are passed to the
-<code>lAssessments</code> parameter in <code>Study_Assess()</code> to
-define functions and parameters (including <code>mappings</code> and
-<code>specs</code>) across multiple studies.</p>
-<p>The <code>lAssessment</code> object is a named list of metadata
-defining how each assessment should be run. By default,
+<code>lWorkflow</code> parameter in <code><a href="../reference/RunWorkflow.html">RunWorkflow()</a></code> to define
+functions and parameters across multiple studies.</p>
+<p>The <code>lWorkflow</code> object is a named list of metadata and
+steps defining how each assessment should be run. By default,
 <code><a href="../reference/MakeWorkflowList.html">MakeWorkflowList()</a></code> imports YAML specifications from
-<code>inst/workflow</code>. Each item in <code>lAssessments</code>
-expects the following parameters:</p>
+<code>workflow/metrics</code>. Each item in <code>lWorkflow</code>
+expects the following parameters in the <code>steps</code> section:</p>
 <ul>
 <li>
 <code>workflow</code>: Array defining one or more functions to be
 executed as part of the workflow for a given assessment
 <ul>
 <li>
-<code>workflow[]$name</code>: name of the <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>
+<code>workflow[]$meta</code>: specifies all of the metadata
+information for the KRI.</li>
+<li>
+<code>workflow[]$steps</code>: specifies all of the steps in the
+workflow.
+<ul>
+<li>
+<code>workflow[]$steps$name</code>: name of the <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>
 function.</li>
 <li>
-<code>workflow[]$inputs</code>: specifies the required input
+<code>workflow[]$steps$inputs</code>: specifies the required input
 data</li>
 <li>
-<code>workflow[]$output</code>: specifies the output data from the
-workflow step, which can be used as an input in the next step in the
+<code>workflow[]$steps$output</code>: specifies the output data from
+the workflow step, which can be used as an input in the next step in the
 workflow</li>
 <li>
-<code>workflow[]$params</code>: specifies parameters to be passed to
-the function</li>
+<code>workflow[]$steps$params</code>: specifies parameters to be
+passed to the function</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 <p>For example, the default workflow for the AE assessment
-(<code>inst/workflow/kri0001.yaml</code>) is shown below:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">steps</span><span class="kw">:</span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> FilterDomain</span></span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="at">    </span><span class="fu">inputs</span><span class="kw">:</span><span class="at"> dfSUBJ</span></span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfSUBJ</span></span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="at">      </span><span class="fu">strDomain</span><span class="kw">:</span><span class="at"> dfSUBJ</span></span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="at">      </span><span class="fu">strColParam</span><span class="kw">:</span><span class="at"> strEnrollCol</span></span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="at">      </span><span class="fu">strValParam</span><span class="kw">:</span><span class="at"> strEnrollVal</span></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> AE_Map_Raw</span></span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="at">    </span><span class="fu">inputs</span><span class="kw">:</span></span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> dfAE</span></span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> dfSUBJ</span></span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfInput</span></span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> AE_Assess</span></span>
-<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="at">    </span><span class="fu">inputs</span><span class="kw">:</span><span class="at"> dfInput</span></span>
-<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> lResults</span></span>
-<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="at">      </span><span class="fu">strGroup</span><span class="kw">:</span><span class="at"> </span><span class="st">"Site"</span></span>
-<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="at">      </span><span class="fu">vThreshold</span><span class="kw">:</span><span class="at"> </span><span class="ch">null</span></span>
-<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="at">      </span><span class="fu">strMethod</span><span class="kw">:</span><span class="at"> </span><span class="st">"NormalApprox"</span></span>
-<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a><span class="at">      </span><span class="fu">nMinDenominator</span><span class="kw">:</span><span class="at"> </span><span class="dv">30</span></span></code></pre></div>
+(<code>system.file("workflow/metrics/kri0001.yaml", package = "gsm")</code>)
+is shown below:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">meta</span><span class="kw">:</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="at">  </span><span class="fu">MetricID</span><span class="kw">:</span><span class="at"> kri0001</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="at">  </span><span class="fu">File</span><span class="kw">:</span><span class="at"> kri0001.yaml</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="at">  </span><span class="fu">Group</span><span class="kw">:</span><span class="at"> site</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="at">  </span><span class="fu">Abbreviation</span><span class="kw">:</span><span class="at"> AE</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="at">  </span><span class="fu">Metric</span><span class="kw">:</span><span class="at"> Adverse Event Rate</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="at">  </span><span class="fu">Numerator</span><span class="kw">:</span><span class="at"> Adverse Events</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="at">  </span><span class="fu">Denominator</span><span class="kw">:</span><span class="at"> Days on Study</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="at">  </span><span class="fu">Model</span><span class="kw">:</span><span class="at"> Normal Approximation</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="at">  </span><span class="fu">Score</span><span class="kw">:</span><span class="at"> Adjusted Z-Score</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="at">  </span><span class="fu">vThreshold</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="dv">-2</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="dv">-1</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="dv">2</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="dv">3</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="at">  </span><span class="fu">nMinDenominator</span><span class="kw">:</span><span class="at"> </span><span class="dv">30</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Input_Rate</span></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfInput</span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a><span class="at">      </span><span class="fu">dfSubjects</span><span class="kw">:</span><span class="at"> dfEnrolled</span></span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a><span class="at">      </span><span class="fu">dfNumerator</span><span class="kw">:</span><span class="at"> dfAE</span></span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a><span class="at">      </span><span class="fu">dfDenominator</span><span class="kw">:</span><span class="at"> dfEnrolled</span></span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a><span class="at">      </span><span class="fu">strSubjectCol</span><span class="kw">:</span><span class="at"> subjid</span></span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a><span class="at">      </span><span class="fu">strGroupCol</span><span class="kw">:</span><span class="at"> siteid</span></span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a><span class="at">      </span><span class="fu">strNumeratorMethod</span><span class="kw">:</span><span class="at"> Count</span></span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a><span class="at">      </span><span class="fu">strDenominatorMethod</span><span class="kw">:</span><span class="at"> Sum</span></span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a><span class="at">      </span><span class="fu">strDenominatorCol</span><span class="kw">:</span><span class="at"> timeonstudy</span></span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Transform_Rate</span></span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfTransformed</span></span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a><span class="at">      </span><span class="fu">dfInput</span><span class="kw">:</span><span class="at"> dfInput</span></span>
+<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Analyze_NormalApprox</span></span>
+<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfAnalyzed</span></span>
+<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb2-36"><a href="#cb2-36" tabindex="-1"></a><span class="at">      </span><span class="fu">dfTransformed</span><span class="kw">:</span><span class="at"> dfTransformed</span></span>
+<span id="cb2-37"><a href="#cb2-37" tabindex="-1"></a><span class="at">      </span><span class="fu">strType</span><span class="kw">:</span><span class="at"> rate</span></span>
+<span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Analyze_NormalApprox_PredictBounds</span></span>
+<span id="cb2-39"><a href="#cb2-39" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfBounds</span></span>
+<span id="cb2-40"><a href="#cb2-40" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb2-41"><a href="#cb2-41" tabindex="-1"></a><span class="at">      </span><span class="fu">dfTransformed</span><span class="kw">:</span><span class="at"> dfTransformed</span></span>
+<span id="cb2-42"><a href="#cb2-42" tabindex="-1"></a><span class="at">      </span><span class="fu">vThreshold</span><span class="kw">:</span><span class="at"> vThreshold</span></span>
+<span id="cb2-43"><a href="#cb2-43" tabindex="-1"></a><span class="at">      </span><span class="fu">strType</span><span class="kw">:</span><span class="at"> rate</span></span>
+<span id="cb2-44"><a href="#cb2-44" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Flag_NormalApprox</span></span>
+<span id="cb2-45"><a href="#cb2-45" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfFlagged</span></span>
+<span id="cb2-46"><a href="#cb2-46" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb2-47"><a href="#cb2-47" tabindex="-1"></a><span class="at">      </span><span class="fu">dfAnalyzed</span><span class="kw">:</span><span class="at"> dfAnalyzed</span></span>
+<span id="cb2-48"><a href="#cb2-48" tabindex="-1"></a><span class="at">      </span><span class="fu">vThreshold</span><span class="kw">:</span><span class="at"> vThreshold</span></span>
+<span id="cb2-49"><a href="#cb2-49" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Summarize</span></span>
+<span id="cb2-50"><a href="#cb2-50" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfSummary</span></span>
+<span id="cb2-51"><a href="#cb2-51" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb2-52"><a href="#cb2-52" tabindex="-1"></a><span class="at">      </span><span class="fu">dfFlagged</span><span class="kw">:</span><span class="at"> dfFlagged</span></span>
+<span id="cb2-53"><a href="#cb2-53" tabindex="-1"></a><span class="at">      </span><span class="fu">nMinDenominator</span><span class="kw">:</span><span class="at"> nMinDenominator</span></span></code></pre></div>
 </div>
 </div>
   </div>
