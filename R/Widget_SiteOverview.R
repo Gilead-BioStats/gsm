@@ -6,9 +6,9 @@
 #' A widget that generates a site overview table of group-level metric results across one or more
 #' metrics.
 #'
-#' @param dfSummary `data.frame` Output of [gsm::Summarize()].
+#' @param dfSummary `data.frame` Output of [Summarize()].
 #' @param dfMetrics `list` Metric metadata, captured at the top of metric workflows and returned by
-#' [gsm::MakeMetricInfo()].
+#' [MakeMetricInfo()].
 #' @param dfGroups `data.frame` Group metadata.
 #' @param strGroupSubset `character` Subset of groups to include in the table. Default: 'red'. Options:
 #' - 'all': All groups.
@@ -19,7 +19,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' data_raw <- gsm::UseClindata(
+#' data_raw <- UseClindata(
 #'     list(
 #'         "dfSUBJ" = "clindata::rawplus_dm",
 #'         "dfAE" = "clindata::rawplus_ae",
@@ -50,7 +50,7 @@
 #'
 #' counts <- RunWorkflow(workflows$counts, data_mapped)
 #'
-#' # TODO: use [ clindata::rawplus_dm$invid ] and [ clindata::ctms_site$pi_number ] insstead of
+#' # TODO: use [ clindata::rawplus_dm$invid ] and [ clindata::ctms_site$pi_number ] instead of
 #' # [ clindata::rawplus_dm$siteid ] and [ clindata::ctms_site$site_num ].
 #' dfGroups <- clindata::ctms_site %>%
 #'   dplyr::left_join(
@@ -81,17 +81,7 @@
 Widget_SiteOverview <- function(
   dfSummary,
   dfMetrics = gsm::meta_workflow,
-  dfGroups = clindata::ctms_site %>%
-    dplyr::left_join(
-      clindata::rawplus_dm %>%
-        dplyr::group_by(siteid) %>%
-        dplyr::tally(name = "enrolled_participants"),
-      c('site_num' = 'siteid')
-    ) %>%
-    dplyr::rename(
-      SiteID = site_num,
-      status = site_status
-    ),
+  dfGroups = example_groups(),
   strGroupSubset = 'red',
   bDebug = FALSE
 ) {
