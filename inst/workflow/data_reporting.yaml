@@ -57,7 +57,7 @@ steps:
       strGroupLevel: "Country"
   # Combine CTMS and Counts data as dfMeta
   - name: bind_rows
-    output: dfMeta
+    output: dfGroups
     params:
       SiteCounts: dfSiteCounts
       StudyCounts: dfStudyCounts
