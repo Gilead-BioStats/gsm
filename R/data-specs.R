@@ -83,19 +83,6 @@ example_groups <- function() {
     )
 }
 
-#' rbm_data_spec Dataset
-#'
-#' @format A data frame with 479 rows and 5 columns:
-#' \describe{
-#'   \item{System}{System that uses data, chr, i.e. "Gismo"}
-#'   \item{Table}{domain of data, chr, i.e. "status_study"}
-#'   \item{Column}{column names found in table, chr, i.e. "studyid"}
-#'   \item{Description}{Description of what the column represents, chr, i.e. "Unique Study ID"}
-#'   \item{Order}{index of the column column location in dataset, int}
-#' }
-#' @source Generated from `rbm_data_spec.csv` dataset in the `gsm` package.
-"rbm_data_spec"
-
 #' sampleInput Dataset
 #'
 #' @format A data frame with 25 rows and 5 columns:

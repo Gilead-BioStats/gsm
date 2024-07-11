@@ -149,7 +149,6 @@ reference:
       - config_workflow
       - meta_param
       - meta_workflow
-      - rbm_data_spec
 
   - title: Testing Data
     desc: data used for examples and testing
