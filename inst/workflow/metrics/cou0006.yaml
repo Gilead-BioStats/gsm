@@ -23,6 +23,7 @@ steps:
       dfDenominator: dfEnrolled
       strSubjectCol: subjid
       strGroupCol: country
+      strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count
   - name: Transform_Rate

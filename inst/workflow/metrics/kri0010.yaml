@@ -23,6 +23,7 @@ steps:
       dfDenominator: dfDataEntry
       strSubjectCol: subject_nsv
       strGroupCol: siteid
+      strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count
   - name: Transform_Rate
