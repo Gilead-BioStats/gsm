@@ -87,6 +87,9 @@
       $qtl0006
       [1] "steps" "path"  "name" 
       
+      $MissingVisitsKRI
+      [1] "meta"  "steps" "path"  "name" 
+      
       $snapshot
       [1] "meta"  "steps" "path"  "name" 
       
@@ -3869,6 +3872,135 @@
       
       $qtl0006[[3]]$params$nConfLevel
       [1] 0.95
+      
+      
+      
+      
+      $MissingVisitsKRI
+      $MissingVisitsKRI[[1]]
+      $MissingVisitsKRI[[1]]$name
+      [1] "ParseThreshold"
+      
+      $MissingVisitsKRI[[1]]$output
+      [1] "vThreshold"
+      
+      $MissingVisitsKRI[[1]]$params
+      $MissingVisitsKRI[[1]]$params$strThreshold
+      [1] "strThreshold"
+      
+      
+      
+      $MissingVisitsKRI[[2]]
+      $MissingVisitsKRI[[2]]$name
+      [1] "Input_Rate"
+      
+      $MissingVisitsKRI[[2]]$output
+      [1] "dfInput"
+      
+      $MissingVisitsKRI[[2]]$params
+      $MissingVisitsKRI[[2]]$params$dfSubjects
+      [1] "dfSubjects"
+      
+      $MissingVisitsKRI[[2]]$params$dfNumerator
+      [1] "dfVisits"
+      
+      $MissingVisitsKRI[[2]]$params$dfDenominator
+      [1] "dfVisits"
+      
+      $MissingVisitsKRI[[2]]$params$strSubjectCol
+      [1] "SubjID"
+      
+      $MissingVisitsKRI[[2]]$params$strGroupCol
+      [1] "SiteID"
+      
+      $MissingVisitsKRI[[2]]$params$strNumeratorCol
+      [1] "VisitOccurred"
+      
+      $MissingVisitsKRI[[2]]$params$strNumeratorMethod
+      [1] "Sum"
+      
+      $MissingVisitsKRI[[2]]$params$strDenominatorMethod
+      [1] "Count"
+      
+      
+      
+      $MissingVisitsKRI[[3]]
+      $MissingVisitsKRI[[3]]$name
+      [1] "Transform_Rate"
+      
+      $MissingVisitsKRI[[3]]$output
+      [1] "dfTransformed"
+      
+      $MissingVisitsKRI[[3]]$params
+      $MissingVisitsKRI[[3]]$params$dfInput
+      [1] "dfInput"
+      
+      
+      
+      $MissingVisitsKRI[[4]]
+      $MissingVisitsKRI[[4]]$name
+      [1] "Analyze_NormalApprox"
+      
+      $MissingVisitsKRI[[4]]$output
+      [1] "dfAnalyzed"
+      
+      $MissingVisitsKRI[[4]]$params
+      $MissingVisitsKRI[[4]]$params$dfTransformed
+      [1] "dfTransformed"
+      
+      $MissingVisitsKRI[[4]]$params$strType
+      [1] "rate"
+      
+      
+      
+      $MissingVisitsKRI[[5]]
+      $MissingVisitsKRI[[5]]$name
+      [1] "Analyze_NormalApprox_PredictBounds"
+      
+      $MissingVisitsKRI[[5]]$output
+      [1] "dfBounds"
+      
+      $MissingVisitsKRI[[5]]$params
+      $MissingVisitsKRI[[5]]$params$dfTransformed
+      [1] "dfTransformed"
+      
+      $MissingVisitsKRI[[5]]$params$strType
+      [1] "rate"
+      
+      $MissingVisitsKRI[[5]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $MissingVisitsKRI[[6]]
+      $MissingVisitsKRI[[6]]$name
+      [1] "Flag_NormalApprox"
+      
+      $MissingVisitsKRI[[6]]$output
+      [1] "dfFlagged"
+      
+      $MissingVisitsKRI[[6]]$params
+      $MissingVisitsKRI[[6]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
+      
+      $MissingVisitsKRI[[6]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $MissingVisitsKRI[[7]]
+      $MissingVisitsKRI[[7]]$name
+      [1] "Summarize"
+      
+      $MissingVisitsKRI[[7]]$output
+      [1] "dfSummary"
+      
+      $MissingVisitsKRI[[7]]$params
+      $MissingVisitsKRI[[7]]$params$dfFlagged
+      [1] "dfFlagged"
+      
+      $MissingVisitsKRI[[7]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
