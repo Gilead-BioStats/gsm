@@ -140,7 +140,6 @@ reference:
   - title: Sample Data
     desc: data used for examples and testing
   - contents:
-      - example_groups
       - sampleBounds
       - sampleGroups
       - sampleInput

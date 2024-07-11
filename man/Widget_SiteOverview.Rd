@@ -7,7 +7,7 @@
 Widget_SiteOverview(
   dfSummary,
   dfMetrics,
-  dfGroups = example_groups(),
+  dfGroups,
   strGroupSubset = "red",
   bDebug = FALSE
 )

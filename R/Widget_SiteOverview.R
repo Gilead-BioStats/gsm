@@ -81,7 +81,7 @@
 Widget_SiteOverview <- function(
   dfSummary,
   dfMetrics,
-  dfGroups = example_groups(),
+  dfGroups,
   strGroupSubset = 'red',
   bDebug = FALSE
 ) {

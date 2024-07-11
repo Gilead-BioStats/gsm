@@ -1,26 +1,3 @@
-#' Load Default Clindata Groups
-#'
-#' Load and clean group data for use as default values.
-#'
-#' @return A data frame with group data.
-#' @export
-#'
-#' @examples
-#' example_groups()
-example_groups <- function() {
-  clindata::ctms_site %>%
-    dplyr::left_join(
-      clindata::rawplus_dm %>%
-        dplyr::group_by(.data$siteid) %>%
-        dplyr::tally(name = "enrolled_participants"),
-      c('site_num' = 'siteid')
-    ) %>%
-    dplyr::rename(
-      SiteID = "site_num",
-      status = "site_status"
-    )
-}
-
 #' sampleBounds Dataset
 #'
 #' @format A data frame with 12667 rows and 8 columns:
