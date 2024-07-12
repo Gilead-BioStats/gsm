@@ -22,7 +22,7 @@ Report_FlagOverTime <- function(dfSummary,
   )
 
   dfFlagOverTime %>%
-    dplyr::group_by(.data$GroupID) %>%
+    dplyr::group_by(.data$GroupLevel, .data$GroupID) %>%
     gsm_gt() %>%
     fmt_flag_rag(columns = date_cols) %>%
     gt::tab_header(
@@ -46,6 +46,7 @@ widen_summary <- function(dfSummary, dfMetrics, strGroupLevel) {
     dplyr::mutate(GroupLevel = tolower(.data$GroupLevel)) %>%
     dplyr::inner_join(dfMetrics_join, by = c("MetricID", "GroupLevel")) %>%
     dplyr::select(
+      "GroupLevel",
       "GroupID",
       "MetricID",
       "Abbreviation",
@@ -56,8 +57,9 @@ widen_summary <- function(dfSummary, dfMetrics, strGroupLevel) {
     dfFlagOverTime$GroupID <- as.integer(dfFlagOverTime$GroupID)
   }
   dfFlagOverTime %>%
-    dplyr::arrange(.data$SnapshotDate, .data$GroupID, .data$MetricID) %>%
-    tidyr::pivot_wider(names_from = "SnapshotDate", values_from = "Flag")
+    dplyr::arrange(.data$SnapshotDate) %>%
+    tidyr::pivot_wider(names_from = "SnapshotDate", values_from = "Flag") %>%
+    dplyr::arrange(.data$GroupID, .data$MetricID)
 }
 
 fmt_flag_rag <- function(data, columns = gt::everything()) {
