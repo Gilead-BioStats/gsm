@@ -72,7 +72,7 @@ steps:
 
 # Create Results Data
   - name: BindResults
-    output: dfSummary
+    output: dfResults
     params:
       lResults: lAnalysis
       strName: "dfSummary"
