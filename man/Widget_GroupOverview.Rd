@@ -86,12 +86,7 @@ dfGroups <- bind_rows(
 )
 
 dfMetrics <- lMetricWorkflows \%>\%
-    map_dfr(~ {
-        metric <- .x$meta
-        metric$GroupLevel <- strGroupLevel
-        #metric$vThreshold <- paste(metric$vThreshold, collapse = ',')
-        metric
-    })
+    map_dfr(~ .x$meta)
 
 Widget_GroupOverview(
   dfSummary,
