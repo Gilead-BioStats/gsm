@@ -2,17 +2,6 @@ meta:
   File: reporting.yaml
   description: Generate charts and reports 
 steps:
-  # Create wide site meta data
-  - name: MakeWideGroups # Need to add additional renames
-    output: dfGroups
-    params:
-      dfMeta: dfMeta
-      strGroupLevel: 'Site'
-  - name: MakeWideGroups # Need to add additional renames
-    output: dfStudy
-    params:
-      dfMeta: dfMeta
-      strGroupLevel: 'Study'
   #TODO: Add a `StackSummary` function to allow for mutliple snapshots
   - name: MakeCharts
     output: lCharts 
@@ -21,12 +10,12 @@ steps:
       dfGroups: dfGroups
       dfBounds: dfBounds
       dfMetrics: dfMetrics
-  - name: Report_KRI
-    output: lCharts 
-    params:
-      lCharts: lCharts
-      dfSummary: dfSummary
-      dfSite: dfGroups
-      dfStudy: dfStudy
-      dfMetrics: dfMetrics
+#  - name: Report_KRI
+#    output: lCharts 
+#    params:
+#      lCharts: lCharts
+#      dfSummary: dfSummary
+#      dfSite: dfGroups
+#      dfStudy: dfStudy
+#      dfMetrics: dfMetrics
 

@@ -1,5 +1,5 @@
 HTMLWidgets.widget({
-    name: 'Widget_SiteOverview',
+    name: 'Widget_GroupOverview',
     type: 'output',
     factory: function(el, width, height) {
         return {
@@ -13,12 +13,15 @@ HTMLWidgets.widget({
                     input.strGroupSubset
                 );
 
-                const instance = rbmViz.default.siteOverview(
+                const instance = rbmViz.default.groupOverview(
                     el,
                     input.dfSummary.filter(
                         d => groupSubset.includes(d.GroupID)
                     ),
-                    { group: 'site' },
+                    {
+                        GroupLevel: input.GroupLevel,
+                        groupLabelKey: input.strGroupLabelKey,
+                    },
                     input.dfGroups,
                     input.dfMetrics
                 );

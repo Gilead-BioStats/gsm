@@ -1,7 +1,7 @@
 meta:
   File: kri0006.yaml
   MetricID: kri0006
-  GroupLevel: site
+  GroupLevel: Site
   Abbreviation: SDSC
   Metric: Study Discontinuation Rate
   Numerator: Subjects Discontinued - Study
@@ -23,6 +23,7 @@ steps:
       dfDenominator: dfEnrolled
       strSubjectCol: subjid
       strGroupCol: siteid
+      strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count
   - name: Transform_Rate

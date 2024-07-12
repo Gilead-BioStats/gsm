@@ -24,7 +24,7 @@ steps:
       data: dfCTMSStudyWide
       strGroupLevel: "Study"
 
-  # Get Particiapnt and Site counts for Country, Site and Study
+  # Get Participant and Site counts for Country, Site and Study
   - name: RunQuery
     output: dfSiteCountsWide
     params:
@@ -57,7 +57,7 @@ steps:
       strGroupLevel: "Country"
   # Combine CTMS and Counts data as dfMeta
   - name: bind_rows
-    output: dfMeta
+    output: dfGroups
     params:
       SiteCounts: dfSiteCounts
       StudyCounts: dfStudyCounts
@@ -85,7 +85,4 @@ steps:
       strName: "dfBounds"
       dSnapshotDate: dSnapshotDate
       strStudyID: strStudyID
-
-
-
 

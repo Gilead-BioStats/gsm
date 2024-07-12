@@ -69,16 +69,6 @@ Visualize_Metric <- function(
   lMetric <- dfMetrics %>% as.list()
   vThreshold <- ParseThreshold(lMetric$strThreshold)
 
-  # TODO update expected names in rbmviz
-  if(tolower(lMetric$GroupLevel) == "site"){
-    dfGroups <- dfGroups %>%
-      rename(
-        SiteID = GroupID,
-       # status = Status,
-        enrolled_participants = ParticipantCount
-      )
-  }
-
   # Cross-sectional Charts using most recent snapshot ------------------------
   lCharts <- list()
   dfSummary_current <- dfSummary %>% filter(.data$SnapshotDate == strSnapshotDate)

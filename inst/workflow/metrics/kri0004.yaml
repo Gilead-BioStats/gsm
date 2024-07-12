@@ -1,7 +1,7 @@
 meta:
   File: kri0004.yaml
   MetricID: kri0004
-  GroupLevel: site
+  GroupLevel: Site
   Abbreviation: PD
   Metric: Important Protocol Deviation Rate
   Numerator: Important Protocol Deviations
@@ -23,6 +23,7 @@ steps:
       dfDenominator: dfEnrolled
       strSubjectCol: subjid
       strGroupCol: siteid
+      strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Sum
       strDenominatorCol: timeonstudy

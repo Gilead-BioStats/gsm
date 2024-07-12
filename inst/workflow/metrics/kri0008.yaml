@@ -1,7 +1,7 @@
 meta:
   File: kri0008.yaml
   MetricID: kri0008
-  GroupLevel: site
+  GroupLevel: Site
   Abbreviation: QRY
   Metric: Query Rate
   Numerator: Queries
@@ -23,6 +23,7 @@ steps:
       dfDenominator: dfDataChanges
       strSubjectCol: subject_nsv
       strGroupCol: siteid
+      strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count
   - name: Transform_Rate
