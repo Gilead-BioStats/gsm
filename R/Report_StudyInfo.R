@@ -2,8 +2,8 @@
 #'
 #' This function generates a table summarizing study metadata.
 #'
-#' @param dfStudy A data frame containing study information.
-#' @param dfStudyLabels A data frame containing study labels. Default is NULL.
+#' @param lStudy A data frame containing study information.
+#' @param lStudyLabels A data frame containing study labels. Default is NULL.
 #'
 #' @export
 #'
@@ -13,82 +13,51 @@
 
 
 Report_StudyInfo <- function(
-    dfStudy,
-    dfStudyLabels=NULL
+  lStudy,
+  lStudyLabels=NULL
 ) {
   rlang::check_installed("gt", reason = "to render table from `MakeStudyStatusTable`")
 
   # default study labels - also used to sort the meta datatable
-  if(is.null(dfStudyLabels)){
-    dfStudyLabels <- data.frame(
-      Parameter = c(
-        "StudyID",
-        "protocol_title",
-        "nickname",
-        "site_summary",
-        "participant_summary",
-        "status",
-        "product",
-        "phase",
-        "therapeutic_area",
-        "protocol_indication",
-        "protocol_type",
-        "protocol_row_id",
-        "protocol_product_number",
-        "est_fpfv",
-        "est_lpfv",
-        "est_lplv"
-      ),
-      Description = c(
-        "Unique Study ID",
-        "Protocol title",
-        "Protocol nickname",
-        "Sites (Enrolled / Planned)",
-        "Participants (Enrolled / Planned)",
-        "Study Status",
-        "Product",
-        "Phase",
-        "Therapeutic Area",
-        "Indication",
-        "Protocol type",
-        "Protocol row ID",
-        "Protocol product number",
-        "First-patient first visit date (CTMS)",
-        "Last-patient first visit date (CTMS)",
-        "Last-patient last visit date (CTMS)"
-      )
+  if(is.null(lStudyLabels)){
+    lStudyLabels <- list(
+      StudyID = "Unique Study ID",
+      protocol_title = "Protocol title",
+      nickname = "Protocol nickname",
+      SiteCount = "Sites Enrolled",
+      num_site_plan = "Sites Planned",
+      ParticipantCount = "Participants Enrolled",
+      num_plan_subj = "Participants Planned",
+      participant_summary = "Participants (Enrolled / Planned)",
+      status = "Study Status",
+      product = "Product",
+      phase = "Phase",
+      therapeutic_area = "Therapeutic Area",
+      protocol_indication = "Indication",
+      protocol_type = "Protocol type",
+      protocol_row_id = "Protocol row ID",
+      protocol_product_number = "Protocol product number",
+      est_fpfv = "First-patient first visit date (CTMS)",
+      est_lpfv = "Last-patient first visit date (CTMS)",
+      est_lplv = "Last-patient last visit date (CTMS)"
     )
   }
 
-
-  # -- the `sites` and `participants` variables below are used to show a nicely-formatted version of (# Enrolled / # Planned)
-
-  dfStudy$site_summary <- paste0(round(as.numeric(dfStudy$enrolled_sites)), " / ", round(as.numeric(dfStudy$planned_sites)))
-  dfStudy$participant_summary <- paste0(round(sum(as.numeric(dfStudy$enrolled_participants))), " / ", round(as.numeric(dfStudy$planned_participants)))
-
-  study_status_table <- dfStudy %>%
-    t() %>%
-    as.data.frame() %>%
-    tibble::rownames_to_column() %>%
-    setNames(c("Parameter", "Value")) %>%
-    rowwise() %>%
-    mutate(
+  study_status_table <- lStudy %>% imap_dfr(function(value,param){
+    data.frame(
+      Description = ifelse( 
+        param %in% names(lStudyLabels),
+        lStudyLabels[[param]],
+        param
+      ),
       Value = ifelse(
-        is.na(.data$Value),
-        .data$Value,
-        prettyNum(.data$Value, drop0trailing = TRUE)
+        is.na(value),
+        value,
+        prettyNum(value, drop0trailing = TRUE)
       )
-    ) %>%
-    ungroup() %>%
-    right_join(
-      dfStudyLabels,
-      by = join_by("Parameter")
-    ) %>%
-    select(
-      "Parameter" = "Description",
-      "Value"
     )
-
+  })
+  
   show_table <- study_status_table %>%
     slice(1:5) %>%
     gt::gt(id = "study_table")

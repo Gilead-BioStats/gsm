@@ -4,20 +4,30 @@
 \alias{Report_MetricTable}
 \title{Generate a summary table for a report}
 \usage{
-Report_MetricTable(dfSummary, dfSite, strSnapshotDate = NULL)
+Report_MetricTable(
+  dfResults,
+  dfGroups,
+  strSnapshotDate = NULL,
+  strGroupLevel = "Site",
+  strGroupDetailsParams = c("GroupID", "InvestigatorLastName", "Country", "Status")
+)
 }
 \arguments{
-\item{dfSummary}{The summary data frame}
+\item{dfResults}{The summary data frame}
 
-\item{dfSite}{The site data frame}
+\item{dfGroups}{The site data frame}
 
 \item{strSnapshotDate}{user specified snapshot date as string}
+
+\item{strGroupLevel}{group level for the table}
+
+\item{strGroupDetailParams}{one or more parameters from dfGroups to be added as columns in the table}
 }
 \value{
 A datatable containing the summary table
 }
 \description{
 This function generates a summary table for a report by joining the provided
-summary data frame with the site data frame. It then filters and arranges the
+results data frame with the site-level metadata from dfGroups. It then filters and arranges the
 data based on certain conditions and displays the result in a datatable.
 }

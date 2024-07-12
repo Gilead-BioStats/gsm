@@ -1,44 +1,66 @@
 #' Calculate needed values for report
 #'
-#' Calculates the following:
-#' - Snapshot date: dfStudy$SnapshotDate (if available) or Sys.Date()
-#' - Study ID: dfStudy$StudyID (if available)  or "Unknown"
-#' @param dfStudy `data.frame` Site-level metadata.
+#' @param dfGroups A data frame containing the group-level metadata.
+#' @param dfMetrics A data frame containing the metric-level metadata.
+#' @param dfResults A data frame containing the metric results.
+#' 
 #' @export
 #' @keywords internal
 #'
-#'
-Report_Setup <- function(dfStudy = NULL, dfMetrics = NULL, dfSummary = NULL) {
+#' @return `list` with the following elements:
+#' - `GroupLevel` (character): The group level of the report.
+#' - `SnapshotDate` (Date): The date of the snapshot.
+#' - `lStudy` (list): Study-level metadata.
+#' - `StudyID` (character): The study ID.
+#' - `red_kris` (numeric): The number of red flags.
+#' - `amber_kris` (numeric): The number of amber flags.
+#' 
+
+Report_Setup <- function(dfGroups = NULL, dfMetrics = NULL, dfResults = NULL) {
 
   output <- list()
+  
   # Get type of report
-
   group <- unique(dfMetrics$GroupLevel)
-
   if(length( group )==1) {
-    output$Group <- group %>% stringr::str_to_title()
+    output$GroupLevel <- group
   } else {
-    output$Group <- ""
+    cli_alert("Multiple `GroupLevel`s detected in dfMetrics, so GroupLevel not specifed for KRI Report. ")
+    output$GroupLevel <- ""
+  }
+  
+  # Get the snapshot date
+  if("SnapshotDate" %in% names(dfResults)) {
+    output$SnapshotDate <- unique(dfResults$SnapshotDate[[1]]) %>% max()
+  } else {
+    cli_alert("No `SnapshotDate` detected in dfResults, setting to today: {Sys.Date()}")
+    output$SnapshotDate <- Sys.Date()
   }
 
-  output$SnapshotDate <- if("SnapshotDate" %in% names(dfStudy)) {
-    dfStudy$SnapshotDate[[1]]
-  } else {
-    Sys.Date()
-  }
+  # Get the study-level metadata
+  output$lStudy <- dfGroups %>% 
+    dplyr::filter(.data$GroupLevel == "Study") %>% 
+    select(Param, Value) %>% 
+    pivot_wider(names_from="Param", values_from="Value") %>%
+    as.list
 
-  output$StudyID <- if("StudyID" %in% names(dfStudy)) {
-    dfStudy$StudyID[[1]]
-  } else {
+  if("protocol_number" %in% names(output$lStudy)) {
+      output$StudyID <- output$lStudy$protocol_number
+  } else  if("protocol_title" %in% names(output$lStudy)) {
+      output$StudyID <- output$lStudy$protocol_number
+  } else { 
     "Unknown"
   }
 
-  output$red_kris <- dfSummary %>%
+  # Count Red and Amber Flags for most recent snapshot   
+  output$red_kris <- dfResults %>%
+    filter(SnapshotDate == output$SnapshotDate) %>%
     mutate(red_flag = ifelse(.data[["Flag"]] %in% c(-2, 2), 1, 0)) %>%
     pull(.data[["red_flag"]]) %>%
     sum()
 
-  output$amber_kris <- dfSummary %>%
+  output$amber_kris <- dfResults %>%
+    filter(SnapshotDate == output$SnapshotDate) %>%
     mutate(amber_flag = ifelse(.data[["Flag"]] %in% c(-1, 1), 1, 0)) %>%
     pull(.data[["amber_flag"]]) %>%
     sum()

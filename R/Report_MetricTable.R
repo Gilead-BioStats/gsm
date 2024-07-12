@@ -1,48 +1,57 @@
 #' Generate a summary table for a report
 #'
 #' This function generates a summary table for a report by joining the provided
-#' summary data frame with the site data frame. It then filters and arranges the
+#' results data frame with the site-level metadata from dfGroups. It then filters and arranges the
 #' data based on certain conditions and displays the result in a datatable.
 #'
-#' @param dfSummary The summary data frame
-#' @param dfSite The site data frame
+#' @param dfResults The summary data frame
+#' @param dfGroups The site data frame
 #' @param strSnapshotDate user specified snapshot date as string
+#' @param strGroupLevel  group level for the table
+#' @param strGroupDetailParams one or more parameters from dfGroups to be added as columns in the table
 #'
 #' @return A datatable containing the summary table
 #'
 #' @export
 
-Report_MetricTable <- function(dfSummary, dfSite, strSnapshotDate = NULL) {
-    rlang::check_installed("DT", reason = "to run `Study_Report()`")
+Report_MetricTable <- function(
+    dfResults, 
+    dfGroups, 
+    strSnapshotDate = NULL, 
+    strGroupLevel = "Site", 
+    strGroupDetailsParams = c("GroupID", "InvestigatorLastName", "Country", "Status")
+) {
 
     # Check for multiple snapshots --------------------------------------------
     # use most recent snapshot date if strSnapshotDate is missing
     if(is.null(strSnapshotDate)){
-        if ("snapshot_date" %in% colnames(dfSummary) & nrow(dfSummary) > 0) {
-            strSnapshotDate <- max(dfSummary$snapshot_date)
-        } else if (!"snapshot_date" %in% colnames(dfSummary) & nrow(dfSummary) > 0){
+        if ("SnapshotDate" %in% colnames(dfResults) & nrow(dfResults) > 0) {
+            strSnapshotDate <- max(dfResults$snapshot_date)
+        } else if (!"SnapshotDate" %in% colnames(dfResults) & nrow(dfResults) > 0){
             strSnapshotDate <- as.Date(Sys.Date())
-            dfSummary$snapshot_date <- strSnapshotDate
+            dfResults$snapshot_date <- strSnapshotDate
         }
     } else {
         strSnapshotDate <- as.Date(strSnapshotDate)
     }
 
-    if(nrow(dfSummary) > 0){
-        dfSummary <- dfSummary %>% filter(.data$snapshot_date == strSnapshotDate)
+    if(nrow(dfResults) > 0){
+        dfResults <- dfResults %>% filter(.data$snapshot_date == strSnapshotDate)
     }
-    # Add Site Metadata ------------------------------------------------------------
-    if(nrow(dfSummary) > 0 & nrow(dfSite) > 0){
-        dfSummary <- dfSummary %>%
-            left_join(
-                dfSite %>% select("GroupID", "InvestigatorLastName", "Country", "Status"),
-                "GroupID"
-            )
+    
+    # Add Group Metadata ------------------------------------------------------------
+    dfGroups_wide <- dfGroups %>% 
+        filter(.data$GroupLevel == strGroupLevel) %>%
+        filter(.data$Param %in% strGroupDetailsParams) %>% 
+        pivot_wider(names_from="Param", values_from="Value")
+
+    if(nrow(dfResults) > 0 & nrow(dfGroups_wide) > 0){
+        dfResults <- dfResults %>% left_join(dfGroups_Wide, by = c("GroupID" = "GroupID"))
     }
 
     # Select Flagged metrics and format table -----------------------------------
-    if (nrow(dfSummary) > 0 & any(c(-2, -1, 1, 2) %in% unique(dfSummary$Flag))) {
-        SummaryTable <- dfSummary %>%
+    if (nrow(dfResults) > 0 & any(c(-2, -1, 1, 2) %in% unique(dfResults$Flag))) {
+        SummaryTable <- dfResults %>%
             filter(.data$Flag != 0) %>%
             arrange(desc(abs(.data$Score))) %>%
             mutate(

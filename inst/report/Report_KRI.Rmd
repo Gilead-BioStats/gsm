@@ -5,12 +5,11 @@ output:
     toc_float:
       collapsed: false
       smooth_scroll: true
-    css: styles.css
+#    css: styles.css
 params:
   lCharts: NA
-  dfSummary: NA
-  dfStudy: NA
-  dfSite: NA
+  dfResults: NA
+  dfGroups: NA
   dfMetrics: NA
 
 ---
@@ -22,16 +21,19 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 ```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
 library(gsm)
-library(DT)
 library(kableExtra)
 
-setup <- Report_Setup(dfStudy =  params$dfStudy, dfMetrics = params$dfMetrics, dfSummary = params$dfSummary)
+setup <- Report_Setup(
+  dfGroups =  params$dfGroups, 
+  dfMetrics = params$dfMetrics, 
+  dfResults = params$dfResults
+)
 
 ```
 
 
 ---
-title: "`r setup$group` KRI Overview"
+title: "`r setup$GroupLevel` KRI Overview"
 subtitle: "Study: `r setup$StudyID`"
 date: "Snapshot Date: `r setup$SnapshotDate`"
 --- 
@@ -40,7 +42,7 @@ date: "Snapshot Date: `r setup$SnapshotDate`"
 :::
 
 ```{r, echo=FALSE, results='asis', fig.height=2}
-Report_StudyInfo(dfStudy = params$dfStudy)
+Report_StudyInfo(lStudy = output$lStudy)
 ```
 
 ## Study Overview
@@ -59,13 +61,30 @@ Report_StudyInfo(dfStudy = params$dfStudy)
 
 
 ```{r echo=FALSE, warning=FALSE}
-htmltools::div(
-  style = "table-layout: fixed; width: 100%; overflow: auto;",
-  Widget_SiteOverview(
-    dfSummary= params$dfSummary,
-    dfGroups= params$dfSite
-  )
+if(setup$GroupLevel == "Site"){ 
+  GroupLabelKey <- "InvestigatorLastName"
+} else { 
+  GroupLabelKey <- NULL 
+}  
+
+GroupOverview <- Widget_GroupOverview(
+    dfSummary= params$dfResults,
+    dfGroups= params$dfGroups,
+    dfMetrics = params$dfMetrics, 
+    strGroupLevel = setup$GroupLevel,
+    strGroupLabelKey = GroupLabelKey,
+    bDebug=TRUE
 )
+
+GroupOverview %>%
+  knitr::knit_print() %>%
+  attr("knit_meta") %>%
+  knitr::knit_meta_add() %>%
+  invisible()
+      
+knitr::knit_print(htmltools::tagList(GroupOverview))
+
+
 ```
 
 :::
@@ -74,9 +93,9 @@ htmltools::div(
 
 Report_OverviewText(
   lSetup = setup,
-  dfSummary = params$dfSummary, 
-  dfStudy = params$dfStudy
-  )
+  dfResults = params$dfResults, 
+  lStudy = setup$lStudy
+)
 
 
 ```

@@ -20,3 +20,19 @@ lData <- list(
 )
 ss_wf <- MakeWorkflowList(strNames = "snapshot")
 snapshot <- RunWorkflows(ss_wf, lData, bKeepInputData = TRUE)
+
+
+lCharts= snapshot$lReporting$lCharts
+dfResults= snapshot$lReporting$dfSummary
+dfGroups= snapshot$lReporting$dfGroups
+dfMetrics= snapshot$lReporting$dfMetrics
+
+params <- list(
+    lCharts = lCharts,
+    dfResults = dfResults,
+    dfGroups = dfGroups,
+    dfMetrics = dfMetrics
+)
+devtools::load_all()
+Report_KRI(lCharts = lCharts, dfResults=dfResults, dfGroups=dfGroups, dfMetrics=dfMetrics, strOutpath="StandardSiteReport.html")
+    

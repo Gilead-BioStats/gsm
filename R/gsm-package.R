@@ -20,6 +20,7 @@
 #' @importFrom cli cli_text
 #' @importFrom cli col_br_yellow
 #' @importFrom DBI dbGetQuery
+#' @importFrom glue glue
 #' @importFrom glue glue_collapse
 #' @importFrom htmltools h1
 #' @importFrom htmltools h2
