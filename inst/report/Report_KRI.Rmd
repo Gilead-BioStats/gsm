@@ -5,7 +5,7 @@ output:
     toc_float:
       collapsed: false
       smooth_scroll: true
-#    css: styles.css
+    css: styles.css
 params:
   lCharts: NA
   dfResults: NA
@@ -60,29 +60,20 @@ Report_StudyInfo(lStudy = output$lStudy)
 ::: gsm-overview-table
 
 
-```{r echo=FALSE, warning=FALSE}
+```{r echo=FALSE, warning=FALSE, results = 'asis'}
 if(setup$GroupLevel == "Site"){ 
   GroupLabelKey <- "InvestigatorLastName"
 } else { 
   GroupLabelKey <- NULL 
 }  
 
-GroupOverview <- Widget_GroupOverview(
+Widget_GroupOverview(
     dfSummary= params$dfResults,
     dfGroups= params$dfGroups,
     dfMetrics = params$dfMetrics, 
     strGroupLevel = setup$GroupLevel,
-    strGroupLabelKey = GroupLabelKey,
-    bDebug=TRUE
+    strGroupLabelKey = GroupLabelKey
 )
-
-GroupOverview %>%
-  knitr::knit_print() %>%
-  attr("knit_meta") %>%
-  knitr::knit_meta_add() %>%
-  invisible()
-      
-knitr::knit_print(htmltools::tagList(GroupOverview))
 
 
 ```
@@ -103,23 +94,22 @@ Report_OverviewText(
 ## Results
 
 ```{r, echo=FALSE, results='asis'}
-for (i in seq_along(params$lCharts)) {
-  MetricID <- names(params$lCharts)[[i]]
-  if(!is.null(params$dfMetrics)){
-    MetricName <- unique(params$dfMetrics$Metric[params$dfMetrics$MetricID == MetricID])
-  } else { 
-    MetricName <- MetricID
-  }
 
-  print(htmltools::h3(MetricName))
+for (i in unique(params$dfMetrics$MetricID)) {
+  lMetric <- dfMetrics %>% filter(MetricID == i) %>% as.list
+
+  print(htmltools::h3(lMetric$Metric))
   
   Report_MetricCharts(
-    lCharts = params$lCharts[[i]]
+    lCharts = params$lCharts[[lMetric$MetricID]]
   )
 
-  dfMetricSummary <- params$dfSummary[params$dfSummary$MetricID == MetricID,]
-  cat(Report_MetricTable(dfSummary = dfMetricSummary, dfSite= params$dfSite))
-
+ Report_MetricTable(
+    params$dfResults, 
+    params$dfGroups, 
+    strSnapshotDate = lSetup$SnapshotDate, 
+    strGroupLevel = lSetup$GroupLevel
+)
 
 }
 

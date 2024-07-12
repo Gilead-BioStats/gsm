@@ -22,7 +22,7 @@ ss_wf <- MakeWorkflowList(strNames = "snapshot")
 snapshot <- RunWorkflows(ss_wf, lData, bKeepInputData = TRUE)
 
 
-lCharts= snapshot$lReporting$lCharts
+lCharts= snapshot$lReports$lCharts
 dfResults= snapshot$lReporting$dfSummary
 dfGroups= snapshot$lReporting$dfGroups
 dfMetrics= snapshot$lReporting$dfMetrics

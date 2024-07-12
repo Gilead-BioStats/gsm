@@ -19,34 +19,42 @@ Report_MetricTable <- function(
     dfGroups, 
     strSnapshotDate = NULL, 
     strGroupLevel = "Site", 
-    strGroupDetailsParams = c("GroupID", "InvestigatorLastName", "Country", "Status")
+    strGroupDetailsParams = NULL
 ) {
 
     # Check for multiple snapshots --------------------------------------------
     # use most recent snapshot date if strSnapshotDate is missing
     if(is.null(strSnapshotDate)){
         if ("SnapshotDate" %in% colnames(dfResults) & nrow(dfResults) > 0) {
-            strSnapshotDate <- max(dfResults$snapshot_date)
+            strSnapshotDate <- max(dfResults$SnapshotDate)
         } else if (!"SnapshotDate" %in% colnames(dfResults) & nrow(dfResults) > 0){
             strSnapshotDate <- as.Date(Sys.Date())
-            dfResults$snapshot_date <- strSnapshotDate
+            dfResults$SnapshotDate <- strSnapshotDate
         }
     } else {
         strSnapshotDate <- as.Date(strSnapshotDate)
     }
 
     if(nrow(dfResults) > 0){
-        dfResults <- dfResults %>% filter(.data$snapshot_date == strSnapshotDate)
+        dfResults <- dfResults %>% filter(.data$SnapshotDate == strSnapshotDate)
     }
     
     # Add Group Metadata ------------------------------------------------------------
+    if(is.null(strGroupDetailsParams)){
+        if(strGroupLevel == "Site"){
+            strGroupDetailsParams <- c("Country", "Status", "InvestigatorFirstName", "ParticipantCount")
+        } else if(strGroupLevel == "Country"){
+            strGroupDetailsParams <- c("SiteCount","ParticipantCount")
+        }
+    }
+
     dfGroups_wide <- dfGroups %>% 
         filter(.data$GroupLevel == strGroupLevel) %>%
         filter(.data$Param %in% strGroupDetailsParams) %>% 
         pivot_wider(names_from="Param", values_from="Value")
 
     if(nrow(dfResults) > 0 & nrow(dfGroups_wide) > 0){
-        dfResults <- dfResults %>% left_join(dfGroups_Wide, by = c("GroupID" = "GroupID"))
+        dfResults <- dfResults %>% left_join(dfGroups_wide, by = c("GroupID" = "GroupID"))
     }
 
     # Select Flagged metrics and format table -----------------------------------

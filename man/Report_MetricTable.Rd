@@ -9,7 +9,7 @@ Report_MetricTable(
   dfGroups,
   strSnapshotDate = NULL,
   strGroupLevel = "Site",
-  strGroupDetailsParams = c("GroupID", "InvestigatorLastName", "Country", "Status")
+  strGroupDetailsParams = NULL
 )
 }
 \arguments{

@@ -10,12 +10,12 @@ steps:
       dfGroups: dfGroups
       dfBounds: dfBounds
       dfMetrics: dfMetrics
-#  - name: Report_KRI
-#    output: lCharts 
-#    params:
-#      lCharts: lCharts
-#      dfSummary: dfSummary
-#      dfSite: dfGroups
-#      dfStudy: dfStudy
-#      dfMetrics: dfMetrics
+  - name: Report_KRI
+    output: lCharts 
+    params:
+      lCharts: lCharts
+      dfSummary: dfSummary
+      dfSite: dfGroups
+      dfStudy: dfStudy
+      dfMetrics: dfMetrics
 
