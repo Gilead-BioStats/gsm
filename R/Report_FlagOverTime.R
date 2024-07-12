@@ -1,54 +1,66 @@
-# Create a table that shows flags over time for each site/KRI combination
-
-# @param dfSummary A data frame with the following columns: GroupID, GroupLevel,
-#   MetricID, SnapshotDate, Flag
-# @param dfMetrics A data frame with the following columns: MetricID,
-#   Abbreviation
-#
-# @return An object of class `gt_tbl`.
-
-Report_FlagOverTime <- function(dfSummary, dfMetrics) {
-  dfFlagOverTime <- widen_summary(dfSummary, dfMetrics)
+#' Summarize flags by SnapshotDate
+#'
+#' Create a table of longitudinal study data by site, study, or country, showing
+#' flags over time.
+#'
+#' @param dfSummary A summary of assessment results such as the ones generated
+#'   by [Summarize()].
+#' @param dfMetrics Metric-specific metadata created by passing an `lWorkflow`
+#'   object to the [MakeMetricInfo()] function.
+#' @param strGroupLevel A string specifying the group type.
+#'
+#' @inherit gt-shared return
+#' @export
+Report_FlagOverTime <- function(dfSummary,
+                                dfMetrics,
+                                strGroupLevel = c("site", "study", "country")) {
+  strGroupLevel <- rlang::arg_match(strGroupLevel)
+  dfFlagOverTime <- widen_summary(dfSummary, dfMetrics, strGroupLevel)
   date_cols <- stringr::str_which(
     colnames(dfFlagOverTime),
     r"(\d{4}-\d{2}-\d{2})"
   )
 
-  rlang::check_installed("gt")
   dfFlagOverTime %>%
-    dplyr::group_by(.data$GroupLevel, .data$GroupID) %>%
-    gt::gt() %>%
+    dplyr::group_by(.data$GroupID) %>%
+    gsm_gt() %>%
     fmt_flag_rag(columns = date_cols) %>%
     gt::tab_header(
       title = "Flag Over Time",
-      subtitle = "Flags over time for each site/KRI combination"
-    ) %>%
-    gt::opt_vertical_padding(0.5)
+      subtitle = glue::glue(
+        "Flags over time for each {strGroupLevel}/KRI combination"
+      )
+    )
 }
 
-widen_summary <- function(dfSummary, dfMetrics) {
+widen_summary <- function(dfSummary, dfMetrics, strGroupLevel) {
   dfMetrics_join <- dfMetrics %>%
+    dplyr::mutate(GroupLevel = tolower(.data$GroupLevel)) %>%
+    dplyr::filter(.data$GroupLevel == strGroupLevel) %>%
     dplyr::select(
       "MetricID",
-      "Abbreviation"
+      "Abbreviation",
+      "GroupLevel"
     )
-  dfSummary %>%
-    dplyr::left_join(dfMetrics_join, by = c("MetricID")) %>%
+  dfFlagOverTime <- dfSummary %>%
+    dplyr::mutate(GroupLevel = tolower(.data$GroupLevel)) %>%
+    dplyr::inner_join(dfMetrics_join, by = c("MetricID", "GroupLevel")) %>%
     dplyr::select(
       "GroupID",
-      "GroupLevel",
       "MetricID",
       "Abbreviation",
       "SnapshotDate",
       "Flag"
-    ) %>%
-    dplyr::arrange(.data$GroupID, .data$MetricID, .data$SnapshotDate) %>%
+    )
+  if (strGroupLevel == "site") {
+    dfFlagOverTime$GroupID <- as.integer(dfFlagOverTime$GroupID)
+  }
+  dfFlagOverTime %>%
+    dplyr::arrange(.data$SnapshotDate, .data$GroupID, .data$MetricID) %>%
     tidyr::pivot_wider(names_from = "SnapshotDate", values_from = "Flag")
 }
 
-fmt_flag_rag <- function(data,
-  columns = gt::everything(),
-  rows = gt::everything()) {
+fmt_flag_rag <- function(data, columns = gt::everything()) {
   fmt_sign_rag(data, columns = columns) %>%
     cols_label_month(columns = columns) %>%
     gt::tab_spanner(label = "Flag", columns = columns)
@@ -59,7 +71,7 @@ fmt_flag_rag <- function(data,
 fmt_sign_rag <- function(data,
   columns = gt::everything(),
   rows = gt::everything()) {
-  data_color_rag(data, columns = columns, rows = rows) %>%
+  data_color_rag(data, columns = columns) %>%
     fmt_sign(columns = columns, rows = rows)
 }
 
@@ -114,22 +126,4 @@ colorScheme <- function(color_name) {
     grey = "#AAAAAA"
   )
   colors[[color_name]]
-}
-
-# Headers ----------------------------------------------------------------------
-
-cols_label_month <- function(data, columns = gt::everything()) {
-  gt::cols_label_with(
-    data,
-    columns = columns,
-    fn = function(x) {
-      months(as.Date(x), abbreviate = TRUE)
-    }
-  ) %>%
-    gt::tab_spanner_delim(
-      delim = "-",
-      columns = columns,
-      split = "first",
-      limit = 1
-    )
 }
