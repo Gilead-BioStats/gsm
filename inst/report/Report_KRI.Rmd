@@ -67,14 +67,16 @@ if(setup$GroupLevel == "Site"){
   GroupLabelKey <- NULL 
 }  
 
-Widget_GroupOverview(
-    dfSummary= params$dfResults,
-    dfGroups= params$dfGroups,
-    dfMetrics = params$dfMetrics, 
-    strGroupLevel = setup$GroupLevel,
-    strGroupLabelKey = GroupLabelKey
+htmltools::div(
+  style = "table-layout: fixed; width: 100%; overflow: auto;",
+  Widget_GroupOverview(
+      dfSummary= params$dfResults,
+      dfGroups= params$dfGroups,
+      dfMetrics = params$dfMetrics, 
+      strGroupLevel = setup$GroupLevel,
+      strGroupLabelKey = GroupLabelKey
+  )
 )
-
 
 ```
 
