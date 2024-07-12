@@ -76,6 +76,7 @@ reference:
   - title: Reporting
     desc: Creates summary tables and HTML objects to create a report
   - contents:
+      - Report_FlagOverTime
       - Report_FormatFlag
       - Report_KRI
       - Report_MetricCharts
