@@ -6,9 +6,9 @@
 #' A widget that generates a group overview table of group-level metric results across one or more
 #' metrics.
 #'
-#' @param dfSummary `data.frame` Output of [gsm::Summarize()].
+#' @param dfSummary `data.frame` Output of [Summarize()].
 #' @param dfMetrics `list` Metric metadata, captured at the top of metric workflows and returned by
-#' [gsm::MakeMetricInfo()].
+#' [MakeMetricInfo()].
 #' @param dfGroups `data.frame` Group metadata.
 #' @param strGroupSubset `character` Subset of groups to include in the table. Default: 'red'. Options:
 #' - 'all': All groups.
@@ -67,6 +67,7 @@
 #'     map_dfr(~ .x$meta)
 #'
 #' Widget_GroupOverview(
+
 #'   dfSummary,
 #'   dfMetrics,
 #'   dfGroups
@@ -76,7 +77,7 @@
 
 Widget_GroupOverview <- function(
   dfSummary,
-  dfMetrics = gsm::meta_workflow,
+  dfMetrics = NULL,
   dfGroups = NULL,
   strGroupLevel = 'Site',
   strGroupSubset = 'red',

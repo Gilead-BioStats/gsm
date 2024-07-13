@@ -6,9 +6,14 @@
 \usage{
 Widget_GroupOverview(
   dfSummary,
+<<<<<<< HEAD:man/Widget_GroupOverview.Rd
   dfMetrics = gsm::meta_workflow,
   dfGroups = NULL,
   strGroupLevel = "Site",
+=======
+  dfMetrics,
+  dfGroups,
+>>>>>>> dev:man/Widget_SiteOverview.Rd
   strGroupSubset = "red",
   strGroupLabelKey = "InvestigatorLastName",
   bDebug = FALSE
@@ -41,12 +46,16 @@ metrics.
 }
 \examples{
 \dontrun{
+<<<<<<< HEAD:man/Widget_GroupOverview.Rd
 strGroupLevel <- 'Site'
 
 lWorkflows <- MakeWorkflowList()
 lMetricWorkflows <- lWorkflows[ grepl('^kri', names(lWorkflows) ) ]
 
 lDataRaw <- gsm::UseClindata(
+=======
+data_raw <- UseClindata(
+>>>>>>> dev:man/Widget_SiteOverview.Rd
     list(
         "dfSUBJ" = "clindata::rawplus_dm",
         "dfAE" = "clindata::rawplus_ae",
@@ -85,8 +94,24 @@ dfGroups <- bind_rows(
         MakeLongMeta('Site')
 )
 
+<<<<<<< HEAD:man/Widget_GroupOverview.Rd
 dfMetrics <- lMetricWorkflows \%>\%
     map_dfr(~ .x$meta)
+=======
+# TODO: use [ clindata::rawplus_dm$invid ] and [ clindata::ctms_site$pi_number ] instead of
+# [ clindata::rawplus_dm$siteid ] and [ clindata::ctms_site$site_num ].
+dfGroups <- clindata::ctms_site \%>\%
+  dplyr::left_join(
+    clindata::rawplus_dm \%>\%
+      dplyr::group_by(siteid) \%>\%
+      dplyr::tally(name = "enrolled_participants"),
+    c('site_num' = 'siteid')
+  ) \%>\%
+  dplyr::rename(
+    SiteID = site_num,
+    status = site_status
+  )
+>>>>>>> dev:man/Widget_SiteOverview.Rd
 
 Widget_GroupOverview(
   dfSummary,

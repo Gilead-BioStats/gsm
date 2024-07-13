@@ -6,12 +6,12 @@
 #' A widget that generates a scatter plot of group-level metric results, plotting the denominator
 #' on the x-axis and the numerator on the y-axis.
 #'
-#' @param dfSummary `data.frame` Output of [gsm::Summarize()].
+#' @param dfSummary `data.frame` Output of [Summarize()].
 #' @param lMetric `list` Metric metadata, captured at the top of metric workflows and returned by
-#' [gsm::MakeMetricInfo()].
+#' [MakeMetricInfo()].
 #' @param dfGroups `data.frame` Group metadata.
-#' @param dfBounds `data.frame` Output of [gsm::Analyze_NormalApprox_PredictBounds()] or
-#' [gsm::Analyze_Poisson_PredictBounds()]
+#' @param dfBounds `data.frame` Output of [Analyze_NormalApprox_PredictBounds()] or
+#' [Analyze_Poisson_PredictBounds()]
 #' @param bAddGroupSelect `logical` Add a dropdown to highlight sites? Default: `TRUE`.
 #' @param bDebug `logical` Print debug messages? Default: `FALSE`.
 #'
@@ -25,7 +25,6 @@
 #'     dfEnrolled = clindata::rawplus_dm %>% filter(enrollyn == 'Y'),
 #'     dfAE = clindata::rawplus_ae
 #' )
-#' 
 #' lResults <- RunWorkflow(
 #'     lMetricWorkflow,
 #'     lData

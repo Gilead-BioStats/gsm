@@ -80,8 +80,8 @@ Report_MetricTable <- function(
                 everything()
             ) %>%
             select(-'MetricID') %>%
-            kbl(format="html", escape=FALSE) %>%
-            kable_styling("striped", full_width = FALSE)
+            kableExtra::kbl(format="html", escape=FALSE) %>%
+            kableExtra::kable_styling("striped", full_width = FALSE)
 
     } else {
         SummaryTable<- "Nothing flagged for this KRI."

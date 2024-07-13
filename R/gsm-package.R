@@ -6,7 +6,6 @@
 #' @import dplyr
 #' @import ggplot2
 #' @import purrr
-#' @importFrom arrow write_parquet
 #' @importFrom broom augment
 #' @importFrom broom glance
 #' @importFrom cli cli_abort
@@ -37,16 +36,9 @@
 #' @importFrom htmlwidgets shinyWidgetOutput
 #' @importFrom jsonlite fromJSON
 #' @importFrom jsonlite toJSON
-#' @importFrom kableExtra kable_styling
-#' @importFrom kableExtra kbl
-#' @importFrom lamW lambertW0
-#' @importFrom lamW lambertWm1
-#' @importFrom lifecycle deprecated
-#' @importFrom lubridate as.period
-#' @importFrom lubridate interval
 #' @importFrom purrr map
+#' @importFrom rlang .data
 #' @importFrom rlang check_installed
-#' @importFrom sqldf sqldf
 #' @importFrom stats binom.test
 #' @importFrom stats fisher.test
 #' @importFrom stats glm
@@ -65,7 +57,6 @@
 #' @importFrom stringr str_replace
 #' @importFrom stringr str_subset
 #' @importFrom stringr word
-#' @importFrom testthat test_that
 #' @importFrom tibble enframe
 #' @importFrom tibble rownames_to_column
 #' @importFrom tibble tibble
@@ -82,7 +73,6 @@
 #' @importFrom utils read.csv
 #' @importFrom utils sessionInfo
 #' @importFrom utils write.csv
-#' @importFrom withr with_envvar
-#' @importFrom yaml yaml.load
+#' @importFrom yaml read_yaml
 ## usethis namespace: end
 NULL

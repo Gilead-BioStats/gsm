@@ -21,7 +21,7 @@
 #' dfSite<- clindata::ctms_site %>% dplyr::rename(SiteID = site_num)
 #'
 #' # Pull Raw Data - this will overwrite the previous data pull
-#' lRaw <- gsm::UseClindata(
+#' lRaw <- UseClindata(
 #'   list(
 #'     "dfSUBJ" = "clindata::rawplus_dm",
 #'     "dfAE" = "clindata::rawplus_ae",
