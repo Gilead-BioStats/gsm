@@ -137,18 +137,9 @@ reference:
      # -  parse_data_mapping
      # -  parse_data_spec
 
-  - title: Data
-    desc: Metadata used to create workflows
-  - contents:
-      - config_param
-      - config_workflow
-      - meta_param
-      - meta_workflow
-
   - title: Sample Data
     desc: data used for examples and testing
   - contents:
-      - example_groups
       - sampleBounds
       - sampleGroups
       - sampleInput

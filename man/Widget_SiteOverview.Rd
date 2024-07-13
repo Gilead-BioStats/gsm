@@ -6,8 +6,8 @@
 \usage{
 Widget_SiteOverview(
   dfSummary,
-  dfMetrics = gsm::meta_workflow,
-  dfGroups = example_groups(),
+  dfMetrics,
+  dfGroups,
   strGroupSubset = "red",
   bDebug = FALSE
 )
