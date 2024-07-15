@@ -15,6 +15,7 @@ knitr::opts_chunk$set(
 
 library(gsm)
 library(gt)
+library(DT)
 ```
 
 # Introduction
@@ -167,7 +168,7 @@ The data frame `dfInput` for an AE assessment will be created by running `Input_
 -   `Metric`: Rate of Event Incidence (calculated as `Exposure`/`Count`; per subject)
   
 ```{r echo = FALSE}
-dt(dfInput) %>%
+datatable(dfInput) %>%
   formatRound(columns = "Metric", digits = 3)
 ```
   
@@ -210,7 +211,7 @@ dfTransformed <- Transform_Rate(dfInput)
   -   `Metric`: Rate of Event(s) of Interest (in this example, number of AEs reported over the course of treatment in days)
 
 ```{r, echo = FALSE}
-dt(dfTransformed) %>%
+datatable(dfTransformed) %>%
   formatRound(columns = "Metric", digits = 3)
 ```
   
@@ -236,7 +237,7 @@ Using our example AE data, `dfAnalyzed` contains the following columns:
   -   `Score`: Calculated Residual (per site).
   
 ```{r, echo = FALSE}
-dt(dfAnalyzed) %>%
+datatable(dfAnalyzed) %>%
   formatRound(columns = c("Metric", "OverallMetric", "Factor", "Score"), digits = 3)
 ```
   
@@ -263,7 +264,7 @@ The default flagging function for the normal approximation method is `Flag_Norma
 -   `Flag`: Flag Indicating Possible Statistical Outliers; Valid values for this variable include -2, -1, 0, 1, and 2, which determine the "extremeness" of the outlier. -2 and 2 represent more extreme outliers, -1 and 1 represent less extreme outliers, and 0 represents a non-outlier.
   
 ```{r, echo = FALSE}
-dt(dfFlagged)
+datatable(dfFlagged)
 ```
   
 ------------------------------------------------------------------------
@@ -285,7 +286,7 @@ dfSummary <- Summarize(dfFlagged)
 ```
 
 ```{r, echo = FALSE}
-dt(dfSummary[-1,])
+datatable(dfSummary[-1,])
 ```
 
 ------------------------------------------------------------------------

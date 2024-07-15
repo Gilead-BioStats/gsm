@@ -4,23 +4,20 @@
 \alias{MakeCharts}
 \title{Helper function create charts for multiple metrics}
 \usage{
-MakeCharts(dfSummary, dfBounds, dfGroups, dfMetrics)
+MakeCharts(dfResults, dfBounds, dfGroups, dfMetrics)
 }
 \arguments{
-\item{data}{The input data frame.}
+\item{dfResults}{A data frame with the results of the simulation.}
 
-\item{strGroupLevel}{A string specifying the group type.}
+\item{dfBounds}{A data frame with the bounds of the simulation.}
 
-\item{strGroupCols}{A string specifying the group columns.}
+\item{dfGroups}{A data frame with the groups of the simulation.}
+
+\item{dfMetrics}{A data frame with the metrics of the simulation.}
 }
 \value{
-A long format data frame.
+A list of charts for each metric.
 }
 \description{
 Helper function create charts for multiple metrics
-}
-\examples{
-df <- data.frame(GroupID = c(1, 2, 3), Param1 = c(10, 20, 30), Param2 = c(100, 200, 300))
-MakeLongMeta(df, "GroupID")
-
 }

@@ -5,7 +5,7 @@
 \title{Time Series Widget}
 \usage{
 Widget_TimeSeries(
-  dfSummary,
+  dfResults,
   lMetric,
   dfGroups = NULL,
   vThreshold = NULL,
@@ -15,6 +15,8 @@ Widget_TimeSeries(
 )
 }
 \arguments{
+\item{dfResults}{\code{data.frame} Output of \code{\link[=Summarize]{Summarize()}} and \code{\link[=BindResults]{BindResults()}}. Must contain a 'SnapshotDate' column.}
+
 \item{lMetric}{\code{list} Metric metadata, captured at the top of metric workflows and returned by
 \code{\link[=MakeMetricInfo]{MakeMetricInfo()}}.}
 
@@ -27,8 +29,6 @@ Widget_TimeSeries(
 \item{bAddGroupSelect}{\code{logical} Add a dropdown to highlight sites? Default: \code{TRUE}.}
 
 \item{bDebug}{\code{logical} Print debug messages? Default: \code{FALSE}.}
-
-\item{dfResults}{\code{data.frame} Output of \code{\link[=Summarize]{Summarize()}} and \code{\link[=BindResults]{BindResults()}}. Must contain a 'SnapshotDate' column.}
 }
 \description{
 A widget that generates a time series of group-level metric results over time, plotting snapshot
@@ -84,7 +84,7 @@ dfGroups <- bind_rows(
 )
 
 Widget_TimeSeries(
-    dfSummary = dfSummary,
+    dfResults = dfSummary,
     lMetric = lMetricWorkflow$meta,
     dfGroups = dfGroups,
     vThreshold = lMetricWorkflow$meta$vThreshold
