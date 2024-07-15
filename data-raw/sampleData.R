@@ -1,4 +1,5 @@
 sampleBounds <- read.csv("data-raw/sampleBounds.csv")
+sampleBounds$SnapshotDate <- as.Date(sampleBounds$SnapshotDate)
 usethis::use_data(sampleBounds, overwrite = TRUE)
 rm(sampleBounds)
 
@@ -16,6 +17,8 @@ rm(sampleMetrics)
 
 sampleResults <- read.csv("data-raw/sampleResults.csv")
 sampleResults$GroupID <- as.character(sampleResults$GroupID)
+sampleResults$SnapshotDate <- as.Date(sampleResults$SnapshotDate,
+                                      format = "%m/%d/%Y")
 usethis::use_data(sampleResults, overwrite = TRUE)
 rm(sampleResults)
 

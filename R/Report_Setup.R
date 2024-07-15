@@ -3,7 +3,7 @@
 #' @param dfGroups A data frame containing the group-level metadata.
 #' @param dfMetrics A data frame containing the metric-level metadata.
 #' @param dfResults A data frame containing the metric results.
-#' 
+#'
 #' @export
 #' @keywords internal
 #'
@@ -14,12 +14,12 @@
 #' - `StudyID` (character): The study ID.
 #' - `red_kris` (numeric): The number of red flags.
 #' - `amber_kris` (numeric): The number of amber flags.
-#' 
+#'
 
 Report_Setup <- function(dfGroups = NULL, dfMetrics = NULL, dfResults = NULL) {
 
   output <- list()
-  
+
   # Get type of report
   group <- unique(dfMetrics$GroupLevel)
   if(length( group )==1) {
@@ -28,31 +28,32 @@ Report_Setup <- function(dfGroups = NULL, dfMetrics = NULL, dfResults = NULL) {
     cli_alert("Multiple `GroupLevel`s detected in dfMetrics, so GroupLevel not specifed for KRI Report. ")
     output$GroupLevel <- ""
   }
-  
+
   # Get the snapshot date
   if("SnapshotDate" %in% names(dfResults)) {
     output$SnapshotDate <- unique(dfResults$SnapshotDate[[1]]) %>% max()
   } else {
     cli_alert("No `SnapshotDate` detected in dfResults, setting to today: {Sys.Date()}")
     output$SnapshotDate <- Sys.Date()
+    dfResults$SnapshotDate <- Sys.Date()
   }
 
   # Get the study-level metadata
-  output$lStudy <- dfGroups %>% 
-    dplyr::filter(.data$GroupLevel == "Study") %>% 
-    select(Param, Value) %>% 
+  output$lStudy <- dfGroups %>%
+    dplyr::filter(.data$GroupLevel == "Study") %>%
+    select(Param, Value) %>%
     pivot_wider(names_from="Param", values_from="Value") %>%
     as.list
 
   if("protocol_number" %in% names(output$lStudy)) {
       output$StudyID <- output$lStudy$protocol_number
   } else  if("protocol_title" %in% names(output$lStudy)) {
-      output$StudyID <- output$lStudy$protocol_number
-  } else { 
-    "Unknown"
+      output$StudyID <- output$lStudy$protocol_title
+  } else {
+      output$StudyID <-"Unknown"
   }
 
-  # Count Red and Amber Flags for most recent snapshot   
+  # Count Red and Amber Flags for most recent snapshot
   output$red_kris <- dfResults %>%
     filter(SnapshotDate == output$SnapshotDate) %>%
     mutate(red_flag = ifelse(.data[["Flag"]] %in% c(-2, 2), 1, 0)) %>%

@@ -2,8 +2,8 @@
 #'
 #' This function generates a table summarizing study metadata.
 #'
-#' @param lStudy A data frame containing study information.
-#' @param lStudyLabels A data frame containing study labels. Default is NULL.
+#' @param lStudy A list containing study information.
+#' @param lStudyLabels A list containing study labels. Default is NULL.
 #'
 #' @export
 #'
@@ -45,7 +45,7 @@ Report_StudyInfo <- function(
 
   study_status_table <- lStudy %>% imap_dfr(function(value,param){
     data.frame(
-      Description = ifelse( 
+      Description = ifelse(
         param %in% names(lStudyLabels),
         lStudyLabels[[param]],
         param
@@ -57,7 +57,7 @@ Report_StudyInfo <- function(
       )
     )
   })
-  
+
   show_table <- study_status_table %>%
     slice(1:5) %>%
     gt::gt(id = "study_table")

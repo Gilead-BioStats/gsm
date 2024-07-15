@@ -6,9 +6,7 @@ test_that("Widget_BarChart handles dfResults correctly", {
   expect_true("Widget_BarChart" %in% class(widget))
 
   widget_data <- widget$x$dfResults
-  dfResults_json <- jsonlite::toJSON(sampleResults %>%
-                                       dplyr::mutate(across(everything(), as.character))
-  )
+  dfResults_json <- jsonlite::toJSON(sampleResults)
 
   expect_equal(widget_data, dfResults_json)
 })

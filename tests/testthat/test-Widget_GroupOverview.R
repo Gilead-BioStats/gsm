@@ -13,7 +13,7 @@ test_that("Widget_GroupOverview returns expected data", {
   )
 
   expect_s3_class(fromJSON(widget$x$dfGroups), "data.frame")
-  expect_s3_class(fromJSON(widget$x$strGroupSubset), "character")
+  expect_equal(fromJSON(widget$x$strGroupSubset), "red")
 })
 
 test_that("Widget_GroupOverview returns correct class", {
