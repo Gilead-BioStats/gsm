@@ -22,7 +22,7 @@ steps:
       dfNumerator: dfImportantPD
       dfDenominator: dfEnrolled
       strSubjectCol: subjid
-      strGroupCol: siteid
+      strGroupCol: invid
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Sum

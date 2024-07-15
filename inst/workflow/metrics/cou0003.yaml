@@ -19,7 +19,7 @@ steps:
     output: dfSubjects
     params:
       df: dfSUBJ
-      strQuery: "SELECT subjid as SubjectID, siteid as SiteID, country as CountryID, studyid as StudyID FROM df WHERE enrollyn == 'Y'"
+      strQuery: "SELECT subjid as SubjectID, invid as SiteID, country as CountryID, studyid as StudyID FROM df WHERE enrollyn == 'Y'"
   - name: RunQuery
     output: dfDenominator
     params:
