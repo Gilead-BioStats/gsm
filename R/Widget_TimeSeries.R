@@ -6,7 +6,7 @@
 #' A widget that generates a time series of group-level metric results over time, plotting snapshot
 #' date on the x-axis and the outcome (numerator, denominator, metric, or score) on the y-axis.
 #'
-#' @param dfSummary `data.frame` Output of [Summarize()]. Must contain a 'SnapshotDate' column.
+#' @param dfResults `data.frame` Output of [Summarize()] and [BindResults()]. Must contain a 'SnapshotDate' column.
 #' @param lMetric `list` Metric metadata, captured at the top of metric workflows and returned by
 #' [MakeMetricInfo()].
 #' @param dfGroups `data.frame` Group metadata.
@@ -60,7 +60,7 @@
 #'         RunQuery(lData$dfEnrolled) %>%
 #'         MakeLongMeta('Site')
 #' )
-#' 
+#'
 #' Widget_TimeSeries(
 #'     dfSummary = dfSummary,
 #'     lMetric = lMetricWorkflow$meta,

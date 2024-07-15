@@ -6,7 +6,7 @@
 #' A widget that generates a bar chart of group-level metric results, plotting groups on the x-axis
 #' and the outcome (numerator, denominator, metric, or score) on the y-axis.
 #'
-#' @param dfSummary `data.frame` Output of [Summarize()].
+#' @param dfResults `data.frame` Output of [Summarize()] and [BindResults()].
 #' @param lMetric `list` Metric metadata, captured at the top of metric workflows and returned by
 #' [MakeMetricInfo()].
 #' @param dfGroups `data.frame` Group metadata.
@@ -20,7 +20,7 @@
 #' lWorkflows <- MakeWorkflowList()
 #' strMetricID <- 'kri0001'
 #' lMetricWorkflow <- lWorkflows[[ strMetricID ]]
-#' 
+#'
 #' lData <- list(
 #'     dfEnrolled = clindata::rawplus_dm %>% filter(enrollyn == 'Y'),
 #'     dfAE = clindata::rawplus_ae
@@ -29,7 +29,7 @@
 #'     lMetricWorkflow,
 #'     lData
 #' )
-#' 
+#'
 #' dfGroups <- bind_rows(
 #'     "SELECT site_num as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df" %>%
 #'         RunQuery(clindata::ctms_site) %>%
@@ -38,10 +38,9 @@
 #'         RunQuery(lData$dfEnrolled) %>%
 #'         MakeLongMeta('Site')
 #' )
-#' 
-
+#'
 #' Widget_BarChart(
-#'     dfSummary = lResults$dfSummary,
+#'     dfResults = lResults$dfResults,
 #'     lMetric = lMetricWorkflow$meta,
 #'     dfGroups = dfGroups,
 #'     vThreshold = lMetricWorkflow$meta$strThreshold
@@ -50,7 +49,7 @@
 #' @export
 
 Widget_BarChart <- function(
-  dfSummary,
+  dfResults,
   lMetric = list(), # TODO: coerce list to object instead of array with jsonlite::toJSON()
   dfGroups = NULL,
   vThreshold = NULL,
@@ -67,7 +66,7 @@ Widget_BarChart <- function(
 
   # define widget inputs
   input <- list(
-    dfSummary = dfSummary,
+    dfResults = dfResults,
     lMetric = lMetric,
     dfGroups = dfGroups,
     vThreshold = vThreshold,

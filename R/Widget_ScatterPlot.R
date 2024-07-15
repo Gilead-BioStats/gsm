@@ -6,7 +6,7 @@
 #' A widget that generates a scatter plot of group-level metric results, plotting the denominator
 #' on the x-axis and the numerator on the y-axis.
 #'
-#' @param dfSummary `data.frame` Output of [Summarize()].
+#' @param dfResults `data.frame` Output of [Summarize()] and [BindResults()].
 #' @param lMetric `list` Metric metadata, captured at the top of metric workflows and returned by
 #' [MakeMetricInfo()].
 #' @param dfGroups `data.frame` Group metadata.
@@ -20,7 +20,7 @@
 #' lWorkflows <- MakeWorkflowList()
 #' strMetricID <- 'kri0001'
 #' lMetricWorkflow <- lWorkflows[[ strMetricID ]]
-#' 
+#'
 #' lData <- list(
 #'     dfEnrolled = clindata::rawplus_dm %>% filter(enrollyn == 'Y'),
 #'     dfAE = clindata::rawplus_ae
@@ -29,7 +29,7 @@
 #'     lMetricWorkflow,
 #'     lData
 #' )
-#' 
+#'
 #' dfGroups <- bind_rows(
 #'     "SELECT site_num as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df" %>%
 #'         RunQuery(clindata::ctms_site) %>%
@@ -38,9 +38,9 @@
 #'         RunQuery(lData$dfEnrolled) %>%
 #'         MakeLongMeta('Site')
 #' )
-#' 
+#'
 #' Widget_ScatterPlot(
-#'     dfSummary = lResults$dfSummary,
+#'     dfResults = lResults$dfResults,
 #'     lMetric = lMetricWorkflow$meta,
 #'     dfGroups = dfGroups,
 #'     dfBounds = lResults$dfBounds
@@ -49,7 +49,7 @@
 #' @export
 
 Widget_ScatterPlot <- function(
-  dfSummary,
+  dfResults,
   lMetric = list(), # TODO: coerce list to object instead of array with jsonlite::toJSON()
   dfGroups = NULL,
   dfBounds = NULL,
@@ -58,7 +58,7 @@ Widget_ScatterPlot <- function(
 ) {
   # define widget inputs
   input <- list(
-    dfSummary = dfSummary,
+    dfResults = dfResults,
     lMetric = lMetric,
     dfGroups = dfGroups,
     dfBounds = dfBounds,

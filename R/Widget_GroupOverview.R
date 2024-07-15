@@ -6,10 +6,11 @@
 #' A widget that generates a group overview table of group-level metric results across one or more
 #' metrics.
 #'
-#' @param dfSummary `data.frame` Output of [Summarize()].
+#' @param dfResults `data.frame` Output of [Summarize()] and [BindResults()].
 #' @param dfMetrics `list` Metric metadata, captured at the top of metric workflows and returned by
 #' [MakeMetricInfo()].
 #' @param dfGroups `data.frame` Group metadata.
+#' @param strGroupLevel `character` Value for the group level. Default: NULL and taken from `dfMetrics$GroupLevel` if available.
 #' @param strGroupSubset `character` Subset of groups to include in the table. Default: 'red'. Options:
 #' - 'all': All groups.
 #' - 'red': Groups with 1+ red flags.
@@ -47,13 +48,13 @@
 #'     ~ RunWorkflow(.x, lDataMapped)
 #' )
 #'
-#' dfSummary <- lResults %>% imap_dfr(~ {
+#' dfResults <- lResults %>% imap_dfr(~ {
 #'     data <- .x$dfSummary
 #'     data$MetricID <- .y
 #'     data$GroupLevel <- strGroupLevel
 #'     data
 #' })
-#' 
+#'
 #' dfGroups <- bind_rows(
 #'     "SELECT site_num as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df" %>%
 #'         RunQuery(clindata::ctms_site) %>%
@@ -67,8 +68,7 @@
 #'     map_dfr(~ .x$meta)
 #'
 #' Widget_GroupOverview(
-
-#'   dfSummary,
+#'   dfResults,
 #'   dfMetrics,
 #'   dfGroups
 #' )
@@ -76,17 +76,25 @@
 #' @export
 
 Widget_GroupOverview <- function(
-  dfSummary,
+  dfResults,
   dfMetrics = NULL,
   dfGroups = NULL,
-  strGroupLevel = 'Site',
+  strGroupLevel = NULL,
   strGroupSubset = 'red',
   strGroupLabelKey = 'InvestigatorLastName',
   bDebug = FALSE
 ) {
+  # set strGroupLevel if NULL and dfMetrics is not NULL
+  if (is.null(strGroupLevel) && !is.null(dfMetrics)) {
+    strGroupLevel <- unique(dfMetrics$GroupLevel)
+  }
+  else {
+    stop("One of strGroupLevel or dfMetrics must be provided to create group-level output.")
+  }
+
   # forward options using x
   input <- list(
-    dfSummary = dfSummary,
+    dfResults = dfResults,
     dfMetrics = dfMetrics,
     dfGroups = dfGroups,
     strGroupLevel = strGroupLevel,
