@@ -31,9 +31,7 @@ quiet_RunWorkflow <- function(...) {
 lMapped <- quiet_RunWorkflow(lWorkflow = wf_mapping, lData = lData)
 
 # Run Metrics
-result <- suppressMessages({
-  map(workflows, ~quiet_RunWorkflow(lWorkflow = .x, lData = lMapped, bReturnData = FALSE))
-})
+result <- map(workflows, ~quiet_RunWorkflow(lWorkflow = .x, lData = lMapped, bReturnData = FALSE))
 
 test_that("RunWorkflow preserves inputs when bReturnData = FALSE", {
   expect_true(
