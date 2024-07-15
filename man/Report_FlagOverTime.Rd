@@ -15,7 +15,7 @@ Report_FlagOverTime(
 by \code{\link[=Summarize]{Summarize()}}.}
 
 \item{dfMetrics}{Metric-specific metadata created by passing an \code{lWorkflow}
-object to the \code{\link[=MakeMetricInfo]{MakeMetricInfo()}} function.}
+object to the \code{\link[=MakeMetric]{MakeMetric()}} function.}
 
 \item{strGroupLevel}{A string specifying the group type.}
 }

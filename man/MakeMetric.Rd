@@ -17,6 +17,6 @@ Used to format metric metadata (dfMetrics) for use in charts and reports. This f
 }
 \examples{
 lWorkflows <- MakeWorkflowList(strNames = "kri")
-dfMetrics <- MakeMetricInfo(lWorkflows)
+dfMetrics <- MakeMetric(lWorkflows)
 
 }

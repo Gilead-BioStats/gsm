@@ -118,7 +118,7 @@ reference:
      # -  MakeStatusWorkflow
      # -  MakeStratifiedAssessment
      -  MakeGroupInfo
-     -  MakeMetricInfo
+     -  MakeMetric
      -  MakeWorkflowList
      # -  Make_Snapshot
      # -  MergeSubjects

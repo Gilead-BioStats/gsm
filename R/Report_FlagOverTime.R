@@ -6,7 +6,7 @@
 #' @param dfSummary A summary of assessment results such as the ones generated
 #'   by [Summarize()].
 #' @param dfMetrics Metric-specific metadata created by passing an `lWorkflow`
-#'   object to the [MakeMetricInfo()] function.
+#'   object to the [MakeMetric()] function.
 #' @param strGroupLevel A string specifying the group type.
 #'
 #' @inherit gt-shared return

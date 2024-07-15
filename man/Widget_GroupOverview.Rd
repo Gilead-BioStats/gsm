@@ -18,7 +18,7 @@ Widget_GroupOverview(
 \item{dfResults}{\code{data.frame} Output of \code{\link[=Summarize]{Summarize()}} and \code{\link[=BindResults]{BindResults()}}.}
 
 \item{dfMetrics}{\code{list} Metric metadata, captured at the top of metric workflows and returned by
-\code{\link[=MakeMetricInfo]{MakeMetricInfo()}}.}
+\code{\link[=MakeMetric]{MakeMetric()}}.}
 
 \item{dfGroups}{\code{data.frame} Group metadata.}
 
