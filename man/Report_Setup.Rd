@@ -4,16 +4,27 @@
 \alias{Report_Setup}
 \title{Calculate needed values for report}
 \usage{
-Report_Setup(dfStudy = NULL, dfMetrics = NULL, dfSummary = NULL)
+Report_Setup(dfGroups = NULL, dfMetrics = NULL, dfResults = NULL)
 }
 \arguments{
-\item{dfStudy}{\code{data.frame} Site-level metadata.}
+\item{dfGroups}{A data frame containing the group-level metadata.}
+
+\item{dfMetrics}{A data frame containing the metric-level metadata.}
+
+\item{dfResults}{A data frame containing the metric results.}
+}
+\value{
+\code{list} with the following elements:
+\itemize{
+\item \code{GroupLevel} (character): The group level of the report.
+\item \code{SnapshotDate} (Date): The date of the snapshot.
+\item \code{lStudy} (list): Study-level metadata.
+\item \code{StudyID} (character): The study ID.
+\item \code{red_kris} (numeric): The number of red flags.
+\item \code{amber_kris} (numeric): The number of amber flags.
+}
 }
 \description{
-Calculates the following:
-\itemize{
-\item Snapshot date: dfStudy$SnapshotDate (if available) or Sys.Date()
-\item Study ID: dfStudy$StudyID (if available)  or "Unknown"
-}
+Calculate needed values for report
 }
 \keyword{internal}

@@ -4,14 +4,14 @@
 \alias{Report_OverviewText}
 \title{Create message describing study summary for Report}
 \usage{
-Report_OverviewText(lSetup, dfSummary, dfStudy)
+Report_OverviewText(lSetup, dfResults, lStudy)
 }
 \arguments{
-\item{lSetup}{\code{list} that is produced by \code{Report_StudyInfo(dfStudy = params$dfStudy)}.}
+\item{lSetup}{\code{list} that is produced by \code{Report_StudyInfo()}.}
 
-\item{dfSummary}{\code{data.frame} containing summary information.}
+\item{dfResults}{\code{data.frame} containing results information.}
 
-\item{dfStudy}{\code{data.frame} contains site-level metadata.}
+\item{lStudy}{\code{list} contains study-level metadata.}
 }
 \description{
 Create message describing study summary for Report

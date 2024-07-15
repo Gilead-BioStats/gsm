@@ -4,12 +4,12 @@
 \alias{Report_StudyInfo}
 \title{Report Study Information}
 \usage{
-Report_StudyInfo(dfStudy, dfStudyLabels = NULL)
+Report_StudyInfo(lStudy, lStudyLabels = NULL)
 }
 \arguments{
-\item{dfStudy}{A data frame containing study information.}
+\item{lStudy}{A data frame containing study information.}
 
-\item{dfStudyLabels}{A data frame containing study labels. Default is NULL.}
+\item{lStudyLabels}{A data frame containing study labels. Default is NULL.}
 }
 \value{
 None

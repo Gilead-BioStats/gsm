@@ -82,10 +82,13 @@
       [1] "meta"  "steps" "path"  "name" 
       
       $qtl0004
-      [1] "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
       
       $qtl0006
-      [1] "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
+      
+      $reports
+      [1] "meta"  "steps" "path"  "name" 
       
       $snapshot
       [1] "meta"  "steps" "path"  "name" 
@@ -405,7 +408,7 @@
       
       $data_reporting[[2]]
       $data_reporting[[2]]$name
-      [1] "MakeGroupInfo"
+      [1] "MakeLongMeta"
       
       $data_reporting[[2]]$output
       [1] "dfCTMSSite"
@@ -437,7 +440,7 @@
       
       $data_reporting[[4]]
       $data_reporting[[4]]$name
-      [1] "MakeGroupInfo"
+      [1] "MakeLongMeta"
       
       $data_reporting[[4]]$output
       [1] "dfCTMSStudy"
@@ -469,7 +472,7 @@
       
       $data_reporting[[6]]
       $data_reporting[[6]]$name
-      [1] "MakeGroupInfo"
+      [1] "MakeLongMeta"
       
       $data_reporting[[6]]$output
       [1] "dfSiteCounts"
@@ -501,7 +504,7 @@
       
       $data_reporting[[8]]
       $data_reporting[[8]]$name
-      [1] "MakeGroupInfo"
+      [1] "MakeLongMeta"
       
       $data_reporting[[8]]$output
       [1] "dfStudyCounts"
@@ -533,7 +536,7 @@
       
       $data_reporting[[10]]
       $data_reporting[[10]]$name
-      [1] "MakeGroupInfo"
+      [1] "MakeLongMeta"
       
       $data_reporting[[10]]$output
       [1] "dfCountryCounts"
@@ -574,7 +577,7 @@
       
       $data_reporting[[12]]
       $data_reporting[[12]]$name
-      [1] "MakeMetricInfo"
+      [1] "MakeMetric"
       
       $data_reporting[[12]]$output
       [1] "dfMetrics"
@@ -590,7 +593,7 @@
       [1] "BindResults"
       
       $data_reporting[[13]]$output
-      [1] "dfSummary"
+      [1] "dfResults"
       
       $data_reporting[[13]]$params
       $data_reporting[[13]]$params$lResults
@@ -666,6 +669,9 @@
       
       $cou0001[[2]]$params$strGroupCol
       [1] "country"
+      
+      $cou0001[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
       
       $cou0001[[2]]$params$strNumeratorMethod
       [1] "Count"
@@ -795,6 +801,9 @@
       
       $cou0002[[2]]$params$strGroupCol
       [1] "country"
+      
+      $cou0002[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
       
       $cou0002[[2]]$params$strNumeratorMethod
       [1] "Count"
@@ -973,6 +982,9 @@
       $cou0003[[5]]$params$strGroupCol
       [1] "country"
       
+      $cou0003[[5]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
       $cou0003[[5]]$params$strNumeratorMethod
       [1] "Count"
       
@@ -1101,6 +1113,9 @@
       
       $cou0004[[2]]$params$strGroupCol
       [1] "country"
+      
+      $cou0004[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
       
       $cou0004[[2]]$params$strNumeratorMethod
       [1] "Count"
@@ -1231,6 +1246,9 @@
       $cou0005[[2]]$params$strGroupCol
       [1] "country"
       
+      $cou0005[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
       $cou0005[[2]]$params$strNumeratorMethod
       [1] "Count"
       
@@ -1356,6 +1374,9 @@
       
       $cou0006[[2]]$params$strGroupCol
       [1] "country"
+      
+      $cou0006[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
       
       $cou0006[[2]]$params$strNumeratorMethod
       [1] "Count"
@@ -1483,6 +1504,9 @@
       $cou0007[[2]]$params$strGroupCol
       [1] "country"
       
+      $cou0007[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
       $cou0007[[2]]$params$strNumeratorMethod
       [1] "Count"
       
@@ -1608,6 +1632,9 @@
       
       $cou0008[[2]]$params$strGroupCol
       [1] "country"
+      
+      $cou0008[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
       
       $cou0008[[2]]$params$strNumeratorMethod
       [1] "Count"
@@ -1735,6 +1762,9 @@
       $cou0009[[2]]$params$strGroupCol
       [1] "country"
       
+      $cou0009[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
       $cou0009[[2]]$params$strNumeratorMethod
       [1] "Count"
       
@@ -1860,6 +1890,9 @@
       
       $cou0010[[2]]$params$strGroupCol
       [1] "country"
+      
+      $cou0010[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
       
       $cou0010[[2]]$params$strNumeratorMethod
       [1] "Count"
@@ -1987,6 +2020,9 @@
       $cou0011[[2]]$params$strGroupCol
       [1] "country"
       
+      $cou0011[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
       $cou0011[[2]]$params$strNumeratorMethod
       [1] "Count"
       
@@ -2113,6 +2149,9 @@
       $cou0012[[2]]$params$strGroupCol
       [1] "country"
       
+      $cou0012[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
       $cou0012[[2]]$params$strNumeratorMethod
       [1] "Count"
       
@@ -2238,6 +2277,9 @@
       
       $kri0001[[2]]$params$strGroupCol
       [1] "siteid"
+      
+      $kri0001[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
       
       $kri0001[[2]]$params$strNumeratorMethod
       [1] "Count"
@@ -2368,6 +2410,9 @@
       $kri0002[[2]]$params$strGroupCol
       [1] "siteid"
       
+      $kri0002[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
       $kri0002[[2]]$params$strNumeratorMethod
       [1] "Count"
       
@@ -2496,6 +2541,9 @@
       
       $kri0003[[2]]$params$strGroupCol
       [1] "siteid"
+      
+      $kri0003[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
       
       $kri0003[[2]]$params$strNumeratorMethod
       [1] "Count"
@@ -2626,6 +2674,9 @@
       $kri0004[[2]]$params$strGroupCol
       [1] "siteid"
       
+      $kri0004[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
       $kri0004[[2]]$params$strNumeratorMethod
       [1] "Count"
       
@@ -2755,6 +2806,9 @@
       $kri0005[[2]]$params$strGroupCol
       [1] "siteid"
       
+      $kri0005[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
       $kri0005[[2]]$params$strNumeratorMethod
       [1] "Count"
       
@@ -2880,6 +2934,9 @@
       
       $kri0006[[2]]$params$strGroupCol
       [1] "siteid"
+      
+      $kri0006[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
       
       $kri0006[[2]]$params$strNumeratorMethod
       [1] "Count"
@@ -3007,6 +3064,9 @@
       $kri0007[[2]]$params$strGroupCol
       [1] "siteid"
       
+      $kri0007[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
       $kri0007[[2]]$params$strNumeratorMethod
       [1] "Count"
       
@@ -3132,6 +3192,9 @@
       
       $kri0008[[2]]$params$strGroupCol
       [1] "siteid"
+      
+      $kri0008[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
       
       $kri0008[[2]]$params$strNumeratorMethod
       [1] "Count"
@@ -3259,6 +3322,9 @@
       $kri0009[[2]]$params$strGroupCol
       [1] "siteid"
       
+      $kri0009[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
       $kri0009[[2]]$params$strNumeratorMethod
       [1] "Count"
       
@@ -3384,6 +3450,9 @@
       
       $kri0010[[2]]$params$strGroupCol
       [1] "siteid"
+      
+      $kri0010[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
       
       $kri0010[[2]]$params$strNumeratorMethod
       [1] "Count"
@@ -3511,6 +3580,9 @@
       $kri0011[[2]]$params$strGroupCol
       [1] "siteid"
       
+      $kri0011[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
       $kri0011[[2]]$params$strNumeratorMethod
       [1] "Count"
       
@@ -3636,6 +3708,9 @@
       
       $kri0012[[2]]$params$strGroupCol
       [1] "siteid"
+      
+      $kri0012[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
       
       $kri0012[[2]]$params$strNumeratorMethod
       [1] "Count"
@@ -3873,6 +3948,52 @@
       
       
       
+      $reports
+      $reports[[1]]
+      $reports[[1]]$name
+      [1] "MakeCharts"
+      
+      $reports[[1]]$output
+      [1] "lCharts"
+      
+      $reports[[1]]$params
+      $reports[[1]]$params$dfSummary
+      [1] "dfResults"
+      
+      $reports[[1]]$params$dfGroups
+      [1] "dfGroups"
+      
+      $reports[[1]]$params$dfBounds
+      [1] "dfBounds"
+      
+      $reports[[1]]$params$dfMetrics
+      [1] "dfMetrics"
+      
+      
+      
+      $reports[[2]]
+      $reports[[2]]$name
+      [1] "Report_KRI"
+      
+      $reports[[2]]$output
+      [1] "lReport"
+      
+      $reports[[2]]$params
+      $reports[[2]]$params$lCharts
+      [1] "lCharts"
+      
+      $reports[[2]]$params$dfResults
+      [1] "dfResults"
+      
+      $reports[[2]]$params$dfGroups
+      [1] "dfGroups"
+      
+      $reports[[2]]$params$dfMetrics
+      [1] "dfMetrics"
+      
+      
+      
+      
       $snapshot
       $snapshot[[1]]
       $snapshot[[1]]$name
@@ -3959,7 +4080,7 @@
       [1] "MakeWorkflowList"
       
       $snapshot[[6]]$output
-      [1] "wf_reporting"
+      [1] "wf_reporting_data"
       
       $snapshot[[6]]$params
       $snapshot[[6]]$params$strNames
@@ -3976,12 +4097,44 @@
       
       $snapshot[[7]]$params
       $snapshot[[7]]$params$lWorkflows
-      [1] "wf_reporting"
+      [1] "wf_reporting_data"
       
       $snapshot[[7]]$params$lData
       [1] "lData"
       
       $snapshot[[7]]$params$bKeepInputData
+      [1] FALSE
+      
+      
+      
+      $snapshot[[8]]
+      $snapshot[[8]]$name
+      [1] "MakeWorkflowList"
+      
+      $snapshot[[8]]$output
+      [1] "wf_reports"
+      
+      $snapshot[[8]]$params
+      $snapshot[[8]]$params$strNames
+      [1] "reports"
+      
+      
+      
+      $snapshot[[9]]
+      $snapshot[[9]]$name
+      [1] "RunWorkflows"
+      
+      $snapshot[[9]]$output
+      [1] "lReports"
+      
+      $snapshot[[9]]$params
+      $snapshot[[9]]$params$lWorkflows
+      [1] "wf_reports"
+      
+      $snapshot[[9]]$params$lData
+      [1] "lReporting"
+      
+      $snapshot[[9]]$params$bKeepInputData
       [1] FALSE
       
       

@@ -34,13 +34,24 @@ steps:
       df: dfSUBJ
       strQuery: "SELECT subjectid as raw_subjectid, * FROM df WHERE enrollyn == 'Y'"
   - name: MakeWorkflowList
-    output: wf_reporting
+    output: wf_reporting_data
     params:
       strNames: reporting
   - name: RunWorkflows
     output: lReporting
     params:
-      lWorkflows: wf_reporting
+      lWorkflows: wf_reporting_data
       lData: lData
       bKeepInputData: FALSE
 
+  # Generate Reports
+  - name: MakeWorkflowList
+    output: wf_reports
+    params:
+      strNames: reports
+  - name: RunWorkflows
+    output: lReports
+    params:
+      lWorkflows: wf_reports
+      lData: lReporting
+      bKeepInputData: FALSE

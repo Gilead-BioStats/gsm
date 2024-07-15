@@ -12,7 +12,7 @@
 #'
 #' @export
 
-MakeMetricInfo <- function(lWorkflows){
+MakeMetric <- function(lWorkflows){
    dfMetrics <- lWorkflows %>% map_df(function(wf){
     return(wf$meta)
   })

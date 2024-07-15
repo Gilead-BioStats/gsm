@@ -18,47 +18,25 @@ lData <- list(
     dSnapshotDate = Sys.Date(),
     strStudyID = "ABC-123"
 )
+
+devtools::load_all()
+
 ss_wf <- MakeWorkflowList(strNames = "snapshot")
 snapshot <- RunWorkflows(ss_wf, lData, bKeepInputData = TRUE)
 
-# ---------------------------------------------------------------------------
-# --- Test out chart creation -----------------------------------------------
-# ---------------------------------------------------------------------------
+# TODO: Remove report debug code below
+lCharts= snapshot$lReports$lCharts
+dfResults= snapshot$lReporting$dfResults
+dfGroups= snapshot$lReporting$dfGroups
+dfMetrics= snapshot$lReporting$dfMetrics
+dfBounds<- snapshot$lReporting$dfBounds
 
-dfSummary_long <- bind_rows(
-  snapshot$lReporting$dfSummary %>% mutate(SnapshotDate = Sys.Date()),
-  snapshot$lReporting$dfSummary %>% mutate(SnapshotDate = Sys.Date() - 7),
-  snapshot$lReporting$dfSummary %>% mutate(SnapshotDate = Sys.Date() - 14)
+params <- list(
+    lCharts = lCharts,
+    dfResults = dfResults,
+    dfGroups = dfGroups,
+    dfMetrics = dfMetrics
 )
 
-#Create Charts for all metrics
-options(vsc.viewer = FALSE)
-metrics<- unique(snapshot$lReporting$dfMetrics$MetricID)
-charts <- metrics %>% map(~Visualize_Metric(
-  dfSummary = dfSummary_long,
-  dfBounds = snapshot$lReporting$dfBounds,
-  dfGroups = snapshot$lReporting$dfGroups,
-  dfMetrics = snapshot$lReporting$dfMetrics,
-  strMetricID = .x
-)
-) %>% setNames(metrics)
-
-# ---------------------------------------------------------------------------
-# --- check reporting data --------------------------------------------------
-# ---------------------------------------------------------------------------
-
-dfGroups <- snapshot$lReporting$dfGroups
-head(dfGroups)
-table(paste(dfGroups$GroupLevel, dfGroups$Param))
-
-dfMetrics <-snapshot$lReporting$dfMetrics
-head(dfMetrics)
-
-dfSummary <- snapshot$lReporting$dfSummary
-head(dfSummary)
-table(dfSummary$MetricID, dfSummary$Flag)
-
-dfBounds <-snapshot$lReporting$dfBounds
-head(dfBounds)
-
-
+Report_KRI(lCharts = lCharts, dfResults=dfResults, dfGroups=dfGroups, dfMetrics=dfMetrics, strOutpath="StandardSiteReport.html")
+    

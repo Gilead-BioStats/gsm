@@ -2,7 +2,7 @@
 #'
 #' `r lifecycle::badge("stable")`
 #'
-#' @param dfSummary `data.frame` returned by [Summarize()]
+#' @param dfResults `data.frame` returned by [Summarize()] and [BindResults()].
 #' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to NULL.
 #' @param strType `character` One of `"KRI"` or `"score"`.
 #' @param bFlagFilter `logical` Filter out non-flagged groups? Default: `FALSE`
@@ -38,7 +38,7 @@
 #' @export
 
 Visualize_Score <- function(
-  dfSummary,
+  dfResults,
   vThreshold = NULL,
   strType = "Metric",
   bFlagFilter = FALSE,
@@ -47,24 +47,24 @@ Visualize_Score <- function(
   stopifnot(
     "strTitle must be character" = is.character(strTitle),
     "bFlagFilter must be logical" = is.logical(bFlagFilter),
-    "dfSummary must be a data.frame" = is.data.frame(dfSummary),
+    "dfResults must be a data.frame" = is.data.frame(dfResults),
     "strType must be 'Metric' or 'Score'" = strType %in% c("Metric", "Score"),
     "strType must be length 1" = length(strType) == 1
   )
 
-  dfSummary$FlagAbs <- abs(dfSummary$Flag)
-  flagBreaks <- as.character(unique(sort(dfSummary$FlagAbs)))
+  dfResults$FlagAbs <- abs(dfResults$Flag)
+  flagBreaks <- as.character(unique(sort(dfResults$FlagAbs)))
   flagValues <- c("#999999", "#FADB14", "#FF4D4F")[1:length(flagBreaks)]
 
   if (bFlagFilter) {
-    dfSummary <- dfSummary %>%
+    dfResults <- dfResults %>%
       filter(
         .data$Flag != 0
       )
   }
 
   if (strType == "Metric") {
-    dfSummaryWithTooltip <- dfSummary %>%
+    dfResultsWithTooltip <- dfResults %>%
       mutate(
         tooltip = paste(
           paste0("GroupID: ", .data$GroupID),
@@ -73,7 +73,7 @@ Visualize_Score <- function(
         )
       )
 
-    p <- dfSummaryWithTooltip %>%
+    p <- dfResultsWithTooltip %>%
       ggplot(
         aes(
           x = reorder(.data$GroupID, -.data$Metric),
@@ -93,10 +93,10 @@ Visualize_Score <- function(
         "Metric"
       )
 
-    if (all(c("Numerator", "Denominator") %in% names(dfSummary))) {
+    if (all(c("Numerator", "Denominator") %in% names(dfResults))) {
       p <- p +
         geom_hline(
-          yintercept = sum(dfSummary$Numerator) / sum(dfSummary$Denominator),
+          yintercept = sum(dfResults$Numerator) / sum(dfResults$Denominator),
           linetype = "dashed",
           color = "#FF4D4F"
         )
@@ -113,7 +113,7 @@ Visualize_Score <- function(
     }
 
 
-    dfSummaryWithTooltip <- dfSummary %>%
+    dfResultsWithTooltip <- dfResults %>%
       mutate(
         tooltip = paste(
           paste0("GroupID: ", .data$GroupID),
@@ -122,7 +122,7 @@ Visualize_Score <- function(
         )
       )
 
-    p <- dfSummaryWithTooltip %>%
+    p <- dfResultsWithTooltip %>%
       ggplot(
         aes(
           x = reorder(.data$GroupID, -.data$Score),
@@ -175,7 +175,7 @@ Visualize_Score <- function(
     ) +
     ggtitle(strTitle)
 
-  if (nrow(dfSummaryWithTooltip) > 25) {
+  if (nrow(dfResultsWithTooltip) > 25) {
     p <- p +
       theme(
         axis.ticks.x = element_blank()

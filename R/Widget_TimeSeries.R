@@ -6,7 +6,7 @@
 #' A widget that generates a time series of group-level metric results over time, plotting snapshot
 #' date on the x-axis and the outcome (numerator, denominator, metric, or score) on the y-axis.
 #'
-#' @param dfSummary `data.frame` Output of [Summarize()]. Must contain a 'SnapshotDate' column.
+#' @param dfResults `data.frame` Output of [Summarize()] and [BindResults()]. Must contain a 'SnapshotDate' column.
 #' @param lMetric `list` Metric metadata, captured at the top of metric workflows and returned by
 #' [MakeMetricInfo()].
 #' @param dfGroups `data.frame` Group metadata.
@@ -17,29 +17,18 @@
 #'
 #' @examples
 #' \dontrun{
-#' lDataRaw <- list(
-#'     dfSTUDY = clindata::ctms_study,
-#'     dfSITE = clindata::ctms_site,
-#'     dfSUBJ = clindata::rawplus_dm,
+#' lWorkflows <- MakeWorkflowList()
+#' strMetricID <- 'kri0001'
+#' lMetricWorkflow <- lWorkflows[[ strMetricID ]]
+#'
+#' lData <- list(
+#'     dfEnrolled = clindata::rawplus_dm %>% filter(enrollyn == 'Y'),
 #'     dfAE = clindata::rawplus_ae
 #' )
 #'
-#' lMappingWorkflow <- MakeWorkflowList('mapping')$mapping
-#'
-#' lMappingWorkflow$steps <- lMappingWorkflow$steps %>%
-#'     purrr::keep(~ .x$params$df %in% names(lDataRaw))
-#'
-#' lDataMapped <- RunWorkflow(
-#'     lMappingWorkflow,
-#'     lDataRaw
-#' )$lData
-#'
-#' strMetricID <- 'kri0001'
-#' lMetricWorkflow <- MakeWorkflowList(strMetricID)[[ strMetricID ]]
-#'
 #' lResults <- RunWorkflow(
 #'     lMetricWorkflow,
-#'     lDataMapped
+#'     lData
 #' )
 #'
 #' # Simulate longitudinal snapshot data.
@@ -48,8 +37,8 @@
 #' dfSummary <- purrr::map_dfr(
 #'     SnapshotDates,
 #'     ~ {
-#'         order <- sample(1:nrow(lResults$lData$dfSummary))
-#'         dfSummary <- lResults$lData$dfSummary %>%
+#'         order <- sample(1:nrow(lResults$dfSummary))
+#'         dfSummary <- lResults$dfSummary %>%
 #'             mutate(
 #'                 SnapshotDate = .x,
 #'                 Numerator = Numerator[order],
@@ -58,24 +47,22 @@
 #'                 Score = Score[order],
 #'                 Flag = Flag[order]
 #'             )
+#'
 #'         return(dfSummary)
 #'     }
 #' )
 #'
-#' dfGroups <- clindata::ctms_site %>%
-#'     left_join(
-#'         lDataMapped$dfEnrolled %>%
-#'             group_by(siteid) %>%
-#'             tally(name = 'enrolled_participants'),
-#'         c('site_num' = 'siteid')
-#'     ) %>%
-#'     rename(
-#'         SiteID = site_num,
-#'         status = site_status
-#'     )
+#' dfGroups <- bind_rows(
+#'     "SELECT site_num as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df" %>%
+#'         RunQuery(clindata::ctms_site) %>%
+#'         MakeLongMeta('Site'),
+#'     "SELECT siteid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT siteid) as SiteCount FROM df GROUP BY siteid" %>%
+#'         RunQuery(lData$dfEnrolled) %>%
+#'         MakeLongMeta('Site')
+#' )
 #'
 #' Widget_TimeSeries(
-#'     dfSummary = dfSummary,
+#'     dfResults = dfSummary,
 #'     lMetric = lMetricWorkflow$meta,
 #'     dfGroups = dfGroups,
 #'     vThreshold = lMetricWorkflow$meta$vThreshold
@@ -84,7 +71,7 @@
 #' @export
 
 Widget_TimeSeries <- function(
-  dfSummary,
+  dfResults,
   lMetric,
   dfGroups = NULL,
   vThreshold = NULL,
@@ -94,7 +81,7 @@ Widget_TimeSeries <- function(
 ) {
   # define widget inputs
   input <- list(
-    dfSummary = dfSummary,
+    dfResults = dfResults,
     lMetric = lMetric,
     dfGroups = dfGroups,
     vThreshold = vThreshold,

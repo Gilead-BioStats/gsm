@@ -5,7 +5,7 @@
 \title{Visualize_Metric Function}
 \usage{
 Visualize_Metric(
-  dfSummary,
+  dfResults = dfResults,
   dfBounds = NULL,
   dfGroups = NULL,
   dfMetrics = NULL,
@@ -15,7 +15,7 @@ Visualize_Metric(
 )
 }
 \arguments{
-\item{dfSummary}{\code{data.frame} A data.frame returned by \code{\link[=Summarize]{Summarize()}}.}
+\item{dfResults}{\code{data.frame} A data.frame returned by \code{\link[=Summarize]{Summarize()}} and \code{\link[=BindResults]{BindResults()}}.}
 
 \item{dfBounds}{\code{data.frame}, A data.frame returned by \code{\link[=Analyze_NormalApprox_PredictBounds]{Analyze_NormalApprox_PredictBounds()}} or \code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}}}
 
