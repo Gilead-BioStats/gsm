@@ -52,7 +52,7 @@ Report_MetricTable <- function(
         filter(.data$GroupLevel == strGroupLevel) %>%
         filter(.data$Param %in% strGroupDetailsParams) %>%
         pivot_wider(names_from="Param", values_from="Value") %>%
-        select(-GroupLevel)
+        select(-"GroupLevel")
 
     if(nrow(dfResults) > 0 & nrow(dfGroups_wide) > 0){
         dfResults <- dfResults %>% left_join(dfGroups_wide, by = c("GroupID" = "GroupID"))
