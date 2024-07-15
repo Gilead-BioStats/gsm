@@ -17,46 +17,10 @@
 #'
 #' @examples
 #' \dontrun{
-#' lDataRaw <- list(
-#'     dfSTUDY = clindata::ctms_study,
-#'     dfSITE = clindata::ctms_site,
-#'     dfSUBJ = clindata::rawplus_dm,
-#'     dfAE = clindata::rawplus_ae
-#' )
-#'
-#' lMappingWorkflow <- MakeWorkflowList('mapping')$mapping
-#'
-#' lMappingWorkflow$steps <- lMappingWorkflow$steps %>%
-#'     purrr::keep(~ .x$params$df %in% names(lDataRaw))
-#'
-#' lDataMapped <- RunWorkflow(
-#'     lMappingWorkflow,
-#'     lDataRaw
-#' )$lData
-#'
-#' strMetricID <- 'kri0001'
-#' lMetricWorkflow <- MakeWorkflowList(strMetricID)[[ strMetricID ]]
-#'
-#' lResults <- RunWorkflow(
-#'     lMetricWorkflow,
-#'     lDataMapped
-#' )
-#'
-#' dfGroups <- clindata::ctms_site %>%
-#'     left_join(
-#'         lDataMapped$dfEnrolled %>%
-#'             group_by(siteid) %>%
-#'             tally(name = 'enrolled_participants'),
-#'         c('site_num' = 'siteid')
-#'     ) %>%
-#'     rename(
-#'         SiteID = site_num,
-#'         status = site_status
-#'     )
 #'
 #' Widget_BarChart(
-#'     dfSummary = lResults$lData$dfSummary,
-#'     lMetric = lMetricWorkflow$meta,
+#'     dfResults = sampleResults,
+#'     lMetric = sampleMetrics,
 #'     dfGroups = dfGroups,
 #'     vThreshold = lMetricWorkflow$meta$vThreshold
 #' )
