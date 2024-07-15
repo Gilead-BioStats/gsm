@@ -22,7 +22,7 @@ Report_Setup <- function(dfGroups = NULL, dfMetrics = NULL, dfResults = NULL) {
 
   # Get type of report
   group <- unique(dfMetrics$GroupLevel)
-  if(length( group )==1) {
+  if(length( group ) == 1) {
     output$GroupLevel <- group
   } else {
     cli_alert("Multiple `GroupLevel`s detected in dfMetrics, so GroupLevel not specifed for KRI Report. ")
@@ -31,7 +31,7 @@ Report_Setup <- function(dfGroups = NULL, dfMetrics = NULL, dfResults = NULL) {
 
   # Get the snapshot date
   if("SnapshotDate" %in% names(dfResults)) {
-    output$SnapshotDate <- unique(dfResults$SnapshotDate[[1]]) %>% max()
+    output$SnapshotDate <- unique(dfResults$SnapshotDate) %>% max()
   } else {
     cli_alert("No `SnapshotDate` detected in dfResults, setting to today: {Sys.Date()}")
     output$SnapshotDate <- Sys.Date()

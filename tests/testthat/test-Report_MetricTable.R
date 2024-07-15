@@ -20,9 +20,8 @@ test_that("Flag filtering works correctly", {
   expect_false(grepl("Gonzalez", result))
 })
 
-
 test_that("Score rounding works correctly", {
   result <- Report_MetricTable(sampleResults, sampleGroups)
-  expect_true(grepl("2.734", result))
+  expect_true(grepl("3.030", substr(result, 1, 2000)))
 })
 

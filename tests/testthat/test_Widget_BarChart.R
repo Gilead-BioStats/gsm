@@ -6,9 +6,15 @@ test_that("Widget_BarChart handles dfResults correctly", {
   expect_true("Widget_BarChart" %in% class(widget))
 
   widget_data <- widget$x$dfResults
-  dfResults_json <- jsonlite::toJSON(sampleResults)
+  dfResults <- sampleResults %>%
+    dplyr::mutate(
+      Metric = round(Metric, 4),
+      Score = round(Score, 4),
+      SnapshotDate = as.character(SnapshotDate)
+    )
 
-  expect_equal(widget_data, dfResults_json)
+  # Comparing the JSON directly makes it very difficult to debug differences.
+  expect_equal(jsonlite::fromJSON(widget_data), dfResults)
 })
 
 test_that("Widget_BarChart processes vThreshold correctly", {
