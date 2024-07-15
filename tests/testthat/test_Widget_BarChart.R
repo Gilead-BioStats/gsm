@@ -1,4 +1,4 @@
-test_that("Widget_BarChart handles dfSummary correctly", {
+test_that("Widget_BarChart handles dfResults correctly", {
   widget <- Widget_BarChart(sampleResults,
                             sampleMetrics %>% as.list())
 

@@ -7,7 +7,7 @@ test_that("Widget_TimeSeries processes dfResults correctly", {
   dfResults_expected <- sampleResults %>%
     jsonlite::toJSON(na = "string")
 
-  expect_equal(widget$x$dfResults, dfSummary_expected)
+  expect_equal(widget$x$dfResults, dfResults_expected)
 })
 
 

@@ -62,7 +62,7 @@
 #' )
 #'
 #' Widget_TimeSeries(
-#'     dfSummary = dfSummary,
+#'     dfResults = dfSummary,
 #'     lMetric = lMetricWorkflow$meta,
 #'     dfGroups = dfGroups,
 #'     vThreshold = lMetricWorkflow$meta$vThreshold
@@ -71,7 +71,7 @@
 #' @export
 
 Widget_TimeSeries <- function(
-  dfSummary,
+  dfResults,
   lMetric,
   dfGroups = NULL,
   vThreshold = NULL,
@@ -81,7 +81,7 @@ Widget_TimeSeries <- function(
 ) {
   # define widget inputs
   input <- list(
-    dfSummary = dfSummary,
+    dfResults = dfResults,
     lMetric = lMetric,
     dfGroups = dfGroups,
     vThreshold = vThreshold,

@@ -1,4 +1,4 @@
-test_that("Widget_ScatterPlot handles dfSummary correctly", {
+test_that("Widget_ScatterPlot handles dfResults correctly", {
   widget <- Widget_ScatterPlot(sampleResults,
                                sampleMetrics %>% as.list())
 

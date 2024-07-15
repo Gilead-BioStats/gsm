@@ -15,10 +15,10 @@
 #' @export
 
 Report_MetricTable <- function(
-    dfResults, 
-    dfGroups, 
-    strSnapshotDate = NULL, 
-    strGroupLevel = "Site", 
+    dfResults,
+    dfGroups,
+    strSnapshotDate = NULL,
+    strGroupLevel = "Site",
     strGroupDetailsParams = NULL
 ) {
 
@@ -38,20 +38,21 @@ Report_MetricTable <- function(
     if(nrow(dfResults) > 0){
         dfResults <- dfResults %>% filter(.data$SnapshotDate == strSnapshotDate)
     }
-    
+
     # Add Group Metadata ------------------------------------------------------------
     if(is.null(strGroupDetailsParams)){
         if(strGroupLevel == "Site"){
-            strGroupDetailsParams <- c("Country", "Status", "InvestigatorFirstName", "ParticipantCount")
+            strGroupDetailsParams <- c("Country", "Status", "InvestigatorLastName", "ParticipantCount")
         } else if(strGroupLevel == "Country"){
             strGroupDetailsParams <- c("SiteCount","ParticipantCount")
         }
     }
 
-    dfGroups_wide <- dfGroups %>% 
+    dfGroups_wide <- dfGroups %>%
         filter(.data$GroupLevel == strGroupLevel) %>%
-        filter(.data$Param %in% strGroupDetailsParams) %>% 
-        pivot_wider(names_from="Param", values_from="Value")
+        filter(.data$Param %in% strGroupDetailsParams) %>%
+        pivot_wider(names_from="Param", values_from="Value") %>%
+        select(-GroupLevel)
 
     if(nrow(dfResults) > 0 & nrow(dfGroups_wide) > 0){
         dfResults <- dfResults %>% left_join(dfGroups_wide, by = c("GroupID" = "GroupID"))

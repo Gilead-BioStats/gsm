@@ -15,9 +15,11 @@ usethis::use_data(sampleMetrics, overwrite = TRUE)
 rm(sampleMetrics)
 
 sampleResults <- read.csv("data-raw/sampleResults.csv")
+sampleResults$GroupID <- as.character(sampleResults$GroupID)
 usethis::use_data(sampleResults, overwrite = TRUE)
 rm(sampleResults)
 
 sampleSummary <- read.csv("data-raw/sampleSummary.csv")
+sampleSummary$GroupID <- as.character(sampleSummary$GroupID)
 usethis::use_data(sampleSummary, overwrite = TRUE)
 rm(sampleSummary)
