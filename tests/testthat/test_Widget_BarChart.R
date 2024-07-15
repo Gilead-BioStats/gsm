@@ -1,39 +1,34 @@
 test_that("Widget_BarChart handles dfSummary correctly", {
-  dfSummary <- data.frame(GroupID = as.character(1:3), Metric = as.character(4:6), stringsAsFactors = FALSE)
-  lLabels <- list(Group = "TestGroup")
-
-  widget <- Widget_BarChart(dfSummary,
-                            lLabels)
+  widget <- Widget_BarChart(sampleResults,
+                            sampleMetrics %>% as.list())
 
   expect_true(inherits(widget, "htmlwidget"))
   expect_true("Widget_BarChart" %in% class(widget))
 
-  widget_data <- widget$x$dfSummary
-  dfSummary_json <- jsonlite::toJSON(dfSummary %>%
+  widget_data <- widget$x$dfResults
+  dfResults_json <- jsonlite::toJSON(sampleResults %>%
                                        dplyr::mutate(across(everything(), as.character))
   )
 
-  expect_equal(widget_data, dfSummary_json)
+  expect_equal(widget_data, dfResults_json)
 })
 
-test_that("Widget_BarChart processes dfThreshold correctly", {
-  dfSummary <- data.frame(GroupID = as.character(1:3), Metric = as.character(4:6), stringsAsFactors = FALSE)
-  lLabels <- list(Group = "TestGroup")
+test_that("Widget_BarChart processes vThreshold correctly", {
   vThreshold <- c(1, 2, 3)
 
-  widget <- Widget_BarChart(dfSummary, lLabels, vThreshold = vThreshold)
+  widget <- Widget_BarChart(sampleResults,
+                            sampleMetrics %>% as.list(),
+                            vThreshold = vThreshold)
 
   vThreshold_json <- jsonlite::toJSON(vThreshold, na = "string")
   expect_equal(widget$x$vThreshold, vThreshold_json)
 })
 
-test_that("Widget_BarChart processes dfSite correctly", {
-  dfSummary <- data.frame(GroupID = as.character(1:3), Metric = as.character(4:6), stringsAsFactors = FALSE)
-  lLabels <- list(Group = "TestGroup")
-  dfSite <- data.frame(SiteID = c(1, 2, 3), stringsAsFactors = FALSE)
+test_that("Widget_BarChart processes dfGRoups correctly", {
+  widget <- Widget_BarChart(dfResults = sampleResults,
+                            lMetric = sampleMetrics %>% as.list(),
+                            dfGroups = sampleGroups)
 
-  widget <- Widget_BarChart(dfSummary, lLabels, dfGroups = dfSite)
-
-  dfSite_json <- jsonlite::toJSON(dfSite, na = "string")
-  expect_equal(widget$x$dfGroups, dfSite_json)
+  sampleGroups_json <- jsonlite::toJSON(sampleGroups, na = "string")
+  expect_equal(widget$x$dfGroups, sampleGroups_json)
 })

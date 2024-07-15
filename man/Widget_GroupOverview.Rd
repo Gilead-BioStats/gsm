@@ -5,27 +5,24 @@
 \title{Group Overview Widget}
 \usage{
 Widget_GroupOverview(
-  dfSummary,
-<<<<<<< HEAD:man/Widget_GroupOverview.Rd
-  dfMetrics = gsm::meta_workflow,
+  dfResults,
+  dfMetrics = NULL,
   dfGroups = NULL,
-  strGroupLevel = "Site",
-=======
-  dfMetrics,
-  dfGroups,
->>>>>>> dev:man/Widget_SiteOverview.Rd
+  strGroupLevel = NULL,
   strGroupSubset = "red",
   strGroupLabelKey = "InvestigatorLastName",
   bDebug = FALSE
 )
 }
 \arguments{
-\item{dfSummary}{\code{data.frame} Output of \code{\link[=Summarize]{Summarize()}}.}
+\item{dfResults}{\code{data.frame} Output of \code{\link[=Summarize]{Summarize()}} and \code{\link[=BindResults]{BindResults()}}.}
 
 \item{dfMetrics}{\code{list} Metric metadata, captured at the top of metric workflows and returned by
 \code{\link[=MakeMetricInfo]{MakeMetricInfo()}}.}
 
 \item{dfGroups}{\code{data.frame} Group metadata.}
+
+\item{strGroupLevel}{\code{character} Value for the group level. Default: NULL and taken from \code{dfMetrics$GroupLevel} if available.}
 
 \item{strGroupSubset}{\code{character} Subset of groups to include in the table. Default: 'red'. Options:
 \itemize{
@@ -46,16 +43,12 @@ metrics.
 }
 \examples{
 \dontrun{
-<<<<<<< HEAD:man/Widget_GroupOverview.Rd
 strGroupLevel <- 'Site'
 
 lWorkflows <- MakeWorkflowList()
 lMetricWorkflows <- lWorkflows[ grepl('^kri', names(lWorkflows) ) ]
 
 lDataRaw <- gsm::UseClindata(
-=======
-data_raw <- UseClindata(
->>>>>>> dev:man/Widget_SiteOverview.Rd
     list(
         "dfSUBJ" = "clindata::rawplus_dm",
         "dfAE" = "clindata::rawplus_ae",
@@ -78,7 +71,7 @@ lResults <- map(
     ~ RunWorkflow(.x, lDataMapped)
 )
 
-dfSummary <- lResults \%>\% imap_dfr(~ {
+dfResults <- lResults \%>\% imap_dfr(~ {
     data <- .x$dfSummary
     data$MetricID <- .y
     data$GroupLevel <- strGroupLevel
@@ -94,27 +87,11 @@ dfGroups <- bind_rows(
         MakeLongMeta('Site')
 )
 
-<<<<<<< HEAD:man/Widget_GroupOverview.Rd
 dfMetrics <- lMetricWorkflows \%>\%
     map_dfr(~ .x$meta)
-=======
-# TODO: use [ clindata::rawplus_dm$invid ] and [ clindata::ctms_site$pi_number ] instead of
-# [ clindata::rawplus_dm$siteid ] and [ clindata::ctms_site$site_num ].
-dfGroups <- clindata::ctms_site \%>\%
-  dplyr::left_join(
-    clindata::rawplus_dm \%>\%
-      dplyr::group_by(siteid) \%>\%
-      dplyr::tally(name = "enrolled_participants"),
-    c('site_num' = 'siteid')
-  ) \%>\%
-  dplyr::rename(
-    SiteID = site_num,
-    status = site_status
-  )
->>>>>>> dev:man/Widget_SiteOverview.Rd
 
 Widget_GroupOverview(
-  dfSummary,
+  dfResults,
   dfMetrics,
   dfGroups
 )

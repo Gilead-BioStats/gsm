@@ -15,8 +15,6 @@ Widget_TimeSeries(
 )
 }
 \arguments{
-\item{dfSummary}{\code{data.frame} Output of \code{\link[=Summarize]{Summarize()}}. Must contain a 'SnapshotDate' column.}
-
 \item{lMetric}{\code{list} Metric metadata, captured at the top of metric workflows and returned by
 \code{\link[=MakeMetricInfo]{MakeMetricInfo()}}.}
 
@@ -29,6 +27,8 @@ Widget_TimeSeries(
 \item{bAddGroupSelect}{\code{logical} Add a dropdown to highlight sites? Default: \code{TRUE}.}
 
 \item{bDebug}{\code{logical} Print debug messages? Default: \code{FALSE}.}
+
+\item{dfResults}{\code{data.frame} Output of \code{\link[=Summarize]{Summarize()}} and \code{\link[=BindResults]{BindResults()}}. Must contain a 'SnapshotDate' column.}
 }
 \description{
 A widget that generates a time series of group-level metric results over time, plotting snapshot

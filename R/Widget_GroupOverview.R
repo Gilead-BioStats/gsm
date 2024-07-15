@@ -88,6 +88,9 @@ Widget_GroupOverview <- function(
   if (is.null(strGroupLevel) && !is.null(dfMetrics)) {
     strGroupLevel <- unique(dfMetrics$GroupLevel)
   }
+  else if (!is.null(strGroupLevel)) {
+    strGroupLevel <- strGroupLevel
+  }
   else {
     stop("One of strGroupLevel or dfMetrics must be provided to create group-level output.")
   }

@@ -5,7 +5,7 @@
 \title{Bar Chart Widget}
 \usage{
 Widget_BarChart(
-  dfSummary,
+  dfResults,
   lMetric = list(),
   dfGroups = NULL,
   vThreshold = NULL,
@@ -15,7 +15,7 @@ Widget_BarChart(
 )
 }
 \arguments{
-\item{dfSummary}{\code{data.frame} Output of \code{\link[=Summarize]{Summarize()}}.}
+\item{dfResults}{\code{data.frame} Output of \code{\link[=Summarize]{Summarize()}} and \code{\link[=BindResults]{BindResults()}}.}
 
 \item{lMetric}{\code{list} Metric metadata, captured at the top of metric workflows and returned by
 \code{\link[=MakeMetricInfo]{MakeMetricInfo()}}.}
@@ -47,7 +47,6 @@ lData <- list(
     dfEnrolled = clindata::rawplus_dm \%>\% filter(enrollyn == 'Y'),
     dfAE = clindata::rawplus_ae
 )
-
 lResults <- RunWorkflow(
     lMetricWorkflow,
     lData
@@ -63,7 +62,7 @@ dfGroups <- bind_rows(
 )
 
 Widget_BarChart(
-    dfSummary = lResults$dfSummary,
+    dfResults = lResults$dfResults,
     lMetric = lMetricWorkflow$meta,
     dfGroups = dfGroups,
     vThreshold = lMetricWorkflow$meta$strThreshold
