@@ -5,10 +5,10 @@
 #' data based on certain conditions and displays the result in a datatable.
 #'
 #' @param dfResults The summary data frame
-#' @param dfGroups The site data frame
+#' @param dfGroups A data frame containing the group-level metadata.
 #' @param strSnapshotDate user specified snapshot date as string
 #' @param strGroupLevel  group level for the table
-#' @param strGroupDetailParams one or more parameters from dfGroups to be added as columns in the table
+#' @param strGroupDetailsParams one or more parameters from dfGroups to be added as columns in the table
 #'
 #' @return A datatable containing the summary table
 #'

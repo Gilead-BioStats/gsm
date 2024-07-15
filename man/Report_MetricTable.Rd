@@ -15,13 +15,13 @@ Report_MetricTable(
 \arguments{
 \item{dfResults}{The summary data frame}
 
-\item{dfGroups}{The site data frame}
+\item{dfGroups}{A data frame containing the group-level metadata.}
 
 \item{strSnapshotDate}{user specified snapshot date as string}
 
 \item{strGroupLevel}{group level for the table}
 
-\item{strGroupDetailParams}{one or more parameters from dfGroups to be added as columns in the table}
+\item{strGroupDetailsParams}{one or more parameters from dfGroups to be added as columns in the table}
 }
 \value{
 A datatable containing the summary table

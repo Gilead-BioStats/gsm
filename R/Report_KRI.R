@@ -3,9 +3,8 @@
 #' This function generates a KRI report based on the provided inputs.
 #'
 #' @param lCharts A list of charts to include in the report.
-#' @param dfSummary A data frame containing summary information.
-#' @param dfStudy A data frame containing study metadata (e.g., from CTMS).
-#' @param dfSite A data frame containing site metadata (e.g., from CTMS).
+#' @param dfResults A data frame containing result information.
+#' @param dfGroups A data frame containing study/site metadata (e.g., from CTMS).
 #' @param dfMetrics A data frame containing metric metadata (e.g., from workflows).
 #' @param strOutpath The output path for the generated report. If not provided, the report will be saved in the current working directory with the name "kri_report.html".
 #'
@@ -101,7 +100,7 @@ Report_KRI <- function(
     params = list(
       lCharts = lCharts,
       dfResults = dfResults,
-      dfGroups = dfGroups, 
+      dfGroups = dfGroups,
       dfMetrics = dfMetrics
     ),
     envir = new.env(parent = globalenv())

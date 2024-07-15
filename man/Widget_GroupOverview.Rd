@@ -32,6 +32,8 @@ Widget_GroupOverview(
 \item 'amber': Groups with 1+ amber flag.
 }}
 
+\item{strGroupLabelKey}{\code{character} Value for the group label key. Default: 'InvestigatorLastName'.}
+
 \item{bDebug}{\code{logical} Print debug messages? Default: \code{FALSE}.}
 }
 \description{
