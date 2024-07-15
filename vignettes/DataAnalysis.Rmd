@@ -14,20 +14,7 @@ knitr::opts_chunk$set(
 )
 
 library(gsm)
-library(DT)
 library(gt)
-
-dt <- function(data){
-  data %>%
-    DT::datatable(
-      extensions = 'FixedColumns',
-      options = list(
-        scrollX = FALSE,
-        fixedColumns = TRUE
-      ),
-      rownames = FALSE
-    )
-}
 ```
 
 # Introduction

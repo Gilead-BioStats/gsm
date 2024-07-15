@@ -3,7 +3,7 @@
 #' `r lifecycle::badge("stable")`
 #'
 #' @description
-#' Reporting utility function to create fontawesome directionality logos within `DT::datatable()`
+#' Reporting utility function to create fontawesome directionality logos`
 #'
 #' @param flag_value `numeric` Value between -2 and 2.
 #' @param title `character` Data that will be passed to the <title> tag.
