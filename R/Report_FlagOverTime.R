@@ -13,7 +13,7 @@
 #' @export
 Report_FlagOverTime <- function(dfSummary,
                                 dfMetrics,
-                                strGroupLevel = c("site", "study", "country")) {
+                                strGroupLevel = c("Site", "Study", "Country")) {
   strGroupLevel <- rlang::arg_match(strGroupLevel)
   dfFlagOverTime <- widen_summary(dfSummary, dfMetrics, strGroupLevel)
   date_cols <- stringr::str_which(
@@ -35,7 +35,7 @@ Report_FlagOverTime <- function(dfSummary,
 
 widen_summary <- function(dfSummary, dfMetrics, strGroupLevel) {
   dfMetrics_join <- dfMetrics %>%
-    dplyr::mutate(GroupLevel = tolower(.data$GroupLevel)) %>%
+    dplyr::mutate(GroupLevel = stringr::str_to_sentence(.data$GroupLevel)) %>%
     dplyr::filter(.data$GroupLevel == strGroupLevel) %>%
     dplyr::select(
       "MetricID",
@@ -43,7 +43,7 @@ widen_summary <- function(dfSummary, dfMetrics, strGroupLevel) {
       "GroupLevel"
     )
   dfFlagOverTime <- dfSummary %>%
-    dplyr::mutate(GroupLevel = tolower(.data$GroupLevel)) %>%
+    dplyr::mutate(GroupLevel = stringr::str_to_sentence(.data$GroupLevel)) %>%
     dplyr::inner_join(dfMetrics_join, by = c("MetricID", "GroupLevel")) %>%
     dplyr::select(
       "GroupLevel",
@@ -53,9 +53,6 @@ widen_summary <- function(dfSummary, dfMetrics, strGroupLevel) {
       "SnapshotDate",
       "Flag"
     )
-  if (strGroupLevel == "site") {
-    dfFlagOverTime$GroupID <- as.integer(dfFlagOverTime$GroupID)
-  }
   dfFlagOverTime %>%
     dplyr::arrange(.data$SnapshotDate) %>%
     tidyr::pivot_wider(names_from = "SnapshotDate", values_from = "Flag") %>%

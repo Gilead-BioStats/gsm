@@ -31,7 +31,7 @@ Report_Setup <- function(dfGroups = NULL, dfMetrics = NULL, dfResults = NULL) {
 
   # Get the snapshot date
   if ("SnapshotDate" %in% names(dfResults)) {
-    output$SnapshotDate <- unique(dfResults$SnapshotDate) %>% max()
+    output$SnapshotDate <- max(dfResults$SnapshotDate)
   } else {
     cli_alert("No `SnapshotDate` detected in dfResults, setting to today: {Sys.Date()}")
     output$SnapshotDate <- Sys.Date()

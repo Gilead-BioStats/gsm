@@ -7,7 +7,7 @@
 Report_FlagOverTime(
   dfSummary,
   dfMetrics,
-  strGroupLevel = c("site", "study", "country")
+  strGroupLevel = c("Site", "Study", "Country")
 )
 }
 \arguments{
