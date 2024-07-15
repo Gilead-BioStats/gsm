@@ -1,21 +1,19 @@
 #' Helper function create charts for multiple metrics
 #'
-#' @param data The input data frame.
-#' @param strGroupLevel A string specifying the group type.
-#' @param strGroupCols A string specifying the group columns.
+#' @param dfResults A data frame with the results of the simulation.
+#' @param dfBounds A data frame with the bounds of the simulation.
+#' @param dfGroups A data frame with the groups of the simulation.
+#' @param dfMetrics A data frame with the metrics of the simulation.
 #'
-#' @return A long format data frame.
-#'
-#' @examples
-#' df <- data.frame(GroupID = c(1, 2, 3), Param1 = c(10, 20, 30), Param2 = c(100, 200, 300))
-#' MakeLongMeta(df, "GroupID")
+#' @return A list of charts for each metric.
+#
 #'
 #' @export
 
-MakeCharts <- function(dfSummary, dfBounds, dfGroups, dfMetrics){
+MakeCharts <- function(dfResults, dfBounds, dfGroups, dfMetrics){
     metrics<- unique(dfMetrics$MetricID)
     charts <- metrics %>% map(~Visualize_Metric(
-        dfSummary = dfSummary,
+        dfResults = dfResults,
         dfBounds = dfBounds,
         dfGroups = dfGroups,
         dfMetrics = dfMetrics,

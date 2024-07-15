@@ -35,7 +35,7 @@ HTMLWidgets.widget({
                 // generate time series
                 const instance = rbmViz.default.timeSeries(
                     el,
-                    input.dfSummary,
+                    input.dfResults,
                     input.lMetric,
                     input.vThreshold,
                     null, // confidence intervals parameter
@@ -47,7 +47,7 @@ HTMLWidgets.widget({
                 if (input.bAddGroupSelect) {
                     groupSelect = addGroupSelect(
                         el,
-                        input.dfSummary,
+                        input.dfResults,
                         instance,
                         `Highlighted ${input.lMetric.Group || 'group'}: `
                     );

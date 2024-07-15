@@ -6,7 +6,7 @@ steps:
   - name: MakeCharts
     output: lCharts 
     params:
-      dfSummary: dfResults
+      dfResults: dfResults
       dfGroups: dfGroups
       dfBounds: dfBounds
       dfMetrics: dfMetrics

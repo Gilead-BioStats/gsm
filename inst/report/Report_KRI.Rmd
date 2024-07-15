@@ -70,7 +70,7 @@ if(setup$GroupLevel == "Site"){
 htmltools::div(
   style = "table-layout: fixed; width: 100%; overflow: auto;",
   Widget_GroupOverview(
-      dfSummary= params$dfResults,
+      dfResults= params$dfResults,
       dfGroups= params$dfGroups,
       dfMetrics = params$dfMetrics, 
       strGroupLevel = setup$GroupLevel,

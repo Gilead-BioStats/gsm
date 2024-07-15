@@ -37,7 +37,7 @@ HTMLWidgets.widget({
                 // generate bar chart
                 const instance = rbmViz.default.barChart(
                     el,
-                    input.dfSummary,
+                    input.dfResults,
                     input.lMetric,
                     input.vThreshold,
                     input.dfGroups
@@ -48,7 +48,7 @@ HTMLWidgets.widget({
                 if (input.bAddGroupSelect) {
                     groupSelect = addGroupSelect(
                         el,
-                        input.dfSummary,
+                        input.dfResults,
                         instance,
                         `Highlighted ${input.lMetric.Group || 'group'}: `
                     );

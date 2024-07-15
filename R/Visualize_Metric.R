@@ -35,16 +35,16 @@ Visualize_Metric <- function(
 
   # Check for multiple snapshots --------------------------------------------
   # if SnapshotDate is missing set it to today for all records
-  if (!"SnapshotDate" %in% colnames(dfSummary)) {
-    dfSummary$SnapshotDate <- as.Date(Sys.Date())
+  if (!"SnapshotDate" %in% colnames(dfResults)) {
+    dfResults$SnapshotDate <- as.Date(Sys.Date())
   }
 
   # get number of snapshots
-  number_of_snapshots <- length(unique(dfSummary$SnapshotDate))
+  number_of_snapshots <- length(unique(dfResults$SnapshotDate))
 
   # use most recent snapshot date if strSnapshotDate is missing
   if (is.null(strSnapshotDate)) {
-    strSnapshotDate <- max(dfSummary$SnapshotDate)
+    strSnapshotDate <- max(dfResults$SnapshotDate)
   }
 
   # Filter to selected MetricID ----------------------------------------------

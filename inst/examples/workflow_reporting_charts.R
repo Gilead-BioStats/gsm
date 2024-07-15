@@ -104,7 +104,7 @@ lCharts <- Visualize_Metric(
 
  devtools::load_all()
  gsm::Widget_ScatterPlot(
-  dfSummary = dfSummary,
+  dfSummary = dfSummary ,
   lMetric = lMetric,
   dfGroups = dfGroups,
   dfBounds = dfBounds,
@@ -118,8 +118,8 @@ gsm::Visualize_Scatter(
 )
 
  gsm::Widget_BarChart(
-  dfSummary = dfSummary,
-  lMetric = lMetric,
+  dfResults = dfResults,
+  lMetrics = lMetric,
   dfGroups = dfSites,
   strOutcome = "Metric"
 )

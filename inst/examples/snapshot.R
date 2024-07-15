@@ -18,17 +18,18 @@ lData <- list(
     dSnapshotDate = Sys.Date(),
     strStudyID = "ABC-123"
 )
+
 devtools::load_all()
+
 ss_wf <- MakeWorkflowList(strNames = "snapshot")
 snapshot <- RunWorkflows(ss_wf, lData, bKeepInputData = TRUE)
-
-
 
 # TODO: Remove report debug code below
 lCharts= snapshot$lReports$lCharts
 dfResults= snapshot$lReporting$dfResults
 dfGroups= snapshot$lReporting$dfGroups
 dfMetrics= snapshot$lReporting$dfMetrics
+dfBounds<- snapshot$lReporting$dfBounds
 
 params <- list(
     lCharts = lCharts,
