@@ -59,7 +59,7 @@ The input data (\code{dfTransformed}) for \code{Analyze_NormalApprox_PredictBoun
 
 \examples{
 # Binary
-dfTransformed <- Transform_Rate(sampleInput)
+dfTransformed <- Transform_Rate(analyticsInput)
 
 dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "binary")
 dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed, c(-3, -2, 2, 3), strType = "binary")

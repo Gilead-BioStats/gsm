@@ -1,7 +1,7 @@
 test_that("Test with valid input and one group", {
-  result <- Report_Setup(dfGroups = sampleGroups,
-                         dfMetrics = sampleMetrics,
-                         dfResults = sampleResults)
+  result <- Report_Setup(dfGroups = reportingGroups,
+                         dfMetrics = reportingMetrics,
+                         dfResults = reportingResults)
 
   expect_equal(result$GroupLevel, "Site")
   expect_equal(result$SnapshotDate, as.Date("2012-12-31"))
@@ -11,15 +11,15 @@ test_that("Test with valid input and one group", {
 })
 
 test_that("Test with missing SnapshotDate and protocol number/title", {
-  sampleResults_alt <- sampleResults %>%
+  reportingResults_alt <- reportingResults %>%
     select(-SnapshotDate)
-  sampleGroups_alt <- sampleGroups %>%
+  reportingGroups_alt <- reportingGroups %>%
     filter(!Param %in% c("protocol_title", "protocol_number"))
 
   expect_message(
     {
       today <- Sys.Date()
-      result <- Report_Setup(sampleGroups_alt, sampleMetrics, sampleResults_alt)
+      result <- Report_Setup(reportingGroups_alt, reportingMetrics, reportingResults_alt)
     },
     "No `SnapshotDate`"
   )
@@ -32,10 +32,10 @@ test_that("Test with missing SnapshotDate and protocol number/title", {
 })
 
 test_that("Test StudyID output with missing protocol number", {
-  sampleGroups_alt <- sampleGroups %>%
+  reportingGroups_alt <- reportingGroups %>%
     filter(Param != "protocol_number")
 
-  result <- Report_Setup(sampleGroups_alt, sampleMetrics, sampleResults)
+  result <- Report_Setup(reportingGroups_alt, reportingMetrics, reportingResults)
 
   expect_equal(result$GroupLevel, "Site")
   expect_equal(result$SnapshotDate, as.Date("2012-12-31"))
@@ -50,7 +50,7 @@ test_that("dfSummary empty data frame", {
   expect_message(
     {
       today <- Sys.Date()
-      result <- Report_Setup(sampleGroups, sampleMetrics, dfSummary)
+      result <- Report_Setup(reportingGroups, reportingMetrics, dfSummary)
     },
     "No `SnapshotDate`"
   )

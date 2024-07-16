@@ -24,7 +24,7 @@
 #' when associated with a workflow.
 #'
 #' @examples
-#' dfTransformed <- Transform_Rate(sampleInput)
+#' dfTransformed <- Transform_Rate(analyticsInput)
 #'
 #' dfAnalyzed <- Analyze_Poisson(dfTransformed)
 #'

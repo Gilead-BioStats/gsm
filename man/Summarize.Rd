@@ -36,7 +36,7 @@ Create a concise summary of assessment results that is easy to aggregate across 
 }
 
 \examples{
-dfTransformed <- Transform_Rate(sampleInput)
+dfTransformed <- Transform_Rate(analyticsInput)
 
 dfAnalyzed <- Analyze_Poisson(dfTransformed)
 

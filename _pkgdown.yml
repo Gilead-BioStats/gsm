@@ -143,9 +143,11 @@ reference:
   - title: Sample Data
     desc: data used for examples and testing
   - contents:
-      - sampleBounds
-      - sampleGroups
-      - sampleInput
-      - sampleMetrics
-      - sampleResults
-      - sampleSummary
+      - analyticsInput
+      - analyticsBounds
+      - analyticsSummary
+      - reportingBounds
+      - reportingGroups
+      - reportingMetrics
+      - reportingResults
+
