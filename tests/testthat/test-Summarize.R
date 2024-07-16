@@ -1,15 +1,14 @@
-dfFlagged <- tibble::tibble(
-  GroupID = c("702", "703", "701"),
-  GroupLevel = rep("site", 3),
-  Numerator = c(1, 3, 5),
-  Denominator = c(180, 14, 210),
-  Metric = c(0.0055, 0.2142, 0.0238),
-  Score = c(-1.37, 0.0684, 1.01),
-  PredictedCount = c(3.05, 2.88, 3.06),
-  Flag = c(0, 0, 0)
-)
-
 test_that("output created as expected and has correct structure", {
+  dfFlagged <- tibble::tibble(
+    GroupID = c("702", "703", "701"),
+    GroupLevel = rep("site", 3),
+    Numerator = c(1, 3, 5),
+    Denominator = c(180, 14, 210),
+    Metric = c(0.0055, 0.2142, 0.0238),
+    Score = c(-1.37, 0.0684, 1.01),
+    PredictedCount = c(3.05, 2.88, 3.06),
+    Flag = c(0, 0, 0)
+  )
   ae_default <- Summarize(dfFlagged)
   expect_true(is.data.frame(ae_default))
   expect_equal(
@@ -28,6 +27,16 @@ test_that("output created as expected and has correct structure", {
 })
 
 test_that("incorrect inputs throw errors", {
+  dfFlagged <- tibble::tibble(
+    GroupID = c("702", "703", "701"),
+    GroupLevel = rep("site", 3),
+    Numerator = c(1, 3, 5),
+    Denominator = c(180, 14, 210),
+    Metric = c(0.0055, 0.2142, 0.0238),
+    Score = c(-1.37, 0.0684, 1.01),
+    PredictedCount = c(3.05, 2.88, 3.06),
+    Flag = c(0, 0, 0)
+  )
   expect_error(Summarize(list()))
   expect_error(Summarize("Hi"))
   expect_error(Summarize(ae_flag, 12312))
@@ -59,7 +68,7 @@ test_that("output is correctly sorted by Flag and Score", {
 })
 
 test_that("yaml workflow produces same table as R function", {
-  #yaml workflow
+  # yaml workflow
   test_wf <- MakeWorkflowList(strPath = test_path("testdata"), strNames = "test_workflow")
   test_mapping <- MakeWorkflowList(strPath = test_path("testdata"), strNames = "mapping")
   lRaw <- gsm::UseClindata(
@@ -68,27 +77,28 @@ test_that("yaml workflow produces same table as R function", {
       "dfAE" = "clindata::rawplus_ae"
       )
     )
-  lMapped <- RunWorkflow(lWorkflow = test_mapping[[1]], lData = lRaw)$lData
-  lResults <- RunWorkflow(lWorkflow=test_wf[[1]], lData=lMapped)
+  lMapped <- quiet_RunWorkflow(lWorkflow = test_mapping[[1]], lData = lRaw)
+  lResults <- quiet_RunWorkflow(lWorkflow = test_wf[[1]], lData = lMapped)
 
-  #functional workflow
+  # functional workflow
+  dfSeriousAE <- clindata::rawplus_ae %>%
+    dplyr::filter(aeser == "Y")
   dfInput <- Input_Rate(
-    dfSubjects= clindata::rawplus_dm,
-    dfNumerator= clindata::rawplus_ae,
+    dfSubjects = clindata::rawplus_dm,
+    dfNumerator = dfSeriousAE,
     dfDenominator = clindata::rawplus_dm,
     strSubjectCol = "subjid",
     strGroupCol = "siteid",
-    strNumeratorMethod= "Count",
-    strDenominatorMethod= "Sum",
-    strDenominatorCol= "timeonstudy"
+    strNumeratorMethod = "Count",
+    strDenominatorMethod = "Sum",
+    strDenominatorCol = "timeonstudy"
   )
   dfTransformed <- Transform_Rate(dfInput)
-  dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "rate")
+  dfAnalyzed <- quiet_Analyze_NormalApprox(dfTransformed, strType = "rate")
   dfFlagged <- Flag_NormalApprox(dfAnalyzed, vThreshold = c(-2,-1,2,3))
   dfSummarized <- Summarize(dfFlagged)
 
-  expect_equal(dfSummarized$Flag, lResults$lData$dfSummary$Flag)
-  expect_equal(dim(lResults$lData$dfSummary), dim(dfSummarized))
-
+  expect_equal(dfSummarized$Flag, lResults$dfSummary$Flag)
+  expect_equal(dim(dfSummarized), dim(lResults$dfSummary))
 })
 
