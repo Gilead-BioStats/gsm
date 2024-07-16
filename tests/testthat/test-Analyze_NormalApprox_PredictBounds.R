@@ -1,5 +1,5 @@
 test_that("Analyze_NormalApprox_PredictBounds handles missing nStep correctly", {
-  dfTransformed <- Transform_Rate(sampleInput)
+  dfTransformed <- Transform_Rate(analyticsInput)
   expect_message(
     {dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed)},
     class = "gsm_msg-default_nStep",
@@ -8,7 +8,7 @@ test_that("Analyze_NormalApprox_PredictBounds handles missing nStep correctly", 
 })
 
 test_that("Analyze_NormalApprox_PredictBounds handles missing nStep for weird range", {
-  dfTransformed <- Transform_Rate(sampleInput)
+  dfTransformed <- Transform_Rate(analyticsInput)
   dfTransformed <- dfTransformed %>%
     dplyr::mutate(
       Denominator = .data$Denominator[[1]],
@@ -22,7 +22,7 @@ test_that("Analyze_NormalApprox_PredictBounds handles missing nStep for weird ra
 })
 
 test_that("Analyze_NormalApprox_PredictBounds handles missing vThreshold correctly", {
-  dfTransformed <- Transform_Rate(sampleInput)
+  dfTransformed <- Transform_Rate(analyticsInput)
 
   expect_message(
     {
@@ -39,7 +39,7 @@ test_that("Analyze_NormalApprox_PredictBounds handles missing vThreshold correct
 })
 
 test_that("Analyze_NormalApprox_PredictBounds processes data correctly", {
-  dfTransformed <- Transform_Rate(sampleInput)
+  dfTransformed <- Transform_Rate(analyticsInput)
 
   dfBounds <- quiet_Analyze_NormalApprox_PredictBounds(dfTransformed)
 
@@ -48,7 +48,7 @@ test_that("Analyze_NormalApprox_PredictBounds processes data correctly", {
 })
 
 test_that("Analyze_NormalApprox_PredictBounds handles edge cases for vThreshold", {
-  dfTransformed <- Transform_Rate(sampleInput)
+  dfTransformed <- Transform_Rate(analyticsInput)
 
   dfBounds <- quiet_Analyze_NormalApprox_PredictBounds(
     dfTransformed,
