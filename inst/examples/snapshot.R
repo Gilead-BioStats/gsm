@@ -19,8 +19,6 @@ lData <- list(
     strStudyID = "ABC-123"
 )
 
-devtools::load_all()
-
 ss_wf <- MakeWorkflowList(strNames = "snapshot")
 snapshot <- RunWorkflows(ss_wf, lData, bKeepInputData = TRUE)
 
