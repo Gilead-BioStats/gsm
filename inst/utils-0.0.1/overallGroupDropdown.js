@@ -9,7 +9,7 @@ function overallClick() {
 
 
   for (const widget of widgets) {
-    if (widget.type === "timeSeriesContinuousJS") {
+      if (/timeSeries/.test(widget.type)) {
       widget.chart.helpers.updateSelectedGroupIDs(event.target.value);
     } else {
         widget.chart.data.config.selectedGroupIDs = event.target.value; // group ID
