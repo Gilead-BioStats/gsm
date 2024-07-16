@@ -64,8 +64,8 @@ The pipeline discussed here is a standardized process for creating datasets by g
 1. `dfSummary`: Summary data; Standardized subset of the flagged data. This summary data has the same structure for all assessments and always includes both KRI and Flag values so that a user can easily look at trends for any given site across multiple assessments. Created using the `Summarize()` function.
 4. `dfFlagged`: Flagged data; Site-level analysis results with flags added to indicate potential statistical outliers. Created by passing numeric thresholds to a `Flag_*()` function.
 3. `dfBounds`: Bounded data; A data.frame containing predicted boundary values with upper and lower bounds across the range of observed values. Created with an `Analyze_*_PredictBounds()` function.
-4. `dfGroups`: Grouped data; Long data.frame of summarized group CTMS data with site, study, and country level counts and metrics. Constructed by binding data.frames created with `MakeGroupInfo()`.
-5. `dfMetrics`: Metric metadata; Metric-specific metadata for use in charts and reporting. Created by passing an `lWorkflow` object to the `MakeMetricInfo()` function.
+4. `dfGroups`: Grouped data; Long data.frame of summarized group CTMS data with site, study, and country level counts and metrics. Constructed by binding data.frames created with `MakeLongMeta()`.
+5. `dfMetrics`: Metric metadata; Metric-specific metadata for use in charts and reporting. Created by passing an `lWorkflow` object to the `MakeMetric()` function.
 
 The reporting data pipeline has a `yaml` file that runs through all steps to produce all five of these data.frames so that they can be used to create charts and reports. This `yaml` file, and all analysis workflow yaml files can be found  at `system.file("workflow/metrics", package = "gsm")`. The `lData` list required to run this workflow with `RunWorkflow()` must contain the following elements:
 
@@ -382,7 +382,7 @@ Expected `Param` by `GroupLevel` for use in gsm reporting. Fine to add other Par
 
 
 ###  `dfMetrics`
-  - Function used to create table: `MakeMetricInfo()`
+  - Function used to create table: `MakeMetric()`
   - Inputs: `lWorkflow` - metadata from the corresponding kri `.yaml` file
   - Usage: Metadata used for charts and tables
   - Structure:

@@ -16,9 +16,12 @@ test_that("It handles different lSetup group values correctly", {
 })
 
 test_that("Data filtering checks", {
-  lSetup <- list(GroupLevel = "Site", SnapshotDate = "2012-09-30", StudyID = "AA-AA-000-0000")
-  lStudy <- list(ParticipantCount ="1301",
-                 SiteCount = "176")
+  lSetup <- list(
+    GroupLevel = "Site",
+    SnapshotDate = "2012-09-30",
+    StudyID = "AA-AA-000-0000"
+  )
+  lStudy <- list(ParticipantCount = "1301", SiteCount = "176")
 
   expect_output(Report_OverviewText(lSetup, sampleResults, lStudy), "11 sites have at least one red KRI")
   expect_output(Report_OverviewText(lSetup, sampleResults, lStudy), "107 sites have at least one red or amber KRI")
@@ -54,4 +57,3 @@ test_that("Handles different flag configurations", {
   expect_output(Report_OverviewText(lSetup, dfSummary, lStudy), "3 sites have at least one red or amber KRI")
   expect_output(Report_OverviewText(lSetup, dfSummary, lStudy), "1 sites have neither red nor amber KRIS and are not shown")
 })
-

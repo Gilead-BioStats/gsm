@@ -8,7 +8,7 @@
 #'
 #' @param dfResults `data.frame` Output of [Summarize()] and [BindResults()]. Must contain a 'SnapshotDate' column.
 #' @param lMetric `list` Metric metadata, captured at the top of metric workflows and returned by
-#' [MakeMetricInfo()].
+#' [MakeMetric()].
 #' @param dfGroups `data.frame` Group metadata.
 #' @param vThreshold `numeric` Threshold value(s).
 #' @param strOutcome `character` Outcome variable. Default: 'Score'.

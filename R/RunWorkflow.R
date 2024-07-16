@@ -41,7 +41,7 @@ RunWorkflow <- function(
   bKeepInputData = FALSE
 ) {
   cli::cli_h1(paste0("Initializing `", lWorkflow$meta$File, "` Workflow"))
-  print(names(lData))
+  cli::cli_alert("Colnames: {names(lData)}")
 
   # check that the workflow has steps
   if(length(lWorkflow$steps) == 0) {

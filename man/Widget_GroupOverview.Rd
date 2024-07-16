@@ -18,7 +18,7 @@ Widget_GroupOverview(
 \item{dfResults}{\code{data.frame} Output of \code{\link[=Summarize]{Summarize()}} and \code{\link[=BindResults]{BindResults()}}.}
 
 \item{dfMetrics}{\code{list} Metric metadata, captured at the top of metric workflows and returned by
-\code{\link[=MakeMetricInfo]{MakeMetricInfo()}}.}
+\code{\link[=MakeMetric]{MakeMetric()}}.}
 
 \item{dfGroups}{\code{data.frame} Group metadata.}
 
@@ -31,6 +31,8 @@ Widget_GroupOverview(
 \item 'red/amber': Groups with 1+ red/amber flag.
 \item 'amber': Groups with 1+ amber flag.
 }}
+
+\item{strGroupLabelKey}{\code{character} Value for the group label key. Default: 'InvestigatorLastName'.}
 
 \item{bDebug}{\code{logical} Print debug messages? Default: \code{FALSE}.}
 }

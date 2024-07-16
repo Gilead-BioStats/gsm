@@ -9,7 +9,6 @@ A data frame with 176 rows and 7 columns:
 \describe{
 \item{GroupID}{grouping variable}
 \item{GroupLevel}{level of grouping variable}
-\item{MetricID}{unique metric identifier}
 \item{Numerator}{number of flags in group}
 \item{Denominator}{total subjects in group}
 \item{Metric}{calculated rate/metric value}

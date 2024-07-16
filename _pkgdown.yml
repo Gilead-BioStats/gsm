@@ -117,8 +117,10 @@ reference:
      # -  MakeResultsSummary
      # -  MakeStatusWorkflow
      # -  MakeStratifiedAssessment
-     -  MakeGroupInfo
-     -  MakeMetricInfo
+     -  MakeCharts
+     -  MakeMetric
+     -  MakeLongMeta
+     -  MakeWideGroups
      -  MakeWorkflowList
      # -  Make_Snapshot
      # -  MergeSubjects
