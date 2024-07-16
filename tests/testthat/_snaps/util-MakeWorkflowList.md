@@ -3957,7 +3957,7 @@
       [1] "lCharts"
       
       $reports[[1]]$params
-      $reports[[1]]$params$dfSummary
+      $reports[[1]]$params$dfResults
       [1] "dfResults"
       
       $reports[[1]]$params$dfGroups
