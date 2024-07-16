@@ -5,14 +5,13 @@
 \title{Summarize flags by SnapshotDate}
 \usage{
 Report_FlagOverTime(
-  dfSummary,
+  dfResults,
   dfMetrics,
   strGroupLevel = c("Site", "Study", "Country")
 )
 }
 \arguments{
-\item{dfSummary}{A summary of assessment results such as the ones generated
-by \code{\link[=Summarize]{Summarize()}}.}
+\item{dfResults}{A data frame containing result information.}
 
 \item{dfMetrics}{Metric-specific metadata created by passing an \code{lWorkflow}
 object to the \code{\link[=MakeMetric]{MakeMetric()}} function.}
