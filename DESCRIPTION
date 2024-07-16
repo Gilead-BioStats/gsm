@@ -49,6 +49,7 @@ Imports:
 Suggests:
     clindata,
     covr,
+    DT,
     fontawesome (>= 0.2.2),
     gggenes,
     ggiraph,

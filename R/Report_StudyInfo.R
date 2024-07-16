@@ -60,10 +60,10 @@ Report_StudyInfo <- function(
 
   show_table <- study_status_table %>%
     slice(1:5) %>%
-    gt::gt(id = "study_table")
+    gsm_gt(id = "study_table")
 
   hide_table <- study_status_table %>%
-    gt::gt(id = "study_table_hide")
+    gsm_gt(id = "study_table_hide")
 
   toggle_switch <- glue::glue('<label class="toggle">
   <input class="toggle-checkbox btn-show-details" type="checkbox">

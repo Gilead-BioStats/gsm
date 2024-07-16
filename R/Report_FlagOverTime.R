@@ -3,19 +3,18 @@
 #' Create a table of longitudinal study data by site, study, or country, showing
 #' flags over time.
 #'
-#' @param dfSummary A summary of assessment results such as the ones generated
-#'   by [Summarize()].
+#' @param dfResults A data frame containing result information.
 #' @param dfMetrics Metric-specific metadata created by passing an `lWorkflow`
-#'   object to the [MakeMetricInfo()] function.
+#'   object to the [MakeMetric()] function.
 #' @param strGroupLevel A string specifying the group type.
 #'
 #' @inherit gt-shared return
 #' @export
-Report_FlagOverTime <- function(dfSummary,
+Report_FlagOverTime <- function(dfResults,
                                 dfMetrics,
-                                strGroupLevel = c("site", "study", "country")) {
+                                strGroupLevel = c("Site", "Study", "Country")) {
   strGroupLevel <- rlang::arg_match(strGroupLevel)
-  dfFlagOverTime <- widen_summary(dfSummary, dfMetrics, strGroupLevel)
+  dfFlagOverTime <- widen_results(dfResults, dfMetrics, strGroupLevel)
   date_cols <- stringr::str_which(
     colnames(dfFlagOverTime),
     r"(\d{4}-\d{2}-\d{2})"
@@ -33,17 +32,17 @@ Report_FlagOverTime <- function(dfSummary,
     )
 }
 
-widen_summary <- function(dfSummary, dfMetrics, strGroupLevel) {
+widen_results <- function(dfResults, dfMetrics, strGroupLevel) {
   dfMetrics_join <- dfMetrics %>%
-    dplyr::mutate(GroupLevel = tolower(.data$GroupLevel)) %>%
+    dplyr::mutate(GroupLevel = stringr::str_to_sentence(.data$GroupLevel)) %>%
     dplyr::filter(.data$GroupLevel == strGroupLevel) %>%
     dplyr::select(
       "MetricID",
       "Abbreviation",
       "GroupLevel"
     )
-  dfFlagOverTime <- dfSummary %>%
-    dplyr::mutate(GroupLevel = tolower(.data$GroupLevel)) %>%
+  dfFlagOverTime <- dfResults %>%
+    dplyr::mutate(GroupLevel = stringr::str_to_sentence(.data$GroupLevel)) %>%
     dplyr::inner_join(dfMetrics_join, by = c("MetricID", "GroupLevel")) %>%
     dplyr::select(
       "GroupLevel",
@@ -53,9 +52,6 @@ widen_summary <- function(dfSummary, dfMetrics, strGroupLevel) {
       "SnapshotDate",
       "Flag"
     )
-  if (strGroupLevel == "site") {
-    dfFlagOverTime$GroupID <- as.integer(dfFlagOverTime$GroupID)
-  }
   dfFlagOverTime %>%
     dplyr::arrange(.data$SnapshotDate) %>%
     tidyr::pivot_wider(names_from = "SnapshotDate", values_from = "Flag") %>%

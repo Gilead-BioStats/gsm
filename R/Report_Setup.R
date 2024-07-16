@@ -22,7 +22,7 @@ Report_Setup <- function(dfGroups = NULL, dfMetrics = NULL, dfResults = NULL) {
 
   # Get type of report
   group <- unique(dfMetrics$GroupLevel)
-  if(length( group )==1) {
+  if (length( group ) == 1) {
     output$GroupLevel <- group
   } else {
     cli_alert("Multiple `GroupLevel`s detected in dfMetrics, so GroupLevel not specifed for KRI Report. ")
@@ -30,8 +30,8 @@ Report_Setup <- function(dfGroups = NULL, dfMetrics = NULL, dfResults = NULL) {
   }
 
   # Get the snapshot date
-  if("SnapshotDate" %in% names(dfResults)) {
-    output$SnapshotDate <- unique(dfResults$SnapshotDate[[1]]) %>% max()
+  if ("SnapshotDate" %in% names(dfResults)) {
+    output$SnapshotDate <- max(dfResults$SnapshotDate)
   } else {
     cli_alert("No `SnapshotDate` detected in dfResults, setting to today: {Sys.Date()}")
     output$SnapshotDate <- Sys.Date()
@@ -41,27 +41,27 @@ Report_Setup <- function(dfGroups = NULL, dfMetrics = NULL, dfResults = NULL) {
   # Get the study-level metadata
   output$lStudy <- dfGroups %>%
     dplyr::filter(.data$GroupLevel == "Study") %>%
-    select(Param, Value) %>%
-    pivot_wider(names_from="Param", values_from="Value") %>%
+    select("Param", "Value") %>%
+    pivot_wider(names_from = "Param", values_from = "Value") %>%
     as.list
 
-  if("protocol_number" %in% names(output$lStudy)) {
+  if ("protocol_number" %in% names(output$lStudy)) {
       output$StudyID <- output$lStudy$protocol_number
-  } else  if("protocol_title" %in% names(output$lStudy)) {
+  } else if ("protocol_title" %in% names(output$lStudy)) {
       output$StudyID <- output$lStudy$protocol_title
   } else {
-      output$StudyID <-"Unknown"
+      output$StudyID <- "Unknown"
   }
 
   # Count Red and Amber Flags for most recent snapshot
   output$red_kris <- dfResults %>%
-    filter(SnapshotDate == output$SnapshotDate) %>%
+    filter(.data$SnapshotDate == output$SnapshotDate) %>%
     mutate(red_flag = ifelse(.data[["Flag"]] %in% c(-2, 2), 1, 0)) %>%
     pull(.data[["red_flag"]]) %>%
     sum()
 
   output$amber_kris <- dfResults %>%
-    filter(SnapshotDate == output$SnapshotDate) %>%
+    filter(.data$SnapshotDate == output$SnapshotDate) %>%
     mutate(amber_flag = ifelse(.data[["Flag"]] %in% c(-1, 1), 1, 0)) %>%
     pull(.data[["amber_flag"]]) %>%
     sum()

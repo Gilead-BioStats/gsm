@@ -8,7 +8,7 @@
 #'
 #' @param dfResults `data.frame` Output of [Summarize()] and [BindResults()].
 #' @param lMetric `list` Metric metadata, captured at the top of metric workflows and returned by
-#' [MakeMetricInfo()].
+#' [MakeMetric()].
 #' @param dfGroups `data.frame` Group metadata.
 #' @param dfBounds `data.frame` Output of [Analyze_NormalApprox_PredictBounds()] or
 #' [Analyze_Poisson_PredictBounds()]

@@ -7,9 +7,12 @@
 Report_FormatFlag(flag_value, title = NULL)
 }
 \arguments{
-\item{flag_value}{\code{numeric} Value between -2 and 2.}
+\item{flag_value}{\code{numeric} Values between -2 and 2.}
 
 \item{title}{\code{character} Data that will be passed to the \if{html}{\out{<title>}} tag.}
+}
+\value{
+A character vector of fontawesome icon SVGs.
 }
 \description{
 Reporting utility function to create fontawesome directionality logos`

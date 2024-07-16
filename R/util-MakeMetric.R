@@ -8,7 +8,7 @@
 #'
 #' @examples
 #' lWorkflows <- MakeWorkflowList(strNames = "kri")
-#' dfMetrics <- MakeMetricInfo(lWorkflows)
+#' dfMetrics <- MakeMetric(lWorkflows)
 #'
 #' @export
 

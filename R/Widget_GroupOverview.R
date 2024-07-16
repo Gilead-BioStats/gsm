@@ -8,7 +8,7 @@
 #'
 #' @param dfResults `data.frame` Output of [Summarize()] and [BindResults()].
 #' @param dfMetrics `list` Metric metadata, captured at the top of metric workflows and returned by
-#' [MakeMetricInfo()].
+#' [MakeMetric()].
 #' @param dfGroups `data.frame` Group metadata.
 #' @param strGroupLevel `character` Value for the group level. Default: NULL and taken from `dfMetrics$GroupLevel` if available.
 #' @param strGroupSubset `character` Subset of groups to include in the table. Default: 'red'. Options:
@@ -16,6 +16,7 @@
 #' - 'red': Groups with 1+ red flags.
 #' - 'red/amber': Groups with 1+ red/amber flag.
 #' - 'amber': Groups with 1+ amber flag.
+#' @param strGroupLabelKey `character` Value for the group label key. Default: 'InvestigatorLastName'.
 #' @param bDebug `logical` Print debug messages? Default: `FALSE`.
 #'
 #' @examples
