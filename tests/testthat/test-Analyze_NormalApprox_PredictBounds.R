@@ -1,0 +1,45 @@
+test_that("Analyze_NormalAPprox_PredictBounds handles missing nStep correctly", {
+  dfTransformed <- Transform_Rate(sampleInput)
+  expect_message(
+    {dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed)},
+    class = "gsm_msg-default_nStep",
+    regexp = "1\\.028"
+  )
+})
+
+test_that("Analyze_NormalApprox_PredictBounds handles missing vThreshold correctly", {
+  dfTransformed <- Transform_Rate(sampleInput)
+
+  expect_message(
+    {
+      dfBounds <- quiet_Analyze_NormalApprox_PredictBounds(
+        dfTransformed,
+        vThreshold = NULL,
+        msg_classes = "default_nStep"
+      )
+    },
+    "vThreshold was not provided"
+  )
+
+  expect_equal(sort(unique(dfBounds$Threshold)), sort(c(-3, -2, 0, 2, 3)))
+})
+
+test_that("Analyze_NormalApprox_PredictBounds processes data correctly", {
+  dfTransformed <- Transform_Rate(sampleInput)
+
+  dfBounds <- quiet_Analyze_NormalApprox_PredictBounds(dfTransformed)
+
+  expect_true(all(c("Threshold", "LogDenominator", "Denominator", "Numerator") %in% names(dfBounds)))
+  expect_equal(dfBounds$Threshold[1], -3)
+})
+
+test_that("Analyze_NormalApprox_PredictBounds handles edge cases for vThreshold", {
+  dfTransformed <- Transform_Rate(sampleInput)
+
+  dfBounds <- quiet_Analyze_NormalApprox_PredictBounds(
+    dfTransformed,
+    vThreshold = c(0)
+  )
+
+  expect_equal(unique(dfBounds$Threshold), 0)
+})

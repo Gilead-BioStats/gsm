@@ -1,5 +1,11 @@
 test_that("binary output created as expected and has correct structure", {
-  dfTransformed <- test_dfTransformed
+  dfTransformed <- tibble::tibble(
+    GroupID      = c("166", "76", "86"),
+    GroupLevel    = c("site", "site", "site"),
+    Numerator    = c(0, 1, 0),
+    Denominator  = c(1, 1, 1),
+    Metric       = c(0, 1, 0)
+  )
   expect_message(
     {binary <- Analyze_NormalApprox(dfTransformed, strType = "binary")},
     "`OverallMetric`,"
@@ -25,7 +31,13 @@ test_that("rate output created as expected and has correct structure", {
 })
 
 test_that("incorrect inputs throw errors", {
-  dfTransformed <- test_dfTransformed
+  dfTransformed <- tibble::tibble(
+    GroupID      = c("166", "76", "86"),
+    GroupLevel    = c("site", "site", "site"),
+    Numerator    = c(0, 1, 0),
+    Denominator  = c(1, 1, 1),
+    Metric       = c(0, 1, 0)
+  )
   expect_error(Analyze_NormalApprox(list()))
   expect_error(Analyze_NormalApprox("Hi"))
   expect_error(Analyze_NormalApprox(dfTransformed, strOutcome = ":("))
@@ -33,7 +45,13 @@ test_that("incorrect inputs throw errors", {
 })
 
 test_that("error given if required column not found", {
-  dfTransformed <- test_dfTransformed
+  dfTransformed <- tibble::tibble(
+    GroupID      = c("166", "76", "86"),
+    GroupLevel    = c("site", "site", "site"),
+    Numerator    = c(0, 1, 0),
+    Denominator  = c(1, 1, 1),
+    Metric       = c(0, 1, 0)
+  )
   expect_error(Analyze_NormalApprox(dfTransformed %>% select(-GroupID)))
   expect_error(Analyze_NormalApprox(dfTransformed %>% select(-Numerator)))
   expect_error(Analyze_NormalApprox(dfTransformed %>% select(-Denominator)))
@@ -41,7 +59,13 @@ test_that("error given if required column not found", {
 })
 
 test_that("NAs are handled correctly", {
-  dfTransformed <- test_dfTransformed
+  dfTransformed <- tibble::tibble(
+    GroupID      = c("166", "76", "86"),
+    GroupLevel    = c("site", "site", "site"),
+    Numerator    = c(0, 1, 0),
+    Denominator  = c(1, 1, 1),
+    Metric       = c(0, 1, 0)
+  )
   createNA <- function(data, variable) {
     data[[variable]][[1]] <- NA
     return(quiet_Analyze_NormalApprox(data))
@@ -50,7 +74,13 @@ test_that("NAs are handled correctly", {
 })
 
 test_that("Score (z_i) is 0 when vMu is 1 or 0", {
-  dfTransformed <- test_dfTransformed
+  dfTransformed <- tibble::tibble(
+    GroupID      = c("166", "76", "86"),
+    GroupLevel    = c("site", "site", "site"),
+    Numerator    = c(0, 1, 0),
+    Denominator  = c(1, 1, 1),
+    Metric       = c(0, 1, 0)
+  )
   # z_i == 1
   result_one <- quiet_Analyze_NormalApprox(
     dfTransformed %>%
