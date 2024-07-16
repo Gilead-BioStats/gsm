@@ -11,11 +11,154 @@
     Code
       dplyr::as_tibble(x$`_styles`)
     Output
-      # A tibble: 0 x 7
-      # i 7 variables: locname <chr>, grpname <chr>, colname <chr>, locnum <dbl>,
-      #   rownum <int>, colnum <int>, styles <list>
+      # A tibble: 12 x 7
+         locname grpname colname    locnum rownum colnum styles    
+         <chr>   <chr>   <chr>       <dbl>  <int>  <int> <list>    
+       1 data    <NA>    2012-10-31      5      1     NA <cll_styl>
+       2 data    <NA>    2012-10-31      5      2     NA <cll_styl>
+       3 data    <NA>    2012-10-31      5      3     NA <cll_styl>
+       4 data    <NA>    2012-10-31      5      4     NA <cll_styl>
+       5 data    <NA>    2012-10-31      5      5     NA <cll_styl>
+       6 data    <NA>    2012-10-31      5      6     NA <cll_styl>
+       7 data    <NA>    2012-10-31      5      1     NA <cll_styl>
+       8 data    <NA>    2012-10-31      5      2     NA <cll_styl>
+       9 data    <NA>    2012-10-31      5      3     NA <cll_styl>
+      10 data    <NA>    2012-10-31      5      4     NA <cll_styl>
+      11 data    <NA>    2012-10-31      5      5     NA <cll_styl>
+      12 data    <NA>    2012-10-31      5      6     NA <cll_styl>
     Code
       x$`_styles`$styles
     Output
-      list()
+      [[1]]
+      $cell_fill
+      $color
+      [1] "#52C41A"
+      
+      attr(,"class")
+      [1] "cell_fill"  "cell_style"
+      
+      attr(,"class")
+      [1] "cell_styles"
+      
+      [[2]]
+      $cell_fill
+      $color
+      [1] "#FF0040"
+      
+      attr(,"class")
+      [1] "cell_fill"  "cell_style"
+      
+      attr(,"class")
+      [1] "cell_styles"
+      
+      [[3]]
+      $cell_fill
+      $color
+      [1] "#FFBF00"
+      
+      attr(,"class")
+      [1] "cell_fill"  "cell_style"
+      
+      attr(,"class")
+      [1] "cell_styles"
+      
+      [[4]]
+      $cell_fill
+      $color
+      [1] "#52C41A"
+      
+      attr(,"class")
+      [1] "cell_fill"  "cell_style"
+      
+      attr(,"class")
+      [1] "cell_styles"
+      
+      [[5]]
+      $cell_fill
+      $color
+      [1] "#52C41A"
+      
+      attr(,"class")
+      [1] "cell_fill"  "cell_style"
+      
+      attr(,"class")
+      [1] "cell_styles"
+      
+      [[6]]
+      $cell_fill
+      $color
+      [1] "#FFBF00"
+      
+      attr(,"class")
+      [1] "cell_fill"  "cell_style"
+      
+      attr(,"class")
+      [1] "cell_styles"
+      
+      [[7]]
+      $cell_text
+      $color
+      [1] "#000000"
+      
+      attr(,"class")
+      [1] "cell_text"  "cell_style"
+      
+      attr(,"class")
+      [1] "cell_styles"
+      
+      [[8]]
+      $cell_text
+      $color
+      [1] "#FFFFFF"
+      
+      attr(,"class")
+      [1] "cell_text"  "cell_style"
+      
+      attr(,"class")
+      [1] "cell_styles"
+      
+      [[9]]
+      $cell_text
+      $color
+      [1] "#000000"
+      
+      attr(,"class")
+      [1] "cell_text"  "cell_style"
+      
+      attr(,"class")
+      [1] "cell_styles"
+      
+      [[10]]
+      $cell_text
+      $color
+      [1] "#000000"
+      
+      attr(,"class")
+      [1] "cell_text"  "cell_style"
+      
+      attr(,"class")
+      [1] "cell_styles"
+      
+      [[11]]
+      $cell_text
+      $color
+      [1] "#000000"
+      
+      attr(,"class")
+      [1] "cell_text"  "cell_style"
+      
+      attr(,"class")
+      [1] "cell_styles"
+      
+      [[12]]
+      $cell_text
+      $color
+      [1] "#000000"
+      
+      attr(,"class")
+      [1] "cell_text"  "cell_style"
+      
+      attr(,"class")
+      [1] "cell_styles"
+      
 
