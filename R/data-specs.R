@@ -1,3 +1,32 @@
+#' sampleInput Dataset
+#'
+#' @format A data frame with 25 rows and 5 columns:
+#' \describe{
+#'   \item{SubjectID}{unique subject identifier}
+#'   \item{GroupID}{grouping variable}
+#'   \item{GroupLevel}{level of grouping variable}
+#'   \item{Numerator}{number of flags in group}
+#'   \item{Denominator}{total subjects in group}
+#' }
+#' @source Generated from `sampleInput.csv` dataset in the `gsm` package.
+"sampleInput"
+
+#' sampleSummary Dataset
+#'
+#' @format A data frame with 176 rows and 7 columns:
+#' \describe{
+#'   \item{GroupID}{grouping variable}
+#'   \item{GroupLevel}{level of grouping variable}
+#'   \item{MetricID}{unique metric identifier}
+#'   \item{Numerator}{number of flags in group}
+#'   \item{Denominator}{total subjects in group}
+#'   \item{Metric}{calculated rate/metric value}
+#'   \item{Score}{statistical score}
+#'   \item{Flag}{ordinal flag to be applied}
+#' }
+#' @source Generated from `sampleSummary.csv` dataset in the `gsm` package.
+"sampleSummary"
+
 #' sampleBounds Dataset
 #'
 #' @format A data frame with 12667 rows and 8 columns:
@@ -25,19 +54,6 @@
 #' }
 #' @source Generated from `sampleGroups.csv` dataset in the `gsm` package.
 "sampleGroups"
-
-#' sampleInput Dataset
-#'
-#' @format A data frame with 25 rows and 5 columns:
-#' \describe{
-#'   \item{SubjectID}{unique subject identifier}
-#'   \item{GroupID}{grouping variable}
-#'   \item{GroupLevel}{level of grouping variable}
-#'   \item{Numerator}{number of flags in group}
-#'   \item{Denominator}{total subjects in group}
-#' }
-#' @source Generated from `sampleInput.csv` dataset in the `gsm` package.
-"sampleInput"
 
 #' sampleMetrics Dataset
 #'
@@ -76,20 +92,4 @@
 #' @source Generated from `sampleResults.csv` dataset in the `gsm` package.
 "sampleResults"
 
-#' sampleSummary Dataset
-#'
-#' @format A data frame with 2126 rows and 7 columns:
-#' \describe{
-#'   \item{GroupID}{grouping variable}
-#'   \item{GroupLevel}{level of grouping variable}
-#'   \item{MetricID}{unique metric identifier}
-#'   \item{Numerator}{number of flags in group}
-#'   \item{Denominator}{total subjects in group}
-#'   \item{Metric}{calculated rate/metric value}
-#'   \item{Score}{statistical score}
-#'   \item{Flag}{ordinal flag to be applied}
-#'   \item{StudyID}{unique study identifier}
-#'   \item{SnapshotDate}{date of the snapshot}
-#' }
-#' @source Generated from `sampleSummary.csv` dataset in the `gsm` package.
-"sampleSummary"
+
