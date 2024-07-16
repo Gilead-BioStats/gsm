@@ -100,38 +100,7 @@ test_that("Score (z_i) is 0 when vMu is 1 or 0", {
 })
 
 test_that("yaml workflow produces same table as R function", {
-  # yaml workflow
-  test_wf <- MakeWorkflowList(strPath = test_path("testdata"), strNames = "test_workflow")
-  test_mapping <- MakeWorkflowList(strPath = test_path("testdata"), strNames = "mapping")
-  lRaw <- UseClindata(
-    list(
-      "dfSUBJ" = "clindata::rawplus_dm",
-      "dfAE" = "clindata::rawplus_ae"
-    )
-  )
-  lMapped <- quiet_RunWorkflow(lWorkflow = test_mapping[[1]], lData = lRaw)
-  lResults <- quiet_RunWorkflow(lWorkflow = test_wf[[1]], lData = lMapped)
-
-  # functional workflow
-  dfSeriousAE <- clindata::rawplus_ae %>%
-    dplyr::filter(aeser == "Y")
-  dfInput <- Input_Rate(
-    dfSubjects = clindata::rawplus_dm,
-    dfNumerator = dfSeriousAE,
-    dfDenominator = clindata::rawplus_dm,
-    strSubjectCol = "subjid",
-    strGroupCol = "siteid",
-    strNumeratorMethod = "Count",
-    strDenominatorMethod = "Sum",
-    strDenominatorCol = "timeonstudy"
-  )
-  dfTransformed <- Transform_Rate(dfInput)
-  expect_message(
-    {
-      dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "rate")
-    },
-    "`OverallMetric`"
-  )
+  source(test_path("testdata", "create_double_data.R"), local = TRUE)
 
   expect_equal(dfAnalyzed$Metric, lResults$dfAnalyzed$Metric)
   expect_equal(dim(dfAnalyzed), dim(lResults$dfAnalyzed))
