@@ -1,18 +1,17 @@
-input <- tibble::tribble(
-  ~SubjectID, ~GroupID, ~GroupLevel, ~StudyID, ~CountryID, ~CustomGroupID, ~Exposure, ~Count, ~Rate,
-  "0496", "5", "site", "AA-AA-000-0000", "US", "0X167", 730, 5, 5/720,
-  "1350", "78", "site", "AA-AA-000-0000", "US", "0X002", 50, 2, 2/50,
-  "0539", "139", "site", "AA-AA-000-0000", "US", "0X052", 901, 5, 5/901,
-  "0329", "162", "site", "AA-AA-000-0000", "US", "0X049", 370, 3, 3/370,
-  "0429", "29", "site", "AA-AA-000-0000", "Japan", "0X116", 450, 2, 2/450,
-  "1218", "143", "site", "AA-AA-000-0000", "US", "0X153", 170, 3, 3/170,
-  "0808", "173", "site", "AA-AA-000-0000", "US", "0X124", 680, 6, 6/680,
-  "1314", "189", "site", "AA-AA-000-0000", "US", "0X093", 815, 4, 4/815,
-  "1236", "58", "site", "AA-AA-000-0000", "China", "0X091", 225, 1, 1/225,
-  "0163", "167", "site", "AA-AA-000-0000", "US", "0X059", 360, 3, 3/360
-  )
-
 test_that("output is created as expected", {
+  input <- tibble::tribble(
+    ~SubjectID, ~GroupID, ~GroupLevel, ~StudyID, ~CountryID, ~CustomGroupID, ~Exposure, ~Count, ~Rate,
+    "0496", "5", "site", "AA-AA-000-0000", "US", "0X167", 730, 5, 5/720,
+    "1350", "78", "site", "AA-AA-000-0000", "US", "0X002", 50, 2, 2/50,
+    "0539", "139", "site", "AA-AA-000-0000", "US", "0X052", 901, 5, 5/901,
+    "0329", "162", "site", "AA-AA-000-0000", "US", "0X049", 370, 3, 3/370,
+    "0429", "29", "site", "AA-AA-000-0000", "Japan", "0X116", 450, 2, 2/450,
+    "1218", "143", "site", "AA-AA-000-0000", "US", "0X153", 170, 3, 3/170,
+    "0808", "173", "site", "AA-AA-000-0000", "US", "0X124", 680, 6, 6/680,
+    "1314", "189", "site", "AA-AA-000-0000", "US", "0X093", 815, 4, 4/815,
+    "1236", "58", "site", "AA-AA-000-0000", "China", "0X091", 225, 1, 1/225,
+    "0163", "167", "site", "AA-AA-000-0000", "US", "0X059", 360, 3, 3/360
+  )
   dfTransformed <- Transform_Rate(
     dfInput = input,
     strNumeratorCol = "Count",
@@ -29,6 +28,19 @@ test_that("output is created as expected", {
 # Count / Exposure
 
 test_that("incorrect inputs throw errors", {
+  input <- tibble::tribble(
+    ~SubjectID, ~GroupID, ~GroupLevel, ~StudyID, ~CountryID, ~CustomGroupID, ~Exposure, ~Count, ~Rate,
+    "0496", "5", "site", "AA-AA-000-0000", "US", "0X167", 730, 5, 5/720,
+    "1350", "78", "site", "AA-AA-000-0000", "US", "0X002", 50, 2, 2/50,
+    "0539", "139", "site", "AA-AA-000-0000", "US", "0X052", 901, 5, 5/901,
+    "0329", "162", "site", "AA-AA-000-0000", "US", "0X049", 370, 3, 3/370,
+    "0429", "29", "site", "AA-AA-000-0000", "Japan", "0X116", 450, 2, 2/450,
+    "1218", "143", "site", "AA-AA-000-0000", "US", "0X153", 170, 3, 3/170,
+    "0808", "173", "site", "AA-AA-000-0000", "US", "0X124", 680, 6, 6/680,
+    "1314", "189", "site", "AA-AA-000-0000", "US", "0X093", 815, 4, 4/815,
+    "1236", "58", "site", "AA-AA-000-0000", "China", "0X091", 225, 1, 1/225,
+    "0163", "167", "site", "AA-AA-000-0000", "US", "0X059", 360, 3, 3/360
+  )
   expect_error(Transform_Rate(list()))
 
   expect_error(
@@ -78,6 +90,19 @@ test_that("incorrect inputs throw errors", {
 })
 
 test_that("rows with a denominator of 0 are removed", {
+  input <- tibble::tribble(
+    ~SubjectID, ~GroupID, ~GroupLevel, ~StudyID, ~CountryID, ~CustomGroupID, ~Exposure, ~Count, ~Rate,
+    "0496", "5", "site", "AA-AA-000-0000", "US", "0X167", 730, 5, 5/720,
+    "1350", "78", "site", "AA-AA-000-0000", "US", "0X002", 50, 2, 2/50,
+    "0539", "139", "site", "AA-AA-000-0000", "US", "0X052", 901, 5, 5/901,
+    "0329", "162", "site", "AA-AA-000-0000", "US", "0X049", 370, 3, 3/370,
+    "0429", "29", "site", "AA-AA-000-0000", "Japan", "0X116", 450, 2, 2/450,
+    "1218", "143", "site", "AA-AA-000-0000", "US", "0X153", 170, 3, 3/170,
+    "0808", "173", "site", "AA-AA-000-0000", "US", "0X124", 680, 6, 6/680,
+    "1314", "189", "site", "AA-AA-000-0000", "US", "0X093", 815, 4, 4/815,
+    "1236", "58", "site", "AA-AA-000-0000", "China", "0X091", 225, 1, 1/225,
+    "0163", "167", "site", "AA-AA-000-0000", "US", "0X059", 360, 3, 3/360
+  )
   testInput <- input %>%
     group_by(GroupID) %>%
     mutate(
@@ -94,14 +119,17 @@ test_that("rows with a denominator of 0 are removed", {
     ) %>%
     ungroup()
 
-  # TODO: use expect_snapshot here?
-  expect_message(
-    Transform_Rate(
-      dfInput = testInput,
-      strNumeratorCol = "Count",
-      strDenominatorCol = "Exposure"
-    )
+  expect_warning(
+    {
+      row_removed <- Transform_Rate(
+        dfInput = testInput,
+        strNumeratorCol = "Count",
+        strDenominatorCol = "Exposure"
+      )
+    },
+    class = "gsm_wrn-remove_rows"
   )
+  expect_snapshot(row_removed)
 })
 
 test_that("yaml workflow produces same table as R function", {
