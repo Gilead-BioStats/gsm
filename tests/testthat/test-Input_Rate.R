@@ -90,31 +90,7 @@ test_that("handling of zero denominators and missing data", {
 })
 
 test_that("yaml workflow produces same table as R function", {
-  #yaml workflow
-  test_wf <- MakeWorkflowList(strPath = test_path("testdata"), strNames = "test_workflow")
-  test_mapping <- MakeWorkflowList(strPath = test_path("testdata"), strNames = "mapping")
-  lRaw <- gsm::UseClindata(
-    list(
-      "dfSUBJ" = "clindata::rawplus_dm",
-      "dfAE" = "clindata::rawplus_ae"
-    )
-  )
-  lMapped <- RunWorkflow(lWorkflow = test_mapping[[1]], lData = lRaw)$lData
-  lResults <- RunWorkflow(lWorkflow=test_wf[[1]], lData=lMapped)
-
-  #functional workflow
-  dfInput <- Input_Rate(
-    dfSubjects= clindata::rawplus_dm,
-    dfNumerator= clindata::rawplus_ae,
-    dfDenominator = clindata::rawplus_dm,
-    strSubjectCol = "subjid",
-    strGroupCol = "siteid",
-    strNumeratorMethod= "Count",
-    strDenominatorMethod= "Sum",
-    strDenominatorCol= "timeonstudy"
-  )
-
-  expect_equal(dfInput$SubjectID, lResults$lData$dfInput$SubjectID)
-  expect_equal(dim(lResults$lData$dfInput), dim(dfInput))
-
+  source(test_path("testdata", "create_double_data.R"), local = TRUE)
+  expect_equal(dfInput$SubjectID, lResults$dfInput$SubjectID)
+  expect_equal(dim(dfInput), dim(lResults$dfInput))
 })
