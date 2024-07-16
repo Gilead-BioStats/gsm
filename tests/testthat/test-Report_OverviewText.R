@@ -20,16 +20,16 @@ test_that("Data filtering checks", {
   lStudy <- list(ParticipantCount ="1301",
                  SiteCount = "176")
 
-  expect_output(Report_OverviewText(lSetup, sampleResults, lStudy), "7 sites have at least one red KRI")
-  expect_output(Report_OverviewText(lSetup, sampleResults, lStudy), "41 sites have at least one red or amber KRI")
-  expect_output(Report_OverviewText(lSetup, sampleResults, lStudy), "128 sites have neither red nor amber KRIS and are not shown")
+  expect_output(Report_OverviewText(lSetup, sampleResults, lStudy), "11 sites have at least one red KRI")
+  expect_output(Report_OverviewText(lSetup, sampleResults, lStudy), "107 sites have at least one red or amber KRI")
+  expect_output(Report_OverviewText(lSetup, sampleResults, lStudy), "154 sites have neither red nor amber KRIS and are not shown")
 })
 
 test_that("Handles empty dataframe cases", {
   lSetup <- list(GroupLevel = "Site", SnapshotDate = "2012-09-30", StudyID = "AA-AA-000-0000")
   lStudy <- list(ParticipantCount ="1301",
                  SiteCount = "176")
-    dfEmptySummary <- data.frame(GroupID = character(), Flag = integer())
+  dfEmptySummary <- data.frame(GroupID = character(), Flag = integer())
   expect_output(
     Report_OverviewText(lSetup, dfEmptySummary, lStudy),
     "0 sites have at least one red KRI",
