@@ -23,6 +23,6 @@ test_that("Flag filtering works correctly", {
 
 test_that("Score rounding works correctly", {
   result <- Report_MetricTable(sampleResults, sampleGroups)
-  expect_true(grepl("2.734", result))
+  expect_true(grepl("2.673", result))
 })
 

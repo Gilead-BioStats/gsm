@@ -1,7 +1,7 @@
 test_that("Report_FlagOverTime returns the expected object", {
   # When available, use built-in datasets, which are temporarily duplicated in
   # testdata.
-  dfSummary <- sampleSummary %>%
+  dfResults <- sampleResults %>%
     # Use a subset to keep things fast.
     dplyr::filter(GroupID %in% c(3, 4, 40)) %>%
     dplyr::mutate(
@@ -13,7 +13,7 @@ test_that("Report_FlagOverTime returns the expected object", {
     ) %>%
     dplyr::mutate(GroupLevel = "site")
   dfMetrics <- sampleMetrics
-  x <- Report_FlagOverTime(dfSummary, dfMetrics)
+  x <- Report_FlagOverTime(dfResults, dfMetrics)
   expect_s3_class(x, "gt_tbl")
   expect_snapshot({
     names(x)

@@ -5,7 +5,7 @@
 \alias{sampleSummary}
 \title{sampleSummary Dataset}
 \format{
-A data frame with 2126 rows and 7 columns:
+A data frame with 176 rows and 7 columns:
 \describe{
 \item{GroupID}{grouping variable}
 \item{GroupLevel}{level of grouping variable}
@@ -15,8 +15,6 @@ A data frame with 2126 rows and 7 columns:
 \item{Metric}{calculated rate/metric value}
 \item{Score}{statistical score}
 \item{Flag}{ordinal flag to be applied}
-\item{StudyID}{unique study identifier}
-\item{SnapshotDate}{date of the snapshot}
 }
 }
 \source{
