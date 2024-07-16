@@ -13,7 +13,6 @@ test_that("Widget_BarChart handles dfResults correctly", {
       SnapshotDate = as.character(SnapshotDate)
     )
 
-  # Comparing the JSON directly makes it very difficult to debug differences.
   expect_equal(jsonlite::fromJSON(widget_data), dfResults)
 })
 

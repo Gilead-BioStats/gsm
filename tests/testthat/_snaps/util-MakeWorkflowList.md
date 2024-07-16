@@ -402,7 +402,7 @@
       [1] "ctms_site"
       
       $data_reporting[[1]]$params$strQuery
-      [1] "SELECT site_num as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df"
+      [1] "SELECT pi_number as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df"
       
       
       
@@ -466,7 +466,7 @@
       [1] "dfEnrolled"
       
       $data_reporting[[5]]$params$strQuery
-      [1] "SELECT siteid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT siteid) as SiteCount FROM df GROUP BY siteid"
+      [1] "SELECT invid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid"
       
       
       
@@ -498,7 +498,7 @@
       [1] "dfEnrolled"
       
       $data_reporting[[7]]$params$strQuery
-      [1] "SELECT studyid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT siteid) as SiteCount FROM df GROUP BY studyid"
+      [1] "SELECT studyid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY studyid"
       
       
       
@@ -530,7 +530,7 @@
       [1] "dfEnrolled"
       
       $data_reporting[[9]]$params$strQuery
-      [1] "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT siteid) as SiteCount FROM df GROUP BY country"
+      [1] "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country"
       
       
       
@@ -913,165 +913,117 @@
       
       $cou0003[[2]]
       $cou0003[[2]]$name
-      [1] "RunQuery"
+      [1] "Input_Rate"
       
       $cou0003[[2]]$output
-      [1] "dfSubjects"
+      [1] "dfInput"
       
       $cou0003[[2]]$params
-      $cou0003[[2]]$params$df
-      [1] "dfSUBJ"
+      $cou0003[[2]]$params$dfSubjects
+      [1] "dfEnrolled"
       
-      $cou0003[[2]]$params$strQuery
-      [1] "SELECT subjid as SubjectID, siteid as SiteID, country as CountryID, studyid as StudyID FROM df WHERE enrollyn == 'Y'"
+      $cou0003[[2]]$params$dfNumerator
+      [1] "dfNonimportantPD"
+      
+      $cou0003[[2]]$params$dfDenominator
+      [1] "dfEnrolled"
+      
+      $cou0003[[2]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $cou0003[[2]]$params$strGroupCol
+      [1] "country"
+      
+      $cou0003[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $cou0003[[2]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $cou0003[[2]]$params$strDenominatorMethod
+      [1] "Sum"
+      
+      $cou0003[[2]]$params$strDenominatorCol
+      [1] "timeonstudy"
       
       
       
       $cou0003[[3]]
       $cou0003[[3]]$name
-      [1] "RunQuery"
+      [1] "Transform_Rate"
       
       $cou0003[[3]]$output
-      [1] "dfDenominator"
+      [1] "dfTransformed"
       
       $cou0003[[3]]$params
-      $cou0003[[3]]$params$df
-      [1] "dfSUBJ"
-      
-      $cou0003[[3]]$params$strQuery
-      [1] "SELECT subjid as SubjectID, timeonstudy FROM df"
+      $cou0003[[3]]$params$dfInput
+      [1] "dfInput"
       
       
       
       $cou0003[[4]]
       $cou0003[[4]]$name
-      [1] "RunQuery"
+      [1] "Analyze_NormalApprox"
       
       $cou0003[[4]]$output
-      [1] "dfNumerator"
+      [1] "dfAnalyzed"
       
       $cou0003[[4]]$params
-      $cou0003[[4]]$params$df
-      [1] "dfPD"
+      $cou0003[[4]]$params$dfTransformed
+      [1] "dfTransformed"
       
-      $cou0003[[4]]$params$strQuery
-      [1] "SELECT subjectenrollmentnumber as SubjectID, * FROM df WHERE deemedimportant == 'No'"
+      $cou0003[[4]]$params$strType
+      [1] "rate"
       
       
       
       $cou0003[[5]]
       $cou0003[[5]]$name
-      [1] "Input_Rate"
+      [1] "Analyze_NormalApprox_PredictBounds"
       
       $cou0003[[5]]$output
-      [1] "dfInput"
+      [1] "dfBounds"
       
       $cou0003[[5]]$params
-      $cou0003[[5]]$params$dfSubjects
-      [1] "dfEnrolled"
+      $cou0003[[5]]$params$dfTransformed
+      [1] "dfTransformed"
       
-      $cou0003[[5]]$params$dfNumerator
-      [1] "dfNonimportantPD"
+      $cou0003[[5]]$params$strType
+      [1] "rate"
       
-      $cou0003[[5]]$params$dfDenominator
-      [1] "dfEnrolled"
-      
-      $cou0003[[5]]$params$strSubjectCol
-      [1] "subjid"
-      
-      $cou0003[[5]]$params$strGroupCol
-      [1] "country"
-      
-      $cou0003[[5]]$params$strGroupLevel
-      [1] "GroupLevel"
-      
-      $cou0003[[5]]$params$strNumeratorMethod
-      [1] "Count"
-      
-      $cou0003[[5]]$params$strDenominatorMethod
-      [1] "Sum"
-      
-      $cou0003[[5]]$params$strDenominatorCol
-      [1] "timeonstudy"
+      $cou0003[[5]]$params$vThreshold
+      [1] "vThreshold"
       
       
       
       $cou0003[[6]]
       $cou0003[[6]]$name
-      [1] "Transform_Rate"
+      [1] "Flag_NormalApprox"
       
       $cou0003[[6]]$output
-      [1] "dfTransformed"
+      [1] "dfFlagged"
       
       $cou0003[[6]]$params
-      $cou0003[[6]]$params$dfInput
-      [1] "dfInput"
+      $cou0003[[6]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
+      
+      $cou0003[[6]]$params$vThreshold
+      [1] "vThreshold"
       
       
       
       $cou0003[[7]]
       $cou0003[[7]]$name
-      [1] "Analyze_NormalApprox"
-      
-      $cou0003[[7]]$output
-      [1] "dfAnalyzed"
-      
-      $cou0003[[7]]$params
-      $cou0003[[7]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $cou0003[[7]]$params$strType
-      [1] "rate"
-      
-      
-      
-      $cou0003[[8]]
-      $cou0003[[8]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
-      
-      $cou0003[[8]]$output
-      [1] "dfBounds"
-      
-      $cou0003[[8]]$params
-      $cou0003[[8]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $cou0003[[8]]$params$strType
-      [1] "rate"
-      
-      $cou0003[[8]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $cou0003[[9]]
-      $cou0003[[9]]$name
-      [1] "Flag_NormalApprox"
-      
-      $cou0003[[9]]$output
-      [1] "dfFlagged"
-      
-      $cou0003[[9]]$params
-      $cou0003[[9]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $cou0003[[9]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $cou0003[[10]]
-      $cou0003[[10]]$name
       [1] "Summarize"
       
-      $cou0003[[10]]$output
+      $cou0003[[7]]$output
       [1] "dfSummary"
       
-      $cou0003[[10]]$params
-      $cou0003[[10]]$params$dfFlagged
+      $cou0003[[7]]$params
+      $cou0003[[7]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $cou0003[[10]]$params$nMinDenominator
+      $cou0003[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -2276,7 +2228,7 @@
       [1] "subjid"
       
       $kri0001[[2]]$params$strGroupCol
-      [1] "siteid"
+      [1] "invid"
       
       $kri0001[[2]]$params$strGroupLevel
       [1] "GroupLevel"
@@ -2408,7 +2360,7 @@
       [1] "subjid"
       
       $kri0002[[2]]$params$strGroupCol
-      [1] "siteid"
+      [1] "invid"
       
       $kri0002[[2]]$params$strGroupLevel
       [1] "GroupLevel"
@@ -2540,7 +2492,7 @@
       [1] "subjid"
       
       $kri0003[[2]]$params$strGroupCol
-      [1] "siteid"
+      [1] "invid"
       
       $kri0003[[2]]$params$strGroupLevel
       [1] "GroupLevel"
@@ -2672,7 +2624,7 @@
       [1] "subjid"
       
       $kri0004[[2]]$params$strGroupCol
-      [1] "siteid"
+      [1] "invid"
       
       $kri0004[[2]]$params$strGroupLevel
       [1] "GroupLevel"
@@ -2804,7 +2756,7 @@
       [1] "subjid"
       
       $kri0005[[2]]$params$strGroupCol
-      [1] "siteid"
+      [1] "invid"
       
       $kri0005[[2]]$params$strGroupLevel
       [1] "GroupLevel"
@@ -2933,7 +2885,7 @@
       [1] "subjid"
       
       $kri0006[[2]]$params$strGroupCol
-      [1] "siteid"
+      [1] "invid"
       
       $kri0006[[2]]$params$strGroupLevel
       [1] "GroupLevel"
@@ -3062,7 +3014,7 @@
       [1] "subjid"
       
       $kri0007[[2]]$params$strGroupCol
-      [1] "siteid"
+      [1] "invid"
       
       $kri0007[[2]]$params$strGroupLevel
       [1] "GroupLevel"
@@ -3191,7 +3143,7 @@
       [1] "subject_nsv"
       
       $kri0008[[2]]$params$strGroupCol
-      [1] "siteid"
+      [1] "invid"
       
       $kri0008[[2]]$params$strGroupLevel
       [1] "GroupLevel"
@@ -3320,7 +3272,7 @@
       [1] "subject_nsv"
       
       $kri0009[[2]]$params$strGroupCol
-      [1] "siteid"
+      [1] "invid"
       
       $kri0009[[2]]$params$strGroupLevel
       [1] "GroupLevel"
@@ -3449,7 +3401,7 @@
       [1] "subject_nsv"
       
       $kri0010[[2]]$params$strGroupCol
-      [1] "siteid"
+      [1] "invid"
       
       $kri0010[[2]]$params$strGroupLevel
       [1] "GroupLevel"
@@ -3578,7 +3530,7 @@
       [1] "subject_nsv"
       
       $kri0011[[2]]$params$strGroupCol
-      [1] "siteid"
+      [1] "invid"
       
       $kri0011[[2]]$params$strGroupLevel
       [1] "GroupLevel"
@@ -3707,7 +3659,7 @@
       [1] "subjectid"
       
       $kri0012[[2]]$params$strGroupCol
-      [1] "siteid"
+      [1] "invid"
       
       $kri0012[[2]]$params$strGroupLevel
       [1] "GroupLevel"
