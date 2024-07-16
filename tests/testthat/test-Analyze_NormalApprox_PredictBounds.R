@@ -1,9 +1,23 @@
-test_that("Analyze_NormalAPprox_PredictBounds handles missing nStep correctly", {
+test_that("Analyze_NormalApprox_PredictBounds handles missing nStep correctly", {
   dfTransformed <- Transform_Rate(sampleInput)
   expect_message(
     {dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed)},
     class = "gsm_msg-default_nStep",
     regexp = "1\\.028"
+  )
+})
+
+test_that("Analyze_NormalApprox_PredictBounds handles missing nStep for weird range", {
+  dfTransformed <- Transform_Rate(sampleInput)
+  dfTransformed <- dfTransformed %>%
+    dplyr::mutate(
+      Denominator = .data$Denominator[[1]],
+      Numerator = round(.data$Metric * .data$Denominator)
+    )
+  expect_message(
+    {dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed)},
+    class = "gsm_msg-default_nStep",
+    regexp = "step to 1\\.[^0-9]*"
   )
 })
 

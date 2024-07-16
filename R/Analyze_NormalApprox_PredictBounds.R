@@ -54,7 +54,7 @@ Analyze_NormalApprox_PredictBounds <- function(
   if (is.null(vThreshold)) {
     vThreshold <- c(-3, -2, 2, 3)
     cli::cli_inform(
-      "vThreshold was not provided. Setting default threshold to {vThreshold}",
+      "vThreshold was not provided. Setting default threshold to {vThreshold}.",
       class = "gsm_msg-default_vThreshold"
     )
   }
@@ -70,7 +70,7 @@ Analyze_NormalApprox_PredictBounds <- function(
     }
 
     cli::cli_inform(
-      "nStep was not provided. Setting default step to {nStep}",
+      "nStep was not provided. Setting default step to {nStep}.",
       class = "gsm_msg-default_nStep"
     )
 
