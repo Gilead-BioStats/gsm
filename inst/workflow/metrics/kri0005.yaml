@@ -22,7 +22,7 @@ steps:
       dfNumerator: dfToxLabs
       dfDenominator: dfAllLabs
       strSubjectCol: subjid
-      strGroupCol: siteid
+      strGroupCol: invid
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count

@@ -22,7 +22,7 @@ steps:
       dfNumerator: dfQuery
       dfDenominator: dfDataChanges
       strSubjectCol: subject_nsv
-      strGroupCol: siteid
+      strGroupCol: invid
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count
