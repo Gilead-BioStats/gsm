@@ -38,5 +38,5 @@ function dragElement(elmnt) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  dragElement(document.querySelector('.overall-site-select'))
+  dragElement(document.querySelector('.overall-group-select'))
 })
