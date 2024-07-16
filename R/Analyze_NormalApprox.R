@@ -30,7 +30,7 @@
 #'
 #' @examples
 #' # Binary
-#' dfTransformed <- Transform_Rate(sampleInput)
+#' dfTransformed <- Transform_Rate(analyticsInput)
 #'
 #' dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "binary")
 #'

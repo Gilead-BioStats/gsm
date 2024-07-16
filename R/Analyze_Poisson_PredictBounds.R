@@ -32,7 +32,7 @@
 #' range of observed values.
 #'
 #' @examples
-#' dfTransformed <- Transform_Rate(sampleInput)
+#' dfTransformed <- Transform_Rate(analyticsInput)
 #'
 #' dfBounds <- Analyze_Poisson_PredictBounds(dfTransformed, c(-5, 5))
 #'

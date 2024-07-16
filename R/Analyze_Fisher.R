@@ -35,7 +35,7 @@
 #'
 #' @examples
 #' dfTransformed <- Transform_Rate(
-#'   sampleInput
+#'   analyticsInput
 #' )
 #' dfAnalyzed <- Analyze_Fisher(dfTransformed)
 #'

@@ -27,7 +27,7 @@
 #' @return `data.frame` with one row per site with columns: GroupID, Numerator, Denominator, Metric, Score, and PredictedCount.
 #'
 #' @examples
-#' dfTransformed <- Transform_Rate(sampleInput)
+#' dfTransformed <- Transform_Rate(analyticsInput)
 #'
 #' dfAnalyzed <- Analyze_Poisson(dfTransformed)
 #'

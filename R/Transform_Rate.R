@@ -26,7 +26,7 @@
 #'
 #' @examples
 #' dfTransformed <- Transform_Rate(
-#'   sampleInput,
+#'   analyticsInput,
 #'   strNumeratorCol = "Numerator",
 #'   strDenominatorCol = "Denominator"
 #' )

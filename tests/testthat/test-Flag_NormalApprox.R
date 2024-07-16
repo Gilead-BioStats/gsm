@@ -1,5 +1,5 @@
 test_that("output is created as expected", {
-  dfAnalyzed <- Transform_Rate(sampleInput) %>% quiet_Analyze_NormalApprox()
+  dfAnalyzed <- Transform_Rate(analyticsInput) %>% quiet_Analyze_NormalApprox()
   dfFlagged <- Flag_NormalApprox(dfAnalyzed, vThreshold = c(-3, -2, 2, 3))
   expect_true(is.data.frame(dfFlagged))
   expect_equal(sort(unique(dfAnalyzed$GroupID)), sort(dfFlagged$GroupID))
@@ -10,7 +10,7 @@ test_that("output is created as expected", {
 })
 
 test_that("incorrect inputs throw errors", {
-  dfAnalyzed <- Transform_Rate(sampleInput) %>% quiet_Analyze_NormalApprox()
+  dfAnalyzed <- Transform_Rate(analyticsInput) %>% quiet_Analyze_NormalApprox()
   expect_error(Flag_NormalApprox(list(), vThreshold = c(-3, -2, 2, 3)), "dfAnalyzed is not a data frame")
   expect_error(Flag_NormalApprox(dfAnalyzed, "1", "2"))
   expect_error(Flag_NormalApprox(dfAnalyzed, vThreshold = c("-3", "-2", "2", "3")), "vThreshold is not numeric")
