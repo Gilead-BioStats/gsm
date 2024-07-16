@@ -15,21 +15,6 @@ steps:
     output: vThreshold
     params:
       strThreshold: strThreshold
-  - name: RunQuery
-    output: dfSubjects
-    params:
-      df: dfSUBJ
-      strQuery: "SELECT subjid as SubjectID, siteid as SiteID, country as CountryID, studyid as StudyID FROM df WHERE enrollyn == 'Y'"
-  - name: RunQuery
-    output: dfDenominator
-    params:
-      df: dfSUBJ
-      strQuery: "SELECT subjid as SubjectID, timeonstudy FROM df"
-  - name: RunQuery
-    output: dfNumerator
-    params:
-      df: dfPD
-      strQuery: "SELECT subjectenrollmentnumber as SubjectID, * FROM df WHERE deemedimportant == 'No'"
   - name: Input_Rate
     output: dfInput
     params:

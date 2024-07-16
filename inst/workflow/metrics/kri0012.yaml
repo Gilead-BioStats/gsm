@@ -22,7 +22,7 @@ steps:
       dfNumerator: dfScreenFail
       dfDenominator: dfScreened
       strSubjectCol: subjectid
-      strGroupCol: siteid
+      strGroupCol: invid
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count
