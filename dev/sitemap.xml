@@ -61,6 +61,9 @@
 <url><loc>/reference/Widget_TimeSeries-shiny.html</loc></url>
 <url><loc>/reference/Widget_TimeSeries.html</loc></url>
 <url><loc>/reference/Widget_TimeSeriesQTL.html</loc></url>
+<url><loc>/reference/analyticsBounds.html</loc></url>
+<url><loc>/reference/analyticsInput.html</loc></url>
+<url><loc>/reference/analyticsSummary.html</loc></url>
 <url><loc>/reference/cols_label_month.html</loc></url>
 <url><loc>/reference/gsm-package.html</loc></url>
 <url><loc>/reference/gsm_gt.html</loc></url>
@@ -68,12 +71,10 @@
 <url><loc>/reference/gt_style.html</loc></url>
 <url><loc>/reference/index.html</loc></url>
 <url><loc>/reference/pipe.html</loc></url>
-<url><loc>/reference/sampleBounds.html</loc></url>
-<url><loc>/reference/sampleGroups.html</loc></url>
-<url><loc>/reference/sampleInput.html</loc></url>
-<url><loc>/reference/sampleMetrics.html</loc></url>
-<url><loc>/reference/sampleResults.html</loc></url>
-<url><loc>/reference/sampleSummary.html</loc></url>
+<url><loc>/reference/reportingBounds.html</loc></url>
+<url><loc>/reference/reportingGroups.html</loc></url>
+<url><loc>/reference/reportingMetrics.html</loc></url>
+<url><loc>/reference/reportingResults.html</loc></url>
 <url><loc>/reference/tidyeval.html</loc></url>
 <url><loc>/reference/timeSeriesQTL-shiny.html</loc></url>
 </urlset>
