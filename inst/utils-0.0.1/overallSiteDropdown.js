@@ -17,12 +17,12 @@ function overallClick() {
     }
 
     if (event.target.value !== 'None') {
-      document.querySelectorAll(".site-select").forEach((el) => {
+      document.querySelectorAll(".overall-site-select").forEach((el) => {
         el.options[el.selectedIndex].innerHTML = event.target.value;
         el.disabled = true;
       });
     } else {
-      document.querySelectorAll(".site-select").forEach((el) => {
+      document.querySelectorAll(".overall-site-select").forEach((el) => {
         el.options[el.selectedIndex].innerHTML = "None";
         el.disabled = false;
       });
@@ -45,7 +45,7 @@ function overallSiteDropdown() {
     overallSiteSelect.onchange = overallClick
     overallSiteSelectContainer.appendChild(overallSiteSelect);
 
-    const ids = [...document.querySelector(".site-select").options].map(
+    const ids = [...document.querySelector(".overall-site-select").options].map(
         (el) => el.text
     );
 
