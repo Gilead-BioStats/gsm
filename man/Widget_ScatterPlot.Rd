@@ -2,90 +2,68 @@
 % Please edit documentation in R/Widget_ScatterPlot.R
 \name{Widget_ScatterPlot}
 \alias{Widget_ScatterPlot}
-\title{KRI Scatter Plot}
+\title{Scatter Plot Widget}
 \usage{
 Widget_ScatterPlot(
-  dfSummary,
-  lLabels,
-  dfSite = NULL,
+  dfResults,
+  lMetric = list(),
+  dfGroups = NULL,
   dfBounds = NULL,
-  selectedGroupIDs = NULL,
-  addSiteSelect = TRUE,
-  bHideDropdown = FALSE,
-  width = NULL,
-  height = NULL,
-  elementId = NULL
+  bAddGroupSelect = TRUE,
+  bDebug = FALSE
 )
 }
 \arguments{
-\item{dfSummary}{\code{data.frame} A data.frame returned by \code{\link[=Summarize]{Summarize()}}.}
+\item{dfResults}{\code{data.frame} Output of \code{\link[=Summarize]{Summarize()}} and \code{\link[=BindResults]{BindResults()}}.}
 
-\item{lLabels}{\code{list} Metrics metadata.}
+\item{lMetric}{\code{list} Metric metadata, captured at the top of metric workflows and returned by
+\code{\link[=MakeMetricInfo]{MakeMetricInfo()}}.}
 
-\item{dfSite}{\code{data.frame} Site metadata.}
+\item{dfGroups}{\code{data.frame} Group metadata.}
 
-\item{dfBounds}{\code{data.frame}, A data.frame returned by \code{\link[=Analyze_NormalApprox_PredictBounds]{Analyze_NormalApprox_PredictBounds()}} or \code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}}}
+\item{dfBounds}{\code{data.frame} Output of \code{\link[=Analyze_NormalApprox_PredictBounds]{Analyze_NormalApprox_PredictBounds()}} or
+\code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}}}
 
-\item{selectedGroupIDs}{group IDs to highlight, \code{NULL} by default, can be a single site or a vector.}
+\item{bAddGroupSelect}{\code{logical} Add a dropdown to highlight sites? Default: \code{TRUE}.}
 
-\item{addSiteSelect}{\code{logical} add a dropdown to highlight sites? Default: \code{TRUE}.}
-
-\item{bHideDropdown}{\code{logical} should the dropdown be hidden? Default: \code{FALSE}. This is primarily used for the Shiny app \code{{gsmApp}} to hide the drop-down site selector,
-since it is an additional element that needs to be updated based on user interactivity.}
-
-\item{width}{width of widget, full screen by default}
-
-\item{height}{height of widget, calculated based on width}
-
-\item{elementId}{ID of container HTML element}
+\item{bDebug}{\code{logical} Print debug messages? Default: \code{FALSE}.}
 }
 \description{
-A widget that displays a group-level scatter plot based on the output of a KRI analysis.
-Scatter plots are provided by default in any Assess function, and are suffixed with "JS" to indicate that they are an \code{htmlwidget} ported from the \code{rbm-viz} JavaScript library.
+A widget that generates a scatter plot of group-level metric results, plotting the denominator
+on the x-axis and the numerator on the y-axis.
 }
 \details{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
-ae_transform <- Transform_Rate(
-  dfInput = sampleInput)
+\dontrun{
+lWorkflows <- MakeWorkflowList()
+strMetricID <- 'kri0001'
+lMetricWorkflow <- lWorkflows[[ strMetricID ]]
 
-ae_analyze <- Analyze_NormalApprox(
-  dfTransformed = ae_transform,
-  strType = "rate"
+lData <- list(
+    dfEnrolled = clindata::rawplus_dm \%>\% filter(enrollyn == 'Y'),
+    dfAE = clindata::rawplus_ae
+)
+lResults <- RunWorkflow(
+    lMetricWorkflow,
+    lData
 )
 
-dfBounds <- Analyze_NormalApprox_PredictBounds(
-  dfTransformed = ae_transform,
-  vThreshold = c(-3, -2, 2, 3),
-  strType = "rate"
+dfGroups <- bind_rows(
+    "SELECT site_num as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df" \%>\%
+        RunQuery(clindata::ctms_site) \%>\%
+        MakeLongMeta('Site'),
+    "SELECT siteid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT siteid) as SiteCount FROM df GROUP BY siteid" \%>\%
+        RunQuery(lData$dfEnrolled) \%>\%
+        MakeLongMeta('Site')
 )
 
-ae_flag <- Flag_NormalApprox(
-  ae_analyze,
-  vThreshold = c(-3, -2, 2, 3)
+Widget_ScatterPlot(
+    dfResults = lResults$dfResults,
+    lMetric = lMetricWorkflow$meta,
+    dfGroups = dfGroups,
+    dfBounds = lResults$dfBounds
 )
-
-ae_summary <- Summarize(
-  ae_flag
-)
-
-lLabels <- list(
-  workflowid = "",
-  Group = "Site",
-  Abbreviation = "AE",
-  Metric = "Adverse Event Rate",
-  Numerator = "Adverse Events",
-  Denominator = "Days on Study",
-  Model = "Normal Approximation",
-  Score = "Adjusted Z-Score"
-)
-
-plot <- Widget_ScatterPlot(
-  dfSummary = ae_summary,
-  lLabels = lLabels,
-  dfBounds = dfBounds,
-  elementId = "aeAssessScatter"
-)
-
+}
 }

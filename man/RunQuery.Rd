@@ -25,6 +25,6 @@ df <- data.frame(
 )
 query <- "SELECT * FROM df WHERE AGE > 30"
 
-result <- RunQuery(query, df) 
+result <- RunQuery(query, df)
 
 }

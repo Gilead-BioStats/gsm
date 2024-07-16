@@ -18,18 +18,18 @@ wf_kri <- MakeWorkflowList(strNames="kri")
 wf_reporting <- MakeWorkflowList(strNames = "reporting")[[1]]
 
 # Generate Mapped Data
-lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$lData
+lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)
 
 # Generate Analysis Results Data
-lAnalysis <- wf_kri %>% map(~RunWorkflow(lWorkflow = .x, lData = lMapped))
+lAnalysis <- RunWorkflows(lWorkflow = wf_kri, lData = lMapped)
 
 # Generate Reporting Data
 lReporting_Input <- list(
-    ctms_site = clindata::ctms_site, 
+    ctms_site = clindata::ctms_site,
     ctms_study = clindata::ctms_study,
     dfEnrolled =lMapped$dfEnrolled,
     lWorkflows = wf_kri,
-    lAnalysis = lAnalysis, 
+    lAnalysis = lAnalysis,
     dSnapshotDate = Sys.Date(),
     strStudyID = "ABC-123"
 )
@@ -37,16 +37,16 @@ lReporting_Input <- list(
 # Check Reporting outputs
 lReporting <- RunWorkflow(lWorkflow = wf_reporting, lData = lReporting_Input)
 
-dfGroups <- lReporting$lData$dfGroups
+dfGroups <- lReporting$dfGroups
 head(dfGroups)
 table(paste(dfGroups$GroupLevel, dfGroups$Param))
 
-dfMetrics <- lReporting$lData$dfMetrics
+dfMetrics <- lReporting$dfMetrics
 head(dfMetrics)
 
-dfSummary <- lReporting$lData$dfSummary
+dfSummary <- lReporting$dfSummary
 head(dfSummary)
 table(dfSummary$MetricID, dfSummary$Flag)
 
-dfBounds <- lReporting$lData$dfBounds
+dfBounds <- lReporting$dfBounds
 head(dfBounds)

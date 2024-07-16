@@ -35,11 +35,6 @@ navbar:
           href: articles/v1_9_0-data-model-update-reference.html
 
 reference:
-  - title: Assess
-    desc: Sequentially execute the Assessment Pipeline Functions (Transform, Analyze, Flag, and Summarize)
-  - contents:
-      - matches("*_Assess_*")
-
   - title: Visualize
     desc: Generate a visualization from the Assessment results
   - contents:
@@ -81,6 +76,7 @@ reference:
   - title: Reporting
     desc: Creates summary tables and HTML objects to create a report
   - contents:
+      - Report_FlagOverTime
       - Report_FormatFlag
       - Report_KRI
       - Report_MetricCharts
@@ -106,6 +102,7 @@ reference:
   - title: Utility
     desc: Utility functions for use within the Data Pipeline
   - contents:
+     -  BindResults
      # -  CheckClindataMeta
      # -  CheckInputs
      # -  CheckSnapshotInputs
@@ -120,14 +117,18 @@ reference:
      # -  MakeResultsSummary
      # -  MakeStatusWorkflow
      # -  MakeStratifiedAssessment
+     -  MakeGroupInfo
+     -  MakeMetricInfo
      -  MakeWorkflowList
      # -  Make_Snapshot
      # -  MergeSubjects
+     -  ParseThreshold
      # -  ParseWarnings
      -  RunStep
      -  RunQuery
      # -  RunStratifiedWorkflow
      -  RunWorkflow
+     -  RunWorkflows
      -  UseClindata
      # -  UpdateGSMVersion
      # -  UpdateParams
@@ -137,16 +138,12 @@ reference:
      # -  parse_data_mapping
      # -  parse_data_spec
 
-  - title: Data
-    desc: Metadata used to create workflows
-  - contents:
-      - config_param
-      - config_workflow
-      - meta_param
-      - meta_workflow
-      - rbm_data_spec
-
-  - title: Testing Data
+  - title: Sample Data
     desc: data used for examples and testing
   - contents:
+      - sampleBounds
+      - sampleGroups
       - sampleInput
+      - sampleMetrics
+      - sampleResults
+      - sampleSummary

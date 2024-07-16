@@ -21,7 +21,7 @@
 #' dfSite<- clindata::ctms_site %>% dplyr::rename(SiteID = site_num)
 #'
 #' # Pull Raw Data - this will overwrite the previous data pull
-#' lRaw <- gsm::UseClindata(
+#' lRaw <- UseClindata(
 #'   list(
 #'     "dfSUBJ" = "clindata::rawplus_dm",
 #'     "dfAE" = "clindata::rawplus_ae",
@@ -82,9 +82,8 @@
 
 Report_KRI <- function(
   lCharts = NULL,
-  dfSummary = NULL,
-  dfStudy = NULL,
-  dfSite = NULL,
+  dfResults = NULL,
+  dfGroups = NULL,
   dfMetrics = NULL,
   strOutpath = NULL
 ) {
@@ -101,11 +100,9 @@ Report_KRI <- function(
     output_file = strOutpath,
     params = list(
       lCharts = lCharts,
-      dfSummary = dfSummary,
-      dfSite = dfSite,
-      dfStudy = dfStudy,
-      dfMetrics = dfMetrics,
-      lCharts = lCharts
+      dfResults = dfResults,
+      dfGroups = dfGroups, 
+      dfMetrics = dfMetrics
     ),
     envir = new.env(parent = globalenv())
   )

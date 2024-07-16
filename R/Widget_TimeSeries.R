@@ -1,155 +1,123 @@
-#' Time-Series Continuous Plot
+#' Time Series Widget
 #'
-#' `r lifecycle::badge("experimental")`
+#' `r lifecycle::badge("stable")`
 #'
 #' @description
-#' A widget that displays a time-series plot based on longitudinal snapshots using `{gsm}`.
+#' A widget that generates a time series of group-level metric results over time, plotting snapshot
+#' date on the x-axis and the outcome (numerator, denominator, metric, or score) on the y-axis.
 #'
-#' @param dfSummary `data.frame` summary data containing a minimum of two unique values for `gsm_analysis_date`.
-#' @param lLabels `list` chart labels.
-#' @param dfSite `data.frame` Site metadata.
-#' @param dfParams `data.frame` the stacked output.
-#' @param yAxis `character` the name of a column from `lLabels` to be passed to the y-axis on the widget plot.
-#' @param selectedGroupIDs `character` group IDs to highlight, \code{NULL} by default, can be a single site or a vector.
-#' @param width `numeric` width of widget.
-#' @param height `numeric` height of widget.
-#' @param elementId `character` ID of container HTML element.
-#' @param addSiteSelect `logical` add a dropdown to highlight sites? Default: `TRUE`.
-#' @param siteSelectLabelValue Label used to populate the HTML drop-down menu.
+#' @param dfResults `data.frame` Output of [Summarize()] and [BindResults()]. Must contain a 'SnapshotDate' column.
+#' @param lMetric `list` Metric metadata, captured at the top of metric workflows and returned by
+#' [MakeMetricInfo()].
+#' @param dfGroups `data.frame` Group metadata.
+#' @param vThreshold `numeric` Threshold value(s).
+#' @param strOutcome `character` Outcome variable. Default: 'Score'.
+#' @param bAddGroupSelect `logical` Add a dropdown to highlight sites? Default: `TRUE`.
+#' @param bDebug `logical` Print debug messages? Default: `FALSE`.
 #'
+#' @examples
+#' \dontrun{
+#' lWorkflows <- MakeWorkflowList()
+#' strMetricID <- 'kri0001'
+#' lMetricWorkflow <- lWorkflows[[ strMetricID ]]
+#'
+#' lData <- list(
+#'     dfEnrolled = clindata::rawplus_dm %>% filter(enrollyn == 'Y'),
+#'     dfAE = clindata::rawplus_ae
+#' )
+#'
+#' lResults <- RunWorkflow(
+#'     lMetricWorkflow,
+#'     lData
+#' )
+#'
+#' # Simulate longitudinal snapshot data.
+#' SnapshotDates <- paste0('20', 13:24, '-01-01')
+#'
+#' dfSummary <- purrr::map_dfr(
+#'     SnapshotDates,
+#'     ~ {
+#'         order <- sample(1:nrow(lResults$dfSummary))
+#'         dfSummary <- lResults$dfSummary %>%
+#'             mutate(
+#'                 SnapshotDate = .x,
+#'                 Numerator = Numerator[order],
+#'                 Denominator = Denominator[order],
+#'                 Metric = Metric[order],
+#'                 Score = Score[order],
+#'                 Flag = Flag[order]
+#'             )
+#'
+#'         return(dfSummary)
+#'     }
+#' )
+#'
+#' dfGroups <- bind_rows(
+#'     "SELECT site_num as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df" %>%
+#'         RunQuery(clindata::ctms_site) %>%
+#'         MakeLongMeta('Site'),
+#'     "SELECT siteid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT siteid) as SiteCount FROM df GROUP BY siteid" %>%
+#'         RunQuery(lData$dfEnrolled) %>%
+#'         MakeLongMeta('Site')
+#' )
+#'
+#' Widget_TimeSeries(
+#'     dfResults = dfSummary,
+#'     lMetric = lMetricWorkflow$meta,
+#'     dfGroups = dfGroups,
+#'     vThreshold = lMetricWorkflow$meta$vThreshold
+#' )
+#' }
 #' @export
+
 Widget_TimeSeries <- function(
-  dfSummary,
-  lLabels,
-  dfSite = NULL,
-  dfParams = NULL,
-  yAxis = "score",
-  selectedGroupIDs = NULL,
-  width = NULL,
-  height = NULL,
-  elementId = NULL,
-  addSiteSelect = TRUE,
-  siteSelectLabelValue = "Site"
+  dfResults,
+  lMetric,
+  dfGroups = NULL,
+  vThreshold = NULL,
+  strOutcome = 'Score',
+  bAddGroupSelect = TRUE,
+  bDebug = FALSE
 ) {
-  if (!is.null(siteSelectLabelValue)) {
-    siteSelectLabelValue <- paste0("Highlighted ", siteSelectLabelValue, ": ")
-  } else {
-    siteSelectLabelValue <- "Highlighted:"
-  }
-
-  # rename results to account for rpt_* table refactor
-  # -- this is the data format expected by JS library {rbm-viz}
-
-  dfSummary <- dfSummary %>%
-    select(
-      "StudyID",
-      "GroupID",
-      "Numerator" ,
-      "Denominator",
-      "Metric",
-      "Score",
-      "Flag",
-      #"gsm_analysis_date",
-      "SnapshotDate"
-    )
-
-  # get unique sites
-  if (all(grepl("^[0-9]$", dfSummary$GroupID))) {
-    uniqueSiteSelections <- sort(unique(as.numeric(dfSummary$GroupID)))
-  } else {
-    uniqueSiteSelections <- sort(unique(as.numeric(dfSummary$GroupID)))
-  }
-
-  lLabels <- lLabels %>%
-    select(
-      any_of(c(
-      "MetricID",
-      "Group",
-      "Abbreviation",
-      "Metric",
-      "Numerator",
-      "Denominator",
-      "outcome",
-      "Model",
-      "Score",
-      "data_inputs",
-      "data_filters",
-      "gsm_analysis_date"
-      ))
-    ) %>%
-    mutate("y" = yAxis)
-
-  if (yAxis == "score") {
-
-    dfParams <- dfParams %>%
-      select(
-        "MetricID",
-        "Param",
-        "Index",
-        "SnapshotDate",
-        "StudyID",
-        "Value"
-      )
-
-    dfParams <- jsonlite::toJSON(dfParams, na = "string")
-
-  } else {
-
-    dfParams = NULL
-
-  }
-
-  if (!is.null(dfSite)) {
-    dfSite <- jsonlite::toJSON(dfSite, na = "string")
-  }
-
-  # forward options using x
-  x <- list(
-    dfSummary = jsonlite::toJSON(dfSummary, na = "string"),
-    lLabels = lLabels,
-    dfParams = dfParams,
-    dfSite = dfSite,
-    addSiteSelect = addSiteSelect,
-    selectedGroupIDs = c(as.character(selectedGroupIDs)),
-    siteSelectLabelValue = siteSelectLabelValue
+  # define widget inputs
+  input <- list(
+    dfResults = dfResults,
+    lMetric = lMetric,
+    dfGroups = dfGroups,
+    vThreshold = vThreshold,
+    strOutcome = strOutcome,
+    bAddGroupSelect = bAddGroupSelect,
+    bDebug = bDebug
   )
 
-  # create standalone timeseries widget
-  htmlwidgets::createWidget(
+  # create widget
+  widget <- htmlwidgets::createWidget(
     name = "Widget_TimeSeries",
-    x,
-    width = width,
-    height = height,
-    package = "gsm",
-    elementId = elementId
-  ) %>%
-    htmlwidgets::prependContent(
-      htmltools::tags$div(
-        class = "select-group-container",
-        htmltools::tags$span(siteSelectLabelValue),
-        htmltools::tags$select(
-          class = "site-select--time-series",
-          id = glue::glue("site-select--time-series_{unique(lLabels$MetricID)}"),
-          purrr::map(
-            c("None", uniqueSiteSelections),
-            ~ htmltools::HTML(paste0(
-              "<option value='",
-              .x,
-              "'",
-              ifelse(.x == selectedGroupIDs, "selected", ""),
-              ">",
-              .x,
-              "</option>"
-            ))
-          )
-        )
+    purrr::map(
+      input,
+      ~ jsonlite::toJSON(
+          .x,
+          null = "null",
+          na = "string",
+          auto_unbox = TRUE
       )
-    )
+    ),
+    package = "gsm"
+  )
+
+  if (bDebug) {
+    viewer <- getOption('viewer')
+    options(viewer = NULL)
+    print(widget)
+    options(viewer = viewer)
+  }
+
+  return(widget)
 }
 
 #' Shiny bindings for Widget_TimeSeries
 #'
-#' `r lifecycle::badge("experimental")`
+#' `r lifecycle::badge("stable")`
 #'
 #' Output and render functions for using Widget_TimeSeries within Shiny
 #' applications and interactive Rmd documents.
@@ -169,7 +137,6 @@ Widget_TimeSeries <- function(
 Widget_TimeSeriesOutput <- function(outputId, width = "100%", height = "400px") {
   htmlwidgets::shinyWidgetOutput(outputId, "Widget_TimeSeries", width, height, package = "gsm")
 }
-
 
 #' @rdname Widget_TimeSeries-shiny
 #' @export

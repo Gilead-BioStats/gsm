@@ -1,48 +1,66 @@
 #' Generate a summary table for a report
 #'
 #' This function generates a summary table for a report by joining the provided
-#' summary data frame with the site data frame. It then filters and arranges the
+#' results data frame with the site-level metadata from dfGroups. It then filters and arranges the
 #' data based on certain conditions and displays the result in a datatable.
 #'
-#' @param dfSummary The summary data frame
-#' @param dfSite The site data frame
+#' @param dfResults The summary data frame
+#' @param dfGroups The site data frame
 #' @param strSnapshotDate user specified snapshot date as string
+#' @param strGroupLevel  group level for the table
+#' @param strGroupDetailParams one or more parameters from dfGroups to be added as columns in the table
 #'
 #' @return A datatable containing the summary table
 #'
 #' @export
 
-Report_MetricTable <- function(dfSummary, dfSite, strSnapshotDate = NULL) {
-    rlang::check_installed("DT", reason = "to run `Study_Report()`")
+Report_MetricTable <- function(
+    dfResults,
+    dfGroups,
+    strSnapshotDate = NULL,
+    strGroupLevel = "Site",
+    strGroupDetailsParams = NULL
+) {
 
     # Check for multiple snapshots --------------------------------------------
     # use most recent snapshot date if strSnapshotDate is missing
     if(is.null(strSnapshotDate)){
-        if ("snapshot_date" %in% colnames(dfSummary) & nrow(dfSummary) > 0) {
-            strSnapshotDate <- max(dfSummary$snapshot_date)
-        } else if (!"snapshot_date" %in% colnames(dfSummary) & nrow(dfSummary) > 0){
+        if ("SnapshotDate" %in% colnames(dfResults) & nrow(dfResults) > 0) {
+            strSnapshotDate <- max(dfResults$SnapshotDate)
+        } else if (!"SnapshotDate" %in% colnames(dfResults) & nrow(dfResults) > 0){
             strSnapshotDate <- as.Date(Sys.Date())
-            dfSummary$snapshot_date <- strSnapshotDate
+            dfResults$SnapshotDate <- strSnapshotDate
         }
     } else {
         strSnapshotDate <- as.Date(strSnapshotDate)
     }
 
-    if(nrow(dfSummary) > 0){
-        dfSummary <- dfSummary %>% filter(.data$snapshot_date == strSnapshotDate)
+    if(nrow(dfResults) > 0){
+        dfResults <- dfResults %>% filter(.data$SnapshotDate == strSnapshotDate)
     }
-    # Add Site Metadata ------------------------------------------------------------
-    if(nrow(dfSummary) > 0 & nrow(dfSite) > 0){
-        dfSummary <- dfSummary %>%
-            left_join(
-                dfSite %>% select("SiteID", "pi_last_name","country", "site_status"),
-                c("GroupID" = "SiteID")
-            )
+
+    # Add Group Metadata ------------------------------------------------------------
+    if(is.null(strGroupDetailsParams)){
+        if(strGroupLevel == "Site"){
+            strGroupDetailsParams <- c("Country", "Status", "InvestigatorLastName", "ParticipantCount")
+        } else if(strGroupLevel == "Country"){
+            strGroupDetailsParams <- c("SiteCount","ParticipantCount")
+        }
+    }
+
+    dfGroups_wide <- dfGroups %>%
+        filter(.data$GroupLevel == strGroupLevel) %>%
+        filter(.data$Param %in% strGroupDetailsParams) %>%
+        pivot_wider(names_from="Param", values_from="Value") %>%
+        select(-GroupLevel)
+
+    if(nrow(dfResults) > 0 & nrow(dfGroups_wide) > 0){
+        dfResults <- dfResults %>% left_join(dfGroups_wide, by = c("GroupID" = "GroupID"))
     }
 
     # Select Flagged metrics and format table -----------------------------------
-    if (nrow(dfSummary) > 0 & any(c(-2, -1, 1, 2) %in% unique(dfSummary$Flag))) {
-        SummaryTable <- dfSummary %>%
+    if (nrow(dfResults) > 0 & any(c(-2, -1, 1, 2) %in% unique(dfResults$Flag))) {
+        SummaryTable <- dfResults %>%
             filter(.data$Flag != 0) %>%
             arrange(desc(abs(.data$Score))) %>%
             mutate(
@@ -55,16 +73,16 @@ Report_MetricTable <- function(dfSummary, dfSite, strSnapshotDate = NULL) {
             select(
                 any_of(c(
                     "Site" = "GroupID",
-                    "Country" = "country",
-                    "Status" = "site_status",
-                    "PI" = "pi_last_name",
-                    "Subjects" = "enrolled_participants"
+                    "Country",
+                    "Status",
+                    "PI" = "InvestigatorLastName",
+                    "Subjects" = "ParticipantCount"
                 )),
                 everything()
             ) %>%
             select(-'MetricID') %>%
-            kbl(format="html", escape=FALSE) %>%
-            kable_styling("striped", full_width = FALSE)
+            kableExtra::kbl(format="html", escape=FALSE) %>%
+            kableExtra::kable_styling("striped", full_width = FALSE)
 
     } else {
         SummaryTable<- "Nothing flagged for this KRI."

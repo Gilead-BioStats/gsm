@@ -1,22 +1,24 @@
 Package: gsm
 Title: Good Statistical Monitoring
 Version: 1.9.2
-Authors@R:
-    c(
-        person("George", "Wu", email="george.wu@gilead.com", role = c("aut", "cre")),
-        person("Jeremy", "Wildfire", email="jwildfire@gmail.com", role = c("aut")),
-        person("Matt", "Roumaya", email = "Matt.Roumaya@atorusresearch.com", role = c("aut"), comment = c(ORCID = "0000-0002-8009-2771")),
-        person("Nathan", "Kosiba", email="Nathan.Kosiba@atorusresearch.com", role = c("aut")),
-        person("Douglas", "Sanders", role = c("aut")),
-        person("Spencer", "Childress", email = "spencer.childress@gilead.com", role = c("aut"), comment = c(ORCID = "0000-0001-6877-8511")),
-        person("Li", "Ge", role = c("aut")),
-        person("Zhongkai", "Wang", email="zhongkai.wang6@gilead.com", role = c("aut"), comment = c(ORCID = "0000-0002-1883-2265")),
-        person("Colleen", "McLaughlin", email="colleen.mclaughlin@atorusresearch.com", role = c("aut")),
-        person("Chelsea", "Dickens", email="chelsea.dickens@atorusresearch.com", role = c("aut")),
-        person("Maya", "Gans", email="maya.gans@atorusresearch.com", role = c("aut")),
-        person("Jacob", "Anderson", email="jacob.anderson@atorusresearch.com", role = c("aut")),
-        person(given = "Gilead Sciences", role = "cph")
-    )
+Authors@R: c(
+    person("George", "Wu", , "george.wu@gilead.com", role = c("aut", "cre")),
+    person("Jeremy", "Wildfire", , "jwildfire@gmail.com", role = "aut"),
+    person("Matt", "Roumaya", , "Matt.Roumaya@atorusresearch.com", role = "aut",
+           comment = c(ORCID = "0000-0002-8009-2771")),
+    person("Nathan", "Kosiba", , "Nathan.Kosiba@atorusresearch.com", role = "aut"),
+    person("Douglas", "Sanders", role = "aut"),
+    person("Spencer", "Childress", , "spencer.childress@gilead.com", role = "aut",
+           comment = c(ORCID = "0000-0001-6877-8511")),
+    person("Li", "Ge", role = "aut"),
+    person("Zhongkai", "Wang", , "zhongkai.wang6@gilead.com", role = "aut",
+           comment = c(ORCID = "0000-0002-1883-2265")),
+    person("Colleen", "McLaughlin", , "colleen.mclaughlin@atorusresearch.com", role = "aut"),
+    person("Chelsea", "Dickens", , "chelsea.dickens@atorusresearch.com", role = "aut"),
+    person("Maya", "Gans", , "maya.gans@atorusresearch.com", role = "aut"),
+    person("Jacob", "Anderson", , "jacob.anderson@atorusresearch.com", role = "aut"),
+    person("Gilead Sciences", role = "cph")
+  )
 Description: The Good Statistical Monitoring or 'gsm' R package provides a
     framework for statistical data monitoring.
 License: Apache License (>= 2)
@@ -25,7 +27,6 @@ BugReports: https://github.com/Gilead-BioStats/gsm/issues
 Depends: 
     R (>= 4.0)
 Imports:
-    arrow,
     broom,
     cli,
     DBI,
@@ -35,44 +36,40 @@ Imports:
     htmltools,
     htmlwidgets,
     jsonlite,
-    kableExtra,
-    lamW,
-    lifecycle (>= 1.0.1),
-    lubridate,
     magrittr,
     purrr,
     rlang (>= 0.4.11),
-    sqldf,
     stats,
     stringr,
-    testthat,
     tibble,
     tidyr,
     tools,
     utils,
-    withr,
     yaml
 Suggests:
     clindata,
     covr,
-    desc,
-    DT,
     fontawesome (>= 0.2.2),
     gggenes,
     ggiraph,
     gt,
     here,
-    httr,
+    kableExtra,
     knitr,
+    lamW,
+    lifecycle (>= 1.0.1),
+    lubridate,
     pander,
     pkgdown,
     riskmetric,
     rmarkdown,
     roxygen2,
-    rstudioapi,
     safetyData,
+    sqldf,
     styler,
-    usethis
+    testthat,
+    usethis,
+    withr
 VignetteBuilder: 
     knitr
 Remotes:
@@ -83,4 +80,4 @@ Config/testthat/start-first: Make_Snapshot, Study_Assess*
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2

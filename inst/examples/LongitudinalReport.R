@@ -69,7 +69,7 @@ for(i in 1:12){
   dfSummary_new <- lResults %>%
       imap_dfr(~.x$lData$dfSummary %>% mutate(MetricID = .y)) %>%
       mutate(StudyID = "ABC-123") %>%
-      mutate(snapshot_date = endDate[i])
+      mutate(SnapshotDate = endDate[i])
 
   dfSummary <- bind_rows(dfSummary, dfSummary_new)
 }
@@ -83,14 +83,14 @@ dfMetrics <- wf_metrics %>% map_df(function(wf){
 dfBounds <- lResults %>% 
     imap_dfr(~.x$lData$dfBounds %>% mutate(MetricID = .y)) %>%
     mutate(StudyID = "ABC-123") %>%
-    mutate(snapshot_date = endDate[i])
+    mutate(SnapshotDate = endDate[i])
 
 dfParams <- structure(
   list(
     metricid = c("kri0001", "kri0001", "kri0001", "kri0001"), 
     param = c("vThreshold", "vThreshold", "vThreshold", "vThreshold"), 
     index = 1:4, 
-    snapshot_date = rep(as.Date('2012-12-31'),4), 
+    SnapshotDate = rep(as.Date('2012-12-31'),4), 
     studyid = rep("ABC-123",4), 
     value = c("-2", "-1", "2", "3")
   ), 

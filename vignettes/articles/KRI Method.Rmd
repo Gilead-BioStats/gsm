@@ -13,19 +13,6 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-
-
-dt <- function(data){
-  data %>%
-    DT::datatable(
-      extensions = 'FixedColumns',
-      options = list(
-        scrollX = FALSE,
-        fixedColumns = TRUE
-      ),
-      rownames = FALSE
-    )
-}
 ```
 
 # Overview

@@ -1,25 +1,37 @@
 #' Helper function to bind results from multiple workflows
-#' 
-#' Used to stack results (e.g. dfSummary) from a list of analysis pipeline output formatted like the result of RunWorklows(). Also adds study level metadata when provided. 
 #'
-#' @param lResults List of results in the format returned by RunWorkflows()
+#' Used to stack results (e.g. dfSummary) from a list of analysis pipeline output formatted like the result of RunWorklows(). Also adds study level metadata when provided.
+#'
+#' @param lResults Named List of analysis results in the format returned by RunWorkflows()
 #' @param strName Name of the object to stack. Pulled from lResults$lData.
-#' @param lColValues List of column names/values to add to all rows in the final data frame. e.g. l(SnapshotDate = sys.date(), StudyID = "ABC-123"),  Default is NULL.
-#' 
+#' @param dSnapshotDate Date of the snapshot. Default is Sys.Date().
+#' @param strStudyID Study ID.
+#' @param bUselData Should the function bind results from an `lData` object (or look directly in the root elements of `lResults`)? Default is FALSE.
+#'
 #' @return A data frame.
 #'
-#'
 #' @export
-#' 
+#'
 
-BindResults <- function(lResults, strName, lColValues = NULL){
+BindResults <- function(
+  lResults,
+  strName,
+  dSnapshotDate= Sys.Date(),
+  strStudyID,
+  bUselData = FALSE
+){
   dfResults <- lResults %>% imap_dfr(
-    ~.x$lData[[strName]] %>% mutate(MetricID = .y)
-  ) 
-
-  for(i in 1:length(lColValues)){
-    dfResults <- dfResults %>% mutate(!!names(lColValues)[i] := lColValues[[i]])
-  }
-
+    function(result, metric){
+      if(bUselData) {
+        subResult <- result$lData[[strName]]
+      } else {
+        subResult <- result[[strName]]
+      }
+    return(subResult %>% mutate(MetricID = metric))
+    }
+  ) %>% mutate(
+    SnapshotDate = dSnapshotDate,
+    StudyID = strStudyID
+  )
   return(dfResults)
 }
