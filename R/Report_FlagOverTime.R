@@ -1,20 +1,41 @@
 #' Summarize flags by SnapshotDate
 #'
-#' Create a table of longitudinal study data by site, study, or country, showing
-#' flags over time.
+#' Create a table of showing flag values over time.
 #'
-#' @param dfResults A data frame containing result information.
+#' @param dfResults A summary of assessment results such as the ones generated
+#'   by [Summarize()].
 #' @param dfMetrics Metric-specific metadata created by passing an `lWorkflow`
-#'   object to the [MakeMetric()] function.
-#' @param strGroupLevel A string specifying the group type.
+#'   object to the [MakeMetricInfo()] function.
+#' @param strGroupSubset `character` Subset of rows to include in the table. Default: 'red'. Options:
+#' - 'all': All rows
+#' - 'red': Rows with 1+ red flags.
+#' - 'red/amber': Rows with 1+ red/amber flag.
+#' - 'amber': Rows with 1+ amber flag.
+#'
+#' @examples
+#' 
+#' Report_FlagOverTime(
+#'    dfResults=gsm::sampleResults, 
+#'    dfMetrics = gsm::sampleMetrics
+#')
 #'
 #' @inherit gt-shared return
 #' @export
-Report_FlagOverTime <- function(dfResults,
-                                dfMetrics,
-                                strGroupLevel = c("Site", "Study", "Country")) {
-  strGroupLevel <- rlang::arg_match(strGroupLevel)
-  dfFlagOverTime <- widen_results(dfResults, dfMetrics, strGroupLevel)
+#' 
+
+Report_FlagOverTime <- function(
+  dfResults,
+  dfMetrics,
+  strGroupSubset='red'
+) {
+  
+  strGroupLevel <- unique(dfResults$strGroupLevel)
+  if(length(strGroupLevel > 1)){
+    cli_abort("More than one GroupLevel found in dfResults. Can't generate FlagOverTime table.")
+  }
+
+  dfFlagOverTime <- widen_summary(dfResults, dfMetrics)
+  
   date_cols <- stringr::str_which(
     colnames(dfFlagOverTime),
     r"(\d{4}-\d{2}-\d{2})"
@@ -32,17 +53,14 @@ Report_FlagOverTime <- function(dfResults,
     )
 }
 
-widen_results <- function(dfResults, dfMetrics, strGroupLevel) {
+widen_summary <- function(dfSummary, dfMetrics, strGroupLevel) {
   dfMetrics_join <- dfMetrics %>%
-    dplyr::mutate(GroupLevel = stringr::str_to_sentence(.data$GroupLevel)) %>%
-    dplyr::filter(.data$GroupLevel == strGroupLevel) %>%
     dplyr::select(
       "MetricID",
       "Abbreviation",
       "GroupLevel"
     )
-  dfFlagOverTime <- dfResults %>%
-    dplyr::mutate(GroupLevel = stringr::str_to_sentence(.data$GroupLevel)) %>%
+  dfFlagOverTime <- dfSummary %>%
     dplyr::inner_join(dfMetrics_join, by = c("MetricID", "GroupLevel")) %>%
     dplyr::select(
       "GroupLevel",
@@ -52,6 +70,7 @@ widen_results <- function(dfResults, dfMetrics, strGroupLevel) {
       "SnapshotDate",
       "Flag"
     )
+
   dfFlagOverTime %>%
     dplyr::arrange(.data$SnapshotDate) %>%
     tidyr::pivot_wider(names_from = "SnapshotDate", values_from = "Flag") %>%

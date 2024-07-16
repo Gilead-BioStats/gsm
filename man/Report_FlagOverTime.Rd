@@ -4,24 +4,34 @@
 \alias{Report_FlagOverTime}
 \title{Summarize flags by SnapshotDate}
 \usage{
-Report_FlagOverTime(
-  dfResults,
-  dfMetrics,
-  strGroupLevel = c("Site", "Study", "Country")
-)
+Report_FlagOverTime(dfResults, dfMetrics, strGroupSubset = "red")
 }
 \arguments{
-\item{dfResults}{A data frame containing result information.}
+\item{dfResults}{A summary of assessment results such as the ones generated
+by \code{\link[=Summarize]{Summarize()}}.}
 
 \item{dfMetrics}{Metric-specific metadata created by passing an \code{lWorkflow}
-object to the \code{\link[=MakeMetric]{MakeMetric()}} function.}
+object to the \code{\link[=MakeMetricInfo]{MakeMetricInfo()}} function.}
 
-\item{strGroupLevel}{A string specifying the group type.}
+\item{strGroupSubset}{\code{character} Subset of rows to include in the table. Default: 'red'. Options:
+\itemize{
+\item 'all': All rows
+\item 'red': Rows with 1+ red flags.
+\item 'red/amber': Rows with 1+ red/amber flag.
+\item 'amber': Rows with 1+ amber flag.
+}}
 }
 \value{
 An object of class \code{gt_tbl}.
 }
 \description{
-Create a table of longitudinal study data by site, study, or country, showing
-flags over time.
+Create a table of showing flag values over time.
+}
+\examples{
+
+Report_FlagOverTime(
+   dfResults=gsm::sampleResults, 
+   dfMetrics = gsm::sampleMetrics
+)
+
 }
