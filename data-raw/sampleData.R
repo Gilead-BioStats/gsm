@@ -24,7 +24,5 @@ rm(sampleResults)
 
 sampleSummary <- read.csv("data-raw/sampleSummary.csv")
 sampleSummary$GroupID <- as.character(sampleSummary$GroupID)
-sampleSummary$SnapshotDate <- as.Date(sampleSummary$SnapshotDate,
-                                      format = "%m/%d/%Y")
 usethis::use_data(sampleSummary, overwrite = TRUE)
 rm(sampleSummary)
