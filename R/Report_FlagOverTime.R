@@ -3,9 +3,8 @@
 #' Create a table of longitudinal study data by site, study, or country, showing
 #' flags over time.
 #'
+#' @inheritParams shared-params
 #' @param dfResults A data frame containing result information.
-#' @param dfMetrics Metric-specific metadata created by passing an `lWorkflow`
-#'   object to the [MakeMetric()] function.
 #' @param strGroupLevel A string specifying the group type.
 #'
 #' @inherit gt-shared return

@@ -13,8 +13,7 @@ Report_FlagOverTime(
 \arguments{
 \item{dfResults}{A data frame containing result information.}
 
-\item{dfMetrics}{Metric-specific metadata created by passing an \code{lWorkflow}
-object to the \code{\link[=MakeMetric]{MakeMetric()}} function.}
+\item{dfMetrics}{Metric-specific metadata created by passing an \code{lWorkflow} object to the \code{\link[=MakeMetric]{MakeMetric()}} function.}
 
 \item{strGroupLevel}{A string specifying the group type.}
 }

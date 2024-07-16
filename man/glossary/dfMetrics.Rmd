@@ -1,0 +1,1 @@
+Metric-specific metadata created by passing an `lWorkflow` object to the [MakeMetric()] function.
