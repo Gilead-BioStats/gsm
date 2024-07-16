@@ -42,7 +42,7 @@ The input data (\code{dfTransformed}) for \code{Analyze_Poisson} is typically cr
 }
 
 \examples{
-dfTransformed <- Transform_Rate(sampleInput)
+dfTransformed <- Transform_Rate(analyticsInput)
 
 dfAnalyzed <- Analyze_Poisson(dfTransformed)
 

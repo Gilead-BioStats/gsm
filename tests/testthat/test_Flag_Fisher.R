@@ -1,4 +1,4 @@
-dfAnalyzed <- Transform_Rate(sampleInput) %>% Analyze_Fisher()
+dfAnalyzed <- Transform_Rate(analyticsInput) %>% Analyze_Fisher()
 test_that("output is created as expected", {
   dfFlagged <- Flag_Fisher(dfAnalyzed, vThreshold = c(-.05, .05))
   expect_true(is.data.frame(dfFlagged))

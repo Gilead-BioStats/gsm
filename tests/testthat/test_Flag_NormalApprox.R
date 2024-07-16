@@ -1,4 +1,4 @@
-dfAnalyzed <- Transform_Rate(sampleInput) %>% Analyze_NormalApprox()
+dfAnalyzed <- Transform_Rate(analyticsInput) %>% Analyze_NormalApprox()
 
 ################################################################################
 

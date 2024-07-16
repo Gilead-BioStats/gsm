@@ -76,6 +76,7 @@ Visualize_Metric <- function(
   # Cross-sectional Charts using most recent snapshot ------------------------
   lCharts <- list()
   dfResults_current <- dfResults %>% filter(.data$SnapshotDate == strSnapshotDate)
+  dfBounds_current <- dfBounds %>% filter(.data$SnapshotDate == strSnapshotDate)
 
   if (nrow(dfResults_current) == 0) {
     cli::cli_alert_warning("No data found for specified snapshot date: {strSnapshotDate}. No charts will be generated.")
@@ -85,13 +86,13 @@ Visualize_Metric <- function(
       dfResults = dfResults_current,
       lMetric = lMetric,
       dfGroups = dfGroups,
-      dfBounds = dfBounds,
+      dfBounds = dfBounds_current,
       bDebug = bDebug
     )
 
     lCharts$scatter <- Visualize_Scatter(
       dfResults = dfResults_current,
-      dfBounds = dfBounds,
+      dfBounds = dfBounds_current,
       strGroupLabel = lMetric$GroupLevel
     )
 

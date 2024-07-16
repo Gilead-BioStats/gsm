@@ -1,12 +1,12 @@
 test_that("Widget_BarChart handles dfResults correctly", {
-  widget <- Widget_BarChart(sampleResults,
-                            sampleMetrics %>% as.list())
+  widget <- Widget_BarChart(reportingResults,
+                            reportingMetrics %>% as.list())
 
   expect_true(inherits(widget, "htmlwidget"))
   expect_true("Widget_BarChart" %in% class(widget))
 
   widget_data <- widget$x$dfResults
-  dfResults <- sampleResults %>%
+  dfResults <- reportingResults %>%
     dplyr::mutate(
       Metric = round(Metric, 4),
       Score = round(Score, 4),
@@ -19,8 +19,8 @@ test_that("Widget_BarChart handles dfResults correctly", {
 test_that("Widget_BarChart processes vThreshold correctly", {
   vThreshold <- c(1, 2, 3)
 
-  widget <- Widget_BarChart(sampleResults,
-                            sampleMetrics %>% as.list(),
+  widget <- Widget_BarChart(reportingResults,
+                            reportingMetrics %>% as.list(),
                             vThreshold = vThreshold)
 
   vThreshold_json <- jsonlite::toJSON(vThreshold, na = "string")
@@ -28,10 +28,10 @@ test_that("Widget_BarChart processes vThreshold correctly", {
 })
 
 test_that("Widget_BarChart processes dfGRoups correctly", {
-  widget <- Widget_BarChart(dfResults = sampleResults,
-                            lMetric = sampleMetrics %>% as.list(),
-                            dfGroups = sampleGroups)
+  widget <- Widget_BarChart(dfResults = reportingResults,
+                            lMetric = reportingMetrics %>% as.list(),
+                            dfGroups = reportingGroups)
 
-  sampleGroups_json <- jsonlite::toJSON(sampleGroups, na = "string")
-  expect_equal(widget$x$dfGroups, sampleGroups_json)
+  reportingGroups_json <- jsonlite::toJSON(reportingGroups, na = "string")
+  expect_equal(widget$x$dfGroups, reportingGroups_json)
 })

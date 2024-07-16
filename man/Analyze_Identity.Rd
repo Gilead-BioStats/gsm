@@ -37,7 +37,7 @@ The input data (\code{dfTransformed}) for \code{Analyze_Identity} is typically c
 }
 
 \examples{
-dfTransformed <- Transform_Count(sampleInput, strCountCol = "Numerator")
+dfTransformed <- Transform_Count(analyticsInput, strCountCol = "Numerator")
 dfAnalyzed <- Analyze_Identity(dfTransformed)
 
 }

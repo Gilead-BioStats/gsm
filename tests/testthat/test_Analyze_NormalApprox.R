@@ -21,7 +21,7 @@ test_that("binary output created as expected and has correct structure", {
 ################################################################################
 
 test_that("rate output created as expected and has correct structure", {
-  dfTransformed <- Transform_Rate(sampleInput)
+  dfTransformed <- Transform_Rate(analyticsInput)
 
   rate <- Analyze_NormalApprox(dfTransformed, strType = "rate")
 
