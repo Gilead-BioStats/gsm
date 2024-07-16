@@ -1,12 +1,12 @@
 meta:
   File: mapping.yaml
-  desctipion: Data Mappings to prepare for metric calculations
+  description: Data Mappings to prepare for metric calculations
 steps:
   - name: RunQuery
     output: dfEnrolled
     params:
       df: dfSUBJ
-      strQuery: "SELECT subjectid as raw_subjectid, * FROM df WHERE enrollyn == 'Y'"
+      strQuery: "SELECT * FROM df WHERE enrollyn == 'Y'"
   - name: RunQuery
     output: dfSeriousAE
     params:

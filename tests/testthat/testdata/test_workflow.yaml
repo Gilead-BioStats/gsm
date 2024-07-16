@@ -1,7 +1,7 @@
 meta:
   MetricID: kri0001
   File: kri0001.yaml
-  Group: site
+  GroupLevel: siteid
   Abbreviation: AE
   Metric: Adverse Event Rate
   Numerator: Adverse Events
@@ -19,10 +19,11 @@ steps:
     output: dfInput
     params:
       dfSubjects: dfEnrolled
-      dfNumerator: dfAE
+      dfNumerator: dfSeriousAE
       dfDenominator: dfEnrolled
       strSubjectCol: subjid
       strGroupCol: siteid
+      strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Sum
       strDenominatorCol: timeonstudy
