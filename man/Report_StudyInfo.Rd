@@ -7,9 +7,9 @@
 Report_StudyInfo(lStudy, lStudyLabels = NULL)
 }
 \arguments{
-\item{lStudy}{A data frame containing study information.}
+\item{lStudy}{A list containing study information.}
 
-\item{lStudyLabels}{A data frame containing study labels. Default is NULL.}
+\item{lStudyLabels}{A list containing study labels. Default is NULL.}
 }
 \value{
 None
