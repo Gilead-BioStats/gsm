@@ -23,9 +23,9 @@ test_that("Data filtering checks", {
   )
   lStudy <- list(ParticipantCount = "1301", SiteCount = "176")
 
-  expect_output(Report_OverviewText(lSetup, reportingResults, lStudy), "11 sites have at least one red KRI")
-  expect_output(Report_OverviewText(lSetup, reportingResults, lStudy), "107 sites have at least one red or amber KRI")
-  expect_output(Report_OverviewText(lSetup, reportingResults, lStudy), "154 sites have neither red nor amber KRIS and are not shown")
+  expect_output(Report_OverviewText(lSetup, reportingResults, lStudy), "17 sites have at least one red KRI")
+  expect_output(Report_OverviewText(lSetup, reportingResults, lStudy), "82 sites have at least one red or amber KRI")
+  expect_output(Report_OverviewText(lSetup, reportingResults, lStudy), "145 sites have neither red nor amber KRIS and are not shown")
 })
 
 test_that("Handles empty dataframe cases", {
