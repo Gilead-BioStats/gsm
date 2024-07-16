@@ -257,11 +257,11 @@ of observed values. Created with an
 <code>dfGroups</code>: Grouped data; Long data.frame of summarized
 group CTMS data with site, study, and country level counts and metrics.
 Constructed by binding data.frames created with
-<code><a href="../reference/MakeGroupInfo.html">MakeGroupInfo()</a></code>.</li>
+<code><a href="../reference/MakeLongMeta.html">MakeLongMeta()</a></code>.</li>
 <li>
 <code>dfMetrics</code>: Metric metadata; Metric-specific metadata
 for use in charts and reporting. Created by passing an
-<code>lWorkflow</code> object to the <code><a href="../reference/MakeMetricInfo.html">MakeMetricInfo()</a></code>
+<code>lWorkflow</code> object to the <code><a href="../reference/MakeMetric.html">MakeMetric()</a></code>
 function.</li>
 </ol>
 <p>The reporting data pipeline has a <code>yaml</code> file that runs
@@ -1407,7 +1407,7 @@ reporting. Fine to add other Param values as needed.</p>
 <code>dfMetrics</code><a class="anchor" aria-label="anchor" href="#dfmetrics"></a>
 </h4>
 <ul>
-<li>Function used to create table: <code><a href="../reference/MakeMetricInfo.html">MakeMetricInfo()</a></code>
+<li>Function used to create table: <code><a href="../reference/MakeMetric.html">MakeMetric()</a></code>
 </li>
 <li>Inputs: <code>lWorkflow</code> - metadata from the corresponding kri
 <code>.yaml</code> file</li>

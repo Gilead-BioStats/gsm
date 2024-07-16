@@ -100,7 +100,7 @@ date on the x-axis and the outcome (numerator, denominator, metric, or score) on
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Widget_TimeSeries</span><span class="op">(</span></span>
-<span>  <span class="va">dfSummary</span>,</span>
+<span>  <span class="va">dfResults</span>,</span>
 <span>  <span class="va">lMetric</span>,</span>
 <span>  dfGroups <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  vThreshold <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -114,13 +114,13 @@ date on the x-axis and the outcome (numerator, denominator, metric, or score) on
     <h2>Arguments</h2>
 
 
-<dl><dt id="arg-dfsummary">dfSummary<a class="anchor" aria-label="anchor" href="#arg-dfsummary"></a></dt>
-<dd><p><code>data.frame</code> Output of <code><a href="Summarize.html">Summarize()</a></code>. Must contain a 'SnapshotDate' column.</p></dd>
+<dl><dt id="arg-dfresults">dfResults<a class="anchor" aria-label="anchor" href="#arg-dfresults"></a></dt>
+<dd><p><code>data.frame</code> Output of <code><a href="Summarize.html">Summarize()</a></code> and <code><a href="BindResults.html">BindResults()</a></code>. Must contain a 'SnapshotDate' column.</p></dd>
 
 
 <dt id="arg-lmetric">lMetric<a class="anchor" aria-label="anchor" href="#arg-lmetric"></a></dt>
 <dd><p><code>list</code> Metric metadata, captured at the top of metric workflows and returned by
-<code><a href="MakeMetricInfo.html">MakeMetricInfo()</a></code>.</p></dd>
+<code><a href="MakeMetric.html">MakeMetric()</a></code>.</p></dd>
 
 
 <dt id="arg-dfgroups">dfGroups<a class="anchor" aria-label="anchor" href="#arg-dfgroups"></a></dt>
@@ -151,29 +151,18 @@ date on the x-axis and the outcome (numerator, denominator, metric, or score) on
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="va">lDataRaw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    dfSTUDY <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_study.html" class="external-link">ctms_study</a></span>,</span></span>
-<span class="r-in"><span>    dfSITE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_site.html" class="external-link">ctms_site</a></span>,</span></span>
-<span class="r-in"><span>    dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span></span>
+<span class="r-in"><span><span class="va">lWorkflows</span> <span class="op">&lt;-</span> <span class="fu"><a href="MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">strMetricID</span> <span class="op">&lt;-</span> <span class="st">'kri0001'</span></span></span>
+<span class="r-in"><span><span class="va">lMetricWorkflow</span> <span class="op">&lt;-</span> <span class="va">lWorkflows</span><span class="op">[[</span> <span class="va">strMetricID</span> <span class="op">]</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">lData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    dfEnrolled <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">enrollyn</span> <span class="op">==</span> <span class="st">'Y'</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    dfAE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_ae.html" class="external-link">rawplus_ae</a></span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">lMappingWorkflow</span> <span class="op">&lt;-</span> <span class="fu"><a href="MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span><span class="st">'mapping'</span><span class="op">)</span><span class="op">$</span><span class="va">mapping</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">lMappingWorkflow</span><span class="op">$</span><span class="va">steps</span> <span class="op">&lt;-</span> <span class="va">lMappingWorkflow</span><span class="op">$</span><span class="va">steps</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/keep.html" class="external-link">keep</a></span><span class="op">(</span><span class="op">~</span> <span class="va">.x</span><span class="op">$</span><span class="va">params</span><span class="op">$</span><span class="va">df</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">lDataRaw</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">lDataMapped</span> <span class="op">&lt;-</span> <span class="fu"><a href="RunWorkflow.html">RunWorkflow</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    <span class="va">lMappingWorkflow</span>,</span></span>
-<span class="r-in"><span>    <span class="va">lDataRaw</span></span></span>
-<span class="r-in"><span><span class="op">)</span><span class="op">$</span><span class="va">lData</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">strMetricID</span> <span class="op">&lt;-</span> <span class="st">'kri0001'</span></span></span>
-<span class="r-in"><span><span class="va">lMetricWorkflow</span> <span class="op">&lt;-</span> <span class="fu"><a href="MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span><span class="va">strMetricID</span><span class="op">)</span><span class="op">[[</span> <span class="va">strMetricID</span> <span class="op">]</span><span class="op">]</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">lResults</span> <span class="op">&lt;-</span> <span class="fu"><a href="RunWorkflow.html">RunWorkflow</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="va">lMetricWorkflow</span>,</span></span>
-<span class="r-in"><span>    <span class="va">lDataMapped</span></span></span>
+<span class="r-in"><span>    <span class="va">lData</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Simulate longitudinal snapshot data.</span></span></span>
@@ -182,8 +171,8 @@ date on the x-axis and the outcome (numerator, denominator, metric, or score) on
 <span class="r-in"><span><span class="va">dfSummary</span> <span class="op">&lt;-</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map_dfr.html" class="external-link">map_dfr</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    <span class="va">SnapshotDates</span>,</span></span>
 <span class="r-in"><span>    <span class="op">~</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>        <span class="va">order</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">lResults</span><span class="op">$</span><span class="va">lData</span><span class="op">$</span><span class="va">dfSummary</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span>        <span class="va">dfSummary</span> <span class="op">&lt;-</span> <span class="va">lResults</span><span class="op">$</span><span class="va">lData</span><span class="op">$</span><span class="va">dfSummary</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>        <span class="va">order</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">lResults</span><span class="op">$</span><span class="va">dfSummary</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>        <span class="va">dfSummary</span> <span class="op">&lt;-</span> <span class="va">lResults</span><span class="op">$</span><span class="va">dfSummary</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>            <span class="fu">mutate</span><span class="op">(</span></span></span>
 <span class="r-in"><span>                SnapshotDate <span class="op">=</span> <span class="va">.x</span>,</span></span>
 <span class="r-in"><span>                Numerator <span class="op">=</span> <span class="va">Numerator</span><span class="op">[</span><span class="va">order</span><span class="op">]</span>,</span></span>
@@ -192,24 +181,22 @@ date on the x-axis and the outcome (numerator, denominator, metric, or score) on
 <span class="r-in"><span>                Score <span class="op">=</span> <span class="va">Score</span><span class="op">[</span><span class="va">order</span><span class="op">]</span>,</span></span>
 <span class="r-in"><span>                Flag <span class="op">=</span> <span class="va">Flag</span><span class="op">[</span><span class="va">order</span><span class="op">]</span></span></span>
 <span class="r-in"><span>            <span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span>        <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">dfSummary</span><span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="op">}</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">dfGroups</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_site.html" class="external-link">ctms_site</a></span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>    <span class="fu">left_join</span><span class="op">(</span></span></span>
-<span class="r-in"><span>        <span class="va">lDataMapped</span><span class="op">$</span><span class="va">dfEnrolled</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>            <span class="fu">group_by</span><span class="op">(</span><span class="va">siteid</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>            <span class="fu">tally</span><span class="op">(</span>name <span class="op">=</span> <span class="st">'enrolled_participants'</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>        <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'site_num'</span> <span class="op">=</span> <span class="st">'siteid'</span><span class="op">)</span></span></span>
-<span class="r-in"><span>    <span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>    <span class="fu">rename</span><span class="op">(</span></span></span>
-<span class="r-in"><span>        SiteID <span class="op">=</span> <span class="va">site_num</span>,</span></span>
-<span class="r-in"><span>        status <span class="op">=</span> <span class="va">site_status</span></span></span>
-<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dfGroups</span> <span class="op">&lt;-</span> <span class="fu">bind_rows</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="st">"SELECT site_num as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df"</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>        <span class="fu"><a href="RunQuery.html">RunQuery</a></span><span class="op">(</span><span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_site.html" class="external-link">ctms_site</a></span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>        <span class="fu"><a href="MakeLongMeta.html">MakeLongMeta</a></span><span class="op">(</span><span class="st">'Site'</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"SELECT siteid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT siteid) as SiteCount FROM df GROUP BY siteid"</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>        <span class="fu"><a href="RunQuery.html">RunQuery</a></span><span class="op">(</span><span class="va">lData</span><span class="op">$</span><span class="va">dfEnrolled</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>        <span class="fu"><a href="MakeLongMeta.html">MakeLongMeta</a></span><span class="op">(</span><span class="st">'Site'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">Widget_TimeSeries</span><span class="op">(</span></span></span>
-<span class="r-in"><span>    dfSummary <span class="op">=</span> <span class="va">dfSummary</span>,</span></span>
+<span class="r-in"><span>    dfResults <span class="op">=</span> <span class="va">dfSummary</span>,</span></span>
 <span class="r-in"><span>    lMetric <span class="op">=</span> <span class="va">lMetricWorkflow</span><span class="op">$</span><span class="va">meta</span>,</span></span>
 <span class="r-in"><span>    dfGroups <span class="op">=</span> <span class="va">dfGroups</span>,</span></span>
 <span class="r-in"><span>    vThreshold <span class="op">=</span> <span class="va">lMetricWorkflow</span><span class="op">$</span><span class="va">meta</span><span class="op">$</span><span class="va">vThreshold</span></span></span>

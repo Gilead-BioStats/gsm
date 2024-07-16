@@ -4,7 +4,6 @@
 <url><loc>/articles/Cookbook.html</loc></url>
 <url><loc>/articles/DataAnalysis.html</loc></url>
 <url><loc>/articles/DataPipeline.html</loc></url>
-<url><loc>/articles/DataReporting.html</loc></url>
 <url><loc>/articles/KRI Method.html</loc></url>
 <url><loc>/articles/Qualification.html</loc></url>
 <url><loc>/articles/QualificationWorkflow.html</loc></url>
@@ -26,11 +25,14 @@
 <url><loc>/reference/Flag_Poisson.html</loc></url>
 <url><loc>/reference/Flag_QTL.html</loc></url>
 <url><loc>/reference/Input_Rate.html</loc></url>
-<url><loc>/reference/MakeGroupInfo.html</loc></url>
-<url><loc>/reference/MakeMetricInfo.html</loc></url>
+<url><loc>/reference/MakeCharts.html</loc></url>
+<url><loc>/reference/MakeLongMeta.html</loc></url>
+<url><loc>/reference/MakeMetric.html</loc></url>
+<url><loc>/reference/MakeWideGroups.html</loc></url>
 <url><loc>/reference/MakeWorkflowList.html</loc></url>
 <url><loc>/reference/Make_Timeline.html</loc></url>
 <url><loc>/reference/ParseThreshold.html</loc></url>
+<url><loc>/reference/Report_FlagOverTime.html</loc></url>
 <url><loc>/reference/Report_FormatFlag.html</loc></url>
 <url><loc>/reference/Report_KRI.html</loc></url>
 <url><loc>/reference/Report_MetricCharts.html</loc></url>
@@ -52,14 +54,18 @@
 <url><loc>/reference/Visualize_Score.html</loc></url>
 <url><loc>/reference/Widget_BarChart-shiny.html</loc></url>
 <url><loc>/reference/Widget_BarChart.html</loc></url>
+<url><loc>/reference/Widget_GroupOverview-shiny.html</loc></url>
+<url><loc>/reference/Widget_GroupOverview.html</loc></url>
 <url><loc>/reference/Widget_ScatterPlot-shiny.html</loc></url>
 <url><loc>/reference/Widget_ScatterPlot.html</loc></url>
-<url><loc>/reference/Widget_SiteOverview-shiny.html</loc></url>
-<url><loc>/reference/Widget_SiteOverview.html</loc></url>
 <url><loc>/reference/Widget_TimeSeries-shiny.html</loc></url>
 <url><loc>/reference/Widget_TimeSeries.html</loc></url>
 <url><loc>/reference/Widget_TimeSeriesQTL.html</loc></url>
+<url><loc>/reference/cols_label_month.html</loc></url>
 <url><loc>/reference/gsm-package.html</loc></url>
+<url><loc>/reference/gsm_gt.html</loc></url>
+<url><loc>/reference/gt-shared.html</loc></url>
+<url><loc>/reference/gt_style.html</loc></url>
 <url><loc>/reference/index.html</loc></url>
 <url><loc>/reference/pipe.html</loc></url>
 <url><loc>/reference/sampleBounds.html</loc></url>

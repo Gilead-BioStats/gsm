@@ -127,6 +127,7 @@ found in dfNumerator/dfDenominator numerator and denominator values are filled w
 <span>  <span class="va">dfNumerator</span>,</span>
 <span>  <span class="va">dfDenominator</span>,</span>
 <span>  strGroupCol <span class="op">=</span> <span class="st">"GroupID"</span>,</span>
+<span>  strGroupLevel <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  strSubjectCol <span class="op">=</span> <span class="st">"SubjectID"</span>,</span>
 <span>  strNumeratorMethod <span class="op">=</span> <span class="st">"Count"</span>,</span>
 <span>  strDenominatorMethod <span class="op">=</span> <span class="st">"Count"</span>,</span>
@@ -153,6 +154,10 @@ found in dfNumerator/dfDenominator numerator and denominator values are filled w
 
 <dt id="arg-strgroupcol">strGroupCol<a class="anchor" aria-label="anchor" href="#arg-strgroupcol"></a></dt>
 <dd><p><code>character</code> Column name in <code>dfSubjects</code> to use for grouping. Default: "GroupID"</p></dd>
+
+
+<dt id="arg-strgrouplevel">strGroupLevel<a class="anchor" aria-label="anchor" href="#arg-strgrouplevel"></a></dt>
+<dd><p><code>character</code> value for the group level. Default: NULL which is parsed to <code>strGroupCol</code></p></dd>
 
 
 <dt id="arg-strsubjectcol">strSubjectCol<a class="anchor" aria-label="anchor" href="#arg-strsubjectcol"></a></dt>
@@ -188,6 +193,7 @@ found in dfNumerator/dfDenominator numerator and denominator values are filled w
 <span class="r-in"><span>    dfDenominator <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span></span>
 <span class="r-in"><span>    strSubjectCol <span class="op">=</span> <span class="st">"subjid"</span>,</span></span>
 <span class="r-in"><span>    strGroupCol <span class="op">=</span> <span class="st">"siteid"</span>,</span></span>
+<span class="r-in"><span>    strGroupLevel <span class="op">=</span> <span class="st">"Site"</span>,</span></span>
 <span class="r-in"><span>    strNumeratorMethod <span class="op">=</span> <span class="st">"Count"</span>,</span></span>
 <span class="r-in"><span>    strDenominatorMethod <span class="op">=</span> <span class="st">"Sum"</span>,</span></span>
 <span class="r-in"><span>    strDenominatorCol <span class="op">=</span> <span class="st">"timeontreatment"</span></span></span>
