@@ -255,9 +255,6 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
   | dfBounds | LogDenominator  | The calculated log denominator value     | Numeric | |
   | dfBounds | Numerator    | The calculated numerator value       | Numeric  | |
   | dfBounds | Metric       | The calculated rate/metric value     | Numeric  | |
-  | dfBounds | MetricID     | The Metric ID                        | Character| * |
-  | dfBounds | StudyID      | The Study ID                         | Character| * |
-  | dfBounds | SnapshotDate | The Date of the snapshot             | Date     | * |
   
 ### `dfFlagged`
   - Function(s) used to create table:
@@ -313,16 +310,16 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
 
   | Table    | Column Name  | Description                          | Type     | Optional  |  rbm-viz Column Name |
   |----------|--------------|--------------------------------------|----------|--|-----------|
-  | dfSummary      | GroupID      | The group ID for the metric          | Character| | groupid |
-  | dfSummary      | GroupLevel   | The group type for the metric (e.g. "Site")    | Character| | - |
-  | dfSummary      | Numerator    | The calculated numerator value       | Numeric  | | numerator |
-  | dfSummary      | Denominator  | The calculated denominator value     | Numeric | | denominator |
-  | dfSummary      | Metric       | The calculated rate/metric value     | Numeric  | | metric |
-  | dfSummary      | Score        | The calculated metric score          | Numeric  | | score |
-  | dfSummary      | Flag         | The calculated flag                  | Numeric  | | flag |
-  | dfSummary      | MetricID     | The Metric ID                        | Character| * | workflowid |
-  | dfSummary      | StudyID      | The Study ID                         | Character| * | studyid |
-  | dfSummary      | SnapshotDate | The Date of the snapshot             | Date     | * | snapshot_date |
+  | dfResults      | GroupID      | The group ID for the metric          | Character| | groupid |
+  | dfResults      | GroupLevel   | The group type for the metric (e.g. "Site")    | Character| | - |
+  | dfResults      | Numerator    | The calculated numerator value       | Numeric  | | numerator |
+  | dfResults      | Denominator  | The calculated denominator value     | Numeric | | denominator |
+  | dfResults      | Metric       | The calculated rate/metric value     | Numeric  | | metric |
+  | dfResults      | Score        | The calculated metric score          | Numeric  | | score |
+  | dfResults      | Flag         | The calculated flag                  | Numeric  | | flag |
+  | dfResults      | MetricID     | The Metric ID                        | Character| * | workflowid |
+  | dfResults      | StudyID      | The Study ID                         | Character| * | studyid |
+  | dfResults      | SnapshotDate | The Date of the snapshot             | Date     | * | snapshot_date |
 
 ### `dfBounds`
   - Function(s) used to create table:
@@ -339,9 +336,9 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
   | dfBounds | LogDenominator  | The calculated log denominator value     | Numeric | | log_denominator |
   | dfBounds | Numerator    | The calculated numerator value       | Numeric  | | numerator |
   | dfBounds | Metric       | The calculated rate/metric value     | Numeric  | | - |
-  | dfBounds | MetricID     | The Metric ID                        | Character| * | workflowid |
-  | dfBounds | StudyID      | The Study ID                         | Character| * | studyid |
-  | dfBounds | SnapshotDate | The Date of the snapshot             | Date     | * | snapshot_date |
+  | dfBounds | MetricID     | The Metric ID                        | Character|  | workflowid |
+  | dfBounds | StudyID      | The Study ID                         | Character|  | studyid |
+  | dfBounds | SnapshotDate | The Date of the snapshot             | Date     |  | snapshot_date |
 
 ###  `dfGroups`
   - Function(s) used to create table:
@@ -355,8 +352,6 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
 
 | Table       | Column                | Description                       |Type      | Optional  |  
 |-------------|-----------------------|-----------------------------------|----------|-----------|
-| dfGroups | ProtocolID               | Protocol ID                       | Character | |
-| dfGroups | SnapshotDate             | Snapshot Date                     | Character | |
 | dfGroups | GroupID                  | Unique Group ID                   | Character| | 
 | dfGroups | GroupLevel               | Group Level (e.g. Site, Country)  | Character| |
 | dfGroups | Param                    | Parameter Name (e.g. "Status")  | Character| | 
@@ -364,22 +359,19 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
 
 Expected `Param` by `GroupLevel` for use in gsm reporting. User may add other Param values as needed. 
 
-| GroupLevel  | Param                | Description                       |Value Type      |
-|-------------|----------------------|-----------------------------------|----------|
-| Study       | Status               | Study Status                      | Character| 
-| Study       | Title       | Protocol Title       | Numeric | 
-| Study       | ParticipantCount       | # of Enrolled Participants        | Numeric | 
-| Study       | SiteCount              | # of Activated Sites                 | Numeric| 
-| Study       | ParticipantsPlanned        | # of Planned Participants        | Numeric| 
-| Study       | SitesPlanned               | # of Planned Sites        | Numeric| 
-| Site       | ParticipantCount       | # of Enrolled Participants        | Numeric | 
-| Site       | Status       | Site Status       | Character | 
-| Site       | InvestigatorFirstName       | Investigator First name        | Character | 
-| Site       | InvestigatorLastName       | Investigator Last name        | Character | 
-| Site       | City        | City       | Character| 
-| Site       | State       | State      | Character | 
-| Site       | Country       | Country       | Character | 
-| Country       | EnrolledParticipants       | # of Enrolled Participants        | Numeric | 
+| GroupLevel   | Param                | Description                       |Value Type |
+|--------------|----------------------|-----------------------------------|----------|
+| Study        | Status               | Study Status                      | Character|
+| Study        | ParticipantCount     | # of Enrolled Participants        | Numeric |
+| Study        | SiteCount            | # of Activated Sites                 | Numeric|
+| Site         | ParticipantCount       | # of Enrolled Participants        | Numeric | 
+| Site         | Status                 | Site Status       | Character | 
+| Site         | InvestigatorFirstName  | Investigator First name        | Character | 
+| Site         | InvestigatorLastName   | Investigator Last name        | Character | 
+| Site         | City                   | City       | Character| 
+| Site         | State                  | State      | Character | 
+| Site         | Country                | Country       | Character | 
+| Country      | EnrolledParticipants   | # of Enrolled Participants        | Numeric | 
 
 
 ###  `dfMetrics`
