@@ -2,7 +2,7 @@
 % Please edit documentation in R/RunWorkflows.R
 \name{RunWorkflows}
 \alias{RunWorkflows}
-\title{Convienience function to easily run multiple workflows}
+\title{Convenience function to easily run multiple workflows}
 \usage{
 RunWorkflows(lWorkflows, lData, bReturnData = TRUE, bKeepInputData = FALSE)
 }
