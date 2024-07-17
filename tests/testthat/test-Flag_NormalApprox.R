@@ -29,12 +29,14 @@ test_that("flagging works correctly", {
     "127", 1, 1, 1, 0.08, 0.910, 3.554
   )
 
-  expect_silent(dfFlagged <- Flag_NormalApprox(dfAnalyzedCustom, vThreshold = c(-3, -2, 2, 3)))
+  expect_silent({
+    dfFlagged <- Flag_NormalApprox(dfAnalyzedCustom, vThreshold = c(-3, -2, 2, 3))
+  })
   expect_equal(dfFlagged$Flag, c(2, 1, 0, 0))
 })
 
 test_that("yaml workflow produces same table as R function", {
-  source(test_path("testdata", "create_double_data.R"), local = TRUE)
+  source(test_path("testdata", "create_double_data.R"))
   expect_equal(dfFlagged$Flag, lResults$dfFlagged$Flag)
   expect_equal(dim(dfFlagged), dim(lResults$dfFlagged))
 })

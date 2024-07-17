@@ -8,7 +8,7 @@ steps:
       df: dfSUBJ
       strQuery: "SELECT * FROM df WHERE enrollyn == 'Y'"
   - name: RunQuery
-    output: dfSeriousAE
+    output: dfAE
     params:
       df: dfAE
       strQuery: "SELECT * FROM df WHERE aeser = 'Y'"

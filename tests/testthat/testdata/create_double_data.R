@@ -1,6 +1,12 @@
 # yaml workflow
-test_wf <- MakeWorkflowList(strPath = test_path("testdata"), strNames = "test_workflow")
-test_mapping <- MakeWorkflowList(strPath = test_path("testdata"), strNames = "mapping")
+test_wf <- MakeWorkflowList(
+  strPath = system.file("workflow", "metrics", package = "gsm"),
+  strNames = "kri0001"
+)
+test_mapping <- MakeWorkflowList(
+  strPath = test_path("testdata"),
+  strNames = "mapping"
+)
 lRaw <- UseClindata(
   list(
     "dfSUBJ" = "clindata::rawplus_dm",
@@ -11,14 +17,14 @@ lMapped <- quiet_RunWorkflow(lWorkflow = test_mapping[[1]], lData = lRaw)
 lResults <- quiet_RunWorkflow(lWorkflow = test_wf[[1]], lData = lMapped)
 
 # functional workflow
-dfSeriousAE <- clindata::rawplus_ae %>%
+dfAE <- clindata::rawplus_ae %>%
   dplyr::filter(aeser == "Y")
 dfInput <- Input_Rate(
   dfSubjects = clindata::rawplus_dm,
-  dfNumerator = dfSeriousAE,
+  dfNumerator = dfAE,
   dfDenominator = clindata::rawplus_dm,
   strSubjectCol = "subjid",
-  strGroupCol = "siteid",
+  strGroupCol = "invid",
   strNumeratorMethod = "Count",
   strDenominatorMethod = "Sum",
   strDenominatorCol = "timeonstudy"
