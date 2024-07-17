@@ -590,17 +590,17 @@
       
       $data_reporting[[13]]
       $data_reporting[[13]]$name
-      [1] "BindResults"
+      [1] "CalculateBounds"
       
       $data_reporting[[13]]$output
-      [1] "dfResults"
+      [1] "dfBounds"
       
       $data_reporting[[13]]$params
       $data_reporting[[13]]$params$lResults
       [1] "lAnalysis"
       
       $data_reporting[[13]]$params$strName
-      [1] "dfSummary"
+      [1] "dfBounds"
       
       $data_reporting[[13]]$params$dSnapshotDate
       [1] "dSnapshotDate"
@@ -615,14 +615,14 @@
       [1] "BindResults"
       
       $data_reporting[[14]]$output
-      [1] "dfBounds"
+      [1] "dfResults"
       
       $data_reporting[[14]]$params
       $data_reporting[[14]]$params$lResults
       [1] "lAnalysis"
       
       $data_reporting[[14]]$params$strName
-      [1] "dfBounds"
+      [1] "dfSummary"
       
       $data_reporting[[14]]$params$dSnapshotDate
       [1] "dSnapshotDate"

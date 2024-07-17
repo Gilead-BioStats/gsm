@@ -4,22 +4,25 @@
 \alias{MakeBounds}
 \title{Calculate Bounds for display in scatterplots}
 \usage{
-MakeBounds(dfResults, dfMetrics, strMetrics = NULL)
+MakeBounds(dfResults, dfMetrics, strMetrics = unique(dfResults$MetricID))
 }
 \arguments{
-\item{dfResults}{Results data}
+\item{dfResults}{Results data.}
 
-\item{dfMetrics}{Metric metadata including thresholds and analysis type}
+\item{dfMetrics}{Metric metadata including thresholds and analysis type.}
 
-\item{strMetrics}{list of MetricIDs to include in dfBounds. All unique values from dfResults$MetricID used by default.}
+\item{strMetrics}{Character vector of \code{MetricID}s to include in \code{dfBounds}.
+All unique values from \code{dfResults$MetricID} used by default.}
 }
 \value{
 A data frame.
 }
 \description{
-Used to calculate bounds for across a set of metrics
+Used to calculate bounds across a set of metrics/
 }
 \examples{
-dfMetrics <- MakeBounds(dfResults=gsm::reportingResults, dfMetrics=gsm::reportingMetrics)
+dfBounds <- MakeBounds(
+  dfResults = reportingResults, dfMetrics = reportingMetrics
+)
 
 }

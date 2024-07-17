@@ -42,15 +42,7 @@ reference:
       - starts_with("Widget_")
       - Analyze_NormalApprox_PredictBounds
       - Analyze_Poisson_PredictBounds
-      # - UpdateLabels
-      # - MakeKRICharts
       - Make_Timeline
-      # - MakeQTLCharts
-
-  # - title: Map
-  #   desc: Generate input data from multiple clinical data standards (generally rawplus or SDTM-)
-  # - contents:
-  #     - matches("*_Map_*")
 
   - title: Analyze
     desc: Conduct statistical analysis based on input data
@@ -81,64 +73,28 @@ reference:
       - Report_KRI
       - Report_MetricCharts
       - Report_MetricTable
-      # - Study_AssessmentReport
-      # - Overview_Table
-      # - rank_chg
-      # - kri_directionality_logo
 
   - title: QTL
     desc: Runs QTL analysis for longitudinal metrics
   - contents:
       - Analyze_QTL
-      # - RunQTL
-      # - SaveQTL
-      # - MakeRptQtlDetails
-
-  # - title: Longitudinal
-  #   desc: Utility functions to analyze longitudinal/trend data.
-  # - contents:
-  #     - Save_Snapshot
 
   - title: Utility
     desc: Utility functions for use within the Data Pipeline
   - contents:
      -  BindResults
-     # -  CheckClindataMeta
-     # -  CheckInputs
-     # -  CheckSnapshotInputs
-     # -  ConsolidateStrata
-     # -  ExportCode
-     # -  FilterData
-     # -  FilterDomain
-     # -  Get_Enrolled
-     # -  MakeAnalysisDate
-     # -  MakeResultsAnalysis
-     # -  MakeResultsBounds
-     # -  MakeResultsSummary
-     # -  MakeStatusWorkflow
-     # -  MakeStratifiedAssessment
+     -  MakeBounds
      -  MakeCharts
      -  MakeMetric
      -  MakeLongMeta
      -  MakeWideGroups
      -  MakeWorkflowList
-     # -  Make_Snapshot
-     # -  MergeSubjects
      -  ParseThreshold
-     # -  ParseWarnings
      -  RunStep
      -  RunQuery
-     # -  RunStratifiedWorkflow
      -  RunWorkflow
      -  RunWorkflows
      -  UseClindata
-     # -  UpdateGSMVersion
-     # -  UpdateParams
-     # -  generate_md_table
-     # -  is_mapping_valid
-     # -  is_workflow_valid
-     # -  parse_data_mapping
-     # -  parse_data_spec
 
   - title: Sample Data
     desc: data used for examples and testing
