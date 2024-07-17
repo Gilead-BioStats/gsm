@@ -17,7 +17,9 @@ MakeLongMeta(data, strGroupLevel, strGroupCols = "GroupID")
 A long format data frame.
 }
 \description{
-Used to create components of the group metadata dictionary (dfMeta) for use in charts and reports. This function takes a data frame and a string specifying the group columns, and returns a long format data frame.
+Used to create components of the group metadata dictionary (dfMeta) for use
+in charts and reports. This function takes a data frame and a string
+specifying the group columns, and returns a long format data frame.
 }
 \examples{
 df <- data.frame(GroupID = c(1, 2, 3), Param1 = c(10, 20, 30), Param2 = c(100, 200, 300))
