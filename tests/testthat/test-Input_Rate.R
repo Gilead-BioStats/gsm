@@ -90,7 +90,7 @@ test_that("handling of zero denominators and missing data", {
 })
 
 test_that("yaml workflow produces same table as R function", {
-  source(test_path("testdata", "create_double_data.R"))
+  source(test_path("testdata", "create_double_data.R"), local = TRUE)
   expect_equal(dfInput$SubjectID, lResults$dfInput$SubjectID)
   expect_equal(dim(dfInput), dim(lResults$dfInput))
 })

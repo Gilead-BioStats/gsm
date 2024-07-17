@@ -99,7 +99,7 @@ test_that("rows with a denominator of 0 are removed", {
 })
 
 test_that("yaml workflow produces same table as R function", {
-  source(test_path("testdata", "create_double_data.R"))
+  source(test_path("testdata", "create_double_data.R"), local = TRUE)
   expect_equal(dfTransformed$Metric, lResults$dfTransformed$Metric)
   expect_equal(dim(dfTransformed), dim(lResults$dfTransformed))
 })
