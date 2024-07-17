@@ -61,13 +61,13 @@ Note that each step in this data pipeline can be customized based on the require
 
 The pipeline discussed here is a standardized process for creating datasets by going from a standardized site-level summary of model results and external data sources to a series of datasets that provide all group-level data and metadata needed to create charts and reports for a given KRI. Unlike the analysis workflow, there is a single workflow for reporting, as all metric-specific information was captured in the analysis phase of the overall pipeline. The functions used in each step of the data pipeline along with the input and output datasets are described in more detail below.
 
-1. `dfResults`: Summary data; Standardized subset of the flagged data. This summary data has the same structure for all assessments and always includes both KRI and Flag values so that a user can easily look at trends for any given site across multiple assessments. Created using the `Summarize()` function followed by the `BindResults()` function to add columns necesary for reporting and stack metrics and snapshots into a single data.frame.
+1. `dfResults`: Summary data; Standardized subset of the flagged data. This summary data has the same structure for all assessments and always includes both KRI and Flag values so that a user can easily look at trends for any given site across multiple assessments. Created using the `Summarize()` function in the analytics pipeline, followed by the `BindResults()` function to add columns necesary for reporting and stack metrics and snapshots into a single data.frame.
 4. `dfFlagged`: Flagged data; Site-level analysis results with flags added to indicate potential statistical outliers. Created by passing numeric thresholds to a `Flag_*()` function.
-3. `dfBounds`: Bounded data; A data.frame containing predicted boundary values with upper and lower bounds across the range of observed values. Created with an `Analyze_*_PredictBounds()` function.
+3. `dfBounds`: Bounded data; A data.frame containing predicted boundary values with upper and lower bounds across the range of observed values. Created with an `Analyze_*_PredictBounds()` function in the analytics pipeline, followed by the `BindResults()` function to add columns necesary for reporting and stack metrics and snapshots into a single data.frame.
 4. `dfGroups`: Grouped data; Long data.frame of summarized group CTMS data with site, study, and country level counts and metrics. Constructed by binding data.frames created with `MakeLongMeta()`.
 5. `dfMetrics`: Metric metadata; Metric-specific metadata for use in charts and reporting. Created by passing an `lWorkflow` object to the `MakeMetric()` function.
 
-The reporting data pipeline has a `yaml` file that runs through all steps to produce all five of these data.frames so that they can be used to create charts and reports. This `yaml` file, and all analysis workflow yaml files can be found  at `system.file("workflow/metrics", package = "gsm")`. The `lData` list required to run this workflow with `RunWorkflow()` must contain the following elements:
+The reporting data pipeline has a `data_reporting.yaml` file that runs through all steps to produce all five of these data.frames so that they can be used to create charts and reports. This `yaml` file, and all analysis workflow yaml files can be found  at `system.file("workflow", package = "gsm")`. The `lData` list required to run this workflow with `RunWorkflow()` must contain the following elements:
 
 1. `ctms_site`: CTMS site-level data set.
 2. `ctms_study`: CTMS study-level data set.
@@ -176,7 +176,7 @@ Additional examples are provided in the [Cookbook Vignette](Cookbook.html).
 
 # Analytics data model
 
-The KRI analytics pipeline is a standardized process for **Analyzing** data issues by going from participant-level `input` data to a standardized site-level `summary` of model results. The data sets used in each step of the data pipeline are described in detail below.
+The KRI analytics pipeline is a standardized process for **Analyzing** data issues by going from participant-level `input` data to a standardized site-level `summary` of model results. The data sets used in each step of the data pipeline are described in detail below. When using a metric workflow yaml to create these tables, all data tables are contained in a list, which we call `lAnalysis`. This list is then fed into the reporting data pipeline.
 
 ## Analytics Data Tables
   
@@ -297,18 +297,17 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
   | dfSummary      | Numerator    | The calculated numerator value       | Numeric  | |
   | dfSummary      | Denominator  | The calculated denominator value     | Numeric | |
   | dfSummary      | Metric       | The calculated rate/metric value     | Numeric  | |
-  | dfSummary      | MetricID     | The Metric ID                        | Character| * |
-  | dfSummary      | StudyID      | The Study ID                         | Character| * |
-  | dfSummary      | SnapshotDate | The Date of the snapshot             | Date     | * |
+  
 
 # Overview of Reporting data model
   
 ## Reporting Data Tables
   
-###  `dfSummary`
+###  `dfResults`
   - Function(s) used to create table:
-    - `Summarize()`
-  - Inputs: `dfFlagged`
+    - `BindResults()`
+  - Inputs: `lAnalysis`, `strStudyID`, `dSnapshotDate`
+  - Workflow used to create table: `data_reporting.yaml`
   - Usage: Summarize KRI at the group level for reporting.
   - Structure:
 
@@ -327,9 +326,9 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
 
 ### `dfBounds`
   - Function(s) used to create table:
-    - `Analyze_NormalApprox_PredictBounds()`
-    - `Analyze_Poisson_PredictBounds()`
-  - Inputs: `dfTransformed`
+    - `BindResults()`
+  - Inputs: `lAnalysis`, `strStudyID`, `dSnapshotDate`
+  - Workflow used to create table: `data_reporting.yaml`
   - Usage: Calculates predicted percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values for reporting.
   - Structure:
 
@@ -345,8 +344,11 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
   | dfBounds | SnapshotDate | The Date of the snapshot             | Date     | * | snapshot_date |
 
 ###  `dfGroups`
-  - Workflow used to create table: `data_reporting`
+  - Function(s) used to create table:
+    - `MakeLongMeta()`
+    - `bind_rows()`
   - Inputs: CTMS site, study and country data
+  - Workflow used to create table: `data_reporting.yaml`
   - Usage: Group-level metadata dictionary.
   - Structure: Long data frame, with certain `Param` required for given `GroupLevel`
 
@@ -360,7 +362,7 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
 | dfGroups | Param                    | Parameter Name (e.g. "Status")  | Character| | 
 | dfGroups | Value                    | Parameter Value (e.g. "Active")        | Character| | 
 
-Expected `Param` by `GroupLevel` for use in gsm reporting. Fine to add other Param values as needed. 
+Expected `Param` by `GroupLevel` for use in gsm reporting. User may add other Param values as needed. 
 
 | GroupLevel  | Param                | Description                       |Value Type      |
 |-------------|----------------------|-----------------------------------|----------|
@@ -382,7 +384,8 @@ Expected `Param` by `GroupLevel` for use in gsm reporting. Fine to add other Par
 
 ###  `dfMetrics`
   - Function used to create table: `MakeMetric()`
-  - Inputs: `lWorkflow` - metadata from the corresponding kri `.yaml` file
+  - Inputs: `lWorkflows` - metadata for the corresponding kri(s) made with `MakeWorkflowList()`
+  - Workflow used to create table: `data_reporting.yaml`
   - Usage: Metadata used for charts and tables
   - Structure:
 
@@ -474,58 +477,5 @@ The `lWorkflow` object is a named list of metadata and steps defining how each a
 
 For example, the default workflow for the AE assessment (`system.file("workflow/metrics/kri0001.yaml", package = "gsm")`) is shown below:
 
-```{yaml, eval = FALSE}
-meta:
-  MetricID: kri0001
-  File: kri0001.yaml
-  Group: site
-  Abbreviation: AE
-  Metric: Adverse Event Rate
-  Numerator: Adverse Events
-  Denominator: Days on Study
-  Model: Normal Approximation
-  Score: Adjusted Z-Score
-  vThreshold: 
-    - -2
-    - -1
-    - 2
-    - 3
-  nMinDenominator: 30
-steps:
-  - name: Input_Rate
-    output: dfInput
-    params:
-      dfSubjects: dfEnrolled
-      dfNumerator: dfAE
-      dfDenominator: dfEnrolled
-      strSubjectCol: subjid
-      strGroupCol: siteid
-      strNumeratorMethod: Count
-      strDenominatorMethod: Sum
-      strDenominatorCol: timeonstudy
-  - name: Transform_Rate
-    output: dfTransformed
-    params:
-      dfInput: dfInput
-  - name: Analyze_NormalApprox
-    output: dfAnalyzed
-    params:
-      dfTransformed: dfTransformed
-      strType: rate
-  - name: Analyze_NormalApprox_PredictBounds
-    output: dfBounds
-    params:
-      dfTransformed: dfTransformed
-      vThreshold: vThreshold
-      strType: rate
-  - name: Flag_NormalApprox
-    output: dfFlagged
-    params:
-      dfAnalyzed: dfAnalyzed
-      vThreshold: vThreshold
-  - name: Summarize
-    output: dfSummary
-    params: 
-      dfFlagged: dfFlagged
-      nMinDenominator: nMinDenominator
+```{yaml, code = readLines(system.file("workflow/metrics/kri0001.yaml", package = "gsm")), eval = FALSE}
 ```
