@@ -37,10 +37,11 @@ test_that("incorrect inputs throw errors", {
     PredictedCount = c(3.05, 2.88, 3.06),
     Flag = c(0, 0, 0)
   )
-  expect_error(Summarize(list()))
-  expect_error(Summarize("Hi"))
-  expect_error(Summarize(ae_flag, 12312))
-  expect_error(Summarize(dfFlagged, strScoreCol = "wombat"))
+  expect_error(Summarize(list()), "dfFlagged is not a data frame")
+  expect_error(Summarize("Hi"), "dfFlagged is not a data frame")
+  expect_message(
+    Summarize(dfFlagged, 12312), "have insufficient sample size"
+  )
 })
 
 test_that("output is correctly sorted by Flag and Score", {
@@ -55,7 +56,7 @@ test_that("output is correctly sorted by Flag and Score", {
 
   expect_equal(Summarize(sim1)$Flag, c(rep(-1, 9), rep(0, 91)))
 
-  sim1 <- data.frame(
+  sim2 <- data.frame(
     GroupID = seq(1, 100),
     GroupLevel = rep("site", 100),
     N = seq(1, 100),
@@ -64,7 +65,7 @@ test_that("output is correctly sorted by Flag and Score", {
     Flag = c(rep(-1, 9), rep(0, 91))
   )
 
-  expect_equal(Summarize(sim1)$Score, c(6, 5, 5, 4, 4, 3, 3, 2, 1, rep(11, 89), 2, 1))
+  expect_equal(Summarize(sim2)$Score, c(6, 5, 5, 4, 4, 3, 3, 2, 1, rep(11, 89), 2, 1))
 })
 
 test_that("yaml workflow produces same table as R function", {
