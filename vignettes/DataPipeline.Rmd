@@ -61,7 +61,7 @@ Note that each step in this data pipeline can be customized based on the require
 
 The pipeline discussed here is a standardized process for creating datasets by going from a standardized site-level summary of model results and external data sources to a series of datasets that provide all group-level data and metadata needed to create charts and reports for a given KRI. Unlike the analysis workflow, there is a single workflow for reporting, as all metric-specific information was captured in the analysis phase of the overall pipeline. The functions used in each step of the data pipeline along with the input and output datasets are described in more detail below.
 
-1. `dfSummary`: Summary data; Standardized subset of the flagged data. This summary data has the same structure for all assessments and always includes both KRI and Flag values so that a user can easily look at trends for any given site across multiple assessments. Created using the `Summarize()` function.
+1. `dfResults`: Summary data; Standardized subset of the flagged data. This summary data has the same structure for all assessments and always includes both KRI and Flag values so that a user can easily look at trends for any given site across multiple assessments. Created using the `Summarize()` function followed by the `BindResults()` function to add columns necesary for reporting and stack metrics and snapshots into a single data.frame.
 4. `dfFlagged`: Flagged data; Site-level analysis results with flags added to indicate potential statistical outliers. Created by passing numeric thresholds to a `Flag_*()` function.
 3. `dfBounds`: Bounded data; A data.frame containing predicted boundary values with upper and lower bounds across the range of observed values. Created with an `Analyze_*_PredictBounds()` function.
 4. `dfGroups`: Grouped data; Long data.frame of summarized group CTMS data with site, study, and country level counts and metrics. Constructed by binding data.frames created with `MakeLongMeta()`.
@@ -89,7 +89,7 @@ Running multiple assessments simultaneously for a single study is a common use c
 
 `RunWorkflows()` attempts to run one or more assessment workflows using shared data and metadata. The metadata used for this study-level assessment is described in detail in [Appendix 1](#Appendix-1-Metadata-Technical-Specifications). The `RunWorkflows()` function returns a list of assessments containing status information and results that is used as input for the reporting workflow and charting and reporting functions described below.
 
-Once all reporting data.frames are created using the `data_reporting.yaml` workflow as discussed above, a user will create charts for all of the metrics specified in the analysis pipeline. `Visualize_Metric()` is a function that creates all available charts for a metric using the data provided. If the `dfSummary` provided to `Visualize_Metric()` contains multiple data with multiple dates, then the `timeSeries` charts will be included in the list of charts returned. The output of this function is a list containing the following charts:
+Once all reporting data.frames are created using the `data_reporting.yaml` workflow as discussed above, a user will create charts for all of the metrics specified in the analysis pipeline. `Visualize_Metric()` is a function that creates all available charts for a metric using the data provided. If the `dfResults` provided to `Visualize_Metric()` contains multiple data with multiple dates, then the `timeSeries` charts will be included in the list of charts returned. The output of this function is a list containing the following charts:
 
  - `scatterJS`: A scatter plot using JavaScript.
  - `scatter`: A scatter plot using ggplot2.
@@ -101,7 +101,7 @@ Once all reporting data.frames are created using the `data_reporting.yaml` workf
  - `timeSeriesContinuousScoreJS`: A time series chart using JavaScript with score on the y-axis.
  - `timeSeriesContinuousNumeratorJS`: A time series chart using JavaScript with numerator on the y-axis.
 
-Now that all imputs for the `Report_KRI()` function have been produced, it can be called to create a detailed report showing both charts and listings summarizing each KRI that was run for the study.
+Now that all inputs for the `Report_KRI()` function have been produced, it can be called to create a detailed report showing both charts and listings summarizing each KRI that was run for the study.
 
 Putting all of these steps together, the following script will create a sample report using both the analysis and reporting workflows for the AE KRI.
 
@@ -146,26 +146,25 @@ lReporting <- RunWorkflows(lWorkflow = wf_reporting, lData = lReporting_Input)
 # Convenience Mappings
 dfGroups <- lReporting$dfGroups
 dfMetrics <- lReporting$dfMetrics
-dfSummary <- lReporting$dfSummary
+dfResults <- lReporting$dfResults
 dfBounds <- lReporting$dfBounds
 
 # Create Charts for all metrics
 options(vsc.viewer = FALSE)
 metrics <- unique(dfMetrics$MetricID)
 charts <- metrics %>% map(~Visualize_Metric(
-  dfSummary = dfSummary,
+  dfResults = dfResults,
   dfBounds = dfBounds,
   dfGroups = dfGroups,
   dfMetrics = dfMetrics,
   strMetricID = .x
 )) %>% setNames(metrics)
 
-## this is currently working in fix-reports branch. will uncomment when that is merged into dev
-# Report_KRI(lCharts = charts,
-#            dfSummary = dfSummary,
-#            dfGroups = dfGroups,
-#            dfMetrics = dfMetrics,
-#            strOutput = "~/test_report_kri.html")
+Report_KRI(lCharts = charts,
+           dfResults = dfResults,
+           dfGroups = dfGroups,
+           dfMetrics = dfMetrics,
+           strOutpath = "~/test_report_kri.html")
 ```
 
 Additional examples are provided in the [Cookbook Vignette](Cookbook.html).
