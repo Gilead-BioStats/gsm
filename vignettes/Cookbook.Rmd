@@ -58,45 +58,13 @@ devtools::install_github("Gilead-BioStats/gsm", ref = "dev")
 Below is the script for running an AE assessment corresponding to kri0001. Using Raw+ data from `clindata`, we are able to create the mapped input data (via `InputRate()`), prepare that data for analysis (via `Transform_Rate()`), analyze the data with the Normal Approximation method (via `Analyze_NormalApprox()`) and flag and summarize the analyzed data (via `Flag_NormalApprox()` and `Summarize()`, respectively) in order to produce a table which aggregates site level flags for the AE risk signal.
 
 
-```{r eval = FALSE, include = TRUE}
-dfInput <- Input_Rate(
-  dfSubjects= clindata::rawplus_dm,
-  dfNumerator= clindata::rawplus_ae,
-  dfDenominator = clindata::rawplus_dm,
-  strSubjectCol = "subjid",
-  strGroupCol = "siteid",
-  strNumeratorMethod= "Count",
-  strDenominatorMethod= "Sum",
-  strDenominatorCol= "timeonstudy"
-)
-
-dfTransformed <- Transform_Rate(dfInput)
-dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "rate")
-dfFlagged <- Flag_NormalApprox(dfAnalyzed, vThreshold = c(-3,-2,2,3))
-dfSummarized <- Summarize(dfFlagged)
-table(dfSummarized$Flag)
+```{r code = readLines(system.file("examples", "1_1_workflow_basic.R", package = "gsm")), eval = FALSE, include = TRUE}
 
 ```
 
 This can also be done with pipes, if desired.
 
-```{r eval = FALSE, include = TRUE}
-SAE_KRI <- Input_Rate(
-  dfSubjects= clindata::rawplus_dm,
-  dfNumerator= clindata::rawplus_ae %>% filter(aeser=="Y"),
-  dfDenominator = clindata::rawplus_dm,
-  strSubjectCol = "subjid",
-  strGroupCol = "siteid",
-  strNumeratorMethod= "Count",
-  strDenominatorMethod= "Sum",
-  strDenominatorCol= "timeonstudy"
-) %>%
-  Transform_Rate %>%
-  Analyze_NormalApprox(strType = "rate") %>%
-  Flag_NormalApprox(vThreshold = c(-3,-2,2,3)) %>%
-  Summarize
-
-table(SAE_KRI$Flag)
+```{r code = readLines(system.file("examples", "1_2_workflow_pipes.R", package = "gsm")), eval = FALSE, include = TRUE}
 
 ```
 
@@ -105,69 +73,7 @@ table(SAE_KRI$Flag)
 In order to create charts and a report for the AE assessment, a few additional steps must be taken. First, `Analyze_NormalApprox_PredictBounds()` must be run to create a data.frame with the upper/lower bounds of the prections (`dfBounds`). Then, a data.frame with all relevant meta information is constructed (`dfMetrics`) prior to running `Visualize_Metric()` and `Report_KRI()` which create the charts and report, respectively.
 
 
-```{r eval = FALSE, include = TRUE}
-dfInput <- Input_Rate(
-  dfSubjects= clindata::rawplus_dm,
-  dfNumerator= clindata::rawplus_ae,
-  dfDenominator = clindata::rawplus_dm,
-  strSubjectCol = "subjid",
-  strGroupCol = "siteid",
-  strNumeratorMethod= "Count",
-  strDenominatorMethod= "Sum",
-  strDenominatorCol= "timeonstudy"
-)
-
-dfTransformed <- Transform_Rate(dfInput)
-dfAnalyzed <- Analyze_NormalApprox(dfTransformed,
-                                   strType = "rate")
-dfFlagged <- Flag_NormalApprox(dfAnalyzed,
-                               vThreshold = c(-3,-2,2,3))
-dfSummarized <- Summarize(dfFlagged)
-dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed = dfTransformed,
-                                               vThreshold = c(-3,-2,2,3))
-
-##create dfMetrics meta object for charts
-dfMetrics <- data.frame(
-  MetricID =  "kri0001",
-  File = "kri0001.yaml",
-  Group = "site",
-  Abbreviation = "AE",
-  Metric = "Adverse Event Rate",
-  Numerator = "Adverse Events",
-  Denominator = "Days on Study",
-  Model = "Normal Approximation",
-  Score = "Adjusted Z-Score"
-)
-
-#add Study and Snapshot information to dfBounds and dfSummarized
-dfBounds <- dfBounds %>%
-  mutate(StudyID = "ABC-123") %>%
-  mutate(SnapshotDate = Sys.Date()) %>%
-  mutate(MetricID = dfMetrics$MetricID)
-
-dfSummarized <- dfSummarized %>%
-  mutate(StudyID = "ABC-123") %>%
-  mutate(SnapshotDate = Sys.Date()) %>%
-  mutate(MetricID = dfMetrics$MetricID)
-
-
-# create Visualizations
-lCharts <- Visualize_Metric(
-  dfSummary = dfSummarized,
-  dfBounds = dfBounds,
-  dfSite = clindata::ctms_site %>% rename(SiteID = site_num),
-  dfMetrics = dfMetrics,
-  strMetricID = dfMetrics$MetricID
-)
-
-# Run reports
-strOutpath <- "~/gsm_site_report_kri0001.html"
-Report_KRI(lCharts = lCharts,
-           dfSummary = dfSummarized,
-           dfSite = dfSite,
-           dfStudy = dfStudy,
-           dfMetrics =dfMetrics,
-           strOutpath = strOutpath)
+```{r code = readLines(system.file("examples", "1_3_workflow_report.R", package = "gsm")), eval = FALSE, include = TRUE}
 
 ```
 
@@ -184,42 +90,8 @@ All assessments can be specified with YAML files, which run through the process 
 Here, we run the YAML workflow for the AE KRI (kri0001). The table produced at the end of this script will match the tables produced in Example 1 above.
 
 
-```{r eval = FALSE, include = TRUE}
-# Import Site+Study Metadata
-dfStudy<-clindata::ctms_study %>% rename(StudyID = protocol_number)
-dfSite<- clindata::ctms_site %>% rename(SiteID = site_num)
+```{r code = readLines(system.file("examples", "2_1_workflow_yaml_basic.R", package = "gsm")), eval = FALSE, include = TRUE}
 
-# Pull Raw Data - this will overwrite the previous data pull
-lRaw <- gsm::UseClindata(
-  list(
-    "dfSUBJ" = "clindata::rawplus_dm",
-    "dfAE" = "clindata::rawplus_ae",
-    "dfPD" = "clindata::ctms_protdev",
-    "dfLB" = "clindata::rawplus_lb",
-    "dfSTUDCOMP" = "clindata::rawplus_studcomp",
-    "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp %>%
-      dplyr::filter(.data$phase == 'Blinded Study Drug Completion')",
-    "dfDATACHG" = "clindata::edc_data_points",
-    "dfDATAENT" = "clindata::edc_data_pages",
-    "dfQUERY" = "clindata::edc_queries",
-    "dfENROLL" = "clindata::rawplus_enroll"
-  )
-)
-
-# Prepare Workflows
-wf_mapping <- MakeWorkflowList(strNames = "mapping")[[1]]
-wf_metrics <- MakeWorkflowList(strNames = "kri0001")
-dfMetrics <- wf_metrics %>% map_df(function(wf){
-  wf$meta$vThreshold <- paste(wf$meta$vThreshold, collapse = ",")
-  return(wf$meta)
-})
-
-# Create Mapped Data
-lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$lData
-# Run Assessments
-lResults <-wf_metrics %>% map(~RunWorkflow(lWorkflow=.x, lData=lMapped))
-
-table(lResults$kri0001$lData$dfSummary$Flag)
 ```
 
 ## Example 4 - Generate Charts with yaml workflow for multiple KRIs
@@ -227,65 +99,7 @@ table(lResults$kri0001$lData$dfSummary$Flag)
 In this example, we run multiple KRIs and once by feeding a vector of KRI file names into `MakeWorkflowList()`. Then, to make charts, we add study information to `dfBounds` and `dfSummary` and feed all relevant data.frames into the `Visualize_Metric()` function using `purrr:map()` since we are making charts for all 12 KRIs. 
 
 
-```{r eval = FALSE, include = TRUE}
-## Prepare Workflows
-wf_mapping <- MakeWorkflowList(strNames="mapping")[[1]]
-wf_metrics <- MakeWorkflowList(strNames=paste0("kri",sprintf("%04d", 1:12)))
-dfMetrics <- wf_metrics %>% map_df(function(wf){
-  wf$meta$vThreshold <- paste(wf$meta$vThreshold, collapse = ",")
-  return(wf$meta)
-})
-
-## Import Site+Study Metadata
-dfStudy<-clindata::ctms_study %>% rename(StudyID = protocol_number)
-dfSite<- clindata::ctms_site %>% rename(SiteID = site_num)
-
-## Pull Raw Data - this will overwrite the previous data pull
-lRaw <- gsm::UseClindata(
-  list(
-    "dfSUBJ" = "clindata::rawplus_dm",
-    "dfAE" = "clindata::rawplus_ae",
-    "dfPD" = "clindata::ctms_protdev",
-    "dfLB" = "clindata::rawplus_lb",
-    "dfSTUDCOMP" = "clindata::rawplus_studcomp",
-    "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp %>%
-      dplyr::filter(.data$phase == 'Blinded Study Drug Completion')",
-    "dfDATACHG" = "clindata::edc_data_points",
-    "dfDATAENT" = "clindata::edc_data_pages",
-    "dfQUERY" = "clindata::edc_queries",
-    "dfENROLL" = "clindata::rawplus_enroll"
-  )
-)
-
-## Create Mapped Data
-lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$lData
-## Run Metrics
-lResults <-wf_metrics %>% map(~RunWorkflow(lWorkflow=.x, lData=lMapped))
-
-#add Study and Snapshot information to dfBounds and dfSummarized
-dfBounds <- lResults %>%
-  imap_dfr(~.x$lData$dfBounds %>% mutate(MetricID = .y)) %>%
-  mutate(StudyID = "ABC-123") %>%
-  mutate(SnapshotDate = Sys.Date())
-
-dfSummary <- lResults %>%
-  imap_dfr(~.x$lData$dfSummary %>% mutate(MetricID = .y)) %>%
-  mutate(StudyID = "ABC-123") %>%
-  mutate(SnapshotDate = Sys.Date())
-
-# create Charts
-lCharts <- unique(dfSummary$MetricID) %>% map(~Visualize_Metric(
-  dfSummary = dfSummary,
-  dfBounds = dfBounds,
-  dfSite = dfSite,
-  dfMetrics = dfMetrics,
-  strMetricID = .x
-)
-) %>% setNames(unique(dfSummary$MetricID))
-
-#view charts
-lCharts$kri0001$scatter
-lCharts$kri0001$barMetricJS
+```{r code = readLines(system.file("examples", "2_2_workflow_yaml_charts.R", package = "gsm")), eval = FALSE, include = TRUE}
 
 ```
 
@@ -293,69 +107,7 @@ lCharts$kri0001$barMetricJS
 
 Here, we create the site-level report using `Report_KRI()` with the data.frames produced by the yaml workflow and the charts created with `Visualize_Metric()`. 
 
-```{r eval = FALSE, include = TRUE}
-## Prepare Workflows
-wf_mapping <- MakeWorkflowList(strNames="mapping")[[1]]
-wf_metrics <- MakeWorkflowList(strNames=paste0("kri",sprintf("%04d", 1:12)))
-dfMetrics <- wf_metrics %>% map_df(function(wf){
-  wf$meta$vThreshold <- paste(wf$meta$vThreshold, collapse = ",")
-  return(wf$meta)
-})
-
-## Import Site+Study Metadata
-dfStudy<-clindata::ctms_study %>% rename(StudyID = protocol_number)
-dfSite<- clindata::ctms_site %>% rename(SiteID = site_num)
-
-## Pull Raw Data - this will overwrite the previous data pull
-lRaw <- gsm::UseClindata(
-  list(
-    "dfSUBJ" = "clindata::rawplus_dm",
-    "dfAE" = "clindata::rawplus_ae",
-    "dfPD" = "clindata::ctms_protdev",
-    "dfLB" = "clindata::rawplus_lb",
-    "dfSTUDCOMP" = "clindata::rawplus_studcomp",
-    "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp %>%
-      dplyr::filter(.data$phase == 'Blinded Study Drug Completion')",
-    "dfDATACHG" = "clindata::edc_data_points",
-    "dfDATAENT" = "clindata::edc_data_pages",
-    "dfQUERY" = "clindata::edc_queries",
-    "dfENROLL" = "clindata::rawplus_enroll"
-  )
-)
-
-## Create Mapped Data
-lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$lData
-## Run Metrics
-lResults <-wf_metrics %>% map(~RunWorkflow(lWorkflow=.x, lData=lMapped))
-
-dfBounds <- lResults %>%
-  imap_dfr(~.x$lData$dfBounds %>% mutate(MetricID = .y)) %>%
-  mutate(StudyID = "ABC-123") %>%
-  mutate(SnapshotDate = Sys.Date())
-
-dfSummary <- lResults %>%
-  imap_dfr(~.x$lData$dfSummary %>% mutate(MetricID = .y)) %>%
-  mutate(StudyID = "ABC-123") %>%
-  mutate(SnapshotDate = Sys.Date())
-
-# create Visualizations
-lCharts <- unique(dfSummary$MetricID) %>% map(~Visualize_Metric(
-  dfSummary = dfSummary,
-  dfBounds = dfBounds,
-  dfSite = dfSite,
-  dfMetrics = dfMetrics,
-  strMetricID = .x
-)
-) %>% setNames(unique(dfSummary$MetricID))
-
-# Run reports
-strOutpath <- "~/gsm_site_report_db.html"
-Report_KRI(lCharts = lCharts,
-           dfSummary = dfSummary,
-           dfSite = dfSite,
-           dfStudy = dfStudy,
-           dfMetrics =dfMetrics,
-           strOutpath = strOutpath)
+```{r code = readLines(system.file("examples", "2_3_workflow_yaml_country.R", package = "gsm")), eval = FALSE, include = TRUE}
 
 ```
 
@@ -363,69 +115,7 @@ Report_KRI(lCharts = lCharts,
 
 Using the same process as the site-level report, we create a country-level report by using the Country KRI yaml files, which begin with `cou` instead of `kri`.
 
-```{r eval = FALSE, include = TRUE}
-# Prepare Workflows
-wf_mapping <- MakeWorkflowList(strNames="mapping")[[1]]
-wf_metrics <- MakeWorkflowList(strNames=paste0("cou",sprintf("%04d", 1:12)))
-dfMetrics <- wf_metrics %>% map_df(function(wf){
-  wf$meta$vThreshold <- paste(wf$meta$vThreshold, collapse = ",")
-  return(wf$meta)
-})
-
-# Import Site+Study Metadata
-dfStudy<-clindata::ctms_study %>% rename(StudyID = protocol_number)
-dfSite<- clindata::ctms_site %>% rename(SiteID = site_num)
-
-# Pull Raw Data - this will overwrite the previous data pull
-lRaw <- gsm::UseClindata(
-  list(
-    "dfSUBJ" = "clindata::rawplus_dm",
-    "dfAE" = "clindata::rawplus_ae",
-    "dfPD" = "clindata::ctms_protdev",
-    "dfLB" = "clindata::rawplus_lb",
-    "dfSTUDCOMP" = "clindata::rawplus_studcomp",
-    "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp",
-    "dfDATACHG" = "clindata::edc_data_points",
-    "dfDATAENT" = "clindata::edc_data_pages",
-    "dfQUERY" = "clindata::edc_queries",
-    "dfENROLL" = "clindata::rawplus_enroll"
-  )
-)
-
-# Create Mapped Data
-lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$lData
-
-# Run Metrics
-lResults <-wf_metrics[1] %>% map(~RunWorkflow(lWorkflow=.x, lData=lMapped))
-
-dfBounds <- lResults %>%
-  imap_dfr(~.x$lData$dfBounds %>% mutate(MetricID = .y)) %>%
-  mutate(StudyID = "ABC-123") %>%
-  mutate(SnapshotDate = Sys.Date())
-
-dfSummary <- lResults %>%
-  imap_dfr(~.x$lData$dfSummary %>% mutate(MetricID = .y)) %>%
-  mutate(StudyID = "ABC-123") %>%
-  mutate(SnapshotDate = Sys.Date())
-
-# Create charts
-lCharts <- unique(dfSummary$MetricID) %>% map(~Visualize_Metric(
-  dfSummary = dfSummary,
-  dfBounds = dfBounds,
-  dfSite = dfSite,
-  dfMetrics = dfMetrics,
-  strMetricID = .x
-)
-) %>% setNames(unique(dfSummary$MetricID))
-
-# Run reports
-strOutpath <- "~/gsm_country_report_db.html"
-Report_KRI(lCharts = lCharts,
-           dfSummary = dfSummary,
-           dfSite = dfSite,
-           dfStudy = dfStudy,
-           dfMetrics = dfMetrics,
-           strOutpath = strOutpath )
+```{r code = readLines(system.file("examples", "2_4_workflow_yaml_report.R", package = "gsm")), eval = FALSE, include = TRUE}
 
 ```
 
@@ -569,7 +259,7 @@ wfmetrics_custom <- MakeWorkflowList("kri0004_filtered")
 dfMetrics <- wf_metrics %>% map_df(~.x$meta)
 
 # Create Mapped Data
-lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$lData
+lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)
 
 # Run Metrics
 lResults <- RunWorkflow(lWorkflow=wfmetrics_custom, lData=lMapped)
