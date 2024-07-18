@@ -1,6 +1,3 @@
-library(testthat)
-library(dplyr)
-
 # Test Case 1 - Valid Input
 test_that("ParseThreshold with valid input returns sorted numeric vector", {
   expect_equal(ParseThreshold("3,1,4,2"), c(1, 2, 3, 4))
@@ -8,13 +5,13 @@ test_that("ParseThreshold with valid input returns sorted numeric vector", {
 
 # Test Case 2 - Invalid Input (Non-Numeric Values)
 test_that("ParseThreshold with non-numeric values returns NULL", {
-  expect_snapshot(result <- ParseThreshold("a,b,c"))
+  expect_snapshot({result <- ParseThreshold("a,b,c")})
   expect_null(result)
 })
 
 # Test Case 3 - Empty String
 test_that("ParseThreshold with empty string returns NULL", {
-  expect_snapshot(result <- ParseThreshold(""))
+  expect_snapshot({result <- ParseThreshold("")})
   expect_null(result)
 })
 
@@ -35,6 +32,6 @@ test_that("ParseThreshold with floating point numbers returns sorted numeric vec
 
 # Test Case 7 - Mixed Valid and Invalid Input
 test_that("ParseThreshold with mixed valid and invalid input returns NULL", {
-  expect_warning(result <- ParseThreshold("1,2,three,4"))
+  expect_warning({result <- ParseThreshold("1,2,three,4")})
   expect_null(result)
 })
