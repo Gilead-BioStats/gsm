@@ -9,7 +9,7 @@ Report_OverviewText(lSetup, dfResults, lStudy)
 \arguments{
 \item{lSetup}{\code{list} that is produced by \code{Report_StudyInfo()}.}
 
-\item{dfResults}{\code{data.frame} containing results information.}
+\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}.}
 
 \item{lStudy}{\code{list} contains study-level metadata.}
 }

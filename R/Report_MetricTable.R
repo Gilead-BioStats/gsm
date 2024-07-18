@@ -4,7 +4,7 @@
 #' results data frame with the site-level metadata from dfGroups. It then filters and arranges the
 #' data based on certain conditions and displays the result in a datatable.
 #'
-#' @param dfResults The summary data frame
+#' @inheritParams shared-params
 #' @param dfGroups A data frame containing the group-level metadata.
 #' @param strSnapshotDate user specified snapshot date as string
 #' @param strGroupLevel  group level for the table

@@ -1,0 +1,3 @@
+class: data.frame
+definition: A stacked summary of analysis pipeline output. Created by passing a
+  list of results returned by [Summarize()] to [BindResults()].

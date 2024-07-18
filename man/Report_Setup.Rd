@@ -9,9 +9,9 @@ Report_Setup(dfGroups = NULL, dfMetrics = NULL, dfResults = NULL)
 \arguments{
 \item{dfGroups}{A data frame containing the group-level metadata.}
 
-\item{dfMetrics}{A data.frame of metric metadata, captured at the top of metric workflows and returned by \code{\link[=MakeMetric]{MakeMetric()}}}
+\item{dfMetrics}{\code{data.frame} Metric-specific metadata for use in charts and reporting. Created by passing an \code{lWorkflow} object to \code{\link[=MakeMetric]{MakeMetric()}}.}
 
-\item{dfResults}{A data frame containing the metric results.}
+\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}.}
 }
 \value{
 \code{list} with the following elements:

@@ -4,7 +4,6 @@
 #' flags over time.
 #'
 #' @inheritParams shared-params
-#' @param dfResults A data frame containing result information.
 #' @param strGroupLevel A string specifying the group type.
 #'
 #' @inherit gt-shared return

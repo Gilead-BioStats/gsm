@@ -15,11 +15,11 @@ Report_KRI(
 \arguments{
 \item{lCharts}{A list of charts to include in the report.}
 
-\item{dfResults}{A data frame containing result information.}
+\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}.}
 
 \item{dfGroups}{A data frame containing study/site metadata (e.g., from CTMS).}
 
-\item{dfMetrics}{A data.frame of metric metadata, captured at the top of metric workflows and returned by \code{\link[=MakeMetric]{MakeMetric()}}}
+\item{dfMetrics}{\code{data.frame} Metric-specific metadata for use in charts and reporting. Created by passing an \code{lWorkflow} object to \code{\link[=MakeMetric]{MakeMetric()}}.}
 
 \item{strOutpath}{The output path for the generated report. If not provided, the report will be saved in the current working directory with the name "kri_report.html".}
 }

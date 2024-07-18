@@ -13,7 +13,7 @@ Report_MetricTable(
 )
 }
 \arguments{
-\item{dfResults}{The summary data frame}
+\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}.}
 
 \item{dfGroups}{A data frame containing the group-level metadata.}
 

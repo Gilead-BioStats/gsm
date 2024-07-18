@@ -4,7 +4,6 @@
 #'
 #' @inheritParams shared-params
 #' @param lCharts A list of charts to include in the report.
-#' @param dfResults A data frame containing result information.
 #' @param dfGroups A data frame containing study/site metadata (e.g., from CTMS).
 #' @param strOutpath The output path for the generated report. If not provided, the report will be saved in the current working directory with the name "kri_report.html".
 #'

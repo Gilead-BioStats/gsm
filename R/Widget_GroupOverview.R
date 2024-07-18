@@ -7,8 +7,6 @@
 #' metrics.
 #'
 #' @inheritParams shared-params
-#' @param dfResults `data.frame` Output of [Summarize()] and [BindResults()].
-#' [MakeMetric()].
 #' @param dfGroups `data.frame` Group metadata.
 #' @param strGroupLevel `character` Value for the group level. Default: NULL and taken from `dfMetrics$GroupLevel` if available.
 #' @param strGroupSubset `character` Subset of groups to include in the table. Default: 'red'. Options:

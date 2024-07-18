@@ -1,0 +1,3 @@
+class: data.frame
+definition: Metric-specific metadata for use in charts and reporting. Created by
+  passing an `lWorkflow` object to [MakeMetric()].

@@ -6,7 +6,7 @@
 #' A widget that generates a bar chart of group-level metric results, plotting groups on the x-axis
 #' and the outcome (numerator, denominator, metric, or score) on the y-axis.
 #'
-#' @param dfResults `data.frame` Output of [Summarize()] and [BindResults()].
+#' @inheritParams shared-params
 #' @param lMetric `list` Metric metadata, captured at the top of metric workflows and returned by
 #' [MakeMetric()].
 #' @param dfGroups `data.frame` Group metadata.

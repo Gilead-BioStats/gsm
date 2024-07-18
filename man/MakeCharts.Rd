@@ -7,13 +7,13 @@
 MakeCharts(dfResults, dfBounds, dfGroups, dfMetrics)
 }
 \arguments{
-\item{dfResults}{A data frame with the results of the simulation.}
+\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}.}
 
 \item{dfBounds}{A data frame with the bounds of the simulation.}
 
 \item{dfGroups}{A data frame with the groups of the simulation.}
 
-\item{dfMetrics}{A data.frame of metric metadata, captured at the top of metric workflows and returned by \code{\link[=MakeMetric]{MakeMetric()}}}
+\item{dfMetrics}{\code{data.frame} Metric-specific metadata for use in charts and reporting. Created by passing an \code{lWorkflow} object to \code{\link[=MakeMetric]{MakeMetric()}}.}
 }
 \value{
 A list of charts for each metric.

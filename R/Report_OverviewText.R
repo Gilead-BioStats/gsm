@@ -1,6 +1,7 @@
 #' Create message describing study summary for Report
+#'
+#' @inheritParams shared-params
 #' @param lSetup `list` that is produced by `Report_StudyInfo()`.
-#' @param dfResults `data.frame` containing results information.
 #' @param lStudy `list` contains study-level metadata.
 #' @export
 #' @keywords internal

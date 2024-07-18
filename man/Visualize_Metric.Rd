@@ -15,13 +15,13 @@ Visualize_Metric(
 )
 }
 \arguments{
-\item{dfResults}{\code{data.frame} A data.frame returned by \code{\link[=Summarize]{Summarize()}} and \code{\link[=BindResults]{BindResults()}}.}
+\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}.}
 
 \item{dfBounds}{\code{data.frame}, A data.frame returned by \code{\link[=Analyze_NormalApprox_PredictBounds]{Analyze_NormalApprox_PredictBounds()}} or \code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}}}
 
 \item{dfGroups}{\code{data.frame} Site metadata.}
 
-\item{dfMetrics}{A data.frame of metric metadata, captured at the top of metric workflows and returned by \code{\link[=MakeMetric]{MakeMetric()}}}
+\item{dfMetrics}{\code{data.frame} Metric-specific metadata for use in charts and reporting. Created by passing an \code{lWorkflow} object to \code{\link[=MakeMetric]{MakeMetric()}}.}
 
 \item{strMetricID}{\code{character} MetricID to subset the data.}
 

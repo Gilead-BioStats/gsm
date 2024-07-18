@@ -3,7 +3,6 @@
 #' The function creates all available charts for a metric using the data provided
 #'
 #' @inheritParams shared-params
-#' @param dfResults `data.frame` A data.frame returned by [Summarize()] and [BindResults()].
 #' @param dfBounds `data.frame`, A data.frame returned by [Analyze_NormalApprox_PredictBounds()] or [Analyze_Poisson_PredictBounds()]
 #' @param dfGroups `data.frame` Site metadata.
 #' @param strMetricID `character` MetricID to subset the data.

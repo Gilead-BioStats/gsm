@@ -2,7 +2,6 @@
 #'
 #' @inheritParams shared-params
 #' @param dfGroups A data frame containing the group-level metadata.
-#' @param dfResults A data frame containing the metric results.
 #'
 #' @export
 #' @keywords internal
