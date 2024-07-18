@@ -25,6 +25,7 @@
 <url><loc>/reference/Flag_Poisson.html</loc></url>
 <url><loc>/reference/Flag_QTL.html</loc></url>
 <url><loc>/reference/Input_Rate.html</loc></url>
+<url><loc>/reference/MakeBounds.html</loc></url>
 <url><loc>/reference/MakeCharts.html</loc></url>
 <url><loc>/reference/MakeLongMeta.html</loc></url>
 <url><loc>/reference/MakeMetric.html</loc></url>
@@ -61,7 +62,6 @@
 <url><loc>/reference/Widget_TimeSeries-shiny.html</loc></url>
 <url><loc>/reference/Widget_TimeSeries.html</loc></url>
 <url><loc>/reference/Widget_TimeSeriesQTL.html</loc></url>
-<url><loc>/reference/analyticsBounds.html</loc></url>
 <url><loc>/reference/analyticsInput.html</loc></url>
 <url><loc>/reference/analyticsSummary.html</loc></url>
 <url><loc>/reference/cols_label_month.html</loc></url>
