@@ -1,9 +1,9 @@
 #' Helper function create charts for multiple metrics
 #'
+#' @inheritParams shared-params
 #' @param dfResults A data frame with the results of the simulation.
 #' @param dfBounds A data frame with the bounds of the simulation.
 #' @param dfGroups A data frame with the groups of the simulation.
-#' @param dfMetrics A data frame with the metrics of the simulation.
 #'
 #' @return A list of charts for each metric.
 #

@@ -13,7 +13,7 @@ MakeCharts(dfResults, dfBounds, dfGroups, dfMetrics)
 
 \item{dfGroups}{A data frame with the groups of the simulation.}
 
-\item{dfMetrics}{A data frame with the metrics of the simulation.}
+\item{dfMetrics}{A data.frame of metric metadata, captured at the top of metric workflows and returned by \code{\link[=MakeMetric]{MakeMetric()}}}
 }
 \value{
 A list of charts for each metric.

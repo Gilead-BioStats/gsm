@@ -6,8 +6,8 @@
 #' A widget that generates a group overview table of group-level metric results across one or more
 #' metrics.
 #'
+#' @inheritParams shared-params
 #' @param dfResults `data.frame` Output of [Summarize()] and [BindResults()].
-#' @param dfMetrics `list` Metric metadata, captured at the top of metric workflows and returned by
 #' [MakeMetric()].
 #' @param dfGroups `data.frame` Group metadata.
 #' @param strGroupLevel `character` Value for the group level. Default: NULL and taken from `dfMetrics$GroupLevel` if available.

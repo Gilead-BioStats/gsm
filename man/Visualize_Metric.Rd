@@ -21,7 +21,7 @@ Visualize_Metric(
 
 \item{dfGroups}{\code{data.frame} Site metadata.}
 
-\item{dfMetrics}{\code{data.frame} Metrics metadata.}
+\item{dfMetrics}{A data.frame of metric metadata, captured at the top of metric workflows and returned by \code{\link[=MakeMetric]{MakeMetric()}}}
 
 \item{strMetricID}{\code{character} MetricID to subset the data.}
 

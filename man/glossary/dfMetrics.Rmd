@@ -1,0 +1,1 @@
+A data.frame of metric metadata, captured at the top of metric workflows and returned by [MakeMetric()]

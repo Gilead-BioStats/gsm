@@ -9,7 +9,7 @@ Report_Setup(dfGroups = NULL, dfMetrics = NULL, dfResults = NULL)
 \arguments{
 \item{dfGroups}{A data frame containing the group-level metadata.}
 
-\item{dfMetrics}{A data frame containing the metric-level metadata.}
+\item{dfMetrics}{A data.frame of metric metadata, captured at the top of metric workflows and returned by \code{\link[=MakeMetric]{MakeMetric()}}}
 
 \item{dfResults}{A data frame containing the metric results.}
 }

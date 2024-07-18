@@ -15,10 +15,10 @@ Widget_GroupOverview(
 )
 }
 \arguments{
-\item{dfResults}{\code{data.frame} Output of \code{\link[=Summarize]{Summarize()}} and \code{\link[=BindResults]{BindResults()}}.}
-
-\item{dfMetrics}{\code{list} Metric metadata, captured at the top of metric workflows and returned by
+\item{dfResults}{\code{data.frame} Output of \code{\link[=Summarize]{Summarize()}} and \code{\link[=BindResults]{BindResults()}}.
 \code{\link[=MakeMetric]{MakeMetric()}}.}
+
+\item{dfMetrics}{A data.frame of metric metadata, captured at the top of metric workflows and returned by \code{\link[=MakeMetric]{MakeMetric()}}}
 
 \item{dfGroups}{\code{data.frame} Group metadata.}
 
