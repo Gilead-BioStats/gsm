@@ -410,7 +410,7 @@ statistical model, <code>dfTransformed</code> and thresholds using
 see the following scatter plot:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dfBounds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Analyze_NormalApprox_PredictBounds.html">Analyze_NormalApprox_PredictBounds</a></span><span class="op">(</span><span class="va">dfTransformed</span>, vThreshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="op">-</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; → nStep was not provided. Setting default step to 203.584</span></span>
+<span><span class="co">#&gt; nStep was not provided. Setting default step to 203.584.</span></span>
 <span></span>
 <span><span class="va">chart</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Visualize_Scatter.html">Visualize_Scatter</a></span><span class="op">(</span><span class="va">dfFlagged</span>, <span class="va">dfBounds</span><span class="op">)</span></span></code></pre></div>
 <p><img src="DataAnalysis_files/figure-html/unnamed-chunk-12-1.png" width="672"></p>
