@@ -1,4 +1,4 @@
-#' Convienience function to easily run multiple workflows
+#' Convenience function to easily run multiple workflows
 #'
 #' This function takes a list of workflows and a list of data as input. If there
 #' are multiple workflows in the list, it runs each workflow and returns the
