@@ -2,9 +2,7 @@
 % Please edit documentation in R/util-ParseThreshold.R
 \name{ParseThreshold}
 \alias{ParseThreshold}
-\title{This function takes a comma-separated string and parses it into a numeric vector.
-It checks if all values in the string are numeric and returns the parsed vector.
-If any value is not numeric, it throws an error.}
+\title{Parse a string into a numeric vector}
 \usage{
 ParseThreshold(strThreshold)
 }
@@ -15,9 +13,9 @@ ParseThreshold(strThreshold)
 A numeric vector containing the parsed values.
 }
 \description{
-This function takes a comma-separated string and parses it into a numeric vector.
-It checks if all values in the string are numeric and returns the parsed vector.
-If any value is not numeric, it throws an error.
+This function takes a comma-separated string and parses it into a numeric
+vector. It checks if all values in the string are numeric and returns the
+parsed vector. If any value is not numeric, it throws an error.
 }
 \examples{
 ParseThreshold("1,2,3,4")

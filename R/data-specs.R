@@ -26,21 +26,6 @@
 #' @source Generated from `analyticsSummary.csv` dataset in the `gsm` package.
 "analyticsSummary"
 
-#' analyticsBounds Dataset
-#'
-#' @format A data frame with 12667 rows and 8 columns:
-#' \describe{
-#'   \item{Threshold}{number of standard deviations that the upper and lower bounds are based on}
-#'   \item{Denominator}{calculated denominator value}
-#'   \item{LogDenominator}{calculated log denominator value}
-#'   \item{Numerator}{calculated numerator value}
-#'   \item{Metric}{calculated rate/metric value}
-#'   \item{MetricID}{unique metric identifier}
-#'   \item{StudyID}{unique study identifier}
-#'   \item{SnapshotDate}{date of the snapshot}
-#' }
-#' @source Generated from `analyticsBounds.csv` dataset in the `gsm` package.
-"analyticsBounds"
 
 #' reportingGroups Dataset
 #'

@@ -65,7 +65,7 @@ Analyze_Poisson_PredictBounds <- function(
     nMaxLogDenominator <- max(dfTransformed$LogDenominator)
     nRange <- nMaxLogDenominator - nMinLogDenominator
 
-    if (!is.null(nRange) & !is.na(nRange) & nRange != 0) {
+    if (!is.null(nRange) && !is.na(nRange) && nRange != 0) {
       nStep <- nRange / 250
     } else {
       nStep <- .05

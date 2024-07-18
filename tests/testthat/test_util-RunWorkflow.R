@@ -20,13 +20,6 @@ lData <- gsm::UseClindata(
   )
 )
 
-# Quiet output
-quiet_RunWorkflow <- function(...) {
-  suppressMessages({
-    RunWorkflow(...)
-  })
-}
-
 # Create Mapped Data
 lMapped <- quiet_RunWorkflow(lWorkflow = wf_mapping, lData = lData)
 
