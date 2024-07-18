@@ -14,7 +14,8 @@ HTMLWidgets.widget({
                             ? 'None'
                             : d.GroupID;
                         groupSelect.value = instance.data.config.selectedGroupIDs;
-                        countrySelect.value = "None";
+                        if (countrySelect !== undefined)
+                            countrySelect.value = "None";
                         instance.helpers.updateConfig(
                             instance,
                             instance.data.config
@@ -30,7 +31,7 @@ HTMLWidgets.widget({
                             Shiny.setInputValue(
                               'country',
                               instance.data.config.selectedCountryIDs
-                              )
+                            )
                           }
                         }
                   };
@@ -56,8 +57,10 @@ HTMLWidgets.widget({
                         instance,
                         `Highlighted ${input.lMetric.Group || 'group'}: `
                     );
-                    countrySelect = addCountrySelect(el, input.dfGroups, instance, groupSelect);
 
+                    if (input.lMetric.GroupLevel === 'Site') {
+                        countrySelect = addCountrySelect(el, input.dfGroups, instance, groupSelect);
+                    }
                 }
             },
             resize: function(width, height) {
