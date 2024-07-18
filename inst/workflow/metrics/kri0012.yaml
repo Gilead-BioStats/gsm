@@ -30,6 +30,7 @@ steps:
   - name: Transform_Rate
     output: dfTransformed
     params:
+      dfInput: dfInput
   - name: Analyze_NormalApprox
     output: dfAnalyzed
     params:

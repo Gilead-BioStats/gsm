@@ -6,7 +6,6 @@ meta:
   Metric: Adverse Event Rate
   Numerator: Adverse Events
   Denominator: Days on Study
-  Type: Rate
   Model: Normal Approximation
   Type: rate
   Score: Adjusted Z-Score
