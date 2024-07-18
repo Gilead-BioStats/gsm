@@ -6,9 +6,9 @@
     Message
       Creating stacked dfBounds data for kri0001 and kri0002
       v Parsed -2,-1,2,3 to numeric vector: -2, -1, 2, and 3
-      > nStep was not provided. Setting default step to 50.64
+      nStep was not provided. Setting default step to 50.64.
       v Parsed -2,-1,2,3 to numeric vector: -2, -1, 2, and 3
-      > nStep was not provided. Setting default step to 50.64
+      nStep was not provided. Setting default step to 50.64.
     Output
       # A tibble: 2,530 x 8
          Threshold Denominator LogDenominator Numerator Metric MetricID StudyID
@@ -34,7 +34,7 @@
     Message
       Creating stacked dfBounds data for kri0001
       v Parsed -2,-1,2,3 to numeric vector: -2, -1, 2, and 3
-      > nStep was not provided. Setting default step to 50.64
+      nStep was not provided. Setting default step to 50.64.
     Output
       # A tibble: 1,265 x 8
          Threshold Denominator LogDenominator Numerator Metric MetricID StudyID
