@@ -31,6 +31,6 @@ A data frame.
 }
 \description{
 Used to stack results (e.g. \code{dfSummary}) from a list of analysis pipeline
-output formatted like the result of \code{RunWorklows()}. Also adds study level
+output formatted like the result of \code{RunWorkflows()}. Also adds study level
 metadata when provided.
 }

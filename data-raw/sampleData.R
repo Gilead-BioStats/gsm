@@ -1,8 +1,3 @@
-analyticsBounds <- read.csv("data-raw/analyticsBounds.csv")
-analyticsBounds$SnapshotDate <- as.Date(analyticsBounds$SnapshotDate)
-usethis::use_data(analyticsBounds, overwrite = TRUE)
-rm(analyticsBounds)
-
 reportingGroups <- read.csv("data-raw/reportingGroups.csv")
 usethis::use_data(reportingGroups, overwrite = TRUE)
 rm(reportingGroups)

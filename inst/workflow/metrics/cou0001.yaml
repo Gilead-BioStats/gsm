@@ -7,6 +7,7 @@ meta:
   Numerator: Adverse Events
   Denominator: Days on Study
   Model: Normal Approximation
+  Type: rate
   Score: Adjusted Z-Score
   strThreshold: -2,-1,2,3
   nMinDenominator: 30
@@ -35,13 +36,7 @@ steps:
     output: dfAnalyzed
     params:
       dfTransformed: dfTransformed
-      strType: rate
-  - name: Analyze_NormalApprox_PredictBounds
-    output: dfBounds
-    params:
-      dfTransformed: dfTransformed
-      strType: rate
-      vThreshold: vThreshold
+      strType: Type
   - name: Flag_NormalApprox
     output: dfFlagged
     params:

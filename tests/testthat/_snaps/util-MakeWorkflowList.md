@@ -612,23 +612,17 @@
       
       $data_reporting[[14]]
       $data_reporting[[14]]$name
-      [1] "BindResults"
+      [1] "MakeBounds"
       
       $data_reporting[[14]]$output
       [1] "dfBounds"
       
       $data_reporting[[14]]$params
-      $data_reporting[[14]]$params$lResults
-      [1] "lAnalysis"
+      $data_reporting[[14]]$params$dfResults
+      [1] "dfResults"
       
-      $data_reporting[[14]]$params$strName
-      [1] "dfBounds"
-      
-      $data_reporting[[14]]$params$dSnapshotDate
-      [1] "dSnapshotDate"
-      
-      $data_reporting[[14]]$params$strStudyID
-      [1] "strStudyID"
+      $data_reporting[[14]]$params$dfMetrics
+      [1] "dfMetrics"
       
       
       
@@ -662,7 +656,7 @@
       [1] "dfAE"
       
       $cou0001[[2]]$params$dfDenominator
-      [1] "dfSUBJ"
+      [1] "dfEnrolled"
       
       $cou0001[[2]]$params$strSubjectCol
       [1] "subjid"
@@ -709,23 +703,20 @@
       [1] "dfTransformed"
       
       $cou0001[[4]]$params$strType
-      [1] "rate"
+      [1] "Type"
       
       
       
       $cou0001[[5]]
       $cou0001[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $cou0001[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $cou0001[[5]]$params
-      $cou0001[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $cou0001[[5]]$params$strType
-      [1] "rate"
+      $cou0001[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $cou0001[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -734,32 +725,16 @@
       
       $cou0001[[6]]
       $cou0001[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $cou0001[[6]]$output
-      [1] "dfFlagged"
-      
-      $cou0001[[6]]$params
-      $cou0001[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $cou0001[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $cou0001[[7]]
-      $cou0001[[7]]$name
       [1] "Summarize"
       
-      $cou0001[[7]]$output
+      $cou0001[[6]]$output
       [1] "dfSummary"
       
-      $cou0001[[7]]$params
-      $cou0001[[7]]$params$dfFlagged
+      $cou0001[[6]]$params
+      $cou0001[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $cou0001[[7]]$params$nMinDenominator
+      $cou0001[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -841,23 +816,20 @@
       [1] "dfTransformed"
       
       $cou0002[[4]]$params$strType
-      [1] "rate"
+      [1] "Type"
       
       
       
       $cou0002[[5]]
       $cou0002[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $cou0002[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $cou0002[[5]]$params
-      $cou0002[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $cou0002[[5]]$params$strType
-      [1] "rate"
+      $cou0002[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $cou0002[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -866,32 +838,16 @@
       
       $cou0002[[6]]
       $cou0002[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $cou0002[[6]]$output
-      [1] "dfFlagged"
-      
-      $cou0002[[6]]$params
-      $cou0002[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $cou0002[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $cou0002[[7]]
-      $cou0002[[7]]$name
       [1] "Summarize"
       
-      $cou0002[[7]]$output
+      $cou0002[[6]]$output
       [1] "dfSummary"
       
-      $cou0002[[7]]$params
-      $cou0002[[7]]$params$dfFlagged
+      $cou0002[[6]]$params
+      $cou0002[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $cou0002[[7]]$params$nMinDenominator
+      $cou0002[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -973,23 +929,20 @@
       [1] "dfTransformed"
       
       $cou0003[[4]]$params$strType
-      [1] "rate"
+      [1] "Type"
       
       
       
       $cou0003[[5]]
       $cou0003[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $cou0003[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $cou0003[[5]]$params
-      $cou0003[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $cou0003[[5]]$params$strType
-      [1] "rate"
+      $cou0003[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $cou0003[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -998,32 +951,16 @@
       
       $cou0003[[6]]
       $cou0003[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $cou0003[[6]]$output
-      [1] "dfFlagged"
-      
-      $cou0003[[6]]$params
-      $cou0003[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $cou0003[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $cou0003[[7]]
-      $cou0003[[7]]$name
       [1] "Summarize"
       
-      $cou0003[[7]]$output
+      $cou0003[[6]]$output
       [1] "dfSummary"
       
-      $cou0003[[7]]$params
-      $cou0003[[7]]$params$dfFlagged
+      $cou0003[[6]]$params
+      $cou0003[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $cou0003[[7]]$params$nMinDenominator
+      $cou0003[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -1105,23 +1042,20 @@
       [1] "dfTransformed"
       
       $cou0004[[4]]$params$strType
-      [1] "rate"
+      [1] "Type"
       
       
       
       $cou0004[[5]]
       $cou0004[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $cou0004[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $cou0004[[5]]$params
-      $cou0004[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $cou0004[[5]]$params$strType
-      [1] "rate"
+      $cou0004[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $cou0004[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -1130,32 +1064,16 @@
       
       $cou0004[[6]]
       $cou0004[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $cou0004[[6]]$output
-      [1] "dfFlagged"
-      
-      $cou0004[[6]]$params
-      $cou0004[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $cou0004[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $cou0004[[7]]
-      $cou0004[[7]]$name
       [1] "Summarize"
       
-      $cou0004[[7]]$output
+      $cou0004[[6]]$output
       [1] "dfSummary"
       
-      $cou0004[[7]]$params
-      $cou0004[[7]]$params$dfFlagged
+      $cou0004[[6]]$params
+      $cou0004[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $cou0004[[7]]$params$nMinDenominator
+      $cou0004[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -1234,23 +1152,20 @@
       [1] "dfTransformed"
       
       $cou0005[[4]]$params$strType
-      [1] "binary"
+      [1] "Type"
       
       
       
       $cou0005[[5]]
       $cou0005[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $cou0005[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $cou0005[[5]]$params
-      $cou0005[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $cou0005[[5]]$params$strType
-      [1] "binary"
+      $cou0005[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $cou0005[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -1259,32 +1174,16 @@
       
       $cou0005[[6]]
       $cou0005[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $cou0005[[6]]$output
-      [1] "dfFlagged"
-      
-      $cou0005[[6]]$params
-      $cou0005[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $cou0005[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $cou0005[[7]]
-      $cou0005[[7]]$name
       [1] "Summarize"
       
-      $cou0005[[7]]$output
+      $cou0005[[6]]$output
       [1] "dfSummary"
       
-      $cou0005[[7]]$params
-      $cou0005[[7]]$params$dfFlagged
+      $cou0005[[6]]$params
+      $cou0005[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $cou0005[[7]]$params$nMinDenominator
+      $cou0005[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -1363,23 +1262,20 @@
       [1] "dfTransformed"
       
       $cou0006[[4]]$params$strType
-      [1] "binary"
+      [1] "Type"
       
       
       
       $cou0006[[5]]
       $cou0006[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $cou0006[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $cou0006[[5]]$params
-      $cou0006[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $cou0006[[5]]$params$strType
-      [1] "binary"
+      $cou0006[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $cou0006[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -1388,32 +1284,16 @@
       
       $cou0006[[6]]
       $cou0006[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $cou0006[[6]]$output
-      [1] "dfFlagged"
-      
-      $cou0006[[6]]$params
-      $cou0006[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $cou0006[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $cou0006[[7]]
-      $cou0006[[7]]$name
       [1] "Summarize"
       
-      $cou0006[[7]]$output
+      $cou0006[[6]]$output
       [1] "dfSummary"
       
-      $cou0006[[7]]$params
-      $cou0006[[7]]$params$dfFlagged
+      $cou0006[[6]]$params
+      $cou0006[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $cou0006[[7]]$params$nMinDenominator
+      $cou0006[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -1492,23 +1372,20 @@
       [1] "dfTransformed"
       
       $cou0007[[4]]$params$strType
-      [1] "binary"
+      [1] "Type"
       
       
       
       $cou0007[[5]]
       $cou0007[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $cou0007[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $cou0007[[5]]$params
-      $cou0007[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $cou0007[[5]]$params$strType
-      [1] "binary"
+      $cou0007[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $cou0007[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -1517,32 +1394,16 @@
       
       $cou0007[[6]]
       $cou0007[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $cou0007[[6]]$output
-      [1] "dfFlagged"
-      
-      $cou0007[[6]]$params
-      $cou0007[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $cou0007[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $cou0007[[7]]
-      $cou0007[[7]]$name
       [1] "Summarize"
       
-      $cou0007[[7]]$output
+      $cou0007[[6]]$output
       [1] "dfSummary"
       
-      $cou0007[[7]]$params
-      $cou0007[[7]]$params$dfFlagged
+      $cou0007[[6]]$params
+      $cou0007[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $cou0007[[7]]$params$nMinDenominator
+      $cou0007[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -1621,23 +1482,20 @@
       [1] "dfTransformed"
       
       $cou0008[[4]]$params$strType
-      [1] "rate"
+      [1] "Type"
       
       
       
       $cou0008[[5]]
       $cou0008[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $cou0008[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $cou0008[[5]]$params
-      $cou0008[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $cou0008[[5]]$params$strType
-      [1] "rate"
+      $cou0008[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $cou0008[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -1646,32 +1504,16 @@
       
       $cou0008[[6]]
       $cou0008[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $cou0008[[6]]$output
-      [1] "dfFlagged"
-      
-      $cou0008[[6]]$params
-      $cou0008[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $cou0008[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $cou0008[[7]]
-      $cou0008[[7]]$name
       [1] "Summarize"
       
-      $cou0008[[7]]$output
+      $cou0008[[6]]$output
       [1] "dfSummary"
       
-      $cou0008[[7]]$params
-      $cou0008[[7]]$params$dfFlagged
+      $cou0008[[6]]$params
+      $cou0008[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $cou0008[[7]]$params$nMinDenominator
+      $cou0008[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -1750,23 +1592,20 @@
       [1] "dfTransformed"
       
       $cou0009[[4]]$params$strType
-      [1] "binary"
+      [1] "Type"
       
       
       
       $cou0009[[5]]
       $cou0009[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $cou0009[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $cou0009[[5]]$params
-      $cou0009[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $cou0009[[5]]$params$strType
-      [1] "binary"
+      $cou0009[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $cou0009[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -1775,32 +1614,16 @@
       
       $cou0009[[6]]
       $cou0009[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $cou0009[[6]]$output
-      [1] "dfFlagged"
-      
-      $cou0009[[6]]$params
-      $cou0009[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $cou0009[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $cou0009[[7]]
-      $cou0009[[7]]$name
       [1] "Summarize"
       
-      $cou0009[[7]]$output
+      $cou0009[[6]]$output
       [1] "dfSummary"
       
-      $cou0009[[7]]$params
-      $cou0009[[7]]$params$dfFlagged
+      $cou0009[[6]]$params
+      $cou0009[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $cou0009[[7]]$params$nMinDenominator
+      $cou0009[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -1879,23 +1702,20 @@
       [1] "dfTransformed"
       
       $cou0010[[4]]$params$strType
-      [1] "binary"
+      [1] "Type"
       
       
       
       $cou0010[[5]]
       $cou0010[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $cou0010[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $cou0010[[5]]$params
-      $cou0010[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $cou0010[[5]]$params$strType
-      [1] "binary"
+      $cou0010[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $cou0010[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -1904,32 +1724,16 @@
       
       $cou0010[[6]]
       $cou0010[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $cou0010[[6]]$output
-      [1] "dfFlagged"
-      
-      $cou0010[[6]]$params
-      $cou0010[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $cou0010[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $cou0010[[7]]
-      $cou0010[[7]]$name
       [1] "Summarize"
       
-      $cou0010[[7]]$output
+      $cou0010[[6]]$output
       [1] "dfSummary"
       
-      $cou0010[[7]]$params
-      $cou0010[[7]]$params$dfFlagged
+      $cou0010[[6]]$params
+      $cou0010[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $cou0010[[7]]$params$nMinDenominator
+      $cou0010[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -2008,23 +1812,20 @@
       [1] "dfTransformed"
       
       $cou0011[[4]]$params$strType
-      [1] "binary"
+      [1] "Type"
       
       
       
       $cou0011[[5]]
       $cou0011[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $cou0011[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $cou0011[[5]]$params
-      $cou0011[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $cou0011[[5]]$params$strType
-      [1] "binary"
+      $cou0011[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $cou0011[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -2033,32 +1834,16 @@
       
       $cou0011[[6]]
       $cou0011[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $cou0011[[6]]$output
-      [1] "dfFlagged"
-      
-      $cou0011[[6]]$params
-      $cou0011[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $cou0011[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $cou0011[[7]]
-      $cou0011[[7]]$name
       [1] "Summarize"
       
-      $cou0011[[7]]$output
+      $cou0011[[6]]$output
       [1] "dfSummary"
       
-      $cou0011[[7]]$params
-      $cou0011[[7]]$params$dfFlagged
+      $cou0011[[6]]$params
+      $cou0011[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $cou0011[[7]]$params$nMinDenominator
+      $cou0011[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -2137,23 +1922,20 @@
       [1] "dfTransformed"
       
       $cou0012[[4]]$params$strType
-      [1] "binary"
+      [1] "Type"
       
       
       
       $cou0012[[5]]
       $cou0012[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $cou0012[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $cou0012[[5]]$params
-      $cou0012[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $cou0012[[5]]$params$strType
-      [1] "binary"
+      $cou0012[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $cou0012[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -2162,32 +1944,16 @@
       
       $cou0012[[6]]
       $cou0012[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $cou0012[[6]]$output
-      [1] "dfFlagged"
-      
-      $cou0012[[6]]$params
-      $cou0012[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $cou0012[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $cou0012[[7]]
-      $cou0012[[7]]$name
       [1] "Summarize"
       
-      $cou0012[[7]]$output
+      $cou0012[[6]]$output
       [1] "dfSummary"
       
-      $cou0012[[7]]$params
-      $cou0012[[7]]$params$dfFlagged
+      $cou0012[[6]]$params
+      $cou0012[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $cou0012[[7]]$params$nMinDenominator
+      $cou0012[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -2269,57 +2035,38 @@
       [1] "dfTransformed"
       
       $kri0001[[4]]$params$strType
-      [1] "rate"
+      [1] "Type"
       
       
       
       $kri0001[[5]]
       $kri0001[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $kri0001[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $kri0001[[5]]$params
-      $kri0001[[5]]$params$dfTransformed
-      [1] "dfTransformed"
+      $kri0001[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $kri0001[[5]]$params$vThreshold
       [1] "vThreshold"
-      
-      $kri0001[[5]]$params$strType
-      [1] "rate"
       
       
       
       $kri0001[[6]]
       $kri0001[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $kri0001[[6]]$output
-      [1] "dfFlagged"
-      
-      $kri0001[[6]]$params
-      $kri0001[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $kri0001[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $kri0001[[7]]
-      $kri0001[[7]]$name
       [1] "Summarize"
       
-      $kri0001[[7]]$output
+      $kri0001[[6]]$output
       [1] "dfSummary"
       
-      $kri0001[[7]]$params
-      $kri0001[[7]]$params$dfFlagged
+      $kri0001[[6]]$params
+      $kri0001[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $kri0001[[7]]$params$nMinDenominator
+      $kri0001[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -2401,23 +2148,20 @@
       [1] "dfTransformed"
       
       $kri0002[[4]]$params$strType
-      [1] "rate"
+      [1] "Type"
       
       
       
       $kri0002[[5]]
       $kri0002[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $kri0002[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $kri0002[[5]]$params
-      $kri0002[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $kri0002[[5]]$params$strType
-      [1] "rate"
+      $kri0002[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $kri0002[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -2426,32 +2170,16 @@
       
       $kri0002[[6]]
       $kri0002[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $kri0002[[6]]$output
-      [1] "dfFlagged"
-      
-      $kri0002[[6]]$params
-      $kri0002[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $kri0002[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $kri0002[[7]]
-      $kri0002[[7]]$name
       [1] "Summarize"
       
-      $kri0002[[7]]$output
+      $kri0002[[6]]$output
       [1] "dfSummary"
       
-      $kri0002[[7]]$params
-      $kri0002[[7]]$params$dfFlagged
+      $kri0002[[6]]$params
+      $kri0002[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $kri0002[[7]]$params$nMinDenominator
+      $kri0002[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -2533,23 +2261,20 @@
       [1] "dfTransformed"
       
       $kri0003[[4]]$params$strType
-      [1] "rate"
+      [1] "Type"
       
       
       
       $kri0003[[5]]
       $kri0003[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $kri0003[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $kri0003[[5]]$params
-      $kri0003[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $kri0003[[5]]$params$strType
-      [1] "rate"
+      $kri0003[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $kri0003[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -2558,32 +2283,16 @@
       
       $kri0003[[6]]
       $kri0003[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $kri0003[[6]]$output
-      [1] "dfFlagged"
-      
-      $kri0003[[6]]$params
-      $kri0003[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $kri0003[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $kri0003[[7]]
-      $kri0003[[7]]$name
       [1] "Summarize"
       
-      $kri0003[[7]]$output
+      $kri0003[[6]]$output
       [1] "dfSummary"
       
-      $kri0003[[7]]$params
-      $kri0003[[7]]$params$dfFlagged
+      $kri0003[[6]]$params
+      $kri0003[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $kri0003[[7]]$params$nMinDenominator
+      $kri0003[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -2665,23 +2374,20 @@
       [1] "dfTransformed"
       
       $kri0004[[4]]$params$strType
-      [1] "rate"
+      [1] "Type"
       
       
       
       $kri0004[[5]]
       $kri0004[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $kri0004[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $kri0004[[5]]$params
-      $kri0004[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $kri0004[[5]]$params$strType
-      [1] "rate"
+      $kri0004[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $kri0004[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -2690,32 +2396,16 @@
       
       $kri0004[[6]]
       $kri0004[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $kri0004[[6]]$output
-      [1] "dfFlagged"
-      
-      $kri0004[[6]]$params
-      $kri0004[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $kri0004[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $kri0004[[7]]
-      $kri0004[[7]]$name
       [1] "Summarize"
       
-      $kri0004[[7]]$output
+      $kri0004[[6]]$output
       [1] "dfSummary"
       
-      $kri0004[[7]]$params
-      $kri0004[[7]]$params$dfFlagged
+      $kri0004[[6]]$params
+      $kri0004[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $kri0004[[7]]$params$nMinDenominator
+      $kri0004[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -2794,23 +2484,20 @@
       [1] "dfTransformed"
       
       $kri0005[[4]]$params$strType
-      [1] "binary"
+      [1] "Type"
       
       
       
       $kri0005[[5]]
       $kri0005[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $kri0005[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $kri0005[[5]]$params
-      $kri0005[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $kri0005[[5]]$params$strType
-      [1] "binary"
+      $kri0005[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $kri0005[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -2819,32 +2506,16 @@
       
       $kri0005[[6]]
       $kri0005[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $kri0005[[6]]$output
-      [1] "dfFlagged"
-      
-      $kri0005[[6]]$params
-      $kri0005[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $kri0005[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $kri0005[[7]]
-      $kri0005[[7]]$name
       [1] "Summarize"
       
-      $kri0005[[7]]$output
+      $kri0005[[6]]$output
       [1] "dfSummary"
       
-      $kri0005[[7]]$params
-      $kri0005[[7]]$params$dfFlagged
+      $kri0005[[6]]$params
+      $kri0005[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $kri0005[[7]]$params$nMinDenominator
+      $kri0005[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -2923,23 +2594,20 @@
       [1] "dfTransformed"
       
       $kri0006[[4]]$params$strType
-      [1] "binary"
+      [1] "Type"
       
       
       
       $kri0006[[5]]
       $kri0006[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $kri0006[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $kri0006[[5]]$params
-      $kri0006[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $kri0006[[5]]$params$strType
-      [1] "binary"
+      $kri0006[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $kri0006[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -2948,32 +2616,16 @@
       
       $kri0006[[6]]
       $kri0006[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $kri0006[[6]]$output
-      [1] "dfFlagged"
-      
-      $kri0006[[6]]$params
-      $kri0006[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $kri0006[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $kri0006[[7]]
-      $kri0006[[7]]$name
       [1] "Summarize"
       
-      $kri0006[[7]]$output
+      $kri0006[[6]]$output
       [1] "dfSummary"
       
-      $kri0006[[7]]$params
-      $kri0006[[7]]$params$dfFlagged
+      $kri0006[[6]]$params
+      $kri0006[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $kri0006[[7]]$params$nMinDenominator
+      $kri0006[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -3052,23 +2704,20 @@
       [1] "dfTransformed"
       
       $kri0007[[4]]$params$strType
-      [1] "binary"
+      [1] "Type"
       
       
       
       $kri0007[[5]]
       $kri0007[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $kri0007[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $kri0007[[5]]$params
-      $kri0007[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $kri0007[[5]]$params$strType
-      [1] "binary"
+      $kri0007[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $kri0007[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -3077,32 +2726,16 @@
       
       $kri0007[[6]]
       $kri0007[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $kri0007[[6]]$output
-      [1] "dfFlagged"
-      
-      $kri0007[[6]]$params
-      $kri0007[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $kri0007[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $kri0007[[7]]
-      $kri0007[[7]]$name
       [1] "Summarize"
       
-      $kri0007[[7]]$output
+      $kri0007[[6]]$output
       [1] "dfSummary"
       
-      $kri0007[[7]]$params
-      $kri0007[[7]]$params$dfFlagged
+      $kri0007[[6]]$params
+      $kri0007[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $kri0007[[7]]$params$nMinDenominator
+      $kri0007[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -3181,23 +2814,20 @@
       [1] "dfTransformed"
       
       $kri0008[[4]]$params$strType
-      [1] "rate"
+      [1] "Type"
       
       
       
       $kri0008[[5]]
       $kri0008[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $kri0008[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $kri0008[[5]]$params
-      $kri0008[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $kri0008[[5]]$params$strType
-      [1] "rate"
+      $kri0008[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $kri0008[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -3206,32 +2836,16 @@
       
       $kri0008[[6]]
       $kri0008[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $kri0008[[6]]$output
-      [1] "dfFlagged"
-      
-      $kri0008[[6]]$params
-      $kri0008[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $kri0008[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $kri0008[[7]]
-      $kri0008[[7]]$name
       [1] "Summarize"
       
-      $kri0008[[7]]$output
+      $kri0008[[6]]$output
       [1] "dfSummary"
       
-      $kri0008[[7]]$params
-      $kri0008[[7]]$params$dfFlagged
+      $kri0008[[6]]$params
+      $kri0008[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $kri0008[[7]]$params$nMinDenominator
+      $kri0008[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -3310,23 +2924,20 @@
       [1] "dfTransformed"
       
       $kri0009[[4]]$params$strType
-      [1] "binary"
+      [1] "Type"
       
       
       
       $kri0009[[5]]
       $kri0009[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $kri0009[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $kri0009[[5]]$params
-      $kri0009[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $kri0009[[5]]$params$strType
-      [1] "binary"
+      $kri0009[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $kri0009[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -3335,32 +2946,16 @@
       
       $kri0009[[6]]
       $kri0009[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $kri0009[[6]]$output
-      [1] "dfFlagged"
-      
-      $kri0009[[6]]$params
-      $kri0009[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $kri0009[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $kri0009[[7]]
-      $kri0009[[7]]$name
       [1] "Summarize"
       
-      $kri0009[[7]]$output
+      $kri0009[[6]]$output
       [1] "dfSummary"
       
-      $kri0009[[7]]$params
-      $kri0009[[7]]$params$dfFlagged
+      $kri0009[[6]]$params
+      $kri0009[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $kri0009[[7]]$params$nMinDenominator
+      $kri0009[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -3439,23 +3034,20 @@
       [1] "dfTransformed"
       
       $kri0010[[4]]$params$strType
-      [1] "binary"
+      [1] "Type"
       
       
       
       $kri0010[[5]]
       $kri0010[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $kri0010[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $kri0010[[5]]$params
-      $kri0010[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $kri0010[[5]]$params$strType
-      [1] "binary"
+      $kri0010[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $kri0010[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -3464,32 +3056,16 @@
       
       $kri0010[[6]]
       $kri0010[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $kri0010[[6]]$output
-      [1] "dfFlagged"
-      
-      $kri0010[[6]]$params
-      $kri0010[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $kri0010[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $kri0010[[7]]
-      $kri0010[[7]]$name
       [1] "Summarize"
       
-      $kri0010[[7]]$output
+      $kri0010[[6]]$output
       [1] "dfSummary"
       
-      $kri0010[[7]]$params
-      $kri0010[[7]]$params$dfFlagged
+      $kri0010[[6]]$params
+      $kri0010[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $kri0010[[7]]$params$nMinDenominator
+      $kri0010[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -3568,23 +3144,20 @@
       [1] "dfTransformed"
       
       $kri0011[[4]]$params$strType
-      [1] "binary"
+      [1] "Type"
       
       
       
       $kri0011[[5]]
       $kri0011[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $kri0011[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $kri0011[[5]]$params
-      $kri0011[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $kri0011[[5]]$params$strType
-      [1] "binary"
+      $kri0011[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $kri0011[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -3593,32 +3166,16 @@
       
       $kri0011[[6]]
       $kri0011[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $kri0011[[6]]$output
-      [1] "dfFlagged"
-      
-      $kri0011[[6]]$params
-      $kri0011[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $kri0011[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $kri0011[[7]]
-      $kri0011[[7]]$name
       [1] "Summarize"
       
-      $kri0011[[7]]$output
+      $kri0011[[6]]$output
       [1] "dfSummary"
       
-      $kri0011[[7]]$params
-      $kri0011[[7]]$params$dfFlagged
+      $kri0011[[6]]$params
+      $kri0011[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $kri0011[[7]]$params$nMinDenominator
+      $kri0011[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -3697,23 +3254,20 @@
       [1] "dfTransformed"
       
       $kri0012[[4]]$params$strType
-      [1] "binary"
+      [1] "Type"
       
       
       
       $kri0012[[5]]
       $kri0012[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $kri0012[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $kri0012[[5]]$params
-      $kri0012[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $kri0012[[5]]$params$strType
-      [1] "binary"
+      $kri0012[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $kri0012[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -3722,32 +3276,16 @@
       
       $kri0012[[6]]
       $kri0012[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $kri0012[[6]]$output
-      [1] "dfFlagged"
-      
-      $kri0012[[6]]$params
-      $kri0012[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $kri0012[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $kri0012[[7]]
-      $kri0012[[7]]$name
       [1] "Summarize"
       
-      $kri0012[[7]]$output
+      $kri0012[[6]]$output
       [1] "dfSummary"
       
-      $kri0012[[7]]$params
-      $kri0012[[7]]$params$dfFlagged
+      $kri0012[[6]]$params
+      $kri0012[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $kri0012[[7]]$params$nMinDenominator
+      $kri0012[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
