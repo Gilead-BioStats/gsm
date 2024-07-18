@@ -82,12 +82,12 @@ Input_Rate <- function(
     }
 
     # Check if strNumeratorCol is Null when strNumeratorMethod is 'Sum'
-    if (strNumeratorMethod == "Sum" & is.null(strNumeratorCol)) {
+    if (strNumeratorMethod == "Sum" && is.null(strNumeratorCol)) {
         stop("strNumeratorCol must be provided when strNumeratorMethod is 'Sum'")
     }
 
     # Check if strDenominatorCol is Null when strDenominatorMethod is 'Sum'
-    if (strDenominatorMethod == "Sum" & is.null(strDenominatorCol)) {
+    if (strDenominatorMethod == "Sum" && is.null(strDenominatorCol)) {
         stop("strDenominatorCol must be provided when strDenominatorMethod is 'Sum'")
     }
 
@@ -105,7 +105,7 @@ Input_Rate <- function(
     if(is.null(strGroupLevel)){
         strGroupLevel <- strGroupCol
     }
-    
+
     #Rename SubjectID in dfSubjects
     dfSubjects <- dfSubjects %>%
         mutate(
