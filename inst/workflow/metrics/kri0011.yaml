@@ -1,7 +1,7 @@
 meta:
   File: kri0011.yaml
   MetricID: kri0011
-  GroupLevel: site
+  GroupLevel: Site
   Abbreviation: CDAT
   Metric: Data Change Rate
   Numerator: Data Points with 1+ Change
@@ -22,7 +22,8 @@ steps:
       dfNumerator: dfChangedDataPoints
       dfDenominator: dfDataChanges
       strSubjectCol: subject_nsv
-      strGroupCol: siteid
+      strGroupCol: invid
+      strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count
   - name: Transform_Rate

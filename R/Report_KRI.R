@@ -3,9 +3,8 @@
 #' This function generates a KRI report based on the provided inputs.
 #'
 #' @param lCharts A list of charts to include in the report.
-#' @param dfSummary A data frame containing summary information.
-#' @param dfStudy A data frame containing study metadata (e.g., from CTMS).
-#' @param dfSite A data frame containing site metadata (e.g., from CTMS).
+#' @param dfResults A data frame containing result information.
+#' @param dfGroups A data frame containing study/site metadata (e.g., from CTMS).
 #' @param dfMetrics A data frame containing metric metadata (e.g., from workflows).
 #' @param strOutpath The output path for the generated report. If not provided, the report will be saved in the current working directory with the name "kri_report.html".
 #'
@@ -21,7 +20,7 @@
 #' dfSite<- clindata::ctms_site %>% dplyr::rename(SiteID = site_num)
 #'
 #' # Pull Raw Data - this will overwrite the previous data pull
-#' lRaw <- gsm::UseClindata(
+#' lRaw <- UseClindata(
 #'   list(
 #'     "dfSUBJ" = "clindata::rawplus_dm",
 #'     "dfAE" = "clindata::rawplus_ae",
@@ -82,9 +81,8 @@
 
 Report_KRI <- function(
   lCharts = NULL,
-  dfSummary = NULL,
-  dfStudy = NULL,
-  dfSite = NULL,
+  dfResults = NULL,
+  dfGroups = NULL,
   dfMetrics = NULL,
   strOutpath = NULL
 ) {
@@ -101,11 +99,9 @@ Report_KRI <- function(
     output_file = strOutpath,
     params = list(
       lCharts = lCharts,
-      dfSummary = dfSummary,
-      dfSite = dfSite,
-      dfStudy = dfStudy,
-      dfMetrics = dfMetrics,
-      lCharts = lCharts
+      dfResults = dfResults,
+      dfGroups = dfGroups,
+      dfMetrics = dfMetrics
     ),
     envir = new.env(parent = globalenv())
   )

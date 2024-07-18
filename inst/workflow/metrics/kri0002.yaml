@@ -1,7 +1,7 @@
 meta:
   File: kri0002.yaml
   MetricID: kri0002
-  GroupLevel: site
+  GroupLevel: Site
   Abbreviation: SAE
   Metric: Serious Adverse Event Rate
   Numerator: Serious Adverse Events
@@ -22,7 +22,8 @@ steps:
       dfNumerator: dfSeriousAE
       dfDenominator: dfEnrolled
       strSubjectCol: subjid
-      strGroupCol: siteid
+      strGroupCol: invid
+      strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Sum
       strDenominatorCol: timeonstudy

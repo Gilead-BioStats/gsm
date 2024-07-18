@@ -1,7 +1,7 @@
 meta:
   File: kri0009.yaml
   MetricID: kri0009
-  GroupLevel: site
+  GroupLevel: Site
   Abbreviation: OQRY
   Metric: Outstanding Query Rate
   Numerator: Queries Open > 30 Days
@@ -22,7 +22,8 @@ steps:
       dfNumerator: dfOldValidQueries
       dfDenominator: dfValidQueries
       strSubjectCol: subject_nsv
-      strGroupCol: siteid
+      strGroupCol: invid
+      strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count
   - name: Transform_Rate

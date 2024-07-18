@@ -27,7 +27,7 @@
 #' @return `data.frame` with "Flag" column added
 #'
 #' @examples
-#' dfTransformed <- Transform_Rate(sampleInput)
+#' dfTransformed <- Transform_Rate(analyticsInput)
 #'
 #' # Binary
 #' dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "binary")

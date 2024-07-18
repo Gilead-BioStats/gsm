@@ -6,9 +6,9 @@
 #' A widget that generates a bar chart of group-level metric results, plotting groups on the x-axis
 #' and the outcome (numerator, denominator, metric, or score) on the y-axis.
 #'
-#' @param dfSummary `data.frame` Output of [gsm::Summarize()].
+#' @param dfResults `data.frame` Output of [Summarize()] and [BindResults()].
 #' @param lMetric `list` Metric metadata, captured at the top of metric workflows and returned by
-#' [gsm::MakeMetricInfo()].
+#' [MakeMetric()].
 #' @param dfGroups `data.frame` Group metadata.
 #' @param vThreshold `numeric` Threshold values.
 #' @param strOutcome `character` Outcome variable. Default: 'Score'.
@@ -17,64 +17,56 @@
 #'
 #' @examples
 #' \dontrun{
-#' lDataRaw <- list(
-#'     dfSTUDY = clindata::ctms_study,
-#'     dfSITE = clindata::ctms_site,
-#'     dfSUBJ = clindata::rawplus_dm,
+#' lWorkflows <- MakeWorkflowList()
+#' strMetricID <- 'kri0001'
+#' lMetricWorkflow <- lWorkflows[[ strMetricID ]]
+#'
+#' lData <- list(
+#'     dfEnrolled = clindata::rawplus_dm %>% filter(enrollyn == 'Y'),
 #'     dfAE = clindata::rawplus_ae
 #' )
-#'
-#' lMappingWorkflow <- MakeWorkflowList('mapping')$mapping
-#'
-#' lMappingWorkflow$steps <- lMappingWorkflow$steps %>%
-#'     purrr::keep(~ .x$params$df %in% names(lDataRaw))
-#'
-#' lDataMapped <- RunWorkflow(
-#'     lMappingWorkflow,
-#'     lDataRaw
-#' )$lData
-#' 
-#' strMetricID <- 'kri0001'
-#' lMetricWorkflow <- MakeWorkflowList(strMetricID)[[ strMetricID ]]
-#' 
 #' lResults <- RunWorkflow(
 #'     lMetricWorkflow,
-#'     lDataMapped
+#'     lData
 #' )
-#' 
-#' dfGroups <- clindata::ctms_site %>%
-#'     left_join(
-#'         lDataMapped$dfEnrolled %>%
-#'             group_by(siteid) %>%
-#'             tally(name = 'enrolled_participants'),
-#'         c('site_num' = 'siteid')
-#'     ) %>%
-#'     rename(
-#'         SiteID = site_num,
-#'         status = site_status
-#'     )
-#' 
+#'
+#' dfGroups <- bind_rows(
+#'     "SELECT site_num as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df" %>%
+#'         RunQuery(clindata::ctms_site) %>%
+#'         MakeLongMeta('Site'),
+#'     "SELECT siteid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT siteid) as SiteCount FROM df GROUP BY siteid" %>%
+#'         RunQuery(lData$dfEnrolled) %>%
+#'         MakeLongMeta('Site')
+#' )
+#'
 #' Widget_BarChart(
-#'     dfSummary = lResults$lData$dfSummary,
+#'     dfResults = lResults$dfResults,
 #'     lMetric = lMetricWorkflow$meta,
 #'     dfGroups = dfGroups,
-#'     vThreshold = lMetricWorkflow$meta$vThreshold
+#'     vThreshold = lMetricWorkflow$meta$strThreshold
 #' )
 #' }
 #' @export
 
 Widget_BarChart <- function(
-  dfSummary,
-  lMetric,
+  dfResults,
+  lMetric = list(), # TODO: coerce list to object instead of array with jsonlite::toJSON()
   dfGroups = NULL,
   vThreshold = NULL,
   strOutcome = 'Score',
   bAddGroupSelect = TRUE,
   bDebug = FALSE
 ) {
+    # Parse `vThreshold` from comma-delimited character string to numeric vector.
+    if (!is.null(vThreshold)) {
+        if (is.character(vThreshold)) {
+            vThreshold <- strsplit(vThreshold, ',')[[1]] %>% as.numeric()
+        }
+    }
+
   # define widget inputs
   input <- list(
-    dfSummary = dfSummary,
+    dfResults = dfResults,
     lMetric = lMetric,
     dfGroups = dfGroups,
     vThreshold = vThreshold,

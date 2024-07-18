@@ -7,25 +7,30 @@
 BindResults(
   lResults,
   strName,
-  dSnapshotDate = sys.date(),
+  dSnapshotDate = Sys.Date(),
   strStudyID,
   bUselData = FALSE
 )
 }
 \arguments{
-\item{lResults}{Named List of analysis results in the format returned by RunWorkflows()}
+\item{lResults}{Named List of analysis results in the format returned by
+\code{\link[=RunWorkflows]{RunWorkflows()}}.}
 
-\item{strName}{Name of the object to stack. Pulled from lResults$lData.}
+\item{strName}{Name of the object to stack. Pulled from \code{lResults} (or from
+\code{lResults$lData} when \code{bUselData} is \code{TRUE}).}
 
-\item{dSnapshotDate}{Date of the snapshot. Default is sys.date().}
+\item{dSnapshotDate}{Date of the snapshot. Default is \code{\link[=Sys.Date]{Sys.Date()}}.}
 
 \item{strStudyID}{Study ID.}
 
-\item{bUselData}{Should the function bind results from an \code{lData} object (or look directly in the root elements of \code{lResults})? Default is FALSE.}
+\item{bUselData}{Should the function bind results from an \code{lData} object (or
+look directly in the root elements of \code{lResults})? Default is \code{FALSE.}}
 }
 \value{
 A data frame.
 }
 \description{
-Used to stack results (e.g. dfSummary) from a list of analysis pipeline output formatted like the result of RunWorklows(). Also adds study level metadata when provided.
+Used to stack results (e.g. \code{dfSummary}) from a list of analysis pipeline
+output formatted like the result of \code{RunWorklows()}. Also adds study level
+metadata when provided.
 }

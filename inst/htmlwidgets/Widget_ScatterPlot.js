@@ -39,7 +39,7 @@ HTMLWidgets.widget({
                 // generate scatter plot
                 const instance = rbmViz.default.scatterPlot(
                     el,
-                    input.dfSummary,
+                    input.dfResults,
                     input.lMetric,
                     input.dfBounds,
                     input.dfGroups
@@ -52,7 +52,7 @@ HTMLWidgets.widget({
 
                     groupSelect = addGroupSelect(
                         el,
-                        input.dfSummary,
+                        input.dfResults,
                         instance,
                         `Highlighted ${input.lMetric.Group || 'group'}: `
                     );

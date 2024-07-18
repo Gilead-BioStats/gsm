@@ -1,4 +1,4 @@
-wf_mapping <- MakeWorkflowList(strNames="mapping")$mapping
+wf_mapping <- MakeWorkflowList(strNames="data_mapping")$data_mapping
 workflows <- MakeWorkflowList(strNames=paste0("kri",sprintf("%04d", 1:4)))
 
 # Pull Raw Data - this will overwrite the previous data pull
@@ -21,12 +21,12 @@ lData <- gsm::UseClindata(
 )
 
 # Create Mapped Data
-lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lData)$lData
+lMapped <- quiet_RunWorkflow(lWorkflow = wf_mapping, lData = lData)
 
 # Run Metrics
-result <-map(workflows, ~RunWorkflow(lWorkflow = .x, lData = lMapped))
+result <- map(workflows, ~quiet_RunWorkflow(lWorkflow = .x, lData = lMapped, bReturnData = FALSE))
 
-test_that("RunWorkflow preserves inputs", {
+test_that("RunWorkflow preserves inputs when bReturnData = FALSE", {
   expect_true(
     all(
       map_lgl(
@@ -42,7 +42,7 @@ test_that("RunWorkflow preserves inputs", {
 })
 
 test_that("RunWorkflow contains all outputs from yaml steps", {
-  yaml_outputs <- map(map(workflows, ~map_vec(.x$step, ~.x$output)), ~.x[!grepl("lCharts", .x)])
+  yaml_outputs <- map(map(workflows, ~map_vec(.x$steps, ~.x$output)), ~.x[!grepl("lCharts", .x)])
   expect_true(
     all(
       map_lgl(
@@ -85,4 +85,3 @@ test_that("RunWorkflow updates workflow object correctly", {
     )
   )
 })
-

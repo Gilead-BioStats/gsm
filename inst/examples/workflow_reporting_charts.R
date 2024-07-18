@@ -14,8 +14,9 @@ lRaw <- list(
 )
 
 wf_mapping <- MakeWorkflowList(strNames = "mapping")
-wf_kri <- MakeWorkflowList(strNames="kri0001")
+wf_kri <- MakeWorkflowList(strNames="kri")
 wf_reporting <- MakeWorkflowList(strNames = "reporting")
+wf_reports <- MakeWorkflowList(strNames = "reports")
 
 # Generate Mapped Data
 lMapped <- RunWorkflows(lWorkflow = wf_mapping, lData = lRaw)
@@ -29,32 +30,20 @@ lReporting_Input <- list(
     ctms_study = clindata::ctms_study,
     dfEnrolled =lMapped$dfEnrolled,
     lWorkflows = wf_kri,
-    lAnalysis = list(kri0001 = lAnalysis),
+    lAnalysis = lAnalysis,
     dSnapshotDate = Sys.Date(),
     strStudyID = "ABC-123"
 )
 
 lReporting <- RunWorkflows(lWorkflow = wf_reporting, lData = lReporting_Input)
 
-# Convience Mappings
-dfGroups <- lReporting$dfGroups
-dfMetrics <- lReporting$dfMetrics
-dfSummary <- lReporting$dfSummary
-dfBounds <- lReporting$dfBounds
-
-# Create dfSites and dfStudy pending rbm-viz update to use dfGroups
-dfSite <- dfSites <- dfGroups %>%
-  filter(GroupLevel == "Site") %>%
-  pivot_wider(names_from=Param, values_from=Value) %>%
-  rename(
-    SiteID = GroupID,
-    status = Status,
-    enrolled_participants = ParticipantCount
-  )
-
-dfStudy <- dfStudies <- dfGroups %>% filter(GroupLevel == "Study") %>% pivot_wider(names_from=Param, values_from=Value)
+# Generate Report
+devtools::load_all()
+wf_reports <- MakeWorkflowList(strNames = "reports")
+lReports <- RunWorkflows(lWorkflow = wf_reports, lData = lReporting)
 
 # Lazy longitudinal data
+dfSummary <- lReporting$dfSummary
 dfSummary_long <- bind_rows(
   dfSummary %>% mutate(SnapshotDate = Sys.Date()),
   dfSummary %>% mutate(SnapshotDate = Sys.Date() - 1),
@@ -63,17 +52,44 @@ dfSummary_long <- bind_rows(
 
 #Create Charts for all metrics
 options(vsc.viewer = FALSE)
-metrics<- unique(dfMetrics$MetricID)
+metrics<- unique(lReporting$dfMetrics$MetricID)
 charts <- metrics %>% map(~Visualize_Metric(
   dfSummary = dfSummary_long,
-  dfBounds = dfBounds,
-  dfGroups = dfGroups,
-  dfMetrics = dfMetrics,
+  dfBounds = lReporting$dfBounds,
+  dfGroups = lReporting$dfGroups,
+  dfMetrics = lReporting$dfMetrics %>% mutate(GroupLevel = "Site"),
   strMetricID = .x
 )
 ) %>% setNames(metrics)
 
+
+devtools::load_all()
+Report_KRI(
+  lCharts = charts,
+  dfSummary = dfSummary_long,
+  dfStudy = dfStudy,
+  dfSite = dfSite,
+  dfMetrics = dfMetrics,
+  strOutpath = "test.html"
+)
+
+# Overview Table
+  Widget_SiteOverview(
+    dfSummary= dfSummary_long,
+    dfGroups= dfSite,
+    dfMetrics= dfMetrics,
+    bDebug=TRUE
+  )
 # Just one metric
+
+dfSummary <- lReporting$dfSummary %>% filter(MetricID == "kri0001")
+dfBounds <- lReporting$dfBounds %>% filter(MetricID == "kri0001")
+dfGroups <- lReporting$dfGroups
+dfMetrics <- lReporting$dfMetrics %>% filter(MetricID == "kri0001")
+lMetric <- as.list(dfMetrics %>% filter(MetricID == "kri0001"))
+lMetric$GroupLevel <- "Site"
+vThreshold <- gsm::ParseThreshold(lMetric$strThreshold)
+
 lCharts <- Visualize_Metric(
   dfSummary = dfSummary_long,
   dfBounds = dfBounds,
@@ -84,13 +100,12 @@ lCharts <- Visualize_Metric(
 )
 
 ## Individual Cross sectional charts (for testing)
- lMetric <- as.list(dfMetrics %>%  mutate(Group=GroupLevel))
- vThreshold <- gsm::ParseThreshold(lMetric$strThreshold)
+
 
 gsm::Widget_ScatterPlot(
-  dfSummary = dfSummary,
+  dfSummary = dfSummary ,
   lMetric = lMetric,
-  dfGroups = dfSites,
+  dfGroups = dfGroups,
   dfBounds = dfBounds,
   bDebug=TRUE
 )
@@ -102,8 +117,8 @@ gsm::Visualize_Scatter(
 )
 
  gsm::Widget_BarChart(
-  dfSummary = dfSummary,
-  lMetric = lMetric,
+  dfResults = dfResults,
+  lMetrics = lMetric,
   dfGroups = dfSites,
   strOutcome = "Metric"
 )

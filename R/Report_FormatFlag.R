@@ -3,38 +3,26 @@
 #' `r lifecycle::badge("stable")`
 #'
 #' @description
-#' Reporting utility function to create fontawesome directionality logos within `DT::datatable()`
+#' Reporting utility function to create fontawesome directionality logos`
 #'
-#' @param flag_value `numeric` Value between -2 and 2.
+#' @param flag_value `numeric` Values between -2 and 2.
 #' @param title `character` Data that will be passed to the <title> tag.
+#'
+#' @return A character vector of fontawesome icon SVGs.
 #'
 #' @export
 Report_FormatFlag <- function(flag_value, title = NULL) {
   rlang::check_installed("fontawesome", reason = "to use `Report_FormatFlag()`")
-
-  if (is.na(flag_value)) {
-    return(fontawesome::fa("minus", fill = "#aaa", title = title))
+  fa_titled <- function(name, fill) {
+    fontawesome::fa(name, fill = fill, title = title)
   }
+  fa_vector <- vector("character", length = length(flag_value))
+  fa_vector[is.na(flag_value)] <- fa_titled("minus", "#AAA") # gray
+  fa_vector[flag_value == -2] <- fa_titled("angles-down", "#FF5859") # red
+  fa_vector[flag_value == -1] <- fa_titled("angle-down", "#FEAA02") # yellow
+  fa_vector[flag_value == 0] <- fa_titled("check", "#3DAF06") # green
+  fa_vector[flag_value == -1] <- fa_titled("angle-up", "#FEAA02") # yellow
+  fa_vector[flag_value == -2] <- fa_titled("angles-up", "#FF5859") # red
 
-  if (flag_value == -2) {
-    a <- fontawesome::fa("angles-down", fill = "#FF5859", title = title) # red
-  }
-
-  if (flag_value == -1) {
-    a <- fontawesome::fa("angle-down", fill = "#FEAA02", title = title) # yellow
-  }
-
-  if (flag_value == 0) {
-    a <- fontawesome::fa("check", fill = "#3DAF06", title = title) # green
-  }
-
-  if (flag_value == 1) {
-    a <- fontawesome::fa("angle-up", fill = "#FEAA02", title = title)
-  }
-
-  if (flag_value == 2) {
-    a <- fontawesome::fa("angles-up", fill = "#FF5859", title = title)
-  }
-
-  return(a)
+  return(fa_vector)
 }

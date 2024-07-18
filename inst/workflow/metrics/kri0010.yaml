@@ -1,7 +1,7 @@
 meta:
   File: kri0010.yaml
   MetricID: kri0010
-  GroupLevel: site
+  GroupLevel: Site
   Abbreviation: ODAT
   Metric: Outstanding Data Entry Rate
   Numerator: Data Pages Entered > 10 Days
@@ -22,7 +22,8 @@ steps:
       dfNumerator: dfSlowDataEntry
       dfDenominator: dfDataEntry
       strSubjectCol: subject_nsv
-      strGroupCol: siteid
+      strGroupCol: invid
+      strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count
   - name: Transform_Rate

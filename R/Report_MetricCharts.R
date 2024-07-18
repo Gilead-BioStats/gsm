@@ -12,7 +12,15 @@ Report_MetricCharts <- function(lCharts) {
 
     #### charts tabset
     cat("#### Summary Charts {.tabset} \n")
-    chartTypes<-c("scatterJS", "barMetricJS", "barScoreJS", "timeSeriesContinuousScoreJS", "timeSeriesContinuousMetricJS", "timeSeriesContinuousNumeratorJS", "timeseriesQtl")
+    chartTypes<-c(
+        "scatterJS",
+        "barMetricJS",
+        "barScoreJS",
+        "timeSeriesContinuousScoreJS",
+        "timeSeriesContinuousMetricJS",
+        "timeSeriesContinuousNumeratorJS",
+        "timeseriesQtl"
+    )
     lCharts <- lCharts[names(lCharts) %in% chartTypes]
     for (j in seq_along(lCharts)) {
         chart_key <- names(lCharts)[j]
@@ -44,7 +52,7 @@ Report_MetricCharts <- function(lCharts) {
         )
 
         # Display chart.
-        cat(paste0("<div class =", chart_key, ">"))
+        cat(paste0("<div class ='gsm-widget ", chart_key, "'>"))
         cat(knitr::knit_print(htmltools::tagList(chart)))
         cat("</div>")
         ##### / chart tab

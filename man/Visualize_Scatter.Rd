@@ -5,7 +5,7 @@
 \title{Group-level visualization of group-level results}
 \usage{
 Visualize_Scatter(
-  dfSummary,
+  dfResults,
   dfBounds = NULL,
   strGroupCol = NULL,
   strGroupLabel = NULL,
@@ -14,9 +14,9 @@ Visualize_Scatter(
 )
 }
 \arguments{
-\item{dfSummary}{\code{data.frame} returned by \code{\link[=Summarize]{Summarize()}}}
+\item{dfResults}{\code{data.frame} returned by \code{\link[=Summarize]{Summarize()}} and \code{\link[=BindResults]{BindResults()}}}
 
-\item{dfBounds}{\code{data.frame} data.frame giving prediction bounds for range of denominator in dfSummary.}
+\item{dfBounds}{\code{data.frame} data.frame giving prediction bounds for range of denominator in dfResults.}
 
 \item{strGroupCol}{\code{character} name of stratification column for facet wrap Default: \code{NULL}}
 
@@ -34,7 +34,7 @@ group-level plot object.
 }
 \examples{
 \dontrun{
-lData <- gsm::UseClindata(
+lData <- UseClindata(
   list(
     "dfSUBJ" = "clindata::rawplus_dm",
     "dfAE" = "clindata::rawplus_ae",

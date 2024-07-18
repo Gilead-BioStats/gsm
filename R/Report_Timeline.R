@@ -11,7 +11,7 @@
 #' @return `plot` interactive timeline plot.
 #'
 #' @examples
-#' if (require("gggenes") & require("ggiraph")) {
+#' if (require("gggenes") && require("ggiraph")) {
 #'   Make_Timeline(status_study = clindata::ctms_study)
 #' }
 #'
