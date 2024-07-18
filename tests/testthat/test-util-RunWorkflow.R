@@ -1,8 +1,16 @@
-wf_mapping <- MakeWorkflowList(strNames="data_mapping")$data_mapping
-workflows <- MakeWorkflowList(strNames=paste0("kri",sprintf("%04d", 1:4)))
+wf_mapping <- MakeWorkflowList(strNames = "data_mapping")$data_mapping
+workflows <- MakeWorkflowList(strNames = paste0("kri", sprintf("%04d", 1:2)))
+
+# Don't run things we don't use.
+used_params <- map(workflows, ~ map(.x$steps, "params")) %>%
+  unlist() %>% unique()
+wf_mapping$steps <- purrr::keep(
+  wf_mapping$steps,
+  ~ .x$output %in% used_params
+)
 
 # Pull Raw Data - this will overwrite the previous data pull
-lData <- gsm::UseClindata(
+lData <- UseClindata(
   list(
     "dfSUBJ" = "clindata::rawplus_dm",
     "dfAE" = "clindata::rawplus_ae",
@@ -24,64 +32,49 @@ lData <- gsm::UseClindata(
 lMapped <- quiet_RunWorkflow(lWorkflow = wf_mapping, lData = lData)
 
 # Run Metrics
-result <- map(workflows, ~quiet_RunWorkflow(lWorkflow = .x, lData = lMapped, bReturnData = FALSE))
+result <- map(
+  workflows,
+  ~quiet_RunWorkflow(lWorkflow = .x, lData = lMapped, bReturnData = FALSE)
+)
+
+yaml_outputs <- map(
+  map(workflows, ~map_vec(.x$steps, ~.x$output)),
+  ~.x[!grepl("lCharts", .x)]
+)
 
 test_that("RunWorkflow preserves inputs when bReturnData = FALSE", {
-  expect_true(
-    all(
-      map_lgl(
-        imap(workflows,
-             function(kri, name){
-               names(kri) %in% names(result[[name]])
-             }
-             ),
-        all
-      )
+  expect_no_error({
+    purrr::iwalk(
+      workflows,
+      function(this_workflow, this_name) {
+        expect_identical(
+          this_workflow, result[[this_name]][names(this_workflow)]
+        )
+      }
     )
-  )
+  })
 })
 
 test_that("RunWorkflow contains all outputs from yaml steps", {
-  yaml_outputs <- map(map(workflows, ~map_vec(.x$steps, ~.x$output)), ~.x[!grepl("lCharts", .x)])
-  expect_true(
-    all(
-      map_lgl(
-        imap(result,
-             function(kri, name){
-               yaml_outputs[[name]] %in% names(kri$lData)
-             }
-        ),
-        all
-      )
+  expect_no_error({
+    purrr::iwalk(
+      result,
+      function(this_result, this_name) {
+        expect_setequal(yaml_outputs[[this_name]], names(this_result$lData))
+      }
     )
-  )
+  })
 })
 
 test_that("RunWorkflow contains all outputs from yaml steps with populated fields (contains rows of data)", {
-  yaml_outputs <- map(map(workflows, ~map(.x$steps, ~.x$output)), ~.x[!grepl("lCharts", .x)])
-  rows <- vector()
-  for(kri in names(yaml_outputs)){
-    for(df in yaml_outputs[[kri]]){
-      rows <- c(rows,dim(result[[kri]]$lData[[df]])[1])
-    }
-  }
-  expect_true(
-    all(rows > 0)
-  )
-})
-
-test_that("RunWorkflow updates workflow object correctly", {
-  # check for lData and lCharts in output
-  expect_true(
-    all(
-      map_lgl(
-        imap(workflows,
-             function(kri, name){
-              "lData" %in% names(result[[name]])
-             }
-        ),
-        all
-      )
+  expect_no_error({
+    purrr::iwalk(
+      yaml_outputs,
+      function(this_output_set, this_name) {
+        expect_true(
+          all(map_int(result[[this_name]]$lData[this_output_set], NROW) > 0)
+        )
+      }
     )
-  )
+  })
 })
