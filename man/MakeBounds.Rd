@@ -4,7 +4,13 @@
 \alias{MakeBounds}
 \title{Calculate Bounds for display in scatterplots}
 \usage{
-MakeBounds(dfResults, dfMetrics, strMetrics = unique(dfResults$MetricID))
+MakeBounds(
+  dfResults,
+  dfMetrics,
+  strMetrics = unique(dfResults$MetricID),
+  dSnapshotDate = unique(dfResults$SnapshotDate),
+  strStudyID = unique(dfResults$StudyID)
+)
 }
 \arguments{
 \item{dfResults}{Results data.}
@@ -13,6 +19,10 @@ MakeBounds(dfResults, dfMetrics, strMetrics = unique(dfResults$MetricID))
 
 \item{strMetrics}{Character vector of \code{MetricID}s to include in \code{dfBounds}.
 All unique values from \code{dfResults$MetricID} used by default.}
+
+\item{dSnapshotDate}{Snapshot date. Uses dfResults$SnapshotDate by default. If more than one snapshot date is found in dfResults, an error is thrown.}
+
+\item{dStudyID}{Study ID. Uses dfResults$StudyID by default. If more than one snapshot date is found in dfResults, an error is thrown.}
 }
 \value{
 A data frame.
