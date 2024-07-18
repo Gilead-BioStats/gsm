@@ -1,0 +1,51 @@
+meta:
+  MetricID: kri0001
+  file: kri0001.yaml
+  group: site
+  abbreviation: AE
+  metric: Adverse Event Rate
+  numerator: Adverse Events
+  denominator: Days on Study
+  model: Normal Approximation
+  score: Adjusted Z-Score
+  vThreshold:
+    - -2
+    - -1
+    - 2
+    - 3
+steps:
+  - name: Input_Rate
+    output: dfInput
+    params:
+      dfSubjects: dfEnrolled
+      dfNumerator: dfAE
+      dfDenominator: dfEnrolled
+      strSubjectCol: subjid
+      strGroupCol: siteid
+      strNumeratorMethod: Count
+      strDenominatorMethod: Sum
+      strDenominatorCol: timeonstudy
+  - name: Transform_Rate
+    output: dfTransformed
+    params:
+      dfInput: dfInput
+  - name: Analyze_NormalApprox
+    output: dfAnalyzed
+    params:
+      dfTransformed: dfTransformed
+      strType: rate
+  - name: Analyze_NormalApprox_PredictBounds
+    output: dfBounds
+    params:
+      dfTransformed: dfTransformed
+      vThreshold: vThreshold
+      strType: rate
+  - name: Flag_NormalApprox
+    output: dfFlagged
+    params:
+      dfAnalyzed: dfAnalyzed
+      vThreshold: vThreshold
+  - name: Summarize
+    output: dfSummary
+    params:
+      dfFlagged: dfFlagged

@@ -16,9 +16,10 @@ test_that("lData is correctly mapped for processing using `mapping.yaml` in conj
       "dfENROLL" = "clindata::rawplus_enroll"
     )
   )
-  mapping_workflow <- flatten(MakeWorkflowList("mapping"))
+  yaml_path <- system.file("tests", "testqualification", "qualification", "qual_workflows", package = 'gsm')
+  mapping_workflow <- flatten(MakeWorkflowList("mapping", strPath = yaml_path))
   lData_mapped <- suppressMessages(RunWorkflow(lWorkflow = mapping_workflow, lData = lData))$lData
-  mapping_yaml <- yaml::read_yaml(system.file("workflow", "mapping.yaml", package = "gsm"))
+  mapping_yaml <- yaml::read_yaml(paste0(yaml_path, "/mapping.yaml"))
 
   ## Rename columns
   mapping_renaming_config <- map_df(mapping_yaml$steps, function(step){
@@ -91,3 +92,4 @@ test_that("lData is correctly mapped for processing using `mapping.yaml` in conj
   )
 
 })
+
