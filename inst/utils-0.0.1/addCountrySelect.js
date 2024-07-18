@@ -2,7 +2,7 @@
  * Adds a dropdown to highlight the selected country in the chart
  *
  * @param {Node} el - an element in the DOM
- * @param {Array} results - KRI results (dfSummary)
+ * @param {Array} dfGroups - group metadata (dfSummary)
  * @param {Object} instance - Chart.js chart object
  *
  * @returns {Node} HTML select element
@@ -10,7 +10,7 @@
 
 
 // Add event listener to highlight countries.
-const addCountrySelect = function(el, results, instance, groupSelect) {
+const addCountrySelect = function(el, dfGroups, instance, groupSelect) {
 
     el.style.position = 'relative';
 
@@ -45,17 +45,15 @@ const addCountrySelect = function(el, results, instance, groupSelect) {
     countrySelect.appendChild(noneOption);
 
     // get sorted array of country
-    const countries = [
-        ...new Set(results.map(d => d.Country))
-    ];
-
-    const numericCountry = countries.every(Country => /^\d+$/.test(Country));
-    countries.sort((a,b) => {
-        return numericCountry
-            ? a - b
-            : a < b ? -1
-            : b < a ?  1 : 0;
-    });
+    const countries = [...new Set(
+        dfGroups
+        .filter(
+            d => d.Param === 'Country'
+        )
+        .map(
+            d => d.Value
+        )
+    )].sort((a,b) => a < b ? -1 : b < a ? 1 : 0);
 
     // add option to dropdown for each country
     for (const country of countries) {
@@ -65,25 +63,33 @@ const addCountrySelect = function(el, results, instance, groupSelect) {
         countrySelect.classList.add('country-select');
     }
 
-
     // add event listener to dropdown that updates chart
     countrySelect.addEventListener('change', event => {
         groupSelect.value = "None";
-        countryFilter = results.filter(d => d.Country === event.target.value);
-        instance.data.config.selectedGroupIDs = countryFilter.map(d => d.SiteID);
+        const countrySubset = dfGroups
+            .filter(
+                d => d.Param === 'Country'
+            )
+            .filter(
+                d => d.Value === event.target.value
+            )
+            .map(
+                d => d.GroupID
+            );
+        console.log(countrySubset);
+
+        instance.data.config.selectedGroupIDs = countrySubset;//countryFilter.map(d => d.GroupID);
 
         if (Object.keys(instance.helpers).includes('updateConfig')) {
-            instance.helpers.updateConfig(instance, instance.data.config, instance.data._thresholds_);
-
-
-        }
-        else if (Object.keys(instance.helpers).includes('updateSelectedGroupIDs')) {
+            console.log(instance.data.config.selectedGroupIDs);
+            instance.helpers.updateConfig(instance, instance.data.config);
+        } else if (Object.keys(instance.helpers).includes('updateSelectedGroupIDs')) {
             instance.helpers.updateSelectedGroupIDs(instance.data.config.selectedGroupIDs);
         }
 
     });
 
-        // add event listener to dropdown that updates chart
+    // add event listener to dropdown that updates chart
     groupSelect.addEventListener('change', event => {
         countrySelect.value = "None";
     });
