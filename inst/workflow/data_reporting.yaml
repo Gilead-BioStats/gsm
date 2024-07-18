@@ -70,15 +70,15 @@ steps:
     params:
       lWorkflows: lWorkflows
 
-# Calculate Bounds for confidence intervales
-  - name: CalculateBounds
+# Calculate Bounds for confidence intervals
+  - name: MakeBounds
     output: dfBounds
     params:
       lResults: lAnalysis
       strName: "dfBounds"
       dSnapshotDate: dSnapshotDate
       strStudyID: strStudyID
-      
+
 # Stack dfSummary data into dfResults
   - name: BindResults
     output: dfResults
