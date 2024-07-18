@@ -1,7 +1,7 @@
 #' Helper function to bind results from multiple workflows
 #'
 #' Used to stack results (e.g. `dfSummary`) from a list of analysis pipeline
-#' output formatted like the result of `RunWorklows()`. Also adds study level
+#' output formatted like the result of `RunWorkflows()`. Also adds study level
 #' metadata when provided.
 #'
 #' @param lResults Named List of analysis results in the format returned by
