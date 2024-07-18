@@ -240,22 +240,6 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
   | dfAnalyzed | Predicted Count |      | Numeric  |* |
 
 
-### `dfBounds`
-  - Function(s) used to create table:
-    - `Analyze_NormalApprox_PredictBounds()`
-    - `Analyze_Poisson_PredictBounds()`
-  - Inputs: `dfTransformed`
-  - Usage: Calculates predicted percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values for reporting.
-  - Structure:
-
-  | Table    | Column Name  | Description                          | Type     | Optional  | 
-  |----------|--------------|--------------------------------------|----------|--|
-  | dfBounds | Threshold    | The number of standard deviations that the upper and lower bounds are based on   | Numeric| | |
-  | dfBounds | Denominator  | The calculated denominator value     | Numeric | |
-  | dfBounds | LogDenominator  | The calculated log denominator value     | Numeric | |
-  | dfBounds | Numerator    | The calculated numerator value       | Numeric  | |
-  | dfBounds | Metric       | The calculated rate/metric value     | Numeric  | |
-  
 ### `dfFlagged`
   - Function(s) used to create table:
     - `Flag_Fisher()`
@@ -323,7 +307,8 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
 
 ### `dfBounds`
   - Function(s) used to create table:
-    - `BindResults()`
+    - `MakeBounds()`
+    - `Analyze_NormalApprox_PredictBounds()` (called within `MakeBounds()`)
   - Inputs: `lAnalysis`, `strStudyID`, `dSnapshotDate`
   - Workflow used to create table: `data_reporting.yaml`
   - Usage: Calculates predicted percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values for reporting.
