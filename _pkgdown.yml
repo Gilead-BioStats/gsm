@@ -100,7 +100,6 @@ reference:
     desc: data used for examples and testing
   - contents:
       - analyticsInput
-      - analyticsBounds
       - analyticsSummary
       - reportingBounds
       - reportingGroups
