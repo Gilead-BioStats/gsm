@@ -37,5 +37,5 @@ jobs:
         #   extra-packages: any::devtools
       - name: Test Workflows
         run: |
-          Sys.setenv(GSM_TEST_WORKFLOWS = "true")
+          Sys.setenv(GSM_TEST_WORKFLOWS = "true");
           testthat::test_local(filter = "^workflow-")
