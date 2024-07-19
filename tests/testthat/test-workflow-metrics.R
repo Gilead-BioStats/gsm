@@ -3,7 +3,7 @@
 
 test_that("Metric workflows work", {
   skip_if_not(
-    Sys.getenv("GSM_TEST_WORKFLOWS", "false") == "true",
+    Sys.getenv("GSM_TEST_WORKFLOWS", "no") == "yes",
     message = "Workflow tests"
   )
 

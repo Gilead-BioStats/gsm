@@ -10,9 +10,6 @@ name: test-workflows
 jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
-    env:
-      GSM_TEST_WORKFLOWS: true
-
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
 
     strategy:
@@ -24,6 +21,7 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
+      GSM_TEST_WORKFLOWS: yes
 
     steps:
       - uses: actions/checkout@v4
