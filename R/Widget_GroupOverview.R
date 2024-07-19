@@ -103,7 +103,8 @@ Widget_GroupOverview <- function(
     dfGroups = dfGroups,
     strGroupLevel = strGroupLevel,
     strGroupSubset = strGroupSubset,
-    strGroupLabelKey = strGroupLabelKey
+    strGroupLabelKey = strGroupLabelKey,
+    bDebug = bDebug
   )
 
   # create widget
