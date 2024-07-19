@@ -8,6 +8,7 @@ meta:
   Denominator: Enrolled Subjects
   Model: Normal Approximation
   Score: Adjusted Z-Score
+  Type: binary
   strThreshold: -3,-2,2,3
   nMinDenominator: 3
 steps:

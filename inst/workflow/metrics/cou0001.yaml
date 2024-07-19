@@ -21,7 +21,7 @@ steps:
     params:
       dfSubjects: dfEnrolled
       dfNumerator: dfAE
-      dfDenominator: dfSUBJ
+      dfDenominator: dfEnrolled
       strSubjectCol: subjid
       strGroupCol: country
       strGroupLevel: GroupLevel
