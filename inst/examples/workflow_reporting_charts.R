@@ -102,8 +102,7 @@ lCharts <- Visualize_Metric(
 ## Individual Cross sectional charts (for testing)
 
 
- devtools::load_all()
- gsm::Widget_ScatterPlot(
+gsm::Widget_ScatterPlot(
   dfSummary = dfSummary ,
   lMetric = lMetric,
   dfGroups = dfGroups,

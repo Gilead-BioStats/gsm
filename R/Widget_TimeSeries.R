@@ -17,19 +17,16 @@
 #'
 #' @examples
 #' \dontrun{
-#' lWorkflows <- MakeWorkflowList()
 #' strMetricID <- 'kri0001'
-#' lMetricWorkflow <- lWorkflows[[ strMetricID ]]
+#' lMetricWorkflow <- MakeWorkflowList()[[ strMetricID ]]
 #'
 #' lData <- list(
 #'     dfEnrolled = clindata::rawplus_dm %>% filter(enrollyn == 'Y'),
 #'     dfAE = clindata::rawplus_ae
 #' )
 #'
-#' lResults <- RunWorkflow(
-#'     lMetricWorkflow,
-#'     lData
-#' )
+#' lResults <- lMetricWorkflow %>%
+#'     RunWorkflow(lData)
 #'
 #' # Simulate longitudinal snapshot data.
 #' SnapshotDates <- paste0('20', 13:24, '-01-01')
@@ -53,19 +50,22 @@
 #' )
 #'
 #' dfGroups <- bind_rows(
-#'     "SELECT site_num as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df" %>%
+#'     "SELECT pi_number as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df" %>%
 #'         RunQuery(clindata::ctms_site) %>%
 #'         MakeLongMeta('Site'),
-#'     "SELECT siteid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT siteid) as SiteCount FROM df GROUP BY siteid" %>%
+#'     "SELECT invid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid" %>%
 #'         RunQuery(lData$dfEnrolled) %>%
-#'         MakeLongMeta('Site')
+#'         MakeLongMeta('Site'),
+#'     "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country" %>%
+#'         RunQuery(lData$dfEnrolled) %>%
+#'         MakeLongMeta('Country')
 #' )
 #'
 #' Widget_TimeSeries(
 #'     dfResults = dfSummary,
 #'     lMetric = lMetricWorkflow$meta,
 #'     dfGroups = dfGroups,
-#'     vThreshold = lMetricWorkflow$meta$vThreshold
+#'     vThreshold = lMetricWorkflow$meta$strThreshold
 #' )
 #' }
 #' @export
@@ -79,6 +79,13 @@ Widget_TimeSeries <- function(
   bAddGroupSelect = TRUE,
   bDebug = FALSE
 ) {
+    # Parse `vThreshold` from comma-delimited character string to numeric vector.
+    if (!is.null(vThreshold)) {
+        if (is.character(vThreshold)) {
+            vThreshold <- strsplit(vThreshold, ',')[[1]] %>% as.numeric()
+        }
+    }
+print(vThreshold)
   # define widget inputs
   input <- list(
     dfResults = dfResults,

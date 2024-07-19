@@ -7,12 +7,13 @@ HTMLWidgets.widget({
                 if (input.bDebug)
                     console.log(input);
 
-                // generate site overview table
+                // Define initial group subset.
                 const groupSubset = getGroupSubset(
                     input.dfResults,
                     input.strGroupSubset
                 );
 
+                // Generate site overview table.
                 const instance = rbmViz.default.groupOverview(
                     el,
                     input.dfResults.filter(
@@ -26,6 +27,7 @@ HTMLWidgets.widget({
                     input.dfMetrics
                 );
 
+                // Add group subset dropdown.
                 addGroupSubset(el, instance, input.dfResults, input.strGroupSubset);
             },
             resize: function(width, height) {
