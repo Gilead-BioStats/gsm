@@ -2,11 +2,6 @@
 # here, check whether that has changed.
 
 test_that("Metric workflows work", {
-  skip_if_not(
-    Sys.getenv("GSM_TEST_WORKFLOWS", "no") == "yes",
-    message = "Workflow tests"
-  )
-
   wf_mapping <- MakeWorkflowList(strNames = "data_mapping")$data_mapping
   workflows <- MakeWorkflowList()
 
