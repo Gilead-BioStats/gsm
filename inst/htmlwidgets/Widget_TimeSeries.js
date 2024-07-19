@@ -10,14 +10,18 @@ HTMLWidgets.widget({
                 // Update y-axis variable.
                 input.lMetric.y = input.strOutcome;
 
-                // add click event listener to chart
+                // Add click event listener to chart.
                 if (input.bAddGroupSelect)
                     input.lMetric.clickCallback = function(d) {
                         instance.data.config.selectedGroupIDs = instance.data.config.selectedGroupIDs.includes(d.GroupID)
                             ? 'None'
                             : d.GroupID;
+
                         groupSelect.value = instance.data.config.selectedGroupIDs;
-                    //    countrySelect.value = "None"; Will add after refactor done in rbm-viz
+
+                        if (instance.data.config.selectedGroupIDs === 'None')
+                            delete instance.data.config.selectedGroupIDs;
+                        console.log(instance.data.config.selectedGroupIDs);
                         instance.helpers.updateSelectedGroupIDs(
                             instance.data.config.selectedGroupIDs
                         );
@@ -29,15 +33,11 @@ HTMLWidgets.widget({
                               'site',
                               instance.data.config.selectedGroupIDs
                             )
-                            Shiny.setInputValue(
-                              'country',
-                              instance.data.config.selectedCountryIDs
-                            )
                           }
                         }
                   };
 
-                // generate time series
+                // Generate time series.
                 const instance = rbmViz.default.timeSeries(
                     el,
                     input.dfResults,
@@ -47,9 +47,8 @@ HTMLWidgets.widget({
                     input.dfGroups
                 );
 
-                // add dropdown that highlights groups
+                // Add dropdown that highlights group IDs.
                 let groupSelect;
-               // let countrySelect;
                 if (input.bAddGroupSelect) {
 
                     groupSelect = addGroupSelect(
@@ -58,8 +57,6 @@ HTMLWidgets.widget({
                         instance,
                         `Highlighted ${input.lMetric.Group || 'group'}: `
                     );
-                //    countrySelect = addCountrySelect(el, input.dfGroups, instance, groupSelect);
-
                 }
             },
             resize: function(width, height) {

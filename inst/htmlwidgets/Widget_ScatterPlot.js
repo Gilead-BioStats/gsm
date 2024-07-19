@@ -26,7 +26,7 @@ HTMLWidgets.widget({
                             instance.data.config
                         );
 
-                    // Send selected group ID to Shiny app.
+                    // Update Shiny input if in Shiny environment.
                     if (typeof Shiny !== 'undefined') {
                           if (instance.data.config.selectedGroupIDs.length > 0) {
                             Shiny.setInputValue(
