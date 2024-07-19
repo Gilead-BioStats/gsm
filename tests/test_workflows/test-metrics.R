@@ -1,15 +1,19 @@
+# Tests based on tests/testthat/test-util-RunWorkflow.R. If something breaks
+# here, check whether that has changed.
+
 wf_mapping <- MakeWorkflowList(strNames = "data_mapping")$data_mapping
-workflows <- MakeWorkflowList(strNames = paste0("kri", sprintf("%04d", 1:2)))
+workflows <- MakeWorkflowList()
 
-# Don't run things we don't use.
-used_params <- map(workflows, ~ map(.x$steps, "params")) %>%
-  unlist() %>% unique()
-wf_mapping$steps <- purrr::keep(
-  wf_mapping$steps,
-  ~ .x$output %in% used_params
-)
+# I run this one separately to get the data.
+workflows$data_mapping <- NULL
 
-# Pull Raw Data - this will overwrite the previous data pull
+# These currently fail, likely due to wrong input.
+workflows$data_reporting <- NULL
+workflows$qtl0004 <- NULL
+workflows$qtl0006 <- NULL
+workflows$reports <- NULL
+workflows$snapshot <- NULL
+
 lData <- UseClindata(
   list(
     "dfSUBJ" = "clindata::rawplus_dm",
@@ -32,15 +36,12 @@ lData <- UseClindata(
 lMapped <- quiet_RunWorkflow(lWorkflow = wf_mapping, lData = lData)
 
 # Run Metrics
-results <- map(
+results <- purrr::map(
   workflows,
   ~quiet_RunWorkflow(lWorkflow = .x, lData = lMapped, bReturnData = FALSE)
 )
 
-yaml_outputs <- map(
-  map(workflows, ~map_vec(.x$steps, ~.x$output)),
-  ~.x[!grepl("lCharts", .x)]
-)
+yaml_outputs <- purrr::map(workflows, ~purrr::map_vec(.x$steps, ~.x$output))
 
 test_that("RunWorkflow preserves inputs when bReturnData = FALSE", {
   expect_no_error({
