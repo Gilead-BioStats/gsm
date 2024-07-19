@@ -9,10 +9,10 @@ meta:
   model: Normal Approximation
   score: Adjusted Z-Score
   vThreshold:
-    - -2
-    - -1
-    - 2
+    - -5
+    - -3
     - 3
+    - 5
 steps:
   - name: Input_Rate
     output: dfInput

@@ -1,11 +1,22 @@
 ## Test Setup
-raw_data <- clindata::rawplus_ae
-ae_workflow <- flatten(MakeWorkflowList("kri0001"))
-mapping_workflow <- flatten(MakeWorkflowList("mapping"))
-mapped_data <- RunWorkflow(mapping_workflow, lData = list(dfAE = clindata::rawplus_ae))
+source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = 'gsm'))
 
+mapping_workflow <- flatten(MakeWorkflowList('mapping', yaml_path))
+ae_workflow <- flatten(MakeWorkflowList(strNames = 'kri0001', strPath = yaml_path))
+
+mapped_data_reg <- run_possible_mappings(mapping_workflow, lData)$lData
+
+outputs <- map_vec(ae_workflow$steps, ~.x$output)
 
 ## Test Code
 testthat::test_that("Given raw participant-level data, a properly specified Workflow for a KRI creates summarized and flagged data", {
-  test <- RunWorkflow(ae_workflow, raw_data)
+  test <- robust_runworkflow(ae_workflow, mapped_data_reg)
+  expect_true(all(outputs %in% names(test$lData)))
+  expect_true(all(map_lgl(test$lData[outputs], is.data.frame)))
+  expect_equal(nrow(test$lData$dfFlagged), nrow(test$lData$dfSummary))
+  expect_identical(sort(test$lData$dfFlagged$GroupID), sort(test$lData$dfSummary$GroupID))
 })
+
+
+
+

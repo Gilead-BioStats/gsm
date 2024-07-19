@@ -29,7 +29,7 @@ lData_missing_cols <- map(lData, function(df){
 lData_missing_values <- map(lData, function(df){
   df %>%
     mutate(
-      across(everything(), ~replace(., sample(row_number(), size = .15 * n()), NA))
+      across(!contains("GroupID"), ~replace(., sample(row_number(), size = .15 * n()), NA))
     )
 })
 
@@ -60,9 +60,47 @@ verify_req_cols <- function(lData){
     discard(is.null)
 
   if(length(output) == 0){
-    cli_alert_success("All required columns in lData are present")
+    cli_alert_success("All required columns for mapping lData are present")
   } else {
     cli_alert_danger("Missing required columns detected in following data.frames:\n\n")
     return(output)
   }
 }
+
+robust_runworkflow <- function(lWorkflow, lData, steps = seq(lWorkflow$steps)){
+  cli::cli_h1(paste0("Initializing `", lWorkflow$meta$file, "` Workflow"))
+
+  lWorkflow$lData <- lData
+  if(length(step) > 1){
+    lWorkflow$steps <- lWorkflow$steps[step]
+  } else if(length(step) == 1){
+    lWorkflow$steps <- list(lWorkflow$steps[[step]])
+  }
+
+
+  # Run through each step in lWorkflow$workflow
+  stepCount <- 1
+  for (step in lWorkflow$steps) {
+    cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lWorkflow$steps), ": `", step$name, "`"))
+    result0 <- purrr::safely(~gsm::RunStep(lStep = step, lData = lWorkflow$lData, lMeta = lWorkflow$meta))()
+    if(names(result0[!map_vec(result0, is.null)]) == "error"){
+      cli::cli_alert_danger(paste0('Error:`', result0$error$message, '`: ', "error message stored as result"))
+      result1 <- result0$error$message
+    } else {
+      result1 <- result0$result
+    }
+    lWorkflow$lData[[step$output]] <- result1
+
+    if(is.data.frame(result1)){
+      cli::cli_h3("{paste(dim(result1),collapse='x')} data.frame saved as `lData${step$output}`.")
+    } else {
+      cli::cli_h3("{typeof(result1)} of length {length(result1)} saved as `lData${step$output}`.")
+
+    }
+
+    stepCount <- stepCount + 1
+  }
+
+  return(lWorkflow)
+}
+

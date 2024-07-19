@@ -1,22 +1,5 @@
 test_that("lData is correctly mapped for processing using `mapping.yaml` in conjunction with `MakeWorkflowList()` and `RunWorkflow`", {
-  lData <- gsm::UseClindata(
-    list(
-      "dfSUBJ" = "clindata::rawplus_dm",
-      "dfAE" = "clindata::rawplus_ae",
-      "dfPD" = "clindata::ctms_protdev",
-      "dfCONSENT" = "clindata::rawplus_consent",
-      "dfIE" = "clindata::rawplus_ie",
-      "dfLB" = "clindata::rawplus_lb",
-      "dfSTUDCOMP" = "clindata::rawplus_studcomp",
-      "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp %>%
-            dplyr::filter(.data$phase == 'Blinded Study Drug Completion')",
-      "dfDATACHG" = "clindata::edc_data_points",
-      "dfDATAENT" = "clindata::edc_data_pages",
-      "dfQUERY" = "clindata::edc_queries",
-      "dfENROLL" = "clindata::rawplus_enroll"
-    )
-  )
-  yaml_path <- system.file("tests", "testqualification", "qualification", "qual_workflows", package = 'gsm')
+  source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = 'gsm'))
   mapping_workflow <- flatten(MakeWorkflowList("mapping", strPath = yaml_path))
   lData_mapped <- suppressMessages(RunWorkflow(lWorkflow = mapping_workflow, lData = lData))$lData
   mapping_yaml <- yaml::read_yaml(paste0(yaml_path, "/mapping.yaml"))
