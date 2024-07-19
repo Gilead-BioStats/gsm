@@ -29,9 +29,9 @@ jobs:
           r-version: ${{ matrix.config.r }}
           use-public-rspm: true
       - uses: r-lib/actions/setup-r-dependencies@v2
-          extra-packages: any::rcmdcheck
-          needs: check
       - name: Test Workflows
         run: |
+          # Hack to silence warning.
+          suppressPackageStartupMessages(suppressWarnings(library(tcltk)))
           source("tests/test_workflows/main.R", local = TRUE)
         shell: Rscript {0}
