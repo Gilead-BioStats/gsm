@@ -36,4 +36,6 @@ jobs:
         # with:
         #   extra-packages: any::devtools
       - name: Test Workflows
-        run: Rscript tests/test_workflows/run.R
+        run: |
+          Sys.setenv(GSM_TEST_WORKFLOWS = "true")
+          testthat::test_local(filter = "^workflow-")
