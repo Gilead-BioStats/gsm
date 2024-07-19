@@ -7,30 +7,37 @@ HTMLWidgets.widget({
                 if (input.bDebug)
                     console.log(input);
 
-                // add click event listener to chart
+                // Add click event listener to chart.
                 if (input.bAddGroupSelect)
                     input.lMetric.clickCallback = function(d) {
                         instance.data.config.selectedGroupIDs = instance.data.config.selectedGroupIDs.includes(d.GroupID)
                             ? 'None'
                             : d.GroupID;
+
+                        // Update group select.
                         groupSelect.value = instance.data.config.selectedGroupIDs;
+
+                        // Set country select to 'None' if a group ID is selected.
+                        if (countrySelect !== undefined)
+                            countrySelect.value = "None";
+
                         instance.helpers.updateConfig(
                             instance,
                             instance.data.config
                         );
 
-                        // Update Shiny input if in Shiny environment.
-                        if (typeof Shiny !== 'undefined') {
+                    // Update Shiny input if in Shiny environment.
+                    if (typeof Shiny !== 'undefined') {
                           if (instance.data.config.selectedGroupIDs.length > 0) {
                             Shiny.setInputValue(
                               'site',
                               instance.data.config.selectedGroupIDs
                             )
-                          }
                         }
+                    }
                   };
 
-                // generate scatter plot
+                // Generate scatter plot.
                 const instance = rbmViz.default.scatterPlot(
                     el,
                     input.dfResults,
@@ -39,16 +46,24 @@ HTMLWidgets.widget({
                     input.dfGroups
                 );
 
-                // add dropdown that highlights groups
-                let groupSelect;
+                // Add dropdowns that highlight group IDs.
+                let groupSelect, countrySelect;
                 if (input.bAddGroupSelect) {
-                    console
                     groupSelect = addGroupSelect(
                         el,
                         input.dfResults,
                         instance,
                         `Highlighted ${input.lMetric.Group || 'group'}: `
                     );
+
+                    if (input.lMetric.GroupLevel === 'Site') {
+                        countrySelect = addCountrySelect(
+                            el,
+                            input.dfGroups,
+                            instance,
+                            groupSelect
+                        );
+                    }
                 }
             },
             resize: function(width, height) {
