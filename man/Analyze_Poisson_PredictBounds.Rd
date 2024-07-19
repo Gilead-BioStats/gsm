@@ -11,8 +11,8 @@ Analyze_Poisson_PredictBounds(
 )
 }
 \arguments{
-\item{dfTransformed}{\code{data.frame} data.frame in format produced by
-\code{\link{Transform_Rate}}. Must include GroupID, GroupLevel, N, Numerator and Denominator.}
+\item{dfTransformed}{\code{data.frame} Transformed data for analysis. Data should have one record per site with expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, and \code{Metric}. For more details see the Data Pipeline vignette: \code{vignette("DataPipeline", package = "gsm")}.
+For this function, \code{dfTransformed} should typically be created using \code{\link[=Transform_Rate]{Transform_Rate()}}.}
 
 \item{vThreshold}{\code{numeric} upper and lower boundaries in residual space. Should be identical to
 the thresholds used AE_Assess().}
@@ -36,19 +36,6 @@ This function fits a Poisson model to site-level data and then calculates residu
 site. The Poisson model is run using standard methods in the \code{stats} package by fitting a \code{glm}
 model with family set to \code{poisson} using a "log" link. Upper and lower boundary values are then
 calculated using the method described here TODO: Add link.
-}
-
-\section{Data Specification}{
-
-
-The input data (\code{dfTransformed}) for \code{Analyze_Poisson_PredictBounds} is typically created using
-\code{\link{Transform_Rate}} and should be one record per site with columns for:
-\itemize{
-\item \code{GroupID} - Unique subject ID
-\item \code{GroupLevel} - Group Type
-\item \code{Numerator} - Number of Events
-\item \code{Denominator} - Number of days of exposure
-}
 }
 
 \examples{

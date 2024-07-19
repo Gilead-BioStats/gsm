@@ -13,17 +13,8 @@
 #' model with family set to `poisson` using a "log" link. Upper and lower boundary values are then
 #' calculated using the method described here TODO: Add link.
 #'
-#' @section Data Specification:
-#'
-#' The input data (`dfTransformed`) for `Analyze_Poisson_PredictBounds` is typically created using
-#' \code{\link{Transform_Rate}} and should be one record per site with columns for:
-#' - `GroupID` - Unique subject ID
-#' - `GroupLevel` - Group Type
-#' - `Numerator` - Number of Events
-#' - `Denominator` - Number of days of exposure
-#'
-#' @param dfTransformed `data.frame` data.frame in format produced by
-#' \code{\link{Transform_Rate}}. Must include GroupID, GroupLevel, N, Numerator and Denominator.
+#' @param dfTransformed `r gloss_param("dfTransformed")`
+#'   `r gloss_extra("dfTransformed_Rate")`
 #' @param vThreshold `numeric` upper and lower boundaries in residual space. Should be identical to
 #' the thresholds used AE_Assess().
 #' @param nStep `numeric` step size of imputed bounds.

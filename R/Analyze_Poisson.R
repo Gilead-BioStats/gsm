@@ -14,15 +14,8 @@
 #' The Poisson model is run using standard methods in the `stats` package by fitting a `glm` model with family
 #' set to `poisson` using a "log" link. Site-level residuals are calculated using `stats::predict.glm` via `broom::augment`.
 #'
-#' @section Data Specification:
-#'
-#' The input data (`dfTransformed`) for `Analyze_Poisson` is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
-#' - `GroupID` - Site ID
-#' - `Numerator` - Number of Adverse Events
-#' - `Denominator` - Number of days of exposure
-#' - `Metric` - Rate of exposure (Numerator / Denominator)
-#'
-#' @param dfTransformed data.frame in format produced by \code{\link{Transform_Rate}}. Must include GroupID, Numerator, Denominator and Metric.
+#' @param dfTransformed `r gloss_param("dfTransformed")`
+#'   `r gloss_extra("dfTransformed_Rate")`
 #'
 #' @return `data.frame` with one row per site with columns: GroupID, Numerator, Denominator, Metric, Score, and PredictedCount.
 #'
