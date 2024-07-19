@@ -3526,7 +3526,7 @@
       
       $snapshot[[3]]$params
       $snapshot[[3]]$params$strNames
-      [1] "kri"
+      [1] "Metrics"
       
       
       
