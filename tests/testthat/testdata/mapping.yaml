@@ -1,0 +1,14 @@
+meta:
+  File: mapping.yaml
+  description: Data Mappings to prepare for metric calculations
+steps:
+  - name: RunQuery
+    output: dfEnrolled
+    params:
+      df: dfSUBJ
+      strQuery: "SELECT * FROM df WHERE enrollyn == 'Y'"
+  - name: RunQuery
+    output: dfAE
+    params:
+      df: dfAE
+      strQuery: "SELECT * FROM df WHERE aeser = 'Y'"

@@ -20,15 +20,19 @@ MakeBounds(
 \item{strMetrics}{Character vector of \code{MetricID}s to include in \code{dfBounds}.
 All unique values from \code{dfResults$MetricID} used by default.}
 
-\item{dSnapshotDate}{Snapshot date. Uses dfResults$SnapshotDate by default. If more than one snapshot date is found in dfResults, an error is thrown.}
+\item{dSnapshotDate}{Snapshot date. Uses \code{dfResults$SnapshotDate} by default.
+If more than one snapshot date is found in \code{dfResults}, a warning is thrown
+and this function returns \code{NULL}.}
 
-\item{dStudyID}{Study ID. Uses dfResults$StudyID by default. If more than one snapshot date is found in dfResults, an error is thrown.}
+\item{strStudyID}{Study ID. Uses \code{dfResults$StudyID} by default. If more than
+one snapshot date is found in \code{dfResults}, a warning is thrown and this
+function returns \code{NULL}.}
 }
 \value{
 A data frame.
 }
 \description{
-Used to calculate bounds across a set of metrics/
+Calculate bounds across a set of metrics.
 }
 \examples{
 dfBounds <- MakeBounds(

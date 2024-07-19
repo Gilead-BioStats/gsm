@@ -35,13 +35,7 @@ steps:
     output: dfAnalyzed
     params:
       dfTransformed: dfTransformed
-      strType: binary
-  - name: Analyze_NormalApprox_PredictBounds
-    output: dfBounds
-    params:
-      dfTransformed: dfTransformed
-      strType: binary
-      vThreshold: vThreshold
+      strType: Type
   - name: Flag_NormalApprox
     output: dfFlagged
     params:

@@ -7,13 +7,20 @@
 MakeWideGroups(dfMeta, strGroupLevel)
 }
 \arguments{
-\item{dfMeta}{The meta data dictionary with one row per GroupID per Param. Must have columns GroupID, GroupLevel, Param, and Value.}
+\item{dfMeta}{The meta data dictionary with one row per GroupID per Param.
+Must have columns GroupID, GroupLevel, Param, and Value.}
 
-\item{strGroupLevel}{A string specifying the group level; used to filter dfMeta$GroupLevel.}
+\item{strGroupLevel}{A string specifying the group level; used to filter
+dfMeta$GroupLevel.}
 }
 \value{
 A long format data frame.
 }
 \description{
-Used convert metadata dictionary (dfMeta) to a wide format data frame for use in charts and reports.
+Used to convert metadata dictionary (dfMeta) to a wide format data frame for
+use in charts and reports.
+}
+\examples{
+MakeWideGroups(reportingGroups, "Site")
+
 }

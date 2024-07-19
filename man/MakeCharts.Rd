@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-MakeCharts.R
 \name{MakeCharts}
 \alias{MakeCharts}
-\title{Helper function create charts for multiple metrics}
+\title{Helper function to create charts for multiple metrics}
 \usage{
 MakeCharts(dfResults, dfBounds, dfGroups, dfMetrics)
 }
@@ -19,5 +19,5 @@ MakeCharts(dfResults, dfBounds, dfGroups, dfMetrics)
 A list of charts for each metric.
 }
 \description{
-Helper function create charts for multiple metrics
+Helper function to create charts for multiple metrics
 }

@@ -53,20 +53,26 @@ Analyze_NormalApprox_PredictBounds <- function(
 ) {
   if (is.null(vThreshold)) {
     vThreshold <- c(-3, -2, 2, 3)
-    cli::cli_alert("vThreshold was not provided. Setting default threshold to {vThreshold}")
+    cli::cli_inform(
+      "vThreshold was not provided. Setting default threshold to {vThreshold}.",
+      class = "gsm_msg-default_vThreshold"
+    )
   }
 
   # Set [ nStep ] to the range of the denominator divided by 250.
   if (is.null(nStep)) {
     nRange <- max(dfTransformed$Denominator) - min(dfTransformed$Denominator)
 
-    if (!is.null(nRange) & !is.na(nRange) & nRange != 0) {
+    if (!is.null(nRange) && !is.na(nRange) && nRange != 0) {
       nStep <- nRange / 250
     } else {
       nStep <- 1
     }
 
-    cli::cli_alert("nStep was not provided. Setting default step to {nStep}")
+    cli::cli_inform(
+      "nStep was not provided. Setting default step to {nStep}.",
+      class = "gsm_msg-default_nStep"
+    )
 
   }
 

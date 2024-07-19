@@ -7,7 +7,7 @@
 Summarize(dfFlagged, nMinDenominator = NULL)
 }
 \arguments{
-\item{dfFlagged}{data.frame in format produced by \code{\link{Flag}}}
+\item{dfFlagged}{data.frame in format produced by \code{\link[=Flag]{Flag()}}.}
 
 \item{nMinDenominator}{\code{numeric} Specifies the minimum denominator required to return a \code{score} and calculate a \code{flag}. Default: NULL}
 }

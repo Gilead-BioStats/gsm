@@ -2,18 +2,21 @@
 % Please edit documentation in R/util-MakeMetric.R
 \name{MakeMetric}
 \alias{MakeMetric}
-\title{Parse meta data from workflows to a data frame}
+\title{Parse metadata from workflows to a data frame}
 \usage{
 MakeMetric(lWorkflows)
 }
 \arguments{
-\item{lWorkflows}{A list of workflows, like the one returned by MakeWorkflowList().}
+\item{lWorkflows}{A list of workflows, like the one returned by
+\code{\link[=MakeWorkflowList]{MakeWorkflowList()}}.}
 }
 \value{
 A data frame.
 }
 \description{
-Used to format metric metadata (dfMetrics) for use in charts and reports. This function takes a list of workflows and returns a data frame with one row per MetricID.
+Used to format metric metadata (\code{dfMetrics}) for use in charts and reports.
+This function takes a list of workflows and returns a data frame with one row
+per \code{MetricID}.
 }
 \examples{
 lWorkflows <- MakeWorkflowList(strNames = "kri")
