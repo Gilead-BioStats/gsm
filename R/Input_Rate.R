@@ -143,8 +143,13 @@ Input_Rate <- function(
         mutate('Numerator' = if_else(is.na(.data$Numerator), 0, .data$Numerator),
             'Denominator' = if_else(is.na(.data$Denominator), 0, .data$Denominator)
         ) %>%
-        mutate(Rate = .data$Numerator/.data$Denominator) %>%
-        filter(!is.na(.data$GroupID))
+        mutate(Rate = .data$Numerator/.data$Denominator)
+
+    if(any(is.na(dfInput$GroupID))){
+        cli_alert_warning(glue::glue("{sum(is.na(dfInput$GroupID))} cases of NA's in GroupID, cases are removed in output"))
+        dfInput <- dfInput %>%
+            filter(!is.na(.data$GroupID))
+    }
 
     return(dfInput)
 }
