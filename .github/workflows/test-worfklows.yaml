@@ -34,9 +34,5 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v2
       - name: Test Workflows
         run: |
-          devtools::load_all()
-          test_file(
-            "tests/test_workflows/test-metrics.R",
-            reporter = check_reporter()
-          )
+          source("tests/test_workflows/main.R", local = TRUE)
         shell: Rscript {0}
