@@ -1,9 +1,0 @@
-dfInput:
-  strIDCol: "SubjectID"
-  strSiteCol: "SiteID"
-  strStudyCol: "StudyID"
-  strCountryCol: "CountryID"
-  strCustomGroupCol: "CustomGroupID"
-  strCountCol: "Count"
-  strDataPointsCol: "DataPoint"
-  strRateCol: "Rate"

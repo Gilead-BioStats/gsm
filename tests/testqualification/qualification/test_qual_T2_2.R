@@ -20,4 +20,3 @@ testthat::test_that("Given raw participant-level data with missingness,
   expect_identical(sort(test$lData$dfFlagged$GroupID), sort(test$lData$dfSummary$GroupID))
 })
 
-

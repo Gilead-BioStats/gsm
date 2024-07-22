@@ -2,8 +2,8 @@
 #'
 #' `r lifecycle::badge("stable")`
 #'
-#' @param dfSummary `data.frame` returned by [gsm::Summarize()]
-#' @param dfBounds `data.frame` data.frame giving prediction bounds for range of denominator in dfSummary.
+#' @inheritParams shared-params
+#' @param dfBounds `data.frame` data.frame giving prediction bounds for range of denominator in dfResults.
 #' @param strGroupCol `character` name of stratification column for facet wrap Default: `NULL`
 #' @param strGroupLabel `character` name of group, used for labeling axes. Default: `NULL`
 #' @param strUnit `character` exposure time unit. Default: `days`
@@ -13,7 +13,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' lData <- gsm::UseClindata(
+#' lData <- UseClindata(
 #'   list(
 #'     "dfSUBJ" = "clindata::rawplus_dm",
 #'     "dfAE" = "clindata::rawplus_ae",
@@ -32,16 +32,16 @@
 #' )
 #' wf_mapping <- MakeWorkflowList("mapping")
 #' ae <- MakeWorkflowList(strNames = "kri0001")
-#' lMapped <- RunWorkflow(wf_mapping, lData)$mapping$lResults
-#' SafetyAE <- RunWorkflow(ae, lMapped)
-#' dfBounds <- Analyze_Poisson_PredictBounds(SafetyAE$kri0001$lResults$dfTransformed, c(-5, 5))
-#' Visualize_Scatter(SafetyAE$kri0001$lResults$dfSummary, dfBounds)
+#' lMapped <- RunWorkflow(wf_mapping, lData)$lData
+#' SafetyAE <- map(ae, ~RunWorkflow(., lMapped))
+#' dfBounds <- Analyze_Poisson_PredictBounds(SafetyAE$kri0001$lData$dfTransformed, c(-5, 5))
+#' Visualize_Scatter(SafetyAE$kri0001$lData$dfSummary, dfBounds)
 #' }
 #'
 #' @export
 
 Visualize_Scatter <- function(
-  dfSummary,
+  dfResults,
   dfBounds = NULL,
   strGroupCol = NULL,
   strGroupLabel = NULL,
@@ -55,7 +55,7 @@ Visualize_Scatter <- function(
   )
 
   # Remove `NA` flags and define tooltip for use in plotly.
-  dfSummaryWithTooltip <- dfSummary %>%
+  dfResultsWithTooltip <- dfResults %>%
     filter(
       !is.na(Flag)
     ) %>%
@@ -71,19 +71,19 @@ Visualize_Scatter <- function(
 
   # Avoid plotting empty datasets
 
-  if (nrow(dfSummaryWithTooltip) == 0) {
+  if (nrow(dfResultsWithTooltip) == 0) {
     return(NULL)
   }
 
 
   # Account for incomplete set of flags
-  dfSummaryWithTooltip$FlagAbs <- abs(dfSummaryWithTooltip$Flag)
-  maxFlag <- max(dfSummaryWithTooltip$FlagAbs)
+  dfResultsWithTooltip$FlagAbs <- abs(dfResultsWithTooltip$Flag)
+  maxFlag <- max(dfResultsWithTooltip$FlagAbs)
   flagBreaks <- as.character(seq(0, maxFlag))
   flagValues <- vColors[1:length(flagBreaks)]
 
   ### Plot of data
-  p <- dfSummaryWithTooltip %>%
+  p <- dfResultsWithTooltip %>%
     ggplot(
       aes(
         x = log(.data$Denominator),
@@ -137,7 +137,7 @@ Visualize_Scatter <- function(
 
   p <- p +
     geom_text(
-      data = dfSummaryWithTooltip %>% filter(.data$FlagAbs != 0),
+      data = dfResultsWithTooltip %>% filter(.data$FlagAbs != 0),
       aes(x = log(.data$Denominator), y = .data$Numerator, label = .data$GroupID),
       vjust = 1.5,
       col = "black",

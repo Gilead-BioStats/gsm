@@ -23,6 +23,7 @@
 #' @param dfNumerator `data.frame` with a column for SubjectID and `strNumeratorCol` if `strNumeratorMethod` is "Sum"
 #' @param dfDenominator `data.frame` with a column for SubjectID and `strDenominatorCol` if `strDenominatorMethod` is "Sum"
 #' @param strGroupCol `character` Column name in `dfSubjects` to use for grouping. Default: "GroupID"
+#' @param strGroupLevel `character` value for the group level. Default: NULL which is parsed to `strGroupCol`
 #' @param strSubjectCol `character` Column name in `dfSubjects` to use for subject ID. Default: "SubjectID"
 #' @param strNumeratorMethod `character` Method to calculate numerator. Default: "Count"
 #' @param strDenominatorMethod `character` Method to calculate denominator. Default: "Count"
@@ -38,7 +39,7 @@
 #' | GroupLevel   | The group type                       | Character|
 #' | Numerator    | The calculated numerator value       | Numeric  |
 #' | Denominator  | The calculated denominator value     | Numeric  |
-#' | Rate         | The calculated input rate            | Numeric  |
+#' | Metric       | The calculated input rate/metric     | Numeric  |
 #'
 #' @examples
 #' # Run for AE KRI
@@ -48,6 +49,7 @@
 #'     dfDenominator = clindata::rawplus_dm,
 #'     strSubjectCol = "subjid",
 #'     strGroupCol = "siteid",
+#'     strGroupLevel = "Site",
 #'     strNumeratorMethod = "Count",
 #'     strDenominatorMethod = "Sum",
 #'     strDenominatorCol = "timeontreatment"
@@ -61,6 +63,7 @@ Input_Rate <- function(
     dfNumerator,
     dfDenominator,
     strGroupCol = "GroupID",
+    strGroupLevel = NULL,
     strSubjectCol = "SubjectID",
     strNumeratorMethod = "Count",
     strDenominatorMethod = "Count",
@@ -79,12 +82,12 @@ Input_Rate <- function(
     }
 
     # Check if strNumeratorCol is Null when strNumeratorMethod is 'Sum'
-    if (strNumeratorMethod == "Sum" & is.null(strNumeratorCol)) {
+    if (strNumeratorMethod == "Sum" && is.null(strNumeratorCol)) {
         stop("strNumeratorCol must be provided when strNumeratorMethod is 'Sum'")
     }
 
     # Check if strDenominatorCol is Null when strDenominatorMethod is 'Sum'
-    if (strDenominatorMethod == "Sum" & is.null(strDenominatorCol)) {
+    if (strDenominatorMethod == "Sum" && is.null(strDenominatorCol)) {
         stop("strDenominatorCol must be provided when strDenominatorMethod is 'Sum'")
     }
 
@@ -95,12 +98,20 @@ Input_Rate <- function(
         strSubjectCol %in% colnames(dfDenominator)
     )
 
+    # check that "strGroupCol" is in dfSubjects
+    stopifnot(strGroupCol %in% colnames(dfSubjects))
+
+    # if `strGroupLevel` is null, use `strGroupCol`
+    if(is.null(strGroupLevel)){
+        strGroupLevel <- strGroupCol
+    }
+
     #Rename SubjectID in dfSubjects
     dfSubjects <- dfSubjects %>%
         mutate(
             'SubjectID' = .data[[strSubjectCol]],
             'GroupID' = .data[[strGroupCol]],
-            'GroupLevel' = strGroupCol
+            'GroupLevel' = strGroupLevel
         ) %>%
         select('SubjectID', 'GroupID', 'GroupLevel')
 
@@ -143,7 +154,7 @@ Input_Rate <- function(
         mutate('Numerator' = if_else(is.na(.data$Numerator), 0, .data$Numerator),
             'Denominator' = if_else(is.na(.data$Denominator), 0, .data$Denominator)
         ) %>%
-        mutate(Rate = .data$Numerator/.data$Denominator)
+        mutate(Metric = .data$Numerator/.data$Denominator)
 
     if(any(is.na(dfInput$GroupID))){
         cli_alert_warning(glue::glue("{sum(is.na(dfInput$GroupID))} cases of NA's in GroupID, cases are removed in output"))

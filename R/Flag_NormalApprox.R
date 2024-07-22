@@ -11,7 +11,7 @@
 #'
 #' @section Data Specification:
 #' \code{Flag_NormalApprox} is designed to support the input data (`dfAnalyzed`) from \code{Analyze_NormalApprox} function.
-#' At a minimum, the input data must have a `SiteID` column and a column of numeric values (identified
+#' At a minimum, the input data must have a `GroupID` column and a column of numeric values (identified
 #' by the `strColumn` parameter) that will be compared to the specified thresholds (`vThreshold`) to
 #' calculate a new `Flag` column.
 #' In short, the following columns are considered:
@@ -27,7 +27,7 @@
 #' @return `data.frame` with "Flag" column added
 #'
 #' @examples
-#' dfTransformed <- Transform_Rate(sampleInput)
+#' dfTransformed <- Transform_Rate(analyticsInput)
 #'
 #' # Binary
 #' dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "binary")

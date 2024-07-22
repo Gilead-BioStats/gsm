@@ -17,4 +17,5 @@ testthat::test_that("Given appropriate metadata (i.e. vThresholds), data.frame o
   expect_true(all(outputs %in% names(test$lData)))
   expect_true(all(map_lgl(test$lData[outputs], is.data.frame)))
   expect_true(all(unique(dfBounds$Threshold) %in% c(ae_workflow$meta$vThreshold, 0)))
+
 })

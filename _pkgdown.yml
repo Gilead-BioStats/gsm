@@ -35,11 +35,6 @@ navbar:
           href: articles/v1_9_0-data-model-update-reference.html
 
 reference:
-  - title: Assess
-    desc: Sequentially execute the Assessment Pipeline Functions (Transform, Analyze, Flag, and Summarize)
-  - contents:
-      - matches("*_Assess_*")
-
   - title: Visualize
     desc: Generate a visualization from the Assessment results
   - contents:
@@ -47,15 +42,7 @@ reference:
       - starts_with("Widget_")
       - Analyze_NormalApprox_PredictBounds
       - Analyze_Poisson_PredictBounds
-      # - UpdateLabels
-      # - MakeKRICharts
       - Make_Timeline
-      # - MakeQTLCharts
-
-  # - title: Map
-  #   desc: Generate input data from multiple clinical data standards (generally rawplus or SDTM-)
-  # - contents:
-  #     - matches("*_Map_*")
 
   - title: Analyze
     desc: Conduct statistical analysis based on input data
@@ -81,72 +68,41 @@ reference:
   - title: Reporting
     desc: Creates summary tables and HTML objects to create a report
   - contents:
+      - Report_FlagOverTime
       - Report_FormatFlag
       - Report_KRI
       - Report_MetricCharts
       - Report_MetricTable
-      # - Study_AssessmentReport
-      # - Overview_Table
-      # - rank_chg
-      # - kri_directionality_logo
 
   - title: QTL
     desc: Runs QTL analysis for longitudinal metrics
   - contents:
       - Analyze_QTL
-      # - RunQTL
-      # - SaveQTL
-      # - MakeRptQtlDetails
-
-  # - title: Longitudinal
-  #   desc: Utility functions to analyze longitudinal/trend data.
-  # - contents:
-  #     - Save_Snapshot
 
   - title: Utility
     desc: Utility functions for use within the Data Pipeline
   - contents:
-     # -  CheckClindataMeta
-     # -  CheckInputs
-     # -  CheckSnapshotInputs
-     # -  ConsolidateStrata
-     # -  ExportCode
-     # -  FilterData
-     # -  FilterDomain
-     # -  Get_Enrolled
-     # -  MakeAnalysisDate
-     # -  MakeResultsAnalysis
-     # -  MakeResultsBounds
-     # -  MakeResultsSummary
-     # -  MakeStatusWorkflow
-     # -  MakeStratifiedAssessment
+     -  BindResults
+     -  MakeBounds
+     -  MakeCharts
+     -  MakeMetric
+     -  MakeLongMeta
+     -  MakeWideGroups
      -  MakeWorkflowList
-     # -  Make_Snapshot
-     # -  MergeSubjects
-     # -  ParseWarnings
+     -  ParseThreshold
      -  RunStep
      -  RunQuery
-     # -  RunStratifiedWorkflow
      -  RunWorkflow
+     -  RunWorkflows
      -  UseClindata
-     # -  UpdateGSMVersion
-     # -  UpdateParams
-     # -  generate_md_table
-     # -  is_mapping_valid
-     # -  is_workflow_valid
-     # -  parse_data_mapping
-     # -  parse_data_spec
 
-  - title: Data
-    desc: Metadata used to create workflows
-  - contents:
-      - config_param
-      - config_workflow
-      - meta_param
-      - meta_workflow
-      - rbm_data_spec
-
-  - title: Testing Data
+  - title: Sample Data
     desc: data used for examples and testing
   - contents:
-      - sampleInput
+      - analyticsInput
+      - analyticsSummary
+      - reportingBounds
+      - reportingGroups
+      - reportingMetrics
+      - reportingResults
+

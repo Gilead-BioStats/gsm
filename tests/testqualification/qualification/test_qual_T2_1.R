@@ -15,6 +15,7 @@ testthat::test_that("Given raw participant-level data, a properly specified Work
   expect_true(all(map_lgl(test$lData[outputs], is.data.frame)))
   expect_equal(nrow(test$lData$dfFlagged), nrow(test$lData$dfSummary))
   expect_identical(sort(test$lData$dfFlagged$GroupID), sort(test$lData$dfSummary$GroupID))
+
 })
 
 

@@ -9,6 +9,7 @@ Input_Rate(
   dfNumerator,
   dfDenominator,
   strGroupCol = "GroupID",
+  strGroupLevel = NULL,
   strSubjectCol = "SubjectID",
   strNumeratorMethod = "Count",
   strDenominatorMethod = "Count",
@@ -24,6 +25,8 @@ Input_Rate(
 \item{dfDenominator}{\code{data.frame} with a column for SubjectID and \code{strDenominatorCol} if \code{strDenominatorMethod} is "Sum"}
 
 \item{strGroupCol}{\code{character} Column name in \code{dfSubjects} to use for grouping. Default: "GroupID"}
+
+\item{strGroupLevel}{\code{character} value for the group level. Default: NULL which is parsed to \code{strGroupCol}}
 
 \item{strSubjectCol}{\code{character} Column name in \code{dfSubjects} to use for subject ID. Default: "SubjectID"}
 
@@ -43,7 +46,7 @@ Input_Rate(
    GroupLevel \tab The group type \tab Character \cr
    Numerator \tab The calculated numerator value \tab Numeric \cr
    Denominator \tab The calculated denominator value \tab Numeric \cr
-   Rate \tab The calculated input rate \tab Numeric \cr
+   Metric \tab The calculated input rate/metric \tab Numeric \cr
 }
 }
 \description{
@@ -74,6 +77,7 @@ dfInput <- Input_Rate(
     dfDenominator = clindata::rawplus_dm,
     strSubjectCol = "subjid",
     strGroupCol = "siteid",
+    strGroupLevel = "Site",
     strNumeratorMethod = "Count",
     strDenominatorMethod = "Sum",
     strDenominatorCol = "timeontreatment"

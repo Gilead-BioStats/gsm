@@ -19,7 +19,6 @@ jobs:
       - name: Actions setup
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0
           ref: main
 
       - uses: r-lib/actions/setup-r@v2
@@ -38,17 +37,89 @@ jobs:
           devtools::install(dependencies=TRUE)
           devtools::install_github('Gilead-BioStats/clindata')
 
-          snapshot <- readRDS(system.file("data-longitudinal", "longitudinal_snapshot.rds", package = "clindata"))
+          wf_mapping <- MakeWorkflowList(strNames="mapping")[[1]]
+          wf_metrics <- MakeWorkflowList(strNames=paste0("kri",sprintf("%04d", 1:12)))
+          dfMetrics <- wf_metrics %>% map_df(~.x$meta)
 
-          gsm::Study_Report(
-            lSnapshot = snapshot,
-            strOutpath = here::here("StandardReportSite.html")
+          # Import Site+Study Metadata
+          dfStudy<-clindata::ctms_study %>% rename(StudyID = protocol_number)
+          dfSite<- clindata::ctms_site %>% rename(SiteID = site_num)
+
+          # Pull Raw Data - this will overwrite the previous data pull
+          lRaw <- gsm::UseClindata(
+            list(
+              "dfSUBJ" = "clindata::rawplus_dm",
+              "dfAE" = "clindata::rawplus_ae",
+              "dfPD" = "clindata::ctms_protdev",
+              "dfLB" = "clindata::rawplus_lb",
+              "dfSTUDCOMP" = "clindata::rawplus_studcomp",
+              "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp",
+              "dfDATACHG" = "clindata::edc_data_points",
+              "dfDATAENT" = "clindata::edc_data_pages",
+              "dfQUERY" = "clindata::edc_queries",
+              "dfENROLL" = "clindata::rawplus_enroll"
             )
-
-          gsm::Study_Report(
-            lSnapshot = snapshot,
-            strOutpath = here::here("StandardReportCountry.html")
           )
+
+          # Create Mapped Data
+          lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$lData
+
+          # Run Metrics
+          lResults <-wf_metrics %>% map(~RunWorkflow(lWorkflow=.x, lData=lMapped))
+
+          dfBounds <- lResults %>%
+            imap_dfr(~.x$lData$dfBounds %>% mutate(MetricID = .y)) %>%
+            mutate(StudyID = "ABC-123") %>%
+            mutate(SnapshotDate = Sys.Date())
+
+          dfSummary <- lResults %>%
+            imap_dfr(~.x$lData$dfSummary %>% mutate(MetricID = .y)) %>%
+            mutate(StudyID = "ABC-123") %>%
+            mutate(SnapshotDate = Sys.Date())
+
+          # Create charts
+          lCharts <- unique(dfSummary$MetricID) %>% map(~Visualize_Metric(
+              dfSummary = dfSummary,
+              dfBounds = dfBounds,
+              dfSite = dfSite,
+              dfMetrics = dfMetrics,
+              strMetricID = .x
+            )
+          ) %>% setNames(unique(dfSummary$MetricID))
+
+          # Run reports
+          strOutpath <- "StandardSiteReport.html"
+          Report_KRI( lCharts = lCharts, dfSummary = dfSummary,  dfSite = dfSite, dfStudy = dfStudy, dfMetrics =dfMetrics, strOutpath = strOutpath )
+
+          wf_metrics_c <- MakeWorkflowList(strNames=paste0("cou",sprintf("%04d", 1:12)))
+          dfMetrics_c <- wf_metrics_c %>% map_df(~.x$meta)
+          # Run Metrics
+          lResults <-wf_metrics_c %>% map(~RunWorkflow(lWorkflow=.x, lData=lMapped))
+
+          dfBounds_c <- lResults_c %>%
+            imap_dfr(~.x$lData$dfBounds %>% mutate(MetricID = .y)) %>%
+            mutate(StudyID = "ABC-123") %>%
+            mutate(SnapshotDate = Sys.Date())
+
+          dfSummary_c <- lResults_c %>%
+            imap_dfr(~.x$lData$dfSummary %>% mutate(MetricID = .y)) %>%
+            mutate(StudyID = "ABC-123") %>%
+            mutate(SnapshotDate = Sys.Date())
+
+          # Create charts
+          lCharts_c <- unique(dfSummary_c$MetricID) %>% map(~Visualize_Metric(
+              dfSummary = dfSummary_c,
+              dfBounds = dfBounds_c,
+              dfSite = dfSite,
+              dfMetrics = dfMetrics_c,
+              strMetricID = .x
+            )
+          ) %>% setNames(unique(dfSummary$MetricID))
+
+          # Run reports
+          strOutpath_c <- "StandardCountryReport.html"
+          Report_KRI( lCharts = lCharts_c, dfSummary = dfSummary_c,  dfSite = dfSite, dfStudy = dfStudy, dfMetrics =dfMetrics_c, strOutpath = strOutpath_c )
+
 
       - name: delete temp-report branch if it exists
         run: |
@@ -76,13 +147,11 @@ jobs:
       - name: Checkout temp-report branch
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0
           ref: temp-report
 
       - name: Checkout gh-pages branch
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0
           ref: gh-pages
 
       - name: checkout gh-pages branch and commit sample reports; delete upstream temp-report branch

@@ -6,9 +6,8 @@
 \usage{
 Report_KRI(
   lCharts = NULL,
-  dfSummary = NULL,
-  dfStudy = NULL,
-  dfSite = NULL,
+  dfResults = NULL,
+  dfGroups = NULL,
   dfMetrics = NULL,
   strOutpath = NULL
 )
@@ -16,13 +15,11 @@ Report_KRI(
 \arguments{
 \item{lCharts}{A list of charts to include in the report.}
 
-\item{dfSummary}{A data frame containing summary information.}
+\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
 
-\item{dfStudy}{A data frame containing study metadata (e.g., from CTMS).}
+\item{dfGroups}{A data frame containing study/site metadata (e.g., from CTMS).}
 
-\item{dfSite}{A data frame containing site metadata (e.g., from CTMS).}
-
-\item{dfMetrics}{A data frame containing metric metadata (e.g., from workflows).}
+\item{dfMetrics}{\code{data.frame} Metric-specific metadata for use in charts and reporting. Created by passing an \code{lWorkflow} object to \code{\link[=MakeMetric]{MakeMetric()}}. Expected columns: \code{File}, \code{MetricID}, \code{Group}, \code{Abbreviation}, \code{Metric}, \code{Numerator}, \code{Denominator}, \code{Model}, \code{Score}, and \code{strThreshold}. For more details see the Data Pipeline vignette: \code{vignette("DataPipeline", package = "gsm")}.}
 
 \item{strOutpath}{The output path for the generated report. If not provided, the report will be saved in the current working directory with the name "kri_report.html".}
 }
@@ -43,7 +40,7 @@ dfStudy<-clindata::ctms_study \%>\% dplyr::rename(StudyID = protocol_number)
 dfSite<- clindata::ctms_site \%>\% dplyr::rename(SiteID = site_num)
 
 # Pull Raw Data - this will overwrite the previous data pull
-lRaw <- gsm::UseClindata(
+lRaw <- UseClindata(
   list(
     "dfSUBJ" = "clindata::rawplus_dm",
     "dfAE" = "clindata::rawplus_ae",
@@ -59,19 +56,19 @@ lRaw <- gsm::UseClindata(
 )
 
 # Create Mapped Data
-lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$mapping$lResults
+lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$lData
 
 # Run Metrics
-lResults <-RunWorkflow(lWorkflow = wf_metrics, lData = lMapped)
+lResults <-map(wf_metrics, ~RunWorkflow(lWorkflow = ., lData = lMapped))
 
 dfBounds <- lResults \%>\%
-  purrr::imap_dfr(~.x$lResults$dfBounds \%>\%
+  purrr::imap_dfr(~.x$lData$dfBounds \%>\%
   dplyr::mutate(MetricID = .y)) \%>\%
   dplyr::mutate(StudyID = "ABC-123",
     SnapshotDate = Sys.Date())
 
 dfSummary <- lResults \%>\%
-  purrr::imap_dfr(~.x$lResults$dfSummary \%>\%
+  purrr::imap_dfr(~.x$lData$dfSummary \%>\%
   dplyr::mutate(MetricID = .y)) \%>\%
   dplyr::mutate(StudyID = "ABC-123",
     SnapshotDate = Sys.Date())

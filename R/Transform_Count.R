@@ -22,13 +22,13 @@
 #'
 #' @param dfInput A data.frame with one record per subject.
 #' @param strCountCol Required. Numerical or logical. Column to be counted.
-#' @param strGroupCol `character` Name of column for grouping variable. Default: `"SiteID"`
+#' @param strGroupCol `character` Name of column for grouping variable. Default: `"GroupID"`
 #'
 #' @return `data.frame` with one row per site with columns `GroupID`, `TotalCount`, and `Metric.`
 #'
 #' @examples
 #'
-#' dfTransformed <- Transform_Count(sampleInput, strCountCol = "Numerator")
+#' dfTransformed <- Transform_Count(analyticsInput, strCountCol = "Numerator")
 #'
 #' @export
 

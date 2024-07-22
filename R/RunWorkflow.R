@@ -8,6 +8,8 @@
 #'
 #' @param lWorkflow `list` A named list of metadata defining how the workflow should be run.
 #' @param lData `list` A named list of domain-level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
+#' @param bKeepInputData `boolean` should the input data be returned? Default is `FALSE`.
+#' @param bReturnData `boolean` should function return only lData or should meta and steps be included? Default is `TRUE`.
 #'
 #' @return `list` containing objects named: `steps`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `lWorkflowChecks`, and `lResults`.
 #'
@@ -28,12 +30,27 @@
 #'
 #' output <- map(lAssessments, ~RunWorkflow(., lMapped))
 #' }
-#' @return `list` containing `lAssessment` with `workflow`, `path`, `name`, `lData`, `lChecks`, `bStatus`, `checks`, and `lResults` added based on the results of the execution of `assessment$workflow`.
+#' @return `list` contains just lData if `bReturnData` is `TRUE`, otherwise returns the full `lWorkflow` object.
 #'
 #' @export
 
-RunWorkflow <- function(lWorkflow, lData) {
-  cli::cli_h1(paste0("Initializing `", lWorkflow$meta$file, "` Workflow"))
+RunWorkflow <- function(
+  lWorkflow,
+  lData,
+  bReturnData = TRUE,
+  bKeepInputData = FALSE
+) {
+  cli::cli_h1(paste0("Initializing `", lWorkflow$meta$File, "` Workflow"))
+  cli::cli_alert("Colnames: {names(lData)}")
+
+  # check that the workflow has steps
+  if(length(lWorkflow$steps) == 0) {
+    cli::cli_alert("Workflow `{lWorkflow$Meta$File}` has no `steps` property.")
+  }
+
+  if(!"meta" %in% names(lWorkflow)) {
+    cli::cli_alert("Workflow `{lWorkflow$Meta$File}` has no `meta` property.")
+  }
 
   lWorkflow$lData <- lData
 
@@ -42,11 +59,15 @@ RunWorkflow <- function(lWorkflow, lData) {
   for (step in lWorkflow$steps) {
     cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lWorkflow$steps), ": `", step$name, "`"))
 
-    result <- gsm::RunStep(lStep = step, lData = lWorkflow$lData, lMeta = lWorkflow$meta)
+    result <- RunStep(lStep = step, lData = lWorkflow$lData, lMeta = lWorkflow$meta)
+
+    if (step$output %in% names(lData)) {
+      cli::cli_alert_warning("Overwriting existing data in `lData`.")
+    }
 
     lWorkflow$lData[[step$output]] <- result
 
-    if(is.data.frame(result)){
+    if (is.data.frame(result)) {
       cli::cli_h3("{paste(dim(result),collapse='x')} data.frame saved as `lData${step$output}`.")
     } else {
       cli::cli_h3("{typeof(result)} of length {length(result)} saved as `lData${step$output}`.")
@@ -56,5 +77,18 @@ RunWorkflow <- function(lWorkflow, lData) {
     stepCount <- stepCount + 1
   }
 
-  return(lWorkflow)
+  if (!bKeepInputData) {
+    outputs <- lWorkflow$steps %>% purrr::map_chr(~.x$output)
+    lWorkflow$lData <- lWorkflow$lData[outputs]
+    cli::cli_alert_info("Returning workflow outputs: {names(lWorkflow$lData)}")
+  } else{
+    cli::cli_alert_info("Returning workflow inputs and outputs: {names(lWorkflow$lData)}")
+  }
+
+  cli::cli_h1(paste0("Completed `", lWorkflow$meta$File, "` Workflow"))
+  if (bReturnData) {
+    return(lWorkflow$lData)
+  } else{
+    return(lWorkflow)
+  }
 }

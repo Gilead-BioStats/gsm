@@ -1,157 +1,118 @@
-#' KRI Bar Chart
+#' Bar Chart Widget
 #'
 #' `r lifecycle::badge("stable")`
 #'
 #' @description
-#' A widget that displays a group-level bar chart based on the output of a KRI analysis.
-#' Bar charts are provided by default in any Assess function, and are suffixed with "JS" to indicate that they are an `htmlwidget` ported from the `rbm-viz` JavaScript library.
+#' A widget that generates a bar chart of group-level metric results, plotting groups on the x-axis
+#' and the outcome (numerator, denominator, metric, or score) on the y-axis.
 #'
-#' @param dfSummary data with column names:
-#' \itemize{
-#'  \item{\code{studyid}}
-#'  \item{\code{workflowid}}
-#'  \item{\code{groupid}}
-#'  \item{\code{numerator}}
-#'  \item{\code{denominator}}
-#'  \item{\code{metric}}
-#'  \item{\code{score}}
-#'  \item{\code{flag}}
-#' }
-#'
-#' @param lLabels configuration data with columns:
-#' @param dfSite `data.frame` Site metadata.
-#'
-#' @param dfThreshold a one row data frame containing columns:
-#' \itemize{
-#'  \item{\code{workflowid}}
-#'  \item{\code{gsm_version}}
-#'  \item{\code{param}}
-#'  \item{\code{index}}
-#'  \item{\code{default}}
-#'  \item{\code{configurable}}
-#' }
-#'
-#' @param dfSummary `data.frame` A data.frame returned by [gsm::Summarize()].
-#' @param lLabels `list` Metrics metadata.
-#' @param dfSite `data.frame` Site metadata.
-#' @param dfThreshold `data.frame` Threshold metadata.
-#' @param strYAxisType either \code{'score'} or \code{'metric'}
-#' @param selectedGroupIDs group IDs to highlight, \code{NULL} by default, can be a single site or a vector.
-#' @param addSiteSelect `logical` add a dropdown to highlight sites? Default: `TRUE`.
-#' @param bHideDropdown `logical` should the dropdown be hidden? Default: `FALSE`. This is primarily used for the Shiny app `{gsmApp}` to hide the drop-down site selector,
-#' since it is an additional element that needs to be updated based on user interactivity.
-#' @param width width of widget, full screen by default
-#' @param height height of widget, calculated based on width
-#' @param elementId ID of container HTML element
-#'
+#' @inheritParams shared-params
+#' @param lMetric `list` Metric metadata, captured at the top of metric workflows and returned by
+#' [MakeMetric()].
+#' @param dfGroups `data.frame` Group metadata.
+#' @param vThreshold `numeric` Threshold values.
+#' @param strOutcome `character` Outcome variable. Default: 'Score'.
+#' @param bAddGroupSelect `logical` Add a dropdown to highlight sites? Default: `TRUE`.
+#' @param bDebug `logical` Print debug messages? Default: `FALSE`.
 #'
 #' @examples
 #' \dontrun{
-#' ae_transform <- Transform_Rate(sampleInput)
+#' strMetricID <- 'kri0001'
+#' lMetricWorkflow <- MakeWorkflowList()[[ strMetricID ]]
 #'
-#' ae_analyze <- Analyze_NormalApprox(
-#'   dfTransformed = ae_transform,
-#'   strType = "rate"
+#' lData <- list(
+#'     dfEnrolled = clindata::rawplus_dm %>% filter(enrollyn == 'Y'),
+#'     dfAE = clindata::rawplus_ae
 #' )
 #'
-#' ae_flag <- Flag_NormalApprox(
-#'   ae_analyze,
-#'   vThreshold = c(-3, -2, 2, 3)
+#' lResults <- lMetricWorkflow %>%
+#'     RunWorkflow(lData)
+#'
+#' dfGroups <- bind_rows(
+#'     "SELECT pi_number as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df" %>%
+#'         RunQuery(clindata::ctms_site) %>%
+#'         MakeLongMeta('Site'),
+#'     "SELECT invid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid" %>%
+#'         RunQuery(lData$dfEnrolled) %>%
+#'         MakeLongMeta('Site'),
+#'     "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country" %>%
+#'         RunQuery(lData$dfEnrolled) %>%
+#'         MakeLongMeta('Country')
 #' )
 #'
-#' ae_summary <- Summarize(
-#'   ae_flag
-#' )
-#'
-#' # labels list
-#' lLabels <- list(
-#'   workflowid = "",
-#'   group = "Site",
-#'   abbreviation = "AE",
-#'   metric = "Adverse Event Rate",
-#'   numerator = "Adverse Events",
-#'   denominator = "Days on Study",
-#'   model = "Normal Approximation",
-#'   score = "Adjusted Z-Score"
-#' )
-#'
-#' plot <- Widget_BarChart(
-#'   dfSummary = ae_summary,
-#'   lLabels = lLabels,
-#'   strYAxisType = "metric",
-#'   elementId = "aeAssessMetric"
+#' Widget_BarChart(
+#'     dfResults = lResults$dfSummary,
+#'     lMetric = lMetricWorkflow$meta,
+#'     dfGroups = dfGroups,
+#'     vThreshold = lMetricWorkflow$meta$strThreshold
 #' )
 #' }
 #' @export
+
 Widget_BarChart <- function(
-  dfSummary,
-  lLabels,
-  dfSite = NULL,
-  dfThreshold = NULL,
-  strYAxisType = "score",
-  selectedGroupIDs = NULL,
-  addSiteSelect = TRUE,
-  bHideDropdown = FALSE,
-  width = NULL,
-  height = NULL,
-  elementId = NULL
+  dfResults,
+  lMetric = list(), # TODO: coerce list to object instead of array with jsonlite::toJSON()
+  dfGroups = NULL,
+  vThreshold = NULL,
+  strOutcome = 'Score',
+  bAddGroupSelect = TRUE,
+  bDebug = FALSE
 ) {
-  dfSummary <- dfSummary %>%
-    dplyr::mutate(across(everything(), as.character)) %>%
-    dplyr::rename_with(tolower)
+    # Parse `vThreshold` from comma-delimited character string to numeric vector.
+    if (!is.null(vThreshold)) {
+        if (is.character(vThreshold)) {
+            vThreshold <- strsplit(vThreshold, ',')[[1]] %>% as.numeric()
+        }
+    }
 
-  if (!is.null(elementId)) {
-    elementId <- paste(elementId, as.numeric(Sys.time()) * 1000, sep = "-")
-  }
-
-  if (!is.null(lLabels$group)) {
-    siteSelectLabelValue <- paste0("Highlighted ", lLabels$group, ": ")
-  }
-
-  if (!is.null(dfThreshold)) {
-    dfThreshold <- jsonlite::toJSON(dfThreshold, na = "string")
-  }
-
-  if (!is.null(dfSite)) {
-    dfSite <- jsonlite::toJSON(dfSite, na = "string")
-  }
-
-  # forward options using x
-  x <- list(
-    dfSummary = jsonlite::toJSON(dfSummary, na = "string"),
-    lLabels = jsonlite::toJSON(lLabels, na = "string"),
-    dfThreshold = dfThreshold,
-    dfSite = dfSite,
-    strYAxisType = strYAxisType,
-    selectedGroupIDs = as.character(selectedGroupIDs),
-    addSiteSelect = addSiteSelect,
-    siteSelectLabelValue = siteSelectLabelValue,
-    bHideDropdown = bHideDropdown
+  # define widget inputs
+  input <- list(
+    dfResults = dfResults,
+    lMetric = lMetric,
+    dfGroups = dfGroups,
+    vThreshold = vThreshold,
+    strOutcome = strOutcome,
+    bAddGroupSelect = bAddGroupSelect,
+    bDebug = bDebug
   )
 
   # create widget
-  htmlwidgets::createWidget(
+  widget <- htmlwidgets::createWidget(
     name = "Widget_BarChart",
-    x,
-    width = width,
-    height = height,
-    package = "gsm",
-    elementId = elementId
+    purrr::map(
+      input,
+      ~ jsonlite::toJSON(
+          .x,
+          null = "null",
+          na = "string",
+          auto_unbox = TRUE
+      )
+    ),
+    package = "gsm"
   )
+
+  if (bDebug) {
+    viewer <- getOption('viewer')
+    options(viewer = NULL)
+    print(widget)
+    options(viewer = viewer)
+  }
+
+  return(widget)
 }
 
 #' Shiny bindings for Widget_BarChart
 #'
 #' `r lifecycle::badge("stable")`
 #'
-#' Output and render functions for using barChart within Shiny
+#' Output and render functions for using Widget_BarChart within Shiny
 #' applications and interactive Rmd documents.
 #'
 #' @param outputId output variable to read from
 #' @param width,height Must be a valid CSS unit (like \code{'100\%'},
 #'   \code{'400px'}, \code{'auto'}) or a number, which will be coerced to a
 #'   string and have \code{'px'} appended.
-#' @param expr An expression that generates a barChart
+#' @param expr An expression that generates a Widget_BarChart
 #' @param env The environment in which to evaluate \code{expr}.
 #' @param quoted Is \code{expr} a quoted expression (with \code{quote()})? This
 #'   is useful if you want to save an expression in a variable.
@@ -164,8 +125,6 @@ Widget_BarChartOutput <- function(outputId, width = "100%", height = "400px") {
 }
 
 #' @rdname Widget_BarChart-shiny
-#'
-#'
 #' @export
 renderWidget_BarChart <- function(expr, env = parent.frame(), quoted = FALSE) {
   if (!quoted) {
