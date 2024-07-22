@@ -63,7 +63,7 @@ The pipeline discussed here is a standardized process for creating datasets by g
 
 1. `dfResults`: Summary data; Standardized subset of the flagged data. This summary data has the same structure for all assessments and always includes both KRI and Flag values so that a user can easily look at trends for any given site across multiple assessments. Created using the `Summarize()` function in the analytics pipeline, followed by the `BindResults()` function to add columns necesary for reporting and stack metrics and snapshots into a single data.frame.
 4. `dfFlagged`: Flagged data; Site-level analysis results with flags added to indicate potential statistical outliers. Created by passing numeric thresholds to a `Flag_*()` function.
-3. `dfBounds`: Bounded data; A data.frame containing predicted boundary values with upper and lower bounds across the range of observed values. Created with an `Analyze_*_PredictBounds()` function in the analytics pipeline, followed by the `BindResults()` function to add columns necesary for reporting and stack metrics and snapshots into a single data.frame.
+3. `dfBounds`: Bounded data; A data.frame containing predicted boundary values with upper and lower bounds across the range of observed values. Created with the `MakeBounds()` function.
 4. `dfGroups`: Grouped data; Long data.frame of summarized group CTMS data with site, study, and country level counts and metrics. Constructed by binding data.frames created with `MakeLongMeta()`.
 5. `dfMetrics`: Metric metadata; Metric-specific metadata for use in charts and reporting. Created by passing an `lWorkflow` object to the `MakeMetric()` function.
 
