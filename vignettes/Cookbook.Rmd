@@ -57,65 +57,51 @@ devtools::install_github("Gilead-BioStats/gsm", ref = "dev")
 
 Below is the script for running an AE assessment corresponding to kri0001. Using Raw+ data from `clindata`, we are able to create the mapped input data (via `InputRate()`), prepare that data for analysis (via `Transform_Rate()`), analyze the data with the Normal Approximation method (via `Analyze_NormalApprox()`) and flag and summarize the analyzed data (via `Flag_NormalApprox()` and `Summarize()`, respectively) in order to produce a table which aggregates site level flags for the AE risk signal.
 
+In order to create charts and a report for the AE assessment, a few additional steps must be taken, as seen in example 1.3. First, `Analyze_NormalApprox_PredictBounds()` must be run to create a data.frame with the upper/lower bounds of the predictions (`dfBounds`). Then, a data.frame with all relevant meta information is constructed (`dfMetrics`) prior to running `Visualize_Metric()` and `Report_KRI()` which create the charts and report, respectively.
 
-```{r code = readLines(system.file("examples", "1_1_workflow_basic.R", package = "gsm")), eval = FALSE, include = TRUE}
 
-```
 
-This can also be done with pipes, if desired.
-
-```{r code = readLines(system.file("examples", "1_2_workflow_pipes.R", package = "gsm")), eval = FALSE, include = TRUE}
+```{r code = readLines(system.file("examples", "1_AdverseEventKRI.R", package = "gsm")), eval = FALSE, include = TRUE}
 
 ```
 
-## Example 2 - Running a Single Assessment with Charts and Report
-
-In order to create charts and a report for the AE assessment, a few additional steps must be taken. First, `Analyze_NormalApprox_PredictBounds()` must be run to create a data.frame with the upper/lower bounds of the prections (`dfBounds`). Then, a data.frame with all relevant meta information is constructed (`dfMetrics`) prior to running `Visualize_Metric()` and `Report_KRI()` which create the charts and report, respectively.
-
-
-```{r code = readLines(system.file("examples", "1_3_workflow_report.R", package = "gsm")), eval = FALSE, include = TRUE}
-
-```
 
 # Using YAML files to run workflows
 
-All assessments can be specified with YAML files, which run through the process explained in the previous section using the follwing three steps:
+All assessments can be specified with YAML files, which run through the process explained in the previous section using the following three steps:
   
 1.  Prepare the workflow lists with `MakeWorkflowList()`
 2.  Map domain-level data to the input data standard for the assessment(s) with `RunWorkflow()`.
 3.  Run the assessment(s) using an appropriate statistical method as specified in the YAML file with `RunWorkflow`.
 
-## Example 3 - YAML workflow for AE KRI
+## Example 2 - YAML workflow for AE KRI
 
 Here, we run the YAML workflow for the AE KRI (kri0001). The table produced at the end of this script will match the tables produced in Example 1 above.
 
 
-```{r code = readLines(system.file("examples", "2_1_workflow_yaml_basic.R", package = "gsm")), eval = FALSE, include = TRUE}
+```{r code = readLines(system.file("examples", "2_AdverseEventWorkflow.R", package = "gsm")), eval = FALSE, include = TRUE}
 
 ```
 
-## Example 4 - Generate Charts with yaml workflow for multiple KRIs
+## Example 3 - Generate Charts with yaml workflow for multiple KRIs
 
 In this example, we run multiple KRIs and once by feeding a vector of KRI file names into `MakeWorkflowList()`. Then, to make charts, we add study information to `dfBounds` and `dfSummary` and feed all relevant data.frames into the `Visualize_Metric()` function using `purrr:map()` since we are making charts for all 12 KRIs. 
 
+In Example 3.3, we create the site-level report using `Report_KRI()` with the data.frames produced by the yaml workflow and the charts created with `Visualize_Metric()`. 
 
-```{r code = readLines(system.file("examples", "2_2_workflow_yaml_charts.R", package = "gsm")), eval = FALSE, include = TRUE}
+In example 3.4, using the same process as the site-level charts, we create country-level charts by using the Country KRI yaml files, which begin with `cou` instead of `kri`.
 
-```
-
-## Example 5: Generate Site Report with yaml workflow for multiple KRIs
-
-Here, we create the site-level report using `Report_KRI()` with the data.frames produced by the yaml workflow and the charts created with `Visualize_Metric()`. 
-
-```{r code = readLines(system.file("examples", "2_3_workflow_yaml_country.R", package = "gsm")), eval = FALSE, include = TRUE}
+```{r code = readLines(system.file("examples", "3_ReportingWorkflow.R", package = "gsm")), eval = FALSE, include = TRUE}
 
 ```
 
-## Example 6: Generate Country Report with yaml workflow for multiple KRIs
+## Example 4 - Generate Charts for multiple KRIs
 
-Using the same process as the site-level report, we create a country-level report by using the Country KRI yaml files, which begin with `cou` instead of `kri`.
+In this example, we feed the example reporting data.frames into the `Visualize_Metric()` function including multiple snapshot dates and multiple KRIs in the data to be reflected in the charts.
 
-```{r code = readLines(system.file("examples", "2_4_workflow_yaml_report.R", package = "gsm")), eval = FALSE, include = TRUE}
+We then create the site-level report using `Report_KRI()` with the example data.frames and the charts created with `Visualize_Metric()`. 
+
+```{r code = readLines(system.file("examples", "4_LongitudinalData.R", package = "gsm")), eval = FALSE, include = TRUE}
 
 ```
 
