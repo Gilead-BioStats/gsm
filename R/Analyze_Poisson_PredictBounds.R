@@ -32,7 +32,7 @@
 #' range of observed values.
 #'
 #' @examples
-#' dfTransformed <- Transform_Rate(sampleInput)
+#' dfTransformed <- Transform_Rate(analyticsInput)
 #'
 #' dfBounds <- Analyze_Poisson_PredictBounds(dfTransformed, c(-5, 5))
 #'
@@ -65,7 +65,7 @@ Analyze_Poisson_PredictBounds <- function(
     nMaxLogDenominator <- max(dfTransformed$LogDenominator)
     nRange <- nMaxLogDenominator - nMinLogDenominator
 
-    if (!is.null(nRange) & !is.na(nRange) & nRange != 0) {
+    if (!is.null(nRange) && !is.na(nRange) && nRange != 0) {
       nStep <- nRange / 250
     } else {
       nStep <- .05

@@ -41,6 +41,6 @@ The input data has one or more rows per site. \code{Transform_Count()} sums \cod
 
 \examples{
 
-dfTransformed <- Transform_Count(sampleInput, strCountCol = "Numerator")
+dfTransformed <- Transform_Count(analyticsInput, strCountCol = "Numerator")
 
 }

@@ -91,8 +91,21 @@ Report_KRI <- function(
   rlang::check_installed("kableExtra", reason = "to run `Report_KRI()`")
 
   # set output path
-  if (is.null(strOutpath)) { strOutpath <- paste0(getwd(), "/kri_report.html") }
+  if (is.null(strOutpath)) { 
+    GroupLevel <- unique(dfMetrics$GroupLevel)
+    StudyID <- unique(dfResults$StudyID)
+    SnapshotDate <- max(unique(dfResults$SnapshotDate))
+    if(length(GroupLevel==1) & length(StudyID)==1){
+      #remove non alpha-numeric characters from StudyID, GroupLevel and SnapshotDate
+      StudyID <- gsub("[^[:alnum:]]", "", StudyID)
+      GroupLevel <- gsub("[^[:alnum:]]", "", GroupLevel)
+      SnapshotDate <- gsub("[^[:alnum:]]", "", as.character(SnapshotDate))
 
+      strOutpath <- paste0(getwd(), "/kri_report_", StudyID, "_", GroupLevel, "_", SnapshotDate, ".html")      
+    }else{
+      strOutpath <- paste0(getwd(), "/kri_report.html")
+    }
+  }
 
   rmarkdown::render(
     system.file("report", "Report_KRI.Rmd", package = "gsm"),

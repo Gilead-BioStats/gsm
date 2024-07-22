@@ -1,25 +1,25 @@
 test_that("Test with valid input and one group", {
-  result <- Report_Setup(dfGroups = sampleGroups,
-                         dfMetrics = sampleMetrics,
-                         dfResults = sampleResults)
+  result <- Report_Setup(dfGroups = reportingGroups,
+                         dfMetrics = reportingMetrics,
+                         dfResults = reportingResults)
 
   expect_equal(result$GroupLevel, "Site")
   expect_equal(result$SnapshotDate, as.Date("2012-12-31"))
   expect_equal(result$StudyID, "AA-AA-000-0000")
-  expect_equal(result$red_kris, 6)
-  expect_equal(result$amber_kris, 63)
+  expect_equal(result$red_kris, 7)
+  expect_equal(result$amber_kris, 47)
 })
 
 test_that("Test with missing SnapshotDate and protocol number/title", {
-  sampleResults_alt <- sampleResults %>%
+  reportingResults_alt <- reportingResults %>%
     select(-SnapshotDate)
-  sampleGroups_alt <- sampleGroups %>%
+  reportingGroups_alt <- reportingGroups %>%
     filter(!Param %in% c("protocol_title", "protocol_number"))
 
   expect_message(
     {
       today <- Sys.Date()
-      result <- Report_Setup(sampleGroups_alt, sampleMetrics, sampleResults_alt)
+      result <- Report_Setup(reportingGroups_alt, reportingMetrics, reportingResults_alt)
     },
     "No `SnapshotDate`"
   )
@@ -27,21 +27,21 @@ test_that("Test with missing SnapshotDate and protocol number/title", {
   expect_equal(result$GroupLevel, "Site")
   expect_equal(result$SnapshotDate, Sys.Date())
   expect_equal(result$StudyID, "Unknown")
-  expect_equal(result$red_kris, 45)
-  expect_equal(result$amber_kris, 427)
+  expect_equal(result$red_kris, 58)
+  expect_equal(result$amber_kris, 332)
 })
 
 test_that("Test StudyID output with missing protocol number", {
-  sampleGroups_alt <- sampleGroups %>%
+  reportingGroups_alt <- reportingGroups %>%
     filter(Param != "protocol_number")
 
-  result <- Report_Setup(sampleGroups_alt, sampleMetrics, sampleResults)
+  result <- Report_Setup(reportingGroups_alt, reportingMetrics, reportingResults)
 
   expect_equal(result$GroupLevel, "Site")
   expect_equal(result$SnapshotDate, as.Date("2012-12-31"))
   expect_equal(result$StudyID, "Protocol Title")
-  expect_equal(result$red_kris, 6)
-  expect_equal(result$amber_kris, 63)
+  expect_equal(result$red_kris, 7)
+  expect_equal(result$amber_kris, 47)
 })
 
 test_that("dfSummary empty data frame", {
@@ -50,7 +50,7 @@ test_that("dfSummary empty data frame", {
   expect_message(
     {
       today <- Sys.Date()
-      result <- Report_Setup(sampleGroups, sampleMetrics, dfSummary)
+      result <- Report_Setup(reportingGroups, reportingMetrics, dfSummary)
     },
     "No `SnapshotDate`"
   )

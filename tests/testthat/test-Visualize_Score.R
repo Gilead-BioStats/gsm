@@ -1,14 +1,14 @@
 test_that("Visualize_Score stops on incorrect input types", {
 
-  expect_error(Visualize_Score(sampleResults, strTitle = 123),
+  expect_error(Visualize_Score(reportingResults, strTitle = 123),
                "strTitle must be character")
-  expect_error(Visualize_Score(sampleResults, bFlagFilter = "TRUE"),
+  expect_error(Visualize_Score(reportingResults, bFlagFilter = "TRUE"),
                "bFlagFilter must be logical")
   expect_error(Visualize_Score(list(), strTitle = ""),
                "dfResults must be a data.frame")
-  expect_error(Visualize_Score(sampleResults, strType = "invalid"),
+  expect_error(Visualize_Score(reportingResults, strType = "invalid"),
                "strType must be 'Metric' or 'Score'")
-  expect_error(Visualize_Score(sampleResults, strType = c("Metric", "Score")),
+  expect_error(Visualize_Score(reportingResults, strType = c("Metric", "Score")),
                "strType must be length 1")
 })
 

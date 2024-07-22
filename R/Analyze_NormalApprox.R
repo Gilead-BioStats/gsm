@@ -30,7 +30,7 @@
 #'
 #' @examples
 #' # Binary
-#' dfTransformed <- Transform_Rate(sampleInput)
+#' dfTransformed <- Transform_Rate(analyticsInput)
 #'
 #' dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "binary")
 #'
@@ -100,7 +100,7 @@ Analyze_NormalApprox <- function(
     ) %>%
     arrange(.data$Score)
 
-  cli::cli_text("{.var OverallMetric}, {.var Factor}, and {.var Score} columns created from normal approximation.")
+  cli::cli_inform("{.var OverallMetric}, {.var Factor}, and {.var Score} columns created from normal approximation.")
 
 
   return(dfAnalyzed)

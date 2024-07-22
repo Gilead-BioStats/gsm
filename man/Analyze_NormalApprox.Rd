@@ -48,7 +48,7 @@ The input data (\code{dfTransformed}) is typically created using \code{\link{Tra
 
 \examples{
 # Binary
-dfTransformed <- Transform_Rate(sampleInput)
+dfTransformed <- Transform_Rate(analyticsInput)
 
 dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "binary")
 

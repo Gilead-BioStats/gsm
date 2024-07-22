@@ -51,7 +51,7 @@ The input data (\code{dfTransformed}) for \code{Analyze_Fisher} is typically cre
 
 \examples{
 dfTransformed <- Transform_Rate(
-  sampleInput
+  analyticsInput
 )
 dfAnalyzed <- Analyze_Fisher(dfTransformed)
 

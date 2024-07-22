@@ -1,4 +1,4 @@
-#' sampleInput Dataset
+#' analyticsInput Dataset
 #'
 #' @format A data frame with 25 rows and 5 columns:
 #' \describe{
@@ -8,10 +8,10 @@
 #'   \item{Numerator}{number of flags in group}
 #'   \item{Denominator}{total subjects in group}
 #' }
-#' @source Generated from `sampleInput.csv` dataset in the `gsm` package.
-"sampleInput"
+#' @source Generated from `analyticsInput.csv` dataset in the `gsm` package.
+"analyticsInput"
 
-#' sampleSummary Dataset
+#' analyticsSummary Dataset
 #'
 #' @format A data frame with 176 rows and 7 columns:
 #' \describe{
@@ -23,26 +23,11 @@
 #'   \item{Score}{statistical score}
 #'   \item{Flag}{ordinal flag to be applied}
 #' }
-#' @source Generated from `sampleSummary.csv` dataset in the `gsm` package.
-"sampleSummary"
+#' @source Generated from `analyticsSummary.csv` dataset in the `gsm` package.
+"analyticsSummary"
 
-#' sampleBounds Dataset
-#'
-#' @format A data frame with 12667 rows and 8 columns:
-#' \describe{
-#'   \item{Threshold}{number of standard deviations that the upper and lower bounds are based on}
-#'   \item{Denominator}{calculated denominator value}
-#'   \item{LogDenominator}{calculated log denominator value}
-#'   \item{Numerator}{calculated numerator value}
-#'   \item{Metric}{calculated rate/metric value}
-#'   \item{MetricID}{unique metric identifier}
-#'   \item{StudyID}{unique study identifier}
-#'   \item{SnapshotDate}{date of the snapshot}
-#' }
-#' @source Generated from `sampleBounds.csv` dataset in the `gsm` package.
-"sampleBounds"
 
-#' sampleGroups Dataset
+#' reportingGroups Dataset
 #'
 #' @format A data frame with 3903 rows and 4 columns:
 #' \describe{
@@ -51,10 +36,10 @@
 #'   \item{Param}{Parameter of interest for the group}
 #'   \item{Value}{Value of specified Param}
 #' }
-#' @source Generated from `sampleGroups.csv` dataset in the `gsm` package.
-"sampleGroups"
+#' @source Generated from `reportingGroups.csv` dataset in the `gsm` package.
+"reportingGroups"
 
-#' sampleMetrics Dataset
+#' reportingMetrics Dataset
 #'
 #' @format A data frame with 12 rows and 11 columns:
 #' \describe{
@@ -70,12 +55,28 @@
 #'   \item{strThreshold}{thresholds to be used for bounds and flags}
 #'   \item{nMinDenominator}{minimum denominator required to return a score and calculate a flag}
 #' }
-#' @source Generated from `sampleMetrics.csv` dataset in the `gsm` package.
-"sampleMetrics"
+#' @source Generated from `reportingMetrics.csv` dataset in the `gsm` package.
+"reportingMetrics"
 
-#' sampleResults Dataset
+#' reportingBounds Dataset
 #'
-#' @format A data frame with 2574 rows and 10 columns:
+#' @format A data frame with 28701 rows and 8 columns:
+#' \describe{
+#'   \item{Threshold}{number of standard deviations that the upper and lower bounds are based on}
+#'   \item{Denominator}{calculated denominator value}
+#'   \item{LogDenominator}{calculated log denominator value}
+#'   \item{Numerator}{calculated numerator value}
+#'   \item{Metric}{calculated rate/metric value}
+#'   \item{MetricID}{unique metric identifier}
+#'   \item{StudyID}{unique study identifier}
+#'   \item{SnapshotDate}{date of the snapshot}
+#' }
+#' @source Generated from `reportingBounds.csv` dataset in the `gsm` package.
+"reportingBounds"
+
+#' reportingResults Dataset
+#'
+#' @format A data frame with 2286 rows and 10 columns:
 #' \describe{
 #'   \item{GroupID}{grouping variable}
 #'   \item{GroupLevel}{level of grouping variable}
@@ -88,7 +89,7 @@
 #'   \item{StudyID}{unique study identifier}
 #'   \item{SnapshotDate}{date of the snapshot}
 #' }
-#' @source Generated from `sampleResults.csv` dataset in the `gsm` package.
-"sampleResults"
+#' @source Generated from `reportingResults.csv` dataset in the `gsm` package.
+"reportingResults"
 
 
