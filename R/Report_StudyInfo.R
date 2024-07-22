@@ -21,25 +21,9 @@ Report_StudyInfo <- function(
   # default study labels - also used to sort the meta datatable
   if(is.null(lStudyLabels)){
     lStudyLabels <- list(
-      StudyID = "Unique Study ID",
-      protocol_title = "Protocol title",
-      nickname = "Protocol nickname",
       SiteCount = "Sites Enrolled",
-      num_site_plan = "Sites Planned",
       ParticipantCount = "Participants Enrolled",
-      num_plan_subj = "Participants Planned",
-      participant_summary = "Participants (Enrolled / Planned)",
-      status = "Study Status",
-      product = "Product",
-      phase = "Phase",
-      therapeutic_area = "Therapeutic Area",
-      protocol_indication = "Indication",
-      protocol_type = "Protocol type",
-      protocol_row_id = "Protocol row ID",
-      protocol_product_number = "Protocol product number",
-      est_fpfv = "First-patient first visit date (CTMS)",
-      est_lpfv = "Last-patient first visit date (CTMS)",
-      est_lplv = "Last-patient last visit date (CTMS)"
+      Status = "Study Status"
     )
   }
 
