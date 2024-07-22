@@ -398,14 +398,14 @@ represents a non-outlier.</li>
 <div class="section level4">
 <h4 id="data-visualization">6. Data Visualization<a class="anchor" aria-label="anchor" href="#data-visualization"></a>
 </h4>
-<p>For a Normal Approximation AE assessment, a scatter plot of Total
-Exposure (in days, on log scale) vs Total Number of Event(s) of Interest
-(on linear scale) is created. Each data point represents one site with
-outliers displayed in yellow or red, depending on the “extremeness” of
-the KRI value. The <code><a href="../reference/Visualize_Scatter.html">Visualize_Scatter()</a></code> function takes
-inputs of <code>dfBounds</code>– which defines bounds based on the
-statistical model, <code>dfTransformed</code> and thresholds using
-<code><a href="../reference/Analyze_NormalApprox_PredictBounds.html">Analyze_NormalApprox_PredictBounds()</a></code>– and
+<p>For a single Normal Approximation AE assessment, a scatter plot of
+Total Exposure (in days, on log scale) vs Total Number of Event(s) of
+Interest (on linear scale) is created. Each data point represents one
+site with outliers displayed in yellow or red, depending on the
+“extremeness” of the KRI value. The <code><a href="../reference/Visualize_Scatter.html">Visualize_Scatter()</a></code>
+function takes inputs of <code>dfBounds</code>– which defines bounds
+based on the statistical model, <code>dfTransformed</code> and
+thresholds using <code><a href="../reference/Analyze_NormalApprox_PredictBounds.html">Analyze_NormalApprox_PredictBounds()</a></code>– and
 <code>dfFlagged</code> to plot the data. Using our example AE data, we
 see the following scatter plot:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -446,7 +446,7 @@ using <code><a href="../reference/Analyze_NormalApprox.html">Analyze_NormalAppro
 <code><a href="../reference/Summarize.html">Summarize()</a></code>
 </li>
 <li>Scatter plot created from <code>dfTransformed</code> and
-<code>dfFlagged</code> using <code><a href="../reference/Visualize_Scatter.html">Visualize_Scatter()</a></code>
+<code>dfBounds</code> using <code><a href="../reference/Visualize_Scatter.html">Visualize_Scatter()</a></code>
 </li>
 </ul>
 <hr>

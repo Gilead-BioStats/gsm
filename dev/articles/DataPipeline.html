@@ -239,11 +239,14 @@ each step of the data pipeline along with the input and output datasets
 are described in more detail below.</p>
 <ol style="list-style-type: decimal">
 <li>
-<code>dfSummary</code>: Summary data; Standardized subset of the
+<code>dfResults</code>: Summary data; Standardized subset of the
 flagged data. This summary data has the same structure for all
 assessments and always includes both KRI and Flag values so that a user
 can easily look at trends for any given site across multiple
-assessments. Created using the <code><a href="../reference/Summarize.html">Summarize()</a></code> function.</li>
+assessments. Created using the <code><a href="../reference/Summarize.html">Summarize()</a></code> function in the
+analytics pipeline, followed by the <code><a href="../reference/BindResults.html">BindResults()</a></code> function
+to add columns necesary for reporting and stack metrics and snapshots
+into a single data.frame.</li>
 <li>
 <code>dfFlagged</code>: Flagged data; Site-level analysis results
 with flags added to indicate potential statistical outliers. Created by
@@ -251,8 +254,8 @@ passing numeric thresholds to a <code>Flag_*()</code> function.</li>
 <li>
 <code>dfBounds</code>: Bounded data; A data.frame containing
 predicted boundary values with upper and lower bounds across the range
-of observed values. Created with an
-<code>Analyze_*_PredictBounds()</code> function.</li>
+of observed values. Created with the <code><a href="../reference/MakeBounds.html">MakeBounds()</a></code>
+function.</li>
 <li>
 <code>dfGroups</code>: Grouped data; Long data.frame of summarized
 group CTMS data with site, study, and country level counts and metrics.
@@ -264,11 +267,11 @@ for use in charts and reporting. Created by passing an
 <code>lWorkflow</code> object to the <code><a href="../reference/MakeMetric.html">MakeMetric()</a></code>
 function.</li>
 </ol>
-<p>The reporting data pipeline has a <code>yaml</code> file that runs
-through all steps to produce all five of these data.frames so that they
-can be used to create charts and reports. This <code>yaml</code> file,
-and all analysis workflow yaml files can be found at
-<code>system.file("workflow/metrics", package = "gsm")</code>. The
+<p>The reporting data pipeline has a <code>data_reporting.yaml</code>
+file that runs through all steps to produce all five of these
+data.frames so that they can be used to create charts and reports. This
+<code>yaml</code> file, and all analysis workflow yaml files can be
+found at <code>system.file("workflow", package = "gsm")</code>. The
 <code>lData</code> list required to run this workflow with
 <code><a href="../reference/RunWorkflow.html">RunWorkflow()</a></code> must contain the following elements:</p>
 <ol style="list-style-type: decimal">
@@ -328,7 +331,7 @@ below.</p>
 will create charts for all of the metrics specified in the analysis
 pipeline. <code><a href="../reference/Visualize_Metric.html">Visualize_Metric()</a></code> is a function that creates all
 available charts for a metric using the data provided. If the
-<code>dfSummary</code> provided to <code><a href="../reference/Visualize_Metric.html">Visualize_Metric()</a></code>
+<code>dfResults</code> provided to <code><a href="../reference/Visualize_Metric.html">Visualize_Metric()</a></code>
 contains multiple data with multiple dates, then the
 <code>timeSeries</code> charts will be included in the list of charts
 returned. The output of this function is a list containing the following
@@ -360,7 +363,7 @@ JavaScript with score on the y-axis.</li>
 <code>timeSeriesContinuousNumeratorJS</code>: A time series chart
 using JavaScript with numerator on the y-axis.</li>
 </ul>
-<p>Now that all imputs for the <code><a href="../reference/Report_KRI.html">Report_KRI()</a></code> function have
+<p>Now that all inputs for the <code><a href="../reference/Report_KRI.html">Report_KRI()</a></code> function have
 been produced, it can be called to create a detailed report showing both
 charts and listings summarizing each KRI that was run for the study.</p>
 <p>Putting all of these steps together, the following script will create
@@ -407,26 +410,25 @@ AE KRI.</p>
 <span><span class="co"># Convenience Mappings</span></span>
 <span><span class="va">dfGroups</span> <span class="op">&lt;-</span> <span class="va">lReporting</span><span class="op">$</span><span class="va">dfGroups</span></span>
 <span><span class="va">dfMetrics</span> <span class="op">&lt;-</span> <span class="va">lReporting</span><span class="op">$</span><span class="va">dfMetrics</span></span>
-<span><span class="va">dfSummary</span> <span class="op">&lt;-</span> <span class="va">lReporting</span><span class="op">$</span><span class="va">dfSummary</span></span>
+<span><span class="va">dfResults</span> <span class="op">&lt;-</span> <span class="va">lReporting</span><span class="op">$</span><span class="va">dfResults</span></span>
 <span><span class="va">dfBounds</span> <span class="op">&lt;-</span> <span class="va">lReporting</span><span class="op">$</span><span class="va">dfBounds</span></span>
 <span></span>
 <span><span class="co"># Create Charts for all metrics</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>vsc.viewer <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">metrics</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">dfMetrics</span><span class="op">$</span><span class="va">MetricID</span><span class="op">)</span></span>
 <span><span class="va">charts</span> <span class="op">&lt;-</span> <span class="va">metrics</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">map</span><span class="op">(</span><span class="op">~</span><span class="fu"><a href="../reference/Visualize_Metric.html">Visualize_Metric</a></span><span class="op">(</span></span>
-<span>  dfSummary <span class="op">=</span> <span class="va">dfSummary</span>,</span>
+<span>  dfResults <span class="op">=</span> <span class="va">dfResults</span>,</span>
 <span>  dfBounds <span class="op">=</span> <span class="va">dfBounds</span>,</span>
 <span>  dfGroups <span class="op">=</span> <span class="va">dfGroups</span>,</span>
 <span>  dfMetrics <span class="op">=</span> <span class="va">dfMetrics</span>,</span>
 <span>  strMetricID <span class="op">=</span> <span class="va">.x</span></span>
 <span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html" class="external-link">setNames</a></span><span class="op">(</span><span class="va">metrics</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co">## this is currently working in fix-reports branch. will uncomment when that is merged into dev</span></span>
-<span><span class="co"># Report_KRI(lCharts = charts,</span></span>
-<span><span class="co">#            dfSummary = dfSummary,</span></span>
-<span><span class="co">#            dfGroups = dfGroups,</span></span>
-<span><span class="co">#            dfMetrics = dfMetrics,</span></span>
-<span><span class="co">#            strOutput = "~/test_report_kri.html")</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/Report_KRI.html">Report_KRI</a></span><span class="op">(</span>lCharts <span class="op">=</span> <span class="va">charts</span>,</span>
+<span>           dfResults <span class="op">=</span> <span class="va">dfResults</span>,</span>
+<span>           dfGroups <span class="op">=</span> <span class="va">dfGroups</span>,</span>
+<span>           dfMetrics <span class="op">=</span> <span class="va">dfMetrics</span>,</span>
+<span>           strOutpath <span class="op">=</span> <span class="st">"~/test_report_kri.html"</span><span class="op">)</span></span></code></pre></div>
 <p>Additional examples are provided in the <a href="Cookbook.html">Cookbook Vignette</a>.</p>
 </div>
 </div>
@@ -446,7 +448,10 @@ AE KRI.</p>
 <strong>Analyzing</strong> data issues by going from participant-level
 <code>input</code> data to a standardized site-level
 <code>summary</code> of model results. The data sets used in each step
-of the data pipeline are described in detail below.</p>
+of the data pipeline are described in detail below. When using a metric
+workflow yaml to create these tables, all data tables are contained in a
+list, which we call <code>lAnalysis</code>. This list is then fed into
+the reporting data pipeline.</p>
 <div class="section level3">
 <h3 id="analytics-data-tables">Analytics Data Tables<a class="anchor" aria-label="anchor" href="#analytics-data-tables"></a>
 </h3>
@@ -706,100 +711,6 @@ specified test on the metric provided.</li>
 </table>
 </div>
 <div class="section level4">
-<h4 id="dfbounds">
-<code>dfBounds</code><a class="anchor" aria-label="anchor" href="#dfbounds"></a>
-</h4>
-<ul>
-<li>Function(s) used to create table:
-<ul>
-<li><code><a href="../reference/Analyze_NormalApprox_PredictBounds.html">Analyze_NormalApprox_PredictBounds()</a></code></li>
-<li><code><a href="../reference/Analyze_Poisson_PredictBounds.html">Analyze_Poisson_PredictBounds()</a></code></li>
-</ul>
-</li>
-<li>Inputs: <code>dfTransformed</code>
-</li>
-<li>Usage: Calculates predicted percentages/rates and upper- and
-lower-bounds across the full range of sample sizes/total exposure values
-for reporting.</li>
-<li>Structure:</li>
-</ul>
-<table class="table">
-<colgroup>
-<col width="13%">
-<col width="18%">
-<col width="51%">
-<col width="13%">
-<col width="2%">
-</colgroup>
-<thead><tr class="header">
-<th>Table</th>
-<th>Column Name</th>
-<th>Description</th>
-<th>Type</th>
-<th>Optional</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td>dfBounds</td>
-<td>Threshold</td>
-<td>The number of standard deviations that the upper and lower bounds
-are based on</td>
-<td>Numeric</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>dfBounds</td>
-<td>Denominator</td>
-<td>The calculated denominator value</td>
-<td>Numeric</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>dfBounds</td>
-<td>LogDenominator</td>
-<td>The calculated log denominator value</td>
-<td>Numeric</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>dfBounds</td>
-<td>Numerator</td>
-<td>The calculated numerator value</td>
-<td>Numeric</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>dfBounds</td>
-<td>Metric</td>
-<td>The calculated rate/metric value</td>
-<td>Numeric</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>dfBounds</td>
-<td>MetricID</td>
-<td>The Metric ID</td>
-<td>Character</td>
-<td>*</td>
-</tr>
-<tr class="odd">
-<td>dfBounds</td>
-<td>StudyID</td>
-<td>The Study ID</td>
-<td>Character</td>
-<td>*</td>
-</tr>
-<tr class="even">
-<td>dfBounds</td>
-<td>SnapshotDate</td>
-<td>The Date of the snapshot</td>
-<td>Date</td>
-<td>*</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="section level4">
 <h4 id="dfflagged">
 <code>dfFlagged</code><a class="anchor" aria-label="anchor" href="#dfflagged"></a>
 </h4>
@@ -974,27 +885,6 @@ are based on</td>
 <td>Numeric</td>
 <td></td>
 </tr>
-<tr class="even">
-<td>dfSummary</td>
-<td>MetricID</td>
-<td>The Metric ID</td>
-<td>Character</td>
-<td>*</td>
-</tr>
-<tr class="odd">
-<td>dfSummary</td>
-<td>StudyID</td>
-<td>The Study ID</td>
-<td>Character</td>
-<td>*</td>
-</tr>
-<tr class="even">
-<td>dfSummary</td>
-<td>SnapshotDate</td>
-<td>The Date of the snapshot</td>
-<td>Date</td>
-<td>*</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -1007,16 +897,19 @@ are based on</td>
 <h3 id="reporting-data-tables">Reporting Data Tables<a class="anchor" aria-label="anchor" href="#reporting-data-tables"></a>
 </h3>
 <div class="section level4">
-<h4 id="dfsummary-1">
-<code>dfSummary</code><a class="anchor" aria-label="anchor" href="#dfsummary-1"></a>
+<h4 id="dfresults">
+<code>dfResults</code><a class="anchor" aria-label="anchor" href="#dfresults"></a>
 </h4>
 <ul>
 <li>Function(s) used to create table:
 <ul>
-<li><code><a href="../reference/Summarize.html">Summarize()</a></code></li>
+<li><code><a href="../reference/BindResults.html">BindResults()</a></code></li>
 </ul>
 </li>
-<li>Inputs: <code>dfFlagged</code>
+<li>Inputs: <code>lAnalysis</code>, <code>strStudyID</code>,
+<code>dSnapshotDate</code>
+</li>
+<li>Workflow used to create table: <code>data_reporting.yaml</code>
 </li>
 <li>Usage: Summarize KRI at the group level for reporting.</li>
 <li>Structure:</li>
@@ -1040,7 +933,7 @@ are based on</td>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>dfSummary</td>
+<td>dfResults</td>
 <td>GroupID</td>
 <td>The group ID for the metric</td>
 <td>Character</td>
@@ -1048,7 +941,7 @@ are based on</td>
 <td>groupid</td>
 </tr>
 <tr class="even">
-<td>dfSummary</td>
+<td>dfResults</td>
 <td>GroupLevel</td>
 <td>The group type for the metric (e.g. “Site”)</td>
 <td>Character</td>
@@ -1056,7 +949,7 @@ are based on</td>
 <td>-</td>
 </tr>
 <tr class="odd">
-<td>dfSummary</td>
+<td>dfResults</td>
 <td>Numerator</td>
 <td>The calculated numerator value</td>
 <td>Numeric</td>
@@ -1064,7 +957,7 @@ are based on</td>
 <td>numerator</td>
 </tr>
 <tr class="even">
-<td>dfSummary</td>
+<td>dfResults</td>
 <td>Denominator</td>
 <td>The calculated denominator value</td>
 <td>Numeric</td>
@@ -1072,7 +965,7 @@ are based on</td>
 <td>denominator</td>
 </tr>
 <tr class="odd">
-<td>dfSummary</td>
+<td>dfResults</td>
 <td>Metric</td>
 <td>The calculated rate/metric value</td>
 <td>Numeric</td>
@@ -1080,7 +973,7 @@ are based on</td>
 <td>metric</td>
 </tr>
 <tr class="even">
-<td>dfSummary</td>
+<td>dfResults</td>
 <td>Score</td>
 <td>The calculated metric score</td>
 <td>Numeric</td>
@@ -1088,7 +981,7 @@ are based on</td>
 <td>score</td>
 </tr>
 <tr class="odd">
-<td>dfSummary</td>
+<td>dfResults</td>
 <td>Flag</td>
 <td>The calculated flag</td>
 <td>Numeric</td>
@@ -1096,7 +989,7 @@ are based on</td>
 <td>flag</td>
 </tr>
 <tr class="even">
-<td>dfSummary</td>
+<td>dfResults</td>
 <td>MetricID</td>
 <td>The Metric ID</td>
 <td>Character</td>
@@ -1104,7 +997,7 @@ are based on</td>
 <td>workflowid</td>
 </tr>
 <tr class="odd">
-<td>dfSummary</td>
+<td>dfResults</td>
 <td>StudyID</td>
 <td>The Study ID</td>
 <td>Character</td>
@@ -1112,7 +1005,7 @@ are based on</td>
 <td>studyid</td>
 </tr>
 <tr class="even">
-<td>dfSummary</td>
+<td>dfResults</td>
 <td>SnapshotDate</td>
 <td>The Date of the snapshot</td>
 <td>Date</td>
@@ -1123,17 +1016,22 @@ are based on</td>
 </table>
 </div>
 <div class="section level4">
-<h4 id="dfbounds-1">
-<code>dfBounds</code><a class="anchor" aria-label="anchor" href="#dfbounds-1"></a>
+<h4 id="dfbounds">
+<code>dfBounds</code><a class="anchor" aria-label="anchor" href="#dfbounds"></a>
 </h4>
 <ul>
 <li>Function(s) used to create table:
 <ul>
-<li><code><a href="../reference/Analyze_NormalApprox_PredictBounds.html">Analyze_NormalApprox_PredictBounds()</a></code></li>
-<li><code><a href="../reference/Analyze_Poisson_PredictBounds.html">Analyze_Poisson_PredictBounds()</a></code></li>
+<li><code><a href="../reference/MakeBounds.html">MakeBounds()</a></code></li>
+<li>
+<code><a href="../reference/Analyze_NormalApprox_PredictBounds.html">Analyze_NormalApprox_PredictBounds()</a></code> (called within
+<code><a href="../reference/MakeBounds.html">MakeBounds()</a></code>)</li>
 </ul>
 </li>
-<li>Inputs: <code>dfTransformed</code>
+<li>Inputs: <code>lAnalysis</code>, <code>strStudyID</code>,
+<code>dSnapshotDate</code>
+</li>
+<li>Workflow used to create table: <code>data_reporting.yaml</code>
 </li>
 <li>Usage: Calculates predicted percentages/rates and upper- and
 lower-bounds across the full range of sample sizes/total exposure values
@@ -1204,7 +1102,7 @@ are based on</td>
 <td>MetricID</td>
 <td>The Metric ID</td>
 <td>Character</td>
-<td>*</td>
+<td></td>
 <td>workflowid</td>
 </tr>
 <tr class="odd">
@@ -1212,7 +1110,7 @@ are based on</td>
 <td>StudyID</td>
 <td>The Study ID</td>
 <td>Character</td>
-<td>*</td>
+<td></td>
 <td>studyid</td>
 </tr>
 <tr class="even">
@@ -1220,7 +1118,7 @@ are based on</td>
 <td>SnapshotDate</td>
 <td>The Date of the snapshot</td>
 <td>Date</td>
-<td>*</td>
+<td></td>
 <td>snapshot_date</td>
 </tr>
 </tbody>
@@ -1231,9 +1129,15 @@ are based on</td>
 <code>dfGroups</code><a class="anchor" aria-label="anchor" href="#dfgroups"></a>
 </h4>
 <ul>
-<li>Workflow used to create table: <code>data_reporting</code>
+<li>Function(s) used to create table:
+<ul>
+<li><code><a href="../reference/MakeLongMeta.html">MakeLongMeta()</a></code></li>
+<li><code>bind_rows()</code></li>
+</ul>
 </li>
 <li>Inputs: CTMS site, study and country data</li>
+<li>Workflow used to create table: <code>data_reporting.yaml</code>
+</li>
 <li>Usage: Group-level metadata dictionary.</li>
 <li>Structure: Long data frame, with certain <code>Param</code> required
 for given <code>GroupLevel</code>
@@ -1255,20 +1159,6 @@ for given <code>GroupLevel</code>
 <th>Optional</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
-<td>dfGroups</td>
-<td>ProtocolID</td>
-<td>Protocol ID</td>
-<td>Character</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>dfGroups</td>
-<td>SnapshotDate</td>
-<td>Snapshot Date</td>
-<td>Character</td>
-<td></td>
-</tr>
 <tr class="odd">
 <td>dfGroups</td>
 <td>GroupID</td>
@@ -1300,10 +1190,10 @@ for given <code>GroupLevel</code>
 </tbody>
 </table>
 <p>Expected <code>Param</code> by <code>GroupLevel</code> for use in gsm
-reporting. Fine to add other Param values as needed.</p>
-<table class="table">
+reporting. User may add other Param values as needed.</p>
+<table style="width:100%;" class="table">
 <colgroup>
-<col width="16%">
+<col width="17%">
 <col width="27%">
 <col width="43%">
 <col width="12%">
@@ -1323,77 +1213,59 @@ reporting. Fine to add other Param values as needed.</p>
 </tr>
 <tr class="even">
 <td>Study</td>
-<td>Title</td>
-<td>Protocol Title</td>
-<td>Numeric</td>
-</tr>
-<tr class="odd">
-<td>Study</td>
 <td>ParticipantCount</td>
 <td># of Enrolled Participants</td>
 <td>Numeric</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Study</td>
 <td>SiteCount</td>
 <td># of Activated Sites</td>
 <td>Numeric</td>
 </tr>
-<tr class="odd">
-<td>Study</td>
-<td>ParticipantsPlanned</td>
-<td># of Planned Participants</td>
-<td>Numeric</td>
-</tr>
 <tr class="even">
-<td>Study</td>
-<td>SitesPlanned</td>
-<td># of Planned Sites</td>
-<td>Numeric</td>
-</tr>
-<tr class="odd">
 <td>Site</td>
 <td>ParticipantCount</td>
 <td># of Enrolled Participants</td>
 <td>Numeric</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Site</td>
 <td>Status</td>
 <td>Site Status</td>
 <td>Character</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Site</td>
 <td>InvestigatorFirstName</td>
 <td>Investigator First name</td>
 <td>Character</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Site</td>
 <td>InvestigatorLastName</td>
 <td>Investigator Last name</td>
 <td>Character</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Site</td>
 <td>City</td>
 <td>City</td>
 <td>Character</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Site</td>
 <td>State</td>
 <td>State</td>
+<td>Character</td>
+</tr>
+<tr class="even">
+<td>Site</td>
+<td>Country</td>
+<td>Country</td>
 <td>Character</td>
 </tr>
 <tr class="odd">
-<td>Site</td>
-<td>Country</td>
-<td>Country</td>
-<td>Character</td>
-</tr>
-<tr class="even">
 <td>Country</td>
 <td>EnrolledParticipants</td>
 <td># of Enrolled Participants</td>
@@ -1409,8 +1281,11 @@ reporting. Fine to add other Param values as needed.</p>
 <ul>
 <li>Function used to create table: <code><a href="../reference/MakeMetric.html">MakeMetric()</a></code>
 </li>
-<li>Inputs: <code>lWorkflow</code> - metadata from the corresponding kri
-<code>.yaml</code> file</li>
+<li>Inputs: <code>lWorkflows</code> - metadata for the corresponding
+kri(s) made with <code><a href="../reference/MakeWorkflowList.html">MakeWorkflowList()</a></code>
+</li>
+<li>Workflow used to create table: <code>data_reporting.yaml</code>
+</li>
 <li>Usage: Metadata used for charts and tables</li>
 <li>Structure:</li>
 </ul>
@@ -1897,56 +1772,52 @@ is shown below:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">meta</span><span class="kw">:</span></span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="at">  </span><span class="fu">MetricID</span><span class="kw">:</span><span class="at"> kri0001</span></span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="at">  </span><span class="fu">File</span><span class="kw">:</span><span class="at"> kri0001.yaml</span></span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="at">  </span><span class="fu">Group</span><span class="kw">:</span><span class="at"> site</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="at">  </span><span class="fu">GroupLevel</span><span class="kw">:</span><span class="at"> Site</span></span>
 <span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="at">  </span><span class="fu">Abbreviation</span><span class="kw">:</span><span class="at"> AE</span></span>
 <span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="at">  </span><span class="fu">Metric</span><span class="kw">:</span><span class="at"> Adverse Event Rate</span></span>
 <span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="at">  </span><span class="fu">Numerator</span><span class="kw">:</span><span class="at"> Adverse Events</span></span>
 <span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="at">  </span><span class="fu">Denominator</span><span class="kw">:</span><span class="at"> Days on Study</span></span>
 <span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="at">  </span><span class="fu">Model</span><span class="kw">:</span><span class="at"> Normal Approximation</span></span>
 <span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="at">  </span><span class="fu">Score</span><span class="kw">:</span><span class="at"> Adjusted Z-Score</span></span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="at">  </span><span class="fu">vThreshold</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="dv">-2</span></span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="dv">-1</span></span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="dv">2</span></span>
-<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="dv">3</span></span>
-<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="at">  </span><span class="fu">nMinDenominator</span><span class="kw">:</span><span class="at"> </span><span class="dv">30</span></span>
-<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="fu">steps</span><span class="kw">:</span></span>
-<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Input_Rate</span></span>
-<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfInput</span></span>
-<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a><span class="at">      </span><span class="fu">dfSubjects</span><span class="kw">:</span><span class="at"> dfEnrolled</span></span>
-<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a><span class="at">      </span><span class="fu">dfNumerator</span><span class="kw">:</span><span class="at"> dfAE</span></span>
-<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a><span class="at">      </span><span class="fu">dfDenominator</span><span class="kw">:</span><span class="at"> dfEnrolled</span></span>
-<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a><span class="at">      </span><span class="fu">strSubjectCol</span><span class="kw">:</span><span class="at"> subjid</span></span>
-<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a><span class="at">      </span><span class="fu">strGroupCol</span><span class="kw">:</span><span class="at"> siteid</span></span>
-<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a><span class="at">      </span><span class="fu">strNumeratorMethod</span><span class="kw">:</span><span class="at"> Count</span></span>
-<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a><span class="at">      </span><span class="fu">strDenominatorMethod</span><span class="kw">:</span><span class="at"> Sum</span></span>
-<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a><span class="at">      </span><span class="fu">strDenominatorCol</span><span class="kw">:</span><span class="at"> timeonstudy</span></span>
-<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Transform_Rate</span></span>
-<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfTransformed</span></span>
-<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a><span class="at">      </span><span class="fu">dfInput</span><span class="kw">:</span><span class="at"> dfInput</span></span>
-<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Analyze_NormalApprox</span></span>
-<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfAnalyzed</span></span>
-<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb2-36"><a href="#cb2-36" tabindex="-1"></a><span class="at">      </span><span class="fu">dfTransformed</span><span class="kw">:</span><span class="at"> dfTransformed</span></span>
-<span id="cb2-37"><a href="#cb2-37" tabindex="-1"></a><span class="at">      </span><span class="fu">strType</span><span class="kw">:</span><span class="at"> rate</span></span>
-<span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Analyze_NormalApprox_PredictBounds</span></span>
-<span id="cb2-39"><a href="#cb2-39" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfBounds</span></span>
-<span id="cb2-40"><a href="#cb2-40" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb2-41"><a href="#cb2-41" tabindex="-1"></a><span class="at">      </span><span class="fu">dfTransformed</span><span class="kw">:</span><span class="at"> dfTransformed</span></span>
-<span id="cb2-42"><a href="#cb2-42" tabindex="-1"></a><span class="at">      </span><span class="fu">vThreshold</span><span class="kw">:</span><span class="at"> vThreshold</span></span>
-<span id="cb2-43"><a href="#cb2-43" tabindex="-1"></a><span class="at">      </span><span class="fu">strType</span><span class="kw">:</span><span class="at"> rate</span></span>
-<span id="cb2-44"><a href="#cb2-44" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Flag_NormalApprox</span></span>
-<span id="cb2-45"><a href="#cb2-45" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfFlagged</span></span>
-<span id="cb2-46"><a href="#cb2-46" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb2-47"><a href="#cb2-47" tabindex="-1"></a><span class="at">      </span><span class="fu">dfAnalyzed</span><span class="kw">:</span><span class="at"> dfAnalyzed</span></span>
-<span id="cb2-48"><a href="#cb2-48" tabindex="-1"></a><span class="at">      </span><span class="fu">vThreshold</span><span class="kw">:</span><span class="at"> vThreshold</span></span>
-<span id="cb2-49"><a href="#cb2-49" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Summarize</span></span>
-<span id="cb2-50"><a href="#cb2-50" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfSummary</span></span>
-<span id="cb2-51"><a href="#cb2-51" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span><span class="at"> </span></span>
-<span id="cb2-52"><a href="#cb2-52" tabindex="-1"></a><span class="at">      </span><span class="fu">dfFlagged</span><span class="kw">:</span><span class="at"> dfFlagged</span></span>
-<span id="cb2-53"><a href="#cb2-53" tabindex="-1"></a><span class="at">      </span><span class="fu">nMinDenominator</span><span class="kw">:</span><span class="at"> nMinDenominator</span></span></code></pre></div>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="at">  </span><span class="fu">Type</span><span class="kw">:</span><span class="at"> rate</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="at">  </span><span class="fu">strThreshold</span><span class="kw">:</span><span class="at"> -2,-1,2,3</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="at">  </span><span class="fu">nMinDenominator</span><span class="kw">:</span><span class="at"> </span><span class="dv">30</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> ParseThreshold</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> vThreshold</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="at">      </span><span class="fu">strThreshold</span><span class="kw">:</span><span class="at"> strThreshold</span></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Input_Rate</span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfInput</span></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a><span class="at">      </span><span class="fu">dfSubjects</span><span class="kw">:</span><span class="at"> dfEnrolled</span></span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a><span class="at">      </span><span class="fu">dfNumerator</span><span class="kw">:</span><span class="at"> dfAE</span></span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a><span class="at">      </span><span class="fu">dfDenominator</span><span class="kw">:</span><span class="at"> dfEnrolled</span></span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a><span class="at">      </span><span class="fu">strSubjectCol</span><span class="kw">:</span><span class="at"> subjid</span></span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a><span class="at">      </span><span class="fu">strGroupCol</span><span class="kw">:</span><span class="at"> invid</span></span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a><span class="at">      </span><span class="fu">strGroupLevel</span><span class="kw">:</span><span class="at"> GroupLevel</span></span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a><span class="at">      </span><span class="fu">strNumeratorMethod</span><span class="kw">:</span><span class="at"> Count</span></span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a><span class="at">      </span><span class="fu">strDenominatorMethod</span><span class="kw">:</span><span class="at"> Sum</span></span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a><span class="at">      </span><span class="fu">strDenominatorCol</span><span class="kw">:</span><span class="at"> timeonstudy</span></span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Transform_Rate</span></span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfTransformed</span></span>
+<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a><span class="at">      </span><span class="fu">dfInput</span><span class="kw">:</span><span class="at"> dfInput</span></span>
+<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Analyze_NormalApprox</span></span>
+<span id="cb2-36"><a href="#cb2-36" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfAnalyzed</span></span>
+<span id="cb2-37"><a href="#cb2-37" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a><span class="at">      </span><span class="fu">dfTransformed</span><span class="kw">:</span><span class="at"> dfTransformed</span></span>
+<span id="cb2-39"><a href="#cb2-39" tabindex="-1"></a><span class="at">      </span><span class="fu">strType</span><span class="kw">:</span><span class="at"> Type</span></span>
+<span id="cb2-40"><a href="#cb2-40" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Flag_NormalApprox</span></span>
+<span id="cb2-41"><a href="#cb2-41" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfFlagged</span></span>
+<span id="cb2-42"><a href="#cb2-42" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb2-43"><a href="#cb2-43" tabindex="-1"></a><span class="at">      </span><span class="fu">dfAnalyzed</span><span class="kw">:</span><span class="at"> dfAnalyzed</span></span>
+<span id="cb2-44"><a href="#cb2-44" tabindex="-1"></a><span class="at">      </span><span class="fu">vThreshold</span><span class="kw">:</span><span class="at"> vThreshold</span></span>
+<span id="cb2-45"><a href="#cb2-45" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Summarize</span></span>
+<span id="cb2-46"><a href="#cb2-46" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfSummary</span></span>
+<span id="cb2-47"><a href="#cb2-47" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb2-48"><a href="#cb2-48" tabindex="-1"></a><span class="at">      </span><span class="fu">dfFlagged</span><span class="kw">:</span><span class="at"> dfFlagged</span></span>
+<span id="cb2-49"><a href="#cb2-49" tabindex="-1"></a><span class="at">      </span><span class="fu">nMinDenominator</span><span class="kw">:</span><span class="at"> nMinDenominator</span></span></code></pre></div>
 </div>
 </div>
   </div>
