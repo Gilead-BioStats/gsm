@@ -105,16 +105,20 @@
 
 
 <dl><dt id="arg-dftransformed">dfTransformed<a class="anchor" aria-label="anchor" href="#arg-dftransformed"></a></dt>
-<dd><p><code>data.frame</code> in format produced by <code><a href="Transform_Rate.html">Transform_Rate</a></code>.</p></dd>
+<dd><p><code>data.frame</code> Transformed data for analysis. Data should have one record per site with expected columns: <code>GroupID</code>, <code>GroupLevel</code>, <code>Numerator</code>, <code>Denominator</code>, and <code>Metric</code>. For more details see the Data Pipeline vignette: <code><a href="../articles/DataPipeline.html">vignette("DataPipeline", package = "gsm")</a></code>.
+For this function, <code>dfTransformed</code> should typically be created using <code><a href="Transform_Rate.html">Transform_Rate()</a></code>.</p></dd>
 
 
 <dt id="arg-stroutcome">strOutcome<a class="anchor" aria-label="anchor" href="#arg-stroutcome"></a></dt>
-<dd><p><code>character</code> required, name of column in <code>dfTransformed</code> dataset to perform Fisher's exact test on. Default is "Numerator".</p></dd>
+<dd><p><code>character</code> required, name of column in <code>dfTransformed</code>
+dataset to perform Fisher's exact test on. Default is "Numerator".</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p><code>data.frame</code> with one row per site with columns: GroupID, Numerator, Numerator_Other, Denominator, Denominator_Other, Prop, Prop_Other, Metric, Estimate, and Score.</p>
+    <p><code>data.frame</code> with one row per site with columns: GroupID, Numerator,
+Numerator_Other, Denominator, Denominator_Other, Prop, Prop_Other, Metric,
+Estimate, and Score.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -128,25 +132,16 @@ of the KRI Method vignette.</p>
 
 
 <p>The function <code>Analyze_Fisher</code> utilizes <code><a href="https://rdrr.io/r/stats/fisher.test.html" class="external-link">stats::fisher.test</a></code> to generate an
-estimate of odds ratio as well as a p-value using the Fisher’s exact test with site-level count
-data. For each site, the Fisher’s exact test is conducted by comparing the given site to all other sites combined
-in a 2×2 contingency table. The p-values are then used as a scoring metric in <code>{gsm}</code> to flag
-possible outliers. The default in <code><a href="https://rdrr.io/r/stats/fisher.test.html" class="external-link">stats::fisher.test</a></code> uses a two-sided test (equivalent to testing
-the null of OR = 1) and does not compute p-values by Monte Carlo simulation unless <code>simulate.p.value = TRUE</code>.
-Sites with p-values less than 0.05 from the Fisher’s exact test analysis are flagged by default.
-The significance level was set at a common choice.</p>
+estimate of odds ratio as well as a p-value using the Fisher’s exact test
+with site-level count data. For each site, the Fisher’s exact test is
+conducted by comparing the given site to all other sites combined in a 2×2
+contingency table. The p-values are then used as a scoring metric in
+<code>{gsm}</code> to flag possible outliers. The default in <code><a href="https://rdrr.io/r/stats/fisher.test.html" class="external-link">stats::fisher.test</a></code> uses
+a two-sided test (equivalent to testing the null of OR = 1) and does not
+compute p-values by Monte Carlo simulation unless <code>simulate.p.value = TRUE</code>. Sites with p-values less than 0.05 from the Fisher’s exact test
+analysis are flagged by default. The significance level was set at a common
+choice.</p>
     </div>
-    <div id="data-specification">
-    <h2>Data Specification</h2>
-
-
-
-<p>The input data (<code>dfTransformed</code>) for <code>Analyze_Fisher</code> is typically created using <code><a href="Transform_Rate.html">Transform_Rate</a></code> and should be one record per site with required columns for:</p><ul><li><p><code>GroupID</code> - Site ID</p></li>
-<li><p><code>GroupLevel</code> - Group Type</p></li>
-<li><p><code>Numerator</code> - Total number of participants at site with event of interest.</p></li>
-<li><p><code>Denominator</code> - Total number of participants at site/Total number of days of exposure at site.</p></li>
-<li><p><code>Metric</code> - Proportion of participants at site with event of interest/Rate of events at site (Numerator / Denominator).</p></li>
-</ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>

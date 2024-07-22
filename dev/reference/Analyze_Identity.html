@@ -105,7 +105,8 @@
 
 
 <dl><dt id="arg-dftransformed">dfTransformed<a class="anchor" aria-label="anchor" href="#arg-dftransformed"></a></dt>
-<dd><p><code>data.frame</code> created by <code><a href="Transform_Count.html">Transform_Count</a></code></p></dd>
+<dd><p><code>data.frame</code> Transformed data for analysis. Data should have one record per site with expected columns: <code>GroupID</code>, <code>GroupLevel</code>, <code>Numerator</code>, <code>Denominator</code>, and <code>Metric</code>. For more details see the Data Pipeline vignette: <code><a href="../articles/DataPipeline.html">vignette("DataPipeline", package = "gsm")</a></code>.
+For this function, <code>dfTransformed</code> should typically be created using <code><a href="Transform_Count.html">Transform_Count()</a></code>.</p></dd>
 
 
 <dt id="arg-strvaluecol">strValueCol<a class="anchor" aria-label="anchor" href="#arg-strvaluecol"></a></dt>
@@ -122,17 +123,6 @@
 <p>More information can be found in <a href="https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-identity-method" class="external-link">The Identity Method</a>
 of the KRI Method vignette.</p>
     </div>
-    <div id="data-specification">
-    <h2>Data Specification</h2>
-
-
-
-<p>The input data (<code>dfTransformed</code>) for <code>Analyze_Identity</code> is typically created using <code><a href="Transform_Rate.html">Transform_Rate</a></code> and should be one record per site with required columns for:</p><ul><li><p><code>GroupID</code> - Group ID</p></li>
-<li><p><code>GroupLevel</code> - Group Type</p></li>
-<li><p><code>Numerator</code> - Total number of participants at site with event of interest.</p></li>
-<li><p><code>Denominator</code> - Total number of participants at site/Total number of days of exposure at site.</p></li>
-<li><p><code>Metric</code> - Proportion of participants at site with event of interest/Rate of events at site (Numerator / Denominator).</p></li>
-</ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
