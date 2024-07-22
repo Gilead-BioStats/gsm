@@ -1,9 +1,9 @@
 # Test Setup -------------------------------------------------------
 source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
-mapping_workflow <- flatten(MakeWorkflowList("mapping", yaml_path))
+mapping_workflow <- flatten(MakeWorkflowList("mapping", yaml_path_original))
 mapped_data_reg <- run_possible_mappings(mapping_workflow, lData)$lData
-ae_workflow_custom <- flatten(MakeWorkflowList("kri0001_custom_thresholds", yaml_path))
-ae_workflow_default <- flatten(MakeWorkflowList("kri0001", yaml_path))
+ae_workflow_custom <- flatten(MakeWorkflowList("kri0001_custom", yaml_path_custom))
+ae_workflow_default <- flatten(MakeWorkflowList("kri0001", yaml_path_original))
 
 vThreshold <- c(-4, -2, 2, 4)
 ae_workflow_custom$meta$vThreshold <- vThreshold

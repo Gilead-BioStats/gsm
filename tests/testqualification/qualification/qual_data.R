@@ -33,7 +33,8 @@ lData_missing_values <- map(lData, function(df){
     )
 })
 
-yaml_path <- system.file("tests", "testqualification", "qualification", "qual_workflows", package = 'gsm')
+yaml_path_original <- system.file("tests", "testqualification", "qualification", "qual_workflows", "original", package = 'gsm')
+yaml_path_custom <- system.file("tests", "testqualification", "qualification", "qual_workflows", "custom", package = 'gsm')
 # mapping_workflow <- flatten(MakeWorkflowList("mapping", strPath = yaml_path))
 # kri_workflows <- MakeWorkflowList(c(sprintf("kri%04d", 1:12), sprintf("cou%04d", 1:12)))
 

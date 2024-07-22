@@ -1,8 +1,8 @@
 # Test Setup -------------------------------------------------------
 source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
-mapping_workflow <- flatten(MakeWorkflowList("mapping", yaml_path))
+mapping_workflow <- flatten(MakeWorkflowList("mapping", yaml_path_original))
 mapped_data_reg <- run_possible_mappings(mapping_workflow, lData)$lData
-ae_workflow <- flatten(MakeWorkflowList("kri0001_custom_thresholds", yaml_path))
+ae_workflow <- flatten(MakeWorkflowList("kri0001_custom", yaml_path_custom))
 
 # define dfBounds --------------------------------------------------
 steps <- seq(which(map_lgl(ae_workflow$steps, ~str_detect(.x$output, "dfBounds"))))

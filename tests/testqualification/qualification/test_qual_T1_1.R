@@ -1,8 +1,8 @@
 test_that("lData is correctly mapped for processing using `mapping.yaml` in conjunction with `MakeWorkflowList()` and `RunWorkflow`", {
   source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = 'gsm'))
-  mapping_workflow <- flatten(MakeWorkflowList("mapping", strPath = yaml_path))
+  mapping_workflow <- flatten(MakeWorkflowList("mapping", strPath = yaml_path_original))
   lData_mapped <- suppressMessages(RunWorkflow(lWorkflow = mapping_workflow, lData = lData))$lData
-  mapping_yaml <- yaml::read_yaml(paste0(yaml_path, "/mapping.yaml"))
+  mapping_yaml <- yaml::read_yaml(paste0(yaml_path_original, "/mapping.yaml"))
 
   ## Rename columns
   mapping_renaming_config <- map_df(mapping_yaml$steps, function(step){

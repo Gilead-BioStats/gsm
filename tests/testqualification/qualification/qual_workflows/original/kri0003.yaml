@@ -1,30 +1,30 @@
 meta:
-  MetricID: kri0001
-  file: kri0001.yaml
+  file: kri0003.yaml
+  MetricID: kri0003
   group: site
-  abbreviation: AE
-  metric: Adverse Event Rate
-  numerator: Adverse Events
+  abbreviation: PD
+  metric: Non-Important Protocol Deviation Rate
+  numerator: Non-Important Protocol Deviations
   denominator: Days on Study
   model: Normal Approximation
   score: Adjusted Z-Score
   vThreshold:
-    - -5
     - -3
+    - -2
+    - 2
     - 3
-    - 5
 steps:
   - name: Input_Rate
     output: dfInput
     params:
       dfSubjects: dfEnrolled
-      dfNumerator: dfAE
+      dfNumerator: dfNonimportantPD
       dfDenominator: dfEnrolled
-      strSubjectCol: 'subjid'
-      strGroupCol: 'siteid'
-      strNumeratorMethod: 'Count'
-      strDenominatorMethod: 'Sum'
-      strDenominatorCol: 'timeonstudy'
+      strSubjectCol: subjid
+      strGroupCol: siteid
+      strNumeratorMethod: Count
+      strDenominatorMethod: Sum
+      strDenominatorCol: timeonstudy
   - name: Transform_Rate
     output: dfTransformed
     params:
@@ -32,14 +32,14 @@ steps:
   - name: Analyze_NormalApprox
     output: dfAnalyzed
     params:
-      dfTransformed: dfTransformed
+      dfTransformed: dfTransformed 
       strType: rate
   - name: Analyze_NormalApprox_PredictBounds
     output: dfBounds
     params:
       dfTransformed: dfTransformed
-      vThreshold: vThreshold
       strType: rate
+      vThreshold: vThreshold
   - name: Flag_NormalApprox
     output: dfFlagged
     params:
@@ -47,5 +47,5 @@ steps:
       vThreshold: vThreshold
   - name: Summarize
     output: dfSummary
-    params:
+    params: 
       dfFlagged: dfFlagged

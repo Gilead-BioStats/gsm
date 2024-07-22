@@ -1,0 +1,50 @@
+meta:
+  file: cou0010.yaml
+  MetricID: cou0010
+  group: country
+  abbreviation: ODAT
+  metric: Outstanding Data Entry Rate
+  numerator: Data Pages Entered > 10 Days
+  denominator: Total Data Pages
+  model: Normal Approximation
+  score: Adjusted Z-Score
+  vThreshold:
+    - -3
+    - -2
+    - 2
+    - 3
+steps:
+  - name: Input_Rate
+    output: dfInput
+    params:
+      dfSubjects: dfEnrolled
+      dfNumerator: dfSlowDataEntry
+      dfDenominator: dfDataEntry
+      strSubjectCol: subject_nsv
+      strGroupCol: country
+      strNumeratorMethod: Count
+      strDenominatorMethod: Count
+  - name: Transform_Rate
+    output: dfTransformed
+    params:
+      dfInput: dfInput
+  - name: Analyze_NormalApprox
+    output: dfAnalyzed
+    params:
+      dfTransformed: dfTransformed
+      strType: binary
+  - name: Analyze_NormalApprox_PredictBounds
+    output: dfBounds
+    params:
+      dfTransformed: dfTransformed
+      strType: binary
+      vThreshold: vThreshold
+  - name: Flag_NormalApprox
+    output: dfFlagged
+    params:
+      dfAnalyzed: dfAnalyzed
+      vThreshold: vThreshold
+  - name: Summarize
+    output: dfSummary
+    params:
+      dfFlagged: dfFlagged

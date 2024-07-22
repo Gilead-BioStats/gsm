@@ -1,8 +1,8 @@
 ## Test Setup
 source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
-mapping_workflow <- flatten(MakeWorkflowList("mapping", yaml_path))
+mapping_workflow <- flatten(MakeWorkflowList("mapping", yaml_path_original))
 
-ae_workflow <- flatten(MakeWorkflowList(strNames = 'kri0001', strPath = yaml_path))
+ae_workflow <- flatten(MakeWorkflowList(strNames = 'kri0001', strPath = yaml_path_original))
 
 mapped_data_missing_values <- run_possible_mappings(mapping_workflow, lData_missing_values)$lData
 

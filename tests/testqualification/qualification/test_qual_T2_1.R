@@ -1,10 +1,10 @@
 ## Test Setup
 source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = 'gsm'))
 
-mapping_workflow <- flatten(MakeWorkflowList('mapping', yaml_path))
-ae_workflow <- flatten(MakeWorkflowList(strNames = 'kri0001', strPath = yaml_path))
+mapping_workflow <- flatten(MakeWorkflowList('mapping', yaml_path_original))
+ae_workflow <- flatten(MakeWorkflowList(strNames = 'kri0001', strPath = yaml_path_original))
 
-mapped_data_reg <- run_possible_mappings(mapping_workflow, lData)$lData
+mapped_data_reg <- robust_runworkflow(mapping_workflow, lData)$lData
 
 outputs <- map_vec(ae_workflow$steps, ~.x$output)
 

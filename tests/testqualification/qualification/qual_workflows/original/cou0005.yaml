@@ -1,0 +1,50 @@
+meta:
+  file: cou0005.yaml
+  MetricID: cou0005
+  group: country
+  abbreviation: LB
+  metric: Grade 3+ Lab Abnormality Rate
+  numerator: Grade 3+ Abnormal Labs Samples
+  denominator: Total Lab Samples
+  model: Normal Approximation
+  score: Adjusted Z-Score
+  vThreshold:
+    - -3
+    - -2
+    - 2
+    - 3
+steps:
+  - name: Input_Rate
+    output: dfInput
+    params:
+      dfSubjects: dfEnrolled
+      dfNumerator: dfToxLabs
+      dfDenominator: dfAllLabs
+      strSubjectCol: subjid
+      strGroupCol: country
+      strNumeratorMethod: Count
+      strDenominatorMethod: Count
+  - name: Transform_Rate
+    output: dfTransformed
+    params:
+      dfInput: dfInput
+  - name: Analyze_NormalApprox
+    output: dfAnalyzed
+    params:
+      dfTransformed: dfTransformed
+      strType: binary
+  - name: Analyze_NormalApprox_PredictBounds
+    output: dfBounds
+    params:
+      dfTransformed: dfTransformed
+      strType: binary
+      vThreshold: vThreshold
+  - name: Flag_NormalApprox
+    output: dfFlagged
+    params:
+      dfAnalyzed: dfAnalyzed
+      vThreshold: vThreshold
+  - name: Summarize
+    output: dfSummary
+    params:
+      dfFlagged: dfFlagged
