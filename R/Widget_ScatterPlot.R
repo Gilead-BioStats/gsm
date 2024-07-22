@@ -6,7 +6,7 @@
 #' A widget that generates a scatter plot of group-level metric results, plotting the denominator
 #' on the x-axis and the numerator on the y-axis.
 #'
-#' @param dfResults `data.frame` Output of [Summarize()] and [BindResults()].
+#' @inheritParams shared-params
 #' @param lMetric `list` Metric metadata, captured at the top of metric workflows and returned by
 #' [MakeMetric()].
 #' @param dfGroups `data.frame` Group metadata.

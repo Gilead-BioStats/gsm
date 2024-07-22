@@ -7,7 +7,8 @@
 Analyze_NormalApprox(dfTransformed, strType = "binary")
 }
 \arguments{
-\item{dfTransformed}{\code{data.frame} in format produced by \code{\link{Transform_Rate}}}
+\item{dfTransformed}{\code{data.frame} Transformed data for analysis. Data should have one record per site with expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, and \code{Metric}. For more details see the Data Pipeline vignette: \code{vignette("DataPipeline", package = "gsm")}.
+For this function, \code{dfTransformed} should typically be created using \code{\link[=Transform_Rate]{Transform_Rate()}}.}
 
 \item{strType}{\code{character} Statistical outcome type. Valid values:
 \itemize{
@@ -32,18 +33,6 @@ of the KRI Method vignette.
 This function applies funnel plots using asymptotic limits based on the normal approximation of a binomial distribution for
 the binary outcome, or normal approximation of a Poisson distribution for the rate outcome with volume (the sample sizes
 or total exposure of the sites) to assess data quality and safety.
-}
-
-\section{Data Specification}{
-
-
-The input data (\code{dfTransformed}) is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
-\itemize{
-\item \code{GroupID} - Site ID
-\item \code{Numerator} - Total number of participants at site with event of interest/Total number of events of interest at site
-\item \code{Denominator} - Total number of participants at site/Total number of days of exposure at site
-\item \code{Metric} - Proportion of participants at site with event of interest/Rate of events at site (Numerator / Denominator)
-}
 }
 
 \examples{
