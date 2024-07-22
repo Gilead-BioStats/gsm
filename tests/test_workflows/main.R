@@ -1,4 +1,4 @@
-# Add tests here for
+# Run all tests in this directory. Also includes scripts for standardized tests.
 devtools::load_all()
 
 get_workflow_data <- function(strNames) {
