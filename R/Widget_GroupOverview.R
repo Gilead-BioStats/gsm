@@ -6,41 +6,39 @@
 #' A widget that generates a group overview table of group-level metric results across one or more
 #' metrics.
 #'
-#' @param dfResults `data.frame` Output of [Summarize()] and [BindResults()].
-#' @param dfMetrics `list` Metric metadata, captured at the top of metric workflows and returned by
-#' [MakeMetricInfo()].
-#' @param dfGroups `data.frame` Group metadata.
+#' @inheritParams shared-params
 #' @param strGroupLevel `character` Value for the group level. Default: NULL and taken from `dfMetrics$GroupLevel` if available.
 #' @param strGroupSubset `character` Subset of groups to include in the table. Default: 'red'. Options:
 #' - 'all': All groups.
 #' - 'red': Groups with 1+ red flags.
 #' - 'red/amber': Groups with 1+ red/amber flag.
 #' - 'amber': Groups with 1+ amber flag.
+#' @param strGroupLabelKey `character` Value for the group label key. Default: 'InvestigatorLastName'.
 #' @param bDebug `logical` Print debug messages? Default: `FALSE`.
 #'
 #' @examples
 #' \dontrun{
 #' # site-level report
 #' Widget_GroupOverview(
-#'   dfResults = sampleResults,
-#'   dfMetrics = sampleMetrics,
-#'   dfGroups = sampleGroups
+#'   dfResults = reportingResults,
+#'   dfMetrics = reportingMetrics,
+#'   dfGroups = reportingGroups
 #' )
 #'
 #' # filter site-level report to all flags
 #' Widget_GroupOverview(
-#'   dfResults = sampleResults,
-#'   dfMetrics = sampleMetrics,
-#'   dfGroups = sampleGroups
+#'   dfResults = reportingResults,
+#'   dfMetrics = reportingMetrics,
+#'   dfGroups = reportingGroups
 #'   strGroupSubset = "all"
 #' )
 #'
 #' # country-level report
 #' sampleMetrics$GroupLevel <- "Country"
 #' Widget_GroupOverview(
-#'   dfResults = sampleResults,
-#'   dfMetrics = sampleMetrics,
-#'   dfGroups = sampleGroups
+#'   dfResults = reportingResults,
+#'   dfMetrics = reportingMetrics,
+#'   dfGroups = reportingGroups
 #' )
 #' }
 #' @export
@@ -72,7 +70,12 @@ Widget_GroupOverview <- function(
     dfGroups = dfGroups,
     strGroupLevel = strGroupLevel,
     strGroupSubset = strGroupSubset,
+<<<<<<< HEAD
     strGroupLabelKey = strGroupLabelKey
+=======
+    strGroupLabelKey = strGroupLabelKey,
+    bDebug = bDebug
+>>>>>>> dev
   )
 
   # create widget

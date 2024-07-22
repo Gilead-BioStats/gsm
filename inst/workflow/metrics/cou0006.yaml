@@ -1,13 +1,14 @@
 meta:
   File: cou0006.yaml
   MetricID: cou0006
-  GroupLevel: country
+  GroupLevel: Country
   Abbreviation: SDSC
   Metric: Study Discontinuation Rate
   Numerator: Subjects Discontinued - Study
   Denominator: Enrolled Subjects
   Model: Normal Approximation
   Score: Adjusted Z-Score
+  Type: binary
   strThreshold: -3,-2,2,3
   nMinDenominator: 3
 steps:
@@ -23,6 +24,7 @@ steps:
       dfDenominator: dfEnrolled
       strSubjectCol: subjid
       strGroupCol: country
+      strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count
   - name: Transform_Rate
@@ -33,13 +35,7 @@ steps:
     output: dfAnalyzed
     params:
       dfTransformed: dfTransformed
-      strType: binary
-  - name: Analyze_NormalApprox_PredictBounds
-    output: dfBounds
-    params:
-      dfTransformed: dfTransformed
-      strType: binary
-      vThreshold: vThreshold
+      strType: Type
   - name: Flag_NormalApprox
     output: dfFlagged
     params:

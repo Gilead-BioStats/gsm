@@ -82,10 +82,13 @@
       [1] "meta"  "steps" "path"  "name" 
       
       $qtl0004
-      [1] "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
       
       $qtl0006
-      [1] "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
+      
+      $reports
+      [1] "meta"  "steps" "path"  "name" 
       
       $snapshot
       [1] "meta"  "steps" "path"  "name" 
@@ -399,13 +402,13 @@
       [1] "ctms_site"
       
       $data_reporting[[1]]$params$strQuery
-      [1] "SELECT site_num as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df"
+      [1] "SELECT pi_number as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df"
       
       
       
       $data_reporting[[2]]
       $data_reporting[[2]]$name
-      [1] "MakeGroupInfo"
+      [1] "MakeLongMeta"
       
       $data_reporting[[2]]$output
       [1] "dfCTMSSite"
@@ -437,7 +440,7 @@
       
       $data_reporting[[4]]
       $data_reporting[[4]]$name
-      [1] "MakeGroupInfo"
+      [1] "MakeLongMeta"
       
       $data_reporting[[4]]$output
       [1] "dfCTMSStudy"
@@ -463,13 +466,13 @@
       [1] "dfEnrolled"
       
       $data_reporting[[5]]$params$strQuery
-      [1] "SELECT siteid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT siteid) as SiteCount FROM df GROUP BY siteid"
+      [1] "SELECT invid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid"
       
       
       
       $data_reporting[[6]]
       $data_reporting[[6]]$name
-      [1] "MakeGroupInfo"
+      [1] "MakeLongMeta"
       
       $data_reporting[[6]]$output
       [1] "dfSiteCounts"
@@ -495,13 +498,13 @@
       [1] "dfEnrolled"
       
       $data_reporting[[7]]$params$strQuery
-      [1] "SELECT studyid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT siteid) as SiteCount FROM df GROUP BY studyid"
+      [1] "SELECT studyid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY studyid"
       
       
       
       $data_reporting[[8]]
       $data_reporting[[8]]$name
-      [1] "MakeGroupInfo"
+      [1] "MakeLongMeta"
       
       $data_reporting[[8]]$output
       [1] "dfStudyCounts"
@@ -527,13 +530,13 @@
       [1] "dfEnrolled"
       
       $data_reporting[[9]]$params$strQuery
-      [1] "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT siteid) as SiteCount FROM df GROUP BY country"
+      [1] "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country"
       
       
       
       $data_reporting[[10]]
       $data_reporting[[10]]$name
-      [1] "MakeGroupInfo"
+      [1] "MakeLongMeta"
       
       $data_reporting[[10]]$output
       [1] "dfCountryCounts"
@@ -574,7 +577,7 @@
       
       $data_reporting[[12]]
       $data_reporting[[12]]$name
-      [1] "MakeMetricInfo"
+      [1] "MakeMetric"
       
       $data_reporting[[12]]$output
       [1] "dfMetrics"
@@ -590,7 +593,7 @@
       [1] "BindResults"
       
       $data_reporting[[13]]$output
-      [1] "dfSummary"
+      [1] "dfResults"
       
       $data_reporting[[13]]$params
       $data_reporting[[13]]$params$lResults
@@ -609,23 +612,17 @@
       
       $data_reporting[[14]]
       $data_reporting[[14]]$name
-      [1] "BindResults"
+      [1] "MakeBounds"
       
       $data_reporting[[14]]$output
       [1] "dfBounds"
       
       $data_reporting[[14]]$params
-      $data_reporting[[14]]$params$lResults
-      [1] "lAnalysis"
+      $data_reporting[[14]]$params$dfResults
+      [1] "dfResults"
       
-      $data_reporting[[14]]$params$strName
-      [1] "dfBounds"
-      
-      $data_reporting[[14]]$params$dSnapshotDate
-      [1] "dSnapshotDate"
-      
-      $data_reporting[[14]]$params$strStudyID
-      [1] "strStudyID"
+      $data_reporting[[14]]$params$dfMetrics
+      [1] "dfMetrics"
       
       
       
@@ -659,13 +656,16 @@
       [1] "dfAE"
       
       $cou0001[[2]]$params$dfDenominator
-      [1] "dfSUBJ"
+      [1] "dfEnrolled"
       
       $cou0001[[2]]$params$strSubjectCol
       [1] "subjid"
       
       $cou0001[[2]]$params$strGroupCol
       [1] "country"
+      
+      $cou0001[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
       
       $cou0001[[2]]$params$strNumeratorMethod
       [1] "Count"
@@ -703,23 +703,20 @@
       [1] "dfTransformed"
       
       $cou0001[[4]]$params$strType
-      [1] "rate"
+      [1] "Type"
       
       
       
       $cou0001[[5]]
       $cou0001[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $cou0001[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $cou0001[[5]]$params
-      $cou0001[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $cou0001[[5]]$params$strType
-      [1] "rate"
+      $cou0001[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $cou0001[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -728,32 +725,16 @@
       
       $cou0001[[6]]
       $cou0001[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $cou0001[[6]]$output
-      [1] "dfFlagged"
-      
-      $cou0001[[6]]$params
-      $cou0001[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $cou0001[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $cou0001[[7]]
-      $cou0001[[7]]$name
       [1] "Summarize"
       
-      $cou0001[[7]]$output
+      $cou0001[[6]]$output
       [1] "dfSummary"
       
-      $cou0001[[7]]$params
-      $cou0001[[7]]$params$dfFlagged
+      $cou0001[[6]]$params
+      $cou0001[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $cou0001[[7]]$params$nMinDenominator
+      $cou0001[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -796,6 +777,9 @@
       $cou0002[[2]]$params$strGroupCol
       [1] "country"
       
+      $cou0002[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
       $cou0002[[2]]$params$strNumeratorMethod
       [1] "Count"
       
@@ -832,23 +816,20 @@
       [1] "dfTransformed"
       
       $cou0002[[4]]$params$strType
-      [1] "rate"
+      [1] "Type"
       
       
       
       $cou0002[[5]]
       $cou0002[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $cou0002[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $cou0002[[5]]$params
-      $cou0002[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $cou0002[[5]]$params$strType
-      [1] "rate"
+      $cou0002[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $cou0002[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -857,32 +838,16 @@
       
       $cou0002[[6]]
       $cou0002[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $cou0002[[6]]$output
-      [1] "dfFlagged"
-      
-      $cou0002[[6]]$params
-      $cou0002[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $cou0002[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $cou0002[[7]]
-      $cou0002[[7]]$name
       [1] "Summarize"
       
-      $cou0002[[7]]$output
+      $cou0002[[6]]$output
       [1] "dfSummary"
       
-      $cou0002[[7]]$params
-      $cou0002[[7]]$params$dfFlagged
+      $cou0002[[6]]$params
+      $cou0002[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $cou0002[[7]]$params$nMinDenominator
+      $cou0002[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -904,162 +869,98 @@
       
       $cou0003[[2]]
       $cou0003[[2]]$name
-      [1] "RunQuery"
+      [1] "Input_Rate"
       
       $cou0003[[2]]$output
-      [1] "dfSubjects"
+      [1] "dfInput"
       
       $cou0003[[2]]$params
-      $cou0003[[2]]$params$df
-      [1] "dfSUBJ"
+      $cou0003[[2]]$params$dfSubjects
+      [1] "dfEnrolled"
       
-      $cou0003[[2]]$params$strQuery
-      [1] "SELECT subjid as SubjectID, siteid as SiteID, country as CountryID, studyid as StudyID FROM df WHERE enrollyn == 'Y'"
+      $cou0003[[2]]$params$dfNumerator
+      [1] "dfNonimportantPD"
+      
+      $cou0003[[2]]$params$dfDenominator
+      [1] "dfEnrolled"
+      
+      $cou0003[[2]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $cou0003[[2]]$params$strGroupCol
+      [1] "country"
+      
+      $cou0003[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $cou0003[[2]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $cou0003[[2]]$params$strDenominatorMethod
+      [1] "Sum"
+      
+      $cou0003[[2]]$params$strDenominatorCol
+      [1] "timeonstudy"
       
       
       
       $cou0003[[3]]
       $cou0003[[3]]$name
-      [1] "RunQuery"
+      [1] "Transform_Rate"
       
       $cou0003[[3]]$output
-      [1] "dfDenominator"
+      [1] "dfTransformed"
       
       $cou0003[[3]]$params
-      $cou0003[[3]]$params$df
-      [1] "dfSUBJ"
-      
-      $cou0003[[3]]$params$strQuery
-      [1] "SELECT subjid as SubjectID, timeonstudy FROM df"
+      $cou0003[[3]]$params$dfInput
+      [1] "dfInput"
       
       
       
       $cou0003[[4]]
       $cou0003[[4]]$name
-      [1] "RunQuery"
+      [1] "Analyze_NormalApprox"
       
       $cou0003[[4]]$output
-      [1] "dfNumerator"
+      [1] "dfAnalyzed"
       
       $cou0003[[4]]$params
-      $cou0003[[4]]$params$df
-      [1] "dfPD"
+      $cou0003[[4]]$params$dfTransformed
+      [1] "dfTransformed"
       
-      $cou0003[[4]]$params$strQuery
-      [1] "SELECT subjectenrollmentnumber as SubjectID, * FROM df WHERE deemedimportant == 'No'"
+      $cou0003[[4]]$params$strType
+      [1] "Type"
       
       
       
       $cou0003[[5]]
       $cou0003[[5]]$name
-      [1] "Input_Rate"
+      [1] "Flag_NormalApprox"
       
       $cou0003[[5]]$output
-      [1] "dfInput"
+      [1] "dfFlagged"
       
       $cou0003[[5]]$params
-      $cou0003[[5]]$params$dfSubjects
-      [1] "dfEnrolled"
+      $cou0003[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
-      $cou0003[[5]]$params$dfNumerator
-      [1] "dfNonimportantPD"
-      
-      $cou0003[[5]]$params$dfDenominator
-      [1] "dfEnrolled"
-      
-      $cou0003[[5]]$params$strSubjectCol
-      [1] "subjid"
-      
-      $cou0003[[5]]$params$strGroupCol
-      [1] "country"
-      
-      $cou0003[[5]]$params$strNumeratorMethod
-      [1] "Count"
-      
-      $cou0003[[5]]$params$strDenominatorMethod
-      [1] "Sum"
-      
-      $cou0003[[5]]$params$strDenominatorCol
-      [1] "timeonstudy"
+      $cou0003[[5]]$params$vThreshold
+      [1] "vThreshold"
       
       
       
       $cou0003[[6]]
       $cou0003[[6]]$name
-      [1] "Transform_Rate"
-      
-      $cou0003[[6]]$output
-      [1] "dfTransformed"
-      
-      $cou0003[[6]]$params
-      $cou0003[[6]]$params$dfInput
-      [1] "dfInput"
-      
-      
-      
-      $cou0003[[7]]
-      $cou0003[[7]]$name
-      [1] "Analyze_NormalApprox"
-      
-      $cou0003[[7]]$output
-      [1] "dfAnalyzed"
-      
-      $cou0003[[7]]$params
-      $cou0003[[7]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $cou0003[[7]]$params$strType
-      [1] "rate"
-      
-      
-      
-      $cou0003[[8]]
-      $cou0003[[8]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
-      
-      $cou0003[[8]]$output
-      [1] "dfBounds"
-      
-      $cou0003[[8]]$params
-      $cou0003[[8]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $cou0003[[8]]$params$strType
-      [1] "rate"
-      
-      $cou0003[[8]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $cou0003[[9]]
-      $cou0003[[9]]$name
-      [1] "Flag_NormalApprox"
-      
-      $cou0003[[9]]$output
-      [1] "dfFlagged"
-      
-      $cou0003[[9]]$params
-      $cou0003[[9]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $cou0003[[9]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $cou0003[[10]]
-      $cou0003[[10]]$name
       [1] "Summarize"
       
-      $cou0003[[10]]$output
+      $cou0003[[6]]$output
       [1] "dfSummary"
       
-      $cou0003[[10]]$params
-      $cou0003[[10]]$params$dfFlagged
+      $cou0003[[6]]$params
+      $cou0003[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $cou0003[[10]]$params$nMinDenominator
+      $cou0003[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -1102,6 +1003,9 @@
       $cou0004[[2]]$params$strGroupCol
       [1] "country"
       
+      $cou0004[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
       $cou0004[[2]]$params$strNumeratorMethod
       [1] "Count"
       
@@ -1138,23 +1042,20 @@
       [1] "dfTransformed"
       
       $cou0004[[4]]$params$strType
-      [1] "rate"
+      [1] "Type"
       
       
       
       $cou0004[[5]]
       $cou0004[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $cou0004[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $cou0004[[5]]$params
-      $cou0004[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $cou0004[[5]]$params$strType
-      [1] "rate"
+      $cou0004[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $cou0004[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -1163,32 +1064,16 @@
       
       $cou0004[[6]]
       $cou0004[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $cou0004[[6]]$output
-      [1] "dfFlagged"
-      
-      $cou0004[[6]]$params
-      $cou0004[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $cou0004[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $cou0004[[7]]
-      $cou0004[[7]]$name
       [1] "Summarize"
       
-      $cou0004[[7]]$output
+      $cou0004[[6]]$output
       [1] "dfSummary"
       
-      $cou0004[[7]]$params
-      $cou0004[[7]]$params$dfFlagged
+      $cou0004[[6]]$params
+      $cou0004[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $cou0004[[7]]$params$nMinDenominator
+      $cou0004[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -1231,6 +1116,9 @@
       $cou0005[[2]]$params$strGroupCol
       [1] "country"
       
+      $cou0005[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
       $cou0005[[2]]$params$strNumeratorMethod
       [1] "Count"
       
@@ -1264,23 +1152,20 @@
       [1] "dfTransformed"
       
       $cou0005[[4]]$params$strType
-      [1] "binary"
+      [1] "Type"
       
       
       
       $cou0005[[5]]
       $cou0005[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $cou0005[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $cou0005[[5]]$params
-      $cou0005[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $cou0005[[5]]$params$strType
-      [1] "binary"
+      $cou0005[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $cou0005[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -1289,32 +1174,16 @@
       
       $cou0005[[6]]
       $cou0005[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $cou0005[[6]]$output
-      [1] "dfFlagged"
-      
-      $cou0005[[6]]$params
-      $cou0005[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $cou0005[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $cou0005[[7]]
-      $cou0005[[7]]$name
       [1] "Summarize"
       
-      $cou0005[[7]]$output
+      $cou0005[[6]]$output
       [1] "dfSummary"
       
-      $cou0005[[7]]$params
-      $cou0005[[7]]$params$dfFlagged
+      $cou0005[[6]]$params
+      $cou0005[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $cou0005[[7]]$params$nMinDenominator
+      $cou0005[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -1357,6 +1226,9 @@
       $cou0006[[2]]$params$strGroupCol
       [1] "country"
       
+      $cou0006[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
       $cou0006[[2]]$params$strNumeratorMethod
       [1] "Count"
       
@@ -1390,23 +1262,20 @@
       [1] "dfTransformed"
       
       $cou0006[[4]]$params$strType
-      [1] "binary"
+      [1] "Type"
       
       
       
       $cou0006[[5]]
       $cou0006[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $cou0006[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $cou0006[[5]]$params
-      $cou0006[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $cou0006[[5]]$params$strType
-      [1] "binary"
+      $cou0006[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $cou0006[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -1415,32 +1284,16 @@
       
       $cou0006[[6]]
       $cou0006[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $cou0006[[6]]$output
-      [1] "dfFlagged"
-      
-      $cou0006[[6]]$params
-      $cou0006[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $cou0006[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $cou0006[[7]]
-      $cou0006[[7]]$name
       [1] "Summarize"
       
-      $cou0006[[7]]$output
+      $cou0006[[6]]$output
       [1] "dfSummary"
       
-      $cou0006[[7]]$params
-      $cou0006[[7]]$params$dfFlagged
+      $cou0006[[6]]$params
+      $cou0006[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $cou0006[[7]]$params$nMinDenominator
+      $cou0006[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -1483,6 +1336,9 @@
       $cou0007[[2]]$params$strGroupCol
       [1] "country"
       
+      $cou0007[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
       $cou0007[[2]]$params$strNumeratorMethod
       [1] "Count"
       
@@ -1516,23 +1372,20 @@
       [1] "dfTransformed"
       
       $cou0007[[4]]$params$strType
-      [1] "binary"
+      [1] "Type"
       
       
       
       $cou0007[[5]]
       $cou0007[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $cou0007[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $cou0007[[5]]$params
-      $cou0007[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $cou0007[[5]]$params$strType
-      [1] "binary"
+      $cou0007[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $cou0007[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -1541,32 +1394,16 @@
       
       $cou0007[[6]]
       $cou0007[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $cou0007[[6]]$output
-      [1] "dfFlagged"
-      
-      $cou0007[[6]]$params
-      $cou0007[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $cou0007[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $cou0007[[7]]
-      $cou0007[[7]]$name
       [1] "Summarize"
       
-      $cou0007[[7]]$output
+      $cou0007[[6]]$output
       [1] "dfSummary"
       
-      $cou0007[[7]]$params
-      $cou0007[[7]]$params$dfFlagged
+      $cou0007[[6]]$params
+      $cou0007[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $cou0007[[7]]$params$nMinDenominator
+      $cou0007[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -1609,6 +1446,9 @@
       $cou0008[[2]]$params$strGroupCol
       [1] "country"
       
+      $cou0008[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
       $cou0008[[2]]$params$strNumeratorMethod
       [1] "Count"
       
@@ -1642,23 +1482,20 @@
       [1] "dfTransformed"
       
       $cou0008[[4]]$params$strType
-      [1] "rate"
+      [1] "Type"
       
       
       
       $cou0008[[5]]
       $cou0008[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $cou0008[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $cou0008[[5]]$params
-      $cou0008[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $cou0008[[5]]$params$strType
-      [1] "rate"
+      $cou0008[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $cou0008[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -1667,32 +1504,16 @@
       
       $cou0008[[6]]
       $cou0008[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $cou0008[[6]]$output
-      [1] "dfFlagged"
-      
-      $cou0008[[6]]$params
-      $cou0008[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $cou0008[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $cou0008[[7]]
-      $cou0008[[7]]$name
       [1] "Summarize"
       
-      $cou0008[[7]]$output
+      $cou0008[[6]]$output
       [1] "dfSummary"
       
-      $cou0008[[7]]$params
-      $cou0008[[7]]$params$dfFlagged
+      $cou0008[[6]]$params
+      $cou0008[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $cou0008[[7]]$params$nMinDenominator
+      $cou0008[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -1735,6 +1556,9 @@
       $cou0009[[2]]$params$strGroupCol
       [1] "country"
       
+      $cou0009[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
       $cou0009[[2]]$params$strNumeratorMethod
       [1] "Count"
       
@@ -1768,23 +1592,20 @@
       [1] "dfTransformed"
       
       $cou0009[[4]]$params$strType
-      [1] "binary"
+      [1] "Type"
       
       
       
       $cou0009[[5]]
       $cou0009[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $cou0009[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $cou0009[[5]]$params
-      $cou0009[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $cou0009[[5]]$params$strType
-      [1] "binary"
+      $cou0009[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $cou0009[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -1793,32 +1614,16 @@
       
       $cou0009[[6]]
       $cou0009[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $cou0009[[6]]$output
-      [1] "dfFlagged"
-      
-      $cou0009[[6]]$params
-      $cou0009[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $cou0009[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $cou0009[[7]]
-      $cou0009[[7]]$name
       [1] "Summarize"
       
-      $cou0009[[7]]$output
+      $cou0009[[6]]$output
       [1] "dfSummary"
       
-      $cou0009[[7]]$params
-      $cou0009[[7]]$params$dfFlagged
+      $cou0009[[6]]$params
+      $cou0009[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $cou0009[[7]]$params$nMinDenominator
+      $cou0009[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -1861,6 +1666,9 @@
       $cou0010[[2]]$params$strGroupCol
       [1] "country"
       
+      $cou0010[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
       $cou0010[[2]]$params$strNumeratorMethod
       [1] "Count"
       
@@ -1894,23 +1702,20 @@
       [1] "dfTransformed"
       
       $cou0010[[4]]$params$strType
-      [1] "binary"
+      [1] "Type"
       
       
       
       $cou0010[[5]]
       $cou0010[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $cou0010[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $cou0010[[5]]$params
-      $cou0010[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $cou0010[[5]]$params$strType
-      [1] "binary"
+      $cou0010[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $cou0010[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -1919,32 +1724,16 @@
       
       $cou0010[[6]]
       $cou0010[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $cou0010[[6]]$output
-      [1] "dfFlagged"
-      
-      $cou0010[[6]]$params
-      $cou0010[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $cou0010[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $cou0010[[7]]
-      $cou0010[[7]]$name
       [1] "Summarize"
       
-      $cou0010[[7]]$output
+      $cou0010[[6]]$output
       [1] "dfSummary"
       
-      $cou0010[[7]]$params
-      $cou0010[[7]]$params$dfFlagged
+      $cou0010[[6]]$params
+      $cou0010[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $cou0010[[7]]$params$nMinDenominator
+      $cou0010[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -1987,6 +1776,9 @@
       $cou0011[[2]]$params$strGroupCol
       [1] "country"
       
+      $cou0011[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
       $cou0011[[2]]$params$strNumeratorMethod
       [1] "Count"
       
@@ -2020,23 +1812,20 @@
       [1] "dfTransformed"
       
       $cou0011[[4]]$params$strType
-      [1] "binary"
+      [1] "Type"
       
       
       
       $cou0011[[5]]
       $cou0011[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $cou0011[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $cou0011[[5]]$params
-      $cou0011[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $cou0011[[5]]$params$strType
-      [1] "binary"
+      $cou0011[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $cou0011[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -2045,32 +1834,16 @@
       
       $cou0011[[6]]
       $cou0011[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $cou0011[[6]]$output
-      [1] "dfFlagged"
-      
-      $cou0011[[6]]$params
-      $cou0011[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $cou0011[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $cou0011[[7]]
-      $cou0011[[7]]$name
       [1] "Summarize"
       
-      $cou0011[[7]]$output
+      $cou0011[[6]]$output
       [1] "dfSummary"
       
-      $cou0011[[7]]$params
-      $cou0011[[7]]$params$dfFlagged
+      $cou0011[[6]]$params
+      $cou0011[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $cou0011[[7]]$params$nMinDenominator
+      $cou0011[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -2113,6 +1886,9 @@
       $cou0012[[2]]$params$strGroupCol
       [1] "country"
       
+      $cou0012[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
       $cou0012[[2]]$params$strNumeratorMethod
       [1] "Count"
       
@@ -2146,23 +1922,20 @@
       [1] "dfTransformed"
       
       $cou0012[[4]]$params$strType
-      [1] "binary"
+      [1] "Type"
       
       
       
       $cou0012[[5]]
       $cou0012[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $cou0012[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $cou0012[[5]]$params
-      $cou0012[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $cou0012[[5]]$params$strType
-      [1] "binary"
+      $cou0012[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $cou0012[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -2171,32 +1944,16 @@
       
       $cou0012[[6]]
       $cou0012[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $cou0012[[6]]$output
-      [1] "dfFlagged"
-      
-      $cou0012[[6]]$params
-      $cou0012[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $cou0012[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $cou0012[[7]]
-      $cou0012[[7]]$name
       [1] "Summarize"
       
-      $cou0012[[7]]$output
+      $cou0012[[6]]$output
       [1] "dfSummary"
       
-      $cou0012[[7]]$params
-      $cou0012[[7]]$params$dfFlagged
+      $cou0012[[6]]$params
+      $cou0012[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $cou0012[[7]]$params$nMinDenominator
+      $cou0012[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -2237,7 +1994,10 @@
       [1] "subjid"
       
       $kri0001[[2]]$params$strGroupCol
-      [1] "siteid"
+      [1] "invid"
+      
+      $kri0001[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
       
       $kri0001[[2]]$params$strNumeratorMethod
       [1] "Count"
@@ -2275,57 +2035,38 @@
       [1] "dfTransformed"
       
       $kri0001[[4]]$params$strType
-      [1] "rate"
+      [1] "Type"
       
       
       
       $kri0001[[5]]
       $kri0001[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $kri0001[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $kri0001[[5]]$params
-      $kri0001[[5]]$params$dfTransformed
-      [1] "dfTransformed"
+      $kri0001[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $kri0001[[5]]$params$vThreshold
       [1] "vThreshold"
-      
-      $kri0001[[5]]$params$strType
-      [1] "rate"
       
       
       
       $kri0001[[6]]
       $kri0001[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $kri0001[[6]]$output
-      [1] "dfFlagged"
-      
-      $kri0001[[6]]$params
-      $kri0001[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $kri0001[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $kri0001[[7]]
-      $kri0001[[7]]$name
       [1] "Summarize"
       
-      $kri0001[[7]]$output
+      $kri0001[[6]]$output
       [1] "dfSummary"
       
-      $kri0001[[7]]$params
-      $kri0001[[7]]$params$dfFlagged
+      $kri0001[[6]]$params
+      $kri0001[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $kri0001[[7]]$params$nMinDenominator
+      $kri0001[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -2366,7 +2107,10 @@
       [1] "subjid"
       
       $kri0002[[2]]$params$strGroupCol
-      [1] "siteid"
+      [1] "invid"
+      
+      $kri0002[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
       
       $kri0002[[2]]$params$strNumeratorMethod
       [1] "Count"
@@ -2404,23 +2148,20 @@
       [1] "dfTransformed"
       
       $kri0002[[4]]$params$strType
-      [1] "rate"
+      [1] "Type"
       
       
       
       $kri0002[[5]]
       $kri0002[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $kri0002[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $kri0002[[5]]$params
-      $kri0002[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $kri0002[[5]]$params$strType
-      [1] "rate"
+      $kri0002[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $kri0002[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -2429,32 +2170,16 @@
       
       $kri0002[[6]]
       $kri0002[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $kri0002[[6]]$output
-      [1] "dfFlagged"
-      
-      $kri0002[[6]]$params
-      $kri0002[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $kri0002[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $kri0002[[7]]
-      $kri0002[[7]]$name
       [1] "Summarize"
       
-      $kri0002[[7]]$output
+      $kri0002[[6]]$output
       [1] "dfSummary"
       
-      $kri0002[[7]]$params
-      $kri0002[[7]]$params$dfFlagged
+      $kri0002[[6]]$params
+      $kri0002[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $kri0002[[7]]$params$nMinDenominator
+      $kri0002[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -2495,7 +2220,10 @@
       [1] "subjid"
       
       $kri0003[[2]]$params$strGroupCol
-      [1] "siteid"
+      [1] "invid"
+      
+      $kri0003[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
       
       $kri0003[[2]]$params$strNumeratorMethod
       [1] "Count"
@@ -2533,23 +2261,20 @@
       [1] "dfTransformed"
       
       $kri0003[[4]]$params$strType
-      [1] "rate"
+      [1] "Type"
       
       
       
       $kri0003[[5]]
       $kri0003[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $kri0003[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $kri0003[[5]]$params
-      $kri0003[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $kri0003[[5]]$params$strType
-      [1] "rate"
+      $kri0003[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $kri0003[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -2558,32 +2283,16 @@
       
       $kri0003[[6]]
       $kri0003[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $kri0003[[6]]$output
-      [1] "dfFlagged"
-      
-      $kri0003[[6]]$params
-      $kri0003[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $kri0003[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $kri0003[[7]]
-      $kri0003[[7]]$name
       [1] "Summarize"
       
-      $kri0003[[7]]$output
+      $kri0003[[6]]$output
       [1] "dfSummary"
       
-      $kri0003[[7]]$params
-      $kri0003[[7]]$params$dfFlagged
+      $kri0003[[6]]$params
+      $kri0003[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $kri0003[[7]]$params$nMinDenominator
+      $kri0003[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -2624,7 +2333,10 @@
       [1] "subjid"
       
       $kri0004[[2]]$params$strGroupCol
-      [1] "siteid"
+      [1] "invid"
+      
+      $kri0004[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
       
       $kri0004[[2]]$params$strNumeratorMethod
       [1] "Count"
@@ -2662,23 +2374,20 @@
       [1] "dfTransformed"
       
       $kri0004[[4]]$params$strType
-      [1] "rate"
+      [1] "Type"
       
       
       
       $kri0004[[5]]
       $kri0004[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $kri0004[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $kri0004[[5]]$params
-      $kri0004[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $kri0004[[5]]$params$strType
-      [1] "rate"
+      $kri0004[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $kri0004[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -2687,32 +2396,16 @@
       
       $kri0004[[6]]
       $kri0004[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $kri0004[[6]]$output
-      [1] "dfFlagged"
-      
-      $kri0004[[6]]$params
-      $kri0004[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $kri0004[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $kri0004[[7]]
-      $kri0004[[7]]$name
       [1] "Summarize"
       
-      $kri0004[[7]]$output
+      $kri0004[[6]]$output
       [1] "dfSummary"
       
-      $kri0004[[7]]$params
-      $kri0004[[7]]$params$dfFlagged
+      $kri0004[[6]]$params
+      $kri0004[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $kri0004[[7]]$params$nMinDenominator
+      $kri0004[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -2753,7 +2446,10 @@
       [1] "subjid"
       
       $kri0005[[2]]$params$strGroupCol
-      [1] "siteid"
+      [1] "invid"
+      
+      $kri0005[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
       
       $kri0005[[2]]$params$strNumeratorMethod
       [1] "Count"
@@ -2788,23 +2484,20 @@
       [1] "dfTransformed"
       
       $kri0005[[4]]$params$strType
-      [1] "binary"
+      [1] "Type"
       
       
       
       $kri0005[[5]]
       $kri0005[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $kri0005[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $kri0005[[5]]$params
-      $kri0005[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $kri0005[[5]]$params$strType
-      [1] "binary"
+      $kri0005[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $kri0005[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -2813,32 +2506,16 @@
       
       $kri0005[[6]]
       $kri0005[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $kri0005[[6]]$output
-      [1] "dfFlagged"
-      
-      $kri0005[[6]]$params
-      $kri0005[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $kri0005[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $kri0005[[7]]
-      $kri0005[[7]]$name
       [1] "Summarize"
       
-      $kri0005[[7]]$output
+      $kri0005[[6]]$output
       [1] "dfSummary"
       
-      $kri0005[[7]]$params
-      $kri0005[[7]]$params$dfFlagged
+      $kri0005[[6]]$params
+      $kri0005[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $kri0005[[7]]$params$nMinDenominator
+      $kri0005[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -2879,7 +2556,10 @@
       [1] "subjid"
       
       $kri0006[[2]]$params$strGroupCol
-      [1] "siteid"
+      [1] "invid"
+      
+      $kri0006[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
       
       $kri0006[[2]]$params$strNumeratorMethod
       [1] "Count"
@@ -2914,23 +2594,20 @@
       [1] "dfTransformed"
       
       $kri0006[[4]]$params$strType
-      [1] "binary"
+      [1] "Type"
       
       
       
       $kri0006[[5]]
       $kri0006[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $kri0006[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $kri0006[[5]]$params
-      $kri0006[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $kri0006[[5]]$params$strType
-      [1] "binary"
+      $kri0006[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $kri0006[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -2939,32 +2616,16 @@
       
       $kri0006[[6]]
       $kri0006[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $kri0006[[6]]$output
-      [1] "dfFlagged"
-      
-      $kri0006[[6]]$params
-      $kri0006[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $kri0006[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $kri0006[[7]]
-      $kri0006[[7]]$name
       [1] "Summarize"
       
-      $kri0006[[7]]$output
+      $kri0006[[6]]$output
       [1] "dfSummary"
       
-      $kri0006[[7]]$params
-      $kri0006[[7]]$params$dfFlagged
+      $kri0006[[6]]$params
+      $kri0006[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $kri0006[[7]]$params$nMinDenominator
+      $kri0006[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -3005,7 +2666,10 @@
       [1] "subjid"
       
       $kri0007[[2]]$params$strGroupCol
-      [1] "siteid"
+      [1] "invid"
+      
+      $kri0007[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
       
       $kri0007[[2]]$params$strNumeratorMethod
       [1] "Count"
@@ -3040,23 +2704,20 @@
       [1] "dfTransformed"
       
       $kri0007[[4]]$params$strType
-      [1] "binary"
+      [1] "Type"
       
       
       
       $kri0007[[5]]
       $kri0007[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $kri0007[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $kri0007[[5]]$params
-      $kri0007[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $kri0007[[5]]$params$strType
-      [1] "binary"
+      $kri0007[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $kri0007[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -3065,32 +2726,16 @@
       
       $kri0007[[6]]
       $kri0007[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $kri0007[[6]]$output
-      [1] "dfFlagged"
-      
-      $kri0007[[6]]$params
-      $kri0007[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $kri0007[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $kri0007[[7]]
-      $kri0007[[7]]$name
       [1] "Summarize"
       
-      $kri0007[[7]]$output
+      $kri0007[[6]]$output
       [1] "dfSummary"
       
-      $kri0007[[7]]$params
-      $kri0007[[7]]$params$dfFlagged
+      $kri0007[[6]]$params
+      $kri0007[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $kri0007[[7]]$params$nMinDenominator
+      $kri0007[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -3131,7 +2776,10 @@
       [1] "subject_nsv"
       
       $kri0008[[2]]$params$strGroupCol
-      [1] "siteid"
+      [1] "invid"
+      
+      $kri0008[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
       
       $kri0008[[2]]$params$strNumeratorMethod
       [1] "Count"
@@ -3166,23 +2814,20 @@
       [1] "dfTransformed"
       
       $kri0008[[4]]$params$strType
-      [1] "rate"
+      [1] "Type"
       
       
       
       $kri0008[[5]]
       $kri0008[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $kri0008[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $kri0008[[5]]$params
-      $kri0008[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $kri0008[[5]]$params$strType
-      [1] "rate"
+      $kri0008[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $kri0008[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -3191,32 +2836,16 @@
       
       $kri0008[[6]]
       $kri0008[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $kri0008[[6]]$output
-      [1] "dfFlagged"
-      
-      $kri0008[[6]]$params
-      $kri0008[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $kri0008[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $kri0008[[7]]
-      $kri0008[[7]]$name
       [1] "Summarize"
       
-      $kri0008[[7]]$output
+      $kri0008[[6]]$output
       [1] "dfSummary"
       
-      $kri0008[[7]]$params
-      $kri0008[[7]]$params$dfFlagged
+      $kri0008[[6]]$params
+      $kri0008[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $kri0008[[7]]$params$nMinDenominator
+      $kri0008[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -3257,7 +2886,10 @@
       [1] "subject_nsv"
       
       $kri0009[[2]]$params$strGroupCol
-      [1] "siteid"
+      [1] "invid"
+      
+      $kri0009[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
       
       $kri0009[[2]]$params$strNumeratorMethod
       [1] "Count"
@@ -3292,23 +2924,20 @@
       [1] "dfTransformed"
       
       $kri0009[[4]]$params$strType
-      [1] "binary"
+      [1] "Type"
       
       
       
       $kri0009[[5]]
       $kri0009[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $kri0009[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $kri0009[[5]]$params
-      $kri0009[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $kri0009[[5]]$params$strType
-      [1] "binary"
+      $kri0009[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $kri0009[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -3317,32 +2946,16 @@
       
       $kri0009[[6]]
       $kri0009[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $kri0009[[6]]$output
-      [1] "dfFlagged"
-      
-      $kri0009[[6]]$params
-      $kri0009[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $kri0009[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $kri0009[[7]]
-      $kri0009[[7]]$name
       [1] "Summarize"
       
-      $kri0009[[7]]$output
+      $kri0009[[6]]$output
       [1] "dfSummary"
       
-      $kri0009[[7]]$params
-      $kri0009[[7]]$params$dfFlagged
+      $kri0009[[6]]$params
+      $kri0009[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $kri0009[[7]]$params$nMinDenominator
+      $kri0009[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -3383,7 +2996,10 @@
       [1] "subject_nsv"
       
       $kri0010[[2]]$params$strGroupCol
-      [1] "siteid"
+      [1] "invid"
+      
+      $kri0010[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
       
       $kri0010[[2]]$params$strNumeratorMethod
       [1] "Count"
@@ -3418,23 +3034,20 @@
       [1] "dfTransformed"
       
       $kri0010[[4]]$params$strType
-      [1] "binary"
+      [1] "Type"
       
       
       
       $kri0010[[5]]
       $kri0010[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $kri0010[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $kri0010[[5]]$params
-      $kri0010[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $kri0010[[5]]$params$strType
-      [1] "binary"
+      $kri0010[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $kri0010[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -3443,32 +3056,16 @@
       
       $kri0010[[6]]
       $kri0010[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $kri0010[[6]]$output
-      [1] "dfFlagged"
-      
-      $kri0010[[6]]$params
-      $kri0010[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $kri0010[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $kri0010[[7]]
-      $kri0010[[7]]$name
       [1] "Summarize"
       
-      $kri0010[[7]]$output
+      $kri0010[[6]]$output
       [1] "dfSummary"
       
-      $kri0010[[7]]$params
-      $kri0010[[7]]$params$dfFlagged
+      $kri0010[[6]]$params
+      $kri0010[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $kri0010[[7]]$params$nMinDenominator
+      $kri0010[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -3509,7 +3106,10 @@
       [1] "subject_nsv"
       
       $kri0011[[2]]$params$strGroupCol
-      [1] "siteid"
+      [1] "invid"
+      
+      $kri0011[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
       
       $kri0011[[2]]$params$strNumeratorMethod
       [1] "Count"
@@ -3544,23 +3144,20 @@
       [1] "dfTransformed"
       
       $kri0011[[4]]$params$strType
-      [1] "binary"
+      [1] "Type"
       
       
       
       $kri0011[[5]]
       $kri0011[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $kri0011[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $kri0011[[5]]$params
-      $kri0011[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $kri0011[[5]]$params$strType
-      [1] "binary"
+      $kri0011[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $kri0011[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -3569,32 +3166,16 @@
       
       $kri0011[[6]]
       $kri0011[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $kri0011[[6]]$output
-      [1] "dfFlagged"
-      
-      $kri0011[[6]]$params
-      $kri0011[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $kri0011[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $kri0011[[7]]
-      $kri0011[[7]]$name
       [1] "Summarize"
       
-      $kri0011[[7]]$output
+      $kri0011[[6]]$output
       [1] "dfSummary"
       
-      $kri0011[[7]]$params
-      $kri0011[[7]]$params$dfFlagged
+      $kri0011[[6]]$params
+      $kri0011[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $kri0011[[7]]$params$nMinDenominator
+      $kri0011[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -3635,7 +3216,10 @@
       [1] "subjectid"
       
       $kri0012[[2]]$params$strGroupCol
-      [1] "siteid"
+      [1] "invid"
+      
+      $kri0012[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
       
       $kri0012[[2]]$params$strNumeratorMethod
       [1] "Count"
@@ -3670,23 +3254,20 @@
       [1] "dfTransformed"
       
       $kri0012[[4]]$params$strType
-      [1] "binary"
+      [1] "Type"
       
       
       
       $kri0012[[5]]
       $kri0012[[5]]$name
-      [1] "Analyze_NormalApprox_PredictBounds"
+      [1] "Flag_NormalApprox"
       
       $kri0012[[5]]$output
-      [1] "dfBounds"
+      [1] "dfFlagged"
       
       $kri0012[[5]]$params
-      $kri0012[[5]]$params$dfTransformed
-      [1] "dfTransformed"
-      
-      $kri0012[[5]]$params$strType
-      [1] "binary"
+      $kri0012[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
       
       $kri0012[[5]]$params$vThreshold
       [1] "vThreshold"
@@ -3695,32 +3276,16 @@
       
       $kri0012[[6]]
       $kri0012[[6]]$name
-      [1] "Flag_NormalApprox"
-      
-      $kri0012[[6]]$output
-      [1] "dfFlagged"
-      
-      $kri0012[[6]]$params
-      $kri0012[[6]]$params$dfAnalyzed
-      [1] "dfAnalyzed"
-      
-      $kri0012[[6]]$params$vThreshold
-      [1] "vThreshold"
-      
-      
-      
-      $kri0012[[7]]
-      $kri0012[[7]]$name
       [1] "Summarize"
       
-      $kri0012[[7]]$output
+      $kri0012[[6]]$output
       [1] "dfSummary"
       
-      $kri0012[[7]]$params
-      $kri0012[[7]]$params$dfFlagged
+      $kri0012[[6]]$params
+      $kri0012[[6]]$params$dfFlagged
       [1] "dfFlagged"
       
-      $kri0012[[7]]$params$nMinDenominator
+      $kri0012[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -3873,6 +3438,52 @@
       
       
       
+      $reports
+      $reports[[1]]
+      $reports[[1]]$name
+      [1] "MakeCharts"
+      
+      $reports[[1]]$output
+      [1] "lCharts"
+      
+      $reports[[1]]$params
+      $reports[[1]]$params$dfResults
+      [1] "dfResults"
+      
+      $reports[[1]]$params$dfGroups
+      [1] "dfGroups"
+      
+      $reports[[1]]$params$dfBounds
+      [1] "dfBounds"
+      
+      $reports[[1]]$params$dfMetrics
+      [1] "dfMetrics"
+      
+      
+      
+      $reports[[2]]
+      $reports[[2]]$name
+      [1] "Report_KRI"
+      
+      $reports[[2]]$output
+      [1] "lReport"
+      
+      $reports[[2]]$params
+      $reports[[2]]$params$lCharts
+      [1] "lCharts"
+      
+      $reports[[2]]$params$dfResults
+      [1] "dfResults"
+      
+      $reports[[2]]$params$dfGroups
+      [1] "dfGroups"
+      
+      $reports[[2]]$params$dfMetrics
+      [1] "dfMetrics"
+      
+      
+      
+      
       $snapshot
       $snapshot[[1]]
       $snapshot[[1]]$name
@@ -3915,7 +3526,7 @@
       
       $snapshot[[3]]$params
       $snapshot[[3]]$params$strNames
-      [1] "kri"
+      [1] "Metrics"
       
       
       
@@ -3959,7 +3570,7 @@
       [1] "MakeWorkflowList"
       
       $snapshot[[6]]$output
-      [1] "wf_reporting"
+      [1] "wf_reporting_data"
       
       $snapshot[[6]]$params
       $snapshot[[6]]$params$strNames
@@ -3976,12 +3587,44 @@
       
       $snapshot[[7]]$params
       $snapshot[[7]]$params$lWorkflows
-      [1] "wf_reporting"
+      [1] "wf_reporting_data"
       
       $snapshot[[7]]$params$lData
       [1] "lData"
       
       $snapshot[[7]]$params$bKeepInputData
+      [1] FALSE
+      
+      
+      
+      $snapshot[[8]]
+      $snapshot[[8]]$name
+      [1] "MakeWorkflowList"
+      
+      $snapshot[[8]]$output
+      [1] "wf_reports"
+      
+      $snapshot[[8]]$params
+      $snapshot[[8]]$params$strNames
+      [1] "reports"
+      
+      
+      
+      $snapshot[[9]]
+      $snapshot[[9]]$name
+      [1] "RunWorkflows"
+      
+      $snapshot[[9]]$output
+      [1] "lReports"
+      
+      $snapshot[[9]]$params
+      $snapshot[[9]]$params$lWorkflows
+      [1] "wf_reports"
+      
+      $snapshot[[9]]$params$lData
+      [1] "lReporting"
+      
+      $snapshot[[9]]$params$bKeepInputData
       [1] FALSE
       
       

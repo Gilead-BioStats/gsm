@@ -7,7 +7,8 @@
 Analyze_Poisson(dfTransformed)
 }
 \arguments{
-\item{dfTransformed}{data.frame in format produced by \code{\link{Transform_Rate}}. Must include GroupID, Numerator, Denominator and Metric.}
+\item{dfTransformed}{\code{data.frame} Transformed data for analysis. Data should have one record per site with expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, and \code{Metric}. For more details see the Data Pipeline vignette: \code{vignette("DataPipeline", package = "gsm")}.
+For this function, \code{dfTransformed} should typically be created using \code{\link[=Transform_Rate]{Transform_Rate()}}.}
 }
 \value{
 \code{data.frame} with one row per site with columns: GroupID, Numerator, Denominator, Metric, Score, and PredictedCount.
@@ -29,20 +30,8 @@ The Poisson model is run using standard methods in the \code{stats} package by f
 set to \code{poisson} using a "log" link. Site-level residuals are calculated using \code{stats::predict.glm} via \code{broom::augment}.
 }
 
-\section{Data Specification}{
-
-
-The input data (\code{dfTransformed}) for \code{Analyze_Poisson} is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
-\itemize{
-\item \code{GroupID} - Site ID
-\item \code{Numerator} - Number of Adverse Events
-\item \code{Denominator} - Number of days of exposure
-\item \code{Metric} - Rate of exposure (Numerator / Denominator)
-}
-}
-
 \examples{
-dfTransformed <- Transform_Rate(sampleInput)
+dfTransformed <- Transform_Rate(analyticsInput)
 
 dfAnalyzed <- Analyze_Poisson(dfTransformed)
 

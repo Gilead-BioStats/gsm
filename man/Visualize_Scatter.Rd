@@ -5,7 +5,7 @@
 \title{Group-level visualization of group-level results}
 \usage{
 Visualize_Scatter(
-  dfSummary,
+  dfResults,
   dfBounds = NULL,
   strGroupCol = NULL,
   strGroupLabel = NULL,
@@ -14,9 +14,9 @@ Visualize_Scatter(
 )
 }
 \arguments{
-\item{dfSummary}{\code{data.frame} returned by \code{\link[=Summarize]{Summarize()}}}
+\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
 
-\item{dfBounds}{\code{data.frame} data.frame giving prediction bounds for range of denominator in dfSummary.}
+\item{dfBounds}{\code{data.frame} data.frame giving prediction bounds for range of denominator in dfResults.}
 
 \item{strGroupCol}{\code{character} name of stratification column for facet wrap Default: \code{NULL}}
 

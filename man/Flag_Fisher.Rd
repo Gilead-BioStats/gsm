@@ -37,7 +37,7 @@ The following columns are considered required:
 }
 
 \examples{
-dfTransformed <- Transform_Rate(sampleInput)
+dfTransformed <- Transform_Rate(analyticsInput)
 
 dfAnalyzed <- Analyze_Poisson(dfTransformed)
 

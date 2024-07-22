@@ -1,38 +1,32 @@
-test_that("Widget_ScatterPlot handles dfSummary correctly", {
-  dfSummary <- data.frame(GroupID = 1:3, Metric = 4:6, stringsAsFactors = FALSE)
-  lLabels <- list(Group = "TestGroup")
-
-  widget <- Widget_ScatterPlot(dfSummary, lLabels)
+test_that("Widget_ScatterPlot handles dfResults correctly", {
+  widget <- Widget_ScatterPlot(reportingResults,
+                               reportingMetrics %>% as.list())
 
   expect_true(inherits(widget, "htmlwidget"))
   expect_true("Widget_ScatterPlot" %in% class(widget))
 
-  widget_data <- widget$x$dfSummary
-  dfSummary_json <- jsonlite::toJSON(dfSummary, na = "string")
+  widget_data <- widget$x$dfResults
+  dfSummary_json <- jsonlite::toJSON(reportingResults, na = "string")
 
   expect_equal(widget_data, dfSummary_json)
 })
 
 test_that("Widget_ScatterPlot processes dfBounds correctly", {
-  dfSummary <- data.frame(GroupID = 1:3, Metric = 4:6, stringsAsFactors = FALSE)
-  lLabels <- list(Group = "TestGroup")
-  dfBounds <- data.frame(BoundID = c(1, 2, 3), Threshold = c(10, 20, 30), stringsAsFactors = FALSE)
+  widget <- Widget_ScatterPlot(reportingResults,
+                               reportingMetrics %>% as.list(),
+                               dfBounds = reportingBounds)
 
-  widget <- Widget_ScatterPlot(dfSummary, lLabels, dfBounds = dfBounds)
-
-  dfBounds_json <- jsonlite::toJSON(dfBounds)
+  dfBounds_json <- jsonlite::toJSON(reportingBounds)
   expect_equal(widget$x$dfBounds, dfBounds_json)
 })
 
-test_that("Widget_ScatterPlot processes dfSite correctly", {
-  dfSummary <- data.frame(GroupID = 1:3, Metric = 4:6, stringsAsFactors = FALSE)
-  lLabels <- list(Group = "TestGroup")
-  dfSite <- data.frame(SiteID = c(1, 2, 3), stringsAsFactors = FALSE)
+test_that("Widget_ScatterPlot processes dfGroups correctly", {
+  widget <- Widget_ScatterPlot(dfResults = reportingResults,
+                               lMetric = reportingMetrics %>% as.list(),
+                               dfGroups = reportingGroups)
 
-  widget <- Widget_ScatterPlot(dfSummary, lLabels, dfGroups = dfSite)
-
-  dfSite_json <- jsonlite::toJSON(dfSite, na = "string")
-  expect_equal(widget$x$dfGroups, dfSite_json)
+  dfGroups_json <- jsonlite::toJSON(reportingGroups, na = "string")
+  expect_equal(widget$x$dfGroups, dfGroups_json)
 })
 
 

@@ -1,3 +1,15 @@
+meta:
+  File: qtl0006.yaml
+  MetricID: qtl0006
+  GroupLevel: Study
+  Abbreviation: SDSC
+  Metric: Study Discontinuation Rate
+  Numerator: Subjects Discontinued - Study
+  Denominator: Enrolled Subjects
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
+  strThreshold: 0.1
+  nMinDenominator: 3
 steps:
   - name: FilterDomain
     inputs: dfSUBJ

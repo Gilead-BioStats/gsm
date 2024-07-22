@@ -40,7 +40,7 @@ In short, the following columns are considered:
 }
 
 \examples{
-dfTransformed <- Transform_Rate(sampleInput)
+dfTransformed <- Transform_Rate(analyticsInput)
 
 # Binary
 dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "binary")

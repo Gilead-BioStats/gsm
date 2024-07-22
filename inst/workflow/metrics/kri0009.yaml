@@ -1,13 +1,14 @@
 meta:
   File: kri0009.yaml
   MetricID: kri0009
-  GroupLevel: site
+  GroupLevel: Site
   Abbreviation: OQRY
   Metric: Outstanding Query Rate
   Numerator: Queries Open > 30 Days
   Denominator: Total Queries
   Model: Normal Approximation
   Score: Adjusted Z-Score
+  Type: binary
   strThreshold: -3,-2,2,3
   nMinDenominator: 30
 steps:
@@ -22,7 +23,8 @@ steps:
       dfNumerator: dfOldValidQueries
       dfDenominator: dfValidQueries
       strSubjectCol: subject_nsv
-      strGroupCol: siteid
+      strGroupCol: invid
+      strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count
   - name: Transform_Rate
@@ -33,13 +35,7 @@ steps:
     output: dfAnalyzed
     params:
       dfTransformed: dfTransformed
-      strType: binary
-  - name: Analyze_NormalApprox_PredictBounds
-    output: dfBounds
-    params:
-      dfTransformed: dfTransformed
-      strType: binary
-      vThreshold: vThreshold
+      strType: Type
   - name: Flag_NormalApprox
     output: dfFlagged
     params:

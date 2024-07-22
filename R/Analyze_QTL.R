@@ -9,17 +9,8 @@
 #'
 #' TODO Coming soon ...
 #'
-#' @section Data Specification:
-#'
-#' The input data (`dfTransformed`) for `Analyze_QTL` is typically created using \code{\link{Transform_Rate}} and should be one record for the entire study with required columns for:
-#' - `GroupID` - GroupID should be the StudyID
-#' - `GroupLevel` - Group Type
-#' - `N` - Total number of participants at site
-#' - `Numerator` - Total number of participants at site with event of interest
-#' - `Denominator` - Total number of participants at a site
-#' - `Metric` - Proportion of participants at site with event of interest
-#'
-#' @param dfTransformed `data.frame` in format produced by \code{\link{Transform_Rate}}
+#' @param dfTransformed `r gloss_param("dfTransformed")`
+#'   `r gloss_extra("dfTransformed_Rate")`
 #' @param nConfLevel `numeric` specified confidence interval for QTL analysis.
 #' @param strOutcome `character` indicates statistical test used for QTL analysis. One of `rate` or `binary`.
 #'

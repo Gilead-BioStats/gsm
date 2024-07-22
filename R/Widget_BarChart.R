@@ -6,9 +6,9 @@
 #' A widget that generates a bar chart of group-level metric results, plotting groups on the x-axis
 #' and the outcome (numerator, denominator, metric, or score) on the y-axis.
 #'
-#' @param dfSummary `data.frame` Output of [Summarize()].
+#' @inheritParams shared-params
 #' @param lMetric `list` Metric metadata, captured at the top of metric workflows and returned by
-#' [MakeMetricInfo()].
+#' [MakeMetric()].
 #' @param dfGroups `data.frame` Group metadata.
 #' @param vThreshold `numeric` Threshold values.
 #' @param strOutcome `character` Outcome variable. Default: 'Score'.
@@ -19,26 +19,33 @@
 #' \dontrun{
 #'
 #' Widget_BarChart(
-#'     dfResults = sampleResults,
-#'     lMetric = sampleMetrics,
-#'     dfGroups = dfGroups,
-#'     vThreshold = lMetricWorkflow$meta$vThreshold
+#'     dfResults = reportingResults,
+#'     lMetric = reportingMetrics,
+#'     dfGroups = reportingGroups,
+#'     vThreshold = reportingMetrics$strThreshold
 #' )
 #' }
 #' @export
 
 Widget_BarChart <- function(
-  dfSummary,
-  lMetric,
+  dfResults,
+  lMetric = list(), # TODO: coerce list to object instead of array with jsonlite::toJSON()
   dfGroups = NULL,
   vThreshold = NULL,
   strOutcome = 'Score',
   bAddGroupSelect = TRUE,
   bDebug = FALSE
 ) {
+    # Parse `vThreshold` from comma-delimited character string to numeric vector.
+    if (!is.null(vThreshold)) {
+        if (is.character(vThreshold)) {
+            vThreshold <- strsplit(vThreshold, ',')[[1]] %>% as.numeric()
+        }
+    }
+
   # define widget inputs
   input <- list(
-    dfSummary = dfSummary,
+    dfResults = dfResults,
     lMetric = lMetric,
     dfGroups = dfGroups,
     vThreshold = vThreshold,

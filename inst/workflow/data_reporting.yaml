@@ -7,8 +7,8 @@ steps:
     output: dfCTMSSiteWide
     params:
       df: ctms_site
-      strQuery: "SELECT site_num as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df"
-  - name: MakeGroupInfo
+      strQuery: "SELECT pi_number as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df"
+  - name: MakeLongMeta
     output: dfCTMSSite
     params:
       data: dfCTMSSiteWide
@@ -18,19 +18,19 @@ steps:
     params:
       df: ctms_study
       strQuery: "SELECT protocol_number as GroupID, status as Status, * FROM df"
-  - name: MakeGroupInfo
+  - name: MakeLongMeta
     output: dfCTMSStudy
     params:
       data: dfCTMSStudyWide
       strGroupLevel: "Study"
 
-  # Get Particiapnt and Site counts for Country, Site and Study
+  # Get Participant and Site counts for Country, Site and Study
   - name: RunQuery
     output: dfSiteCountsWide
     params:
       df: dfEnrolled
-      strQuery: "SELECT siteid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT siteid) as SiteCount FROM df GROUP BY siteid"
-  - name: MakeGroupInfo
+      strQuery: "SELECT invid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid"
+  - name: MakeLongMeta
     output: dfSiteCounts
     params:
       data: dfSiteCountsWide
@@ -39,8 +39,8 @@ steps:
     output: dfStudyCountsWide
     params:
       df: dfEnrolled
-      strQuery: "SELECT studyid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT siteid) as SiteCount FROM df GROUP BY studyid"
-  - name: MakeGroupInfo
+      strQuery: "SELECT studyid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY studyid"
+  - name: MakeLongMeta
     output: dfStudyCounts
     params:
       data: dfStudyCountsWide
@@ -49,13 +49,13 @@ steps:
     output: dfCountryCountsWide
     params:
       df: dfEnrolled
-      strQuery: "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT siteid) as SiteCount FROM df GROUP BY country"
-  - name: MakeGroupInfo
+      strQuery: "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country"
+  - name: MakeLongMeta
     output: dfCountryCounts
     params:
       data: dfCountryCountsWide
       strGroupLevel: "Country"
-  # Combine CTMS and Counts data as dfGroups
+  # Combine CTMS and Counts data as dfMeta
   - name: bind_rows
     output: dfGroups
     params:
@@ -65,27 +65,25 @@ steps:
       Site: dfCTMSSite
       Study: dfCTMSStudy
 # Create Metric Medatadata
-  - name: MakeMetricInfo
+  - name: MakeMetric
     output: dfMetrics
     params:
       lWorkflows: lWorkflows
 
-# Create Results Data
+# Stack dfSummary data into dfResults
   - name: BindResults
-    output: dfSummary
+    output: dfResults
     params:
       lResults: lAnalysis
       strName: "dfSummary"
       dSnapshotDate: dSnapshotDate
       strStudyID: strStudyID
-  - name: BindResults
+
+# Calculate Bounds for confidence intervals
+  - name: MakeBounds
     output: dfBounds
     params:
-      lResults: lAnalysis
-      strName: "dfBounds"
-      dSnapshotDate: dSnapshotDate
-      strStudyID: strStudyID
-
-
+      dfResults: dfResults
+      dfMetrics: dfMetrics
 
 

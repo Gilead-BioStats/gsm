@@ -11,17 +11,8 @@
 #' predicted percentages/rates and upper- and lower- bounds (funnels) based on the standard deviation from the mean
 #' across the full range of sample sizes/total exposure values.
 #'
-#' @section Data Specification:
-#'
-#' The input data (`dfTransformed`) for `Analyze_NormalApprox_PredictBounds` is typically created using
-#' \code{\link{Transform_Rate}} and should be one record per site with columns for:
-#' - `GroupID` - Site ID
-#' - `GroupLevel` - Group Type
-#' - `Numerator` - Total number of participants at site with event of interest/Total number of events of interest at site
-#' - `Denominator` - Total number of participants at site/Total number of days of exposure at site
-#' - `Metric` - Proportion of participants at site with event of interest/Rate of events at site (Numerator / Denominator)
-#'
-#' @param dfTransformed `data.frame` in format produced by \code{\link{Transform_Rate}}.
+#' @param dfTransformed `r gloss_param("dfTransformed")`
+#'   `r gloss_extra("dfTransformed_Rate")`
 #' @param vThreshold `numeric` upper and lower boundaries based on standard deviation. Should be identical to
 #' the thresholds used in `*_Assess()` functions.
 #' @param nStep `numeric` step size of imputed bounds.
@@ -34,7 +25,7 @@
 #'
 #' @examples
 #' # Binary
-#' dfTransformed <- Transform_Rate(sampleInput)
+#' dfTransformed <- Transform_Rate(analyticsInput)
 #'
 #' dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "binary")
 #' dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed, c(-3, -2, 2, 3), strType = "binary")
@@ -53,20 +44,26 @@ Analyze_NormalApprox_PredictBounds <- function(
 ) {
   if (is.null(vThreshold)) {
     vThreshold <- c(-3, -2, 2, 3)
-    cli::cli_alert("vThreshold was not provided. Setting default threshold to {vThreshold}")
+    cli::cli_inform(
+      "vThreshold was not provided. Setting default threshold to {vThreshold}.",
+      class = "gsm_msg-default_vThreshold"
+    )
   }
 
   # Set [ nStep ] to the range of the denominator divided by 250.
   if (is.null(nStep)) {
     nRange <- max(dfTransformed$Denominator) - min(dfTransformed$Denominator)
 
-    if (!is.null(nRange) & !is.na(nRange) & nRange != 0) {
+    if (!is.null(nRange) && !is.na(nRange) && nRange != 0) {
       nStep <- nRange / 250
     } else {
       nStep <- 1
     }
 
-    cli::cli_alert("nStep was not provided. Setting default step to {nStep}")
+    cli::cli_inform(
+      "nStep was not provided. Setting default step to {nStep}.",
+      class = "gsm_msg-default_nStep"
+    )
 
   }
 

@@ -6,9 +6,9 @@
 #' A widget that generates a time series of group-level metric results over time, plotting snapshot
 #' date on the x-axis and the outcome (numerator, denominator, metric, or score) on the y-axis.
 #'
-#' @param dfSummary `data.frame` Output of [Summarize()]. Must contain a 'SnapshotDate' column.
+#' @inheritParams shared-params
 #' @param lMetric `list` Metric metadata, captured at the top of metric workflows and returned by
-#' [MakeMetricInfo()].
+#' [MakeMetric()].
 #' @param dfGroups `data.frame` Group metadata.
 #' @param vThreshold `numeric` Threshold value(s).
 #' @param strOutcome `character` Outcome variable. Default: 'Score'.
@@ -19,24 +19,24 @@
 #' \dontrun{
 #'
 #' Widget_TimeSeries(
-#'     dfResults = sampleResults,
-#'     lMetric = sampleMetrics %>% as.list(),
-#'     dfGroups = sampleGroupsGroups,
+#'     dfResults = reportingResults,
+#'     lMetric = reportingMetrics %>% as.list(),
+#'     dfGroups = reportingGroups,
 #'     vThreshold = c(-3,-2,2,3)
 #' )
 #' # show metric outcome
 #' Widget_TimeSeries(
-#'     dfResults = sampleResults,
-#'     lMetric = sampleMetrics %>% as.list(),
-#'     dfGroups = sampleGroupsGroups,
+#'     dfResults = reportingResults,
+#'     lMetric = reportingMetrics %>% as.list(),
+#'     dfGroups = reportingGroups,
 #'     vThreshold = c(-3,-2,2,3),
-#'     strCoutcome = "Metric"
+#'     strOutcome = "Metric"
 #' )
 #' }
 #' @export
 
 Widget_TimeSeries <- function(
-  dfSummary,
+  dfResults,
   lMetric,
   dfGroups = NULL,
   vThreshold = NULL,
@@ -44,9 +44,16 @@ Widget_TimeSeries <- function(
   bAddGroupSelect = TRUE,
   bDebug = FALSE
 ) {
+    # Parse `vThreshold` from comma-delimited character string to numeric vector.
+    if (!is.null(vThreshold)) {
+        if (is.character(vThreshold)) {
+            vThreshold <- strsplit(vThreshold, ',')[[1]] %>% as.numeric()
+        }
+    }
+print(vThreshold)
   # define widget inputs
   input <- list(
-    dfSummary = dfSummary,
+    dfResults = dfResults,
     lMetric = lMetric,
     dfGroups = dfGroups,
     vThreshold = vThreshold,

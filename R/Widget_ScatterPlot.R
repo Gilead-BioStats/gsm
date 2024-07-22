@@ -6,9 +6,9 @@
 #' A widget that generates a scatter plot of group-level metric results, plotting the denominator
 #' on the x-axis and the numerator on the y-axis.
 #'
-#' @param dfSummary `data.frame` Output of [Summarize()].
+#' @inheritParams shared-params
 #' @param lMetric `list` Metric metadata, captured at the top of metric workflows and returned by
-#' [MakeMetricInfo()].
+#' [MakeMetric()].
 #' @param dfGroups `data.frame` Group metadata.
 #' @param dfBounds `data.frame` Output of [Analyze_NormalApprox_PredictBounds()] or
 #' [Analyze_Poisson_PredictBounds()]
@@ -17,55 +17,18 @@
 #'
 #' @examples
 #' \dontrun{
-#' lDataRaw <- list(
-#'     dfSTUDY = clindata::ctms_study,
-#'     dfSITE = clindata::ctms_site,
-#'     dfSUBJ = clindata::rawplus_dm,
-#'     dfAE = clindata::rawplus_ae
-#' )
-#'
-#' lMappingWorkflow <- MakeWorkflowList('mapping')$mapping
-#'
-#' lMappingWorkflow$steps <- lMappingWorkflow$steps %>%
-#'     purrr::keep(~ .x$params$df %in% names(lDataRaw))
-#'
-#' lDataMapped <- RunWorkflow(
-#'     lMappingWorkflow,
-#'     lDataRaw
-#' )$lData
-#'
-#' strMetricID <- 'kri0001'
-#' lMetricWorkflow <- MakeWorkflowList(strMetricID)[[ strMetricID ]]
-#'
-#' lResults <- RunWorkflow(
-#'     lMetricWorkflow,
-#'     lDataMapped
-#' )
-#'
-#' dfGroups <- clindata::ctms_site %>%
-#'     left_join(
-#'         lDataMapped$dfEnrolled %>%
-#'             group_by(siteid) %>%
-#'             tally(name = 'enrolled_participants'),
-#'         c('site_num' = 'siteid')
-#'     ) %>%
-#'     rename(
-#'         SiteID = site_num,
-#'         status = site_status
-#'     )
-#'
 #' Widget_ScatterPlot(
-#'     dfSummary = lResults$lData$dfSummary,
-#'     lMetric = lMetricWorkflow$meta,
-#'     dfGroups = dfGroups,
-#'     dfBounds = lResults$lData$dfBounds
+#'     dfResults = reportingResults,
+#'     lMetric = reportingMetrics %>% as.list(),
+#'     dfGroups = reportingGroups,
+#'     dfBounds = reportingBounds
 #' )
 #' }
 #' @export
 
 Widget_ScatterPlot <- function(
-  dfSummary,
-  lMetric,
+  dfResults,
+  lMetric = list(), # TODO: coerce list to object instead of array with jsonlite::toJSON()
   dfGroups = NULL,
   dfBounds = NULL,
   bAddGroupSelect = TRUE,
@@ -73,7 +36,7 @@ Widget_ScatterPlot <- function(
 ) {
   # define widget inputs
   input <- list(
-    dfSummary = dfSummary,
+    dfResults = dfResults,
     lMetric = lMetric,
     dfGroups = dfGroups,
     dfBounds = dfBounds,
