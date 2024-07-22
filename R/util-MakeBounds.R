@@ -57,14 +57,26 @@ MakeBounds <- function(
         as.list()
 
       vThreshold <- ParseThreshold(strThreshold = lMetric$strThreshold)
-      dfBounds <- Analyze_NormalApprox_PredictBounds(
-        dfResult,
-        strType = lMetric$Type %||% "binary",
-        vThreshold = vThreshold
-      ) %>%
-      mutate(MetricID = strMetric) %>%
-      mutate(StudyID = strStudyID) %>%
-      mutate(SnapshotDate = dSnapshotDate)
+      if (!is.null(lMetric$Type) &&
+          tolower(unique(lMetric$Type)) %in% c("poisson")) {
+        dfBounds <- Analyze_Poisson_PredictBounds(
+          dfResult,
+          vThreshold = vThreshold
+        ) %>%
+          mutate(MetricID = strMetric) %>%
+          mutate(StudyID = strStudyID) %>%
+          mutate(SnapshotDate = dSnapshotDate)
+      }
+      else {
+        dfBounds <- Analyze_NormalApprox_PredictBounds(
+          dfResult,
+          strType = lMetric$Type %||% "binary",
+          vThreshold = vThreshold
+        ) %>%
+          mutate(MetricID = strMetric) %>%
+          mutate(StudyID = strStudyID) %>%
+          mutate(SnapshotDate = dSnapshotDate)
+      }
 
       return(dfBounds)
     }) %>%
