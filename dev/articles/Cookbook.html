@@ -170,17 +170,31 @@ functions that support the analysis workflows.</p>
 <div class="section level3">
 <h3 id="example-1---running-an-assessment-on-standard-data">Example 1 - Running an Assessment on Standard Data<a class="anchor" aria-label="anchor" href="#example-1---running-an-assessment-on-standard-data"></a>
 </h3>
-<p>Below is the script for running an AE assessment corresponding to
-kri0001. Using Raw+ data from <code>clindata</code>, we are able to
-create the mapped input data (via <code>InputRate()</code>), prepare
-that data for analysis (via <code><a href="../reference/Transform_Rate.html">Transform_Rate()</a></code>), analyze the
-data with the Normal Approximation method (via
-<code><a href="../reference/Analyze_NormalApprox.html">Analyze_NormalApprox()</a></code>) and flag and summarize the analyzed
-data (via <code><a href="../reference/Flag_NormalApprox.html">Flag_NormalApprox()</a></code> and <code><a href="../reference/Summarize.html">Summarize()</a></code>,
-respectively) in order to produce a table which aggregates site level
-flags for the AE risk signal.</p>
+<p>Below is the script with three examples for running an AE assessment
+corresponding to kri0001 and kri0002. In <strong>Example 1.1</strong>,
+we use Raw+ data from <code>clindata</code>, to create the mapped input
+data (via <code>InputRate()</code>), prepare that data for analysis (via
+<code><a href="../reference/Transform_Rate.html">Transform_Rate()</a></code>), analyze the data with the Normal
+Approximation method (via <code><a href="../reference/Analyze_NormalApprox.html">Analyze_NormalApprox()</a></code>) and flag
+and summarize the analyzed data (via <code><a href="../reference/Flag_NormalApprox.html">Flag_NormalApprox()</a></code>
+and <code><a href="../reference/Summarize.html">Summarize()</a></code>, respectively) in order to produce a table
+which aggregates site level flags for the AE risk signal.</p>
+<p>In <strong>Example 1.2</strong>, we run the same process as the prior
+example, but with a filter to include only Serious Adverse Events (SAEs)
+and implement pipes to run through the workflow.</p>
+<p>Finally, in order to create charts and a report for the AE
+assessment, a few additional steps must be taken, as seen in
+<strong>Example 1.3</strong>. First,
+<code><a href="../reference/Analyze_NormalApprox_PredictBounds.html">Analyze_NormalApprox_PredictBounds()</a></code> must be run to create
+a data.frame with the upper/lower bounds of the predictions
+(<code>dfBounds</code>). Then, a data.frame with all relevant meta
+information is constructed (<code>dfMetrics</code>) prior to running
+<code><a href="../reference/Visualize_Metric.html">Visualize_Metric()</a></code> and <code><a href="../reference/Report_KRI.html">Report_KRI()</a></code> which
+create the charts and report, respectively.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Input_Rate.html">Input_Rate</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="co">#### Example 1.1 - Generate an Adverse Event Metric using the standard {gsm} workflow</span></span>
+<span></span>
+<span><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Input_Rate.html">Input_Rate</a></span><span class="op">(</span></span>
 <span>  dfSubjects<span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span>
 <span>  dfNumerator<span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_ae.html" class="external-link">rawplus_ae</a></span>,</span>
 <span>  dfDenominator <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span>
@@ -195,10 +209,12 @@ flags for the AE risk signal.</p>
 <span><span class="va">dfAnalyzed</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Analyze_NormalApprox.html">Analyze_NormalApprox</a></span><span class="op">(</span><span class="va">dfTransformed</span>, strType <span class="op">=</span> <span class="st">"rate"</span><span class="op">)</span></span>
 <span><span class="va">dfFlagged</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Flag_NormalApprox.html">Flag_NormalApprox</a></span><span class="op">(</span><span class="va">dfAnalyzed</span>, vThreshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>,<span class="op">-</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">dfSummarized</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Summarize.html">Summarize</a></span><span class="op">(</span><span class="va">dfFlagged</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">dfSummarized</span><span class="op">$</span><span class="va">Flag</span><span class="op">)</span></span></code></pre></div>
-<p>This can also be done with pipes, if desired.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">SAE_KRI</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Input_Rate.html">Input_Rate</a></span><span class="op">(</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">dfSummarized</span><span class="op">$</span><span class="va">Flag</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#### Example 1.2 - Make an SAE Metric by adding a filter.  Also works with pipes.</span></span>
+<span></span>
+<span><span class="va">SAE_KRI</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Input_Rate.html">Input_Rate</a></span><span class="op">(</span></span>
 <span>  dfSubjects<span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span>
 <span>  dfNumerator<span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_ae.html" class="external-link">rawplus_ae</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">aeser</span><span class="op">==</span><span class="st">"Y"</span><span class="op">)</span>,</span>
 <span>  dfDenominator <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span>
@@ -213,89 +229,29 @@ flags for the AE risk signal.</p>
 <span>  <span class="fu"><a href="../reference/Flag_NormalApprox.html">Flag_NormalApprox</a></span><span class="op">(</span>vThreshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>,<span class="op">-</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="va">Summarize</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">SAE_KRI</span><span class="op">$</span><span class="va">Flag</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="example-2---running-a-single-assessment-with-charts-and-report">Example 2 - Running a Single Assessment with Charts and Report<a class="anchor" aria-label="anchor" href="#example-2---running-a-single-assessment-with-charts-and-report"></a>
-</h3>
-<p>In order to create charts and a report for the AE assessment, a few
-additional steps must be taken. First,
-<code><a href="../reference/Analyze_NormalApprox_PredictBounds.html">Analyze_NormalApprox_PredictBounds()</a></code> must be run to create
-a data.frame with the upper/lower bounds of the prections
-(<code>dfBounds</code>). Then, a data.frame with all relevant meta
-information is constructed (<code>dfMetrics</code>) prior to running
-<code><a href="../reference/Visualize_Metric.html">Visualize_Metric()</a></code> and <code><a href="../reference/Report_KRI.html">Report_KRI()</a></code> which
-create the charts and report, respectively.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dfInput</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Input_Rate.html">Input_Rate</a></span><span class="op">(</span></span>
-<span>  dfSubjects<span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span>
-<span>  dfNumerator<span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_ae.html" class="external-link">rawplus_ae</a></span>,</span>
-<span>  dfDenominator <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span>
-<span>  strSubjectCol <span class="op">=</span> <span class="st">"subjid"</span>,</span>
-<span>  strGroupCol <span class="op">=</span> <span class="st">"siteid"</span>,</span>
-<span>  strNumeratorMethod<span class="op">=</span> <span class="st">"Count"</span>,</span>
-<span>  strDenominatorMethod<span class="op">=</span> <span class="st">"Sum"</span>,</span>
-<span>  strDenominatorCol<span class="op">=</span> <span class="st">"timeonstudy"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">SAE_KRI</span><span class="op">$</span><span class="va">Flag</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">### Example 1.3 - Visualize Metric distribution using Bar Charts using provided htmlwidgets</span></span>
+<span><span class="va">labels</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>  </span>
+<span>  Metric<span class="op">=</span> <span class="st">"Serious Adverse Event Rate"</span>,</span>
+<span>  Numerator<span class="op">=</span> <span class="st">"Serious Adverse Events"</span>,</span>
+<span>  Denominator<span class="op">=</span> <span class="st">"Days on Study"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">dfTransformed</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Transform_Rate.html">Transform_Rate</a></span><span class="op">(</span><span class="va">dfInput</span><span class="op">)</span></span>
-<span><span class="va">dfAnalyzed</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Analyze_NormalApprox.html">Analyze_NormalApprox</a></span><span class="op">(</span><span class="va">dfTransformed</span>,</span>
-<span>                                   strType <span class="op">=</span> <span class="st">"rate"</span><span class="op">)</span></span>
-<span><span class="va">dfFlagged</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Flag_NormalApprox.html">Flag_NormalApprox</a></span><span class="op">(</span><span class="va">dfAnalyzed</span>,</span>
-<span>                               vThreshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>,<span class="op">-</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">dfSummarized</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Summarize.html">Summarize</a></span><span class="op">(</span><span class="va">dfFlagged</span><span class="op">)</span></span>
-<span><span class="va">dfBounds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Analyze_NormalApprox_PredictBounds.html">Analyze_NormalApprox_PredictBounds</a></span><span class="op">(</span>dfTransformed <span class="op">=</span> <span class="va">dfTransformed</span>,</span>
-<span>                                               vThreshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>,<span class="op">-</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/Widget_BarChart.html">Widget_BarChart</a></span><span class="op">(</span>dfResults <span class="op">=</span> <span class="va">SAE_KRI</span>, lMetric<span class="op">=</span><span class="va">labels</span>, strOutcome<span class="op">=</span><span class="st">"Metric"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/Widget_BarChart.html">Widget_BarChart</a></span><span class="op">(</span>dfResults <span class="op">=</span> <span class="va">SAE_KRI</span>, lMetric<span class="op">=</span><span class="va">labels</span>, strOutcome<span class="op">=</span><span class="st">"Score"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/Widget_BarChart.html">Widget_BarChart</a></span><span class="op">(</span>dfResults <span class="op">=</span> <span class="va">SAE_KRI</span>, lMetric<span class="op">=</span><span class="va">labels</span>, strOutcome<span class="op">=</span><span class="st">"Numerator"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co">##create dfMetrics meta object for charts</span></span>
-<span><span class="va">dfMetrics</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  MetricID <span class="op">=</span>  <span class="st">"kri0001"</span>,</span>
-<span>  File <span class="op">=</span> <span class="st">"kri0001.yaml"</span>,</span>
-<span>  Group <span class="op">=</span> <span class="st">"site"</span>,</span>
-<span>  Abbreviation <span class="op">=</span> <span class="st">"AE"</span>,</span>
-<span>  Metric <span class="op">=</span> <span class="st">"Adverse Event Rate"</span>,</span>
-<span>  Numerator <span class="op">=</span> <span class="st">"Adverse Events"</span>,</span>
-<span>  Denominator <span class="op">=</span> <span class="st">"Days on Study"</span>,</span>
-<span>  Model <span class="op">=</span> <span class="st">"Normal Approximation"</span>,</span>
-<span>  Score <span class="op">=</span> <span class="st">"Adjusted Z-Score"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">#add Study and Snapshot information to dfBounds and dfSummarized</span></span>
-<span><span class="va">dfBounds</span> <span class="op">&lt;-</span> <span class="va">dfBounds</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>StudyID <span class="op">=</span> <span class="st">"ABC-123"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>SnapshotDate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>MetricID <span class="op">=</span> <span class="va">dfMetrics</span><span class="op">$</span><span class="va">MetricID</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">dfSummarized</span> <span class="op">&lt;-</span> <span class="va">dfSummarized</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>StudyID <span class="op">=</span> <span class="st">"ABC-123"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>SnapshotDate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>MetricID <span class="op">=</span> <span class="va">dfMetrics</span><span class="op">$</span><span class="va">MetricID</span><span class="op">)</span></span>
-<span></span>
-<span></span>
-<span><span class="co"># create Visualizations</span></span>
-<span><span class="va">lCharts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Visualize_Metric.html">Visualize_Metric</a></span><span class="op">(</span></span>
-<span>  dfSummary <span class="op">=</span> <span class="va">dfSummarized</span>,</span>
-<span>  dfBounds <span class="op">=</span> <span class="va">dfBounds</span>,</span>
-<span>  dfSite <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_site.html" class="external-link">ctms_site</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">rename</span><span class="op">(</span>SiteID <span class="op">=</span> <span class="va">site_num</span><span class="op">)</span>,</span>
-<span>  dfMetrics <span class="op">=</span> <span class="va">dfMetrics</span>,</span>
-<span>  strMetricID <span class="op">=</span> <span class="va">dfMetrics</span><span class="op">$</span><span class="va">MetricID</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Run reports</span></span>
-<span><span class="va">strOutpath</span> <span class="op">&lt;-</span> <span class="st">"~/gsm_site_report_kri0001.html"</span></span>
-<span><span class="fu"><a href="../reference/Report_KRI.html">Report_KRI</a></span><span class="op">(</span>lCharts <span class="op">=</span> <span class="va">lCharts</span>,</span>
-<span>           dfSummary <span class="op">=</span> <span class="va">dfSummarized</span>,</span>
-<span>           dfSite <span class="op">=</span> <span class="va">dfSite</span>,</span>
-<span>           dfStudy <span class="op">=</span> <span class="va">dfStudy</span>,</span>
-<span>           dfMetrics <span class="op">=</span><span class="va">dfMetrics</span>,</span>
-<span>           strOutpath <span class="op">=</span> <span class="va">strOutpath</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co">### Example 1.4 - Create Scatter plot with confidence bounds</span></span>
+<span><span class="va">dfBounds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Analyze_NormalApprox_PredictBounds.html">Analyze_NormalApprox_PredictBounds</a></span><span class="op">(</span><span class="va">SAE_KRI</span>, vThreshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>,<span class="op">-</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/Widget_ScatterPlot.html">Widget_ScatterPlot</a></span><span class="op">(</span><span class="va">SAE_KRI</span>, lMetric <span class="op">=</span> <span class="va">labels</span>, dfBounds <span class="op">=</span> <span class="va">dfBounds</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="using-yaml-files-to-run-workflows">Using YAML files to run workflows<a class="anchor" aria-label="anchor" href="#using-yaml-files-to-run-workflows"></a>
 </h2>
 <p>All assessments can be specified with YAML files, which run through
-the process explained in the previous section using the follwing three
+the process explained in the previous section using the following three
 steps:</p>
 <ol style="list-style-type: decimal">
 <li>Prepare the workflow lists with <code><a href="../reference/MakeWorkflowList.html">MakeWorkflowList()</a></code>
@@ -306,259 +262,226 @@ assessment(s) with <code><a href="../reference/RunWorkflow.html">RunWorkflow()</
 specified in the YAML file with <code>RunWorkflow</code>.</li>
 </ol>
 <div class="section level3">
-<h3 id="example-3---yaml-workflow-for-ae-kri">Example 3 - YAML workflow for AE KRI<a class="anchor" aria-label="anchor" href="#example-3---yaml-workflow-for-ae-kri"></a>
+<h3 id="example-2---yaml-workflow-for-ae-kri">Example 2 - YAML workflow for AE KRI<a class="anchor" aria-label="anchor" href="#example-2---yaml-workflow-for-ae-kri"></a>
 </h3>
 <p>Here, we run the YAML workflow for the AE KRI (kri0001). The table
-produced at the end of this script will match the tables produced in
-Example 1 above.</p>
+produced in the <code>AE_KRI$dfSummary</code> object in <strong>Example
+2.1</strong> will match the tables produced in Example 1.1 above.</p>
+<p>In the subsequent two examples, we update the metadata to run
+country-level metrics (<strong>Example 2.2</strong>) and add a filtering
+step to the workflow to generate the SAE metric (<strong>Example
+2.3</strong>).</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#### Example 2.1 - Configurable Adverse Event Workflow</span></span>
+<span></span>
+<span><span class="co"># Define YAML workflow</span></span>
+<span><span class="va">AE_workflow</span> <span class="op">&lt;-</span> <span class="fu">read_yaml</span><span class="op">(</span>text<span class="op">=</span></span>
+<span><span class="st">'meta:</span></span>
+<span><span class="st">  File: AE_KRI</span></span>
+<span><span class="st">  GroupLevel: Site</span></span>
+<span><span class="st">  Metric: Adverse Event Rate</span></span>
+<span><span class="st">  Numerator: Adverse Events</span></span>
+<span><span class="st">  Denominator: Days on Study</span></span>
+<span><span class="st">  Model: Normal Approximation</span></span>
+<span><span class="st">  Score: Adjusted Z-Score</span></span>
+<span><span class="st">  Type: rate</span></span>
+<span><span class="st">  strThreshold: -2,-1,2,3</span></span>
+<span><span class="st">  nMinDenominator: 30</span></span>
+<span><span class="st">steps:</span></span>
+<span><span class="st">  - name: ParseThreshold</span></span>
+<span><span class="st">    output: vThreshold</span></span>
+<span><span class="st">    params:</span></span>
+<span><span class="st">      strThreshold: strThreshold</span></span>
+<span><span class="st">  - name: Input_Rate</span></span>
+<span><span class="st">    output: dfInput</span></span>
+<span><span class="st">    params:</span></span>
+<span><span class="st">      dfSubjects: dfSubjects</span></span>
+<span><span class="st">      dfNumerator: dfAE</span></span>
+<span><span class="st">      dfDenominator: dfSubjects</span></span>
+<span><span class="st">      strSubjectCol: subjid</span></span>
+<span><span class="st">      strGroupCol: invid</span></span>
+<span><span class="st">      strGroupLevel: GroupLevel</span></span>
+<span><span class="st">      strNumeratorMethod: Count</span></span>
+<span><span class="st">      strDenominatorMethod: Sum</span></span>
+<span><span class="st">      strDenominatorCol: timeonstudy</span></span>
+<span><span class="st">  - name: Transform_Rate</span></span>
+<span><span class="st">    output: dfTransformed</span></span>
+<span><span class="st">    params:</span></span>
+<span><span class="st">      dfInput: dfInput</span></span>
+<span><span class="st">  - name: Analyze_NormalApprox</span></span>
+<span><span class="st">    output: dfAnalyzed</span></span>
+<span><span class="st">    params:</span></span>
+<span><span class="st">      dfTransformed: dfTransformed</span></span>
+<span><span class="st">      strType: Type</span></span>
+<span><span class="st">  - name: Flag_NormalApprox</span></span>
+<span><span class="st">    output: dfFlagged</span></span>
+<span><span class="st">    params:</span></span>
+<span><span class="st">      dfAnalyzed: dfAnalyzed</span></span>
+<span><span class="st">      vThreshold: vThreshold</span></span>
+<span><span class="st">  - name: Summarize</span></span>
+<span><span class="st">    output: dfSummary</span></span>
+<span><span class="st">    params:</span></span>
+<span><span class="st">      dfFlagged: dfFlagged</span></span>
+<span><span class="st">      nMinDenominator: nMinDenominator</span></span>
+<span><span class="st">'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Run the workflow</span></span>
+<span><span class="va">AE_data</span> <span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  dfSubjects<span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span>, </span>
+<span>  dfAE<span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_ae.html" class="external-link">rawplus_ae</a></span></span>
+<span><span class="op">)</span> </span>
+<span><span class="va">AE_KRI</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/RunWorkflow.html">RunWorkflow</a></span><span class="op">(</span>lWorkflow <span class="op">=</span> <span class="va">AE_workflow</span>, lData <span class="op">=</span> <span class="va">AE_data</span> <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create Barchart from workflow</span></span>
+<span><span class="fu"><a href="../reference/Widget_BarChart.html">Widget_BarChart</a></span><span class="op">(</span>dfResults <span class="op">=</span> <span class="va">AE_KRI</span><span class="op">$</span><span class="va">dfSummary</span>, lMetric <span class="op">=</span> <span class="va">AE_workflow</span><span class="op">$</span><span class="va">meta</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#### Example 2.2 - Run Country-Level Metric </span></span>
+<span><span class="va">AE_country_workflow</span> <span class="op">&lt;-</span> <span class="va">AE_workflow</span></span>
+<span><span class="va">AE_country_workflow</span><span class="op">$</span><span class="va">meta</span><span class="op">$</span><span class="va">GroupLevel</span> <span class="op">&lt;-</span> <span class="st">"Country"</span></span>
+<span><span class="va">AE_country_workflow</span><span class="op">$</span><span class="va">steps</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">params</span><span class="op">$</span><span class="va">strGroupCol</span> <span class="op">&lt;-</span> <span class="st">"country"</span></span>
+<span></span>
+<span><span class="va">AE_country_KRI</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/RunWorkflow.html">RunWorkflow</a></span><span class="op">(</span>lWorkflow <span class="op">=</span> <span class="va">AE_country_workflow</span>, lData <span class="op">=</span> <span class="va">AE_data</span> <span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/Widget_BarChart.html">Widget_BarChart</a></span><span class="op">(</span>dfResults <span class="op">=</span> <span class="va">AE_country_KRI</span><span class="op">$</span><span class="va">dfSummary</span>, lMetric <span class="op">=</span> <span class="va">AE_country_workflow</span><span class="op">$</span><span class="va">meta</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#### Example 2.3 - Create SAE workflow </span></span>
+<span></span>
+<span><span class="co"># Tweak AE workflow metadata</span></span>
+<span><span class="va">SAE_workflow</span> <span class="op">&lt;-</span> <span class="va">AE_workflow</span></span>
+<span><span class="va">SAE_workflow</span><span class="op">$</span><span class="va">meta</span><span class="op">$</span><span class="va">File</span> <span class="op">&lt;-</span> <span class="st">"SAE_KRI"</span></span>
+<span><span class="va">SAE_workflow</span><span class="op">$</span><span class="va">meta</span><span class="op">$</span><span class="va">Metric</span> <span class="op">&lt;-</span> <span class="st">"Serious Adverse Event Rate"</span></span>
+<span><span class="va">SAE_workflow</span><span class="op">$</span><span class="va">meta</span><span class="op">$</span><span class="va">Numerator</span> <span class="op">&lt;-</span> <span class="st">"Serious Adverse Events"</span></span>
+<span></span>
+<span><span class="co"># Add a step to filter out non-serious AEs `RunQuery`</span></span>
+<span><span class="va">filterStep</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="st">"RunQuery"</span>,</span>
+<span>  output <span class="op">=</span> <span class="st">"dfAE"</span>,</span>
+<span>  params<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    df<span class="op">=</span> <span class="st">"dfAE"</span>,</span>
+<span>    strQuery <span class="op">=</span> <span class="st">"SELECT * FROM df WHERE aeser = 'Y'"</span></span>
+<span>  <span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">SAE_workflow</span><span class="op">$</span><span class="va">steps</span> <span class="op">&lt;-</span> <span class="va">SAE_workflow</span><span class="op">$</span><span class="va">steps</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/append.html" class="external-link">append</a></span><span class="op">(</span><span class="va">filterStep</span>, after<span class="op">=</span><span class="fl">0</span><span class="op">)</span>    </span>
+<span></span>
+<span><span class="co"># Run the updated workflow</span></span>
+<span><span class="va">SAE_KRI</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/RunWorkflow.html">RunWorkflow</a></span><span class="op">(</span>lWorkflow <span class="op">=</span> <span class="va">SAE_workflow</span>, lData <span class="op">=</span> <span class="va">AE_data</span> <span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/Widget_BarChart.html">Widget_BarChart</a></span><span class="op">(</span>dfResults <span class="op">=</span> <span class="va">SAE_KRI</span><span class="op">$</span><span class="va">dfSummary</span>, lMetric <span class="op">=</span> <span class="va">SAE_workflow</span><span class="op">$</span><span class="va">meta</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="example-3---generate-charts-with-yaml-workflow-for-multiple-kris">Example 3 - Generate Charts with yaml workflow for multiple
+KRIs<a class="anchor" aria-label="anchor" href="#example-3---generate-charts-with-yaml-workflow-for-multiple-kris"></a>
+</h3>
+<p>In <strong>Example 3.1</strong> we leverage yaml workflows to
+generate all available site-level KRIs at once. This is possible by
+feeding a “kri” into <code><a href="../reference/MakeWorkflowList.html">MakeWorkflowList()</a></code> followed by feeding
+<code><a href="../reference/RunWorkflows.html">RunWorkflows()</a></code> the workflow list and the appropriately
+mapped data. This generates the data in the analytics data model. Then,
+to make charts and reports, we feed the analytics data and metadata into
+the reporting workflow to produce all charts and the report, saving the
+output into <code>lReports</code>.</p>
+<p>The same procedure is run through in <strong>Example 3.2</strong>,
+but with a single <code>snapshot.yaml</code> that performs both the
+analytics steps and the reporting steps all in one workflow.</p>
+<p>In <strong>Example 3.3</strong>, the same process is done for
+country-level reports by editing the Metric fed into the
+<code>snapshot</code> workflow to “Country”.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#### 3.1 - Create a KRI Report using 12 standard metrics with multiple workflows</span></span>
+<span></span>
+<span><span class="co"># Step 1 - Create Mapped Data - filter/map raw data</span></span>
+<span><span class="va">lData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span>
+<span>    dfAE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_ae.html" class="external-link">rawplus_ae</a></span>,</span>
+<span>    dfPD <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_protdev.html" class="external-link">ctms_protdev</a></span>,</span>
+<span>    dfLB <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_lb.html" class="external-link">rawplus_lb</a></span>,</span>
+<span>    dfSTUDCOMP <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_studcomp.html" class="external-link">rawplus_studcomp</a></span>,</span>
+<span>    dfSDRGCOMP <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_sdrgcomp.html" class="external-link">rawplus_sdrgcomp</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">.data</span><span class="op">$</span><span class="va">phase</span> <span class="op">==</span> <span class="st">'Blinded Study Drug Completion'</span><span class="op">)</span>,</span>
+<span>    dfDATACHG <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/edc_data_points.html" class="external-link">edc_data_points</a></span>,</span>
+<span>    dfDATAENT <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/edc_data_pages.html" class="external-link">edc_data_pages</a></span>,</span>
+<span>    dfQUERY <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/edc_queries.html" class="external-link">edc_queries</a></span>,</span>
+<span>    dfENROLL <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_enroll</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">mapping_wf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span>strNames <span class="op">=</span> <span class="st">"data_mapping"</span><span class="op">)</span></span>
+<span><span class="va">mapped</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/RunWorkflows.html">RunWorkflows</a></span><span class="op">(</span><span class="va">mapping_wf</span>, <span class="va">lData</span>, bKeepInputData<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Step 2 - Create Analysis Data - Generate 12 KRIs</span></span>
+<span><span class="va">kri_wf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span>strNames <span class="op">=</span> <span class="st">"kri"</span><span class="op">)</span></span>
+<span><span class="va">kris</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/RunWorkflows.html">RunWorkflows</a></span><span class="op">(</span><span class="va">kri_wf</span>, <span class="va">mapped</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Step 3 - Create Reporting Data - Import Metadata and stack KRI Results</span></span>
+<span><span class="va">lReporting_Input</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    ctms_site <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_site.html" class="external-link">ctms_site</a></span>,</span>
+<span>    ctms_study <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_study.html" class="external-link">ctms_study</a></span>,</span>
+<span>    dfEnrolled <span class="op">=</span> <span class="va">mapped</span><span class="op">$</span><span class="va">dfEnrolled</span>,</span>
+<span>    lWorkflows <span class="op">=</span> <span class="va">kri_wf</span>,</span>
+<span>    lAnalysis <span class="op">=</span> <span class="va">kris</span>,</span>
+<span>    dSnapshotDate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    strStudyID <span class="op">=</span> <span class="st">"ABC-123"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">reporting_wf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span>strNames <span class="op">=</span> <span class="st">"reporting"</span><span class="op">)</span></span>
+<span><span class="va">reporting</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/RunWorkflows.html">RunWorkflows</a></span><span class="op">(</span><span class="va">reporting_wf</span>, <span class="va">lReporting_Input</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Step 4 - Generate Reports - Create Charts + Report</span></span>
+<span><span class="va">wf_reports</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span>strNames <span class="op">=</span> <span class="st">"reports"</span><span class="op">)</span></span>
+<span><span class="va">lReports</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/RunWorkflows.html">RunWorkflows</a></span><span class="op">(</span><span class="va">wf_reports</span>, <span class="va">reporting</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#### 3.2 - Create a KRI Report using 12 standard metrics with a single composite workflow</span></span>
+<span><span class="va">lData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>    <span class="co"># Raw Data</span></span>
+<span>    dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span>
+<span>    dfAE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_ae.html" class="external-link">rawplus_ae</a></span>,</span>
+<span>    dfPD <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_protdev.html" class="external-link">ctms_protdev</a></span>,</span>
+<span>    dfLB <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_lb.html" class="external-link">rawplus_lb</a></span>,</span>
+<span>    dfSTUDCOMP <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_studcomp.html" class="external-link">rawplus_studcomp</a></span>,</span>
+<span>    dfSDRGCOMP <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_sdrgcomp.html" class="external-link">rawplus_sdrgcomp</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">.data</span><span class="op">$</span><span class="va">phase</span> <span class="op">==</span> <span class="st">'Blinded Study Drug Completion'</span><span class="op">)</span>,</span>
+<span>    dfDATACHG <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/edc_data_points.html" class="external-link">edc_data_points</a></span>,</span>
+<span>    dfDATAENT <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/edc_data_pages.html" class="external-link">edc_data_pages</a></span>,</span>
+<span>    dfQUERY <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/edc_queries.html" class="external-link">edc_queries</a></span>,</span>
+<span>    dfENROLL <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_enroll</span>,</span>
+<span>    <span class="co"># CTMS data</span></span>
+<span>    ctms_site <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_site.html" class="external-link">ctms_site</a></span>,</span>
+<span>    ctms_study <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_study.html" class="external-link">ctms_study</a></span>,</span>
+<span>    <span class="co"># SnapshotDate and StudyID</span></span>
+<span>    dSnapshotDate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    strStudyID <span class="op">=</span> <span class="st">"ABC-123"</span>,</span>
+<span>    <span class="co"># Metrics</span></span>
+<span>    Metrics <span class="op">=</span> <span class="st">'kri'</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ss_wf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span>strNames <span class="op">=</span> <span class="st">"snapshot"</span><span class="op">)</span></span>
+<span><span class="va">snapshot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/RunWorkflows.html">RunWorkflows</a></span><span class="op">(</span><span class="va">ss_wf</span>, <span class="va">lData</span>, bKeepInputData <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#### 3.3 - Create a country-level KRI Report</span></span>
+<span><span class="va">lData</span><span class="op">$</span><span class="va">Metrics</span> <span class="op">&lt;-</span> <span class="st">'cou'</span></span>
+<span><span class="va">country_snapshot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/RunWorkflows.html">RunWorkflows</a></span><span class="op">(</span><span class="va">ss_wf</span>, <span class="va">lData</span>, bKeepInputData <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="creating-charts-and-reports">Creating Charts and Reports<a class="anchor" aria-label="anchor" href="#creating-charts-and-reports"></a>
+</h2>
+<div class="section level3">
+<h3 id="example-4---generate-charts-and-a-report-for-multiple-kris">Example 4 - Generate Charts and a Report for multiple KRIs<a class="anchor" aria-label="anchor" href="#example-4---generate-charts-and-a-report-for-multiple-kris"></a>
+</h3>
+<p>In this example, we feed the example reporting data.frames into the
+<code><a href="../reference/Visualize_Metric.html">Visualize_Metric()</a></code> function including multiple snapshot
+dates and multiple KRIs in the data to be reflected in the charts.</p>
+<p>We then create the site-level report using <code><a href="../reference/Report_KRI.html">Report_KRI()</a></code>
+with the example data.frames and the charts created with
+<code><a href="../reference/Visualize_Metric.html">Visualize_Metric()</a></code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Import Site+Study Metadata</span></span>
-<span><span class="va">dfStudy</span><span class="op">&lt;-</span><span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_study.html" class="external-link">ctms_study</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">rename</span><span class="op">(</span>StudyID <span class="op">=</span> <span class="va">protocol_number</span><span class="op">)</span></span>
-<span><span class="va">dfSite</span><span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_site.html" class="external-link">ctms_site</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">rename</span><span class="op">(</span>SiteID <span class="op">=</span> <span class="va">site_num</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Pull Raw Data - this will overwrite the previous data pull</span></span>
-<span><span class="va">lRaw</span> <span class="op">&lt;-</span> <span class="fu">gsm</span><span class="fu">::</span><span class="fu"><a href="../reference/UseClindata.html">UseClindata</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="st">"dfSUBJ"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_dm"</span>,</span>
-<span>    <span class="st">"dfAE"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_ae"</span>,</span>
-<span>    <span class="st">"dfPD"</span> <span class="op">=</span> <span class="st">"clindata::ctms_protdev"</span>,</span>
-<span>    <span class="st">"dfLB"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_lb"</span>,</span>
-<span>    <span class="st">"dfSTUDCOMP"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_studcomp"</span>,</span>
-<span>    <span class="st">"dfSDRGCOMP"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_sdrgcomp %&gt;%</span></span>
-<span><span class="st">      dplyr::filter(.data$phase == 'Blinded Study Drug Completion')"</span>,</span>
-<span>    <span class="st">"dfDATACHG"</span> <span class="op">=</span> <span class="st">"clindata::edc_data_points"</span>,</span>
-<span>    <span class="st">"dfDATAENT"</span> <span class="op">=</span> <span class="st">"clindata::edc_data_pages"</span>,</span>
-<span>    <span class="st">"dfQUERY"</span> <span class="op">=</span> <span class="st">"clindata::edc_queries"</span>,</span>
-<span>    <span class="st">"dfENROLL"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_enroll"</span></span>
-<span>  <span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co">#### 4.1 Site-Level KRI Report with multiple SnapshotDate</span></span>
+<span><span class="va">lCharts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeCharts.html">MakeCharts</a></span><span class="op">(</span></span>
+<span>  dfResults <span class="op">=</span> <span class="fu">gsm</span><span class="fu">::</span><span class="va"><a href="../reference/reportingResults.html">reportingResults</a></span>,</span>
+<span>  dfGroups <span class="op">=</span> <span class="fu">gsm</span><span class="fu">::</span><span class="va"><a href="../reference/reportingGroups.html">reportingGroups</a></span>,</span>
+<span>  dfMetrics <span class="op">=</span> <span class="fu">gsm</span><span class="fu">::</span><span class="va"><a href="../reference/reportingMetrics.html">reportingMetrics</a></span>,</span>
+<span>  dfBounds <span class="op">=</span> <span class="fu">gsm</span><span class="fu">::</span><span class="va"><a href="../reference/reportingBounds.html">reportingBounds</a></span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Prepare Workflows</span></span>
-<span><span class="va">wf_mapping</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span>strNames <span class="op">=</span> <span class="st">"mapping"</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="va">wf_metrics</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span>strNames <span class="op">=</span> <span class="st">"kri0001"</span><span class="op">)</span></span>
-<span><span class="va">dfMetrics</span> <span class="op">&lt;-</span> <span class="va">wf_metrics</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">map_df</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">wf</span><span class="op">)</span><span class="op">{</span></span>
-<span>  <span class="va">wf</span><span class="op">$</span><span class="va">meta</span><span class="op">$</span><span class="va">vThreshold</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">wf</span><span class="op">$</span><span class="va">meta</span><span class="op">$</span><span class="va">vThreshold</span>, collapse <span class="op">=</span> <span class="st">","</span><span class="op">)</span></span>
-<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">wf</span><span class="op">$</span><span class="va">meta</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Create Mapped Data</span></span>
-<span><span class="va">lMapped</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/RunWorkflow.html">RunWorkflow</a></span><span class="op">(</span>lWorkflow <span class="op">=</span> <span class="va">wf_mapping</span>, lData <span class="op">=</span> <span class="va">lRaw</span><span class="op">)</span><span class="op">$</span><span class="va">lData</span></span>
-<span><span class="co"># Run Assessments</span></span>
-<span><span class="va">lResults</span> <span class="op">&lt;-</span><span class="va">wf_metrics</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">map</span><span class="op">(</span><span class="op">~</span><span class="fu"><a href="../reference/RunWorkflow.html">RunWorkflow</a></span><span class="op">(</span>lWorkflow<span class="op">=</span><span class="va">.x</span>, lData<span class="op">=</span><span class="va">lMapped</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">lResults</span><span class="op">$</span><span class="va">kri0001</span><span class="op">$</span><span class="va">lData</span><span class="op">$</span><span class="va">dfSummary</span><span class="op">$</span><span class="va">Flag</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="example-4---generate-charts-with-yaml-workflow-for-multiple-kris">Example 4 - Generate Charts with yaml workflow for multiple
-KRIs<a class="anchor" aria-label="anchor" href="#example-4---generate-charts-with-yaml-workflow-for-multiple-kris"></a>
-</h3>
-<p>In this example, we run multiple KRIs and once by feeding a vector of
-KRI file names into <code><a href="../reference/MakeWorkflowList.html">MakeWorkflowList()</a></code>. Then, to make
-charts, we add study information to <code>dfBounds</code> and
-<code>dfSummary</code> and feed all relevant data.frames into the
-<code><a href="../reference/Visualize_Metric.html">Visualize_Metric()</a></code> function using <code>purrr:map()</code>
-since we are making charts for all 12 KRIs.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## Prepare Workflows</span></span>
-<span><span class="va">wf_mapping</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span>strNames<span class="op">=</span><span class="st">"mapping"</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="va">wf_metrics</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span>strNames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"kri"</span>,<span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%04d"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">12</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">dfMetrics</span> <span class="op">&lt;-</span> <span class="va">wf_metrics</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">map_df</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">wf</span><span class="op">)</span><span class="op">{</span></span>
-<span>  <span class="va">wf</span><span class="op">$</span><span class="va">meta</span><span class="op">$</span><span class="va">vThreshold</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">wf</span><span class="op">$</span><span class="va">meta</span><span class="op">$</span><span class="va">vThreshold</span>, collapse <span class="op">=</span> <span class="st">","</span><span class="op">)</span></span>
-<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">wf</span><span class="op">$</span><span class="va">meta</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">## Import Site+Study Metadata</span></span>
-<span><span class="va">dfStudy</span><span class="op">&lt;-</span><span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_study.html" class="external-link">ctms_study</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">rename</span><span class="op">(</span>StudyID <span class="op">=</span> <span class="va">protocol_number</span><span class="op">)</span></span>
-<span><span class="va">dfSite</span><span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_site.html" class="external-link">ctms_site</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">rename</span><span class="op">(</span>SiteID <span class="op">=</span> <span class="va">site_num</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">## Pull Raw Data - this will overwrite the previous data pull</span></span>
-<span><span class="va">lRaw</span> <span class="op">&lt;-</span> <span class="fu">gsm</span><span class="fu">::</span><span class="fu"><a href="../reference/UseClindata.html">UseClindata</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="st">"dfSUBJ"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_dm"</span>,</span>
-<span>    <span class="st">"dfAE"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_ae"</span>,</span>
-<span>    <span class="st">"dfPD"</span> <span class="op">=</span> <span class="st">"clindata::ctms_protdev"</span>,</span>
-<span>    <span class="st">"dfLB"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_lb"</span>,</span>
-<span>    <span class="st">"dfSTUDCOMP"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_studcomp"</span>,</span>
-<span>    <span class="st">"dfSDRGCOMP"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_sdrgcomp %&gt;%</span></span>
-<span><span class="st">      dplyr::filter(.data$phase == 'Blinded Study Drug Completion')"</span>,</span>
-<span>    <span class="st">"dfDATACHG"</span> <span class="op">=</span> <span class="st">"clindata::edc_data_points"</span>,</span>
-<span>    <span class="st">"dfDATAENT"</span> <span class="op">=</span> <span class="st">"clindata::edc_data_pages"</span>,</span>
-<span>    <span class="st">"dfQUERY"</span> <span class="op">=</span> <span class="st">"clindata::edc_queries"</span>,</span>
-<span>    <span class="st">"dfENROLL"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_enroll"</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">## Create Mapped Data</span></span>
-<span><span class="va">lMapped</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/RunWorkflow.html">RunWorkflow</a></span><span class="op">(</span>lWorkflow <span class="op">=</span> <span class="va">wf_mapping</span>, lData <span class="op">=</span> <span class="va">lRaw</span><span class="op">)</span><span class="op">$</span><span class="va">lData</span></span>
-<span><span class="co">## Run Metrics</span></span>
-<span><span class="va">lResults</span> <span class="op">&lt;-</span><span class="va">wf_metrics</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">map</span><span class="op">(</span><span class="op">~</span><span class="fu"><a href="../reference/RunWorkflow.html">RunWorkflow</a></span><span class="op">(</span>lWorkflow<span class="op">=</span><span class="va">.x</span>, lData<span class="op">=</span><span class="va">lMapped</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">#add Study and Snapshot information to dfBounds and dfSummarized</span></span>
-<span><span class="va">dfBounds</span> <span class="op">&lt;-</span> <span class="va">lResults</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">imap_dfr</span><span class="op">(</span><span class="op">~</span><span class="va">.x</span><span class="op">$</span><span class="va">lData</span><span class="op">$</span><span class="va">dfBounds</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">mutate</span><span class="op">(</span>MetricID <span class="op">=</span> <span class="va">.y</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>StudyID <span class="op">=</span> <span class="st">"ABC-123"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>SnapshotDate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">dfSummary</span> <span class="op">&lt;-</span> <span class="va">lResults</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">imap_dfr</span><span class="op">(</span><span class="op">~</span><span class="va">.x</span><span class="op">$</span><span class="va">lData</span><span class="op">$</span><span class="va">dfSummary</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">mutate</span><span class="op">(</span>MetricID <span class="op">=</span> <span class="va">.y</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>StudyID <span class="op">=</span> <span class="st">"ABC-123"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>SnapshotDate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># create Charts</span></span>
-<span><span class="va">lCharts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">dfSummary</span><span class="op">$</span><span class="va">MetricID</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">map</span><span class="op">(</span><span class="op">~</span><span class="fu"><a href="../reference/Visualize_Metric.html">Visualize_Metric</a></span><span class="op">(</span></span>
-<span>  dfSummary <span class="op">=</span> <span class="va">dfSummary</span>,</span>
-<span>  dfBounds <span class="op">=</span> <span class="va">dfBounds</span>,</span>
-<span>  dfSite <span class="op">=</span> <span class="va">dfSite</span>,</span>
-<span>  dfMetrics <span class="op">=</span> <span class="va">dfMetrics</span>,</span>
-<span>  strMetricID <span class="op">=</span> <span class="va">.x</span></span>
-<span><span class="op">)</span></span>
-<span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html" class="external-link">setNames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">dfSummary</span><span class="op">$</span><span class="va">MetricID</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">#view charts</span></span>
-<span><span class="va">lCharts</span><span class="op">$</span><span class="va">kri0001</span><span class="op">$</span><span class="va">scatter</span></span>
-<span><span class="va">lCharts</span><span class="op">$</span><span class="va">kri0001</span><span class="op">$</span><span class="va">barMetricJS</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="example-5-generate-site-report-with-yaml-workflow-for-multiple-kris">Example 5: Generate Site Report with yaml workflow for multiple
-KRIs<a class="anchor" aria-label="anchor" href="#example-5-generate-site-report-with-yaml-workflow-for-multiple-kris"></a>
-</h3>
-<p>Here, we create the site-level report using <code><a href="../reference/Report_KRI.html">Report_KRI()</a></code>
-with the data.frames produced by the yaml workflow and the charts
-created with <code><a href="../reference/Visualize_Metric.html">Visualize_Metric()</a></code>.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">## Prepare Workflows</span></span>
-<span><span class="va">wf_mapping</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span>strNames<span class="op">=</span><span class="st">"mapping"</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="va">wf_metrics</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span>strNames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"kri"</span>,<span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%04d"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">12</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">dfMetrics</span> <span class="op">&lt;-</span> <span class="va">wf_metrics</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">map_df</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">wf</span><span class="op">)</span><span class="op">{</span></span>
-<span>  <span class="va">wf</span><span class="op">$</span><span class="va">meta</span><span class="op">$</span><span class="va">vThreshold</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">wf</span><span class="op">$</span><span class="va">meta</span><span class="op">$</span><span class="va">vThreshold</span>, collapse <span class="op">=</span> <span class="st">","</span><span class="op">)</span></span>
-<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">wf</span><span class="op">$</span><span class="va">meta</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">## Import Site+Study Metadata</span></span>
-<span><span class="va">dfStudy</span><span class="op">&lt;-</span><span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_study.html" class="external-link">ctms_study</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">rename</span><span class="op">(</span>StudyID <span class="op">=</span> <span class="va">protocol_number</span><span class="op">)</span></span>
-<span><span class="va">dfSite</span><span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_site.html" class="external-link">ctms_site</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">rename</span><span class="op">(</span>SiteID <span class="op">=</span> <span class="va">site_num</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">## Pull Raw Data - this will overwrite the previous data pull</span></span>
-<span><span class="va">lRaw</span> <span class="op">&lt;-</span> <span class="fu">gsm</span><span class="fu">::</span><span class="fu"><a href="../reference/UseClindata.html">UseClindata</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="st">"dfSUBJ"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_dm"</span>,</span>
-<span>    <span class="st">"dfAE"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_ae"</span>,</span>
-<span>    <span class="st">"dfPD"</span> <span class="op">=</span> <span class="st">"clindata::ctms_protdev"</span>,</span>
-<span>    <span class="st">"dfLB"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_lb"</span>,</span>
-<span>    <span class="st">"dfSTUDCOMP"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_studcomp"</span>,</span>
-<span>    <span class="st">"dfSDRGCOMP"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_sdrgcomp %&gt;%</span></span>
-<span><span class="st">      dplyr::filter(.data$phase == 'Blinded Study Drug Completion')"</span>,</span>
-<span>    <span class="st">"dfDATACHG"</span> <span class="op">=</span> <span class="st">"clindata::edc_data_points"</span>,</span>
-<span>    <span class="st">"dfDATAENT"</span> <span class="op">=</span> <span class="st">"clindata::edc_data_pages"</span>,</span>
-<span>    <span class="st">"dfQUERY"</span> <span class="op">=</span> <span class="st">"clindata::edc_queries"</span>,</span>
-<span>    <span class="st">"dfENROLL"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_enroll"</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">## Create Mapped Data</span></span>
-<span><span class="va">lMapped</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/RunWorkflow.html">RunWorkflow</a></span><span class="op">(</span>lWorkflow <span class="op">=</span> <span class="va">wf_mapping</span>, lData <span class="op">=</span> <span class="va">lRaw</span><span class="op">)</span><span class="op">$</span><span class="va">lData</span></span>
-<span><span class="co">## Run Metrics</span></span>
-<span><span class="va">lResults</span> <span class="op">&lt;-</span><span class="va">wf_metrics</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">map</span><span class="op">(</span><span class="op">~</span><span class="fu"><a href="../reference/RunWorkflow.html">RunWorkflow</a></span><span class="op">(</span>lWorkflow<span class="op">=</span><span class="va">.x</span>, lData<span class="op">=</span><span class="va">lMapped</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">dfBounds</span> <span class="op">&lt;-</span> <span class="va">lResults</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">imap_dfr</span><span class="op">(</span><span class="op">~</span><span class="va">.x</span><span class="op">$</span><span class="va">lData</span><span class="op">$</span><span class="va">dfBounds</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">mutate</span><span class="op">(</span>MetricID <span class="op">=</span> <span class="va">.y</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>StudyID <span class="op">=</span> <span class="st">"ABC-123"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>SnapshotDate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">dfSummary</span> <span class="op">&lt;-</span> <span class="va">lResults</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">imap_dfr</span><span class="op">(</span><span class="op">~</span><span class="va">.x</span><span class="op">$</span><span class="va">lData</span><span class="op">$</span><span class="va">dfSummary</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">mutate</span><span class="op">(</span>MetricID <span class="op">=</span> <span class="va">.y</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>StudyID <span class="op">=</span> <span class="st">"ABC-123"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>SnapshotDate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># create Visualizations</span></span>
-<span><span class="va">lCharts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">dfSummary</span><span class="op">$</span><span class="va">MetricID</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">map</span><span class="op">(</span><span class="op">~</span><span class="fu"><a href="../reference/Visualize_Metric.html">Visualize_Metric</a></span><span class="op">(</span></span>
-<span>  dfSummary <span class="op">=</span> <span class="va">dfSummary</span>,</span>
-<span>  dfBounds <span class="op">=</span> <span class="va">dfBounds</span>,</span>
-<span>  dfSite <span class="op">=</span> <span class="va">dfSite</span>,</span>
-<span>  dfMetrics <span class="op">=</span> <span class="va">dfMetrics</span>,</span>
-<span>  strMetricID <span class="op">=</span> <span class="va">.x</span></span>
-<span><span class="op">)</span></span>
-<span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html" class="external-link">setNames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">dfSummary</span><span class="op">$</span><span class="va">MetricID</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Run reports</span></span>
-<span><span class="va">strOutpath</span> <span class="op">&lt;-</span> <span class="st">"~/gsm_site_report_db.html"</span></span>
-<span><span class="fu"><a href="../reference/Report_KRI.html">Report_KRI</a></span><span class="op">(</span>lCharts <span class="op">=</span> <span class="va">lCharts</span>,</span>
-<span>           dfSummary <span class="op">=</span> <span class="va">dfSummary</span>,</span>
-<span>           dfSite <span class="op">=</span> <span class="va">dfSite</span>,</span>
-<span>           dfStudy <span class="op">=</span> <span class="va">dfStudy</span>,</span>
-<span>           dfMetrics <span class="op">=</span><span class="va">dfMetrics</span>,</span>
-<span>           strOutpath <span class="op">=</span> <span class="va">strOutpath</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="example-6-generate-country-report-with-yaml-workflow-for-multiple-kris">Example 6: Generate Country Report with yaml workflow for multiple
-KRIs<a class="anchor" aria-label="anchor" href="#example-6-generate-country-report-with-yaml-workflow-for-multiple-kris"></a>
-</h3>
-<p>Using the same process as the site-level report, we create a
-country-level report by using the Country KRI yaml files, which begin
-with <code>cou</code> instead of <code>kri</code>.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Prepare Workflows</span></span>
-<span><span class="va">wf_mapping</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span>strNames<span class="op">=</span><span class="st">"mapping"</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="va">wf_metrics</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span>strNames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"cou"</span>,<span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%04d"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">12</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">dfMetrics</span> <span class="op">&lt;-</span> <span class="va">wf_metrics</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">map_df</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">wf</span><span class="op">)</span><span class="op">{</span></span>
-<span>  <span class="va">wf</span><span class="op">$</span><span class="va">meta</span><span class="op">$</span><span class="va">vThreshold</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">wf</span><span class="op">$</span><span class="va">meta</span><span class="op">$</span><span class="va">vThreshold</span>, collapse <span class="op">=</span> <span class="st">","</span><span class="op">)</span></span>
-<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">wf</span><span class="op">$</span><span class="va">meta</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Import Site+Study Metadata</span></span>
-<span><span class="va">dfStudy</span><span class="op">&lt;-</span><span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_study.html" class="external-link">ctms_study</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">rename</span><span class="op">(</span>StudyID <span class="op">=</span> <span class="va">protocol_number</span><span class="op">)</span></span>
-<span><span class="va">dfSite</span><span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_site.html" class="external-link">ctms_site</a></span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">rename</span><span class="op">(</span>SiteID <span class="op">=</span> <span class="va">site_num</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Pull Raw Data - this will overwrite the previous data pull</span></span>
-<span><span class="va">lRaw</span> <span class="op">&lt;-</span> <span class="fu">gsm</span><span class="fu">::</span><span class="fu"><a href="../reference/UseClindata.html">UseClindata</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    <span class="st">"dfSUBJ"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_dm"</span>,</span>
-<span>    <span class="st">"dfAE"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_ae"</span>,</span>
-<span>    <span class="st">"dfPD"</span> <span class="op">=</span> <span class="st">"clindata::ctms_protdev"</span>,</span>
-<span>    <span class="st">"dfLB"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_lb"</span>,</span>
-<span>    <span class="st">"dfSTUDCOMP"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_studcomp"</span>,</span>
-<span>    <span class="st">"dfSDRGCOMP"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_sdrgcomp"</span>,</span>
-<span>    <span class="st">"dfDATACHG"</span> <span class="op">=</span> <span class="st">"clindata::edc_data_points"</span>,</span>
-<span>    <span class="st">"dfDATAENT"</span> <span class="op">=</span> <span class="st">"clindata::edc_data_pages"</span>,</span>
-<span>    <span class="st">"dfQUERY"</span> <span class="op">=</span> <span class="st">"clindata::edc_queries"</span>,</span>
-<span>    <span class="st">"dfENROLL"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_enroll"</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Create Mapped Data</span></span>
-<span><span class="va">lMapped</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/RunWorkflow.html">RunWorkflow</a></span><span class="op">(</span>lWorkflow <span class="op">=</span> <span class="va">wf_mapping</span>, lData <span class="op">=</span> <span class="va">lRaw</span><span class="op">)</span><span class="op">$</span><span class="va">lData</span></span>
-<span></span>
-<span><span class="co"># Run Metrics</span></span>
-<span><span class="va">lResults</span> <span class="op">&lt;-</span><span class="va">wf_metrics</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">map</span><span class="op">(</span><span class="op">~</span><span class="fu"><a href="../reference/RunWorkflow.html">RunWorkflow</a></span><span class="op">(</span>lWorkflow<span class="op">=</span><span class="va">.x</span>, lData<span class="op">=</span><span class="va">lMapped</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">dfBounds</span> <span class="op">&lt;-</span> <span class="va">lResults</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">imap_dfr</span><span class="op">(</span><span class="op">~</span><span class="va">.x</span><span class="op">$</span><span class="va">lData</span><span class="op">$</span><span class="va">dfBounds</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">mutate</span><span class="op">(</span>MetricID <span class="op">=</span> <span class="va">.y</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>StudyID <span class="op">=</span> <span class="st">"ABC-123"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>SnapshotDate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">dfSummary</span> <span class="op">&lt;-</span> <span class="va">lResults</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">imap_dfr</span><span class="op">(</span><span class="op">~</span><span class="va">.x</span><span class="op">$</span><span class="va">lData</span><span class="op">$</span><span class="va">dfSummary</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">mutate</span><span class="op">(</span>MetricID <span class="op">=</span> <span class="va">.y</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>StudyID <span class="op">=</span> <span class="st">"ABC-123"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>SnapshotDate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Create charts</span></span>
-<span><span class="va">lCharts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">dfSummary</span><span class="op">$</span><span class="va">MetricID</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">map</span><span class="op">(</span><span class="op">~</span><span class="fu"><a href="../reference/Visualize_Metric.html">Visualize_Metric</a></span><span class="op">(</span></span>
-<span>  dfSummary <span class="op">=</span> <span class="va">dfSummary</span>,</span>
-<span>  dfBounds <span class="op">=</span> <span class="va">dfBounds</span>,</span>
-<span>  dfSite <span class="op">=</span> <span class="va">dfSite</span>,</span>
-<span>  dfMetrics <span class="op">=</span> <span class="va">dfMetrics</span>,</span>
-<span>  strMetricID <span class="op">=</span> <span class="va">.x</span></span>
-<span><span class="op">)</span></span>
-<span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html" class="external-link">setNames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">dfSummary</span><span class="op">$</span><span class="va">MetricID</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Run reports</span></span>
-<span><span class="va">strOutpath</span> <span class="op">&lt;-</span> <span class="st">"~/gsm_country_report_db.html"</span></span>
-<span><span class="fu"><a href="../reference/Report_KRI.html">Report_KRI</a></span><span class="op">(</span>lCharts <span class="op">=</span> <span class="va">lCharts</span>,</span>
-<span>           dfSummary <span class="op">=</span> <span class="va">dfSummary</span>,</span>
-<span>           dfSite <span class="op">=</span> <span class="va">dfSite</span>,</span>
-<span>           dfStudy <span class="op">=</span> <span class="va">dfStudy</span>,</span>
-<span>           dfMetrics <span class="op">=</span> <span class="va">dfMetrics</span>,</span>
-<span>           strOutpath <span class="op">=</span> <span class="va">strOutpath</span> <span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/Report_KRI.html">Report_KRI</a></span><span class="op">(</span></span>
+<span>  lCharts <span class="op">=</span> <span class="va">lCharts</span>,</span>
+<span>  dfResults <span class="op">=</span>  <span class="fu">gsm</span><span class="fu">::</span><span class="va"><a href="../reference/reportingResults.html">reportingResults</a></span>,</span>
+<span>  dfGroups <span class="op">=</span>  <span class="fu">gsm</span><span class="fu">::</span><span class="va"><a href="../reference/reportingGroups.html">reportingGroups</a></span>,</span>
+<span>  dfMetrics <span class="op">=</span> <span class="fu">gsm</span><span class="fu">::</span><span class="va"><a href="../reference/reportingMetrics.html">reportingMetrics</a></span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -582,57 +505,55 @@ that filters the <code>dfImportantPD</code> data frame so all values of
 <code>companycategory == "WRONG TREATMENT OR INCORRECT DOSE"</code>:</p>
 <p>The default mappings for the PD Assessment are saved under KRI 0004,
 i.e., <code>kri0004.yaml</code>:</p>
-<pre><code>meta:
-  file: kri0004.yaml
-  MetricID: kri0004
-  group: site
-  abbreviation: PD
-  metric: Important Protocol Deviation Rate
-  numerator: Important Protocol Deviations
-  denominator: Days on Study
-  model: Normal Approximation
-  score: Adjusted Z-Score
-vThreshold:
-  - -3
-  - -2
-  - 2
-  - 3
-steps:
-  - name: Input_Rate
-    output: dfInput
-    params:
-      dfSubjects: dfEnrolled
-      dfNumerator: dfImportantPD_wrong_trt
-      dfDenominator: dfEnrolled
-      strSubjectCol: subjid
-      strGroupCol: siteid
-      strNumeratorMethod: Count
-      strDenominatorMethod: Sum
-      strDenominatorCol: timeonstudy
-  - name: Transform_Rate
-    output: dfTransformed
-    params:
-     dfInput: dfInput
-  - name: Analyze_NormalApprox
-    output: dfAnalyzed
-    params:
-      dfTransformed: dfTransformed
-      strType: rate
-  - name: Analyze_NormalApprox_PredictBounds
-    output: dfBounds
-    params:
-      dfTransformed: dfTransformed
-      strType: rate
-      vThreshold: vThreshold
-  - name: Flag_NormalApprox
-    output: dfFlagged
-    params:
-      dfAnalyzed: dfAnalyzed
-      vThreshold: vThreshold
-  - name: Summarize
-    output: dfSummary
-    params:
-      dfFlagged: dfFlagged</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">meta</span><span class="kw">:</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="at">  </span><span class="fu">File</span><span class="kw">:</span><span class="at"> kri0004.yaml</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="at">  </span><span class="fu">MetricID</span><span class="kw">:</span><span class="at"> kri0004</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="at">  </span><span class="fu">GroupLevel</span><span class="kw">:</span><span class="at"> Site</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="at">  </span><span class="fu">Abbreviation</span><span class="kw">:</span><span class="at"> PD</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="at">  </span><span class="fu">Metric</span><span class="kw">:</span><span class="at"> Important Protocol Deviation Rate</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="at">  </span><span class="fu">Numerator</span><span class="kw">:</span><span class="at"> Important Protocol Deviations</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="at">  </span><span class="fu">Denominator</span><span class="kw">:</span><span class="at"> Days on Study</span></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="at">  </span><span class="fu">Model</span><span class="kw">:</span><span class="at"> Normal Approximation</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="at">  </span><span class="fu">Score</span><span class="kw">:</span><span class="at"> Adjusted Z-Score</span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="at">  </span><span class="fu">Type</span><span class="kw">:</span><span class="at"> rate</span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="at">  </span><span class="fu">strThreshold</span><span class="kw">:</span><span class="at"> -3,-2,2,3</span></span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="at">  </span><span class="fu">nMinDenominator</span><span class="kw">:</span><span class="at"> </span><span class="dv">30</span></span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> ParseThreshold</span></span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> vThreshold</span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="at">      </span><span class="fu">strThreshold</span><span class="kw">:</span><span class="at"> strThreshold</span></span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Input_Rate</span></span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfInput</span></span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a><span class="at">      </span><span class="fu">dfSubjects</span><span class="kw">:</span><span class="at"> dfEnrolled</span></span>
+<span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a><span class="at">      </span><span class="fu">dfNumerator</span><span class="kw">:</span><span class="at"> dfImportantPD</span></span>
+<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a><span class="at">      </span><span class="fu">dfDenominator</span><span class="kw">:</span><span class="at"> dfEnrolled</span></span>
+<span id="cb7-25"><a href="#cb7-25" tabindex="-1"></a><span class="at">      </span><span class="fu">strSubjectCol</span><span class="kw">:</span><span class="at"> subjid</span></span>
+<span id="cb7-26"><a href="#cb7-26" tabindex="-1"></a><span class="at">      </span><span class="fu">strGroupCol</span><span class="kw">:</span><span class="at"> invid</span></span>
+<span id="cb7-27"><a href="#cb7-27" tabindex="-1"></a><span class="at">      </span><span class="fu">strGroupLevel</span><span class="kw">:</span><span class="at"> GroupLevel</span></span>
+<span id="cb7-28"><a href="#cb7-28" tabindex="-1"></a><span class="at">      </span><span class="fu">strNumeratorMethod</span><span class="kw">:</span><span class="at"> Count</span></span>
+<span id="cb7-29"><a href="#cb7-29" tabindex="-1"></a><span class="at">      </span><span class="fu">strDenominatorMethod</span><span class="kw">:</span><span class="at"> Sum</span></span>
+<span id="cb7-30"><a href="#cb7-30" tabindex="-1"></a><span class="at">      </span><span class="fu">strDenominatorCol</span><span class="kw">:</span><span class="at"> timeonstudy</span></span>
+<span id="cb7-31"><a href="#cb7-31" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Transform_Rate</span></span>
+<span id="cb7-32"><a href="#cb7-32" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfTransformed</span></span>
+<span id="cb7-33"><a href="#cb7-33" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb7-34"><a href="#cb7-34" tabindex="-1"></a><span class="at">      </span><span class="fu">dfInput</span><span class="kw">:</span><span class="at"> dfInput</span></span>
+<span id="cb7-35"><a href="#cb7-35" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Analyze_NormalApprox</span></span>
+<span id="cb7-36"><a href="#cb7-36" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfAnalyzed</span></span>
+<span id="cb7-37"><a href="#cb7-37" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb7-38"><a href="#cb7-38" tabindex="-1"></a><span class="at">      </span><span class="fu">dfTransformed</span><span class="kw">:</span><span class="at"> dfTransformed</span></span>
+<span id="cb7-39"><a href="#cb7-39" tabindex="-1"></a><span class="at">      </span><span class="fu">strType</span><span class="kw">:</span><span class="at"> Type</span></span>
+<span id="cb7-40"><a href="#cb7-40" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Flag_NormalApprox</span></span>
+<span id="cb7-41"><a href="#cb7-41" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfFlagged</span></span>
+<span id="cb7-42"><a href="#cb7-42" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb7-43"><a href="#cb7-43" tabindex="-1"></a><span class="at">      </span><span class="fu">dfAnalyzed</span><span class="kw">:</span><span class="at"> dfAnalyzed</span></span>
+<span id="cb7-44"><a href="#cb7-44" tabindex="-1"></a><span class="at">      </span><span class="fu">vThreshold</span><span class="kw">:</span><span class="at"> vThreshold</span></span>
+<span id="cb7-45"><a href="#cb7-45" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Summarize</span></span>
+<span id="cb7-46"><a href="#cb7-46" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfSummary</span></span>
+<span id="cb7-47"><a href="#cb7-47" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb7-48"><a href="#cb7-48" tabindex="-1"></a><span class="at">      </span><span class="fu">dfFlagged</span><span class="kw">:</span><span class="at"> dfFlagged</span></span>
+<span id="cb7-49"><a href="#cb7-49" tabindex="-1"></a><span class="at">      </span><span class="fu">nMinDenominator</span><span class="kw">:</span><span class="at"> nMinDenominator</span></span></code></pre></div>
 <p>First, we want to add an additional <code><a href="../reference/RunQuery.html">RunQuery()</a></code> step to
 the workflow specification to select only PDs categorized as “WRONG
 TREATMENT OR INCORRECT DOSE”. Because <code>dfImportantPD</code> needs
@@ -640,65 +561,63 @@ to be filtered before it is used in <code><a href="../reference/Input_Rate.html"
 filter steps need to be placed first in the workflow.</p>
 <p>Let’s name the custom YAML file <code>kri0004_filtered.yaml</code>.
 It reads as follows:</p>
-<pre><code>meta:
-  file: kri0004.yaml
-  MetricID: kri0004
-  group: site
-  abbreviation: PD
-  metric: Important Protocol Deviation Rate
-  numerator: Important Protocol Deviations
-  denominator: Days on Study
-  model: Normal Approximation
-  score: Adjusted Z-Score
-vThreshold:
-  - -3
-  - -2
-  - 2
-  - 3
-steps:
- - name: RunQuery
-    output: dfImportantPD_wrong_trt
-    params:
-      df: dfImportantPD
-      strQuery: "SELECT * FROM df WHERE companycategory == 'WRONG TREATMENT OR INCORRECT DOSE'"
-  - name: Input_Rate
-    output: dfInput
-    params:
-      dfSubjects: dfEnrolled
-      dfNumerator: dfImportantPD
-      dfDenominator: dfEnrolled
-      strSubjectCol: subjid
-      strGroupCol: siteid
-      strNumeratorMethod: Count
-      strDenominatorMethod: Sum
-      strDenominatorCol: timeonstudy
-  - name: Transform_Rate
-    output: dfTransformed
-    params:
-     dfInput: dfInput
-  - name: Analyze_NormalApprox
-    output: dfAnalyzed
-    params:
-      dfTransformed: dfTransformed
-      strType: rate
-  - name: Analyze_NormalApprox_PredictBounds
-    output: dfBounds
-    params:
-      dfTransformed: dfTransformed
-      strType: rate
-      vThreshold: vThreshold
-  - name: Flag_NormalApprox
-    output: dfFlagged
-    params:
-      dfAnalyzed: dfAnalyzed
-      vThreshold: vThreshold
-  - name: Summarize
-    output: dfSummary
-    params:
-      dfFlagged: dfFlagged</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">meta</span><span class="kw">:</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="at">  </span><span class="fu">File</span><span class="kw">:</span><span class="at"> kri0004.yaml</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="at">  </span><span class="fu">MetricID</span><span class="kw">:</span><span class="at"> kri0004</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="at">  </span><span class="fu">GroupLevel</span><span class="kw">:</span><span class="at"> Site</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="at">  </span><span class="fu">Abbreviation</span><span class="kw">:</span><span class="at"> PD</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="at">  </span><span class="fu">Metric</span><span class="kw">:</span><span class="at"> Important Protocol Deviation Rate</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="at">  </span><span class="fu">Numerator</span><span class="kw">:</span><span class="at"> Important Protocol Deviations</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="at">  </span><span class="fu">Denominator</span><span class="kw">:</span><span class="at"> Days on Study</span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="at">  </span><span class="fu">Model</span><span class="kw">:</span><span class="at"> Normal Approximation</span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="at">  </span><span class="fu">Score</span><span class="kw">:</span><span class="at"> Adjusted Z-Score</span></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="at">  </span><span class="fu">Type</span><span class="kw">:</span><span class="at"> rate</span></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="at">  </span><span class="fu">strThreshold</span><span class="kw">:</span><span class="at"> -3,-2,2,3</span></span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="at">  </span><span class="fu">nMinDenominator</span><span class="kw">:</span><span class="at"> </span><span class="dv">30</span></span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> RunQuery</span></span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="at">        </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfImportantPD_wrong_trt</span></span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a><span class="at">        </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb8-18"><a href="#cb8-18" tabindex="-1"></a><span class="at">          </span><span class="fu">df</span><span class="kw">:</span><span class="at"> dfImportantPD</span></span>
+<span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a><span class="at">          </span><span class="fu">strQuery</span><span class="kw">:</span><span class="at"> </span><span class="st">"SELECT * FROM df WHERE companycategory == 'WRONG TREATMENT OR INCORRECT DOSE'"</span></span>
+<span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> ParseThreshold</span></span>
+<span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> vThreshold</span></span>
+<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a><span class="at">      </span><span class="fu">strThreshold</span><span class="kw">:</span><span class="at"> strThreshold</span></span>
+<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Input_Rate</span></span>
+<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfInput</span></span>
+<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a><span class="at">      </span><span class="fu">dfSubjects</span><span class="kw">:</span><span class="at"> dfEnrolled</span></span>
+<span id="cb8-28"><a href="#cb8-28" tabindex="-1"></a><span class="at">      </span><span class="fu">dfNumerator</span><span class="kw">:</span><span class="at"> dfImportantPD</span></span>
+<span id="cb8-29"><a href="#cb8-29" tabindex="-1"></a><span class="at">      </span><span class="fu">dfDenominator</span><span class="kw">:</span><span class="at"> dfEnrolled</span></span>
+<span id="cb8-30"><a href="#cb8-30" tabindex="-1"></a><span class="at">      </span><span class="fu">strSubjectCol</span><span class="kw">:</span><span class="at"> subjid</span></span>
+<span id="cb8-31"><a href="#cb8-31" tabindex="-1"></a><span class="at">      </span><span class="fu">strGroupCol</span><span class="kw">:</span><span class="at"> invid</span></span>
+<span id="cb8-32"><a href="#cb8-32" tabindex="-1"></a><span class="at">      </span><span class="fu">strGroupLevel</span><span class="kw">:</span><span class="at"> GroupLevel</span></span>
+<span id="cb8-33"><a href="#cb8-33" tabindex="-1"></a><span class="at">      </span><span class="fu">strNumeratorMethod</span><span class="kw">:</span><span class="at"> Count</span></span>
+<span id="cb8-34"><a href="#cb8-34" tabindex="-1"></a><span class="at">      </span><span class="fu">strDenominatorMethod</span><span class="kw">:</span><span class="at"> Sum</span></span>
+<span id="cb8-35"><a href="#cb8-35" tabindex="-1"></a><span class="at">      </span><span class="fu">strDenominatorCol</span><span class="kw">:</span><span class="at"> timeonstudy</span></span>
+<span id="cb8-36"><a href="#cb8-36" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Transform_Rate</span></span>
+<span id="cb8-37"><a href="#cb8-37" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfTransformed</span></span>
+<span id="cb8-38"><a href="#cb8-38" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb8-39"><a href="#cb8-39" tabindex="-1"></a><span class="at">      </span><span class="fu">dfInput</span><span class="kw">:</span><span class="at"> dfInput</span></span>
+<span id="cb8-40"><a href="#cb8-40" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Analyze_NormalApprox</span></span>
+<span id="cb8-41"><a href="#cb8-41" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfAnalyzed</span></span>
+<span id="cb8-42"><a href="#cb8-42" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb8-43"><a href="#cb8-43" tabindex="-1"></a><span class="at">      </span><span class="fu">dfTransformed</span><span class="kw">:</span><span class="at"> dfTransformed</span></span>
+<span id="cb8-44"><a href="#cb8-44" tabindex="-1"></a><span class="at">      </span><span class="fu">strType</span><span class="kw">:</span><span class="at"> Type</span></span>
+<span id="cb8-45"><a href="#cb8-45" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Flag_NormalApprox</span></span>
+<span id="cb8-46"><a href="#cb8-46" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfFlagged</span></span>
+<span id="cb8-47"><a href="#cb8-47" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb8-48"><a href="#cb8-48" tabindex="-1"></a><span class="at">      </span><span class="fu">dfAnalyzed</span><span class="kw">:</span><span class="at"> dfAnalyzed</span></span>
+<span id="cb8-49"><a href="#cb8-49" tabindex="-1"></a><span class="at">      </span><span class="fu">vThreshold</span><span class="kw">:</span><span class="at"> vThreshold</span></span>
+<span id="cb8-50"><a href="#cb8-50" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Summarize</span></span>
+<span id="cb8-51"><a href="#cb8-51" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfSummary</span></span>
+<span id="cb8-52"><a href="#cb8-52" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb8-53"><a href="#cb8-53" tabindex="-1"></a><span class="at">      </span><span class="fu">dfFlagged</span><span class="kw">:</span><span class="at"> dfFlagged</span></span>
+<span id="cb8-54"><a href="#cb8-54" tabindex="-1"></a><span class="at">      </span><span class="fu">nMinDenominator</span><span class="kw">:</span><span class="at"> nMinDenominator</span></span></code></pre></div>
 <p>Now that this new workflow has been saved with a unique file name, we
 can call it with <code><a href="../reference/MakeWorkflowList.html">MakeWorkflowList()</a></code> as above</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/" class="external-link">clindata</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vubiostat/r-yaml/" class="external-link">yaml</a></span><span class="op">)</span></span>
@@ -706,13 +625,12 @@ can call it with <code><a href="../reference/MakeWorkflowList.html">MakeWorkflow
 <span><span class="co">## Read in workflow mapping</span></span>
 <span><span class="va">wf_mapping</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span>strNames <span class="op">=</span> <span class="st">"mapping"</span><span class="op">)</span></span>
 <span><span class="va">wfmetrics_custom</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span><span class="st">"kri0004_filtered"</span><span class="op">)</span></span>
-<span><span class="va">dfMetrics</span> <span class="op">&lt;-</span> <span class="va">wf_metrics</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">map_df</span><span class="op">(</span><span class="op">~</span><span class="va">.x</span><span class="op">$</span><span class="va">meta</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Create Mapped Data</span></span>
-<span><span class="va">lMapped</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/RunWorkflow.html">RunWorkflow</a></span><span class="op">(</span>lWorkflow <span class="op">=</span> <span class="va">wf_mapping</span>, lData <span class="op">=</span> <span class="va">lRaw</span><span class="op">)</span><span class="op">$</span><span class="va">lData</span></span>
+<span><span class="va">lMapped</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/RunWorkflow.html">RunWorkflow</a></span><span class="op">(</span>lWorkflow <span class="op">=</span> <span class="va">wf_mapping</span>, lData <span class="op">=</span> <span class="va">lRaw</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Run Metrics</span></span>
-<span><span class="va">lResults</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/RunWorkflow.html">RunWorkflow</a></span><span class="op">(</span>lWorkflow<span class="op">=</span><span class="va">wfmetrics_custom</span>, lData<span class="op">=</span><span class="va">lMapped</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">lResults</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/RunWorkflow.html">RunWorkflow</a></span><span class="op">(</span>lWorkflow <span class="op">=</span> <span class="va">wfmetrics_custom</span>, lData <span class="op">=</span> <span class="va">lMapped</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -722,95 +640,100 @@ can call it with <code><a href="../reference/MakeWorkflowList.html">MakeWorkflow
 needed to run all default workflows specified in the <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>
 package. Additional <code><a href="../reference/RunQuery.html">RunQuery()</a></code> steps can be added to this
 file for additional user-defined workflows.</p>
-<pre><code>meta:
-  file: mapping.yaml
-  description: Data Mappings to prepare for metric calculations
-steps:
-  - name: RunQuery
-    output: dfEnrolled
-   params:
-     df: dfSUBJ
-     strQuery: "SELECT subjectid as raw_subjectid, * FROM df WHERE enrollyn == 'Y'"
- - name: RunQuery
-   output: dfSeriousAE
-    params:
-     df: dfAE
-     strQuery: "SELECT * FROM df WHERE aeser = 'Y'"  
- - name: RunQuery
-    output: dfNonimportantPD
-    params:
-      df: dfPD
-      strQuery: "SELECT subjectenrollmentnumber as subjid, * FROM df WHERE deemedimportant == 'No'"
-  - name: RunQuery
-    output: dfImportantPD
-    params:
-      df: dfPD
-      strQuery: "SELECT subjectenrollmentnumber as subjid, * FROM df WHERE deemedimportant == 'Yes'"
-  - name: RunQuery
-    output: dfAllLabs
-    params:
-      df: dfLB
-      strQuery: "SELECT * FROM df WHERE toxgrg_nsv IN ('0', '1', '2', '3', '4')"
-  - name: RunQuery
-    output: dfToxLabs
-    params:
-      df: dfLB
-      strQuery: "SELECT * FROM df WHERE toxgrg_nsv IN ('3', '4')"
-  - name: RunQuery
-    output: dfStudyDropouts
-    params:
-      df: dfSTUDCOMP
-      strQuery: "SELECT * FROM df WHERE compyn IN ('N')"  
-  - name: RunQuery
-    output: dfTreatmentDropouts
-    params:
-      df: dfSDRGCOMP
-      strQuery: "SELECT * FROM df WHERE sdrgyn IN ('N') AND phase = 'Blinded Study Drug Completion'"  
-  - name: RunQuery
-    output: dfValidQueries
-    params:
-      df: dfQUERY
-      strQuery: "SELECT subjectname as subject_nsv, * FROM df WHERE querystatus IN ('Open', 'Answered', 'Closed')"
-  - name: RunQuery
-    output: dfOldValidQueries
-    params:
-      df: dfValidQueries
-      strQuery: "SELECT * FROM df WHERE queryage &gt; 30"  
-  - name: RunQuery
-    output: dfDataChanges
-    params:
-      df: dfDATACHG
-      strQuery: "SELECT subjectname as subject_nsv, * FROM df"    
-  - name: RunQuery
-    output: dfQuery
-    params:
-      df: dfQUERY
-      strQuery: "SELECT subjectname as subject_nsv, * FROM df"  
-  - name: RunQuery
-    output: dfDataEntry
-    params:
-      df: dfDATAENT
-      strQuery: "SELECT subjectname as subject_nsv, * FROM df"
-  - name: RunQuery
-    output: dfSlowDataEntry
-    params:
-      df: dfDATAENT
-      strQuery: "SELECT subjectname as subject_nsv, * FROM df WHERE data_entry_lag &gt; 10"  
-  - name: RunQuery
-    output: dfChangedDataPoints
-    params:
-      df: dfDATACHG
-      strQuery: "SELECT subjectname as subject_nsv, * FROM df WHERE n_changes &gt; 0"  
-  - name: RunQuery
-    output: dfScreened
-    params:
-      df: dfENROLL
-      strQuery: "SELECT * FROM df"
-  - name: RunQuery
-    output: dfScreenFail
-    params:
-      df: dfENROLL
-      strQuery: "SELECT * FROM df WHERE enrollyn = 'N'" </code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">meta</span><span class="kw">:</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="at">  </span><span class="fu">File</span><span class="kw">:</span><span class="at"> mapping.yaml</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="at">  </span><span class="fu">description</span><span class="kw">:</span><span class="at"> Data Mappings to prepare for metric calculations</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> RunQuery</span></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfEnrolled</span></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="at">      </span><span class="fu">df</span><span class="kw">:</span><span class="at"> dfSUBJ</span></span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="at">      </span><span class="fu">strQuery</span><span class="kw">:</span><span class="at"> </span><span class="st">"SELECT subjectid as raw_subjectid, * FROM df WHERE enrollyn == 'Y'"</span></span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> RunQuery</span></span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfSeriousAE</span></span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="at">      </span><span class="fu">df</span><span class="kw">:</span><span class="at"> dfAE</span></span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="at">      </span><span class="fu">strQuery</span><span class="kw">:</span><span class="at"> </span><span class="st">"SELECT * FROM df WHERE aeser = 'Y'"</span></span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> RunQuery</span></span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfAE</span></span>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a><span class="at">      </span><span class="fu">df</span><span class="kw">:</span><span class="at"> dfAE</span></span>
+<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a><span class="at">      </span><span class="fu">strQuery</span><span class="kw">:</span><span class="at"> </span><span class="st">"SELECT * FROM df"</span></span>
+<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> RunQuery</span></span>
+<span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfNonimportantPD</span></span>
+<span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb10-23"><a href="#cb10-23" tabindex="-1"></a><span class="at">      </span><span class="fu">df</span><span class="kw">:</span><span class="at"> dfPD</span></span>
+<span id="cb10-24"><a href="#cb10-24" tabindex="-1"></a><span class="at">      </span><span class="fu">strQuery</span><span class="kw">:</span><span class="at"> </span><span class="st">"SELECT subjectenrollmentnumber as subjid, * FROM df WHERE deemedimportant == 'No'"</span></span>
+<span id="cb10-25"><a href="#cb10-25" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> RunQuery</span></span>
+<span id="cb10-26"><a href="#cb10-26" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfImportantPD</span></span>
+<span id="cb10-27"><a href="#cb10-27" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb10-28"><a href="#cb10-28" tabindex="-1"></a><span class="at">      </span><span class="fu">df</span><span class="kw">:</span><span class="at"> dfPD</span></span>
+<span id="cb10-29"><a href="#cb10-29" tabindex="-1"></a><span class="at">      </span><span class="fu">strQuery</span><span class="kw">:</span><span class="at"> </span><span class="st">"SELECT subjectenrollmentnumber as subjid, * FROM df WHERE deemedimportant == 'Yes'"</span></span>
+<span id="cb10-30"><a href="#cb10-30" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> RunQuery</span></span>
+<span id="cb10-31"><a href="#cb10-31" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfAllLabs</span></span>
+<span id="cb10-32"><a href="#cb10-32" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb10-33"><a href="#cb10-33" tabindex="-1"></a><span class="at">      </span><span class="fu">df</span><span class="kw">:</span><span class="at"> dfLB</span></span>
+<span id="cb10-34"><a href="#cb10-34" tabindex="-1"></a><span class="at">      </span><span class="fu">strQuery</span><span class="kw">:</span><span class="at"> </span><span class="st">"SELECT * FROM df WHERE toxgrg_nsv IN ('0', '1', '2', '3', '4')"</span></span>
+<span id="cb10-35"><a href="#cb10-35" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> RunQuery</span></span>
+<span id="cb10-36"><a href="#cb10-36" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfToxLabs</span></span>
+<span id="cb10-37"><a href="#cb10-37" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb10-38"><a href="#cb10-38" tabindex="-1"></a><span class="at">      </span><span class="fu">df</span><span class="kw">:</span><span class="at"> dfLB</span></span>
+<span id="cb10-39"><a href="#cb10-39" tabindex="-1"></a><span class="at">      </span><span class="fu">strQuery</span><span class="kw">:</span><span class="at"> </span><span class="st">"SELECT * FROM df WHERE toxgrg_nsv IN ('3', '4')"</span></span>
+<span id="cb10-40"><a href="#cb10-40" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> RunQuery</span></span>
+<span id="cb10-41"><a href="#cb10-41" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfStudyDropouts</span></span>
+<span id="cb10-42"><a href="#cb10-42" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb10-43"><a href="#cb10-43" tabindex="-1"></a><span class="at">      </span><span class="fu">df</span><span class="kw">:</span><span class="at"> dfSTUDCOMP</span></span>
+<span id="cb10-44"><a href="#cb10-44" tabindex="-1"></a><span class="at">      </span><span class="fu">strQuery</span><span class="kw">:</span><span class="at"> </span><span class="st">"SELECT * FROM df WHERE compyn IN ('N')"</span></span>
+<span id="cb10-45"><a href="#cb10-45" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> RunQuery</span></span>
+<span id="cb10-46"><a href="#cb10-46" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfTreatmentDropouts</span></span>
+<span id="cb10-47"><a href="#cb10-47" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb10-48"><a href="#cb10-48" tabindex="-1"></a><span class="at">      </span><span class="fu">df</span><span class="kw">:</span><span class="at"> dfSDRGCOMP</span></span>
+<span id="cb10-49"><a href="#cb10-49" tabindex="-1"></a><span class="at">      </span><span class="fu">strQuery</span><span class="kw">:</span><span class="at"> </span><span class="st">"SELECT * FROM df WHERE sdrgyn IN ('N') AND phase = 'Blinded Study Drug Completion'"</span></span>
+<span id="cb10-50"><a href="#cb10-50" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> RunQuery</span></span>
+<span id="cb10-51"><a href="#cb10-51" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfValidQueries</span></span>
+<span id="cb10-52"><a href="#cb10-52" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb10-53"><a href="#cb10-53" tabindex="-1"></a><span class="at">      </span><span class="fu">df</span><span class="kw">:</span><span class="at"> dfQUERY</span></span>
+<span id="cb10-54"><a href="#cb10-54" tabindex="-1"></a><span class="at">      </span><span class="fu">strQuery</span><span class="kw">:</span><span class="at"> </span><span class="st">"SELECT subjectname as subject_nsv, * FROM df WHERE querystatus IN ('Open', 'Answered', 'Closed')"</span></span>
+<span id="cb10-55"><a href="#cb10-55" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> RunQuery</span></span>
+<span id="cb10-56"><a href="#cb10-56" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfOldValidQueries</span></span>
+<span id="cb10-57"><a href="#cb10-57" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb10-58"><a href="#cb10-58" tabindex="-1"></a><span class="at">      </span><span class="fu">df</span><span class="kw">:</span><span class="at"> dfValidQueries</span></span>
+<span id="cb10-59"><a href="#cb10-59" tabindex="-1"></a><span class="at">      </span><span class="fu">strQuery</span><span class="kw">:</span><span class="at"> </span><span class="st">"SELECT * FROM df WHERE queryage &gt; 30"</span></span>
+<span id="cb10-60"><a href="#cb10-60" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> RunQuery</span></span>
+<span id="cb10-61"><a href="#cb10-61" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfDataChanges</span></span>
+<span id="cb10-62"><a href="#cb10-62" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb10-63"><a href="#cb10-63" tabindex="-1"></a><span class="at">      </span><span class="fu">df</span><span class="kw">:</span><span class="at"> dfDATACHG</span></span>
+<span id="cb10-64"><a href="#cb10-64" tabindex="-1"></a><span class="at">      </span><span class="fu">strQuery</span><span class="kw">:</span><span class="at"> </span><span class="st">"SELECT subjectname as subject_nsv, * FROM df"</span></span>
+<span id="cb10-65"><a href="#cb10-65" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> RunQuery</span></span>
+<span id="cb10-66"><a href="#cb10-66" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfQuery</span></span>
+<span id="cb10-67"><a href="#cb10-67" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb10-68"><a href="#cb10-68" tabindex="-1"></a><span class="at">      </span><span class="fu">df</span><span class="kw">:</span><span class="at"> dfQUERY</span></span>
+<span id="cb10-69"><a href="#cb10-69" tabindex="-1"></a><span class="at">      </span><span class="fu">strQuery</span><span class="kw">:</span><span class="at"> </span><span class="st">"SELECT subjectname as subject_nsv, * FROM df"</span></span>
+<span id="cb10-70"><a href="#cb10-70" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> RunQuery</span></span>
+<span id="cb10-71"><a href="#cb10-71" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfDataEntry</span></span>
+<span id="cb10-72"><a href="#cb10-72" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb10-73"><a href="#cb10-73" tabindex="-1"></a><span class="at">      </span><span class="fu">df</span><span class="kw">:</span><span class="at"> dfDATAENT</span></span>
+<span id="cb10-74"><a href="#cb10-74" tabindex="-1"></a><span class="at">      </span><span class="fu">strQuery</span><span class="kw">:</span><span class="at"> </span><span class="st">"SELECT subjectname as subject_nsv, * FROM df"</span></span>
+<span id="cb10-75"><a href="#cb10-75" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> RunQuery</span></span>
+<span id="cb10-76"><a href="#cb10-76" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfSlowDataEntry</span></span>
+<span id="cb10-77"><a href="#cb10-77" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb10-78"><a href="#cb10-78" tabindex="-1"></a><span class="at">      </span><span class="fu">df</span><span class="kw">:</span><span class="at"> dfDATAENT</span></span>
+<span id="cb10-79"><a href="#cb10-79" tabindex="-1"></a><span class="at">      </span><span class="fu">strQuery</span><span class="kw">:</span><span class="at"> </span><span class="st">"SELECT subjectname as subject_nsv, * FROM df WHERE data_entry_lag &gt; 10"</span></span>
+<span id="cb10-80"><a href="#cb10-80" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> RunQuery</span></span>
+<span id="cb10-81"><a href="#cb10-81" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfChangedDataPoints</span></span>
+<span id="cb10-82"><a href="#cb10-82" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb10-83"><a href="#cb10-83" tabindex="-1"></a><span class="at">      </span><span class="fu">df</span><span class="kw">:</span><span class="at"> dfDATACHG</span></span>
+<span id="cb10-84"><a href="#cb10-84" tabindex="-1"></a><span class="at">      </span><span class="fu">strQuery</span><span class="kw">:</span><span class="at"> </span><span class="st">"SELECT subjectname as subject_nsv, * FROM df WHERE n_changes &gt; 0"</span></span>
+<span id="cb10-85"><a href="#cb10-85" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> RunQuery</span></span>
+<span id="cb10-86"><a href="#cb10-86" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfScreened</span></span>
+<span id="cb10-87"><a href="#cb10-87" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb10-88"><a href="#cb10-88" tabindex="-1"></a><span class="at">      </span><span class="fu">df</span><span class="kw">:</span><span class="at"> dfENROLL</span></span>
+<span id="cb10-89"><a href="#cb10-89" tabindex="-1"></a><span class="at">      </span><span class="fu">strQuery</span><span class="kw">:</span><span class="at"> </span><span class="st">"SELECT * FROM df"</span></span>
+<span id="cb10-90"><a href="#cb10-90" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> RunQuery</span></span>
+<span id="cb10-91"><a href="#cb10-91" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfScreenFail</span></span>
+<span id="cb10-92"><a href="#cb10-92" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb10-93"><a href="#cb10-93" tabindex="-1"></a><span class="at">      </span><span class="fu">df</span><span class="kw">:</span><span class="at"> dfENROLL</span></span>
+<span id="cb10-94"><a href="#cb10-94" tabindex="-1"></a><span class="at">      </span><span class="fu">strQuery</span><span class="kw">:</span><span class="at"> </span><span class="st">"SELECT * FROM df WHERE enrollyn = 'N'"</span></span></code></pre></div>
 </div>
   </div>
 
