@@ -12,7 +12,8 @@ Analyze_NormalApprox_PredictBounds(
 )
 }
 \arguments{
-\item{dfTransformed}{\code{data.frame} in format produced by \code{\link{Transform_Rate}}.}
+\item{dfTransformed}{\code{data.frame} Transformed data for analysis. Data should have one record per site with expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, and \code{Metric}. For more details see the Data Pipeline vignette: \code{vignette("DataPipeline", package = "gsm")}.
+For this function, \code{dfTransformed} should typically be created using \code{\link[=Transform_Rate]{Transform_Rate()}}.}
 
 \item{vThreshold}{\code{numeric} upper and lower boundaries based on standard deviation. Should be identical to
 the thresholds used in \verb{*_Assess()} functions.}
@@ -41,20 +42,6 @@ percentages/rates and upper- and lower-bounds across the full range of sample si
 This function applies a funnel plot analysis with normal approximation to site-level data and then calculates
 predicted percentages/rates and upper- and lower- bounds (funnels) based on the standard deviation from the mean
 across the full range of sample sizes/total exposure values.
-}
-
-\section{Data Specification}{
-
-
-The input data (\code{dfTransformed}) for \code{Analyze_NormalApprox_PredictBounds} is typically created using
-\code{\link{Transform_Rate}} and should be one record per site with columns for:
-\itemize{
-\item \code{GroupID} - Site ID
-\item \code{GroupLevel} - Group Type
-\item \code{Numerator} - Total number of participants at site with event of interest/Total number of events of interest at site
-\item \code{Denominator} - Total number of participants at site/Total number of days of exposure at site
-\item \code{Metric} - Proportion of participants at site with event of interest/Rate of events at site (Numerator / Denominator)
-}
 }
 
 \examples{
