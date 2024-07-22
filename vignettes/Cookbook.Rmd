@@ -63,7 +63,7 @@ Finally, in order to create charts and a report for the AE assessment, a few add
 
 
 
-```{r code = readLines(system.file("examples", "1_AdverseEventKRI.R", package = "gsm")), eval = FALSE, include = TRUE}
+```{r file = system.file("examples", "1_AdverseEventKRI.R", package = "gsm"), eval = FALSE, include = TRUE}
 
 ```
 
@@ -83,7 +83,7 @@ Here, we run the YAML workflow for the AE KRI (kri0001). The table produced in t
 In the subsequent two examples, we update the metadata to run country-level metrics (**Example 2.2**) and add a filtering step to the workflow to generate the SAE metric (**Example 2.3**).
 
 
-```{r code = readLines(system.file("examples", "2_AdverseEventWorkflow.R", package = "gsm")), eval = FALSE, include = TRUE}
+```{r file = system.file("examples", "2_AdverseEventWorkflow.R", package = "gsm"), eval = FALSE, include = TRUE}
 
 ```
 
@@ -95,7 +95,7 @@ The same procedure is run through in **Example 3.2**, but with a single `snapsho
 
 In **Example 3.3**, the same process is done for country-level reports by editing the Metric fed into the `snapshot` workflow to "Country".
 
-```{r code = readLines(system.file("examples", "3_ReportingWorkflow.R", package = "gsm")), eval = FALSE, include = TRUE}
+```{r file = system.file("examples", "3_ReportingWorkflow.R", package = "gsm"), eval = FALSE, include = TRUE}
 
 ```
 
@@ -107,7 +107,7 @@ In this example, we feed the example reporting data.frames into the `Visualize_M
 
 We then create the site-level report using `Report_KRI()` with the example data.frames and the charts created with `Visualize_Metric()`. 
 
-```{r code = readLines(system.file("examples", "4_LongitudinalData.R", package = "gsm")), eval = FALSE, include = TRUE}
+```{r file = system.file("examples", "4_LongitudinalData.R", package = "gsm"), eval = FALSE, include = TRUE}
 
 ```
 
