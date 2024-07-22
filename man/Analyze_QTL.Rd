@@ -7,7 +7,8 @@
 Analyze_QTL(dfTransformed, nConfLevel = 0.95, strOutcome = "binary")
 }
 \arguments{
-\item{dfTransformed}{\code{data.frame} in format produced by \code{\link{Transform_Rate}}}
+\item{dfTransformed}{\code{data.frame} Transformed data for analysis. Data should have one record per site with expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, and \code{Metric}. For more details see the Data Pipeline vignette: \code{vignette("DataPipeline", package = "gsm")}.
+For this function, \code{dfTransformed} should typically be created using \code{\link[=Transform_Rate]{Transform_Rate()}}.}
 
 \item{nConfLevel}{\code{numeric} specified confidence interval for QTL analysis.}
 
@@ -26,20 +27,6 @@ Creates confidence intervals for the observed proportion of participants for the
 
 
 TODO Coming soon ...
-}
-
-\section{Data Specification}{
-
-
-The input data (\code{dfTransformed}) for \code{Analyze_QTL} is typically created using \code{\link{Transform_Rate}} and should be one record for the entire study with required columns for:
-\itemize{
-\item \code{GroupID} - GroupID should be the StudyID
-\item \code{GroupLevel} - Group Type
-\item \code{N} - Total number of participants at site
-\item \code{Numerator} - Total number of participants at site with event of interest
-\item \code{Denominator} - Total number of participants at a site
-\item \code{Metric} - Proportion of participants at site with event of interest
-}
 }
 
 \examples{

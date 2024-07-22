@@ -13,15 +13,8 @@
 #' the binary outcome, or normal approximation of a Poisson distribution for the rate outcome with volume (the sample sizes
 #' or total exposure of the sites) to assess data quality and safety.
 #'
-#' @section Data Specification:
-#'
-#' The input data (`dfTransformed`) is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
-#' - `GroupID` - Site ID
-#' - `Numerator` - Total number of participants at site with event of interest/Total number of events of interest at site
-#' - `Denominator` - Total number of participants at site/Total number of days of exposure at site
-#' - `Metric` - Proportion of participants at site with event of interest/Rate of events at site (Numerator / Denominator)
-#'
-#' @param dfTransformed `data.frame` in format produced by \code{\link{Transform_Rate}}
+#' @param dfTransformed `r gloss_param("dfTransformed")`
+#'   `r gloss_extra("dfTransformed_Rate")`
 #' @param strType `character` Statistical outcome type. Valid values:
 #'   - `"binary"` (default)
 #'   - `"rate"`

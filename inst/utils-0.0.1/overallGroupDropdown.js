@@ -1,5 +1,4 @@
 function overallClick() {
-
   const widgets = [
       ...document.querySelectorAll('.gsm-widget')
   ].map(el => ({
@@ -7,9 +6,8 @@ function overallClick() {
     type: el.className
   }))
 
-
   for (const widget of widgets) {
-      if (/timeSeries/.test(widget.type)) {
+    if (/timeSeries/.test(widget.type)) {
       widget.chart.helpers.updateSelectedGroupIDs(event.target.value);
     } else {
         widget.chart.data.config.selectedGroupIDs = event.target.value; // group ID
@@ -32,7 +30,6 @@ function overallClick() {
       });
     }
   }
-
 }
 
 function overallGroupDropdown() {

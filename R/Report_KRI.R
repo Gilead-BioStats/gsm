@@ -2,10 +2,9 @@
 #'
 #' This function generates a KRI report based on the provided inputs.
 #'
+#' @inheritParams shared-params
 #' @param lCharts A list of charts to include in the report.
-#' @param dfResults A data frame containing result information.
 #' @param dfGroups A data frame containing study/site metadata (e.g., from CTMS).
-#' @param dfMetrics A data frame containing metric metadata (e.g., from workflows).
 #' @param strOutpath The output path for the generated report. If not provided, the report will be saved in the current working directory with the name "kri_report.html".
 #'
 #' @return None
@@ -91,8 +90,21 @@ Report_KRI <- function(
   rlang::check_installed("kableExtra", reason = "to run `Report_KRI()`")
 
   # set output path
-  if (is.null(strOutpath)) { strOutpath <- paste0(getwd(), "/kri_report.html") }
+  if (is.null(strOutpath)) { 
+    GroupLevel <- unique(dfMetrics$GroupLevel)
+    StudyID <- unique(dfResults$StudyID)
+    SnapshotDate <- max(unique(dfResults$SnapshotDate))
+    if(length(GroupLevel==1) & length(StudyID)==1){
+      #remove non alpha-numeric characters from StudyID, GroupLevel and SnapshotDate
+      StudyID <- gsub("[^[:alnum:]]", "", StudyID)
+      GroupLevel <- gsub("[^[:alnum:]]", "", GroupLevel)
+      SnapshotDate <- gsub("[^[:alnum:]]", "", as.character(SnapshotDate))
 
+      strOutpath <- paste0(getwd(), "/kri_report_", StudyID, "_", GroupLevel, "_", SnapshotDate, ".html")      
+    }else{
+      strOutpath <- paste0(getwd(), "/kri_report.html")
+    }
+  }
 
   rmarkdown::render(
     system.file("report", "Report_KRI.Rmd", package = "gsm"),

@@ -2,7 +2,7 @@
 #'
 #' `r lifecycle::badge("stable")`
 #'
-#' @param dfResults `data.frame` returned by [Summarize()] and [BindResults()]
+#' @inheritParams shared-params
 #' @param dfBounds `data.frame` data.frame giving prediction bounds for range of denominator in dfResults.
 #' @param strGroupCol `character` name of stratification column for facet wrap Default: `NULL`
 #' @param strGroupLabel `character` name of group, used for labeling axes. Default: `NULL`

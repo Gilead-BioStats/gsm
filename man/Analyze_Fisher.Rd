@@ -7,12 +7,16 @@
 Analyze_Fisher(dfTransformed, strOutcome = "Numerator")
 }
 \arguments{
-\item{dfTransformed}{\code{data.frame} in format produced by \code{\link{Transform_Rate}}.}
+\item{dfTransformed}{\code{data.frame} Transformed data for analysis. Data should have one record per site with expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, and \code{Metric}. For more details see the Data Pipeline vignette: \code{vignette("DataPipeline", package = "gsm")}.
+For this function, \code{dfTransformed} should typically be created using \code{\link[=Transform_Rate]{Transform_Rate()}}.}
 
-\item{strOutcome}{\code{character} required, name of column in \code{dfTransformed} dataset to perform Fisher's exact test on. Default is "Numerator".}
+\item{strOutcome}{\code{character} required, name of column in \code{dfTransformed}
+dataset to perform Fisher's exact test on. Default is "Numerator".}
 }
 \value{
-\code{data.frame} with one row per site with columns: GroupID, Numerator, Numerator_Other, Denominator, Denominator_Other, Prop, Prop_Other, Metric, Estimate, and Score.
+\code{data.frame} with one row per site with columns: GroupID, Numerator,
+Numerator_Other, Denominator, Denominator_Other, Prop, Prop_Other, Metric,
+Estimate, and Score.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
@@ -27,26 +31,15 @@ of the KRI Method vignette.
 
 
 The function \code{Analyze_Fisher} utilizes \code{stats::fisher.test} to generate an
-estimate of odds ratio as well as a p-value using the Fisher’s exact test with site-level count
-data. For each site, the Fisher’s exact test is conducted by comparing the given site to all other sites combined
-in a 2×2 contingency table. The p-values are then used as a scoring metric in \code{{gsm}} to flag
-possible outliers. The default in \code{stats::fisher.test} uses a two-sided test (equivalent to testing
-the null of OR = 1) and does not compute p-values by Monte Carlo simulation unless \code{simulate.p.value = TRUE}.
-Sites with p-values less than 0.05 from the Fisher’s exact test analysis are flagged by default.
-The significance level was set at a common choice.
-}
-
-\section{Data Specification}{
-
-
-The input data (\code{dfTransformed}) for \code{Analyze_Fisher} is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
-\itemize{
-\item \code{GroupID} - Site ID
-\item \code{GroupLevel} - Group Type
-\item \code{Numerator} - Total number of participants at site with event of interest.
-\item \code{Denominator} - Total number of participants at site/Total number of days of exposure at site.
-\item \code{Metric} - Proportion of participants at site with event of interest/Rate of events at site (Numerator / Denominator).
-}
+estimate of odds ratio as well as a p-value using the Fisher’s exact test
+with site-level count data. For each site, the Fisher’s exact test is
+conducted by comparing the given site to all other sites combined in a 2×2
+contingency table. The p-values are then used as a scoring metric in
+\code{{gsm}} to flag possible outliers. The default in \code{stats::fisher.test} uses
+a two-sided test (equivalent to testing the null of OR = 1) and does not
+compute p-values by Monte Carlo simulation unless \code{simulate.p.value = TRUE}. Sites with p-values less than 0.05 from the Fisher’s exact test
+analysis are flagged by default. The significance level was set at a common
+choice.
 }
 
 \examples{

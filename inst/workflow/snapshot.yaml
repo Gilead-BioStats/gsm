@@ -1,6 +1,6 @@
 meta:
   File: snapshot.yaml
-  description: run all steps in a snapshot
+  Description: run all steps in a snapshot
 steps:
   # Generate Mapping Data Model
   - name: MakeWorkflowList
@@ -14,11 +14,11 @@ steps:
       lWorkflow: wf_mapping
       bKeepInputData: FALSE
 
-  # Run KRIs
+  # Run Metrics
   - name: MakeWorkflowList
     output: lWorkflows
     params:
-      strNames: kri
+      strNames: Metrics
   - name: RunWorkflows
     output: lAnalysis
     params:

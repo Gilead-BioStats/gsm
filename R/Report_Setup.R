@@ -1,8 +1,7 @@
 #' Calculate needed values for report
 #'
+#' @inheritParams shared-params
 #' @param dfGroups A data frame containing the group-level metadata.
-#' @param dfMetrics A data frame containing the metric-level metadata.
-#' @param dfResults A data frame containing the metric results.
 #'
 #' @export
 #' @keywords internal
