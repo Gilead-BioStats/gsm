@@ -55,9 +55,11 @@ devtools::install_github("Gilead-BioStats/gsm", ref = "dev")
 
 ## Example 1 - Running an Assessment on Standard Data
 
-Below is the script for running an AE assessment corresponding to kri0001. Using Raw+ data from `clindata`, we are able to create the mapped input data (via `InputRate()`), prepare that data for analysis (via `Transform_Rate()`), analyze the data with the Normal Approximation method (via `Analyze_NormalApprox()`) and flag and summarize the analyzed data (via `Flag_NormalApprox()` and `Summarize()`, respectively) in order to produce a table which aggregates site level flags for the AE risk signal.
+Below is the script with three examples for running an AE assessment corresponding to kri0001 and kri0002. In **Example 1.1**, we use Raw+ data from `clindata`, to create the mapped input data (via `InputRate()`), prepare that data for analysis (via `Transform_Rate()`), analyze the data with the Normal Approximation method (via `Analyze_NormalApprox()`) and flag and summarize the analyzed data (via `Flag_NormalApprox()` and `Summarize()`, respectively) in order to produce a table which aggregates site level flags for the AE risk signal.
 
-In order to create charts and a report for the AE assessment, a few additional steps must be taken, as seen in example 1.3. First, `Analyze_NormalApprox_PredictBounds()` must be run to create a data.frame with the upper/lower bounds of the predictions (`dfBounds`). Then, a data.frame with all relevant meta information is constructed (`dfMetrics`) prior to running `Visualize_Metric()` and `Report_KRI()` which create the charts and report, respectively.
+In **Example 1.2**, we run the same process as the prior example, but with a filter to include only Serious Adverse Events (SAEs) and implement pipes to run through the workflow.
+
+Finally, in order to create charts and a report for the AE assessment, a few additional steps must be taken, as seen in **Example 1.3**. First, `Analyze_NormalApprox_PredictBounds()` must be run to create a data.frame with the upper/lower bounds of the predictions (`dfBounds`). Then, a data.frame with all relevant meta information is constructed (`dfMetrics`) prior to running `Visualize_Metric()` and `Report_KRI()` which create the charts and report, respectively.
 
 
 
@@ -76,7 +78,9 @@ All assessments can be specified with YAML files, which run through the process 
 
 ## Example 2 - YAML workflow for AE KRI
 
-Here, we run the YAML workflow for the AE KRI (kri0001). The table produced at the end of this script will match the tables produced in Example 1 above.
+Here, we run the YAML workflow for the AE KRI (kri0001). The table produced in the `AE_KRI$dfSummary` object in **Example 2.1** will match the tables produced in Example 1.1 above.
+
+In the subsequent two examples, we update the metadata to run country-level metrics (**Example 2.2**) and add a filtering step to the workflow to generate the SAE metric (**Example 2.3**).
 
 
 ```{r code = readLines(system.file("examples", "2_AdverseEventWorkflow.R", package = "gsm")), eval = FALSE, include = TRUE}
@@ -85,17 +89,19 @@ Here, we run the YAML workflow for the AE KRI (kri0001). The table produced at t
 
 ## Example 3 - Generate Charts with yaml workflow for multiple KRIs
 
-In this example, we run multiple KRIs and once by feeding a vector of KRI file names into `MakeWorkflowList()`. Then, to make charts, we add study information to `dfBounds` and `dfSummary` and feed all relevant data.frames into the `Visualize_Metric()` function using `purrr:map()` since we are making charts for all 12 KRIs. 
+In **Example 3.1** we leverage yaml workflows to generate all available site-level KRIs at once. This is possible by feeding a "kri" into `MakeWorkflowList()` followed by feeding `RunWorkflows()` the workflow list and the appropriately mapped data. This generates the data in the analytics data model. Then, to make charts and reports, we feed the analytics data and metadata into the reporting workflow to produce all charts and the report, saving the output into `lReports`.
 
-In Example 3.3, we create the site-level report using `Report_KRI()` with the data.frames produced by the yaml workflow and the charts created with `Visualize_Metric()`. 
+The same procedure is run through in **Example 3.2**, but with a single `snapshot.yaml` that performs both the analytics steps and the reporting steps all in one workflow. 
 
-In example 3.4, using the same process as the site-level charts, we create country-level charts by using the Country KRI yaml files, which begin with `cou` instead of `kri`.
+In **Example 3.3**, the same process is done for country-level reports by editing the Metric fed into the `snapshot` workflow to "Country".
 
 ```{r code = readLines(system.file("examples", "3_ReportingWorkflow.R", package = "gsm")), eval = FALSE, include = TRUE}
 
 ```
 
-## Example 4 - Generate Charts for multiple KRIs
+# Creating Charts and Reports
+
+## Example 4 - Generate Charts and a Report for multiple KRIs
 
 In this example, we feed the example reporting data.frames into the `Visualize_Metric()` function including multiple snapshot dates and multiple KRIs in the data to be reflected in the charts.
 
@@ -119,118 +125,118 @@ There are filter steps in the default specification for the AE Assessment, but w
 
 The default mappings for the PD Assessment are saved under KRI 0004, i.e., `kri0004.yaml`:
 
-    meta:
-      file: kri0004.yaml
-      MetricID: kri0004
-      group: site
-      abbreviation: PD
-      metric: Important Protocol Deviation Rate
-      numerator: Important Protocol Deviations
-      denominator: Days on Study
-      model: Normal Approximation
-      score: Adjusted Z-Score
-    vThreshold:
-      - -3
-      - -2
-      - 2
-      - 3
-    steps:
-      - name: Input_Rate
-        output: dfInput
-        params:
-          dfSubjects: dfEnrolled
-          dfNumerator: dfImportantPD_wrong_trt
-          dfDenominator: dfEnrolled
-          strSubjectCol: subjid
-          strGroupCol: siteid
-          strNumeratorMethod: Count
-          strDenominatorMethod: Sum
-          strDenominatorCol: timeonstudy
-      - name: Transform_Rate
-        output: dfTransformed
-        params:
-         dfInput: dfInput
-      - name: Analyze_NormalApprox
-        output: dfAnalyzed
-        params:
-          dfTransformed: dfTransformed
-          strType: rate
-      - name: Analyze_NormalApprox_PredictBounds
-        output: dfBounds
-        params:
-          dfTransformed: dfTransformed
-          strType: rate
-          vThreshold: vThreshold
-      - name: Flag_NormalApprox
-        output: dfFlagged
-        params:
-          dfAnalyzed: dfAnalyzed
-          vThreshold: vThreshold
-      - name: Summarize
-        output: dfSummary
-        params:
-          dfFlagged: dfFlagged
+```{yaml}
+meta:
+  File: kri0004.yaml
+  MetricID: kri0004
+  GroupLevel: Site
+  Abbreviation: PD
+  Metric: Important Protocol Deviation Rate
+  Numerator: Important Protocol Deviations
+  Denominator: Days on Study
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
+  Type: rate
+  strThreshold: -3,-2,2,3
+  nMinDenominator: 30
+steps:
+  - name: ParseThreshold
+    output: vThreshold
+    params:
+      strThreshold: strThreshold
+  - name: Input_Rate
+    output: dfInput
+    params:
+      dfSubjects: dfEnrolled
+      dfNumerator: dfImportantPD
+      dfDenominator: dfEnrolled
+      strSubjectCol: subjid
+      strGroupCol: invid
+      strGroupLevel: GroupLevel
+      strNumeratorMethod: Count
+      strDenominatorMethod: Sum
+      strDenominatorCol: timeonstudy
+  - name: Transform_Rate
+    output: dfTransformed
+    params:
+      dfInput: dfInput
+  - name: Analyze_NormalApprox
+    output: dfAnalyzed
+    params:
+      dfTransformed: dfTransformed
+      strType: Type
+  - name: Flag_NormalApprox
+    output: dfFlagged
+    params:
+      dfAnalyzed: dfAnalyzed
+      vThreshold: vThreshold
+  - name: Summarize
+    output: dfSummary
+    params:
+      dfFlagged: dfFlagged
+      nMinDenominator: nMinDenominator
+```
 
 First, we want to add an additional `RunQuery()` step to the workflow specification to select only PDs categorized as "WRONG TREATMENT OR INCORRECT DOSE". Because `dfImportantPD` needs to be filtered before it is used in `Input_Rate()`, the filter steps need to be placed first in the workflow.
 
 Let's name the custom YAML file `kri0004_filtered.yaml`. It reads as follows:
 
-    meta:
-      file: kri0004.yaml
-      MetricID: kri0004
-      group: site
-      abbreviation: PD
-      metric: Important Protocol Deviation Rate
-      numerator: Important Protocol Deviations
-      denominator: Days on Study
-      model: Normal Approximation
-      score: Adjusted Z-Score
-    vThreshold:
-      - -3
-      - -2
-      - 2
-      - 3
-    steps:
-     - name: RunQuery
+```{yaml}
+meta:
+  File: kri0004.yaml
+  MetricID: kri0004
+  GroupLevel: Site
+  Abbreviation: PD
+  Metric: Important Protocol Deviation Rate
+  Numerator: Important Protocol Deviations
+  Denominator: Days on Study
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
+  Type: rate
+  strThreshold: -3,-2,2,3
+  nMinDenominator: 30
+steps:
+  - name: RunQuery
         output: dfImportantPD_wrong_trt
         params:
           df: dfImportantPD
           strQuery: "SELECT * FROM df WHERE companycategory == 'WRONG TREATMENT OR INCORRECT DOSE'"
-      - name: Input_Rate
-        output: dfInput
-        params:
-          dfSubjects: dfEnrolled
-          dfNumerator: dfImportantPD
-          dfDenominator: dfEnrolled
-          strSubjectCol: subjid
-          strGroupCol: siteid
-          strNumeratorMethod: Count
-          strDenominatorMethod: Sum
-          strDenominatorCol: timeonstudy
-      - name: Transform_Rate
-        output: dfTransformed
-        params:
-         dfInput: dfInput
-      - name: Analyze_NormalApprox
-        output: dfAnalyzed
-        params:
-          dfTransformed: dfTransformed
-          strType: rate
-      - name: Analyze_NormalApprox_PredictBounds
-        output: dfBounds
-        params:
-          dfTransformed: dfTransformed
-          strType: rate
-          vThreshold: vThreshold
-      - name: Flag_NormalApprox
-        output: dfFlagged
-        params:
-          dfAnalyzed: dfAnalyzed
-          vThreshold: vThreshold
-      - name: Summarize
-        output: dfSummary
-        params:
-          dfFlagged: dfFlagged
+  - name: ParseThreshold
+    output: vThreshold
+    params:
+      strThreshold: strThreshold
+  - name: Input_Rate
+    output: dfInput
+    params:
+      dfSubjects: dfEnrolled
+      dfNumerator: dfImportantPD
+      dfDenominator: dfEnrolled
+      strSubjectCol: subjid
+      strGroupCol: invid
+      strGroupLevel: GroupLevel
+      strNumeratorMethod: Count
+      strDenominatorMethod: Sum
+      strDenominatorCol: timeonstudy
+  - name: Transform_Rate
+    output: dfTransformed
+    params:
+      dfInput: dfInput
+  - name: Analyze_NormalApprox
+    output: dfAnalyzed
+    params:
+      dfTransformed: dfTransformed
+      strType: Type
+  - name: Flag_NormalApprox
+    output: dfFlagged
+    params:
+      dfAnalyzed: dfAnalyzed
+      vThreshold: vThreshold
+  - name: Summarize
+    output: dfSummary
+    params:
+      dfFlagged: dfFlagged
+      nMinDenominator: nMinDenominator
+```
 
 Now that this new workflow has been saved with a unique file name, we can call it with `MakeWorkflowList()` as above
 
@@ -242,13 +248,12 @@ library(yaml)
 ## Read in workflow mapping
 wf_mapping <- MakeWorkflowList(strNames = "mapping")
 wfmetrics_custom <- MakeWorkflowList("kri0004_filtered")
-dfMetrics <- wf_metrics %>% map_df(~.x$meta)
 
 # Create Mapped Data
 lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)
 
 # Run Metrics
-lResults <- RunWorkflow(lWorkflow=wfmetrics_custom, lData=lMapped)
+lResults <- RunWorkflow(lWorkflow = wfmetrics_custom, lData = lMapped)
 ```
 
 
@@ -256,6 +261,7 @@ lResults <- RunWorkflow(lWorkflow=wfmetrics_custom, lData=lMapped)
 
 The following YAML file creates all modified rawplus dataframes needed to run all default workflows specified in the `{gsm}` package. Additional `RunQuery()` steps can be added to this file for additional user-defined workflows.
 
+```{yaml}
     meta:
       file: mapping.yaml
       description: Data Mappings to prepare for metric calculations
@@ -345,4 +351,5 @@ The following YAML file creates all modified rawplus dataframes needed to run al
         params:
           df: dfENROLL
           strQuery: "SELECT * FROM df WHERE enrollyn = 'N'" 
+```
 
