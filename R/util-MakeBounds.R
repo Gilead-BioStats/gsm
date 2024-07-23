@@ -56,7 +56,7 @@ MakeBounds <- function(
         dplyr::filter(.data$MetricID == strMetric) %>%
         as.list()
 
-      vThreshold <- ParseThreshold(strThreshold = lMetric$strThreshold)
+      vThreshold <- ParseThreshold(strThreshold = lMetric$Threshold)
       if (!is.null(lMetric$Type) &&
           tolower(unique(lMetric$Type)) %in% c("poisson")) {
         dfBounds <- Analyze_Poisson_PredictBounds(

@@ -66,7 +66,7 @@ Widget_BarChart(
     dfResults = lResults$dfSummary,
     lMetric = lMetricWorkflow$meta,
     dfGroups = dfGroups,
-    vThreshold = lMetricWorkflow$meta$strThreshold
+    vThreshold = lMetricWorkflow$meta$Threshold
 )
 }
 }

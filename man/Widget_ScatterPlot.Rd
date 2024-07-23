@@ -62,7 +62,7 @@ dfGroups <- bind_rows(
 
 dfBounds <- lResults$dfTransformed \%>\%
     Analyze_NormalApprox_PredictBounds(
-        lMetricWorkflow$meta$strThreshold \%>\%
+        lMetricWorkflow$meta$Threshold \%>\%
             stringr::str_split_1(',') \%>\%
             as.numeric(),
         strType = lMetricWorkflow$meta$Type

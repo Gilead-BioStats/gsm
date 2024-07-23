@@ -87,6 +87,7 @@ Widget_TimeSeries(
     dfResults = dfSummary,
     lMetric = lMetricWorkflow$meta,
     dfGroups = dfGroups,
+    vThreshold = lMetricWorkflow$meta$Threshold
     vThreshold = lMetricWorkflow$meta$strThreshold
 )
 }
