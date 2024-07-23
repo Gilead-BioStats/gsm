@@ -20,16 +20,16 @@
 #'
 #' The input data has one or more rows per site. `Transform_Count()` sums `strCountCol` for a `TotalCount` for each site. `Metric` is set to `TotalCount` to be used downstream in the workflow.
 #'
-#' @param dfInput A data.frame with one record per subject.
+#' @inheritParams shared-params
 #' @param strCountCol Required. Numerical or logical. Column to be counted.
 #' @param strGroupCol `character` Name of column for grouping variable. Default: `"GroupID"`
 #'
 #' @return `data.frame` with one row per site with columns `GroupID`, `TotalCount`, and `Metric.`
 #'
 #' @examples
-#'
+#'  \dontrun{
 #' dfTransformed <- Transform_Count(analyticsInput, strCountCol = "Numerator")
-#'
+#' }
 #' @export
 
 Transform_Count <- function(

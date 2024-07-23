@@ -70,12 +70,8 @@ Widget_GroupOverview <- function(
     dfGroups = dfGroups,
     strGroupLevel = strGroupLevel,
     strGroupSubset = strGroupSubset,
-<<<<<<< HEAD
-    strGroupLabelKey = strGroupLabelKey
-=======
     strGroupLabelKey = strGroupLabelKey,
     bDebug = bDebug
->>>>>>> dev
   )
 
   # create widget

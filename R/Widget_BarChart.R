@@ -7,9 +7,6 @@
 #' and the outcome (numerator, denominator, metric, or score) on the y-axis.
 #'
 #' @inheritParams shared-params
-#' @param lMetric `list` Metric metadata, captured at the top of metric workflows and returned by
-#' [MakeMetric()].
-#' @param dfGroups `data.frame` Group metadata.
 #' @param vThreshold `numeric` Threshold values.
 #' @param strOutcome `character` Outcome variable. Default: 'Score'.
 #' @param bAddGroupSelect `logical` Add a dropdown to highlight sites? Default: `TRUE`.

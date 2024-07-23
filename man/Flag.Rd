@@ -59,10 +59,12 @@ The following column is considered optional:
 }
 
 \examples{
+\dontrun{
 dfTransformed <- Transform_Count(analyticsInput, strCountCol = "Numerator")
 
 dfAnalyzed <- Analyze_Identity(dfTransformed)
 
 dfFlagged <- Flag(dfAnalyzed, vThreshold = c(0.001, 0.01))
+}
 
 }

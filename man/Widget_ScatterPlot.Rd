@@ -16,14 +16,6 @@ Widget_ScatterPlot(
 \arguments{
 \item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
 
-\item{lMetric}{\code{list} Metric metadata, captured at the top of metric workflows and returned by
-\code{\link[=MakeMetric]{MakeMetric()}}.}
-
-\item{dfGroups}{\code{data.frame} Group metadata.}
-
-\item{dfBounds}{\code{data.frame} Output of \code{\link[=Analyze_NormalApprox_PredictBounds]{Analyze_NormalApprox_PredictBounds()}} or
-\code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}}}
-
 \item{bAddGroupSelect}{\code{logical} Add a dropdown to highlight sites? Default: \code{TRUE}.}
 
 \item{bDebug}{\code{logical} Print debug messages? Default: \code{FALSE}.}
@@ -37,33 +29,11 @@ on the x-axis and the numerator on the y-axis.
 }
 \examples{
 \dontrun{
-lWorkflows <- MakeWorkflowList()
-strMetricID <- 'kri0001'
-lMetricWorkflow <- lWorkflows[[ strMetricID ]]
-
-lData <- list(
-    dfEnrolled = clindata::rawplus_dm \%>\% filter(enrollyn == 'Y'),
-    dfAE = clindata::rawplus_ae
-)
-lResults <- RunWorkflow(
-    lMetricWorkflow,
-    lData
-)
-
-dfGroups <- bind_rows(
-    "SELECT site_num as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df" \%>\%
-        RunQuery(clindata::ctms_site) \%>\%
-        MakeLongMeta('Site'),
-    "SELECT siteid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT siteid) as SiteCount FROM df GROUP BY siteid" \%>\%
-        RunQuery(lData$dfEnrolled) \%>\%
-        MakeLongMeta('Site')
-)
-
 Widget_ScatterPlot(
-    dfResults = lResults$dfResults,
-    lMetric = lMetricWorkflow$meta,
-    dfGroups = dfGroups,
-    dfBounds = lResults$dfBounds
+    dfResults = reportingResults,
+    lMetric = reportingMetrics \%>\% as.list(),
+    dfGroups = reportingGroups,
+    dfBounds = reportingBounds
 )
 }
 }

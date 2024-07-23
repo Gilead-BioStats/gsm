@@ -2,8 +2,7 @@
 #'
 #' Calculate bounds across a set of metrics.
 #'
-#' @param dfMetrics Metric metadata including thresholds and analysis type.
-#' @param dfResults Results data.
+#' @inheritParams shared-params
 #' @param strMetrics Character vector of `MetricID`s to include in `dfBounds`.
 #'   All unique values from `dfResults$MetricID` used by default.
 #' @param strStudyID Study ID. Uses `dfResults$StudyID` by default. If more than
@@ -16,9 +15,12 @@
 #' @return A data frame.
 #'
 #' @examples
+#'  \dontrun{
 #' dfBounds <- MakeBounds(
-#'   dfResults = reportingResults, dfMetrics = reportingMetrics
+#'   dfResults = reportingResults,
+#'   dfMetrics = reportingMetrics
 #' )
+#' }
 #'
 #' @export
 MakeBounds <- function(

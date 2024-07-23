@@ -69,7 +69,11 @@ The data requirements for the function are as follows:
 All other columns are dropped from the output data frame. Note that if no values for a subject are
 found in dfNumerator/dfDenominator numerator and denominator values are filled with 0 in the output data frame.
 }
+\details{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+}
 \examples{
+\dontrun{
 # Run for AE KRI
 dfInput <- Input_Rate(
     dfSubjects = clindata::rawplus_dm,
@@ -82,6 +86,7 @@ dfInput <- Input_Rate(
     strDenominatorMethod = "Sum",
     strDenominatorCol = "timeontreatment"
   )
+  }
 
 }
 \keyword{interal}

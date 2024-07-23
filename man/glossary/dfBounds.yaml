@@ -1,0 +1,8 @@
+class: data.frame
+description: >
+  Set of predicted percentages/rates and upper- and
+  lower-bounds across the full range of sample sizes/total
+  exposure values for reporting. Created by passing
+  `dfResults` and `dfMetrics` to `MakeBounds()`. Expected
+  columns: `Threshold`, `Denominator`, `Numerator`, `Metric`,
+  `MetricID`, `StudyID`, `SnapshotDate`.

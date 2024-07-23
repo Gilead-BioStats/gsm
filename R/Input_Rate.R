@@ -1,4 +1,6 @@
-#' @title Input_Rate
+#' Input_Rate
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description Calculate a subject level rate from numerator and denominator data
 #'
@@ -42,6 +44,7 @@
 #' | Metric       | The calculated input rate/metric     | Numeric  |
 #'
 #' @examples
+#' \dontrun{
 #' # Run for AE KRI
 #' dfInput <- Input_Rate(
 #'     dfSubjects = clindata::rawplus_dm,
@@ -54,6 +57,7 @@
 #'     strDenominatorMethod = "Sum",
 #'     strDenominatorCol = "timeontreatment"
 #'   )
+#'   }
 #'
 #' @export
 #' @keywords interal

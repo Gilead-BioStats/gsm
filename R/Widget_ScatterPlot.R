@@ -7,11 +7,6 @@
 #' on the x-axis and the numerator on the y-axis.
 #'
 #' @inheritParams shared-params
-#' @param lMetric `list` Metric metadata, captured at the top of metric workflows and returned by
-#' [MakeMetric()].
-#' @param dfGroups `data.frame` Group metadata.
-#' @param dfBounds `data.frame` Output of [Analyze_NormalApprox_PredictBounds()] or
-#' [Analyze_Poisson_PredictBounds()]
 #' @param bAddGroupSelect `logical` Add a dropdown to highlight sites? Default: `TRUE`.
 #' @param bDebug `logical` Print debug messages? Default: `FALSE`.
 #'

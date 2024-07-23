@@ -34,29 +34,19 @@ group-level plot object.
 }
 \examples{
 \dontrun{
-lData <- UseClindata(
-  list(
-    "dfSUBJ" = "clindata::rawplus_dm",
-    "dfAE" = "clindata::rawplus_ae",
-    "dfPD" = "clindata::ctms_protdev",
-    "dfCONSENT" = "clindata::rawplus_consent",
-    "dfIE" = "clindata::rawplus_ie",
-    "dfLB" = "clindata::rawplus_lb",
-    "dfSTUDCOMP" = "clindata::rawplus_studcomp",
-    "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp \%>\%
-          dplyr::filter(.data$phase == 'Blinded Study Drug Completion')",
-    "dfDATACHG" = "clindata::edc_data_points",
-    "dfDATAENT" = "clindata::edc_data_pages",
-    "dfQUERY" = "clindata::edc_queries",
-    "dfENROLL" = "clindata::rawplus_enroll"
-  )
-)
-wf_mapping <- MakeWorkflowList("mapping")
-ae <- MakeWorkflowList(strNames = "kri0001")
-lMapped <- RunWorkflow(wf_mapping, lData)$lData
-SafetyAE <- map(ae, ~RunWorkflow(., lMapped))
-dfBounds <- Analyze_Poisson_PredictBounds(SafetyAE$kri0001$lData$dfTransformed, c(-5, 5))
-Visualize_Scatter(SafetyAE$kri0001$lData$dfSummary, dfBounds)
+Visualize_Scatter(dfResults = sampleResults,
+                  dfBounds = sampleBounds)
+
+## Create Faceted output
+Visualize_Scatter(dfResults = sampleResults,
+                  dfBounds = sampleBounds,
+                  strGroupCol = SnapshotDate,
+                  strGroupLabel = "Snapshot Date")
+
+## Custom Colors
+Visualize_Scatter(dfResults = sampleResults,
+                  dfBounds = sampleBounds,
+                  vColors = c("#F4E7E7", "#C17070", "#981212"))
 }
 
 }

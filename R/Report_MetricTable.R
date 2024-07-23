@@ -1,11 +1,12 @@
 #' Generate a summary table for a report
 #'
+#' `r lifecycle::badge("stable")`
+#'
 #' This function generates a summary table for a report by joining the provided
 #' results data frame with the site-level metadata from dfGroups. It then filters and arranges the
 #' data based on certain conditions and displays the result in a datatable.
 #'
 #' @inheritParams shared-params
-#' @param dfGroups A data frame containing the group-level metadata.
 #' @param strSnapshotDate user specified snapshot date as string
 #' @param strGroupLevel  group level for the table
 #' @param strGroupDetailsParams one or more parameters from dfGroups to be added as columns in the table

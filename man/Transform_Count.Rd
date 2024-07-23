@@ -7,8 +7,6 @@
 Transform_Count(dfInput, strCountCol, strGroupCol = "GroupID")
 }
 \arguments{
-\item{dfInput}{A data.frame with one record per subject.}
-
 \item{strCountCol}{Required. Numerical or logical. Column to be counted.}
 
 \item{strGroupCol}{\code{character} Name of column for grouping variable. Default: \code{"GroupID"}}
@@ -40,7 +38,7 @@ The input data has one or more rows per site. \code{Transform_Count()} sums \cod
 }
 
 \examples{
-
+ \dontrun{
 dfTransformed <- Transform_Count(analyticsInput, strCountCol = "Numerator")
-
+}
 }

@@ -17,11 +17,6 @@ Widget_TimeSeries(
 \arguments{
 \item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
 
-\item{lMetric}{\code{list} Metric metadata, captured at the top of metric workflows and returned by
-\code{\link[=MakeMetric]{MakeMetric()}}.}
-
-\item{dfGroups}{\code{data.frame} Group metadata.}
-
 \item{vThreshold}{\code{numeric} Threshold value(s).}
 
 \item{strOutcome}{\code{character} Outcome variable. Default: 'Score'.}
@@ -39,55 +34,20 @@ date on the x-axis and the outcome (numerator, denominator, metric, or score) on
 }
 \examples{
 \dontrun{
-lWorkflows <- MakeWorkflowList()
-strMetricID <- 'kri0001'
-lMetricWorkflow <- lWorkflows[[ strMetricID ]]
-
-lData <- list(
-    dfEnrolled = clindata::rawplus_dm \%>\% filter(enrollyn == 'Y'),
-    dfAE = clindata::rawplus_ae
-)
-
-lResults <- RunWorkflow(
-    lMetricWorkflow,
-    lData
-)
-
-# Simulate longitudinal snapshot data.
-SnapshotDates <- paste0('20', 13:24, '-01-01')
-
-dfSummary <- purrr::map_dfr(
-    SnapshotDates,
-    ~ {
-        order <- sample(1:nrow(lResults$dfSummary))
-        dfSummary <- lResults$dfSummary \%>\%
-            mutate(
-                SnapshotDate = .x,
-                Numerator = Numerator[order],
-                Denominator = Denominator[order],
-                Metric = Metric[order],
-                Score = Score[order],
-                Flag = Flag[order]
-            )
-
-        return(dfSummary)
-    }
-)
-
-dfGroups <- bind_rows(
-    "SELECT site_num as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df" \%>\%
-        RunQuery(clindata::ctms_site) \%>\%
-        MakeLongMeta('Site'),
-    "SELECT siteid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT siteid) as SiteCount FROM df GROUP BY siteid" \%>\%
-        RunQuery(lData$dfEnrolled) \%>\%
-        MakeLongMeta('Site')
-)
 
 Widget_TimeSeries(
-    dfResults = dfSummary,
-    lMetric = lMetricWorkflow$meta,
-    dfGroups = dfGroups,
-    vThreshold = lMetricWorkflow$meta$vThreshold
+    dfResults = reportingResults,
+    lMetric = reportingMetrics \%>\% as.list(),
+    dfGroups = reportingGroups,
+    vThreshold = c(-3,-2,2,3)
+)
+# show metric outcome
+Widget_TimeSeries(
+    dfResults = reportingResults,
+    lMetric = reportingMetrics \%>\% as.list(),
+    dfGroups = reportingGroups,
+    vThreshold = c(-3,-2,2,3),
+    strOutcome = "Metric"
 )
 }
 }
