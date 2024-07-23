@@ -19,15 +19,15 @@
 #' \dontrun{
 #' strMetricID <- 'kri0001'
 #' lMetricWorkflow <- MakeWorkflowList()[[ strMetricID ]]
-#' 
+#'
 #' lData <- list(
 #'     dfEnrolled = clindata::rawplus_dm %>% filter(enrollyn == 'Y'),
 #'     dfAE = clindata::rawplus_ae
 #' )
-#' 
+#'
 #' lResults <- lMetricWorkflow %>%
 #'     RunWorkflow(lData)
-#' 
+#'
 #' dfGroups <- bind_rows(
 #'     "SELECT pi_number as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df" %>%
 #'         RunQuery(clindata::ctms_site) %>%
@@ -39,15 +39,15 @@
 #'         RunQuery(lData$dfEnrolled) %>%
 #'         MakeLongMeta('Country')
 #' )
-#' 
+#'
 #' dfBounds <- lResults$dfTransformed %>%
 #'     Analyze_NormalApprox_PredictBounds(
-#'         lMetricWorkflow$meta$strThreshold %>%
+#'         lMetricWorkflow$meta$Threshold %>%
 #'             stringr::str_split_1(',') %>%
 #'             as.numeric(),
 #'         strType = lMetricWorkflow$meta$Type
 #'     )
-#' 
+#'
 #' Widget_ScatterPlot(
 #'     dfResults = lResults$dfSummary,
 #'     lMetric = lMetricWorkflow$meta,

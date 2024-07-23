@@ -13,7 +13,7 @@ MakeCharts(dfResults, dfBounds, dfGroups, dfMetrics)
 
 \item{dfGroups}{A data frame with the groups of the simulation.}
 
-\item{dfMetrics}{\code{data.frame} Metric-specific metadata for use in charts and reporting. Created by passing an \code{lWorkflow} object to \code{\link[=MakeMetric]{MakeMetric()}}. Expected columns: \code{File}, \code{MetricID}, \code{Group}, \code{Abbreviation}, \code{Metric}, \code{Numerator}, \code{Denominator}, \code{Model}, \code{Score}, and \code{strThreshold}. For more details see the Data Pipeline vignette: \code{vignette("DataPipeline", package = "gsm")}.}
+\item{dfMetrics}{\code{data.frame} Metric-specific metadata for use in charts and reporting. Created by passing an \code{lWorkflow} object to \code{\link[=MakeMetric]{MakeMetric()}}. Expected columns: \code{File}, \code{MetricID}, \code{Group}, \code{Abbreviation}, \code{Metric}, \code{Numerator}, \code{Denominator}, \code{Model}, \code{Score}, and \code{Threshold}. For more details see the Data Pipeline vignette: \code{vignette("DataPipeline", package = "gsm")}.}
 }
 \value{
 A list of charts for each metric.

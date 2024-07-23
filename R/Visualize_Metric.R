@@ -70,7 +70,7 @@ Visualize_Metric <- function(
 
   # Prep chart inputs ---------------------------------------------------------
   lMetric <- as.list(dfMetrics)
-  vThreshold <- ParseThreshold(lMetric$strThreshold)
+  vThreshold <- ParseThreshold(lMetric$Threshold)
 
   # Cross-sectional Charts using most recent snapshot ------------------------
   lCharts <- list()

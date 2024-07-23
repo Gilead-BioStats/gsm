@@ -377,7 +377,7 @@ Expected `Param` by `GroupLevel` for use in gsm reporting. User may add other Pa
   | dfMetrics| Denominator  | Data source for the Denominator | Character| | denominator   |
   | dfMetrics| Model        | Model used to calculate metric     | Character| | model         |
   | dfMetrics| Score        | Type of Score reported      | Character| | score         |
-  | dfMetrics| strThreshold   | Thresholds to be used for bounds and flags     | Character| | vthreshold    |
+  | dfMetrics| Threshold   | Thresholds to be used for bounds and flags     | Character| | vthreshold    |
 
 
 # Previous Versions
