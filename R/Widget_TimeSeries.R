@@ -6,9 +6,9 @@
 #' A widget that generates a time series of group-level metric results over time, plotting snapshot
 #' date on the x-axis and the outcome (numerator, denominator, metric, or score) on the y-axis.
 #'
-#' @param dfSummary `data.frame` Output of [gsm::Summarize()]. Must contain a 'SnapshotDate' column.
+#' @inheritParams shared-params
 #' @param lMetric `list` Metric metadata, captured at the top of metric workflows and returned by
-#' [gsm::MakeMetricInfo()].
+#' [MakeMetric()].
 #' @param dfGroups `data.frame` Group metadata.
 #' @param vThreshold `numeric` Threshold value(s).
 #' @param strOutcome `character` Outcome variable. Default: 'Score'.
@@ -17,30 +17,16 @@
 #'
 #' @examples
 #' \dontrun{
-#' lDataRaw <- list(
-#'     dfSTUDY = clindata::ctms_study,
-#'     dfSITE = clindata::ctms_site,
-#'     dfSUBJ = clindata::rawplus_dm,
+#' strMetricID <- 'kri0001'
+#' lMetricWorkflow <- MakeWorkflowList()[[ strMetricID ]]
+#'
+#' lData <- list(
+#'     dfEnrolled = clindata::rawplus_dm %>% filter(enrollyn == 'Y'),
 #'     dfAE = clindata::rawplus_ae
 #' )
 #'
-#' lMappingWorkflow <- MakeWorkflowList('mapping')$mapping
-#'
-#' lMappingWorkflow$steps <- lMappingWorkflow$steps %>%
-#'     purrr::keep(~ .x$params$df %in% names(lDataRaw))
-#'
-#' lDataMapped <- RunWorkflow(
-#'     lMappingWorkflow,
-#'     lDataRaw
-#' )$lData
-#' 
-#' strMetricID <- 'kri0001'
-#' lMetricWorkflow <- MakeWorkflowList(strMetricID)[[ strMetricID ]]
-#' 
-#' lResults <- RunWorkflow(
-#'     lMetricWorkflow,
-#'     lDataMapped
-#' )
+#' lResults <- lMetricWorkflow %>%
+#'     RunWorkflow(lData)
 #'
 #' # Simulate longitudinal snapshot data.
 #' SnapshotDates <- paste0('20', 13:24, '-01-01')
@@ -48,8 +34,8 @@
 #' dfSummary <- purrr::map_dfr(
 #'     SnapshotDates,
 #'     ~ {
-#'         order <- sample(1:nrow(lResults$lData$dfSummary))
-#'         dfSummary <- lResults$lData$dfSummary %>%
+#'         order <- sample(1:nrow(lResults$dfSummary))
+#'         dfSummary <- lResults$dfSummary %>%
 #'             mutate(
 #'                 SnapshotDate = .x,
 #'                 Numerator = Numerator[order],
@@ -58,33 +44,34 @@
 #'                 Score = Score[order],
 #'                 Flag = Flag[order]
 #'             )
+#'
 #'         return(dfSummary)
 #'     }
 #' )
-#' 
-#' dfGroups <- clindata::ctms_site %>%
-#'     left_join(
-#'         lDataMapped$dfEnrolled %>%
-#'             group_by(siteid) %>%
-#'             tally(name = 'enrolled_participants'),
-#'         c('site_num' = 'siteid')
-#'     ) %>%
-#'     rename(
-#'         SiteID = site_num,
-#'         status = site_status
-#'     )
-#' 
+#'
+#' dfGroups <- bind_rows(
+#'     "SELECT pi_number as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df" %>%
+#'         RunQuery(clindata::ctms_site) %>%
+#'         MakeLongMeta('Site'),
+#'     "SELECT invid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid" %>%
+#'         RunQuery(lData$dfEnrolled) %>%
+#'         MakeLongMeta('Site'),
+#'     "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country" %>%
+#'         RunQuery(lData$dfEnrolled) %>%
+#'         MakeLongMeta('Country')
+#' )
+#'
 #' Widget_TimeSeries(
-#'     dfSummary = dfSummary,
+#'     dfResults = dfSummary,
 #'     lMetric = lMetricWorkflow$meta,
 #'     dfGroups = dfGroups,
-#'     vThreshold = lMetricWorkflow$meta$vThreshold
+#'     vThreshold = lMetricWorkflow$meta$strThreshold
 #' )
 #' }
 #' @export
 
 Widget_TimeSeries <- function(
-  dfSummary,
+  dfResults,
   lMetric,
   dfGroups = NULL,
   vThreshold = NULL,
@@ -92,9 +79,16 @@ Widget_TimeSeries <- function(
   bAddGroupSelect = TRUE,
   bDebug = FALSE
 ) {
+    # Parse `vThreshold` from comma-delimited character string to numeric vector.
+    if (!is.null(vThreshold)) {
+        if (is.character(vThreshold)) {
+            vThreshold <- strsplit(vThreshold, ',')[[1]] %>% as.numeric()
+        }
+    }
+print(vThreshold)
   # define widget inputs
   input <- list(
-    dfSummary = dfSummary,
+    dfResults = dfResults,
     lMetric = lMetric,
     dfGroups = dfGroups,
     vThreshold = vThreshold,

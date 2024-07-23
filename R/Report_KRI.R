@@ -2,11 +2,9 @@
 #'
 #' This function generates a KRI report based on the provided inputs.
 #'
+#' @inheritParams shared-params
 #' @param lCharts A list of charts to include in the report.
-#' @param dfSummary A data frame containing summary information.
-#' @param dfStudy A data frame containing study metadata (e.g., from CTMS).
-#' @param dfSite A data frame containing site metadata (e.g., from CTMS).
-#' @param dfMetrics A data frame containing metric metadata (e.g., from workflows).
+#' @param dfGroups A data frame containing study/site metadata (e.g., from CTMS).
 #' @param strOutpath The output path for the generated report. If not provided, the report will be saved in the current working directory with the name "kri_report.html".
 #'
 #' @return None
@@ -21,7 +19,7 @@
 #' dfSite<- clindata::ctms_site %>% dplyr::rename(SiteID = site_num)
 #'
 #' # Pull Raw Data - this will overwrite the previous data pull
-#' lRaw <- gsm::UseClindata(
+#' lRaw <- UseClindata(
 #'   list(
 #'     "dfSUBJ" = "clindata::rawplus_dm",
 #'     "dfAE" = "clindata::rawplus_ae",
@@ -82,9 +80,8 @@
 
 Report_KRI <- function(
   lCharts = NULL,
-  dfSummary = NULL,
-  dfStudy = NULL,
-  dfSite = NULL,
+  dfResults = NULL,
+  dfGroups = NULL,
   dfMetrics = NULL,
   strOutpath = NULL
 ) {
@@ -93,19 +90,30 @@ Report_KRI <- function(
   rlang::check_installed("kableExtra", reason = "to run `Report_KRI()`")
 
   # set output path
-  if (is.null(strOutpath)) { strOutpath <- paste0(getwd(), "/kri_report.html") }
+  if (is.null(strOutpath)) { 
+    GroupLevel <- unique(dfMetrics$GroupLevel)
+    StudyID <- unique(dfResults$StudyID)
+    SnapshotDate <- max(unique(dfResults$SnapshotDate))
+    if(length(GroupLevel==1) & length(StudyID)==1){
+      #remove non alpha-numeric characters from StudyID, GroupLevel and SnapshotDate
+      StudyID <- gsub("[^[:alnum:]]", "", StudyID)
+      GroupLevel <- gsub("[^[:alnum:]]", "", GroupLevel)
+      SnapshotDate <- gsub("[^[:alnum:]]", "", as.character(SnapshotDate))
 
+      strOutpath <- paste0(getwd(), "/kri_report_", StudyID, "_", GroupLevel, "_", SnapshotDate, ".html")      
+    }else{
+      strOutpath <- paste0(getwd(), "/kri_report.html")
+    }
+  }
 
   rmarkdown::render(
     system.file("report", "Report_KRI.Rmd", package = "gsm"),
     output_file = strOutpath,
     params = list(
       lCharts = lCharts,
-      dfSummary = dfSummary,
-      dfSite = dfSite,
-      dfStudy = dfStudy,
-      dfMetrics = dfMetrics,
-      lCharts = lCharts
+      dfResults = dfResults,
+      dfGroups = dfGroups,
+      dfMetrics = dfMetrics
     ),
     envir = new.env(parent = globalenv())
   )

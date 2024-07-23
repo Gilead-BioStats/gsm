@@ -6,66 +6,60 @@
 #' A widget that generates a scatter plot of group-level metric results, plotting the denominator
 #' on the x-axis and the numerator on the y-axis.
 #'
-#' @param dfSummary `data.frame` Output of [gsm::Summarize()].
+#' @inheritParams shared-params
 #' @param lMetric `list` Metric metadata, captured at the top of metric workflows and returned by
-#' [gsm::MakeMetricInfo()].
+#' [MakeMetric()].
 #' @param dfGroups `data.frame` Group metadata.
-#' @param dfBounds `data.frame` Output of [gsm::Analyze_NormalApprox_PredictBounds()] or
-#' [gsm::Analyze_Poisson_PredictBounds()]
+#' @param dfBounds `data.frame` Output of [Analyze_NormalApprox_PredictBounds()] or
+#' [Analyze_Poisson_PredictBounds()]
 #' @param bAddGroupSelect `logical` Add a dropdown to highlight sites? Default: `TRUE`.
 #' @param bDebug `logical` Print debug messages? Default: `FALSE`.
 #'
 #' @examples
 #' \dontrun{
-#' lDataRaw <- list(
-#'     dfSTUDY = clindata::ctms_study,
-#'     dfSITE = clindata::ctms_site,
-#'     dfSUBJ = clindata::rawplus_dm,
+#' strMetricID <- 'kri0001'
+#' lMetricWorkflow <- MakeWorkflowList()[[ strMetricID ]]
+#' 
+#' lData <- list(
+#'     dfEnrolled = clindata::rawplus_dm %>% filter(enrollyn == 'Y'),
 #'     dfAE = clindata::rawplus_ae
 #' )
-#'
-#' lMappingWorkflow <- MakeWorkflowList('mapping')$mapping
-#'
-#' lMappingWorkflow$steps <- lMappingWorkflow$steps %>%
-#'     purrr::keep(~ .x$params$df %in% names(lDataRaw))
-#'
-#' lDataMapped <- RunWorkflow(
-#'     lMappingWorkflow,
-#'     lDataRaw
-#' )$lData
 #' 
-#' strMetricID <- 'kri0001'
-#' lMetricWorkflow <- MakeWorkflowList(strMetricID)[[ strMetricID ]]
+#' lResults <- lMetricWorkflow %>%
+#'     RunWorkflow(lData)
 #' 
-#' lResults <- RunWorkflow(
-#'     lMetricWorkflow,
-#'     lDataMapped
+#' dfGroups <- bind_rows(
+#'     "SELECT pi_number as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df" %>%
+#'         RunQuery(clindata::ctms_site) %>%
+#'         MakeLongMeta('Site'),
+#'     "SELECT invid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid" %>%
+#'         RunQuery(lData$dfEnrolled) %>%
+#'         MakeLongMeta('Site'),
+#'     "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country" %>%
+#'         RunQuery(lData$dfEnrolled) %>%
+#'         MakeLongMeta('Country')
 #' )
 #' 
-#' dfGroups <- clindata::ctms_site %>%
-#'     left_join(
-#'         lDataMapped$dfEnrolled %>%
-#'             group_by(siteid) %>%
-#'             tally(name = 'enrolled_participants'),
-#'         c('site_num' = 'siteid')
-#'     ) %>%
-#'     rename(
-#'         SiteID = site_num,
-#'         status = site_status
+#' dfBounds <- lResults$dfTransformed %>%
+#'     Analyze_NormalApprox_PredictBounds(
+#'         lMetricWorkflow$meta$strThreshold %>%
+#'             stringr::str_split_1(',') %>%
+#'             as.numeric(),
+#'         strType = lMetricWorkflow$meta$Type
 #'     )
 #' 
 #' Widget_ScatterPlot(
-#'     dfSummary = lResults$lData$dfSummary,
+#'     dfResults = lResults$dfSummary,
 #'     lMetric = lMetricWorkflow$meta,
 #'     dfGroups = dfGroups,
-#'     dfBounds = lResults$lData$dfBounds
+#'     dfBounds = dfBounds
 #' )
 #' }
 #' @export
 
 Widget_ScatterPlot <- function(
-  dfSummary,
-  lMetric,
+  dfResults,
+  lMetric = list(), # TODO: coerce list to object instead of array with jsonlite::toJSON()
   dfGroups = NULL,
   dfBounds = NULL,
   bAddGroupSelect = TRUE,
@@ -73,7 +67,7 @@ Widget_ScatterPlot <- function(
 ) {
   # define widget inputs
   input <- list(
-    dfSummary = dfSummary,
+    dfResults = dfResults,
     lMetric = lMetric,
     dfGroups = dfGroups,
     dfBounds = dfBounds,

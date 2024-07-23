@@ -28,7 +28,7 @@
 #'
 #' @examples
 #'
-#' dfTransformed <- Transform_Count(sampleInput, strCountCol = "Numerator")
+#' dfTransformed <- Transform_Count(analyticsInput, strCountCol = "Numerator")
 #'
 #' @export
 

@@ -12,6 +12,9 @@ const addGroupSelect = function(el, results, instance, groupSelectLabelValue) {
 
     // add container in which to place dropdown
     const groupSelectContainer = document.createElement('div');
+
+    groupSelectContainer.id = "group-filters";
+
     el.appendChild(groupSelectContainer);
 
     // position container absolutely in upper left corner of `el`.
@@ -20,14 +23,16 @@ const addGroupSelect = function(el, results, instance, groupSelectLabelValue) {
     groupSelectContainer.style.left = 0;
 
     // add dropdown label
-    const groupSelectLabel = document.createElement('span');
+    const groupSelectLabel = document.createElement('div');
     groupSelectLabel.classList.add("gsm-group-select-label")
+    groupSelectLabel.style.display = 'inline-block';
+    groupSelectLabel.style.marginRight = '2px';
     groupSelectLabel.innerHTML = groupSelectLabelValue;
     groupSelectContainer.appendChild(groupSelectLabel)
 
     // add dropdown
     const groupSelect = document.createElement('select');
-    groupSelectContainer.appendChild(groupSelect);
+    groupSelectLabel.appendChild(groupSelect);
 
     // add default option
     const noneOption = document.createElement('option');

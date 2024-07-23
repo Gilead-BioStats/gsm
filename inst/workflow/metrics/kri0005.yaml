@@ -1,13 +1,14 @@
 meta:
   File: kri0005.yaml
   MetricID: kri0005
-  GroupLevel: site
+  GroupLevel: Site
   Abbreviation: LB
   Metric: Grade 3+ Lab Abnormality Rate
   Numerator: Grade 3+ Abnormal Labs Samples
   Denominator: Total Lab Samples
   Model: Normal Approximation
   Score: Adjusted Z-Score
+  Type: binary
   strThreshold: -3,-2,2,3
   nMinDenominator: 30
 steps:
@@ -22,7 +23,8 @@ steps:
       dfNumerator: dfToxLabs
       dfDenominator: dfAllLabs
       strSubjectCol: subjid
-      strGroupCol: siteid
+      strGroupCol: invid
+      strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count
   - name: Transform_Rate
@@ -33,13 +35,7 @@ steps:
     output: dfAnalyzed
     params:
       dfTransformed: dfTransformed
-      strType: binary
-  - name: Analyze_NormalApprox_PredictBounds
-    output: dfBounds
-    params:
-      dfTransformed: dfTransformed
-      strType: binary
-      vThreshold: vThreshold
+      strType: Type
   - name: Flag_NormalApprox
     output: dfFlagged
     params:

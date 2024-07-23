@@ -8,9 +8,8 @@ output:
     css: styles.css
 params:
   lCharts: NA
-  dfSummary: NA
-  dfStudy: NA
-  dfSite: NA
+  dfResults: NA
+  dfGroups: NA
   dfMetrics: NA
 
 ---
@@ -22,25 +21,32 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 ```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
 library(gsm)
-library(DT)
 library(kableExtra)
 
-setup <- Report_Setup(dfStudy =  params$dfStudy, dfMetrics = params$dfMetrics, dfSummary = params$dfSummary)
+setup <- Report_Setup(
+  dfGroups =  params$dfGroups, 
+  dfMetrics = params$dfMetrics, 
+  dfResults = params$dfResults
+)
 
 ```
 
 
 ---
-title: "`r setup$group` KRI Overview"
+title: "`r setup$GroupLevel` KRI Overview"
 subtitle: "Study: `r setup$StudyID`"
 date: "Snapshot Date: `r setup$SnapshotDate`"
 --- 
 
-::: {#overall-site-select .overall-site-select title="Selected site will be highlighted in all charts for all KRIs."}
+::: {
+    #overall-group-select
+    .overall-group-select
+    title="Selected group will be highlighted in all charts for all KRIs."
+}
 :::
 
 ```{r, echo=FALSE, results='asis', fig.height=2}
-Report_StudyInfo(dfStudy = params$dfStudy)
+Report_StudyInfo(lStudy = setup$lStudy)
 ```
 
 ## Study Overview
@@ -58,14 +64,24 @@ Report_StudyInfo(dfStudy = params$dfStudy)
 ::: gsm-overview-table
 
 
-```{r echo=FALSE, warning=FALSE}
+```{r echo=FALSE, warning=FALSE, results = 'asis'}
+if(setup$GroupLevel == "Site"){ 
+  GroupLabelKey <- "InvestigatorLastName"
+} else { 
+  GroupLabelKey <- NULL 
+}  
+
 htmltools::div(
   style = "table-layout: fixed; width: 100%; overflow: auto;",
-  Widget_SiteOverview(
-    dfSummary= params$dfSummary,
-    dfSite= params$dfSite
+  Widget_GroupOverview(
+      dfResults= params$dfResults,
+      dfGroups= params$dfGroups,
+      dfMetrics = params$dfMetrics, 
+      strGroupLevel = setup$GroupLevel,
+      strGroupLabelKey = GroupLabelKey
   )
 )
+
 ```
 
 :::
@@ -74,9 +90,9 @@ htmltools::div(
 
 Report_OverviewText(
   lSetup = setup,
-  dfSummary = params$dfSummary, 
-  dfStudy = params$dfStudy
-  )
+  dfResults = params$dfResults, 
+  lStudy = setup$lStudy
+)
 
 
 ```
@@ -84,23 +100,22 @@ Report_OverviewText(
 ## Results
 
 ```{r, echo=FALSE, results='asis'}
-for (i in seq_along(params$lCharts)) {
-  MetricID <- names(params$lCharts)[[i]]
-  if(!is.null(params$dfMetrics)){
-    MetricName <- unique(params$dfMetrics$Metric[params$dfMetrics$MetricID == MetricID])
-  } else { 
-    MetricName <- MetricID
-  }
 
-  print(htmltools::h3(MetricName))
+for (i in unique(params$dfMetrics$MetricID)) {
+  lMetric <- params$dfMetrics %>% filter(MetricID == i) %>% as.list
+
+  print(htmltools::h3(lMetric$Metric))
   
   Report_MetricCharts(
-    lCharts = params$lCharts[[i]]
+    lCharts = params$lCharts[[lMetric$MetricID]]
   )
 
-  dfMetricSummary <- params$dfSummary[params$dfSummary$MetricID == MetricID,]
-  cat(Report_MetricTable(dfSummary = dfMetricSummary, dfSite= params$dfSite))
-
+ Report_MetricTable(
+    params$dfResults, 
+    params$dfGroups, 
+    strSnapshotDate = setup$SnapshotDate, 
+    strGroupLevel = setup$GroupLevel
+)
 
 }
 
@@ -116,12 +131,12 @@ cat
 
 ```
 ```{r echo=FALSE}
-site_dropdown <- system.file('utils-0.0.1', 'overallSiteDropdown.js', package = "gsm")
-dropdown_drag <- system.file('utils-0.0.1', 'dragOverallSiteDropdown.js', package = "gsm")
+group_dropdown <- system.file('utils-0.0.1', 'overallGroupDropdown.js', package = "gsm")
+dropdown_drag <- system.file('utils-0.0.1', 'dragOverallGroupDropdown.js', package = "gsm")
 meta_details <- system.file('utils-0.0.1', 'showMetaTableDetails.js', package = "gsm")
 ```
 
-```{js, file={site_dropdown}, echo=FALSE}
+```{js, file={group_dropdown}, echo=FALSE}
 ```
 
 ```{js, file={dropdown_drag}, echo=FALSE}

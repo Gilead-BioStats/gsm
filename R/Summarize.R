@@ -7,7 +7,7 @@
 #'
 #' @details
 #'
-#' \code{Summarize} supports the input data (`dfFlagged`) from the \code{Flag} function.
+#' `Summarize` supports the input data (`dfFlagged`) from the `Flag` function.
 #'
 #' @section Data Specification:
 #'
@@ -17,14 +17,14 @@
 #' - `Flag` - Flagging value of -1, 0, or 1
 #' - `Score` - Column from analysis results.
 #'
-#' @param dfFlagged data.frame in format produced by \code{\link{Flag}}
+#' @param dfFlagged data.frame in format produced by [Flag()].
 #' @param nMinDenominator `numeric` Specifies the minimum denominator required to return a `score` and calculate a `flag`. Default: NULL
 #'
 #' @return Simplified finding data.frame with columns for GroupID, GroupType, Metric, Score, Flag
 #' when associated with a workflow.
 #'
 #' @examples
-#' dfTransformed <- Transform_Rate(sampleInput)
+#' dfTransformed <- Transform_Rate(analyticsInput)
 #'
 #' dfAnalyzed <- Analyze_Poisson(dfTransformed)
 #'

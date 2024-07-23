@@ -5,7 +5,7 @@
 \title{Group-level visualization of scores.}
 \usage{
 Visualize_Score(
-  dfSummary,
+  dfResults,
   vThreshold = NULL,
   strType = "Metric",
   bFlagFilter = FALSE,
@@ -13,7 +13,7 @@ Visualize_Score(
 )
 }
 \arguments{
-\item{dfSummary}{\code{data.frame} returned by \code{\link[=Summarize]{Summarize()}}}
+\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
 
 \item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 that defaults to NULL.}
 
@@ -31,7 +31,7 @@ group-level ggplot2 object.
 }
 \examples{
 \dontrun{
-lData <- gsm::UseClindata(
+lData <- UseClindata(
 list(
   "dfSUBJ" = "clindata::rawplus_dm",
   "dfAE" = "clindata::rawplus_ae",

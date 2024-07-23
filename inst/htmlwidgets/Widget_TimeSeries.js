@@ -10,13 +10,18 @@ HTMLWidgets.widget({
                 // Update y-axis variable.
                 input.lMetric.y = input.strOutcome;
 
-                // add click event listener to chart
+                // Add click event listener to chart.
                 if (input.bAddGroupSelect)
                     input.lMetric.clickCallback = function(d) {
                         instance.data.config.selectedGroupIDs = instance.data.config.selectedGroupIDs.includes(d.GroupID)
                             ? 'None'
                             : d.GroupID;
+
                         groupSelect.value = instance.data.config.selectedGroupIDs;
+
+                        if (instance.data.config.selectedGroupIDs === 'None')
+                            delete instance.data.config.selectedGroupIDs;
+                        console.log(instance.data.config.selectedGroupIDs);
                         instance.helpers.updateSelectedGroupIDs(
                             instance.data.config.selectedGroupIDs
                         );
@@ -32,22 +37,23 @@ HTMLWidgets.widget({
                         }
                   };
 
-                // generate time series
+                // Generate time series.
                 const instance = rbmViz.default.timeSeries(
                     el,
-                    input.dfSummary,
+                    input.dfResults,
                     input.lMetric,
                     input.vThreshold,
                     null, // confidence intervals parameter
                     input.dfGroups
                 );
 
-                // add dropdown that highlights groups
+                // Add dropdown that highlights group IDs.
                 let groupSelect;
                 if (input.bAddGroupSelect) {
+
                     groupSelect = addGroupSelect(
                         el,
-                        input.dfSummary,
+                        input.dfResults,
                         instance,
                         `Highlighted ${input.lMetric.Group || 'group'}: `
                     );

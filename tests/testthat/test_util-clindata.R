@@ -2,19 +2,6 @@
 test_that("Study_Report function works as expected", {
   # Data setup ----------------------------------------------------------
   expect_no_error(
-    lMeta <- gsm::UseClindata(
-      list(
-        "config_param" = "gsm::config_param",
-        "config_workflow" = "gsm::config_workflow",
-        "meta_params" = "gsm::meta_param",
-        "meta_site" = "clindata::ctms_site",
-        "meta_study" = "clindata::ctms_study",
-        "meta_workflow" = "gsm::meta_workflow"
-      )
-    )
-  )
-
-  expect_no_error(
     lData <- gsm::UseClindata(
       list(
         "dfSUBJ" = "clindata::rawplus_dm",
@@ -36,7 +23,6 @@ test_that("Study_Report function works as expected", {
 
   # Testing
   expect_snapshot(lData)
-  expect_snapshot(lMeta)
   expect_error(
     gsm::UseClindata(
       list(
