@@ -1,5 +1,5 @@
 class: data.frame
-description: >
+definition: >
   Input data with one record per subject. Created by passing
   Raw+ data into [Input_Rate()]. Expected columns: `GroupID`,
   `GroupLevel`, `Numerator`, `Denominator` and/or columns specified
