@@ -39,56 +39,55 @@ date on the x-axis and the outcome (numerator, denominator, metric, or score) on
 }
 \examples{
 \dontrun{
-strMetricID <- 'kri0001'
-lMetricWorkflow <- MakeWorkflowList()[[ strMetricID ]]
+strMetricID <- "kri0001"
+lMetricWorkflow <- MakeWorkflowList()[[strMetricID]]
 
 lData <- list(
-    dfEnrolled = clindata::rawplus_dm \%>\% filter(enrollyn == 'Y'),
-    dfAE = clindata::rawplus_ae
+  dfEnrolled = clindata::rawplus_dm \%>\% filter(enrollyn == "Y"),
+  dfAE = clindata::rawplus_ae
 )
 
 lResults <- lMetricWorkflow \%>\%
-    RunWorkflow(lData)
+  RunWorkflow(lData)
 
 # Simulate longitudinal snapshot data.
-SnapshotDates <- paste0('20', 13:24, '-01-01')
+SnapshotDates <- paste0("20", 13:24, "-01-01")
 
 dfSummary <- purrr::map_dfr(
-    SnapshotDates,
-    ~ {
-        order <- sample(1:nrow(lResults$dfSummary))
-        dfSummary <- lResults$dfSummary \%>\%
-            mutate(
-                SnapshotDate = .x,
-                Numerator = Numerator[order],
-                Denominator = Denominator[order],
-                Metric = Metric[order],
-                Score = Score[order],
-                Flag = Flag[order]
-            )
+  SnapshotDates,
+  ~ {
+    order <- sample(1:nrow(lResults$dfSummary))
+    dfSummary <- lResults$dfSummary \%>\%
+      mutate(
+        SnapshotDate = .x,
+        Numerator = Numerator[order],
+        Denominator = Denominator[order],
+        Metric = Metric[order],
+        Score = Score[order],
+        Flag = Flag[order]
+      )
 
-        return(dfSummary)
-    }
+    return(dfSummary)
+  }
 )
 
 dfGroups <- bind_rows(
-    "SELECT pi_number as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df" \%>\%
-        RunQuery(clindata::ctms_site) \%>\%
-        MakeLongMeta('Site'),
-    "SELECT invid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid" \%>\%
-        RunQuery(lData$dfEnrolled) \%>\%
-        MakeLongMeta('Site'),
-    "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country" \%>\%
-        RunQuery(lData$dfEnrolled) \%>\%
-        MakeLongMeta('Country')
+  "SELECT pi_number as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df" \%>\%
+    RunQuery(clindata::ctms_site) \%>\%
+    MakeLongMeta("Site"),
+  "SELECT invid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid" \%>\%
+    RunQuery(lData$dfEnrolled) \%>\%
+    MakeLongMeta("Site"),
+  "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country" \%>\%
+    RunQuery(lData$dfEnrolled) \%>\%
+    MakeLongMeta("Country")
 )
 
 Widget_TimeSeries(
-    dfResults = dfSummary,
-    lMetric = lMetricWorkflow$meta,
-    dfGroups = dfGroups,
-    vThreshold = lMetricWorkflow$meta$Threshold
-    vThreshold = lMetricWorkflow$meta$strThreshold
+  dfResults = dfSummary,
+  lMetric = lMetricWorkflow$meta,
+  dfGroups = dfGroups,
+  vThreshold = lMetricWorkflow$meta$Threshold
 )
 }
 }
