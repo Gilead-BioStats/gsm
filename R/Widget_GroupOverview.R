@@ -6,9 +6,7 @@
 #' A widget that generates a group overview table of group-level metric results across one or more
 #' metrics.
 #'
-#' @param dfResults `data.frame` Output of [Summarize()] and [BindResults()].
-#' @param dfMetrics `list` Metric metadata, captured at the top of metric workflows and returned by
-#' [MakeMetric()].
+#' @inheritParams shared-params
 #' @param dfGroups `data.frame` Group metadata.
 #' @param strGroupLevel `character` Value for the group level. Default: NULL and taken from `dfMetrics$GroupLevel` if available.
 #' @param strGroupSubset `character` Subset of groups to include in the table. Default: 'red'. Options:
@@ -21,52 +19,55 @@
 #'
 #' @examples
 #' \dontrun{
-#' strGroupLevel <- 'Site'
+#' strGroupLevel <- "Site"
 #'
 #' lWorkflows <- MakeWorkflowList()
-#' lMetricWorkflows <- lWorkflows[ grepl('^kri', names(lWorkflows) ) ]
+#' lMetricWorkflows <- lWorkflows[grepl("^kri", names(lWorkflows))]
 #'
 #' lDataRaw <- gsm::UseClindata(
-#'     list(
-#'         "dfSUBJ" = "clindata::rawplus_dm",
-#'         "dfAE" = "clindata::rawplus_ae",
-#'         "dfPD" = "clindata::ctms_protdev",
-#'         "dfLB" = "clindata::rawplus_lb",
-#'         "dfSTUDCOMP" = "clindata::rawplus_studcomp",
-#'         "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp %>%
+#'   list(
+#'     "dfSUBJ" = "clindata::rawplus_dm",
+#'     "dfAE" = "clindata::rawplus_ae",
+#'     "dfPD" = "clindata::ctms_protdev",
+#'     "dfLB" = "clindata::rawplus_lb",
+#'     "dfSTUDCOMP" = "clindata::rawplus_studcomp",
+#'     "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp %>%
 #'             dplyr::filter(.data$phase == 'Blinded Study Drug Completion')",
-#'         "dfDATACHG" = "clindata::edc_data_points",
-#'         "dfDATAENT" = "clindata::edc_data_pages",
-#'         "dfQUERY" = "clindata::edc_queries",
-#'         "dfENROLL" = "clindata::rawplus_enroll"
-#'     )
+#'     "dfDATACHG" = "clindata::edc_data_points",
+#'     "dfDATAENT" = "clindata::edc_data_pages",
+#'     "dfQUERY" = "clindata::edc_queries",
+#'     "dfENROLL" = "clindata::rawplus_enroll"
+#'   )
 #' )
 #'
 #' lDataMapped <- RunWorkflow(lWorkflows$data_mapping, lDataRaw)
 #'
 #' lResults <- map(
-#'     lMetricWorkflows,
-#'     ~ RunWorkflow(.x, lDataMapped)
+#'   lMetricWorkflows,
+#'   ~ RunWorkflow(.x, lDataMapped)
 #' )
 #'
 #' dfResults <- lResults %>% imap_dfr(~ {
-#'     data <- .x$dfSummary
-#'     data$MetricID <- .y
-#'     data$GroupLevel <- strGroupLevel
-#'     data
+#'   data <- .x$dfSummary
+#'   data$MetricID <- .y
+#'   data$GroupLevel <- strGroupLevel
+#'   data
 #' })
 #'
 #' dfGroups <- bind_rows(
-#'     "SELECT site_num as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df" %>%
-#'         RunQuery(clindata::ctms_site) %>%
-#'         MakeLongMeta('Site'),
-#'     "SELECT siteid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT siteid) as SiteCount FROM df GROUP BY siteid" %>%
-#'         RunQuery(lData$dfEnrolled) %>%
-#'         MakeLongMeta('Site')
+#'   "SELECT pi_number as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df" %>%
+#'     RunQuery(clindata::ctms_site) %>%
+#'     MakeLongMeta("Site"),
+#'   "SELECT invid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid" %>%
+#'     RunQuery(lData$dfEnrolled) %>%
+#'     MakeLongMeta("Site"),
+#'   "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country" %>%
+#'     RunQuery(lData$dfEnrolled) %>%
+#'     MakeLongMeta("Country")
 #' )
 #'
 #' dfMetrics <- lMetricWorkflows %>%
-#'     map_dfr(~ .x$meta)
+#'   map_dfr(~ .x$meta)
 #'
 #' Widget_GroupOverview(
 #'   dfResults,
@@ -81,18 +82,16 @@ Widget_GroupOverview <- function(
   dfMetrics = NULL,
   dfGroups = NULL,
   strGroupLevel = NULL,
-  strGroupSubset = 'red',
-  strGroupLabelKey = 'InvestigatorLastName',
+  strGroupSubset = "red",
+  strGroupLabelKey = "InvestigatorLastName",
   bDebug = FALSE
 ) {
   # set strGroupLevel if NULL and dfMetrics is not NULL
   if (is.null(strGroupLevel) && !is.null(dfMetrics)) {
     strGroupLevel <- unique(dfMetrics$GroupLevel)
-  }
-  else if (!is.null(strGroupLevel)) {
+  } else if (!is.null(strGroupLevel)) {
     strGroupLevel <- strGroupLevel
-  }
-  else {
+  } else {
     stop("One of strGroupLevel or dfMetrics must be provided to create group-level output.")
   }
 
@@ -103,7 +102,8 @@ Widget_GroupOverview <- function(
     dfGroups = dfGroups,
     strGroupLevel = strGroupLevel,
     strGroupSubset = strGroupSubset,
-    strGroupLabelKey = strGroupLabelKey
+    strGroupLabelKey = strGroupLabelKey,
+    bDebug = bDebug
   )
 
   # create widget
@@ -112,10 +112,10 @@ Widget_GroupOverview <- function(
     purrr::map(
       input,
       ~ jsonlite::toJSON(
-          .x,
-          null = "null",
-          na = "string",
-          auto_unbox = TRUE
+        .x,
+        null = "null",
+        na = "string",
+        auto_unbox = TRUE
       )
     ),
     width = "100%",
@@ -123,7 +123,7 @@ Widget_GroupOverview <- function(
   )
 
   if (bDebug) {
-    viewer <- getOption('viewer')
+    viewer <- getOption("viewer")
     options(viewer = NULL)
     print(widget)
     options(viewer = viewer)

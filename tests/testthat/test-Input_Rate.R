@@ -24,14 +24,20 @@ test_that("strSubjectCol must exist in all data frames", {
 })
 
 test_that("basic functionality with count method works", {
-  subjects <- data.frame(SubjectID = 1:3,
-                         GroupID = 10:12)
-  numerators <- data.frame(SubjectID = c(1, 1, 2),
-                           GroupID = 10:12,
-                           Count = c(6, 13, 8))
-  denominators <- data.frame(SubjectID = c(1, 2, 3),
-                             GroupID = 10:12,
-                             Count = c(6, 13, 8))
+  subjects <- data.frame(
+    SubjectID = 1:3,
+    GroupID = 10:12
+  )
+  numerators <- data.frame(
+    SubjectID = c(1, 1, 2),
+    GroupID = 10:12,
+    Count = c(6, 13, 8)
+  )
+  denominators <- data.frame(
+    SubjectID = c(1, 2, 3),
+    GroupID = 10:12,
+    Count = c(6, 13, 8)
+  )
 
   result <- Input_Rate(subjects, numerators, denominators)
   expected <- data.frame(
@@ -46,14 +52,20 @@ test_that("basic functionality with count method works", {
 })
 
 test_that("test with method 'Sum' where columns are provided", {
-  subjects <- data.frame(SubjectID = 1:3,
-                         GroupID = 10:12)
-  numerators <- data.frame(SubjectID = c(1, 1, 2),
-                           GroupID = 10:12,
-                           Amount = c(10, 5, 10))
-  denominators <- data.frame(SubjectID = c(1, 2, 3),
-                             GroupID = 10:12,
-                             Amount = c(15, 5, 20))
+  subjects <- data.frame(
+    SubjectID = 1:3,
+    GroupID = 10:12
+  )
+  numerators <- data.frame(
+    SubjectID = c(1, 1, 2),
+    GroupID = 10:12,
+    Amount = c(10, 5, 10)
+  )
+  denominators <- data.frame(
+    SubjectID = c(1, 2, 3),
+    GroupID = 10:12,
+    Amount = c(15, 5, 20)
+  )
 
   result <- Input_Rate(subjects, numerators, denominators, strNumeratorMethod = "Sum", strDenominatorMethod = "Sum", strNumeratorCol = "Amount", strDenominatorCol = "Amount")
   expected <- data.frame(
@@ -68,12 +80,18 @@ test_that("test with method 'Sum' where columns are provided", {
 })
 
 test_that("handling of zero denominators and missing data", {
-  subjects <- data.frame(SubjectID = 1:4,
-                         GroupID = 10:13)
-  numerators <- data.frame(SubjectID = c(1, 1),
-                           GroupID = 10:11)
-  denominators <- data.frame(SubjectID = c(1, 2),
-                             GroupID = 12:13)
+  subjects <- data.frame(
+    SubjectID = 1:4,
+    GroupID = 10:13
+  )
+  numerators <- data.frame(
+    SubjectID = c(1, 1),
+    GroupID = 10:11
+  )
+  denominators <- data.frame(
+    SubjectID = c(1, 2),
+    GroupID = 12:13
+  )
 
   result <- Input_Rate(subjects, numerators, denominators)
 
@@ -83,7 +101,7 @@ test_that("handling of zero denominators and missing data", {
     GroupLevel = "GroupID",
     Numerator = c(2, 0, 0, 0),
     Denominator = c(1, 1, 0, 0),
-    Metric = c(2, 0, NaN, NaN)  # NaN because denominator is zero
+    Metric = c(2, 0, NaN, NaN) # NaN because denominator is zero
   )
 
   expect_equal(result, expected)

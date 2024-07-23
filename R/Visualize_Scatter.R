@@ -2,7 +2,7 @@
 #'
 #' `r lifecycle::badge("stable")`
 #'
-#' @param dfResults `data.frame` returned by [Summarize()] and [BindResults()]
+#' @inheritParams shared-params
 #' @param dfBounds `data.frame` data.frame giving prediction bounds for range of denominator in dfResults.
 #' @param strGroupCol `character` name of stratification column for facet wrap Default: `NULL`
 #' @param strGroupLabel `character` name of group, used for labeling axes. Default: `NULL`
@@ -33,7 +33,7 @@
 #' wf_mapping <- MakeWorkflowList("mapping")
 #' ae <- MakeWorkflowList(strNames = "kri0001")
 #' lMapped <- RunWorkflow(wf_mapping, lData)$lData
-#' SafetyAE <- map(ae, ~RunWorkflow(., lMapped))
+#' SafetyAE <- map(ae, ~ RunWorkflow(., lMapped))
 #' dfBounds <- Analyze_Poisson_PredictBounds(SafetyAE$kri0001$lData$dfTransformed, c(-5, 5))
 #' Visualize_Scatter(SafetyAE$kri0001$lData$dfSummary, dfBounds)
 #' }

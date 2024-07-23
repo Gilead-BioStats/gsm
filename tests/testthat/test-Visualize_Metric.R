@@ -69,4 +69,3 @@ test_that("Visualize_Metric handles multiple snapshots", {
   expect_true("timeSeriesContinuousMetricJS" %in% names(charts))
   expect_true("timeSeriesContinuousNumeratorJS" %in% names(charts))
 })
-

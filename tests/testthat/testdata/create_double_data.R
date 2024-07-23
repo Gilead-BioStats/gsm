@@ -31,5 +31,5 @@ dfInput <- Input_Rate(
 )
 dfTransformed <- Transform_Rate(dfInput)
 dfAnalyzed <- quiet_Analyze_NormalApprox(dfTransformed, strType = "rate")
-dfFlagged <- Flag_NormalApprox(dfAnalyzed, vThreshold = c(-2,-1,2,3))
+dfFlagged <- Flag_NormalApprox(dfAnalyzed, vThreshold = c(-2, -1, 2, 3))
 dfSummarized <- Summarize(dfFlagged)

@@ -1,7 +1,9 @@
 test_that("Test with valid input and one group", {
-  result <- Report_Setup(dfGroups = reportingGroups,
-                         dfMetrics = reportingMetrics,
-                         dfResults = reportingResults)
+  result <- Report_Setup(
+    dfGroups = reportingGroups,
+    dfMetrics = reportingMetrics,
+    dfResults = reportingResults
+  )
 
   expect_equal(result$GroupLevel, "Site")
   expect_equal(result$SnapshotDate, as.Date("2012-12-31"))

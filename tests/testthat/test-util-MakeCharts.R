@@ -15,8 +15,9 @@ test_that("MakeCharts makes charts", {
     dfResults = reportingResults,
     dfBounds = reportingBounds,
     dfGroups = reportingGroups,
-    dfMetrics = reportingMetrics %>%
-      dplyr::filter(MetricID %in% unique(reportingResults$MetricID))
+    dfMetrics = reportingMetrics
   )
-  expect_snapshot({str(charts, max.level = 2)})
+  expect_snapshot({
+    str(charts, max.level = 2)
+  })
 })

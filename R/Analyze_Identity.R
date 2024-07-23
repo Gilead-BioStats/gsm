@@ -8,16 +8,8 @@
 #' More information can be found in [The Identity Method](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-identity-method)
 #' of the KRI Method vignette.
 #'
-#' @section Data Specification:
-#'
-#' The input data (`dfTransformed`) for `Analyze_Identity` is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
-#' - `GroupID` - Group ID
-#' - `GroupLevel` - Group Type
-#' - `Numerator` - Total number of participants at site with event of interest.
-#' - `Denominator` - Total number of participants at site/Total number of days of exposure at site.
-#' - `Metric` - Proportion of participants at site with event of interest/Rate of events at site (Numerator / Denominator).
-#'
-#' @param dfTransformed `data.frame` created by \code{\link{Transform_Count}}
+#' @param dfTransformed `r gloss_param("dfTransformed")`
+#'   `r gloss_extra("dfTransformed_Count")`
 #' @param strValueCol `character` Name of column that will be copied as `Score`
 #'
 #' @return `data.frame` with one row per site with columns: GroupID, TotalCount, Metric, and Score.

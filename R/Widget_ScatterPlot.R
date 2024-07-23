@@ -6,7 +6,7 @@
 #' A widget that generates a scatter plot of group-level metric results, plotting the denominator
 #' on the x-axis and the numerator on the y-axis.
 #'
-#' @param dfResults `data.frame` Output of [Summarize()] and [BindResults()].
+#' @inheritParams shared-params
 #' @param lMetric `list` Metric metadata, captured at the top of metric workflows and returned by
 #' [MakeMetric()].
 #' @param dfGroups `data.frame` Group metadata.
@@ -17,33 +17,42 @@
 #'
 #' @examples
 #' \dontrun{
-#' lWorkflows <- MakeWorkflowList()
-#' strMetricID <- 'kri0001'
-#' lMetricWorkflow <- lWorkflows[[ strMetricID ]]
+#' strMetricID <- "kri0001"
+#' lMetricWorkflow <- MakeWorkflowList()[[strMetricID]]
 #'
 #' lData <- list(
-#'     dfEnrolled = clindata::rawplus_dm %>% filter(enrollyn == 'Y'),
-#'     dfAE = clindata::rawplus_ae
+#'   dfEnrolled = clindata::rawplus_dm %>% filter(enrollyn == "Y"),
+#'   dfAE = clindata::rawplus_ae
 #' )
-#' lResults <- RunWorkflow(
-#'     lMetricWorkflow,
-#'     lData
-#' )
+#'
+#' lResults <- lMetricWorkflow %>%
+#'   RunWorkflow(lData)
 #'
 #' dfGroups <- bind_rows(
-#'     "SELECT site_num as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df" %>%
-#'         RunQuery(clindata::ctms_site) %>%
-#'         MakeLongMeta('Site'),
-#'     "SELECT siteid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT siteid) as SiteCount FROM df GROUP BY siteid" %>%
-#'         RunQuery(lData$dfEnrolled) %>%
-#'         MakeLongMeta('Site')
+#'   "SELECT pi_number as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df" %>%
+#'     RunQuery(clindata::ctms_site) %>%
+#'     MakeLongMeta("Site"),
+#'   "SELECT invid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid" %>%
+#'     RunQuery(lData$dfEnrolled) %>%
+#'     MakeLongMeta("Site"),
+#'   "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country" %>%
+#'     RunQuery(lData$dfEnrolled) %>%
+#'     MakeLongMeta("Country")
 #' )
 #'
+#' dfBounds <- lResults$dfTransformed %>%
+#'   Analyze_NormalApprox_PredictBounds(
+#'     lMetricWorkflow$meta$Threshold %>%
+#'       stringr::str_split_1(",") %>%
+#'       as.numeric(),
+#'     strType = lMetricWorkflow$meta$Type
+#'   )
+#'
 #' Widget_ScatterPlot(
-#'     dfResults = lResults$dfResults,
-#'     lMetric = lMetricWorkflow$meta,
-#'     dfGroups = dfGroups,
-#'     dfBounds = lResults$dfBounds
+#'   dfResults = lResults$dfSummary,
+#'   lMetric = lMetricWorkflow$meta,
+#'   dfGroups = dfGroups,
+#'   dfBounds = dfBounds
 #' )
 #' }
 #' @export
@@ -72,17 +81,17 @@ Widget_ScatterPlot <- function(
     purrr::map(
       input,
       ~ jsonlite::toJSON(
-          .x,
-          null = "null",
-          na = "string",
-          auto_unbox = TRUE
+        .x,
+        null = "null",
+        na = "string",
+        auto_unbox = TRUE
       )
     ),
     package = "gsm"
   )
 
   if (bDebug) {
-    viewer <- getOption('viewer')
+    viewer <- getOption("viewer")
     options(viewer = NULL)
     print(widget)
     options(viewer = viewer)

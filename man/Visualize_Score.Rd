@@ -13,7 +13,7 @@ Visualize_Score(
 )
 }
 \arguments{
-\item{dfResults}{\code{data.frame} returned by \code{\link[=Summarize]{Summarize()}} and \code{\link[=BindResults]{BindResults()}}.}
+\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
 
 \item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 that defaults to NULL.}
 
@@ -32,26 +32,26 @@ group-level ggplot2 object.
 \examples{
 \dontrun{
 lData <- UseClindata(
-list(
-  "dfSUBJ" = "clindata::rawplus_dm",
-  "dfAE" = "clindata::rawplus_ae",
-  "dfPD" = "clindata::ctms_protdev",
-  "dfCONSENT" = "clindata::rawplus_consent",
-  "dfIE" = "clindata::rawplus_ie",
-  "dfLB" = "clindata::rawplus_lb",
-  "dfSTUDCOMP" = "clindata::rawplus_studcomp",
-  "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp \%>\%
+  list(
+    "dfSUBJ" = "clindata::rawplus_dm",
+    "dfAE" = "clindata::rawplus_ae",
+    "dfPD" = "clindata::ctms_protdev",
+    "dfCONSENT" = "clindata::rawplus_consent",
+    "dfIE" = "clindata::rawplus_ie",
+    "dfLB" = "clindata::rawplus_lb",
+    "dfSTUDCOMP" = "clindata::rawplus_studcomp",
+    "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp \%>\%
           dplyr::filter(.data$phase == 'Blinded Study Drug Completion')",
-  "dfDATACHG" = "clindata::edc_data_points",
-  "dfDATAENT" = "clindata::edc_data_pages",
-  "dfQUERY" = "clindata::edc_queries",
-  "dfENROLL" = "clindata::rawplus_enroll"
-)
+    "dfDATACHG" = "clindata::edc_data_points",
+    "dfDATAENT" = "clindata::edc_data_pages",
+    "dfQUERY" = "clindata::edc_queries",
+    "dfENROLL" = "clindata::rawplus_enroll"
+  )
 )
 wf_mapping <- MakeWorkflowList("mapping")
 ae_workflow <- MakeWorkflowList(strNames = "kri0001")
 lMapped <- RunWorkflow(wf_mapping, lData)$lData
-AE <- map(ae_workflow, ~RunWorkflow(., lMapped))
+AE <- map(ae_workflow, ~ RunWorkflow(., lMapped))
 Visualize_Score(AE$kri0001$lData$dfSummary, dfBounds)
 }
 }

@@ -10,9 +10,9 @@
 #'
 #' @examples
 #' df <- data.frame(
-#'  Name = c("John", "Jane", "Bob"),
-#'  Age = c(25, 30, 35),
-#'  Salary = c(50000, 60000, 70000)
+#'   Name = c("John", "Jane", "Bob"),
+#'   Age = c(25, 30, 35),
+#'   Salary = c(50000, 60000, 70000)
 #' )
 #' query <- "SELECT * FROM df WHERE AGE > 30"
 #'
@@ -34,7 +34,7 @@ RunQuery <- function(strQuery, df) {
   if (nrow(df) == 0) {
     cli::cli_alert_warning("df has 0 rows. Query not run. Returning empty data frame.")
     return(df)
-  } else{
+  } else {
     # run the query
     result <- sqldf::sqldf(strQuery)
     cli::cli_text("SQL Query complete: {nrow(result)} rows returned.")

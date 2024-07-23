@@ -14,7 +14,7 @@ Visualize_Scatter(
 )
 }
 \arguments{
-\item{dfResults}{\code{data.frame} returned by \code{\link[=Summarize]{Summarize()}} and \code{\link[=BindResults]{BindResults()}}}
+\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
 
 \item{dfBounds}{\code{data.frame} data.frame giving prediction bounds for range of denominator in dfResults.}
 
@@ -54,7 +54,7 @@ lData <- UseClindata(
 wf_mapping <- MakeWorkflowList("mapping")
 ae <- MakeWorkflowList(strNames = "kri0001")
 lMapped <- RunWorkflow(wf_mapping, lData)$lData
-SafetyAE <- map(ae, ~RunWorkflow(., lMapped))
+SafetyAE <- map(ae, ~ RunWorkflow(., lMapped))
 dfBounds <- Analyze_Poisson_PredictBounds(SafetyAE$kri0001$lData$dfTransformed, c(-5, 5))
 Visualize_Scatter(SafetyAE$kri0001$lData$dfSummary, dfBounds)
 }

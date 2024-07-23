@@ -3,16 +3,14 @@
 #' Create a table of longitudinal study data by site, study, or country, showing
 #' flags over time.
 #'
-#' @param dfResults A data frame containing result information.
-#' @param dfMetrics Metric-specific metadata created by passing an `lWorkflow`
-#'   object to the [MakeMetric()] function.
+#' @inheritParams shared-params
 #' @param strGroupLevel A string specifying the group type.
 #'
 #' @inherit gt-shared return
 #' @export
 Report_FlagOverTime <- function(dfResults,
-                                dfMetrics,
-                                strGroupLevel = c("Site", "Study", "Country")) {
+  dfMetrics,
+  strGroupLevel = c("Site", "Study", "Country")) {
   strGroupLevel <- rlang::arg_match(strGroupLevel)
   dfFlagOverTime <- widen_results(dfResults, dfMetrics, strGroupLevel)
   date_cols <- stringr::str_which(

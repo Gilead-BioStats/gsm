@@ -12,25 +12,26 @@
 #'
 #' @return A named list of results, where the names correspond to the names of
 #' the workflows
+#'
+#' @export
 
 RunWorkflows <- function(
-    lWorkflows,
-    lData,
-    bReturnData = TRUE,
-    bKeepInputData = FALSE
-){
-    if(length(lWorkflows) > 1) {
-        # if there are multiple workflows, run them all
-        cli::cli_h1("Running {length(lWorkflows)} Workflows")
-        lResults <- purrr::map(
-            lWorkflows,
-            ~RunWorkflow(.x, lData, bReturnData, bKeepInputData)
-        ) %>% setNames(names(lWorkflows))
-    } else {
-        # if there is only one workflow, run it
-        print(names(lWorkflows[[1]]))
-        lResults <- RunWorkflow(lWorkflow=lWorkflows[[1]], lData, bReturnData, bKeepInputData)
-    }
-    return(lResults)
+  lWorkflows,
+  lData,
+  bReturnData = TRUE,
+  bKeepInputData = FALSE
+) {
+  if (length(lWorkflows) > 1) {
+    # if there are multiple workflows, run them all
+    cli::cli_h1("Running {length(lWorkflows)} Workflows")
+    lResults <- purrr::map(
+      lWorkflows,
+      ~ RunWorkflow(.x, lData, bReturnData, bKeepInputData)
+    ) %>% setNames(names(lWorkflows))
+  } else {
+    # if there is only one workflow, run it
+    print(names(lWorkflows[[1]]))
+    lResults <- RunWorkflow(lWorkflow = lWorkflows[[1]], lData, bReturnData, bKeepInputData)
+  }
+  return(lResults)
 }
-

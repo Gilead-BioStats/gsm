@@ -9,13 +9,13 @@ meta:
   Model: Normal Approximation
   Score: Adjusted Z-
   Type: binary
-  strThreshold: -3,-2,2,3
+  Threshold: -3,-2,2,3
   nMinDenominator: 3
 steps:
   - name: ParseThreshold
     output: vThreshold
     params:
-      strThreshold: strThreshold
+      strThreshold: Threshold
   - name: Input_Rate
     output: dfInput
     params:

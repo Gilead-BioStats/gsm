@@ -4,7 +4,7 @@
 #' results data frame with the site-level metadata from dfGroups. It then filters and arranges the
 #' data based on certain conditions and displays the result in a datatable.
 #'
-#' @param dfResults The summary data frame
+#' @inheritParams shared-params
 #' @param dfGroups A data frame containing the group-level metadata.
 #' @param strSnapshotDate user specified snapshot date as string
 #' @param strGroupLevel  group level for the table
@@ -14,10 +14,10 @@
 #'
 #' @export
 Report_MetricTable <- function(dfResults,
-                               dfGroups,
-                               strSnapshotDate = NULL,
-                               strGroupLevel = c("Site", "Study", "Country"),
-                               strGroupDetailsParams = NULL) {
+  dfGroups,
+  strSnapshotDate = NULL,
+  strGroupLevel = c("Site", "Study", "Country"),
+  strGroupDetailsParams = NULL) {
   dfResults <- dfResults %>%
     filter_by_latest_SnapshotDate(strSnapshotDate) %>%
     add_Groups_metadata(dfGroups, strGroupLevel, strGroupDetailsParams) %>%
@@ -46,7 +46,7 @@ Report_MetricTable <- function(dfResults,
       )),
       dplyr::everything()
     ) %>%
-    dplyr::select(-'MetricID') %>%
+    dplyr::select(-"MetricID") %>%
     kableExtra::kbl(format = "html", escape = FALSE) %>%
     kableExtra::kable_styling("striped", full_width = FALSE)
 
