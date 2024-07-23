@@ -28,7 +28,7 @@ The {gsm} package performs risk assessments primarily focused on detecting diffe
 
 # Process Overview
 
-The {gsm} package establishes a data pipeline for RBM using R. The package provides a framework that allows users to **assess** and **visualize** site-level risk in clinical trial data. The package currently provides assessments for the following domains:
+The {gsm} package establishes a data pipeline for RBM using R. The package provides a framework that allows users to generate and visualize metrics for assessing risks in clinical trial data. The package currently provides assessments for the following domains:
 
 1.  Adverse Event Reporting Rate
 2.  Serious Adverse Event Reporting Rate
@@ -48,7 +48,6 @@ All {gsm} assessments use a standardized 6 step data pipeline:
 1.  **Input_Rate** - Converts `raw` data to `input` data.
 2.  **Transform** - Converts `input` data to `transformed` data.
 3.  **Analyze** - Converts `transformed` data to `analyzed` data.
-4.  **Threshold** - Uses `analyzed` data to create one or more numeric `thresholds`.
 5.  **Flag** - Uses `analyzed` data and numeric `thresholds` to create `flagged` data.
 6.  **Summarize** - Selects key columns from `flagged` data to create `summary` data.
 
@@ -69,22 +68,20 @@ Full reports for a sample trial run with [`{clindata}`](https://github.com/Gilea
 - [Site Report](https://gilead-biostats.github.io/gsm/StandardReportSite.html)
 - [Country Report](https://gilead-biostats.github.io/gsm/StandardReportCountry.html)
 
-
-
 # Quality Control
 
 Since {gsm} is designed for use in a [GCP](https://en.wikipedia.org/wiki/Good_clinical_practice) framework, we have conducted extensive quality control as part of our development process. In particular, we do the following:  
 
-- **Qualification Workflow** - All assessments have been Qualified as described in the Qualification Workflow Vignette. A Qualification Report Vignette is generated and attached to each release. 
+- **Qualification Workflow** - All assessments have been Qualified as described in the Qualification Workflow Vignette. A Qualification Report is generated and attached to each release. 
 - **Unit Tests** - Unit tests are written for all core functions.
 - **Workflow Tests** - Additional unit tests confirm that core workflows behave as expected.
 - **Contributor Guidelines** - Detailed contributor guidelines including step-by-step processes for code development and releases are provided as a vignette.
 - **Data Model** - Vignettes providing detailed descriptions of the data model.
 - **Code Examples** - The Cookbook Vignette provides a series of simple examples, and all functions include examples as part of Roxygen documentation. 
-- **Code Review** - Code review is conducted using GitHub Pull Requests (PRs), and a log of all PRs is included in the Qualification Report Vignette.
+- **Code Review** - Code review is conducted using GitHub Pull Requests (PRs), and a log of all PRs is included in the Qualification Report.
 - **Function Documentation** - Detailed documentation for each function is maintained with Roxygen.
 - **Package Checks** - Standard package checks are run using GitHub Actions and must be passing before PRs are merged.
-- **Data Specifications** - Machine-readable data specifications are maintained for all KRIs. Specifications are automatically added to relevant function documentation.
+- **Data Specifications** - Detailed data specifications are provided as part of the Data .
 - **Continuous Integration** - Continuous integration is provided via GitHub Actions. 
 - **Regression Testing** - Extensive QC and testing is done before each release. 
 - **Code Formatting** - Code is formatted with {styler} before each release. 
