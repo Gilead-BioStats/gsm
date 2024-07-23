@@ -12,6 +12,8 @@
 #'
 #' @return A named list of results, where the names correspond to the names of
 #' the workflows
+#'
+#' @export
 
 RunWorkflows <- function(
     lWorkflows,

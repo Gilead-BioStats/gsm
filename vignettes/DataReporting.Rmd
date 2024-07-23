@@ -1,13 +1,13 @@
 ---
-  title: "Step-by-Step Reporting Workflow"
+title: "Step-by-Step Reporting Workflow"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Step-by-Step Reporting Workflow}
-%\VignetteEngine{knitr::rmarkdown}
-%\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
   
-  ```{r setup, include = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -46,49 +46,295 @@ For the purposes of this documentation, we will evaluate the input(s) and output
 
 ------------------------------------------------------------------------
   
-  ## Case Study - Step-by-Step Full Site-Level Report
+## Case Study - Step-by-Step Full Site-Level Report
   
-  We will use sample CTMS data from the [`{clindata}`](https://github.com/Gilead-BioStats/clindata) package to run the Adverse Events (AE) Assessment, i.e., `AE_Assess()`, using the normal approximation method.
+We will use sample clinical data from the [`{clindata}`](https://github.com/Gilead-BioStats/clindata) package to run the full site-level report for all 12 KRIs included in this package. The focus of this vignette is the reporting workflow, so the output of the analytics workflow will be briefly discussed, but only in the context of *inputs*  to the reporting workflow.
 
-Additional statistical methods and supporting functions are explored in [Appendix 1](#appendix-1).
+Additional supporting functions are explored in [Appendix 1](#appendix-1).
 
 ### Step 0 - Run Analytics Workflow
 
-### Step 1 - Create Reporting model Data Frames
+Prior to running the reporting model to create reporting data frames, charts and reports, the metrics we are reporting on must be properly calculated and flagged with the analytics workflow. For more information on the Analytics Workflow, see the associated [vignette](DataAnalysis.html).
+
+To run the analytics workflow on all 13 KRIs using `clindata` Raw+ data, use the code snippet below. From this, three pieces of output will be used in the reporting workflow:
+
+1. `lAnalysis` -  list of data frames in the analytics data model
+2. `lWorkflow` - list containing the metadata for each of the KRIs
+3. `mapped$dfEnrolled` - mapped data.frame of enrolled participants
+
+```{r include = TRUE, message = FALSE}
+# Create Mapped Data - filter/map raw data
+lData <- list(
+    dfSUBJ = clindata::rawplus_dm,
+    dfAE = clindata::rawplus_ae,
+    dfPD = clindata::ctms_protdev,
+    dfLB = clindata::rawplus_lb,
+    dfSTUDCOMP = clindata::rawplus_studcomp,
+    dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
+    dfDATACHG = clindata::edc_data_points,
+    dfDATAENT = clindata::edc_data_pages,
+    dfQUERY = clindata::edc_queries,
+    dfENROLL = clindata::rawplus_enroll
+)
+mapping_wf <- MakeWorkflowList(strNames = "data_mapping")
+mapped <- RunWorkflows(mapping_wf, lData, bKeepInputData=TRUE)
+
+# Create Analytics Data - Generate 12 KRIs
+lWorkflow <- MakeWorkflowList(strNames = "kri")
+lAnalysis <- RunWorkflows(lWorkflow, mapped)
+```
+
+
+### Step 1 - Create Reporting Model Data Frames
+
+With all necessary inputs to the reporting model created, we can move on to generate the reporting data model data frames. These data frames created are as follows:
+
+1. `dfGroups`: Group-level metadata dictionary. Created by passing CTMS site and study data to `MakeLongMeta()`.
+2. `dfMetrics`: Metric-specific metadata for use in charts and reporting. Created by passing an `lWorkflow` object to `MakeMetric()`. 
+3. `dfResults`: A stacked summary of analysis pipeline output. Created by passing a list of
+ results returned by `Summarize()` to `BindResults()`.
+4. `dfBounds`: Set of predicted percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values for reporting. Created by passing `dfResults` and `dfMetrics` to `MakeBounds()`. 
+
+For more details on any of these tables, see the [Data Pipeline vignette](DataPipeline.html).
+
+The following sub-steps will dive into the creation and structure of each of these tables. Sample data for each of these tables can found in `{gsm}` as `reportingGroups`, `reportingMetrics`, `reportingResults` and `reportingBounds`. These sample tables are used throughout the package in examples and documentation.
+
 
 #### Step 1.1 - Transform CTMS data into `dfGroups` data frame
 
-#### Step 1.2 - Create Metric Metadata
+The `dfGroups` data frame is critical to providing site-, study- and country-level information in the final report. This table is based on CTMS data and the mapped `dfEnrolled` data frame created in the Analytics workflow. Creating this table requires the creation of 5 smaller tables that summarize the data at each group level using `RunQuery()` and `MakeLongMeta()`. These small tables are then bound together to create `dfGroups`.
+
+```{r include = TRUE, message = FALSE}
+#Transform CTMS Site and Study Level data
+dfCTMSSite <- RunQuery(df = clindata::ctms_site, 
+                       strQuery = "SELECT pi_number as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df") |>
+  MakeLongMeta(strGroupLevel = 'Site')
+
+dfCTMSStudy <- RunQuery(df = clindata::ctms_study, 
+                        strQuery = "SELECT protocol_number as GroupID, status as Status, * FROM df") |>
+  MakeLongMeta(strGroupLevel = 'Study')
+
+# Get Participant and Site counts for Country, Site and Study
+dfSiteCounts <- RunQuery(df = mapped$dfEnrolled,
+                             strQuery = "SELECT invid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid") |>
+  MakeLongMeta(strGroupLevel = "Site")
+
+dfStudyCounts <- RunQuery(df = mapped$dfEnrolled,
+                             strQuery = "SELECT studyid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY studyid") |>
+  MakeLongMeta(strGroupLevel = "Study")
+
+dfCountryCounts <- RunQuery(df = mapped$dfEnrolled,
+                             strQuery = "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country") |>
+  MakeLongMeta(strGroupLevel = "Country")
+
+
+# Combine CTMS and Counts data as dfGroups
+dfGroups <- dplyr::bind_rows(SiteCounts = dfSiteCounts, 
+                      StudyCounts = dfStudyCounts, 
+                      CountryCounts = dfCountryCounts, 
+                      Site = dfCTMSSite, 
+                      Study = dfCTMSStudy)
+```
+
+The resulting `dfGroups` dataframe contains the following columns:
+
+-   `GroupID`: Group Identifier
+-   `GroupLevel`: Type of Group specified in `GroupID` (Country, Site, Study)
+-   `Param`: Parameter Name (e.g. "Status")  
+-   `Value`: Parameter Value (e.g. "Active")
+
+
+```{r, echo = FALSE, warning = FALSE}
+datatable(dfGroups)
+```
+
+#### Step 1.2 - Create `dfMetrics` Metadata
+
+The `dfMetrics` table contains the metadata for each of the KRIs in the report. This information comes from the `meta` section of the metric workflows, `lWorkflow` defined in Step 0. Using this workflow information as the input, `MakeMetric()` is used to produce a data frame with one row per metric.
+
+
+```{r include = TRUE}
+dfMetrics <- MakeMetric(lWorkflows = lWorkflow)
+```
+
+The resulting `dfMetrics` dataframe contains the following columns:
+
+-   `GroupID`: Group Identifier
+-   `GroupLevel`: Type of Group specified in `GroupID` (Country, Site, Study)
+-   `Param`: Parameter Name (e.g. "Status")  
+-   `Value`: Parameter Value (e.g. "Active")
+
+
+```{r, echo = FALSE, warning = FALSE}
+datatable(dfMetrics)
+```
 
 #### Step 1.3 - Stack `dfSummary` data into `dfResults`
 
-#### Step 1.4 - Calculate Bounds for confidence intervals
+```{r include = TRUE}
+dfResults <- BindResults(lResults = lAnalysis,
+                         strName = "dfSummary",
+                         dSnapshotDate = Sys.Date(),
+                         strStudyID = "ABC-123")
+```
+
+The resulting `dfResults` dataframe contains the following columns:
+
+-   `GroupID`: Group Identifier
+-   `GroupLevel`: Type of Group specified in `GroupID` (Country, Site, Study)
+-   `Param`: Parameter Name (e.g. "Status")  
+-   `Value`: Parameter Value (e.g. "Active")
+
+
+```{r, echo = FALSE, warning = FALSE}
+datatable(dfResults) %>%
+formatRound(columns = "Metric", digits = 3)
+```
+
+#### Step 1.4 - Create `dfBounds` for Confidence Intervals
+
+```{r include = TRUE}
+dfBounds <- MakeBounds(dfResults = dfResults,
+                        dfMetrics = dfMetrics)
+```
+
+The resulting `dfBounds` dataframe contains the following columns:
+
+-   `GroupID`: Group Identifier
+-   `GroupLevel`: Type of Group specified in `GroupID` (Country, Site, Study)
+-   `Param`: Parameter Name (e.g. "Status")  
+-   `Value`: Parameter Value (e.g. "Active")
+
+
+```{r, echo = FALSE, warning = FALSE}
+datatable(dfBounds) %>%
+formatRound(columns = "Metric", digits = 3)
+```
 
 ### Step 2 - Create Visualizations
 
+```{r include = TRUE, warning = FALSE, message = FALSE}
+lCharts <- MakeCharts(dfResults = dfResults,
+                      dfGroups = dfGroups,
+                      dfBounds = dfBounds,
+                      dfMetrics = dfMetrics)
+```
+
+
+
+```{r warning=FALSE}
+lCharts$scatter
+
+lCharts$scatterJS
+```
+
+
 ### Step 3 - Generate Report
+
+```{r eval = FALSE, include = TRUE}
+lReport <- Report_KRI(lCharts = lCharts,
+                      dfResults = dfResults,
+                      dfGroups = dfGroups,
+                      dfMetrics = dfMetrics,
+                      strOutpath = "test_kri_report.html")
+```
+
+![](report-screenshot.PNG){width="100%"}
+
+-------------------------------------------------------------------
 
 ## Using `yaml` Workflows to generate reports
 
+While it is helpful to understand how each step of this process works, we have provided a series of `yaml` workflow files that make running reports on multiple KRIs easy and with the ability to be automated. 
+
+Here, you will see two options for how to run your workflows. The first is to run the analytics workflow(s), followed by the reporting workflow `data_reporting.yaml` followed by the charts and reports workflow `reports.yaml`. This allows the user to examine the output of each workflow individually before moving on to the next step.
+
+The second option is to run the `snapshot.yaml` workflow, which takes in all raw data (including site and study data) and a few extra metadata arguments at the beginning of the workflow, and the result is a list with all data frames and charts from both models, as well as a report html saved to your working directory.
+
 ### Option 1 - Run All Workflows Separately
+
+```{r eval = FALSE, include = TRUE}
+# Step 1 - Create Mapped Data - filter/map raw data
+lData <- list(
+    dfSUBJ = clindata::rawplus_dm,
+    dfAE = clindata::rawplus_ae,
+    dfPD = clindata::ctms_protdev,
+    dfLB = clindata::rawplus_lb,
+    dfSTUDCOMP = clindata::rawplus_studcomp,
+    dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
+    dfDATACHG = clindata::edc_data_points,
+    dfDATAENT = clindata::edc_data_pages,
+    dfQUERY = clindata::edc_queries,
+    dfENROLL = clindata::rawplus_enroll
+)
+mapping_wf <- MakeWorkflowList(strNames = "data_mapping")
+mapped <- RunWorkflows(mapping_wf, lData, bKeepInputData=TRUE)
+
+# Step 2 - Create Analysis Data - Generate 12 KRIs
+kri_wf <- MakeWorkflowList(strNames = "kri")
+kris <- RunWorkflows(kri_wf, mapped)
+
+# Step 3 - Create Reporting Data - Import Metadata and stack KRI Results
+lReporting_Input <- list(
+    ctms_site = clindata::ctms_site,
+    ctms_study = clindata::ctms_study,
+    dfEnrolled = mapped$dfEnrolled,
+    lWorkflows = kri_wf,
+    lAnalysis = kris,
+    dSnapshotDate = Sys.Date(),
+    strStudyID = "ABC-123"
+)
+reporting_wf <- MakeWorkflowList(strNames = "reporting")
+reporting <- RunWorkflows(reporting_wf, lReporting_Input)
+
+# Step 4 - Generate Reports - Create Charts + Report
+wf_reports <- MakeWorkflowList(strNames = "reports")
+lReports <- RunWorkflows(wf_reports, reporting)
+```
 
 ### Option 2 - Run Single `snapshot` Workflow
 
-## Reporting Data Tables
-  
+```{r eval = FALSE, include = TRUE}
+lData <- list(
+    # Raw Data
+    dfSUBJ = clindata::rawplus_dm,
+    dfAE = clindata::rawplus_ae,
+    dfPD = clindata::ctms_protdev,
+    dfLB = clindata::rawplus_lb,
+    dfSTUDCOMP = clindata::rawplus_studcomp,
+    dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
+    dfDATACHG = clindata::edc_data_points,
+    dfDATAENT = clindata::edc_data_pages,
+    dfQUERY = clindata::edc_queries,
+    dfENROLL = clindata::rawplus_enroll,
+    # CTMS data
+    ctms_site = clindata::ctms_site,
+    ctms_study = clindata::ctms_study,
+    # SnapshotDate and StudyID
+    dSnapshotDate = Sys.Date(),
+    strStudyID = "ABC-123",
+    # Metrics
+    Metrics = 'kri'
+)
 
-  ------------------------------------------------------------------------
+ss_wf <- MakeWorkflowList(strNames = "snapshot")
+snapshot <- RunWorkflows(ss_wf, lData, bKeepInputData = TRUE)
+
+```
+
+
+----------------------------------------------------------------
     
-    # Recap - Normal Approximation Adverse Event KRI
+### Recap - Reporting Workflow 
     
-  -   `dfInput` used as original input using `Input_Rate()`
-  -   `dfTransformed` created from `dfInput` using `Transform_Rate()`
-  -   `dfAnalyzed` created from `dfTransformed` using `Analyze_NormalApprox()`
-  -   `dfFlagged` created from `dfAnalyzed` using `Flag_NormalApprox()`
-  -   `dfSummary` created from `dfFlagged` using `Summarize()`
-  -   Scatter plot created from `dfTransformed` and `dfFlagged` using `Visualize_Scatter()`
+  -   `dfGroups` created from CTMS data using `RunQuery()`, `MakeLongMeta()` and `bind_rows()`
+  -   `dfMetrics` created from `lWorkflow` using `MakeMetric()`
+  -   `dfResults` created from `lAnalysis$dfSummary` using `BindResults()`
+  -   `dfBounds` created from `dfResults` using `MakeBounds()`
+  -   List of all charts and tables (`lCharts`) created from `dfResults`, `dfBounds`, `dfMetrics` and `dfGroups` using `MakeCharts()`
+  -   Report generated from `lCharts`, `dfResults`, `dfMetrics` and `dfGroups` using `Report_KRI()`
   
-  ------------------------------------------------------------------------
+-----------------------------------------------------------------
     
 # Appendix 1 - Supporting Functions {#appendix-1}
     
@@ -96,37 +342,20 @@ Additional statistical methods and supporting functions are explored in [Appendi
 ### Mapping Functions
   
   -   `RunQuery()`: Run a SQL query to create new data.frames with filtering and column name specifications.
-  -   `Input_Rate()`: Calculate a subject level rate from raw numerator and denominator data
   
-  ### Transform Functions
-  
-  -   `Transform_Rate()`: Calculates cumulative rate of Event(s) of Interest per site
-  -   `Transform_Count()`: Calculates cumulative number of Event(s) of Interest per site
-  
-### Analyze Functions
-  
-  -   `Analyze_NormalApprox()`: Uses funnel plot method with normal approximation to create analysis results for percentage/rate.
-  -   `Analyze_Fisher()`: Uses Fisher's Exact Test to determine if there are non-random associations between a site and a given KRI
--   `Analyze_Identity()`: Used in the data pipeline between `Transform()` and `Flag()` functions to rename KRI and Score columns
--   `Analyze_Poisson()`: Uses a Poisson model to describe the distribution of events in the overall site population, i.e., determine how many times an event is likely to occur at a site over a specified treatment period
-
-### Flag Functions
-
--   `Flag_NormalApprox()`: Default flagging function when `Analyze_NormalApprox()` is used for an assessment.
--   `Flag_Fisher()`: Default flagging function when `Analyze_Fisher()` is used for an assessment
--   `Flag_Poisson()`: Default flagging function when `Analyze_Poisson()` is used for an assessment
--   `Flag()`: Default flagging function when `Analyze_Identity()` is used for an assessment
 
 ### Visualization Functions
 
--   `Visualize_Scatter()`: Creates scatter plot of Total Exposure (in days, on log scale) vs Total Number of Event(s) of Interest (on linear scale). Each data point represents one site. Outliers are plotted in red with the site label attached. This plot is only created when statistical method is **not** defined as `identity`.
--   `Visualize_Score()`: Provides a standard visualization for Score or KRI.
+-   `Visualize_Scatter()`: Creates scatter plot of Total Exposure (in days, on log scale) vs Total Number of Event(s) of Interest (on linear scale). Each data point represents one site. Outliers are plotted in red with the site label attached. This plot is only created when statistical method is **not** defined as `identity`. Chart is called `scatter` in the `lCharts` object.
+-   `Visualize_Score()`: Provides a standard visualization for Score or KRI. Charts are called `barScore` or `barMetric` in the `lCharts` object.
 -   `Visualize_Metric()`: Creates all available charts for a metric using the data provided.
 
-### What Statistical Models Are Available For Each Assessment?
 
--   By default, all `yaml` workflow assessments specified in the `inst/workflows/` directory use the [normal approximation](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-normal-approximation-method) method.
--   Optionally, other statistical methods include: [**Poisson**](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-poisson-regression-method), [**Fisher's Exact**](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-fishers-exact-method), and [**Identity**](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-identity-method).
-                                                                                                                                                                                       
-                                                                                                                                                                                       ![](data-analysis-combined.PNG){width="100%"}
+### Widget Functions
+
+- `Widget_GroupOverview`: 
+- `Widget_BarChart`: Charts are called `barScoreJS` or `barMetricJS` in the `lCharts` object.
+- `Widget_ScatterPlot`: Chart is called `scatterJS` in the `lCharts` object.
+- `Widget_TimeSeries`: Charts are called `timeSeriesContinuousScoreJS`, `timeSeriesContinuousMetricJS`, or `timeSeriesContinuousNumeratorJS` in the `lCharts` object.
+
                                                                                                                                                                                        
