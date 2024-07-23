@@ -1,4 +1,4 @@
-dfAnalyzed <-  Transform_Rate(analyticsInput) %>% Analyze_Poisson()
+dfAnalyzed <- Transform_Rate(analyticsInput) %>% Analyze_Poisson()
 
 test_that("output is created as expected", {
   dfFlagged <- Flag_Poisson(dfAnalyzed, vThreshold = c(-.05, -.005, .005, .05))

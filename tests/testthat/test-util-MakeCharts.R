@@ -17,5 +17,7 @@ test_that("MakeCharts makes charts", {
     dfGroups = reportingGroups,
     dfMetrics = reportingMetrics
   )
-  expect_snapshot({str(charts, max.level = 2)})
+  expect_snapshot({
+    str(charts, max.level = 2)
+  })
 })

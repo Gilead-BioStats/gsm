@@ -23,7 +23,7 @@ BindResults <- function(
   dSnapshotDate = Sys.Date(),
   strStudyID,
   bUselData = FALSE
-){
+) {
   dfResults <- lResults %>%
     purrr::imap(
       function(result, metric) {

@@ -14,7 +14,7 @@ get_workflow_data <- function(strNames) {
       )
     }
   )
-  yaml_outputs <- map(workflows, ~map_vec(.x$steps, ~.x$output))
+  yaml_outputs <- map(workflows, ~ map_vec(.x$steps, ~ .x$output))
   return(
     list(
       workflows = workflows,
@@ -29,7 +29,8 @@ get_mapped_data <- function(workflows) {
 
   # Don't run things we don't use.
   used_params <- map(workflows, ~ map(.x$steps, "params")) %>%
-    unlist() %>% unique()
+    unlist() %>%
+    unique()
   wf_mapping$steps <- purrr::keep(
     wf_mapping$steps,
     ~ .x$output %in% used_params

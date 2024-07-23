@@ -44,55 +44,55 @@ metrics.
 }
 \examples{
 \dontrun{
-strGroupLevel <- 'Site'
+strGroupLevel <- "Site"
 
 lWorkflows <- MakeWorkflowList()
-lMetricWorkflows <- lWorkflows[ grepl('^kri', names(lWorkflows) ) ]
+lMetricWorkflows <- lWorkflows[grepl("^kri", names(lWorkflows))]
 
 lDataRaw <- gsm::UseClindata(
-    list(
-        "dfSUBJ" = "clindata::rawplus_dm",
-        "dfAE" = "clindata::rawplus_ae",
-        "dfPD" = "clindata::ctms_protdev",
-        "dfLB" = "clindata::rawplus_lb",
-        "dfSTUDCOMP" = "clindata::rawplus_studcomp",
-        "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp \%>\%
+  list(
+    "dfSUBJ" = "clindata::rawplus_dm",
+    "dfAE" = "clindata::rawplus_ae",
+    "dfPD" = "clindata::ctms_protdev",
+    "dfLB" = "clindata::rawplus_lb",
+    "dfSTUDCOMP" = "clindata::rawplus_studcomp",
+    "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp \%>\%
             dplyr::filter(.data$phase == 'Blinded Study Drug Completion')",
-        "dfDATACHG" = "clindata::edc_data_points",
-        "dfDATAENT" = "clindata::edc_data_pages",
-        "dfQUERY" = "clindata::edc_queries",
-        "dfENROLL" = "clindata::rawplus_enroll"
-    )
+    "dfDATACHG" = "clindata::edc_data_points",
+    "dfDATAENT" = "clindata::edc_data_pages",
+    "dfQUERY" = "clindata::edc_queries",
+    "dfENROLL" = "clindata::rawplus_enroll"
+  )
 )
 
 lDataMapped <- RunWorkflow(lWorkflows$data_mapping, lDataRaw)
 
 lResults <- map(
-    lMetricWorkflows,
-    ~ RunWorkflow(.x, lDataMapped)
+  lMetricWorkflows,
+  ~ RunWorkflow(.x, lDataMapped)
 )
 
 dfResults <- lResults \%>\% imap_dfr(~ {
-    data <- .x$dfSummary
-    data$MetricID <- .y
-    data$GroupLevel <- strGroupLevel
-    data
+  data <- .x$dfSummary
+  data$MetricID <- .y
+  data$GroupLevel <- strGroupLevel
+  data
 })
 
 dfGroups <- bind_rows(
-    "SELECT pi_number as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df" \%>\%
-        RunQuery(clindata::ctms_site) \%>\%
-        MakeLongMeta('Site'),
-    "SELECT invid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid" \%>\%
-        RunQuery(lData$dfEnrolled) \%>\%
-        MakeLongMeta('Site'),
-    "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country" \%>\%
-        RunQuery(lData$dfEnrolled) \%>\%
-        MakeLongMeta('Country')
+  "SELECT pi_number as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df" \%>\%
+    RunQuery(clindata::ctms_site) \%>\%
+    MakeLongMeta("Site"),
+  "SELECT invid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid" \%>\%
+    RunQuery(lData$dfEnrolled) \%>\%
+    MakeLongMeta("Site"),
+  "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country" \%>\%
+    RunQuery(lData$dfEnrolled) \%>\%
+    MakeLongMeta("Country")
 )
 
 dfMetrics <- lMetricWorkflows \%>\%
-    map_dfr(~ .x$meta)
+  map_dfr(~ .x$meta)
 
 Widget_GroupOverview(
   dfResults,

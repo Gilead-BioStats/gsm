@@ -75,7 +75,8 @@ test_that("incorrect inputs throw errors", {
       dfInput = input %>% select(-Count),
       strGroupCol = "SiteID",
       strCountCol = "Count"
-    ))
+    )
+  )
 
   expect_error(
     Transform_Count(

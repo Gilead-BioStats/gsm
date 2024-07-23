@@ -73,4 +73,3 @@ test_that("yaml workflow produces same table as R function", {
   expect_equal(dfSummarized$Flag, lResults$dfSummary$Flag)
   expect_equal(dim(dfSummarized), dim(lResults$dfSummary))
 })
-

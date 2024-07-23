@@ -9,8 +9,8 @@
 #' @inherit gt-shared return
 #' @export
 Report_FlagOverTime <- function(dfResults,
-                                dfMetrics,
-                                strGroupLevel = c("Site", "Study", "Country")) {
+  dfMetrics,
+  strGroupLevel = c("Site", "Study", "Country")) {
   strGroupLevel <- rlang::arg_match(strGroupLevel)
   dfFlagOverTime <- widen_results(dfResults, dfMetrics, strGroupLevel)
   date_cols <- stringr::str_which(

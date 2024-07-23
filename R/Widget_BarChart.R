@@ -17,34 +17,34 @@
 #'
 #' @examples
 #' \dontrun{
-#' strMetricID <- 'kri0001'
-#' lMetricWorkflow <- MakeWorkflowList()[[ strMetricID ]]
+#' strMetricID <- "kri0001"
+#' lMetricWorkflow <- MakeWorkflowList()[[strMetricID]]
 #'
 #' lData <- list(
-#'     dfEnrolled = clindata::rawplus_dm %>% filter(enrollyn == 'Y'),
-#'     dfAE = clindata::rawplus_ae
+#'   dfEnrolled = clindata::rawplus_dm %>% filter(enrollyn == "Y"),
+#'   dfAE = clindata::rawplus_ae
 #' )
 #'
 #' lResults <- lMetricWorkflow %>%
-#'     RunWorkflow(lData)
+#'   RunWorkflow(lData)
 #'
 #' dfGroups <- bind_rows(
-#'     "SELECT pi_number as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df" %>%
-#'         RunQuery(clindata::ctms_site) %>%
-#'         MakeLongMeta('Site'),
-#'     "SELECT invid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid" %>%
-#'         RunQuery(lData$dfEnrolled) %>%
-#'         MakeLongMeta('Site'),
-#'     "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country" %>%
-#'         RunQuery(lData$dfEnrolled) %>%
-#'         MakeLongMeta('Country')
+#'   "SELECT pi_number as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df" %>%
+#'     RunQuery(clindata::ctms_site) %>%
+#'     MakeLongMeta("Site"),
+#'   "SELECT invid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid" %>%
+#'     RunQuery(lData$dfEnrolled) %>%
+#'     MakeLongMeta("Site"),
+#'   "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country" %>%
+#'     RunQuery(lData$dfEnrolled) %>%
+#'     MakeLongMeta("Country")
 #' )
 #'
 #' Widget_BarChart(
-#'     dfResults = lResults$dfSummary,
-#'     lMetric = lMetricWorkflow$meta,
-#'     dfGroups = dfGroups,
-#'     vThreshold = lMetricWorkflow$meta$Threshold
+#'   dfResults = lResults$dfSummary,
+#'   lMetric = lMetricWorkflow$meta,
+#'   dfGroups = dfGroups,
+#'   vThreshold = lMetricWorkflow$meta$Threshold
 #' )
 #' }
 #' @export
@@ -54,16 +54,16 @@ Widget_BarChart <- function(
   lMetric = list(), # TODO: coerce list to object instead of array with jsonlite::toJSON()
   dfGroups = NULL,
   vThreshold = NULL,
-  strOutcome = 'Score',
+  strOutcome = "Score",
   bAddGroupSelect = TRUE,
   bDebug = FALSE
 ) {
-    # Parse `vThreshold` from comma-delimited character string to numeric vector.
-    if (!is.null(vThreshold)) {
-        if (is.character(vThreshold)) {
-            vThreshold <- strsplit(vThreshold, ',')[[1]] %>% as.numeric()
-        }
+  # Parse `vThreshold` from comma-delimited character string to numeric vector.
+  if (!is.null(vThreshold)) {
+    if (is.character(vThreshold)) {
+      vThreshold <- strsplit(vThreshold, ",")[[1]] %>% as.numeric()
     }
+  }
 
   # define widget inputs
   input <- list(
@@ -82,17 +82,17 @@ Widget_BarChart <- function(
     purrr::map(
       input,
       ~ jsonlite::toJSON(
-          .x,
-          null = "null",
-          na = "string",
-          auto_unbox = TRUE
+        .x,
+        null = "null",
+        na = "string",
+        auto_unbox = TRUE
       )
     ),
     package = "gsm"
   )
 
   if (bDebug) {
-    viewer <- getOption('viewer')
+    viewer <- getOption("viewer")
     options(viewer = NULL)
     print(widget)
     options(viewer = viewer)

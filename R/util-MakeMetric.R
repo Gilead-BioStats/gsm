@@ -14,7 +14,7 @@
 #' dfMetrics <- MakeMetric(lWorkflows)
 #'
 #' @export
-MakeMetric <- function(lWorkflows){
+MakeMetric <- function(lWorkflows) {
   dfMetrics <- lWorkflows %>%
     purrr::map(function(wf) {
       return(tibble::as_tibble(wf$meta))

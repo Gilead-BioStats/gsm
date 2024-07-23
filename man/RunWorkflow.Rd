@@ -42,6 +42,6 @@ lData <- list(
 wf_mapping <- MakeWorkflowList("mapping")
 lMapped <- RunWorkflow(wf_mapping, LData)$lData
 
-output <- map(lAssessments, ~RunWorkflow(., lMapped))
+output <- map(lAssessments, ~ RunWorkflow(., lMapped))
 }
 }

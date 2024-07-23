@@ -49,4 +49,3 @@ test_that("Generated table has correct structure and content", {
   expect_true(any(grepl("<div class=\"toggle-switch\">", output)))
   expect_true(any(grepl("Show Details", output)))
 })
-

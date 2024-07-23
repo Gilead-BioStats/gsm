@@ -82,7 +82,7 @@ test_that("rows with a denominator of 0 are removed", {
       Rate = ifelse(
         GroupID == analyticsInput$GroupID[[1]],
         NaN,
-        Numerator/Denominator
+        Numerator / Denominator
       )
     ) %>%
     ungroup()

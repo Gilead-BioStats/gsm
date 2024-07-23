@@ -33,7 +33,7 @@ MakeBounds <- function(
   stop_if_empty(strStudyID)
   cli_inform("Creating stacked dfBounds data for {strMetrics}")
 
-  if(length(dSnapshotDate) != 1){
+  if (length(dSnapshotDate) != 1) {
     cli_warn(
       "More than one SnapshotDate found. Returning NULL",
       class = "gsm_warning-multiple_values"
@@ -41,7 +41,7 @@ MakeBounds <- function(
     return(NULL)
   }
 
-  if(length(strStudyID) != 1){
+  if (length(strStudyID) != 1) {
     cli_warn(
       "More than one StudyID found. Return NULL",
       class = "gsm_warning-multiple_values"
@@ -58,7 +58,7 @@ MakeBounds <- function(
 
       vThreshold <- ParseThreshold(strThreshold = lMetric$Threshold)
       if (!is.null(lMetric$Type) &&
-          tolower(unique(lMetric$Type)) %in% c("poisson")) {
+        tolower(unique(lMetric$Type)) %in% c("poisson")) {
         dfBounds <- Analyze_Poisson_PredictBounds(
           dfResult,
           vThreshold = vThreshold
@@ -66,8 +66,7 @@ MakeBounds <- function(
           mutate(MetricID = strMetric) %>%
           mutate(StudyID = strStudyID) %>%
           mutate(SnapshotDate = dSnapshotDate)
-      }
-      else {
+      } else {
         dfBounds <- Analyze_NormalApprox_PredictBounds(
           dfResult,
           strType = lMetric$Type %||% "binary",

@@ -8,8 +8,10 @@ test_that("Widget_GroupOverview returns expected data", {
 
   expect_named(
     fromJSON(widget$x$dfResults),
-    c('GroupID', 'GroupLevel', 'Numerator', 'Denominator', 'Metric', 'Score',
-      'Flag', 'MetricID', 'StudyID', 'SnapshotDate')
+    c(
+      "GroupID", "GroupLevel", "Numerator", "Denominator", "Metric", "Score",
+      "Flag", "MetricID", "StudyID", "SnapshotDate"
+    )
   )
 
   expect_s3_class(fromJSON(widget$x$dfGroups), "data.frame")

@@ -44,117 +44,123 @@
 #' @examples
 #' # Run for AE KRI
 #' dfInput <- Input_Rate(
-#'     dfSubjects = clindata::rawplus_dm,
-#'     dfNumerator = clindata::rawplus_ae,
-#'     dfDenominator = clindata::rawplus_dm,
-#'     strSubjectCol = "subjid",
-#'     strGroupCol = "siteid",
-#'     strGroupLevel = "Site",
-#'     strNumeratorMethod = "Count",
-#'     strDenominatorMethod = "Sum",
-#'     strDenominatorCol = "timeontreatment"
-#'   )
+#'   dfSubjects = clindata::rawplus_dm,
+#'   dfNumerator = clindata::rawplus_ae,
+#'   dfDenominator = clindata::rawplus_dm,
+#'   strSubjectCol = "subjid",
+#'   strGroupCol = "siteid",
+#'   strGroupLevel = "Site",
+#'   strNumeratorMethod = "Count",
+#'   strDenominatorMethod = "Sum",
+#'   strDenominatorCol = "timeontreatment"
+#' )
 #'
 #' @export
 #' @keywords interal
 
 Input_Rate <- function(
-    dfSubjects,
-    dfNumerator,
-    dfDenominator,
-    strGroupCol = "GroupID",
-    strGroupLevel = NULL,
-    strSubjectCol = "SubjectID",
-    strNumeratorMethod = "Count",
-    strDenominatorMethod = "Count",
-    strNumeratorCol = NULL,
-    strDenominatorCol = NULL
+  dfSubjects,
+  dfNumerator,
+  dfDenominator,
+  strGroupCol = "GroupID",
+  strGroupLevel = NULL,
+  strSubjectCol = "SubjectID",
+  strNumeratorMethod = "Count",
+  strDenominatorMethod = "Count",
+  strNumeratorCol = NULL,
+  strDenominatorCol = NULL
 ) {
+  # Check if data frames are NULL
+  if (is.null(dfSubjects)) {
+    stop("dfSubjects must be provided")
+  }
+  if (is.null(dfDenominator)) {
+    stop("dfDenominator, must be provided")
+  }
+  if (is.null(dfNumerator)) {
+    stop("dfNumerator, must be provided")
+  }
 
-    #Check if data frames are NULL
-    if(is.null(dfSubjects)){ stop("dfSubjects must be provided")}
-    if(is.null(dfDenominator)){ stop("dfDenominator, must be provided")}
-    if(is.null(dfNumerator)){ stop("dfNumerator, must be provided")}
+  # Check if strNumeratorMethod and strDenominatorMethod are valid
+  if (!strNumeratorMethod %in% c("Count", "Sum") | !strDenominatorMethod %in% c("Count", "Sum")) {
+    stop("strNumeratorMethod and strDenominator method must be 'Count' or 'Sum'")
+  }
 
-    # Check if strNumeratorMethod and strDenominatorMethod are valid
-    if (!strNumeratorMethod %in% c("Count", "Sum") | !strDenominatorMethod %in% c("Count", "Sum")) {
-        stop("strNumeratorMethod and strDenominator method must be 'Count' or 'Sum'")
-    }
+  # Check if strNumeratorCol is Null when strNumeratorMethod is 'Sum'
+  if (strNumeratorMethod == "Sum" && is.null(strNumeratorCol)) {
+    stop("strNumeratorCol must be provided when strNumeratorMethod is 'Sum'")
+  }
 
-    # Check if strNumeratorCol is Null when strNumeratorMethod is 'Sum'
-    if (strNumeratorMethod == "Sum" && is.null(strNumeratorCol)) {
-        stop("strNumeratorCol must be provided when strNumeratorMethod is 'Sum'")
-    }
+  # Check if strDenominatorCol is Null when strDenominatorMethod is 'Sum'
+  if (strDenominatorMethod == "Sum" && is.null(strDenominatorCol)) {
+    stop("strDenominatorCol must be provided when strDenominatorMethod is 'Sum'")
+  }
 
-    # Check if strDenominatorCol is Null when strDenominatorMethod is 'Sum'
-    if (strDenominatorMethod == "Sum" && is.null(strDenominatorCol)) {
-        stop("strDenominatorCol must be provided when strDenominatorMethod is 'Sum'")
-    }
+  # check that "strSubjectCol" is in all dfs
+  stopifnot(
+    strSubjectCol %in% colnames(dfSubjects),
+    strSubjectCol %in% colnames(dfNumerator),
+    strSubjectCol %in% colnames(dfDenominator)
+  )
 
-    # check that "strSubjectCol" is in all dfs
-    stopifnot(
-        strSubjectCol %in% colnames(dfSubjects),
-        strSubjectCol %in% colnames(dfNumerator),
-        strSubjectCol %in% colnames(dfDenominator)
-    )
+  # check that "strGroupCol" is in dfSubjects
+  stopifnot(strGroupCol %in% colnames(dfSubjects))
 
-    # check that "strGroupCol" is in dfSubjects
-    stopifnot(strGroupCol %in% colnames(dfSubjects))
+  # if `strGroupLevel` is null, use `strGroupCol`
+  if (is.null(strGroupLevel)) {
+    strGroupLevel <- strGroupCol
+  }
 
-    # if `strGroupLevel` is null, use `strGroupCol`
-    if(is.null(strGroupLevel)){
-        strGroupLevel <- strGroupCol
-    }
+  # Rename SubjectID in dfSubjects
+  dfSubjects <- dfSubjects %>%
+    mutate(
+      "SubjectID" = .data[[strSubjectCol]],
+      "GroupID" = .data[[strGroupCol]],
+      "GroupLevel" = strGroupLevel
+    ) %>%
+    select("SubjectID", "GroupID", "GroupLevel")
 
-    #Rename SubjectID in dfSubjects
-    dfSubjects <- dfSubjects %>%
-        mutate(
-            'SubjectID' = .data[[strSubjectCol]],
-            'GroupID' = .data[[strGroupCol]],
-            'GroupLevel' = strGroupLevel
-        ) %>%
-        select('SubjectID', 'GroupID', 'GroupLevel')
+  # Calculate Numerator
+  dfNumerator <- dfNumerator %>%
+    rename("SubjectID" = !!strSubjectCol)
 
-    #Calculate Numerator
-    dfNumerator <- dfNumerator %>%
-        rename('SubjectID' = !!strSubjectCol)
+  if (strNumeratorMethod == "Count") {
+    dfNumerator$Numerator <- 1
+  } else {
+    dfNumerator$Numerator <- dfNumerator[[strNumeratorCol]]
+  }
 
-    if(strNumeratorMethod == "Count"){
-        dfNumerator$Numerator <- 1
-    } else {
-        dfNumerator$Numerator <- dfNumerator[[strNumeratorCol]]
-    }
+  dfNumerator_subj <- dfNumerator %>%
+    select("SubjectID", "Numerator") %>%
+    group_by(.data$SubjectID) %>%
+    summarise("Numerator" = sum(.data$Numerator)) %>%
+    ungroup()
 
-    dfNumerator_subj <- dfNumerator %>%
-        select('SubjectID', 'Numerator') %>%
-        group_by(.data$SubjectID) %>%
-        summarise('Numerator' = sum(.data$Numerator)) %>%
-        ungroup()
+  # Calculate Denominator
+  dfDenominator <- dfDenominator %>%
+    rename("SubjectID" = !!strSubjectCol)
 
-    #Calculate Denominator
-    dfDenominator <- dfDenominator %>%
-        rename('SubjectID' = !!strSubjectCol)
+  if (strDenominatorMethod == "Count") {
+    dfDenominator$Denominator <- 1
+  } else {
+    dfDenominator$Denominator <- dfDenominator[[strDenominatorCol]]
+  }
 
-    if(strDenominatorMethod == "Count"){
-        dfDenominator$Denominator <- 1
-    } else {
-        dfDenominator$Denominator <- dfDenominator[[strDenominatorCol]]
-    }
+  dfDenominator_subj <- dfDenominator %>%
+    select("SubjectID", "Denominator") %>%
+    group_by(.data$SubjectID) %>%
+    summarise("Denominator" = sum(.data$Denominator)) %>%
+    ungroup()
 
-    dfDenominator_subj <- dfDenominator %>%
-        select('SubjectID', 'Denominator') %>%
-        group_by(.data$SubjectID) %>%
-        summarise('Denominator' = sum(.data$Denominator)) %>%
-        ungroup()
+  # Merge Numerator and Denominator with Subject Data. Keep all data in Subject. Fill in missing numerator/denominators with 0
+  dfInput <- dfSubjects %>%
+    left_join(dfNumerator_subj, by = "SubjectID") %>%
+    left_join(dfDenominator_subj, by = "SubjectID") %>%
+    mutate(
+      "Numerator" = if_else(is.na(.data$Numerator), 0, .data$Numerator),
+      "Denominator" = if_else(is.na(.data$Denominator), 0, .data$Denominator)
+    ) %>%
+    mutate(Metric = .data$Numerator / .data$Denominator)
 
-    # Merge Numerator and Denominator with Subject Data. Keep all data in Subject. Fill in missing numerator/denominators with 0
-    dfInput <- dfSubjects %>%
-        left_join(dfNumerator_subj, by = "SubjectID") %>%
-        left_join(dfDenominator_subj, by = "SubjectID") %>%
-        mutate('Numerator' = if_else(is.na(.data$Numerator), 0, .data$Numerator),
-            'Denominator' = if_else(is.na(.data$Denominator), 0, .data$Denominator)
-        ) %>%
-        mutate(Metric = .data$Numerator/.data$Denominator)
-
-    return(dfInput)
+  return(dfInput)
 }
