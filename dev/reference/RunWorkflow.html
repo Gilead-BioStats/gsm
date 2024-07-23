@@ -148,7 +148,7 @@ Calls <code>RunStep</code> for each item in <code>lWorkflow$workflow</code> and 
 <span class="r-in"><span><span class="va">wf_mapping</span> <span class="op">&lt;-</span> <span class="fu"><a href="MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span><span class="st">"mapping"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">lMapped</span> <span class="op">&lt;-</span> <span class="fu">RunWorkflow</span><span class="op">(</span><span class="va">wf_mapping</span>, <span class="va">LData</span><span class="op">)</span><span class="op">$</span><span class="va">lData</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">output</span> <span class="op">&lt;-</span> <span class="fu">map</span><span class="op">(</span><span class="va">lAssessments</span>, <span class="op">~</span><span class="fu">RunWorkflow</span><span class="op">(</span><span class="va">.</span>, <span class="va">lMapped</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">output</span> <span class="op">&lt;-</span> <span class="fu">map</span><span class="op">(</span><span class="va">lAssessments</span>, <span class="op">~</span> <span class="fu">RunWorkflow</span><span class="op">(</span><span class="va">.</span>, <span class="va">lMapped</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
