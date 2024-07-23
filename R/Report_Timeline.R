@@ -47,9 +47,9 @@ Make_Timeline <- function(status_study, longitudinal = NULL, n_breaks = 10, date
         if (history) bind_rows(., snapshots) else .
       } %>%
       mutate(
-        'date' = as.Date(.data$date),
-        'estimate' = grepl("est", .data$activity),
-        'disp' = case_when(
+        "date" = as.Date(.data$date),
+        "estimate" = grepl("est", .data$activity),
+        "disp" = case_when(
           grepl("\n", date_format) & .data$estimate ~ 3.75,
           grepl("\n", date_format) &
             !.data$estimate ~ -3.75,

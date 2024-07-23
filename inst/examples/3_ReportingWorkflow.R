@@ -1,6 +1,6 @@
 #### 3.1 - Create a KRI Report using 12 standard metrics with multiple workflows
 
-# Step 1 - Create Mapped Data - filter/map raw data 
+# Step 1 - Create Mapped Data - filter/map raw data
 lData <- list(
     dfSUBJ = clindata::rawplus_dm,
     dfAE = clindata::rawplus_ae,
@@ -51,18 +51,18 @@ lData <- list(
     dfQUERY = clindata::edc_queries,
     dfENROLL = clindata::rawplus_enroll,
     # CTMS data
-    ctms_site = clindata::ctms_site, 
+    ctms_site = clindata::ctms_site,
     ctms_study = clindata::ctms_study,
     # SnapshotDate and StudyID
     dSnapshotDate = Sys.Date(),
     strStudyID = "ABC-123",
-    # Metrics 
+    # Metrics
     Metrics = 'kri'
 )
 
 ss_wf <- MakeWorkflowList(strNames = "snapshot")
 snapshot <- RunWorkflows(ss_wf, lData, bKeepInputData = TRUE)
 
-#### 3.2 - Create a country-level KRI Report 
+#### 3.3 - Create a country-level KRI Report
 lData$Metrics <- 'cou'
 country_snapshot <- RunWorkflows(ss_wf, lData, bKeepInputData = TRUE)

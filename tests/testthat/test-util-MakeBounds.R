@@ -89,3 +89,13 @@ test_that("MakeBounds fails gracefully for multiple arg values", {
   )
   expect_null(dfBounds)
 })
+
+test_that("MakeBounds makes poisson dfBounds", {
+  reportingMetrics$Type <- "poisson"
+  expect_snapshot({
+    MakeBounds(
+      dfResults = dplyr::filter(reportingResults, SnapshotDate == "2012-12-31"),
+      dfMetrics = reportingMetrics
+    )
+  })
+})

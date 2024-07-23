@@ -41,7 +41,7 @@
 
 #' reportingMetrics Dataset
 #'
-#' @format A data frame with 2 rows and 11 columns:
+#' @format A data frame with 2 rows and 12 columns:
 #' \describe{
 #'   \item{MetricID}{unique metric identifier}
 #'   \item{File}{yaml file for workflow}
@@ -52,7 +52,8 @@
 #'   \item{Denominator}{data source for the denominator}
 #'   \item{Model}{model used to calculate metric}
 #'   \item{Score}{type of score reported}
-#'   \item{strThreshold}{thresholds to be used for bounds and flags}
+#'   \item{Type}{statistical outcome type}
+#'   \item{Threshold}{thresholds to be used for bounds and flags}
 #'   \item{nMinDenominator}{minimum denominator required to return a score and calculate a flag}
 #' }
 #' @source Generated from `reportingMetrics.csv` dataset in the `gsm` package.
@@ -91,5 +92,3 @@
 #' }
 #' @source Generated from `reportingResults.csv` dataset in the `gsm` package.
 "reportingResults"
-
-

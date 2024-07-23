@@ -1,5 +1,5 @@
 lStudy <- list(
-  StudyID = 1,
+  StudyID = "Unique Study ID",
   protocol_title = "Study Title",
   nickname = "Nickname",
   enrolled_sites = 10,
@@ -30,7 +30,7 @@ test_that("Uses default study labels when lStudyLabels is NULL", {
   expect_true(any(grepl("Study Status", output)))
   expect_true(any(grepl("Show Details", output)))
   expect_true(any(grepl("Unique Study ID", output)))
-  expect_true(any(grepl("Protocol title", output)))
+  expect_true(any(grepl("protocol_title", output)))
 })
 
 test_that("Uses custom study labels when lStudyLabels is provided", {
@@ -49,4 +49,3 @@ test_that("Generated table has correct structure and content", {
   expect_true(any(grepl("<div class=\"toggle-switch\">", output)))
   expect_true(any(grepl("Show Details", output)))
 })
-

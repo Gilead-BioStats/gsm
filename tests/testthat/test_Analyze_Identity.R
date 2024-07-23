@@ -22,7 +22,6 @@ test_that("strValueCol works as intended", {
 
   dfAnalyzed <- Analyze_Identity(dfTransformed, strValueCol = "customKRI")
 
-  #expect_silent(Analyze_Identity(dfTransformed, strValueCol = "customKRI"))
+  # expect_silent(Analyze_Identity(dfTransformed, strValueCol = "customKRI"))
   expect_equal(names(dfAnalyzed), c("GroupID", "GroupLevel", "Numerator", "Denominator", "customKRI", "Score"))
 })
-

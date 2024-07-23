@@ -9,7 +9,6 @@ df <- tibble::tibble(
 )
 
 test_that("output created as expected and has correct structure", {
-
   output <- Analyze_Fisher(df)
 
   expect_true(is.data.frame(df))
@@ -45,4 +44,3 @@ test_that("NAs are handled correctly", {
 
   expect_error(createNA(data = df, variable = "GroupID"))
 })
-

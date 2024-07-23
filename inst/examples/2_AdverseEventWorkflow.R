@@ -11,13 +11,13 @@ AE_workflow <- read_yaml(text=
   Model: Normal Approximation
   Score: Adjusted Z-Score
   Type: rate
-  strThreshold: -2,-1,2,3
+  Threshold: -2,-1,2,3
   nMinDenominator: 30
 steps:
   - name: ParseThreshold
     output: vThreshold
     params:
-      strThreshold: strThreshold
+      strThreshold: Threshold
   - name: Input_Rate
     output: dfInput
     params:
@@ -53,15 +53,15 @@ steps:
 
 # Run the workflow
 AE_data <-list(
-  dfSubjects= clindata::rawplus_dm, 
+  dfSubjects= clindata::rawplus_dm,
   dfAE= clindata::rawplus_ae
-) 
+)
 AE_KRI <- RunWorkflow(lWorkflow = AE_workflow, lData = AE_data )
 
 # Create Barchart from workflow
 Widget_BarChart(dfResults = AE_KRI$dfSummary, lMetric = AE_workflow$meta)
 
-#### Example 2.2 - Run Country-Level Metric 
+#### Example 2.2 - Run Country-Level Metric
 AE_country_workflow <- AE_workflow
 AE_country_workflow$meta$GroupLevel <- "Country"
 AE_country_workflow$steps[[2]]$params$strGroupCol <- "country"
@@ -69,7 +69,7 @@ AE_country_workflow$steps[[2]]$params$strGroupCol <- "country"
 AE_country_KRI <- RunWorkflow(lWorkflow = AE_country_workflow, lData = AE_data )
 Widget_BarChart(dfResults = AE_country_KRI$dfSummary, lMetric = AE_country_workflow$meta)
 
-#### Example 2.3 - Create SAE workflow 
+#### Example 2.3 - Create SAE workflow
 
 # Tweak AE workflow metadata
 SAE_workflow <- AE_workflow
@@ -86,7 +86,7 @@ filterStep <- list(list(
     strQuery = "SELECT * FROM df WHERE aeser = 'Y'"
   ))
 )
-SAE_workflow$steps <- SAE_workflow$steps %>% append(filterStep, after=0)    
+SAE_workflow$steps <- SAE_workflow$steps %>% append(filterStep, after=0)
 
 # Run the updated workflow
 SAE_KRI <- RunWorkflow(lWorkflow = SAE_workflow, lData = AE_data )

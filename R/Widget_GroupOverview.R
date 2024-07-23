@@ -48,18 +48,16 @@ Widget_GroupOverview <- function(
   dfMetrics = NULL,
   dfGroups = NULL,
   strGroupLevel = NULL,
-  strGroupSubset = 'red',
-  strGroupLabelKey = 'InvestigatorLastName',
+  strGroupSubset = "red",
+  strGroupLabelKey = "InvestigatorLastName",
   bDebug = FALSE
 ) {
   # set strGroupLevel if NULL and dfMetrics is not NULL
   if (is.null(strGroupLevel) && !is.null(dfMetrics)) {
     strGroupLevel <- unique(dfMetrics$GroupLevel)
-  }
-  else if (!is.null(strGroupLevel)) {
+  } else if (!is.null(strGroupLevel)) {
     strGroupLevel <- strGroupLevel
-  }
-  else {
+  } else {
     stop("One of strGroupLevel or dfMetrics must be provided to create group-level output.")
   }
 
@@ -80,10 +78,10 @@ Widget_GroupOverview <- function(
     purrr::map(
       input,
       ~ jsonlite::toJSON(
-          .x,
-          null = "null",
-          na = "string",
-          auto_unbox = TRUE
+        .x,
+        null = "null",
+        na = "string",
+        auto_unbox = TRUE
       )
     ),
     width = "100%",
@@ -91,7 +89,7 @@ Widget_GroupOverview <- function(
   )
 
   if (bDebug) {
-    viewer <- getOption('viewer')
+    viewer <- getOption("viewer")
     options(viewer = NULL)
     print(widget)
     options(viewer = viewer)

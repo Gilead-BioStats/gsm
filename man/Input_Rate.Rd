@@ -73,20 +73,18 @@ found in dfNumerator/dfDenominator numerator and denominator values are filled w
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
-\dontrun{
 # Run for AE KRI
 dfInput <- Input_Rate(
-    dfSubjects = clindata::rawplus_dm,
-    dfNumerator = clindata::rawplus_ae,
-    dfDenominator = clindata::rawplus_dm,
-    strSubjectCol = "subjid",
-    strGroupCol = "siteid",
-    strGroupLevel = "Site",
-    strNumeratorMethod = "Count",
-    strDenominatorMethod = "Sum",
-    strDenominatorCol = "timeontreatment"
-  )
-  }
+  dfSubjects = clindata::rawplus_dm,
+  dfNumerator = clindata::rawplus_ae,
+  dfDenominator = clindata::rawplus_dm,
+  strSubjectCol = "subjid",
+  strGroupCol = "siteid",
+  strGroupLevel = "Site",
+  strNumeratorMethod = "Count",
+  strDenominatorMethod = "Sum",
+  strDenominatorCol = "timeontreatment"
+)
 
 }
 \keyword{interal}

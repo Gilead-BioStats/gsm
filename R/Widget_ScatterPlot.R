@@ -45,17 +45,17 @@ Widget_ScatterPlot <- function(
     purrr::map(
       input,
       ~ jsonlite::toJSON(
-          .x,
-          null = "null",
-          na = "string",
-          auto_unbox = TRUE
+        .x,
+        null = "null",
+        na = "string",
+        auto_unbox = TRUE
       )
     ),
     package = "gsm"
   )
 
   if (bDebug) {
-    viewer <- getOption('viewer')
+    viewer <- getOption("viewer")
     options(viewer = NULL)
     print(widget)
     options(viewer = viewer)

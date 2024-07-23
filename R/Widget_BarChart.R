@@ -29,16 +29,16 @@ Widget_BarChart <- function(
   lMetric = list(), # TODO: coerce list to object instead of array with jsonlite::toJSON()
   dfGroups = NULL,
   vThreshold = NULL,
-  strOutcome = 'Score',
+  strOutcome = "Score",
   bAddGroupSelect = TRUE,
   bDebug = FALSE
 ) {
-    # Parse `vThreshold` from comma-delimited character string to numeric vector.
-    if (!is.null(vThreshold)) {
-        if (is.character(vThreshold)) {
-            vThreshold <- strsplit(vThreshold, ',')[[1]] %>% as.numeric()
-        }
+  # Parse `vThreshold` from comma-delimited character string to numeric vector.
+  if (!is.null(vThreshold)) {
+    if (is.character(vThreshold)) {
+      vThreshold <- strsplit(vThreshold, ",")[[1]] %>% as.numeric()
     }
+  }
 
   # define widget inputs
   input <- list(
@@ -57,17 +57,17 @@ Widget_BarChart <- function(
     purrr::map(
       input,
       ~ jsonlite::toJSON(
-          .x,
-          null = "null",
-          na = "string",
-          auto_unbox = TRUE
+        .x,
+        null = "null",
+        na = "string",
+        auto_unbox = TRUE
       )
     ),
     package = "gsm"
   )
 
   if (bDebug) {
-    viewer <- getOption('viewer')
+    viewer <- getOption("viewer")
     options(viewer = NULL)
     print(widget)
     options(viewer = viewer)

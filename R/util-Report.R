@@ -26,9 +26,9 @@ filter_by_latest_SnapshotDate <- function(dfResults, strSnapshotDate = NULL) {
 }
 
 add_Groups_metadata <- function(dfResults,
-                                dfGroups,
-                                strGroupLevel = c("Site", "Study", "Country"),
-                                strGroupDetailsParams) {
+  dfGroups,
+  strGroupLevel = c("Site", "Study", "Country"),
+  strGroupDetailsParams) {
   if (nrow(dfResults)) {
     strGroupLevel <- rlang::arg_match(strGroupLevel)
     dfGroups_wide <- widen_dfGroups(dfGroups, strGroupLevel, strGroupDetailsParams)
@@ -52,7 +52,7 @@ widen_dfGroups <- function(dfGroups, strGroupLevel, strGroupDetailsParams) {
           "Country", "Status", "InvestigatorLastName", "ParticipantCount"
         )
       } else if (strGroupLevel == "Country") {
-        strGroupDetailsParams <- c("SiteCount","ParticipantCount")
+        strGroupDetailsParams <- c("SiteCount", "ParticipantCount")
       }
     }
     dfGroups <- dfGroups %>%
