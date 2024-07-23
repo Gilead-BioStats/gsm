@@ -19,9 +19,9 @@ Run a SQL query via DBI::dbGetQuery using the format expected by glue_sql. Value
 }
 \examples{
 df <- data.frame(
- Name = c("John", "Jane", "Bob"),
- Age = c(25, 30, 35),
- Salary = c(50000, 60000, 70000)
+  Name = c("John", "Jane", "Bob"),
+  Age = c(25, 30, 35),
+  Salary = c(50000, 60000, 70000)
 )
 query <- "SELECT * FROM df WHERE AGE > 30"
 

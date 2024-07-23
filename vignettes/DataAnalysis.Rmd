@@ -189,7 +189,7 @@ chart <- Visualize_Scatter(dfFlagged, dfBounds)
 chart
 ```
 
-A full explanation of all Data Visualizations in the `{gsm}` package is outlined in the Reporting Workflow vignette (ADD LINK).
+A full explanation of all Data Visualizations in the `{gsm}` package is outlined in the [Reporting Workflow vignette](DataReporting.html).
 
 ------------------------------------------------------------------------
 

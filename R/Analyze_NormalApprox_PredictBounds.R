@@ -64,7 +64,6 @@ Analyze_NormalApprox_PredictBounds <- function(
       "nStep was not provided. Setting default step to {nStep}.",
       class = "gsm_msg-default_nStep"
     )
-
   }
 
   # add a 0 threhsold to calcultate estimate without an offset

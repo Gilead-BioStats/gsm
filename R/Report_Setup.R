@@ -16,12 +16,11 @@
 #'
 
 Report_Setup <- function(dfGroups = NULL, dfMetrics = NULL, dfResults = NULL) {
-
   output <- list()
 
   # Get type of report
   group <- unique(dfMetrics$GroupLevel)
-  if (length( group ) == 1) {
+  if (length(group) == 1) {
     output$GroupLevel <- group
   } else {
     cli_alert("Multiple `GroupLevel`s detected in dfMetrics, so GroupLevel not specifed for KRI Report. ")
@@ -42,14 +41,14 @@ Report_Setup <- function(dfGroups = NULL, dfMetrics = NULL, dfResults = NULL) {
     dplyr::filter(.data$GroupLevel == "Study") %>%
     select("Param", "Value") %>%
     pivot_wider(names_from = "Param", values_from = "Value") %>%
-    as.list
+    as.list()
 
   if ("protocol_number" %in% names(output$lStudy)) {
-      output$StudyID <- output$lStudy$protocol_number
+    output$StudyID <- output$lStudy$protocol_number
   } else if ("protocol_title" %in% names(output$lStudy)) {
-      output$StudyID <- output$lStudy$protocol_title
+    output$StudyID <- output$lStudy$protocol_title
   } else {
-      output$StudyID <- "Unknown"
+    output$StudyID <- "Unknown"
   }
 
   # Count Red and Amber Flags for most recent snapshot

@@ -53,7 +53,7 @@
 #'   \item{Model}{model used to calculate metric}
 #'   \item{Score}{type of score reported}
 #'   \item{Type}{statistical outcome type}
-#'   \item{strThreshold}{thresholds to be used for bounds and flags}
+#'   \item{Threshold}{thresholds to be used for bounds and flags}
 #'   \item{nMinDenominator}{minimum denominator required to return a score and calculate a flag}
 #' }
 #' @source Generated from `reportingMetrics.csv` dataset in the `gsm` package.
@@ -92,5 +92,3 @@
 #' }
 #' @source Generated from `reportingResults.csv` dataset in the `gsm` package.
 "reportingResults"
-
-

@@ -62,4 +62,3 @@ test_that("Widget_TimeSeriesQTL creates a valid HTML widget", {
   expect_equal(widget$width, NULL)
   expect_equal(widget$height, NULL)
 })
-

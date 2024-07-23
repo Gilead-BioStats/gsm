@@ -69,7 +69,7 @@ MakeWorkflowList <- function(
 
   # if `strNames` is not null, subset the workflow list to only include
   # files that match the character vector (`strNames`)
-  
+
   if (!is.null(strNames)) {
     if (bExact) {
       workflows <- purrr::keep(workflows, names(workflows) %in% strNames)
@@ -78,7 +78,7 @@ MakeWorkflowList <- function(
     }
   }
 
-  if(length(workflows) == 0) {
+  if (length(workflows) == 0) {
     cli::cli_alert_warning("No workflows found.")
   }
 

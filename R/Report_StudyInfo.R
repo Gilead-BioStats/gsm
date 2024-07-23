@@ -14,12 +14,12 @@
 
 Report_StudyInfo <- function(
   lStudy,
-  lStudyLabels=NULL
+  lStudyLabels = NULL
 ) {
   rlang::check_installed("gt", reason = "to render table from `MakeStudyStatusTable`")
 
   # default study labels - also used to sort the meta datatable
-  if(is.null(lStudyLabels)){
+  if (is.null(lStudyLabels)) {
     lStudyLabels <- list(
       SiteCount = "Sites Enrolled",
       ParticipantCount = "Participants Enrolled",
@@ -27,7 +27,7 @@ Report_StudyInfo <- function(
     )
   }
 
-  study_status_table <- lStudy %>% imap_dfr(function(value,param){
+  study_status_table <- lStudy %>% imap_dfr(function(value, param) {
     data.frame(
       Description = ifelse(
         param %in% names(lStudyLabels),

@@ -28,7 +28,7 @@
 #' wf_mapping <- MakeWorkflowList("mapping")
 #' lMapped <- RunWorkflow(wf_mapping, LData)$lData
 #'
-#' output <- map(lAssessments, ~RunWorkflow(., lMapped))
+#' output <- map(lAssessments, ~ RunWorkflow(., lMapped))
 #' }
 #' @return `list` contains just lData if `bReturnData` is `TRUE`, otherwise returns the full `lWorkflow` object.
 #'
@@ -44,11 +44,11 @@ RunWorkflow <- function(
   cli::cli_alert("Colnames: {names(lData)}")
 
   # check that the workflow has steps
-  if(length(lWorkflow$steps) == 0) {
+  if (length(lWorkflow$steps) == 0) {
     cli::cli_alert("Workflow `{lWorkflow$Meta$File}` has no `steps` property.")
   }
 
-  if(!"meta" %in% names(lWorkflow)) {
+  if (!"meta" %in% names(lWorkflow)) {
     cli::cli_alert("Workflow `{lWorkflow$Meta$File}` has no `meta` property.")
   }
 
@@ -71,24 +71,23 @@ RunWorkflow <- function(
       cli::cli_h3("{paste(dim(result),collapse='x')} data.frame saved as `lData${step$output}`.")
     } else {
       cli::cli_h3("{typeof(result)} of length {length(result)} saved as `lData${step$output}`.")
-
     }
 
     stepCount <- stepCount + 1
   }
 
   if (!bKeepInputData) {
-    outputs <- lWorkflow$steps %>% purrr::map_chr(~.x$output)
+    outputs <- lWorkflow$steps %>% purrr::map_chr(~ .x$output)
     lWorkflow$lData <- lWorkflow$lData[outputs]
     cli::cli_alert_info("Returning workflow outputs: {names(lWorkflow$lData)}")
-  } else{
+  } else {
     cli::cli_alert_info("Returning workflow inputs and outputs: {names(lWorkflow$lData)}")
   }
 
   cli::cli_h1(paste0("Completed `", lWorkflow$meta$File, "` Workflow"))
   if (bReturnData) {
     return(lWorkflow$lData)
-  } else{
+  } else {
     return(lWorkflow)
   }
 }
