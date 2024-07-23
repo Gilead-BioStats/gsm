@@ -1,7 +1,7 @@
 meta:
   File: kri0002.yaml
   MetricID: kri0002
-  GroupLevel: Site
+  GroupLevel: Race
   Abbreviation: SAE
   Metric: Serious Adverse Event Rate
   Numerator: Serious Adverse Events
@@ -9,8 +9,8 @@ meta:
   Model: Normal Approximation
   Score: Adjusted Z-Score
   Type: rate
-  Threshold: -2,-1,2,3
-  nMinDenominator: 30
+  Threshold: -5,-3,3,5
+  nMinDenominator: 300
 steps:
   - name: ParseThreshold
     output: vThreshold
@@ -23,7 +23,7 @@ steps:
       dfNumerator: dfSeriousAE
       dfDenominator: dfEnrolled
       strSubjectCol: subjid
-      strGroupCol: invid
+      strGroupCol: race
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Sum

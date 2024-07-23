@@ -1,7 +1,7 @@
 meta:
   File: kri0010.yaml
   MetricID: kri0010
-  GroupLevel: Site
+  GroupLevel: Race
   Abbreviation: ODAT
   Metric: Outstanding Data Entry Rate
   Numerator: Data Pages Entered > 10 Days
@@ -9,8 +9,8 @@ meta:
   Model: Normal Approximation
   Score: Adjusted Z-Score
   Type: binary
-  Threshold: -3,-2,2,3
-  nMinDenominator: 30
+  Threshold: -5,-3,3,5
+  nMinDenominator: 300
 steps:
   - name: ParseThreshold
     output: vThreshold
@@ -23,7 +23,7 @@ steps:
       dfNumerator: dfSlowDataEntry
       dfDenominator: dfDataEntry
       strSubjectCol: subject_nsv
-      strGroupCol: invid
+      strGroupCol: race
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count

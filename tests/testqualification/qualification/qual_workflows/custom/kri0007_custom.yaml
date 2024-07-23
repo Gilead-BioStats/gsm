@@ -1,7 +1,7 @@
 meta:
   File: kri0007.yaml
   MetricID: kri0007
-  GroupLevel: Site
+  GroupLevel: Race
   Abbreviation: TDSC
   Metric: Treatment Discontinuation Rate
   Numerator: Subjects Discontinued - Treatment
@@ -9,8 +9,8 @@ meta:
   Model: Normal Approximation
   Score: Adjusted Z-Score
   Type: binary
-  Threshold: -3,-2,2,3
-  nMinDenominator: 3
+  Threshold: -5,-3,3,5
+  nMinDenominator: 300
 steps:
   - name: ParseThreshold
     output: vThreshold
@@ -23,7 +23,7 @@ steps:
       dfNumerator: dfTreatmentDropouts
       dfDenominator: dfEnrolled
       strSubjectCol: subjid
-      strGroupCol: invid
+      strGroupCol: race
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count

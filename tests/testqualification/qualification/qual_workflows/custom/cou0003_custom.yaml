@@ -1,7 +1,7 @@
 meta:
   File: cou0003.yaml
   MetricID: cou0003
-  GroupLevel: Country
+  GroupLevel: Sex
   Abbreviation: PD
   Metric: Non-Important Protocol Deviation Rate
   Numerator: Non-Important Protocol Deviations
@@ -9,8 +9,8 @@ meta:
   Model: Normal Approximation
   Score: Adjusted Z-Score
   Type: rate
-  Threshold: -3,-2,2,3
-  nMinDenominator: 30
+  Threshold: -5,-3,3,5
+  nMinDenominator: 300
 steps:
   - name: ParseThreshold
     output: vThreshold
@@ -23,7 +23,7 @@ steps:
       dfNumerator: dfNonimportantPD
       dfDenominator: dfEnrolled
       strSubjectCol: subjid
-      strGroupCol: country
+      strGroupCol: sex
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Sum

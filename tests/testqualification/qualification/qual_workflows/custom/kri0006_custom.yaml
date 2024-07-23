@@ -1,7 +1,7 @@
 meta:
   File: kri0006.yaml
   MetricID: kri0006
-  GroupLevel: Site
+  GroupLevel: Race
   Abbreviation: SDSC
   Metric: Study Discontinuation Rate
   Numerator: Subjects Discontinued - Study
@@ -9,8 +9,8 @@ meta:
   Model: Normal Approximation
   Score: Adjusted Z-Score
   Type: binary
-  Threshold: -3,-2,2,3
-  nMinDenominator: 3
+  Threshold: -5,-3,3,5
+  nMinDenominator: 300
 steps:
   - name: ParseThreshold
     output: vThreshold
@@ -23,7 +23,7 @@ steps:
       dfNumerator: dfStudyDropouts
       dfDenominator: dfEnrolled
       strSubjectCol: subjid
-      strGroupCol: invid
+      strGroupCol: race
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count

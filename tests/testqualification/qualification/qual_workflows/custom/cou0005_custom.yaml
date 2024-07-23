@@ -1,7 +1,7 @@
 meta:
   File: cou0005.yaml
   MetricID: cou0005
-  GroupLevel: Country
+  GroupLevel: Sex
   Abbreviation: LB
   Metric: Grade 3+ Lab Abnormality Rate
   Numerator: Grade 3+ Abnormal Labs Samples
@@ -9,8 +9,8 @@ meta:
   Model: Normal Approximation
   Score: Adjusted Z-Score
   Type: binary
-  Threshold: -3,-2,2,3
-  nMinDenominator: 30
+  Threshold: -5,-3,3,5
+  nMinDenominator: 300
 steps:
   - name: ParseThreshold
     output: vThreshold
@@ -23,7 +23,7 @@ steps:
       dfNumerator: dfToxLabs
       dfDenominator: dfAllLabs
       strSubjectCol: subjid
-      strGroupCol: country
+      strGroupCol: sex
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count

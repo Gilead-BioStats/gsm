@@ -1,7 +1,7 @@
 meta:
   File: cou0012.yaml
   MetricID: cou0012
-  GroupLevel: Country
+  GroupLevel: Sex
   Abbreviation: SF
   Metric: Screen Failure Rate
   Numerator: Screen Failures
@@ -9,8 +9,8 @@ meta:
   Model: Normal Approximation
   Score: Adjusted Z-
   Type: binary
-  Threshold: -3,-2,2,3
-  nMinDenominator: 3
+  Threshold: -5,-3,3,5
+  nMinDenominator: 300
 steps:
   - name: ParseThreshold
     output: vThreshold
@@ -23,7 +23,7 @@ steps:
       dfNumerator: dfScreenFail
       dfDenominator: dfScreened
       strSubjectCol: subjectid
-      strGroupCol: country
+      strGroupCol: sex
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count

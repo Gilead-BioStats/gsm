@@ -1,7 +1,7 @@
 meta:
   File: kri0004.yaml
   MetricID: kri0004
-  GroupLevel: Site
+  GroupLevel: Race
   Abbreviation: PD
   Metric: Important Protocol Deviation Rate
   Numerator: Important Protocol Deviations
@@ -9,8 +9,8 @@ meta:
   Model: Normal Approximation
   Score: Adjusted Z-Score
   Type: rate
-  Threshold: -3,-2,2,3
-  nMinDenominator: 30
+  Threshold: -5,-3,3,5
+  nMinDenominator: 300
 steps:
   - name: ParseThreshold
     output: vThreshold
@@ -23,7 +23,7 @@ steps:
       dfNumerator: dfImportantPD
       dfDenominator: dfEnrolled
       strSubjectCol: subjid
-      strGroupCol: invid
+      strGroupCol: race
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Sum

@@ -1,7 +1,7 @@
 meta:
   File: cou0001.yaml
   MetricID: cou0001
-  GroupLevel: Country
+  GroupLevel: Sex
   Abbreviation: AE
   Metric: Adverse Event Rate
   Numerator: Adverse Events
@@ -9,8 +9,8 @@ meta:
   Model: Normal Approximation
   Type: rate
   Score: Adjusted Z-Score
-  Threshold: -2,-1,2,3
-  nMinDenominator: 30
+  Threshold: -5,-3,3,5
+  nMinDenominator: 300
 steps:
   - name: ParseThreshold
     output: vThreshold
@@ -23,7 +23,7 @@ steps:
       dfNumerator: dfAE
       dfDenominator: dfEnrolled
       strSubjectCol: subjid
-      strGroupCol: country
+      strGroupCol: sex
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Sum

@@ -1,7 +1,7 @@
 meta:
   File: kri0011.yaml
   MetricID: kri0011
-  GroupLevel: Site
+  GroupLevel: Race
   Abbreviation: CDAT
   Metric: Data Change Rate
   Numerator: Data Points with 1+ Change
@@ -9,8 +9,8 @@ meta:
   Model: Normal Approximation
   Score: Adjusted Z-Score
   Type: binary
-  Threshold: -3,-2,2,3
-  nMinDenominator: 30
+  Threshold: -5,-3,3,5
+  nMinDenominator: 300
 steps:
   - name: ParseThreshold
     output: vThreshold
@@ -23,7 +23,7 @@ steps:
       dfNumerator: dfChangedDataPoints
       dfDenominator: dfDataChanges
       strSubjectCol: subject_nsv
-      strGroupCol: invid
+      strGroupCol: race
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count

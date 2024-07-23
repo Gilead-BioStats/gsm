@@ -1,22 +1,69 @@
 # Test Setup -------------------------------------------------------
 source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
-mapping_workflow <- flatten(MakeWorkflowList("mapping", yaml_path_original))
-ae_workflow <- flatten(MakeWorkflowList("kri0001_custom", yaml_path_custom))
-mapped_data <- get_data(ae_workflow, lData)
 
-# define dfBounds --------------------------------------------------
-steps <- seq(which(map_lgl(ae_workflow$steps, ~str_detect(.x$output, "dfBounds"))))
-dfBounds <- robust_runworkflow(ae_workflow, mapped_data, steps)$lData$dfBounds
+kri_workflows <- MakeWorkflowList(c(sprintf('kri%04d', 1:2), sprintf('cou%04d', 1:2)))
+kri_custom <- MakeWorkflowList(c(sprintf('kri%04d_custom', 1:2), sprintf('cou%04d_custom', 1:2)), yaml_path_custom)
 
-## define outputs --------------------------------------------------
-outputs <- map_vec(ae_workflow$steps[steps], ~.x$output)
+mapped_data <- get_data(kri_workflows, lData)
+
+outputs <- map(kri_workflows, ~map_vec(.x$steps, ~.x$output))
+
 
 ## Test Code -------------------------------------------------------
-testthat::test_that("Given appropriate metadata (i.e. vThresholds), data.frame of bounds can be created", {
-  expect_no_error(robust_runworkflow(ae_workflow, mapped_data, steps)$lData$dfBounds)
-  expect_true(all(outputs %in% names(test$lData)))
-  expect_true(is.vector(test$lData[["vThreshold"]]))
-  expect_true(all(map_lgl(test$lData[outputs[outputs != "vThreshold"]], is.data.frame)))
-  expect_true(all(unique(dfBounds$Threshold) %in% c(ae_workflow$meta$vThreshold, 0)))
+testthat::test_that("Given appropriate metadata (i.e. vThresholds), bounds are properly applied to generate flags", {
+  # default ---------------------------------
+  test <- map(kri_workflows, ~robust_runworkflow(.x, mapped_data))
+
+  # verify outputs names exported
+  iwalk(test, ~expect_true(all(outputs[[.y]] %in% names(.x$lData))))
+
+  # verify output data expected as data.frames are in fact data.frames
+  expect_true(
+    all(
+      imap_lgl(test, function(kri, kri_name){
+        all(map_lgl(kri$lData[outputs[[kri_name]][outputs[[kri_name]] != "vThreshold"]], is.data.frame))
+      })
+    )
+  )
+
+  # verify vThreshold was converted to threshold vector of length 4
+  walk(test, ~expect_true(is.vector(.x$lData$vThreshold) & length(.x$lData$vThreshold) == 4))
+
+
+  # custom ----------------------------------
+  test_custom <- map(kri_custom, ~robust_runworkflow(.x, mapped_data))
+
+  # verify outputs names exported
+  iwalk(test, ~expect_true(all(outputs[[.y]] %in% names(.x$lData))))
+
+  # verify output data expected as data.frames are in fact data.frames
+  expect_true(
+    all(
+      imap_lgl(test, function(kri, kri_name){
+        all(map_lgl(kri$lData[outputs[[kri_name]][outputs[[kri_name]] != "vThreshold"]], is.data.frame))
+      })
+    )
+  )
+
+  # verify vThreshold was converted to threshold vector of length 4
+  walk(test, ~expect_true(is.vector(.x$lData$vThreshold) & length(.x$lData$vThreshold) == 4))
+
+  # verify vThreshold was properly applied to data to assign flags
+  expect_true(
+    all(
+      map_lgl(test_custom, function(kri){
+        output <- kri$lData$dfFlagged %>%
+          mutate(hardcode_flag = case_when(Score <= kri$lData$vThreshold[1] |
+                                             Score >= kri$lData$vThreshold[4] ~ 2,
+                                           (Score > kri$lData$vThreshold[1] & Score <= kri$lData$vThreshold[2]) |
+                                             (Score < kri$lData$vThreshold[4] & Score >= kri$lData$vThreshold[3]) ~ 1,
+                                           TRUE ~ 0)
+          ) %>%
+          summarise(all(abs(Flag) == hardcode_flag)) %>%
+          pull
+        return(output)
+      })
+    )
+  )
 
 })

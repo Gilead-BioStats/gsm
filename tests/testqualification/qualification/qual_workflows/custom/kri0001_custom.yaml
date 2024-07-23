@@ -1,7 +1,7 @@
 meta:
   MetricID: kri0001
   File: kri0001.yaml
-  GroupLevel: Site
+  GroupLevel: Race
   Abbreviation: AE
   Metric: Adverse Event Rate
   Numerator: Adverse Events
@@ -10,7 +10,7 @@ meta:
   Score: Adjusted Z-Score
   Type: rate
   Threshold: -5,-3,3,5
-  nMinDenominator: 30
+  nMinDenominator: 300
 steps:
   - name: ParseThreshold
     output: vThreshold
@@ -23,7 +23,7 @@ steps:
       dfNumerator: dfAE
       dfDenominator: dfEnrolled
       strSubjectCol: subjid
-      strGroupCol: invid
+      strGroupCol: race
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Sum
