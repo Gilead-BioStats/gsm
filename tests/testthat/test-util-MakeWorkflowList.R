@@ -42,5 +42,3 @@ test_that("invalid data returns list NULL elements", {
   expect_true(is.list(wf_list))
   expect_length(wf_list, 4)
 })
-
-

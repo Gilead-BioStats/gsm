@@ -63,7 +63,6 @@ Analyze_Poisson_PredictBounds <- function(
     }
 
     cli::cli_alert("nStep was not provided. Setting default step to {nStep}")
-
   }
 
   # Fit GLM of number of events at each site predicted by total exposure.

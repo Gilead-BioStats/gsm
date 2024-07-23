@@ -37,7 +37,7 @@
 Summarize <- function(
   dfFlagged,
   nMinDenominator = NULL
-  ) {
+) {
   stopifnot(
     "dfFlagged is not a data frame" = is.data.frame(dfFlagged),
     "One or more of these columns: GroupID, GroupLevel, Flag, Score, not found in dfFlagged" = all(c("GroupID", "GroupLevel", "Flag", "Score") %in% names(dfFlagged))
@@ -54,13 +54,15 @@ Summarize <- function(
   dfSummary <- dfFlagged %>%
     select(
       any_of(
-       c("GroupID",
-        "GroupLevel",
-        "Numerator",
-        "Denominator",
-        "Metric",
-        "Score",
-        "Flag")
+        c(
+          "GroupID",
+          "GroupLevel",
+          "Numerator",
+          "Denominator",
+          "Metric",
+          "Score",
+          "Flag"
+        )
       )
     ) %>%
     arrange(desc(abs(.data$Metric))) %>%

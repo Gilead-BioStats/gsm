@@ -3,7 +3,8 @@ workflows <- MakeWorkflowList(strNames = paste0("kri", sprintf("%04d", 1:2)))
 
 # Don't run things we don't use.
 used_params <- map(workflows, ~ map(.x$steps, "params")) %>%
-  unlist() %>% unique()
+  unlist() %>%
+  unique()
 wf_mapping$steps <- purrr::keep(
   wf_mapping$steps,
   ~ .x$output %in% used_params
@@ -34,12 +35,12 @@ lMapped <- quiet_RunWorkflow(lWorkflow = wf_mapping, lData = lData)
 # Run Metrics
 results <- map(
   workflows,
-  ~quiet_RunWorkflow(lWorkflow = .x, lData = lMapped, bReturnData = FALSE)
+  ~ quiet_RunWorkflow(lWorkflow = .x, lData = lMapped, bReturnData = FALSE)
 )
 
 yaml_outputs <- map(
-  map(workflows, ~map_vec(.x$steps, ~.x$output)),
-  ~.x[!grepl("lCharts", .x)]
+  map(workflows, ~ map_vec(.x$steps, ~ .x$output)),
+  ~ .x[!grepl("lCharts", .x)]
 )
 
 test_that("RunWorkflow preserves inputs when bReturnData = FALSE", {

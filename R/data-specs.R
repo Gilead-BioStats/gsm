@@ -92,5 +92,3 @@
 #' }
 #' @source Generated from `reportingResults.csv` dataset in the `gsm` package.
 "reportingResults"
-
-

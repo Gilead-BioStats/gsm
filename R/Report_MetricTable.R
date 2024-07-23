@@ -14,10 +14,10 @@
 #'
 #' @export
 Report_MetricTable <- function(dfResults,
-                               dfGroups,
-                               strSnapshotDate = NULL,
-                               strGroupLevel = c("Site", "Study", "Country"),
-                               strGroupDetailsParams = NULL) {
+  dfGroups,
+  strSnapshotDate = NULL,
+  strGroupLevel = c("Site", "Study", "Country"),
+  strGroupDetailsParams = NULL) {
   dfResults <- dfResults %>%
     filter_by_latest_SnapshotDate(strSnapshotDate) %>%
     add_Groups_metadata(dfGroups, strGroupLevel, strGroupDetailsParams) %>%
@@ -46,7 +46,7 @@ Report_MetricTable <- function(dfResults,
       )),
       dplyr::everything()
     ) %>%
-    dplyr::select(-'MetricID') %>%
+    dplyr::select(-"MetricID") %>%
     kableExtra::kbl(format = "html", escape = FALSE) %>%
     kableExtra::kable_styling("striped", full_width = FALSE)
 

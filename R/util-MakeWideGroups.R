@@ -17,7 +17,7 @@
 MakeWideGroups <- function(dfMeta, strGroupLevel) {
   stopifnot(
     "One or more of these columns not found: GroupID, GroupLevel, Param, Value" =
-      all(c("GroupID","GroupLevel","Param","Value") %in% names(dfMeta))
+      all(c("GroupID", "GroupLevel", "Param", "Value") %in% names(dfMeta))
   )
   df_wide <- dfMeta %>%
     dplyr::filter(.data$GroupLevel == strGroupLevel) %>%
