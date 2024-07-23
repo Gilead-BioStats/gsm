@@ -35,10 +35,32 @@ lData_missing_values <- map(lData, function(df){
 
 yaml_path_original <- system.file("tests", "testqualification", "qualification", "qual_workflows", "original", package = 'gsm')
 yaml_path_custom <- system.file("tests", "testqualification", "qualification", "qual_workflows", "custom", package = 'gsm')
-# mapping_workflow <- flatten(MakeWorkflowList("mapping", strPath = yaml_path))
-# kri_workflows <- MakeWorkflowList(c(sprintf("kri%04d", 1:12), sprintf("cou%04d", 1:12)))
+
+mapping_workflow <- flatten(MakeWorkflowList('mapping', yaml_path_original))
+mapping_output <- map_vec(mapping_workflow$steps, ~.x$output)
+mapping_input <- map_vec(mapping_workflow$steps, ~.x$params$df)
 
 ## helper functions
+get_data <- function(lWorkflow, lData){
+  if('steps' %in% names(lWorkflow)){
+    req_data <- map_df(lWorkflow$steps, ~.x$params[grepl('df',.x$params)]) %>%
+      pivot_longer(everything(), names_to = 'params', values_to = 'df') %>%
+      filter(!is.na(df)) %>%
+      distinct(df) %>%
+      pull()
+  } else {
+    req_data <- map_df(lWorkflow, ~flatten(map(.$steps, ~.x$params[grepl('df',.x$params)]))) %>%
+    pivot_longer(everything(), names_to = 'params', values_to = 'df') %>%
+    distinct(df) %>%
+    pull()
+  }
+
+  names <- c(mapping_output[map_lgl(mapping_output, ~.x %in% req_data)], mapping_input[map_lgl(mapping_input, ~.x %in% req_data)])
+  steps <- which(map_lgl(mapping_output, ~.x %in% req_data))
+
+  robust_runworkflow(mapping_workflow, lData, steps)$lData[names]
+}
+
 verify_req_cols <- function(lData){
   req_cols <- list(
     dfSUBJ = c('subjectid', 'enrollyn'),

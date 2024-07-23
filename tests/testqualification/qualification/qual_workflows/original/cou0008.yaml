@@ -1,19 +1,21 @@
 meta:
-  file: cou0008.yaml
+  File: cou0008.yaml
   MetricID: cou0008
-  group: country
-  abbreviation: QRY
-  metric: Query Rate
-  numerator: Queries
-  denominator: Total Data Points
-  model: Normal Approximation
-  score: Adjusted Z-Score
-  vThreshold:
-    - -3
-    - -2
-    - 2
-    - 3
+  GroupLevel: Country
+  Abbreviation: QRY
+  Metric: Query Rate
+  Numerator: Queries
+  Denominator: Total Data Points
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
+  Type: rate
+  Threshold: -3,-2,2,3
+  nMinDenominator: 30
 steps:
+  - name: ParseThreshold
+    output: vThreshold
+    params:
+      strThreshold: Threshold
   - name: Input_Rate
     output: dfInput
     params:
@@ -22,6 +24,7 @@ steps:
       dfDenominator: dfDataChanges
       strSubjectCol: subject_nsv
       strGroupCol: country
+      strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count
   - name: Transform_Rate
@@ -32,13 +35,7 @@ steps:
     output: dfAnalyzed
     params:
       dfTransformed: dfTransformed
-      strType: rate
-  - name: Analyze_NormalApprox_PredictBounds
-    output: dfBounds
-    params:
-      dfTransformed: dfTransformed
-      strType: rate
-      vThreshold: vThreshold
+      strType: Type
   - name: Flag_NormalApprox
     output: dfFlagged
     params:
@@ -48,4 +45,5 @@ steps:
     output: dfSummary
     params:
       dfFlagged: dfFlagged
+      nMinDenominator: nMinDenominator
 

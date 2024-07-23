@@ -1,19 +1,21 @@
 meta:
-  file: kri0008.yaml
+  File: kri0008.yaml
   MetricID: kri0008
-  group: site
-  abbreviation: QRY
-  metric: Query Rate
-  numerator: Queries
-  denominator: Total Data Points
-  model: Normal Approximation
-  score: Adjusted Z-Score
-  vThreshold:
-    - -3
-    - -2
-    - 2
-    - 3
+  GroupLevel: Site
+  Abbreviation: QRY
+  Metric: Query Rate
+  Numerator: Queries
+  Denominator: Total Data Points
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
+  Type: rate
+  Threshold: -3,-2,2,3
+  nMinDenominator: 30
 steps:
+  - name: ParseThreshold
+    output: vThreshold
+    params:
+      strThreshold: Threshold
   - name: Input_Rate
     output: dfInput
     params:
@@ -21,7 +23,8 @@ steps:
       dfNumerator: dfQuery
       dfDenominator: dfDataChanges
       strSubjectCol: subject_nsv
-      strGroupCol: siteid
+      strGroupCol: invid
+      strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count
   - name: Transform_Rate
@@ -32,13 +35,7 @@ steps:
     output: dfAnalyzed
     params:
       dfTransformed: dfTransformed
-      strType: rate
-  - name: Analyze_NormalApprox_PredictBounds
-    output: dfBounds
-    params:
-      dfTransformed: dfTransformed
-      strType: rate
-      vThreshold: vThreshold
+      strType: Type
   - name: Flag_NormalApprox
     output: dfFlagged
     params:
@@ -48,4 +45,5 @@ steps:
     output: dfSummary
     params:
       dfFlagged: dfFlagged
+      nMinDenominator: nMinDenominator
 

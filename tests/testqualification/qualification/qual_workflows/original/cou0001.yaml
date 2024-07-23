@@ -1,27 +1,30 @@
 meta:
-  file: ae.yaml
+  File: cou0001.yaml
   MetricID: cou0001
-  group: country
-  abbreviation: AE
-  metric: Adverse Event Rate
-  numerator: Adverse Events
-  denominator: Days on Study
-  model: Normal Approximation
-  score: Adjusted Z-Score
-  vThreshold:
-    - -2
-    - -1
-    - 2
-    - 3
+  GroupLevel: Country
+  Abbreviation: AE
+  Metric: Adverse Event Rate
+  Numerator: Adverse Events
+  Denominator: Days on Study
+  Model: Normal Approximation
+  Type: rate
+  Score: Adjusted Z-Score
+  Threshold: -2,-1,2,3
+  nMinDenominator: 30
 steps:
+  - name: ParseThreshold
+    output: vThreshold
+    params:
+      strThreshold: Threshold
   - name: Input_Rate
     output: dfInput
     params:
       dfSubjects: dfEnrolled
       dfNumerator: dfAE
-      dfDenominator: dfSUBJ
+      dfDenominator: dfEnrolled
       strSubjectCol: subjid
       strGroupCol: country
+      strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Sum
       strDenominatorCol: timeonstudy
@@ -33,13 +36,7 @@ steps:
     output: dfAnalyzed
     params:
       dfTransformed: dfTransformed
-      strType: rate
-  - name: Analyze_NormalApprox_PredictBounds
-    output: dfBounds
-    params:
-      dfTransformed: dfTransformed
-      strType: rate
-      vThreshold: vThreshold
+      strType: Type
   - name: Flag_NormalApprox
     output: dfFlagged
     params:
@@ -49,4 +46,5 @@ steps:
     output: dfSummary
     params:
       dfFlagged: dfFlagged
+      nMinDenominator: nMinDenominator
 
