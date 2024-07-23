@@ -7,6 +7,8 @@
 MakeWideGroups(dfGroups, strGroupLevel)
 }
 \arguments{
+\item{dfGroups}{}
+
 \item{strGroupLevel}{A string specifying the group level; used to filter
 dfGroups$GroupLevel.}
 }

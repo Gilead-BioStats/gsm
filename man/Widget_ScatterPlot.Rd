@@ -16,6 +16,12 @@ Widget_ScatterPlot(
 \arguments{
 \item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
 
+\item{lMetric}{\code{list} Metric-specific metadata for use in charts and reporting. Created by passing an \code{lWorkflow} object to \code{\link[=MakeMetric]{MakeMetric()}} and turing it into a list. Expected columns: \code{File},\code{MetricID}, \code{Group}, \code{Abbreviation}, \code{Metric}, \code{Numerator}, \code{Denominator}, \code{Model}, \code{Score}, and \code{strThreshold}. For more details see the Data Pipeline vignette: \code{vignette("DataPipeline", package = "gsm")}.}
+
+\item{dfGroups}{}
+
+\item{dfBounds}{}
+
 \item{bAddGroupSelect}{\code{logical} Add a dropdown to highlight sites? Default: \code{TRUE}.}
 
 \item{bDebug}{\code{logical} Print debug messages? Default: \code{FALSE}.}
@@ -30,10 +36,10 @@ on the x-axis and the numerator on the y-axis.
 \examples{
 \dontrun{
 Widget_ScatterPlot(
-    dfResults = reportingResults,
-    lMetric = reportingMetrics \%>\% as.list(),
-    dfGroups = reportingGroups,
-    dfBounds = reportingBounds
+  dfResults = reportingResults,
+  lMetric = reportingMetrics \%>\% as.list(),
+  dfGroups = reportingGroups,
+  dfBounds = reportingBounds
 )
 }
 }

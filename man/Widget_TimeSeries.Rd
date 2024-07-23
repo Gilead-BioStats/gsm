@@ -17,6 +17,10 @@ Widget_TimeSeries(
 \arguments{
 \item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
 
+\item{lMetric}{\code{list} Metric-specific metadata for use in charts and reporting. Created by passing an \code{lWorkflow} object to \code{\link[=MakeMetric]{MakeMetric()}} and turing it into a list. Expected columns: \code{File},\code{MetricID}, \code{Group}, \code{Abbreviation}, \code{Metric}, \code{Numerator}, \code{Denominator}, \code{Model}, \code{Score}, and \code{strThreshold}. For more details see the Data Pipeline vignette: \code{vignette("DataPipeline", package = "gsm")}.}
+
+\item{dfGroups}{}
+
 \item{vThreshold}{\code{numeric} Threshold value(s).}
 
 \item{strOutcome}{\code{character} Outcome variable. Default: 'Score'.}
@@ -36,18 +40,18 @@ date on the x-axis and the outcome (numerator, denominator, metric, or score) on
 \dontrun{
 
 Widget_TimeSeries(
-    dfResults = reportingResults,
-    lMetric = reportingMetrics \%>\% as.list(),
-    dfGroups = reportingGroups,
-    vThreshold = c(-3,-2,2,3)
+  dfResults = reportingResults,
+  lMetric = reportingMetrics \%>\% as.list(),
+  dfGroups = reportingGroups,
+  vThreshold = c(-3, -2, 2, 3)
 )
 # show metric outcome
 Widget_TimeSeries(
-    dfResults = reportingResults,
-    lMetric = reportingMetrics \%>\% as.list(),
-    dfGroups = reportingGroups,
-    vThreshold = c(-3,-2,2,3),
-    strOutcome = "Metric"
+  dfResults = reportingResults,
+  lMetric = reportingMetrics \%>\% as.list(),
+  dfGroups = reportingGroups,
+  vThreshold = c(-3, -2, 2, 3),
+  strOutcome = "Metric"
 )
 }
 }

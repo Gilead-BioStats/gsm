@@ -19,6 +19,8 @@ Widget_GroupOverview(
 
 \item{dfMetrics}{\code{data.frame} Metric-specific metadata for use in charts and reporting. Created by passing an \code{lWorkflow} object to \code{\link[=MakeMetric]{MakeMetric()}}. Expected columns: \code{File}, \code{MetricID}, \code{Group}, \code{Abbreviation}, \code{Metric}, \code{Numerator}, \code{Denominator}, \code{Model}, \code{Score}, and \code{Threshold}. For more details see the Data Pipeline vignette: \code{vignette("DataPipeline", package = "gsm")}.}
 
+\item{dfGroups}{}
+
 \item{strGroupLevel}{\code{character} Value for the group level. Default: NULL and taken from \code{dfMetrics$GroupLevel} if available.}
 
 \item{strGroupSubset}{\code{character} Subset of groups to include in the table. Default: 'red'. Options:

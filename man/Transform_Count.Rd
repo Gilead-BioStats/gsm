@@ -7,6 +7,8 @@
 Transform_Count(dfInput, strCountCol, strGroupCol = "GroupID")
 }
 \arguments{
+\item{dfInput}{}
+
 \item{strCountCol}{Required. Numerical or logical. Column to be counted.}
 
 \item{strGroupCol}{\code{character} Name of column for grouping variable. Default: \code{"GroupID"}}

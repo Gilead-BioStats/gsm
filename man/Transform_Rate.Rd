@@ -11,6 +11,8 @@ Transform_Rate(
 )
 }
 \arguments{
+\item{dfInput}{}
+
 \item{strNumeratorCol}{\code{string} Column to be counted. Defaults to "Numerator".}
 
 \item{strDenominatorCol}{\code{string} Column name for the numerical \code{Exposure} column. Defaults to "Denominator".}
