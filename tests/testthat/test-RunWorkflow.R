@@ -32,7 +32,7 @@ lData <- UseClindata(
 lMapped <- quiet_RunWorkflow(lWorkflow = wf_mapping, lData = lData)
 
 # Run Metrics
-result <- map(
+results <- map(
   workflows,
   ~quiet_RunWorkflow(lWorkflow = .x, lData = lMapped, bReturnData = FALSE)
 )
@@ -48,7 +48,7 @@ test_that("RunWorkflow preserves inputs when bReturnData = FALSE", {
       workflows,
       function(this_workflow, this_name) {
         expect_identical(
-          this_workflow, result[[this_name]][names(this_workflow)]
+          this_workflow, results[[this_name]][names(this_workflow)]
         )
       }
     )
@@ -58,7 +58,7 @@ test_that("RunWorkflow preserves inputs when bReturnData = FALSE", {
 test_that("RunWorkflow contains all outputs from yaml steps", {
   expect_no_error({
     purrr::iwalk(
-      result,
+      results,
       function(this_result, this_name) {
         expect_setequal(yaml_outputs[[this_name]], names(this_result$lData))
       }
@@ -72,7 +72,7 @@ test_that("RunWorkflow contains all outputs from yaml steps with populated field
       yaml_outputs,
       function(this_output_set, this_name) {
         expect_true(
-          all(map_int(result[[this_name]]$lData[this_output_set], NROW) > 0)
+          all(map_int(results[[this_name]]$lData[this_output_set], NROW) > 0)
         )
       }
     )
