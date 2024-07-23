@@ -143,6 +143,7 @@ The resulting `dfGroups` dataframe contains the following columns:
 -   `Param`: Parameter Name (e.g. "Status")  
 -   `Value`: Parameter Value (e.g. "Active")
 
+An more detailed explanation of the `Param`s for each group level can be found in the [Data Pipeline Vignette](DataPipeline.html) 
 
 ```{r, echo = FALSE, warning = FALSE}
 datatable(dfGroups)
@@ -159,10 +160,16 @@ dfMetrics <- MakeMetric(lWorkflows = lWorkflow)
 
 The resulting `dfMetrics` dataframe contains the following columns:
 
--   `GroupID`: Group Identifier
--   `GroupLevel`: Type of Group specified in `GroupID` (Country, Site, Study)
--   `Param`: Parameter Name (e.g. "Status")  
--   `Value`: Parameter Value (e.g. "Active")
+  - `File`: The yaml file for workflow 
+  - `MetricID`: ID for the Metric
+  - `Group`: The group type for the metric (e.g. "Site")
+  - `Abbreviation`: Abbreviation for the metric
+  - `Metric`: Name of the metric
+  - `Numerator`: Data source for the Numerator
+  - `Denominator`: Data source for the Denominator
+  - `Model`: Model used to calculate metric
+  - `Score`: Type of Score reported 
+  - `Threshold`: Thresholds to be used for bounds and flags 
 
 
 ```{r, echo = FALSE, warning = FALSE}
@@ -171,6 +178,8 @@ datatable(dfMetrics)
 
 #### Step 1.3 - Stack `dfSummary` data into `dfResults`
 
+The reporting workflow requires that all metrics are stacked into a single data frame, `dfResults`. This stacked data frame is created by feeding the `lAnalysis` list from the analytics workflow into `BindResults()` along with the snapshot date and the study id.
+
 ```{r include = TRUE}
 dfResults <- BindResults(lResults = lAnalysis,
                          strName = "dfSummary",
@@ -178,12 +187,18 @@ dfResults <- BindResults(lResults = lAnalysis,
                          strStudyID = "ABC-123")
 ```
 
-The resulting `dfResults` dataframe contains the following columns:
+The resulting `dfResults` data frame contains the following columns:
 
--   `GroupID`: Group Identifier
--   `GroupLevel`: Type of Group specified in `GroupID` (Country, Site, Study)
--   `Param`: Parameter Name (e.g. "Status")  
--   `Value`: Parameter Value (e.g. "Active")
+  - `GroupID`: Group Identifier
+  - `GroupLevel`: Type of Group specified in `GroupID` (Country, Site, Study)
+  - `Numerator`: The calculated numerator value
+  - `Denominator`: The calculated denominator value  
+  - `Metric`: The calculated rate/metric value 
+  - `Score`: The calculated metric score
+  - `Flag`: The calculated flag
+  - `MetricID`: The Metric ID
+  - `StudyID`: The Study ID
+  - `SnapshotDate`: The Date of the snapshot
 
 
 ```{r, echo = FALSE, warning = FALSE}
@@ -193,17 +208,23 @@ formatRound(columns = "Metric", digits = 3)
 
 #### Step 1.4 - Create `dfBounds` for Confidence Intervals
 
+Several of the charts created for the KRI reports use confidence intervals and bounds to delineate the observations based on the flag they receive (no flag, amber or red). In order to create the data frame that contains the information about these boundaries, `dfBounds`, `dfResults` and `dfMetrics` is fed into the `MakeBounds()` function. The `MakeBounds()` function is a wrapper around the `Analyze_*_PredictBounds()` functions that create the bounds based on the model used to estimate the metric(Normal Approximation or Poisson).
+
 ```{r include = TRUE}
 dfBounds <- MakeBounds(dfResults = dfResults,
                         dfMetrics = dfMetrics)
 ```
 
-The resulting `dfBounds` dataframe contains the following columns:
+The resulting `dfBounds` data frame contains the following columns:
 
--   `GroupID`: Group Identifier
--   `GroupLevel`: Type of Group specified in `GroupID` (Country, Site, Study)
--   `Param`: Parameter Name (e.g. "Status")  
--   `Value`: Parameter Value (e.g. "Active")
+  - `Threshold`: The number of standard deviations that the upper and lower bounds are based on 
+  - `Denominator`: The calculated denominator value
+  - `LogDenominator`: The calculated log denominator value 
+  - `Numerator`: The calculated numerator value 
+  - `Metric`: The calculated rate/metric value 
+  - `MetricID`: The Metric ID 
+  - `StudyID`: The Study ID 
+  - `SnapshotDate`: The Date of the snapshot 
 
 
 ```{r, echo = FALSE, warning = FALSE}
@@ -213,6 +234,8 @@ formatRound(columns = "Metric", digits = 3)
 
 ### Step 2 - Create Visualizations
 
+Now that all of the data frames in  the reporting data model have been created, we can create the charts that display this data in a useful and easily interpreted way. All four of the data frames created in Step 1 are fed into the `MakeCharts()` function to create all relevant charts given the input data. `MakeCharts()` is a wrapper around several helper functions that generate each static visualization and JS widget individually. Appendix 1 goes into more detail about each of these individual functions.
+
 ```{r include = TRUE, warning = FALSE, message = FALSE}
 lCharts <- MakeCharts(dfResults = dfResults,
                       dfGroups = dfGroups,
@@ -220,16 +243,31 @@ lCharts <- MakeCharts(dfResults = dfResults,
                       dfMetrics = dfMetrics)
 ```
 
+The output of `MakeCharts` is a list containing the following charts:
+ - `scatterJS`: A scatter plot using JavaScript.
+ - `scatter`: A scatter plot using ggplot2.
+ - `barMetricJS`: A bar chart using JavaScript with metric on the y-axis.
+ - `barScoreJS`: A bar chart using JavaScript with score on the y-axis.
+ - `barMetric`: A bar chart using ggplot2 with metric on the y-axis.
+ - `barScore`: A bar chart using ggplot2 with score on the y-axis.
+ - `timeSeriesContinuousScoreJS`: A time series chart using JavaScript with score on the y-axis.
+ - `timeSeriesContinuousMetricJS`: A time series chart using JavaScript with metric on the y-axis.
+ - `timeSeriesContinuousNumeratorJS`: A time series chart using JavaScript with numerator on the y-axis.
+ 
+If the data only contains one snapshot data then the `timeseries` charts will not be created.
+ 
+Below are the static and interactive versions of the scatter plot for the AE KRI:
 
+```{r fig.height=6, fig.width=8, warning=FALSE}
+lCharts$kri0001$scatter
 
-```{r warning=FALSE}
-lCharts$scatter
-
-lCharts$scatterJS
+lCharts$kri0001$scatterJS
 ```
 
 
 ### Step 3 - Generate Report
+
+All of the components are created to generate the HTML report for the study we are working on. In order to generate this report and save it locally, simply feed `lCharts`, `dfResults`, `dfGroups`, `dfMetrics` and (optionally) a path to which the report will be saved (`strOutpath`) into `Report_KRI()` and the HTML output will be knit from the `Report_KRI.Rmd` template. 
 
 ```{r eval = FALSE, include = TRUE}
 lReport <- Report_KRI(lCharts = lCharts,
@@ -238,6 +276,8 @@ lReport <- Report_KRI(lCharts = lCharts,
                       dfMetrics = dfMetrics,
                       strOutpath = "test_kri_report.html")
 ```
+
+Below, you will see a screenshot from the beginning of the report. All charts for all metrics that were included throughout the analytics and reporting workflows will be included in this report.
 
 ![](report-screenshot.PNG){width="100%"}
 
@@ -353,9 +393,9 @@ snapshot <- RunWorkflows(ss_wf, lData, bKeepInputData = TRUE)
 
 ### Widget Functions
 
-- `Widget_GroupOverview`: 
-- `Widget_BarChart`: Charts are called `barScoreJS` or `barMetricJS` in the `lCharts` object.
-- `Widget_ScatterPlot`: Chart is called `scatterJS` in the `lCharts` object.
-- `Widget_TimeSeries`: Charts are called `timeSeriesContinuousScoreJS`, `timeSeriesContinuousMetricJS`, or `timeSeriesContinuousNumeratorJS` in the `lCharts` object.
+- `Widget_GroupOverview`: Creates an interactive table displaying the flag distribution for all groups across all metrics.
+- `Widget_BarChart`:  Creates an interactive barchart visualization for Score or KRI. Charts are called `barScoreJS` or `barMetricJS` in the `lCharts` object.
+- `Widget_ScatterPlot`: Creates an interactive scatter plot of Total Exposure (in days, on log scale) vs Total Number of Event(s) of Interest (on linear scale). Each data point represents one site. Outliers are plotted in red with the site label attached.Chart is called `scatterJS` in the `lCharts` object.
+- `Widget_TimeSeries`: Creates an interactive time series scatter plot of the score, metric or numerator. Charts are called `timeSeriesContinuousScoreJS`, `timeSeriesContinuousMetricJS`, or `timeSeriesContinuousNumeratorJS` in the `lCharts` object.
 
                                                                                                                                                                                        
