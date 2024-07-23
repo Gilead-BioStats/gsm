@@ -1,5 +1,7 @@
 #' Calculate Bounds for display in scatterplots
 #'
+#' `r lifecycle::badge("stable")`
+#'
 #' Calculate bounds across a set of metrics.
 #'
 #' @inheritParams shared-params

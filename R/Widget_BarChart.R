@@ -16,10 +16,10 @@
 #' \dontrun{
 #'
 #' Widget_BarChart(
-#'     dfResults = reportingResults,
-#'     lMetric = reportingMetrics,
-#'     dfGroups = reportingGroups,
-#'     vThreshold = reportingMetrics$strThreshold
+#'   dfResults = reportingResults,
+#'   lMetric = reportingMetrics,
+#'   dfGroups = reportingGroups,
+#'   vThreshold = reportingMetrics$strThreshold
 #' )
 #' }
 #' @export

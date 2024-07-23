@@ -16,18 +16,18 @@
 #' \dontrun{
 #'
 #' Widget_TimeSeries(
-#'     dfResults = reportingResults,
-#'     lMetric = reportingMetrics %>% as.list(),
-#'     dfGroups = reportingGroups,
-#'     vThreshold = c(-3,-2,2,3)
+#'   dfResults = reportingResults,
+#'   lMetric = reportingMetrics %>% as.list(),
+#'   dfGroups = reportingGroups,
+#'   vThreshold = c(-3, -2, 2, 3)
 #' )
 #' # show metric outcome
 #' Widget_TimeSeries(
-#'     dfResults = reportingResults,
-#'     lMetric = reportingMetrics %>% as.list(),
-#'     dfGroups = reportingGroups,
-#'     vThreshold = c(-3,-2,2,3),
-#'     strOutcome = "Metric"
+#'   dfResults = reportingResults,
+#'   lMetric = reportingMetrics %>% as.list(),
+#'   dfGroups = reportingGroups,
+#'   vThreshold = c(-3, -2, 2, 3),
+#'   strOutcome = "Metric"
 #' )
 #' }
 #' @export

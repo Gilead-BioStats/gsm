@@ -17,6 +17,9 @@ RunQuery(strQuery, df)
 \description{
 Run a SQL query via DBI::dbGetQuery using the format expected by glue_sql. Values from lMapping provided using the format expected by qlue_sql (e.g.  {\code{strIDCol}}) will be replaced with the appropriate column names/values.
 }
+\details{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+}
 \examples{
 df <- data.frame(
   Name = c("John", "Jane", "Bob"),

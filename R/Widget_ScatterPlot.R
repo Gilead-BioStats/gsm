@@ -13,10 +13,10 @@
 #' @examples
 #' \dontrun{
 #' Widget_ScatterPlot(
-#'     dfResults = reportingResults,
-#'     lMetric = reportingMetrics %>% as.list(),
-#'     dfGroups = reportingGroups,
-#'     dfBounds = reportingBounds
+#'   dfResults = reportingResults,
+#'   lMetric = reportingMetrics %>% as.list(),
+#'   dfGroups = reportingGroups,
+#'   dfBounds = reportingBounds
 #' )
 #' }
 #' @export

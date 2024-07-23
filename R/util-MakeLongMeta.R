@@ -1,5 +1,7 @@
 #' Helper function to compile "long" group metadata
 #'
+#' `r lifecycle::badge("stable")`
+#'
 #' Used to create components of the group metadata dictionary (dfGroups) for use
 #' in charts and reports. This function takes a data frame and a string
 #' specifying the group columns, and returns a long format data frame.
