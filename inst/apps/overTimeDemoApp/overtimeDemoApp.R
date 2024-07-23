@@ -1,5 +1,12 @@
 devtools::load_all()
 library(shiny)
+# TODO
+# - Improve layout
+# - Filter the overview table to just the latest snapshot when rendering
+# - Build the flag over time widget and deploy here (#1664)
+# - Run this with data that includes all KRIs (#1703)
+
+
 
 # Make a basic shiny app framework
 ui <- fluidPage(
@@ -16,12 +23,12 @@ ui <- fluidPage(
             "Charts",
             div(
                 htmltools::div(
-                    style = "table-layout: fixed; width: 100%; overflow: auto; display: inline-block;",
-                    uiOutput("GroupOverview")
+                    style = "table-layout: fixed; width: 100%; overflow: auto; display: inline-block; max-height: 300px;",
+                    uiOutput("FlagOverTime")
                 ),
                 htmltools::div(
                     style = "table-layout: fixed; width: 100%; overflow: auto; display: inline-block;",
-                    uiOutput("FlagOverTime")
+                    uiOutput("GroupOverview")
                 )
             )
         ),
