@@ -12,14 +12,14 @@
 #'
 #' @examples
 #' \dontrun{
-#' Visualize_Score(dfResults = sampleResults)
+#' Visualize_Score(dfResults = reportingResults)
 #'
 #' ## Only show Flagged Groups
-#' Visualize_Score(dfResults = sampleResults,
+#' Visualize_Score(dfResults = reportingResults,
 #'                 bFlagFilter = TRUE)
 #'
 #' ## Custom Title
-#' Visualize_Score(dfResults = sampleResults,
+#' Visualize_Score(dfResults = reportingResults,
 #'                 strTitle = "Custom Title")
 #' }
 #' @export

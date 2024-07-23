@@ -13,18 +13,18 @@
 #'
 #' @examples
 #' \dontrun{
-#' Visualize_Scatter(dfResults = sampleResults,
-#'                   dfBounds = sampleBounds)
+#' Visualize_Scatter(dfResults = reportingResults,
+#'                   dfBounds = reportingBounds)
 #'
 #' ## Create Faceted output
-#' Visualize_Scatter(dfResults = sampleResults,
-#'                   dfBounds = sampleBounds,
+#' Visualize_Scatter(dfResults = reportingResults,
+#'                   dfBounds = reportingBounds,
 #'                   strGroupCol = SnapshotDate,
 #'                   strGroupLabel = "Snapshot Date")
 #'
 #' ## Custom Colors
-#' Visualize_Scatter(dfResults = sampleResults,
-#'                   dfBounds = sampleBounds,
+#' Visualize_Scatter(dfResults = reportingResults,
+#'                   dfBounds = reportingBounds,
 #'                   vColors = c("#F4E7E7", "#C17070", "#981212"))
 #' }
 #'
