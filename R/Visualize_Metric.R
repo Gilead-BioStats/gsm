@@ -22,14 +22,13 @@
 #'
 #'
 #' @examples
-#'  charts <- Visualize_Metric(
-#'    dfResults = reportingResults,
-#'    dfBounds = reportingBounds,
-#'    dfGroups = reportingGroups,
-#'    dfMetrics = reportingMetrics,
-#'    strMetricID = "kri0001"
-#'  )
-#'
+#' charts <- Visualize_Metric(
+#'   dfResults = reportingResults,
+#'   dfBounds = reportingBounds,
+#'   dfGroups = reportingGroups,
+#'   dfMetrics = reportingMetrics,
+#'   strMetricID = "kri0001"
+#' )
 #'
 #' @export
 

@@ -48,7 +48,6 @@
 #'
 #' dfFlagged <- Flag(dfAnalyzed, vThreshold = c(0.001, 0.01))
 #'
-#'
 #' @export
 
 Flag <- function(

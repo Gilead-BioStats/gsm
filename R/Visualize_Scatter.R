@@ -24,7 +24,8 @@
 #'   dfResults = reportingResults_filter %>%
 #'     dplyr::filter(SnapshotDate == max(SnapshotDate)),
 #'   dfBounds = reportingBounds_filter %>%
-#'     dplyr::filter(SnapshotDate == max(SnapshotDate)))
+#'     dplyr::filter(SnapshotDate == max(SnapshotDate))
+#' )
 #'
 #' ## Create Faceted output on snapshot date
 #' Visualize_Scatter(
@@ -42,7 +43,6 @@
 #'     dplyr::filter(SnapshotDate == max(SnapshotDate)),
 #'   vColors = c("#F4E7E7", "#C17070", "#981212")
 #' )
-#'
 #'
 #' @export
 

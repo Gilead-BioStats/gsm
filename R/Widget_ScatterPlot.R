@@ -19,8 +19,8 @@
 #'   dplyr::filter(MetricID == "kri0001") %>%
 #'   as.list()
 #'
-#'  reportingBounds_filter <- reportingBounds %>%
-#'    dplyr::filter(MetricID == "kri0001" & SnapshotDate == max(SnapshotDate))
+#' reportingBounds_filter <- reportingBounds %>%
+#'   dplyr::filter(MetricID == "kri0001" & SnapshotDate == max(SnapshotDate))
 #'
 #' Widget_ScatterPlot(
 #'   dfResults = reportingResults_filter,
