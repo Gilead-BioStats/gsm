@@ -4,7 +4,7 @@ source(system.file("tests", "testqualification", "qualification", "qual_data.R",
 kri_workflows <- MakeWorkflowList(c("kri0005", "cou0005"))
 kri_custom <- MakeWorkflowList(c("kri0005", "cou0005"))
 
-mapped_data <- get_data(kri_workflow, lData)
+mapped_data <- get_data(kri_workflows, lData)
 
 outputs <- map(kri_workflows, ~map_vec(.x$steps, ~.x$output))
 
@@ -14,25 +14,25 @@ testthat::test_that("Labs Assessments can be done correctly using a grouping var
   test <- map(kri_workflows, ~robust_runworkflow(.x, mapped_data, steps = 1:3))
 
   # grouping col in yaml file is interpreted correctly in dfInput GroupID
-  iwalk(test, ~expect_identical(sort(unique(.x$lData$dfInput$GroupID)),
-                                sort(unique(.x$lData$dfEnrolled[[kri_workflows[[.y]]$steps[[2]]$params$strGroupCol]])))
+  iwalk(test, ~expect_identical(sort(unique(.x$dfInput$GroupID)),
+                                sort(unique(.x$dfEnrolled[[kri_workflows[[.y]]$steps[[2]]$params$strGroupCol]])))
   )
 
   # data is properly transformed by correct group in dfTransformed
-  iwalk(test, ~expect_equal(n_distinct(.x$lData$dfEnrolled[[kri_workflows[[.y]]$steps[[2]]$params$strGroupCol]]),
-                            nrow(.x$lData$dfTransformed))
+  iwalk(test, ~expect_equal(n_distinct(.x$dfEnrolled[[kri_workflows[[.y]]$steps[[2]]$params$strGroupCol]]),
+                            nrow(.x$dfTransformed))
   )
 
   ## custom -------------------------------------------
   test_custom <- map(kri_custom, ~robust_runworkflow(.x, mapped_data, steps = 1:3))
 
   # grouping col in custom yaml file is interpreted correctly in dfInput GroupID
-  iwalk(test_custom, ~expect_identical(sort(unique(.x$lData$dfInput$GroupID)),
-                                       sort(unique(.x$lData$dfEnrolled[[kri_custom[[.y]]$steps[[2]]$params$strGroupCol]])))
+  iwalk(test_custom, ~expect_identical(sort(unique(.x$dfInput$GroupID)),
+                                       sort(unique(.x$dfEnrolled[[kri_custom[[.y]]$steps[[2]]$params$strGroupCol]])))
   )
 
   # data is properly transformed by correct group in dfTransformed
-  iwalk(test_custom, ~expect_equal(n_distinct(.x$lData$dfEnrolled[[kri_custom[[.y]]$steps[[2]]$params$strGroupCol]]),
-                                   nrow(.x$lData$dfTransformed))
+  iwalk(test_custom, ~expect_equal(n_distinct(.x$dfEnrolled[[kri_custom[[.y]]$steps[[2]]$params$strGroupCol]]),
+                                   nrow(.x$dfTransformed))
   )
 })

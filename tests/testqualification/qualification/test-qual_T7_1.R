@@ -12,19 +12,19 @@ testthat::test_that("Given appropriate raw participant-level data, a Protocol De
   expect_true(
     all(
       imap_lgl(outputs, function(names, kri){
-        all(names %in% names(test[[kri]]$lData))
+        all(names %in% names(test[[kri]]))
       })
     )
   )
   expect_true(
     all(
       imap_lgl(test, function(kri, kri_name){
-        all(map_lgl(kri$lData[outputs[[kri_name]][outputs[[kri_name]] != "vThreshold"]], is.data.frame))
+        all(map_lgl(kri[outputs[[kri_name]][outputs[[kri_name]] != "vThreshold"]], is.data.frame))
       })
     )
   )
-  walk(test, ~expect_true(is.vector(.x$lData$vThreshold)))
-  walk(test, ~expect_equal(nrow(.x$lData$dfFlagged), nrow(.x$lData$dfSummary)))
-  walk(test, ~expect_identical(sort(.x$lData$dfFlagged$GroupID), sort(.x$lData$dfSummary$GroupID)))
+  walk(test, ~expect_true(is.vector(.x$vThreshold)))
+  walk(test, ~expect_equal(nrow(.x$dfFlagged), nrow(.x$dfSummary)))
+  walk(test, ~expect_identical(sort(.x$dfFlagged$GroupID), sort(.x$dfSummary$GroupID)))
 
 })

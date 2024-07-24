@@ -3,10 +3,6 @@ source(system.file("tests", "testqualification", "qualification", "qual_data.R",
 
 ae_workflow <- flatten(MakeWorkflowList(strNames = 'kri0001'))
 
-mapping_data <- flatten(MakeWorkflowList("mapping", yaml_path_custom))
-
-mapped_data <- robust_runworkflow(mapping_data, lData, steps = 1:3)
-
 mapped_data <- get_data(ae_workflow, lData)
 
 outputs <- map_vec(ae_workflow$steps, ~.x$output)

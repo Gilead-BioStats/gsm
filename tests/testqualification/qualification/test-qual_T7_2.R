@@ -12,26 +12,26 @@ testthat::test_that("Protocol Deviation Assessments can be done correctly using 
   test <- map(kri_workflows, ~robust_runworkflow(.x, mapped_data, steps = 1:3))
 
   # grouping col in yaml file is interpreted correctly in dfInput GroupID
-  iwalk(test, ~expect_identical(sort(unique(.x$lData$dfInput$GroupID)),
-                                sort(unique(.x$lData$dfEnrolled[[kri_workflows[[.y]]$steps[[2]]$params$strGroupCol]])))
+  iwalk(test, ~expect_identical(sort(unique(.x$dfInput$GroupID)),
+                                sort(unique(.x$dfEnrolled[[kri_workflows[[.y]]$steps[[2]]$params$strGroupCol]])))
   )
 
   # data is properly transformed by correct group in dfTransformed
-  iwalk(test, ~expect_equal(n_distinct(.x$lData$dfEnrolled[[kri_workflows[[.y]]$steps[[2]]$params$strGroupCol]]),
-                            nrow(.x$lData$dfTransformed))
+  iwalk(test, ~expect_equal(n_distinct(.x$dfEnrolled[[kri_workflows[[.y]]$steps[[2]]$params$strGroupCol]]),
+                            nrow(.x$dfTransformed))
   )
 
   ## custom -------------------------------------------
   test_custom <- map(kri_custom, ~robust_runworkflow(.x, mapped_data, steps = 1:3))
 
   # grouping col in custom yaml file is interpreted correctly in dfInput GroupID
-  iwalk(test_custom, ~expect_identical(sort(unique(.x$lData$dfInput$GroupID)),
-                                       sort(unique(.x$lData$dfEnrolled[[kri_custom[[.y]]$steps[[2]]$params$strGroupCol]])))
+  iwalk(test_custom, ~expect_identical(sort(unique(.x$dfInput$GroupID)),
+                                       sort(unique(.x$dfEnrolled[[kri_custom[[.y]]$steps[[2]]$params$strGroupCol]])))
   )
 
   # data is properly transformed by correct group in dfTransformed
-  iwalk(test_custom, ~expect_equal(n_distinct(.x$lData$dfEnrolled[[kri_custom[[.y]]$steps[[2]]$params$strGroupCol]]),
-                            nrow(.x$lData$dfTransformed))
+  iwalk(test_custom, ~expect_equal(n_distinct(.x$dfEnrolled[[kri_custom[[.y]]$steps[[2]]$params$strGroupCol]]),
+                            nrow(.x$dfTransformed))
   )
 
 })

@@ -43,27 +43,6 @@ mapping_output <- map_vec(mapping_workflow$steps, ~.x$output)
 mapping_input <- map_vec(mapping_workflow$steps, ~.x$params$df)
 
 ## helper functions ---------------------------------------------
-# get only the relevant data for a workflow to speed up mapping
-get_data <- function(lWorkflow, lData){
-  if('steps' %in% names(lWorkflow)){
-    req_data <- map_df(lWorkflow$steps, ~.x$params[grepl('df',.x$params)]) %>%
-      pivot_longer(everything(), names_to = 'params', values_to = 'df') %>%
-      filter(!is.na(df)) %>%
-      distinct(df) %>%
-      pull()
-  } else {
-    req_data <- map_df(lWorkflow, ~flatten(map(.$steps, ~.x$params[grepl('df',.x$params)]))) %>%
-    pivot_longer(everything(), names_to = 'params', values_to = 'df') %>%
-    distinct(df) %>%
-    pull()
-  }
-
-  names <- c(mapping_output[map_lgl(mapping_output, ~.x %in% req_data)], mapping_input[map_lgl(mapping_input, ~.x %in% req_data)])
-  steps <- which(map_lgl(mapping_output, ~.x %in% req_data))
-
-  robust_runworkflow(mapping_workflow, lData, steps, bKeepInputData = TRUE)[names]
-}
-
 # verify all columns specified in mapping yaml are present in lData data.frames
 verify_req_cols <- function(lData){
   req_cols <- list(
@@ -99,7 +78,7 @@ robust_runworkflow <- function(lWorkflow,
                                lData,
                                steps = seq(lWorkflow$steps),
                                bReturnData = TRUE,
-                               bKeepInputData = FALSE){
+                               bKeepInputData = TRUE){
   cli::cli_h1(paste0("Initializing `", lWorkflow$meta$file, "` Workflow"))
 
   lWorkflow$lData <- lData
@@ -146,5 +125,23 @@ robust_runworkflow <- function(lWorkflow,
   } else {
     return(lWorkflow)
   }
+}
+
+# get only the relevant data for a workflow to speed up mapping
+get_data <- function(lWorkflow, data){
+  if('steps' %in% names(lWorkflow)){
+    req_data <- map(lWorkflow$steps, ~.x$params[grepl('df',.x$params)]) %>%
+      unlist() %>%
+      unique()
+  } else {
+    req_data <- map(lWorkflow, ~flatten(map(.$steps, ~.x$params[grepl('df',.x$params)]))) %>%
+      unlist() %>%
+      unique()
+  }
+
+  names <- c(mapping_output[map_lgl(mapping_output, ~.x %in% req_data)], mapping_input[map_lgl(mapping_input, ~.x %in% req_data)])
+  steps <- which(map_lgl(mapping_output, ~.x %in% req_data))
+
+  robust_runworkflow(mapping_workflow, data, steps, bKeepInputData = TRUE)[names]
 }
 

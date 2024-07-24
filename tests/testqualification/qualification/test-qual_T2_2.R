@@ -10,9 +10,10 @@ outputs <- map_vec(ae_workflow$steps, ~.x$output)
 ## Test Code
 testthat::test_that("Given raw participant-level data with missingness,
                     a properly specified Workflow for a KRI creates summarized and flagged data", {
-  test <- robust_runworkflow(ae_workflow, mapped_data_missing_values)
+  test <- suppressWarnings(robust_runworkflow(ae_workflow, mapped_data_missing_values))
 
   ## test
+  expect_warning(a <- robust_runworkflow(ae_workflow, mapped_data_missing_values))
   expect_true(all(outputs %in% names(test)))
   expect_true(is.vector(test$vThreshold))
   expect_true(all(map_lgl(test[outputs[outputs != "vThreshold"]], is.data.frame)))

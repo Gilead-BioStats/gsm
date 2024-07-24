@@ -1,7 +1,7 @@
 ## Test Setup
 source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
 
-ae_workflow <- flatten(MakeWorkflowList("kri0001", yaml_path_original))
+ae_workflow <- flatten(MakeWorkflowList("kri0001"))
 
 steps <- c(1, 3:length(ae_workflow$steps))
 
