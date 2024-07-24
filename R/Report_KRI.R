@@ -10,7 +10,7 @@
 #'
 #' @return None
 #' @examples
-#'  \dontrun{
+#' \dontrun{
 #' # Run reports
 #' lCharts <- MakeCharts(
 #'   dfResults = reportingResults,
@@ -22,8 +22,8 @@
 #' strOutpath <- "StandardSiteReport.html"
 #' Report_KRI(
 #'   lCharts = lCharts,
-#'   dfResults =  reportingResults,
-#'   dfGroups =  reportingGroups,
+#'   dfResults = reportingResults,
+#'   dfGroups = reportingGroups,
 #'   dfMetrics = reportingMetrics,
 #'   strOutpath = strOutpath
 #' )
@@ -49,14 +49,14 @@ Report_KRI <- function(
     GroupLevel <- unique(dfMetrics$GroupLevel)
     StudyID <- unique(dfResults$StudyID)
     SnapshotDate <- max(unique(dfResults$SnapshotDate))
-    if(length(GroupLevel==1) & length(StudyID)==1){
-      #remove non alpha-numeric characters from StudyID, GroupLevel and SnapshotDate
+    if (length(GroupLevel == 1) & length(StudyID) == 1) {
+      # remove non alpha-numeric characters from StudyID, GroupLevel and SnapshotDate
       StudyID <- gsub("[^[:alnum:]]", "", StudyID)
       GroupLevel <- gsub("[^[:alnum:]]", "", GroupLevel)
       SnapshotDate <- gsub("[^[:alnum:]]", "", as.character(SnapshotDate))
 
       strOutpath <- paste0(getwd(), "/kri_report_", StudyID, "_", GroupLevel, "_", SnapshotDate, ".html")
-    }else{
+    } else {
       strOutpath <- paste0(getwd(), "/kri_report.html")
     }
   }

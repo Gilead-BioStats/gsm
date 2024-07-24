@@ -33,7 +33,7 @@ None
 This function generates a KRI report based on the provided inputs.
 }
 \examples{
- \dontrun{
+\dontrun{
 # Run reports
 lCharts <- MakeCharts(
   dfResults = reportingResults,
@@ -45,8 +45,8 @@ lCharts <- MakeCharts(
 strOutpath <- "StandardSiteReport.html"
 Report_KRI(
   lCharts = lCharts,
-  dfResults =  reportingResults,
-  dfGroups =  reportingGroups,
+  dfResults = reportingResults,
+  dfGroups = reportingGroups,
   dfMetrics = reportingMetrics,
   strOutpath = strOutpath
 )
