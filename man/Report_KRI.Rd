@@ -47,7 +47,7 @@ Report_KRI(
   lCharts = lCharts,
   dfResults =  reportingResults,
   dfGroups =  reportingGroups,
-  dfMetrics = reportingMetrics
+  dfMetrics = reportingMetrics,
   strOutpath = strOutpath
 )
 }

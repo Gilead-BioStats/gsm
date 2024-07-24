@@ -17,7 +17,7 @@ Visualize_Metric(
 \arguments{
 \item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
 
-\item{dfBounds}{\code{data.frame} Set of predicted percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values for reporting. Created by passing \code{dfResults} and \code{dfMetrics} to \code{MakeBounds()}. Expected columns: \code{Threshold}, \code{Denominator}, \code{Numerator}, \code{Metric}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
+\item{dfBounds}{\code{data.frame} Set of predicted percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values for reporting. Created by passing \code{dfResults} and \code{dfMetrics} to \code{\link[=MakeBounds]{MakeBounds()}}. Expected columns: \code{Threshold}, \code{Denominator}, \code{Numerator}, \code{Metric}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
 
 \item{dfGroups}{\code{data.frame} Group-level metadata dictionary. Created by passing CTMS site and study data to \code{\link[=MakeLongMeta]{MakeLongMeta()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Param}, \code{Value}.}
 
@@ -50,13 +50,12 @@ A list containing the following charts:
 The function creates all available charts for a metric using the data provided
 }
 \examples{
- charts <- Visualize_Metric(
-   dfResults = reportingResults,
-   dfBounds = reportingBounds,
-   dfGroups = reportingGroups,
-   dfMetrics = reportingMetrics,
-   strMetricID = "kri0001"
- )
-
+charts <- Visualize_Metric(
+  dfResults = reportingResults,
+  dfBounds = reportingBounds,
+  dfGroups = reportingGroups,
+  dfMetrics = reportingMetrics,
+  strMetricID = "kri0001"
+)
 
 }
