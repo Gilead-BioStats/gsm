@@ -6,7 +6,20 @@ library(shiny)
 # - Run this with data that includes all KRIs (#1703)
 
 # Load data
-dfResults <- gsm::reportingResults
+dfResults <- gsm::reportingResults %>%
+  dplyr::filter(SnapshotDate != "2012-01-31") %>%
+  dplyr::mutate(
+    # Fast-forward the dates so we span 2 years.
+    SnapshotDate = .data$SnapshotDate %>%
+      lubridate::ymd() %>%
+      lubridate::rollforward(roll_to_first = TRUE) %>%
+      lubridate::rollforward(roll_to_first = TRUE) %>%
+      lubridate::rollforward(roll_to_first = TRUE) %>%
+      lubridate::rollforward(roll_to_first = TRUE) %>%
+      lubridate::rollforward(roll_to_first = TRUE) %>%
+      lubridate::rollforward(roll_to_first = TRUE) %>%
+      lubridate::rollforward()
+  )
 dfMetrics <- gsm::reportingMetrics
 dfGroups <- gsm::reportingGroups
 
@@ -54,7 +67,7 @@ ui <- fluidPage(
           div(
             div(
               style = "overflow: auto; max-height: 400px; margin-bottom: 15px;",
-              uiOutput("FlagOverTime")
+              gt::gt_output("FlagOverTime")
             ),
             div(
               style = "overflow: auto;",
@@ -98,12 +111,12 @@ server <- function(input, output, session) {
   })
 
   # Report_FlagOverTime
-  output$FlagOverTime <- renderUI({
+  output$FlagOverTime <- gt::render_gt({
     Report_FlagOverTime(
       dfResults = rResults(),
       dfMetrics = rMetrics()
     )
-  })
+  }, align = "left")
 
   # Data
   output$results <- DT::renderDataTable({rResults()})

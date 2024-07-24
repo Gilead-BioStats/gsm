@@ -10,9 +10,11 @@
 #'
 #' @inherit gt-shared return
 #' @export
-Report_FlagOverTime <- function(dfResults,
+Report_FlagOverTime <- function(
+  dfResults,
   dfMetrics,
-  strGroupLevel = c("Site", "Study", "Country")) {
+  strGroupLevel = c("Site", "Study", "Country")
+) {
   strGroupLevel <- rlang::arg_match(strGroupLevel)
   dfFlagOverTime <- widen_results(dfResults, dfMetrics, strGroupLevel)
   date_cols <- stringr::str_which(
@@ -25,11 +27,9 @@ Report_FlagOverTime <- function(dfResults,
     gsm_gt() %>%
     fmt_flag_rag(columns = date_cols) %>%
     gt::tab_header(
-      title = "Flag Over Time",
-      subtitle = glue::glue(
-        "Flags over time for each {strGroupLevel}/KRI combination"
-      )
-    )
+      title = "Flags Over Time"
+    ) %>%
+    gt::opt_align_table_header(align = "left")
 }
 
 widen_results <- function(dfResults, dfMetrics, strGroupLevel) {
@@ -60,8 +60,7 @@ widen_results <- function(dfResults, dfMetrics, strGroupLevel) {
 
 fmt_flag_rag <- function(data, columns = gt::everything()) {
   fmt_sign_rag(data, columns = columns) %>%
-    cols_label_month(columns = columns) %>%
-    gt::tab_spanner(label = "Flag", columns = columns)
+    cols_label_month(columns = columns)
 }
 
 # Cells ------------------------------------------------------------------------
@@ -92,7 +91,7 @@ fmt_sign <- function(data,
     columns = columns,
     rows = rows,
     compat = c("numeric", "integer"),
-    fns = n_to_sign
+    fns = Report_FormatFlag
   ) %>%
     gt::cols_align(align = "center", columns = columns)
 }
@@ -113,15 +112,4 @@ n_to_rag <- function(x) {
     abs(x) >= 1 ~ colorScheme("amber"),
     TRUE ~ colorScheme("gray")
   )
-}
-
-colorScheme <- function(color_name) {
-  colors <- c(
-    red = "#FF0040",
-    amber = "#FFBF00",
-    green = "#52C41A",
-    gray = "#AAAAAA",
-    grey = "#AAAAAA"
-  )
-  colors[[color_name]]
 }
