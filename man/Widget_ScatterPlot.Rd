@@ -16,13 +16,11 @@ Widget_ScatterPlot(
 \arguments{
 \item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
 
-\item{lMetric}{\code{list} Metric metadata, captured at the top of metric workflows and returned by
-\code{\link[=MakeMetric]{MakeMetric()}}.}
+\item{lMetric}{\code{list} Metric-specific metadata for use in charts and reporting. Created by passing an \code{lWorkflow} object to \code{\link[=MakeMetric]{MakeMetric()}} and turing it into a list. Expected columns: \code{File},\code{MetricID}, \code{Group}, \code{Abbreviation}, \code{Metric}, \code{Numerator}, \code{Denominator}, \code{Model}, \code{Score}, and \code{strThreshold}. For more details see the Data Pipeline vignette: \code{vignette("DataPipeline", package = "gsm")}.}
 
-\item{dfGroups}{\code{data.frame} Group metadata.}
+\item{dfGroups}{\code{data.frame} Group-level metadata dictionary. Created by passing CTMS site and study data to \code{\link[=MakeLongMeta]{MakeLongMeta()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Param}, \code{Value}.}
 
-\item{dfBounds}{\code{data.frame} Output of \code{\link[=Analyze_NormalApprox_PredictBounds]{Analyze_NormalApprox_PredictBounds()}} or
-\code{\link[=Analyze_Poisson_PredictBounds]{Analyze_Poisson_PredictBounds()}}}
+\item{dfBounds}{\code{data.frame} Set of predicted percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values for reporting. Created by passing \code{dfResults} and \code{dfMetrics} to \code{\link[=MakeBounds]{MakeBounds()}}. Expected columns: \code{Threshold}, \code{Denominator}, \code{Numerator}, \code{Metric}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
 
 \item{bAddGroupSelect}{\code{logical} Add a dropdown to highlight sites? Default: \code{TRUE}.}
 
@@ -36,43 +34,22 @@ on the x-axis and the numerator on the y-axis.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
-\dontrun{
-strMetricID <- "kri0001"
-lMetricWorkflow <- MakeWorkflowList()[[strMetricID]]
+## Filter data to one metric and snapshot
+reportingResults_filter <- reportingResults \%>\%
+  dplyr::filter(MetricID == "kri0001" & SnapshotDate == max(SnapshotDate))
 
-lData <- list(
-  dfEnrolled = clindata::rawplus_dm \%>\% filter(enrollyn == "Y"),
-  dfAE = clindata::rawplus_ae
-)
+reportingMetrics_filter <- reportingMetrics \%>\%
+  dplyr::filter(MetricID == "kri0001") \%>\%
+  as.list()
 
-lResults <- lMetricWorkflow \%>\%
-  RunWorkflow(lData)
-
-dfGroups <- bind_rows(
-  "SELECT pi_number as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df" \%>\%
-    RunQuery(clindata::ctms_site) \%>\%
-    MakeLongMeta("Site"),
-  "SELECT invid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid" \%>\%
-    RunQuery(lData$dfEnrolled) \%>\%
-    MakeLongMeta("Site"),
-  "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country" \%>\%
-    RunQuery(lData$dfEnrolled) \%>\%
-    MakeLongMeta("Country")
-)
-
-dfBounds <- lResults$dfTransformed \%>\%
-  Analyze_NormalApprox_PredictBounds(
-    lMetricWorkflow$meta$Threshold \%>\%
-      stringr::str_split_1(",") \%>\%
-      as.numeric(),
-    strType = lMetricWorkflow$meta$Type
-  )
+reportingBounds_filter <- reportingBounds \%>\%
+  dplyr::filter(MetricID == "kri0001" & SnapshotDate == max(SnapshotDate))
 
 Widget_ScatterPlot(
-  dfResults = lResults$dfSummary,
-  lMetric = lMetricWorkflow$meta,
-  dfGroups = dfGroups,
-  dfBounds = dfBounds
+  dfResults = reportingResults_filter,
+  lMetric = reportingMetrics_filter,
+  dfGroups = reportingGroups,
+  dfBounds = reportingBounds_filter
 )
-}
+
 }

@@ -14,6 +14,6 @@ Report_OverviewText(lSetup, dfResults, lStudy)
 \item{lStudy}{\code{list} contains study-level metadata.}
 }
 \description{
-Create message describing study summary for Report
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \keyword{internal}

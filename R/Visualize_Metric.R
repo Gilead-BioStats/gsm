@@ -1,10 +1,10 @@
 #' Visualize_Metric Function
 #'
+#' `r lifecycle::badge("stable")`
+#'
 #' The function creates all available charts for a metric using the data provided
 #'
 #' @inheritParams shared-params
-#' @param dfBounds `data.frame`, A data.frame returned by [Analyze_NormalApprox_PredictBounds()] or [Analyze_Poisson_PredictBounds()]
-#' @param dfGroups `data.frame` Site metadata.
 #' @param strMetricID `character` MetricID to subset the data.
 #' @param strSnapshotDate `character` Snapshot date to subset the data.
 #' @param bDebug `logical` Display console in html viewer for debugging. Default is `FALSE`.
@@ -19,6 +19,16 @@
 #' - timeSeriesContinuousScoreJS: A time series chart using JavaScript with score on the y-axis.
 #' - timeSeriesContinuousMetricJS: A time series chart using JavaScript with metric on the y-axis.
 #' - timeSeriesContinuousNumeratorJS: A time series chart using JavaScript with numerator on the y-axis.
+#'
+#'
+#' @examples
+#' charts <- Visualize_Metric(
+#'   dfResults = reportingResults,
+#'   dfBounds = reportingBounds,
+#'   dfGroups = reportingGroups,
+#'   dfMetrics = reportingMetrics,
+#'   strMetricID = "kri0001"
+#' )
 #'
 #' @export
 

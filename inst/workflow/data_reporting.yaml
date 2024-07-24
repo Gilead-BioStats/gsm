@@ -55,7 +55,7 @@ steps:
     params:
       data: dfCountryCountsWide
       strGroupLevel: "Country"
-  # Combine CTMS and Counts data as dfMeta
+  # Combine CTMS and Counts data as dfGroups
   - name: bind_rows
     output: dfGroups
     params:

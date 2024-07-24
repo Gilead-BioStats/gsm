@@ -1,12 +1,13 @@
 #' Helper function to compile "wide" group metadata
 #'
-#' Used to convert metadata dictionary (dfMeta) to a wide format data frame for
+#' `r lifecycle::badge("stable")`
+#'
+#' Used to convert metadata dictionary (dfGroups) to a wide format data frame for
 #' use in charts and reports.
 #'
-#' @param dfMeta The meta data dictionary with one row per GroupID per Param.
-#'   Must have columns GroupID, GroupLevel, Param, and Value.
+#' @inheritParams shared-params
 #' @param strGroupLevel A string specifying the group level; used to filter
-#'   dfMeta$GroupLevel.
+#'   dfGroups$GroupLevel.
 #'
 #' @return A long format data frame.
 #'
@@ -14,12 +15,12 @@
 #' MakeWideGroups(reportingGroups, "Site")
 #'
 #' @export
-MakeWideGroups <- function(dfMeta, strGroupLevel) {
+MakeWideGroups <- function(dfGroups, strGroupLevel) {
   stopifnot(
     "One or more of these columns not found: GroupID, GroupLevel, Param, Value" =
-      all(c("GroupID", "GroupLevel", "Param", "Value") %in% names(dfMeta))
+      all(c("GroupID", "GroupLevel", "Param", "Value") %in% names(dfGroups))
   )
-  df_wide <- dfMeta %>%
+  df_wide <- dfGroups %>%
     dplyr::filter(.data$GroupLevel == strGroupLevel) %>%
     tidyr::pivot_wider(
       names_from = "Param",

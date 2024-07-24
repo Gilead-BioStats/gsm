@@ -1,4 +1,6 @@
-#' @title Input_Rate
+#' Input_Rate
+#'
+#' `r lifecycle::badge("stable")`
 #'
 #' @description Calculate a subject level rate from numerator and denominator data
 #'

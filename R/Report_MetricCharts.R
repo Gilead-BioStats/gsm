@@ -1,5 +1,7 @@
 #' Render charts for a given metric to markdown
 #'
+#' `r lifecycle::badge("stable")`
+#'
 #' This function generates a markdown framework for charts
 #
 #' @param lCharts A list of charts for the selected metric.

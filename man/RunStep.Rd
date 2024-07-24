@@ -29,7 +29,6 @@ parameters.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
-\dontrun{
 wf_mapping <- MakeWorkflowList("mapping")
 lStep <- MakeWorkflowList("kri0001")[["kri0001"]][["steps"]][[1]]
 lMeta <- MakeWorkflowList("kri0001")[["kri0001"]][["meta"]]
@@ -43,5 +42,5 @@ lData <- list(
 lMapped <- RunWorkflow(wf_mapping, lData)$lData
 
 ae_step <- RunStep(lStep = lStep, lData = lMapped, lMeta = lMeta)
-}
+
 }

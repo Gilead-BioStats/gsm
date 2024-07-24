@@ -1,5 +1,7 @@
 #' Summarize flags by SnapshotDate
 #'
+#' `r lifecycle::badge("experimental")`
+#'
 #' Create a table of longitudinal study data by site, study, or country, showing
 #' flags over time.
 #'
