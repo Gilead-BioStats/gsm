@@ -1,43 +1,60 @@
 ## Test Setup
 source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
-mapping_workflow <- flatten(MakeWorkflowList("mapping", yaml_path_original))
-kri_workflows <- MakeWorkflowList(c("kri0001_custom", "cou0001_custom"), yaml_path_custom)
-mapped_data <- robust_runworkflow(mapping_workflow, lData)$lData
+
+kri_workflows <- MakeWorkflowList(c(sprintf('kri%04d', 1:2), sprintf('cou%04d', 1:2)))
+kri_custom <- MakeWorkflowList(c(sprintf('kri%04d_custom', 1:2), sprintf('cou%04d_custom', 1:2)), yaml_path_custom)
+
+mapped_data <- get_data(kri_workflows, lData)
+
+outputs <- map(kri_workflows, ~map_vec(.x$steps, ~.x$output))
 
 ## Test Code
 testthat::test_that("Adverse Event Assessments can be done correctly using a grouping variable, such as Site or Country for KRIs, and Study for QTLs, when applicable.", {
-  test <- map(kri_workflows, ~robust_runworkflow(.x, mapped_data, steps = 1:2))
-  # kri
-  group_level <- kri_workflows$kri0001_custom$steps[[1]]$params$strGroupCol
-  groups <- unique(test$kri0001_custom$lData$dfEnrolled[[group_level]])
+  ## regular -----------------------------------------
+  test <- map(kri_workflows, ~robust_runworkflow(.x, mapped_data, steps = 1:3))
 
-  expect_identical(sort(unique(test$kri0001_custom$lData$dfInput$GroupID)), sort(test$kri0001_custom$lData$dfTransformed$GroupID))
-  expect_identical(unique(test$kri0001_custom$lData$dfTransformed$GroupLevel), group_level)
-  expect_equal(nrow(test$kri0001_custom$lData$dfTransformed), length(groups))
+  # grouping col in yaml file is interpreted correctly in dfInput GroupID
+  iwalk(test, ~expect_identical(sort(unique(.x$lData$dfInput$GroupID)),
+                                sort(unique(.x$lData$dfEnrolled[[kri_workflows[[.y]]$steps[[2]]$params$strGroupCol]])))
+  )
 
-  # cou
-  group_level <- kri_workflows$cou0001_custom$steps[[1]]$params$strGroupCol
-  groups <- unique(test$cou0001_custom$lData$dfEnrolled[[group_level]])
+  # data is properly transformed by correct group in dfTransformed
+  iwalk(test, ~expect_equal(n_distinct(.x$lData$dfEnrolled[[kri_workflows[[.y]]$steps[[2]]$params$strGroupCol]]),
+                            nrow(.x$lData$dfTransformed))
+  )
 
-  expect_identical(sort(unique(test$cou0001_custom$lData$dfInput$GroupID)), sort(test$cou0001_custom$lData$dfTransformed$GroupID))
-  expect_identical(unique(test$cou0001_custom$lData$dfTransformed$GroupLevel), group_level)
-  expect_equal(nrow(test$cou0001_custom$lData$dfTransformed), length(groups))
+  ## custom -------------------------------------------
+  test_custom <- map(kri_custom, ~robust_runworkflow(.x, mapped_data, steps = 1:3))
 
-  ## custom ================================================
-  kri_workflows$kri0001_custom$steps[[1]]$params$strGroupCol <- "sex"
-  kri_workflows$cou0001_custom$steps[[1]]$params$strGroupCol <- "sex"
+  # grouping col in custom yaml file is interpreted correctly in dfInput GroupID
+  iwalk(test_custom, ~expect_identical(sort(unique(.x$lData$dfInput$GroupID)),
+                                       sort(unique(.x$lData$dfEnrolled[[kri_custom[[.y]]$steps[[2]]$params$strGroupCol]])))
+  )
 
-  test_custom <- map(kri_workflows, ~robust_runworkflow(.x, mapped_data, steps = 1:2))
+  # data is properly transformed by correct group in dfTransformed
+  iwalk(test_custom, ~expect_equal(n_distinct(.x$lData$dfEnrolled[[kri_custom[[.y]]$steps[[2]]$params$strGroupCol]]),
+                                   nrow(.x$lData$dfTransformed))
+  )
 
-  group_level <- 'sex'
-  groups_kri <- unique(test_custom$kri0001_custom$lData$dfEnrolled[[group_level]])
-  groups_cou <- unique(test_custom$cou0001_custom$lData$dfEnrolled[[group_level]])
+  mapped_data$dfEnrolled %>% glimpse()
 
-  expect_identical(sort(unique(test_custom$kri0001_custom$lData$dfInput$GroupID)), sort(test_custom$kri0001_custom$lData$dfTransformed$GroupID))
-  expect_identical(unique(test_custom$kri0001_custom$lData$dfTransformed$GroupLevel), group_level)
-  expect_equal(nrow(test_custom$kri0001_custom$lData$dfTransformed), length(groups_cou))
-  expect_identical(sort(unique(test_custom$cou0001_custom$lData$dfInput$GroupID)), sort(test_custom$cou0001_custom$lData$dfTransformed$GroupID))
-  expect_identical(unique(test_custom$cou0001_custom$lData$dfTransformed$GroupLevel), group_level)
-  expect_equal(nrow(test_custom$cou0001_custom$lData$dfTransformed), length(groups_cou))
+  ## custom edits -------------------------------------
+  kri_custom2 <- map(kri_workflows, function(kri){
+    kri$steps[[2]]$params$strGroupCol <- 'agerep'
+    kri$steps[[2]]$params$strGroupLevel <- 'Age'
+    return(kri)
+  })
+
+  test_custom2 <- map(kri_custom2, ~robust_runworkflow(.x, mapped_data, steps = 1:3))
+
+  # grouping col in custom2 workflow is interpreted correctly in dfInput GroupID
+  iwalk(test_custom2, ~expect_identical(sort(unique(.x$lData$dfInput$GroupID)),
+                                       sort(unique(.x$lData$dfEnrolled[[kri_custom2[[.y]]$steps[[2]]$params$strGroupCol]])))
+  )
+
+  # data is properly transformed by correct group in dfTransformed
+  iwalk(test_custom2, ~expect_equal(n_distinct(.x$lData$dfEnrolled[[kri_custom2[[.y]]$steps[[2]]$params$strGroupCol]]),
+                                   nrow(.x$lData$dfTransformed))
+  )
 
 })

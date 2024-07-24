@@ -56,7 +56,7 @@ lRaw <- UseClindata(
 )
 
 # Create Mapped Data
-lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$lData
+lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$mapping$lResults
 
 # Run Metrics
 lResults <-map(wf_metrics, ~RunWorkflow(lWorkflow = ., lData = lMapped))

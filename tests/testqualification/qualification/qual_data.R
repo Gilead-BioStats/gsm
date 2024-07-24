@@ -1,3 +1,6 @@
+## set the seed for consistent sourcing
+set.seed(123)
+
 ## full Data
 lData <- gsm::UseClindata(
   list(
@@ -33,14 +36,14 @@ lData_missing_values <- map(lData, function(df){
     )
 })
 
-yaml_path_original <- system.file("tests", "testqualification", "qualification", "qual_workflows", "original", package = 'gsm')
-yaml_path_custom <- system.file("tests", "testqualification", "qualification", "qual_workflows", "custom", package = 'gsm')
+yaml_path_custom <- system.file("tests", "testqualification", "qualification", "qual_workflows", package = 'gsm')
 
-mapping_workflow <- flatten(MakeWorkflowList('mapping', yaml_path_original))
+mapping_workflow <- flatten(MakeWorkflowList('mapping'))
 mapping_output <- map_vec(mapping_workflow$steps, ~.x$output)
 mapping_input <- map_vec(mapping_workflow$steps, ~.x$params$df)
 
-## helper functions
+## helper functions ---------------------------------------------
+# get only the relevant data for a workflow to speed up mapping
 get_data <- function(lWorkflow, lData){
   if('steps' %in% names(lWorkflow)){
     req_data <- map_df(lWorkflow$steps, ~.x$params[grepl('df',.x$params)]) %>%
@@ -58,9 +61,10 @@ get_data <- function(lWorkflow, lData){
   names <- c(mapping_output[map_lgl(mapping_output, ~.x %in% req_data)], mapping_input[map_lgl(mapping_input, ~.x %in% req_data)])
   steps <- which(map_lgl(mapping_output, ~.x %in% req_data))
 
-  robust_runworkflow(mapping_workflow, lData, steps)$lData[names]
+  robust_runworkflow(mapping_workflow, lData, steps, bKeepInputData = TRUE)[names]
 }
 
+# verify all columns specified in mapping yaml are present in lData data.frames
 verify_req_cols <- function(lData){
   req_cols <- list(
     dfSUBJ = c('subjectid', 'enrollyn'),
@@ -90,7 +94,12 @@ verify_req_cols <- function(lData){
   }
 }
 
-robust_runworkflow <- function(lWorkflow, lData, steps = seq(lWorkflow$steps)){
+# robust version of runworkflow that will always run even with errors, and can be specified for specific steps in workflow to run
+robust_runworkflow <- function(lWorkflow,
+                               lData,
+                               steps = seq(lWorkflow$steps),
+                               bReturnData = TRUE,
+                               bKeepInputData = FALSE){
   cli::cli_h1(paste0("Initializing `", lWorkflow$meta$file, "` Workflow"))
 
   lWorkflow$lData <- lData
@@ -124,6 +133,18 @@ robust_runworkflow <- function(lWorkflow, lData, steps = seq(lWorkflow$steps)){
     stepCount <- stepCount + 1
   }
 
-  return(lWorkflow)
+  if (!bKeepInputData) {
+    outputs <- lWorkflow$steps %>% purrr::map_chr(~ .x$output)
+    lWorkflow$lData <- lWorkflow$lData[outputs]
+    # cli::cli_alert_info("Returning workflow outputs: {names(lWorkflow$lData)}")
+  } else {
+    # cli::cli_alert_info("Returning workflow inputs and outputs: {names(lWorkflow$lData)}")
+  }
+
+  if (bReturnData) {
+    return(lWorkflow$lData)
+  } else {
+    return(lWorkflow)
+  }
 }
 

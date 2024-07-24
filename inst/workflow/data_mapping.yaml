@@ -11,7 +11,7 @@ steps:
     output: dfSeriousAE
     params:
       df: dfAE
-      strQuery: "SELECT * FROM df WHERE aeser = 'Y';"
+      strQuery: "SELECT * FROM df WHERE aeser == 'Y';"
   - name: RunQuery
     output: dfAE
     params:
@@ -41,12 +41,12 @@ steps:
     output: dfStudyDropouts
     params:
       df: dfSTUDCOMP
-      strQuery: "SELECT * FROM df WHERE compyn IN ('N');"
+      strQuery: "SELECT * FROM df WHERE compyn == 'N';"
   - name: RunQuery
     output: dfTreatmentDropouts
     params:
       df: dfSDRGCOMP
-      strQuery: "SELECT * FROM df WHERE sdrgyn IN ('N') AND phase == 'Blinded Study Drug Completion';"
+      strQuery: "SELECT * FROM df WHERE sdrgyn == 'N' AND phase == 'Blinded Study Drug Completion';"
   - name: RunQuery
     output: dfValidQueries
     params:
