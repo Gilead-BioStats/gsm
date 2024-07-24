@@ -116,7 +116,7 @@
 
 
 <dt id="arg-dfbounds">dfBounds<a class="anchor" aria-label="anchor" href="#arg-dfbounds"></a></dt>
-<dd><p><code>data.frame</code> data.frame giving prediction bounds for range of denominator in dfResults.</p></dd>
+<dd><p><code>data.frame</code> Set of predicted percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values for reporting. Created by passing <code>dfResults</code> and <code>dfMetrics</code> to <code><a href="MakeBounds.html">MakeBounds()</a></code>. Expected columns: <code>Threshold</code>, <code>Denominator</code>, <code>Numerator</code>, <code>Metric</code>, <code>MetricID</code>, <code>StudyID</code>, <code>SnapshotDate</code>.</p></dd>
 
 
 <dt id="arg-strgroupcol">strGroupCol<a class="anchor" aria-label="anchor" href="#arg-strgroupcol"></a></dt>
@@ -142,31 +142,47 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="va">lData</span> <span class="op">&lt;-</span> <span class="fu"><a href="UseClindata.html">UseClindata</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    <span class="st">"dfSUBJ"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_dm"</span>,</span></span>
-<span class="r-in"><span>    <span class="st">"dfAE"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_ae"</span>,</span></span>
-<span class="r-in"><span>    <span class="st">"dfPD"</span> <span class="op">=</span> <span class="st">"clindata::ctms_protdev"</span>,</span></span>
-<span class="r-in"><span>    <span class="st">"dfCONSENT"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_consent"</span>,</span></span>
-<span class="r-in"><span>    <span class="st">"dfIE"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_ie"</span>,</span></span>
-<span class="r-in"><span>    <span class="st">"dfLB"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_lb"</span>,</span></span>
-<span class="r-in"><span>    <span class="st">"dfSTUDCOMP"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_studcomp"</span>,</span></span>
-<span class="r-in"><span>    <span class="st">"dfSDRGCOMP"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_sdrgcomp %&gt;%</span></span></span>
-<span class="r-in"><span><span class="st">          dplyr::filter(.data$phase == 'Blinded Study Drug Completion')"</span>,</span></span>
-<span class="r-in"><span>    <span class="st">"dfDATACHG"</span> <span class="op">=</span> <span class="st">"clindata::edc_data_points"</span>,</span></span>
-<span class="r-in"><span>    <span class="st">"dfDATAENT"</span> <span class="op">=</span> <span class="st">"clindata::edc_data_pages"</span>,</span></span>
-<span class="r-in"><span>    <span class="st">"dfQUERY"</span> <span class="op">=</span> <span class="st">"clindata::edc_queries"</span>,</span></span>
-<span class="r-in"><span>    <span class="st">"dfENROLL"</span> <span class="op">=</span> <span class="st">"clindata::rawplus_enroll"</span></span></span>
-<span class="r-in"><span>  <span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Filter sample data to only one metric</span></span></span>
+<span class="r-in"><span><span class="va">reportingResults_filter</span> <span class="op">&lt;-</span> <span class="va">reportingResults</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">MetricID</span> <span class="op">==</span> <span class="st">"kri0001"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">reportingBounds_filter</span> <span class="op">&lt;-</span> <span class="va">reportingBounds</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">MetricID</span> <span class="op">==</span> <span class="st">"kri0001"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Output- filtered to one snapshot date</span></span></span>
+<span class="r-in"><span><span class="fu">Visualize_Scatter</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  dfResults <span class="op">=</span> <span class="va">reportingResults_filter</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">SnapshotDate</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">SnapshotDate</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  dfBounds <span class="op">=</span> <span class="va">reportingBounds_filter</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">SnapshotDate</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">SnapshotDate</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">wf_mapping</span> <span class="op">&lt;-</span> <span class="fu"><a href="MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span><span class="st">"mapping"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">ae</span> <span class="op">&lt;-</span> <span class="fu"><a href="MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span>strNames <span class="op">=</span> <span class="st">"kri0001"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">lMapped</span> <span class="op">&lt;-</span> <span class="fu"><a href="RunWorkflow.html">RunWorkflow</a></span><span class="op">(</span><span class="va">wf_mapping</span>, <span class="va">lData</span><span class="op">)</span><span class="op">$</span><span class="va">lData</span></span></span>
-<span class="r-in"><span><span class="va">SafetyAE</span> <span class="op">&lt;-</span> <span class="fu">map</span><span class="op">(</span><span class="va">ae</span>, <span class="op">~</span> <span class="fu"><a href="RunWorkflow.html">RunWorkflow</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">lMapped</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">dfBounds</span> <span class="op">&lt;-</span> <span class="fu"><a href="Analyze_Poisson_PredictBounds.html">Analyze_Poisson_PredictBounds</a></span><span class="op">(</span><span class="va">SafetyAE</span><span class="op">$</span><span class="va">kri0001</span><span class="op">$</span><span class="va">lData</span><span class="op">$</span><span class="va">dfTransformed</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">Visualize_Scatter</span><span class="op">(</span><span class="va">SafetyAE</span><span class="op">$</span><span class="va">kri0001</span><span class="op">$</span><span class="va">lData</span><span class="op">$</span><span class="va">dfSummary</span>, <span class="va">dfBounds</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 253 rows containing missing values or values outside the scale range</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> (`geom_line()`).</span>
+<span class="r-plt img"><img src="Visualize_Scatter-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Create Faceted output on snapshot date</span></span></span>
+<span class="r-in"><span><span class="fu">Visualize_Scatter</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  dfResults <span class="op">=</span> <span class="va">reportingResults_filter</span>,</span></span>
+<span class="r-in"><span>  dfBounds <span class="op">=</span> <span class="va">reportingBounds_filter</span>,</span></span>
+<span class="r-in"><span>  strGroupCol <span class="op">=</span> <span class="st">"SnapshotDate"</span>,</span></span>
+<span class="r-in"><span>  strGroupLabel <span class="op">=</span> <span class="st">"Snapshot Date"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 3035 rows containing missing values or values outside the scale range</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> (`geom_line()`).</span>
+<span class="r-plt img"><img src="Visualize_Scatter-2.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## Custom Colors</span></span></span>
+<span class="r-in"><span><span class="fu">Visualize_Scatter</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  dfResults <span class="op">=</span> <span class="va">reportingResults_filter</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">SnapshotDate</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">SnapshotDate</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  dfBounds <span class="op">=</span> <span class="va">reportingBounds_filter</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">SnapshotDate</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">SnapshotDate</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  vColors <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#F4E7E7"</span>, <span class="st">"#C17070"</span>, <span class="st">"#981212"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 253 rows containing missing values or values outside the scale range</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> (`geom_line()`).</span>
+<span class="r-plt img"><img src="Visualize_Scatter-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
