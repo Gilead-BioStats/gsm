@@ -17,7 +17,6 @@
 #' @param bDebug `logical` Print debug messages? Default: `FALSE`.
 #'
 #' @examples
-#' \dontrun{
 #' # site-level report
 #' Widget_GroupOverview(
 #'   dfResults = reportingResults,
@@ -29,7 +28,7 @@
 #' Widget_GroupOverview(
 #'   dfResults = reportingResults,
 #'   dfMetrics = reportingMetrics,
-#'   dfGroups = reportingGroups
+#'   dfGroups = reportingGroups,
 #'   strGroupSubset = "all"
 #' )
 #'
@@ -40,7 +39,7 @@
 #'   dfMetrics = reportingMetrics,
 #'   dfGroups = reportingGroups
 #' )
-#' }
+#'
 #' @export
 
 Widget_GroupOverview <- function(

@@ -13,7 +13,6 @@
 #' @param bDebug `logical` Print debug messages? Default: `FALSE`.
 #'
 #' @examples
-#' \dontrun{
 #'
 #' Widget_TimeSeries(
 #'   dfResults = reportingResults,
@@ -29,7 +28,7 @@
 #'   vThreshold = c(-3, -2, 2, 3),
 #'   strOutcome = "Metric"
 #' )
-#' }
+#'
 #' @export
 
 Widget_TimeSeries <- function(

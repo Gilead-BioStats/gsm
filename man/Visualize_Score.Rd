@@ -30,7 +30,6 @@ group-level ggplot2 object.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
-\dontrun{
 Visualize_Score(dfResults = reportingResults)
 
 ## Only show Flagged Groups
@@ -44,5 +43,5 @@ Visualize_Score(
   dfResults = reportingResults,
   strTitle = "Custom Title"
 )
-}
+
 }

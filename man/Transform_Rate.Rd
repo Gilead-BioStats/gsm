@@ -42,12 +42,10 @@ Required columns include:
 }
 
 \examples{
- \dontrun{
 dfTransformed <- Transform_Rate(
   analyticsInput,
   strNumeratorCol = "Numerator",
   strDenominatorCol = "Denominator"
 )
-}
 
 }

@@ -37,7 +37,6 @@ and the outcome (numerator, denominator, metric, or score) on the y-axis.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
-\dontrun{
 
 Widget_BarChart(
   dfResults = reportingResults,
@@ -45,5 +44,5 @@ Widget_BarChart(
   dfGroups = reportingGroups,
   vThreshold = reportingMetrics$strThreshold
 )
-}
+
 }

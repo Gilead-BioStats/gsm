@@ -11,14 +11,13 @@
 #' @param bDebug `logical` Print debug messages? Default: `FALSE`.
 #'
 #' @examples
-#' \dontrun{
 #' Widget_ScatterPlot(
 #'   dfResults = reportingResults,
 #'   lMetric = reportingMetrics %>% as.list(),
 #'   dfGroups = reportingGroups,
 #'   dfBounds = reportingBounds
 #' )
-#' }
+#'
 #' @export
 
 Widget_ScatterPlot <- function(

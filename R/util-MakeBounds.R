@@ -17,12 +17,10 @@
 #' @return A data frame.
 #'
 #' @examples
-#'  \dontrun{
 #' dfBounds <- MakeBounds(
 #'   dfResults = reportingResults,
 #'   dfMetrics = reportingMetrics
 #' )
-#' }
 #'
 #' @export
 MakeBounds <- function(

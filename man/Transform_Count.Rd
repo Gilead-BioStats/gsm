@@ -40,7 +40,6 @@ The input data has one or more rows per site. \code{Transform_Count()} sums \cod
 }
 
 \examples{
- \dontrun{
 dfTransformed <- Transform_Count(analyticsInput, strCountCol = "Numerator")
-}
+
 }

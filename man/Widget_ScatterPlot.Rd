@@ -34,12 +34,11 @@ on the x-axis and the numerator on the y-axis.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
-\dontrun{
 Widget_ScatterPlot(
   dfResults = reportingResults,
   lMetric = reportingMetrics \%>\% as.list(),
   dfGroups = reportingGroups,
   dfBounds = reportingBounds
 )
-}
+
 }

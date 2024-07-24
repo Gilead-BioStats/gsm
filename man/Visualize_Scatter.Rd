@@ -33,7 +33,6 @@ group-level plot object.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
-\dontrun{
 Visualize_Scatter(
   dfResults = reportingResults,
   dfBounds = reportingBounds
@@ -53,6 +52,6 @@ Visualize_Scatter(
   dfBounds = reportingBounds,
   vColors = c("#F4E7E7", "#C17070", "#981212")
 )
-}
+
 
 }

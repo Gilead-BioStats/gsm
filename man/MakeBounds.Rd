@@ -38,11 +38,9 @@ A data frame.
 Calculate bounds across a set of metrics.
 }
 \examples{
- \dontrun{
 dfBounds <- MakeBounds(
   dfResults = reportingResults,
   dfMetrics = reportingMetrics
 )
-}
 
 }

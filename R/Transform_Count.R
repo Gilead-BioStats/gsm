@@ -27,9 +27,8 @@
 #' @return `data.frame` with one row per site with columns `GroupID`, `TotalCount`, and `Metric.`
 #'
 #' @examples
-#'  \dontrun{
 #' dfTransformed <- Transform_Count(analyticsInput, strCountCol = "Numerator")
-#' }
+#'
 #' @export
 
 Transform_Count <- function(

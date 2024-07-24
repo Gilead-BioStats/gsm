@@ -22,7 +22,6 @@
 #'
 #'
 #' @examples
-#'  \dontrun{
 #'  charts <- Visualize_Metric(
 #'    dfResults = reportingResults,
 #'    dfBounds = reportingBounds,
@@ -30,7 +29,7 @@
 #'    dfMetrics = reportingMetrics,
 #'    strMetricID = "kri0001"
 #'  )
-#'  }
+#'
 #'
 #' @export
 

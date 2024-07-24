@@ -11,7 +11,6 @@
 #' @return group-level ggplot2 object.
 #'
 #' @examples
-#' \dontrun{
 #' Visualize_Score(dfResults = reportingResults)
 #'
 #' ## Only show Flagged Groups
@@ -25,7 +24,7 @@
 #'   dfResults = reportingResults,
 #'   strTitle = "Custom Title"
 #' )
-#' }
+#'
 #' @export
 
 Visualize_Score <- function(

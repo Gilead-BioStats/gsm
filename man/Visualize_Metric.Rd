@@ -50,7 +50,6 @@ A list containing the following charts:
 The function creates all available charts for a metric using the data provided
 }
 \examples{
- \dontrun{
  charts <- Visualize_Metric(
    dfResults = reportingResults,
    dfBounds = reportingBounds,
@@ -58,6 +57,6 @@ The function creates all available charts for a metric using the data provided
    dfMetrics = reportingMetrics,
    strMetricID = "kri0001"
  )
- }
+
 
 }

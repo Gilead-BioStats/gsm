@@ -13,7 +13,6 @@
 #' @param bDebug `logical` Print debug messages? Default: `FALSE`.
 #'
 #' @examples
-#' \dontrun{
 #'
 #' Widget_BarChart(
 #'   dfResults = reportingResults,
@@ -21,7 +20,7 @@
 #'   dfGroups = reportingGroups,
 #'   vThreshold = reportingMetrics$strThreshold
 #' )
-#' }
+#'
 #' @export
 
 Widget_BarChart <- function(

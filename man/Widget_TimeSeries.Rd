@@ -37,7 +37,6 @@ date on the x-axis and the outcome (numerator, denominator, metric, or score) on
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
-\dontrun{
 
 Widget_TimeSeries(
   dfResults = reportingResults,
@@ -53,5 +52,5 @@ Widget_TimeSeries(
   vThreshold = c(-3, -2, 2, 3),
   strOutcome = "Metric"
 )
-}
+
 }

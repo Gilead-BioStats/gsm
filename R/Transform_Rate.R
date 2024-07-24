@@ -25,13 +25,11 @@
 #' @return `data.frame` with one row per site with columns `GroupID`, `GroupLevel`, `Numerator`, `Denominator`, and `Metric`.
 #'
 #' @examples
-#'  \dontrun{
 #' dfTransformed <- Transform_Rate(
 #'   analyticsInput,
 #'   strNumeratorCol = "Numerator",
 #'   strDenominatorCol = "Denominator"
 #' )
-#' }
 #'
 #' @export
 

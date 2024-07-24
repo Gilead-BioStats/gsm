@@ -43,7 +43,6 @@ metrics.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
-\dontrun{
 # site-level report
 Widget_GroupOverview(
   dfResults = reportingResults,
@@ -55,7 +54,7 @@ Widget_GroupOverview(
 Widget_GroupOverview(
   dfResults = reportingResults,
   dfMetrics = reportingMetrics,
-  dfGroups = reportingGroups
+  dfGroups = reportingGroups,
   strGroupSubset = "all"
 )
 
@@ -66,5 +65,5 @@ Widget_GroupOverview(
   dfMetrics = reportingMetrics,
   dfGroups = reportingGroups
 )
-}
+
 }

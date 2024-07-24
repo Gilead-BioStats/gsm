@@ -11,7 +11,6 @@
 #' @return group-level plot object.
 #'
 #' @examples
-#' \dontrun{
 #' Visualize_Scatter(
 #'   dfResults = reportingResults,
 #'   dfBounds = reportingBounds
@@ -31,7 +30,7 @@
 #'   dfBounds = reportingBounds,
 #'   vColors = c("#F4E7E7", "#C17070", "#981212")
 #' )
-#' }
+#'
 #'
 #' @export
 

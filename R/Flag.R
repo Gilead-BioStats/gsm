@@ -42,13 +42,12 @@
 #' @return `data.frame` with one row per site with columns: `GroupID`, `TotalCount`, `Metric`, `Score`, `Flag`
 #'
 #' @examples
-#' \dontrun{
 #' dfTransformed <- Transform_Count(analyticsInput, strCountCol = "Numerator")
 #'
 #' dfAnalyzed <- Analyze_Identity(dfTransformed)
 #'
 #' dfFlagged <- Flag(dfAnalyzed, vThreshold = c(0.001, 0.01))
-#' }
+#'
 #'
 #' @export
 
