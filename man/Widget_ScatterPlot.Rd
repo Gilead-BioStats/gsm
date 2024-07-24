@@ -34,11 +34,22 @@ on the x-axis and the numerator on the y-axis.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
+## Filter data to one metric and snapshot
+reportingResults_filter <- reportingResults \%>\%
+  dplyr::filter(MetricID == "kri0001" & SnapshotDate == max(SnapshotDate))
+
+reportingMetrics_filter <- reportingMetrics \%>\%
+  dplyr::filter(MetricID == "kri0001") \%>\%
+  as.list()
+
+ reportingBounds_filter <- reportingBounds \%>\%
+   dplyr::filter(MetricID == "kri0001" & SnapshotDate == max(SnapshotDate))
+
 Widget_ScatterPlot(
-  dfResults = reportingResults,
-  lMetric = reportingMetrics \%>\% as.list(),
+  dfResults = reportingResults_filter,
+  lMetric = reportingMetrics_filter,
   dfGroups = reportingGroups,
-  dfBounds = reportingBounds
+  dfBounds = reportingBounds_filter
 )
 
 }

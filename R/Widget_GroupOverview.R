@@ -33,7 +33,7 @@
 #' )
 #'
 #' # country-level report
-#' sampleMetrics$GroupLevel <- "Country"
+#' reportingMetrics$GroupLevel <- "Country"
 #' Widget_GroupOverview(
 #'   dfResults = reportingResults,
 #'   dfMetrics = reportingMetrics,

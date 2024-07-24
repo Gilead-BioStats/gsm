@@ -33,23 +33,35 @@ group-level plot object.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
-Visualize_Scatter(
-  dfResults = reportingResults,
-  dfBounds = reportingBounds
-)
 
-## Create Faceted output
+## Filter sample data to only one metric
+reportingResults_filter <- reportingResults \%>\%
+  dplyr::filter(MetricID == "kri0001")
+
+reportingBounds_filter <- reportingBounds \%>\%
+  dplyr::filter(MetricID == "kri0001")
+
+## Output- filtered to one snapshot date
 Visualize_Scatter(
-  dfResults = reportingResults,
-  dfBounds = reportingBounds,
-  strGroupCol = SnapshotDate,
+  dfResults = reportingResults_filter \%>\%
+    dplyr::filter(SnapshotDate == max(SnapshotDate)),
+  dfBounds = reportingBounds_filter \%>\%
+    dplyr::filter(SnapshotDate == max(SnapshotDate)))
+
+## Create Faceted output on snapshot date
+Visualize_Scatter(
+  dfResults = reportingResults_filter,
+  dfBounds = reportingBounds_filter,
+  strGroupCol = "SnapshotDate",
   strGroupLabel = "Snapshot Date"
 )
 
 ## Custom Colors
 Visualize_Scatter(
-  dfResults = reportingResults,
-  dfBounds = reportingBounds,
+  dfResults = reportingResults_filter \%>\%
+    dplyr::filter(SnapshotDate == max(SnapshotDate)),
+  dfBounds = reportingBounds_filter \%>\%
+    dplyr::filter(SnapshotDate == max(SnapshotDate)),
   vColors = c("#F4E7E7", "#C17070", "#981212")
 )
 

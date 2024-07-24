@@ -30,17 +30,21 @@ group-level ggplot2 object.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
-Visualize_Score(dfResults = reportingResults)
+## Filter data to one metric and snapshot
+reportingResults_filter <- reportingResults \%>\%
+  dplyr::filter(MetricID == "kri0001" & SnapshotDate == max(SnapshotDate))
+
+Visualize_Score(dfResults = reportingResults_filter)
 
 ## Only show Flagged Groups
 Visualize_Score(
-  dfResults = reportingResults,
+  dfResults = reportingResults_filter,
   bFlagFilter = TRUE
 )
 
 ## Custom Title
 Visualize_Score(
-  dfResults = reportingResults,
+  dfResults = reportingResults_filter,
   strTitle = "Custom Title"
 )
 

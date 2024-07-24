@@ -38,11 +38,19 @@ and the outcome (numerator, denominator, metric, or score) on the y-axis.
 }
 \examples{
 
+## Filter data to one metric and snapshot
+reportingResults_filter <- reportingResults \%>\%
+  dplyr::filter(MetricID == "kri0001" & SnapshotDate == max(SnapshotDate))
+
+reportingMetrics_filter <- reportingMetrics \%>\%
+  dplyr::filter(MetricID == "kri0001") \%>\%
+  as.list()
+
+## Make chart
 Widget_BarChart(
-  dfResults = reportingResults,
-  lMetric = reportingMetrics,
-  dfGroups = reportingGroups,
-  vThreshold = reportingMetrics$strThreshold
+  dfResults = reportingResults_filter,
+  lMetric = reportingMetrics_filter,
+  vThreshold = reportingMetrics$Threshold
 )
 
 }

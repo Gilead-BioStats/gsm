@@ -38,19 +38,20 @@ date on the x-axis and the outcome (numerator, denominator, metric, or score) on
 }
 \examples{
 
+## Filter data to one metric
+reportingResults_filter <- reportingResults \%>\%
+  dplyr::filter(MetricID == "kri0001")
+
+reportingMetrics_filter <- reportingMetrics \%>\%
+  dplyr::filter(MetricID == "kri0001") \%>\%
+  as.list()
+
+
 Widget_TimeSeries(
-  dfResults = reportingResults,
-  lMetric = reportingMetrics \%>\% as.list(),
+  dfResults = reportingResults_filter,
+  lMetric = reportingMetrics_filter,
   dfGroups = reportingGroups,
   vThreshold = c(-3, -2, 2, 3)
-)
-# show metric outcome
-Widget_TimeSeries(
-  dfResults = reportingResults,
-  lMetric = reportingMetrics \%>\% as.list(),
-  dfGroups = reportingGroups,
-  vThreshold = c(-3, -2, 2, 3),
-  strOutcome = "Metric"
 )
 
 }
