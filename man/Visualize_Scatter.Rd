@@ -16,7 +16,7 @@ Visualize_Scatter(
 \arguments{
 \item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
 
-\item{dfBounds}{\code{data.frame} data.frame giving prediction bounds for range of denominator in dfResults.}
+\item{dfBounds}{\code{data.frame} Set of predicted percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values for reporting. Created by passing \code{dfResults} and \code{dfMetrics} to \code{\link[=MakeBounds]{MakeBounds()}}. Expected columns: \code{Threshold}, \code{Denominator}, \code{Numerator}, \code{Metric}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
 
 \item{strGroupCol}{\code{character} name of stratification column for facet wrap Default: \code{NULL}}
 
@@ -33,30 +33,37 @@ group-level plot object.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
-\dontrun{
-lData <- UseClindata(
-  list(
-    "dfSUBJ" = "clindata::rawplus_dm",
-    "dfAE" = "clindata::rawplus_ae",
-    "dfPD" = "clindata::ctms_protdev",
-    "dfCONSENT" = "clindata::rawplus_consent",
-    "dfIE" = "clindata::rawplus_ie",
-    "dfLB" = "clindata::rawplus_lb",
-    "dfSTUDCOMP" = "clindata::rawplus_studcomp",
-    "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp \%>\%
-          dplyr::filter(.data$phase == 'Blinded Study Drug Completion')",
-    "dfDATACHG" = "clindata::edc_data_points",
-    "dfDATAENT" = "clindata::edc_data_pages",
-    "dfQUERY" = "clindata::edc_queries",
-    "dfENROLL" = "clindata::rawplus_enroll"
-  )
+
+## Filter sample data to only one metric
+reportingResults_filter <- reportingResults \%>\%
+  dplyr::filter(MetricID == "kri0001")
+
+reportingBounds_filter <- reportingBounds \%>\%
+  dplyr::filter(MetricID == "kri0001")
+
+## Output- filtered to one snapshot date
+Visualize_Scatter(
+  dfResults = reportingResults_filter \%>\%
+    dplyr::filter(SnapshotDate == max(SnapshotDate)),
+  dfBounds = reportingBounds_filter \%>\%
+    dplyr::filter(SnapshotDate == max(SnapshotDate))
 )
-wf_mapping <- MakeWorkflowList("mapping")
-ae <- MakeWorkflowList(strNames = "kri0001")
-lMapped <- RunWorkflow(wf_mapping, lData)$lData
-SafetyAE <- map(ae, ~ RunWorkflow(., lMapped))
-dfBounds <- Analyze_Poisson_PredictBounds(SafetyAE$kri0001$lData$dfTransformed, c(-5, 5))
-Visualize_Scatter(SafetyAE$kri0001$lData$dfSummary, dfBounds)
-}
+
+## Create Faceted output on snapshot date
+Visualize_Scatter(
+  dfResults = reportingResults_filter,
+  dfBounds = reportingBounds_filter,
+  strGroupCol = "SnapshotDate",
+  strGroupLabel = "Snapshot Date"
+)
+
+## Custom Colors
+Visualize_Scatter(
+  dfResults = reportingResults_filter \%>\%
+    dplyr::filter(SnapshotDate == max(SnapshotDate)),
+  dfBounds = reportingBounds_filter \%>\%
+    dplyr::filter(SnapshotDate == max(SnapshotDate)),
+  vColors = c("#F4E7E7", "#C17070", "#981212")
+)
 
 }

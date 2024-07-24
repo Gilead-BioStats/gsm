@@ -18,7 +18,7 @@
 #' - `Numerator` - Number of events of interest; the actual name of this column is specified by the parameter `strNumeratorCol`
 #' - `Denominator` - Number of days on treatment; the actual name of this column is specified by the parameter `strDenominatorCol`
 #'
-#' @param dfInput `df` A data.frame with one record per subject.
+#' @inheritParams shared-params
 #' @param strNumeratorCol `string` Column to be counted. Defaults to "Numerator".
 #' @param strDenominatorCol `string` Column name for the numerical `Exposure` column. Defaults to "Denominator".
 #'

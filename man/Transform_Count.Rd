@@ -7,7 +7,7 @@
 Transform_Count(dfInput, strCountCol, strGroupCol = "GroupID")
 }
 \arguments{
-\item{dfInput}{A data.frame with one record per subject.}
+\item{dfInput}{\code{data.frame} Input data with one record per subject. Created by passing Raw+ data into \code{\link[=Input_Rate]{Input_Rate()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator} and/or columns specified in \code{strCountCol} and \code{strGroupCol}.}
 
 \item{strCountCol}{Required. Numerical or logical. Column to be counted.}
 
@@ -40,7 +40,6 @@ The input data has one or more rows per site. \code{Transform_Count()} sums \cod
 }
 
 \examples{
-
 dfTransformed <- Transform_Count(analyticsInput, strCountCol = "Numerator")
 
 }

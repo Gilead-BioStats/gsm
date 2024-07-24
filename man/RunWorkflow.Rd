@@ -40,7 +40,7 @@ lData <- list(
   dfSUBJ = clindata::rawplus_dm
 )
 wf_mapping <- MakeWorkflowList("mapping")
-lMapped <- RunWorkflow(wf_mapping, LData)$lData
+lMapped <- RunWorkflow(wf_mapping, lData)$lData
 
 output <- map(lAssessments, ~ RunWorkflow(., lMapped))
 }

@@ -15,6 +15,9 @@ Report_StudyInfo(lStudy, lStudyLabels = NULL)
 None
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+}
+\details{
 This function generates a table summarizing study metadata.
 }
 \keyword{internal}

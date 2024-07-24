@@ -17,7 +17,7 @@ test_that("MakeWideGroups fails for missing columns", {
   )
 })
 
-test_that("MakeWideGroups widens dfMeta", {
+test_that("MakeWideGroups widens dfGroups", {
   reporting_subset <- reportingGroups %>%
     dplyr::filter(
       GroupID %in% c(10, 20),

@@ -7,54 +7,28 @@
 #' on the x-axis and the numerator on the y-axis.
 #'
 #' @inheritParams shared-params
-#' @param lMetric `list` Metric metadata, captured at the top of metric workflows and returned by
-#' [MakeMetric()].
-#' @param dfGroups `data.frame` Group metadata.
-#' @param dfBounds `data.frame` Output of [Analyze_NormalApprox_PredictBounds()] or
-#' [Analyze_Poisson_PredictBounds()]
 #' @param bAddGroupSelect `logical` Add a dropdown to highlight sites? Default: `TRUE`.
 #' @param bDebug `logical` Print debug messages? Default: `FALSE`.
 #'
 #' @examples
-#' \dontrun{
-#' strMetricID <- "kri0001"
-#' lMetricWorkflow <- MakeWorkflowList()[[strMetricID]]
+#' ## Filter data to one metric and snapshot
+#' reportingResults_filter <- reportingResults %>%
+#'   dplyr::filter(MetricID == "kri0001" & SnapshotDate == max(SnapshotDate))
 #'
-#' lData <- list(
-#'   dfEnrolled = clindata::rawplus_dm %>% filter(enrollyn == "Y"),
-#'   dfAE = clindata::rawplus_ae
-#' )
+#' reportingMetrics_filter <- reportingMetrics %>%
+#'   dplyr::filter(MetricID == "kri0001") %>%
+#'   as.list()
 #'
-#' lResults <- lMetricWorkflow %>%
-#'   RunWorkflow(lData)
-#'
-#' dfGroups <- bind_rows(
-#'   "SELECT pi_number as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df" %>%
-#'     RunQuery(clindata::ctms_site) %>%
-#'     MakeLongMeta("Site"),
-#'   "SELECT invid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid" %>%
-#'     RunQuery(lData$dfEnrolled) %>%
-#'     MakeLongMeta("Site"),
-#'   "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country" %>%
-#'     RunQuery(lData$dfEnrolled) %>%
-#'     MakeLongMeta("Country")
-#' )
-#'
-#' dfBounds <- lResults$dfTransformed %>%
-#'   Analyze_NormalApprox_PredictBounds(
-#'     lMetricWorkflow$meta$Threshold %>%
-#'       stringr::str_split_1(",") %>%
-#'       as.numeric(),
-#'     strType = lMetricWorkflow$meta$Type
-#'   )
+#' reportingBounds_filter <- reportingBounds %>%
+#'   dplyr::filter(MetricID == "kri0001" & SnapshotDate == max(SnapshotDate))
 #'
 #' Widget_ScatterPlot(
-#'   dfResults = lResults$dfSummary,
-#'   lMetric = lMetricWorkflow$meta,
-#'   dfGroups = dfGroups,
-#'   dfBounds = dfBounds
+#'   dfResults = reportingResults_filter,
+#'   lMetric = reportingMetrics_filter,
+#'   dfGroups = reportingGroups,
+#'   dfBounds = reportingBounds_filter
 #' )
-#' }
+#'
 #' @export
 
 Widget_ScatterPlot <- function(

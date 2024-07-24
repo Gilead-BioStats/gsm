@@ -1,8 +1,8 @@
 #' Helper function to create charts for multiple metrics
 #'
+#' `r lifecycle::badge("stable")`
+#'
 #' @inheritParams shared-params
-#' @param dfBounds A data frame with the bounds of the simulation.
-#' @param dfGroups A data frame with the groups of the simulation.
 #'
 #' @return A list of charts for each metric.
 #'

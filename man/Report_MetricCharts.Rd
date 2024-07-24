@@ -13,5 +13,8 @@ Report_MetricCharts(lCharts)
 Markdown content with charts and a summary table for the metric
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+}
+\details{
 This function generates a markdown framework for charts
 }
