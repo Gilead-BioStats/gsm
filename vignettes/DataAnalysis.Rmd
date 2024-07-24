@@ -24,7 +24,7 @@ This vignette walks users through the mechanics of the functions that produce al
 
 These functions provide data frames, visualizations, and metadata to be used in reporting and error checking at clinical sites. The image below illustrates the supporting functions that feed into the `yaml` workflow that is specified in each analysis workflow.
 
-![](data-analysis.PNG){width="100%"}
+![](data-analysis.png){width="100%"} 
 
 All of these functions will run automatically and sequentially when a user calls upon the `RunWorkflow()` function with a specified `yaml` file for KRI metrics.
 
@@ -243,4 +243,4 @@ The following sections include various examples of supporting functions and stat
 -   By default, all `yaml` workflow assessments specified in the `inst/workflows/` directory use the [normal approximation](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-normal-approximation-method) method.
 -   Optionally, other statistical methods include: [**Poisson**](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-poisson-regression-method), [**Fisher's Exact**](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-fishers-exact-method), and [**Identity**](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-identity-method).
 
-![](data-analysis-combined.PNG){width="100%"}
+![](data-analysis-combined.png){width="100%"}
