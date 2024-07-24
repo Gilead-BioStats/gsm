@@ -1,7 +1,8 @@
 #' Calculate needed values for report
 #'
+#' `r lifecycle::badge("stable")`
+#'
 #' @inheritParams shared-params
-#' @param dfGroups A data frame containing the group-level metadata.
 #'
 #' @export
 #' @keywords internal

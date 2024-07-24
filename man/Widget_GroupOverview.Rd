@@ -19,7 +19,7 @@ Widget_GroupOverview(
 
 \item{dfMetrics}{\code{data.frame} Metric-specific metadata for use in charts and reporting. Created by passing an \code{lWorkflow} object to \code{\link[=MakeMetric]{MakeMetric()}}. Expected columns: \code{File}, \code{MetricID}, \code{Group}, \code{Abbreviation}, \code{Metric}, \code{Numerator}, \code{Denominator}, \code{Model}, \code{Score}, and \code{Threshold}. For more details see the Data Pipeline vignette: \code{vignette("DataPipeline", package = "gsm")}.}
 
-\item{dfGroups}{\code{data.frame} Group metadata.}
+\item{dfGroups}{\code{data.frame} Group-level metadata dictionary. Created by passing CTMS site and study data to \code{\link[=MakeLongMeta]{MakeLongMeta()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Param}, \code{Value}.}
 
 \item{strGroupLevel}{\code{character} Value for the group level. Default: NULL and taken from \code{dfMetrics$GroupLevel} if available.}
 
@@ -43,76 +43,27 @@ metrics.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
-\dontrun{
-strGroupLevel <- "Site"
-
-lWorkflows <- MakeWorkflowList()
-lMetricWorkflows <- lWorkflows[grepl("^kri", names(lWorkflows))]
-
-lDataRaw <- gsm::UseClindata(
-  list(
-    "dfSUBJ" = "clindata::rawplus_dm",
-    "dfAE" = "clindata::rawplus_ae",
-    "dfPD" = "clindata::ctms_protdev",
-    "dfLB" = "clindata::rawplus_lb",
-    "dfSTUDCOMP" = "clindata::rawplus_studcomp",
-    "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp \%>\%
-            dplyr::filter(.data$phase == 'Blinded Study Drug Completion')",
-    "dfDATACHG" = "clindata::edc_data_points",
-    "dfDATAENT" = "clindata::edc_data_pages",
-    "dfQUERY" = "clindata::edc_queries",
-    "dfENROLL" = "clindata::rawplus_enroll"
-  )
-)
-
-lDataMapped <- RunWorkflow(lWorkflows$data_mapping, lDataRaw)
-
-lResults <- map(
-  lMetricWorkflows,
-  ~ RunWorkflow(.x, lDataMapped)
-)
-
-dfResults <- lResults \%>\% imap_dfr(~ {
-  data <- .x$dfSummary
-  data$MetricID <- .y
-  data$GroupLevel <- strGroupLevel
-  data
-})
-
-dfGroups <- bind_rows(
-  "SELECT pi_number as GroupID,
-    site_status as Status,
-    pi_first_name as InvestigatorFirstName,
-    pi_last_name as InvestigatorLastName,
-    city as City,
-    state as State,
-    country as Country, *
-   FROM df" \%>\%
-    RunQuery(clindata::ctms_site) \%>\%
-    MakeLongMeta("Site"),
-  "SELECT invid as GroupID,
-    COUNT(DISTINCT subjectid) as ParticipantCount,
-    COUNT(DISTINCT invid) as SiteCount
-   FROM df
-   GROUP BY invid" \%>\%
-    RunQuery(lData$dfEnrolled) \%>\%
-    MakeLongMeta("Site"),
-  "SELECT country as GroupID,
-    COUNT(DISTINCT subjectid) as ParticipantCount,
-    COUNT(DISTINCT invid) as SiteCount
-   FROM df
-   GROUP BY country" \%>\%
-    RunQuery(lData$dfEnrolled) \%>\%
-    MakeLongMeta("Country")
-)
-
-dfMetrics <- lMetricWorkflows \%>\%
-  map_dfr(~ .x$meta)
-
+# site-level report
 Widget_GroupOverview(
-  dfResults,
-  dfMetrics,
-  dfGroups
+  dfResults = reportingResults,
+  dfMetrics = reportingMetrics,
+  dfGroups = reportingGroups
 )
-}
+
+# filter site-level report to all flags
+Widget_GroupOverview(
+  dfResults = reportingResults,
+  dfMetrics = reportingMetrics,
+  dfGroups = reportingGroups,
+  strGroupSubset = "all"
+)
+
+# country-level report
+reportingMetrics$GroupLevel <- "Country"
+Widget_GroupOverview(
+  dfResults = reportingResults,
+  dfMetrics = reportingMetrics,
+  dfGroups = reportingGroups
+)
+
 }

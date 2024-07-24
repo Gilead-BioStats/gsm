@@ -4,20 +4,22 @@
 \alias{MakeWideGroups}
 \title{Helper function to compile "wide" group metadata}
 \usage{
-MakeWideGroups(dfMeta, strGroupLevel)
+MakeWideGroups(dfGroups, strGroupLevel)
 }
 \arguments{
-\item{dfMeta}{The meta data dictionary with one row per GroupID per Param.
-Must have columns GroupID, GroupLevel, Param, and Value.}
+\item{dfGroups}{\code{data.frame} Group-level metadata dictionary. Created by passing CTMS site and study data to \code{\link[=MakeLongMeta]{MakeLongMeta()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Param}, \code{Value}.}
 
 \item{strGroupLevel}{A string specifying the group level; used to filter
-dfMeta$GroupLevel.}
+dfGroups$GroupLevel.}
 }
 \value{
 A long format data frame.
 }
 \description{
-Used to convert metadata dictionary (dfMeta) to a wide format data frame for
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+}
+\details{
+Used to convert metadata dictionary (dfGroups) to a wide format data frame for
 use in charts and reports.
 }
 \examples{

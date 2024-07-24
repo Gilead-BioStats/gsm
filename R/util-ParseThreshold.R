@@ -1,5 +1,7 @@
 #' Parse a string into a numeric vector
 #'
+#' `r lifecycle::badge("stable")`
+#'
 #' This function takes a comma-separated string and parses it into a numeric
 #' vector. It checks if all values in the string are numeric and returns the
 #' parsed vector. If any value is not numeric, it throws an error.

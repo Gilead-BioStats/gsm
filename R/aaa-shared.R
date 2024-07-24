@@ -14,6 +14,11 @@ gloss_extra <- function(x) {
 #'
 #' @param dfMetrics `r gloss_param("dfMetrics")`
 #' @param dfResults `r gloss_param("dfResults")`
+#' @param dfBounds `r gloss_param("dfBounds")`
+#' @param dfGroups `r gloss_param("dfGroups")`
+#' @param dfInput `r gloss_param("dfInput")`
+#' @param lMetric `r gloss_param("lMetric")`
+#'
 #'
 #' @name shared-params
 #' @keywords internal

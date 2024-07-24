@@ -30,6 +30,9 @@ look directly in the root elements of \code{lResults})? Default is \code{FALSE.}
 A data frame.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+}
+\details{
 Used to stack results (e.g. \code{dfSummary}) from a list of analysis pipeline
 output formatted like the result of \code{RunWorkflows()}. Also adds study level
 metadata when provided.

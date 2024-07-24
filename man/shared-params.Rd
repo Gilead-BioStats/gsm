@@ -7,6 +7,14 @@
 \item{dfMetrics}{\code{data.frame} Metric-specific metadata for use in charts and reporting. Created by passing an \code{lWorkflow} object to \code{\link[=MakeMetric]{MakeMetric()}}. Expected columns: \code{File}, \code{MetricID}, \code{Group}, \code{Abbreviation}, \code{Metric}, \code{Numerator}, \code{Denominator}, \code{Model}, \code{Score}, and \code{Threshold}. For more details see the Data Pipeline vignette: \code{vignette("DataPipeline", package = "gsm")}.}
 
 \item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
+
+\item{dfBounds}{\code{data.frame} Set of predicted percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values for reporting. Created by passing \code{dfResults} and \code{dfMetrics} to \code{\link[=MakeBounds]{MakeBounds()}}. Expected columns: \code{Threshold}, \code{Denominator}, \code{Numerator}, \code{Metric}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
+
+\item{dfGroups}{\code{data.frame} Group-level metadata dictionary. Created by passing CTMS site and study data to \code{\link[=MakeLongMeta]{MakeLongMeta()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Param}, \code{Value}.}
+
+\item{dfInput}{\code{data.frame} Input data with one record per subject. Created by passing Raw+ data into \code{\link[=Input_Rate]{Input_Rate()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator} and/or columns specified in \code{strCountCol} and \code{strGroupCol}.}
+
+\item{lMetric}{\code{list} Metric-specific metadata for use in charts and reporting. Created by passing an \code{lWorkflow} object to \code{\link[=MakeMetric]{MakeMetric()}} and turing it into a list. Expected columns: \code{File},\code{MetricID}, \code{Group}, \code{Abbreviation}, \code{Metric}, \code{Numerator}, \code{Denominator}, \code{Model}, \code{Score}, and \code{strThreshold}. For more details see the Data Pipeline vignette: \code{vignette("DataPipeline", package = "gsm")}.}
 }
 \description{
 Reused parameter definitions are gathered here for easier usage. Edit the
