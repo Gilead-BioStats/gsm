@@ -13,7 +13,6 @@
 #' @param bDebug `logical` Print debug messages? Default: `FALSE`.
 #'
 #' @examples
-#'
 #' ## Filter data to one metric
 #' reportingResults_filter <- reportingResults %>%
 #'   dplyr::filter(MetricID == "kri0001")
@@ -47,7 +46,11 @@ Widget_TimeSeries <- function(
       vThreshold <- strsplit(vThreshold, ",")[[1]] %>% as.numeric()
     }
   }
-  print(vThreshold)
+
+  # Disable threshold if outcome is not 'Score'.
+  if (strOutcome != 'Score')
+    vThreshold <- NULL
+
   # define widget inputs
   input <- list(
     dfResults = dfResults,

@@ -19,12 +19,12 @@ function overallClick() {
     }
 
     if (event.target.value !== 'None') {
-      document.querySelectorAll(".group-select").forEach((el) => {
+      document.querySelectorAll(".gsm-widget-control--select").forEach((el) => {
         el.options[el.selectedIndex].innerHTML = event.target.value;
         el.disabled = true;
       });
     } else {
-      document.querySelectorAll(".group-select").forEach((el) => {
+      document.querySelectorAll(".gsm-widget-control--select").forEach((el) => {
         el.options[el.selectedIndex].innerHTML = "None";
         el.disabled = false;
       });
@@ -46,7 +46,7 @@ function overallGroupDropdown() {
     overallGroupSelect.onchange = overallClick
     overallGroupSelectContainer.appendChild(overallGroupSelect);
 
-    const ids = [...document.querySelector(".group-select").options].map(
+    const ids = [...document.querySelector(".gsm-widget-control--select").options].map(
         (el) => el.text
     );
 

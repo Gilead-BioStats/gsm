@@ -7,6 +7,9 @@ HTMLWidgets.widget({
                 if (input.bDebug)
                     console.log(input);
 
+                // Assign a unique ID to the element.
+                el.id = `timeSeries--${input.lMetric.MetricID}_${input.strOutcome}`;
+
                 // Update y-axis variable.
                 input.lMetric.y = input.strOutcome;
 
@@ -21,7 +24,6 @@ HTMLWidgets.widget({
 
                         if (instance.data.config.selectedGroupIDs === 'None')
                             delete instance.data.config.selectedGroupIDs;
-                        console.log(instance.data.config.selectedGroupIDs);
                         instance.helpers.updateSelectedGroupIDs(
                             instance.data.config.selectedGroupIDs
                         );
@@ -47,16 +49,15 @@ HTMLWidgets.widget({
                     input.dfGroups
                 );
 
-                // Add dropdown that highlights group IDs.
-                let groupSelect;
+                // Add dropdowns that highlight group IDs.
                 if (input.bAddGroupSelect) {
-
-                    groupSelect = addGroupSelect(
+                    const { groupSelect, countrySelect } = addWidgetControls(
                         el,
                         input.dfResults,
-                        instance,
-                        `Highlighted ${input.lMetric.Group || 'group'}: `
+                        input.lMetric,
+                        input.dfGroups
                     );
+                    countrySelect.parentElement.style.display = 'none'; // hide country select
                 }
             },
             resize: function(width, height) {
