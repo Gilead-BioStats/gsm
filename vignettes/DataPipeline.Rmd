@@ -79,10 +79,6 @@ The reporting data pipeline has a `data_reporting.yaml` file that runs through a
 
 # Custom Pipelines
 
-## QTL and Country Analysis
-
-The default KRI data pipeline runs site-level analyses on sourced clinical data. `{gsm}` also has the capability to run overall study-level analyses using Quality Tolerance Limits, or QTLs. For example, a user can evaluate the protocol deviation rate at a study-level. Analyses can also be categorized by country identifiers if desired. A user can also run custom pipelines (e.g. stratified analysis) as well (see [Appendix 2](#Appendix-2-Workflow-ID-Specs) for workflow nomenclature and examples).
-
 ## Running Multiple KRIs
 
 Running multiple assessments simultaneously for a single study is a common use case of `{gsm}` and the package provides workflow and reporting functions to streamline this process.

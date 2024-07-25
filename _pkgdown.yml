@@ -62,7 +62,6 @@ reference:
       - Flag_Fisher
       - Flag_NormalApprox
       - Flag_Poisson
-      - Flag_QTL
       - Summarize
 
   - title: Reporting
@@ -74,10 +73,6 @@ reference:
       - Report_MetricCharts
       - Report_MetricTable
 
-  - title: QTL
-    desc: Runs QTL analysis for longitudinal metrics
-  - contents:
-      - Analyze_QTL
 
   - title: Utility
     desc: Utility functions for use within the Data Pipeline
