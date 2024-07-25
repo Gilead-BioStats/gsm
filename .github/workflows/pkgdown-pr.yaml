@@ -43,3 +43,7 @@ jobs:
       - name: build pkgdown reference index
         run: pkgdown::build_reference_index()
         shell: Rscript {0}
+
+      - name: build pkgdown articles
+        run: pkgdown::build_articles()
+        shell: Rscript {0}
