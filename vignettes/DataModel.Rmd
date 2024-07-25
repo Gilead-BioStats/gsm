@@ -2,7 +2,7 @@
 title: "Data Model"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Data Pipeline}
+  %\VignetteIndexEntry{Data Model}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -31,19 +31,19 @@ This vignette provides a high-level overview of how each type of data is used, a
 
 # Data Model Overview 
 
-In general, `{gsm}` is designed to be flexible and customizable, allowing users build custom data piplelines that support many types of raw study data. As shown below, raw clinical data is transformed into mapped data, which is then analyzed to calculate desired metrics. The analysis data is then combined and formetted for reporting with additional raw data, including CTMS data and gsm workflow data, added so that relevant metadata can be provided in reports.
+In general, `{gsm}` is designed to be flexible and customizable, allowing users build custom data pipelines that support many types of raw study data. As shown below, raw clinical data is transformed into mapped data, which is then analyzed to calculate desired metrics. The analysis data is then combined and formatted for reporting with additional raw data, including CTMS data and `{gsm}` workflow data, which provides relevant metadata for reports.
 
 ![](data-model-simple.PNG){width="100%"}
 
 # Raw and Mapped Data
 
-`{gsm}` is designed to work with a wide variety of clinical data sources. The raw data used in the analysis pipeline is typically sourced from clinical trial databases and is transformed into mapped data using simple transformations. Mapped data is then used as input for the analyis pipeline. 
+`{gsm}` is designed to work with a wide variety of clinical data sources. The raw data used in the analysis pipeline is typically sourced from clinical trial databases and is transformed into mapped data using simple transformations. Mapped data is then used as input for the analysis pipeline. 
 
-There is not a single data standard for raw or mapped data in `{gsm}`. The only requirement is that the mapped data is compatible with the analytics pipeline. Data Mapping transformations can be done using multiple methods including custom R scripts (e.g., with `dplyr`), SQL queries, or using `gsm` workflows (e.g. the `inst/data_mapping.yaml` file). Examples of these methods can be found in the [Cookbook Vignette](Cookbook.html).
+There is not a single data standard for raw or mapped data in `{gsm}`. The only requirement is that the mapped data is compatible with the analytics pipeline. Data Mapping transformations can be done using multiple methods including custom R scripts (e.g., with `dplyr`), SQL queries, or using `gsm` workflows (e.g. the `system.file("workflow/data_mapping.yaml", package = "gsm")` file). Examples of these methods can be found in the [Cookbook Vignette](Cookbook.html).
 
 # Analysis Data 
 
-In {gsm} analysis data is used to capture key metrics associated with the conduct of a clinical trial. As described in the {gsm} readme, 12 standard Key Risk Indicator (KRI) metrics are included in the package along with automated workflows that allow them to be run for all sites or countries in a study. Examples of KRIs include the rate of adverse events or amount of missing data at a site or across sites. Defining and deploying KRIs during continually monitor risks to the integrity of the trial and take corrective actions accordingly. 
+In `{gsm}` analysis data is used to capture key metrics associated with the conduct of a clinical trial. As described in the `{gsm}` readme, 12 standard Key Risk Indicator (KRI) metrics are included in the package along with automated workflows that allow them to be run for all sites or countries in a study. Examples of KRIs include the rate of adverse events or amount of missing data at a site or across sites. Defining and deploying KRIs during continually monitor risks to the integrity of the trial and take corrective actions accordingly. 
 
 ![](data-analysis.PNG){width="100%"}
 
@@ -53,7 +53,7 @@ The image above provides an overview of the default KRI analysis pipeline. The p
 2.  `dfTransformed`: Transformed data; Site-level transformed data including KRI calculation. Created by `Transform_*()` functions using `dfInput` as input.
 3.  `dfAnalyzed`: Analyzed data; Site-level analysis results data. Created by `Analyze_*()` functions using `dfTransformed` as input.
 4.  `dfFlagged`: Flagged data; Site-level analysis results with flags added to indicate potential statistical outliers. Created by passing numeric thresholds to a `Flag_*()` function using `dfAnalyzed` as input.
-5.  `dfSummary`: Summary data; Standardized subset of the flagged data. This summary data has the same structure for all assessments and always includes both KRI and Flag values so that a user can easily look at trends for any given site across multiple assessments. Created using the `Summarize()` function using `dfSummary` as input.
+5.  `dfSummary`: Summary data; Standardized subset of the flagged data. This summary data has the same structure for all assessments and always includes both KRI and Flag values so that a user can easily look at trends for any given site across multiple assessments. Created using the `Summarize()` function using `dfFlagged` as input.
 
 The data requirements for each component of the analysis pipeline are rigid; See [Appendix 1](#Appendix-1-Data-Model) for full specifications.
 
@@ -73,119 +73,12 @@ More details about analysis data pipelines can be found in the [Analysis Deep Di
 
 A rigid Reporting Data framework is provided in {gsm} to allow for standardized reporting, visualization and meta-analysis that compare risk profiles across timepoints, and even across multiple studies.  The Reporting Data sets used in {gsm} are: 
 
-1. `dfResults`: Summary data; Standardized subset of the flagged data. This summary data has the same structure for all assessments and always includes both KRI and Flag values so that a user can easily look at trends for any given site across multiple assessments. Created using the `Summarize()` function in the analytics pipeline, followed by the `BindResults()` function to add columns necesary for reporting and stack metrics and snapshots into a single data.frame.
+1. `dfResults`: Summary data; Standardized subset of the flagged data. This summary data has the same structure for all assessments and always includes both KRI and Flag values so that a user can easily look at trends for any given site across multiple assessments. Created using the `Summarize()` function in the analytics pipeline, followed by the `BindResults()` function to add columns necessary for reporting and stack metrics and snapshots into a single data.frame.
 3. `dfBounds`: Bounded data; A data.frame containing predicted boundary values with upper and lower bounds across the range of observed values. Created with the `MakeBounds()` function.
 4. `dfGroups`: Grouped data; Long data.frame of summarized group CTMS data with site, study, and country level counts and metrics. Constructed by binding data.frames created with `MakeLongMeta()`.
 5. `dfMetrics`: Metric metadata; Metric-specific metadata for use in charts and reporting. Created by passing an `lWorkflow` object to the `MakeMetric()` function.
 
 Similar to Analysis Workflows, reporting data pipelines can be run as R scripts or as YAML workflows.  Example 3 in the cookbook vignette shows how to populate the Reporting Data tables using output from the Analysis Workflows and other study data sources. The Reporting Deep Dive Vignette provides more details on the Reporting Data model.
-
-
----- Move the content below to the reporting deep dive ----
-
-has a `data_reporting.yaml` file that runs through all steps to produce all five of these data.frames so that they can be used to create charts and reports. This `yaml` file, and all analysis workflow yaml files can be found  at `system.file("workflow", package = "gsm")`. The `lData` list required to run this workflow with `RunWorkflow()` must contain the following elements:
-
-1. `ctms_site`: CTMS site-level data set.
-2. `ctms_study`: CTMS study-level data set.
-3. `dfEnrolled`: data.frame of enrolled participants for this study.
-4. `lWorkflows`: List of workflows, created with `MakeWorkflowList()`.  
-5. `lAnalysis`: List of data.frames from the analysis workflow.
-6. `dSnapshotDate`: Date of the snapshot (typically current date via `Sys.Date()`).
-7. `strStudyID`: String of the study ID to be appended to data for use in charts and reports.
-
-# Custom Pipelines
-
-## QTL and Country Analysis
-
---- TODO: Move this to Analysis Deep Dive ---
-The default KRI data pipeline runs site-level analyses on sourced clinical data. `{gsm}` also has the capability to run overall study-level analyses using Quality Tolerance Limits, or QTLs. For example, a user can evaluate the protocol deviation rate at a study-level. Analyses can also be categorized by country identifiers if desired. A user can also run custom pipelines (e.g. stratified analysis) as well (see [Appendix 2](#Appendix-2-Workflow-ID-Specs) for workflow nomenclature and examples).
-
-## Running Multiple KRIs
-
---- To Do Move to reporting deep dive ---
-Running multiple assessments simultaneously for a single study is a common use case of `{gsm}` and the package provides workflow and reporting functions to streamline this process.
-
-`RunWorkflows()` attempts to run one or more assessment workflows using shared data and metadata. The metadata used for this study-level assessment is described in detail in [Appendix 1](#Appendix-1-Metadata-Technical-Specifications). The `RunWorkflows()` function returns a list of assessments containing status information and results that is used as input for the reporting workflow and charting and reporting functions described below.
-
-Once all reporting data.frames are created using the `data_reporting.yaml` workflow as discussed above, a user will create charts for all of the metrics specified in the analysis pipeline. `Visualize_Metric()` is a function that creates all available charts for a metric using the data provided. If the `dfResults` provided to `Visualize_Metric()` contains multiple data with multiple dates, then the `timeSeries` charts will be included in the list of charts returned. The output of this function is a list containing the following charts:
-
- - `scatterJS`: A scatter plot using JavaScript.
- - `scatter`: A scatter plot using ggplot2.
- - `barMetricJS`: A bar chart using JavaScript with metric on the y-axis.
- - `barScoreJS`: A bar chart using JavaScript with score on the y-axis.
- - `barMetric`: A bar chart using ggplot2 with metric on the y-axis.
- - `barScore`: A bar chart using ggplot2 with score on the y-axis.
- - `timeSeriesContinuousMetricJS`: A time series chart using JavaScript with metric on the y-axis.
- - `timeSeriesContinuousScoreJS`: A time series chart using JavaScript with score on the y-axis.
- - `timeSeriesContinuousNumeratorJS`: A time series chart using JavaScript with numerator on the y-axis.
-
-Now that all inputs for the `Report_KRI()` function have been produced, it can be called to create a detailed report showing both charts and listings summarizing each KRI that was run for the study.
-
-Putting all of these steps together, the following script will create a sample report using both the analysis and reporting workflows for the AE KRI.
-
-```{r, eval = FALSE}
-lRaw <- list(
-    dfSUBJ = clindata::rawplus_dm,
-    dfAE = clindata::rawplus_ae,
-    dfPD = clindata::ctms_protdev,
-    dfLB = clindata::rawplus_lb,
-    dfSTUDCOMP = clindata::rawplus_studcomp,
-    dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
-    dfDATACHG = clindata::edc_data_points,
-    dfDATAENT = clindata::edc_data_pages,
-    dfQUERY = clindata::edc_queries,
-    dfENROLL = clindata::rawplus_enroll
-)
-
-# Make Workflow Lists
-wf_mapping <- MakeWorkflowList(strNames = "mapping")
-wf_kri <- MakeWorkflowList(strNames="kri0001")
-wf_reporting <- MakeWorkflowList(strNames = "reporting")
-
-# Generate Mapped Data
-lMapped <- RunWorkflows(lWorkflow = wf_mapping, lData = lRaw)
-
-# Generate Analysis Results Data
-lAnalysis <- RunWorkflows(lWorkflow = wf_kri, lData = lMapped)
-
-# Generate Reporting Data
-lReporting_Input <- list(
-    ctms_site = clindata::ctms_site,
-    ctms_study = clindata::ctms_study,
-    dfEnrolled =lMapped$dfEnrolled,
-    lWorkflows = wf_kri,
-    lAnalysis = list(kri0001 = lAnalysis),
-    dSnapshotDate = Sys.Date(),
-    strStudyID = "ABC-123"
-)
-
-lReporting <- RunWorkflows(lWorkflow = wf_reporting, lData = lReporting_Input)
-
-# Convenience Mappings
-dfGroups <- lReporting$dfGroups
-dfMetrics <- lReporting$dfMetrics
-dfResults <- lReporting$dfResults
-dfBounds <- lReporting$dfBounds
-
-# Create Charts for all metrics
-options(vsc.viewer = FALSE)
-metrics <- unique(dfMetrics$MetricID)
-charts <- metrics %>% map(~Visualize_Metric(
-  dfResults = dfResults,
-  dfBounds = dfBounds,
-  dfGroups = dfGroups,
-  dfMetrics = dfMetrics,
-  strMetricID = .x
-)) %>% setNames(metrics)
-
-Report_KRI(lCharts = charts,
-           dfResults = dfResults,
-           dfGroups = dfGroups,
-           dfMetrics = dfMetrics,
-           strOutpath = "~/test_report_kri.html")
-```
-
-Additional examples are provided in the [Cookbook Vignette](Cookbook.html).
 
 # Appendix 1 - Data Model
 
@@ -242,7 +135,6 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
     - `Analyze_Identity()`
     - `Analyze_NormalApprox()`
     - `Analyze_Poisson()`
-    - `Analyze_QTL()`
   - Inputs: `dfTransformed`
   - Usage: Prepare the data for `Flag_*()` by performing the specified test on the metric provided.
   - Structure:
@@ -266,7 +158,6 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
     - `Flag_Identity()`
     - `Flag_NormalApprox()`
     - `Flag_Poisson()`
-    - `Flag_QTL()`
   - Inputs: `dfAnalyzed`
   - Usage: Flag a group-level metric to be summarized via `Summarize()` and used for reporting.
   - Structure:
@@ -312,18 +203,18 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
   - Usage: Summarize KRI at the group level for reporting.
   - Structure:
 
-  | Table    | Column Name  | Description                          | Type     | Optional  |  rbm-viz Column Name |
+  | Table    | Column Name  | Description                          | Type     | Optional  | 
   |----------|--------------|--------------------------------------|----------|--|-----------|
-  | dfResults      | GroupID      | The group ID for the metric          | Character| | groupid |
-  | dfResults      | GroupLevel   | The group type for the metric (e.g. "Site")    | Character| | - |
-  | dfResults      | Numerator    | The calculated numerator value       | Numeric  | | numerator |
-  | dfResults      | Denominator  | The calculated denominator value     | Numeric | | denominator |
-  | dfResults      | Metric       | The calculated rate/metric value     | Numeric  | | metric |
-  | dfResults      | Score        | The calculated metric score          | Numeric  | | score |
-  | dfResults      | Flag         | The calculated flag                  | Numeric  | | flag |
-  | dfResults      | MetricID     | The Metric ID                        | Character| * | workflowid |
-  | dfResults      | StudyID      | The Study ID                         | Character| * | studyid |
-  | dfResults      | SnapshotDate | The Date of the snapshot             | Date     | * | snapshot_date |
+  | dfResults      | GroupID      | The group ID for the metric          | Character| |
+  | dfResults      | GroupLevel   | The group type for the metric (e.g. "Site")    | Character| |
+  | dfResults      | Numerator    | The calculated numerator value       | Numeric  | |
+  | dfResults      | Denominator  | The calculated denominator value     | Numeric | |
+  | dfResults      | Metric       | The calculated rate/metric value     | Numeric  | |
+  | dfResults      | Score        | The calculated metric score          | Numeric  | | 
+  | dfResults      | Flag         | The calculated flag                  | Numeric  | |
+  | dfResults      | MetricID     | The Metric ID                        | Character| * |
+  | dfResults      | StudyID      | The Study ID                         | Character| * |
+  | dfResults      | SnapshotDate | The Date of the snapshot             | Date     | * |
 
 ### `dfBounds`
   - Function(s) used to create table:
@@ -334,16 +225,16 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
   - Usage: Calculates predicted percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values for reporting.
   - Structure:
 
-  | Table    | Column Name  | Description                          | Type     | Optional  |   rbm-viz Column Name |
+  | Table    | Column Name  | Description                          | Type     | Optional  |
   |----------|--------------|--------------------------------------|----------|--|----------|
-  | dfBounds | Threshold    | The number of standard deviations that the upper and lower bounds are based on   | Numeric| | threshold |
-  | dfBounds | Denominator  | The calculated denominator value     | Numeric | | denominator |
-  | dfBounds | LogDenominator  | The calculated log denominator value     | Numeric | | log_denominator |
-  | dfBounds | Numerator    | The calculated numerator value       | Numeric  | | numerator |
-  | dfBounds | Metric       | The calculated rate/metric value     | Numeric  | | - |
-  | dfBounds | MetricID     | The Metric ID                        | Character|  | workflowid |
-  | dfBounds | StudyID      | The Study ID                         | Character|  | studyid |
-  | dfBounds | SnapshotDate | The Date of the snapshot             | Date     |  | snapshot_date |
+  | dfBounds | Threshold    | The number of standard deviations that the upper and lower bounds are based on   | Numeric| |
+  | dfBounds | Denominator  | The calculated denominator value     | Numeric | |
+  | dfBounds | LogDenominator  | The calculated log denominator value     | Numeric | |
+  | dfBounds | Numerator    | The calculated numerator value       | Numeric  | |
+  | dfBounds | Metric       | The calculated rate/metric value     | Numeric  | |
+  | dfBounds | MetricID     | The Metric ID                        | Character|  |
+  | dfBounds | StudyID      | The Study ID                         | Character|  | 
+  | dfBounds | SnapshotDate | The Date of the snapshot             | Date     |  |
 
 ###  `dfGroups`
   - Function(s) used to create table:
@@ -386,18 +277,18 @@ Expected `Param` by `GroupLevel` for use in gsm reporting. User may add other Pa
   - Usage: Metadata used for charts and tables
   - Structure:
 
-  | Table    | Column Name  | Description                          | Type     | Optional  | rbm-viz Column Name |
+  | Table    | Column Name  | Description                          | Type     | Optional  |
   |----------|--------------|--------------------------------------|----------|--| -------------- |
-  | dfMetrics| File         | The yaml file for workflow          | Character| | file          | 
-  | dfMetrics| MetricID     | ID for the Metric   | Character| | workflowid |
-  | dfMetrics| Group        | The group type for the metric (e.g. "Site")      | Character| | group |
-  | dfMetrics| Abbreviation | Abbreviation for the metric   | Character| | abbreviations |
-  | dfMetrics| Metric       | Name of the metric    | Character| | metric |
-  | dfMetrics| Numerator    | Data source for the Numerator          | Character| |numerator      |
-  | dfMetrics| Denominator  | Data source for the Denominator | Character| | denominator   |
-  | dfMetrics| Model        | Model used to calculate metric     | Character| | model         |
-  | dfMetrics| Score        | Type of Score reported      | Character| | score         |
-  | dfMetrics| Threshold   | Thresholds to be used for bounds and flags     | Character| | vthreshold    |
+  | dfMetrics| File         | The yaml file for workflow          | Character|           | 
+  | dfMetrics| MetricID     | ID for the Metric   | Character| |
+  | dfMetrics| Group        | The group type for the metric (e.g. "Site")      | Character| | 
+  | dfMetrics| Abbreviation | Abbreviation for the metric   | Character| | 
+  | dfMetrics| Metric       | Name of the metric    | Character| | 
+  | dfMetrics| Numerator    | Data source for the Numerator          | Character| |
+  | dfMetrics| Denominator  | Data source for the Denominator | Character| | 
+  | dfMetrics| Model        | Model used to calculate metric     | Character| | 
+  | dfMetrics| Score        | Type of Score reported      | Character| | 
+  | dfMetrics| Threshold   | Thresholds to be used for bounds and flags     | Character| |
 
 
 # Previous Versions
@@ -408,22 +299,22 @@ Expected `Param` by `GroupLevel` for use in gsm reporting. User may add other Pa
   - Usage: Site-level data for gsm reporting
   - Structure:
 
-| Table       | Column                | Description                       |Type      | Optional  |   rbm-viz Column Name |
+| Table       | Column                | Description                       |Type      | Optional  |
 |-------------|-----------------------|-----------------------------------|----------|-----------|-----------|
-| dfSite | protocol_row_id       | Protocol row ID                   | Character | |protocol_row_id  | 
-| dfSite | SiteID                | Unique Site ID                    | Character| | site_id  |
-| dfSite | site_row_id           | Site row ID                       | Character| | site_row_id  |
-| dfSite | protocol              | Protocol ID                       | Character| | protocol  |
-| dfSite | pi_number             | Principal Investigator Number     | Character| | pi_number |
-| dfSite | pi_last_name          | Principal Investigator Last Name  | Character| | pi_last_name|
-| dfSite | pi_first_name         | Principal Investigator First Name | Character| | pi_first_name |
-| dfSite | site_status           | Site Status                       | Character | | site_status |
-| dfSite | is_satellite          | Is site a satellite location      | Character| | is_satellite  |
-| dfSite | account               |                                   | Character| | account   |
-| dfSite | site_active_dt        | Date that Site became active      | Character| | site_active_dt |
-| dfSite | city                  | Site City                         | Character| | city |
-| dfSite | state                 | Site State                        | Character| | state  |
-| dfSite | country               | Site Country                      | Character| | country |
+| dfSite | protocol_row_id       | Protocol row ID                   | Character | |
+| dfSite | SiteID                | Unique Site ID                    | Character| | 
+| dfSite | site_row_id           | Site row ID                       | Character| | 
+| dfSite | protocol              | Protocol ID                       | Character| | 
+| dfSite | pi_number             | Principal Investigator Number     | Character| | 
+| dfSite | pi_last_name          | Principal Investigator Last Name  | Character| | 
+| dfSite | pi_first_name         | Principal Investigator First Name | Character| | 
+| dfSite | site_status           | Site Status                       | Character | | 
+| dfSite | is_satellite          | Is site a satellite location      | Character| | 
+| dfSite | account               |                                   | Character| | 
+| dfSite | site_active_dt        | Date that Site became active      | Character| | 
+| dfSite | city                  | Site City                         | Character| | 
+| dfSite | state                 | Site State                        | Character| | 
+| dfSite | country               | Site Country                      | Character| | 
 
 ###  `dfStudy`
   - Function used to create table: Simple transformation of CTMS data using `RunQuery()`
