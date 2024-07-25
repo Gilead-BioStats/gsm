@@ -48,25 +48,22 @@ ui <- fluidPage(
         selected = unique(dfResults$SnapshotDate),
         multiple = TRUE,
         selectize = FALSE
-      )
+      ),
+      width = 2
     ),
     mainPanel(
+      width = 10,
       tabsetPanel(
         tabPanel(
           "Charts",
-          div(
-            div(
-              style = "overflow: auto; max-height: 400px; margin-bottom: 15px;",
-              Widget_FlagOverTimeOutput("FlagOverTime")
-            ),
-            div(
-              style = "overflow: auto;",
-              shiny::div(
-                style = "font-size: 20px; font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';",
-                "Group Overview"
-              ),
-              Widget_GroupOverviewOutput("GroupOverview")
-            )
+          shiny::column(
+            width = 6,
+            # Widget_FlagOverTimeOutput("FlagOverTime")
+            uiOutput("FlagOverTime")
+          ),
+          shiny::column(
+            width = 6,
+            uiOutput("GroupOverview")
           )
         ),
         tabPanel("Data", DT::dataTableOutput("results"))
@@ -92,7 +89,7 @@ server <- function(input, output, session) {
   })
 
   # Widget_GroupOverview
-  output$GroupOverview <- renderWidget_GroupOverview({
+  output$GroupOverview <- renderUI({
     Widget_GroupOverview(
       dfResults = rResults_Latest(),
       dfMetrics = rMetrics(),
@@ -102,10 +99,16 @@ server <- function(input, output, session) {
   })
 
   # Widget_FlagOverTime
-  output$FlagOverTime <- renderWidget_FlagOverTime(
-    dfResults = rResults(),
-    dfMetrics = rMetrics()
-  )
+  # output$FlagOverTime <- renderWidget_FlagOverTime(
+  #   dfResults = rResults(),
+  #   dfMetrics = rMetrics()
+  # )
+  output$FlagOverTime <- renderUI({
+    Widget_FlagOverTime(
+      dfResults = rResults(),
+      dfMetrics = rMetrics()
+    )
+  })
 
   # Data
   output$results <- DT::renderDataTable({rResults()})
