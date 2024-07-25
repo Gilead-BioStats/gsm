@@ -2,7 +2,6 @@ test_that("Widget_FlagOverTime creates a valid HTML widget", {
   widget <- Widget_FlagOverTime(
     reportingResults,
     reportingMetrics,
-    reportingGroups,
     strGroupLevel = "Site"
   )
   expect_s3_class(widget, c("WidgetGroupOverview", "htmlwidget"))
