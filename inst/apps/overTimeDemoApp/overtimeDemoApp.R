@@ -1,11 +1,9 @@
 devtools::load_all()
 library(shiny)
-# TODO
-# - Hack drop-downs to talk to one another.
-# - Run this with data that includes all KRIs (#1703)
 
-# Load data
+# Prep data --------------------------------------------------------------------
 dfResults <- gsm::reportingResults %>%
+  # Remove the first Snapshots because they're all NA-flagged.
   dplyr::filter(SnapshotDate != "2012-01-31") %>%
   dplyr::mutate(
     # Fast-forward the dates so we span 2 years.
@@ -22,15 +20,8 @@ dfResults <- gsm::reportingResults %>%
 dfMetrics <- gsm::reportingMetrics
 dfGroups <- gsm::reportingGroups
 
-# Make a basic shiny app framework
+# Shiny ui ---------------------------------------------------------------------
 ui <- fluidPage(
-  tags$head(
-    tags$style(HTML("
-      .gt_table {
-        margin-left: 0 !important;
-      }
-    "))
-  ),
   titlePanel("KRI Dashboard"),
   sidebarLayout(
     sidebarPanel(
@@ -66,7 +57,7 @@ ui <- fluidPage(
           div(
             div(
               style = "overflow: auto; max-height: 400px; margin-bottom: 15px;",
-              gt::gt_output("FlagOverTime")
+              Widget_FlagOverTimeOutput("FlagOverTime")
             ),
             div(
               style = "overflow: auto;",
@@ -74,7 +65,7 @@ ui <- fluidPage(
                 style = "font-size: 20px; font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';",
                 "Group Overview"
               ),
-              uiOutput("GroupOverview")
+              Widget_GroupOverviewOutput("GroupOverview")
             )
           )
         ),
@@ -84,6 +75,7 @@ ui <- fluidPage(
   )
 )
 
+# Shiny server -----------------------------------------------------------------
 server <- function(input, output, session) {
   rMetrics <- reactive({
     dfMetrics %>% dplyr::filter(MetricID %in% input$MetricID)
@@ -100,7 +92,7 @@ server <- function(input, output, session) {
   })
 
   # Widget_GroupOverview
-  output$GroupOverview <- renderUI({
+  output$GroupOverview <- renderWidget_GroupOverview({
     Widget_GroupOverview(
       dfResults = rResults_Latest(),
       dfMetrics = rMetrics(),
@@ -110,18 +102,14 @@ server <- function(input, output, session) {
   })
 
   # Widget_FlagOverTime
-  output$FlagOverTime <- renderUI({
-    Widget_FlagOverTime(
-      dfResults = rResults(),
-      dfMetrics = rMetrics()
-    )
-  })
+  output$FlagOverTime <- renderWidget_FlagOverTime(
+    dfResults = rResults(),
+    dfMetrics = rMetrics()
+  )
 
   # Data
   output$results <- DT::renderDataTable({rResults()})
 }
 
-# Run the shiny app
-options(vsc.viewer = FALSE)
-
+# Run the shiny app ------------------------------------------------------------
 shinyApp(ui = ui, server = server, options = list(launch.browser = TRUE))
