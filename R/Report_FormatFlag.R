@@ -27,3 +27,7 @@ Report_FormatFlag <- function(flag_value, title = NULL) {
 fa_titled <- function(name, fill, title) {
   fontawesome::fa(name, fill = fill, title = title)
 }
+
+fa_titled <- function(name, fill, title) {
+  fontawesome::fa(name, fill = fill, title = title)
+}
