@@ -29,7 +29,7 @@ testthat::test_that("Given appropriate raw participant-level data, flag values a
   })
 
   expect_equal(test_output, hardcode_output)
-kri_workflows$cou0001$steps[[6]]
+
   # test for identical output
   yaml_test <- map(test_nMinDenominator, function(test){
     for(workflow in names(kri_workflows)){

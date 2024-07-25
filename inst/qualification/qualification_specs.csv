@@ -1,11 +1,25 @@
-Spec,Test ID,Tests,Function Name,Description,Risk,Impact,Spec Status,Spec Comments,Test Status,Test Comments
-1,1,T1_1,mapping.yaml,"lData is correctly mapped for processing using ""mapping.yaml"" in conjunction with `MakeWorkflowList()` and `RunWorkflow`",High,High,Awaiting Approval,,In progress,
-2,1,T2_1,Input_Rate,"Given appropriate data arguments, correctly derive rate for each workflow.",High,High,Awaiting Approval,,In progress,
-3,1,T3_1,Transform_Rate,"Given appropriate workflow specific output from `Input_Rate()`, correctly transforms and condenses data down to specified group level",High,High,Awaiting Approval,,In progress,
-4,1,T4_1,Analyze_NormalApprox,"Given appropriate workflow specific output from `Transform_Rate()`, correctly proforms normal approximation statistics using `binary` strType",High,High,Awaiting Approval,,In progress,
-4,2,T4_2,Analyze_NormalApprox,"Given appropriate workflow specific output from `Transform_Rate()`, correctly proforms normal approximation statistics using `rate` strType",High,High,Awaiting Approval,,In progress,
-5,1,T5_1,Analyze_NormalApprox_PredictBounds,"Given appropriate workflow specific output from `Transform_Rate()` and threshold values, correctly derives Metric using normal approximation statistics for 'binary' strType",High,High,Awaiting Approval,,In progress,
-5,2,T5_2,Analyze_NormalApprox_PredictBounds,"Given appropriate workflow specific output from `Transform_Rate()` and threshold values, correctly derives Metric using normal approximation statistics for 'rate' strType",High,High,Awaiting Approval,,In progress,
-6,1,T6_1,Flag_NormalApprox,"Given appropriate workflow specific output from `Analyze_NormalApprox()` and threshold values, correctly assigns flags to  group based on Score relative to threshold",High,High,Awaiting Approval,,In progress,
-7,1,T7_1,Summarize,"Given appropriate workflow specific output from `Flag()` and threshold values, correctly assesses numerator and denominator",High,High,Awaiting Approval,,In progress,
-2,3,T7_2,Summarize,"Given partial output from `Flag()` and threshold values, assigns custom minimum denominator properly.",High,High,Awaiting Approval,,In progress,
+Spec, Test,Description,Risk,Impact,Spec Status,Spec Comments,Test Status
+1,T1_1,"Given raw participant-level data, all necessary data.frame transformations are made to create input data for all workflows",High,High,complete,,complete
+1,T2_1,"Given raw participant-level data, a properly specified Workflow for a KRI creates summarized and flagged data ",High,High,complete,,complete
+2,T2_2,"Given raw participant-level data with missingness, a properly specified Workflow for a KRI creates summarized and flagged data ",High,High,complete,,complete
+1,T3_1,"Given pre-processed input data, a properly specified Workflow for a KRI creates summarized and flagged data ",High,High,complete,,complete
+1,T4_1,"Given appropriate metadata (i.e. vThresholds), flagged observations are properly marked in summary data",High,High,complete,,complete
+2,T4_2,"Given appropriate metadata (i.e. vThresholds), data.frame of bounds can be created",High,High,complete,,complete
+1,T5_1,"Given appropriate raw participant-level data, flag values can be correctly assigned to records that meet flagging criteria, including custom thresholding.",High,High,complete,,complete
+2,T5_2,"Given appropriate raw participant-level data, flag values are correctly assigned as NA for sites with low enrollment.",High,High,complete,,complete
+3,T5_3,"Given appropriate raw participant-level data, an Adverse Event Assessment can be done using the Normal Approximation method.",High,High,complete,,complete
+1,T6_1,"Adverse Event Assessments can be done correctly using a grouping variable, such as Site or Country for KRIs, and Study for QTLs, when applicable.",High,High,complete,,complete
+1,T7_1,"Given appropriate raw participant-level data, a Protocol Deviation Assessment can be done using the Normal Approximation method.",High,High,complete,,complete
+2,T7_2,"Protocol Deviation Assessments can be done correctly using a grouping variable, such as Site or Country for KRIs, and Study for QTLs, when applicable.",High,High,complete,,complete
+1,T8_1,"Given appropriate raw participant-level data, a Dispositon Assessment can be done using the Normal Approximation method.",High,High,complete,,complete
+2,T8_2,"Disposition Assessments can be done correctly using a grouping variable, such as Site or Country for KRIs, and Study for QTLs, when applicable.",High,High,complete,,complete
+1,T9_1,"Given appropriate raw participant-level data, a Labs Assessment can be done using the Normal Approximation method.",High,High,complete,,complete
+2,T9_2,"Labs Assessments can be done correctly using a grouping variable, such as Site or Country for KRIs, and Study for QTLs, when applicable.",High,High,complete,,complete
+1,T10_1,"Given appropriate raw participant-level data, a Data Change Rate Assessment can be done using the Normal Approximation method.",High,High,complete,,complete
+2,T10_2,"Data Change Rate Assessments can be done correctly using a grouping variable, such as Site, Country, or Study, when applicable.",High,High,complete,,complete
+1,T11_1,"Given appropriate raw participant-level data, a Data Entry Lag Assessment can be done using the Normal Approximation method.",High,High,complete,,complete
+2,T11_2,"Data Entry Lag Assessments can be done correctly using a grouping variable, such as Site, Country, or Study, when applicable.",High,High,complete,,complete
+1,T12_1,"Given appropriate raw participant-level data, a Query Age Assessment can be done using the Normal Approximation method.",High,High,complete,,complete
+2,T12_2,"Query Age Assessments can be done correctly using a grouping variable, such as Site, Country, or Study, when applicable.",High,High,complete,,complete
+1,T13_1,"Given appropriate raw participant-level data, a Query Rate Assessment can be done using the Normal Approximation method.",High,High,complete,,complete
+2,T13_2,"Query Rate Assessments can be done correctly using a grouping variable, such as Site, Country, or Study, when applicable.",High,High,complete,,complete
