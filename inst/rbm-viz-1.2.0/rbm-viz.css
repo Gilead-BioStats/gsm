@@ -22,17 +22,22 @@
 /* Group Overview */
 /* ---------------------------------------------------------------------------------------------- */
 
-
 .group-overview {
     border-collapse: separate;
     border-spacing: 0.1em;
 }
 
-
-.group-overview th
+.group-overview th,
 .group-overview td {
     text-align: center;
 }
+
+.group-overview th.group-overview--tooltip,
+.group-overview td.group-overview--tooltip {
+    cursor: help;
+}
+
+/* table header */
 
 .group-overview th {
     background-color: #f2f2f2;
@@ -43,22 +48,23 @@
 .group-overview th.group-overview--group {
 }
 
-.group-overview th.group-overview--metric {
-    font-size: .8em;
+.group-overview td.group-overview--nRedFlags {
 }
 
-.group-overview th.group-overview--tooltip,
-.group-overview td.group-overview--tooltip {
-    cursor: help;
+.group-overview td.group-overview--nAmberFlags {
 }
+
+.group-overview th.group-overview--metric {
+    font-size: 0.8em;
+}
+
+/* table body */
 
 .group-overview td {
-    text-align: center;
 }
 
-.group-overview td.group-overview--metric {
-    width: 3em;
-    text-align: center;
+.group-overview th.group-overview--group {
+    white-space: nowrap;
 }
 
 .group-overview td.group-overview--nRedFlags {
@@ -69,3 +75,7 @@
     background-color: #ffcc99;
 }
 
+.group-overview td.group-overview--metric {
+    width: 3em;
+    text-align: center;
+}

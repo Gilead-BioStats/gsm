@@ -1,3 +1,8 @@
+/**
+ * This function highlights a group ID in all widgets.
+ *
+ * @returns {undefined}
+ */
 function overallClick() {
   const widgets = [
       ...document.querySelectorAll('.gsm-widget')
@@ -8,7 +13,7 @@ function overallClick() {
 
   for (const widget of widgets) {
     if (/timeSeries/.test(widget.type)) {
-      widget.chart.helpers.updateSelectedGroupIDs(event.target.value);
+        widget.chart.helpers.updateSelectedGroupIDs(event.target.value);
     } else {
         widget.chart.data.config.selectedGroupIDs = event.target.value; // group ID
         widget.chart.helpers.updateConfig(
@@ -32,6 +37,11 @@ function overallClick() {
   }
 }
 
+/**
+ * This function adds a dropdown to the report of all available group IDs.
+ *
+ * @returns {undefined}
+ */
 function overallGroupDropdown() {
     // add container for drop-down
     const overallGroupSelectContainer = document.getElementById('overall-group-select');
@@ -57,6 +67,7 @@ function overallGroupDropdown() {
     }
 }
 
+// add overall group select
 document.addEventListener("DOMContentLoaded", function () {
   overallGroupDropdown()
 })

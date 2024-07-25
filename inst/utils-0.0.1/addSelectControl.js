@@ -1,3 +1,12 @@
+/**
+ * Add a select control to the widget controls
+ *
+ * @param {HTMLElement} widgetControls - the container for the widget controls
+ * @param {String} label - the label for the control
+ * @param {Array} values - the values to populate the control with
+ *
+ * @returns {Node} HTML select element
+ */
 const addSelectControl = function(widgetControls, label, values) {
     // add control container
     const selectContainer = document.createElement('div');

@@ -5,6 +5,7 @@
 #' This function generates a markdown framework for charts
 #
 #' @param lCharts A list of charts for the selected metric.
+#' @param strMetricID `character` MetricID to subset the data.
 #'
 #' @return Markdown content with charts and a summary table for the metric
 #'

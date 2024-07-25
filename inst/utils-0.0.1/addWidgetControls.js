@@ -1,8 +1,8 @@
 /**
- * Adds a dropdown to highlight the selected group in the chart
+ * Adds a dropdown to highlight the selected group ID or set of group IDs in the chart.
  *
  * @param {Node} el - widget container, an element in the DOM
- * @param {Array} dfResults - analysis results from a single metric
+ * @param {Array} dfResults - analysis results for a single metric
  * @param {Object} lMetrics - metric metadata
  * @param {Array} dfGroups - group metadata
  *
@@ -27,7 +27,7 @@ const addWidgetControls = function(el, dfResults, lMetrics, dfGroups) {
     // add country select
     let countrySelect;
     if (dfGroups) {
-        const countries = getCountries(dfGroups);
+        const countries = getCountries(dfGroups, groups);
         countrySelect = addSelectControl(
             widgetControls,
             'Country',
