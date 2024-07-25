@@ -28,7 +28,7 @@ Report_OverviewText <- function(lSetup, dfResults, lStudy) {
   }
 
   glue("
-        <div style = 'margin-top: 2em;'>As of {lSetup$SnapshotDate}, {lSetup$StudyID} has {as.numeric(lStudy$ParticipantCount)} participants enrolled across {lStudy$SiteCount} {group_type}. {length(red_KRI_groups)} Site-KRI combinations have been flagged across {length(unique(red_KRI_groups))} {group_type} as shown in the Study Overview Table above.</div>
+        <div style = 'margin-top: 1em;'>As of {lSetup$SnapshotDate}, {lSetup$StudyID} has {as.numeric(lStudy$ParticipantCount)} participants enrolled across {lStudy$SiteCount} {group_type}. {length(red_KRI_groups)} Site-KRI combinations have been flagged across {length(unique(red_KRI_groups))} {group_type} as shown in the Study Overview Table above.</div>
        - <div>{length(unique(red_KRI_groups))} {group_type} have at least one red KRI</div>
        - <div>{length(unique(amber_or_red_KRI_groups))} {group_type} have at least one red or amber KRI</div>
        - <div>{length(unique(no_alert_groups))} {group_type} have neither red nor amber KRIS and are not shown</div>") %>% cat()

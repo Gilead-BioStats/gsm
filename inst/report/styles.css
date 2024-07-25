@@ -46,6 +46,9 @@ button.btn-show-report:hover {
 
 
 /* TABLE: FLAGGED SUMMARY TABLE */
+.Widget_GroupOverview {
+    height: auto !important;
+}
 .gsm-overview-table {
   font-family: var(--default);
 }
