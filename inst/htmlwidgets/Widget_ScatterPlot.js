@@ -50,8 +50,9 @@ HTMLWidgets.widget({
                 );
 
                 // Add dropdowns that highlight group IDs.
+                let groupSelect, countrySelect;
                 if (input.bAddGroupSelect) {
-                    const { groupSelect, countrySelect } = addWidgetControls(
+                    { groupSelect, countrySelect } = addWidgetControls(
                         el,
                         input.dfResults,
                         input.lMetric,
