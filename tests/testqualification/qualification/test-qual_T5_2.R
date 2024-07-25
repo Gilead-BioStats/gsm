@@ -1,9 +1,9 @@
 ## Test Setup
 source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
 
-ae_workflow <- flatten(MakeWorkflowList('kri0001_custom', yaml_path_custom))
-mapped_data <- get_data(ae_workflow, lData)
-partial_ae_workflow <- robust_runworkflow(ae_workflow, mapped_data, steps = 1:6)
+kri_workflows <- c(MakeWorkflowList(c("kri0001", "cou0001")), MakeWorkflowList('kri0001_custom', yaml_path_custom))
+mapped_data <- get_data(kri_workflows, lData)
+partial_mapped_workflows <- map(kri_workflows, ~robust_runworkflow(.x, mapped_data, steps = 1:6))
 
 ## Test Code
 testthat::test_that("Given appropriate raw participant-level data, flag values are correctly assigned as NA for sites with low enrollment.", {
@@ -12,32 +12,34 @@ testthat::test_that("Given appropriate raw participant-level data, flag values a
 
   # test output row size
   test_output <- map(test_nMinDenominator, function(test){
-    a <- cli::cli_fmt(Summarize(partial_ae_workflow$dfFlagged, nMinDenominator = test))[1]
-    as.numeric(str_extract(a, "(\\d+)(?=\\s+Site)"))
+    a <- map(partial_mapped_workflows, ~cli::cli_fmt(Summarize(.x$dfFlagged, nMinDenominator = test))[1])
+    map(a, ~as.numeric(str_extract(., "(\\d+)(?=\\s+Site)")))
   })
 
   hardcode_output <- map(test_nMinDenominator, function(test){
-    original <- nrow(partial_ae_workflow$dfFlagged)
+    original <- map(partial_mapped_workflows, ~nrow(.x$dfFlagged))
 
-    filt <- partial_ae_workflow$dfFlagged %>%
-      filter(Denominator >= test) %>%
-      nrow()
+    filt <- map(partial_mapped_workflows, function(df){
+      df$dfFlagged %>%
+        filter(Denominator >= test) %>%
+        nrow()
+    })
 
-    original - filt
+    imap(original, ~.x - filt[[.y]])
   })
 
   expect_equal(test_output, hardcode_output)
-
+kri_workflows$cou0001$steps[[6]]
   # test for identical output
   yaml_test <- map(test_nMinDenominator, function(test){
-    ae_workflow$steps[[6]]$params$nMinDenominator <- test
-    robust_runworkflow(ae_workflow, partial_ae_workflow, steps = 6)['dfSummary']
-  }) %>%
-    flatten() %>%
-    setNames(NULL)
+    for(workflow in names(kri_workflows)){
+      kri_workflows[[workflow]]$steps[[6]]$params$nMinDenominator <- test
+    }
+    imap(partial_mapped_workflows, ~robust_runworkflow(kri_workflows[[.y]], .x, steps = 6, bKeepInputData = F)[['dfSummary']])
+  })
 
   function_test <- map(test_nMinDenominator, function(test){
-    Summarize(partial_ae_workflow$dfFlagged, nMinDenominator = test)
+    map(partial_mapped_workflows, ~Summarize(.x$dfFlagged, nMinDenominator = test))
   })
 
   expect_identical(yaml_test, function_test)

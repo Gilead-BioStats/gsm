@@ -1,15 +1,15 @@
 ## Test Setup
 source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
 
-ae_workflow <- flatten(MakeWorkflowList("kri0001_custom", yaml_path_custom))
+kri_workflows <- flatten(MakeWorkflowList("kri0001_custom", yaml_path_custom))
 
-mapped_data <- get_data(ae_workflow, lData)
+mapped_data <- get_data(kri_workflows, lData)
 
-outputs <- map_vec(ae_workflow$steps, ~.x$output)
+outputs <- map_vec(kri_workflows$steps, ~.x$output)
 
 ## Test Code
 testthat::test_that("Given appropriate metadata (i.e. vThresholds), flagged observations are properly marked in summary data", {
-  test <- robust_runworkflow(ae_workflow, mapped_data)
+  test <- robust_runworkflow(kri_workflows, mapped_data)
   expect_true(all(outputs %in% names(test)))
   expect_true(is.vector(test[["vThreshold"]]))
   expect_true(all(map_lgl(test[outputs[outputs != "vThreshold"]], is.data.frame)))
