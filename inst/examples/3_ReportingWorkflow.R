@@ -66,3 +66,18 @@ snapshot <- RunWorkflows(ss_wf, lData, bKeepInputData = TRUE)
 #### 3.3 - Create a country-level KRI Report
 lData$Metrics <- 'cou'
 country_snapshot <- RunWorkflows(ss_wf, lData, bKeepInputData = TRUE)
+
+#### 3.4 Site-Level KRI Report with multiple SnapshotDate
+lCharts <- MakeCharts(
+  dfResults = gsm::reportingResults,
+  dfGroups = gsm::reportingGroups,
+  dfMetrics = gsm::reportingMetrics,
+  dfBounds = gsm::reportingBounds
+)
+
+Report_KRI(
+  lCharts = lCharts,
+  dfResults =  gsm::reportingResults,
+  dfGroups =  gsm::reportingGroups,
+  dfMetrics = gsm::reportingMetrics
+)

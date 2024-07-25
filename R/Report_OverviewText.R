@@ -1,5 +1,7 @@
 #' Create message describing study summary for Report
 #'
+#' `r lifecycle::badge("stable")`
+#'
 #' @inheritParams shared-params
 #' @param lSetup `list` that is produced by `Report_StudyInfo()`.
 #' @param lStudy `list` contains study-level metadata.

@@ -17,15 +17,9 @@ knitr::opts_chunk$set(
 
 # Introduction
 
-This vignette contains a series of examples showing how to run analysis workflows for the Good Statistical Monitoring `{gsm}` package using sample data from [`{clindata}`](https://github.com/Gilead-BioStats/clindata). 
+This vignette contains sample code showing how to use the Good Statistical Monitoring `{gsm}` package using sample data from [`{clindata}`](https://github.com/Gilead-BioStats/clindata). For more information on the `{gsm}` package see the [package homepage](https://gilead-biostats.github.io/gsm/).
 
-`{gsm}` leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level and site-level Risk Based Monitoring for clinical trials.
-
-For more information on the `{gsm}` package see the [package homepage](https://gilead-biostats.github.io/gsm/). The [Data Pipeline Vignette](https://gilead-biostats.github.io/gsm/articles/DataPipeline.html) provides additional technical details including data specifications and handling of metadata. The [Data Analysis Vignette](https://gilead-biostats.github.io/gsm/articles/DataAnalysis.html) provides detailed information about the nested functions that support the analysis workflows.
-
-## Setup and Installation
-
-### Install `{gsm}`, `{clindata}`, and `{safetyData}`
+# Setup and Installation
 
 Run the following:
 
@@ -37,181 +31,45 @@ install.packages('devtools')
 devtools::install_github("Gilead-BioStats/clindata", ref = "main")
 library(clindata)
 
-## Install and load sample CDISC-compliant SDTM and ADaM data
-install.packages('safetyData')
-library(safetyData)
-
 ## Install and load gsm
 devtools::install_github("Gilead-BioStats/gsm", ref = "main")
 library(gsm)
 ```
 
-To use the most recent development version from GitHub, run:
+# Example 1 - Adverse Events Metric - Scripted
 
-```{r eval = FALSE, include = TRUE}
-devtools::install_github("Gilead-BioStats/gsm", ref = "dev")
-```
+This example uses the standard {gsm} analysis workflows to creates site-level Adverse Event scripts. See the [Data Analysis Vignette](https://gilead-biostats.github.io/gsm/articles/DataAnalysis.html) for more detail.
 
-
-## Example 1 - Running an Assessment on Standard Data
-
-Below is the script with three examples for running an AE assessment corresponding to kri0001 and kri0002. In **Example 1.1**, we use Raw+ data from `clindata`, to create the mapped input data (via `InputRate()`), prepare that data for analysis (via `Transform_Rate()`), analyze the data with the Normal Approximation method (via `Analyze_NormalApprox()`) and flag and summarize the analyzed data (via `Flag_NormalApprox()` and `Summarize()`, respectively) in order to produce a table which aggregates site level flags for the AE risk signal.
-
-In **Example 1.2**, we run the same process as the prior example, but with a filter to include only Serious Adverse Events (SAEs) and implement pipes to run through the workflow.
-
-Finally, in order to create charts and a report for the AE assessment, a few additional steps must be taken, as seen in **Example 1.3**. First, `Analyze_NormalApprox_PredictBounds()` must be run to create a data.frame with the upper/lower bounds of the predictions (`dfBounds`). Then, a data.frame with all relevant meta information is constructed (`dfMetrics`) prior to running `Visualize_Metric()` and `Report_KRI()` which create the charts and report, respectively.
-
-
+- **Example 1.1** calculates the Site-level AE rates.
+- **Example 1.2** adds a filter to include only Serious Adverse Events (SAEs) and implements pipes to run through the workflow.
+- **Example 1.3** generates bar charts showing SAE rates and z-scores by study.
+- **Example 1.4** generates a scatter plot with confidence bound for SAE rates.
 
 ```{r file = system.file("examples", "1_AdverseEventKRI.R", package = "gsm"), eval = FALSE, include = TRUE}
 
 ```
 
+# Example 2 - Adverse Events Metrics - Workflow
 
-# Using YAML files to run workflows
+This examples introduces YAML workflows to re-generate the same results as in **Example 1** via a reusable pipeline. See the [Data Model Vignette](https://gilead-biostats.github.io/gsm/articles/DataModel.html) for more detail.
 
-All assessments can be specified with YAML files, which run through the process explained in the previous section using the following three steps:
-  
-1.  Prepare the workflow lists with `MakeWorkflowList()`
-2.  Map domain-level data to the input data standard for the assessment(s) with `RunWorkflow()`.
-3.  Run the assessment(s) using an appropriate statistical method as specified in the YAML file with `RunWorkflow`.
-
-## Example 2 - YAML workflow for AE KRI
-
-Here, we run the YAML workflow for the AE KRI (kri0001). The table produced in the `AE_KRI$dfSummary` object in **Example 2.1** will match the tables produced in Example 1.1 above.
-
-In the subsequent two examples, we update the metadata to run country-level metrics (**Example 2.2**) and add a filtering step to the workflow to generate the SAE metric (**Example 2.3**).
-
+- **Example 2.1** runs the AE KRI workflow.
+- **Example 2.2** updates the metadata to run country-level metrics.
+- **Example 2.3** adds a filtering step to the workflow to generate the SAE metric.
 
 ```{r file = system.file("examples", "2_AdverseEventWorkflow.R", package = "gsm"), eval = FALSE, include = TRUE}
 
 ```
 
-## Example 3 - Generate Charts with yaml workflow for multiple KRIs
+# Example 3 - Study-Level Reporting Workflows 
 
-In **Example 3.1** we leverage yaml workflows to generate all available site-level KRIs at once. This is possible by feeding a "kri" into `MakeWorkflowList()` followed by feeding `RunWorkflows()` the workflow list and the appropriately mapped data. This generates the data in the analytics data model. Then, to make charts and reports, we feed the analytics data and metadata into the reporting workflow to produce all charts and the report, saving the output into `lReports`.
+This example extends the previous examples to generate charts and reports for multiple KRIs. See the [Data Reporting Vignette](https://gilead-biostats.github.io/gsm/articles/DataReporting.html) for more detail.
 
-The same procedure is run through in **Example 3.2**, but with a single `snapshot.yaml` that performs both the analytics steps and the reporting steps all in one workflow. 
-
-In **Example 3.3**, the same process is done for country-level reports by editing the Metric fed into the `snapshot` workflow to "Country".
+- **Example 3.1** steps through several workflows to generate a report for all 12 standard site-level KRIs.
+- **Example 3.2** combines the analytics and reporting steps into a single workflow.
+- **Example 3.3** generates a report for all 12 standard country-level KRIs.
+- **Example 3.4** generates a report incorporating multiple timepoints using the sample `reporting` data saved as part of {gsm}.  
 
 ```{r file = system.file("examples", "3_ReportingWorkflow.R", package = "gsm"), eval = FALSE, include = TRUE}
 
 ```
-
-# Creating Charts and Reports
-
-## Example 4 - Generate Charts and a Report for multiple KRIs
-
-In this example, we feed the example reporting data.frames into the `Visualize_Metric()` function including multiple snapshot dates and multiple KRIs in the data to be reflected in the charts.
-
-We then create the site-level report using `Report_KRI()` with the example data.frames and the charts created with `Visualize_Metric()`. 
-
-```{r file = system.file("examples", "4_LongitudinalData.R", package = "gsm"), eval = FALSE, include = TRUE}
-
-```
-
-# Appendix: Custom Mapping/YAML Specifications
-
-As mentioned in Appendix 1 of the [Data Pipeline Vignette](https://gilead-biostats.github.io/gsm/articles/DataPipeline.html#Appendix-1-Metadata-Technical-Specifications), `Study_Assess()` triggers a workflow that uses pre-defined YAML specifications that organize all of the required metadata for a given assessment or set of assessments.
-
-In some cases, the user might want to configure their own mappings, which can be done by providing custom YAML mappings for one or more assessments.
-
-Let's take a look at a few examples of editing YAML files for a custom workflow below.
-
-## Example 8 - Adding a Filtering Step
-
-There are filter steps in the default specification for the AE Assessment, but we want to add an additional filter. Let's add a step that filters the `dfImportantPD` data frame so all values of `companycategory == "WRONG TREATMENT OR INCORRECT DOSE"`:
-
-The default mappings for the PD Assessment are saved under KRI 0004, i.e., `kri0004.yaml`:
-
-```{yaml, file = system.file("workflow/metrics", "kri0004.yaml", package = "gsm")}
-```
-
-First, we want to add an additional `RunQuery()` step to the workflow specification to select only PDs categorized as "WRONG TREATMENT OR INCORRECT DOSE". Because `dfImportantPD` needs to be filtered before it is used in `Input_Rate()`, the filter steps need to be placed first in the workflow.
-
-Let's name the custom YAML file `kri0004_filtered.yaml`. It reads as follows:
-
-```{yaml}
-meta:
-  File: kri0004.yaml
-  MetricID: kri0004
-  GroupLevel: Site
-  Abbreviation: PD
-  Metric: Important Protocol Deviation Rate
-  Numerator: Important Protocol Deviations
-  Denominator: Days on Study
-  Model: Normal Approximation
-  Score: Adjusted Z-Score
-  Type: rate
-  Threshold: -3,-2,2,3
-  nMinDenominator: 30
-steps:
-  - name: RunQuery
-        output: dfImportantPD_wrong_trt
-        params:
-          df: dfImportantPD
-          strQuery: "SELECT * FROM df WHERE companycategory == 'WRONG TREATMENT OR INCORRECT DOSE'"
-  - name: ParseThreshold
-    output: vThreshold
-    params:
-      strThreshold: Threshold
-  - name: Input_Rate
-    output: dfInput
-    params:
-      dfSubjects: dfEnrolled
-      dfNumerator: dfImportantPD
-      dfDenominator: dfEnrolled
-      strSubjectCol: subjid
-      strGroupCol: invid
-      strGroupLevel: GroupLevel
-      strNumeratorMethod: Count
-      strDenominatorMethod: Sum
-      strDenominatorCol: timeonstudy
-  - name: Transform_Rate
-    output: dfTransformed
-    params:
-      dfInput: dfInput
-  - name: Analyze_NormalApprox
-    output: dfAnalyzed
-    params:
-      dfTransformed: dfTransformed
-      strType: Type
-  - name: Flag_NormalApprox
-    output: dfFlagged
-    params:
-      dfAnalyzed: dfAnalyzed
-      vThreshold: vThreshold
-  - name: Summarize
-    output: dfSummary
-    params:
-      dfFlagged: dfFlagged
-      nMinDenominator: nMinDenominator
-```
-
-Now that this new workflow has been saved with a unique file name, we can call it with `MakeWorkflowList()` as above
-
-```{r eval = FALSE, include = TRUE}
-library(gsm)
-library(clindata)
-library(yaml)
-
-## Read in workflow mapping
-wf_mapping <- MakeWorkflowList(strNames = "mapping")
-wfmetrics_custom <- MakeWorkflowList("kri0004_filtered")
-
-# Create Mapped Data
-lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)
-
-# Run Metrics
-lResults <- RunWorkflow(lWorkflow = wfmetrics_custom, lData = lMapped)
-```
-
-
-# Appendix A: Full `mapping.yaml` file specification
-
-The following YAML file creates all modified rawplus dataframes needed to run all default workflows specified in the `{gsm}` package. Additional `RunQuery()` steps can be added to this file for additional user-defined workflows.
-
-```{yaml, file = system.file("workflow", "data_mapping.yaml", package = "gsm")}
-```
-
