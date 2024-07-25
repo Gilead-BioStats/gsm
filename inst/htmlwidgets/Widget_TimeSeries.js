@@ -50,16 +50,15 @@ HTMLWidgets.widget({
                 );
 
                 // Add dropdowns that highlight group IDs.
-                let groupSelect, countrySelect;
-                if (input.bAddGroupSelect) {
-                    { groupSelect, countrySelect } = addWidgetControls(
-                        el,
-                        input.dfResults,
-                        input.lMetric,
-                        input.dfGroups
-                    );
+                const { groupSelect, countrySelect } = addWidgetControls(
+                    el,
+                    input.dfResults,
+                    input.lMetric,
+                    input.dfGroups,
+                    input.bAddGroupSelect
+                );
+                if (countrySelect)
                     countrySelect.parentElement.style.display = 'none'; // hide country select
-                }
             },
             resize: function(width, height) {
             }

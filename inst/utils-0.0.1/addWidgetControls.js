@@ -8,7 +8,13 @@
  *
  * @returns {Node} HTML select element
  */
-const addWidgetControls = function(el, dfResults, lMetrics, dfGroups) {
+const addWidgetControls = function(el, dfResults, lMetrics, dfGroups, bAddGroupSelect) {
+    if (bAddGroupSelect === false)
+        return {
+            groupSelect: null,
+            countrySelect: null
+        };
+
     const instance = el.getElementsByTagName('canvas')[0].chart;
 
     // add container in which to place dropdown

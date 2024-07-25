@@ -24,7 +24,8 @@ HTMLWidgets.widget({
                         groupSelect.value = instance.data.config.selectedGroupIDs;
 
                         // Set country select to 'None' if a group ID is selected.
-                        countrySelect.value = "None";
+                        if (countrySelect)
+                            countrySelect.value = "None";
 
                         instance.helpers.updateConfig(
                             instance,
@@ -53,15 +54,13 @@ HTMLWidgets.widget({
                 );
 
                 // Add dropdowns that highlight group IDs.
-                let groupSelect, countrySelect;
-                if (input.bAddGroupSelect) {
-                    { groupSelect, countrySelect } = addWidgetControls(
-                        el,
-                        input.dfResults,
-                        input.lMetric,
-                        input.dfGroups
-                    );
-                }
+                const { groupSelect, countrySelect } = addWidgetControls(
+                    el,
+                    input.dfResults,
+                    input.lMetric,
+                    input.dfGroups,
+                    input.bAddGroupSelect
+                );
             },
             resize: function(width, height) {
             }
