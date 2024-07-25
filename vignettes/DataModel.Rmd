@@ -1,5 +1,5 @@
 ---
-title: "Data Pipeline"
+title: "Data Model"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Data Pipeline}
@@ -20,54 +20,70 @@ knitr::opts_chunk$set(
 
 # Introduction
 
-The `{gsm}` package provides a standardized workflow that leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level Risk Based Quality Management (RBQM) for clinical trials. This vignette provides an overview of the `{gsm}` data model. First, we provide a summary of the standardized data pipeline used to calculate KRIs and evaluate thresholds to set site-level flags. We also discuss workflows and reports that allow users to run multiple KRIs concurrently on a study and/or create custom data workflows.
+The `{gsm}` package provides a standardized data pipeline for conducting study-level Risk Based Quality Management (RBQM) for clinical trials. There are four main types of data used in `{gsm}`:  
 
-As an overview, clinical and operational data are analyzed using the `{gsm}` R package, which generate standardized outputs and reports suitable for use in various RBQM activities. The Appendices of this document provide detailed data input and output specifications for `{gsm}`. Below is a figure that depicts the full data pipeline, including both the Analysis and Reporting sections of the process.
+- **Raw Data** - Clinical and operational data from study databases
+- **Mapped Data** - Data that has been transformed and standardized for analysis
+- **Analysis Data** - Data that has been analyzed to calculate Key Risk Indicators (KRIs)
+- **Reporting Data** - Data that has been summarized and formatted for reporting
 
-![](data-model.PNG){width="100%"}
+This vignette provides a high-level overview of how each type of data is used, and includes detailed data specifications as appendices. 
 
-# KRI Data Pipeline
+# Data Model Overview 
 
-In the context of clinical research, a KRI is a measure of risk associated with the conduct of a clinical trial. Examples of KRIs include the rate of adverse events or amount of missing data at a site or across sites. Defining and deploying KRIs during study start-up allows sponsors to continually monitor risks to the integrity of the trial and take corrective actions accordingly.
+In general, `{gsm}` is designed to be flexible and customizable, allowing users build custom data piplelines that support many types of raw study data. As shown below, raw clinical data is transformed into mapped data, which is then analyzed to calculate desired metrics. The analysis data is then combined and formetted for reporting with additional raw data, including CTMS data and gsm workflow data, added so that relevant metadata can be provided in reports.
 
-The default KRI data pipeline begins with one or more clinical datasets related to the KRI. An optional participant-level subset is then applied to each dataset before aggregating by participant to quantify the KRI at the participant level. This aggregated dataset is then further summarized by site to obtain site-level metrics.
+![](data-model-simple.PNG){width="100%"}
 
-## Generating Input Data
+# Raw and Mapped Data
 
-Generating input data is outside the scope of the assessment pipeline. The specifications for input data (i.e., `dfInput`) are designed to be flexible enough so that this data frame can be generated from multiple clinical data standards (e.g., Raw, rawplus, or CDISC-compliant ADaM). In order to generate input data, the user uses the data frames outputted by the `data_mappings.yaml` file along with the `Input_Rate()` function to generate the `dfInput` needed for a particular KRI.
+`{gsm}` is designed to work with a wide variety of clinical data sources. The raw data used in the analysis pipeline is typically sourced from clinical trial databases and is transformed into mapped data using simple transformations. Mapped data is then used as input for the analyis pipeline. 
 
+There is not a single data standard for raw or mapped data in `{gsm}`. The only requirement is that the mapped data is compatible with the analytics pipeline. Data Mapping transformations can be done using multiple methods including custom R scripts (e.g., with `dplyr`), SQL queries, or using `gsm` workflows (e.g. the `inst/data_mapping.yaml` file). Examples of these methods can be found in the [Cookbook Vignette](Cookbook.html).
 
-This `data_mapping.yaml` file is provided for convenience, but may not work for all clinical studies. When no relevant data.frame is produced with the `data_mapping.yaml`, the user can use the `RunQuery()` function to write a SQL query that produces the properly mapped and filtered dataframe. Details on this can be found in the [Cookbook Vignette](Cookbook.html).
+# Analysis Data 
 
-## Analysis Data Pipeline
+In {gsm} analysis data is used to capture key metrics associated with the conduct of a clinical trial. As described in the {gsm} readme, 12 standard Key Risk Indicator (KRI) metrics are included in the package along with automated workflows that allow them to be run for all sites or countries in a study. Examples of KRIs include the rate of adverse events or amount of missing data at a site or across sites. Defining and deploying KRIs during continually monitor risks to the integrity of the trial and take corrective actions accordingly. 
 
 ![](data-analysis.PNG){width="100%"}
 
 The image above provides an overview of the default KRI analysis pipeline. The pipeline is a standardized five-step process for assessing data issues by going from participant-level input data to a standardized site-level summary of model results. The functions used in each step of the data pipeline along with the input and output datasets are described in more detail below.
 
-1.  `dfInput`: Input data; Cross-domain participant-level input data with all needed data for KRI derivation. Created by the `Input_Rate()` function as needed.
-2.  `dfTransformed`: Transformed data; Site-level transformed data including KRI calculation. Created by `Transform_*()` functions.
-3.  `dfAnalyzed`: Analyzed data; Site-level analysis results data. Created by `Analyze_*()` functions.
-4.  `dfFlagged`: Flagged data; Site-level analysis results with flags added to indicate potential statistical outliers. Created by passing numeric thresholds to a `Flag_*()` function.
-5.  `dfSummary`: Summary data; Standardized subset of the flagged data. This summary data has the same structure for all assessments and always includes both KRI and Flag values so that a user can easily look at trends for any given site across multiple assessments. Created using the `Summarize()` function.
+1.  `dfInput`: Input data; Cross-domain participant-level input data with all needed data for KRI derivation. Created by the `Input_Rate()` function used `mapped` data as input.
+2.  `dfTransformed`: Transformed data; Site-level transformed data including KRI calculation. Created by `Transform_*()` functions using `dfInput` as input.
+3.  `dfAnalyzed`: Analyzed data; Site-level analysis results data. Created by `Analyze_*()` functions using `dfTransformed` as input.
+4.  `dfFlagged`: Flagged data; Site-level analysis results with flags added to indicate potential statistical outliers. Created by passing numeric thresholds to a `Flag_*()` function using `dfAnalyzed` as input.
+5.  `dfSummary`: Summary data; Standardized subset of the flagged data. This summary data has the same structure for all assessments and always includes both KRI and Flag values so that a user can easily look at trends for any given site across multiple assessments. Created using the `Summarize()` function using `dfSummary` as input.
 
-Each KRI has a `.yaml` file that sequentially executes all of the supporting functions and returns a list of datasets and visualizations per the specifications of the .yaml file. In the default `yaml` files included in the `system.file("workflow/metrics", package = "gsm")` directory of this package, the 5 standard datasets that are always returned are `dfTransformed`, `dfAnalyzed`, `dfFlagged`, `dfBounds`, and `dfSummary`. A step-by-step example of the data assessment workflow can be found in the [Data Analysis Vignette](DataAnalysis.html).
+The data requirements for each component of the analysis pipeline are rigid; See [Appendix 1](#Appendix-1-Data-Model) for full specifications.
 
-Note that each step in this data pipeline can be customized based on the requirements for a specific KRI. The graphic below shows four such workflows.
+## Analysis Workflows
+Since there are rigid data requirements for each component of the analysis data model, the analysis workflow is largely standardized. There are two main approaches to running the analysis workflow:
+
+1. **Scripted Analysis**: Run each step of the analysis pipeline individually using the functions provided in the `{gsm}` package. This approach is useful for understanding the data requirements and for debugging. See Example 1 in the [Cookbook Vignette](Cookbook.html) for an example of this approach.
+2. **Workflow Analysis**: Run the analysis pipeline using a YAML workflow file. This approach is useful for running the same analysis on multiple studies or for automating the analysis process. See Example 2 in the [Cookbook Vignette](Cookbook.html) for an example of this approach.
+
+Note that each step in these workflows can be customized based on the requirements for a specific KRI. The graphic below shows four such workflows.
 
 ![](data-analysis-combined.PNG){width="100%"}
 
-## Reporting Data Pipeline
+More details about analysis data pipelines can be found in the [Analysis Deep Dive Vignette](DataAnalysis.html).
 
-The pipeline discussed here is a standardized process for creating datasets by going from a standardized site-level summary of model results and external data sources to a series of datasets that provide all group-level data and metadata needed to create charts and reports for a given KRI. Unlike the analysis workflow, there is a single workflow for reporting, as all metric-specific information was captured in the analysis phase of the overall pipeline. The functions used in each step of the data pipeline along with the input and output datasets are described in more detail below.
+# Reporting Data 
+
+A rigid Reporting Data framework is provided in {gsm} to allow for standardized reporting, visualization and meta-analysis that compare risk profiles across timepoints, and even across multiple studies.  The Reporting Data sets used in {gsm} are: 
 
 1. `dfResults`: Summary data; Standardized subset of the flagged data. This summary data has the same structure for all assessments and always includes both KRI and Flag values so that a user can easily look at trends for any given site across multiple assessments. Created using the `Summarize()` function in the analytics pipeline, followed by the `BindResults()` function to add columns necesary for reporting and stack metrics and snapshots into a single data.frame.
-4. `dfFlagged`: Flagged data; Site-level analysis results with flags added to indicate potential statistical outliers. Created by passing numeric thresholds to a `Flag_*()` function.
 3. `dfBounds`: Bounded data; A data.frame containing predicted boundary values with upper and lower bounds across the range of observed values. Created with the `MakeBounds()` function.
 4. `dfGroups`: Grouped data; Long data.frame of summarized group CTMS data with site, study, and country level counts and metrics. Constructed by binding data.frames created with `MakeLongMeta()`.
 5. `dfMetrics`: Metric metadata; Metric-specific metadata for use in charts and reporting. Created by passing an `lWorkflow` object to the `MakeMetric()` function.
 
-The reporting data pipeline has a `data_reporting.yaml` file that runs through all steps to produce all five of these data.frames so that they can be used to create charts and reports. This `yaml` file, and all analysis workflow yaml files can be found  at `system.file("workflow", package = "gsm")`. The `lData` list required to run this workflow with `RunWorkflow()` must contain the following elements:
+Similar to Analysis Workflows, reporting data pipelines can be run as R scripts or as YAML workflows.  Example 3 in the cookbook vignette shows how to populate the Reporting Data tables using output from the Analysis Workflows and other study data sources. The Reporting Deep Dive Vignette provides more details on the Reporting Data model.
+
+
+---- Move the content below to the reporting deep dive ----
+
+has a `data_reporting.yaml` file that runs through all steps to produce all five of these data.frames so that they can be used to create charts and reports. This `yaml` file, and all analysis workflow yaml files can be found  at `system.file("workflow", package = "gsm")`. The `lData` list required to run this workflow with `RunWorkflow()` must contain the following elements:
 
 1. `ctms_site`: CTMS site-level data set.
 2. `ctms_study`: CTMS study-level data set.
@@ -81,10 +97,12 @@ The reporting data pipeline has a `data_reporting.yaml` file that runs through a
 
 ## QTL and Country Analysis
 
+--- TODO: Move this to Analysis Deep Dive ---
 The default KRI data pipeline runs site-level analyses on sourced clinical data. `{gsm}` also has the capability to run overall study-level analyses using Quality Tolerance Limits, or QTLs. For example, a user can evaluate the protocol deviation rate at a study-level. Analyses can also be categorized by country identifiers if desired. A user can also run custom pipelines (e.g. stratified analysis) as well (see [Appendix 2](#Appendix-2-Workflow-ID-Specs) for workflow nomenclature and examples).
 
 ## Running Multiple KRIs
 
+--- To Do Move to reporting deep dive ---
 Running multiple assessments simultaneously for a single study is a common use case of `{gsm}` and the package provides workflow and reporting functions to streamline this process.
 
 `RunWorkflows()` attempts to run one or more assessment workflows using shared data and metadata. The metadata used for this study-level assessment is described in detail in [Appendix 1](#Appendix-1-Metadata-Technical-Specifications). The `RunWorkflows()` function returns a list of assessments containing status information and results that is used as input for the reporting workflow and charting and reporting functions described below.
@@ -171,8 +189,10 @@ Additional examples are provided in the [Cookbook Vignette](Cookbook.html).
 
 # Appendix 1 - Data Model
 
+--- TODO: Update to sync with diagram below ---
+
 # Overview 
-![](data-model.PNG){width="100%"}
+![](data-model-detailed.PNG){width="100%"}
 
 # Analytics data model
 
