@@ -1,8 +1,7 @@
 devtools::load_all()
 library(shiny)
 # TODO
-# - Improve layout
-# - Build the flag over time widget and deploy here (#1664)
+# - Hack drop-downs to talk to one another.
 # - Run this with data that includes all KRIs (#1703)
 
 # Load data
@@ -110,13 +109,13 @@ server <- function(input, output, session) {
     )
   })
 
-  # Report_FlagOverTime
-  output$FlagOverTime <- gt::render_gt({
-    Report_FlagOverTime(
+  # Widget_FlagOverTime
+  output$FlagOverTime <- renderUI({
+    Widget_FlagOverTime(
       dfResults = rResults(),
       dfMetrics = rMetrics()
     )
-  }, align = "left")
+  })
 
   # Data
   output$results <- DT::renderDataTable({rResults()})
