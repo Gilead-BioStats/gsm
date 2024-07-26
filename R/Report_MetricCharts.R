@@ -19,8 +19,7 @@ Report_MetricCharts <- function(lCharts) {
     "barScoreJS",
     "timeSeriesContinuousScoreJS",
     "timeSeriesContinuousMetricJS",
-    "timeSeriesContinuousNumeratorJS",
-    "timeseriesQtl"
+    "timeSeriesContinuousNumeratorJS"
   )
   lCharts <- lCharts[names(lCharts) %in% chartTypes]
   for (j in seq_along(lCharts)) {
