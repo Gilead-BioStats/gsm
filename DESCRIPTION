@@ -45,6 +45,7 @@ Imports:
     tidyr,
     tools,
     utils,
+    withr,
     yaml
 Suggests:
     clindata,
@@ -69,8 +70,7 @@ Suggests:
     sqldf,
     styler,
     testthat,
-    usethis,
-    withr
+    usethis
 VignetteBuilder: 
     knitr
 Remotes:
