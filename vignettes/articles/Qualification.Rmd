@@ -92,7 +92,7 @@ scrape <- map_df(spec_list, function(x) {
     
     return(testResultsRaw)
 }) %>% 
-  mutate(Tests = gsub("test_qual_", "", file),
+  mutate(Tests = gsub("test-qual_", "", file),
          Tests = gsub(".R", "", Tests))
 
 funcs <- spec_df %>%
@@ -105,7 +105,7 @@ funcs <- spec_df %>%
 testResultsIndividual <- left_join(scrape, funcs, by = "Tests") %>% 
   group_by(Function) %>%
   reframe(`Function Name` = unique(Function),
-          `Number of Tests` = n(),
+          `Number of Tests` = sum(nb),
           `Number Passed` = sum(passed),
           `Number Failed` = sum(failed),
           `Number Skipped` = sum(skipped)) %>%
@@ -128,18 +128,7 @@ knitr::kable(testResultsIndividual, booktabs = TRUE, longtable = TRUE) %>%
 qual_specs_orig <- read.csv(system.file("qualification", "qualification_specs.csv", package = "gsm"))
 qual_specs <- qual_specs_orig %>%
   mutate(SpecID = paste0("S", Spec, "_", Test.ID)) %>%
-  select(SpecID, Tests) %>%
-  tidyr::separate_rows("Tests", sep = ",") %>%
-  mutate(Tests = trimws(Tests)) %>%
-  split(.$Tests) %>%
-  purrr::map(function(x){
-    x %>%
-      group_by(Tests) %>%
-      mutate(Specs = paste(SpecID, collapse = ", ")) %>%
-      select(-SpecID) %>%
-      distinct()
-  }) %>%
-  list_rbind()
+  select(Specs = SpecID, Tests, N.Tests)
 
 ### One row per spec
 Specifications <- spec_df %>%
@@ -164,7 +153,7 @@ knitr::kable(Specifications, booktabs = TRUE, longtable = TRUE) %>%
 ```{r}
 ### One row per test
 test <- scrape_new %>%
-  mutate(result_new = ifelse(passed == 1, "Pass", "Fail")) %>%
+  mutate(result_new = ifelse(.data$passed == .data$nb, "Pass", "Fail")) %>%
   select(Tests, test, result_new, Function)
 
 Results <- left_join(test, qual_specs, by = "Tests") %>%
