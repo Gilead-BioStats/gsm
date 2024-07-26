@@ -76,6 +76,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Step-by-Step Analysis Workflow</h1>
+            <h3 data-toc-skip class="subtitle">DRAFT VERSION</h3>
             
       
       <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/dev/vignettes/DataAnalysis.Rmd" class="external-link"><code>vignettes/DataAnalysis.Rmd</code></a></small>
@@ -88,10 +89,10 @@
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
 <p>This vignette walks users through the mechanics of the functions that
-produce all of the Analytics output within the <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a>
-package. <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> leverages Key Risk Indicators (KRIs) and
-thresholds to conduct study-level and site-level Risk Based Monitoring
-for clinical trials.</p>
+produce all of the Analysis workflow output within the
+<a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> package. <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> leverages Key Risk
+Indicators (KRIs) and thresholds to conduct study-level and site-level
+Risk Based Monitoring for clinical trials.</p>
 <p>These functions provide data frames, visualizations, and metadata to
 be used in reporting and error checking at clinical sites. The image
 below illustrates the supporting functions that feed into the
@@ -370,7 +371,8 @@ see the following scatter plot:</p>
 <span><span class="va">chart</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Visualize_Scatter.html">Visualize_Scatter</a></span><span class="op">(</span><span class="va">dfFlagged</span>, <span class="va">dfBounds</span><span class="op">)</span></span></code></pre></div>
 <p><img src="DataAnalysis_files/figure-html/unnamed-chunk-12-1.png" width="672"></p>
 <p>A full explanation of all Data Visualizations in the
-<a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> package is outlined in the <a href="DataReporting.html">Reporting Workflow vignette</a>.</p>
+<a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> package is outlined in the
+<code><a href="../articles/DataReporting.html">vignette("DataReporting")</a></code>.</p>
 <hr>
 </div>
 </div>
@@ -409,7 +411,7 @@ using <code><a href="../reference/Analyze_NormalApprox.html">Analyze_NormalAppro
 <h2 id="appendix-1">Appendix 1 - Supporting Functions<a class="anchor" aria-label="anchor" href="#appendix-1"></a>
 </h2>
 <p>The following sections include various examples of supporting
-functions and statistical models that can be employed in the Analytics
+functions and statistical models that can be employed in the Analysis
 workflow. Please note that this is <strong>not</strong> an exhaustive
 list, but includes some of the most commonly called upon functions.</p>
 <div class="section level4">
@@ -516,7 +518,7 @@ Exact</strong></a>, and <a href="https://gilead-biostats.github.io/gsm/articles/
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans, Jacob Anderson.</p>
+  <p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans, Jacob Anderson, Laura Maxwell, Jon Harmon.</p>
 </div>
 
 <div class="pkgdown-footer-right">
