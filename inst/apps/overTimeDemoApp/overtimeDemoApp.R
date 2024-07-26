@@ -22,7 +22,7 @@ dfGroups <- gsm::reportingGroups
 
 # Shiny ui ---------------------------------------------------------------------
 ui <- fluidPage(
-  titlePanel("KRI Dashboard"),
+  titlePanel("Flag Over Time Demo"),
   sidebarLayout(
     sidebarPanel(
       selectInput(
@@ -49,6 +49,7 @@ ui <- fluidPage(
         multiple = TRUE,
         selectize = FALSE
       ),
+      actionButton("reset", "Reset"),
       width = 2
     ),
     mainPanel(
@@ -58,12 +59,12 @@ ui <- fluidPage(
           "Charts",
           shiny::column(
             width = 6,
+            uiOutput("GroupOverview")
+          ),
+                    shiny::column(
+            width = 6,
             # Widget_FlagOverTimeOutput("FlagOverTime")
             uiOutput("FlagOverTime")
-          ),
-          shiny::column(
-            width = 6,
-            uiOutput("GroupOverview")
           )
         ),
         tabPanel("Data", DT::dataTableOutput("results"))
@@ -112,6 +113,42 @@ server <- function(input, output, session) {
 
   # Data
   output$results <- DT::renderDataTable({rResults()})
+  
+  # Reset button
+  observeEvent(input$reset, {
+    updateSelectInput(
+      session,
+      "GroupID",
+      selected = unique(dfResults$GroupID)
+    )
+    updateSelectInput(
+      session,
+      "MetricID",
+      selected = unique(dfResults$MetricID)
+    )
+    updateSelectInput(
+      session,
+      "Dates",
+      selected = unique(dfResults$SnapshotDate)
+    )
+  })
+
+  # Update selectInputs based on click events
+  observeEvent(input$GroupOverviewGroupID, {
+    updateSelectInput(
+      session,
+      "GroupID",
+      selected = input$GroupOverviewGroupID
+    )
+  })
+
+  observeEvent(input$GroupOverviewMetricID, {
+    updateSelectInput(
+      session,
+      "MetricID",
+      selected = input$GroupOverviewMetricID
+    )
+  })
 }
 
 # Run the shiny app ------------------------------------------------------------
