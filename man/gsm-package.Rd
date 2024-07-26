@@ -12,6 +12,7 @@ The Good Statistical Monitoring or 'gsm' R package provides a framework for stat
 Useful links:
 \itemize{
   \item \url{https://github.com/Gilead-BioStats/gsm}
+  \item \url{https://gilead-biostats.github.io/gsm}
   \item Report bugs at \url{https://github.com/Gilead-BioStats/gsm/issues}
 }
 

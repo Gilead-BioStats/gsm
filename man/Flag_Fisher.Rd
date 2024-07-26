@@ -20,7 +20,7 @@ Add columns flagging sites that represent possible statistical outliers when the
 \details{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
-This function flags sites based on the Fisher's Exact Test result as part of the \href{https://gilead-biostats.github.io/gsm/articles/DataModel.html}{GSM data model}.
+This function flags sites based on the Fisher's Exact Test result as part of the GSM data model (see \code{vignette("DataModel")}).
 }
 \section{Data Specification}{
 
