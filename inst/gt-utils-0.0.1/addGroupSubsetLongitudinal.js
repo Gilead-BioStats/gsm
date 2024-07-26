@@ -44,7 +44,8 @@ const addGroupSubsetLongitudinal = (el) => {
     { value: 'red', text: '1+ red flag (latest)' },
     { value: 'red-ever', text: '1+ red flag (ever)' },
     { value: 'amber', text: '1+ amber flag (latest)' },
-    { value: 'amber-ever', text: '1+ amber flag (ever)' }
+    { value: 'amber-ever', text: '1+ amber flag (ever)' },
+    { value: 'flag-changed', text: 'Flag changed' }
   ];
   for (const subset of subsets) {
       const option = document.createElement('option');
@@ -65,6 +66,7 @@ const addGroupSubsetLongitudinalListener = (el) => {
   const amberRowsLatest = findMatchingRows(rows, 'td:last-of-type[style*="background-color: #FFBF00"]');
   const redRowsEver = findMatchingRows(rows, 'td[style*="background-color: #FF0040"]');
   const redRowsLatest = findMatchingRows(rows, 'td:last-of-type[style*="background-color: #FF0040"]');
+  const changeRows = findMatchingRows(rows, 'td.gt_flag_changed');  //TODO: Update this to select checked cells ... 
 
   // Find header rows that relate to those vars.
   const headerRows = gtTable.querySelectorAll('tbody tr.gt_group_heading_row');
@@ -72,6 +74,7 @@ const addGroupSubsetLongitudinalListener = (el) => {
   const headersWithAmberLatest = findHeadersWithMatchingSiblings(headerRows, amberRowsLatest);
   const headersWithRedEver = findHeadersWithMatchingSiblings(headerRows, redRowsEver);
   const headersWithRedLatest = findHeadersWithMatchingSiblings(headerRows, redRowsLatest);
+  const headersWithChange= findHeadersWithMatchingSiblings(headerRows, changeRows);
 
   selector.addEventListener('change', event => {
     switch (event.target.value) {
@@ -118,6 +121,12 @@ const addGroupSubsetLongitudinalListener = (el) => {
         hideRows(headerRows);
         showRows(amberRowsEver);
         showRows(headersWithAmberEver);
+        break;
+      case 'flag-changed':
+        hideRows(flagRows);
+        hideRows(headerRows);
+        showRows(changeRows);
+        showRows(headersWithChange);
         break;
     }
   });
