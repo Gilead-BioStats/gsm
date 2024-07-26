@@ -10,7 +10,6 @@
 #' @param vThreshold `numeric` Threshold values.
 #' @param strOutcome `character` Outcome variable. Default: 'Score'.
 #' @param bAddGroupSelect `logical` Add a dropdown to highlight sites? Default: `TRUE`.
-#' @param bDebug `logical` Print debug messages? Default: `FALSE`.
 #'
 #' @examples
 #' ## Filter data to one metric and snapshot
