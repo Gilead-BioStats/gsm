@@ -1,11 +1,11 @@
 ## Test Setup
 source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
 
-kri_workflows <- flatten(MakeWorkflowList(strNames = 'kri0001'))
+kri_workflows <- flatten(MakeWorkflowList(strNames = "kri0001"))
 
 mapped_data_missing_values <- get_data(kri_workflows, lData_missing_values)
 
-outputs <- map_vec(kri_workflows$steps, ~.x$output)
+outputs <- map_vec(kri_workflows$steps, ~ .x$output)
 
 
 ## Test Code
@@ -30,4 +30,3 @@ testthat::test_that("Given raw participant-level data with missingness,
   expect_equal(nrow(test$dfFlagged), nrow(test$dfSummary))
   expect_identical(sort(test$dfFlagged$GroupID), sort(test$dfSummary$GroupID))
 })
-

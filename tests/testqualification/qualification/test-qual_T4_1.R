@@ -5,7 +5,7 @@ kri_workflows <- flatten(MakeWorkflowList("kri0001_custom", yaml_path_custom))
 
 mapped_data <- get_data(kri_workflows, lData)
 
-outputs <- map_vec(kri_workflows$steps, ~.x$output)
+outputs <- map_vec(kri_workflows$steps, ~ .x$output)
 
 ## Test Code
 testthat::test_that("Given appropriate metadata (i.e. vThresholds), flagged observations are properly marked in summary data", {
@@ -17,12 +17,13 @@ testthat::test_that("Given appropriate metadata (i.e. vThresholds), flagged obse
   expect_identical(sort(test$dfFlagged$GroupID), sort(test$dfSummary$GroupID))
 
   flags <- test$dfSummary %>%
-    mutate(flagged_hardcode = case_when(Score <= test$vThreshold[1] |
-                                           Score >= test$vThreshold[4] ~ 2,
-                                         (Score <= test$vThreshold[2] & Score > test$vThreshold[1]) |
-                                           (Score >= test$vThreshold[3] & Score < test$vThreshold[4]) ~ 1,
-                                         TRUE ~ 0)
-           )
+    mutate(flagged_hardcode = case_when(
+      Score <= test$vThreshold[1] |
+        Score >= test$vThreshold[4] ~ 2,
+      (Score <= test$vThreshold[2] & Score > test$vThreshold[1]) |
+        (Score >= test$vThreshold[3] & Score < test$vThreshold[4]) ~ 1,
+      TRUE ~ 0
+    ))
 
   expect_identical(abs(flags$Flag), flags$flagged_hardcode)
   expect_identical(test$dfFlagged$Flag, test$dfSummary$Flag)

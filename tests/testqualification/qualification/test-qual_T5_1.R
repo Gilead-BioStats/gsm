@@ -11,21 +11,25 @@ test_custom <- robust_runworkflow(ae_workflow_custom, mapped_data)
 test_default <- robust_runworkflow(ae_workflow_default, mapped_data)
 
 hardcode_flag_custom <- test_custom$dfFlagged %>%
-  mutate('hardcode_flag' = case_when(Score <= test_custom$vThreshold[1] |
-                                       Score >= test_custom$vThreshold[4] ~ 2,
-                                     Score > test_custom$vThreshold[1] & Score <= test_custom$vThreshold[2] |
-                                       Score < test_custom$vThreshold[4] & Score >= test_custom$vThreshold[3] ~ 1,
-                                     TRUE ~ 0))
+  mutate("hardcode_flag" = case_when(
+    Score <= test_custom$vThreshold[1] |
+      Score >= test_custom$vThreshold[4] ~ 2,
+    Score > test_custom$vThreshold[1] & Score <= test_custom$vThreshold[2] |
+      Score < test_custom$vThreshold[4] & Score >= test_custom$vThreshold[3] ~ 1,
+    TRUE ~ 0
+  ))
 
 hardcode_flag_default <- test_default$dfFlagged %>%
-  mutate('hardcode_flag' = case_when(Score <= test_default$vThreshold[1] |
-                                       Score >= test_default$vThreshold[4] ~ 2,
-                                     Score > test_default$vThreshold[1] & Score <= test_default$vThreshold[2] |
-                                       Score < test_default$vThreshold[4] & Score >= test_default$vThreshold[3] ~ 1,
-                                     TRUE ~ 0))
+  mutate("hardcode_flag" = case_when(
+    Score <= test_default$vThreshold[1] |
+      Score >= test_default$vThreshold[4] ~ 2,
+    Score > test_default$vThreshold[1] & Score <= test_default$vThreshold[2] |
+      Score < test_default$vThreshold[4] & Score >= test_default$vThreshold[3] ~ 1,
+    TRUE ~ 0
+  ))
 
 ## define outputs --------------------------------------------------
-outputs <- map_vec(ae_workflow_custom$steps, ~.x$output)
+outputs <- map_vec(ae_workflow_custom$steps, ~ .x$output)
 
 ## Test Code -------------------------------------------------------
 testthat::test_that("Given appropriate raw participant-level data, flag values can be correctly assigned to records that meet flagging criteria, including custom thresholding.", {

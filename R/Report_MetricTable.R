@@ -52,5 +52,4 @@ Report_MetricTable <- function(dfResults,
     kableExtra::kable_styling("striped", full_width = FALSE)
 
   return(SummaryTable)
-
 }
