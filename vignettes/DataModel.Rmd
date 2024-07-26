@@ -39,7 +39,7 @@ In general, `{gsm}` is designed to be flexible and customizable, allowing users 
 
 `{gsm}` is designed to work with a wide variety of clinical data sources. The raw data used in the analysis pipeline is typically sourced from clinical trial databases and is transformed into mapped data using simple transformations. Mapped data is then used as input for the analysis pipeline. 
 
-There is not a single data standard for raw or mapped data in `{gsm}`. The only requirement is that the mapped data is compatible with the analytics pipeline. Data Mapping transformations can be done using multiple methods including custom R scripts (e.g., with `dplyr`), SQL queries, or using `gsm` workflows (e.g. the `system.file("workflow/data_mapping.yaml", package = "gsm")` file). Examples of these methods can be found in the [Cookbook Vignette](Cookbook.html).
+There is not a single data standard for raw or mapped data in `{gsm}`. The only requirement is that the mapped data is compatible with the analytics pipeline. Data Mapping transformations can be done using multiple methods including custom R scripts (e.g., with `dplyr`), SQL queries, or using `gsm` workflows (e.g. the `system.file("workflow/data_mapping.yaml", package = "gsm")` file). Examples of these methods can be found in the [Cookbook Vignette](https://gilead-biostats.github.io/gsm/articles/Cookbook.html).
 
 # Analysis Data 
 
@@ -60,14 +60,14 @@ The data requirements for each component of the analysis pipeline are rigid; See
 ## Analysis Workflows
 Since there are rigid data requirements for each component of the analysis data model, the analysis workflow is largely standardized. There are two main approaches to running the analysis workflow:
 
-1. **Scripted Analysis**: Run each step of the analysis pipeline individually using the functions provided in the `{gsm}` package. This approach is useful for understanding the data requirements and for debugging. See Example 1 in the [Cookbook Vignette](Cookbook.html) for an example of this approach.
-2. **Workflow Analysis**: Run the analysis pipeline using a YAML workflow file. This approach is useful for running the same analysis on multiple studies or for automating the analysis process. See Example 2 in the [Cookbook Vignette](Cookbook.html) for an example of this approach.
+1. **Scripted Analysis**: Run each step of the analysis pipeline individually using the functions provided in the `{gsm}` package. This approach is useful for understanding the data requirements and for debugging. See Example 1 in the [Cookbook Vignette](https://gilead-biostats.github.io/gsm/articles/Cookbook.html) for an example of this approach.
+2. **Workflow Analysis**: Run the analysis pipeline using a YAML workflow file. This approach is useful for running the same analysis on multiple studies or for automating the analysis process. See Example 2 in the [Cookbook Vignette](https://gilead-biostats.github.io/gsm/articles/Cookbook.html) for an example of this approach.
 
 Note that each step in these workflows can be customized based on the requirements for a specific KRI. The graphic below shows four such workflows.
 
 ![](data-analysis-combined.PNG){width="100%"}
 
-More details about analysis data pipelines can be found in the [Analysis Deep Dive Vignette](DataAnalysis.html).
+More details about analysis data pipelines can be found in the [Analysis Deep Dive Vignette](https://gilead-biostats.github.io/gsm/articles/DataAnalysis.html).
 
 # Reporting Data 
 
@@ -82,16 +82,14 @@ Similar to Analysis Workflows, reporting data pipelines can be run as R scripts 
 
 # Appendix 1 - Data Model
 
---- TODO: Update to sync with diagram below ---
-
 # Overview 
-![](data-model-detailed.PNG){width="100%"}
+![](data-model-detailed.png){width="100%"}
 
 # Analytics data model
 
-The KRI analytics pipeline is a standardized process for **Analyzing** data issues by going from participant-level `input` data to a standardized site-level `summary` of model results. The data sets used in each step of the data pipeline are described in detail below. When using a metric workflow yaml to create these tables, all data tables are contained in a list, which we call `lAnalysis`. This list is then fed into the reporting data pipeline.
+The KRI analytics pipeline is a standardized process for **Analyzing** data issues by going from participant-level `input` data to a standardized site-level `summary` of model results. The data sets used in each step of the data pipeline are described in detail below. When using a metric workflow YAML to create these tables, all data tables are contained in a list, which we call `lAnalysis`. This list is then fed into the reporting data pipeline.
 
-## Analytics Data Tables
+## Analysis Data Tables
   
 ### `dfInput`
   - Function(s) used to create table: 
@@ -100,7 +98,7 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
     - `dfSubjects`
     - `dfNumerator`
     - `dfDenominator`
-  - Usage: The base data.frame for all Analytics workflows. Feeds into the `Transform_*()` functions.
+  - Usage: The base data.frame for all Analysis workflows. Feeds into the `Transform_*()` functions.
   - Structure:
 
   | Table    | Column Name  | Description                          | Type     | Optional  | 
@@ -279,7 +277,7 @@ Expected `Param` by `GroupLevel` for use in gsm reporting. User may add other Pa
 
   | Table    | Column Name  | Description                          | Type     | Optional  |
   |----------|--------------|--------------------------------------|----------|--| -------------- |
-  | dfMetrics| File         | The yaml file for workflow          | Character|           | 
+  | dfMetrics| File         | The YAML file for workflow          | Character|           | 
   | dfMetrics| MetricID     | ID for the Metric   | Character| |
   | dfMetrics| Group        | The group type for the metric (e.g. "Site")      | Character| | 
   | dfMetrics| Abbreviation | Abbreviation for the metric   | Character| | 
@@ -288,66 +286,6 @@ Expected `Param` by `GroupLevel` for use in gsm reporting. User may add other Pa
   | dfMetrics| Denominator  | Data source for the Denominator | Character| | 
   | dfMetrics| Model        | Model used to calculate metric     | Character| | 
   | dfMetrics| Score        | Type of Score reported      | Character| | 
-  | dfMetrics| Threshold   | Thresholds to be used for bounds and flags     | Character| |
-
-
-# Previous Versions
-
-###  `dfSite`
-  - Function used to create table: Simple transformation of CTMS data using `RunQuery()`
-  - Inputs: Site-level CTMS data
-  - Usage: Site-level data for gsm reporting
-  - Structure:
-
-| Table       | Column                | Description                       |Type      | Optional  |
-|-------------|-----------------------|-----------------------------------|----------|-----------|-----------|
-| dfSite | protocol_row_id       | Protocol row ID                   | Character | |
-| dfSite | SiteID                | Unique Site ID                    | Character| | 
-| dfSite | site_row_id           | Site row ID                       | Character| | 
-| dfSite | protocol              | Protocol ID                       | Character| | 
-| dfSite | pi_number             | Principal Investigator Number     | Character| | 
-| dfSite | pi_last_name          | Principal Investigator Last Name  | Character| | 
-| dfSite | pi_first_name         | Principal Investigator First Name | Character| | 
-| dfSite | site_status           | Site Status                       | Character | | 
-| dfSite | is_satellite          | Is site a satellite location      | Character| | 
-| dfSite | account               |                                   | Character| | 
-| dfSite | site_active_dt        | Date that Site became active      | Character| | 
-| dfSite | city                  | Site City                         | Character| | 
-| dfSite | state                 | Site State                        | Character| | 
-| dfSite | country               | Site Country                      | Character| | 
-
-###  `dfStudy`
-  - Function used to create table: Simple transformation of CTMS data using `RunQuery()`
-  - Inputs: Study-level CTMS data
-  - Usage: Study-level data for gsm reporting
-  - Structure:
-
-| Table       | Column                | Description                       |Type      | Optional  |
-|-------------|-----------------------|-----------------------------------|----------|-----------|
-| dfStudy| protocol_row_id       | Protocol row ID                   | Character | |
-| dfStudy| StudyID               | Unique Study ID                   | Character| |
-| dfStudy| protocol_title        | Protocol Title                    | Character| |
-| dfStudy| nickname              | Protocol Nickname  | Character| |
-| dfStudy| protocol_type         | Protocol Type                     | Character| |
-| dfStudy| phase                 | Study phase  | Character| |
-| dfStudy| num_plan_site         | Number of planned sites in the study | Character| |
-| dfStudy| num_site_actl         | Number of active sites in the study | Character | |
-| dfStudy| est_fpfv              | Estimated first patient first visit      | Date   | |
-| dfStudy| act_fpfv              | Actual first patient first visit      | Date   | |
-| dfStudy| est_lplv              | Estimated last patient last visit     | Date   | |
-| dfStudy| act_lplv              | Actual last patient last visit       | Date   | |
-| dfStudy| est_lpfv              | Estimated last patient first visit     | Date   | |
-| dfStudy| act_lpfv              | Actual last patient first visit       | Date   | |
-| dfStudy| status                | Study Status                       | Character| |
-| dfStudy| num_plan_subj         | Number of planned subjects in study      | Numeric | |
-| dfStudy| num_enrolled_subj_m   | Number of enrolled subjects in study | Numeric | |
-| dfStudy| protocol_indication   | Protocol Indication                        | Character| |
-| dfStudy| product               | Product                      | Character| |
-| dfStudy| therapeutic_area      | Therapeutic Area                 | Character| |
-| dfStudy| protocol_product_number| Protocol Product Number                      | Numeric | |
-| dfStudy| x_rbm_flg             | Is RBM Flagged                      | Character| |
-
-
 
 ## Appendix 2 - Analysis Workflow Specifications
 

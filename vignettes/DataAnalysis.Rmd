@@ -20,7 +20,7 @@ library(DT)
 
 # Introduction
 
-This vignette walks users through the mechanics of the functions that produce all of the Analytics output within the `{gsm}` package. `{gsm}` leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level and site-level Risk Based Monitoring for clinical trials.
+This vignette walks users through the mechanics of the functions that produce all of the Analysis workflow output within the `{gsm}` package. `{gsm}` leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level and site-level Risk Based Monitoring for clinical trials.
 
 These functions provide data frames, visualizations, and metadata to be used in reporting and error checking at clinical sites. The image below illustrates the supporting functions that feed into the `yaml` workflow that is specified in each analysis workflow.
 
@@ -189,7 +189,7 @@ chart <- Visualize_Scatter(dfFlagged, dfBounds)
 chart
 ```
 
-A full explanation of all Data Visualizations in the `{gsm}` package is outlined in the [Reporting Workflow vignette](DataReporting.html).
+A full explanation of all Data Visualizations in the `{gsm}` package is outlined in the [Reporting Workflow vignette](https://gilead-biostats.github.io/gsm/articles/DataReporting.html).
 
 ------------------------------------------------------------------------
 
@@ -206,7 +206,7 @@ A full explanation of all Data Visualizations in the `{gsm}` package is outlined
 
 # Appendix 1 - Supporting Functions {#appendix-1}
 
-The following sections include various examples of supporting functions and statistical models that can be employed in the Analytics workflow. Please note that this is **not** an exhaustive list, but includes some of the most commonly called upon functions.
+The following sections include various examples of supporting functions and statistical models that can be employed in the Analysis workflow. Please note that this is **not** an exhaustive list, but includes some of the most commonly called upon functions.
 
 ### Mapping Functions
 
