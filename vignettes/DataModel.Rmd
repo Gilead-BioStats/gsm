@@ -39,7 +39,7 @@ In general, `{gsm}` is designed to be flexible and customizable, allowing users 
 
 `{gsm}` is designed to work with a wide variety of clinical data sources. The raw data used in the analysis pipeline is typically sourced from clinical trial databases and is transformed into mapped data using simple transformations. Mapped data is then used as input for the analysis pipeline. 
 
-There is not a single data standard for raw or mapped data in `{gsm}`. The only requirement is that the mapped data is compatible with the analytics pipeline. Data Mapping transformations can be done using multiple methods including custom R scripts (e.g., with `dplyr`), SQL queries, or using `gsm` workflows (e.g. the `system.file("workflow/data_mapping.yaml", package = "gsm")` file). Examples of these methods can be found in the [Cookbook Vignette](https://gilead-biostats.github.io/gsm/articles/Cookbook.html).
+There is not a single data standard for raw or mapped data in `{gsm}`. The only requirement is that the mapped data is compatible with the analytics pipeline. Data Mapping transformations can be done using multiple methods including custom R scripts (e.g., with `dplyr`), SQL queries, or using `gsm` workflows (e.g. the `system.file("workflow/data_mapping.yaml", package = "gsm")` file). Examples of these methods can be found in `vignette("Cookbook")`.
 
 # Analysis Data 
 
@@ -60,14 +60,14 @@ The data requirements for each component of the analysis pipeline are rigid; See
 ## Analysis Workflows
 Since there are rigid data requirements for each component of the analysis data model, the analysis workflow is largely standardized. There are two main approaches to running the analysis workflow:
 
-1. **Scripted Analysis**: Run each step of the analysis pipeline individually using the functions provided in the `{gsm}` package. This approach is useful for understanding the data requirements and for debugging. See Example 1 in the [Cookbook Vignette](https://gilead-biostats.github.io/gsm/articles/Cookbook.html) for an example of this approach.
-2. **Workflow Analysis**: Run the analysis pipeline using a YAML workflow file. This approach is useful for running the same analysis on multiple studies or for automating the analysis process. See Example 2 in the [Cookbook Vignette](https://gilead-biostats.github.io/gsm/articles/Cookbook.html) for an example of this approach.
+1. **Scripted Analysis**: Run each step of the analysis pipeline individually using the functions provided in the `{gsm}` package. This approach is useful for understanding the data requirements and for debugging. See Example 1 in `vignette("Cookbook")` for an example of this approach.
+2. **Workflow Analysis**: Run the analysis pipeline using a YAML workflow file. This approach is useful for running the same analysis on multiple studies or for automating the analysis process. See Example 2 in `vignette("Cookbook")` for an example of this approach.
 
 Note that each step in these workflows can be customized based on the requirements for a specific KRI. The graphic below shows four such workflows.
 
 ![](data-analysis-combined.PNG){width="100%"}
 
-More details about analysis data pipelines can be found in the [Analysis Deep Dive Vignette](https://gilead-biostats.github.io/gsm/articles/DataAnalysis.html).
+More details about analysis data pipelines can be found in `vignette("DataAnalysis")`.
 
 # Reporting Data 
 

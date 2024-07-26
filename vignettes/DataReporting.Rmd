@@ -55,7 +55,7 @@ Additional supporting functions are explored in [Appendix 1](#appendix-1).
 
 ### Step 0 - Run Analysis Workflow(s)
 
-Prior to running the reporting model to create reporting data frames, charts and reports, the metrics we are reporting on must be properly calculated and flagged with the analysis workflow. For more information on the Analysis Workflow, see the associated [vignette](https://gilead-biostats.github.io/gsm/articles/DataAnalysis.html).
+Prior to running the reporting model to create reporting data frames, charts and reports, the metrics we are reporting on must be properly calculated and flagged with the analysis workflow. For more information on the Analysis Workflow, see the associated `vignette("DataAnalysis")`.
 
 To run the analysis workflow on all 13 KRIs using `clindata` Raw+ data, use the code snippet below. From this, three pieces of output will be used in the reporting workflow:
 
@@ -96,7 +96,7 @@ With all necessary inputs to the reporting model created, we can move on to gene
  results returned by `Summarize()` to `BindResults()`.
 4. `dfBounds`: Set of predicted percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values for reporting. Created by passing `dfResults` and `dfMetrics` to `MakeBounds()`. 
 
-For more details on any of these tables, see the [Data Model vignette](https://gilead-biostats.github.io/gsm/articles/DataModel.html).
+For more details on any of these tables, see `vignette("DataModel")`.
 
 The following sub-steps will dive into the creation and structure of each of these tables. Sample data for each of these tables can found in `{gsm}` as `reportingGroups`, `reportingMetrics`, `reportingResults` and `reportingBounds`. These sample tables are used throughout the package in examples and documentation.
 
@@ -144,7 +144,7 @@ The resulting `dfGroups` dataframe contains the following columns:
 -   `Param`: Parameter Name (e.g. "Status")  
 -   `Value`: Parameter Value (e.g. "Active")
 
-An more detailed explanation of the `Param`s for each group level can be found in the [Data Model Vignette](DataModel.html) 
+A more detailed explanation of the `Param`s for each group level can be found in `vignette("DataModel")`. 
 
 ```{r, echo = FALSE, warning = FALSE}
 datatable(dfGroups)

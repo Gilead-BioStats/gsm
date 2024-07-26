@@ -190,7 +190,7 @@ chart <- Visualize_Scatter(dfFlagged, dfBounds)
 chart
 ```
 
-A full explanation of all Data Visualizations in the `{gsm}` package is outlined in the [Reporting Workflow vignette](https://gilead-biostats.github.io/gsm/articles/DataReporting.html).
+A full explanation of all Data Visualizations in the `{gsm}` package is outlined in the `vignette("DataReporting")`.
 
 ------------------------------------------------------------------------
 

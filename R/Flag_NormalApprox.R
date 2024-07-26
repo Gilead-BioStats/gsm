@@ -7,7 +7,7 @@
 #'
 #' @details
 #' This function flags sites based on the funnel plot with normal approximation analysis result as part of
-#' the [GSM data model](https://gilead-biostats.github.io/gsm/articles/DataModel.html).
+#' the GSM data model (see `vignette("DataModel")`).
 #'
 #' @section Data Specification:
 #' \code{Flag_NormalApprox} is designed to support the input data (`dfAnalyzed`) from \code{Analyze_NormalApprox} function.
