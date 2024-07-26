@@ -178,8 +178,8 @@ Associated Test IDs
 S1_1
 </td>
 <td style="text-align:left;width: 6cm; ">
-Given appropriate input data, an Adverse Event Assessment can be done
-using the Poisson method.
+Given raw participant-level data, all necessary data.frame
+transformations are made to create input data for all workflows
 </td>
 <td style="text-align:left;">
 High
@@ -188,16 +188,16 @@ High
 High
 </td>
 <td style="text-align:left;width: 5cm; ">
-T1_1, T1_2, T1_3, T1_10
+T1_1
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-S1_2
+S2_1
 </td>
 <td style="text-align:left;width: 6cm; ">
-Given appropriate input data, an Adverse Event Assessment can be done
-using the Identity method.
+Given raw participant-level data, a properly specified Workflow for a
+KRI creates summarized and flagged data
 </td>
 <td style="text-align:left;">
 High
@@ -206,16 +206,16 @@ High
 High
 </td>
 <td style="text-align:left;width: 5cm; ">
-T1_4, T1_5, T1_6, T1_11
+T2_1
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-S1_3
+S2_2
 </td>
 <td style="text-align:left;width: 6cm; ">
-Given appropriate input data, an Adverse Event Assessment can be done
-using the Normal Approximation method.
+Given raw participant-level data with missingness, a properly specified
+Workflow for a KRI creates summarized and flagged data
 </td>
 <td style="text-align:left;">
 High
@@ -224,12 +224,121 @@ High
 High
 </td>
 <td style="text-align:left;width: 5cm; ">
-T1_7, T1_8, T1_9, T1_12
+T2_2
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-S1_4
+S3_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given pre-processed input data, a properly specified Workflow for a KRI
+creates summarized and flagged data
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T3_1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S4_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate metadata (i.e. vThresholds), flagged observations are
+properly marked in summary data
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T4_1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S4_2
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate metadata (i.e. vThresholds), data.frame of bounds can
+be created
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T4_2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S5_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate raw participant-level data, flag values can be
+correctly assigned to records that meet flagging criteria, including
+custom thresholding.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T5_1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S5_2
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate raw participant-level data, flag values are correctly
+assigned as NA for sites with low enrollment.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T5_2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S6_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate raw participant-level data, an Adverse Event
+Assessment can be done using the Normal Approximation method.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T6_1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S6_2
 </td>
 <td style="text-align:left;width: 6cm; ">
 Adverse Event Assessments can be done correctly using a grouping
@@ -237,51 +346,266 @@ variable, such as Site or Country for KRIs, and Study for QTLs, when
 applicable.
 </td>
 <td style="text-align:left;">
-Low
+High
 </td>
 <td style="text-align:left;">
 High
 </td>
 <td style="text-align:left;width: 5cm; ">
-T1_1, T1_2, T1_3, T1_4, T1_5, T1_6, T1_7, T1_8, T1_9, T1_10, T1_11,
-T1_12
+T6_2
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-S1_5
+S7_1
 </td>
 <td style="text-align:left;width: 6cm; ">
-Given appropriate input data, flag values can be correctly assigned to
-records that meet flagging criteria, including custom thresholding.
+Given appropriate raw participant-level data, a Protocol Deviation
+Assessment can be done using the Normal Approximation method.
 </td>
 <td style="text-align:left;">
-Medium
+High
 </td>
 <td style="text-align:left;">
 High
 </td>
 <td style="text-align:left;width: 5cm; ">
-T1_1, T1_2, T1_3, T1_4, T1_5, T1_6, T1_7, T1_8, T1_9, T1_10, T1_11,
-T1_12
+T7_1
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-S1_6
+S7_2
 </td>
 <td style="text-align:left;width: 6cm; ">
-Given an appropriate subset of input data, an Adverse Event Assessment
-can be done.
+Protocol Deviation Assessments can be done correctly using a grouping
+variable, such as Site or Country for KRIs, and Study for QTLs, when
+applicable.
 </td>
 <td style="text-align:left;">
-Medium
+High
 </td>
 <td style="text-align:left;">
-Medium
+High
 </td>
 <td style="text-align:left;width: 5cm; ">
-T1_1, T1_2, T1_4, T1_5, T1_7, T1_8
+T7_2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S8_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate raw participant-level data, a Dispositon Assessment
+can be done using the Normal Approximation method.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T8_1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S8_2
+</td>
+<td style="text-align:left;width: 6cm; ">
+Disposition Assessments can be done correctly using a grouping variable,
+such as Site or Country for KRIs, and Study for QTLs, when applicable.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T8_2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S9_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate raw participant-level data, a Labs Assessment can be
+done using the Normal Approximation method.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T9_1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S9_2
+</td>
+<td style="text-align:left;width: 6cm; ">
+Labs Assessments can be done correctly using a grouping variable, such
+as Site or Country for KRIs, and Study for QTLs, when applicable.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T9_2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S10_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate raw participant-level data, a Data Change Rate
+Assessment can be done using the Normal Approximation method.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T10_1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S10_2
+</td>
+<td style="text-align:left;width: 6cm; ">
+Data Change Rate Assessments can be done correctly using a grouping
+variable, such as Site, Country, or Study, when applicable.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T10_2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S11_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate raw participant-level data, a Data Entry Lag
+Assessment can be done using the Normal Approximation method.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T11_1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S11_2
+</td>
+<td style="text-align:left;width: 6cm; ">
+Data Entry Lag Assessments can be done correctly using a grouping
+variable, such as Site, Country, or Study, when applicable.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T11_2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S12_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate raw participant-level data, a Query Age Assessment can
+be done using the Normal Approximation method.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T12_1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S12_2
+</td>
+<td style="text-align:left;width: 6cm; ">
+Query Age Assessments can be done correctly using a grouping variable,
+such as Site, Country, or Study, when applicable.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T12_2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S13_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate raw participant-level data, a Query Rate Assessment
+can be done using the Normal Approximation method.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T13_1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S13_2
+</td>
+<td style="text-align:left;width: 6cm; ">
+Query Rate Assessments can be done correctly using a grouping variable,
+such as Site, Country, or Study, when applicable.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T13_2
 </td>
 </tr>
 </tbody>
@@ -316,31 +640,6 @@ provided a subset of the input data, which satisfies spec S1_6.</p>
 <p>An simple example test case is shown below. For this test case the
 file would be called <code>test_qual_T21_1.R</code> and would correspond
 to T21_1 in the specifications:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">test_that</span><span class="op">(</span><span class="st">"Domain-level data can be correctly merged into subject-level data using subject ID as the key variable."</span>, <span class="op">{</span></span>
-<span></span>
-<span></span>
-<span>  <span class="co">########### gsm mapping ###########</span></span>
-<span>  <span class="va">observed</span> <span class="op">&lt;-</span> <span class="fu">gsm</span><span class="fu">::</span><span class="fu">MergeSubjects</span><span class="op">(</span></span>
-<span>    dfDomain <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_consent</span>,</span>
-<span>    dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span>
-<span>    strIDCol <span class="op">=</span> <span class="st">"subjid"</span></span>
-<span>    <span class="op">)</span></span>
-<span></span>
-<span></span>
-<span>  <span class="co">########### double programming ###########</span></span>
-<span>  <span class="co"># read in raw consent data</span></span>
-<span>  <span class="va">consent_orig</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_consent</span></span>
-<span></span>
-<span>  <span class="co"># read in raw source DM data</span></span>
-<span>  <span class="va">dm_raw_orig</span> <span class="op">&lt;-</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span></span>
-<span></span>
-<span>  <span class="co"># join DM and consent data</span></span>
-<span>  <span class="va">expected</span> <span class="op">&lt;-</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">dm_raw_orig</span>, <span class="va">consent_orig</span>, by <span class="op">=</span> <span class="st">"subjid"</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="co">########### testing ###########</span></span>
-<span>  <span class="fu">expect_equal</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">observed</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">expected</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="qualification-report">Qualification Report<a class="anchor" aria-label="anchor" href="#qualification-report"></a>
@@ -393,41 +692,146 @@ Number Skipped
 <tbody>
 <tr>
 <td style="text-align:left;">
-AE_Assess
+Adverse Event Assessment
 </td>
 <td style="text-align:right;">
-12
+52
+</td>
+<td style="text-align:right;">
+52
 </td>
 <td style="text-align:right;">
 0
 </td>
 <td style="text-align:right;">
 0
-</td>
-<td style="text-align:right;">
-12
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-AE_Map_Raw
+Analysis workflow
 </td>
 <td style="text-align:right;">
-4
+22
+</td>
+<td style="text-align:right;">
+22
 </td>
 <td style="text-align:right;">
 0
 </td>
 <td style="text-align:right;">
 0
-</td>
-<td style="text-align:right;">
-4
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Consent_Assess
+Analyze_NormalApprox_PredictBounds
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Data Change Rate Assessment
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Data Entry Lag Assessment
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Disposition Assessment
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Flag_NormalApprox
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Labs Assessment
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Mapping workflow
+</td>
+<td style="text-align:right;">
+4
 </td>
 <td style="text-align:right;">
 3
@@ -438,365 +842,73 @@ Consent_Assess
 <td style="text-align:right;">
 0
 </td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Protocol Deviation Assessment
+</td>
 <td style="text-align:right;">
-3
+30
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-DataChg_Assess
+Query Age Assessment
 </td>
 <td style="text-align:right;">
-12
+35
+</td>
+<td style="text-align:right;">
+35
 </td>
 <td style="text-align:right;">
 0
 </td>
 <td style="text-align:right;">
 0
-</td>
-<td style="text-align:right;">
-12
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-DataChg_Map_Raw
+Query Rate Assessment
 </td>
 <td style="text-align:right;">
-4
+35
+</td>
+<td style="text-align:right;">
+35
 </td>
 <td style="text-align:right;">
 0
 </td>
 <td style="text-align:right;">
 0
-</td>
-<td style="text-align:right;">
-4
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-DataEntry_Assess
+Summarize
 </td>
 <td style="text-align:right;">
-12
+16
 </td>
 <td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-12
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-DataEntry_Map_Raw
-</td>
-<td style="text-align:right;">
-4
+16
 </td>
 <td style="text-align:right;">
 0
 </td>
 <td style="text-align:right;">
 0
-</td>
-<td style="text-align:right;">
-4
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Disp_Assess
-</td>
-<td style="text-align:right;">
-12
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-12
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Disp_Map_Raw
-</td>
-<td style="text-align:right;">
-8
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-8
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-FilterDomain
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-2
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Get_Enrolled
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-3
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-IE_Assess
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-3
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-LB_Assess
-</td>
-<td style="text-align:right;">
-12
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-12
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-LB_Map_Raw
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-4
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-MergeSubjects
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-PD_Assess_Binary
-</td>
-<td style="text-align:right;">
-12
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-12
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-PD_Assess_Rate
-</td>
-<td style="text-align:right;">
-12
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-12
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-PD_Map_Raw_Binary
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-4
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-PD_Map_Raw_Rate
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-4
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-QueryAge_Assess
-</td>
-<td style="text-align:right;">
-12
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-12
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-QueryAge_Map_Raw
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-4
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-QueryRate_Assess
-</td>
-<td style="text-align:right;">
-12
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-12
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-QueryRate_Map_Raw
-</td>
-<td style="text-align:right;">
-6
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-6
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-is_mapping_valid
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-9
 </td>
 </tr>
 </tbody>
@@ -842,8 +954,8 @@ Associated Test IDs
 S1_1
 </td>
 <td style="text-align:left;width: 6cm; ">
-Given appropriate input data, an Adverse Event Assessment can be done
-using the Poisson method.
+Given raw participant-level data, all necessary data.frame
+transformations are made to create input data for all workflows
 </td>
 <td style="text-align:left;">
 High
@@ -852,16 +964,16 @@ High
 High
 </td>
 <td style="text-align:left;width: 5cm; ">
-T1_1, T1_2, T1_3, T1_10
+T1_1
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-S1_2
+S2_1
 </td>
 <td style="text-align:left;width: 6cm; ">
-Given appropriate input data, an Adverse Event Assessment can be done
-using the Identity method.
+Given raw participant-level data, a properly specified Workflow for a
+KRI creates summarized and flagged data
 </td>
 <td style="text-align:left;">
 High
@@ -870,16 +982,16 @@ High
 High
 </td>
 <td style="text-align:left;width: 5cm; ">
-T1_4, T1_5, T1_6, T1_11
+T2_1
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-S1_3
+S2_2
 </td>
 <td style="text-align:left;width: 6cm; ">
-Given appropriate input data, an Adverse Event Assessment can be done
-using the Normal Approximation method.
+Given raw participant-level data with missingness, a properly specified
+Workflow for a KRI creates summarized and flagged data
 </td>
 <td style="text-align:left;">
 High
@@ -888,12 +1000,121 @@ High
 High
 </td>
 <td style="text-align:left;width: 5cm; ">
-T1_7, T1_8, T1_9, T1_12
+T2_2
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-S1_4
+S3_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given pre-processed input data, a properly specified Workflow for a KRI
+creates summarized and flagged data
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T3_1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S4_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate metadata (i.e. vThresholds), flagged observations are
+properly marked in summary data
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T4_1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S4_2
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate metadata (i.e. vThresholds), data.frame of bounds can
+be created
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T4_2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S5_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate raw participant-level data, flag values can be
+correctly assigned to records that meet flagging criteria, including
+custom thresholding.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T5_1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S5_2
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate raw participant-level data, flag values are correctly
+assigned as NA for sites with low enrollment.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T5_2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S6_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate raw participant-level data, an Adverse Event
+Assessment can be done using the Normal Approximation method.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T6_1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S6_2
 </td>
 <td style="text-align:left;width: 6cm; ">
 Adverse Event Assessments can be done correctly using a grouping
@@ -901,51 +1122,266 @@ variable, such as Site or Country for KRIs, and Study for QTLs, when
 applicable.
 </td>
 <td style="text-align:left;">
-Low
+High
 </td>
 <td style="text-align:left;">
 High
 </td>
 <td style="text-align:left;width: 5cm; ">
-T1_1, T1_2, T1_3, T1_4, T1_5, T1_6, T1_7, T1_8, T1_9, T1_10, T1_11,
-T1_12
+T6_2
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-S1_5
+S7_1
 </td>
 <td style="text-align:left;width: 6cm; ">
-Given appropriate input data, flag values can be correctly assigned to
-records that meet flagging criteria, including custom thresholding.
+Given appropriate raw participant-level data, a Protocol Deviation
+Assessment can be done using the Normal Approximation method.
 </td>
 <td style="text-align:left;">
-Medium
+High
 </td>
 <td style="text-align:left;">
 High
 </td>
 <td style="text-align:left;width: 5cm; ">
-T1_1, T1_2, T1_3, T1_4, T1_5, T1_6, T1_7, T1_8, T1_9, T1_10, T1_11,
-T1_12
+T7_1
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-S1_6
+S7_2
 </td>
 <td style="text-align:left;width: 6cm; ">
-Given an appropriate subset of input data, an Adverse Event Assessment
-can be done.
+Protocol Deviation Assessments can be done correctly using a grouping
+variable, such as Site or Country for KRIs, and Study for QTLs, when
+applicable.
 </td>
 <td style="text-align:left;">
-Medium
+High
 </td>
 <td style="text-align:left;">
-Medium
+High
 </td>
 <td style="text-align:left;width: 5cm; ">
-T1_1, T1_2, T1_4, T1_5, T1_7, T1_8
+T7_2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S8_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate raw participant-level data, a Dispositon Assessment
+can be done using the Normal Approximation method.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T8_1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S8_2
+</td>
+<td style="text-align:left;width: 6cm; ">
+Disposition Assessments can be done correctly using a grouping variable,
+such as Site or Country for KRIs, and Study for QTLs, when applicable.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T8_2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S9_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate raw participant-level data, a Labs Assessment can be
+done using the Normal Approximation method.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T9_1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S9_2
+</td>
+<td style="text-align:left;width: 6cm; ">
+Labs Assessments can be done correctly using a grouping variable, such
+as Site or Country for KRIs, and Study for QTLs, when applicable.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T9_2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S10_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate raw participant-level data, a Data Change Rate
+Assessment can be done using the Normal Approximation method.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T10_1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S10_2
+</td>
+<td style="text-align:left;width: 6cm; ">
+Data Change Rate Assessments can be done correctly using a grouping
+variable, such as Site, Country, or Study, when applicable.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T10_2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S11_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate raw participant-level data, a Data Entry Lag
+Assessment can be done using the Normal Approximation method.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T11_1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S11_2
+</td>
+<td style="text-align:left;width: 6cm; ">
+Data Entry Lag Assessments can be done correctly using a grouping
+variable, such as Site, Country, or Study, when applicable.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T11_2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S12_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate raw participant-level data, a Query Age Assessment can
+be done using the Normal Approximation method.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T12_1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S12_2
+</td>
+<td style="text-align:left;width: 6cm; ">
+Query Age Assessments can be done correctly using a grouping variable,
+such as Site, Country, or Study, when applicable.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T12_2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S13_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate raw participant-level data, a Query Rate Assessment
+can be done using the Normal Approximation method.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T13_1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+S13_2
+</td>
+<td style="text-align:left;width: 6cm; ">
+Query Rate Assessments can be done correctly using a grouping variable,
+such as Site, Country, or Study, when applicable.
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;">
+High
+</td>
+<td style="text-align:left;width: 5cm; ">
+T13_2
 </td>
 </tr>
 </tbody>
@@ -979,120 +1415,438 @@ Test Result
 <tbody>
 <tr>
 <td style="text-align:left;width: 4cm; ">
-AE_Assess
+Mapping workflow
 </td>
 <td style="text-align:left;width: 3cm; ">
-S1_1, S1_4, S1_5, S1_6
+S1_1
 </td>
 <td style="text-align:left;">
 T1_1
 </td>
 <td style="text-align:left;width: 6cm; ">
-Given an appropriate subset of Adverse Event data, the assessment
-function correctly performs an Adverse Event Assessment grouped by the
-Site variable using the Poisson method and correctly assigns Flag
-variable values when given a custom threshold.
+lData is correctly mapped for processing using <code>mapping.yaml</code>
+in conjunction with <code><a href="../reference/MakeWorkflowList.html">MakeWorkflowList()</a></code> and
+<code>RunWorkflow</code>
 </td>
 <td style="text-align:left;">
-Fail
+Pass
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 4cm; ">
-AE_Assess
+Analysis workflow
 </td>
 <td style="text-align:left;width: 3cm; ">
-S1_1, S1_4, S1_5, S1_6
+S2_1
 </td>
 <td style="text-align:left;">
-T1_2
+T2_1
 </td>
 <td style="text-align:left;width: 6cm; ">
-Given an appropriate subset of Adverse Event data, the assessment
-function correctly performs an Adverse Event Assessment grouped by the
-Study variable using the Poisson method and correctly assigns Flag
-variable values.
+Given raw participant-level data, a properly specified Workflow for a
+KRI creates summarized and flagged data
 </td>
 <td style="text-align:left;">
-Fail
+Pass
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 4cm; ">
-AE_Assess
+Analysis workflow
 </td>
 <td style="text-align:left;width: 3cm; ">
-S1_1, S1_4, S1_5
+S2_2
 </td>
 <td style="text-align:left;">
-T1_3
+T2_2
 </td>
 <td style="text-align:left;width: 6cm; ">
-Given appropriate Adverse Event data, the assessment function correctly
-performs an Adverse Event Assessment grouped by a custom variable using
-the Poisson method and correctly assigns Flag variable values.
+Given raw participant-level data with missingness, a properly specified
+Workflow for a KRI creates summarized and flagged data
 </td>
 <td style="text-align:left;">
-Fail
+|Pass
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 4cm; ">
-AE_Assess
+Analysis workflow
 </td>
 <td style="text-align:left;width: 3cm; ">
-S1_2, S1_4, S1_5, S1_6
+S3_1
 </td>
 <td style="text-align:left;">
-T1_4
+T3_1
 </td>
 <td style="text-align:left;width: 6cm; ">
-Given an appropriate subset of Adverse Event data, the assessment
-function correctly performs an Adverse Event Assessment grouped by the
-Site variable using the Identity method and correctly assigns Flag
-variable values when given a custom threshold.
+Given pre-processed input data, a properly specified Workflow for a KRI
+creates summarized and flagged data
 </td>
 <td style="text-align:left;">
-Fail
+Pass
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 4cm; ">
-AE_Assess
+Flag_NormalApprox
 </td>
 <td style="text-align:left;width: 3cm; ">
-S1_2, S1_4, S1_5, S1_6
+S4_1
 </td>
 <td style="text-align:left;">
-T1_5
+T4_1
 </td>
 <td style="text-align:left;width: 6cm; ">
-Given an appropriate subset of Adverse Event data, the assessment
-function correctly performs an Adverse Event Assessment grouped by the
-Study variable using the Identity method and correctly assigns Flag
-variable values.
+Given appropriate metadata (i.e. vThresholds), flagged observations are
+properly marked in summary data
 </td>
 <td style="text-align:left;">
-Fail
+Pass
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 4cm; ">
-AE_Assess
+Analyze_NormalApprox_PredictBounds
 </td>
 <td style="text-align:left;width: 3cm; ">
-S1_2, S1_4, S1_5
+S4_2
 </td>
 <td style="text-align:left;">
-T1_6
+T4_2
 </td>
 <td style="text-align:left;width: 6cm; ">
-Given appropriate Adverse Event data, the assessment function correctly
-performs an Adverse Event Assessment grouped by a custom variable using
-the Identity method and correctly assigns Flag variable values.
+Given appropriate metadata (i.e. vThresholds), bounds are properly
+applied to generate flags
 </td>
 <td style="text-align:left;">
-Fail
+Pass
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+Summarize
+</td>
+<td style="text-align:left;width: 3cm; ">
+S5_1
+</td>
+<td style="text-align:left;">
+T5_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate raw participant-level data, flag values can be
+correctly assigned to records that meet flagging criteria, including
+custom thresholding.
+</td>
+<td style="text-align:left;">
+Pass
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+Summarize
+</td>
+<td style="text-align:left;width: 3cm; ">
+S5_2
+</td>
+<td style="text-align:left;">
+T5_2
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate raw participant-level data, flag values are correctly
+assigned as NA for sites with low enrollment.
+</td>
+<td style="text-align:left;">
+Pass
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+Adverse Event Assessment
+</td>
+<td style="text-align:left;width: 3cm; ">
+S6_1
+</td>
+<td style="text-align:left;">
+T6_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate raw participant-level data, an Adverse Event
+Assessment can be done using the Normal Approximation method.
+</td>
+<td style="text-align:left;">
+Pass
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+Adverse Event Assessment
+</td>
+<td style="text-align:left;width: 3cm; ">
+S6_2
+</td>
+<td style="text-align:left;">
+T6_2
+</td>
+<td style="text-align:left;width: 6cm; ">
+Adverse Event Assessments can be done correctly using a grouping
+variable, such as Site or Country for KRIs, and Study for QTLs, when
+applicable.
+</td>
+<td style="text-align:left;">
+Pass
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+Protocol Deviation Assessment
+</td>
+<td style="text-align:left;width: 3cm; ">
+S7_1
+</td>
+<td style="text-align:left;">
+T7_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate raw participant-level data, a Protocol Deviation
+Assessment can be done using the Normal Approximation method.
+</td>
+<td style="text-align:left;">
+Pass
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+Protocol Deviation Assessment
+</td>
+<td style="text-align:left;width: 3cm; ">
+S7_2
+</td>
+<td style="text-align:left;">
+T7_2
+</td>
+<td style="text-align:left;width: 6cm; ">
+Protocol Deviation Assessments can be done correctly using a grouping
+variable, such as Site or Country for KRIs, and Study for QTLs, when
+applicable.
+</td>
+<td style="text-align:left;">
+Pass
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+Disposition Assessment
+</td>
+<td style="text-align:left;width: 3cm; ">
+S8_1
+</td>
+<td style="text-align:left;">
+T8_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate raw participant-level data, a Dispositon Assessment
+can be done using the Normal Approximation method.
+</td>
+<td style="text-align:left;">
+Pass
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+Disposition Assessment
+</td>
+<td style="text-align:left;width: 3cm; ">
+S8_2
+</td>
+<td style="text-align:left;">
+T8_2
+</td>
+<td style="text-align:left;width: 6cm; ">
+Disposition Assessments can be done correctly using a grouping variable,
+such as Site or Country for KRIs, and Study for QTLs, when applicable.
+</td>
+<td style="text-align:left;">
+Pass
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+Labs Assessment
+</td>
+<td style="text-align:left;width: 3cm; ">
+S9_1
+</td>
+<td style="text-align:left;">
+T9_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate raw participant-level data, a Labs Assessment can be
+done using the Normal Approximation method.
+</td>
+<td style="text-align:left;">
+Pass
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+Labs Assessment
+</td>
+<td style="text-align:left;width: 3cm; ">
+S9_2
+</td>
+<td style="text-align:left;">
+T9_2
+</td>
+<td style="text-align:left;width: 6cm; ">
+Labs Assessments can be done correctly using a grouping variable, such
+as Site or Country for KRIs, and Study for QTLs, when applicable.
+</td>
+<td style="text-align:left;">
+Pass
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+Data Change Rate Assessment
+</td>
+<td style="text-align:left;width: 3cm; ">
+S10_1
+</td>
+<td style="text-align:left;">
+T10_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate raw participant-level data, a Data Change Rate
+Assessment can be done using the Normal Approximation method.
+</td>
+<td style="text-align:left;">
+Pass
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+Data Change Rate Assessment
+</td>
+<td style="text-align:left;width: 3cm; ">
+S10_2
+</td>
+<td style="text-align:left;">
+T10_2
+</td>
+<td style="text-align:left;width: 6cm; ">
+Data Change Rate Assessments can be done correctly using a grouping
+variable, such as Site, Country, or Study, when applicable.
+</td>
+<td style="text-align:left;">
+Pass
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+Data Entry Lag Assessment
+</td>
+<td style="text-align:left;width: 3cm; ">
+S11_1
+</td>
+<td style="text-align:left;">
+T11_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate raw participant-level data, a Data Entry Lag
+Assessment can be done using the Normal Approximation method.
+</td>
+<td style="text-align:left;">
+Pass
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+Data Entry Lag Assessment
+</td>
+<td style="text-align:left;width: 3cm; ">
+S11_2
+</td>
+<td style="text-align:left;">
+T11_2
+</td>
+<td style="text-align:left;width: 6cm; ">
+Data Entry Lag Assessments can be done correctly using a grouping
+variable, such as Site, Country, or Study, when applicable.
+</td>
+<td style="text-align:left;">
+Pass
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+Query Age Assessment
+</td>
+<td style="text-align:left;width: 3cm; ">
+S12_1
+</td>
+<td style="text-align:left;">
+T12_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate raw participant-level data, a Query Age Assessment can
+be done using the Normal Approximation method.
+</td>
+<td style="text-align:left;">
+Pass
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+Query Age Assessment
+</td>
+<td style="text-align:left;width: 3cm; ">
+S12_2
+</td>
+<td style="text-align:left;">
+T12_2
+</td>
+<td style="text-align:left;width: 6cm; ">
+Query Age Assessments can be done correctly using a grouping variable,
+such as Site, Country, or Study, when applicable.
+</td>
+<td style="text-align:left;">
+Pass
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+Query Rate Assessment
+</td>
+<td style="text-align:left;width: 3cm; ">
+S13_1
+</td>
+<td style="text-align:left;">
+T13_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+Given appropriate raw participant-level data, a Query Rate Assessment
+can be done using the Normal Approximation method.
+</td>
+<td style="text-align:left;">
+Pass
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+Query Rate Assessment
+</td>
+<td style="text-align:left;width: 3cm; ">
+S13_2
+</td>
+<td style="text-align:left;">
+T13_2
+</td>
+<td style="text-align:left;width: 6cm; ">
+Query Rate Assessments can be done correctly using a grouping variable,
+such as Site, Country, or Study, when applicable.
+</td>
+<td style="text-align:left;">
+Pass
 </td>
 </tr>
 </tbody>
