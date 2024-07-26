@@ -11,7 +11,7 @@
 #'
 #' @export
 #'
-Report_MetricCharts <- function(lCharts, strMetricID = '') {
+Report_MetricCharts <- function(lCharts, strMetricID = "") {
   #### charts tabset
   cat("#### Summary Charts {.tabset} \n")
   chartTypes <- c(

@@ -47,8 +47,9 @@ Widget_BarChart <- function(
   }
 
   # Disable threshold if outcome is not 'Score'.
-  if (strOutcome != 'Score')
+  if (strOutcome != "Score") {
     vThreshold <- NULL
+  }
 
   # define widget inputs
   input <- list(
