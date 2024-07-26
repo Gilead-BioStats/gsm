@@ -92,14 +92,16 @@ fmt_flag_rag <- function(data, columns = gt::everything()) {
 
 # Cells ------------------------------------------------------------------------
 
-fmt_sign_rag <- function(data,
+fmt_sign_rag <- function(
+  data,
   columns = gt::everything(),
   rows = gt::everything()) {
   data_color_rag(data, columns = columns) %>%
     fmt_sign(columns = columns, rows = rows)
 }
 
-data_color_rag <- function(data,
+data_color_rag <- function(
+  data,
   columns = gt::everything(),
   rows = gt::everything()) {
   gt::data_color(
@@ -110,7 +112,8 @@ data_color_rag <- function(data,
   )
 }
 
-fmt_sign <- function(data,
+fmt_sign <- function(
+  data,
   columns = gt::everything(),
   rows = gt::everything()) {
   gt::fmt(
@@ -141,9 +144,10 @@ n_to_rag <- function(x) {
   )
 }
 
-fmt_present <- function(data,
-                        columns = gt::everything(),
-                        rows = gt::everything()) {
+fmt_present <- function(
+  data,
+  columns = gt::everything(),
+  rows = gt::everything()) {
   gt::fmt(
     data,
     columns = columns,

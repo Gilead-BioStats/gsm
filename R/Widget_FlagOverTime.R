@@ -31,7 +31,7 @@ Widget_FlagOverTime <- function(
     name = "Widget_FlagOverTime",
     x,
     width = "100%",
-    package = 'gsm'
+    package = "gsm"
   )
 }
 
@@ -50,7 +50,11 @@ Widget_FlagOverTime <- function(
 #' @name Widget_FlagOverTime-shiny
 #'
 #' @export
-Widget_FlagOverTimeOutput <- function(outputId, width = "100%", height = "400px") {
+Widget_FlagOverTimeOutput <- function(
+  outputId,
+  width = "100%",
+  height = "400px"
+) {
   htmlwidgets::shinyWidgetOutput(
     outputId,
     "Widget_FlagOverTime",
@@ -63,14 +67,17 @@ Widget_FlagOverTimeOutput <- function(outputId, width = "100%", height = "400px"
 #' @rdname Widget_FlagOverTime-shiny
 #' @inheritParams Widget_FlagOverTime
 #' @export
-renderWidget_FlagOverTime <- function(dfResults,
-                                      dfMetrics,
-                                      strGroupLevel = c("Site", "Study", "Country")) {
+renderWidget_FlagOverTime <- function(
+  dfResults,
+  dfMetrics,
+  strGroupLevel = c("Site", "Study", "Country")
+) {
   htmlwidgets::shinyRenderWidget(
-    {Widget_FlagOverTime(dfResults, dfMetrics, strGroupLevel)},
+    {
+      Widget_FlagOverTime(dfResults, dfMetrics, strGroupLevel)
+    },
     Widget_FlagOverTimeOutput,
     env = rlang::current_env(),
     quoted = FALSE
   )
 }
-
