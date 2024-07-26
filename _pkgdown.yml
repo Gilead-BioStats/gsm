@@ -58,7 +58,7 @@ reference:
 
 
   - title: Utility
-    desc: Utility functions for use within the Data Pipeline
+    desc: Utility functions for use within the Data Model
   - contents:
      -  BindResults
      -  MakeBounds

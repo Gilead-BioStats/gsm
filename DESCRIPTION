@@ -17,6 +17,8 @@ Authors@R: c(
     person("Chelsea", "Dickens", , "chelsea.dickens@atorusresearch.com", role = "aut"),
     person("Maya", "Gans", , "maya.gans@atorusresearch.com", role = "aut"),
     person("Jacob", "Anderson", , "jacob.anderson@atorusresearch.com", role = "aut"),
+    person("Laura", "Maxwell", , "laura.maxwell@atorusresearch.com", role = "aut"),
+    person("Jon", "Harmon", , "jon.harmon@atorusresearch.com", role = "aut"),
     person("Gilead Sciences", role = "cph")
   )
 Description: The Good Statistical Monitoring or 'gsm' R package provides a
@@ -79,6 +81,7 @@ Config/testthat/edition: 3
 Config/testthat/parallel: true
 Config/testthat/start-first: util-RunWorkflow, util-clindata
 Encoding: UTF-8
+Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
