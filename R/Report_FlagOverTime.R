@@ -52,10 +52,38 @@ widen_results <- function(dfResults, dfMetrics, strGroupLevel) {
       "SnapshotDate",
       "Flag"
     )
-  dfFlagOverTime %>%
+  dfFlagOverTime <- dfFlagOverTime %>%
     dplyr::arrange(.data$SnapshotDate) %>%
     tidyr::pivot_wider(names_from = "SnapshotDate", values_from = "Flag") %>%
     dplyr::arrange(.data$GroupID, .data$MetricID)
+  
+  # if `FlagChange` is present, get the value from the most recent SnapshotDate
+  if ("FlagChange" %in% colnames(dfResults)) {
+    dfFlagChange <- dfResults %>%
+      dplyr::select(
+        "GroupID",
+        "MetricID",
+        "SnapshotDate",
+        "FlagChange"
+      ) %>%
+      dplyr::arrange(.data$SnapshotDate) %>%
+      dplyr::group_by(.data$GroupID, .data$MetricID) %>%
+      dplyr::slice_tail(n = 1) %>%
+      dplyr::ungroup() %>% 
+      select(-SnapshotDate)
+
+      
+    dfFlagOverTime <- dfFlagOverTime %>% 
+    dplyr::left_join(dfFlagChange, by = c("GroupID", "MetricID")) %>%
+    relocate(FlagChange, .after = Abbreviation) %>%
+    mutate(FlagChange = ifelse(FlagChange,"\u2713" , "")) %>%
+    mutate(FlagChange = ifelse(is.na(FlagChange), "", FlagChange)) %>% 
+    rename("New Flag?"=FlagChange)
+
+
+  }
+  return(dfFlagOverTime)
+
 }
 
 fmt_flag_rag <- function(data, columns = gt::everything()) {
