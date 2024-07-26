@@ -9,7 +9,7 @@
  * @returns {Node} HTML select element
  */
 const addWidgetControls = function(el, dfResults, lMetrics, dfGroups, bAddGroupSelect) {
-    if (bAddGroupSelect === false)
+    if (!bAddGroupSelect)
         return {
             groupSelect: null,
             countrySelect: null
