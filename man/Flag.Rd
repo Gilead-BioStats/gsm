@@ -33,7 +33,7 @@ method is used.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 This function provides a generalized framework for flagging sites as part of the
-\href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline}.
+\href{https://gilead-biostats.github.io/gsm/articles/DataModel.html}{GSM data model}.
 }
 \section{Data Specification}{
 
