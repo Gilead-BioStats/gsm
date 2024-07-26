@@ -66,7 +66,7 @@ const addGroupSubsetLongitudinalListener = (el) => {
   const amberRowsLatest = findMatchingRows(rows, 'td:last-of-type[style*="background-color: #FFBF00"]');
   const redRowsEver = findMatchingRows(rows, 'td[style*="background-color: #FF0040"]');
   const redRowsLatest = findMatchingRows(rows, 'td:last-of-type[style*="background-color: #FF0040"]');
-  const changeRows = findMatchingRows(rows, 'td.gt_flag_changed');  //TODO: Update this to select checked cells ... 
+  const changeRows = findMatchingRows(rows, 'td[headers$="New Flag\?"]:not(:empty)');
 
   // Find header rows that relate to those vars.
   const headerRows = gtTable.querySelectorAll('tbody tr.gt_group_heading_row');
