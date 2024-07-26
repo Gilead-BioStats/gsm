@@ -6,7 +6,7 @@ output:
 vignette: >
  %\\VignetteIndexEntry{Qualification Workflow} 
  %\\VignetteEncoding{UTF-8}
- %\\VignetteEngine{knitr::rmarkdown}
+ %\\VignetteEngine{knitr::rmarkdown_notangle}
 ---
 
 ```{r setup, include = FALSE}
