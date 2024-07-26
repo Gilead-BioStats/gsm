@@ -36,7 +36,7 @@ This vignette walks users through the mechanics of the functions and workflows t
 
 These functions and workflows produce data frames, visualizations, metadata, and reports to be used in reporting and error checking at clinical sites. The image below illustrates the overarching context in which the reporting workflow runs, taking inputs from both the output of the analytics workflow, as well as raw study-, site-, and country-level data in the Raw/Raw+ format.
 
-![](data-model.PNG){width="100%"}
+![](data_model_detailed.png){width="100%"}
 
 All of the functions to create the data frames in the reporting data model will run automatically and sequentially when a user specifies the metadata and data needed for the report, and calls upon the `RunWorkflow()` function with the  `data_reporting.yaml` file. To create a report, the output of the `data_reporting.yaml` is fed into the `reports.yaml` to produce and html document with all charts and tables created in the reporting workflow.
 
@@ -279,7 +279,7 @@ lReport <- Report_KRI(lCharts = lCharts,
 
 Below, you will see a screenshot from the beginning of the report. All charts for all metrics that were included throughout the analytics and reporting workflows will be included in this report.
 
-![](report-screenshot.PNG){width="100%"}
+![](report_screenshot.png){width="100%"}
 
 -------------------------------------------------------------------
 
