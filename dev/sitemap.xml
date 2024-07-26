@@ -18,13 +18,11 @@
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/Analyze_NormalApprox_PredictBounds.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/Analyze_Poisson.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/Analyze_Poisson_PredictBounds.html</loc></url>
-<url><loc>https://gilead-biostats.github.io/gsm/dev/reference/Analyze_QTL.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/BindResults.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/Flag.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/Flag_Fisher.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/Flag_NormalApprox.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/Flag_Poisson.html</loc></url>
-<url><loc>https://gilead-biostats.github.io/gsm/dev/reference/Flag_QTL.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/Input_Rate.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/MakeBounds.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/MakeCharts.html</loc></url>
@@ -51,7 +49,6 @@
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/Transform_Rate.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/UseClindata.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/Visualize_Metric.html</loc></url>
-<url><loc>https://gilead-biostats.github.io/gsm/dev/reference/Visualize_QTL.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/Visualize_Scatter.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/Visualize_Score.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/Widget_BarChart-shiny.html</loc></url>
@@ -62,7 +59,6 @@
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/Widget_ScatterPlot.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/Widget_TimeSeries-shiny.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/Widget_TimeSeries.html</loc></url>
-<url><loc>https://gilead-biostats.github.io/gsm/dev/reference/Widget_TimeSeriesQTL.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/analyticsInput.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/analyticsSummary.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/cols_label_month.html</loc></url>
@@ -78,6 +74,5 @@
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/reportingResults.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/shared-params.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/tidyeval.html</loc></url>
-<url><loc>https://gilead-biostats.github.io/gsm/dev/reference/timeSeriesQTL-shiny.html</loc></url>
 </urlset>
 
