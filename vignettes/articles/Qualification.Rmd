@@ -52,7 +52,7 @@ The `{gsm}` R package supports RBQM by performing risk assessments primarily foc
 
 # Scope
 
-Qualification testing ensures that core functions execute as expected on a system-wide scale. Qualification includes executing various functional, performance, and usability testing. Qualification tests are designed to provide developers with a repeatable process that is easy to update and document. This document summarizes the qualification testing performed on `{gsm}` functions essential to the analytics workflow.
+Qualification testing ensures that core functions execute as expected on a system-wide scale. Qualification includes executing various functional, performance, and usability testing. Qualification tests are designed to provide developers with a repeatable process that is easy to update and document. This document summarizes the qualification testing performed on `{gsm}` functions essential to the analysis workflow.
 
 # Process Overview
 

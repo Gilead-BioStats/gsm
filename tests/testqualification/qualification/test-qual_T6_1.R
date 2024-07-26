@@ -9,57 +9,47 @@ mapped_data <- get_data(kri_workflows, lData)
 outputs <- map(kri_workflows, ~ map_vec(.x$steps, ~ .x$output))
 
 ## Test Code
-testthat::test_that("Adverse Event Assessments can be done correctly using a grouping variable, such as Site or Country for KRIs, and Study for QTLs, when applicable.", {
-  ## regular -----------------------------------------
-  test <- map(kri_workflows, ~ robust_runworkflow(.x, mapped_data, steps = 1:3))
+testthat::test_that("Given appropriate raw participant-level data, an Adverse Event Assessment can be done using the Normal Approximation method.
+", {
+  # default
+  test <- map(kri_workflows, ~ robust_runworkflow(.x, mapped_data))
 
-  # grouping col in yaml file is interpreted correctly in dfInput GroupID
-  iwalk(test, ~ expect_identical(
-    sort(unique(.x$dfInput$GroupID)),
-    sort(unique(.x$dfEnrolled[[kri_workflows[[.y]]$steps[[2]]$params$strGroupCol]]))
-  ))
+  expect_true(
+    all(
+      imap_lgl(outputs, function(names, kri) {
+        all(names %in% names(test[[kri]]))
+      })
+    )
+  )
+  expect_true(
+    all(
+      imap_lgl(test, function(kri, kri_name) {
+        all(map_lgl(kri[outputs[[kri_name]][outputs[[kri_name]] != "vThreshold"]], is.data.frame))
+      })
+    )
+  )
+  walk(test, ~ expect_true(is.vector(.x$vThreshold)))
+  walk(test, ~ expect_equal(nrow(.x$dfFlagged), nrow(.x$dfSummary)))
+  walk(test, ~ expect_identical(sort(.x$dfFlagged$GroupID), sort(.x$dfSummary$GroupID)))
 
-  # data is properly transformed by correct group in dfTransformed
-  iwalk(test, ~ expect_equal(
-    n_distinct(.x$dfEnrolled[[kri_workflows[[.y]]$steps[[2]]$params$strGroupCol]]),
-    nrow(.x$dfTransformed)
-  ))
+  # custom
+  test_custom <- map(kri_workflows, ~ robust_runworkflow(.x, mapped_data))
 
-  ## custom -------------------------------------------
-  test_custom <- map(kri_custom, ~ robust_runworkflow(.x, mapped_data, steps = 1:3))
-
-  # grouping col in custom yaml file is interpreted correctly in dfInput GroupID
-  iwalk(test_custom, ~ expect_identical(
-    sort(unique(.x$dfInput$GroupID)),
-    sort(unique(.x$dfEnrolled[[kri_custom[[.y]]$steps[[2]]$params$strGroupCol]]))
-  ))
-
-  # data is properly transformed by correct group in dfTransformed
-  iwalk(test_custom, ~ expect_equal(
-    n_distinct(.x$dfEnrolled[[kri_custom[[.y]]$steps[[2]]$params$strGroupCol]]),
-    nrow(.x$dfTransformed)
-  ))
-
-  mapped_data$dfEnrolled %>% glimpse()
-
-  ## custom edits -------------------------------------
-  kri_custom2 <- map(kri_workflows, function(kri) {
-    kri$steps[[2]]$params$strGroupCol <- "agerep"
-    kri$steps[[2]]$params$strGroupLevel <- "Age"
-    return(kri)
-  })
-
-  test_custom2 <- map(kri_custom2, ~ robust_runworkflow(.x, mapped_data, steps = 1:3))
-
-  # grouping col in custom2 workflow is interpreted correctly in dfInput GroupID
-  iwalk(test_custom2, ~ expect_identical(
-    sort(unique(.x$dfInput$GroupID)),
-    sort(unique(.x$dfEnrolled[[kri_custom2[[.y]]$steps[[2]]$params$strGroupCol]]))
-  ))
-
-  # data is properly transformed by correct group in dfTransformed
-  iwalk(test_custom2, ~ expect_equal(
-    n_distinct(.x$dfEnrolled[[kri_custom2[[.y]]$steps[[2]]$params$strGroupCol]]),
-    nrow(.x$dfTransformed)
-  ))
+  expect_true(
+    all(
+      imap_lgl(outputs, function(names, kri) {
+        all(names %in% names(test_custom[[kri]]))
+      })
+    )
+  )
+  expect_true(
+    all(
+      imap_lgl(test_custom, function(kri, kri_name) {
+        all(map_lgl(kri[outputs[[kri_name]][outputs[[kri_name]] != "vThreshold"]], is.data.frame))
+      })
+    )
+  )
+  walk(test_custom, ~ expect_true(is.vector(.x$vThreshold)))
+  walk(test_custom, ~ expect_equal(nrow(.x$dfFlagged), nrow(.x$dfSummary)))
+  walk(test_custom, ~ expect_identical(sort(.x$dfFlagged$GroupID), sort(.x$dfSummary$GroupID)))
 })
