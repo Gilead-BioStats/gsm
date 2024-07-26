@@ -20,17 +20,6 @@ dfResults <- gsm::reportingResults %>%
 dfMetrics <- gsm::reportingMetrics
 dfGroups <- gsm::reportingGroups
 
-# Add `FlagPrevious` and `FlagChange` columns to `dfResults`
-dfResults <- dfResults %>%
-  dplyr::group_by(GroupID, MetricID) %>%
-  dplyr::mutate(
-    FlagPrevious = dplyr::lag(Flag, order_by = SnapshotDate)
-  ) %>%
-  dplyr::ungroup() %>%
-  mutate(FlagChange = ifelse(is.na(FlagPrevious), NA, Flag != FlagPrevious))
-
-#Report_FlagOverTime(dfResults, dfMetrics)
-
 # Shiny ui ---------------------------------------------------------------------
 ui <- fluidPage(
   titlePanel("Flag Over Time Demo"),
@@ -93,7 +82,7 @@ server <- function(input, output, session) {
     dfResults %>%
       dplyr::filter(GroupID %in% input$GroupID) %>%
       dplyr::filter(MetricID %in% input$MetricID) %>%
-      dplyr::filter(SnapshotDate %in% input$Dates) 
+      dplyr::filter(SnapshotDate %in% input$Dates)
   })
   rResults_Latest <- reactive({
     rResults() %>%
@@ -124,7 +113,7 @@ server <- function(input, output, session) {
 
   # Data
   output$results <- DT::renderDataTable({rResults()})
-  
+
   # Reset button
   observeEvent(input$reset, {
     updateSelectInput(

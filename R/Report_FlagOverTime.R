@@ -16,7 +16,11 @@ Report_FlagOverTime <- function(
   strGroupLevel = c("Site", "Study", "Country")
 ) {
   strGroupLevel <- rlang::arg_match(strGroupLevel)
-  dfFlagOverTime <- widen_results(dfResults, dfMetrics, strGroupLevel)
+  dfFlagOverTime <- dfResults %>%
+    dplyr::filter(.data$GroupLevel == strGroupLevel) %>%
+    flag_changes() %>%
+    widen_results(dfMetrics, strGroupLevel)
+
   date_cols <- stringr::str_which(
     colnames(dfFlagOverTime),
     r"(\d{4}-\d{2}-\d{2})"
@@ -26,10 +30,26 @@ Report_FlagOverTime <- function(
     dplyr::group_by(.data$GroupLevel, .data$GroupID) %>%
     gsm_gt() %>%
     fmt_flag_rag(columns = date_cols) %>%
+    fmt_present(columns = "FlagChange") %>%
+    gt::cols_label(FlagChange = "New Flag?") %>%
     gt::tab_header(
       title = "Flags Over Time"
     ) %>%
     gt::opt_align_table_header(align = "left")
+}
+
+flag_changes <- function(dfResults) {
+  dfResults %>%
+    dplyr::mutate(
+      FlagPrevious = dplyr::lag(.data$Flag, order_by = .data$SnapshotDate),
+      .by = c("GroupID", "MetricID")
+    ) %>%
+    dplyr::mutate(
+      FlagChange = !is.na(.data$Flag) &
+        !is.na(.data$FlagPrevious) &
+        .data$Flag != .data$FlagPrevious
+    ) %>%
+    dplyr::select(-"FlagPrevious")
 }
 
 widen_results <- function(dfResults, dfMetrics, strGroupLevel) {
@@ -50,40 +70,19 @@ widen_results <- function(dfResults, dfMetrics, strGroupLevel) {
       "MetricID",
       "Abbreviation",
       "SnapshotDate",
-      "Flag"
-    )
-  dfFlagOverTime <- dfFlagOverTime %>%
+      "Flag",
+      "FlagChange"
+    ) %>%
     dplyr::arrange(.data$SnapshotDate) %>%
+    # Use the most recent `FlagChange`
+    dplyr::mutate(
+      FlagChange = dplyr::last(.data$FlagChange),
+      .by = c("GroupID", "MetricID")
+    ) %>%
     tidyr::pivot_wider(names_from = "SnapshotDate", values_from = "Flag") %>%
     dplyr::arrange(.data$GroupID, .data$MetricID)
-  
-  # if `FlagChange` is present, get the value from the most recent SnapshotDate
-  if ("FlagChange" %in% colnames(dfResults)) {
-    dfFlagChange <- dfResults %>%
-      dplyr::select(
-        "GroupID",
-        "MetricID",
-        "SnapshotDate",
-        "FlagChange"
-      ) %>%
-      dplyr::arrange(.data$SnapshotDate) %>%
-      dplyr::group_by(.data$GroupID, .data$MetricID) %>%
-      dplyr::slice_tail(n = 1) %>%
-      dplyr::ungroup() %>% 
-      select(-SnapshotDate)
 
-      
-    dfFlagOverTime <- dfFlagOverTime %>% 
-    dplyr::left_join(dfFlagChange, by = c("GroupID", "MetricID")) %>%
-    relocate(FlagChange, .after = Abbreviation) %>%
-    mutate(FlagChange = ifelse(FlagChange,"\u2713" , "")) %>%
-    mutate(FlagChange = ifelse(is.na(FlagChange), "", FlagChange)) %>% 
-    rename("New Flag?"=FlagChange)
-
-
-  }
   return(dfFlagOverTime)
-
 }
 
 fmt_flag_rag <- function(data, columns = gt::everything()) {
@@ -139,5 +138,17 @@ n_to_rag <- function(x) {
     abs(x) >= 2 ~ colorScheme("red"),
     abs(x) >= 1 ~ colorScheme("amber"),
     TRUE ~ colorScheme("gray")
+  )
+}
+
+fmt_present <- function(data,
+                        columns = gt::everything(),
+                        rows = gt::everything()) {
+  gt::fmt(
+    data,
+    columns = columns,
+    rows = rows,
+    compat = "logical",
+    fns = function(x) dplyr::if_else(x, "\u2713", "")
   )
 }
