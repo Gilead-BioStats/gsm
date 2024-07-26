@@ -52,7 +52,7 @@ The `{gsm}` R package supports RBQM by performing risk assessments primarily foc
 
 # Scope
 
-Qualification testing ensures that core functions execute as expected on a system-wide scale. Qualification includes executing various functional, performance, and usability testing. Qualification tests are designed to provide developers with a repeatable process that is easy to update and document. This document summarizes the qualification testing performed on `{gsm}` functions essential to the analytics workflow.
+Qualification testing ensures that core functions execute as expected on a system-wide scale. Qualification includes executing various functional, performance, and usability testing. Qualification tests are designed to provide developers with a repeatable process that is easy to update and document. This document summarizes the qualification testing performed on `{gsm}` functions essential to the analysis workflow.
 
 # Process Overview
 
@@ -82,9 +82,8 @@ Test cases for `{gsm}` are written using the standard `testthat` workflow. A sin
 
 # Test Results: Overview
 
-```{r}
-spec_list <- list.files(here::here('tests', 'testqualification', 'qualification'), pattern = ".R", full.names = TRUE)
-spec_list <- spec_list[-1]
+```{r results = "hide"}
+spec_list <- list.files(here::here('tests', 'testqualification', 'qualification'), pattern = "test-qual_", full.names = TRUE)
 
 scrape <- map_df(spec_list, function(x) {
     testResultsRaw <- testthat::test_file(x, reporter = testthat::ListReporter, package = "gsm") %>% 
@@ -92,7 +91,7 @@ scrape <- map_df(spec_list, function(x) {
     
     return(testResultsRaw)
 }) %>% 
-  mutate(Tests = gsub("test_qual_", "", file),
+  mutate(Tests = gsub("test-qual_", "", file),
          Tests = gsub(".R", "", Tests))
 
 funcs <- spec_df %>%
@@ -105,7 +104,7 @@ funcs <- spec_df %>%
 testResultsIndividual <- left_join(scrape, funcs, by = "Tests") %>% 
   group_by(Function) %>%
   reframe(`Function Name` = unique(Function),
-          `Number of Tests` = n(),
+          `Number of Tests` = sum(nb),
           `Number Passed` = sum(passed),
           `Number Failed` = sum(failed),
           `Number Skipped` = sum(skipped)) %>%
@@ -113,7 +112,9 @@ testResultsIndividual <- left_join(scrape, funcs, by = "Tests") %>%
   select(-Function)
 
 scrape_new <- left_join(scrape, funcs, by = "Tests") 
+```
 
+```{r}
 knitr::kable(testResultsIndividual, booktabs = TRUE, longtable = TRUE) %>%
   kableExtra::kable_styling(latex_options = c("repeat_header", "striped", "bordered"),
                             font_size = 9, full_width = FALSE) %>%
@@ -128,18 +129,7 @@ knitr::kable(testResultsIndividual, booktabs = TRUE, longtable = TRUE) %>%
 qual_specs_orig <- read.csv(system.file("qualification", "qualification_specs.csv", package = "gsm"))
 qual_specs <- qual_specs_orig %>%
   mutate(SpecID = paste0("S", Spec, "_", Test.ID)) %>%
-  select(SpecID, Tests) %>%
-  tidyr::separate_rows("Tests", sep = ",") %>%
-  mutate(Tests = trimws(Tests)) %>%
-  split(.$Tests) %>%
-  purrr::map(function(x){
-    x %>%
-      group_by(Tests) %>%
-      mutate(Specs = paste(SpecID, collapse = ", ")) %>%
-      select(-SpecID) %>%
-      distinct()
-  }) %>%
-  list_rbind()
+  select(Specs = SpecID, Tests, N.Tests)
 
 ### One row per spec
 Specifications <- spec_df %>%
@@ -164,7 +154,7 @@ knitr::kable(Specifications, booktabs = TRUE, longtable = TRUE) %>%
 ```{r}
 ### One row per test
 test <- scrape_new %>%
-  mutate(result_new = ifelse(passed == 1, "Pass", "Fail")) %>%
+  mutate(result_new = ifelse(failed == 0, "Pass", "Fail")) %>%
   select(Tests, test, result_new, Function)
 
 Results <- left_join(test, qual_specs, by = "Tests") %>%

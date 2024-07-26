@@ -51,7 +51,7 @@ This example uses the standard {gsm} analysis workflows to creates site-level Ad
 
 # Example 2 - Adverse Events Metrics - Workflow
 
-This examples introduces YAML workflows to re-generate the same results as in **Example 1** via a reusable pipeline. See the [Data Pipeline Vignette](https://gilead-biostats.github.io/gsm/articles/DataPipeline.html) for more detail.
+This examples introduces YAML workflows to re-generate the same results as in **Example 1** via a reusable pipeline. See the [Data Model Vignette](https://gilead-biostats.github.io/gsm/articles/DataModel.html) for more detail.
 
 - **Example 2.1** runs the AE KRI workflow.
 - **Example 2.2** updates the metadata to run country-level metrics.
@@ -63,7 +63,7 @@ This examples introduces YAML workflows to re-generate the same results as in **
 
 # Example 3 - Study-Level Reporting Workflows 
 
-This example extends the previous examples to generate charts and reports for multiple KRIs. See the 
+This example extends the previous examples to generate charts and reports for multiple KRIs. See the [Data Reporting Vignette](https://gilead-biostats.github.io/gsm/articles/DataReporting.html) for more detail.
 
 - **Example 3.1** steps through several workflows to generate a report for all 12 standard site-level KRIs.
 - **Example 3.2** combines the analytics and reporting steps into a single workflow.

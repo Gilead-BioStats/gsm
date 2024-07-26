@@ -20,7 +20,7 @@ Add columns flagging sites that represent possible statistical outliers when the
 \details{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
-This function flags sites based on the Poisson analysis result as part of the \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline}.
+This function flags sites based on the Poisson analysis result as part of \code{vignette("DataModel")}.
 }
 \section{Data Specification}{
 
