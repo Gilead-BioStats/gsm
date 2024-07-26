@@ -100,30 +100,32 @@ Note that test cases can be associated with multiple specifications.  For exampl
 
 An simple example test case is shown below.  For this test case the file would be called `test_qual_T21_1.R` and would correspond to T21_1 in the specifications:
 
-```{r}
-test_that("Domain-level data can be correctly merged into subject-level data using subject ID as the key variable.", {
+```{r eval = F, include = T}
+testthat::test_that("Given raw participant-level data, a properly specified Workflow for a KRI creates summarized and flagged data", {
+  test <- robust_runworkflow(kri_workflows, mapped_data)
+  expected_rows <- length(na.omit(unique(test$dfEnrolled[[kri_workflows$steps[[2]]$params$strGroupCol]])))
 
+  # test output stucture
+  expect_true(is.vector(test$vThreshold))
+  expect_true(all(map_lgl(test[outputs[outputs != "vThreshold"]], is.data.frame)))
+  expect_equal(nrow(test$dfFlagged), expected_rows)
+  expect_equal(nrow(test$dfSummary), expected_rows)
 
-  ########### gsm mapping ###########
-  observed <- gsm::MergeSubjects(
-    dfDomain = clindata::rawplus_consent,
-    dfSUBJ = clindata::rawplus_dm,
-    strIDCol = "subjid"
-    )
+  # test output content
+  expect_true(all(outputs %in% names(test)))
+  flags <- test$dfFlagged %>%
+    mutate(hardcode_flag = case_when(
+      Score <= test$vThreshold[1] ~ -2,
+      Score > test$vThreshold[1] & Score <= test$vThreshold[2] ~ -1,
+      Score >= test$vThreshold[3] & Score < test$vThreshold[4] ~ 1,
+      Score >= test$vThreshold[4] ~ 2,
+      TRUE ~ 0
+    )) %>%
+    left_join(test$dfSummary %>%
+      select("GroupID", "Flag"), by = "GroupID")
 
-
-  ########### double programming ###########
-  # read in raw consent data
-  consent_orig <- clindata::rawplus_consent
-
-  # read in raw source DM data
-  dm_raw_orig <- clindata::rawplus_dm
-
-  # join DM and consent data
-  expected <- left_join(dm_raw_orig, consent_orig, by = "subjid")
-
-  ########### testing ###########
-  expect_equal(as.data.frame(observed), as.data.frame(expected))
+  expect_identical(flags$hardcode_flag, flags$Flag.x)
+  expect_identical(flags$hardcode_flag, flags$Flag.y)
 })
 ```
 
