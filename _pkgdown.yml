@@ -16,23 +16,6 @@ navbar:
           href: StandardReportSite.html
         - text: Country Report
           href: StandardReportCountry.html
-    # articles:
-    #   text: Articles
-    #   menu:
-    #     - text: Cookbook
-    #       href: articles/Cookbook.html
-    #     - text: Step-by-Step Analysis Workflow
-    #       href: articles/DataAnalysis.html
-    #     - text: Data Model
-    #       href: articles/DataModel.html
-    #     - text: Contributor Guidelines
-    #       href: articles/ContributorGuidelines.html
-    #     - text: KRI Method
-    #       href: articles/KRI Method.html
-    #     - text: Qualification Report for the {gsm} R Package
-    #       href: articles/Qualification.html
-    #     - text: Qualification Workflow
-    #       href: articles/QualificationWorkflow.html
 
 reference:
   - title: Visualize
