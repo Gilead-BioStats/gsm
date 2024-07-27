@@ -1,3 +1,32 @@
+#gsm v2.0.0
+
+gsm v2 is a major refactor (and massive simplification) of the gsm framework. Many functions have been removed, and others have been simplified as described below. The overall goal of the refactor is to improve modularity, transparency and maintainability of the package.
+
+As indicated by the version change, the release is not intended to be fully compatible with gsm v1. However, our core analytics pipeline `input()` --> `transform()` --> `analyze()` --> `flag()` --> `summarize()` remains largely unchanged, as does the core KRI markdown report.
+
+## Major Changes
+
+### Updated Workflows
+
+The driving change for this release is an increased focus on YAML-based workflow functionality. The extended `workflow` framework is described in detail in the Data Analysis Deep Dive and Data Reporting Deep Dive vignettes. As a result of this update, many other aspects of KRI configuration have been removed, including ...
+
+- KRI-specific assess functions have been removed. Instead, the downstream functions are called directly in workflows.
+KRI-specific map functions have been removed. If mapping is needed, new `RunQuery` and `Input_Rate` function can be called directly in workflows.
+Stand-alone mapping objects have been removed, along with associated checks (e.g. `is_mapping_valid`). Instead, columns should be specified directly in workflows.
+- Stand-along spec objects have been removed, along with associated checks. Simple data requirements can (optionally) be specified in workflows using the .
+- Logging functionality and the `bQuiet` parameter have been removed.
+- The `MakeSnapshot()` function has been removed and replaced by a customizable `snapshot.yaml` workflow.
+
+### Data Model Changes
+- A New Approach to Mapping - `Input_Rate()` provides a generalized approach to mapping from raw data to `dfInput`, the standardized participant-level data set used to generate each KRI. This has several benefits:
+better drill-down with `dfNumerator`
+- Standard columns in `dfInput` across all domains
+- Fully standardized pipeline - With the update to the mapping process, the data model for generating metrics is now fully standardized as shown here (Add link). Note that extra columns are permitted in `dfAnalyzed`, but not in other domains.
+
+### Reporting Changes
+- `Study_Report()` has been replaced by `Report_KRI()` and re-parameterized and modularized to provide more transparency on data requirements.
+- New version of rbm-viz provides ...
+
 # gsm v1.9.2
 
 This minor patch release addresses a reporting bug that was preventing the user from highlighting longitudinal site trends by clicking on a site within the timeseries plot. 

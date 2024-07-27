@@ -23,7 +23,7 @@ Useful links:
 Authors:
 \itemize{
   \item Jeremy Wildfire \email{jwildfire@gmail.com}
-  \item Matt Roumaya \email{Matt.Roumaya@atorusresearch.com} (\href{https://orcid.org/0000-0002-8009-2771}{ORCID})
+  \item Matt Roumaya \email{matthewroumaya@gmail.com} (\href{https://orcid.org/0000-0002-8009-2771}{ORCID})
   \item Nathan Kosiba \email{Nathan.Kosiba@atorusresearch.com}
   \item Douglas Sanders
   \item Spencer Childress \email{spencer.childress@gilead.com} (\href{https://orcid.org/0000-0001-6877-8511}{ORCID})
