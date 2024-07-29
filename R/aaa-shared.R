@@ -18,6 +18,7 @@ gloss_extra <- function(x) {
 #' @param dfGroups `r gloss_param("dfGroups")`
 #' @param dfInput `r gloss_param("dfInput")`
 #' @param lMetric `r gloss_param("lMetric")`
+#' @param bDebug `r gloss_param("bDebug")`
 #'
 #'
 #' @name shared-params

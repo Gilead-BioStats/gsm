@@ -7,6 +7,9 @@ HTMLWidgets.widget({
                 if (input.bDebug)
                     console.log(input);
 
+                // Assign a unique ID to the element.
+                el.id = `scatterPlot--${input.lMetric.MetricID}`;
+
                 // Add click event listener to chart.
                 if (input.bAddGroupSelect)
                     input.lMetric.clickCallback = function(d) {
@@ -18,7 +21,7 @@ HTMLWidgets.widget({
                         groupSelect.value = instance.data.config.selectedGroupIDs;
 
                         // Set country select to 'None' if a group ID is selected.
-                        if (countrySelect !== undefined)
+                        if (countrySelect)
                             countrySelect.value = "None";
 
                         instance.helpers.updateConfig(
@@ -47,24 +50,13 @@ HTMLWidgets.widget({
                 );
 
                 // Add dropdowns that highlight group IDs.
-                let groupSelect, countrySelect;
-                if (input.bAddGroupSelect) {
-                    groupSelect = addGroupSelect(
-                        el,
-                        input.dfResults,
-                        instance,
-                        `Highlighted ${input.lMetric.Group || 'group'}: `
-                    );
-
-                    if (input.lMetric.GroupLevel === 'Site') {
-                        countrySelect = addCountrySelect(
-                            el,
-                            input.dfGroups,
-                            instance,
-                            groupSelect
-                        );
-                    }
-                }
+                const { groupSelect, countrySelect } = addWidgetControls(
+                    el,
+                    input.dfResults,
+                    input.lMetric,
+                    input.dfGroups,
+                    input.bAddGroupSelect
+                );
             },
             resize: function(width, height) {
             }

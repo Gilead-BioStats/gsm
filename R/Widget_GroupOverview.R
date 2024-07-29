@@ -14,7 +14,6 @@
 #' - 'red/amber': Groups with 1+ red/amber flag.
 #' - 'amber': Groups with 1+ amber flag.
 #' @param strGroupLabelKey `character` Value for the group label key. Default: 'InvestigatorLastName'.
-#' @param bDebug `logical` Print debug messages? Default: `FALSE`.
 #'
 #' @examples
 #' # site-level report

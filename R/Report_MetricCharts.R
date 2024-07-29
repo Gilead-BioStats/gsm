@@ -5,12 +5,13 @@
 #' This function generates a markdown framework for charts
 #
 #' @param lCharts A list of charts for the selected metric.
+#' @param strMetricID `character` MetricID to subset the data.
 #'
 #' @return Markdown content with charts and a summary table for the metric
 #'
 #' @export
 #'
-Report_MetricCharts <- function(lCharts) {
+Report_MetricCharts <- function(lCharts, strMetricID = "") {
   #### charts tabset
   cat("#### Summary Charts {.tabset} \n")
   chartTypes <- c(
@@ -52,7 +53,7 @@ Report_MetricCharts <- function(lCharts) {
     )
 
     # Display chart.
-    cat(paste0("<div class ='gsm-widget ", chart_key, "'>"))
+    cat(glue::glue("<div class='gsm-widget {strMetricID} {chart_key}'>"))
     cat(knitr::knit_print(htmltools::tagList(chart)))
     cat("</div>")
     ##### / chart tab

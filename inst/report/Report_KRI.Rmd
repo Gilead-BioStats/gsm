@@ -107,7 +107,8 @@ for (i in unique(params$dfMetrics$MetricID)) {
   print(htmltools::h3(lMetric$Metric))
   
   Report_MetricCharts(
-    lCharts = params$lCharts[[lMetric$MetricID]]
+    lCharts = params$lCharts[[lMetric$MetricID]],
+    strMetricID = lMetric$MetricID
   )
 
  Report_MetricTable(

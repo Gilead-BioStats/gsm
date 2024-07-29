@@ -8,7 +8,7 @@
 #'
 #' @export
 
-MakeCharts <- function(dfResults, dfBounds, dfGroups, dfMetrics) {
+MakeCharts <- function(dfResults, dfBounds, dfGroups, dfMetrics, bDebug = FALSE) {
   metrics <- unique(dfMetrics$MetricID)
   charts <- metrics %>%
     purrr::map(~ Visualize_Metric(
@@ -16,7 +16,8 @@ MakeCharts <- function(dfResults, dfBounds, dfGroups, dfMetrics) {
       dfBounds = dfBounds,
       dfGroups = dfGroups,
       dfMetrics = dfMetrics,
-      strMetricID = .x
+      strMetricID = .x,
+      bDebug = bDebug
     )) %>%
     stats::setNames(metrics)
   return(charts)

@@ -8,7 +8,6 @@
 #'
 #' @inheritParams shared-params
 #' @param bAddGroupSelect `logical` Add a dropdown to highlight sites? Default: `TRUE`.
-#' @param bDebug `logical` Print debug messages? Default: `FALSE`.
 #'
 #' @examples
 #' ## Filter data to one metric and snapshot
