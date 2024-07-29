@@ -14,14 +14,18 @@
 Report_FormatFlag <- function(flag_value, title = NULL) {
   rlang::check_installed("fontawesome", reason = "to use `Report_FormatFlag()`")
   fa_vector <- vector("character", length = length(flag_value))
-  fa_vector[is.na(flag_value)] <- fa_titled("minus", "#AAA", title) # gray
-  fa_vector[flag_value == -2] <- fa_titled("angles-down", "#FF5859", title) # red
-  fa_vector[flag_value == -1] <- fa_titled("angle-down", "#FEAA02", title) # yellow
-  fa_vector[flag_value == 0] <- fa_titled("check", "#3DAF06", title) # green
-  fa_vector[flag_value == 1] <- fa_titled("angle-up", "#FEAA02", title) # yellow
-  fa_vector[flag_value == 2] <- fa_titled("angles-up", "#FF5859", title) # red
+  fa_vector[is.na(flag_value)] <- fa_titled("minus", colorScheme("gray", "dark"), title)
+  fa_vector[flag_value == -2] <- fa_titled("angles-down", colorScheme("red", "dark"), title)
+  fa_vector[flag_value == -1] <- fa_titled("angle-down", colorScheme("amber", "dark"), title)
+  fa_vector[flag_value == 0] <- fa_titled("check", colorScheme("green", "dark"), title)
+  fa_vector[flag_value == 1] <- fa_titled("angle-up", colorScheme("amber", "dark"), title)
+  fa_vector[flag_value == 2] <- fa_titled("angles-up", colorScheme("red", "dark"), title)
 
   return(fa_vector)
+}
+
+fa_titled <- function(name, fill, title) {
+  fontawesome::fa(name, fill = fill, title = title)
 }
 
 fa_titled <- function(name, fill, title) {
