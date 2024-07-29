@@ -61,3 +61,26 @@ widen_dfGroups <- function(dfGroups, strGroupLevel, strGroupDetailsParams) {
   }
   return(dplyr::select(dfGroups, -"GroupLevel"))
 }
+
+colorScheme <- function(
+  color_name = c("gray", "green", "amber", "red"),
+  color_family = c("light", "dark")
+) {
+  color_name <- rlang::arg_match(color_name)
+  color_family <- rlang::arg_match(color_family)
+  colors <- list(
+    light = c(
+      red = "#FF0040",
+      amber = "#FFBF00",
+      green = "#52C41A",
+      gray = "#AAAAAA"
+    ),
+    dark = c(
+      red = "#FF5859",
+      amber = "#FEAA02",
+      green = "#3DAF06",
+      gray = "#828282"
+    )
+  )
+  colors[[color_family]][[color_name]]
+}
