@@ -1,3 +1,8 @@
+/**
+ * This function highlights a group ID in all widgets.
+ *
+ * @returns {undefined}
+ */
 function overallClick() {
   const widgets = [
       ...document.querySelectorAll('.gsm-widget')
@@ -8,7 +13,7 @@ function overallClick() {
 
   for (const widget of widgets) {
     if (/timeSeries/.test(widget.type)) {
-      widget.chart.helpers.updateSelectedGroupIDs(event.target.value);
+        widget.chart.helpers.updateSelectedGroupIDs(event.target.value);
     } else {
         widget.chart.data.config.selectedGroupIDs = event.target.value; // group ID
         widget.chart.helpers.updateConfig(
@@ -19,12 +24,12 @@ function overallClick() {
     }
 
     if (event.target.value !== 'None') {
-      document.querySelectorAll(".group-select").forEach((el) => {
+      document.querySelectorAll(".gsm-widget-control--select").forEach((el) => {
         el.options[el.selectedIndex].innerHTML = event.target.value;
         el.disabled = true;
       });
     } else {
-      document.querySelectorAll(".group-select").forEach((el) => {
+      document.querySelectorAll(".gsm-widget-control--select").forEach((el) => {
         el.options[el.selectedIndex].innerHTML = "None";
         el.disabled = false;
       });
@@ -32,6 +37,11 @@ function overallClick() {
   }
 }
 
+/**
+ * This function adds a dropdown to the report of all available group IDs.
+ *
+ * @returns {undefined}
+ */
 function overallGroupDropdown() {
     // add container for drop-down
     const overallGroupSelectContainer = document.getElementById('overall-group-select');
@@ -46,7 +56,7 @@ function overallGroupDropdown() {
     overallGroupSelect.onchange = overallClick
     overallGroupSelectContainer.appendChild(overallGroupSelect);
 
-    const ids = [...document.querySelector(".group-select").options].map(
+    const ids = [...document.querySelector(".gsm-widget-control--select").options].map(
         (el) => el.text
     );
 
@@ -57,6 +67,7 @@ function overallGroupDropdown() {
     }
 }
 
+// add overall group select
 document.addEventListener("DOMContentLoaded", function () {
   overallGroupDropdown()
 })

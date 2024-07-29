@@ -4,10 +4,12 @@
 \alias{Report_MetricCharts}
 \title{Render charts for a given metric to markdown}
 \usage{
-Report_MetricCharts(lCharts)
+Report_MetricCharts(lCharts, strMetricID = "")
 }
 \arguments{
 \item{lCharts}{A list of charts for the selected metric.}
+
+\item{strMetricID}{\code{character} MetricID to subset the data.}
 }
 \value{
 Markdown content with charts and a summary table for the metric
