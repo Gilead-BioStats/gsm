@@ -19,13 +19,16 @@ Stand-alone mapping objects have been removed, along with associated checks (e.g
 
 ### Data Model Changes
 - A New Approach to Mapping - `Input_Rate()` provides a generalized approach to mapping from raw data to `dfInput`, the standardized participant-level data set used to generate each KRI. This has several benefits:
-better drill-down with `dfNumerator`
-- Standard columns in `dfInput` across all domains
-- Fully standardized pipeline - With the update to the mapping process, the data model for generating metrics is now fully standardized as shown here (Add link). Note that extra columns are permitted in `dfAnalyzed`, but not in other domains.
+  - Better drill-down with `dfNumerator`
+  - Standard columns in `dfInput` across all domains
+  - Fully standardized pipeline - With the update to the mapping process, the data model for generating metrics is now fully standardized as shown in the [Data Model Vignette](https://gilead-biostats.github.io/gsm/articles/DataModel.html). Note that extra columns are permitted in `dfAnalyzed`, but not in other domains.
+- New `dfGroups` data frame, which combines site, study and country level metadata from CTMS site and study raw data in an extensible, long format.
 
 ### Reporting Changes
 - `Study_Report()` has been replaced by `Report_KRI()` and re-parameterized and modularized to provide more transparency on data requirements.
-- New version of rbm-viz provides ...
+- New version of rbm-viz provides:
+  - Country selector dropdown to select all observations from a given country
+  - Update the group overview table widget to handle any group level specification.
 
 # gsm v1.9.2
 
