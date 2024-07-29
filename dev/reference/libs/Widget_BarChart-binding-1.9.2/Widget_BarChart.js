@@ -7,6 +7,9 @@ HTMLWidgets.widget({
                 if (input.bDebug)
                     console.log(input);
 
+                // Assign a unique ID to the element.
+                el.id = `barChart--${input.lMetric.MetricID}_${input.strOutcome}`;
+
                 // Update y-axis variable.
                 input.lMetric.y = input.strOutcome;
 
@@ -21,7 +24,8 @@ HTMLWidgets.widget({
                         groupSelect.value = instance.data.config.selectedGroupIDs;
 
                         // Set country select to 'None' if a group ID is selected.
-                        countrySelect.value = "None";
+                        if (countrySelect)
+                            countrySelect.value = "None";
 
                         instance.helpers.updateConfig(
                             instance,
@@ -49,23 +53,14 @@ HTMLWidgets.widget({
                     input.dfGroups
                 );
 
-                // Add dropdown that highlights group IDs.
-                let groupSelect, countrySelect;
-                if (input.bAddGroupSelect) {
-                    groupSelect = addGroupSelect(
-                        el,
-                        input.dfResults,
-                        instance,
-                        `Highlighted ${input.lMetric.Group || 'group'}: `
-                    );
-
-                    countrySelect = addCountrySelect(
-                        el,
-                        input.dfGroups,
-                        instance,
-                        groupSelect
-                    );
-                }
+                // Add dropdowns that highlight group IDs.
+                const { groupSelect, countrySelect } = addWidgetControls(
+                    el,
+                    input.dfResults,
+                    input.lMetric,
+                    input.dfGroups,
+                    input.bAddGroupSelect
+                );
             },
             resize: function(width, height) {
             }
