@@ -164,5 +164,11 @@ Input_Rate <- function(
     ) %>%
     mutate(Metric = .data$Numerator / .data$Denominator)
 
+  if (any(is.na(dfInput$GroupID))) {
+    cli_alert_warning(glue::glue("{sum(is.na(dfInput$GroupID))} cases of NA's in GroupID, cases are removed in output"))
+    dfInput <- dfInput %>%
+      filter(!is.na(.data$GroupID))
+  }
+
   return(dfInput)
 }

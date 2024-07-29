@@ -9,7 +9,7 @@ Report_Setup(dfGroups = NULL, dfMetrics = NULL, dfResults = NULL)
 \arguments{
 \item{dfGroups}{\code{data.frame} Group-level metadata dictionary. Created by passing CTMS site and study data to \code{\link[=MakeLongMeta]{MakeLongMeta()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Param}, \code{Value}.}
 
-\item{dfMetrics}{\code{data.frame} Metric-specific metadata for use in charts and reporting. Created by passing an \code{lWorkflow} object to \code{\link[=MakeMetric]{MakeMetric()}}. Expected columns: \code{File}, \code{MetricID}, \code{Group}, \code{Abbreviation}, \code{Metric}, \code{Numerator}, \code{Denominator}, \code{Model}, \code{Score}, and \code{Threshold}. For more details see the Data Pipeline vignette: \code{vignette("DataPipeline", package = "gsm")}.}
+\item{dfMetrics}{\code{data.frame} Metric-specific metadata for use in charts and reporting. Created by passing an \code{lWorkflow} object to \code{\link[=MakeMetric]{MakeMetric()}}. Expected columns: \code{File}, \code{MetricID}, \code{Group}, \code{Abbreviation}, \code{Metric}, \code{Numerator}, \code{Denominator}, \code{Model}, \code{Score}, and \code{Threshold}. For more details see the Data Model vignette: \code{vignette("DataModel", package = "gsm")}.}
 
 \item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
 }

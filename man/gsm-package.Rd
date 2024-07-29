@@ -33,6 +33,8 @@ Authors:
   \item Chelsea Dickens \email{chelsea.dickens@atorusresearch.com}
   \item Maya Gans \email{maya.gans@atorusresearch.com}
   \item Jacob Anderson \email{jacob.anderson@atorusresearch.com}
+  \item Laura Maxwell \email{laura.maxwell@atorusresearch.com}
+  \item Jon Harmon \email{jon.harmon@atorusresearch.com}
 }
 
 Other contributors:
