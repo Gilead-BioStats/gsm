@@ -1,4 +1,14 @@
-const addGroupSubset = function (el, instance, results, initialSubset) {
+/**
+ * Add a dropdown to the top of the table that allows the user to filter the table by group subset.
+ *
+ * @param {HTMLElement} el - element in which to place dropdown
+ * @param {Object} instance - rbmViz groupOverview instance
+ * @param {Array} dfResults - analysis results for one or more metrics
+ * @param {String} initialSubset - initial subset of group IDs to display
+ *
+ * @returns {undefined}
+ */
+const addGroupSubset = function (el, instance, dfResults, initialSubset) {
     // add container in which to place dropdown
     const groupSubsetContainer = document.createElement('div');
     el.insertBefore(groupSubsetContainer, el.firstChild);
@@ -42,10 +52,10 @@ const addGroupSubset = function (el, instance, results, initialSubset) {
     // add event listener to dropdown that updates chart
     groupSubset.addEventListener('change', event => {
         const groupSubset = getGroupSubset(
-            results,
+            dfResults,
             event.target.value
         );
-        const updatedResults = results.filter((d) =>
+        const updatedResults = dfResults.filter((d) =>
             groupSubset.includes(d.GroupID)
         );
 
@@ -53,13 +63,21 @@ const addGroupSubset = function (el, instance, results, initialSubset) {
     });
 };
 
-const getGroupSubset = function (results, subset) {
+/**
+ * Get the subset of group IDs to display in the table.
+ *
+ * @param {Array} dfResults - analysis results for one or more metrics
+ * @param {String} subset - subset of group IDs to display
+ *
+ * @returns {Array} subset of group IDs
+ */
+const getGroupSubset = function (dfResults, subset) {
     let groups;
     switch (subset) {
         case 'red':
             groups = [
                 ...new Set(
-                    results
+                    dfResults
                         .filter((d) => Math.abs(parseInt(d.Flag)) === 2)
                         .map((d) => d.GroupID)
                 ),
@@ -68,7 +86,7 @@ const getGroupSubset = function (results, subset) {
         case 'amber':
             groups = [
                 ...new Set(
-                    results
+                    dfResults
                         .filter((d) => Math.abs(parseInt(d.Flag)) === 1)
                         .map((d) => d.GroupID)
                 ),
@@ -77,14 +95,14 @@ const getGroupSubset = function (results, subset) {
         case 'red/amber':
             groups = [
                 ...new Set(
-                    results
+                    dfResults
                         .filter((d) => Math.abs(parseInt(d.Flag)) >= 1)
                         .map((d) => d.GroupID)
                 ),
             ];
             break;
         default:
-            groups = [...new Set(results.map((d) => d.GroupID))];
+            groups = [...new Set(dfResults.map((d) => d.GroupID))];
     }
 
     return groups;

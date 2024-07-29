@@ -3,19 +3,20 @@ dependencies:
     version: 1.2.0
     src: 'rbm-viz-1.2.0'
     script: 'rbm-viz.js'
-  - name: number_to_array
+  - name: addWidgetControls
     version: 0.0.1
     src: 'utils-0.0.1'
-    script: 'number_to_array.js'
-  - name: addCountrySelect
+    script: 'addWidgetControls.js'
+    stylesheet: 'widgetControls.css'
+  - name: addSelectControl
     version: 0.0.1
     src: 'utils-0.0.1'
-    script: 'addCountrySelect.js'
-  - name: addGroupSelect
+    script: 'addSelectControl.js'
+  - name: getGroups
     version: 0.0.1
     src: 'utils-0.0.1'
-    script: 'addGroupSelect.js'
-  - name: clickCallback
+    script: 'getGroups.js'
+  - name: getCountries
     version: 0.0.1
     src: 'utils-0.0.1'
-    script: 'clickCallback.js'
+    script: 'getCountries.js'
