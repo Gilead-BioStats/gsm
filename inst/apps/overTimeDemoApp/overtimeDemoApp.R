@@ -134,21 +134,23 @@ server <- function(input, output, session) {
   })
 
   # Update selectInputs based on click events
-  observeEvent(input$GroupOverviewGroupID, {
-    updateSelectInput(
-      session,
-      "GroupID",
-      selected = input$GroupOverviewGroupID
-    )
-  })
-
-  observeEvent(input$GroupOverviewMetricID, {
-    updateSelectInput(
-      session,
-      "MetricID",
-      selected = input$GroupOverviewMetricID
-    )
-  })
+  # Re-enable when callBacks are added for Widget_GroupOverview (shiny version)
+  #
+  # observeEvent(input$GroupOverviewGroupID, {
+  #   updateSelectInput(
+  #     session,
+  #     "GroupID",
+  #     selected = input$GroupOverviewGroupID
+  #   )
+  # })
+  #
+  # observeEvent(input$GroupOverviewMetricID, {
+  #   updateSelectInput(
+  #     session,
+  #     "MetricID",
+  #     selected = input$GroupOverviewMetricID
+  #   )
+  # })
 }
 
 # Run the shiny app ------------------------------------------------------------

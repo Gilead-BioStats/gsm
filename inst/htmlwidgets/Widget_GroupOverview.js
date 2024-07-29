@@ -22,6 +22,9 @@ HTMLWidgets.widget({
                     {
                         GroupLevel: input.GroupLevel,
                         groupLabelKey: input.strGroupLabelKey,
+                        // Callbacks for Shiny, may need to move to a different file.
+                        //
+                        /*
                         groupClickCallback: function (datum) {
                             Shiny.setInputValue(
                                 'GroupOverviewGroupID',
@@ -42,6 +45,7 @@ HTMLWidgets.widget({
                                 datum.MetricID,
                                 {priority: "event"}
                             );
+                        */
                         },
                     },
                     input.dfGroups,
