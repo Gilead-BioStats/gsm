@@ -1,3 +1,5 @@
+# This is a Shiny app to demonstrate an experimental new feature.
+
 devtools::load_all()
 library(shiny)
 
