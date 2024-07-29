@@ -2,8 +2,8 @@
 #'
 #' `r lifecycle::badge("experimental")`
 #'
-#' Create a table of longitudinal study data by site, study, or country, showing
-#' flags over time.
+#' @details Create a table of longitudinal study data by site, study, or
+#' country, showing flags over time.
 #'
 #' @inheritParams shared-params
 #' @param strGroupLevel A string specifying the group type.

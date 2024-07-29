@@ -1,7 +1,9 @@
 #' Flag Over Time Widget
 #'
-#' @description A widget that generates a table of flags over time using
-#'   [Report_FlagOverTime()].
+#' `r lifecycle::badge("experimental")`
+#'
+#' @details A widget that generates a table of flags over time using
+#' [Report_FlagOverTime()].
 #'
 #' @inheritParams shared-params
 #' @param strGroupLevel `character` Value for the group level. Default: "Site".
@@ -37,10 +39,10 @@ Widget_FlagOverTime <- function(
 
 #' Shiny bindings for Widget_FlagOverTime
 #'
-#' `r lifecycle::badge("stable")`
+#' `r lifecycle::badge("experimental")`
 #'
-#' Output and render functions for using Widget_FlagOverTime within Shiny
-#' applications and interactive Rmd documents.
+#' @details Output and render functions for using Widget_FlagOverTime within
+#' Shiny applications and interactive Rmd documents.
 #'
 #' @param outputId output variable to read from
 #' @param width,height Must be a valid CSS unit (like \code{'100\%'},

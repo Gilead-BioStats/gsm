@@ -24,6 +24,6 @@ An object of class \code{gt_tbl}.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \details{
-Create a table of longitudinal study data by site, study, or country, showing
-flags over time.
+Create a table of longitudinal study data by site, study, or
+country, showing flags over time.
 }
