@@ -24,14 +24,16 @@ function overallClick() {
     }
 
     if (event.target.value !== 'None') {
-      document.querySelectorAll(".gsm-widget-control--select").forEach((el) => {
-        el.options[el.selectedIndex].innerHTML = event.target.value;
-        el.disabled = true;
+      document.querySelectorAll(".gsm-widget-control--group").forEach((el) => {
+          el.value = [...el.options].map(option => option.text).includes(event.target.value)
+              ? event.target.value
+              : 'None';
+          //el.disabled = true;
       });
     } else {
-      document.querySelectorAll(".gsm-widget-control--select").forEach((el) => {
-        el.options[el.selectedIndex].innerHTML = "None";
-        el.disabled = false;
+      document.querySelectorAll(".gsm-widget-control--group").forEach((el) => {
+          el.value = 'None';
+          //el.disabled = false;
       });
     }
   }
@@ -56,13 +58,19 @@ function overallGroupDropdown() {
     overallGroupSelect.onchange = overallClick
     overallGroupSelectContainer.appendChild(overallGroupSelect);
 
-    const ids = [...document.querySelector(".gsm-widget-control--select").options].map(
-        (el) => el.text
-    );
+    const groupOptions = [
+        ...document.querySelectorAll(".gsm-widget-control--group option")
+    ];
 
-    for (const id of ids) {
+    const groupIDs = [...new Set(
+        groupOptions.map(
+            (el) => el.text
+        )
+    )];
+
+    for (const groupID of groupIDs) {
         const groupOptionAll = document.createElement("option");
-        groupOptionAll.innerHTML = id;
+        groupOptionAll.innerHTML = groupID;
         overallGroupSelect.appendChild(groupOptionAll);
     }
 }
