@@ -23,17 +23,18 @@ function overallClick() {
         );
     }
 
+    // Set all group selects to the selected group ID, if the group ID appears in the list of options.
     if (event.target.value !== 'None') {
       document.querySelectorAll(".gsm-widget-control--group").forEach((el) => {
           el.value = [...el.options].map(option => option.text).includes(event.target.value)
               ? event.target.value
               : 'None';
-          //el.disabled = true;
       });
-    } else {
-      document.querySelectorAll(".gsm-widget-control--group").forEach((el) => {
+    }
+    // Reset all group and country selects to 'None'.
+    else {
+      document.querySelectorAll(".gsm-widget-control--select").forEach((el) => {
           el.value = 'None';
-          //el.disabled = false;
       });
     }
   }
@@ -62,6 +63,7 @@ function overallGroupDropdown() {
         ...document.querySelectorAll(".gsm-widget-control--group option")
     ];
 
+    // Capture group IDs across all group selects.
     const groupIDs = [...new Set(
         groupOptions.map(
             (el) => el.text
