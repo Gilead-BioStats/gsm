@@ -15,10 +15,6 @@ jobs:
       contents: write
 
     steps:
-      - uses: webfactory/ssh-agent@v0.6.0
-        with:
-          ssh-private-key: ${{ secrets.LOAD_CLINDATA }}
-
       - uses: actions/checkout@v4
         with:
           ref: dev
