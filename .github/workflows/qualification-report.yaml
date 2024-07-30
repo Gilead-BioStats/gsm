@@ -35,7 +35,10 @@ jobs:
           needs: check
 
       - name: build vignette
-        run: tools::buildVignette("./vignettes/articles/Qualification.Rmd")
+        run: |
+          install.packages("devtools")
+          devtools::install(dependencies=TRUE)
+          tools::buildVignette("./vignettes/articles/Qualification.Rmd")
         shell: Rscript {0}
 
       # Upload the qulafication report to the release
