@@ -34,6 +34,12 @@ jobs:
           extra-packages: any::rcmdcheck
           needs: check
 
+      - name: install gsm
+        shell: Rscript {0}
+        run: |
+          install.packages("devtools")
+          devtools::install(dependencies=TRUE)
+
       - name: build vignette
         run: tools::buildVignette("./vignettes/articles/Qualification.Rmd")
         shell: Rscript {0}
