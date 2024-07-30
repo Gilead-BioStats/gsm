@@ -2,7 +2,7 @@ on:
   release:
     types: [published]
   pull_request:
-    branches: main
+    branches: dev, main
   workflow_dispatch:
 
 name: qualification-report
@@ -34,14 +34,11 @@ jobs:
           extra-packages: any::rcmdcheck
           needs: check
 
-      - name: install gsm
-        shell: Rscript {0}
+      - name: build vignette
         run: |
           install.packages("devtools")
           devtools::install(dependencies=TRUE)
-
-      - name: build vignette
-        run: tools::buildVignette("./vignettes/articles/Qualification.Rmd")
+          tools::buildVignette("./vignettes/articles/Qualification.Rmd")
         shell: Rscript {0}
 
       # Upload the qulafication report to the release
