@@ -11,6 +11,13 @@ meta:
   Type: rate
   Threshold: -2,-1,2,3
   nMinDenominator: 30
+spec: 
+  dfAE:
+    - subjid
+  dfEnrolled:
+    - subjid
+    - invid
+    - timeonstudy
 steps:
   - name: ParseThreshold
     output: vThreshold

@@ -41,7 +41,6 @@ RunWorkflow <- function(
   bKeepInputData = FALSE
 ) {
   cli::cli_h1(paste0("Initializing `", lWorkflow$meta$File, "` Workflow"))
-  cli::cli_alert("Colnames: {names(lData)}")
 
   # check that the workflow has steps
   if (length(lWorkflow$steps) == 0) {
@@ -54,6 +53,14 @@ RunWorkflow <- function(
 
   lWorkflow$lData <- lData
 
+  # If the workflow has a spec, check that the data and spec are compatible
+  if ("spec" %in% names(lWorkflow)) {
+    cli::cli_alert("Checking data against spec")
+    check_spec(lData, lWorkflow$spec)
+  } else {
+    cli::cli_alert("No spec found in workflow")
+  }
+  
   # Run through each step in lWorkflow$workflow
   stepCount <- 1
   for (step in lWorkflow$steps) {
