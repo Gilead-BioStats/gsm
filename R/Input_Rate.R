@@ -114,12 +114,13 @@ Input_Rate <- function(
 
   # Rename SubjectID in dfSubjects
   dfSubjects <- dfSubjects %>%
-    mutate(
-      "SubjectID" = .data[[strSubjectCol]],
-      "GroupID" = .data[[strGroupCol]],
-      "GroupLevel" = strGroupLevel
+    select(
+      "SubjectID" = !!strSubjectCol,
+      "GroupID" = !!strGroupCol
     ) %>%
-    select("SubjectID", "GroupID", "GroupLevel")
+    mutate(
+      "GroupLevel" = strGroupLevel
+    ) 
 
   # Calculate Numerator
   dfNumerator <- dfNumerator %>%
