@@ -37,7 +37,6 @@ date on the x-axis and the outcome (numerator, denominator, metric, or score) on
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
-
 ## Filter data to one metric
 reportingResults_filter <- reportingResults \%>\%
   dplyr::filter(MetricID == "kri0001")

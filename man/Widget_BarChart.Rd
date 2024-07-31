@@ -37,7 +37,6 @@ and the outcome (numerator, denominator, metric, or score) on the y-axis.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
-
 ## Filter data to one metric and snapshot
 reportingResults_filter <- reportingResults \%>\%
   dplyr::filter(MetricID == "kri0001" & SnapshotDate == max(SnapshotDate))

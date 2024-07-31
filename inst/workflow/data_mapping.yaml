@@ -1,6 +1,35 @@
 meta:
   File: mapping.yaml
   description: Data Mappings to prepare for metric calculations
+spec: 
+    dfSUBJ:
+      subjectid: required
+      enrollyn: required
+    dfAE:
+      subjectid: required
+      aeser: required
+    dfPD:
+      subjectenrollmentnumber: required
+      deemedimportant: required
+    dfLB:
+      toxgrg_nsv: required
+    dfSTUDCOMP:
+      compyn: required
+    dfSDRGCOMP:
+      sdrgyn: required
+      phase: required
+    dfQUERY:
+      subjectname: required
+      querystatus: required
+      queryage: required
+    dfDATACHG:
+      subjectname: required
+      n_changes: required
+    dfDATAENT:
+      subjectname: required
+      data_entry_lag: required
+    dfENROLL:
+      enrollyn: required
 steps:
   - name: RunQuery
     output: dfEnrolled
