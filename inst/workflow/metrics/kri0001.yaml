@@ -13,9 +13,9 @@ meta:
   nMinDenominator: 30
 spec: 
   mapped: 
-    dfAE:
+    Mapped_AE:
       subjid: required
-    dfEnrolled:
+    Mapped_Enrolled:
       subjid: required
       invid: required
       timeonstudy: required
