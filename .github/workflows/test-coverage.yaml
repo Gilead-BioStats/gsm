@@ -1,4 +1,4 @@
-# Workflow derived from https://github.com/r-lib/actions/tree/master/examples
+# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   push:
@@ -16,29 +16,18 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-      - uses: webfactory/ssh-agent@v0.6.0
-        with:
-          ssh-private-key: ${{ secrets.LOAD_CLINDATA }}
-
       - uses: actions/checkout@v4
 
       - uses: r-lib/actions/setup-r@v2
         with:
           use-public-rspm: true
 
-
-      - name: install packages
-        shell: Rscript {0}
-        run: |
-          install.packages("devtools")
-          devtools::install(dependencies=TRUE)
-          install.packages('covr')
-          print(sessionInfo())
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::covr, any::xml2
+          needs: coverage
 
       - name: Test coverage
         shell: Rscript {0}
         run: |
-          covr::package_coverage(
-            type = "tests",
-            quiet = FALSE,
-          )
+          covr::package_coverage()
