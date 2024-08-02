@@ -28,7 +28,7 @@ steps:
     params:
       dfSubjects: Mapped_Enrolled
       dfNumerator: Mapped_ImportantPD
-      dfDenominator: dfEnrolled
+      dfDenominator: Mapped_Enrolled
       strSubjectCol: subjid
       strGroupCol: country
       strGroupLevel: GroupLevel

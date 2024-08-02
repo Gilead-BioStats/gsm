@@ -24,7 +24,7 @@ steps:
     params:
       strThreshold: Threshold
   - name: Input_Rate
-    output: dfInput
+    output: Analysis_Input
     params:
       dfSubjects: Mapped_Enrolled
       dfNumerator: Mapped_SeriousAE
