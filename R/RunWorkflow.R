@@ -55,10 +55,10 @@ RunWorkflow <- function(
 
   # If the workflow has a spec, check that the data and spec are compatible
   if ("spec" %in% names(lWorkflow)) {
-    cli::cli_alert("Checking data against spec")
-    check_spec(lData, lWorkflow$spec)
+    cli::cli_h3("Checking data against spec")
+    CheckSpec(lData, lWorkflow$spec)
   } else {
-    cli::cli_alert("No spec found in workflow")
+    cli::cli_h3("No spec found in workflow. Proceeding without checking data.")
   }
   
   # Run through each step in lWorkflow$workflow

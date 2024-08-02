@@ -29,9 +29,9 @@ steps:
   # Generate Reporting Data Model
   # Minor hack to regenerate dfEnrolled in the core lData object. Can pull from mapping database in prod
   - name: RunQuery
-    output: dfEnrolled
+    output: Mapping_Enrolled
     params:
-      df: dfSUBJ
+      df: Raw_SUBJ
       strQuery: "SELECT subjectid as raw_subjectid, * FROM df WHERE enrollyn == 'Y'"
   - name: MakeWorkflowList
     output: wf_reporting_data

@@ -6,15 +6,15 @@ steps:
   - name: MakeCharts
     output: lCharts 
     params:
-      dfResults: dfResults
-      dfGroups: dfGroups
-      dfBounds: dfBounds
-      dfMetrics: dfMetrics
+      dfResults: Reporting_Results
+      dfGroups: Reporting_Groups
+      dfBounds: Reporting_Bounds
+      dfMetrics: Reporting_Metrics
   - name: Report_KRI
     output: lReport 
     params:
       lCharts: lCharts
-      dfResults: dfResults
-      dfGroups: dfGroups
-      dfMetrics: dfMetrics
+      dfResults: Reporting_Results
+      dfGroups: Reporting_Groups
+      dfMetrics: Reporting_Metrics
 

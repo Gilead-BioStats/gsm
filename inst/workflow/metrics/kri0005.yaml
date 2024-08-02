@@ -11,6 +11,14 @@ meta:
   Type: binary
   Threshold: -3,-2,2,3
   nMinDenominator: 30
+spec:
+  Mapped_Enrolled:
+    subjid: "required"
+    invid: "required"
+  Mapped_ToxLabs:
+    subjid: "required"
+  Mapped_AllLabs:
+    subjid: "required"
 steps:
   - name: ParseThreshold
     output: vThreshold

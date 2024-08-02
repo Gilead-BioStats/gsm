@@ -84,7 +84,7 @@ steps:
   - name: RunQuery
     output: Mapped_OldValidQueries
     params:
-      df: Raw_ValidQueries
+      df: Mapped_ValidQueries
       strQuery: "SELECT * FROM df WHERE queryage > 30"
   - name: RunQuery
     output: Mapped_DataChanges

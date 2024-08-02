@@ -11,6 +11,12 @@ meta:
   Type: binary
   Threshold: -3,-2,2,3
   nMinDenominator: 3
+spec:
+  Mapped_Screened:
+    subjectid: "required"
+    invid: "required"
+  Mapped_ScreenFail:
+    subjectid: "required"
 steps:
   - name: ParseThreshold
     output: vThreshold
