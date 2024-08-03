@@ -67,8 +67,8 @@ Input_Rate <- function(
   strGroupCol = "GroupID",
   strGroupLevel = NULL,
   strSubjectCol = "SubjectID",
-  strNumeratorMethod = "Count",
-  strDenominatorMethod = "Count",
+  strNumeratorMethod = c("Count", "Sum"),
+  strDenominatorMethod = c("Count", "Sum"),
   strNumeratorCol = NULL,
   strDenominatorCol = NULL
 ) {
@@ -83,10 +83,9 @@ Input_Rate <- function(
     stop("dfNumerator, must be provided")
   }
 
-  # Check if strNumeratorMethod and strDenominatorMethod are valid
-  if (!strNumeratorMethod %in% c("Count", "Sum") | !strDenominatorMethod %in% c("Count", "Sum")) {
-    stop("strNumeratorMethod and strDenominator method must be 'Count' or 'Sum'")
-  }
+  # must be eit
+  strNumeratorMethod <- match.arg(strNumeratorMethod)
+  strDenominatorMethod <- match.arg(strDenominatorMethod)
 
   # Check if strNumeratorCol is Null when strNumeratorMethod is 'Sum'
   if (strNumeratorMethod == "Sum" && is.null(strNumeratorCol)) {
