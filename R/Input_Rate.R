@@ -133,7 +133,6 @@ Input_Rate <- function(
   }
 
   dfNumerator_subj <- dfNumerator %>%
-    select("SubjectID", "Numerator") %>%
     group_by(.data$SubjectID) %>%
     summarise("Numerator" = sum(.data$Numerator)) %>%
     ungroup()
@@ -149,7 +148,6 @@ Input_Rate <- function(
   }
 
   dfDenominator_subj <- dfDenominator %>%
-    select("SubjectID", "Denominator") %>%
     group_by(.data$SubjectID) %>%
     summarise("Denominator" = sum(.data$Denominator)) %>%
     ungroup()
