@@ -1,4 +1,4 @@
-#gsm v2.0.0
+# gsm v2.0.0
 
 gsm v2 is a major refactor (and massive simplification) of the gsm framework. Many functions have been removed, and others have been simplified as described below. The overall goal of the refactor is to improve modularity, transparency and maintainability of the package.
 
