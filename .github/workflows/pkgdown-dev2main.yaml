@@ -35,8 +35,6 @@ jobs:
         run: |
           devtools::load_all()
 
-          dir.create(here::here("docs"))
-
           lData <- list(
             dfSUBJ = clindata::rawplus_dm,
             dfAE = clindata::rawplus_ae,
@@ -81,7 +79,7 @@ jobs:
             dfResults =  reporting$dfResults,
             dfGroups =  reporting$dfGroups,
             dfMetrics = reporting$dfMetrics,
-            strOutpath = here::here("docs", "StandardReportSite.html")
+            strOutpath = "../StandardReportSite.html"
           )
 
           ## Country Report
@@ -113,11 +111,11 @@ jobs:
             dfResults =  reporting_country$dfResults,
             dfGroups =  reporting_country$dfGroups,
             dfMetrics = reporting_country$dfMetrics,
-            strOutpath = here::here("docs", "StandardReportCountry.html")
+            strOutpath = "../StandardReportCountry.html"
           )
 
       - name: Deploy pkgdown
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE, clean = FALSE)'
+          Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
