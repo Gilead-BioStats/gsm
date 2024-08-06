@@ -11,8 +11,8 @@ Input_Rate(
   strGroupCol = "GroupID",
   strGroupLevel = NULL,
   strSubjectCol = "SubjectID",
-  strNumeratorMethod = "Count",
-  strDenominatorMethod = "Count",
+  strNumeratorMethod = c("Count", "Sum"),
+  strDenominatorMethod = c("Count", "Sum"),
   strNumeratorCol = NULL,
   strDenominatorCol = NULL
 )
@@ -87,4 +87,4 @@ dfInput <- Input_Rate(
 )
 
 }
-\keyword{interal}
+\keyword{internal}
