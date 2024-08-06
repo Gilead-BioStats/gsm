@@ -3,10 +3,10 @@ on:
     branches: [dev, main]
   workflow_dispatch:
 
-name: pkgdown
+name: pkgdown-dev2main
 
 jobs:
-  pkgdown:
+  pkgdown-dev2main:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -33,6 +33,7 @@ jobs:
       - name: Generate sample reports
         shell: Rscript {0}
         run: |
+          devtools::load_all()
           lData <- list(
             dfSUBJ = clindata::rawplus_dm,
             dfAE = clindata::rawplus_ae,
