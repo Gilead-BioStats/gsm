@@ -29,6 +29,7 @@ const addWidgetControls = function(el, dfResults, lMetrics, dfGroups, bAddGroupS
         `Highlighted ${lMetrics?.GroupLevel || 'Group'}`,
         groups
     );
+    groupSelect.classList.add('gsm-widget-control--group');
 
     // add country select
     let countrySelect;
@@ -39,6 +40,7 @@ const addWidgetControls = function(el, dfResults, lMetrics, dfGroups, bAddGroupS
             'Country',
             countries
         );
+        countrySelect.classList.add('gsm-widget-control--country');
     }
 
     // add event listener to group select
