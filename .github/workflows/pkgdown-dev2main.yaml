@@ -79,7 +79,7 @@ jobs:
             dfResults =  reporting$dfResults,
             dfGroups =  reporting$dfGroups,
             dfMetrics = reporting$dfMetrics,
-            strOutpath = "../StandardReportSite.html"
+            strOutpath = here::here("vignettes/articles", "StandardReportSite.html")
           )
 
           ## Country Report
@@ -111,7 +111,7 @@ jobs:
             dfResults =  reporting_country$dfResults,
             dfGroups =  reporting_country$dfGroups,
             dfMetrics = reporting_country$dfMetrics,
-            strOutpath = "../StandardReportCountry.html"
+            strOutpath = here::here("vignettes/articles", "StandardReportCountry.html")
           )
 
       - name: Deploy pkgdown
