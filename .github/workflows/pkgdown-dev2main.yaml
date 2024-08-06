@@ -34,6 +34,9 @@ jobs:
         shell: Rscript {0}
         run: |
           devtools::load_all()
+
+          dir.create(here::here("docs"))
+
           lData <- list(
             dfSUBJ = clindata::rawplus_dm,
             dfAE = clindata::rawplus_ae,
