@@ -11,6 +11,7 @@ Widget_TimeSeries(
   vThreshold = NULL,
   strOutcome = "Score",
   bAddGroupSelect = TRUE,
+  strShinyGroupSelectID = "GroupID",
   bDebug = FALSE
 )
 }
@@ -26,6 +27,8 @@ Widget_TimeSeries(
 \item{strOutcome}{\code{character} Outcome variable. Default: 'Score'.}
 
 \item{bAddGroupSelect}{\code{logical} Add a dropdown to highlight sites? Default: \code{TRUE}.}
+
+\item{strShinyGroupSelectID}{\code{character} Element ID of group select in Shiny context. Default: \code{'GroupID'}.}
 
 \item{bDebug}{\code{logical} Print debug messages? Default: \code{FALSE}.}
 }
@@ -45,12 +48,11 @@ reportingMetrics_filter <- reportingMetrics \%>\%
   dplyr::filter(MetricID == "kri0001") \%>\%
   as.list()
 
-
 Widget_TimeSeries(
   dfResults = reportingResults_filter,
   lMetric = reportingMetrics_filter,
   dfGroups = reportingGroups,
-  vThreshold = c(-3, -2, 2, 3)
+  vThreshold = reportingMetrics_filter$Threshold
 )
 
 }

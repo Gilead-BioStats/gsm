@@ -11,6 +11,7 @@ Widget_BarChart(
   vThreshold = NULL,
   strOutcome = "Score",
   bAddGroupSelect = TRUE,
+  strShinyGroupSelectID = "GroupID",
   bDebug = FALSE
 )
 }
@@ -26,6 +27,8 @@ Widget_BarChart(
 \item{strOutcome}{\code{character} Outcome variable. Default: 'Score'.}
 
 \item{bAddGroupSelect}{\code{logical} Add a dropdown to highlight sites? Default: \code{TRUE}.}
+
+\item{strShinyGroupSelectID}{\code{character} Element ID of group select in Shiny context. Default: \code{'GroupID'}.}
 
 \item{bDebug}{\code{logical} Print debug messages? Default: \code{FALSE}.}
 }
@@ -48,8 +51,9 @@ reportingMetrics_filter <- reportingMetrics \%>\%
 ## Make chart
 Widget_BarChart(
   dfResults = reportingResults_filter,
+  dfGroups = reportingGroups,
   lMetric = reportingMetrics_filter,
-  vThreshold = reportingMetrics$Threshold
+  vThreshold = reportingMetrics_filter$Threshold
 )
 
 }
