@@ -34,6 +34,7 @@ jobs:
         shell: Rscript {0}
         run: |
           devtools::load_all()
+          dir.create(here::here("pkgdown", "assets"), recursive = TRUE)
 
           lData <- list(
             dfSUBJ = clindata::rawplus_dm,
@@ -79,7 +80,7 @@ jobs:
             dfResults =  reporting$dfResults,
             dfGroups =  reporting$dfGroups,
             dfMetrics = reporting$dfMetrics,
-            strOutpath = here::here("vignettes/articles", "StandardReportSite.html")
+            strOutpath = here::here("pkgdown", "assets", "StandardReportSite.html")
           )
 
           ## Country Report
@@ -111,7 +112,7 @@ jobs:
             dfResults =  reporting_country$dfResults,
             dfGroups =  reporting_country$dfGroups,
             dfMetrics = reporting_country$dfMetrics,
-            strOutpath = here::here("vignettes/articles", "StandardReportCountry.html")
+            strOutpath = here::here("pkgdown", "assets", "StandardReportCountry.html")
           )
 
       - name: Deploy pkgdown
