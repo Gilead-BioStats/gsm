@@ -24,6 +24,7 @@ const clickCallback = function(el, input) {
                 instance.data.config
             );
         }
+
         // Update timeSeries.
         else if (Object.keys(instance.helpers).includes('updateSelectedGroupIDs')) {
             if (instance.data.config.selectedGroupIDs === 'None')
