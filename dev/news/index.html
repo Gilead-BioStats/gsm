@@ -50,30 +50,39 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.0.0" id="gsm-v200">gsm v2.0.0<a class="anchor" aria-label="anchor" href="#gsm-v200"></a></h2>
-<p>gsm v2 is a major refactor (and massive simplification) of the gsm framework. Many functions have been removed, and others have been simplified as described below. The overall goal of the refactor is to improve modularity, transparency and maintainability of the package.</p>
-<p>As indicated by the version change, the release is not intended to be fully compatible with gsm v1. However, our core analytics pipeline <code>input()</code> –&gt; <code><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform()</a></code> –&gt; <code>analyze()</code> –&gt; <code>flag()</code> –&gt; <code>summarize()</code> remains largely unchanged, as does the core KRI markdown report.</p>
+<p>{gsm} v2 is a major refactor (and massive simplification) of the gsm framework. Many functions have been removed, and others have been simplified as described below. The overall goal of the refactor is to improve modularity, transparency and maintainability of the package.</p>
+<p>As indicated by the version change, the release is not intended to be fully compatible with gsm v1. However, our core analytics pipeline <code>input()</code> –&gt; <code><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform()</a></code> –&gt; <code>analyze()</code> –&gt; <code>flag()</code> –&gt; <code>summarize()</code> remains largely unchanged, as does the content of the core KRI markdown report.</p>
 <div class="section level3">
 <h3 id="major-changes-2-0-0">Major Changes<a class="anchor" aria-label="anchor" href="#major-changes-2-0-0"></a></h3>
 <div class="section level4">
 <h4 id="updated-workflows-2-0-0">Updated Workflows<a class="anchor" aria-label="anchor" href="#updated-workflows-2-0-0"></a></h4>
-<p>The driving change for this release is an increased focus on YAML-based workflow functionality. The extended <code>workflow</code> framework is described in detail in the Data Analysis Deep Dive and Data Reporting Deep Dive vignettes. As a result of this update, many other aspects of KRI configuration have been removed, including …</p>
-<ul><li>KRI-specific assess functions have been removed. Instead, the downstream functions are called directly in workflows. KRI-specific map functions have been removed. If mapping is needed, new <code>RunQuery</code> and <code>Input_Rate</code> function can be called directly in workflows. Stand-alone mapping objects have been removed, along with associated checks (e.g. <code>is_mapping_valid</code>). Instead, columns should be specified directly in workflows.</li>
-<li>Stand-along spec objects have been removed, along with associated checks. Simple data requirements can (optionally) be specified in workflows using the .</li>
-<li>Logging functionality and the <code>bQuiet</code> parameter have been removed.</li>
-<li>The <code>MakeSnapshot()</code> function has been removed and replaced by a customizable <code>snapshot.yaml</code> workflow.</li>
+<p>The driving change for this release is an increased focus on YAML-based workflow functionality. The extended <code>workflow</code> framework is described in detail in the Data Analysis Deep Dive and Data Reporting Deep Dive vignettes. As a result of this update, many other aspects of KRI configuration have been removed, including:</p>
+<ul><li>
+<strong>KRI-specific assess functions have been removed</strong>. Instead, the downstream functions are called directly in workflows. KRI-specific map functions have been removed. If mapping is needed, new <code>RunQuery</code> and <code>Input_Rate</code> function can be called directly in workflows.</li>
+<li>
+<strong>Stand-alone mapping objects have been removed</strong>, along with associated checks (e.g. <code>is_mapping_valid</code>). Instead, columns should be specified directly in workflows.</li>
+<li>
+<strong>Stand-alone spec objects have been removed</strong>, along with associated checks.</li>
+<li>
+<strong>Logging functionality has been refactored.</strong> Logging in <code><a href="../reference/RunWorkflows.html">RunWorkflows()</a></code> has been improved, and other logging functionality has been simplified. The <code>bQuiet</code> parameter has been removed throughout the package.</li>
 </ul></div>
 <div class="section level4">
 <h4 id="data-model-changes-2-0-0">Data Model Changes<a class="anchor" aria-label="anchor" href="#data-model-changes-2-0-0"></a></h4>
-<ul><li>A New Approach to Mapping - <code><a href="../reference/Input_Rate.html">Input_Rate()</a></code> provides a generalized approach to mapping from raw data to <code>dfInput</code>, the standardized participant-level data set used to generate each KRI. This has several benefits:
+<p>As part of the v2 refactor, we have simplified and standardized the {gsm} data model whenever possible. These updates are described in detail in our updated vignettes. Updates include:</p>
+<ul><li>
+<strong>A<code>Reporting</code> data model has been added</strong> - A standardized “Reporting” data model has been added. These data sets serve as the foundation for all standard charts and reports and largely replace the “Snapshot objects” from v1. The <code>MakeSnapshot()</code> function has been removed.</li>
+<li>
+<strong>Mapping has been refactored</strong> - <code><a href="../reference/Input_Rate.html">Input_Rate()</a></code> provides a generalized approach to mapping from raw data to <code>dfInput</code>, the standardized participant-level data set used to generate each KRI. This has several benefits:
 <ul><li>Better drill-down with <code>dfNumerator</code>
 </li>
 <li>Standard columns in <code>dfInput</code> across all domains</li>
-<li>Fully standardized pipeline - With the update to the mapping process, the data model for generating metrics is now fully standardized as shown in the <a href="https://gilead-biostats.github.io/gsm/articles/DataModel.html">Data Model Vignette</a>. Note that extra columns are permitted in <code>dfAnalyzed</code>, but not in other domains.</li>
+<li>
+<strong>Fully standardized Analysis data model</strong> - With the update to the mapping process, the analysis data model for generating metrics is now fully standardized as shown in the <a href="https://gilead-biostats.github.io/gsm/articles/DataModel.html">Data Model Vignette</a>. Note that extra columns are permitted in <code>dfAnalyzed</code>, but not in other domains.</li>
 </ul></li>
-<li>New <code>dfGroups</code> data frame, which combines site, study and country level metadata from CTMS site and study raw data in an extensible, long format.</li>
 </ul></div>
 <div class="section level4">
 <h4 id="reporting-changes-2-0-0">Reporting Changes<a class="anchor" aria-label="anchor" href="#reporting-changes-2-0-0"></a></h4>
+<p>We’ve refactored and standardized all charting and reporting functions using the new Reporting data model. We expect lots of new functionality in this area in upcoming release. Reporting update in v2 include:</p>
 <ul><li>
 <code>Study_Report()</code> has been replaced by <code><a href="../reference/Report_KRI.html">Report_KRI()</a></code> and re-parameterized and modularized to provide more transparency on data requirements.</li>
 <li>New version of rbm-viz provides:
