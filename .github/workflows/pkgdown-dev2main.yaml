@@ -1,22 +1,23 @@
 on:
-  push:
+  pull_request:
     branches: [main]
   workflow_dispatch:
 
-name: pkgdown-main
+name: pkgdown-dev2main
 
 jobs:
-  pkgdown-main:
+  pkgdown-dev2main:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      PKGDOWN_DEV_MODE: devel
     permissions:
       contents: write
 
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main
+          ref: dev
 
       - uses: r-lib/actions/setup-pandoc@v2
 
