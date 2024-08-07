@@ -3,35 +3,33 @@ HTMLWidgets.widget({
     type: 'output',
     factory: function(el, width, height) {
         return {
-            renderValue: function(x) {
+            renderValue: function(input) {
+                if (input.bDebug)
+                    console.log(input);
 
-                // scatter plot configuration
-                const lLabels = x.lLabels;
-                lLabels.selectedGroupIDs = number_to_array(x.selectedGroupIDs);
+                // Assign a unique ID to the element.
+                el.id = `scatterPlot--${input.lMetric.MetricID}`;
 
-                if (x.addSiteSelect)
-                    lLabels.clickCallback = function(d) { // clickCallback.bind(null, instance, siteSelect);
-                        instance.data.config.selectedGroupIDs = instance.data.config.selectedGroupIDs.includes(d.groupid)
-                            ? 'None'
-                            : d.groupid;
-                        siteSelect.value = instance.data.config.selectedGroupIDs;
-                        instance.helpers.updateConfig(instance, instance.data.config);
-                    };
+                // Add click event callback to chart.
+                input.lMetric.clickCallback = clickCallback(el, input);
 
-
-                // generate scatter plot
+                // Generate scatter plot.
                 const instance = rbmViz.default.scatterPlot(
                     el,
-                    x.dfSummary,
-                    lLabels,
-                    x.dfBounds
+                    input.dfResults,
+                    input.lMetric,
+                    input.dfBounds,
+                    input.dfGroups
                 );
 
-
-                // add dropdown that highlights sites
-                let siteSelect;
-                if (x.addSiteSelect)
-                    siteSelect = addSiteSelect(el, x.dfSummary, instance, x.siteSelectLabelValue);
+                // Add dropdowns that highlight group IDs.
+                const { groupSelect, countrySelect } = addWidgetControls(
+                    el,
+                    input.dfResults,
+                    input.lMetric,
+                    input.dfGroups,
+                    input.bAddGroupSelect
+                );
             },
             resize: function(width, height) {
             }

@@ -1,45 +1,40 @@
 #' Fisher's Exact Test Analysis.
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' @details
 #' Analyzes count data using the Fisher's exact test.
 #'
-#' More information can be found in [The Fisher's Exact Method Section](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-fishers-exact-method)
-#' of the KRI Method vignette.
+#'   More information can be found in [The Fisher's Exact Method
+#'   Section](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-fishers-exact-method)
+#'   of the KRI Method vignette.
 #'
 #' @section Statistical Methods:
 #'
-#' The function `Analyze_Fisher` utilizes `stats::fisher.test` to generate an
-#' estimate of odds ratio as well as a p-value using the Fisher’s exact test with site-level count
-#' data. For each site, the Fisher’s exact test is conducted by comparing the given site to all other sites combined
-#' in a 2×2 contingency table. The p-values are then used as a scoring metric in `{gsm}` to flag
-#' possible outliers. The default in `stats::fisher.test` uses a two-sided test (equivalent to testing
-#' the null of OR = 1) and does not compute p-values by Monte Carlo simulation unless `simulate.p.value = TRUE`.
-#' Sites with p-values less than 0.05 from the Fisher’s exact test analysis are flagged by default.
-#' The significance level was set at a common choice.
+#'   The function `Analyze_Fisher` utilizes `stats::fisher.test` to generate an
+#'   estimate of odds ratio as well as a p-value using the Fisher’s exact test
+#'   with site-level count data. For each site, the Fisher’s exact test is
+#'   conducted by comparing the given site to all other sites combined in a 2×2
+#'   contingency table. The p-values are then used as a scoring metric in
+#'   `{gsm}` to flag possible outliers. The default in `stats::fisher.test` uses
+#'   a two-sided test (equivalent to testing the null of OR = 1) and does not
+#'   compute p-values by Monte Carlo simulation unless `simulate.p.value =
+#'   TRUE`. Sites with p-values less than 0.05 from the Fisher’s exact test
+#'   analysis are flagged by default. The significance level was set at a common
+#'   choice.
 #'
-#' @section Data Specification:
+#' @param dfTransformed `r gloss_param("dfTransformed")`
+#'   `r gloss_extra("dfTransformed_Rate")`
+#' @param strOutcome `character` required, name of column in `dfTransformed`
+#'   dataset to perform Fisher's exact test on. Default is "Numerator".
 #'
-#' The input data (`dfTransformed`) for `Analyze_Fisher` is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
-#' - `GroupID` - Site ID
-#' - `Numerator` - Total number of participants at site with event of interest.
-#' - `Denominator` - Total number of participants at site/Total number of days of exposure at site.
-#' - `Metric` - Proportion of participants at site with event of interest/Rate of events at site (Numerator / Denominator).
-#'
-#' @param dfTransformed `data.frame` in format produced by \code{\link{Transform_Rate}}.
-#' @param strOutcome `character` required, name of column in `dfTransformed` dataset to perform Fisher's exact test on. Default is "Numerator".
-#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`.
-#'
-#' @return `data.frame` with one row per site with columns: GroupID, Numerator, Numerator_Other, Denominator, Denominator_Other, Prop, Prop_Other, Metric, Estimate, and Score.
+#' @return `data.frame` with one row per site with columns: GroupID, Numerator,
+#'   Numerator_Other, Denominator, Denominator_Other, Prop, Prop_Other, Metric,
+#'   Estimate, and Score.
 #'
 #' @examples
-#' dfInput <- Disp_Map_Raw()
 #' dfTransformed <- Transform_Rate(
-#'   dfInput,
-#'   strGroupCol = "SiteID",
-#'   strNumeratorCol = "Count",
-#'   strDenominatorCol = "Total"
+#'   analyticsInput
 #' )
 #' dfAnalyzed <- Analyze_Fisher(dfTransformed)
 #'
@@ -47,8 +42,7 @@
 
 Analyze_Fisher <- function(
   dfTransformed,
-  strOutcome = "Numerator",
-  bQuiet = TRUE
+  strOutcome = "Numerator"
 ) {
   stopifnot(
     "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),

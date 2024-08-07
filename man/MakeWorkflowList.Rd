@@ -7,8 +7,8 @@
 MakeWorkflowList(
   strNames = NULL,
   strPath = NULL,
-  bRecursive = FALSE,
-  lMeta = NULL
+  bExact = FALSE,
+  bRecursive = TRUE
 )
 }
 \arguments{
@@ -16,19 +16,17 @@ MakeWorkflowList(
 
 \item{strPath}{\code{character} The location of workflow YAML files. If package is specified, function will look in \verb{/inst} folder.}
 
-\item{bRecursive}{\code{logical} Find files in nested folders? Default FALSE.}
+\item{bExact}{\code{logical} Should strName matches be exact? If false, partial matches will be included. Default FALSE.}
 
-\item{lMeta}{\code{list} a named list of data frames containing metadata, configuration, and workflow parameters for a given study.
-See the Data Model Vignette - Appendix 2 - Data Model Specifications for detailed specifications.}
+\item{bRecursive}{\code{logical} Find files in nested folders? Default TRUE}
 }
 \value{
 \code{list} A list of workflows with workflow and parameter metadata.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-}
-\details{
-\code{MakeWorkflowList()} is a utility function that creates a list of workflows for use in \code{\link[=Study_Assess]{Study_Assess()}}.
+
+\code{MakeWorkflowList()} is a utility function that creates a list of workflows for use in KRI pipelines.
 }
 \examples{
 # use default

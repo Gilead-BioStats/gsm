@@ -12,6 +12,7 @@ The Good Statistical Monitoring or 'gsm' R package provides a framework for stat
 Useful links:
 \itemize{
   \item \url{https://github.com/Gilead-BioStats/gsm}
+  \item \url{https://gilead-biostats.github.io/gsm}
   \item Report bugs at \url{https://github.com/Gilead-BioStats/gsm/issues}
 }
 
@@ -22,7 +23,7 @@ Useful links:
 Authors:
 \itemize{
   \item Jeremy Wildfire \email{jwildfire@gmail.com}
-  \item Matt Roumaya \email{Matt.Roumaya@atorusresearch.com} (\href{https://orcid.org/0000-0002-8009-2771}{ORCID})
+  \item Matt Roumaya \email{matthewroumaya@gmail.com} (\href{https://orcid.org/0000-0002-8009-2771}{ORCID})
   \item Nathan Kosiba \email{Nathan.Kosiba@atorusresearch.com}
   \item Douglas Sanders
   \item Spencer Childress \email{spencer.childress@gilead.com} (\href{https://orcid.org/0000-0001-6877-8511}{ORCID})
@@ -32,6 +33,8 @@ Authors:
   \item Chelsea Dickens \email{chelsea.dickens@atorusresearch.com}
   \item Maya Gans \email{maya.gans@atorusresearch.com}
   \item Jacob Anderson \email{jacob.anderson@atorusresearch.com}
+  \item Laura Maxwell \email{laura.maxwell@atorusresearch.com}
+  \item Jon Harmon \email{jon.harmon@atorusresearch.com}
 }
 
 Other contributors:

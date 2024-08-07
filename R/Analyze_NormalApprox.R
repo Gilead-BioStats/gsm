@@ -1,8 +1,8 @@
 #' Funnel Plot Analysis with Normal Approximation for Binary and Rate Outcomes.
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' @details
 #' Creates analysis results data for percentage/rate data using funnel plot method with normal approximation.
 #'
 #' More information can be found in [The Normal Approximation Method](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-normal-approximation-method)
@@ -13,54 +13,33 @@
 #' the binary outcome, or normal approximation of a Poisson distribution for the rate outcome with volume (the sample sizes
 #' or total exposure of the sites) to assess data quality and safety.
 #'
-#' @section Data Specification:
-#'
-#' The input data (`dfTransformed`) is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
-#' - `GroupID` - Site ID
-#' - `Numerator` - Total number of participants at site with event of interest/Total number of events of interest at site
-#' - `Denominator` - Total number of participants at site/Total number of days of exposure at site
-#' - `Metric` - Proportion of participants at site with event of interest/Rate of events at site (Numerator / Denominator)
-#'
-#' @param dfTransformed `data.frame` in format produced by \code{\link{Transform_Rate}}
+#' @param dfTransformed `r gloss_param("dfTransformed")`
+#'   `r gloss_extra("dfTransformed_Rate")`
 #' @param strType `character` Statistical outcome type. Valid values:
 #'   - `"binary"` (default)
 #'   - `"rate"`
-#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `data.frame` with one row per site with columns: GroupID, Numerator, Denominator, Metric, OverallMetric, Factor, and Score.
 #'
 #' @examples
 #' # Binary
-#' dfInput <- Disp_Map_Raw()
-#' dfTransformed <- Transform_Rate(
-#'   dfInput,
-#'   strGroupCol = "SiteID",
-#'   strNumeratorCol = "Count",
-#'   strDenominatorCol = "Total"
-#' )
+#' dfTransformed <- Transform_Rate(analyticsInput)
+#'
 #' dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "binary")
 #'
 #' # Rate
-#' dfInput <- AE_Map_Raw() %>% na.omit()
-#' dfTransformed <- Transform_Rate(
-#'   dfInput,
-#'   strGroupCol = "SiteID",
-#'   strNumeratorCol = "Count",
-#'   strDenominatorCol = "Exposure"
-#' )
 #' dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "rate")
 #'
 #' @export
 
 Analyze_NormalApprox <- function(
   dfTransformed,
-  strType = "binary",
-  bQuiet = TRUE
+  strType = "binary"
 ) {
   stopifnot(
     "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
-    "One or more of these columns not found: GroupID, Denominator, Numerator, Metric" =
-      all(c("GroupID", "Denominator", "Numerator", "Metric") %in% names(dfTransformed)),
+    "One or more of these columns not found: GroupID, GroupLevel, Denominator, Numerator, Metric" =
+      all(c("GroupID", "GroupLevel", "Denominator", "Numerator", "Metric") %in% names(dfTransformed)),
     "NA value(s) found in GroupID" = all(!is.na(dfTransformed[["GroupID"]])),
     "strType is not 'binary' or 'rate'" = strType %in% c("binary", "rate")
   )
@@ -104,6 +83,7 @@ Analyze_NormalApprox <- function(
   dfAnalyzed <- dfScore %>%
     select(
       "GroupID",
+      "GroupLevel",
       "Numerator",
       "Denominator",
       "Metric",
@@ -113,9 +93,8 @@ Analyze_NormalApprox <- function(
     ) %>%
     arrange(.data$Score)
 
-  if (!bQuiet) {
-    cli::cli_text("{.var OverallMetric}, {.var Factor}, and {.var Score} columns created from normal approximation.")
-  }
+  cli::cli_inform("{.var OverallMetric}, {.var Factor}, and {.var Score} columns created from normal approximation.")
+
 
   return(dfAnalyzed)
 }

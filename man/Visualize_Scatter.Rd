@@ -5,7 +5,7 @@
 \title{Group-level visualization of group-level results}
 \usage{
 Visualize_Scatter(
-  dfSummary,
+  dfResults,
   dfBounds = NULL,
   strGroupCol = NULL,
   strGroupLabel = NULL,
@@ -14,9 +14,9 @@ Visualize_Scatter(
 )
 }
 \arguments{
-\item{dfSummary}{\code{data.frame} returned by \code{\link[=Summarize]{Summarize()}}}
+\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
 
-\item{dfBounds}{\code{data.frame} data.frame giving prediction bounds for range of denominator in dfSummary.}
+\item{dfBounds}{\code{data.frame} Set of predicted percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values for reporting. Created by passing \code{dfResults} and \code{dfMetrics} to \code{\link[=MakeBounds]{MakeBounds()}}. Expected columns: \code{Threshold}, \code{Denominator}, \code{Numerator}, \code{Metric}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
 
 \item{strGroupCol}{\code{character} name of stratification column for facet wrap Default: \code{NULL}}
 
@@ -33,11 +33,37 @@ group-level plot object.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
-dfInput <- AE_Map_Adam()
-SafetyAE <- AE_Assess(dfInput)
-dfBounds <- Analyze_Poisson_PredictBounds(SafetyAE$lData$dfTransformed, c(-5, 5))
-Visualize_Scatter(SafetyAE$lData$dfSummary, dfBounds)
 
-# TODO: add stratified example
+## Filter sample data to only one metric
+reportingResults_filter <- reportingResults \%>\%
+  dplyr::filter(MetricID == "kri0001")
+
+reportingBounds_filter <- reportingBounds \%>\%
+  dplyr::filter(MetricID == "kri0001")
+
+## Output- filtered to one snapshot date
+Visualize_Scatter(
+  dfResults = reportingResults_filter \%>\%
+    dplyr::filter(SnapshotDate == max(SnapshotDate)),
+  dfBounds = reportingBounds_filter \%>\%
+    dplyr::filter(SnapshotDate == max(SnapshotDate))
+)
+
+## Create Faceted output on snapshot date
+Visualize_Scatter(
+  dfResults = reportingResults_filter,
+  dfBounds = reportingBounds_filter,
+  strGroupCol = "SnapshotDate",
+  strGroupLabel = "Snapshot Date"
+)
+
+## Custom Colors
+Visualize_Scatter(
+  dfResults = reportingResults_filter \%>\%
+    dplyr::filter(SnapshotDate == max(SnapshotDate)),
+  dfBounds = reportingBounds_filter \%>\%
+    dplyr::filter(SnapshotDate == max(SnapshotDate)),
+  vColors = c("#F4E7E7", "#C17070", "#981212")
+)
 
 }

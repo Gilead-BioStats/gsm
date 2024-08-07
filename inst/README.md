@@ -5,6 +5,30 @@ This README summarizes the contents found in the `gsm/inst` directory.
 
 ---
 
+# 📁 `examples`
+
+#### Description
+
+R files that walk through `{gsm}` analysis pipeline and reporting pipeline, with and without the use of `yaml` files that specify the workflow.
+
+
+#### Contents
+
+```
+├── _setup.R
+├── LongitudinalReport.R
+├── workflow_basic.R
+├── workflow_pipes.R
+├── workflow_report.R
+├── workflow_yaml_basic.R
+├── workflow_yaml_charts.R
+├── workflow_yaml_country.R
+├── workflow_yaml_report.R
+
+```
+
+---
+
 # 📁 `gismo-tables` 
 
 #### Description
@@ -21,8 +45,6 @@ JSON files used to test data pipeline functionality, and used as a reference for
 ├── kri-list-details.json
 ├── kri-sites-dropdown.json
 ├── pretty-print.py
-├── qtl-graph-details.json
-├── qtl-headers-details.json
 ├── site-custom-columns.json
 ├── site-details-graph.json
 ├── site-details-kris.json
@@ -52,49 +74,6 @@ JSON files used to test data pipeline functionality, and used as a reference for
 ├── Widget_ScatterPlot.yaml
 ├── Widget_TimeSeries.js
 ├── Widget_TimeSeries.yaml
-├── Widget_TimeSeriesQTL.js
-└── Widget_TimeSeriesQTL.yaml
-```
-
----
-
-# 📁 `mappings`
-
-#### Description
-
-`YAML` files containing key/value pairs for use in mapping data to an assessment's data standards. 
-
-There are two types of mappings:
-- Assessment-specific mappings (e.g., `AE_Assess.yaml`, `LB_Assess.yaml`)
-- Data domain-specific mappings (e.g., `mapping_rawplus.yaml`, `mapping_ctms.yaml`).
-
-#### Contents
-
-**Assessment Mappings**:
-
-```
-├── AE_Assess.yaml
-├── Consent_Assess.yaml
-├── DataChg_Assess.yaml
-├── DataEntry_Assess.yaml
-├── Disp_Assess.yaml
-├── IE_Assess.yaml
-├── LB_Assess.yaml
-├── PD_Assess_Binary.yaml
-├── PD_Assess_Rate.yaml
-├── QueryAge_Assess.yaml
-├── QueryRate_Assess.yaml
-├── Screening_Assess.yaml
-```
-
-**Data Mappings**:
-
-```
-├── mapping_adam.yaml
-├── mapping_ctms.yaml
-├── mapping_domain.yaml
-├── mapping_edc.yaml
-└── mapping_rawplus.yaml
 ```
 
 ---
@@ -140,62 +119,8 @@ R Markdown files that are used as templates underlying the [`gsm::Study_Report()
 
 ```
 ├── KRIReportByCountry.Rmd
-├── KRIReportByQTL.Rmd
 ├── KRIReportBySite.Rmd
 └── styles.css
-```
----
-
-# 📁 `report_examples`
-
-#### Description
-
-Reports that have been generated from [`gsm::Study_Report()`](https://gilead-biostats.github.io/gsm/reference/Study_Report.html) that are used to host sample reports on the [`{gsm}` webpage](https://gilead-biostats.github.io/gsm/). 
-
-#### Contents
-
-```
-├── gsm_country_report.html
-└── gsm_site_report.html
-```
-
----
-
-# 📁 `specs`
-
-#### Description
-
-YAML files that contain criteria for domain-specific columns that are required (`vRequired`), allowed to contain `NA` values (`vNACols`), and are expected to be unique (`vUniqueCols`). 
-
-#### Contents
-
-```
-├── AE_Assess.yaml
-├── AE_Map_Adam.yaml
-├── AE_Map_Raw.yaml
-├── Consent_Assess.yaml
-├── Consent_Map_Raw.yaml
-├── DataChg_Assess.yaml
-├── DataChg_Map_Raw.yaml
-├── DataEntry_Assess.yaml
-├── DataEntry_Map_Raw.yaml
-├── Disp_Assess.yaml
-├── Disp_Map_Raw_Study.yaml
-├── Disp_Map_Raw_Treatment.yaml
-├── IE_Assess.yaml
-├── IE_Map_Raw.yaml
-├── LB_Assess.yaml
-├── LB_Map_Raw.yaml
-├── PD_Assess_Binary.yaml
-├── PD_Assess_Rate.yaml
-├── PD_Map_Raw_Binary.yaml
-├── PD_Map_Raw_Rate.yaml
-├── QueryAge_Assess.yaml
-├── QueryAge_Map_Raw.yaml
-├── QueryRate_Assess.yaml
-├── QueryRate_Map_Raw.yaml
-├── Screening_Assess.yaml
-└── Screening_Map_Raw.yaml
 ```
 
 ---
@@ -247,16 +172,7 @@ YAML files that are used to configure assessment workflows, passed into `gsm::St
 ├── cou0010.yaml
 ├── cou0011.yaml
 ├── cou0012.yaml
-├── experimental
-│   ├── aeGrade.yaml
-│   ├── aeQTL.yaml
-│   ├── consent.yaml
-│   ├── dispStudyWithdrew.yaml
-│   ├── dispTreatmentByPhase.yaml
-│   ├── ie.yaml
-│   ├── lbCategory.yaml
-│   ├── pdCategory.yaml
-│   └── sae.yaml
+├── counts.yaml
 ├── kri0001.yaml
 ├── kri0002.yaml
 ├── kri0003.yaml
@@ -269,7 +185,6 @@ YAML files that are used to configure assessment workflows, passed into `gsm::St
 ├── kri0010.yaml
 ├── kri0011.yaml
 ├── kri0012.yaml
-├── qtl0004.yaml
-└── qtl0006.yaml
+├── mapping.yaml
 ```
 

@@ -6,60 +6,46 @@
 \usage{
 Transform_Rate(
   dfInput,
-  strNumeratorCol,
-  strDenominatorCol = NULL,
-  strGroupCol = "SiteID",
-  bQuiet = TRUE
+  strNumeratorCol = "Numerator",
+  strDenominatorCol = "Denominator"
 )
 }
 \arguments{
-\item{dfInput}{A data.frame with one record per subject.}
+\item{dfInput}{\code{data.frame} Input data with one record per subject. Created by passing Raw+ data into \code{\link[=Input_Rate]{Input_Rate()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator} and/or columns specified in \code{strCountCol} and \code{strGroupCol}.}
 
-\item{strNumeratorCol}{Required. Numerical or logical. Column to be counted.}
+\item{strNumeratorCol}{\code{string} Column to be counted. Defaults to "Numerator".}
 
-\item{strDenominatorCol}{\code{numeric} Required. Numerical \code{Exposure} column.}
-
-\item{strGroupCol}{\code{character} Required. Name of column for grouping variable. Default: \code{"SiteID"}}
-
-\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
+\item{strDenominatorCol}{\code{string} Column name for the numerical \code{Exposure} column. Defaults to "Denominator".}
 }
 \value{
-\code{data.frame} with one row per site with columns \code{GroupID}, \code{Numerator}, \code{Denominator}, and \code{Metric}.
+\code{data.frame} with one row per site with columns \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, and \code{Metric}.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 Convert from input data format to needed input format to derive KRI for an Assessment. Calculate a site-level rate.
 }
 \details{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-
 This function transforms data to prepare it for the analysis step. It is currently only sourced for the Adverse Event, Disposition, Labs, and Protocol Deviations Assessments.
 }
 \section{Data Specification}{
 
 
-The input data (\code{dfInput}) for the Assessment is typically created using any of these functions:
-\code{\link{AE_Map_Raw}}
-\code{\link{AE_Map_Adam}}
-\code{\link{Disp_Map_Raw}}
-\code{\link{LB_Map_Raw}}
-\code{\link{PD_Map_Raw_Rate}}
-
-(\code{dfInput}) must include the columns specified by \code{strNumeratorCol}, \code{strDenominatorCol} and \code{strGroupCol}.
+(\code{dfInput}) must include the columns specified by \code{strNumeratorCol} and \code{strDenominatorCol}.
 Required columns include:
 \itemize{
-\item \code{SiteID} - Site ID
-\item \code{StudyID} - Study ID
-\item \code{CustomGroupID} - Custom Group ID
-\item \code{Count} - Number of events of interest; the actual name of this column is specified by the parameter \code{strNumeratorCol}
-\item \code{Exposure} - Number of days on treatment; the actual name of this column is specified by the parameter \code{strDenominatorCol}
+\item \code{GroupID} - Group ID
+\item \code{GroupLevel} - Group Type
+\item \code{Numerator} - Number of events of interest; the actual name of this column is specified by the parameter \code{strNumeratorCol}
+\item \code{Denominator} - Number of days on treatment; the actual name of this column is specified by the parameter \code{strDenominatorCol}
 }
 }
 
 \examples{
-dfInput <- AE_Map_Raw()
-dfTransformed <- Transform_Rate(dfInput,
-  strNumeratorCol = "Count",
-  strDenominatorCol = "Exposure"
+dfTransformed <- Transform_Rate(
+  analyticsInput,
+  strNumeratorCol = "Numerator",
+  strDenominatorCol = "Denominator"
 )
 
 }

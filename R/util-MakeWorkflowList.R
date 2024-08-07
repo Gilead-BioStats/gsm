@@ -1,15 +1,14 @@
 #' Load workflows from a package/directory.
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' @details
-#' `MakeWorkflowList()` is a utility function that creates a list of workflows for use in [gsm::Study_Assess()].
+#' `MakeWorkflowList()` is a utility function that creates a list of workflows for use in KRI pipelines.
 #'
 #' @param strNames `array of character` List of workflows to include. NULL (the default) includes all workflows in the specified locations.
 #' @param strPath `character` The location of workflow YAML files. If package is specified, function will look in `/inst` folder.
-#' @param bRecursive `logical` Find files in nested folders? Default FALSE.
-#' @param lMeta `list` a named list of data frames containing metadata, configuration, and workflow parameters for a given study.
-#' See the Data Model Vignette - Appendix 2 - Data Model Specifications for detailed specifications.
+#' @param bExact `logical` Should strName matches be exact? If false, partial matches will be included. Default FALSE.
+#' @param bRecursive `logical` Find files in nested folders? Default TRUE
 #'
 #' @examples
 #' # use default
@@ -25,8 +24,8 @@
 MakeWorkflowList <- function(
   strNames = NULL,
   strPath = NULL,
-  bRecursive = FALSE,
-  lMeta = NULL
+  bExact = FALSE,
+  bRecursive = TRUE
 ) {
   if (is.null(strPath)) {
     # if `strPath` is not specified, default to reading `inst/workflow` from {gsm}.
@@ -70,57 +69,18 @@ MakeWorkflowList <- function(
 
   # if `strNames` is not null, subset the workflow list to only include
   # files that match the character vector (`strNames`)
+
   if (!is.null(strNames)) {
-    not_found <- strNames[!strNames %in% names(workflows)]
-
-    if (length(not_found) > 0) {
-      cli::cli_alert_warning("{.val {not_found}} {?is/are} not {?a /}supported workflow{?/s}! Check the output of {.fn MakeWorkflowList} for NULL values.")
-
-      workflows <- c(
-        vector(mode = "list", length = length(not_found)) %>%
-          purrr::set_names(nm = not_found),
-        purrr::keep(workflows, names(workflows) %in% strNames)
-      )
-    } else {
+    if (bExact) {
       workflows <- purrr::keep(workflows, names(workflows) %in% strNames)
+    } else {
+      workflows <- purrr::keep(workflows, grepl(paste(strNames, collapse = "|"), names(workflows)))
     }
   }
 
-
-  # subset workflows based on `lMeta$config_workflow` -----------------------
-  # -- the logic is that if a column in `lMeta$config_workflow$active` == FALSE,
-  # -- then the workflow is filtered out. e.g., `kri0003` would be removed using
-  # -- the sample data below
-  # -------------------------------------------------------------------------
-  # studyid           workflowid    gsm_version active
-  # AA-AA-000-0000    kri0001       1.7.4       TRUE
-  # AA-AA-000-0000    kri0002       1.7.4       TRUE
-  # AA-AA-000-0000    kri0003       1.7.4       FALSE
-  # -------------------------------------------------------------------------
-  if (!is.null(lMeta)) {
-    # TODO: add logging if `lMeta` is detected?
-
-    if (exists("config_workflow", where = lMeta)) {
-      # get active workflow vector from `config_workflow`
-      active_workflows <- lMeta$config_workflow %>%
-        filter(.data$active) %>%
-        pull(.data$workflowid)
-
-      # subset list based on workflow names that are found in `active_workflows`
-      workflows <- workflows[names(workflows) %in% active_workflows]
-    }
-
-    if (exists("config_param", where = lMeta) && exists("meta_params", where = lMeta)) {
-      # TODO: with this new design, UpdateParams() should get a good review
-      # We've never used UpdateParams() in production and it uses a very ugly looking loop :(
-      workflows <- UpdateParams(
-        lWorkflow = workflows,
-        dfConfig = lMeta$config_param,
-        dfMeta = lMeta$meta_params
-      )
-    }
+  if (length(workflows) == 0) {
+    cli::cli_alert_warning("No workflows found.")
   }
-
 
   return(workflows)
 }

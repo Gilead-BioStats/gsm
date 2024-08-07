@@ -4,9 +4,8 @@
 ## usethis namespace: start
 
 #' @import dplyr
-#' @import purrr
 #' @import ggplot2
-#' @importFrom arrow write_parquet
+#' @import purrr
 #' @importFrom broom augment
 #' @importFrom broom glance
 #' @importFrom cli cli_abort
@@ -17,8 +16,12 @@
 #' @importFrom cli cli_alert_warning
 #' @importFrom cli cli_h1
 #' @importFrom cli cli_h2
+#' @importFrom cli cli_inform
 #' @importFrom cli cli_text
+#' @importFrom cli cli_warn
 #' @importFrom cli col_br_yellow
+#' @importFrom DBI dbGetQuery
+#' @importFrom glue glue
 #' @importFrom glue glue_collapse
 #' @importFrom htmltools h1
 #' @importFrom htmltools h2
@@ -33,10 +36,11 @@
 #' @importFrom htmlwidgets prependContent
 #' @importFrom htmlwidgets shinyRenderWidget
 #' @importFrom htmlwidgets shinyWidgetOutput
+#' @importFrom jsonlite fromJSON
 #' @importFrom jsonlite toJSON
-#' @importFrom lifecycle deprecated
-#' @importFrom lubridate as.period
-#' @importFrom lubridate interval
+#' @importFrom purrr map
+#' @importFrom rlang %||%
+#' @importFrom rlang .data
 #' @importFrom rlang check_installed
 #' @importFrom stats binom.test
 #' @importFrom stats fisher.test
@@ -61,6 +65,7 @@
 #' @importFrom tibble tibble
 #' @importFrom tidyr expand_grid
 #' @importFrom tidyr pivot_longer
+#' @importFrom tidyr pivot_wider
 #' @importFrom tidyr replace_na
 #' @importFrom tidyr unite
 #' @importFrom tidyr unnest
@@ -71,6 +76,7 @@
 #' @importFrom utils read.csv
 #' @importFrom utils sessionInfo
 #' @importFrom utils write.csv
-#' @importFrom yaml yaml.load
+#' @importFrom withr with_envvar
+#' @importFrom yaml read_yaml
 ## usethis namespace: end
 NULL

@@ -4,32 +4,23 @@
 \alias{Summarize}
 \title{Make Summary Data Frame}
 \usage{
-Summarize(
-  dfFlagged,
-  nMinDenominator = NULL,
-  strScoreCol = "Score",
-  bQuiet = TRUE
-)
+Summarize(dfFlagged, nMinDenominator = NULL)
 }
 \arguments{
-\item{dfFlagged}{data.frame in format produced by \code{\link{Flag}}}
+\item{dfFlagged}{data.frame in format produced by \code{\link[=Flag]{Flag()}}.}
 
 \item{nMinDenominator}{\code{numeric} Specifies the minimum denominator required to return a \code{score} and calculate a \code{flag}. Default: NULL}
-
-\item{strScoreCol}{column from analysis results to be copied to \code{dfSummary$Score}}
-
-\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
-Simplified finding data.frame with columns for GroupID, Metric, Score, Flag
+Simplified finding data.frame with columns for GroupID, GroupType, Metric, Score, Flag
 when associated with a workflow.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 Create a concise summary of assessment results that is easy to aggregate across assessments
 }
 \details{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-
 \code{Summarize} supports the input data (\code{dfFlagged}) from the \code{Flag} function.
 }
 \section{Data Specification}{
@@ -38,19 +29,14 @@ Create a concise summary of assessment results that is easy to aggregate across 
 (\code{dfFlagged}) has the following required columns:
 \itemize{
 \item \code{GroupID} - Group ID
+\item \code{GroupLevel} - Group Type
 \item \code{Flag} - Flagging value of -1, 0, or 1
-\item \code{strScoreCol} - Column from analysis results.
+\item \code{Score} - Column from analysis results.
 }
 }
 
 \examples{
-dfInput <- AE_Map_Adam()
-
-dfTransformed <- Transform_Rate(dfInput,
-  strGroupCol = "SiteID",
-  strNumeratorCol = "Count",
-  strDenominatorCol = "Exposure"
-)
+dfTransformed <- Transform_Rate(analyticsInput)
 
 dfAnalyzed <- Analyze_Poisson(dfTransformed)
 

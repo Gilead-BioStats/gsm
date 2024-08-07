@@ -2,42 +2,56 @@
 % Please edit documentation in R/Widget_TimeSeries.R
 \name{Widget_TimeSeries}
 \alias{Widget_TimeSeries}
-\title{Time-Series Continuous Plot}
+\title{Time Series Widget}
 \usage{
 Widget_TimeSeries(
-  dfSummary,
-  lLabels,
-  dfParams,
-  selectedGroupIDs = NULL,
-  width = NULL,
-  height = NULL,
-  elementId = NULL,
-  addSiteSelect = TRUE,
-  siteSelectLabelValue = NULL
+  dfResults,
+  lMetric,
+  dfGroups = NULL,
+  vThreshold = NULL,
+  strOutcome = "Score",
+  bAddGroupSelect = TRUE,
+  strShinyGroupSelectID = "GroupID",
+  bDebug = FALSE
 )
 }
 \arguments{
-\item{dfSummary}{\code{data.frame} the stacked output of \code{Make_Snapshot()$lStackedSnapshots$rpt_site_kri_details}, containing a minimum of two unique values for \code{gsm_analysis_date}.}
+\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
 
-\item{lLabels}{\code{list} chart labels, typically defined by \code{Make_Snapshot()$lStackedSnapshots$rpt_site_kri_details}.}
+\item{lMetric}{\code{list} Metric-specific metadata for use in charts and reporting. Created by passing an \code{lWorkflow} object to \code{\link[=MakeMetric]{MakeMetric()}} and turing it into a list. Expected columns: \code{File},\code{MetricID}, \code{Group}, \code{Abbreviation}, \code{Metric}, \code{Numerator}, \code{Denominator}, \code{Model}, \code{Score}, and \code{strThreshold}. For more details see the Data Model vignette: \code{vignette("DataModel", package = "gsm")}.}
 
-\item{dfParams}{\code{data.frame} the stacked output of \code{Make_Snapshot()$lStackedSnapshots$rpt_kri_threshold_param}.}
+\item{dfGroups}{\code{data.frame} Group-level metadata dictionary. Created by passing CTMS site and study data to \code{\link[=MakeLongMeta]{MakeLongMeta()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Param}, \code{Value}.}
 
-\item{selectedGroupIDs}{\code{character} group IDs to highlight, \code{NULL} by default, can be a single site or a vector.}
+\item{vThreshold}{\code{numeric} Threshold value(s).}
 
-\item{width}{\code{numeric} width of widget.}
+\item{strOutcome}{\code{character} Outcome variable. Default: 'Score'.}
 
-\item{height}{\code{numeric} height of widget.}
+\item{bAddGroupSelect}{\code{logical} Add a dropdown to highlight sites? Default: \code{TRUE}.}
 
-\item{elementId}{\code{character} ID of container HTML element.}
+\item{strShinyGroupSelectID}{\code{character} Element ID of group select in Shiny context. Default: \code{'GroupID'}.}
 
-\item{addSiteSelect}{\code{logical} add a dropdown to highlight sites? Default: \code{TRUE}.}
-
-\item{siteSelectLabelValue}{Label used to populate the HTML drop-down menu. Constructed as: 'Highlighted {siteSelectLabelValue}: '.}
+\item{bDebug}{\code{logical} Print debug messages? Default: \code{FALSE}.}
 }
 \description{
-A widget that displays a time-series plot based on longitudinal snapshots using \code{{gsm}}.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
+A widget that generates a time series of group-level metric results over time, plotting snapshot
+date on the x-axis and the outcome (numerator, denominator, metric, or score) on the y-axis.
 }
-\details{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+\examples{
+## Filter data to one metric
+reportingResults_filter <- reportingResults \%>\%
+  dplyr::filter(MetricID == "kri0001")
+
+reportingMetrics_filter <- reportingMetrics \%>\%
+  dplyr::filter(MetricID == "kri0001") \%>\%
+  as.list()
+
+Widget_TimeSeries(
+  dfResults = reportingResults_filter,
+  lMetric = reportingMetrics_filter,
+  dfGroups = reportingGroups,
+  vThreshold = reportingMetrics_filter$Threshold
+)
+
 }

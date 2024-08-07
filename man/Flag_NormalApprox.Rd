@@ -16,49 +16,37 @@ values in \code{strColumn} are compared to \code{vThreshold} using strict compar
 \code{data.frame} with "Flag" column added
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 Add columns flagging sites that represent possible statistical outliers.
 }
 \details{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-
 This function flags sites based on the funnel plot with normal approximation analysis result as part of
-the \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline}.
+the GSM data model (see \code{vignette("DataModel")}).
 }
 \section{Data Specification}{
 
 \code{Flag_NormalApprox} is designed to support the input data (\code{dfAnalyzed}) from \code{Analyze_NormalApprox} function.
-At a minimum, the input data must have a \code{SiteID} column and a column of numeric values (identified
+At a minimum, the input data must have a \code{GroupID} column and a column of numeric values (identified
 by the \code{strColumn} parameter) that will be compared to the specified thresholds (\code{vThreshold}) to
 calculate a new \code{Flag} column.
 In short, the following columns are considered:
 \itemize{
 \item \code{GroupID} - Group ID (required)
+\item \code{GroupLevel} - Group Type
 \item \code{strColumn} - A column to use for Thresholding (required)
 \item \code{strValueColumn} - A column to be used for the sign of the flag (optional)
 }
 }
 
 \examples{
+dfTransformed <- Transform_Rate(analyticsInput)
+
 # Binary
-dfInput <- Disp_Map_Raw()
-dfTransformed <- Transform_Rate(
-  dfInput,
-  strGroupCol = "SiteID",
-  strNumeratorCol = "Count",
-  strDenominatorCol = "Total"
-)
 dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "binary")
 dfFlagged <- Flag_NormalApprox(dfAnalyzed, vThreshold = c(-3, -2, 2, 3))
 
 # Rate
-dfInput <- AE_Map_Raw() \%>\% na.omit()
-dfTransformed <- Transform_Rate(
-  dfInput,
-  strGroupCol = "SiteID",
-  strNumeratorCol = "Count",
-  strDenominatorCol = "Exposure"
-)
-
 dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "rate")
 dfFlagged <- Flag_NormalApprox(dfAnalyzed, vThreshold = c(-3, -2, 2, 3))
 

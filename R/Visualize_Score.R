@@ -1,8 +1,9 @@
 #' Group-level visualization of scores.
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' @param dfSummary `data.frame` returned by [gsm::Summarize()]
+#' @inheritParams shared-params
 #' @param vThreshold `numeric` Threshold specification, a vector of length 2 that defaults to NULL.
 #' @param strType `character` One of `"KRI"` or `"score"`.
 #' @param bFlagFilter `logical` Filter out non-flagged groups? Default: `FALSE`
@@ -11,44 +12,54 @@
 #' @return group-level ggplot2 object.
 #'
 #' @examples
-#' ae <- AE_Map_Raw() %>% AE_Assess()
+#' ## Filter data to one metric and snapshot
+#' reportingResults_filter <- reportingResults %>%
+#'   dplyr::filter(MetricID == "kri0001" & SnapshotDate == max(SnapshotDate))
 #'
-#' Visualize_Score(ae$lData$dfSummary) # visualize KRI (default)
-#' Visualize_Score(ae$lData$dfSummary, bFlagFilter = TRUE) # drop non-flagged groups
+#' Visualize_Score(dfResults = reportingResults_filter)
 #'
-#' consent <- Consent_Map_Raw() %>% Consent_Assess()
-#' Visualize_Score(consent$lData$dfSummary, strType = "score") # visualize score
+#' ## Only show Flagged Groups
+#' Visualize_Score(
+#'   dfResults = reportingResults_filter,
+#'   bFlagFilter = TRUE
+#' )
+#'
+#' ## Custom Title
+#' Visualize_Score(
+#'   dfResults = reportingResults_filter,
+#'   strTitle = "Custom Title"
+#' )
 #'
 #' @export
 
 Visualize_Score <- function(
-  dfSummary,
+  dfResults,
   vThreshold = NULL,
-  strType = "metric",
+  strType = "Metric",
   bFlagFilter = FALSE,
   strTitle = ""
 ) {
   stopifnot(
     "strTitle must be character" = is.character(strTitle),
     "bFlagFilter must be logical" = is.logical(bFlagFilter),
-    "dfSummary must be a data.frame" = is.data.frame(dfSummary),
-    "strType must be 'metric' or 'score'" = strType %in% c("metric", "score"),
+    "dfResults must be a data.frame" = is.data.frame(dfResults),
+    "strType must be 'Metric' or 'Score'" = strType %in% c("Metric", "Score"),
     "strType must be length 1" = length(strType) == 1
   )
 
-  dfSummary$FlagAbs <- abs(dfSummary$Flag)
-  flagBreaks <- as.character(unique(sort(dfSummary$FlagAbs)))
+  dfResults$FlagAbs <- abs(dfResults$Flag)
+  flagBreaks <- as.character(unique(sort(dfResults$FlagAbs)))
   flagValues <- c("#999999", "#FADB14", "#FF4D4F")[1:length(flagBreaks)]
 
   if (bFlagFilter) {
-    dfSummary <- dfSummary %>%
+    dfResults <- dfResults %>%
       filter(
         .data$Flag != 0
       )
   }
 
-  if (strType == "metric") {
-    dfSummaryWithTooltip <- dfSummary %>%
+  if (strType == "Metric") {
+    dfResultsWithTooltip <- dfResults %>%
       mutate(
         tooltip = paste(
           paste0("GroupID: ", .data$GroupID),
@@ -57,7 +68,7 @@ Visualize_Score <- function(
         )
       )
 
-    p <- dfSummaryWithTooltip %>%
+    p <- dfResultsWithTooltip %>%
       ggplot(
         aes(
           x = reorder(.data$GroupID, -.data$Metric),
@@ -77,17 +88,17 @@ Visualize_Score <- function(
         "Metric"
       )
 
-    if (all(c("Numerator", "Denominator") %in% names(dfSummary))) {
+    if (all(c("Numerator", "Denominator") %in% names(dfResults))) {
       p <- p +
         geom_hline(
-          yintercept = sum(dfSummary$Numerator) / sum(dfSummary$Denominator),
+          yintercept = sum(dfResults$Numerator) / sum(dfResults$Denominator),
           linetype = "dashed",
           color = "#FF4D4F"
         )
     }
   }
 
-  if (strType == "score") {
+  if (strType == "Score") {
     if (!is.null(vThreshold)) {
       ThresholdLow <- min(vThreshold)
       ThresholdHigh <- max(vThreshold)
@@ -97,7 +108,7 @@ Visualize_Score <- function(
     }
 
 
-    dfSummaryWithTooltip <- dfSummary %>%
+    dfResultsWithTooltip <- dfResults %>%
       mutate(
         tooltip = paste(
           paste0("GroupID: ", .data$GroupID),
@@ -106,7 +117,7 @@ Visualize_Score <- function(
         )
       )
 
-    p <- dfSummaryWithTooltip %>%
+    p <- dfResultsWithTooltip %>%
       ggplot(
         aes(
           x = reorder(.data$GroupID, -.data$Score),
@@ -159,7 +170,7 @@ Visualize_Score <- function(
     ) +
     ggtitle(strTitle)
 
-  if (nrow(dfSummaryWithTooltip) > 25) {
+  if (nrow(dfResultsWithTooltip) > 25) {
     p <- p +
       theme(
         axis.ticks.x = element_blank()

@@ -4,26 +4,24 @@
 \alias{Analyze_NormalApprox}
 \title{Funnel Plot Analysis with Normal Approximation for Binary and Rate Outcomes.}
 \usage{
-Analyze_NormalApprox(dfTransformed, strType = "binary", bQuiet = TRUE)
+Analyze_NormalApprox(dfTransformed, strType = "binary")
 }
 \arguments{
-\item{dfTransformed}{\code{data.frame} in format produced by \code{\link{Transform_Rate}}}
+\item{dfTransformed}{\code{data.frame} Transformed data for analysis. Data should have one record per site with expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, and \code{Metric}. For more details see the Data Model vignette: \code{vignette("DataModel", package = "gsm")}.
+For this function, \code{dfTransformed} should typically be created using \code{\link[=Transform_Rate]{Transform_Rate()}}.}
 
 \item{strType}{\code{character} Statistical outcome type. Valid values:
 \itemize{
 \item \code{"binary"} (default)
 \item \code{"rate"}
 }}
-
-\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
 \code{data.frame} with one row per site with columns: GroupID, Numerator, Denominator, Metric, OverallMetric, Factor, and Score.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-}
-\details{
+
 Creates analysis results data for percentage/rate data using funnel plot method with normal approximation.
 
 More information can be found in \href{https://gilead-biostats.github.io/gsm/articles/KRI\%20Method.html#the-normal-approximation-method}{The Normal Approximation Method}
@@ -36,37 +34,13 @@ the binary outcome, or normal approximation of a Poisson distribution for the ra
 or total exposure of the sites) to assess data quality and safety.
 }
 
-\section{Data Specification}{
-
-
-The input data (\code{dfTransformed}) is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
-\itemize{
-\item \code{GroupID} - Site ID
-\item \code{Numerator} - Total number of participants at site with event of interest/Total number of events of interest at site
-\item \code{Denominator} - Total number of participants at site/Total number of days of exposure at site
-\item \code{Metric} - Proportion of participants at site with event of interest/Rate of events at site (Numerator / Denominator)
-}
-}
-
 \examples{
 # Binary
-dfInput <- Disp_Map_Raw()
-dfTransformed <- Transform_Rate(
-  dfInput,
-  strGroupCol = "SiteID",
-  strNumeratorCol = "Count",
-  strDenominatorCol = "Total"
-)
+dfTransformed <- Transform_Rate(analyticsInput)
+
 dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "binary")
 
 # Rate
-dfInput <- AE_Map_Raw() \%>\% na.omit()
-dfTransformed <- Transform_Rate(
-  dfInput,
-  strGroupCol = "SiteID",
-  strNumeratorCol = "Count",
-  strDenominatorCol = "Exposure"
-)
 dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "rate")
 
 }

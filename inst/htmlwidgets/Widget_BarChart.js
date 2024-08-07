@@ -3,38 +3,33 @@ HTMLWidgets.widget({
     type: 'output',
     factory: function(el, width, height) {
         return {
-            renderValue: function(x) {
+            renderValue: function(input) {
+                if (input.bDebug)
+                    console.log(input);
 
-                const lLabels = x.lLabels
-                lLabels.y = x.strYAxisType;
-                lLabels.selectedGroupIDs = number_to_array(x.selectedGroupIDs)
+                // Assign a unique ID to the element.
+                el.id = `barChart--${input.lMetric.MetricID}_${input.strOutcome}`;
 
-                // add click event listener to chart
-                if (x.addSiteSelect)
-                    lLabels.clickCallback = function(d) { // clickCallback.bind(null, instance, siteSelect);
-                        instance.data.config.selectedGroupIDs = instance.data.config.selectedGroupIDs.includes(d.groupid)
-                            ? 'None'
-                            : d.groupid;
-                        siteSelect.value = instance.data.config.selectedGroupIDs;
-                        instance.helpers.updateConfig(
-                            instance,
-                            instance.data.config,
-                            instance.data._thresholds_
-                        );
-                    };
+                // Add click event listener to chart.
+                input.lMetric.clickCallback = clickCallback(el, input);
 
-                // generate bar chart
+                // Generate bar chart.
                 const instance = rbmViz.default.barChart(
                     el,
-                    x.dfSummary,
-                    lLabels,
-                    x.dfThreshold
+                    input.dfResults,
+                    {...input.lMetric, y: input.strOutcome}, // specify outcome to be plotted on the y-axis
+                    input.vThreshold,
+                    input.dfGroups
                 );
 
-                // add dropdown that highlights sites
-                let siteSelect;
-                if (x.addSiteSelect)
-                    siteSelect = addSiteSelect(el, x.dfSummary, instance, x.siteSelectLabelValue);
+                // Add dropdowns that highlight group IDs.
+                const { groupSelect, countrySelect } = addWidgetControls(
+                    el,
+                    input.dfResults,
+                    input.lMetric,
+                    input.dfGroups,
+                    input.bAddGroupSelect
+                );
             },
             resize: function(width, height) {
             }

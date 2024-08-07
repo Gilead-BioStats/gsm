@@ -1,6 +1,8 @@
+url: https://gilead-biostats.github.io/gsm
+
 template:
-  params:
-    bootswatch: yeti
+  bootstrap: 5
+  bootswatch: yeti
 
 navbar:
   structure:
@@ -14,32 +16,8 @@ navbar:
           href: StandardReportSite.html
         - text: Country Report
           href: StandardReportCountry.html
-    articles:
-      text: Articles
-      menu:
-        - text: Cookbook
-          href: articles/Cookbook.html
-        - text: Step-by-Step Analysis Workflow
-          href: articles/DataAnalysis.html
-        - text: Data Pipeline
-          href: articles/DataPipeline.html
-        - text: Contributor Guidelines
-          href: articles/ContributorGuidelines.html
-        - text: KRI Method
-          href: articles/KRI Method.html
-        - text: Qualification Report for the {gsm} R Package
-          href: articles/Qualification.html
-        - text: Qualification Workflow
-          href: articles/QualificationWorkflow.html
-        - text: v1.9.0 Data Model Update Reference
-          href: articles/v1_9_0-data-model-update-reference.html
 
 reference:
-  - title: Assess
-    desc: Sequentially execute the Assessment Pipeline Functions (Transform, Analyze, Flag, and Summarize)
-  - contents:
-      - matches("*_Assess_*")
-
   - title: Visualize
     desc: Generate a visualization from the Assessment results
   - contents:
@@ -47,15 +25,7 @@ reference:
       - starts_with("Widget_")
       - Analyze_NormalApprox_PredictBounds
       - Analyze_Poisson_PredictBounds
-      - UpdateLabels
-      - MakeKRICharts
       - Make_Timeline
-      - MakeQTLCharts
-
-  - title: Map
-    desc: Generate input data from multiple clinical data standards (generally rawplus or SDTM-)
-  - contents:
-      - matches("*_Map_*")
 
   - title: Analyze
     desc: Conduct statistical analysis based on input data
@@ -68,76 +38,49 @@ reference:
   - title: Data Pipeline
     desc: Create site-level summary, analyzed, and flagged data for an assessment
   - contents:
+      - Input_Rate
       - Transform_Count
       - Transform_Rate
       - Flag
       - Flag_Fisher
       - Flag_NormalApprox
       - Flag_Poisson
-      - Flag_QTL
       - Summarize
 
   - title: Reporting
     desc: Creates summary tables and HTML objects to create a report
   - contents:
-      - Study_Report
-      - Study_AssessmentReport
-      - Overview_Table
-      - rank_chg
-      - kri_directionality_logo
+      - Report_FlagOverTime
+      - Report_FormatFlag
+      - Report_KRI
+      - Report_MetricCharts
+      - Report_MetricTable
 
-  - title: QTL
-    desc: Runs QTL analysis for longitudinal metrics
-  - contents:
-      - Analyze_QTL
-      - RunQTL
-      - SaveQTL
-      - MakeRptQtlDetails
-
-  - title: Longitudinal
-    desc: Utility functions to analyze longitudinal/trend data.
-  - contents:
-      - Save_Snapshot
 
   - title: Utility
-    desc: Utility functions for use within the Data Pipeline
+    desc: Utility functions for use within the Data Model
   - contents:
-     -  CheckClindataMeta
-     -  CheckInputs
-     -  CheckSnapshotInputs
-     -  ConsolidateStrata
-     -  ExportCode
-     -  FilterData
-     -  FilterDomain
-     -  Get_Enrolled
-     -  MakeAnalysisDate
-     -  MakeResultsAnalysis
-     -  MakeResultsBounds
-     -  MakeResultsSummary
-     -  MakeStatusWorkflow
-     -  MakeStratifiedAssessment
+     -  BindResults
+     -  MakeBounds
+     -  MakeCharts
+     -  MakeMetric
+     -  MakeLongMeta
+     -  MakeWideGroups
      -  MakeWorkflowList
-     -  Make_Snapshot
-     -  MergeSubjects
-     -  ParseWarnings
+     -  ParseThreshold
      -  RunStep
-     -  RunStratifiedWorkflow
+     -  RunQuery
      -  RunWorkflow
+     -  RunWorkflows
      -  UseClindata
-     -  UpdateGSMVersion
-     -  UpdateParams
-     -  generate_md_table
-     -  is_mapping_valid
-     -  is_workflow_valid
-     -  parse_data_mapping
-     -  parse_data_spec
 
-  - title: Data
-    desc: Metadata used to create workflows
+  - title: Sample Data
+    desc: data used for examples and testing
   - contents:
-      - config_param
-      - config_workflow
-      - input_data_schema
-      - meta_param
-      - meta_workflow
-      - rbm_data_spec
+      - analyticsInput
+      - analyticsSummary
+      - reportingBounds
+      - reportingGroups
+      - reportingMetrics
+      - reportingResults
+

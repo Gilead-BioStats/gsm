@@ -1,59 +1,42 @@
-source(testthat::test_path("testdata/data.R"))
+test_that("Widget_BarChart handles dfResults correctly", {
+  widget <- Widget_BarChart(
+    reportingResults,
+    reportingMetrics %>% as.list()
+  )
 
-ae <- AE_Map_Raw(
-  dfs = list(dfAE = dfAE, dfSUBJ = dfSUBJ)
-)
+  expect_true(inherits(widget, "htmlwidget"))
+  expect_true("Widget_BarChart" %in% class(widget))
 
-ae_transformed <- Transform_Rate(
-  dfInput = ae,
-  strGroupCol = "SiteID",
-  strNumeratorCol = "Count",
-  strDenominatorCol = "Exposure"
-)
+  widget_data <- widget$x$dfResults
+  dfResults <- reportingResults %>%
+    dplyr::mutate(
+      Metric = round(Metric, 4),
+      Score = round(Score, 4),
+      SnapshotDate = as.character(SnapshotDate)
+    )
 
-ae_analyzed <- Analyze_NormalApprox(
-  dfTransformed = ae_transformed,
-  strType = "rate"
-)
-
-ae_bounds <- Analyze_NormalApprox_PredictBounds(
-  dfTransformed = ae_transformed,
-  vThreshold = c(-3, -2, 2, 3),
-  strType = "rate"
-)
-
-ae_flagged <- Flag_NormalApprox(
-  dfAnalyzed = ae_analyzed,
-  vThreshold = c(-3, -2, 2, 3)
-)
-
-ae_summary <- Summarize(
-  dfFlagged = ae_flagged
-)
-
-lLabels <- list(
-  workflowid = "",
-  group = "Site",
-  abbreviation = "AE",
-  metric = "Adverse Event Rate",
-  numerator = "Adverse Events",
-  denominator = "Days on Study",
-  model = "Normal Approximation",
-  score = "Adjusted Z-Score"
-)
-
-chart <- Widget_BarChart(
-  dfSummary = ae_summary,
-  lLabels = lLabels,
-  strYAxisType = "metric",
-  elementId = "unit_test"
-)
-
-test_that("chart is created", {
-  expect_true(all(c("Widget_BarChart", "htmlwidget") %in% class(chart)))
-  expect_equal(substr(chart$elementId, 1, 9), "unit_test")
+  expect_equal(jsonlite::fromJSON(widget_data), dfResults)
 })
 
-test_that("chart structure has not changed", {
-  expect_snapshot(names(chart))
+test_that("Widget_BarChart processes vThreshold correctly", {
+  vThreshold <- c(1, 2, 3)
+
+  widget <- Widget_BarChart(reportingResults,
+    reportingMetrics %>% as.list(),
+    vThreshold = vThreshold
+  )
+
+  vThreshold_json <- jsonlite::toJSON(vThreshold, na = "string")
+  expect_equal(widget$x$vThreshold, vThreshold_json)
+})
+
+test_that("Widget_BarChart processes dfGRoups correctly", {
+  widget <- Widget_BarChart(
+    dfResults = reportingResults,
+    lMetric = reportingMetrics %>% as.list(),
+    dfGroups = reportingGroups
+  )
+
+  reportingGroups_json <- jsonlite::toJSON(reportingGroups, na = "string")
+  expect_equal(widget$x$dfGroups, reportingGroups_json)
 })

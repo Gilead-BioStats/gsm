@@ -1,12 +1,9 @@
-source(testthat::test_path("testdata/data.R"))
-
-dfTransformed <- Transform_Count(
-  dfInput = dfInputCONSENT,
-  strCountCol = "Count",
-  strGroupCol = "SiteID"
+dfAnalyzed <- tibble::tibble(
+  GroupID    = c("123", "45", "67", "101"),
+  TotalCount = c(1, 1, 2, 2),
+  Metric     = c(1, 1, 2, 2),
+  Score      = c(1, 1, 2, 2)
 )
-
-dfAnalyzed <- Analyze_Identity(dfTransformed)
 
 # output is created as expected -------------------------------------------
 test_that("output is created as expected", {

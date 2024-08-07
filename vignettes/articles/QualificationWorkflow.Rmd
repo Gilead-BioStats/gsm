@@ -4,9 +4,9 @@ date: 'Date: `r Sys.Date()`'
 output:
   rmarkdown::html_vignette
 vignette: >
- %\\VignetteIndexEntry{Qualification Workflow} 
+ %\\VignetteIndexEntry{Qualification Workflow}
  %\\VignetteEncoding{UTF-8}
- %\\VignetteEngine{knitr::rmarkdown}
+ %\\VignetteEngine{knitr::rmarkdown_notangle}
 ---
 
 ```{r setup, include = FALSE}
@@ -71,27 +71,17 @@ For example, the first specification from `qualification_specs.csv` is written a
 qual_specs_orig <- read.csv(system.file("qualification", "qualification_specs.csv", package = "gsm"))
 qual_specs <- qual_specs_orig %>%
   mutate(SpecID = paste0("S", Spec, "_", Test.ID)) %>%
-  select(SpecID, Tests) %>%
-  tidyr::separate_rows("Tests", sep = ",") %>%
-  mutate(Tests = trimws(Tests)) %>%
-  split(.$Tests) %>%
-  purrr::map(function(x){
-    x %>%
-      group_by(Tests) %>%
-      mutate(Specs = paste(SpecID, collapse = ", ")) %>%
-      select(-SpecID) %>%
-      distinct()
-  }) %>%
-  list_rbind()
+  select(Specs = SpecID, Tests, N.Tests)
+
 ### One row per spec
 Specifications <- spec_df %>%
   select(ID, Description, Risk, Impact, Tests) %>%
   mutate(sort1 = as.numeric(str_extract(ID, "(?<=S)\\d+")),
          sort2 = as.numeric(str_extract(ID, "\\d+$"))) %>%
   arrange(as.numeric(sort1), as.numeric(sort2)) %>%
-  slice(1:6) %>%
   select(-c(sort1, sort2))
 colnames(Specifications) <- c("Spec ID", "Spec Description", "Risk", "Impact", "Associated Test IDs")
+
 knitr::kable(Specifications, booktabs = TRUE, longtable = TRUE) %>%
   kableExtra::kable_styling(latex_options = c("repeat_header", "striped", "bordered"),
                             font_size = 9, full_width = FALSE) %>%
@@ -110,30 +100,32 @@ Note that test cases can be associated with multiple specifications.  For exampl
 
 An simple example test case is shown below.  For this test case the file would be called `test_qual_T21_1.R` and would correspond to T21_1 in the specifications:
 
-```r
-test_that("Domain-level data can be correctly merged into subject-level data using subject ID as the key variable.", {
+```{r eval = F, include = T}
+testthat::test_that("Given raw participant-level data, a properly specified Workflow for a KRI creates summarized and flagged data", {
+  test <- robust_runworkflow(kri_workflows, mapped_data)
+  expected_rows <- length(na.omit(unique(test$dfEnrolled[[kri_workflows$steps[[2]]$params$strGroupCol]])))
 
+  # test output stucture
+  expect_true(is.vector(test$vThreshold))
+  expect_true(all(map_lgl(test[outputs[outputs != "vThreshold"]], is.data.frame)))
+  expect_equal(nrow(test$dfFlagged), expected_rows)
+  expect_equal(nrow(test$dfSummary), expected_rows)
 
-  ########### gsm mapping ###########
-  observed <- gsm::MergeSubjects(
-    dfDomain = clindata::rawplus_consent,
-    dfSUBJ = clindata::rawplus_dm,
-    strIDCol = "subjid"
-    )
+  # test output content
+  expect_true(all(outputs %in% names(test)))
+  flags <- test$dfFlagged %>%
+    mutate(hardcode_flag = case_when(
+      Score <= test$vThreshold[1] ~ -2,
+      Score > test$vThreshold[1] & Score <= test$vThreshold[2] ~ -1,
+      Score >= test$vThreshold[3] & Score < test$vThreshold[4] ~ 1,
+      Score >= test$vThreshold[4] ~ 2,
+      TRUE ~ 0
+    )) %>%
+    left_join(test$dfSummary %>%
+      select("GroupID", "Flag"), by = "GroupID")
 
-
-  ########### double programming ###########
-  # read in raw consent data
-  consent_orig <- clindata::rawplus_consent
-
-  # read in raw source DM data
-  dm_raw_orig <- clindata::rawplus_dm
-
-  # join DM and consent data
-  expected <- left_join(dm_raw_orig, consent_orig, by = "subjid")
-
-  ########### testing ###########
-  expect_equal(as.data.frame(observed), as.data.frame(expected))
+  expect_identical(flags$hardcode_flag, flags$Flag.x)
+  expect_identical(flags$hardcode_flag, flags$Flag.y)
 })
 ```
 
@@ -149,9 +141,8 @@ Using the specifications, test cases, and test code outlined above the qualifica
 
 An overview of the qualification test results is presented as a table, with one row for each function that has been tested. The results are presented as a series of columns for the number of tests, number of passing tests, number of failing tests, and number of skipped tests.  
 
-```{r}
-spec_list <- list.files(here::here('tests', 'testqualification', 'qualification'), pattern = ".R", full.names = TRUE)
-spec_list <- spec_list[-1]
+```{r results = "hide"}
+spec_list <- list.files(here::here('tests', 'testqualification', 'qualification'), pattern = "test-qual_", full.names = TRUE)
 
 scrape <- map_df(spec_list, function(x) {
     testResultsRaw <- testthat::test_file(x, reporter = testthat::ListReporter, package = "gsm") %>% 
@@ -159,29 +150,35 @@ scrape <- map_df(spec_list, function(x) {
     
     return(testResultsRaw)
 }) %>% 
-  mutate(Tests = gsub("test_qual_", "", file),
+  mutate(Tests = gsub("test-qual_", "", file),
          Tests = gsub(".R", "", Tests))
+
 funcs <- spec_df %>%
   select(Tests, Assessment) %>%
   tidyr::separate_rows("Tests", sep = ",") %>%
   mutate(Tests = trimws(Tests)) %>%
   rename(Function = Assessment) %>%
   distinct()
+
 testResultsIndividual <- left_join(scrape, funcs, by = "Tests") %>% 
   group_by(Function) %>%
   reframe(`Function Name` = unique(Function),
-          `Number of Tests` = n(),
+          `Number of Tests` = sum(nb),
           `Number Passed` = sum(passed),
           `Number Failed` = sum(failed),
           `Number Skipped` = sum(skipped)) %>%
   arrange(`Function Name`) %>%
   select(-Function)
-scrape_new <-left_join(scrape, funcs, by = "Tests") 
+
+scrape_new <- left_join(scrape, funcs, by = "Tests") 
+```
+
+```{r}
 knitr::kable(testResultsIndividual, booktabs = TRUE, longtable = TRUE) %>%
   kableExtra::kable_styling(latex_options = c("repeat_header", "striped", "bordered"),
                             font_size = 9, full_width = FALSE) %>%
   kableExtra::kable_classic()
-```  
+``` 
 
 #### Test Results: Detailed  
 
@@ -193,27 +190,17 @@ A detailed summary of the qualification test results is also provided in table f
 qual_specs_orig <- read.csv(system.file("qualification", "qualification_specs.csv", package = "gsm"))
 qual_specs <- qual_specs_orig %>%
   mutate(SpecID = paste0("S", Spec, "_", Test.ID)) %>%
-  select(SpecID, Tests) %>%
-  tidyr::separate_rows("Tests", sep = ",") %>%
-  mutate(Tests = trimws(Tests)) %>%
-  split(.$Tests) %>%
-  purrr::map(function(x){
-    x %>%
-      group_by(Tests) %>%
-      mutate(Specs = paste(SpecID, collapse = ", ")) %>%
-      select(-SpecID) %>%
-      distinct()
-  }) %>%
-  list_rbind()
+  select(Specs = SpecID, Tests, N.Tests)
+
 ### One row per spec
 Specifications <- spec_df %>%
   select(ID, Description, Risk, Impact, Tests) %>%
   mutate(sort1 = as.numeric(str_extract(ID, "(?<=S)\\d+")),
          sort2 = as.numeric(str_extract(ID, "\\d+$"))) %>%
   arrange(as.numeric(sort1), as.numeric(sort2)) %>%
-  slice(1:6) %>%
   select(-c(sort1, sort2))
 colnames(Specifications) <- c("Spec ID", "Spec Description", "Risk", "Impact", "Associated Test IDs")
+
 knitr::kable(Specifications, booktabs = TRUE, longtable = TRUE) %>%
   kableExtra::kable_styling(latex_options = c("repeat_header", "striped", "bordered"),
                             font_size = 9, full_width = FALSE) %>%
@@ -226,16 +213,17 @@ knitr::kable(Specifications, booktabs = TRUE, longtable = TRUE) %>%
 ```{r}
 ### One row per test
 test <- scrape_new %>%
-  mutate(result_new = ifelse(passed == 1, "Pass", "Fail")) %>%
+  mutate(result_new = ifelse(failed == 0, "Pass", "Fail")) %>%
   select(Tests, test, result_new, Function)
+
 Results <- left_join(test, qual_specs, by = "Tests") %>%
   select(Function, Specs, Tests, test, result_new) %>%
   mutate(sort1 = as.numeric(str_extract(Tests, "(?<=T)\\d+")),
          sort2 = as.numeric(str_extract(Tests, "\\d+$"))) %>%
   arrange(as.numeric(sort1), as.numeric(sort2)) %>%
-  select(-c(sort1, sort2)) %>% 
-  slice(1:6)
+  select(-c(sort1, sort2))
 colnames(Results) <- c("Function", "Spec ID", "Test ID", "Test Description", "Test Result")
+
 knitr::kable(Results, booktabs = TRUE, longtable = TRUE) %>%
   kableExtra::kable_styling(latex_options = c("repeat_header", "striped", "bordered"),
                             font_size = 9, full_width = FALSE) %>%

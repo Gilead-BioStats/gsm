@@ -26,14 +26,14 @@ the value for that row is lower than the median of \code{strValueColumn}, then F
 \code{data.frame} with one row per site with columns: \code{GroupID}, \code{TotalCount}, \code{Metric}, \code{Score}, \code{Flag}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 Add columns flagging sites that represent possible statistical outliers when the Identity statistical
 method is used.
 }
 \details{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-
 This function provides a generalized framework for flagging sites as part of the
-\href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline}.
+GSM data model (see \code{vignette("DataModel")}).
 }
 \section{Data Specification}{
 
@@ -48,6 +48,7 @@ flagged points.
 The following columns are considered required:
 \itemize{
 \item \code{GroupID} - Group ID; default is \code{SiteID}
+\item \code{GroupLevel} - Group Type
 \item \code{strColumn} - A column to use for thresholding
 }
 
@@ -58,12 +59,7 @@ The following column is considered optional:
 }
 
 \examples{
-dfInput <- Consent_Map_Raw()
-
-dfTransformed <- Transform_Count(dfInput,
-  strGroupCol = "SiteID",
-  strCountCol = "Count"
-)
+dfTransformed <- Transform_Count(analyticsInput, strCountCol = "Numerator")
 
 dfAnalyzed <- Analyze_Identity(dfTransformed)
 

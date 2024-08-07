@@ -1,8 +1,8 @@
 #' Funnel Plot Analysis with Normal Approximation - Predicted Boundaries.
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' @details
 #' Applies a funnel plot analysis with normal approximation to site-level data, and then calculates predicted
 #' percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values.
 #'
@@ -11,47 +11,26 @@
 #' predicted percentages/rates and upper- and lower- bounds (funnels) based on the standard deviation from the mean
 #' across the full range of sample sizes/total exposure values.
 #'
-#' @section Data Specification:
-#'
-#' The input data (`dfTransformed`) for `Analyze_NormalApprox_PredictBounds` is typically created using
-#' \code{\link{Transform_Rate}} and should be one record per site with columns for:
-#' - `GroupID` - Site ID
-#' - `Numerator` - Total number of participants at site with event of interest/Total number of events of interest at site
-#' - `Denominator` - Total number of participants at site/Total number of days of exposure at site
-#' - `Metric` - Proportion of participants at site with event of interest/Rate of events at site (Numerator / Denominator)
-#'
-#' @param dfTransformed `data.frame` in format produced by \code{\link{Transform_Rate}}.
+#' @param dfTransformed `r gloss_param("dfTransformed")`
+#'   `r gloss_extra("dfTransformed_Rate")`
 #' @param vThreshold `numeric` upper and lower boundaries based on standard deviation. Should be identical to
 #' the thresholds used in `*_Assess()` functions.
 #' @param nStep `numeric` step size of imputed bounds.
 #' @param strType `character` Statistical method. Valid values:
 #'   - `"binary"` (default)
 #'   - `"rate"`
-#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`
 #'
 #' @return `data.frame` containing predicted boundary values with upper and lower bounds across the
 #' range of observed values.
 #'
 #' @examples
 #' # Binary
-#' dfInput <- Disp_Map_Raw()
-#' dfTransformed <- Transform_Rate(
-#'   dfInput,
-#'   strGroupCol = "SiteID",
-#'   strNumeratorCol = "Count",
-#'   strDenominatorCol = "Total"
-#' )
+#' dfTransformed <- Transform_Rate(analyticsInput)
+#'
 #' dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "binary")
 #' dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed, c(-3, -2, 2, 3), strType = "binary")
 #'
 #' # Rate
-#' dfInput <- AE_Map_Raw() %>% na.omit()
-#' dfTransformed <- Transform_Rate(
-#'   dfInput,
-#'   strGroupCol = "SiteID",
-#'   strNumeratorCol = "Count",
-#'   strDenominatorCol = "Exposure"
-#' )
 #' dfAnalyzed <- Analyze_NormalApprox(dfTransformed, strType = "rate")
 #' dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed, c(-3, -2, 2, 3), strType = "rate")
 #'
@@ -61,29 +40,30 @@ Analyze_NormalApprox_PredictBounds <- function(
   dfTransformed,
   vThreshold = c(-3, -2, 2, 3),
   strType = "binary",
-  nStep = NULL,
-  bQuiet = TRUE
+  nStep = NULL
 ) {
   if (is.null(vThreshold)) {
     vThreshold <- c(-3, -2, 2, 3)
-    if (bQuiet == FALSE) {
-      cli::cli_alert("vThreshold was not provided. Setting default threshold to {vThreshold}")
-    }
+    cli::cli_inform(
+      "vThreshold was not provided. Setting default threshold to {vThreshold}.",
+      class = "gsm_msg-default_vThreshold"
+    )
   }
 
   # Set [ nStep ] to the range of the denominator divided by 250.
   if (is.null(nStep)) {
     nRange <- max(dfTransformed$Denominator) - min(dfTransformed$Denominator)
 
-    if (!is.null(nRange) & !is.na(nRange) & nRange != 0) {
+    if (!is.null(nRange) && !is.na(nRange) && nRange != 0) {
       nStep <- nRange / 250
     } else {
       nStep <- 1
     }
 
-    if (bQuiet == FALSE) {
-      cli::cli_alert("nStep was not provided. Setting default step to {nStep}")
-    }
+    cli::cli_inform(
+      "nStep was not provided. Setting default step to {nStep}.",
+      class = "gsm_msg-default_nStep"
+    )
   }
 
   # add a 0 threhsold to calcultate estimate without an offset

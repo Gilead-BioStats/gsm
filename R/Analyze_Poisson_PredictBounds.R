@@ -1,8 +1,7 @@
 #' Poisson Analysis - Predicted Boundaries.
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
-#'
-#' @details
 #'
 #' Fits a Poisson model to site-level data and then calculates predicted count values and upper- and
 #' lower- bounds for across the full range of exposure values.
@@ -13,32 +12,17 @@
 #' model with family set to `poisson` using a "log" link. Upper and lower boundary values are then
 #' calculated using the method described here TODO: Add link.
 #'
-#' @section Data Specification:
-#'
-#' The input data (`dfTransformed`) for `Analyze_Poisson_PredictBounds` is typically created using
-#' \code{\link{Transform_Rate}} and should be one record per site with columns for:
-#' - `GroupID` - Unique subject ID
-#' - `Numerator` - Number of Events
-#' - `Denominator` - Number of days of exposure
-#'
-#' @param dfTransformed `data.frame` data.frame in format produced by
-#' \code{\link{Transform_Rate}}. Must include GroupID, N, Numerator and Denominator.
+#' @param dfTransformed `r gloss_param("dfTransformed")`
+#'   `r gloss_extra("dfTransformed_Rate")`
 #' @param vThreshold `numeric` upper and lower boundaries in residual space. Should be identical to
 #' the thresholds used AE_Assess().
 #' @param nStep `numeric` step size of imputed bounds.
-#' @param bQuiet `logical` Suppress warning messages? Default: `TRUE`.
 #'
 #' @return `data.frame` containing predicted boundary values with upper and lower bounds across the
 #' range of observed values.
 #'
 #' @examples
-#' dfInput <- AE_Map_Raw()
-#'
-#' dfTransformed <- Transform_Rate(dfInput,
-#'   strGroupCol = "SiteID",
-#'   strNumeratorCol = "Count",
-#'   strDenominatorCol = "Exposure"
-#' )
+#' dfTransformed <- Transform_Rate(analyticsInput)
 #'
 #' dfBounds <- Analyze_Poisson_PredictBounds(dfTransformed, c(-5, 5))
 #'
@@ -47,17 +31,14 @@
 Analyze_Poisson_PredictBounds <- function(
   dfTransformed,
   vThreshold = c(-5, 5),
-  nStep = NULL,
-  bQuiet = TRUE
+  nStep = NULL
 ) {
   rlang::check_installed("lamW", reason = "to run `Analyze_Poisson_PredictBounds()`")
 
   if (is.null(vThreshold)) {
     vThreshold <- c(-5, 5)
 
-    if (bQuiet == FALSE) {
-      cli::cli_alert("vThreshold was not provided. Setting default threshold to c(-5, 5)")
-    }
+    cli::cli_alert("vThreshold was not provided. Setting default threshold to c(-5, 5)")
   }
 
   # add a 0 threhsold to calcultate estimate without an offset
@@ -74,15 +55,13 @@ Analyze_Poisson_PredictBounds <- function(
     nMaxLogDenominator <- max(dfTransformed$LogDenominator)
     nRange <- nMaxLogDenominator - nMinLogDenominator
 
-    if (!is.null(nRange) & !is.na(nRange) & nRange != 0) {
+    if (!is.null(nRange) && !is.na(nRange) && nRange != 0) {
       nStep <- nRange / 250
     } else {
       nStep <- .05
     }
 
-    if (bQuiet == FALSE) {
-      cli::cli_alert("nStep was not provided. Setting default step to {nStep}")
-    }
+    cli::cli_alert("nStep was not provided. Setting default step to {nStep}")
   }
 
   # Fit GLM of number of events at each site predicted by total exposure.

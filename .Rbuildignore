@@ -13,3 +13,5 @@
 ^data-raw$
 ^LICENSE\.md$
 ^inst/snapshots$
+^inst/demo$
+^inst/README\.md$

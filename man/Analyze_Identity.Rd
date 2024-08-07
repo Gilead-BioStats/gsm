@@ -4,42 +4,27 @@
 \alias{Analyze_Identity}
 \title{Identity Analysis.}
 \usage{
-Analyze_Identity(dfTransformed, strValueCol = "Metric", bQuiet = TRUE)
+Analyze_Identity(dfTransformed, strValueCol = "Metric")
 }
 \arguments{
-\item{dfTransformed}{\code{data.frame} created by \code{\link{Transform_Count}}}
+\item{dfTransformed}{\code{data.frame} Transformed data for analysis. Data should have one record per site with expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, and \code{Metric}. For more details see the Data Model vignette: \code{vignette("DataModel", package = "gsm")}.
+For this function, \code{dfTransformed} should typically be created using \code{\link[=Transform_Count]{Transform_Count()}}.}
 
 \item{strValueCol}{\code{character} Name of column that will be copied as \code{Score}}
-
-\item{bQuiet}{\code{logical} Suppress warning messages? Default: \code{TRUE}}
 }
 \value{
 \code{data.frame} with one row per site with columns: GroupID, TotalCount, Metric, and Score.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-}
-\details{
+
 Used in the data pipeline between \code{Transform} and \code{Flag} to rename KRI and Score columns.
 
 More information can be found in \href{https://gilead-biostats.github.io/gsm/articles/KRI\%20Method.html#the-identity-method}{The Identity Method}
 of the KRI Method vignette.
 }
-\section{Data Specification}{
-
-
-The input data (\code{dfTransformed}) for \code{Analyze_Identity} is typically created using \code{\link{Transform_Rate}} and should be one record per site with required columns for:
-\itemize{
-\item \code{GroupID} - Site ID
-\item \code{Numerator} - Total number of participants at site with event of interest.
-\item \code{Denominator} - Total number of participants at site/Total number of days of exposure at site.
-\item \code{Metric} - Proportion of participants at site with event of interest/Rate of events at site (Numerator / Denominator).
-}
-}
-
 \examples{
-dfInput <- Consent_Map_Raw()
-dfTransformed <- Transform_Count(dfInput, strCountCol = "Count")
+dfTransformed <- Transform_Count(analyticsInput, strCountCol = "Numerator")
 dfAnalyzed <- Analyze_Identity(dfTransformed)
 
 }

@@ -1,9 +1,9 @@
 #' Group-level visualization of group-level results
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' @param dfSummary `data.frame` returned by [gsm::Summarize()]
-#' @param dfBounds `data.frame` data.frame giving prediction bounds for range of denominator in dfSummary.
+#' @inheritParams shared-params
 #' @param strGroupCol `character` name of stratification column for facet wrap Default: `NULL`
 #' @param strGroupLabel `character` name of group, used for labeling axes. Default: `NULL`
 #' @param strUnit `character` exposure time unit. Default: `days`
@@ -12,17 +12,43 @@
 #' @return group-level plot object.
 #'
 #' @examples
-#' dfInput <- AE_Map_Adam()
-#' SafetyAE <- AE_Assess(dfInput)
-#' dfBounds <- Analyze_Poisson_PredictBounds(SafetyAE$lData$dfTransformed, c(-5, 5))
-#' Visualize_Scatter(SafetyAE$lData$dfSummary, dfBounds)
 #'
-#' # TODO: add stratified example
+#' ## Filter sample data to only one metric
+#' reportingResults_filter <- reportingResults %>%
+#'   dplyr::filter(MetricID == "kri0001")
+#'
+#' reportingBounds_filter <- reportingBounds %>%
+#'   dplyr::filter(MetricID == "kri0001")
+#'
+#' ## Output- filtered to one snapshot date
+#' Visualize_Scatter(
+#'   dfResults = reportingResults_filter %>%
+#'     dplyr::filter(SnapshotDate == max(SnapshotDate)),
+#'   dfBounds = reportingBounds_filter %>%
+#'     dplyr::filter(SnapshotDate == max(SnapshotDate))
+#' )
+#'
+#' ## Create Faceted output on snapshot date
+#' Visualize_Scatter(
+#'   dfResults = reportingResults_filter,
+#'   dfBounds = reportingBounds_filter,
+#'   strGroupCol = "SnapshotDate",
+#'   strGroupLabel = "Snapshot Date"
+#' )
+#'
+#' ## Custom Colors
+#' Visualize_Scatter(
+#'   dfResults = reportingResults_filter %>%
+#'     dplyr::filter(SnapshotDate == max(SnapshotDate)),
+#'   dfBounds = reportingBounds_filter %>%
+#'     dplyr::filter(SnapshotDate == max(SnapshotDate)),
+#'   vColors = c("#F4E7E7", "#C17070", "#981212")
+#' )
 #'
 #' @export
 
 Visualize_Scatter <- function(
-  dfSummary,
+  dfResults,
   dfBounds = NULL,
   strGroupCol = NULL,
   strGroupLabel = NULL,
@@ -36,7 +62,7 @@ Visualize_Scatter <- function(
   )
 
   # Remove `NA` flags and define tooltip for use in plotly.
-  dfSummaryWithTooltip <- dfSummary %>%
+  dfResultsWithTooltip <- dfResults %>%
     filter(
       !is.na(Flag)
     ) %>%
@@ -52,19 +78,19 @@ Visualize_Scatter <- function(
 
   # Avoid plotting empty datasets
 
-  if (nrow(dfSummaryWithTooltip) == 0) {
+  if (nrow(dfResultsWithTooltip) == 0) {
     return(NULL)
   }
 
 
   # Account for incomplete set of flags
-  dfSummaryWithTooltip$FlagAbs <- abs(dfSummaryWithTooltip$Flag)
-  maxFlag <- max(dfSummaryWithTooltip$FlagAbs)
+  dfResultsWithTooltip$FlagAbs <- abs(dfResultsWithTooltip$Flag)
+  maxFlag <- max(dfResultsWithTooltip$FlagAbs)
   flagBreaks <- as.character(seq(0, maxFlag))
   flagValues <- vColors[1:length(flagBreaks)]
 
   ### Plot of data
-  p <- dfSummaryWithTooltip %>%
+  p <- dfResultsWithTooltip %>%
     ggplot(
       aes(
         x = log(.data$Denominator),
@@ -118,7 +144,7 @@ Visualize_Scatter <- function(
 
   p <- p +
     geom_text(
-      data = dfSummaryWithTooltip %>% filter(.data$FlagAbs != 0),
+      data = dfResultsWithTooltip %>% filter(.data$FlagAbs != 0),
       aes(x = log(.data$Denominator), y = .data$Numerator, label = .data$GroupID),
       vjust = 1.5,
       col = "black",

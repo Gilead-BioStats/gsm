@@ -21,38 +21,40 @@ This README provides a high-level overview of {gsm}; see the [package website](h
 
 The {gsm} package performs risk assessments primarily focused on detecting differences in quality at the site-level. "High quality" is defined as the absence of errors that matter. We interpret this as focusing on detecting potential issues related to critical data or process across the major risk categories of safety, efficacy, disposition, treatment, and general quality, where each category consists of one or more risk assessment(s). Each risk assessment will analyze the data to flag sites with potential issues and provide a visualization to help the user understand the issue. Some relevant references are provided below. 
 
-- Centralized Statistical Monitoring: [1](https://documents.pub/reader/full/centralized-statistical-monitoring-to-detect-data-integrity-issues-statisticalcentralized), [2](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7308734/), [3](https://www.magiworld.org/Journal/2014/1411_Centralized.pdf)
+- Centralized Statistical Monitoring: [1](https://documents.pub/reader/full/centralized-statistical-monitoring-to-detect-data-integrity-issues-statisticalcentralized), [2](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7308734/), [3](https://www.magiworld.org/Journal/2014/1411_Centralized.pdf).
+[4](https://pubmed.ncbi.nlm.nih.gov/38796099/)
 - EMA/FDA Guidance on Risk Based Management: [1](https://www.fda.gov/media/121479/download), [2](https://www.fda.gov/media/116754/download), [3](https://www.fda.gov/media/129527/download), [4](https://www.ema.europa.eu/en/documents/scientific-guideline/reflection-paper-risk-based-quality-management-clinical-trials_en.pdf)
 - Risk Based Quality Management: [1](https://www.acrohealth.org/wp-content/uploads/2019/10/CRO-Forum-RBQM-Oversight-Paper-FINAL-Oct-2019.pdf), [2](http://www.transceleratebiopharmainc.com/wp-content/uploads/2017/09/Risk-Based-Quality-Managment.pdf), [3](https://www.magiworld.org/Journal/2014/1411_Centralized.pdf)
+[4](https://pubmed.ncbi.nlm.nih.gov/38722529/)
 - Related tools: [1](https://cluepoints.com/), [2](https://www.saama.com/case-study/rbm-success-story/)
 
 # Process Overview
 
 The {gsm} package establishes a data pipeline for RBM using R. The package provides a framework that allows users to **assess** and **visualize** site-level risk in clinical trial data. The package currently provides assessments for the following domains:
 
-1.  Adverse Event Frequency
-2.  Serious Adverse Event Frequency
-3.  Protocol Deviation Frequency
-4.  Important Protocol Deviation Frequency
-5.  Lab Abnormality Frequency
-6.  Subject Discontinuation Frequency
-7.  Treatment Discontinuation
+1.  Adverse Event Reporting Rate
+2.  Serious Adverse Event Reporting Rate
+3.  Non-important Protocol Deviation Rate
+4.  Important Protocol Deviation Rate
+5.  Grade 3+ Lab Abnormality Rate
+6.  Study Discontinuation Rate
+7.  Treatment Discontinuation Rate
 8.  Query Rate
-9.  Query Age
-10. Data Entry Lag
+9.  Outstanding Query Rate
+10. Outstanding Data Entry Rate
 11. Data Change Rate
-12. Screen Failure
+12. Screen Failure Rate
 
 All {gsm} assessments use a standardized 6 step data pipeline: 
 
-1.  **Map** (*Optional*) - Converts `raw` data to `input` data.
+1.  **Input_Rate** - Converts `raw` data to `input` data.
 2.  **Transform** - Converts `input` data to `transformed` data.
 3.  **Analyze** - Converts `transformed` data to `analyzed` data.
 4.  **Threshold** - Uses `analyzed` data to create one or more numeric `thresholds`.
 5.  **Flag** - Uses `analyzed` data and numeric `thresholds` to create `flagged` data.
 6.  **Summarize** - Selects key columns from `flagged` data to create `summary` data.
 
-To learn more about {gsm}'s data pipeline, visit the [Data Pipeline Vignette](https://gilead-biostats.github.io/gsm/articles/DataPipeline.html).
+To learn more about {gsm}'s data pipeline, visit the [Data Pipeline Vignette](https://gilead-biostats.github.io/gsm/articles/DataModel.html).
 
 # Reporting
 
@@ -77,6 +79,7 @@ Since {gsm} is designed for use in a [GCP](https://en.wikipedia.org/wiki/Good_cl
 
 - **Qualification Workflow** - All assessments have been Qualified as described in the Qualification Workflow Vignette. A Qualification Report Vignette is generated and attached to each release. 
 - **Unit Tests** - Unit tests are written for all core functions.
+- **Workflow Tests** - Additional unit tests confirm that core workflows behave as expected.
 - **Contributor Guidelines** - Detailed contributor guidelines including step-by-step processes for code development and releases are provided as a vignette.
 - **Data Model** - Vignettes providing detailed descriptions of the data model.
 - **Code Examples** - The Cookbook Vignette provides a series of simple examples, and all functions include examples as part of Roxygen documentation. 

@@ -2,106 +2,57 @@
 % Please edit documentation in R/Widget_BarChart.R
 \name{Widget_BarChart}
 \alias{Widget_BarChart}
-\title{KRI Bar Chart}
+\title{Bar Chart Widget}
 \usage{
 Widget_BarChart(
-  dfSummary = NULL,
-  lLabels = list(),
-  dfThreshold = NULL,
-  strYAxisType = "score",
-  selectedGroupIDs = NULL,
-  addSiteSelect = TRUE,
-  width = NULL,
-  height = NULL,
-  elementId = NULL
+  dfResults,
+  lMetric = list(),
+  dfGroups = NULL,
+  vThreshold = NULL,
+  strOutcome = "Score",
+  bAddGroupSelect = TRUE,
+  strShinyGroupSelectID = "GroupID",
+  bDebug = FALSE
 )
 }
 \arguments{
-\item{dfSummary}{data with column names:
-\itemize{
-\item{\code{studyid}}
-\item{\code{workflowid}}
-\item{\code{groupid}}
-\item{\code{numerator}}
-\item{\code{denominator}}
-\item{\code{metric}}
-\item{\code{score}}
-\item{\code{flag}}
-}}
+\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
 
-\item{lLabels}{configuration data with columns:}
+\item{lMetric}{\code{list} Metric-specific metadata for use in charts and reporting. Created by passing an \code{lWorkflow} object to \code{\link[=MakeMetric]{MakeMetric()}} and turing it into a list. Expected columns: \code{File},\code{MetricID}, \code{Group}, \code{Abbreviation}, \code{Metric}, \code{Numerator}, \code{Denominator}, \code{Model}, \code{Score}, and \code{strThreshold}. For more details see the Data Model vignette: \code{vignette("DataModel", package = "gsm")}.}
 
-\item{dfThreshold}{a one row data frame containing columns:
-\itemize{
-\item{\code{workflowid}}
-\item{\code{gsm_version}}
-\item{\code{param}}
-\item{\code{index}}
-\item{\code{default}}
-\item{\code{configurable}}
-}}
+\item{dfGroups}{\code{data.frame} Group-level metadata dictionary. Created by passing CTMS site and study data to \code{\link[=MakeLongMeta]{MakeLongMeta()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Param}, \code{Value}.}
 
-\item{strYAxisType}{either \code{'score'} or \code{'metric'}}
+\item{vThreshold}{\code{numeric} Threshold values.}
 
-\item{selectedGroupIDs}{group IDs to highlight, \code{NULL} by default, can be a single site or a vector.}
+\item{strOutcome}{\code{character} Outcome variable. Default: 'Score'.}
 
-\item{addSiteSelect}{\code{logical} add a dropdown to highlight sites? Default: \code{TRUE}.}
+\item{bAddGroupSelect}{\code{logical} Add a dropdown to highlight sites? Default: \code{TRUE}.}
 
-\item{width}{width of widget, full screen by default}
+\item{strShinyGroupSelectID}{\code{character} Element ID of group select in Shiny context. Default: \code{'GroupID'}.}
 
-\item{height}{height of widget, calculated based on width}
-
-\item{elementId}{ID of container HTML element}
+\item{bDebug}{\code{logical} Print debug messages? Default: \code{FALSE}.}
 }
 \description{
-A widget that displays a group-level bar chart based on the output of a KRI analysis.
-Bar charts are provided by default in any Assess function, and are suffixed with "JS" to indicate that they are an \code{htmlwidget} ported from the \code{rbm-viz} JavaScript library.
-}
-\details{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
+A widget that generates a bar chart of group-level metric results, plotting groups on the x-axis
+and the outcome (numerator, denominator, metric, or score) on the y-axis.
 }
 \examples{
+## Filter data to one metric and snapshot
+reportingResults_filter <- reportingResults \%>\%
+  dplyr::filter(MetricID == "kri0001" & SnapshotDate == max(SnapshotDate))
 
-ae <- AE_Map_Raw()
+reportingMetrics_filter <- reportingMetrics \%>\%
+  dplyr::filter(MetricID == "kri0001") \%>\%
+  as.list()
 
-ae_transform <- Transform_Rate(
-  dfInput = ae,
-  strGroupCol = "SiteID",
-  strNumeratorCol = "Count",
-  strDenominatorCol = "Exposure"
-)
-
-ae_analyze <- Analyze_NormalApprox(
-  dfTransformed = ae_transform,
-  strType = "rate"
-)
-
-ae_flag <- Flag_NormalApprox(
-  ae_analyze,
-  vThreshold = c(-3, -2, 2, 3)
-)
-
-ae_summary <- Summarize(
-  ae_flag
-)
-
-# labels list
-lLabels <- list(
-  workflowid = "",
-  group = "Site",
-  abbreviation = "AE",
-  metric = "Adverse Event Rate",
-  numerator = "Adverse Events",
-  denominator = "Days on Study",
-  model = "Normal Approximation",
-  score = "Adjusted Z-Score"
-)
-
-plot <- Widget_BarChart(
-  dfSummary = ae_summary,
-  lLabels = lLabels,
-  strYAxisType = "metric",
-  elementId = "aeAssessMetric"
+## Make chart
+Widget_BarChart(
+  dfResults = reportingResults_filter,
+  dfGroups = reportingGroups,
+  lMetric = reportingMetrics_filter,
+  vThreshold = reportingMetrics_filter$Threshold
 )
 
 }

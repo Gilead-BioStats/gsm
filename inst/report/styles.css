@@ -46,6 +46,9 @@ button.btn-show-report:hover {
 
 
 /* TABLE: FLAGGED SUMMARY TABLE */
+.Widget_GroupOverview {
+    height: auto !important;
+}
 .gsm-overview-table {
   font-family: var(--default);
 }
@@ -57,8 +60,8 @@ table.dataTable.compact thead th, table.dataTable.compact thead td {
 }
 /* TABLE: FLAGGED SUMMARY TABLE */
 
-/* Site select */
-.overall-site-select {
+/* Group select */
+.overall-group-select {
   position: fixed;
   width: 128px;
   top: 64px;
@@ -72,7 +75,7 @@ table.dataTable.compact thead th, table.dataTable.compact thead td {
   z-index: 1;
 }
 
-.overall-site-select:hover {
+.overall-group-select:hover {
   cursor: grab;
 }
 
@@ -84,8 +87,8 @@ table.dataTable.compact thead th, table.dataTable.compact thead td {
 
 
 
-.overall-site-select select,
-.overall-site-select option {
+.overall-group-select select,
+.overall-group-select option {
     color: black;
 }
 
@@ -119,7 +122,7 @@ table.dataTable.compact thead th, table.dataTable.compact thead td {
 }
 
 
-/* Site Summary Table -- change cursor to cue to user that tooltip is available */
+/* Group summary table -- change cursor to cue to user that tooltip is available */
 td[title] {
   cursor: help;
 }

@@ -13,9 +13,9 @@ UseClindata(lDomains = NULL)
 clindata_list A list containing the results of evaluating each domain using 'eval(parse(text = .x))'.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 The 'UseClindata' function takes an optional argument 'lDomains' and performs the following steps:
-}
-\details{
 \enumerate{
 \item Checks if the 'clindata' package is installed using 'requireNamespace'.
 \item If the package is not installed, aborts with an error message using 'cli::cli_abort'.

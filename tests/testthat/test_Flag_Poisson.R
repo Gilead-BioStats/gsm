@@ -1,20 +1,11 @@
-source(testthat::test_path("testdata/data.R"))
-
-dfTransformed <- Transform_Rate(
-  dfInput = dfInputAE,
-  strGroupCol = "SiteID",
-  strNumeratorCol = "Count",
-  strDenominatorCol = "Exposure"
-)
-
-dfAnalyzed <- Analyze_Poisson(dfTransformed)
+dfAnalyzed <- Transform_Rate(analyticsInput) %>% Analyze_Poisson()
 
 test_that("output is created as expected", {
   dfFlagged <- Flag_Poisson(dfAnalyzed, vThreshold = c(-.05, -.005, .005, .05))
   expect_true(is.data.frame(dfFlagged))
-  expect_equal(sort(unique(dfInputAE$SiteID)), sort(dfFlagged$GroupID))
+  expect_equal(sort(unique(dfAnalyzed$GroupID)), sort(dfFlagged$GroupID))
   expect_true(all(names(dfAnalyzed) %in% names(dfFlagged)))
-  expect_equal(names(dfFlagged), c("GroupID", "Numerator", "Denominator", "Metric", "Score", "PredictedCount", "Flag"))
+  expect_equal(names(dfFlagged), c("GroupID", "GroupLevel", "Numerator", "Denominator", "Metric", "Score", "PredictedCount", "Flag"))
   expect_equal(length(unique(dfAnalyzed$GroupID)), length(unique(dfFlagged$GroupID)))
   expect_equal(length(unique(dfAnalyzed$GroupID)), nrow(dfFlagged))
 })

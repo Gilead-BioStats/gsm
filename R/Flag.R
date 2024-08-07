@@ -1,14 +1,14 @@
 #' Flag
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' @description
 #' Add columns flagging sites that represent possible statistical outliers when the Identity statistical
 #' method is used.
 #'
 #' @details
 #' This function provides a generalized framework for flagging sites as part of the
-#' [GSM data pipeline](https://gilead-biostats.github.io/gsm/articles/DataPipeline.html).
+#' GSM data model (see `vignette("DataModel")`).
 #'
 #' @section Data Specification:
 #' \code{Flag} is designed to support the input data (`dfAnalyzed`) from the `Analyze_Identity()`
@@ -21,6 +21,7 @@
 #'
 #' The following columns are considered required:
 #' - `GroupID` - Group ID; default is `SiteID`
+#' - `GroupLevel` - Group Type
 #' - `strColumn` - A column to use for thresholding
 #'
 #' The following column is considered optional:
@@ -41,12 +42,7 @@
 #' @return `data.frame` with one row per site with columns: `GroupID`, `TotalCount`, `Metric`, `Score`, `Flag`
 #'
 #' @examples
-#' dfInput <- Consent_Map_Raw()
-#'
-#' dfTransformed <- Transform_Count(dfInput,
-#'   strGroupCol = "SiteID",
-#'   strCountCol = "Count"
-#' )
+#' dfTransformed <- Transform_Count(analyticsInput, strCountCol = "Numerator")
 #'
 #' dfAnalyzed <- Analyze_Identity(dfTransformed)
 #'

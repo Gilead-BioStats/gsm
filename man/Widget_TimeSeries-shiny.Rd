@@ -25,9 +25,8 @@ string and have \code{'px'} appended.}
 is useful if you want to save an expression in a variable.}
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-}
-\details{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 Output and render functions for using Widget_TimeSeries within Shiny
 applications and interactive Rmd documents.
 }

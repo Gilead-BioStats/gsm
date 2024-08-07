@@ -3,83 +3,89 @@
     Code
       map(wf_list, ~ names(.))
     Output
+      $data_mapping
+      [1] "meta"  "steps" "path"  "name" 
+      
+      $data_reporting
+      [1] "meta"  "steps" "path"  "name" 
+      
       $cou0001
-      [1] "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
       
       $cou0002
-      [1] "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
       
       $cou0003
-      [1] "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
       
       $cou0004
-      [1] "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
       
       $cou0005
-      [1] "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
       
       $cou0006
-      [1] "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
       
       $cou0007
-      [1] "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
       
       $cou0008
-      [1] "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
       
       $cou0009
-      [1] "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
       
       $cou0010
-      [1] "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
       
       $cou0011
-      [1] "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
       
       $cou0012
-      [1] "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
       
       $kri0001
-      [1] "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
       
       $kri0002
-      [1] "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
       
       $kri0003
-      [1] "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
       
       $kri0004
-      [1] "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
       
       $kri0005
-      [1] "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
       
       $kri0006
-      [1] "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
       
       $kri0007
-      [1] "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
       
       $kri0008
-      [1] "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
       
       $kri0009
-      [1] "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
       
       $kri0010
-      [1] "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
       
       $kri0011
-      [1] "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
       
       $kri0012
-      [1] "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
       
-      $qtl0004
-      [1] "steps" "path"  "name" 
+      $reports
+      [1] "meta"  "steps" "path"  "name" 
       
-      $qtl0006
-      [1] "steps" "path"  "name" 
+      $snapshot
+      [1] "meta"  "steps" "path"  "name" 
       
 
 # Metadata is returned as expected
@@ -87,62 +93,643 @@
     Code
       map(wf_list, ~ .x$steps)
     Output
+      $data_mapping
+      $data_mapping[[1]]
+      $data_mapping[[1]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[1]]$output
+      [1] "dfEnrolled"
+      
+      $data_mapping[[1]]$params
+      $data_mapping[[1]]$params$df
+      [1] "dfSUBJ"
+      
+      $data_mapping[[1]]$params$strQuery
+      [1] "SELECT subjectid AS raw_subjectid, * FROM df WHERE enrollyn == 'Y';"
+      
+      
+      
+      $data_mapping[[2]]
+      $data_mapping[[2]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[2]]$output
+      [1] "dfSeriousAE"
+      
+      $data_mapping[[2]]$params
+      $data_mapping[[2]]$params$df
+      [1] "dfAE"
+      
+      $data_mapping[[2]]$params$strQuery
+      [1] "SELECT * FROM df WHERE aeser == 'Y';"
+      
+      
+      
+      $data_mapping[[3]]
+      $data_mapping[[3]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[3]]$output
+      [1] "dfAE"
+      
+      $data_mapping[[3]]$params
+      $data_mapping[[3]]$params$df
+      [1] "dfAE"
+      
+      $data_mapping[[3]]$params$strQuery
+      [1] "SELECT * FROM df;"
+      
+      
+      
+      $data_mapping[[4]]
+      $data_mapping[[4]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[4]]$output
+      [1] "dfNonimportantPD"
+      
+      $data_mapping[[4]]$params
+      $data_mapping[[4]]$params$df
+      [1] "dfPD"
+      
+      $data_mapping[[4]]$params$strQuery
+      [1] "SELECT subjectenrollmentnumber AS subjid, * FROM df WHERE deemedimportant == 'No';"
+      
+      
+      
+      $data_mapping[[5]]
+      $data_mapping[[5]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[5]]$output
+      [1] "dfImportantPD"
+      
+      $data_mapping[[5]]$params
+      $data_mapping[[5]]$params$df
+      [1] "dfPD"
+      
+      $data_mapping[[5]]$params$strQuery
+      [1] "SELECT subjectenrollmentnumber AS subjid, * FROM df WHERE deemedimportant == 'Yes';"
+      
+      
+      
+      $data_mapping[[6]]
+      $data_mapping[[6]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[6]]$output
+      [1] "dfAllLabs"
+      
+      $data_mapping[[6]]$params
+      $data_mapping[[6]]$params$df
+      [1] "dfLB"
+      
+      $data_mapping[[6]]$params$strQuery
+      [1] "SELECT * FROM df WHERE toxgrg_nsv IN ('0', '1', '2', '3', '4');"
+      
+      
+      
+      $data_mapping[[7]]
+      $data_mapping[[7]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[7]]$output
+      [1] "dfToxLabs"
+      
+      $data_mapping[[7]]$params
+      $data_mapping[[7]]$params$df
+      [1] "dfLB"
+      
+      $data_mapping[[7]]$params$strQuery
+      [1] "SELECT * FROM df WHERE toxgrg_nsv IN ('3', '4');"
+      
+      
+      
+      $data_mapping[[8]]
+      $data_mapping[[8]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[8]]$output
+      [1] "dfStudyDropouts"
+      
+      $data_mapping[[8]]$params
+      $data_mapping[[8]]$params$df
+      [1] "dfSTUDCOMP"
+      
+      $data_mapping[[8]]$params$strQuery
+      [1] "SELECT * FROM df WHERE compyn == 'N';"
+      
+      
+      
+      $data_mapping[[9]]
+      $data_mapping[[9]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[9]]$output
+      [1] "dfTreatmentDropouts"
+      
+      $data_mapping[[9]]$params
+      $data_mapping[[9]]$params$df
+      [1] "dfSDRGCOMP"
+      
+      $data_mapping[[9]]$params$strQuery
+      [1] "SELECT * FROM df WHERE sdrgyn == 'N' AND phase == 'Blinded Study Drug Completion';"
+      
+      
+      
+      $data_mapping[[10]]
+      $data_mapping[[10]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[10]]$output
+      [1] "dfValidQueries"
+      
+      $data_mapping[[10]]$params
+      $data_mapping[[10]]$params$df
+      [1] "dfQUERY"
+      
+      $data_mapping[[10]]$params$strQuery
+      [1] "SELECT subjectname AS subject_nsv, * FROM df WHERE querystatus IN ('Open', 'Answered', 'Closed');"
+      
+      
+      
+      $data_mapping[[11]]
+      $data_mapping[[11]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[11]]$output
+      [1] "dfOldValidQueries"
+      
+      $data_mapping[[11]]$params
+      $data_mapping[[11]]$params$df
+      [1] "dfValidQueries"
+      
+      $data_mapping[[11]]$params$strQuery
+      [1] "SELECT * FROM df WHERE queryage > 30;"
+      
+      
+      
+      $data_mapping[[12]]
+      $data_mapping[[12]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[12]]$output
+      [1] "dfDataChanges"
+      
+      $data_mapping[[12]]$params
+      $data_mapping[[12]]$params$df
+      [1] "dfDATACHG"
+      
+      $data_mapping[[12]]$params$strQuery
+      [1] "SELECT subjectname AS subject_nsv, * FROM df;"
+      
+      
+      
+      $data_mapping[[13]]
+      $data_mapping[[13]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[13]]$output
+      [1] "dfQuery"
+      
+      $data_mapping[[13]]$params
+      $data_mapping[[13]]$params$df
+      [1] "dfQUERY"
+      
+      $data_mapping[[13]]$params$strQuery
+      [1] "SELECT subjectname AS subject_nsv, * FROM df;"
+      
+      
+      
+      $data_mapping[[14]]
+      $data_mapping[[14]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[14]]$output
+      [1] "dfDataEntry"
+      
+      $data_mapping[[14]]$params
+      $data_mapping[[14]]$params$df
+      [1] "dfDATAENT"
+      
+      $data_mapping[[14]]$params$strQuery
+      [1] "SELECT subjectname AS subject_nsv, * FROM df;"
+      
+      
+      
+      $data_mapping[[15]]
+      $data_mapping[[15]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[15]]$output
+      [1] "dfSlowDataEntry"
+      
+      $data_mapping[[15]]$params
+      $data_mapping[[15]]$params$df
+      [1] "dfDATAENT"
+      
+      $data_mapping[[15]]$params$strQuery
+      [1] "SELECT subjectname AS subject_nsv, * FROM df WHERE data_entry_lag > 10;"
+      
+      
+      
+      $data_mapping[[16]]
+      $data_mapping[[16]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[16]]$output
+      [1] "dfChangedDataPoints"
+      
+      $data_mapping[[16]]$params
+      $data_mapping[[16]]$params$df
+      [1] "dfDATACHG"
+      
+      $data_mapping[[16]]$params$strQuery
+      [1] "SELECT subjectname AS subject_nsv, * FROM df WHERE n_changes > 0;"
+      
+      
+      
+      $data_mapping[[17]]
+      $data_mapping[[17]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[17]]$output
+      [1] "dfScreened"
+      
+      $data_mapping[[17]]$params
+      $data_mapping[[17]]$params$df
+      [1] "dfENROLL"
+      
+      $data_mapping[[17]]$params$strQuery
+      [1] "SELECT * FROM df;"
+      
+      
+      
+      $data_mapping[[18]]
+      $data_mapping[[18]]$name
+      [1] "RunQuery"
+      
+      $data_mapping[[18]]$output
+      [1] "dfScreenFail"
+      
+      $data_mapping[[18]]$params
+      $data_mapping[[18]]$params$df
+      [1] "dfENROLL"
+      
+      $data_mapping[[18]]$params$strQuery
+      [1] "SELECT * FROM df WHERE enrollyn == 'N';"
+      
+      
+      
+      
+      $data_reporting
+      $data_reporting[[1]]
+      $data_reporting[[1]]$name
+      [1] "RunQuery"
+      
+      $data_reporting[[1]]$output
+      [1] "dfCTMSSiteWide"
+      
+      $data_reporting[[1]]$params
+      $data_reporting[[1]]$params$df
+      [1] "ctms_site"
+      
+      $data_reporting[[1]]$params$strQuery
+      [1] "SELECT pi_number as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df"
+      
+      
+      
+      $data_reporting[[2]]
+      $data_reporting[[2]]$name
+      [1] "MakeLongMeta"
+      
+      $data_reporting[[2]]$output
+      [1] "dfCTMSSite"
+      
+      $data_reporting[[2]]$params
+      $data_reporting[[2]]$params$data
+      [1] "dfCTMSSiteWide"
+      
+      $data_reporting[[2]]$params$strGroupLevel
+      [1] "Site"
+      
+      
+      
+      $data_reporting[[3]]
+      $data_reporting[[3]]$name
+      [1] "RunQuery"
+      
+      $data_reporting[[3]]$output
+      [1] "dfCTMSStudyWide"
+      
+      $data_reporting[[3]]$params
+      $data_reporting[[3]]$params$df
+      [1] "ctms_study"
+      
+      $data_reporting[[3]]$params$strQuery
+      [1] "SELECT protocol_number as GroupID, status as Status, * FROM df"
+      
+      
+      
+      $data_reporting[[4]]
+      $data_reporting[[4]]$name
+      [1] "MakeLongMeta"
+      
+      $data_reporting[[4]]$output
+      [1] "dfCTMSStudy"
+      
+      $data_reporting[[4]]$params
+      $data_reporting[[4]]$params$data
+      [1] "dfCTMSStudyWide"
+      
+      $data_reporting[[4]]$params$strGroupLevel
+      [1] "Study"
+      
+      
+      
+      $data_reporting[[5]]
+      $data_reporting[[5]]$name
+      [1] "RunQuery"
+      
+      $data_reporting[[5]]$output
+      [1] "dfSiteCountsWide"
+      
+      $data_reporting[[5]]$params
+      $data_reporting[[5]]$params$df
+      [1] "dfEnrolled"
+      
+      $data_reporting[[5]]$params$strQuery
+      [1] "SELECT invid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid"
+      
+      
+      
+      $data_reporting[[6]]
+      $data_reporting[[6]]$name
+      [1] "MakeLongMeta"
+      
+      $data_reporting[[6]]$output
+      [1] "dfSiteCounts"
+      
+      $data_reporting[[6]]$params
+      $data_reporting[[6]]$params$data
+      [1] "dfSiteCountsWide"
+      
+      $data_reporting[[6]]$params$strGroupLevel
+      [1] "Site"
+      
+      
+      
+      $data_reporting[[7]]
+      $data_reporting[[7]]$name
+      [1] "RunQuery"
+      
+      $data_reporting[[7]]$output
+      [1] "dfStudyCountsWide"
+      
+      $data_reporting[[7]]$params
+      $data_reporting[[7]]$params$df
+      [1] "dfEnrolled"
+      
+      $data_reporting[[7]]$params$strQuery
+      [1] "SELECT studyid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY studyid"
+      
+      
+      
+      $data_reporting[[8]]
+      $data_reporting[[8]]$name
+      [1] "MakeLongMeta"
+      
+      $data_reporting[[8]]$output
+      [1] "dfStudyCounts"
+      
+      $data_reporting[[8]]$params
+      $data_reporting[[8]]$params$data
+      [1] "dfStudyCountsWide"
+      
+      $data_reporting[[8]]$params$strGroupLevel
+      [1] "Study"
+      
+      
+      
+      $data_reporting[[9]]
+      $data_reporting[[9]]$name
+      [1] "RunQuery"
+      
+      $data_reporting[[9]]$output
+      [1] "dfCountryCountsWide"
+      
+      $data_reporting[[9]]$params
+      $data_reporting[[9]]$params$df
+      [1] "dfEnrolled"
+      
+      $data_reporting[[9]]$params$strQuery
+      [1] "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country"
+      
+      
+      
+      $data_reporting[[10]]
+      $data_reporting[[10]]$name
+      [1] "MakeLongMeta"
+      
+      $data_reporting[[10]]$output
+      [1] "dfCountryCounts"
+      
+      $data_reporting[[10]]$params
+      $data_reporting[[10]]$params$data
+      [1] "dfCountryCountsWide"
+      
+      $data_reporting[[10]]$params$strGroupLevel
+      [1] "Country"
+      
+      
+      
+      $data_reporting[[11]]
+      $data_reporting[[11]]$name
+      [1] "bind_rows"
+      
+      $data_reporting[[11]]$output
+      [1] "dfGroups"
+      
+      $data_reporting[[11]]$params
+      $data_reporting[[11]]$params$SiteCounts
+      [1] "dfSiteCounts"
+      
+      $data_reporting[[11]]$params$StudyCounts
+      [1] "dfStudyCounts"
+      
+      $data_reporting[[11]]$params$CountryCounts
+      [1] "dfCountryCounts"
+      
+      $data_reporting[[11]]$params$Site
+      [1] "dfCTMSSite"
+      
+      $data_reporting[[11]]$params$Study
+      [1] "dfCTMSStudy"
+      
+      
+      
+      $data_reporting[[12]]
+      $data_reporting[[12]]$name
+      [1] "MakeMetric"
+      
+      $data_reporting[[12]]$output
+      [1] "dfMetrics"
+      
+      $data_reporting[[12]]$params
+      $data_reporting[[12]]$params$lWorkflows
+      [1] "lWorkflows"
+      
+      
+      
+      $data_reporting[[13]]
+      $data_reporting[[13]]$name
+      [1] "BindResults"
+      
+      $data_reporting[[13]]$output
+      [1] "dfResults"
+      
+      $data_reporting[[13]]$params
+      $data_reporting[[13]]$params$lResults
+      [1] "lAnalysis"
+      
+      $data_reporting[[13]]$params$strName
+      [1] "dfSummary"
+      
+      $data_reporting[[13]]$params$dSnapshotDate
+      [1] "dSnapshotDate"
+      
+      $data_reporting[[13]]$params$strStudyID
+      [1] "strStudyID"
+      
+      
+      
+      $data_reporting[[14]]
+      $data_reporting[[14]]$name
+      [1] "MakeBounds"
+      
+      $data_reporting[[14]]$output
+      [1] "dfBounds"
+      
+      $data_reporting[[14]]$params
+      $data_reporting[[14]]$params$dfResults
+      [1] "dfResults"
+      
+      $data_reporting[[14]]$params$dfMetrics
+      [1] "dfMetrics"
+      
+      
+      
+      
       $cou0001
       $cou0001[[1]]
       $cou0001[[1]]$name
-      [1] "FilterDomain"
-      
-      $cou0001[[1]]$inputs
-      [1] "dfSUBJ"
+      [1] "ParseThreshold"
       
       $cou0001[[1]]$output
-      [1] "dfSUBJ"
+      [1] "vThreshold"
       
       $cou0001[[1]]$params
-      $cou0001[[1]]$params$strDomain
-      [1] "dfSUBJ"
-      
-      $cou0001[[1]]$params$strColParam
-      [1] "strEnrollCol"
-      
-      $cou0001[[1]]$params$strValParam
-      [1] "strEnrollVal"
+      $cou0001[[1]]$params$strThreshold
+      [1] "Threshold"
       
       
       
       $cou0001[[2]]
       $cou0001[[2]]$name
-      [1] "AE_Map_Raw"
-      
-      $cou0001[[2]]$inputs
-      [1] "dfAE"   "dfSUBJ"
+      [1] "Input_Rate"
       
       $cou0001[[2]]$output
       [1] "dfInput"
       
+      $cou0001[[2]]$params
+      $cou0001[[2]]$params$dfSubjects
+      [1] "dfEnrolled"
+      
+      $cou0001[[2]]$params$dfNumerator
+      [1] "dfAE"
+      
+      $cou0001[[2]]$params$dfDenominator
+      [1] "dfEnrolled"
+      
+      $cou0001[[2]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $cou0001[[2]]$params$strGroupCol
+      [1] "country"
+      
+      $cou0001[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $cou0001[[2]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $cou0001[[2]]$params$strDenominatorMethod
+      [1] "Sum"
+      
+      $cou0001[[2]]$params$strDenominatorCol
+      [1] "timeonstudy"
+      
+      
       
       $cou0001[[3]]
       $cou0001[[3]]$name
-      [1] "AE_Assess"
-      
-      $cou0001[[3]]$inputs
-      [1] "dfInput"
+      [1] "Transform_Rate"
       
       $cou0001[[3]]$output
-      [1] "lResults"
+      [1] "dfTransformed"
       
       $cou0001[[3]]$params
-      $cou0001[[3]]$params$strGroup
-      [1] "Country"
+      $cou0001[[3]]$params$dfInput
+      [1] "dfInput"
       
-      $cou0001[[3]]$params$vThreshold
-      NULL
       
-      $cou0001[[3]]$params$strMethod
-      [1] "NormalApprox"
       
-      $cou0001[[3]]$params$nMinDenominator
-      [1] 30
+      $cou0001[[4]]
+      $cou0001[[4]]$name
+      [1] "Analyze_NormalApprox"
+      
+      $cou0001[[4]]$output
+      [1] "dfAnalyzed"
+      
+      $cou0001[[4]]$params
+      $cou0001[[4]]$params$dfTransformed
+      [1] "dfTransformed"
+      
+      $cou0001[[4]]$params$strType
+      [1] "Type"
+      
+      
+      
+      $cou0001[[5]]
+      $cou0001[[5]]$name
+      [1] "Flag_NormalApprox"
+      
+      $cou0001[[5]]$output
+      [1] "dfFlagged"
+      
+      $cou0001[[5]]$params
+      $cou0001[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
+      
+      $cou0001[[5]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $cou0001[[6]]
+      $cou0001[[6]]$name
+      [1] "Summarize"
+      
+      $cou0001[[6]]$output
+      [1] "dfSummary"
+      
+      $cou0001[[6]]$params
+      $cou0001[[6]]$params$dfFlagged
+      [1] "dfFlagged"
+      
+      $cou0001[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -150,81 +737,112 @@
       $cou0002
       $cou0002[[1]]
       $cou0002[[1]]$name
-      [1] "FilterDomain"
-      
-      $cou0002[[1]]$inputs
-      [1] "dfSUBJ"
+      [1] "ParseThreshold"
       
       $cou0002[[1]]$output
-      [1] "dfSUBJ"
+      [1] "vThreshold"
       
       $cou0002[[1]]$params
-      $cou0002[[1]]$params$strDomain
-      [1] "dfSUBJ"
-      
-      $cou0002[[1]]$params$strColParam
-      [1] "strEnrollCol"
-      
-      $cou0002[[1]]$params$strValParam
-      [1] "strEnrollVal"
+      $cou0002[[1]]$params$strThreshold
+      [1] "Threshold"
       
       
       
       $cou0002[[2]]
       $cou0002[[2]]$name
-      [1] "FilterDomain"
-      
-      $cou0002[[2]]$inputs
-      [1] "dfAE"
+      [1] "Input_Rate"
       
       $cou0002[[2]]$output
-      [1] "dfAE"
+      [1] "dfInput"
       
       $cou0002[[2]]$params
-      $cou0002[[2]]$params$strDomain
-      [1] "dfAE"
+      $cou0002[[2]]$params$dfSubjects
+      [1] "dfEnrolled"
       
-      $cou0002[[2]]$params$strColParam
-      [1] "strSeriousCol"
+      $cou0002[[2]]$params$dfNumerator
+      [1] "dfSeriousAE"
       
-      $cou0002[[2]]$params$strValParam
-      [1] "strSeriousVal"
+      $cou0002[[2]]$params$dfDenominator
+      [1] "dfEnrolled"
+      
+      $cou0002[[2]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $cou0002[[2]]$params$strGroupCol
+      [1] "country"
+      
+      $cou0002[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $cou0002[[2]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $cou0002[[2]]$params$strDenominatorMethod
+      [1] "Sum"
+      
+      $cou0002[[2]]$params$strDenominatorCol
+      [1] "timeonstudy"
       
       
       
       $cou0002[[3]]
       $cou0002[[3]]$name
-      [1] "AE_Map_Raw"
-      
-      $cou0002[[3]]$inputs
-      [1] "dfAE"   "dfSUBJ"
+      [1] "Transform_Rate"
       
       $cou0002[[3]]$output
+      [1] "dfTransformed"
+      
+      $cou0002[[3]]$params
+      $cou0002[[3]]$params$dfInput
       [1] "dfInput"
+      
       
       
       $cou0002[[4]]
       $cou0002[[4]]$name
-      [1] "AE_Assess"
-      
-      $cou0002[[4]]$inputs
-      [1] "dfInput"
+      [1] "Analyze_NormalApprox"
       
       $cou0002[[4]]$output
-      [1] "lResults"
+      [1] "dfAnalyzed"
       
       $cou0002[[4]]$params
-      $cou0002[[4]]$params$strGroup
-      [1] "Country"
+      $cou0002[[4]]$params$dfTransformed
+      [1] "dfTransformed"
       
-      $cou0002[[4]]$params$vThreshold
-      NULL
+      $cou0002[[4]]$params$strType
+      [1] "Type"
       
-      $cou0002[[4]]$params$strMethod
-      [1] "NormalApprox"
       
-      $cou0002[[4]]$params$nMinDenominator
-      [1] 30
+      
+      $cou0002[[5]]
+      $cou0002[[5]]$name
+      [1] "Flag_NormalApprox"
+      
+      $cou0002[[5]]$output
+      [1] "dfFlagged"
+      
+      $cou0002[[5]]$params
+      $cou0002[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
+      
+      $cou0002[[5]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $cou0002[[6]]
+      $cou0002[[6]]$name
+      [1] "Summarize"
+      
+      $cou0002[[6]]$output
+      [1] "dfSummary"
+      
+      $cou0002[[6]]$params
+      $cou0002[[6]]$params$dfFlagged
+      [1] "dfFlagged"
+      
+      $cou0002[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -232,81 +850,112 @@
       $cou0003
       $cou0003[[1]]
       $cou0003[[1]]$name
-      [1] "FilterDomain"
-      
-      $cou0003[[1]]$inputs
-      [1] "dfSUBJ"
+      [1] "ParseThreshold"
       
       $cou0003[[1]]$output
-      [1] "dfSUBJ"
+      [1] "vThreshold"
       
       $cou0003[[1]]$params
-      $cou0003[[1]]$params$strDomain
-      [1] "dfSUBJ"
-      
-      $cou0003[[1]]$params$strColParam
-      [1] "strEnrollCol"
-      
-      $cou0003[[1]]$params$strValParam
-      [1] "strEnrollVal"
+      $cou0003[[1]]$params$strThreshold
+      [1] "Threshold"
       
       
       
       $cou0003[[2]]
       $cou0003[[2]]$name
-      [1] "FilterDomain"
-      
-      $cou0003[[2]]$inputs
-      [1] "dfPD"
+      [1] "Input_Rate"
       
       $cou0003[[2]]$output
-      [1] "dfPD"
+      [1] "dfInput"
       
       $cou0003[[2]]$params
-      $cou0003[[2]]$params$strDomain
-      [1] "dfPD"
+      $cou0003[[2]]$params$dfSubjects
+      [1] "dfEnrolled"
       
-      $cou0003[[2]]$params$strColParam
-      [1] "strImportantCol"
+      $cou0003[[2]]$params$dfNumerator
+      [1] "dfNonimportantPD"
       
-      $cou0003[[2]]$params$strValParam
-      [1] "strNonImportantVal"
+      $cou0003[[2]]$params$dfDenominator
+      [1] "dfEnrolled"
+      
+      $cou0003[[2]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $cou0003[[2]]$params$strGroupCol
+      [1] "country"
+      
+      $cou0003[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $cou0003[[2]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $cou0003[[2]]$params$strDenominatorMethod
+      [1] "Sum"
+      
+      $cou0003[[2]]$params$strDenominatorCol
+      [1] "timeonstudy"
       
       
       
       $cou0003[[3]]
       $cou0003[[3]]$name
-      [1] "PD_Map_Raw_Rate"
-      
-      $cou0003[[3]]$inputs
-      [1] "dfPD"   "dfSUBJ"
+      [1] "Transform_Rate"
       
       $cou0003[[3]]$output
+      [1] "dfTransformed"
+      
+      $cou0003[[3]]$params
+      $cou0003[[3]]$params$dfInput
       [1] "dfInput"
+      
       
       
       $cou0003[[4]]
       $cou0003[[4]]$name
-      [1] "PD_Assess_Rate"
-      
-      $cou0003[[4]]$inputs
-      [1] "dfInput"
+      [1] "Analyze_NormalApprox"
       
       $cou0003[[4]]$output
-      [1] "lResults"
+      [1] "dfAnalyzed"
       
       $cou0003[[4]]$params
-      $cou0003[[4]]$params$strGroup
-      [1] "Country"
+      $cou0003[[4]]$params$dfTransformed
+      [1] "dfTransformed"
       
-      $cou0003[[4]]$params$vThreshold
-      NULL
+      $cou0003[[4]]$params$strType
+      [1] "Type"
       
-      $cou0003[[4]]$params$strMethod
-      [1] "NormalApprox"
       
-      $cou0003[[4]]$params$nMinDenominator
-      [1] 30
+      
+      $cou0003[[5]]
+      $cou0003[[5]]$name
+      [1] "Flag_NormalApprox"
+      
+      $cou0003[[5]]$output
+      [1] "dfFlagged"
+      
+      $cou0003[[5]]$params
+      $cou0003[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
+      
+      $cou0003[[5]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $cou0003[[6]]
+      $cou0003[[6]]$name
+      [1] "Summarize"
+      
+      $cou0003[[6]]$output
+      [1] "dfSummary"
+      
+      $cou0003[[6]]$params
+      $cou0003[[6]]$params$dfFlagged
+      [1] "dfFlagged"
+      
+      $cou0003[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -314,81 +963,112 @@
       $cou0004
       $cou0004[[1]]
       $cou0004[[1]]$name
-      [1] "FilterDomain"
-      
-      $cou0004[[1]]$inputs
-      [1] "dfSUBJ"
+      [1] "ParseThreshold"
       
       $cou0004[[1]]$output
-      [1] "dfSUBJ"
+      [1] "vThreshold"
       
       $cou0004[[1]]$params
-      $cou0004[[1]]$params$strDomain
-      [1] "dfSUBJ"
-      
-      $cou0004[[1]]$params$strColParam
-      [1] "strEnrollCol"
-      
-      $cou0004[[1]]$params$strValParam
-      [1] "strEnrollVal"
+      $cou0004[[1]]$params$strThreshold
+      [1] "Threshold"
       
       
       
       $cou0004[[2]]
       $cou0004[[2]]$name
-      [1] "FilterDomain"
-      
-      $cou0004[[2]]$inputs
-      [1] "dfPD"
+      [1] "Input_Rate"
       
       $cou0004[[2]]$output
-      [1] "dfPD"
+      [1] "dfInput"
       
       $cou0004[[2]]$params
-      $cou0004[[2]]$params$strDomain
-      [1] "dfPD"
+      $cou0004[[2]]$params$dfSubjects
+      [1] "dfEnrolled"
       
-      $cou0004[[2]]$params$strColParam
-      [1] "strImportantCol"
+      $cou0004[[2]]$params$dfNumerator
+      [1] "dfImportantPD"
       
-      $cou0004[[2]]$params$strValParam
-      [1] "strImportantVal"
+      $cou0004[[2]]$params$dfDenominator
+      [1] "dfEnrolled"
+      
+      $cou0004[[2]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $cou0004[[2]]$params$strGroupCol
+      [1] "country"
+      
+      $cou0004[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $cou0004[[2]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $cou0004[[2]]$params$strDenominatorMethod
+      [1] "Sum"
+      
+      $cou0004[[2]]$params$strDenominatorCol
+      [1] "timeonstudy"
       
       
       
       $cou0004[[3]]
       $cou0004[[3]]$name
-      [1] "PD_Map_Raw_Rate"
-      
-      $cou0004[[3]]$inputs
-      [1] "dfSUBJ" "dfPD"  
+      [1] "Transform_Rate"
       
       $cou0004[[3]]$output
+      [1] "dfTransformed"
+      
+      $cou0004[[3]]$params
+      $cou0004[[3]]$params$dfInput
       [1] "dfInput"
+      
       
       
       $cou0004[[4]]
       $cou0004[[4]]$name
-      [1] "PD_Assess_Rate"
-      
-      $cou0004[[4]]$inputs
-      [1] "dfInput"
+      [1] "Analyze_NormalApprox"
       
       $cou0004[[4]]$output
-      [1] "lResults"
+      [1] "dfAnalyzed"
       
       $cou0004[[4]]$params
-      $cou0004[[4]]$params$strGroup
-      [1] "Country"
+      $cou0004[[4]]$params$dfTransformed
+      [1] "dfTransformed"
       
-      $cou0004[[4]]$params$vThreshold
-      NULL
+      $cou0004[[4]]$params$strType
+      [1] "Type"
       
-      $cou0004[[4]]$params$strMethod
-      [1] "NormalApprox"
       
-      $cou0004[[4]]$params$nMinDenominator
-      [1] 30
+      
+      $cou0004[[5]]
+      $cou0004[[5]]$name
+      [1] "Flag_NormalApprox"
+      
+      $cou0004[[5]]$output
+      [1] "dfFlagged"
+      
+      $cou0004[[5]]$params
+      $cou0004[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
+      
+      $cou0004[[5]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $cou0004[[6]]
+      $cou0004[[6]]$name
+      [1] "Summarize"
+      
+      $cou0004[[6]]$output
+      [1] "dfSummary"
+      
+      $cou0004[[6]]$params
+      $cou0004[[6]]$params$dfFlagged
+      [1] "dfFlagged"
+      
+      $cou0004[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -396,81 +1076,109 @@
       $cou0005
       $cou0005[[1]]
       $cou0005[[1]]$name
-      [1] "FilterDomain"
-      
-      $cou0005[[1]]$inputs
-      [1] "dfSUBJ"
+      [1] "ParseThreshold"
       
       $cou0005[[1]]$output
-      [1] "dfSUBJ"
+      [1] "vThreshold"
       
       $cou0005[[1]]$params
-      $cou0005[[1]]$params$strDomain
-      [1] "dfSUBJ"
-      
-      $cou0005[[1]]$params$strColParam
-      [1] "strEnrollCol"
-      
-      $cou0005[[1]]$params$strValParam
-      [1] "strEnrollVal"
+      $cou0005[[1]]$params$strThreshold
+      [1] "Threshold"
       
       
       
       $cou0005[[2]]
       $cou0005[[2]]$name
-      [1] "FilterDomain"
-      
-      $cou0005[[2]]$inputs
-      [1] "dfLB"
+      [1] "Input_Rate"
       
       $cou0005[[2]]$output
-      [1] "dfLB"
+      [1] "dfInput"
       
       $cou0005[[2]]$params
-      $cou0005[[2]]$params$strDomain
-      [1] "dfLB"
+      $cou0005[[2]]$params$dfSubjects
+      [1] "dfEnrolled"
       
-      $cou0005[[2]]$params$strColParam
-      [1] "strGradeCol"
+      $cou0005[[2]]$params$dfNumerator
+      [1] "dfToxLabs"
       
-      $cou0005[[2]]$params$strValParam
-      [1] "strGradeAnyVal"
+      $cou0005[[2]]$params$dfDenominator
+      [1] "dfAllLabs"
+      
+      $cou0005[[2]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $cou0005[[2]]$params$strGroupCol
+      [1] "country"
+      
+      $cou0005[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $cou0005[[2]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $cou0005[[2]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $cou0005[[3]]
       $cou0005[[3]]$name
-      [1] "LB_Map_Raw"
-      
-      $cou0005[[3]]$inputs
-      [1] "dfSUBJ" "dfLB"  
+      [1] "Transform_Rate"
       
       $cou0005[[3]]$output
+      [1] "dfTransformed"
+      
+      $cou0005[[3]]$params
+      $cou0005[[3]]$params$dfInput
       [1] "dfInput"
+      
       
       
       $cou0005[[4]]
       $cou0005[[4]]$name
-      [1] "LB_Assess"
-      
-      $cou0005[[4]]$inputs
-      [1] "dfInput"
+      [1] "Analyze_NormalApprox"
       
       $cou0005[[4]]$output
-      [1] "lResults"
+      [1] "dfAnalyzed"
       
       $cou0005[[4]]$params
-      $cou0005[[4]]$params$strGroup
-      [1] "Country"
+      $cou0005[[4]]$params$dfTransformed
+      [1] "dfTransformed"
       
-      $cou0005[[4]]$params$vThreshold
-      NULL
+      $cou0005[[4]]$params$strType
+      [1] "Type"
       
-      $cou0005[[4]]$params$strMethod
-      [1] "NormalApprox"
       
-      $cou0005[[4]]$params$nMinDenominator
-      [1] 30
+      
+      $cou0005[[5]]
+      $cou0005[[5]]$name
+      [1] "Flag_NormalApprox"
+      
+      $cou0005[[5]]$output
+      [1] "dfFlagged"
+      
+      $cou0005[[5]]$params
+      $cou0005[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
+      
+      $cou0005[[5]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $cou0005[[6]]
+      $cou0005[[6]]$name
+      [1] "Summarize"
+      
+      $cou0005[[6]]$output
+      [1] "dfSummary"
+      
+      $cou0005[[6]]$params
+      $cou0005[[6]]$params$dfFlagged
+      [1] "dfFlagged"
+      
+      $cou0005[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -478,64 +1186,109 @@
       $cou0006
       $cou0006[[1]]
       $cou0006[[1]]$name
-      [1] "FilterDomain"
-      
-      $cou0006[[1]]$inputs
-      [1] "dfSUBJ"
+      [1] "ParseThreshold"
       
       $cou0006[[1]]$output
-      [1] "dfSUBJ"
+      [1] "vThreshold"
       
       $cou0006[[1]]$params
-      $cou0006[[1]]$params$strDomain
-      [1] "dfSUBJ"
-      
-      $cou0006[[1]]$params$strColParam
-      [1] "strEnrollCol"
-      
-      $cou0006[[1]]$params$strValParam
-      [1] "strEnrollVal"
+      $cou0006[[1]]$params$strThreshold
+      [1] "Threshold"
       
       
       
       $cou0006[[2]]
       $cou0006[[2]]$name
-      [1] "Disp_Map_Raw"
-      
-      $cou0006[[2]]$inputs
-      [1] "dfSUBJ"     "dfSTUDCOMP"
+      [1] "Input_Rate"
       
       $cou0006[[2]]$output
       [1] "dfInput"
       
       $cou0006[[2]]$params
-      $cou0006[[2]]$params$strContext
-      [1] "Study"
+      $cou0006[[2]]$params$dfSubjects
+      [1] "dfEnrolled"
+      
+      $cou0006[[2]]$params$dfNumerator
+      [1] "dfStudyDropouts"
+      
+      $cou0006[[2]]$params$dfDenominator
+      [1] "dfEnrolled"
+      
+      $cou0006[[2]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $cou0006[[2]]$params$strGroupCol
+      [1] "country"
+      
+      $cou0006[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $cou0006[[2]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $cou0006[[2]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $cou0006[[3]]
       $cou0006[[3]]$name
-      [1] "Disp_Assess"
-      
-      $cou0006[[3]]$inputs
-      [1] "dfInput"
+      [1] "Transform_Rate"
       
       $cou0006[[3]]$output
-      [1] "lResults"
+      [1] "dfTransformed"
       
       $cou0006[[3]]$params
-      $cou0006[[3]]$params$strGroup
-      [1] "Country"
+      $cou0006[[3]]$params$dfInput
+      [1] "dfInput"
       
-      $cou0006[[3]]$params$vThreshold
-      NULL
       
-      $cou0006[[3]]$params$strMethod
-      [1] "NormalApprox"
       
-      $cou0006[[3]]$params$nMinDenominator
-      [1] 3
+      $cou0006[[4]]
+      $cou0006[[4]]$name
+      [1] "Analyze_NormalApprox"
+      
+      $cou0006[[4]]$output
+      [1] "dfAnalyzed"
+      
+      $cou0006[[4]]$params
+      $cou0006[[4]]$params$dfTransformed
+      [1] "dfTransformed"
+      
+      $cou0006[[4]]$params$strType
+      [1] "Type"
+      
+      
+      
+      $cou0006[[5]]
+      $cou0006[[5]]$name
+      [1] "Flag_NormalApprox"
+      
+      $cou0006[[5]]$output
+      [1] "dfFlagged"
+      
+      $cou0006[[5]]$params
+      $cou0006[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
+      
+      $cou0006[[5]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $cou0006[[6]]
+      $cou0006[[6]]$name
+      [1] "Summarize"
+      
+      $cou0006[[6]]$output
+      [1] "dfSummary"
+      
+      $cou0006[[6]]$params
+      $cou0006[[6]]$params$dfFlagged
+      [1] "dfFlagged"
+      
+      $cou0006[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -543,86 +1296,109 @@
       $cou0007
       $cou0007[[1]]
       $cou0007[[1]]$name
-      [1] "FilterDomain"
-      
-      $cou0007[[1]]$inputs
-      [1] "dfSUBJ"
+      [1] "ParseThreshold"
       
       $cou0007[[1]]$output
-      [1] "dfSUBJ"
+      [1] "vThreshold"
       
       $cou0007[[1]]$params
-      $cou0007[[1]]$params$strDomain
-      [1] "dfSUBJ"
-      
-      $cou0007[[1]]$params$strColParam
-      [1] "strEnrollCol"
-      
-      $cou0007[[1]]$params$strValParam
-      [1] "strEnrollVal"
+      $cou0007[[1]]$params$strThreshold
+      [1] "Threshold"
       
       
       
       $cou0007[[2]]
       $cou0007[[2]]$name
-      [1] "FilterDomain"
-      
-      $cou0007[[2]]$inputs
-      [1] "dfSDRGCOMP"
+      [1] "Input_Rate"
       
       $cou0007[[2]]$output
-      [1] "dfSDRGCOMP"
+      [1] "dfInput"
       
       $cou0007[[2]]$params
-      $cou0007[[2]]$params$strDomain
-      [1] "dfSDRGCOMP"
+      $cou0007[[2]]$params$dfSubjects
+      [1] "dfEnrolled"
       
-      $cou0007[[2]]$params$strColParam
-      [1] "strTreatmentPhaseCol"
+      $cou0007[[2]]$params$dfNumerator
+      [1] "dfTreatmentDropouts"
       
-      $cou0007[[2]]$params$strValParam
-      [1] "strTreatmentPhaseVal"
+      $cou0007[[2]]$params$dfDenominator
+      [1] "dfEnrolled"
+      
+      $cou0007[[2]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $cou0007[[2]]$params$strGroupCol
+      [1] "country"
+      
+      $cou0007[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $cou0007[[2]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $cou0007[[2]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $cou0007[[3]]
       $cou0007[[3]]$name
-      [1] "Disp_Map_Raw"
-      
-      $cou0007[[3]]$inputs
-      [1] "dfSUBJ"     "dfSDRGCOMP"
+      [1] "Transform_Rate"
       
       $cou0007[[3]]$output
-      [1] "dfInput"
+      [1] "dfTransformed"
       
       $cou0007[[3]]$params
-      $cou0007[[3]]$params$strContext
-      [1] "Treatment"
+      $cou0007[[3]]$params$dfInput
+      [1] "dfInput"
       
       
       
       $cou0007[[4]]
       $cou0007[[4]]$name
-      [1] "Disp_Assess"
-      
-      $cou0007[[4]]$inputs
-      [1] "dfInput"
+      [1] "Analyze_NormalApprox"
       
       $cou0007[[4]]$output
-      [1] "lResults"
+      [1] "dfAnalyzed"
       
       $cou0007[[4]]$params
-      $cou0007[[4]]$params$strGroup
-      [1] "Country"
+      $cou0007[[4]]$params$dfTransformed
+      [1] "dfTransformed"
       
-      $cou0007[[4]]$params$vThreshold
-      NULL
+      $cou0007[[4]]$params$strType
+      [1] "Type"
       
-      $cou0007[[4]]$params$strMethod
-      [1] "NormalApprox"
       
-      $cou0007[[4]]$params$nMinDenominator
-      [1] 3
+      
+      $cou0007[[5]]
+      $cou0007[[5]]$name
+      [1] "Flag_NormalApprox"
+      
+      $cou0007[[5]]$output
+      [1] "dfFlagged"
+      
+      $cou0007[[5]]$params
+      $cou0007[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
+      
+      $cou0007[[5]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $cou0007[[6]]
+      $cou0007[[6]]$name
+      [1] "Summarize"
+      
+      $cou0007[[6]]$output
+      [1] "dfSummary"
+      
+      $cou0007[[6]]$params
+      $cou0007[[6]]$params$dfFlagged
+      [1] "dfFlagged"
+      
+      $cou0007[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -630,81 +1406,109 @@
       $cou0008
       $cou0008[[1]]
       $cou0008[[1]]$name
-      [1] "FilterDomain"
-      
-      $cou0008[[1]]$inputs
-      [1] "dfSUBJ"
+      [1] "ParseThreshold"
       
       $cou0008[[1]]$output
-      [1] "dfSUBJ"
+      [1] "vThreshold"
       
       $cou0008[[1]]$params
-      $cou0008[[1]]$params$strDomain
-      [1] "dfSUBJ"
-      
-      $cou0008[[1]]$params$strColParam
-      [1] "strEnrollCol"
-      
-      $cou0008[[1]]$params$strValParam
-      [1] "strEnrollVal"
+      $cou0008[[1]]$params$strThreshold
+      [1] "Threshold"
       
       
       
       $cou0008[[2]]
       $cou0008[[2]]$name
-      [1] "FilterDomain"
-      
-      $cou0008[[2]]$inputs
-      [1] "dfQUERY"
+      [1] "Input_Rate"
       
       $cou0008[[2]]$output
-      [1] "dfQUERY"
+      [1] "dfInput"
       
       $cou0008[[2]]$params
-      $cou0008[[2]]$params$strDomain
-      [1] "dfQUERY"
+      $cou0008[[2]]$params$dfSubjects
+      [1] "dfEnrolled"
       
-      $cou0008[[2]]$params$strColParam
-      [1] "strStatusCol"
+      $cou0008[[2]]$params$dfNumerator
+      [1] "dfQuery"
       
-      $cou0008[[2]]$params$strValParam
-      [1] "strStatusVal"
+      $cou0008[[2]]$params$dfDenominator
+      [1] "dfDataChanges"
+      
+      $cou0008[[2]]$params$strSubjectCol
+      [1] "subject_nsv"
+      
+      $cou0008[[2]]$params$strGroupCol
+      [1] "country"
+      
+      $cou0008[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $cou0008[[2]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $cou0008[[2]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $cou0008[[3]]
       $cou0008[[3]]$name
-      [1] "QueryRate_Map_Raw"
-      
-      $cou0008[[3]]$inputs
-      [1] "dfSUBJ"    "dfQUERY"   "dfDATACHG"
+      [1] "Transform_Rate"
       
       $cou0008[[3]]$output
+      [1] "dfTransformed"
+      
+      $cou0008[[3]]$params
+      $cou0008[[3]]$params$dfInput
       [1] "dfInput"
+      
       
       
       $cou0008[[4]]
       $cou0008[[4]]$name
-      [1] "QueryRate_Assess"
-      
-      $cou0008[[4]]$inputs
-      [1] "dfInput"
+      [1] "Analyze_NormalApprox"
       
       $cou0008[[4]]$output
-      [1] "lResults"
+      [1] "dfAnalyzed"
       
       $cou0008[[4]]$params
-      $cou0008[[4]]$params$strGroup
-      [1] "Country"
+      $cou0008[[4]]$params$dfTransformed
+      [1] "dfTransformed"
       
-      $cou0008[[4]]$params$vThreshold
-      NULL
+      $cou0008[[4]]$params$strType
+      [1] "Type"
       
-      $cou0008[[4]]$params$strMethod
-      [1] "NormalApprox"
       
-      $cou0008[[4]]$params$nMinDenominator
-      [1] 30
+      
+      $cou0008[[5]]
+      $cou0008[[5]]$name
+      [1] "Flag_NormalApprox"
+      
+      $cou0008[[5]]$output
+      [1] "dfFlagged"
+      
+      $cou0008[[5]]$params
+      $cou0008[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
+      
+      $cou0008[[5]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $cou0008[[6]]
+      $cou0008[[6]]$name
+      [1] "Summarize"
+      
+      $cou0008[[6]]$output
+      [1] "dfSummary"
+      
+      $cou0008[[6]]$params
+      $cou0008[[6]]$params$dfFlagged
+      [1] "dfFlagged"
+      
+      $cou0008[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -712,86 +1516,109 @@
       $cou0009
       $cou0009[[1]]
       $cou0009[[1]]$name
-      [1] "FilterDomain"
-      
-      $cou0009[[1]]$inputs
-      [1] "dfSUBJ"
+      [1] "ParseThreshold"
       
       $cou0009[[1]]$output
-      [1] "dfSUBJ"
+      [1] "vThreshold"
       
       $cou0009[[1]]$params
-      $cou0009[[1]]$params$strDomain
-      [1] "dfSUBJ"
-      
-      $cou0009[[1]]$params$strColParam
-      [1] "strEnrollCol"
-      
-      $cou0009[[1]]$params$strValParam
-      [1] "strEnrollVal"
+      $cou0009[[1]]$params$strThreshold
+      [1] "Threshold"
       
       
       
       $cou0009[[2]]
       $cou0009[[2]]$name
-      [1] "FilterDomain"
-      
-      $cou0009[[2]]$inputs
-      [1] "dfQUERY"
+      [1] "Input_Rate"
       
       $cou0009[[2]]$output
-      [1] "dfQUERY"
+      [1] "dfInput"
       
       $cou0009[[2]]$params
-      $cou0009[[2]]$params$strDomain
-      [1] "dfQUERY"
+      $cou0009[[2]]$params$dfSubjects
+      [1] "dfEnrolled"
       
-      $cou0009[[2]]$params$strColParam
-      [1] "strStatusCol"
+      $cou0009[[2]]$params$dfNumerator
+      [1] "dfOldValidQueries"
       
-      $cou0009[[2]]$params$strValParam
-      [1] "strStatusVal"
+      $cou0009[[2]]$params$dfDenominator
+      [1] "dfValidQueries"
+      
+      $cou0009[[2]]$params$strSubjectCol
+      [1] "subject_nsv"
+      
+      $cou0009[[2]]$params$strGroupCol
+      [1] "country"
+      
+      $cou0009[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $cou0009[[2]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $cou0009[[2]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $cou0009[[3]]
       $cou0009[[3]]$name
-      [1] "QueryAge_Map_Raw"
-      
-      $cou0009[[3]]$inputs
-      [1] "dfSUBJ"  "dfQUERY"
+      [1] "Transform_Rate"
       
       $cou0009[[3]]$output
-      [1] "dfInput"
+      [1] "dfTransformed"
       
       $cou0009[[3]]$params
-      $cou0009[[3]]$params$nMaxQueryAge
-      [1] 30
+      $cou0009[[3]]$params$dfInput
+      [1] "dfInput"
       
       
       
       $cou0009[[4]]
       $cou0009[[4]]$name
-      [1] "QueryAge_Assess"
-      
-      $cou0009[[4]]$inputs
-      [1] "dfInput"
+      [1] "Analyze_NormalApprox"
       
       $cou0009[[4]]$output
-      [1] "lResults"
+      [1] "dfAnalyzed"
       
       $cou0009[[4]]$params
-      $cou0009[[4]]$params$strGroup
-      [1] "Country"
+      $cou0009[[4]]$params$dfTransformed
+      [1] "dfTransformed"
       
-      $cou0009[[4]]$params$vThreshold
-      NULL
+      $cou0009[[4]]$params$strType
+      [1] "Type"
       
-      $cou0009[[4]]$params$strMethod
-      [1] "NormalApprox"
       
-      $cou0009[[4]]$params$nMinDenominator
-      [1] 30
+      
+      $cou0009[[5]]
+      $cou0009[[5]]$name
+      [1] "Flag_NormalApprox"
+      
+      $cou0009[[5]]$output
+      [1] "dfFlagged"
+      
+      $cou0009[[5]]$params
+      $cou0009[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
+      
+      $cou0009[[5]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $cou0009[[6]]
+      $cou0009[[6]]$name
+      [1] "Summarize"
+      
+      $cou0009[[6]]$output
+      [1] "dfSummary"
+      
+      $cou0009[[6]]$params
+      $cou0009[[6]]$params$dfFlagged
+      [1] "dfFlagged"
+      
+      $cou0009[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -799,64 +1626,109 @@
       $cou0010
       $cou0010[[1]]
       $cou0010[[1]]$name
-      [1] "FilterDomain"
-      
-      $cou0010[[1]]$inputs
-      [1] "dfSUBJ"
+      [1] "ParseThreshold"
       
       $cou0010[[1]]$output
-      [1] "dfSUBJ"
+      [1] "vThreshold"
       
       $cou0010[[1]]$params
-      $cou0010[[1]]$params$strDomain
-      [1] "dfSUBJ"
-      
-      $cou0010[[1]]$params$strColParam
-      [1] "strEnrollCol"
-      
-      $cou0010[[1]]$params$strValParam
-      [1] "strEnrollVal"
+      $cou0010[[1]]$params$strThreshold
+      [1] "Threshold"
       
       
       
       $cou0010[[2]]
       $cou0010[[2]]$name
-      [1] "DataEntry_Map_Raw"
-      
-      $cou0010[[2]]$inputs
-      [1] "dfSUBJ"    "dfDATAENT"
+      [1] "Input_Rate"
       
       $cou0010[[2]]$output
       [1] "dfInput"
       
       $cou0010[[2]]$params
-      $cou0010[[2]]$params$nMaxDataEntryLag
-      [1] 10
+      $cou0010[[2]]$params$dfSubjects
+      [1] "dfEnrolled"
+      
+      $cou0010[[2]]$params$dfNumerator
+      [1] "dfSlowDataEntry"
+      
+      $cou0010[[2]]$params$dfDenominator
+      [1] "dfDataEntry"
+      
+      $cou0010[[2]]$params$strSubjectCol
+      [1] "subject_nsv"
+      
+      $cou0010[[2]]$params$strGroupCol
+      [1] "country"
+      
+      $cou0010[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $cou0010[[2]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $cou0010[[2]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $cou0010[[3]]
       $cou0010[[3]]$name
-      [1] "DataEntry_Assess"
-      
-      $cou0010[[3]]$inputs
-      [1] "dfInput"
+      [1] "Transform_Rate"
       
       $cou0010[[3]]$output
-      [1] "lResults"
+      [1] "dfTransformed"
       
       $cou0010[[3]]$params
-      $cou0010[[3]]$params$strGroup
-      [1] "Country"
+      $cou0010[[3]]$params$dfInput
+      [1] "dfInput"
       
-      $cou0010[[3]]$params$vThreshold
-      NULL
       
-      $cou0010[[3]]$params$strMethod
-      [1] "NormalApprox"
       
-      $cou0010[[3]]$params$nMinDenominator
-      [1] 30
+      $cou0010[[4]]
+      $cou0010[[4]]$name
+      [1] "Analyze_NormalApprox"
+      
+      $cou0010[[4]]$output
+      [1] "dfAnalyzed"
+      
+      $cou0010[[4]]$params
+      $cou0010[[4]]$params$dfTransformed
+      [1] "dfTransformed"
+      
+      $cou0010[[4]]$params$strType
+      [1] "Type"
+      
+      
+      
+      $cou0010[[5]]
+      $cou0010[[5]]$name
+      [1] "Flag_NormalApprox"
+      
+      $cou0010[[5]]$output
+      [1] "dfFlagged"
+      
+      $cou0010[[5]]$params
+      $cou0010[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
+      
+      $cou0010[[5]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $cou0010[[6]]
+      $cou0010[[6]]$name
+      [1] "Summarize"
+      
+      $cou0010[[6]]$output
+      [1] "dfSummary"
+      
+      $cou0010[[6]]$params
+      $cou0010[[6]]$params$dfFlagged
+      [1] "dfFlagged"
+      
+      $cou0010[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -864,59 +1736,109 @@
       $cou0011
       $cou0011[[1]]
       $cou0011[[1]]$name
-      [1] "FilterDomain"
-      
-      $cou0011[[1]]$inputs
-      [1] "dfSUBJ"
+      [1] "ParseThreshold"
       
       $cou0011[[1]]$output
-      [1] "dfSUBJ"
+      [1] "vThreshold"
       
       $cou0011[[1]]$params
-      $cou0011[[1]]$params$strDomain
-      [1] "dfSUBJ"
-      
-      $cou0011[[1]]$params$strColParam
-      [1] "strEnrollCol"
-      
-      $cou0011[[1]]$params$strValParam
-      [1] "strEnrollVal"
+      $cou0011[[1]]$params$strThreshold
+      [1] "Threshold"
       
       
       
       $cou0011[[2]]
       $cou0011[[2]]$name
-      [1] "DataChg_Map_Raw"
-      
-      $cou0011[[2]]$inputs
-      [1] "dfSUBJ"    "dfDATACHG"
+      [1] "Input_Rate"
       
       $cou0011[[2]]$output
       [1] "dfInput"
       
+      $cou0011[[2]]$params
+      $cou0011[[2]]$params$dfSubjects
+      [1] "dfEnrolled"
+      
+      $cou0011[[2]]$params$dfNumerator
+      [1] "dfChangedDataPoints"
+      
+      $cou0011[[2]]$params$dfDenominator
+      [1] "dfDataChanges"
+      
+      $cou0011[[2]]$params$strSubjectCol
+      [1] "subject_nsv"
+      
+      $cou0011[[2]]$params$strGroupCol
+      [1] "country"
+      
+      $cou0011[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $cou0011[[2]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $cou0011[[2]]$params$strDenominatorMethod
+      [1] "Count"
+      
+      
       
       $cou0011[[3]]
       $cou0011[[3]]$name
-      [1] "DataChg_Assess"
-      
-      $cou0011[[3]]$inputs
-      [1] "dfInput"
+      [1] "Transform_Rate"
       
       $cou0011[[3]]$output
-      [1] "lResults"
+      [1] "dfTransformed"
       
       $cou0011[[3]]$params
-      $cou0011[[3]]$params$strGroup
-      [1] "Country"
+      $cou0011[[3]]$params$dfInput
+      [1] "dfInput"
       
-      $cou0011[[3]]$params$vThreshold
-      NULL
       
-      $cou0011[[3]]$params$strMethod
-      [1] "NormalApprox"
       
-      $cou0011[[3]]$params$nMinDenominator
-      [1] 30
+      $cou0011[[4]]
+      $cou0011[[4]]$name
+      [1] "Analyze_NormalApprox"
+      
+      $cou0011[[4]]$output
+      [1] "dfAnalyzed"
+      
+      $cou0011[[4]]$params
+      $cou0011[[4]]$params$dfTransformed
+      [1] "dfTransformed"
+      
+      $cou0011[[4]]$params$strType
+      [1] "Type"
+      
+      
+      
+      $cou0011[[5]]
+      $cou0011[[5]]$name
+      [1] "Flag_NormalApprox"
+      
+      $cou0011[[5]]$output
+      [1] "dfFlagged"
+      
+      $cou0011[[5]]$params
+      $cou0011[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
+      
+      $cou0011[[5]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $cou0011[[6]]
+      $cou0011[[6]]$name
+      [1] "Summarize"
+      
+      $cou0011[[6]]$output
+      [1] "dfSummary"
+      
+      $cou0011[[6]]$params
+      $cou0011[[6]]$params$dfFlagged
+      [1] "dfFlagged"
+      
+      $cou0011[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -924,37 +1846,109 @@
       $cou0012
       $cou0012[[1]]
       $cou0012[[1]]$name
-      [1] "Screening_Map_Raw"
-      
-      $cou0012[[1]]$inputs
-      [1] "dfENROLL"
+      [1] "ParseThreshold"
       
       $cou0012[[1]]$output
-      [1] "dfInput"
+      [1] "vThreshold"
+      
+      $cou0012[[1]]$params
+      $cou0012[[1]]$params$strThreshold
+      [1] "Threshold"
+      
       
       
       $cou0012[[2]]
       $cou0012[[2]]$name
-      [1] "Screening_Assess"
-      
-      $cou0012[[2]]$inputs
-      [1] "dfInput"
+      [1] "Input_Rate"
       
       $cou0012[[2]]$output
-      [1] "lResults"
+      [1] "dfInput"
       
       $cou0012[[2]]$params
-      $cou0012[[2]]$params$strGroup
-      [1] "Country"
+      $cou0012[[2]]$params$dfSubjects
+      [1] "dfScreened"
       
-      $cou0012[[2]]$params$vThreshold
-      NULL
+      $cou0012[[2]]$params$dfNumerator
+      [1] "dfScreenFail"
       
-      $cou0012[[2]]$params$strMethod
-      [1] "NormalApprox"
+      $cou0012[[2]]$params$dfDenominator
+      [1] "dfScreened"
       
-      $cou0012[[2]]$params$nMinDenominator
-      [1] 3
+      $cou0012[[2]]$params$strSubjectCol
+      [1] "subjectid"
+      
+      $cou0012[[2]]$params$strGroupCol
+      [1] "country"
+      
+      $cou0012[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $cou0012[[2]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $cou0012[[2]]$params$strDenominatorMethod
+      [1] "Count"
+      
+      
+      
+      $cou0012[[3]]
+      $cou0012[[3]]$name
+      [1] "Transform_Rate"
+      
+      $cou0012[[3]]$output
+      [1] "dfTransformed"
+      
+      $cou0012[[3]]$params
+      $cou0012[[3]]$params$dfInput
+      [1] "dfInput"
+      
+      
+      
+      $cou0012[[4]]
+      $cou0012[[4]]$name
+      [1] "Analyze_NormalApprox"
+      
+      $cou0012[[4]]$output
+      [1] "dfAnalyzed"
+      
+      $cou0012[[4]]$params
+      $cou0012[[4]]$params$dfTransformed
+      [1] "dfTransformed"
+      
+      $cou0012[[4]]$params$strType
+      [1] "Type"
+      
+      
+      
+      $cou0012[[5]]
+      $cou0012[[5]]$name
+      [1] "Flag_NormalApprox"
+      
+      $cou0012[[5]]$output
+      [1] "dfFlagged"
+      
+      $cou0012[[5]]$params
+      $cou0012[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
+      
+      $cou0012[[5]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $cou0012[[6]]
+      $cou0012[[6]]$name
+      [1] "Summarize"
+      
+      $cou0012[[6]]$output
+      [1] "dfSummary"
+      
+      $cou0012[[6]]$params
+      $cou0012[[6]]$params$dfFlagged
+      [1] "dfFlagged"
+      
+      $cou0012[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -962,59 +1956,112 @@
       $kri0001
       $kri0001[[1]]
       $kri0001[[1]]$name
-      [1] "FilterDomain"
-      
-      $kri0001[[1]]$inputs
-      [1] "dfSUBJ"
+      [1] "ParseThreshold"
       
       $kri0001[[1]]$output
-      [1] "dfSUBJ"
+      [1] "vThreshold"
       
       $kri0001[[1]]$params
-      $kri0001[[1]]$params$strDomain
-      [1] "dfSUBJ"
-      
-      $kri0001[[1]]$params$strColParam
-      [1] "strEnrollCol"
-      
-      $kri0001[[1]]$params$strValParam
-      [1] "strEnrollVal"
+      $kri0001[[1]]$params$strThreshold
+      [1] "Threshold"
       
       
       
       $kri0001[[2]]
       $kri0001[[2]]$name
-      [1] "AE_Map_Raw"
-      
-      $kri0001[[2]]$inputs
-      [1] "dfAE"   "dfSUBJ"
+      [1] "Input_Rate"
       
       $kri0001[[2]]$output
       [1] "dfInput"
       
+      $kri0001[[2]]$params
+      $kri0001[[2]]$params$dfSubjects
+      [1] "dfEnrolled"
+      
+      $kri0001[[2]]$params$dfNumerator
+      [1] "dfAE"
+      
+      $kri0001[[2]]$params$dfDenominator
+      [1] "dfEnrolled"
+      
+      $kri0001[[2]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $kri0001[[2]]$params$strGroupCol
+      [1] "invid"
+      
+      $kri0001[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $kri0001[[2]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $kri0001[[2]]$params$strDenominatorMethod
+      [1] "Sum"
+      
+      $kri0001[[2]]$params$strDenominatorCol
+      [1] "timeonstudy"
+      
+      
       
       $kri0001[[3]]
       $kri0001[[3]]$name
-      [1] "AE_Assess"
-      
-      $kri0001[[3]]$inputs
-      [1] "dfInput"
+      [1] "Transform_Rate"
       
       $kri0001[[3]]$output
-      [1] "lResults"
+      [1] "dfTransformed"
       
       $kri0001[[3]]$params
-      $kri0001[[3]]$params$strGroup
-      [1] "Site"
+      $kri0001[[3]]$params$dfInput
+      [1] "dfInput"
       
-      $kri0001[[3]]$params$vThreshold
-      NULL
       
-      $kri0001[[3]]$params$strMethod
-      [1] "NormalApprox"
       
-      $kri0001[[3]]$params$nMinDenominator
-      [1] 30
+      $kri0001[[4]]
+      $kri0001[[4]]$name
+      [1] "Analyze_NormalApprox"
+      
+      $kri0001[[4]]$output
+      [1] "dfAnalyzed"
+      
+      $kri0001[[4]]$params
+      $kri0001[[4]]$params$dfTransformed
+      [1] "dfTransformed"
+      
+      $kri0001[[4]]$params$strType
+      [1] "Type"
+      
+      
+      
+      $kri0001[[5]]
+      $kri0001[[5]]$name
+      [1] "Flag_NormalApprox"
+      
+      $kri0001[[5]]$output
+      [1] "dfFlagged"
+      
+      $kri0001[[5]]$params
+      $kri0001[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
+      
+      $kri0001[[5]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $kri0001[[6]]
+      $kri0001[[6]]$name
+      [1] "Summarize"
+      
+      $kri0001[[6]]$output
+      [1] "dfSummary"
+      
+      $kri0001[[6]]$params
+      $kri0001[[6]]$params$dfFlagged
+      [1] "dfFlagged"
+      
+      $kri0001[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -1022,81 +2069,112 @@
       $kri0002
       $kri0002[[1]]
       $kri0002[[1]]$name
-      [1] "FilterDomain"
-      
-      $kri0002[[1]]$inputs
-      [1] "dfSUBJ"
+      [1] "ParseThreshold"
       
       $kri0002[[1]]$output
-      [1] "dfSUBJ"
+      [1] "vThreshold"
       
       $kri0002[[1]]$params
-      $kri0002[[1]]$params$strDomain
-      [1] "dfSUBJ"
-      
-      $kri0002[[1]]$params$strColParam
-      [1] "strEnrollCol"
-      
-      $kri0002[[1]]$params$strValParam
-      [1] "strEnrollVal"
+      $kri0002[[1]]$params$strThreshold
+      [1] "Threshold"
       
       
       
       $kri0002[[2]]
       $kri0002[[2]]$name
-      [1] "FilterDomain"
-      
-      $kri0002[[2]]$inputs
-      [1] "dfAE"
+      [1] "Input_Rate"
       
       $kri0002[[2]]$output
-      [1] "dfAE"
+      [1] "dfInput"
       
       $kri0002[[2]]$params
-      $kri0002[[2]]$params$strDomain
-      [1] "dfAE"
+      $kri0002[[2]]$params$dfSubjects
+      [1] "dfEnrolled"
       
-      $kri0002[[2]]$params$strColParam
-      [1] "strSeriousCol"
+      $kri0002[[2]]$params$dfNumerator
+      [1] "dfSeriousAE"
       
-      $kri0002[[2]]$params$strValParam
-      [1] "strSeriousVal"
+      $kri0002[[2]]$params$dfDenominator
+      [1] "dfEnrolled"
+      
+      $kri0002[[2]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $kri0002[[2]]$params$strGroupCol
+      [1] "invid"
+      
+      $kri0002[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $kri0002[[2]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $kri0002[[2]]$params$strDenominatorMethod
+      [1] "Sum"
+      
+      $kri0002[[2]]$params$strDenominatorCol
+      [1] "timeonstudy"
       
       
       
       $kri0002[[3]]
       $kri0002[[3]]$name
-      [1] "AE_Map_Raw"
-      
-      $kri0002[[3]]$inputs
-      [1] "dfAE"   "dfSUBJ"
+      [1] "Transform_Rate"
       
       $kri0002[[3]]$output
+      [1] "dfTransformed"
+      
+      $kri0002[[3]]$params
+      $kri0002[[3]]$params$dfInput
       [1] "dfInput"
+      
       
       
       $kri0002[[4]]
       $kri0002[[4]]$name
-      [1] "AE_Assess"
-      
-      $kri0002[[4]]$inputs
-      [1] "dfInput"
+      [1] "Analyze_NormalApprox"
       
       $kri0002[[4]]$output
-      [1] "lResults"
+      [1] "dfAnalyzed"
       
       $kri0002[[4]]$params
-      $kri0002[[4]]$params$strGroup
-      [1] "Site"
+      $kri0002[[4]]$params$dfTransformed
+      [1] "dfTransformed"
       
-      $kri0002[[4]]$params$vThreshold
-      NULL
+      $kri0002[[4]]$params$strType
+      [1] "Type"
       
-      $kri0002[[4]]$params$strMethod
-      [1] "NormalApprox"
       
-      $kri0002[[4]]$params$nMinDenominator
-      [1] 30
+      
+      $kri0002[[5]]
+      $kri0002[[5]]$name
+      [1] "Flag_NormalApprox"
+      
+      $kri0002[[5]]$output
+      [1] "dfFlagged"
+      
+      $kri0002[[5]]$params
+      $kri0002[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
+      
+      $kri0002[[5]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $kri0002[[6]]
+      $kri0002[[6]]$name
+      [1] "Summarize"
+      
+      $kri0002[[6]]$output
+      [1] "dfSummary"
+      
+      $kri0002[[6]]$params
+      $kri0002[[6]]$params$dfFlagged
+      [1] "dfFlagged"
+      
+      $kri0002[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -1104,81 +2182,112 @@
       $kri0003
       $kri0003[[1]]
       $kri0003[[1]]$name
-      [1] "FilterDomain"
-      
-      $kri0003[[1]]$inputs
-      [1] "dfSUBJ"
+      [1] "ParseThreshold"
       
       $kri0003[[1]]$output
-      [1] "dfSUBJ"
+      [1] "vThreshold"
       
       $kri0003[[1]]$params
-      $kri0003[[1]]$params$strDomain
-      [1] "dfSUBJ"
-      
-      $kri0003[[1]]$params$strColParam
-      [1] "strEnrollCol"
-      
-      $kri0003[[1]]$params$strValParam
-      [1] "strEnrollVal"
+      $kri0003[[1]]$params$strThreshold
+      [1] "Threshold"
       
       
       
       $kri0003[[2]]
       $kri0003[[2]]$name
-      [1] "FilterDomain"
-      
-      $kri0003[[2]]$inputs
-      [1] "dfPD"
+      [1] "Input_Rate"
       
       $kri0003[[2]]$output
-      [1] "dfPD"
+      [1] "dfInput"
       
       $kri0003[[2]]$params
-      $kri0003[[2]]$params$strDomain
-      [1] "dfPD"
+      $kri0003[[2]]$params$dfSubjects
+      [1] "dfEnrolled"
       
-      $kri0003[[2]]$params$strColParam
-      [1] "strImportantCol"
+      $kri0003[[2]]$params$dfNumerator
+      [1] "dfNonimportantPD"
       
-      $kri0003[[2]]$params$strValParam
-      [1] "strNonImportantVal"
+      $kri0003[[2]]$params$dfDenominator
+      [1] "dfEnrolled"
+      
+      $kri0003[[2]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $kri0003[[2]]$params$strGroupCol
+      [1] "invid"
+      
+      $kri0003[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $kri0003[[2]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $kri0003[[2]]$params$strDenominatorMethod
+      [1] "Sum"
+      
+      $kri0003[[2]]$params$strDenominatorCol
+      [1] "timeonstudy"
       
       
       
       $kri0003[[3]]
       $kri0003[[3]]$name
-      [1] "PD_Map_Raw_Rate"
-      
-      $kri0003[[3]]$inputs
-      [1] "dfPD"   "dfSUBJ"
+      [1] "Transform_Rate"
       
       $kri0003[[3]]$output
+      [1] "dfTransformed"
+      
+      $kri0003[[3]]$params
+      $kri0003[[3]]$params$dfInput
       [1] "dfInput"
+      
       
       
       $kri0003[[4]]
       $kri0003[[4]]$name
-      [1] "PD_Assess_Rate"
-      
-      $kri0003[[4]]$inputs
-      [1] "dfInput"
+      [1] "Analyze_NormalApprox"
       
       $kri0003[[4]]$output
-      [1] "lResults"
+      [1] "dfAnalyzed"
       
       $kri0003[[4]]$params
-      $kri0003[[4]]$params$strGroup
-      [1] "Site"
+      $kri0003[[4]]$params$dfTransformed
+      [1] "dfTransformed"
       
-      $kri0003[[4]]$params$vThreshold
-      NULL
+      $kri0003[[4]]$params$strType
+      [1] "Type"
       
-      $kri0003[[4]]$params$strMethod
-      [1] "NormalApprox"
       
-      $kri0003[[4]]$params$nMinDenominator
-      [1] 30
+      
+      $kri0003[[5]]
+      $kri0003[[5]]$name
+      [1] "Flag_NormalApprox"
+      
+      $kri0003[[5]]$output
+      [1] "dfFlagged"
+      
+      $kri0003[[5]]$params
+      $kri0003[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
+      
+      $kri0003[[5]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $kri0003[[6]]
+      $kri0003[[6]]$name
+      [1] "Summarize"
+      
+      $kri0003[[6]]$output
+      [1] "dfSummary"
+      
+      $kri0003[[6]]$params
+      $kri0003[[6]]$params$dfFlagged
+      [1] "dfFlagged"
+      
+      $kri0003[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -1186,81 +2295,112 @@
       $kri0004
       $kri0004[[1]]
       $kri0004[[1]]$name
-      [1] "FilterDomain"
-      
-      $kri0004[[1]]$inputs
-      [1] "dfSUBJ"
+      [1] "ParseThreshold"
       
       $kri0004[[1]]$output
-      [1] "dfSUBJ"
+      [1] "vThreshold"
       
       $kri0004[[1]]$params
-      $kri0004[[1]]$params$strDomain
-      [1] "dfSUBJ"
-      
-      $kri0004[[1]]$params$strColParam
-      [1] "strEnrollCol"
-      
-      $kri0004[[1]]$params$strValParam
-      [1] "strEnrollVal"
+      $kri0004[[1]]$params$strThreshold
+      [1] "Threshold"
       
       
       
       $kri0004[[2]]
       $kri0004[[2]]$name
-      [1] "FilterDomain"
-      
-      $kri0004[[2]]$inputs
-      [1] "dfPD"
+      [1] "Input_Rate"
       
       $kri0004[[2]]$output
-      [1] "dfPD"
+      [1] "dfInput"
       
       $kri0004[[2]]$params
-      $kri0004[[2]]$params$strDomain
-      [1] "dfPD"
+      $kri0004[[2]]$params$dfSubjects
+      [1] "dfEnrolled"
       
-      $kri0004[[2]]$params$strColParam
-      [1] "strImportantCol"
+      $kri0004[[2]]$params$dfNumerator
+      [1] "dfImportantPD"
       
-      $kri0004[[2]]$params$strValParam
-      [1] "strImportantVal"
+      $kri0004[[2]]$params$dfDenominator
+      [1] "dfEnrolled"
+      
+      $kri0004[[2]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $kri0004[[2]]$params$strGroupCol
+      [1] "invid"
+      
+      $kri0004[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $kri0004[[2]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $kri0004[[2]]$params$strDenominatorMethod
+      [1] "Sum"
+      
+      $kri0004[[2]]$params$strDenominatorCol
+      [1] "timeonstudy"
       
       
       
       $kri0004[[3]]
       $kri0004[[3]]$name
-      [1] "PD_Map_Raw_Rate"
-      
-      $kri0004[[3]]$inputs
-      [1] "dfSUBJ" "dfPD"  
+      [1] "Transform_Rate"
       
       $kri0004[[3]]$output
+      [1] "dfTransformed"
+      
+      $kri0004[[3]]$params
+      $kri0004[[3]]$params$dfInput
       [1] "dfInput"
+      
       
       
       $kri0004[[4]]
       $kri0004[[4]]$name
-      [1] "PD_Assess_Rate"
-      
-      $kri0004[[4]]$inputs
-      [1] "dfInput"
+      [1] "Analyze_NormalApprox"
       
       $kri0004[[4]]$output
-      [1] "lResults"
+      [1] "dfAnalyzed"
       
       $kri0004[[4]]$params
-      $kri0004[[4]]$params$strGroup
-      [1] "Site"
+      $kri0004[[4]]$params$dfTransformed
+      [1] "dfTransformed"
       
-      $kri0004[[4]]$params$vThreshold
-      NULL
+      $kri0004[[4]]$params$strType
+      [1] "Type"
       
-      $kri0004[[4]]$params$strMethod
-      [1] "NormalApprox"
       
-      $kri0004[[4]]$params$nMinDenominator
-      [1] 30
+      
+      $kri0004[[5]]
+      $kri0004[[5]]$name
+      [1] "Flag_NormalApprox"
+      
+      $kri0004[[5]]$output
+      [1] "dfFlagged"
+      
+      $kri0004[[5]]$params
+      $kri0004[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
+      
+      $kri0004[[5]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $kri0004[[6]]
+      $kri0004[[6]]$name
+      [1] "Summarize"
+      
+      $kri0004[[6]]$output
+      [1] "dfSummary"
+      
+      $kri0004[[6]]$params
+      $kri0004[[6]]$params$dfFlagged
+      [1] "dfFlagged"
+      
+      $kri0004[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -1268,81 +2408,109 @@
       $kri0005
       $kri0005[[1]]
       $kri0005[[1]]$name
-      [1] "FilterDomain"
-      
-      $kri0005[[1]]$inputs
-      [1] "dfSUBJ"
+      [1] "ParseThreshold"
       
       $kri0005[[1]]$output
-      [1] "dfSUBJ"
+      [1] "vThreshold"
       
       $kri0005[[1]]$params
-      $kri0005[[1]]$params$strDomain
-      [1] "dfSUBJ"
-      
-      $kri0005[[1]]$params$strColParam
-      [1] "strEnrollCol"
-      
-      $kri0005[[1]]$params$strValParam
-      [1] "strEnrollVal"
+      $kri0005[[1]]$params$strThreshold
+      [1] "Threshold"
       
       
       
       $kri0005[[2]]
       $kri0005[[2]]$name
-      [1] "FilterDomain"
-      
-      $kri0005[[2]]$inputs
-      [1] "dfLB"
+      [1] "Input_Rate"
       
       $kri0005[[2]]$output
-      [1] "dfLB"
+      [1] "dfInput"
       
       $kri0005[[2]]$params
-      $kri0005[[2]]$params$strDomain
-      [1] "dfLB"
+      $kri0005[[2]]$params$dfSubjects
+      [1] "dfEnrolled"
       
-      $kri0005[[2]]$params$strColParam
-      [1] "strGradeCol"
+      $kri0005[[2]]$params$dfNumerator
+      [1] "dfToxLabs"
       
-      $kri0005[[2]]$params$strValParam
-      [1] "strGradeAnyVal"
+      $kri0005[[2]]$params$dfDenominator
+      [1] "dfAllLabs"
+      
+      $kri0005[[2]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $kri0005[[2]]$params$strGroupCol
+      [1] "invid"
+      
+      $kri0005[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $kri0005[[2]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $kri0005[[2]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $kri0005[[3]]
       $kri0005[[3]]$name
-      [1] "LB_Map_Raw"
-      
-      $kri0005[[3]]$inputs
-      [1] "dfSUBJ" "dfLB"  
+      [1] "Transform_Rate"
       
       $kri0005[[3]]$output
+      [1] "dfTransformed"
+      
+      $kri0005[[3]]$params
+      $kri0005[[3]]$params$dfInput
       [1] "dfInput"
+      
       
       
       $kri0005[[4]]
       $kri0005[[4]]$name
-      [1] "LB_Assess"
-      
-      $kri0005[[4]]$inputs
-      [1] "dfInput"
+      [1] "Analyze_NormalApprox"
       
       $kri0005[[4]]$output
-      [1] "lResults"
+      [1] "dfAnalyzed"
       
       $kri0005[[4]]$params
-      $kri0005[[4]]$params$strGroup
-      [1] "Site"
+      $kri0005[[4]]$params$dfTransformed
+      [1] "dfTransformed"
       
-      $kri0005[[4]]$params$vThreshold
-      NULL
+      $kri0005[[4]]$params$strType
+      [1] "Type"
       
-      $kri0005[[4]]$params$strMethod
-      [1] "NormalApprox"
       
-      $kri0005[[4]]$params$nMinDenominator
-      [1] 30
+      
+      $kri0005[[5]]
+      $kri0005[[5]]$name
+      [1] "Flag_NormalApprox"
+      
+      $kri0005[[5]]$output
+      [1] "dfFlagged"
+      
+      $kri0005[[5]]$params
+      $kri0005[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
+      
+      $kri0005[[5]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $kri0005[[6]]
+      $kri0005[[6]]$name
+      [1] "Summarize"
+      
+      $kri0005[[6]]$output
+      [1] "dfSummary"
+      
+      $kri0005[[6]]$params
+      $kri0005[[6]]$params$dfFlagged
+      [1] "dfFlagged"
+      
+      $kri0005[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -1350,64 +2518,109 @@
       $kri0006
       $kri0006[[1]]
       $kri0006[[1]]$name
-      [1] "FilterDomain"
-      
-      $kri0006[[1]]$inputs
-      [1] "dfSUBJ"
+      [1] "ParseThreshold"
       
       $kri0006[[1]]$output
-      [1] "dfSUBJ"
+      [1] "vThreshold"
       
       $kri0006[[1]]$params
-      $kri0006[[1]]$params$strDomain
-      [1] "dfSUBJ"
-      
-      $kri0006[[1]]$params$strColParam
-      [1] "strEnrollCol"
-      
-      $kri0006[[1]]$params$strValParam
-      [1] "strEnrollVal"
+      $kri0006[[1]]$params$strThreshold
+      [1] "Threshold"
       
       
       
       $kri0006[[2]]
       $kri0006[[2]]$name
-      [1] "Disp_Map_Raw"
-      
-      $kri0006[[2]]$inputs
-      [1] "dfSUBJ"     "dfSTUDCOMP"
+      [1] "Input_Rate"
       
       $kri0006[[2]]$output
       [1] "dfInput"
       
       $kri0006[[2]]$params
-      $kri0006[[2]]$params$strContext
-      [1] "Study"
+      $kri0006[[2]]$params$dfSubjects
+      [1] "dfEnrolled"
+      
+      $kri0006[[2]]$params$dfNumerator
+      [1] "dfStudyDropouts"
+      
+      $kri0006[[2]]$params$dfDenominator
+      [1] "dfEnrolled"
+      
+      $kri0006[[2]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $kri0006[[2]]$params$strGroupCol
+      [1] "invid"
+      
+      $kri0006[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $kri0006[[2]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $kri0006[[2]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $kri0006[[3]]
       $kri0006[[3]]$name
-      [1] "Disp_Assess"
-      
-      $kri0006[[3]]$inputs
-      [1] "dfInput"
+      [1] "Transform_Rate"
       
       $kri0006[[3]]$output
-      [1] "lResults"
+      [1] "dfTransformed"
       
       $kri0006[[3]]$params
-      $kri0006[[3]]$params$strGroup
-      [1] "Site"
+      $kri0006[[3]]$params$dfInput
+      [1] "dfInput"
       
-      $kri0006[[3]]$params$vThreshold
-      NULL
       
-      $kri0006[[3]]$params$strMethod
-      [1] "NormalApprox"
       
-      $kri0006[[3]]$params$nMinDenominator
-      [1] 3
+      $kri0006[[4]]
+      $kri0006[[4]]$name
+      [1] "Analyze_NormalApprox"
+      
+      $kri0006[[4]]$output
+      [1] "dfAnalyzed"
+      
+      $kri0006[[4]]$params
+      $kri0006[[4]]$params$dfTransformed
+      [1] "dfTransformed"
+      
+      $kri0006[[4]]$params$strType
+      [1] "Type"
+      
+      
+      
+      $kri0006[[5]]
+      $kri0006[[5]]$name
+      [1] "Flag_NormalApprox"
+      
+      $kri0006[[5]]$output
+      [1] "dfFlagged"
+      
+      $kri0006[[5]]$params
+      $kri0006[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
+      
+      $kri0006[[5]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $kri0006[[6]]
+      $kri0006[[6]]$name
+      [1] "Summarize"
+      
+      $kri0006[[6]]$output
+      [1] "dfSummary"
+      
+      $kri0006[[6]]$params
+      $kri0006[[6]]$params$dfFlagged
+      [1] "dfFlagged"
+      
+      $kri0006[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -1415,86 +2628,109 @@
       $kri0007
       $kri0007[[1]]
       $kri0007[[1]]$name
-      [1] "FilterDomain"
-      
-      $kri0007[[1]]$inputs
-      [1] "dfSUBJ"
+      [1] "ParseThreshold"
       
       $kri0007[[1]]$output
-      [1] "dfSUBJ"
+      [1] "vThreshold"
       
       $kri0007[[1]]$params
-      $kri0007[[1]]$params$strDomain
-      [1] "dfSUBJ"
-      
-      $kri0007[[1]]$params$strColParam
-      [1] "strEnrollCol"
-      
-      $kri0007[[1]]$params$strValParam
-      [1] "strEnrollVal"
+      $kri0007[[1]]$params$strThreshold
+      [1] "Threshold"
       
       
       
       $kri0007[[2]]
       $kri0007[[2]]$name
-      [1] "FilterDomain"
-      
-      $kri0007[[2]]$inputs
-      [1] "dfSDRGCOMP"
+      [1] "Input_Rate"
       
       $kri0007[[2]]$output
-      [1] "dfSDRGCOMP"
+      [1] "dfInput"
       
       $kri0007[[2]]$params
-      $kri0007[[2]]$params$strDomain
-      [1] "dfSDRGCOMP"
+      $kri0007[[2]]$params$dfSubjects
+      [1] "dfEnrolled"
       
-      $kri0007[[2]]$params$strColParam
-      [1] "strTreatmentPhaseCol"
+      $kri0007[[2]]$params$dfNumerator
+      [1] "dfTreatmentDropouts"
       
-      $kri0007[[2]]$params$strValParam
-      [1] "strTreatmentPhaseVal"
+      $kri0007[[2]]$params$dfDenominator
+      [1] "dfEnrolled"
+      
+      $kri0007[[2]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $kri0007[[2]]$params$strGroupCol
+      [1] "invid"
+      
+      $kri0007[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $kri0007[[2]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $kri0007[[2]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $kri0007[[3]]
       $kri0007[[3]]$name
-      [1] "Disp_Map_Raw"
-      
-      $kri0007[[3]]$inputs
-      [1] "dfSUBJ"     "dfSDRGCOMP"
+      [1] "Transform_Rate"
       
       $kri0007[[3]]$output
-      [1] "dfInput"
+      [1] "dfTransformed"
       
       $kri0007[[3]]$params
-      $kri0007[[3]]$params$strContext
-      [1] "Treatment"
+      $kri0007[[3]]$params$dfInput
+      [1] "dfInput"
       
       
       
       $kri0007[[4]]
       $kri0007[[4]]$name
-      [1] "Disp_Assess"
-      
-      $kri0007[[4]]$inputs
-      [1] "dfInput"
+      [1] "Analyze_NormalApprox"
       
       $kri0007[[4]]$output
-      [1] "lResults"
+      [1] "dfAnalyzed"
       
       $kri0007[[4]]$params
-      $kri0007[[4]]$params$strGroup
-      [1] "Site"
+      $kri0007[[4]]$params$dfTransformed
+      [1] "dfTransformed"
       
-      $kri0007[[4]]$params$vThreshold
-      NULL
+      $kri0007[[4]]$params$strType
+      [1] "Type"
       
-      $kri0007[[4]]$params$strMethod
-      [1] "NormalApprox"
       
-      $kri0007[[4]]$params$nMinDenominator
-      [1] 3
+      
+      $kri0007[[5]]
+      $kri0007[[5]]$name
+      [1] "Flag_NormalApprox"
+      
+      $kri0007[[5]]$output
+      [1] "dfFlagged"
+      
+      $kri0007[[5]]$params
+      $kri0007[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
+      
+      $kri0007[[5]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $kri0007[[6]]
+      $kri0007[[6]]$name
+      [1] "Summarize"
+      
+      $kri0007[[6]]$output
+      [1] "dfSummary"
+      
+      $kri0007[[6]]$params
+      $kri0007[[6]]$params$dfFlagged
+      [1] "dfFlagged"
+      
+      $kri0007[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -1502,81 +2738,109 @@
       $kri0008
       $kri0008[[1]]
       $kri0008[[1]]$name
-      [1] "FilterDomain"
-      
-      $kri0008[[1]]$inputs
-      [1] "dfSUBJ"
+      [1] "ParseThreshold"
       
       $kri0008[[1]]$output
-      [1] "dfSUBJ"
+      [1] "vThreshold"
       
       $kri0008[[1]]$params
-      $kri0008[[1]]$params$strDomain
-      [1] "dfSUBJ"
-      
-      $kri0008[[1]]$params$strColParam
-      [1] "strEnrollCol"
-      
-      $kri0008[[1]]$params$strValParam
-      [1] "strEnrollVal"
+      $kri0008[[1]]$params$strThreshold
+      [1] "Threshold"
       
       
       
       $kri0008[[2]]
       $kri0008[[2]]$name
-      [1] "FilterDomain"
-      
-      $kri0008[[2]]$inputs
-      [1] "dfQUERY"
+      [1] "Input_Rate"
       
       $kri0008[[2]]$output
-      [1] "dfQUERY"
+      [1] "dfInput"
       
       $kri0008[[2]]$params
-      $kri0008[[2]]$params$strDomain
-      [1] "dfQUERY"
+      $kri0008[[2]]$params$dfSubjects
+      [1] "dfEnrolled"
       
-      $kri0008[[2]]$params$strColParam
-      [1] "strStatusCol"
+      $kri0008[[2]]$params$dfNumerator
+      [1] "dfQuery"
       
-      $kri0008[[2]]$params$strValParam
-      [1] "strStatusVal"
+      $kri0008[[2]]$params$dfDenominator
+      [1] "dfDataChanges"
+      
+      $kri0008[[2]]$params$strSubjectCol
+      [1] "subject_nsv"
+      
+      $kri0008[[2]]$params$strGroupCol
+      [1] "invid"
+      
+      $kri0008[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $kri0008[[2]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $kri0008[[2]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $kri0008[[3]]
       $kri0008[[3]]$name
-      [1] "QueryRate_Map_Raw"
-      
-      $kri0008[[3]]$inputs
-      [1] "dfSUBJ"    "dfQUERY"   "dfDATACHG"
+      [1] "Transform_Rate"
       
       $kri0008[[3]]$output
+      [1] "dfTransformed"
+      
+      $kri0008[[3]]$params
+      $kri0008[[3]]$params$dfInput
       [1] "dfInput"
+      
       
       
       $kri0008[[4]]
       $kri0008[[4]]$name
-      [1] "QueryRate_Assess"
-      
-      $kri0008[[4]]$inputs
-      [1] "dfInput"
+      [1] "Analyze_NormalApprox"
       
       $kri0008[[4]]$output
-      [1] "lResults"
+      [1] "dfAnalyzed"
       
       $kri0008[[4]]$params
-      $kri0008[[4]]$params$strGroup
-      [1] "Site"
+      $kri0008[[4]]$params$dfTransformed
+      [1] "dfTransformed"
       
-      $kri0008[[4]]$params$vThreshold
-      NULL
+      $kri0008[[4]]$params$strType
+      [1] "Type"
       
-      $kri0008[[4]]$params$strMethod
-      [1] "NormalApprox"
       
-      $kri0008[[4]]$params$nMinDenominator
-      [1] 30
+      
+      $kri0008[[5]]
+      $kri0008[[5]]$name
+      [1] "Flag_NormalApprox"
+      
+      $kri0008[[5]]$output
+      [1] "dfFlagged"
+      
+      $kri0008[[5]]$params
+      $kri0008[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
+      
+      $kri0008[[5]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $kri0008[[6]]
+      $kri0008[[6]]$name
+      [1] "Summarize"
+      
+      $kri0008[[6]]$output
+      [1] "dfSummary"
+      
+      $kri0008[[6]]$params
+      $kri0008[[6]]$params$dfFlagged
+      [1] "dfFlagged"
+      
+      $kri0008[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -1584,86 +2848,109 @@
       $kri0009
       $kri0009[[1]]
       $kri0009[[1]]$name
-      [1] "FilterDomain"
-      
-      $kri0009[[1]]$inputs
-      [1] "dfSUBJ"
+      [1] "ParseThreshold"
       
       $kri0009[[1]]$output
-      [1] "dfSUBJ"
+      [1] "vThreshold"
       
       $kri0009[[1]]$params
-      $kri0009[[1]]$params$strDomain
-      [1] "dfSUBJ"
-      
-      $kri0009[[1]]$params$strColParam
-      [1] "strEnrollCol"
-      
-      $kri0009[[1]]$params$strValParam
-      [1] "strEnrollVal"
+      $kri0009[[1]]$params$strThreshold
+      [1] "Threshold"
       
       
       
       $kri0009[[2]]
       $kri0009[[2]]$name
-      [1] "FilterDomain"
-      
-      $kri0009[[2]]$inputs
-      [1] "dfQUERY"
+      [1] "Input_Rate"
       
       $kri0009[[2]]$output
-      [1] "dfQUERY"
+      [1] "dfInput"
       
       $kri0009[[2]]$params
-      $kri0009[[2]]$params$strDomain
-      [1] "dfQUERY"
+      $kri0009[[2]]$params$dfSubjects
+      [1] "dfEnrolled"
       
-      $kri0009[[2]]$params$strColParam
-      [1] "strStatusCol"
+      $kri0009[[2]]$params$dfNumerator
+      [1] "dfOldValidQueries"
       
-      $kri0009[[2]]$params$strValParam
-      [1] "strStatusVal"
+      $kri0009[[2]]$params$dfDenominator
+      [1] "dfValidQueries"
+      
+      $kri0009[[2]]$params$strSubjectCol
+      [1] "subject_nsv"
+      
+      $kri0009[[2]]$params$strGroupCol
+      [1] "invid"
+      
+      $kri0009[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $kri0009[[2]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $kri0009[[2]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $kri0009[[3]]
       $kri0009[[3]]$name
-      [1] "QueryAge_Map_Raw"
-      
-      $kri0009[[3]]$inputs
-      [1] "dfSUBJ"  "dfQUERY"
+      [1] "Transform_Rate"
       
       $kri0009[[3]]$output
-      [1] "dfInput"
+      [1] "dfTransformed"
       
       $kri0009[[3]]$params
-      $kri0009[[3]]$params$nMaxQueryAge
-      [1] 30
+      $kri0009[[3]]$params$dfInput
+      [1] "dfInput"
       
       
       
       $kri0009[[4]]
       $kri0009[[4]]$name
-      [1] "QueryAge_Assess"
-      
-      $kri0009[[4]]$inputs
-      [1] "dfInput"
+      [1] "Analyze_NormalApprox"
       
       $kri0009[[4]]$output
-      [1] "lResults"
+      [1] "dfAnalyzed"
       
       $kri0009[[4]]$params
-      $kri0009[[4]]$params$strGroup
-      [1] "Site"
+      $kri0009[[4]]$params$dfTransformed
+      [1] "dfTransformed"
       
-      $kri0009[[4]]$params$vThreshold
-      NULL
+      $kri0009[[4]]$params$strType
+      [1] "Type"
       
-      $kri0009[[4]]$params$strMethod
-      [1] "NormalApprox"
       
-      $kri0009[[4]]$params$nMinDenominator
-      [1] 30
+      
+      $kri0009[[5]]
+      $kri0009[[5]]$name
+      [1] "Flag_NormalApprox"
+      
+      $kri0009[[5]]$output
+      [1] "dfFlagged"
+      
+      $kri0009[[5]]$params
+      $kri0009[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
+      
+      $kri0009[[5]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $kri0009[[6]]
+      $kri0009[[6]]$name
+      [1] "Summarize"
+      
+      $kri0009[[6]]$output
+      [1] "dfSummary"
+      
+      $kri0009[[6]]$params
+      $kri0009[[6]]$params$dfFlagged
+      [1] "dfFlagged"
+      
+      $kri0009[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -1671,64 +2958,109 @@
       $kri0010
       $kri0010[[1]]
       $kri0010[[1]]$name
-      [1] "FilterDomain"
-      
-      $kri0010[[1]]$inputs
-      [1] "dfSUBJ"
+      [1] "ParseThreshold"
       
       $kri0010[[1]]$output
-      [1] "dfSUBJ"
+      [1] "vThreshold"
       
       $kri0010[[1]]$params
-      $kri0010[[1]]$params$strDomain
-      [1] "dfSUBJ"
-      
-      $kri0010[[1]]$params$strColParam
-      [1] "strEnrollCol"
-      
-      $kri0010[[1]]$params$strValParam
-      [1] "strEnrollVal"
+      $kri0010[[1]]$params$strThreshold
+      [1] "Threshold"
       
       
       
       $kri0010[[2]]
       $kri0010[[2]]$name
-      [1] "DataEntry_Map_Raw"
-      
-      $kri0010[[2]]$inputs
-      [1] "dfSUBJ"    "dfDATAENT"
+      [1] "Input_Rate"
       
       $kri0010[[2]]$output
       [1] "dfInput"
       
       $kri0010[[2]]$params
-      $kri0010[[2]]$params$nMaxDataEntryLag
-      [1] 10
+      $kri0010[[2]]$params$dfSubjects
+      [1] "dfEnrolled"
+      
+      $kri0010[[2]]$params$dfNumerator
+      [1] "dfSlowDataEntry"
+      
+      $kri0010[[2]]$params$dfDenominator
+      [1] "dfDataEntry"
+      
+      $kri0010[[2]]$params$strSubjectCol
+      [1] "subject_nsv"
+      
+      $kri0010[[2]]$params$strGroupCol
+      [1] "invid"
+      
+      $kri0010[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $kri0010[[2]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $kri0010[[2]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $kri0010[[3]]
       $kri0010[[3]]$name
-      [1] "DataEntry_Assess"
-      
-      $kri0010[[3]]$inputs
-      [1] "dfInput"
+      [1] "Transform_Rate"
       
       $kri0010[[3]]$output
-      [1] "lResults"
+      [1] "dfTransformed"
       
       $kri0010[[3]]$params
-      $kri0010[[3]]$params$strGroup
-      [1] "Site"
+      $kri0010[[3]]$params$dfInput
+      [1] "dfInput"
       
-      $kri0010[[3]]$params$vThreshold
-      NULL
       
-      $kri0010[[3]]$params$strMethod
-      [1] "NormalApprox"
       
-      $kri0010[[3]]$params$nMinDenominator
-      [1] 30
+      $kri0010[[4]]
+      $kri0010[[4]]$name
+      [1] "Analyze_NormalApprox"
+      
+      $kri0010[[4]]$output
+      [1] "dfAnalyzed"
+      
+      $kri0010[[4]]$params
+      $kri0010[[4]]$params$dfTransformed
+      [1] "dfTransformed"
+      
+      $kri0010[[4]]$params$strType
+      [1] "Type"
+      
+      
+      
+      $kri0010[[5]]
+      $kri0010[[5]]$name
+      [1] "Flag_NormalApprox"
+      
+      $kri0010[[5]]$output
+      [1] "dfFlagged"
+      
+      $kri0010[[5]]$params
+      $kri0010[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
+      
+      $kri0010[[5]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $kri0010[[6]]
+      $kri0010[[6]]$name
+      [1] "Summarize"
+      
+      $kri0010[[6]]$output
+      [1] "dfSummary"
+      
+      $kri0010[[6]]$params
+      $kri0010[[6]]$params$dfFlagged
+      [1] "dfFlagged"
+      
+      $kri0010[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -1736,59 +3068,109 @@
       $kri0011
       $kri0011[[1]]
       $kri0011[[1]]$name
-      [1] "FilterDomain"
-      
-      $kri0011[[1]]$inputs
-      [1] "dfSUBJ"
+      [1] "ParseThreshold"
       
       $kri0011[[1]]$output
-      [1] "dfSUBJ"
+      [1] "vThreshold"
       
       $kri0011[[1]]$params
-      $kri0011[[1]]$params$strDomain
-      [1] "dfSUBJ"
-      
-      $kri0011[[1]]$params$strColParam
-      [1] "strEnrollCol"
-      
-      $kri0011[[1]]$params$strValParam
-      [1] "strEnrollVal"
+      $kri0011[[1]]$params$strThreshold
+      [1] "Threshold"
       
       
       
       $kri0011[[2]]
       $kri0011[[2]]$name
-      [1] "DataChg_Map_Raw"
-      
-      $kri0011[[2]]$inputs
-      [1] "dfSUBJ"    "dfDATACHG"
+      [1] "Input_Rate"
       
       $kri0011[[2]]$output
       [1] "dfInput"
       
+      $kri0011[[2]]$params
+      $kri0011[[2]]$params$dfSubjects
+      [1] "dfEnrolled"
+      
+      $kri0011[[2]]$params$dfNumerator
+      [1] "dfChangedDataPoints"
+      
+      $kri0011[[2]]$params$dfDenominator
+      [1] "dfDataChanges"
+      
+      $kri0011[[2]]$params$strSubjectCol
+      [1] "subject_nsv"
+      
+      $kri0011[[2]]$params$strGroupCol
+      [1] "invid"
+      
+      $kri0011[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $kri0011[[2]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $kri0011[[2]]$params$strDenominatorMethod
+      [1] "Count"
+      
+      
       
       $kri0011[[3]]
       $kri0011[[3]]$name
-      [1] "DataChg_Assess"
-      
-      $kri0011[[3]]$inputs
-      [1] "dfInput"
+      [1] "Transform_Rate"
       
       $kri0011[[3]]$output
-      [1] "lResults"
+      [1] "dfTransformed"
       
       $kri0011[[3]]$params
-      $kri0011[[3]]$params$strGroup
-      [1] "Site"
+      $kri0011[[3]]$params$dfInput
+      [1] "dfInput"
       
-      $kri0011[[3]]$params$vThreshold
-      NULL
       
-      $kri0011[[3]]$params$strMethod
-      [1] "NormalApprox"
       
-      $kri0011[[3]]$params$nMinDenominator
-      [1] 30
+      $kri0011[[4]]
+      $kri0011[[4]]$name
+      [1] "Analyze_NormalApprox"
+      
+      $kri0011[[4]]$output
+      [1] "dfAnalyzed"
+      
+      $kri0011[[4]]$params
+      $kri0011[[4]]$params$dfTransformed
+      [1] "dfTransformed"
+      
+      $kri0011[[4]]$params$strType
+      [1] "Type"
+      
+      
+      
+      $kri0011[[5]]
+      $kri0011[[5]]$name
+      [1] "Flag_NormalApprox"
+      
+      $kri0011[[5]]$output
+      [1] "dfFlagged"
+      
+      $kri0011[[5]]$params
+      $kri0011[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
+      
+      $kri0011[[5]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $kri0011[[6]]
+      $kri0011[[6]]$name
+      [1] "Summarize"
+      
+      $kri0011[[6]]$output
+      [1] "dfSummary"
+      
+      $kri0011[[6]]$params
+      $kri0011[[6]]$params$dfFlagged
+      [1] "dfFlagged"
+      
+      $kri0011[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
       
       
       
@@ -1796,184 +3178,301 @@
       $kri0012
       $kri0012[[1]]
       $kri0012[[1]]$name
-      [1] "Screening_Map_Raw"
-      
-      $kri0012[[1]]$inputs
-      [1] "dfENROLL"
+      [1] "ParseThreshold"
       
       $kri0012[[1]]$output
-      [1] "dfInput"
+      [1] "vThreshold"
+      
+      $kri0012[[1]]$params
+      $kri0012[[1]]$params$strThreshold
+      [1] "Threshold"
+      
       
       
       $kri0012[[2]]
       $kri0012[[2]]$name
-      [1] "Screening_Assess"
-      
-      $kri0012[[2]]$inputs
-      [1] "dfInput"
+      [1] "Input_Rate"
       
       $kri0012[[2]]$output
-      [1] "lResults"
+      [1] "dfInput"
       
       $kri0012[[2]]$params
-      $kri0012[[2]]$params$strGroup
-      [1] "Site"
+      $kri0012[[2]]$params$dfSubjects
+      [1] "dfScreened"
       
-      $kri0012[[2]]$params$vThreshold
-      NULL
+      $kri0012[[2]]$params$dfNumerator
+      [1] "dfScreenFail"
       
-      $kri0012[[2]]$params$strMethod
-      [1] "NormalApprox"
+      $kri0012[[2]]$params$dfDenominator
+      [1] "dfScreened"
       
-      $kri0012[[2]]$params$nMinDenominator
-      [1] 3
+      $kri0012[[2]]$params$strSubjectCol
+      [1] "subjectid"
       
+      $kri0012[[2]]$params$strGroupCol
+      [1] "invid"
       
+      $kri0012[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
       
+      $kri0012[[2]]$params$strNumeratorMethod
+      [1] "Count"
       
-      $qtl0004
-      $qtl0004[[1]]
-      $qtl0004[[1]]$name
-      [1] "FilterDomain"
-      
-      $qtl0004[[1]]$inputs
-      [1] "dfSUBJ"
-      
-      $qtl0004[[1]]$output
-      [1] "dfSUBJ"
-      
-      $qtl0004[[1]]$params
-      $qtl0004[[1]]$params$strDomain
-      [1] "dfSUBJ"
-      
-      $qtl0004[[1]]$params$strColParam
-      [1] "strEnrollCol"
-      
-      $qtl0004[[1]]$params$strValParam
-      [1] "strEnrollVal"
+      $kri0012[[2]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
-      $qtl0004[[2]]
-      $qtl0004[[2]]$name
-      [1] "FilterDomain"
+      $kri0012[[3]]
+      $kri0012[[3]]$name
+      [1] "Transform_Rate"
       
-      $qtl0004[[2]]$inputs
-      [1] "dfPD"
+      $kri0012[[3]]$output
+      [1] "dfTransformed"
       
-      $qtl0004[[2]]$output
-      [1] "dfPD"
-      
-      $qtl0004[[2]]$params
-      $qtl0004[[2]]$params$strDomain
-      [1] "dfPD"
-      
-      $qtl0004[[2]]$params$strColParam
-      [1] "strImportantCol"
-      
-      $qtl0004[[2]]$params$strValParam
-      [1] "strImportantVal"
-      
-      
-      
-      $qtl0004[[3]]
-      $qtl0004[[3]]$name
-      [1] "PD_Map_Raw_Binary"
-      
-      $qtl0004[[3]]$inputs
-      [1] "dfPD"   "dfSUBJ"
-      
-      $qtl0004[[3]]$output
+      $kri0012[[3]]$params
+      $kri0012[[3]]$params$dfInput
       [1] "dfInput"
       
       
-      $qtl0004[[4]]
-      $qtl0004[[4]]$name
-      [1] "PD_Assess_Binary"
       
-      $qtl0004[[4]]$inputs
-      [1] "dfInput"
+      $kri0012[[4]]
+      $kri0012[[4]]$name
+      [1] "Analyze_NormalApprox"
       
-      $qtl0004[[4]]$output
-      [1] "lResults"
+      $kri0012[[4]]$output
+      [1] "dfAnalyzed"
       
-      $qtl0004[[4]]$params
-      $qtl0004[[4]]$params$strGroup
-      [1] "Study"
+      $kri0012[[4]]$params
+      $kri0012[[4]]$params$dfTransformed
+      [1] "dfTransformed"
       
-      $qtl0004[[4]]$params$vThreshold
-      NULL
-      
-      $qtl0004[[4]]$params$strMethod
-      [1] "QTL"
-      
-      $qtl0004[[4]]$params$nConfLevel
-      [1] 0.95
+      $kri0012[[4]]$params$strType
+      [1] "Type"
       
       
       
+      $kri0012[[5]]
+      $kri0012[[5]]$name
+      [1] "Flag_NormalApprox"
       
-      $qtl0006
-      $qtl0006[[1]]
-      $qtl0006[[1]]$name
-      [1] "FilterDomain"
+      $kri0012[[5]]$output
+      [1] "dfFlagged"
       
-      $qtl0006[[1]]$inputs
+      $kri0012[[5]]$params
+      $kri0012[[5]]$params$dfAnalyzed
+      [1] "dfAnalyzed"
+      
+      $kri0012[[5]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $kri0012[[6]]
+      $kri0012[[6]]$name
+      [1] "Summarize"
+      
+      $kri0012[[6]]$output
+      [1] "dfSummary"
+      
+      $kri0012[[6]]$params
+      $kri0012[[6]]$params$dfFlagged
+      [1] "dfFlagged"
+      
+      $kri0012[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
+      
+      
+      
+      
+      $reports
+      $reports[[1]]
+      $reports[[1]]$name
+      [1] "MakeCharts"
+      
+      $reports[[1]]$output
+      [1] "lCharts"
+      
+      $reports[[1]]$params
+      $reports[[1]]$params$dfResults
+      [1] "dfResults"
+      
+      $reports[[1]]$params$dfGroups
+      [1] "dfGroups"
+      
+      $reports[[1]]$params$dfBounds
+      [1] "dfBounds"
+      
+      $reports[[1]]$params$dfMetrics
+      [1] "dfMetrics"
+      
+      
+      
+      $reports[[2]]
+      $reports[[2]]$name
+      [1] "Report_KRI"
+      
+      $reports[[2]]$output
+      [1] "lReport"
+      
+      $reports[[2]]$params
+      $reports[[2]]$params$lCharts
+      [1] "lCharts"
+      
+      $reports[[2]]$params$dfResults
+      [1] "dfResults"
+      
+      $reports[[2]]$params$dfGroups
+      [1] "dfGroups"
+      
+      $reports[[2]]$params$dfMetrics
+      [1] "dfMetrics"
+      
+      
+      
+      
+      $snapshot
+      $snapshot[[1]]
+      $snapshot[[1]]$name
+      [1] "MakeWorkflowList"
+      
+      $snapshot[[1]]$output
+      [1] "wf_mapping"
+      
+      $snapshot[[1]]$params
+      $snapshot[[1]]$params$strNames
+      [1] "mapping"
+      
+      
+      
+      $snapshot[[2]]
+      $snapshot[[2]]$name
+      [1] "RunWorkflows"
+      
+      $snapshot[[2]]$output
+      [1] "lMapped"
+      
+      $snapshot[[2]]$params
+      $snapshot[[2]]$params$lData
+      [1] "lData"
+      
+      $snapshot[[2]]$params$lWorkflow
+      [1] "wf_mapping"
+      
+      $snapshot[[2]]$params$bKeepInputData
+      [1] FALSE
+      
+      
+      
+      $snapshot[[3]]
+      $snapshot[[3]]$name
+      [1] "MakeWorkflowList"
+      
+      $snapshot[[3]]$output
+      [1] "lWorkflows"
+      
+      $snapshot[[3]]$params
+      $snapshot[[3]]$params$strNames
+      [1] "Metrics"
+      
+      
+      
+      $snapshot[[4]]
+      $snapshot[[4]]$name
+      [1] "RunWorkflows"
+      
+      $snapshot[[4]]$output
+      [1] "lAnalysis"
+      
+      $snapshot[[4]]$params
+      $snapshot[[4]]$params$lWorkflows
+      [1] "lWorkflows"
+      
+      $snapshot[[4]]$params$lData
+      [1] "lMapped"
+      
+      $snapshot[[4]]$params$bKeepInputData
+      [1] FALSE
+      
+      
+      
+      $snapshot[[5]]
+      $snapshot[[5]]$name
+      [1] "RunQuery"
+      
+      $snapshot[[5]]$output
+      [1] "dfEnrolled"
+      
+      $snapshot[[5]]$params
+      $snapshot[[5]]$params$df
       [1] "dfSUBJ"
       
-      $qtl0006[[1]]$output
-      [1] "dfSUBJ"
-      
-      $qtl0006[[1]]$params
-      $qtl0006[[1]]$params$strDomain
-      [1] "dfSUBJ"
-      
-      $qtl0006[[1]]$params$strColParam
-      [1] "strEnrollCol"
-      
-      $qtl0006[[1]]$params$strValParam
-      [1] "strEnrollVal"
+      $snapshot[[5]]$params$strQuery
+      [1] "SELECT subjectid as raw_subjectid, * FROM df WHERE enrollyn == 'Y'"
       
       
       
-      $qtl0006[[2]]
-      $qtl0006[[2]]$name
-      [1] "Disp_Map_Raw"
+      $snapshot[[6]]
+      $snapshot[[6]]$name
+      [1] "MakeWorkflowList"
       
-      $qtl0006[[2]]$inputs
-      [1] "dfSUBJ"     "dfSTUDCOMP"
+      $snapshot[[6]]$output
+      [1] "wf_reporting_data"
       
-      $qtl0006[[2]]$output
-      [1] "dfInput"
-      
-      $qtl0006[[2]]$params
-      $qtl0006[[2]]$params$strContext
-      [1] "Study"
+      $snapshot[[6]]$params
+      $snapshot[[6]]$params$strNames
+      [1] "reporting"
       
       
       
-      $qtl0006[[3]]
-      $qtl0006[[3]]$name
-      [1] "Disp_Assess"
+      $snapshot[[7]]
+      $snapshot[[7]]$name
+      [1] "RunWorkflows"
       
-      $qtl0006[[3]]$inputs
-      [1] "dfInput"
+      $snapshot[[7]]$output
+      [1] "lReporting"
       
-      $qtl0006[[3]]$output
-      [1] "lResults"
+      $snapshot[[7]]$params
+      $snapshot[[7]]$params$lWorkflows
+      [1] "wf_reporting_data"
       
-      $qtl0006[[3]]$params
-      $qtl0006[[3]]$params$strGroup
-      [1] "Study"
+      $snapshot[[7]]$params$lData
+      [1] "lData"
       
-      $qtl0006[[3]]$params$vThreshold
-      NULL
+      $snapshot[[7]]$params$bKeepInputData
+      [1] FALSE
       
-      $qtl0006[[3]]$params$strMethod
-      [1] "QTL"
       
-      $qtl0006[[3]]$params$nConfLevel
-      [1] 0.95
+      
+      $snapshot[[8]]
+      $snapshot[[8]]$name
+      [1] "MakeWorkflowList"
+      
+      $snapshot[[8]]$output
+      [1] "wf_reports"
+      
+      $snapshot[[8]]$params
+      $snapshot[[8]]$params$strNames
+      [1] "reports"
+      
+      
+      
+      $snapshot[[9]]
+      $snapshot[[9]]$name
+      [1] "RunWorkflows"
+      
+      $snapshot[[9]]$output
+      [1] "lReports"
+      
+      $snapshot[[9]]$params
+      $snapshot[[9]]$params$lWorkflows
+      [1] "wf_reports"
+      
+      $snapshot[[9]]$params$lData
+      [1] "lReporting"
+      
+      $snapshot[[9]]$params$bKeepInputData
+      [1] FALSE
       
       
       
@@ -1984,89 +3483,5 @@
     Code
       wf_list <- MakeWorkflowList(strNames = "kri8675309", bRecursive = bRecursive)
     Message
-      ! "kri8675309" is not a supported workflow! Check the output of `MakeWorkflowList()` for NULL values.
-
-# if lMeta is detected, UpdateParams works as intended
-
-    Code
-      thresholds
-    Output
-      [[1]]
-      [1]  7  8 12 13
-      
-      [[2]]
-      [1]  7  8 12 13
-      
-      [[3]]
-      [1]  7  8 12 13
-      
-      [[4]]
-      [1]  7  8 12 13
-      
-      [[5]]
-      [1]  7  8 12 13
-      
-      [[6]]
-      [1]  7  8 12 13
-      
-      [[7]]
-      [1]  7  8 12 13
-      
-      [[8]]
-      [1]  7  8 12 13
-      
-      [[9]]
-      [1]  7  8 12 13
-      
-      [[10]]
-      [1]  7  8 12 13
-      
-      [[11]]
-      [1]  7  8 12 13
-      
-      [[12]]
-      [1]  7  8 12 13
-      
-      [[13]]
-      [1]  7  8 12 13
-      
-      [[14]]
-      [1]  7  8 12 13
-      
-      [[15]]
-      [1]  7  8 12 13
-      
-      [[16]]
-      [1]  7  8 12 13
-      
-      [[17]]
-      [1]  7  8 12 13
-      
-      [[18]]
-      [1]  7  8 12 13
-      
-      [[19]]
-      [1]  7  8 12 13
-      
-      [[20]]
-      [1]  7  8 12 13
-      
-      [[21]]
-      [1]  7  8 12 13
-      
-      [[22]]
-      [1]  7  8 12 13
-      
-      [[23]]
-      [1]  7  8 12 13
-      
-      [[24]]
-      [1]  7  8 12 13
-      
-      [[25]]
-      [1] 10.01
-      
-      [[26]]
-      [1] 10.2
-      
+      ! No workflows found.
 

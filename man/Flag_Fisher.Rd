@@ -15,12 +15,12 @@ Flag_Fisher(dfAnalyzed, vThreshold = NULL)
 \code{data.frame} with one row per site with columns: \code{GroupID}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{PredictedCount}, and \code{Flag}.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 Add columns flagging sites that represent possible statistical outliers when the Fisher's Exact Test is used.
 }
 \details{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-
-This function flags sites based on the Fisher's Exact Test result as part of the \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline}.
+This function flags sites based on the Fisher's Exact Test result as part of the GSM data model (see \code{vignette("DataModel")}).
 }
 \section{Data Specification}{
 
@@ -29,6 +29,7 @@ This function flags sites based on the Fisher's Exact Test result as part of the
 The following columns are considered required:
 \itemize{
 \item \code{GroupID} - Group ID; default is \code{SiteID}
+\item \code{GroupLevel} - Group Type
 \item \code{Score} - P-value calculated from the rates of exposure provided to \code{Analyze_Fisher()}
 \item \code{Prop} - Proportion of events of interest over days of exposure
 \item \code{Prop_Other} - Cumulative proportion of events of interest over days of exposure
@@ -36,13 +37,7 @@ The following columns are considered required:
 }
 
 \examples{
-dfInput <- LB_Map_Raw()
-
-dfTransformed <- Transform_Rate(dfInput,
-  strGroupCol = "SiteID",
-  strNumeratorCol = "Count",
-  strDenominatorCol = "Total"
-)
+dfTransformed <- Transform_Rate(analyticsInput)
 
 dfAnalyzed <- Analyze_Poisson(dfTransformed)
 

@@ -1,40 +1,39 @@
 HTMLWidgets.widget({
-  name: 'Widget_TimeSeries',
-  type: 'output',
-  factory: function(el, width, height) {
-    return {
-      renderValue: function(x) {
+    name: 'Widget_TimeSeries',
+    type: 'output',
+    factory: function(el, width, height) {
+        return {
+            renderValue: function(input) {
+                if (input.bDebug)
+                    console.log(input);
 
-        // chart configuration
-        const lLabels = HTMLWidgets.dataframeToD3(x.lLabels)[0]
-        lLabels.selectedGroupIDs = x.selectedGroupIDs
+                // Assign a unique ID to the element.
+                el.id = `timeSeries--${input.lMetric.MetricID}_${input.strOutcome}`;
 
+                // Add click event listener to chart.
+                input.lMetric.clickCallback = clickCallback(el, input);
 
-        lLabels.clickCallback = function(d) {
-            // Update site dropdown.
-            const siteDropdown = document
-                .getElementById(`site-select--time-series_${lLabels.workflowid}`)
-            siteDropdown.value = d.groupid;
+                // Generate time series.
+                const instance = rbmViz.default.timeSeries(
+                    el,
+                    input.dfResults,
+                    {...input.lMetric, y: input.strOutcome}, // specify outcome to be plotted on the y-axis
+                    input.vThreshold,
+                    null, // confidence intervals parameter
+                    input.dfGroups
+                );
 
-            // Update chart (closure allows access to `instance` prior to initialization).
-            instance.helpers.updateSelectedGroupIDs(d.groupid);
+                // Add dropdowns that highlight group IDs.
+                const { groupSelect, countrySelect } = addWidgetControls(
+                    el,
+                    input.dfResults,
+                    input.lMetric,
+                    input.dfGroups,
+                    input.bAddGroupSelect
+                );
+            },
+            resize: function(width, height) {
+            }
         };
-
-        // chart
-        const instance = rbmViz.default.timeSeries(
-            el,
-            x.dfSummary,
-            lLabels,
-            x.dfParams
-        );
-
-        // Add event listener to site dropdown that updates chart on change.
-        el.previousElementSibling.addEventListener('change', (event) => {
-          instance.helpers.updateSelectedGroupIDs(event.target.value);
-        });
-      },
-      resize: function(width, height) {
-      }
-    };
-  }
+    }
 });

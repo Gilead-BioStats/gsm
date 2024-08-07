@@ -5,15 +5,15 @@
 \title{Group-level visualization of scores.}
 \usage{
 Visualize_Score(
-  dfSummary,
+  dfResults,
   vThreshold = NULL,
-  strType = "metric",
+  strType = "Metric",
   bFlagFilter = FALSE,
   strTitle = ""
 )
 }
 \arguments{
-\item{dfSummary}{\code{data.frame} returned by \code{\link[=Summarize]{Summarize()}}}
+\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
 
 \item{vThreshold}{\code{numeric} Threshold specification, a vector of length 2 that defaults to NULL.}
 
@@ -30,12 +30,22 @@ group-level ggplot2 object.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
-ae <- AE_Map_Raw() \%>\% AE_Assess()
+## Filter data to one metric and snapshot
+reportingResults_filter <- reportingResults \%>\%
+  dplyr::filter(MetricID == "kri0001" & SnapshotDate == max(SnapshotDate))
 
-Visualize_Score(ae$lData$dfSummary) # visualize KRI (default)
-Visualize_Score(ae$lData$dfSummary, bFlagFilter = TRUE) # drop non-flagged groups
+Visualize_Score(dfResults = reportingResults_filter)
 
-consent <- Consent_Map_Raw() \%>\% Consent_Assess()
-Visualize_Score(consent$lData$dfSummary, strType = "score") # visualize score
+## Only show Flagged Groups
+Visualize_Score(
+  dfResults = reportingResults_filter,
+  bFlagFilter = TRUE
+)
+
+## Custom Title
+Visualize_Score(
+  dfResults = reportingResults_filter,
+  strTitle = "Custom Title"
+)
 
 }

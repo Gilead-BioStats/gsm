@@ -1,154 +1,84 @@
-#' KRI Scatter Plot
-#'
-#' `r lifecycle::badge("stable")`
+#' Scatter Plot Widget
 #'
 #' @description
-#' A widget that displays a group-level scatter plot based on the output of a KRI analysis.
-#' Scatter plots are provided by default in any Assess function, and are suffixed with "JS" to indicate that they are an `htmlwidget` ported from the `rbm-viz` JavaScript library.
+#' `r lifecycle::badge("stable")`
 #'
-#' @param dfSummary data with columns:
-#' \itemize{
-#'  \item{\code{studyid}}
-#'  \item{\code{workflowid}}
-#'  \item{\code{groupid}}
-#'  \item{\code{numerator}}
-#'  \item{\code{denominator}}
-#'  \item{\code{metric}}
-#'  \item{\code{score}}
-#'  \item{\code{flag}}
-#' }
+#' A widget that generates a scatter plot of group-level metric results, plotting the denominator
+#' on the x-axis and the numerator on the y-axis.
 #'
-#' @param lLabels configuration with columns:
-#' \itemize{
-#'  \item{\code{workflow}}
-#'  \item{\code{gsm_version}}
-#'  \item{\code{group}}
-#'  \item{\code{metric}}
-#'  \item{\code{numerator}}
-#'  \item{\code{denominator}}
-#'  \item{\code{outcome}}
-#'  \item{\code{model}}
-#'  \item{\code{score}}
-#'  \item{\code{data_inputs}}
-#'  \item{\code{data_filters}}
-#' }
-#'
-#' @param dfBounds chart bounds data with columns:
-#' \itemize{
-#'  \item{\code{threshold}}
-#'  \item{\code{numerator}}
-#'  \item{\code{denominator}}
-#'  \item{\code{metric}}
-#'  \item{\code{logdenominator}}
-#' }
-#'
-#' @param selectedGroupIDs group IDs to highlight, \code{NULL} by default, can be a single site or a vector.
-#' @param addSiteSelect `logical` add a dropdown to highlight sites? Default: `TRUE`.
-#' @param width width of widget, full screen by default
-#' @param height height of widget, calculated based on width
-#' @param elementId ID of container HTML element
-#'
+#' @inheritParams shared-params
+#' @param bAddGroupSelect `logical` Add a dropdown to highlight sites? Default: `TRUE`.
+#' @param strShinyGroupSelectID `character` Element ID of group select in Shiny context. Default: `'GroupID'`.
 #'
 #' @examples
-#' ae <- AE_Map_Raw()
+#' ## Filter data to one metric and snapshot
+#' reportingResults_filter <- reportingResults %>%
+#'   dplyr::filter(MetricID == "kri0001" & SnapshotDate == max(SnapshotDate))
 #'
-#' ae_transform <- Transform_Rate(
-#'   dfInput = ae,
-#'   strGroupCol = "SiteID",
-#'   strNumeratorCol = "Count",
-#'   strDenominatorCol = "Exposure"
-#' )
+#' reportingMetrics_filter <- reportingMetrics %>%
+#'   dplyr::filter(MetricID == "kri0001") %>%
+#'   as.list()
 #'
-#' ae_analyze <- Analyze_NormalApprox(
-#'   dfTransformed = ae_transform,
-#'   strType = "rate"
-#' )
+#' reportingBounds_filter <- reportingBounds %>%
+#'   dplyr::filter(MetricID == "kri0001" & SnapshotDate == max(SnapshotDate))
 #'
-#' dfBounds <- Analyze_NormalApprox_PredictBounds(
-#'   dfTransformed = ae_transform,
-#'   vThreshold = c(-3, -2, 2, 3),
-#'   strType = "rate"
-#' )
-#'
-#' ae_flag <- Flag_NormalApprox(
-#'   ae_analyze,
-#'   vThreshold = c(-3, -2, 2, 3)
-#' )
-#'
-#' ae_summary <- Summarize(
-#'   ae_flag
-#' )
-#'
-#' lLabels <- list(
-#'   workflowid = "",
-#'   group = "Site",
-#'   abbreviation = "AE",
-#'   metric = "Adverse Event Rate",
-#'   numerator = "Adverse Events",
-#'   denominator = "Days on Study",
-#'   model = "Normal Approximation",
-#'   score = "Adjusted Z-Score"
-#' )
-#'
-#' plot <- Widget_ScatterPlot(
-#'   dfSummary = ae_summary,
-#'   lLabels = lLabels,
-#'   dfBounds = dfBounds,
-#'   elementId = "aeAssessScatter"
+#' Widget_ScatterPlot(
+#'   dfResults = reportingResults_filter,
+#'   lMetric = reportingMetrics_filter,
+#'   dfGroups = reportingGroups,
+#'   dfBounds = reportingBounds_filter
 #' )
 #'
 #' @export
+
 Widget_ScatterPlot <- function(
-  dfSummary,
-  lLabels,
-  dfBounds,
-  selectedGroupIDs = NULL,
-  addSiteSelect = TRUE,
-  width = NULL,
-  height = NULL,
-  elementId = NULL
+  dfResults,
+  lMetric = list(), # TODO: coerce list to object instead of array with jsonlite::toJSON()
+  dfGroups = NULL,
+  dfBounds = NULL,
+  bAddGroupSelect = TRUE,
+  strShinyGroupSelectID = 'GroupID',
+  bDebug = FALSE
 ) {
-  dfSummary <- dfSummary %>%
-    dplyr::rename_with(tolower)
-
-  if (!is.null(dfBounds)) {
-    dfBounds <- dfBounds %>%
-      dplyr::rename_with(tolower) %>%
-      jsonlite::toJSON()
-  }
-
-  if (!is.null(elementId)) {
-    elementId <- paste(elementId, as.numeric(Sys.time()) * 1000, sep = "-")
-  }
-
-  if (!is.null(lLabels$group)) {
-    siteSelectLabelValue <- paste0("Highlighted ", lLabels$group, ": ")
-  }
-
-  # forward options using x
-  x <- list(
-    dfSummary = jsonlite::toJSON(dfSummary, na = "string"),
-    lLabels = jsonlite::toJSON(lLabels, na = "string"),
+  # define widget inputs
+  input <- list(
+    dfResults = dfResults,
+    lMetric = lMetric,
+    dfGroups = dfGroups,
     dfBounds = dfBounds,
-    selectedGroupIDs = as.character(selectedGroupIDs),
-    addSiteSelect = addSiteSelect,
-    siteSelectLabelValue = siteSelectLabelValue
+    bAddGroupSelect = bAddGroupSelect,
+    strShinyGroupSelectID = strShinyGroupSelectID,
+    bDebug = bDebug
   )
-
 
   # create widget
-  htmlwidgets::createWidget(
+  widget <- htmlwidgets::createWidget(
     name = "Widget_ScatterPlot",
-    x,
-    width = width,
-    height = height,
-    package = "gsm",
-    elementId = elementId
+    purrr::map(
+      input,
+      ~ jsonlite::toJSON(
+        .x,
+        null = "null",
+        na = "string",
+        auto_unbox = TRUE
+      )
+    ),
+    package = "gsm"
   )
+
+  if (bDebug) {
+    viewer <- getOption("viewer")
+    options(viewer = NULL)
+    print(widget)
+    options(viewer = viewer)
+  }
+
+  return(widget)
 }
 
 #' Shiny bindings for Widget_ScatterPlot
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
 #' Output and render functions for using Widget_ScatterPlot within Shiny
