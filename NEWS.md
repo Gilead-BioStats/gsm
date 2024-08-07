@@ -1,30 +1,35 @@
 # gsm v2.0.0
 
-gsm v2 is a major refactor (and massive simplification) of the gsm framework. Many functions have been removed, and others have been simplified as described below. The overall goal of the refactor is to improve modularity, transparency and maintainability of the package.
+{gsm} v2 is a major refactor (and massive simplification) of the gsm framework. Many functions have been removed, and others have been simplified as described below. The overall goal of the refactor is to improve modularity, transparency and maintainability of the package.
 
-As indicated by the version change, the release is not intended to be fully compatible with gsm v1. However, our core analytics pipeline `input()` --> `transform()` --> `analyze()` --> `flag()` --> `summarize()` remains largely unchanged, as does the core KRI markdown report.
+As indicated by the version change, the release is not intended to be fully compatible with gsm v1. However, our core analytics pipeline `input()` --> `transform()` --> `analyze()` --> `flag()` --> `summarize()` remains largely unchanged, as does the content of the core KRI markdown report.
 
 ## Major Changes
 
 ### Updated Workflows
 
-The driving change for this release is an increased focus on YAML-based workflow functionality. The extended `workflow` framework is described in detail in the Data Analysis Deep Dive and Data Reporting Deep Dive vignettes. As a result of this update, many other aspects of KRI configuration have been removed, including ...
+The driving change for this release is an increased focus on YAML-based workflow functionality. The extended `workflow` framework is described in detail in the Data Analysis Deep Dive and Data Reporting Deep Dive vignettes. As a result of this update, many other aspects of KRI configuration have been removed, including:
 
-- KRI-specific assess functions have been removed. Instead, the downstream functions are called directly in workflows.
+- **KRI-specific assess functions have been removed**. Instead, the downstream functions are called directly in workflows.
 KRI-specific map functions have been removed. If mapping is needed, new `RunQuery` and `Input_Rate` function can be called directly in workflows.
-Stand-alone mapping objects have been removed, along with associated checks (e.g. `is_mapping_valid`). Instead, columns should be specified directly in workflows.
-- Stand-along spec objects have been removed, along with associated checks. Simple data requirements can (optionally) be specified in workflows using the .
-- Logging functionality and the `bQuiet` parameter have been removed.
-- The `MakeSnapshot()` function has been removed and replaced by a customizable `snapshot.yaml` workflow.
+- **Stand-alone mapping objects have been removed**, along with associated checks (e.g. `is_mapping_valid`). Instead, columns should be specified directly in workflows.
+- **Stand-alone spec objects have been removed**, along with associated checks.
+- **Logging functionality has been refactored.** Logging in `RunWorkflows()` has been improved, and other logging functionality has been simplified. The `bQuiet` parameter has been removed throughout the package. 
 
 ### Data Model Changes
-- A New Approach to Mapping - `Input_Rate()` provides a generalized approach to mapping from raw data to `dfInput`, the standardized participant-level data set used to generate each KRI. This has several benefits:
-  - Better drill-down with `dfNumerator`
+
+As part of the v2 refactor, we have simplified and standardized the {gsm} data model whenever possible. These updates are described in detail in our updated vignettes. Updates include: 
+
+- **A`Reporting` data model has been added** - A standardized "Reporting" data model has been added. These data sets serve as the foundation for all standard charts and reports and largely replace the "Snapshot objects" from v1. The `MakeSnapshot()` function has been removed.
+- **Mapping has been refactored** - `Input_Rate()` provides a generalized approach to mapping from raw data to `dfInput`, the standardized participant-level data set used to generate each KRI. This has several benefits:
+  - Better drill-down with `dfNumerator` 
   - Standard columns in `dfInput` across all domains
-  - Fully standardized pipeline - With the update to the mapping process, the data model for generating metrics is now fully standardized as shown in the [Data Model Vignette](https://gilead-biostats.github.io/gsm/articles/DataModel.html). Note that extra columns are permitted in `dfAnalyzed`, but not in other domains.
-- New `dfGroups` data frame, which combines site, study and country level metadata from CTMS site and study raw data in an extensible, long format.
+  - **Fully standardized Analysis data model** - With the update to the mapping process, the analysis data model for generating metrics is now fully standardized as shown in the [Data Model Vignette](https://gilead-biostats.github.io/gsm/articles/DataModel.html). Note that extra columns are permitted in `dfAnalyzed`, but not in other domains.
 
 ### Reporting Changes
+
+We've refactored and standardized all charting and reporting functions using the new Reporting data model. We expect lots of new functionality in this area in upcoming release. Reporting update in v2 include: 
+
 - `Study_Report()` has been replaced by `Report_KRI()` and re-parameterized and modularized to provide more transparency on data requirements.
 - New version of rbm-viz provides:
   - Country selector dropdown to select all observations from a given country
