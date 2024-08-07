@@ -16,7 +16,6 @@ An object of class \code{gt_tbl}.
 }
 \description{
 @description
-\verb{r lifecycle::badge("stable")}
 }
 \details{
 This is a wrapper to ensure that the user has gt installed and to apply

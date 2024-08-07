@@ -15,8 +15,6 @@ cols_label_month(data, columns = gt::everything())
 An object of class \code{gt_tbl}.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-
 Split date columns in the style "YYYY-MM" or "YYYY-MM-DD" into month columns
 with year spanners.
 }

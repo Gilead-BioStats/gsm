@@ -1,7 +1,6 @@
 #' Shared gt arguments
 #'
 #' #' @description
-#' `r lifecycle::badge("stable")`
 #'
 #' Reusable definitions of common gt arguments.
 #'
@@ -16,7 +15,6 @@ NULL
 #' Create a gt table object with gsm style
 #'
 #'  @description
-#' `r lifecycle::badge("stable")`
 #'
 #' This is a wrapper to ensure that the user has gt installed and to apply
 #' standardized styles.
@@ -33,7 +31,6 @@ gsm_gt <- function(data, ...) {
 #' Shared formats for gt tables
 #'
 #' @description
-#' `r lifecycle::badge("stable")`
 #'
 #' Apply standardized formatting to gt tables.
 #'
@@ -48,7 +45,6 @@ gt_style <- function(data) {
 #' Month and year columns for gt tables
 #'
 #' @description
-#' `r lifecycle::badge("stable")`
 #'
 #' Split date columns in the style "YYYY-MM" or "YYYY-MM-DD" into month columns
 #' with year spanners.
