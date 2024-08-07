@@ -25,17 +25,22 @@ function overallClick() {
 
     // Set all group selects to the selected group ID, if the group ID appears in the list of options.
     if (event.target.value !== 'None') {
-      document.querySelectorAll(".gsm-widget-control--group").forEach((el) => {
-          el.value = [...el.options].map(option => option.text).includes(event.target.value)
-              ? event.target.value
-              : 'None';
-      });
+        document.querySelectorAll(".gsm-widget-control--group").forEach((el) => {
+            el.value = [...el.options].map(option => option.text).includes(event.target.value)
+                ? event.target.value
+                : 'None';
+        });
+
+        // Reset all country selects to 'None'.
+        document.querySelectorAll(".gsm-widget-control--country").forEach((el) => {
+            el.value = 'None';
+        });
     }
     // Reset all group and country selects to 'None'.
     else {
-      document.querySelectorAll(".gsm-widget-control--select").forEach((el) => {
-          el.value = 'None';
-      });
+        document.querySelectorAll(".gsm-widget-control--select").forEach((el) => {
+            el.value = 'None';
+        });
     }
   }
 }
