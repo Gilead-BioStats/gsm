@@ -1,8 +1,8 @@
 #' Run a single step in a workflow.
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' @description
 #' Runs a single step of an assessment workflow. This function is called by `RunWorkflow` for each
 #' step in the workflow. It prepares the parameters for the function call, including the metadata,
 #' mapping, and data inputs. It then calls the function specified in `lStep$name` with the prepared

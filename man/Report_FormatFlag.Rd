@@ -15,8 +15,7 @@ Report_FormatFlag(flag_value, title = NULL)
 A character vector of fontawesome icon SVGs.
 }
 \description{
-Reporting utility function to create fontawesome directionality logos`
-}
-\details{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
+Reporting utility function to create fontawesome directionality logos`
 }

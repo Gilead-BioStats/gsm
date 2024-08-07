@@ -36,11 +36,10 @@ Widget_GroupOverview(
 \item{bDebug}{\code{logical} Print debug messages? Default: \code{FALSE}.}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 A widget that generates a group overview table of group-level metric results across one or more
 metrics.
-}
-\details{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 # site-level report

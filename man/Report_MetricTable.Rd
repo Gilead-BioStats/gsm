@@ -28,8 +28,7 @@ A datatable containing the summary table
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-}
-\details{
+
 This function generates a summary table for a report by joining the provided
 results data frame with the site-level metadata from dfGroups. It then filters and arranges the
 data based on certain conditions and displays the result in a datatable.

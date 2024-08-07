@@ -20,8 +20,7 @@ Estimate, and Score.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-}
-\details{
+
 Analyzes count data using the Fisher's exact test.
 
 More information can be found in \href{https://gilead-biostats.github.io/gsm/articles/KRI\%20Method.html#the-fishers-exact-method}{The Fisher's Exact Method Section}

@@ -1,8 +1,8 @@
 #' Flag_NormalApprox
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' @description
 #' Add columns flagging sites that represent possible statistical outliers.
 #'
 #' @details

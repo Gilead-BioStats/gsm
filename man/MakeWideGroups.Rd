@@ -17,8 +17,7 @@ A long format data frame.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-}
-\details{
+
 Used to convert metadata dictionary (dfGroups) to a wide format data frame for
 use in charts and reports.
 }

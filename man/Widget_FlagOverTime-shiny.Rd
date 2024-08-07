@@ -29,8 +29,7 @@ string and have \code{'px'} appended.}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-}
-\details{
+
 Output and render functions for using Widget_FlagOverTime within
 Shiny applications and interactive Rmd documents.
 }

@@ -1,5 +1,6 @@
 #' Create message describing study summary for Report
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
 #' @inheritParams shared-params

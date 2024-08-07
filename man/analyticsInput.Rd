@@ -21,6 +21,6 @@ Generated from \code{analyticsInput.csv} dataset in the \code{gsm} package.
 analyticsInput
 }
 \description{
-analyticsInput Dataset
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \keyword{datasets}

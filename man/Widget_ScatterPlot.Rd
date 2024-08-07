@@ -30,11 +30,10 @@ Widget_ScatterPlot(
 \item{bDebug}{\code{logical} Print debug messages? Default: \code{FALSE}.}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 A widget that generates a scatter plot of group-level metric results, plotting the denominator
 on the x-axis and the numerator on the y-axis.
-}
-\details{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 ## Filter data to one metric and snapshot

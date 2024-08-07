@@ -1,5 +1,7 @@
 #' Shared gt arguments
 #'
+#' #' @description
+#'
 #' Reusable definitions of common gt arguments.
 #'
 #' @param data A `gt_tbl` object.
@@ -11,6 +13,8 @@
 NULL
 
 #' Create a gt table object with gsm style
+#'
+#'  @description
 #'
 #' This is a wrapper to ensure that the user has gt installed and to apply
 #' standardized styles.
@@ -26,6 +30,8 @@ gsm_gt <- function(data, ...) {
 
 #' Shared formats for gt tables
 #'
+#' @description
+#'
 #' Apply standardized formatting to gt tables.
 #'
 #' @inheritParams gt-shared
@@ -37,6 +43,8 @@ gt_style <- function(data) {
 }
 
 #' Month and year columns for gt tables
+#'
+#' @description
 #'
 #' Split date columns in the style "YYYY-MM" or "YYYY-MM-DD" into month columns
 #' with year spanners.

@@ -32,8 +32,7 @@ range of observed values.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-}
-\details{
+
 Applies a funnel plot analysis with normal approximation to site-level data, and then calculates predicted
 percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values.
 }

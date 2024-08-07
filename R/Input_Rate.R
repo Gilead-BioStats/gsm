@@ -1,8 +1,9 @@
 #' Input_Rate
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' @description Calculate a subject level rate from numerator and denominator data
+#' Calculate a subject level rate from numerator and denominator data
 #'
 #' This function takes in a list of data frames including dfSUBJ, dfNumerator, and dfDenominator,
 #' and calculates a subject level rate based on the specified numerator and denominator methods (either
@@ -120,7 +121,7 @@ Input_Rate <- function(
     ) %>%
     mutate(
       "GroupLevel" = strGroupLevel
-    ) 
+    )
 
   # Calculate Numerator
   dfNumerator <- dfNumerator %>%

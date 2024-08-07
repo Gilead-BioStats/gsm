@@ -16,11 +16,11 @@ Simplified finding data.frame with columns for GroupID, GroupType, Metric, Score
 when associated with a workflow.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 Create a concise summary of assessment results that is easy to aggregate across assessments
 }
 \details{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-
 \code{Summarize} supports the input data (\code{dfFlagged}) from the \code{Flag} function.
 }
 \section{Data Specification}{

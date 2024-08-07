@@ -1,5 +1,6 @@
 #' Convenience function to easily run multiple workflows
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
 #' This function takes a list of workflows and a list of data as input. If there

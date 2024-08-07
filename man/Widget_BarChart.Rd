@@ -33,11 +33,10 @@ Widget_BarChart(
 \item{bDebug}{\code{logical} Print debug messages? Default: \code{FALSE}.}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 A widget that generates a bar chart of group-level metric results, plotting groups on the x-axis
 and the outcome (numerator, denominator, metric, or score) on the y-axis.
-}
-\details{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 ## Filter data to one metric and snapshot
