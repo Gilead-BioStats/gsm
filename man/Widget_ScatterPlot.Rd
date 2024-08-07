@@ -10,6 +10,7 @@ Widget_ScatterPlot(
   dfGroups = NULL,
   dfBounds = NULL,
   bAddGroupSelect = TRUE,
+  strShinyGroupSelectID = "GroupID",
   bDebug = FALSE
 )
 }
@@ -23,6 +24,8 @@ Widget_ScatterPlot(
 \item{dfBounds}{\code{data.frame} Set of predicted percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values for reporting. Created by passing \code{dfResults} and \code{dfMetrics} to \code{\link[=MakeBounds]{MakeBounds()}}. Expected columns: \code{Threshold}, \code{Denominator}, \code{Numerator}, \code{Metric}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
 
 \item{bAddGroupSelect}{\code{logical} Add a dropdown to highlight sites? Default: \code{TRUE}.}
+
+\item{strShinyGroupSelectID}{\code{character} Element ID of group select in Shiny context. Default: \code{'GroupID'}.}
 
 \item{bDebug}{\code{logical} Print debug messages? Default: \code{FALSE}.}
 }

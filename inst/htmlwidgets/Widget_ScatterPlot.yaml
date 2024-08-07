@@ -3,6 +3,10 @@ dependencies:
     version: 1.2.0
     src: 'rbm-viz-1.2.0'
     script: 'rbm-viz.js'
+  - name: clickCallback
+    version: 0.0.1
+    src: 'utils-0.0.1'
+    script: 'clickCallback.js'
   - name: addWidgetControls
     version: 0.0.1
     src: 'utils-0.0.1'

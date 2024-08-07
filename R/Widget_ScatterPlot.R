@@ -8,6 +8,7 @@
 #'
 #' @inheritParams shared-params
 #' @param bAddGroupSelect `logical` Add a dropdown to highlight sites? Default: `TRUE`.
+#' @param strShinyGroupSelectID `character` Element ID of group select in Shiny context. Default: `'GroupID'`.
 #'
 #' @examples
 #' ## Filter data to one metric and snapshot
@@ -36,6 +37,7 @@ Widget_ScatterPlot <- function(
   dfGroups = NULL,
   dfBounds = NULL,
   bAddGroupSelect = TRUE,
+  strShinyGroupSelectID = 'GroupID',
   bDebug = FALSE
 ) {
   # define widget inputs
@@ -45,6 +47,7 @@ Widget_ScatterPlot <- function(
     dfGroups = dfGroups,
     dfBounds = dfBounds,
     bAddGroupSelect = bAddGroupSelect,
+    strShinyGroupSelectID = strShinyGroupSelectID,
     bDebug = bDebug
   )
 

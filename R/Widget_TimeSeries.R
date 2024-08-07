@@ -10,22 +10,22 @@
 #' @param vThreshold `numeric` Threshold value(s).
 #' @param strOutcome `character` Outcome variable. Default: 'Score'.
 #' @param bAddGroupSelect `logical` Add a dropdown to highlight sites? Default: `TRUE`.
+#' @param strShinyGroupSelectID `character` Element ID of group select in Shiny context. Default: `'GroupID'`.
 #'
 #' @examples
 #' ## Filter data to one metric
 #' reportingResults_filter <- reportingResults %>%
 #'   dplyr::filter(MetricID == "kri0001")
-#'
+#' 
 #' reportingMetrics_filter <- reportingMetrics %>%
 #'   dplyr::filter(MetricID == "kri0001") %>%
 #'   as.list()
-#'
-#'
+#' 
 #' Widget_TimeSeries(
 #'   dfResults = reportingResults_filter,
 #'   lMetric = reportingMetrics_filter,
 #'   dfGroups = reportingGroups,
-#'   vThreshold = c(-3, -2, 2, 3)
+#'   vThreshold = reportingMetrics_filter$Threshold
 #' )
 #'
 #' @export
@@ -37,6 +37,7 @@ Widget_TimeSeries <- function(
   vThreshold = NULL,
   strOutcome = "Score",
   bAddGroupSelect = TRUE,
+  strShinyGroupSelectID = 'GroupID',
   bDebug = FALSE
 ) {
   # Parse `vThreshold` from comma-delimited character string to numeric vector.
@@ -59,6 +60,7 @@ Widget_TimeSeries <- function(
     vThreshold = vThreshold,
     strOutcome = strOutcome,
     bAddGroupSelect = bAddGroupSelect,
+    strShinyGroupSelectID = strShinyGroupSelectID,
     bDebug = bDebug
   )
 

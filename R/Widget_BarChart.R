@@ -10,6 +10,7 @@
 #' @param vThreshold `numeric` Threshold values.
 #' @param strOutcome `character` Outcome variable. Default: 'Score'.
 #' @param bAddGroupSelect `logical` Add a dropdown to highlight sites? Default: `TRUE`.
+#' @param strShinyGroupSelectID `character` Element ID of group select in Shiny context. Default: `'GroupID'`.
 #'
 #' @examples
 #' ## Filter data to one metric and snapshot
@@ -23,8 +24,9 @@
 #' ## Make chart
 #' Widget_BarChart(
 #'   dfResults = reportingResults_filter,
+#'   dfGroups = reportingGroups,
 #'   lMetric = reportingMetrics_filter,
-#'   vThreshold = reportingMetrics$Threshold
+#'   vThreshold = reportingMetrics_filter$Threshold
 #' )
 #'
 #' @export
@@ -36,6 +38,7 @@ Widget_BarChart <- function(
   vThreshold = NULL,
   strOutcome = "Score",
   bAddGroupSelect = TRUE,
+  strShinyGroupSelectID = 'GroupID',
   bDebug = FALSE
 ) {
   # Parse `vThreshold` from comma-delimited character string to numeric vector.
@@ -58,6 +61,7 @@ Widget_BarChart <- function(
     vThreshold = vThreshold,
     strOutcome = strOutcome,
     bAddGroupSelect = bAddGroupSelect,
+    strShinyGroupSelectID = strShinyGroupSelectID,
     bDebug = bDebug
   )
 
