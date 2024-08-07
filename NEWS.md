@@ -13,7 +13,7 @@ The driving change for this release is an increased focus on YAML-based workflow
 - **KRI-specific assess functions have been removed**. Instead, the downstream functions are called directly in workflows.
 KRI-specific map functions have been removed. If mapping is needed, new `RunQuery` and `Input_Rate` function can be called directly in workflows.
 - **Stand-alone mapping objects have been removed**, along with associated checks (e.g. `is_mapping_valid`). Instead, columns should be specified directly in workflows.
-- **Stand-along spec objects have been removed**, along with associated checks. Simple data requirements can (optionally) be specified in workflows using the .
+- **Stand-alone spec objects have been removed**, along with associated checks.
 - **Logging functionality has been refactored.** Logging in `RunWorkflows()` has been improved, and other logging functionality has been simplified. The `bQuiet` parameter has been removed throughout the package. 
 
 ### Data Model Changes
