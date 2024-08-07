@@ -1,477 +1,83 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>/articles/ContributorGuidelines.html</loc>
-  </url>
-  <url>
-    <loc>/articles/Cookbook.html</loc>
-  </url>
-  <url>
-    <loc>/articles/DataAnalysis.html</loc>
-  </url>
-  <url>
-    <loc>/articles/DataPipeline.html</loc>
-  </url>
-  <url>
-    <loc>/articles/KRI Method.html</loc>
-  </url>
-  <url>
-    <loc>/articles/Qualification.html</loc>
-  </url>
-  <url>
-    <loc>/articles/QualificationWorkflow.html</loc>
-  </url>
-  <url>
-    <loc>/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>/articles/v1_9_0-data-model-update-reference.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/pull_request_template.html</loc>
-  </url>
-  <url>
-    <loc>/reference/AE_Assess.html</loc>
-  </url>
-  <url>
-    <loc>/reference/AE_Map_Adam.html</loc>
-  </url>
-  <url>
-    <loc>/reference/AE_Map_Raw.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Analyze_Fisher.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Analyze_Identity.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Analyze_NormalApprox.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Analyze_NormalApprox_PredictBounds.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Analyze_Poisson.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Analyze_Poisson_PredictBounds.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Analyze_QTL.html</loc>
-  </url>
-  <url>
-    <loc>/reference/AppendDroppedWorkflows.html</loc>
-  </url>
-  <url>
-    <loc>/reference/AppendLogs.html</loc>
-  </url>
-  <url>
-    <loc>/reference/AssessStatus.html</loc>
-  </url>
-  <url>
-    <loc>/reference/CheckClindataMeta.html</loc>
-  </url>
-  <url>
-    <loc>/reference/CheckInputs.html</loc>
-  </url>
-  <url>
-    <loc>/reference/CheckSnapshotInputs.html</loc>
-  </url>
-  <url>
-    <loc>/reference/CompileResultsSummary.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Consent_Assess.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Consent_Map_Raw.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ConsolidateStrata.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Country_Map_Raw.html</loc>
-  </url>
-  <url>
-    <loc>/reference/DataChg_Assess.html</loc>
-  </url>
-  <url>
-    <loc>/reference/DataChg_Map_Raw.html</loc>
-  </url>
-  <url>
-    <loc>/reference/DataEntry_Assess.html</loc>
-  </url>
-  <url>
-    <loc>/reference/DataEntry_Map_Raw.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Disp_Assess.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Disp_Map_Raw.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ExportCode.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ExtractDirectoryPaths.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ExtractFlags.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ExtractSnapshotDate.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ExtractStudyAge.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FilterData.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FilterDomain.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Flag.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Flag_Fisher.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Flag_NormalApprox.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Flag_Poisson.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Flag_QTL.html</loc>
-  </url>
-  <url>
-    <loc>/reference/GetClass.html</loc>
-  </url>
-  <url>
-    <loc>/reference/GetSnapshotDate.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Get_Enrolled.html</loc>
-  </url>
-  <url>
-    <loc>/reference/IE_Assess.html</loc>
-  </url>
-  <url>
-    <loc>/reference/IE_Map_Raw.html</loc>
-  </url>
-  <url>
-    <loc>/reference/LB_Assess.html</loc>
-  </url>
-  <url>
-    <loc>/reference/LB_Map_Raw.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Log.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MakeAnalysisDate.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MakeErrorLog.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MakeKRICharts.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MakeKRIGlossary.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MakeOverviewMessage.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MakeQTLCharts.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MakeReportSetup.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MakeResultsAnalysis.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MakeResultsBounds.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MakeResultsSummary.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MakeResultsTable.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MakeRptKriBoundsDetails.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MakeRptKriDetails.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MakeRptQtlAnalysis.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MakeRptQtlDetails.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MakeRptSiteDetails.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MakeRptSiteKriDetails.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MakeRptStudyDetails.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MakeRptStudySnapshot.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MakeRptThresholdParam.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MakeStatusWorkflow.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MakeStratifiedAssessment.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MakeStudyStatusTable.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MakeSummaryTable.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MakeWorkflowHistory.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MakeWorkflowList.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Make_Snapshot.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Make_Timeline.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Match_Class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MergeSubjects.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Overview_Table.html</loc>
-  </url>
-  <url>
-    <loc>/reference/PD_Assess_Binary.html</loc>
-  </url>
-  <url>
-    <loc>/reference/PD_Assess_Rate.html</loc>
-  </url>
-  <url>
-    <loc>/reference/PD_Map_Raw_Binary.html</loc>
-  </url>
-  <url>
-    <loc>/reference/PD_Map_Raw_Rate.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ParseWarnings.html</loc>
-  </url>
-  <url>
-    <loc>/reference/QueryAge_Assess.html</loc>
-  </url>
-  <url>
-    <loc>/reference/QueryAge_Map_Raw.html</loc>
-  </url>
-  <url>
-    <loc>/reference/QueryRate_Assess.html</loc>
-  </url>
-  <url>
-    <loc>/reference/QueryRate_Map_Raw.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Read_Mapping.html</loc>
-  </url>
-  <url>
-    <loc>/reference/RemapLog.html</loc>
-  </url>
-  <url>
-    <loc>/reference/RevertSnapshotLogs.html</loc>
-  </url>
-  <url>
-    <loc>/reference/RunQTL.html</loc>
-  </url>
-  <url>
-    <loc>/reference/RunStep.html</loc>
-  </url>
-  <url>
-    <loc>/reference/RunStratifiedWorkflow.html</loc>
-  </url>
-  <url>
-    <loc>/reference/RunWorkflow.html</loc>
-  </url>
-  <url>
-    <loc>/reference/SaveQTL.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Save_Snapshot.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Screening_Assess.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Screening_Map_Raw.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Site_Map_Raw.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Study_Assess.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Study_AssessmentReport.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Study_Map_Raw.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Study_Report.html</loc>
-  </url>
-  <url>
-    <loc>/reference/SubsetStackedSnapshots.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Summarize.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Transform_Count.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Transform_Rate.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Unlog.html</loc>
-  </url>
-  <url>
-    <loc>/reference/UpdateGSMVersion.html</loc>
-  </url>
-  <url>
-    <loc>/reference/UpdateLabels.html</loc>
-  </url>
-  <url>
-    <loc>/reference/UpdateParams.html</loc>
-  </url>
-  <url>
-    <loc>/reference/UpdateSnapshotLogs.html</loc>
-  </url>
-  <url>
-    <loc>/reference/UseClindata.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Visualize_Scatter.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Visualize_Score.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Widget_BarChart-shiny.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Widget_BarChart.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Widget_ScatterPlot-shiny.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Widget_ScatterPlot.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Widget_TimeSeries-shiny.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Widget_TimeSeries.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Widget_TimeSeriesQTL.html</loc>
-  </url>
-  <url>
-    <loc>/reference/add_table_theme.html</loc>
-  </url>
-  <url>
-    <loc>/reference/config_param.html</loc>
-  </url>
-  <url>
-    <loc>/reference/config_workflow.html</loc>
-  </url>
-  <url>
-    <loc>/reference/generate_md_table.html</loc>
-  </url>
-  <url>
-    <loc>/reference/gsm-package.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/input_data_schema.html</loc>
-  </url>
-  <url>
-    <loc>/reference/is_mapping_valid.html</loc>
-  </url>
-  <url>
-    <loc>/reference/is_workflow_valid.html</loc>
-  </url>
-  <url>
-    <loc>/reference/kri_directionality_logo.html</loc>
-  </url>
-  <url>
-    <loc>/reference/meta_param.html</loc>
-  </url>
-  <url>
-    <loc>/reference/meta_workflow.html</loc>
-  </url>
-  <url>
-    <loc>/reference/parse_data_mapping.html</loc>
-  </url>
-  <url>
-    <loc>/reference/parse_data_spec.html</loc>
-  </url>
-  <url>
-    <loc>/reference/pipe.html</loc>
-  </url>
-  <url>
-    <loc>/reference/qtl_analysis.html</loc>
-  </url>
-  <url>
-    <loc>/reference/qtl_summary.html</loc>
-  </url>
-  <url>
-    <loc>/reference/rank_chg.html</loc>
-  </url>
-  <url>
-    <loc>/reference/rbm_data_spec.html</loc>
-  </url>
-  <url>
-    <loc>/reference/tidyeval.html</loc>
-  </url>
-  <url>
-    <loc>/reference/timeSeriesQTL-shiny.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://gilead-biostats.github.io/gsm/404.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/LICENSE.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/StandardReportCountry.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/StandardReportSite.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/articles/ContributorGuidelines.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/articles/Cookbook.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/articles/DataAnalysis.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/articles/DataModel.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/articles/DataReporting.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/articles/KRI Method.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/articles/Qualification.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/articles/QualificationWorkflow.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/articles/index.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/authors.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/index.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/news/index.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Analyze_Fisher.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Analyze_Identity.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Analyze_NormalApprox.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Analyze_NormalApprox_PredictBounds.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Analyze_Poisson.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Analyze_Poisson_PredictBounds.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/BindResults.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Flag.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Flag_Fisher.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Flag_NormalApprox.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Flag_Poisson.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Input_Rate.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/MakeBounds.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/MakeCharts.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/MakeLongMeta.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/MakeMetric.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/MakeWideGroups.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/MakeWorkflowList.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Make_Timeline.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/ParseThreshold.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Report_FlagOverTime.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Report_FormatFlag.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Report_KRI.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Report_MetricCharts.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Report_MetricTable.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Report_OverviewText.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Report_Setup.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Report_StudyInfo.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/RunQuery.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/RunStep.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/RunWorkflow.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/RunWorkflows.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Summarize.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Transform_Count.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Transform_Rate.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/UseClindata.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Visualize_Metric.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Visualize_Scatter.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Visualize_Score.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Widget_BarChart-shiny.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Widget_BarChart.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Widget_FlagOverTime-shiny.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Widget_FlagOverTime.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Widget_GroupOverview-shiny.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Widget_GroupOverview.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Widget_ScatterPlot-shiny.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Widget_ScatterPlot.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Widget_TimeSeries-shiny.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Widget_TimeSeries.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/analyticsInput.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/analyticsSummary.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/cols_label_month.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/gsm-package.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/gsm_gt.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/gt-shared.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/gt_style.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/index.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/pipe.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/reportingBounds.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/reportingGroups.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/reportingMetrics.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/reportingResults.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/shared-params.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/tidyeval.html</loc></url>
 </urlset>
+

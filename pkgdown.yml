@@ -1,14 +1,16 @@
-pandoc: 2.19.2
-pkgdown: 2.0.7
+pandoc: 3.1.11
+pkgdown: 2.1.0
 pkgdown_sha: ~
 articles:
+  articles/ContributorGuidelines: ContributorGuidelines.html
   Cookbook: Cookbook.html
   DataAnalysis: DataAnalysis.html
-  DataPipeline: DataPipeline.html
-  ContributorGuidelines: ContributorGuidelines.html
-  KRI Method: KRI Method.html
-  Qualification: Qualification.html
-  QualificationWorkflow: QualificationWorkflow.html
-  v1_9_0-data-model-update-reference: v1_9_0-data-model-update-reference.html
-last_built: 2024-02-13T22:10Z
-
+  DataModel: DataModel.html
+  DataReporting: DataReporting.html
+  articles/KRI Method: KRI Method.html
+  articles/Qualification: Qualification.html
+  articles/QualificationWorkflow: QualificationWorkflow.html
+last_built: 2024-08-07T18:08Z
+urls:
+  reference: https://gilead-biostats.github.io/gsm/reference
+  article: https://gilead-biostats.github.io/gsm/articles
