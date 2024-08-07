@@ -9,6 +9,21 @@ navbar:
     left: [articles, Reports, reference, news]
     right: [search, github]
   components:
+    articles:
+    - title: "Data Model"
+      navbar: ~
+      contents:
+        - DataModel
+        - Cookbook
+        - DataAnalysis
+        - DataReporting
+        - KRI Methods
+    - title: "Quality"
+      navbar: ~
+      contents:
+        - QualificationWorkflow
+        - Qualification
+        - ContributorGuidelines
     Reports:
       text: Sample Reports
       menu:
