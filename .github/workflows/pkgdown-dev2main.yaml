@@ -1,6 +1,6 @@
 on:
   pull_request:
-    branches: [dev, main]
+    branches: [main]
   workflow_dispatch:
 
 name: pkgdown-dev2main
