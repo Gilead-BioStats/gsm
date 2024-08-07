@@ -1,5 +1,6 @@
 #' Report_KRI function
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
 #' This function generates a KRI report based on the provided inputs.

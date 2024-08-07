@@ -1,5 +1,6 @@
 #' Group-level visualization of scores.
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
 #' @inheritParams shared-params

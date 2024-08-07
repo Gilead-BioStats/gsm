@@ -1,5 +1,6 @@
 #' Visualize_Metric Function
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
 #' The function creates all available charts for a metric using the data provided

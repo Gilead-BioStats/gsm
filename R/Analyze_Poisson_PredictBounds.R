@@ -1,8 +1,7 @@
 #' Poisson Analysis - Predicted Boundaries.
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
-#'
-#' @details
 #'
 #' Fits a Poisson model to site-level data and then calculates predicted count values and upper- and
 #' lower- bounds for across the full range of exposure values.

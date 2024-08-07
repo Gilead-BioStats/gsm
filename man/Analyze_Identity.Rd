@@ -17,8 +17,7 @@ For this function, \code{dfTransformed} should typically be created using \code{
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-}
-\details{
+
 Used in the data pipeline between \code{Transform} and \code{Flag} to rename KRI and Score columns.
 
 More information can be found in \href{https://gilead-biostats.github.io/gsm/articles/KRI\%20Method.html#the-identity-method}{The Identity Method}

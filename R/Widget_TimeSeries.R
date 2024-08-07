@@ -1,8 +1,8 @@
 #' Time Series Widget
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' @description
 #' A widget that generates a time series of group-level metric results over time, plotting snapshot
 #' date on the x-axis and the outcome (numerator, denominator, metric, or score) on the y-axis.
 #'
@@ -16,11 +16,11 @@
 #' ## Filter data to one metric
 #' reportingResults_filter <- reportingResults %>%
 #'   dplyr::filter(MetricID == "kri0001")
-#' 
+#'
 #' reportingMetrics_filter <- reportingMetrics %>%
 #'   dplyr::filter(MetricID == "kri0001") %>%
 #'   as.list()
-#' 
+#'
 #' Widget_TimeSeries(
 #'   dfResults = reportingResults_filter,
 #'   lMetric = reportingMetrics_filter,
@@ -91,6 +91,7 @@ Widget_TimeSeries <- function(
 
 #' Shiny bindings for Widget_TimeSeries
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
 #' Output and render functions for using Widget_TimeSeries within Shiny

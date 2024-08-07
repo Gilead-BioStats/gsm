@@ -1,5 +1,6 @@
 #' Helper function to compile "wide" group metadata
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
 #' Used to convert metadata dictionary (dfGroups) to a wide format data frame for

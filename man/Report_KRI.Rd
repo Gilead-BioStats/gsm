@@ -28,8 +28,7 @@ None
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-}
-\details{
+
 This function generates a KRI report based on the provided inputs.
 }
 \examples{

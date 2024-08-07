@@ -1,8 +1,8 @@
 #' KRI Directionality Logo.
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' @description
 #' Reporting utility function to create fontawesome directionality logos`
 #'
 #' @param flag_value `numeric` Values between -2 and 2.

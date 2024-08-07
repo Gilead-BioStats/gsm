@@ -1,8 +1,8 @@
 #' Transform Count
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' @description
 #' Convert from input data format to needed input format to derive KRI for an Assessment. Calculate site-level count.
 #'
 #' @details

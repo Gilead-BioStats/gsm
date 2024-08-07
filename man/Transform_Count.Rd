@@ -17,11 +17,11 @@ Transform_Count(dfInput, strCountCol, strGroupCol = "GroupID")
 \code{data.frame} with one row per site with columns \code{GroupID}, \code{TotalCount}, and \code{Metric.}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 Convert from input data format to needed input format to derive KRI for an Assessment. Calculate site-level count.
 }
 \details{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-
 This function transforms data to prepare it for the analysis step. It is currently only sourced for the Consent and IE Assessments.
 }
 \section{Data Specification}{

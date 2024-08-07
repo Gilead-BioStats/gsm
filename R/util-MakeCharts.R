@@ -1,5 +1,6 @@
 #' Helper function to create charts for multiple metrics
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
 #' @inheritParams shared-params

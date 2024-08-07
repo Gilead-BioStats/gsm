@@ -1,5 +1,6 @@
 #' Group-level visualization of group-level results
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
 #' @inheritParams shared-params

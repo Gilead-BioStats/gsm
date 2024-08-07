@@ -1,8 +1,8 @@
 #' Bar Chart Widget
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' @description
 #' A widget that generates a bar chart of group-level metric results, plotting groups on the x-axis
 #' and the outcome (numerator, denominator, metric, or score) on the y-axis.
 #'
@@ -92,6 +92,7 @@ Widget_BarChart <- function(
 
 #' Shiny bindings for Widget_BarChart
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
 #' Output and render functions for using Widget_BarChart within Shiny

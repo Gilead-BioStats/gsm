@@ -1,8 +1,8 @@
 #' Scatter Plot Widget
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' @description
 #' A widget that generates a scatter plot of group-level metric results, plotting the denominator
 #' on the x-axis and the numerator on the y-axis.
 #'
@@ -78,6 +78,7 @@ Widget_ScatterPlot <- function(
 
 #' Shiny bindings for Widget_ScatterPlot
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
 #' Output and render functions for using Widget_ScatterPlot within Shiny

@@ -21,8 +21,7 @@ For this function, \code{dfTransformed} should typically be created using \code{
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-}
-\details{
+
 Creates analysis results data for percentage/rate data using funnel plot method with normal approximation.
 
 More information can be found in \href{https://gilead-biostats.github.io/gsm/articles/KRI\%20Method.html#the-normal-approximation-method}{The Normal Approximation Method}

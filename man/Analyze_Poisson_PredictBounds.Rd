@@ -25,8 +25,7 @@ range of observed values.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-}
-\details{
+
 Fits a Poisson model to site-level data and then calculates predicted count values and upper- and
 lower- bounds for across the full range of exposure values.
 }

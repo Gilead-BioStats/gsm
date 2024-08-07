@@ -1,5 +1,6 @@
 #' Generate a summary table for a report
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
 #' This function generates a summary table for a report by joining the provided
