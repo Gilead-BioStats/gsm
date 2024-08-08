@@ -68,15 +68,14 @@ Report_KRI <- function(
     strOutpath <- file.path(strOutputDir, strOutputFile)
   }
 
-  #specify report path, depending on write access to strOutputDir
+  # specify report path, depending on write access to strOutputDir
   if (file.access(strOutputDir, mode = 2)) {
     tpath <- fs::path_temp()
     report_path <- file.path(tpath, "Report_KRI.Rmd")
     fs::file_copy(system.file("report", "Report_KRI.Rmd", package = "gsm"), report_path)
     # currently report_kri also needs a styles.css dep
     fs::file_copy(system.file("report", "styles.css", package = "gsm"), file.path(tpath, "styles.css"))
-  }
-  else {
+  } else {
     report_path <- system.file("report", "Report_KRI.Rmd", package = "gsm")
   }
 
