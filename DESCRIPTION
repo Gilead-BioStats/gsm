@@ -33,6 +33,7 @@ Imports:
     cli,
     DBI,
     dplyr,
+    fs,
     ggplot2,
     glue,
     htmltools,
