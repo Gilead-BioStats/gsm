@@ -7,7 +7,10 @@
 #'
 #' @inheritParams shared-params
 #' @param lCharts A list of charts to include in the report.
-#' @param strOutpath The output path for the generated report. If not provided, the report will be saved in the current working directory with the name "kri_report.html".
+#' @param strOutputDir The output directory path for the generated report. If not provided,
+#'  the report will be saved in the current working directory.
+#' @param strOutputFile The output file name for the generated report. If not provided,
+#'  the report will be named based on the study ID, Group Level and Date.
 #'
 #' @return None
 #' @examples
@@ -20,13 +23,13 @@
 #'   dfBounds = reportingBounds
 #' )
 #'
-#' strOutpath <- "StandardSiteReport.html"
+#' strOutputFile <- "StandardSiteReport.html"
 #' Report_KRI(
 #'   lCharts = lCharts,
 #'   dfResults = reportingResults,
 #'   dfGroups = reportingGroups,
 #'   dfMetrics = reportingMetrics,
-#'   strOutpath = strOutpath
+#'   strOutputFile = strOutputFile
 #' )
 #' }
 #'
@@ -39,14 +42,15 @@ Report_KRI <- function(
   dfResults = NULL,
   dfGroups = NULL,
   dfMetrics = NULL,
-  strOutpath = NULL
+  strOutputDir = fs::path_abs("."), ## or just use getwd() to remove a dependency...
+  strOutputFile = NULL
 ) {
   rlang::check_installed("rmarkdown", reason = "to run `Report_KRI()`")
   rlang::check_installed("knitr", reason = "to run `Report_KRI()`")
   rlang::check_installed("kableExtra", reason = "to run `Report_KRI()`")
 
   # set output path
-  if (is.null(strOutpath)) {
+  if (is.null(strOutputFile)) {
     GroupLevel <- unique(dfMetrics$GroupLevel)
     StudyID <- unique(dfResults$StudyID)
     SnapshotDate <- max(unique(dfResults$SnapshotDate))
@@ -56,18 +60,28 @@ Report_KRI <- function(
       GroupLevel <- gsub("[^[:alnum:]]", "", GroupLevel)
       SnapshotDate <- gsub("[^[:alnum:]]", "", as.character(SnapshotDate))
 
-      strOutpath <- paste0(getwd(), "/kri_report_", StudyID, "_", GroupLevel, "_", SnapshotDate, ".html")
+      strOutpath <- file.path(strOutputDir, paste0("kri_report_", StudyID, "_", GroupLevel, "_", SnapshotDate, ".html"))
     } else {
-      strOutpath <- paste0(getwd(), "/kri_report.html")
+      strOutpath <- file.path(strOutputDir, "kri_report.html")
     }
+  } else {
+    strOutpath <- file.path(strOutputDir, strOutputFile)
   }
-  tpath <- fs::path_temp()
-  temp_report <- file.path(tpath, "Report_KRI.Rmd")
-  fs::file_copy(system.file("report", "Report_KRI.Rmd", package = "gsm"), temp_report)
-  # currently report_kri also needs a styles.css dep
-  fs::file_copy(system.file("report", "styles.css", package = "gsm"), file.path(tpath, "styles.css"))
+
+  #specify report path, depending on write access to strOutputDir
+  if (file.access(strOutputDir, mode = 2)) {
+    tpath <- fs::path_temp()
+    report_path <- file.path(tpath, "Report_KRI.Rmd")
+    fs::file_copy(system.file("report", "Report_KRI.Rmd", package = "gsm"), report_path)
+    # currently report_kri also needs a styles.css dep
+    fs::file_copy(system.file("report", "styles.css", package = "gsm"), file.path(tpath, "styles.css"))
+  }
+  else {
+    report_path <- system.file("report", "Report_KRI.Rmd", package = "gsm")
+  }
+
   rmarkdown::render(
-    temp_report,
+    report_path,
     output_file = strOutpath,
     params = list(
       lCharts = lCharts,

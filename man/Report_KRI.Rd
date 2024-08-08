@@ -9,7 +9,8 @@ Report_KRI(
   dfResults = NULL,
   dfGroups = NULL,
   dfMetrics = NULL,
-  strOutpath = NULL
+  strOutputDir = fs::path_abs("."),
+  strOutputFile = NULL
 )
 }
 \arguments{
@@ -21,7 +22,11 @@ Report_KRI(
 
 \item{dfMetrics}{\code{data.frame} Metric-specific metadata for use in charts and reporting. Created by passing an \code{lWorkflow} object to \code{\link[=MakeMetric]{MakeMetric()}}. Expected columns: \code{File}, \code{MetricID}, \code{Group}, \code{Abbreviation}, \code{Metric}, \code{Numerator}, \code{Denominator}, \code{Model}, \code{Score}, and \code{Threshold}. For more details see the Data Model vignette: \code{vignette("DataModel", package = "gsm")}.}
 
-\item{strOutpath}{The output path for the generated report. If not provided, the report will be saved in the current working directory with the name "kri_report.html".}
+\item{strOutputDir}{The output directory path for the generated report. If not provided,
+the report will be saved in the current working directory.}
+
+\item{strOutputFile}{The output file name for the generated report. If not provided,
+the report will be named based on the study ID, Group Level and Date.}
 }
 \value{
 None
@@ -41,13 +46,13 @@ lCharts <- MakeCharts(
   dfBounds = reportingBounds
 )
 
-strOutpath <- "StandardSiteReport.html"
+strOutputFile <- "StandardSiteReport.html"
 Report_KRI(
   lCharts = lCharts,
   dfResults = reportingResults,
   dfGroups = reportingGroups,
   dfMetrics = reportingMetrics,
-  strOutpath = strOutpath
+  strOutputFile = strOutputFile
 )
 }
 
