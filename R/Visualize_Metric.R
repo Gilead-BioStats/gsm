@@ -135,8 +135,7 @@ Visualize_Metric <- function(
     lCharts$metricTable <- Report_MetricTable(
       dfResults = dfResults_current,
       dfGroups = dfGroups,
-      strGroupLevel = lMetric$GroupLevel,
-      strSnapshotDate = strSnapshotDate
+      strGroupLevel = lMetric$GroupLevel
     )
   }
   # Continuous Charts -------------------------------------------------------

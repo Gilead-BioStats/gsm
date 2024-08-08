@@ -7,7 +7,6 @@
 Report_MetricTable(
   dfResults,
   dfGroups,
-  strSnapshotDate = NULL,
   strGroupLevel = c("Site", "Study", "Country"),
   strGroupDetailsParams = NULL
 )
@@ -17,8 +16,6 @@ Report_MetricTable(
 For this function, \code{dfResults} must be filtered to a single KRI (\code{MetricID}).}
 
 \item{dfGroups}{\code{data.frame} Group-level metadata dictionary. Created by passing CTMS site and study data to \code{\link[=MakeLongMeta]{MakeLongMeta()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Param}, \code{Value}.}
-
-\item{strSnapshotDate}{user specified snapshot date as string}
 
 \item{strGroupLevel}{group level for the table}
 
