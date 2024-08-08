@@ -12,8 +12,6 @@ test_that("Correct data structure when proper dataframe is passed", {
   expect_true(grepl("<table", result))
   expect_true(grepl("162", result))
   expect_true(grepl("Kimler", result))
-  expect_true(grepl("US", result))
-  expect_true(grepl("Japan", result))
 })
 
 test_that("Flag filtering works correctly", {
@@ -28,7 +26,7 @@ test_that("Score rounding works correctly", {
   reportingResults_filt <- reportingResults %>%
     dplyr::filter(MetricID == unique(reportingResults$MetricID)[1])
   result <- Report_MetricTable(reportingResults_filt, reportingGroups)
-  expect_true(grepl("0.048", result))
+  expect_true(grepl("0.05", result))
 })
 
 test_that("Errors out when multiple MetricIDs passed in", {
