@@ -69,7 +69,7 @@ Report_KRI <- function(
   }
 
   # specify report path, depending on write access to strOutputDir
-  if (file.access(strOutputDir, mode = 2)) {
+  if (file.access(strOutputDir, mode = 2) == -1) {
     tpath <- fs::path_temp()
     report_path <- file.path(tpath, "Report_KRI.Rmd")
     fs::file_copy(system.file("report", "Report_KRI.Rmd", package = "gsm"), report_path)
