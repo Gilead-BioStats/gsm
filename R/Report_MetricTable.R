@@ -8,6 +8,8 @@
 #' data based on certain conditions and displays the result in a datatable.
 #'
 #' @inheritParams shared-params
+#' @param dfResults `r gloss_param("dfResults")`
+#'   `r gloss_extra("dfResults_filtered")`
 #' @param strSnapshotDate user specified snapshot date as string
 #' @param strGroupLevel  group level for the table
 #' @param strGroupDetailsParams one or more parameters from dfGroups to be added as columns in the table
@@ -27,6 +29,10 @@ Report_MetricTable <- function(dfResults,
 
   if (!nrow(dfResults)) {
     return("Nothing flagged for this KRI.")
+  }
+
+  if (length(unique(dfResults$MetricID)) > 1) {
+    stop("Expecting `dfResults` to be filtered to one unique MetricID, but many detected.")
   }
 
   SummaryTable <- dfResults %>%
