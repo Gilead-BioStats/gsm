@@ -275,7 +275,7 @@ lReport <- Report_KRI(lCharts = lCharts,
                       dfResults = dfResults,
                       dfGroups = dfGroups,
                       dfMetrics = dfMetrics,
-                      strOutpath = "test_kri_report.html")
+                      strOutputFile = "test_kri_report.html")
 ```
 
 Below, you will see a screenshot from the beginning of the report. All charts for all metrics that were included throughout the analysis and reporting workflows will be included in this report.
