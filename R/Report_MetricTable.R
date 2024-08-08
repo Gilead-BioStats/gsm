@@ -15,7 +15,8 @@
 #' @return A datatable containing the summary table
 #'
 #' @export
-Report_MetricTable <- function(dfResults,
+Report_MetricTable <- function(
+  dfResults,
   dfGroups,
   strSnapshotDate = NULL,
   strGroupLevel = c("Site", "Study", "Country"),
