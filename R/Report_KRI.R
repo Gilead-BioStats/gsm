@@ -61,9 +61,13 @@ Report_KRI <- function(
       strOutpath <- paste0(getwd(), "/kri_report.html")
     }
   }
-
+  tpath <- fs::path_temp()
+  temp_report <- file.path(tpath, "Report_KRI.Rmd")
+  fs::file_copy(system.file("report", "Report_KRI.Rmd", package = "gsm"), temp_report)
+  # currently report_kri also needs a styles.css dep
+  fs::file_copy(system.file("report", "styles.css", package = "gsm"), file.path(tpath, "styles.css"))
   rmarkdown::render(
-    system.file("report", "Report_KRI.Rmd", package = "gsm"),
+    temp_report,
     output_file = strOutpath,
     params = list(
       lCharts = lCharts,
