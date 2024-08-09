@@ -3,33 +3,51 @@ meta:
   description: Data Mappings to prepare for metric calculations
 spec: 
     Raw_SUBJ:
-      subjectid: required
-      enrollyn: required
+      subjectid:
+        required: true
+      enrollyn:
+        required: true
     Raw_AE:
-      subjectid: required
-      aeser: required
+      subjectid:
+        required: true
+      aeser:
+        required: true
     Raw_PD:
-      subjectenrollmentnumber: required
-      deemedimportant: required
+      subjectenrollmentnumber:
+        required: true
+      deemedimportant:
+        required: true
     Raw_LB:
-      toxgrg_nsv: required
+      toxgrg_nsv:
+        required: true
     Raw_STUDCOMP:
-      compyn: required
+      compyn:
+        required: true
     Raw_SDRGCOMP:
-      sdrgyn: required
-      phase: required
+      sdrgyn:
+        required: true
+      phase:
+        required: true
     Raw_QUERY:
-      subjectname: required
-      querystatus: required
-      queryage: required
+      subjectname:
+        required: true
+      querystatus:
+        required: true
+      queryage:
+        required: true
     Raw_DATACHG:
-      subjectname: required
-      n_changes: required
+      subjectname:
+        required: true
+      n_changes:
+       required: true
     Raw_DATAENT:
-      subjectname: required
-      data_entry_lag: required
+      subjectname:
+        required: true
+      data_entry_lag:
+        required: true
     Raw_ENROLL:
-      enrollyn: required
+      enrollyn:
+        required: true
 steps:
   - name: RunQuery
     output: Mapped_Enrolled

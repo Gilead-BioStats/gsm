@@ -3,21 +3,34 @@ meta:
   description: Generate reporting data model including site-, country- and study-level metadata (dfGroups), metric metadata (dfMetrics) and results data with added study-level columsn (dfSummary and dfBounds).
 spec:
   Raw_ctms_site:
-    pi_number: required
-    site_status: required
-    pi_first_name: required
-    pi_last_name: required
-    city: required
-    state: required
-    country: required
+    pi_number:
+      required: true
+    site_status:
+      required: true
+    pi_first_name:
+      required: true
+    pi_last_name:
+      required: true
+    city:
+      required: true
+    state:
+      required: true
+    country:
+      required: true
   Raw_ctms_study:
-    protocol_number: required
-    status: required
+    protocol_number:
+      required: true
+    status:
+      required: true
   Raw_ENROLL:
-    invid: required
-    subjectid: required 
-    studyid: required
-    country: required
+    invid:
+      required: true
+    subjectid:
+      required: true 
+    studyid:
+      required: true
+    country:
+      required: true
 steps:
   # Get CTMS data
   - name: RunQuery # Need to add additional renames
