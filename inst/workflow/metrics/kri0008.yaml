@@ -13,12 +13,16 @@ meta:
   nMinDenominator: 30
 spec:
   Mapped_Query:
-    subject_nsv: "required"
+    subject_nsv:
+      required: true
   Mapped_Enrolled:
-    subject_nsv: "required"
-    invid: "required"
+    subject_nsv:
+      required: true
+    invid:
+      required: true
   Mapped_DataChanges:
-    subject_nsv: "required"
+    subject_nsv:
+      required: true
 steps:
   - name: ParseThreshold
     output: vThreshold

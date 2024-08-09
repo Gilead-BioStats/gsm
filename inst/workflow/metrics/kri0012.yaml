@@ -13,10 +13,13 @@ meta:
   nMinDenominator: 3
 spec:
   Mapped_Screened:
-    subjectid: "required"
-    invid: "required"
+    subjectid:
+      required: true
+    invid:
+      required: true
   Mapped_ScreenFail:
-    subjectid: "required"
+    subjectid:
+      required: true
 steps:
   - name: ParseThreshold
     output: vThreshold

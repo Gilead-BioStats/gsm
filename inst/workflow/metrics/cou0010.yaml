@@ -13,12 +13,16 @@ meta:
   nMinDenominator: 30
 spec:
   Mapped_Enrolled:
-    subject_nsv: "required"
-    country: "required"
+    subject_nsv:
+      required: true
+    country:
+      required: true
   Mapped_SlowDataEntry:
-    subject_nsv: "required"
+    subject_nsv:
+      required: true
   Mapped_DataEntry:
-    subject_nsv: "required"
+    subject_nsv:
+      required: true
 steps:
   - name: ParseThreshold
     output: vThreshold

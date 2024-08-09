@@ -13,10 +13,13 @@ meta:
   nMinDenominator: 3
 spec: 
   Mapped_Enrolled: 
-    subjid: "required"
-    country: "required"
+    subjid:
+      required: true
+    country:
+      required: true
   Mapped_TreatmentDropouts:
-    subjID: "required"
+    subjID:
+      required: true
 steps:
   - name: ParseThreshold
     output: vThreshold

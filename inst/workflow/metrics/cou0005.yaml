@@ -13,12 +13,16 @@ meta:
   nMinDenominator: 30
 spec: 
   Mapped_Enrolled: 
-    subjid: "required"
-    country: "required"
+    subjid:
+      required: true
+    country:
+      required: true
   Mapped_ToxLabs:
-    subjid: "required"
+    subjid:
+      required: true
   Mapped_AllLabs: 
-    subjid: "required"
+    subjid:
+      required: true
 steps:
   - name: ParseThreshold
     output: vThreshold
