@@ -7,7 +7,7 @@
 Report_MetricTable(
   dfResults,
   dfGroups,
-  strGroupLevel = c("Site", "Study", "Country"),
+  strGroupLevel = c("Site", "Country", "Study"),
   strGroupDetailsParams = NULL
 )
 }
