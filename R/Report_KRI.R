@@ -49,11 +49,9 @@ Report_KRI <- function(
   rlang::check_installed("knitr", reason = "to run `Report_KRI()`")
   rlang::check_installed("kableExtra", reason = "to run `Report_KRI()`")
 
-  # run report in temp directory
-  tpath <- fs::path_temp()
-
-  # specify strOutputFir path, depending on write access to strOutputDir
+  # specify strOutputDir path, depending on write access to strOutputDir
   if (file.access(strOutputDir, mode = 2) == -1) {
+    tpath <- fs::path_temp()
     cli::cli_inform("You do not have permission to write to {strOutputDir}. Report will be saved to {tpath}")
     strOutputDir <- tpath
   }
@@ -77,16 +75,14 @@ Report_KRI <- function(
     strOutpath <- file.path(strOutputDir, strOutputFile)
   }
 
-  rmarkdown::render(
-    system.file("report", "Report_KRI.Rmd", package = "gsm"),
+  render_rmd(
+    input = system.file("report", "Report_KRI.Rmd", package = "gsm"),
     output_file = strOutpath,
-    intermediates_dir = tpath,
     params = list(
       lCharts = lCharts,
       dfResults = dfResults,
       dfGroups = dfGroups,
       dfMetrics = dfMetrics
-    ),
-    envir = new.env(parent = globalenv())
+    )
   )
 }
