@@ -9,7 +9,7 @@
 #' @return Rendered Rmarkdown file
 #' @export
 #'
-render_rmd <- function(
+RenderRmd <- function(
     input,
     output_file,
     params
