@@ -268,14 +268,14 @@ lCharts$kri0001$scatterJS
 
 ### Step 3 - Generate Report
 
-All of the components are created to generate the HTML report for the study we are working on. In order to generate this report and save it locally, simply feed `lCharts`, `dfResults`, `dfGroups`, `dfMetrics` and (optionally) a path to which the report will be saved (`strOutpath`) into `Report_KRI()` and the HTML output will be knit from the `Report_KRI.Rmd` template. 
+All of the components are created to generate the HTML report for the study we are working on. In order to generate this report and save it locally, simply feed `lCharts`, `dfResults`, `dfGroups`, `dfMetrics` and (optionally) an absolute directory path and file to which the report will be saved (`strOutputDir` and `strOutputFile`, respectively) into `Report_KRI()` and the HTML output will be knit from the `Report_KRI.Rmd` template. All intermediate files from the knitting process will be saved in a temporary folder.
 
 ```{r eval = FALSE, include = TRUE}
 lReport <- Report_KRI(lCharts = lCharts,
                       dfResults = dfResults,
                       dfGroups = dfGroups,
                       dfMetrics = dfMetrics,
-                      strOutpath = "test_kri_report.html")
+                      strOutputFile = "test_kri_report.html")
 ```
 
 Below, you will see a screenshot from the beginning of the report. All charts for all metrics that were included throughout the analysis and reporting workflows will be included in this report.
