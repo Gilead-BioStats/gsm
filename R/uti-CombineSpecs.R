@@ -5,7 +5,7 @@
 #' @param lSpecs A list of specifications.
 #' @return A list representing the combined specification.
 #' @examples
-#' all_wf <- gsm::MakeWorkflowList()
+#' all_wf <- MakeWorkflowList()
 #' all_specs <- CombineSpecs(all_wf)
 #'
 #' @export
