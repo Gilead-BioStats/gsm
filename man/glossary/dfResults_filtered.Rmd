@@ -1,0 +1,1 @@
+For this function, `dfResults` must be filtered to a single KRI (`MetricID`).

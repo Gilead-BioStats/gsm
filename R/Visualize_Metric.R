@@ -20,6 +20,7 @@
 #' - timeSeriesContinuousScoreJS: A time series chart using JavaScript with score on the y-axis.
 #' - timeSeriesContinuousMetricJS: A time series chart using JavaScript with metric on the y-axis.
 #' - timeSeriesContinuousNumeratorJS: A time series chart using JavaScript with numerator on the y-axis.
+#' - metricTable: A table containing all
 #'
 #'
 #' @examples
@@ -129,6 +130,12 @@ Visualize_Metric <- function(
       dfResults = dfResults_current,
       strType = "Score",
       vThreshold = vThreshold
+    )
+
+    lCharts$metricTable <- Report_MetricTable(
+      dfResults = dfResults_current,
+      dfGroups = dfGroups,
+      strGroupLevel = lMetric$GroupLevel
     )
   }
   # Continuous Charts -------------------------------------------------------
