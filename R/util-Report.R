@@ -33,10 +33,12 @@ filter_by_latest_SnapshotDate <- function(dfResults, strSnapshotDate = NULL) {
   return(dplyr::filter(dfResults, .data$SnapshotDate == strSnapshotDate))
 }
 
-add_Groups_metadata <- function(dfResults,
+add_Groups_metadata <- function(
+  dfResults,
   dfGroups,
   strGroupLevel = c("Site", "Study", "Country"),
-  strGroupDetailsParams) {
+  strGroupDetailsParams
+) {
   if (nrow(dfResults)) {
     strGroupLevel <- rlang::arg_match(strGroupLevel)
     dfGroups_wide <- widen_dfGroups(dfGroups, strGroupLevel, strGroupDetailsParams)
