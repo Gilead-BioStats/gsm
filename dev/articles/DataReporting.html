@@ -646,8 +646,8 @@ when statistical method is <strong>not</strong> defined as
 for Score or KRI. Charts are called <code>barScore</code> or
 <code>barMetric</code> in the <code>lCharts</code> object.</li>
 <li>
-<code><a href="../reference/Visualize_Metric.html">Visualize_Metric()</a></code>: Creates all available charts for a
-metric using the data provided.</li>
+<code><a href="../reference/Visualize_Metric.html">Visualize_Metric()</a></code>: Creates all available charts and
+tables for a metric using the data provided.</li>
 </ul>
 </div>
 <div class="section level4">
@@ -655,26 +655,36 @@ metric using the data provided.</li>
 </h4>
 <ul>
 <li>
-<code>Widget_GroupOverview</code>: Creates an interactive table
+<code><a href="../reference/Widget_GroupOverview.html">Widget_GroupOverview()</a></code>: Creates an interactive table
 displaying the flag distribution for all groups across all metrics.</li>
 <li>
-<code>Widget_BarChart</code>: Creates an interactive bar chart
+<code><a href="../reference/Widget_BarChart.html">Widget_BarChart()</a></code>: Creates an interactive bar chart
 visualization for Score or KRI. Charts are called
 <code>barScoreJS</code> or <code>barMetricJS</code> in the
 <code>lCharts</code> object.</li>
 <li>
-<code>Widget_ScatterPlot</code>: Creates an interactive scatter plot
-of Total Exposure (in days, on log scale) vs Total Number of Event(s) of
-Interest (on linear scale). Each data point represents one site.
-Outliers are plotted in red with the site label attached.Chart is called
-<code>scatterJS</code> in the <code>lCharts</code> object.</li>
+<code><a href="../reference/Widget_ScatterPlot.html">Widget_ScatterPlot()</a></code>: Creates an interactive scatter
+plot of Total Exposure (in days, on log scale) vs Total Number of
+Event(s) of Interest (on linear scale). Each data point represents one
+site. Outliers are plotted in red with the site label attached.Chart is
+called <code>scatterJS</code> in the <code>lCharts</code> object.</li>
 <li>
-<code>Widget_TimeSeries</code>: Creates an interactive time series
+<code><a href="../reference/Widget_TimeSeries.html">Widget_TimeSeries()</a></code>: Creates an interactive time series
 scatter plot of the score, metric or numerator. Charts are called
 <code>timeSeriesContinuousScoreJS</code>,
 <code>timeSeriesContinuousMetricJS</code>, or
 <code>timeSeriesContinuousNumeratorJS</code> in the <code>lCharts</code>
 object.</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="table-functions">Table Functions<a class="anchor" aria-label="anchor" href="#table-functions"></a>
+</h4>
+<ul>
+<li>
+<code><a href="../reference/Report_MetricTable.html">Report_MetricTable()</a></code>: Creates a sortable table
+displaying the flags per group (e.g. Site, Country) for one metric at a
+time.</li>
 </ul>
 </div>
 </div>
