@@ -2,7 +2,7 @@
 % Please edit documentation in R/util-checkSpec.R
 \name{CheckSpec}
 \alias{CheckSpec}
-\title{Function to check if the data and spec are compatible}
+\title{Check if the data and spec are compatible}
 \usage{
 CheckSpec(lData, lSpec)
 }
@@ -17,8 +17,8 @@ that all data.frames and columns in the spec are present in the data, or throws 
 if any data.frame or column is missing.
 }
 \description{
-This function checks if the data and spec are compatible by comparing the data.frames
-and columns in the spec with the data.
+Check if the data and spec are compatible by comparing the data.frames and
+columns in the spec with the data.
 }
 \examples{
 lData <- list(reporting_groups = gsm::reportingGroups, reporting_results = gsm::reportingResults)
