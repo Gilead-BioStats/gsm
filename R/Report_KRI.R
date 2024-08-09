@@ -12,7 +12,7 @@
 #' @param strOutputFile The output file name for the generated report. If not provided,
 #'  the report will be named based on the study ID, Group Level and Date.
 #'
-#' @return None
+#' @return File path of the saved report html is returned invisibly. Save to object to view absolute output path.
 #' @examples
 #' \dontrun{
 #' # Run reports
@@ -24,7 +24,7 @@
 #' )
 #'
 #' strOutputFile <- "StandardSiteReport.html"
-#' Report_KRI(
+#' kri_report_path <- Report_KRI(
 #'   lCharts = lCharts,
 #'   dfResults = reportingResults,
 #'   dfGroups = reportingGroups,
@@ -49,6 +49,15 @@ Report_KRI <- function(
   rlang::check_installed("knitr", reason = "to run `Report_KRI()`")
   rlang::check_installed("kableExtra", reason = "to run `Report_KRI()`")
 
+  # run report in temp directory
+  tpath <- fs::path_temp()
+
+  # specify strOutputFir path, depending on write access to strOutputDir
+  if (file.access(strOutputDir, mode = 2) == -1) {
+    cli::cli_inform("You do not have permission to write to {strOutputDir}. Report will be saved to {tpath}")
+    strOutputDir <- tpath
+  }
+
   # set output path
   if (is.null(strOutputFile)) {
     GroupLevel <- unique(dfMetrics$GroupLevel)
@@ -68,20 +77,10 @@ Report_KRI <- function(
     strOutpath <- file.path(strOutputDir, strOutputFile)
   }
 
-  # specify report path, depending on write access to strOutputDir
-  if (file.access(strOutputDir, mode = 2) == -1) {
-    tpath <- fs::path_temp()
-    report_path <- file.path(tpath, "Report_KRI.Rmd")
-    fs::file_copy(system.file("report", "Report_KRI.Rmd", package = "gsm"), report_path)
-    # currently report_kri also needs a styles.css dep
-    fs::file_copy(system.file("report", "styles.css", package = "gsm"), file.path(tpath, "styles.css"))
-  } else {
-    report_path <- system.file("report", "Report_KRI.Rmd", package = "gsm")
-  }
-
   rmarkdown::render(
-    report_path,
+    system.file("report", "Report_KRI.Rmd", package = "gsm"),
     output_file = strOutpath,
+    intermediates_dir = tpath,
     params = list(
       lCharts = lCharts,
       dfResults = dfResults,

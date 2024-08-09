@@ -29,7 +29,7 @@ the report will be saved in the current working directory.}
 the report will be named based on the study ID, Group Level and Date.}
 }
 \value{
-None
+File path of the saved report html is returned invisibly. Save to object to view absolute output path.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
@@ -47,7 +47,7 @@ lCharts <- MakeCharts(
 )
 
 strOutputFile <- "StandardSiteReport.html"
-Report_KRI(
+kri_report_path <- Report_KRI(
   lCharts = lCharts,
   dfResults = reportingResults,
   dfGroups = reportingGroups,
