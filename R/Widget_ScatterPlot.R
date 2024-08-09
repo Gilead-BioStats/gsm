@@ -37,7 +37,7 @@ Widget_ScatterPlot <- function(
   dfGroups = NULL,
   dfBounds = NULL,
   bAddGroupSelect = TRUE,
-  strShinyGroupSelectID = 'GroupID',
+  strShinyGroupSelectID = "GroupID",
   bDebug = FALSE
 ) {
   # define widget inputs

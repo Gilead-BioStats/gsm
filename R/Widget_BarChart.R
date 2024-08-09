@@ -38,7 +38,7 @@ Widget_BarChart <- function(
   vThreshold = NULL,
   strOutcome = "Score",
   bAddGroupSelect = TRUE,
-  strShinyGroupSelectID = 'GroupID',
+  strShinyGroupSelectID = "GroupID",
   bDebug = FALSE
 ) {
   # Parse `vThreshold` from comma-delimited character string to numeric vector.

@@ -1,0 +1,32 @@
+#' Custom Rmarkdown render function
+#'
+#' Rmarkdown render function that defaults to rendering intermediate rmd files in a temporary directory
+#'
+#' @param strInputPath `string` or `fs_path` Path to the template `Rmd` file.
+#' @param strOutputFile `string` Filename for the output.
+#' @param strOutputDir `string` or `fs_path` Path to the directory where the output will be saved.
+#' @param lParams `list` Parameters to pass to the template `Rmd` file.
+#'
+#' @return Rendered Rmarkdown file
+#' @export
+#'
+RenderRmd <- function(
+  strInputPath,
+  strOutputFile = fs::path_file(strInputPath),
+  strOutputDir = getwd(),
+  lParams
+) {
+  # specify strOutputDir path, depending on write access to strOutputDir
+  if (file.access(strOutputDir, mode = 2) == -1) {
+    tpath <- fs::path_temp()
+    cli::cli_inform("You do not have permission to write to {strOutputDir}. Report will be saved to {tpath}")
+    strOutputDir <- tpath
+  }
+  rmarkdown::render(
+    input = strInputPath,
+    output_file = file.path(strOutputDir, strOutputFile),
+    intermediates_dir = fs::path_temp(),
+    params = lParams,
+    envir = new.env(parent = globalenv())
+  )
+}
