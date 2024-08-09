@@ -1,6 +1,6 @@
 #' Combine Specifications
 #'
-#' This function combines a list of specifications into a single specification.
+#' Combine a list of specifications into a single specification.
 #'
 #' @param lSpecs A list of specifications.
 #' @return A list representing the combined specification.
