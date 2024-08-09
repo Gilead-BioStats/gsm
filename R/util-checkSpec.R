@@ -1,8 +1,8 @@
 # Check that all data.frames and columns in the spec are present in the data
-#' Function to check if the data and spec are compatible
+#' Check if the data and spec are compatible
 #'
-#' This function checks if the data and spec are compatible by comparing the data.frames
-#' and columns in the spec with the data.
+#' Check if the data and spec are compatible by comparing the data.frames and
+#' columns in the spec with the data.
 #'
 #' @param lData A list of data.frames.
 #' @param lSpec A list s specifying the expected structure of the data.
