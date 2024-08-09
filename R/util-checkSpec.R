@@ -39,7 +39,10 @@ CheckSpec <- function(lData, lSpec) {
     lDataFrames <- names(lData)
     if (!all(lSpecDataFrames %in% lDataFrames)) {
         MissingSpecDataFrames <- lSpecDataFrames[!lSpecDataFrames %in% lDataFrames]
-        cli_alert_danger("Not all data.frames in the spec are present in the data, missing data.frames are: {MissingSpecDataFrames}")
+        cli::cli_abort(c(
+            "{.arg lData} must contain all data.frames in {.arg lSpec}.",
+            i = "Missing data.frames: {MissingSpecDataFrames}"
+        ))
     } else {
         cli_alert("All {length(lSpecDataFrames)} data.frame(s) in the spec are present in the data: {lSpecDataFrames}")
     }
