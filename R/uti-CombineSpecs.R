@@ -14,11 +14,7 @@ CombineSpecs <- function(lSpecs){
     all_specs <- list()
     for (spec in lSpecs){
         for (domain in names(spec)){
-            if (domain %in% names(all_specs)){
-                all_specs[[domain]] <- c(all_specs[[domain]], spec[[domain]])
-            } else {
-                all_specs[[domain]] <- spec[[domain]]
-            }
+            all_specs[[domain]] <- c(all_specs[[domain]], spec[[domain]])
         }
     }
     return(lSpec)
