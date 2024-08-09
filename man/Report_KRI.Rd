@@ -9,7 +9,7 @@ Report_KRI(
   dfResults = NULL,
   dfGroups = NULL,
   dfMetrics = NULL,
-  strOutputDir = fs::path_abs("."),
+  strOutputDir = getwd(),
   strOutputFile = NULL
 )
 }

@@ -42,19 +42,12 @@ Report_KRI <- function(
   dfResults = NULL,
   dfGroups = NULL,
   dfMetrics = NULL,
-  strOutputDir = fs::path_abs("."), ## or just use getwd() to remove a dependency...
+  strOutputDir = getwd(),
   strOutputFile = NULL
 ) {
   rlang::check_installed("rmarkdown", reason = "to run `Report_KRI()`")
   rlang::check_installed("knitr", reason = "to run `Report_KRI()`")
   rlang::check_installed("kableExtra", reason = "to run `Report_KRI()`")
-
-  # specify strOutputDir path, depending on write access to strOutputDir
-  if (file.access(strOutputDir, mode = 2) == -1) {
-    tpath <- fs::path_temp()
-    cli::cli_inform("You do not have permission to write to {strOutputDir}. Report will be saved to {tpath}")
-    strOutputDir <- tpath
-  }
 
   # set output path
   if (is.null(strOutputFile)) {
@@ -67,18 +60,17 @@ Report_KRI <- function(
       GroupLevel <- gsub("[^[:alnum:]]", "", GroupLevel)
       SnapshotDate <- gsub("[^[:alnum:]]", "", as.character(SnapshotDate))
 
-      strOutpath <- file.path(strOutputDir, paste0("kri_report_", StudyID, "_", GroupLevel, "_", SnapshotDate, ".html"))
+      strOutputFile <- paste0("kri_report_", StudyID, "_", GroupLevel, "_", SnapshotDate, ".html")
     } else {
-      strOutpath <- file.path(strOutputDir, "kri_report.html")
+      strOutputFile <- "kri_report.html"
     }
-  } else {
-    strOutpath <- file.path(strOutputDir, strOutputFile)
   }
 
-  render_rmd(
-    input = system.file("report", "Report_KRI.Rmd", package = "gsm"),
-    output_file = strOutpath,
-    params = list(
+  RenderRmd(
+    strInputPath = system.file("report", "Report_KRI.Rmd", package = "gsm"),
+    strOutputFile = strOutputFile,
+    strOutputDir = strOutputDir,
+    lParams = list(
       lCharts = lCharts,
       dfResults = dfResults,
       dfGroups = dfGroups,

@@ -11,14 +11,20 @@
 #' @export
 #'
 RenderRmd <- function(
-    strInputPath,
-    strOutputFile = fs::path_file(strInputPath),
-    strOutputDir = getwd(),
-    lParams
+  strInputPath,
+  strOutputFile = fs::path_file(strInputPath),
+  strOutputDir = getwd(),
+  lParams
 ) {
+  # specify strOutputDir path, depending on write access to strOutputDir
+  if (file.access(strOutputDir, mode = 2) == -1) {
+    tpath <- fs::path_temp()
+    cli::cli_inform("You do not have permission to write to {strOutputDir}. Report will be saved to {tpath}")
+    strOutputDir <- tpath
+  }
   rmarkdown::render(
     input = strInputPath,
-    output_file = fs::path(strOutputDir, strOutputFile),
+    output_file = file.path(strOutputDir, strOutputFile),
     intermediates_dir = fs::path_temp(),
     params = lParams,
     envir = new.env(parent = globalenv())
