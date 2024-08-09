@@ -17,5 +17,5 @@ CombineSpecs <- function(lSpecs){
             all_specs[[domain]] <- c(all_specs[[domain]], spec[[domain]])
         }
     }
-    return(lSpec)
+    return(all_specs)
 }
