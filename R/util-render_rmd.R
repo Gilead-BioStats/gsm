@@ -3,7 +3,7 @@
 #' Rmarkdown render function that defaults to rendering intermediate rmd files in a temporary directory
 #'
 #' @param input path to the template Rmd file
-#' @param output_file path to the loacation where output will be saved
+#' @param output_file path to the location where output will be saved
 #' @param params list of params to pass to the template Rmd file
 #'
 #' @return Rendered Rmarkdown file

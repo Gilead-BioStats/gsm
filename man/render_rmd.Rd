@@ -9,7 +9,7 @@ render_rmd(input, output_file, params)
 \arguments{
 \item{input}{path to the template Rmd file}
 
-\item{output_file}{path to the loacation where output will be saved}
+\item{output_file}{path to the location where output will be saved}
 
 \item{params}{list of params to pass to the template Rmd file}
 }
