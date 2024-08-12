@@ -38,10 +38,10 @@ Report_MetricTable <- function(
     stop("Expecting `dfResults` to be filtered to one unique MetricID, but many detected.")
   }
 
-  if (rlang::arg_match(strGroupLevel) == 'Site') {
-    dfResults$Group = glue::glue('{dfResults$GroupID} ({dfResults$InvestigatorLastName})')
+  if (rlang::arg_match(strGroupLevel) == "Site") {
+    dfResults$Group <- glue::glue("{dfResults$GroupID} ({dfResults$InvestigatorLastName})")
   } else {
-    dfResults$Group = dfResults$GroupID
+    dfResults$Group <- dfResults$GroupID
   }
 
   SummaryTable <- dfResults %>%
