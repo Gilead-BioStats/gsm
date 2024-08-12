@@ -3,6 +3,7 @@ usethis::use_data(reportingGroups, overwrite = TRUE)
 rm(reportingGroups)
 
 analyticsInput <- read.csv("data-raw/analyticsInput.csv")
+analyticsInput$GroupID <- as.character(analyticsInput$GroupID)
 usethis::use_data(analyticsInput, overwrite = TRUE)
 rm(analyticsInput)
 
