@@ -1,20 +1,27 @@
 #' Summarize flags by SnapshotDate
 #'
+#' @description
 #' `r lifecycle::badge("experimental")`
 #'
-#' Create a table of longitudinal study data by site, study, or country, showing
-#' flags over time.
+#' Create a table of longitudinal study data by site, study, or
+#' country, showing flags over time.
 #'
 #' @inheritParams shared-params
 #' @param strGroupLevel A string specifying the group type.
 #'
 #' @inherit gt-shared return
 #' @export
-Report_FlagOverTime <- function(dfResults,
+Report_FlagOverTime <- function(
+  dfResults,
   dfMetrics,
-  strGroupLevel = c("Site", "Study", "Country")) {
+  strGroupLevel = c("Site", "Study", "Country")
+) {
   strGroupLevel <- rlang::arg_match(strGroupLevel)
-  dfFlagOverTime <- widen_results(dfResults, dfMetrics, strGroupLevel)
+  dfFlagOverTime <- dfResults %>%
+    dplyr::filter(.data$GroupLevel == strGroupLevel) %>%
+    flag_changes() %>%
+    widen_results(dfMetrics, strGroupLevel)
+
   date_cols <- stringr::str_which(
     colnames(dfFlagOverTime),
     r"(\d{4}-\d{2}-\d{2})"
@@ -24,12 +31,26 @@ Report_FlagOverTime <- function(dfResults,
     dplyr::group_by(.data$GroupLevel, .data$GroupID) %>%
     gsm_gt() %>%
     fmt_flag_rag(columns = date_cols) %>%
+    fmt_present(columns = "FlagChange") %>%
+    gt::cols_label(FlagChange = "New Flag?") %>%
     gt::tab_header(
-      title = "Flag Over Time",
-      subtitle = glue::glue(
-        "Flags over time for each {strGroupLevel}/KRI combination"
-      )
-    )
+      title = "Flags Over Time"
+    ) %>%
+    gt::opt_align_table_header(align = "left")
+}
+
+flag_changes <- function(dfResults) {
+  dfResults %>%
+    dplyr::mutate(
+      FlagPrevious = dplyr::lag(.data$Flag, order_by = .data$SnapshotDate),
+      .by = c("GroupID", "MetricID")
+    ) %>%
+    dplyr::mutate(
+      FlagChange = !is.na(.data$Flag) &
+        !is.na(.data$FlagPrevious) &
+        .data$Flag != .data$FlagPrevious
+    ) %>%
+    dplyr::select(-"FlagPrevious")
 }
 
 widen_results <- function(dfResults, dfMetrics, strGroupLevel) {
@@ -50,30 +71,38 @@ widen_results <- function(dfResults, dfMetrics, strGroupLevel) {
       "MetricID",
       "Abbreviation",
       "SnapshotDate",
-      "Flag"
-    )
-  dfFlagOverTime %>%
+      "Flag",
+      "FlagChange"
+    ) %>%
     dplyr::arrange(.data$SnapshotDate) %>%
+    # Use the most recent `FlagChange`
+    dplyr::mutate(
+      FlagChange = dplyr::last(.data$FlagChange),
+      .by = c("GroupID", "MetricID")
+    ) %>%
     tidyr::pivot_wider(names_from = "SnapshotDate", values_from = "Flag") %>%
     dplyr::arrange(.data$GroupID, .data$MetricID)
+
+  return(dfFlagOverTime)
 }
 
 fmt_flag_rag <- function(data, columns = gt::everything()) {
   fmt_sign_rag(data, columns = columns) %>%
-    cols_label_month(columns = columns) %>%
-    gt::tab_spanner(label = "Flag", columns = columns)
+    cols_label_month(columns = columns)
 }
 
 # Cells ------------------------------------------------------------------------
 
-fmt_sign_rag <- function(data,
+fmt_sign_rag <- function(
+  data,
   columns = gt::everything(),
   rows = gt::everything()) {
   data_color_rag(data, columns = columns) %>%
     fmt_sign(columns = columns, rows = rows)
 }
 
-data_color_rag <- function(data,
+data_color_rag <- function(
+  data,
   columns = gt::everything(),
   rows = gt::everything()) {
   gt::data_color(
@@ -84,7 +113,8 @@ data_color_rag <- function(data,
   )
 }
 
-fmt_sign <- function(data,
+fmt_sign <- function(
+  data,
   columns = gt::everything(),
   rows = gt::everything()) {
   gt::fmt(
@@ -92,7 +122,7 @@ fmt_sign <- function(data,
     columns = columns,
     rows = rows,
     compat = c("numeric", "integer"),
-    fns = n_to_sign
+    fns = Report_FormatFlag
   ) %>%
     gt::cols_align(align = "center", columns = columns)
 }
@@ -115,13 +145,15 @@ n_to_rag <- function(x) {
   )
 }
 
-colorScheme <- function(color_name) {
-  colors <- c(
-    red = "#FF0040",
-    amber = "#FFBF00",
-    green = "#52C41A",
-    gray = "#AAAAAA",
-    grey = "#AAAAAA"
+fmt_present <- function(
+  data,
+  columns = gt::everything(),
+  rows = gt::everything()) {
+  gt::fmt(
+    data,
+    columns = columns,
+    rows = rows,
+    compat = "logical",
+    fns = function(x) dplyr::if_else(x, "\u2713", "")
   )
-  colors[[color_name]]
 }

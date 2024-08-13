@@ -1,8 +1,9 @@
 #' Fisher's Exact Test Analysis.
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' @details Analyzes count data using the Fisher's exact test.
+#' Analyzes count data using the Fisher's exact test.
 #'
 #'   More information can be found in [The Fisher's Exact Method
 #'   Section](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-fishers-exact-method)

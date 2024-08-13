@@ -1,12 +1,12 @@
 #' Flag_Poisson
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' @description
 #' Add columns flagging sites that represent possible statistical outliers when the Poisson statistical method is used.
 #'
 #' @details
-#' This function flags sites based on the Poisson analysis result as part of the [GSM data pipeline](https://gilead-biostats.github.io/gsm/articles/DataPipeline.html).
+#' This function flags sites based on the Poisson analysis result as part of `vignette("DataModel")`.
 #'
 #' @section Data Specification:
 #' \code{Flag_Poisson} is designed to support the input data (`dfAnalyzed`) generated from the \code{Analyze_Poisson} function. At a minimum, the input must define a `dfAnalyzed` data frame with a `Score` variable included and a `vThreshold`. These inputs will be used to identify possible statistical outliers in a new `Flag` column by comparing `Score` values to the specified thresholds.

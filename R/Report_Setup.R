@@ -1,5 +1,6 @@
 #' Calculate needed values for report
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
 #' @inheritParams shared-params

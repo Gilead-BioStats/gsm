@@ -12,6 +12,9 @@
 An object of class \code{gt_tbl}.
 }
 \description{
+#' @description
+}
+\details{
 Reusable definitions of common gt arguments.
 }
 \keyword{internal}

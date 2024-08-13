@@ -1,5 +1,6 @@
 #' Helper function to compile "long" group metadata
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
 #' Used to create components of the group metadata dictionary (dfGroups) for use

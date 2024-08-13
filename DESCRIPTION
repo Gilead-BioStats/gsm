@@ -1,10 +1,10 @@
 Package: gsm
 Title: Good Statistical Monitoring
-Version: 1.9.2
+Version: 2.0.1
 Authors@R: c(
     person("George", "Wu", , "george.wu@gilead.com", role = c("aut", "cre")),
     person("Jeremy", "Wildfire", , "jwildfire@gmail.com", role = "aut"),
-    person("Matt", "Roumaya", , "Matt.Roumaya@atorusresearch.com", role = "aut",
+    person("Matt", "Roumaya", , "matthewroumaya@gmail.com", role = "aut",
            comment = c(ORCID = "0000-0002-8009-2771")),
     person("Nathan", "Kosiba", , "Nathan.Kosiba@atorusresearch.com", role = "aut"),
     person("Douglas", "Sanders", role = "aut"),
@@ -17,12 +17,14 @@ Authors@R: c(
     person("Chelsea", "Dickens", , "chelsea.dickens@atorusresearch.com", role = "aut"),
     person("Maya", "Gans", , "maya.gans@atorusresearch.com", role = "aut"),
     person("Jacob", "Anderson", , "jacob.anderson@atorusresearch.com", role = "aut"),
+    person("Laura", "Maxwell", , "laura.maxwell@atorusresearch.com", role = "aut"),
+    person("Jon", "Harmon", , "jon.harmon@atorusresearch.com", role = "aut"),
     person("Gilead Sciences", role = "cph")
   )
 Description: The Good Statistical Monitoring or 'gsm' R package provides a
     framework for statistical data monitoring.
 License: Apache License (>= 2)
-URL: https://github.com/Gilead-BioStats/gsm
+URL: https://github.com/Gilead-BioStats/gsm, https://gilead-biostats.github.io/gsm
 BugReports: https://github.com/Gilead-BioStats/gsm/issues
 Depends: 
     R (>= 4.0)
@@ -31,6 +33,7 @@ Imports:
     cli,
     DBI,
     dplyr,
+    fs,
     ggplot2,
     glue,
     htmltools,
@@ -45,6 +48,7 @@ Imports:
     tidyr,
     tools,
     utils,
+    withr,
     yaml
 Suggests:
     clindata,
@@ -69,8 +73,7 @@ Suggests:
     sqldf,
     styler,
     testthat,
-    usethis,
-    withr
+    usethis
 VignetteBuilder: 
     knitr
 Remotes:
@@ -79,6 +82,7 @@ Config/testthat/edition: 3
 Config/testthat/parallel: true
 Config/testthat/start-first: util-RunWorkflow, util-clindata
 Encoding: UTF-8
+Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2

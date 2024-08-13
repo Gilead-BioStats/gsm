@@ -1,7 +1,7 @@
 meta:
   File: mapping.yaml
   description: Data Mappings to prepare for metric calculations
-spec: 
+spec:
     Raw_SUBJ:
       subjectid:
         required: true

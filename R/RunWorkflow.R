@@ -1,8 +1,8 @@
 #' Run a workflow via it's YAML specification.
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' @description
 #' Attempts to run a single assessment (`lWorkflow`) using shared data (`lData`) and metadata (`lMapping`).
 #' Calls `RunStep` for each item in `lWorkflow$workflow` and saves the results to `lWorkflow`.
 #'

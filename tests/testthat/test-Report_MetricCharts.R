@@ -7,8 +7,7 @@ test_that("Handles all supported chart types", {
     barScoreJS = dummy_chart,
     timeSeriesContinuousScoreJS = dummy_chart,
     timeSeriesContinuousMetricJS = dummy_chart,
-    timeSeriesContinuousNumeratorJS = dummy_chart,
-    timeseriesQtl = dummy_chart
+    timeSeriesContinuousNumeratorJS = dummy_chart
   )
 
   expect_output(Report_MetricCharts(lCharts), "#### Summary Charts \\{.tabset\\}")

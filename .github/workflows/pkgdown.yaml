@@ -3,169 +3,121 @@ on:
     branches: [main]
   workflow_dispatch:
 
-name: pkgdown
+name: pkgdown-main
 
 jobs:
-  pkgdown:
+  pkgdown-main:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: write
 
     steps:
-      - uses: webfactory/ssh-agent@v0.6.0
-        with:
-          ssh-private-key: ${{ secrets.LOAD_CLINDATA }}
-
-      - name: Actions setup
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           ref: main
+
+      - uses: r-lib/actions/setup-pandoc@v2
 
       - uses: r-lib/actions/setup-r@v2
         with:
           use-public-rspm: true
 
-      - uses: r-lib/actions/setup-pandoc@v2
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::pkgdown, local::.
+          needs: website
 
-      - uses: r-lib/actions/setup-tinytex@v2
-
-      - name: install packages and generate sample reports
+      - name: Generate sample reports
         shell: Rscript {0}
         run: |
-          install.packages("devtools")
-          install.packages("tidyverse")
-          devtools::install(dependencies=TRUE)
-          devtools::install_github('Gilead-BioStats/clindata')
+          devtools::load_all()
+          dir.create(here::here("pkgdown", "assets"), recursive = TRUE)
 
-          wf_mapping <- MakeWorkflowList(strNames="mapping")[[1]]
-          wf_metrics <- MakeWorkflowList(strNames=paste0("kri",sprintf("%04d", 1:12)))
-          dfMetrics <- wf_metrics %>% map_df(~.x$meta)
+          lData <- list(
+            dfSUBJ = clindata::rawplus_dm,
+            dfAE = clindata::rawplus_ae,
+            dfPD = clindata::ctms_protdev,
+            dfLB = clindata::rawplus_lb,
+            dfSTUDCOMP = clindata::rawplus_studcomp,
+            dfSDRGCOMP = clindata::rawplus_sdrgcomp %>%
+              dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
+            dfDATACHG = clindata::edc_data_points,
+            dfDATAENT = clindata::edc_data_pages,
+            dfQUERY = clindata::edc_queries,
+            dfENROLL = clindata::rawplus_enroll
+          )
+          mapping_wf <- MakeWorkflowList(strNames = "data_mapping")
+          mapped <- RunWorkflows(mapping_wf, lData, bKeepInputData=TRUE)
 
-          # Import Site+Study Metadata
-          dfStudy<-clindata::ctms_study %>% rename(StudyID = protocol_number)
-          dfSite<- clindata::ctms_site %>% rename(SiteID = site_num)
+          kri_wf <- MakeWorkflowList(strNames = "kri")
+          kris <- RunWorkflows(kri_wf, mapped)
 
-          # Pull Raw Data - this will overwrite the previous data pull
-          lRaw <- gsm::UseClindata(
-            list(
-              "dfSUBJ" = "clindata::rawplus_dm",
-              "dfAE" = "clindata::rawplus_ae",
-              "dfPD" = "clindata::ctms_protdev",
-              "dfLB" = "clindata::rawplus_lb",
-              "dfSTUDCOMP" = "clindata::rawplus_studcomp",
-              "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp",
-              "dfDATACHG" = "clindata::edc_data_points",
-              "dfDATAENT" = "clindata::edc_data_pages",
-              "dfQUERY" = "clindata::edc_queries",
-              "dfENROLL" = "clindata::rawplus_enroll"
-            )
+          # Step 3 - Create Reporting Data - Import Metadata and stack KRI Results
+          lReporting_Input <- list(
+              ctms_site = clindata::ctms_site,
+              ctms_study = clindata::ctms_study,
+              dfEnrolled = mapped$dfEnrolled,
+              lWorkflows = kri_wf,
+              lAnalysis = kris,
+              dSnapshotDate = Sys.Date(),
+              strStudyID = "ABC-123"
+          )
+          reporting_wf <- MakeWorkflowList(strNames = "reporting")
+          reporting <- RunWorkflows(reporting_wf, lReporting_Input)
+
+          lCharts <- MakeCharts(
+            dfResults = reporting$dfResults,
+            dfGroups = reporting$dfGroups,
+            dfMetrics = reporting$dfMetrics,
+            dfBounds = reporting$dfBounds
           )
 
-          # Create Mapped Data
-          lMapped <- RunWorkflow(lWorkflow = wf_mapping, lData = lRaw)$lData
+          Report_KRI(
+            lCharts = lCharts,
+            dfResults =  reporting$dfResults,
+            dfGroups =  reporting$dfGroups,
+            dfMetrics = reporting$dfMetrics,
+            strOutputDir = here::here("pkgdown", "assets"),
+            strOutputFile = "StandardReportSite.html"
+          )
 
-          # Run Metrics
-          lResults <-wf_metrics %>% map(~RunWorkflow(lWorkflow=.x, lData=lMapped))
+          ## Country Report
+          cou_wf <- MakeWorkflowList(strNames = "cou")
+          cous <- RunWorkflows(cou_wf, mapped)
 
-          dfBounds <- lResults %>%
-            imap_dfr(~.x$lData$dfBounds %>% mutate(MetricID = .y)) %>%
-            mutate(StudyID = "ABC-123") %>%
-            mutate(SnapshotDate = Sys.Date())
+          # Step 3 - Create Reporting Data - Import Metadata and stack KRI Results
+          lReporting_Input_country <- list(
+              ctms_site = clindata::ctms_site,
+              ctms_study = clindata::ctms_study,
+              dfEnrolled = mapped$dfEnrolled,
+              lWorkflows = cou_wf,
+              lAnalysis = cous,
+              dSnapshotDate = Sys.Date(),
+              strStudyID = "ABC-123"
+          )
+          reporting_wf_country <- MakeWorkflowList(strNames = "reporting")
+          reporting_country <- RunWorkflows(reporting_wf_country, lReporting_Input_country)
 
-          dfSummary <- lResults %>%
-            imap_dfr(~.x$lData$dfSummary %>% mutate(MetricID = .y)) %>%
-            mutate(StudyID = "ABC-123") %>%
-            mutate(SnapshotDate = Sys.Date())
+          lCharts_country <- MakeCharts(
+            dfResults = reporting_country$dfResults,
+            dfGroups = reporting_country$dfGroups,
+            dfMetrics = reporting_country$dfMetrics,
+            dfBounds = reporting_country$dfBounds
+          )
 
-          # Create charts
-          lCharts <- unique(dfSummary$MetricID) %>% map(~Visualize_Metric(
-              dfSummary = dfSummary,
-              dfBounds = dfBounds,
-              dfSite = dfSite,
-              dfMetrics = dfMetrics,
-              strMetricID = .x
-            )
-          ) %>% setNames(unique(dfSummary$MetricID))
+          Report_KRI(
+            lCharts = lCharts_country,
+            dfResults =  reporting_country$dfResults,
+            dfGroups =  reporting_country$dfGroups,
+            dfMetrics = reporting_country$dfMetrics,
+            strOutputDir = here::here("pkgdown", "assets"),
+            strOutputFile = "StandardReportCountry.html"
+          )
 
-          # Run reports
-          strOutpath <- "StandardSiteReport.html"
-          Report_KRI( lCharts = lCharts, dfSummary = dfSummary,  dfSite = dfSite, dfStudy = dfStudy, dfMetrics =dfMetrics, strOutpath = strOutpath )
-
-          wf_metrics_c <- MakeWorkflowList(strNames=paste0("cou",sprintf("%04d", 1:12)))
-          dfMetrics_c <- wf_metrics_c %>% map_df(~.x$meta)
-          # Run Metrics
-          lResults <-wf_metrics_c %>% map(~RunWorkflow(lWorkflow=.x, lData=lMapped))
-
-          dfBounds_c <- lResults_c %>%
-            imap_dfr(~.x$lData$dfBounds %>% mutate(MetricID = .y)) %>%
-            mutate(StudyID = "ABC-123") %>%
-            mutate(SnapshotDate = Sys.Date())
-
-          dfSummary_c <- lResults_c %>%
-            imap_dfr(~.x$lData$dfSummary %>% mutate(MetricID = .y)) %>%
-            mutate(StudyID = "ABC-123") %>%
-            mutate(SnapshotDate = Sys.Date())
-
-          # Create charts
-          lCharts_c <- unique(dfSummary_c$MetricID) %>% map(~Visualize_Metric(
-              dfSummary = dfSummary_c,
-              dfBounds = dfBounds_c,
-              dfSite = dfSite,
-              dfMetrics = dfMetrics_c,
-              strMetricID = .x
-            )
-          ) %>% setNames(unique(dfSummary$MetricID))
-
-          # Run reports
-          strOutpath_c <- "StandardCountryReport.html"
-          Report_KRI( lCharts = lCharts_c, dfSummary = dfSummary_c,  dfSite = dfSite, dfStudy = dfStudy, dfMetrics =dfMetrics_c, strOutpath = strOutpath_c )
-
-
-      - name: delete temp-report branch if it exists
-        run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          git push origin --delete temp-report || true
-
-      - name: create temp-report branch and set remote
-        run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          git checkout -b temp-report
-          git add StandardReportCountry.html
-          git add StandardReportSite.html
-          git commit -m "add reports"
-          git remote set-branches --add origin temp-report
-          git push -u origin temp-report
-
-      - name: Deploy package
+      - name: Deploy pkgdown
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
           Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
-
-      - name: Checkout temp-report branch
-        uses: actions/checkout@v2
-        with:
-          ref: temp-report
-
-      - name: Checkout gh-pages branch
-        uses: actions/checkout@v2
-        with:
-          ref: gh-pages
-
-      - name: checkout gh-pages branch and commit sample reports; delete upstream temp-report branch
-        run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          git fetch
-          git checkout origin/temp-report -- StandardReportCountry.html
-          git checkout origin/temp-report -- StandardReportSite.html
-          git checkout gh-pages
-          git add StandardReportCountry.html
-          git add StandardReportSite.html
-          git commit -m "Add HTML"
-          git push origin gh-pages
-          git push origin --delete temp-report
-        env:
-          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}

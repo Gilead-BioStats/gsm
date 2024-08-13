@@ -1,5 +1,6 @@
 #' Parse a string into a numeric vector
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
 #' This function takes a comma-separated string and parses it into a numeric

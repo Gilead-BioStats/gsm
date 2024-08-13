@@ -1,0 +1,3 @@
+class: logical
+definition: >
+  Print debug messages? Default: `FALSE`.

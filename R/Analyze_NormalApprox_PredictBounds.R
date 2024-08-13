@@ -1,8 +1,8 @@
 #' Funnel Plot Analysis with Normal Approximation - Predicted Boundaries.
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' @details
 #' Applies a funnel plot analysis with normal approximation to site-level data, and then calculates predicted
 #' percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values.
 #'

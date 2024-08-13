@@ -20,13 +20,12 @@ output (\code{lStep$output}) and configurable parameters (\code{lStep$params}) (
 parameter with results from \code{is_mapping_vald} for each domain in \code{lStep$inputs}.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 Runs a single step of an assessment workflow. This function is called by \code{RunWorkflow} for each
 step in the workflow. It prepares the parameters for the function call, including the metadata,
 mapping, and data inputs. It then calls the function specified in \code{lStep$name} with the prepared
 parameters.
-}
-\details{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 wf_mapping <- MakeWorkflowList("mapping")

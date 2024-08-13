@@ -1,12 +1,12 @@
 #' Flag_Fisher
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' @description
 #' Add columns flagging sites that represent possible statistical outliers when the Fisher's Exact Test is used.
 #'
 #' @details
-#' This function flags sites based on the Fisher's Exact Test result as part of the [GSM data pipeline](https://gilead-biostats.github.io/gsm/articles/DataPipeline.html).
+#' This function flags sites based on the Fisher's Exact Test result as part of the GSM data model (see `vignette("DataModel")`).
 #'
 #' @section Data Specification:
 #' \code{Flag_Fisher} is designed to support the input data (`dfAnalyzed`) generated from the \code{Analyze_Fisher} function. At a minimum, the input must define a `dfAnalyzed` data frame with `Score`, `Prop`, and `Prop_Other` variables included and a `vThreshold`. These inputs will be used to identify possible statistical outliers in a new `Flag` column by comparing `Score`, `Prop`, and `Prop_Other` values to the specified thresholds.

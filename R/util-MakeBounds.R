@@ -1,5 +1,6 @@
 #' Calculate Bounds for display in scatterplots
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
 #' Calculate bounds across a set of metrics.

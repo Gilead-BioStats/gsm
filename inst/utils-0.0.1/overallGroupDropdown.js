@@ -23,16 +23,24 @@ function overallClick() {
         );
     }
 
+    // Set all group selects to the selected group ID, if the group ID appears in the list of options.
     if (event.target.value !== 'None') {
-      document.querySelectorAll(".gsm-widget-control--select").forEach((el) => {
-        el.options[el.selectedIndex].innerHTML = event.target.value;
-        el.disabled = true;
-      });
-    } else {
-      document.querySelectorAll(".gsm-widget-control--select").forEach((el) => {
-        el.options[el.selectedIndex].innerHTML = "None";
-        el.disabled = false;
-      });
+        document.querySelectorAll(".gsm-widget-control--group").forEach((el) => {
+            el.value = [...el.options].map(option => option.text).includes(event.target.value)
+                ? event.target.value
+                : 'None';
+        });
+
+        // Reset all country selects to 'None'.
+        document.querySelectorAll(".gsm-widget-control--country").forEach((el) => {
+            el.value = 'None';
+        });
+    }
+    // Reset all group and country selects to 'None'.
+    else {
+        document.querySelectorAll(".gsm-widget-control--select").forEach((el) => {
+            el.value = 'None';
+        });
     }
   }
 }
@@ -56,13 +64,20 @@ function overallGroupDropdown() {
     overallGroupSelect.onchange = overallClick
     overallGroupSelectContainer.appendChild(overallGroupSelect);
 
-    const ids = [...document.querySelector(".gsm-widget-control--select").options].map(
-        (el) => el.text
-    );
+    const groupOptions = [
+        ...document.querySelectorAll(".gsm-widget-control--group option")
+    ];
 
-    for (const id of ids) {
+    // Capture group IDs across all group selects.
+    const groupIDs = [...new Set(
+        groupOptions.map(
+            (el) => el.text
+        )
+    )];
+
+    for (const groupID of groupIDs) {
         const groupOptionAll = document.createElement("option");
-        groupOptionAll.innerHTML = id;
+        groupOptionAll.innerHTML = groupID;
         overallGroupSelect.appendChild(groupOptionAll);
     }
 }

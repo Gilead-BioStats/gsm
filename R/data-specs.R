@@ -1,17 +1,22 @@
 #' analyticsInput Dataset
 #'
-#' @format A data frame with 25 rows and 5 columns:
+#' `r lifecycle::badge("stable")`
+#'
+#' @format A data frame with 1301 rows and 6 columns:
 #' \describe{
 #'   \item{SubjectID}{unique subject identifier}
 #'   \item{GroupID}{grouping variable}
 #'   \item{GroupLevel}{level of grouping variable}
 #'   \item{Numerator}{number of flags in group}
 #'   \item{Denominator}{total subjects in group}
+#'   \item{Metric}{calculated rate/metric value}
 #' }
 #' @source Generated from `analyticsInput.csv` dataset in the `gsm` package.
 "analyticsInput"
 
 #' analyticsSummary Dataset
+#'
+#'  `r lifecycle::badge("stable")`
 #'
 #' @format A data frame with 176 rows and 7 columns:
 #' \describe{
@@ -29,6 +34,8 @@
 
 #' reportingGroups Dataset
 #'
+#'  `r lifecycle::badge("stable")`
+#'
 #' @format A data frame with 3903 rows and 4 columns:
 #' \describe{
 #'   \item{GroupID}{grouping variable}
@@ -40,6 +47,8 @@
 "reportingGroups"
 
 #' reportingMetrics Dataset
+#'
+#'  `r lifecycle::badge("stable")`
 #'
 #' @format A data frame with 2 rows and 12 columns:
 #' \describe{
@@ -61,6 +70,8 @@
 
 #' reportingBounds Dataset
 #'
+#'  `r lifecycle::badge("stable")`
+#'
 #' @format A data frame with 28701 rows and 8 columns:
 #' \describe{
 #'   \item{Threshold}{number of standard deviations that the upper and lower bounds are based on}
@@ -76,6 +87,8 @@
 "reportingBounds"
 
 #' reportingResults Dataset
+#'
+#'  `r lifecycle::badge("stable")`
 #'
 #' @format A data frame with 2286 rows and 10 columns:
 #' \describe{

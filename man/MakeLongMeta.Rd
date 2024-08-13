@@ -18,8 +18,7 @@ A long format data frame.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-}
-\details{
+
 Used to create components of the group metadata dictionary (dfGroups) for use
 in charts and reports. This function takes a data frame and a string
 specifying the group columns, and returns a long format data frame.

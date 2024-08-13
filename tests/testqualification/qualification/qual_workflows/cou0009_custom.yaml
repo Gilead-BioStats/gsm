@@ -1,0 +1,48 @@
+meta:
+  File: cou0009.yaml
+  MetricID: cou0009
+  GroupLevel: Sex
+  Abbreviation: OQRY
+  Metric: Outstanding Query Rate
+  Numerator: Queries Open > 30 Days
+  Denominator: Total Queries
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
+  Type: binary
+  Threshold: -5,-3,3,5
+  nMinDenominator: 300
+steps:
+  - name: ParseThreshold
+    output: vThreshold
+    params:
+      strThreshold: Threshold
+  - name: Input_Rate
+    output: dfInput
+    params:
+      dfSubjects: dfEnrolled
+      dfNumerator: dfOldValidQueries
+      dfDenominator: dfValidQueries
+      strSubjectCol: subject_nsv
+      strGroupCol: sex
+      strGroupLevel: GroupLevel
+      strNumeratorMethod: Count
+      strDenominatorMethod: Count
+  - name: Transform_Rate
+    output: dfTransformed
+    params:
+      dfInput: dfInput
+  - name: Analyze_NormalApprox
+    output: dfAnalyzed
+    params:
+      dfTransformed: dfTransformed
+      strType: Type
+  - name: Flag_NormalApprox
+    output: dfFlagged
+    params:
+      dfAnalyzed: dfAnalyzed
+      vThreshold: vThreshold
+  - name: Summarize
+    output: dfSummary
+    params:
+      dfFlagged: dfFlagged
+      nMinDenominator: nMinDenominator

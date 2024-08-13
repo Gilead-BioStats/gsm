@@ -1,8 +1,8 @@
 #' Run a SQL query with mapping and data
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' @description
 #' Run a SQL query via DBI::dbGetQuery using the format expected by glue_sql. Values from lMapping provided using the format expected by qlue_sql (e.g.  {`strIDCol`}) will be replaced with the appropriate column names/values.
 #'
 #' @param strQuery `character` SQL query to run using the format expected by glue_sql. Mapping values provided in curly braces will be replaced with the appropriate column names.

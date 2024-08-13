@@ -1,5 +1,6 @@
 #' Create interactive timeline for study data
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
 #' @param status_study the table containing study data of interest

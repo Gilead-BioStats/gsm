@@ -24,6 +24,6 @@ Generated from \code{reportingBounds.csv} dataset in the \code{gsm} package.
 reportingBounds
 }
 \description{
-reportingBounds Dataset
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \keyword{datasets}

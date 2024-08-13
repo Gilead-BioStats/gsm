@@ -1,5 +1,6 @@
 #' Render charts for a given metric to markdown
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
 #' This function generates a markdown framework for charts
@@ -11,7 +12,7 @@
 #'
 #' @export
 #'
-Report_MetricCharts <- function(lCharts, strMetricID = '') {
+Report_MetricCharts <- function(lCharts, strMetricID = "") {
   #### charts tabset
   cat("#### Summary Charts {.tabset} \n")
   chartTypes <- c(
@@ -20,8 +21,7 @@ Report_MetricCharts <- function(lCharts, strMetricID = '') {
     "barScoreJS",
     "timeSeriesContinuousScoreJS",
     "timeSeriesContinuousMetricJS",
-    "timeSeriesContinuousNumeratorJS",
-    "timeseriesQtl"
+    "timeSeriesContinuousNumeratorJS"
   )
   lCharts <- lCharts[names(lCharts) %in% chartTypes]
   for (j in seq_along(lCharts)) {

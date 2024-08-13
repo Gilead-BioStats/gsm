@@ -1,8 +1,9 @@
 #' Input_Rate
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' @description Calculate a subject level rate from numerator and denominator data
+#' Calculate a subject level rate from numerator and denominator data
 #'
 #' This function takes in a list of data frames including dfSUBJ, dfNumerator, and dfDenominator,
 #' and calculates a subject level rate based on the specified numerator and denominator methods (either
@@ -58,7 +59,7 @@
 #' )
 #'
 #' @export
-#' @keywords interal
+#' @keywords internal
 
 Input_Rate <- function(
   dfSubjects,
@@ -67,8 +68,8 @@ Input_Rate <- function(
   strGroupCol = "GroupID",
   strGroupLevel = NULL,
   strSubjectCol = "SubjectID",
-  strNumeratorMethod = "Count",
-  strDenominatorMethod = "Count",
+  strNumeratorMethod = c("Count", "Sum"),
+  strDenominatorMethod = c("Count", "Sum"),
   strNumeratorCol = NULL,
   strDenominatorCol = NULL
 ) {
@@ -83,10 +84,9 @@ Input_Rate <- function(
     stop("dfNumerator, must be provided")
   }
 
-  # Check if strNumeratorMethod and strDenominatorMethod are valid
-  if (!strNumeratorMethod %in% c("Count", "Sum") | !strDenominatorMethod %in% c("Count", "Sum")) {
-    stop("strNumeratorMethod and strDenominator method must be 'Count' or 'Sum'")
-  }
+  # must be eit
+  strNumeratorMethod <- match.arg(strNumeratorMethod)
+  strDenominatorMethod <- match.arg(strDenominatorMethod)
 
   # Check if strNumeratorCol is Null when strNumeratorMethod is 'Sum'
   if (strNumeratorMethod == "Sum" && is.null(strNumeratorCol)) {
@@ -115,12 +115,13 @@ Input_Rate <- function(
 
   # Rename SubjectID in dfSubjects
   dfSubjects <- dfSubjects %>%
-    mutate(
-      "SubjectID" = .data[[strSubjectCol]],
-      "GroupID" = .data[[strGroupCol]],
-      "GroupLevel" = strGroupLevel
+    select(
+      "SubjectID" = !!strSubjectCol,
+      "GroupID" = !!strGroupCol
     ) %>%
-    select("SubjectID", "GroupID", "GroupLevel")
+    mutate(
+      "GroupLevel" = strGroupLevel
+    )
 
   # Calculate Numerator
   dfNumerator <- dfNumerator %>%
@@ -133,7 +134,6 @@ Input_Rate <- function(
   }
 
   dfNumerator_subj <- dfNumerator %>%
-    select("SubjectID", "Numerator") %>%
     group_by(.data$SubjectID) %>%
     summarise("Numerator" = sum(.data$Numerator)) %>%
     ungroup()
@@ -149,7 +149,6 @@ Input_Rate <- function(
   }
 
   dfDenominator_subj <- dfDenominator %>%
-    select("SubjectID", "Denominator") %>%
     group_by(.data$SubjectID) %>%
     summarise("Denominator" = sum(.data$Denominator)) %>%
     ungroup()
@@ -163,6 +162,12 @@ Input_Rate <- function(
       "Denominator" = if_else(is.na(.data$Denominator), 0, .data$Denominator)
     ) %>%
     mutate(Metric = .data$Numerator / .data$Denominator)
+
+  if (any(is.na(dfInput$GroupID))) {
+    cli_alert_warning(glue::glue("{sum(is.na(dfInput$GroupID))} cases of NA's in GroupID, cases are removed in output"))
+    dfInput <- dfInput %>%
+      filter(!is.na(.data$GroupID))
+  }
 
   return(dfInput)
 }

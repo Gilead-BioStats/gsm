@@ -21,11 +21,10 @@ RunWorkflow(lWorkflow, lData, bReturnData = TRUE, bKeepInputData = FALSE)
 \code{list} contains just lData if \code{bReturnData} is \code{TRUE}, otherwise returns the full \code{lWorkflow} object.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 Attempts to run a single assessment (\code{lWorkflow}) using shared data (\code{lData}) and metadata (\code{lMapping}).
 Calls \code{RunStep} for each item in \code{lWorkflow$workflow} and saves the results to \code{lWorkflow}.
-}
-\details{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
 \dontrun{

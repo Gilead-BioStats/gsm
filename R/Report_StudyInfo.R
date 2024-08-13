@@ -1,5 +1,6 @@
 #' Report Study Information
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
 #' This function generates a table summarizing study metadata.

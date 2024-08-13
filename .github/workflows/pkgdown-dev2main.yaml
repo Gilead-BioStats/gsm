@@ -1,0 +1,124 @@
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+name: pkgdown-dev2main
+
+jobs:
+  pkgdown-dev2main:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      PKGDOWN_DEV_MODE: devel
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: dev
+
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::pkgdown, local::.
+          needs: website
+
+      - name: Generate sample reports
+        shell: Rscript {0}
+        run: |
+          devtools::load_all()
+          dir.create(here::here("pkgdown", "assets"), recursive = TRUE)
+
+          lData <- list(
+            dfSUBJ = clindata::rawplus_dm,
+            dfAE = clindata::rawplus_ae,
+            dfPD = clindata::ctms_protdev,
+            dfLB = clindata::rawplus_lb,
+            dfSTUDCOMP = clindata::rawplus_studcomp,
+            dfSDRGCOMP = clindata::rawplus_sdrgcomp %>%
+              dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
+            dfDATACHG = clindata::edc_data_points,
+            dfDATAENT = clindata::edc_data_pages,
+            dfQUERY = clindata::edc_queries,
+            dfENROLL = clindata::rawplus_enroll
+          )
+          mapping_wf <- MakeWorkflowList(strNames = "data_mapping")
+          mapped <- RunWorkflows(mapping_wf, lData, bKeepInputData=TRUE)
+
+          kri_wf <- MakeWorkflowList(strNames = "kri")
+          kris <- RunWorkflows(kri_wf, mapped)
+
+          # Step 3 - Create Reporting Data - Import Metadata and stack KRI Results
+          lReporting_Input <- list(
+              ctms_site = clindata::ctms_site,
+              ctms_study = clindata::ctms_study,
+              dfEnrolled = mapped$dfEnrolled,
+              lWorkflows = kri_wf,
+              lAnalysis = kris,
+              dSnapshotDate = Sys.Date(),
+              strStudyID = "ABC-123"
+          )
+          reporting_wf <- MakeWorkflowList(strNames = "reporting")
+          reporting <- RunWorkflows(reporting_wf, lReporting_Input)
+
+          lCharts <- MakeCharts(
+            dfResults = reporting$dfResults,
+            dfGroups = reporting$dfGroups,
+            dfMetrics = reporting$dfMetrics,
+            dfBounds = reporting$dfBounds
+          )
+
+          Report_KRI(
+            lCharts = lCharts,
+            dfResults =  reporting$dfResults,
+            dfGroups =  reporting$dfGroups,
+            dfMetrics = reporting$dfMetrics,
+            strOutputDir = here::here("pkgdown", "assets"),
+            strOutputFile = "StandardReportSite.html"
+          )
+
+          ## Country Report
+          cou_wf <- MakeWorkflowList(strNames = "cou")
+          cous <- RunWorkflows(cou_wf, mapped)
+
+          # Step 3 - Create Reporting Data - Import Metadata and stack KRI Results
+          lReporting_Input_country <- list(
+              ctms_site = clindata::ctms_site,
+              ctms_study = clindata::ctms_study,
+              dfEnrolled = mapped$dfEnrolled,
+              lWorkflows = cou_wf,
+              lAnalysis = cous,
+              dSnapshotDate = Sys.Date(),
+              strStudyID = "ABC-123"
+          )
+          reporting_wf_country <- MakeWorkflowList(strNames = "reporting")
+          reporting_country <- RunWorkflows(reporting_wf_country, lReporting_Input_country)
+
+          lCharts_country <- MakeCharts(
+            dfResults = reporting_country$dfResults,
+            dfGroups = reporting_country$dfGroups,
+            dfMetrics = reporting_country$dfMetrics,
+            dfBounds = reporting_country$dfBounds
+          )
+
+          Report_KRI(
+            lCharts = lCharts_country,
+            dfResults =  reporting_country$dfResults,
+            dfGroups =  reporting_country$dfGroups,
+            dfMetrics = reporting_country$dfMetrics,
+            strOutputDir = here::here("pkgdown", "assets"),
+            strOutputFile = "StandardReportCountry.html"
+          )
+
+      - name: Deploy pkgdown
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'

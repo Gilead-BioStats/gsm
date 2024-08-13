@@ -26,6 +26,6 @@ Generated from \code{reportingResults.csv} dataset in the \code{gsm} package.
 reportingResults
 }
 \description{
-reportingResults Dataset
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \keyword{datasets}

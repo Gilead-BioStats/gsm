@@ -1,14 +1,14 @@
 #' Scatter Plot Widget
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' @description
 #' A widget that generates a scatter plot of group-level metric results, plotting the denominator
 #' on the x-axis and the numerator on the y-axis.
 #'
 #' @inheritParams shared-params
 #' @param bAddGroupSelect `logical` Add a dropdown to highlight sites? Default: `TRUE`.
-#' @param bDebug `logical` Print debug messages? Default: `FALSE`.
+#' @param strShinyGroupSelectID `character` Element ID of group select in Shiny context. Default: `'GroupID'`.
 #'
 #' @examples
 #' ## Filter data to one metric and snapshot
@@ -37,6 +37,7 @@ Widget_ScatterPlot <- function(
   dfGroups = NULL,
   dfBounds = NULL,
   bAddGroupSelect = TRUE,
+  strShinyGroupSelectID = "GroupID",
   bDebug = FALSE
 ) {
   # define widget inputs
@@ -46,6 +47,7 @@ Widget_ScatterPlot <- function(
     dfGroups = dfGroups,
     dfBounds = dfBounds,
     bAddGroupSelect = bAddGroupSelect,
+    strShinyGroupSelectID = strShinyGroupSelectID,
     bDebug = bDebug
   )
 
@@ -76,6 +78,7 @@ Widget_ScatterPlot <- function(
 
 #' Shiny bindings for Widget_ScatterPlot
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
 #' Output and render functions for using Widget_ScatterPlot within Shiny

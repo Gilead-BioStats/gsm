@@ -16,13 +16,13 @@ values in \code{strColumn} are compared to \code{vThreshold} using strict compar
 \code{data.frame} with "Flag" column added
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 Add columns flagging sites that represent possible statistical outliers.
 }
 \details{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-
 This function flags sites based on the funnel plot with normal approximation analysis result as part of
-the \href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline}.
+the GSM data model (see \code{vignette("DataModel")}).
 }
 \section{Data Specification}{
 

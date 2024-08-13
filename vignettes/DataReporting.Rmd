@@ -1,5 +1,6 @@
 ---
 title: "Step-by-Step Reporting Workflow"
+subtitle: "DRAFT VERSION"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Step-by-Step Reporting Workflow}
@@ -36,7 +37,7 @@ This vignette walks users through the mechanics of the functions and workflows t
 
 These functions and workflows produce data frames, visualizations, metadata, and reports to be used in reporting and error checking at clinical sites. The image below illustrates the overarching context in which the reporting workflow runs, taking inputs from both the output of the analytics workflow, as well as raw study-, site-, and country-level data in the Raw/Raw+ format.
 
-![](data-model.PNG){width="100%"}
+![](data_model_detailed.png){width="100%"}
 
 All of the functions to create the data frames in the reporting data model will run automatically and sequentially when a user specifies the metadata and data needed for the report, and calls upon the `RunWorkflow()` function with the  `data_reporting.yaml` file. To create a report, the output of the `data_reporting.yaml` is fed into the `reports.yaml` to produce and html document with all charts and tables created in the reporting workflow.
 
@@ -52,13 +53,13 @@ We will use sample clinical data from the [`{clindata}`](https://github.com/Gile
 
 Additional supporting functions are explored in [Appendix 1](#appendix-1).
 
-### Step 0 - Run Analytics Workflow
+### Step 0 - Run Analysis Workflow(s)
 
-Prior to running the reporting model to create reporting data frames, charts and reports, the metrics we are reporting on must be properly calculated and flagged with the analytics workflow. For more information on the Analytics Workflow, see the associated [vignette](DataAnalysis.html).
+Prior to running the reporting model to create reporting data frames, charts and reports, the metrics we are reporting on must be properly calculated and flagged with the analysis workflow. For more information on the Analysis Workflow, see the associated `vignette("DataAnalysis")`.
 
-To run the analytics workflow on all 13 KRIs using `clindata` Raw+ data, use the code snippet below. From this, three pieces of output will be used in the reporting workflow:
+To run the analysis workflow on all 13 KRIs using `clindata` Raw+ data, use the code snippet below. From this, three pieces of output will be used in the reporting workflow:
 
-1. `lAnalysis` -  list of data frames in the analytics data model
+1. `lAnalysis` -  list of data frames in the analysis data model
 2. `lWorkflow` - list containing the metadata for each of the KRIs
 3. `mapped$dfEnrolled` - mapped data.frame of enrolled participants
 
@@ -79,7 +80,7 @@ lData <- list(
 mapping_wf <- MakeWorkflowList(strNames = "data_mapping")
 mapped <- RunWorkflows(mapping_wf, lData, bKeepInputData=TRUE)
 
-# Create Analytics Data - Generate 12 KRIs
+# Create Analysis Data - Generate 12 KRIs
 lWorkflow <- MakeWorkflowList(strNames = "kri")
 lAnalysis <- RunWorkflows(lWorkflow, mapped)
 ```
@@ -95,14 +96,14 @@ With all necessary inputs to the reporting model created, we can move on to gene
  results returned by `Summarize()` to `BindResults()`.
 4. `dfBounds`: Set of predicted percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values for reporting. Created by passing `dfResults` and `dfMetrics` to `MakeBounds()`. 
 
-For more details on any of these tables, see the [Data Pipeline vignette](DataPipeline.html).
+For more details on any of these tables, see `vignette("DataModel")`.
 
 The following sub-steps will dive into the creation and structure of each of these tables. Sample data for each of these tables can found in `{gsm}` as `reportingGroups`, `reportingMetrics`, `reportingResults` and `reportingBounds`. These sample tables are used throughout the package in examples and documentation.
 
 
 #### Step 1.1 - Transform CTMS data into `dfGroups` data frame
 
-The `dfGroups` data frame is critical to providing site-, study- and country-level information in the final report. This table is based on CTMS data and the mapped `dfEnrolled` data frame created in the Analytics workflow. Creating this table requires the creation of 5 smaller tables that summarize the data at each group level using `RunQuery()` and `MakeLongMeta()`. These small tables are then bound together to create `dfGroups`.
+The `dfGroups` data frame is critical to providing site-, study- and country-level information in the final report. This table is based on CTMS data and the mapped `dfEnrolled` data frame created in the Analysis workflow. Creating this table requires the creation of 5 smaller tables that summarize the data at each group level using `RunQuery()` and `MakeLongMeta()`. These small tables are then bound together to create `dfGroups`.
 
 ```{r include = TRUE, message = FALSE}
 #Transform CTMS Site and Study Level data
@@ -143,7 +144,7 @@ The resulting `dfGroups` dataframe contains the following columns:
 -   `Param`: Parameter Name (e.g. "Status")  
 -   `Value`: Parameter Value (e.g. "Active")
 
-An more detailed explanation of the `Param`s for each group level can be found in the [Data Pipeline Vignette](DataPipeline.html) 
+A more detailed explanation of the `Param`s for each group level can be found in `vignette("DataModel")`. 
 
 ```{r, echo = FALSE, warning = FALSE}
 datatable(dfGroups)
@@ -178,7 +179,7 @@ datatable(dfMetrics)
 
 #### Step 1.3 - Stack `dfSummary` data into `dfResults`
 
-The reporting workflow requires that all metrics are stacked into a single data frame, `dfResults`. This stacked data frame is created by feeding the `lAnalysis` list from the analytics workflow into `BindResults()` along with the snapshot date and the study id.
+The reporting workflow requires that all metrics are stacked into a single data frame, `dfResults`. This stacked data frame is created by feeding the `lAnalysis` list from the analysis workflow into `BindResults()` along with the snapshot date and the study id.
 
 ```{r include = TRUE}
 dfResults <- BindResults(lResults = lAnalysis,
@@ -267,25 +268,25 @@ lCharts$kri0001$scatterJS
 
 ### Step 3 - Generate Report
 
-All of the components are created to generate the HTML report for the study we are working on. In order to generate this report and save it locally, simply feed `lCharts`, `dfResults`, `dfGroups`, `dfMetrics` and (optionally) a path to which the report will be saved (`strOutpath`) into `Report_KRI()` and the HTML output will be knit from the `Report_KRI.Rmd` template. 
+All of the components are created to generate the HTML report for the study we are working on. In order to generate this report and save it locally, simply feed `lCharts`, `dfResults`, `dfGroups`, `dfMetrics` and (optionally) an absolute directory path and file to which the report will be saved (`strOutputDir` and `strOutputFile`, respectively) into `Report_KRI()` and the HTML output will be knit from the `Report_KRI.Rmd` template. All intermediate files from the knitting process will be saved in a temporary folder.
 
 ```{r eval = FALSE, include = TRUE}
 lReport <- Report_KRI(lCharts = lCharts,
                       dfResults = dfResults,
                       dfGroups = dfGroups,
                       dfMetrics = dfMetrics,
-                      strOutpath = "test_kri_report.html")
+                      strOutputFile = "test_kri_report.html")
 ```
 
-Below, you will see a screenshot from the beginning of the report. All charts for all metrics that were included throughout the analytics and reporting workflows will be included in this report.
+Below, you will see a screenshot from the beginning of the report. All charts for all metrics that were included throughout the analysis and reporting workflows will be included in this report.
 
-![](report-screenshot.PNG){width="100%"}
+![](report_screenshot.png){width="100%"}
 
 -------------------------------------------------------------------
 
-## Using `yaml` Workflows to generate reports
+## Using YAML Workflows to generate reports
 
-While it is helpful to understand how each step of this process works, we have provided a series of `yaml` workflow files that make running reports on multiple KRIs easy and with the ability to be automated. 
+While it is helpful to understand how each step of this process works, we have provided a series of YAML workflow files that make running reports on multiple KRIs easy and with the ability to be automated. 
 
 Here, you will see two options for how to run your workflows. The first is to run the analytics workflow(s), followed by the reporting workflow `data_reporting.yaml` followed by the charts and reports workflow `reports.yaml`. This allows the user to examine the output of each workflow individually before moving on to the next step.
 
@@ -388,14 +389,18 @@ snapshot <- RunWorkflows(ss_wf, lData, bKeepInputData = TRUE)
 
 -   `Visualize_Scatter()`: Creates scatter plot of Total Exposure (in days, on log scale) vs Total Number of Event(s) of Interest (on linear scale). Each data point represents one site. Outliers are plotted in red with the site label attached. This plot is only created when statistical method is **not** defined as `identity`. Chart is called `scatter` in the `lCharts` object.
 -   `Visualize_Score()`: Provides a standard visualization for Score or KRI. Charts are called `barScore` or `barMetric` in the `lCharts` object.
--   `Visualize_Metric()`: Creates all available charts for a metric using the data provided.
+-   `Visualize_Metric()`: Creates all available charts and tables for a metric using the data provided.
 
 
 ### Widget Functions
 
-- `Widget_GroupOverview`: Creates an interactive table displaying the flag distribution for all groups across all metrics.
-- `Widget_BarChart`:  Creates an interactive barchart visualization for Score or KRI. Charts are called `barScoreJS` or `barMetricJS` in the `lCharts` object.
-- `Widget_ScatterPlot`: Creates an interactive scatter plot of Total Exposure (in days, on log scale) vs Total Number of Event(s) of Interest (on linear scale). Each data point represents one site. Outliers are plotted in red with the site label attached.Chart is called `scatterJS` in the `lCharts` object.
-- `Widget_TimeSeries`: Creates an interactive time series scatter plot of the score, metric or numerator. Charts are called `timeSeriesContinuousScoreJS`, `timeSeriesContinuousMetricJS`, or `timeSeriesContinuousNumeratorJS` in the `lCharts` object.
+- `Widget_GroupOverview()`: Creates an interactive table displaying the flag distribution for all groups across all metrics.
+- `Widget_BarChart()`:  Creates an interactive bar chart visualization for Score or KRI. Charts are called `barScoreJS` or `barMetricJS` in the `lCharts` object.
+- `Widget_ScatterPlot()`: Creates an interactive scatter plot of Total Exposure (in days, on log scale) vs Total Number of Event(s) of Interest (on linear scale). Each data point represents one site. Outliers are plotted in red with the site label attached.Chart is called `scatterJS` in the `lCharts` object.
+- `Widget_TimeSeries()`: Creates an interactive time series scatter plot of the score, metric or numerator. Charts are called `timeSeriesContinuousScoreJS`, `timeSeriesContinuousMetricJS`, or `timeSeriesContinuousNumeratorJS` in the `lCharts` object.
+
+### Table Functions
+
+- `Report_MetricTable()`: Creates a sortable table displaying the flags per group (e.g. Site, Country) for one metric at a time.
 
                                                                                                                                                                                        

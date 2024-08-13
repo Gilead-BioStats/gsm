@@ -45,8 +45,6 @@ JSON files used to test data pipeline functionality, and used as a reference for
 ├── kri-list-details.json
 ├── kri-sites-dropdown.json
 ├── pretty-print.py
-├── qtl-graph-details.json
-├── qtl-headers-details.json
 ├── site-custom-columns.json
 ├── site-details-graph.json
 ├── site-details-kris.json
@@ -76,8 +74,6 @@ JSON files used to test data pipeline functionality, and used as a reference for
 ├── Widget_ScatterPlot.yaml
 ├── Widget_TimeSeries.js
 ├── Widget_TimeSeries.yaml
-├── Widget_TimeSeriesQTL.js
-└── Widget_TimeSeriesQTL.yaml
 ```
 
 ---
@@ -123,7 +119,6 @@ R Markdown files that are used as templates underlying the [`gsm::Study_Report()
 
 ```
 ├── KRIReportByCountry.Rmd
-├── KRIReportByQTL.Rmd
 ├── KRIReportBySite.Rmd
 └── styles.css
 ```
@@ -191,7 +186,5 @@ YAML files that are used to configure assessment workflows, passed into `gsm::St
 ├── kri0011.yaml
 ├── kri0012.yaml
 ├── mapping.yaml
-├── qtl0004.yaml
-└── qtl0006.yaml
 ```
 

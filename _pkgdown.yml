@@ -1,6 +1,8 @@
+url: https://gilead-biostats.github.io/gsm
+
 template:
-  params:
-    bootswatch: yeti
+  bootstrap: 5
+  bootswatch: yeti
 
 navbar:
   structure:
@@ -14,25 +16,6 @@ navbar:
           href: StandardReportSite.html
         - text: Country Report
           href: StandardReportCountry.html
-    articles:
-      text: Articles
-      menu:
-        - text: Cookbook
-          href: articles/Cookbook.html
-        - text: Step-by-Step Analysis Workflow
-          href: articles/DataAnalysis.html
-        - text: Data Pipeline
-          href: articles/DataPipeline.html
-        - text: Contributor Guidelines
-          href: articles/ContributorGuidelines.html
-        - text: KRI Method
-          href: articles/KRI Method.html
-        - text: Qualification Report for the {gsm} R Package
-          href: articles/Qualification.html
-        - text: Qualification Workflow
-          href: articles/QualificationWorkflow.html
-        - text: v1.9.0 Data Model Update Reference
-          href: articles/v1_9_0-data-model-update-reference.html
 
 reference:
   - title: Visualize
@@ -62,7 +45,6 @@ reference:
       - Flag_Fisher
       - Flag_NormalApprox
       - Flag_Poisson
-      - Flag_QTL
       - Summarize
 
   - title: Reporting
@@ -74,13 +56,9 @@ reference:
       - Report_MetricCharts
       - Report_MetricTable
 
-  - title: QTL
-    desc: Runs QTL analysis for longitudinal metrics
-  - contents:
-      - Analyze_QTL
 
   - title: Utility
-    desc: Utility functions for use within the Data Pipeline
+    desc: Utility functions for use within the Data Model
   - contents:
      -  BindResults
      -  MakeBounds
@@ -95,6 +73,7 @@ reference:
      -  RunWorkflow
      -  RunWorkflows
      -  UseClindata
+     -  RenderRmd
 
   - title: Sample Data
     desc: data used for examples and testing

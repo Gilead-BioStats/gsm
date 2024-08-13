@@ -1,5 +1,6 @@
 #' Helper function to bind results from multiple workflows
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
 #' Used to stack results (e.g. `dfSummary`) from a list of analysis pipeline

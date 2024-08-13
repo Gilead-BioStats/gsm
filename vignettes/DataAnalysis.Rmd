@@ -1,5 +1,6 @@
 ---
 title: "Step-by-Step Analysis Workflow"
+subtitle: "DRAFT VERSION"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Step-by-Step Analysis Workflow}
@@ -20,11 +21,11 @@ library(DT)
 
 # Introduction
 
-This vignette walks users through the mechanics of the functions that produce all of the Analytics output within the `{gsm}` package. `{gsm}` leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level and site-level Risk Based Monitoring for clinical trials.
+This vignette walks users through the mechanics of the functions that produce all of the Analysis workflow output within the `{gsm}` package. `{gsm}` leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level and site-level Risk Based Monitoring for clinical trials.
 
 These functions provide data frames, visualizations, and metadata to be used in reporting and error checking at clinical sites. The image below illustrates the supporting functions that feed into the `yaml` workflow that is specified in each analysis workflow.
 
-![](data-analysis.PNG){width="100%"}
+![](data_analysis.png){width="100%"} 
 
 All of these functions will run automatically and sequentially when a user calls upon the `RunWorkflow()` function with a specified `yaml` file for KRI metrics.
 
@@ -66,7 +67,7 @@ The data frame `dfInput` for an AE assessment will be created by running `Input_
 
 -   `SubjectID`: Subject Identifier
 -   `GroupID`: Group Identifier
--   `GroupLevel`: Type of Group specified in `GroupID` (Country, Site, QTL)
+-   `GroupLevel`: Type of Group specified in `GroupID` (Country, Site)
 -   `Numerator`: Total Time on Treatment (measured in days; per subject)
 -   `Denominator`: Total Number of Event(s) of Interest (in this example, the number of AEs reported; per subject)
 -   `Metric`: Rate of Event Incidence (calculated as `Exposure`/`Count`; per subject)
@@ -89,7 +90,7 @@ dfTransformed <- Transform_Rate(dfInput)
 The resulting `dfTransformed` data frame will contain site-level transformed data, including KRI calculation. Using our example AE data, `dfTransformed` contains the following columns:
 
 -   `GroupID`: Group Identifier (default is Site ID)
--   `GroupLevel`: Type of Group specified in `GroupID` (Country, Site, QTL)
+-   `GroupLevel`: Type of Group specified in `GroupID` (Country, Site)
 -   `Numerator`: Cumulative Number of Event(s) of Interest (in this example, number of AEs reported across subjects)
 -   `Denominator`: Cumulative Time on Treatment (in days, across subjects)
 -   `Metric`: Rate of Event(s) of Interest (in this example, number of AEs reported over the course of treatment in days)
@@ -112,7 +113,7 @@ dfAnalyzed <- Analyze_NormalApprox(dfTransformed)
 Using our example AE data, `dfAnalyzed` contains the following columns:
 
 -   `GroupID`: Group Identifier (default is Site ID)
--   `GroupLevel`: Type of Group specified in `GroupID` (Country, Site, QTL)
+-   `GroupLevel`: Type of Group specified in `GroupID` (Country, Site)
 -   `Numerator`: Cumulative Number of Event(s) of Interest (in this example, number of AEs reported across subjects); Carried from `dfTransformed`.
 -   `Denominator`: Cumulative Time on Treatment (in days, across subjects); Carried from `dfTransformed`.
 -   `Metric`: Rate of Event(s) of Interest (in this example, number of AEs reported over the course of treatment in days); Carried from `dfTransformed`.
@@ -138,7 +139,7 @@ dfFlagged <- Flag_NormalApprox(dfAnalyzed, vThreshold = c(-3, -2, 2, 3))
 The default flagging function for the normal approximation method is `Flag_NormalApprox()` and the default threshold is (-3, -2, 2, 3). Using our example AE data, `dfFlagged` contains the following columns:
 
 -   `GroupID`: Group Identifier (default is Site ID)
--   `GroupLevel`: Type of Group specified in `GroupID` (Country, Site, QTL)
+-   `GroupLevel`: Type of Group specified in `GroupID` (Country, Site)
 -   `Numerator`: Cumulative Number of Event(s) of Interest (in this example, number of AEs reported across subjects); Carried from `dfAnalyzed`
 -   `Denominator`: Cumulative Time on Treatment (in days, across subjects); Carried from `dfAnalyzed`
 -   `Metric`: Rate of Event(s) of Interest (in this example, number of AEs reported over the course of treatment in days); Carried from `dfAnalyzed`
@@ -158,7 +159,7 @@ datatable(dfFlagged)
 The data frame `dfSummary` is derived from `dfFlagged` using the `Summarize()` function. The resulting `dfSummary` data frame will contain the most relevant columns from `dfFlagged` with data sorted in a meaningful way to provide a concise overview of the assessment. Flagged sites will sort earlier than non-flagged sites, with the more "extreme" outliers displayed first. The columns in `dfSummary` include:
 
 -   `GroupID`: Group Identifier (default is Site ID)
--   `GroupLevel`: Type of Group specified in `GroupID` (Country, Site, QTL)
+-   `GroupLevel`: Type of Group specified in `GroupID` (Country, Site)
 -   `Numerator`: Cumulative Number of Event(s) of Interest (in this example, number of AEs reported across subjects); Carried from `dfAnalyzed`
 -   `Denominator`: Cumulative Time on Treatment (in days, across subjects); Carried from `dfAnalyzed`
 -   `Metric`: Rate of Event(s) of Interest (in this example, number of AEs reported over the course of treatment in days)
@@ -189,7 +190,7 @@ chart <- Visualize_Scatter(dfFlagged, dfBounds)
 chart
 ```
 
-A full explanation of all Data Visualizations in the `{gsm}` package is outlined in the [Reporting Workflow vignette](DataReporting.html).
+A full explanation of all Data Visualizations in the `{gsm}` package is outlined in the `vignette("DataReporting")`.
 
 ------------------------------------------------------------------------
 
@@ -206,7 +207,7 @@ A full explanation of all Data Visualizations in the `{gsm}` package is outlined
 
 # Appendix 1 - Supporting Functions {#appendix-1}
 
-The following sections include various examples of supporting functions and statistical models that can be employed in the Analytics workflow. Please note that this is **not** an exhaustive list, but includes some of the most commonly called upon functions.
+The following sections include various examples of supporting functions and statistical models that can be employed in the Analysis workflow. Please note that this is **not** an exhaustive list, but includes some of the most commonly called upon functions.
 
 ### Mapping Functions
 
@@ -243,4 +244,4 @@ The following sections include various examples of supporting functions and stat
 -   By default, all `yaml` workflow assessments specified in the `inst/workflows/` directory use the [normal approximation](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-normal-approximation-method) method.
 -   Optionally, other statistical methods include: [**Poisson**](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-poisson-regression-method), [**Fisher's Exact**](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-fishers-exact-method), and [**Identity**](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-identity-method).
 
-![](data-analysis-combined.PNG){width="100%"}
+![](data_analysis_combined.png){width="100%"}

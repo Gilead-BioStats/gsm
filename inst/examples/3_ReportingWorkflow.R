@@ -34,8 +34,8 @@ reporting_wf <- MakeWorkflowList(strNames = "reporting")
 reporting <- RunWorkflows(reporting_wf, lReporting_Input)
 
 # Step 4 - Generate Reports - Create Charts + Report
-wf_reports<-MakeWorkflowList(strNames = "reports")
-lReports<-RunWorkflows(wf_reports, reporting)
+wf_reports <- MakeWorkflowList(strNames = "reports")
+lReports <- RunWorkflows(wf_reports, reporting)
 
 #### 3.2 - Create a KRI Report using 12 standard metrics with a single composite workflow
 lData <- list(
@@ -75,7 +75,7 @@ lCharts <- MakeCharts(
   dfBounds = gsm::reportingBounds
 )
 
-Report_KRI(
+kri_report_path <- Report_KRI(
   lCharts = lCharts,
   dfResults =  gsm::reportingResults,
   dfGroups =  gsm::reportingGroups,

@@ -1,5 +1,6 @@
 #' Visualize_Metric Function
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
 #' The function creates all available charts for a metric using the data provided
@@ -19,6 +20,7 @@
 #' - timeSeriesContinuousScoreJS: A time series chart using JavaScript with score on the y-axis.
 #' - timeSeriesContinuousMetricJS: A time series chart using JavaScript with metric on the y-axis.
 #' - timeSeriesContinuousNumeratorJS: A time series chart using JavaScript with numerator on the y-axis.
+#' - metricTable: A table containing all
 #'
 #'
 #' @examples
@@ -85,6 +87,7 @@ Visualize_Metric <- function(
   dfResults_current <- dfResults %>% filter(.data$SnapshotDate == strSnapshotDate)
   dfBounds_current <- dfBounds %>% filter(.data$SnapshotDate == strSnapshotDate)
 
+
   if (nrow(dfResults_current) == 0) {
     cli::cli_alert_warning("No data found for specified snapshot date: {strSnapshotDate}. No charts will be generated.")
   } else {
@@ -127,6 +130,12 @@ Visualize_Metric <- function(
       dfResults = dfResults_current,
       strType = "Score",
       vThreshold = vThreshold
+    )
+
+    lCharts$metricTable <- Report_MetricTable(
+      dfResults = dfResults_current,
+      dfGroups = dfGroups,
+      strGroupLevel = lMetric$GroupLevel
     )
   }
   # Continuous Charts -------------------------------------------------------

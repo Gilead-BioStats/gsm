@@ -14,8 +14,7 @@ A numeric vector containing the parsed values.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-}
-\details{
+
 This function takes a comma-separated string and parses it into a numeric
 vector. It checks if all values in the string are numeric and returns the
 parsed vector. If any value is not numeric, it throws an error.

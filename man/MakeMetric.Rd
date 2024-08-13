@@ -14,6 +14,8 @@ MakeMetric(lWorkflows)
 A data frame.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 Used to format metric metadata (\code{dfMetrics}) for use in charts and reports.
 This function takes a list of workflows and returns a data frame with one row
 per \code{MetricID}.

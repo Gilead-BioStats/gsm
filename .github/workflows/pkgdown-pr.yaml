@@ -22,10 +22,6 @@ jobs:
       R_KEEP_PKG_SOURCE: yes
 
     steps:
-      - uses: webfactory/ssh-agent@v0.6.0
-        with:
-          ssh-private-key: ${{ secrets.LOAD_CLINDATA }}
-
       - uses: actions/checkout@v4
 
       - uses: r-lib/actions/setup-pandoc@v2
@@ -38,8 +34,12 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::pkgdown
+          extra-packages: any::pkgdown, local::.
 
       - name: build pkgdown reference index
         run: pkgdown::build_reference_index()
+        shell: Rscript {0}
+
+      - name: build pkgdown articles
+        run: pkgdown::build_articles()
         shell: Rscript {0}

@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [dev]
+    branches: dev
   workflow_dispatch:
 
 name: pkgdown-dev
@@ -15,10 +15,6 @@ jobs:
       contents: write
 
     steps:
-      - uses: webfactory/ssh-agent@v0.6.0
-        with:
-          ssh-private-key: ${{ secrets.LOAD_CLINDATA }}
-
       - uses: actions/checkout@v4
         with:
           ref: dev
@@ -34,7 +30,7 @@ jobs:
           extra-packages: any::pkgdown, local::.
           needs: website
 
-      - name: Deploy package
+      - name: Deploy pkgdown
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"

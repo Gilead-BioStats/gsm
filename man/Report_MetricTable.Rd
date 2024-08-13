@@ -7,17 +7,15 @@
 Report_MetricTable(
   dfResults,
   dfGroups,
-  strSnapshotDate = NULL,
-  strGroupLevel = c("Site", "Study", "Country"),
+  strGroupLevel = c("Site", "Country", "Study"),
   strGroupDetailsParams = NULL
 )
 }
 \arguments{
-\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
+\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.
+For this function, \code{dfResults} must be filtered to a single KRI (\code{MetricID}).}
 
 \item{dfGroups}{\code{data.frame} Group-level metadata dictionary. Created by passing CTMS site and study data to \code{\link[=MakeLongMeta]{MakeLongMeta()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Param}, \code{Value}.}
-
-\item{strSnapshotDate}{user specified snapshot date as string}
 
 \item{strGroupLevel}{group level for the table}
 
@@ -28,8 +26,7 @@ A datatable containing the summary table
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-}
-\details{
+
 This function generates a summary table for a report by joining the provided
 results data frame with the site-level metadata from dfGroups. It then filters and arranges the
 data based on certain conditions and displays the result in a datatable.

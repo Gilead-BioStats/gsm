@@ -1,7 +1,14 @@
 test_that("MakeCharts makes charts", {
   # Mock Visualize_Metric() since that has its own tests.
   local_mocked_bindings(
-    Visualize_Metric = function(dfResults, dfBounds, dfGroups, dfMetrics, strMetricID, bDebug) {
+    Visualize_Metric = function(
+      dfResults,
+      dfBounds,
+      dfGroups,
+      dfMetrics,
+      strMetricID,
+      ...
+    ) {
       list(
         dfResults = nrow(dfResults),
         dfBounds = nrow(dfBounds),

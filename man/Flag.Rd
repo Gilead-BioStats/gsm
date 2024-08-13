@@ -26,14 +26,14 @@ the value for that row is lower than the median of \code{strValueColumn}, then F
 \code{data.frame} with one row per site with columns: \code{GroupID}, \code{TotalCount}, \code{Metric}, \code{Score}, \code{Flag}
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 Add columns flagging sites that represent possible statistical outliers when the Identity statistical
 method is used.
 }
 \details{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-
 This function provides a generalized framework for flagging sites as part of the
-\href{https://gilead-biostats.github.io/gsm/articles/DataPipeline.html}{GSM data pipeline}.
+GSM data model (see \code{vignette("DataModel")}).
 }
 \section{Data Specification}{
 

@@ -1,13 +1,13 @@
 #' Flag_NormalApprox
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' @description
 #' Add columns flagging sites that represent possible statistical outliers.
 #'
 #' @details
 #' This function flags sites based on the funnel plot with normal approximation analysis result as part of
-#' the [GSM data pipeline](https://gilead-biostats.github.io/gsm/articles/DataPipeline.html).
+#' the GSM data model (see `vignette("DataModel")`).
 #'
 #' @section Data Specification:
 #' \code{Flag_NormalApprox} is designed to support the input data (`dfAnalyzed`) from \code{Analyze_NormalApprox} function.

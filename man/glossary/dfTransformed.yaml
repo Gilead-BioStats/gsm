@@ -2,5 +2,5 @@ class: data.frame
 definition: >
   Transformed data for analysis. Data should have one record per site with
   expected columns: `GroupID`, `GroupLevel`, `Numerator`, `Denominator`, and
-  `Metric`. For more details see the Data Pipeline vignette:
-  `vignette("DataPipeline", package = "gsm")`.
+  `Metric`. For more details see the Data Model vignette:
+  `vignette("DataModel", package = "gsm")`.

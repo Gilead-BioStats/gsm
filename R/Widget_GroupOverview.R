@@ -1,8 +1,8 @@
 #' Group Overview Widget
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' @description
 #' A widget that generates a group overview table of group-level metric results across one or more
 #' metrics.
 #'
@@ -14,7 +14,6 @@
 #' - 'red/amber': Groups with 1+ red/amber flag.
 #' - 'amber': Groups with 1+ amber flag.
 #' @param strGroupLabelKey `character` Value for the group label key. Default: 'InvestigatorLastName'.
-#' @param bDebug `logical` Print debug messages? Default: `FALSE`.
 #'
 #' @examples
 #' # site-level report
@@ -99,6 +98,7 @@ Widget_GroupOverview <- function(
 
 #' Shiny bindings for Widget_GroupOverview
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
 #' Output and render functions for using Widget_GroupOverview within Shiny

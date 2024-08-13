@@ -1,8 +1,8 @@
 #' Identity Analysis.
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' @details
 #' Used in the data pipeline between `Transform` and `Flag` to rename KRI and Score columns.
 #'
 #' More information can be found in [The Identity Method](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-identity-method)

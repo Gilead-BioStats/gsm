@@ -1,14 +1,18 @@
 #' Report_KRI function
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
 #' This function generates a KRI report based on the provided inputs.
 #'
 #' @inheritParams shared-params
 #' @param lCharts A list of charts to include in the report.
-#' @param strOutpath The output path for the generated report. If not provided, the report will be saved in the current working directory with the name "kri_report.html".
+#' @param strOutputDir The output directory path for the generated report. If not provided,
+#'  the report will be saved in the current working directory.
+#' @param strOutputFile The output file name for the generated report. If not provided,
+#'  the report will be named based on the study ID, Group Level and Date.
 #'
-#' @return None
+#' @return File path of the saved report html is returned invisibly. Save to object to view absolute output path.
 #' @examples
 #' \dontrun{
 #' # Run reports
@@ -19,13 +23,13 @@
 #'   dfBounds = reportingBounds
 #' )
 #'
-#' strOutpath <- "StandardSiteReport.html"
-#' Report_KRI(
+#' strOutputFile <- "StandardSiteReport.html"
+#' kri_report_path <- Report_KRI(
 #'   lCharts = lCharts,
 #'   dfResults = reportingResults,
 #'   dfGroups = reportingGroups,
 #'   dfMetrics = reportingMetrics,
-#'   strOutpath = strOutpath
+#'   strOutputFile = strOutputFile
 #' )
 #' }
 #'
@@ -38,14 +42,15 @@ Report_KRI <- function(
   dfResults = NULL,
   dfGroups = NULL,
   dfMetrics = NULL,
-  strOutpath = NULL
+  strOutputDir = getwd(),
+  strOutputFile = NULL
 ) {
   rlang::check_installed("rmarkdown", reason = "to run `Report_KRI()`")
   rlang::check_installed("knitr", reason = "to run `Report_KRI()`")
   rlang::check_installed("kableExtra", reason = "to run `Report_KRI()`")
 
   # set output path
-  if (is.null(strOutpath)) {
+  if (is.null(strOutputFile)) {
     GroupLevel <- unique(dfMetrics$GroupLevel)
     StudyID <- unique(dfResults$StudyID)
     SnapshotDate <- max(unique(dfResults$SnapshotDate))
@@ -55,21 +60,21 @@ Report_KRI <- function(
       GroupLevel <- gsub("[^[:alnum:]]", "", GroupLevel)
       SnapshotDate <- gsub("[^[:alnum:]]", "", as.character(SnapshotDate))
 
-      strOutpath <- paste0(getwd(), "/kri_report_", StudyID, "_", GroupLevel, "_", SnapshotDate, ".html")
+      strOutputFile <- paste0("kri_report_", StudyID, "_", GroupLevel, "_", SnapshotDate, ".html")
     } else {
-      strOutpath <- paste0(getwd(), "/kri_report.html")
+      strOutputFile <- "kri_report.html"
     }
   }
 
-  rmarkdown::render(
-    system.file("report", "Report_KRI.Rmd", package = "gsm"),
-    output_file = strOutpath,
-    params = list(
+  RenderRmd(
+    strInputPath = system.file("report", "Report_KRI.Rmd", package = "gsm"),
+    strOutputFile = strOutputFile,
+    strOutputDir = strOutputDir,
+    lParams = list(
       lCharts = lCharts,
       dfResults = dfResults,
       dfGroups = dfGroups,
       dfMetrics = dfMetrics
-    ),
-    envir = new.env(parent = globalenv())
+    )
   )
 }

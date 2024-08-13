@@ -1,5 +1,8 @@
 #' UseClindata Function
 #'
+#' @description
+#' `r lifecycle::badge("stable")`
+#'
 #' The 'UseClindata' function takes an optional argument 'lDomains' and performs the following steps:
 #'
 #' 1. Checks if the 'clindata' package is installed using 'requireNamespace'.

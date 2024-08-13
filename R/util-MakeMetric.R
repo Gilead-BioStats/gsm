@@ -1,5 +1,8 @@
 #' Parse metadata from workflows to a data frame
 #'
+#' @description
+#' `r lifecycle::badge("stable")`
+#'
 #' Used to format metric metadata (`dfMetrics`) for use in charts and reports.
 #' This function takes a list of workflows and returns a data frame with one row
 #' per `MetricID`.

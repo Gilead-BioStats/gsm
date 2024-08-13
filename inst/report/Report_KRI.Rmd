@@ -102,7 +102,7 @@ Report_OverviewText(
 ```{r, echo=FALSE, results='asis'}
 
 for (i in unique(params$dfMetrics$MetricID)) {
-  lMetric <- params$dfMetrics %>% filter(MetricID == i) %>% as.list
+  lMetric <- params$dfMetrics %>% dplyr::filter(MetricID == i) %>% as.list
 
   print(htmltools::h3(lMetric$Metric))
   
@@ -111,12 +111,8 @@ for (i in unique(params$dfMetrics$MetricID)) {
     strMetricID = lMetric$MetricID
   )
 
- Report_MetricTable(
-    params$dfResults, 
-    params$dfGroups, 
-    strSnapshotDate = setup$SnapshotDate, 
-    strGroupLevel = setup$GroupLevel
-)
+ params$lCharts[[lMetric$MetricID]]$metricTable %>%
+   cat
 
 }
 

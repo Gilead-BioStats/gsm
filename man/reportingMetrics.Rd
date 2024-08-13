@@ -28,6 +28,6 @@ Generated from \code{reportingMetrics.csv} dataset in the \code{gsm} package.
 reportingMetrics
 }
 \description{
-reportingMetrics Dataset
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \keyword{datasets}

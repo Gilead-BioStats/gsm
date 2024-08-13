@@ -5,13 +5,14 @@
 \alias{analyticsInput}
 \title{analyticsInput Dataset}
 \format{
-A data frame with 25 rows and 5 columns:
+A data frame with 1301 rows and 6 columns:
 \describe{
 \item{SubjectID}{unique subject identifier}
 \item{GroupID}{grouping variable}
 \item{GroupLevel}{level of grouping variable}
 \item{Numerator}{number of flags in group}
 \item{Denominator}{total subjects in group}
+\item{Metric}{calculated rate/metric value}
 }
 }
 \source{
@@ -21,6 +22,6 @@ Generated from \code{analyticsInput.csv} dataset in the \code{gsm} package.
 analyticsInput
 }
 \description{
-analyticsInput Dataset
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \keyword{datasets}

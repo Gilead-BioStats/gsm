@@ -1,8 +1,8 @@
 #' Time Series Widget
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' @description
 #' A widget that generates a time series of group-level metric results over time, plotting snapshot
 #' date on the x-axis and the outcome (numerator, denominator, metric, or score) on the y-axis.
 #'
@@ -10,7 +10,7 @@
 #' @param vThreshold `numeric` Threshold value(s).
 #' @param strOutcome `character` Outcome variable. Default: 'Score'.
 #' @param bAddGroupSelect `logical` Add a dropdown to highlight sites? Default: `TRUE`.
-#' @param bDebug `logical` Print debug messages? Default: `FALSE`.
+#' @param strShinyGroupSelectID `character` Element ID of group select in Shiny context. Default: `'GroupID'`.
 #'
 #' @examples
 #' ## Filter data to one metric
@@ -21,12 +21,11 @@
 #'   dplyr::filter(MetricID == "kri0001") %>%
 #'   as.list()
 #'
-#'
 #' Widget_TimeSeries(
 #'   dfResults = reportingResults_filter,
 #'   lMetric = reportingMetrics_filter,
 #'   dfGroups = reportingGroups,
-#'   vThreshold = c(-3, -2, 2, 3)
+#'   vThreshold = reportingMetrics_filter$Threshold
 #' )
 #'
 #' @export
@@ -38,6 +37,7 @@ Widget_TimeSeries <- function(
   vThreshold = NULL,
   strOutcome = "Score",
   bAddGroupSelect = TRUE,
+  strShinyGroupSelectID = "GroupID",
   bDebug = FALSE
 ) {
   # Parse `vThreshold` from comma-delimited character string to numeric vector.
@@ -48,8 +48,9 @@ Widget_TimeSeries <- function(
   }
 
   # Disable threshold if outcome is not 'Score'.
-  if (strOutcome != 'Score')
+  if (strOutcome != "Score") {
     vThreshold <- NULL
+  }
 
   # define widget inputs
   input <- list(
@@ -59,6 +60,7 @@ Widget_TimeSeries <- function(
     vThreshold = vThreshold,
     strOutcome = strOutcome,
     bAddGroupSelect = bAddGroupSelect,
+    strShinyGroupSelectID = strShinyGroupSelectID,
     bDebug = bDebug
   )
 
@@ -89,6 +91,7 @@ Widget_TimeSeries <- function(
 
 #' Shiny bindings for Widget_TimeSeries
 #'
+#' @description
 #' `r lifecycle::badge("stable")`
 #'
 #' Output and render functions for using Widget_TimeSeries within Shiny
