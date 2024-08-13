@@ -106,7 +106,7 @@
       [1] "Raw_SUBJ"
       
       $data_mapping[[1]]$params$strQuery
-      [1] "SELECT subjectid AS raw_subjectid, * FROM df WHERE enrollyn == 'Y';"
+      [1] "SELECT subjectid as raw_subjectid, * FROM df WHERE enrollyn == 'Y'"
       
       
       
@@ -122,7 +122,7 @@
       [1] "Raw_AE"
       
       $data_mapping[[2]]$params$strQuery
-      [1] "SELECT * FROM df WHERE aeser == 'Y';"
+      [1] "SELECT * FROM df WHERE aeser = 'Y'"
       
       
       
@@ -138,7 +138,7 @@
       [1] "Raw_AE"
       
       $data_mapping[[3]]$params$strQuery
-      [1] "SELECT * FROM df;"
+      [1] "SELECT * FROM df"
       
       
       
@@ -154,7 +154,7 @@
       [1] "Raw_PD"
       
       $data_mapping[[4]]$params$strQuery
-      [1] "SELECT subjectenrollmentnumber AS subjid, * FROM df WHERE deemedimportant == 'No';"
+      [1] "SELECT subjectenrollmentnumber as subjid, * FROM df WHERE deemedimportant == 'No'"
       
       
       
@@ -170,7 +170,7 @@
       [1] "Raw_PD"
       
       $data_mapping[[5]]$params$strQuery
-      [1] "SELECT subjectenrollmentnumber AS subjid, * FROM df WHERE deemedimportant == 'Yes';"
+      [1] "SELECT subjectenrollmentnumber as subjid, * FROM df WHERE deemedimportant == 'Yes'"
       
       
       
@@ -186,7 +186,7 @@
       [1] "Raw_LB"
       
       $data_mapping[[6]]$params$strQuery
-      [1] "SELECT * FROM df WHERE toxgrg_nsv IN ('0', '1', '2', '3', '4');"
+      [1] "SELECT * FROM df WHERE toxgrg_nsv IN ('0', '1', '2', '3', '4')"
       
       
       
@@ -202,7 +202,7 @@
       [1] "Raw_LB"
       
       $data_mapping[[7]]$params$strQuery
-      [1] "SELECT * FROM df WHERE toxgrg_nsv IN ('3', '4');"
+      [1] "SELECT * FROM df WHERE toxgrg_nsv IN ('3', '4')"
       
       
       
@@ -218,7 +218,7 @@
       [1] "Raw_STUDCOMP"
       
       $data_mapping[[8]]$params$strQuery
-      [1] "SELECT * FROM df WHERE compyn == 'N';"
+      [1] "SELECT * FROM df WHERE compyn IN ('N')"
       
       
       
@@ -234,7 +234,7 @@
       [1] "Raw_SDRGCOMP"
       
       $data_mapping[[9]]$params$strQuery
-      [1] "SELECT * FROM df WHERE sdrgyn == 'N' AND phase == 'Blinded Study Drug Completion';"
+      [1] "SELECT * FROM df WHERE sdrgyn IN ('N') AND phase = 'Blinded Study Drug Completion'"
       
       
       
@@ -250,7 +250,7 @@
       [1] "Raw_QUERY"
       
       $data_mapping[[10]]$params$strQuery
-      [1] "SELECT subjectname AS subject_nsv, * FROM df WHERE querystatus IN ('Open', 'Answered', 'Closed');"
+      [1] "SELECT subjectname as subject_nsv, * FROM df WHERE querystatus IN ('Open', 'Answered', 'Closed')"
       
       
       
@@ -266,7 +266,7 @@
       [1] "Mapped_ValidQueries"
       
       $data_mapping[[11]]$params$strQuery
-      [1] "SELECT * FROM df WHERE queryage > 30;"
+      [1] "SELECT * FROM df WHERE queryage > 30"
       
       
       
@@ -282,7 +282,7 @@
       [1] "Raw_DATACHG"
       
       $data_mapping[[12]]$params$strQuery
-      [1] "SELECT subjectname AS subject_nsv, * FROM df;"
+      [1] "SELECT subjectname as subject_nsv, * FROM df"
       
       
       
@@ -298,7 +298,7 @@
       [1] "Raw_QUERY"
       
       $data_mapping[[13]]$params$strQuery
-      [1] "SELECT subjectname AS subject_nsv, * FROM df;"
+      [1] "SELECT subjectname as subject_nsv, * FROM df"
       
       
       
@@ -314,7 +314,7 @@
       [1] "Raw_DATAENT"
       
       $data_mapping[[14]]$params$strQuery
-      [1] "SELECT subjectname AS subject_nsv, * FROM df;"
+      [1] "SELECT subjectname as subject_nsv, * FROM df"
       
       
       
@@ -330,7 +330,7 @@
       [1] "Raw_DATAENT"
       
       $data_mapping[[15]]$params$strQuery
-      [1] "SELECT subjectname AS subject_nsv, * FROM df WHERE data_entry_lag > 10;"
+      [1] "SELECT subjectname as subject_nsv, * FROM df WHERE data_entry_lag > 10"
       
       
       
@@ -346,7 +346,7 @@
       [1] "Raw_DATACHG"
       
       $data_mapping[[16]]$params$strQuery
-      [1] "SELECT subjectname AS subject_nsv, * FROM df WHERE n_changes > 0;"
+      [1] "SELECT subjectname as subject_nsv, * FROM df WHERE n_changes > 0"
       
       
       
@@ -362,7 +362,7 @@
       [1] "Raw_ENROLL"
       
       $data_mapping[[17]]$params$strQuery
-      [1] "SELECT * FROM df;"
+      [1] "SELECT * FROM df"
       
       
       
@@ -378,7 +378,7 @@
       [1] "Raw_ENROLL"
       
       $data_mapping[[18]]$params$strQuery
-      [1] "SELECT * FROM df WHERE enrollyn == 'N';"
+      [1] "SELECT * FROM df WHERE enrollyn = 'N'"
       
       
       
