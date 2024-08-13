@@ -5,7 +5,7 @@
 #' columns in the spec with the data.
 #'
 #' @param lData A list of data.frames.
-#' @param lSpec A list s specifying the expected structure of the data.
+#' @param lSpec A list specifying the expected structure of the data.
 #'
 #' @return This function does not return any value. It either prints a message indicating
 #' that all data.frames and columns in the spec are present in the data, or throws an error
@@ -14,25 +14,25 @@
 #' @examples
 #' lData <- list(reporting_groups = gsm::reportingGroups, reporting_results = gsm::reportingResults)
 #' lSpec <- list(
-#'   reporting_groups = list(  
-#'       GroupID = "required", 
-#'       GroupLevel = "required",
-#'       Param = "required",
-#'       Value = "required",
+#'   reporting_groups = list(
+#'       GroupID =  list(required = TRUE),
+#'       GroupLevel =  list(required = TRUE),
+#'       Param =  list(required = TRUE),
+#'       Value =  list(required = TRUE),
 #'   ),
 #'   reporting_results = list(
-#'       GroupID = "required",
-#'       GroupLevel = "required",
-#'       Numerator = "required",
-#'       Denominator = "required"
+#'       GroupID =  list(required = TRUE),
+#'       GroupLevel =  list(required = TRUE),
+#'       Numerator =  list(required = TRUE),
+#'       Denominator =  list(required = TRUE)
 #'   )
 #' CheckSpec(lData, lSpec) # Prints message that everything is found
 #'
-#' lSpec$reporting_groups$NotACol <- "required"
+#' lSpec$reporting_groups$NotACol <-  list(required = TRUE)
 #' check_spec(lData, lSpec) # Throws error that NotACol is missing
 #'
 #' @export
-#' 
+#'
 CheckSpec <- function(lData, lSpec) {
     # Check that all data.frames in the spec are present in the data
     lSpecDataFrames <- names(lSpec)
@@ -51,14 +51,14 @@ CheckSpec <- function(lData, lSpec) {
     allCols <- c()
     missingCols <- c()
     for (strDataFrame in lSpecDataFrames) {
-        lSpecColumns <- names(lSpec[[strDataFrame]]) 
+        lSpecColumns <- names(lSpec[[strDataFrame]])
         lDataColumns <- names(lData[[strDataFrame]])
         allCols <- c(allCols, paste(strDataFrame, lSpecColumns, sep="$"))
 
         thisMissingCols <- lSpecColumns[!lSpecColumns %in% lDataColumns]
         if(length(thisMissingCols) > 0){
-            missingCols <- c(missingCols, paste(strDataFrame, thisMissingCols, sep="$"))  
-        }   
+            missingCols <- c(missingCols, paste(strDataFrame, thisMissingCols, sep="$"))
+        }
     }
     if (length(missingCols) > 0) {
         cli_alert_danger("Not all columns in the spec are present in the data, missing columns are: {missingCols}")

@@ -9,7 +9,7 @@ CheckSpec(lData, lSpec)
 \arguments{
 \item{lData}{A list of data.frames.}
 
-\item{lSpec}{A list s specifying the expected structure of the data.}
+\item{lSpec}{A list specifying the expected structure of the data.}
 }
 \value{
 This function does not return any value. It either prints a message indicating
@@ -23,21 +23,21 @@ columns in the spec with the data.
 \examples{
 lData <- list(reporting_groups = gsm::reportingGroups, reporting_results = gsm::reportingResults)
 lSpec <- list(
-  reporting_groups = list(  
-      GroupID = "required", 
-      GroupLevel = "required",
-      Param = "required",
-      Value = "required",
+  reporting_groups = list(
+      GroupID =  list(required = TRUE),
+      GroupLevel =  list(required = TRUE),
+      Param =  list(required = TRUE),
+      Value =  list(required = TRUE),
   ),
   reporting_results = list(
-      GroupID = "required",
-      GroupLevel = "required",
-      Numerator = "required",
-      Denominator = "required"
+      GroupID =  list(required = TRUE),
+      GroupLevel =  list(required = TRUE),
+      Numerator =  list(required = TRUE),
+      Denominator =  list(required = TRUE)
   )
 CheckSpec(lData, lSpec) # Prints message that everything is found
 
-lSpec$reporting_groups$NotACol <- "required"
+lSpec$reporting_groups$NotACol <-  list(required = TRUE)
 check_spec(lData, lSpec) # Throws error that NotACol is missing
 
 }
