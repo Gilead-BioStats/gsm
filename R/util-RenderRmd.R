@@ -25,6 +25,11 @@ RenderRmd <- function(
   rmarkdown::render(
     input = strInputPath,
     output_file = file.path(strOutputDir, strOutputFile),
+    # this intermediates dir is required in situations where the gsm library is
+    # installed in a read-only directory, as the intermediate knit.md file could then
+    # not be written when calling rmarkdown::render on any system.file'd rmarkdown taht existed in the package.
+    # this makes sure that intermediate content is not written if the original
+    # rmd is in such a potentially read-only location
     intermediates_dir = fs::path_temp(),
     params = lParams,
     envir = new.env(parent = globalenv())
