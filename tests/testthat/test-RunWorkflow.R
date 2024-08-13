@@ -13,19 +13,19 @@ wf_mapping$steps <- purrr::keep(
 # Pull Raw Data - this will overwrite the previous data pull
 lData <- UseClindata(
   list(
-    "dfSUBJ" = "clindata::rawplus_dm",
-    "dfAE" = "clindata::rawplus_ae",
-    "dfPD" = "clindata::ctms_protdev",
-    "dfCONSENT" = "clindata::rawplus_consent",
-    "dfIE" = "clindata::rawplus_ie",
-    "dfLB" = "clindata::rawplus_lb",
-    "dfSTUDCOMP" = "clindata::rawplus_studcomp",
-    "dfSDRGCOMP" = "clindata::rawplus_sdrgcomp %>%
+    "Raw_SUBJ" = "clindata::rawplus_dm",
+    "Raw_AE" = "clindata::rawplus_ae",
+    "Raw_PD" = "clindata::ctms_protdev",
+    "Raw_CONSENT" = "clindata::rawplus_consent",
+    "Raw_IE" = "clindata::rawplus_ie",
+    "Raw_LB" = "clindata::rawplus_lb",
+    "Raw_STUDCOMP" = "clindata::rawplus_studcomp",
+    "Raw_SDRGCOMP" = "clindata::rawplus_sdrgcomp %>%
             dplyr::filter(.data$phase == 'Blinded Study Drug Completion')",
-    "dfDATACHG" = "clindata::edc_data_points",
-    "dfDATAENT" = "clindata::edc_data_pages",
-    "dfQUERY" = "clindata::edc_queries",
-    "dfENROLL" = "clindata::rawplus_enroll"
+    "Raw_DATACHG" = "clindata::edc_data_points",
+    "Raw_DATAENT" = "clindata::edc_data_pages",
+    "Raw_QUERY" = "clindata::edc_queries",
+    "Raw_ENROLL" = "clindata::rawplus_enroll"
   )
 )
 

@@ -11,14 +11,13 @@ meta:
   Type: rate
   Threshold: -2,-1,2,3
   nMinDenominator: 30
-spec: 
-  mapped: 
-    Mapped_AE:
-      subjid: required
-    Mapped_Enrolled:
-      subjid: required
-      invid: required
-      timeonstudy: required
+spec:
+  Mapped_AE:
+    subjid: required
+  Mapped_Enrolled:
+    subjid: required
+    invid: required
+    timeonstudy: required
 steps:
   - name: ParseThreshold
     output: vThreshold

@@ -11,10 +11,10 @@ meta:
   Type: rate
   Threshold: -2,-1,2,3
   nMinDenominator: 30
-spec: 
-  dfAE:
+spec:
+  Mapped_SeriousAE:
     - subjid
-  dfEnrolled:
+  Mapped_Enrolled:
     - subjid
     - invid
     - timeonstudy
