@@ -8,47 +8,65 @@
 #' data based on certain conditions and displays the result in a datatable.
 #'
 #' @inheritParams shared-params
-#' @param strSnapshotDate user specified snapshot date as string
+#' @param dfResults `r gloss_param("dfResults")`
+#'   `r gloss_extra("dfResults_filtered")`
 #' @param strGroupLevel  group level for the table
 #' @param strGroupDetailsParams one or more parameters from dfGroups to be added as columns in the table
 #'
 #' @return A datatable containing the summary table
 #'
 #' @export
-Report_MetricTable <- function(dfResults,
+Report_MetricTable <- function(
+  dfResults,
   dfGroups,
-  strSnapshotDate = NULL,
-  strGroupLevel = c("Site", "Study", "Country"),
-  strGroupDetailsParams = NULL) {
+  strGroupLevel = c("Site", "Country", "Study"),
+  strGroupDetailsParams = NULL
+) {
   dfResults <- dfResults %>%
-    filter_by_latest_SnapshotDate(strSnapshotDate) %>%
-    add_Groups_metadata(dfGroups, strGroupLevel, strGroupDetailsParams) %>%
+    add_Groups_metadata(
+      dfGroups,
+      strGroupLevel,
+      strGroupDetailsParams
+    ) %>%
     dplyr::filter(.data$Flag != 0)
 
   if (!nrow(dfResults)) {
     return("Nothing flagged for this KRI.")
   }
 
+  if (length(unique(dfResults$MetricID)) > 1) {
+    stop("Expecting `dfResults` to be filtered to one unique MetricID, but many detected.")
+  }
+
+  if (rlang::arg_match(strGroupLevel) == "Site") {
+    dfResults$Group <- glue::glue("{dfResults$GroupID} ({dfResults$InvestigatorLastName})")
+  } else {
+    dfResults$Group <- dfResults$GroupID
+  }
+
   SummaryTable <- dfResults %>%
-    dplyr::arrange(desc(abs(.data$Score))) %>%
+    dplyr::arrange(
+      desc(abs(.data$Flag)),
+      desc(abs(.data$Score))
+    ) %>%
     dplyr::mutate(
       Flag = Report_FormatFlag(.data$Flag),
       dplyr::across(
         dplyr::where(is.numeric),
-        ~ round(.x, 3)
+        ~ round(.x, 2)
       )
     ) %>%
     dplyr::select(
       dplyr::any_of(c(
-        "Site" = "GroupID",
-        "Country",
-        "Status",
-        "PI" = "InvestigatorLastName",
-        "Subjects" = "ParticipantCount"
-      )),
-      dplyr::everything()
+        "Group",
+        "Enrolled" = "ParticipantCount",
+        "Numerator",
+        "Denominator",
+        "Metric",
+        "Score",
+        "Flag"
+      ))
     ) %>%
-    dplyr::select(-"MetricID") %>%
     kableExtra::kbl(format = "html", escape = FALSE) %>%
     kableExtra::kable_styling("striped", full_width = FALSE)
 

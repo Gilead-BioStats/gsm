@@ -79,7 +79,8 @@ jobs:
             dfResults =  reporting$dfResults,
             dfGroups =  reporting$dfGroups,
             dfMetrics = reporting$dfMetrics,
-            strOutpath = here::here("pkgdown", "assets", "StandardReportSite.html")
+            strOutputDir = here::here("pkgdown", "assets"),
+            strOutputFile = "StandardReportSite.html"
           )
 
           ## Country Report
@@ -111,7 +112,8 @@ jobs:
             dfResults =  reporting_country$dfResults,
             dfGroups =  reporting_country$dfGroups,
             dfMetrics = reporting_country$dfMetrics,
-            strOutpath = here::here("pkgdown", "assets", "StandardReportCountry.html")
+            strOutputDir = here::here("pkgdown", "assets"),
+            strOutputFile = "StandardReportCountry.html"
           )
 
       - name: Deploy pkgdown

@@ -1,3 +1,7 @@
+# gsm v2.0.1
+
+This minor patch release addresses two reporting bugs. The first ensures the summary table is properly filtered and appears in the report html output under each chart widget. The second allows more flexibility to the report output path and file names, and ensure that intermediary rendering occurs in a temporary directory.
+
 # gsm v2.0.0
 
 {gsm} v2 is a major refactor (and massive simplification) of the gsm framework. Many functions have been removed, and others have been simplified as described below. The overall goal of the refactor is to improve modularity, transparency and maintainability of the package.

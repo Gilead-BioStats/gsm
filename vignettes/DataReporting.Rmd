@@ -268,14 +268,14 @@ lCharts$kri0001$scatterJS
 
 ### Step 3 - Generate Report
 
-All of the components are created to generate the HTML report for the study we are working on. In order to generate this report and save it locally, simply feed `lCharts`, `dfResults`, `dfGroups`, `dfMetrics` and (optionally) a path to which the report will be saved (`strOutpath`) into `Report_KRI()` and the HTML output will be knit from the `Report_KRI.Rmd` template. 
+All of the components are created to generate the HTML report for the study we are working on. In order to generate this report and save it locally, simply feed `lCharts`, `dfResults`, `dfGroups`, `dfMetrics` and (optionally) an absolute directory path and file to which the report will be saved (`strOutputDir` and `strOutputFile`, respectively) into `Report_KRI()` and the HTML output will be knit from the `Report_KRI.Rmd` template. All intermediate files from the knitting process will be saved in a temporary folder.
 
 ```{r eval = FALSE, include = TRUE}
 lReport <- Report_KRI(lCharts = lCharts,
                       dfResults = dfResults,
                       dfGroups = dfGroups,
                       dfMetrics = dfMetrics,
-                      strOutpath = "test_kri_report.html")
+                      strOutputFile = "test_kri_report.html")
 ```
 
 Below, you will see a screenshot from the beginning of the report. All charts for all metrics that were included throughout the analysis and reporting workflows will be included in this report.
@@ -389,14 +389,18 @@ snapshot <- RunWorkflows(ss_wf, lData, bKeepInputData = TRUE)
 
 -   `Visualize_Scatter()`: Creates scatter plot of Total Exposure (in days, on log scale) vs Total Number of Event(s) of Interest (on linear scale). Each data point represents one site. Outliers are plotted in red with the site label attached. This plot is only created when statistical method is **not** defined as `identity`. Chart is called `scatter` in the `lCharts` object.
 -   `Visualize_Score()`: Provides a standard visualization for Score or KRI. Charts are called `barScore` or `barMetric` in the `lCharts` object.
--   `Visualize_Metric()`: Creates all available charts for a metric using the data provided.
+-   `Visualize_Metric()`: Creates all available charts and tables for a metric using the data provided.
 
 
 ### Widget Functions
 
-- `Widget_GroupOverview`: Creates an interactive table displaying the flag distribution for all groups across all metrics.
-- `Widget_BarChart`:  Creates an interactive bar chart visualization for Score or KRI. Charts are called `barScoreJS` or `barMetricJS` in the `lCharts` object.
-- `Widget_ScatterPlot`: Creates an interactive scatter plot of Total Exposure (in days, on log scale) vs Total Number of Event(s) of Interest (on linear scale). Each data point represents one site. Outliers are plotted in red with the site label attached.Chart is called `scatterJS` in the `lCharts` object.
-- `Widget_TimeSeries`: Creates an interactive time series scatter plot of the score, metric or numerator. Charts are called `timeSeriesContinuousScoreJS`, `timeSeriesContinuousMetricJS`, or `timeSeriesContinuousNumeratorJS` in the `lCharts` object.
+- `Widget_GroupOverview()`: Creates an interactive table displaying the flag distribution for all groups across all metrics.
+- `Widget_BarChart()`:  Creates an interactive bar chart visualization for Score or KRI. Charts are called `barScoreJS` or `barMetricJS` in the `lCharts` object.
+- `Widget_ScatterPlot()`: Creates an interactive scatter plot of Total Exposure (in days, on log scale) vs Total Number of Event(s) of Interest (on linear scale). Each data point represents one site. Outliers are plotted in red with the site label attached.Chart is called `scatterJS` in the `lCharts` object.
+- `Widget_TimeSeries()`: Creates an interactive time series scatter plot of the score, metric or numerator. Charts are called `timeSeriesContinuousScoreJS`, `timeSeriesContinuousMetricJS`, or `timeSeriesContinuousNumeratorJS` in the `lCharts` object.
+
+### Table Functions
+
+- `Report_MetricTable()`: Creates a sortable table displaying the flags per group (e.g. Site, Country) for one metric at a time.
 
                                                                                                                                                                                        

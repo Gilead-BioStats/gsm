@@ -15,6 +15,7 @@ test_that("Visualize_Metric processes data correctly", {
   expect_true("timeSeriesContinuousScoreJS" %in% names(charts))
   expect_true("timeSeriesContinuousMetricJS" %in% names(charts))
   expect_true("timeSeriesContinuousNumeratorJS" %in% names(charts))
+  expect_true("metricTable" %in% names(charts))
 })
 
 test_that("Visualize_Metric handles missing MetricID", {

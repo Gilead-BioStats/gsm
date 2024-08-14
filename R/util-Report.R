@@ -19,16 +19,26 @@ filter_by_latest_SnapshotDate <- function(dfResults, strSnapshotDate = NULL) {
   if (!nrow(dfResults)) {
     return(dfResults)
   }
+  if (!length(dfResults$SnapshotDate)) {
+    if (length(strSnapshotDate)) {
+      cli::cli_abort(c(
+        "{.arg dfResults} must contain a {.var SnapshotDate} column."
+      ))
+    }
+    return(dfResults)
+  }
   # use most recent snapshot date if strSnapshotDate is missing
-  dfResults$SnapshotDate <- as.Date(dfResults$SnapshotDate) %|0|% Sys.Date()
   strSnapshotDate <- as.Date(strSnapshotDate) %|0|% max(dfResults$SnapshotDate)
+  dfResults$SnapshotDate <- as.Date(dfResults$SnapshotDate)
   return(dplyr::filter(dfResults, .data$SnapshotDate == strSnapshotDate))
 }
 
-add_Groups_metadata <- function(dfResults,
+add_Groups_metadata <- function(
+  dfResults,
   dfGroups,
   strGroupLevel = c("Site", "Study", "Country"),
-  strGroupDetailsParams) {
+  strGroupDetailsParams
+) {
   if (nrow(dfResults)) {
     strGroupLevel <- rlang::arg_match(strGroupLevel)
     dfGroups_wide <- widen_dfGroups(dfGroups, strGroupLevel, strGroupDetailsParams)

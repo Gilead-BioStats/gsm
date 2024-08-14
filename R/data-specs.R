@@ -2,13 +2,14 @@
 #'
 #' `r lifecycle::badge("stable")`
 #'
-#' @format A data frame with 25 rows and 5 columns:
+#' @format A data frame with 1301 rows and 6 columns:
 #' \describe{
 #'   \item{SubjectID}{unique subject identifier}
 #'   \item{GroupID}{grouping variable}
 #'   \item{GroupLevel}{level of grouping variable}
 #'   \item{Numerator}{number of flags in group}
 #'   \item{Denominator}{total subjects in group}
+#'   \item{Metric}{calculated rate/metric value}
 #' }
 #' @source Generated from `analyticsInput.csv` dataset in the `gsm` package.
 "analyticsInput"

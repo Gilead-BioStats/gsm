@@ -41,6 +41,7 @@ A list containing the following charts:
 \item timeSeriesContinuousScoreJS: A time series chart using JavaScript with score on the y-axis.
 \item timeSeriesContinuousMetricJS: A time series chart using JavaScript with metric on the y-axis.
 \item timeSeriesContinuousNumeratorJS: A time series chart using JavaScript with numerator on the y-axis.
+\item metricTable: A table containing all
 }
 }
 \description{

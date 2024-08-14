@@ -73,6 +73,7 @@ reference:
      -  RunWorkflow
      -  RunWorkflows
      -  UseClindata
+     -  RenderRmd
 
   - title: Sample Data
     desc: data used for examples and testing
