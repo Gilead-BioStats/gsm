@@ -3,12 +3,12 @@ meta:
   description: Data Mappings to prepare for metric calculations
 steps:
   - name: RunQuery
-    output: dfEnrolled
+    output: Mapped_Enrolled
     params:
       df: dfSUBJ
       strQuery: "SELECT * FROM df WHERE enrollyn == 'Y'"
   - name: RunQuery
-    output: dfAE
+    output: Mapped_AE
     params:
       df: dfAE
       strQuery: "SELECT * FROM df WHERE aeser = 'Y'"

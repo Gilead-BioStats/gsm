@@ -1,94 +1,141 @@
 meta:
   File: mapping.yaml
   description: Data Mappings to prepare for metric calculations
+spec:
+    Raw_SUBJ:
+      subjectid:
+        required: true
+      enrollyn:
+        required: true
+    Raw_AE:
+      subjectid:
+        required: true
+      aeser:
+        required: true
+    Raw_PD:
+      subjectenrollmentnumber:
+        required: true
+      deemedimportant:
+        required: true
+    Raw_LB:
+      toxgrg_nsv:
+        required: true
+    Raw_STUDCOMP:
+      compyn:
+        required: true
+    Raw_SDRGCOMP:
+      sdrgyn:
+        required: true
+      phase:
+        required: true
+    Raw_QUERY:
+      subjectname:
+        required: true
+      querystatus:
+        required: true
+      queryage:
+        required: true
+    Raw_DATACHG:
+      subjectname:
+        required: true
+      n_changes:
+       required: true
+    Raw_DATAENT:
+      subjectname:
+        required: true
+      data_entry_lag:
+        required: true
+    Raw_ENROLL:
+      enrollyn:
+        required: true
 steps:
   - name: RunQuery
-    output: dfEnrolled
+    output: Mapped_Enrolled
     params:
-      df: dfSUBJ
-      strQuery: "SELECT subjectid AS raw_subjectid, * FROM df WHERE enrollyn == 'Y';"
+      df: Raw_SUBJ
+      strQuery: "SELECT subjectid as raw_subjectid, * FROM df WHERE enrollyn == 'Y'"
   - name: RunQuery
-    output: dfSeriousAE
+    output: Mapped_SeriousAE
     params:
-      df: dfAE
-      strQuery: "SELECT * FROM df WHERE aeser == 'Y';"
+      df: Raw_AE
+      strQuery: "SELECT * FROM df WHERE aeser = 'Y'"
   - name: RunQuery
-    output: dfAE
+    output: Mapped_AE
     params:
-      df: dfAE
-      strQuery: "SELECT * FROM df;"
+      df: Raw_AE
+      strQuery: "SELECT * FROM df"
   - name: RunQuery
-    output: dfNonimportantPD
+    output: Mapped_NonimportantPD
     params:
-      df: dfPD
-      strQuery: "SELECT subjectenrollmentnumber AS subjid, * FROM df WHERE deemedimportant == 'No';"
+      df: Raw_PD
+      strQuery: "SELECT subjectenrollmentnumber as subjid, * FROM df WHERE deemedimportant == 'No'"
   - name: RunQuery
-    output: dfImportantPD
+    output: Mapped_ImportantPD
     params:
-      df: dfPD
-      strQuery: "SELECT subjectenrollmentnumber AS subjid, * FROM df WHERE deemedimportant == 'Yes';"
+      df: Raw_PD
+      strQuery: "SELECT subjectenrollmentnumber as subjid, * FROM df WHERE deemedimportant == 'Yes'"
   - name: RunQuery
-    output: dfAllLabs
+    output: Mapped_AllLabs
     params:
-      df: dfLB
-      strQuery: "SELECT * FROM df WHERE toxgrg_nsv IN ('0', '1', '2', '3', '4');"
+      df: Raw_LB
+      strQuery: "SELECT * FROM df WHERE toxgrg_nsv IN ('0', '1', '2', '3', '4')"
   - name: RunQuery
-    output: dfToxLabs
+    output: Mapped_ToxLabs
     params:
-      df: dfLB
-      strQuery: "SELECT * FROM df WHERE toxgrg_nsv IN ('3', '4');"
+      df: Raw_LB
+      strQuery: "SELECT * FROM df WHERE toxgrg_nsv IN ('3', '4')"
   - name: RunQuery
-    output: dfStudyDropouts
+    output: Mapped_StudyDropouts
     params:
-      df: dfSTUDCOMP
-      strQuery: "SELECT * FROM df WHERE compyn == 'N';"
+      df: Raw_STUDCOMP
+      strQuery: "SELECT * FROM df WHERE compyn IN ('N')"
   - name: RunQuery
-    output: dfTreatmentDropouts
+    output: Mapped_TreatmentDropouts
     params:
-      df: dfSDRGCOMP
-      strQuery: "SELECT * FROM df WHERE sdrgyn == 'N' AND phase == 'Blinded Study Drug Completion';"
+      df: Raw_SDRGCOMP
+      strQuery: "SELECT * FROM df WHERE sdrgyn IN ('N') AND phase = 'Blinded Study Drug Completion'"
   - name: RunQuery
-    output: dfValidQueries
+    output: Mapped_ValidQueries
     params:
-      df: dfQUERY
-      strQuery: "SELECT subjectname AS subject_nsv, * FROM df WHERE querystatus IN ('Open', 'Answered', 'Closed');"
+      df: Raw_QUERY
+      strQuery: "SELECT subjectname as subject_nsv, * FROM df WHERE querystatus IN ('Open', 'Answered', 'Closed')"
   - name: RunQuery
-    output: dfOldValidQueries
+    output: Mapped_OldValidQueries
     params:
-      df: dfValidQueries
-      strQuery: "SELECT * FROM df WHERE queryage > 30;"
+      df: Mapped_ValidQueries
+      strQuery: "SELECT * FROM df WHERE queryage > 30"
   - name: RunQuery
-    output: dfDataChanges
+    output: Mapped_DataChanges
     params:
-      df: dfDATACHG
-      strQuery: "SELECT subjectname AS subject_nsv, * FROM df;"
+      df: Raw_DATACHG
+      strQuery: "SELECT subjectname as subject_nsv, * FROM df"
   - name: RunQuery
-    output: dfQuery
+    output: Mapped_Query
     params:
-      df: dfQUERY
-      strQuery: "SELECT subjectname AS subject_nsv, * FROM df;"
+      df: Raw_QUERY
+      strQuery: "SELECT subjectname as subject_nsv, * FROM df"
   - name: RunQuery
-    output: dfDataEntry
+    output: Mapped_DataEntry
     params:
-      df: dfDATAENT
-      strQuery: "SELECT subjectname AS subject_nsv, * FROM df;"
+      df: Raw_DATAENT
+      strQuery: "SELECT subjectname as subject_nsv, * FROM df"
   - name: RunQuery
-    output: dfSlowDataEntry
+    output: Mapped_SlowDataEntry
     params:
-      df: dfDATAENT
-      strQuery: "SELECT subjectname AS subject_nsv, * FROM df WHERE data_entry_lag > 10;"
+      df: Raw_DATAENT
+      strQuery: "SELECT subjectname as subject_nsv, * FROM df WHERE data_entry_lag > 10"
   - name: RunQuery
-    output: dfChangedDataPoints
+    output: Mapped_ChangedDataPoints
     params:
-      df: dfDATACHG
-      strQuery: "SELECT subjectname AS subject_nsv, * FROM df WHERE n_changes > 0;"
+      df: Raw_DATACHG
+      strQuery: "SELECT subjectname as subject_nsv, * FROM df WHERE n_changes > 0"
   - name: RunQuery
-    output: dfScreened
+    output: Mapped_Screened
     params:
-      df: dfENROLL
-      strQuery: "SELECT * FROM df;"
+      df: Raw_ENROLL
+      strQuery: "SELECT * FROM df"
   - name: RunQuery
-    output: dfScreenFail
+    output: Mapped_ScreenFail
     params:
-      df: dfENROLL
-      strQuery: "SELECT * FROM df WHERE enrollyn == 'N';"
+      df: Raw_ENROLL
+      strQuery: "SELECT * FROM df WHERE enrollyn = 'N'"

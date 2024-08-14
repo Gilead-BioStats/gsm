@@ -11,38 +11,50 @@ meta:
   Type: binary
   Threshold: -3,-2,2,3
   nMinDenominator: 30
+spec:
+  Mapped_Enrolled:
+    subject_nsv:
+      required: true
+    country:
+      required: true
+  Mapped_SlowDataEntry:
+    subject_nsv:
+      required: true
+  Mapped_DataEntry:
+    subject_nsv:
+      required: true
 steps:
   - name: ParseThreshold
     output: vThreshold
     params:
       strThreshold: Threshold
   - name: Input_Rate
-    output: dfInput
+    output: Analysis_Input
     params:
-      dfSubjects: dfEnrolled
-      dfNumerator: dfSlowDataEntry
-      dfDenominator: dfDataEntry
+      dfSubjects: Mapped_Enrolled
+      dfNumerator: Mapped_SlowDataEntry
+      dfDenominator: Mapped_DataEntry
       strSubjectCol: subject_nsv
       strGroupCol: country
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count
   - name: Transform_Rate
-    output: dfTransformed
+    output: Analysis_Transformed
     params:
-      dfInput: dfInput
+      dfInput: Analysis_Input
   - name: Analyze_NormalApprox
-    output: dfAnalyzed
+    output: Analysis_Analyzed
     params:
-      dfTransformed: dfTransformed
+      dfTransformed: Analysis_Transformed
       strType: Type
   - name: Flag_NormalApprox
-    output: dfFlagged
+    output: Analysis_Flagged
     params:
-      dfAnalyzed: dfAnalyzed
+      dfAnalyzed: Analysis_Analyzed
       vThreshold: vThreshold
   - name: Summarize
-    output: dfSummary
+    output: Analysis_Summary
     params:
-      dfFlagged: dfFlagged
+      dfFlagged: Analysis_Flagged
       nMinDenominator: nMinDenominator

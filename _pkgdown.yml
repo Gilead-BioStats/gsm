@@ -61,6 +61,8 @@ reference:
     desc: Utility functions for use within the Data Model
   - contents:
      -  BindResults
+     -  CheckSpec
+     -  CombineSpecs
      -  MakeBounds
      -  MakeCharts
      -  MakeMetric
@@ -68,12 +70,12 @@ reference:
      -  MakeWideGroups
      -  MakeWorkflowList
      -  ParseThreshold
+     -  RenderRmd
      -  RunStep
      -  RunQuery
      -  RunWorkflow
      -  RunWorkflows
      -  UseClindata
-     -  RenderRmd
 
   - title: Sample Data
     desc: data used for examples and testing

@@ -1,89 +1,122 @@
 meta:
   File: reporting.yaml
   description: Generate reporting data model including site-, country- and study-level metadata (dfGroups), metric metadata (dfMetrics) and results data with added study-level columsn (dfSummary and dfBounds).
+spec:
+  Raw_ctms_site:
+    pi_number:
+      required: true
+    site_status:
+      required: true
+    pi_first_name:
+      required: true
+    pi_last_name:
+      required: true
+    city:
+      required: true
+    state:
+      required: true
+    country:
+      required: true
+  Raw_ctms_study:
+    protocol_number:
+      required: true
+    status:
+      required: true
+  Raw_ENROLL:
+    invid:
+      required: true
+    subjectid:
+      required: true 
+    studyid:
+      required: true
+    country:
+      required: true
 steps:
   # Get CTMS data
   - name: RunQuery # Need to add additional renames
-    output: dfCTMSSiteWide
+    output: Temp_CTMSSiteWide
     params:
-      df: ctms_site
+      df: Raw_ctms_site
       strQuery: "SELECT pi_number as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df"
   - name: MakeLongMeta
-    output: dfCTMSSite
+    output: Temp_CTMSSite
     params:
-      data: dfCTMSSiteWide
+      data: Temp_CTMSSiteWide
       strGroupLevel: 'Site'
   - name: RunQuery
-    output: dfCTMSStudyWide
+    output: Temp_CTMSStudyWide
     params:
-      df: ctms_study
+      df: Raw_ctms_study
       strQuery: "SELECT protocol_number as GroupID, status as Status, * FROM df"
   - name: MakeLongMeta
-    output: dfCTMSStudy
+    output: Temp_CTMSStudy
     params:
-      data: dfCTMSStudyWide
+      data: Temp_CTMSStudyWide
       strGroupLevel: "Study"
 
   # Get Participant and Site counts for Country, Site and Study
+  # TODO: Think about using Mapped_Enrolled instead of Raw_ENROLL
   - name: RunQuery
-    output: dfSiteCountsWide
+    output: Temp_SiteCountsWide
     params:
-      df: dfEnrolled
+      df: Raw_ENROLL
       strQuery: "SELECT invid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid"
   - name: MakeLongMeta
-    output: dfSiteCounts
+    output: Temp_SiteCounts
     params:
-      data: dfSiteCountsWide
+      data: Temp_SiteCountsWide
       strGroupLevel: "Site"
   - name: RunQuery
-    output: dfStudyCountsWide
+    output: Temp_StudyCountsWide
     params:
-      df: dfEnrolled
+      df: Raw_ENROLL
       strQuery: "SELECT studyid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY studyid"
   - name: MakeLongMeta
-    output: dfStudyCounts
+    output: Temp_StudyCounts
     params:
-      data: dfStudyCountsWide
+      data: Temp_StudyCountsWide
       strGroupLevel: "Study"
   - name: RunQuery
-    output: dfCountryCountsWide
+    output: Temp_CountryCountsWide
     params:
-      df: dfEnrolled
+      df: Raw_ENROLL
       strQuery: "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country"
   - name: MakeLongMeta
-    output: dfCountryCounts
+    output: Temp_CountryCounts
     params:
-      data: dfCountryCountsWide
+      data: Temp_CountryCountsWide
       strGroupLevel: "Country"
+
   # Combine CTMS and Counts data as dfGroups
   - name: bind_rows
-    output: dfGroups
+    output: Reporting_Groups
     params:
-      SiteCounts: dfSiteCounts
-      StudyCounts: dfStudyCounts
-      CountryCounts: dfCountryCounts
-      Site: dfCTMSSite
-      Study: dfCTMSStudy
+      SiteCounts: Temp_SiteCounts
+      StudyCounts: Temp_StudyCounts
+      CountryCounts: Temp_CountryCounts
+      Site: Temp_CTMSSite
+      Study: Temp_CTMSStudy
+
 # Create Metric Medatadata
   - name: MakeMetric
-    output: dfMetrics
+    output: Reporting_Metrics
     params:
       lWorkflows: lWorkflows
 
 # Stack dfSummary data into dfResults
   - name: BindResults
-    output: dfResults
+    output: Reporting_Results
     params:
       lResults: lAnalysis
-      strName: "dfSummary"
+      strName: "Analysis_Summary"
       dSnapshotDate: dSnapshotDate
       strStudyID: strStudyID
 
 # Calculate Bounds for confidence intervals
   - name: MakeBounds
-    output: dfBounds
+    output: Reporting_Bounds
     params:
-      dfResults: dfResults
-      dfMetrics: dfMetrics
+      dfResults: Reporting_Results
+      dfMetrics: Reporting_Metrics
 
 

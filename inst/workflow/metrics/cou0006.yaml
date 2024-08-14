@@ -11,38 +11,47 @@ meta:
   Type: binary
   Threshold: -3,-2,2,3
   nMinDenominator: 3
+spec: 
+  Mapped_Enrolled:
+    subjid:
+      required: true
+    country:
+      required: true
+  Mapped_StudyDropouts:
+    subjid:
+      required: true
 steps:
   - name: ParseThreshold
     output: vThreshold
     params:
       strThreshold: Threshold
   - name: Input_Rate
-    output: dfInput
+    output: Analysis_Input
     params:
-      dfSubjects: dfEnrolled
-      dfNumerator: dfStudyDropouts
-      dfDenominator: dfEnrolled
+      dfSubjects: Mapped_Enrolled
+      dfNumerator: Mapped_StudyDropouts
+      dfDenominator: Mapped_Enrolled
       strSubjectCol: subjid
       strGroupCol: country
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count
   - name: Transform_Rate
-    output: dfTransformed
+    output: Analysis_Transformed
     params:
-      dfInput: dfInput
+      dfInput: Analysis_Input
   - name: Analyze_NormalApprox
-    output: dfAnalyzed
+    output: Analysis_Analyzed
     params:
-      dfTransformed: dfTransformed
+      dfTransformed: Analysis_Transformed
       strType: Type
   - name: Flag_NormalApprox
-    output: dfFlagged
+    output: Analysis_Flagged
     params:
-      dfAnalyzed: dfAnalyzed
+      dfAnalyzed: Analysis_Analyzed
       vThreshold: vThreshold
   - name: Summarize
-    output: dfSummary
+    output: Analysis_Summary
     params:
-      dfFlagged: dfFlagged
+      dfFlagged: Analysis_Flagged
       nMinDenominator: nMinDenominator

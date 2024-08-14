@@ -14,7 +14,8 @@ test_that("MakeCharts makes charts", {
         dfBounds = nrow(dfBounds),
         dfGroups = nrow(dfGroups),
         dfMetrics = nrow(dfMetrics),
-        strMetricID = strMetricID
+        strMetricID = strMetricID,
+        bDebug = FALSE
       )
     }
   )
