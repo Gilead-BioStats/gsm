@@ -13,7 +13,7 @@ data based on certain conditions and displays the result in a datatable."></head
 
     <a class="navbar-brand me-2" href="../index.html">gsm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,8 +67,7 @@ data based on certain conditions and displays the result in a datatable.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Report_MetricTable</span><span class="op">(</span></span>
 <span>  <span class="va">dfResults</span>,</span>
 <span>  <span class="va">dfGroups</span>,</span>
-<span>  strSnapshotDate <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  strGroupLevel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Site"</span>, <span class="st">"Study"</span>, <span class="st">"Country"</span><span class="op">)</span>,</span>
+<span>  strGroupLevel <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Site"</span>, <span class="st">"Country"</span>, <span class="st">"Study"</span><span class="op">)</span>,</span>
 <span>  strGroupDetailsParams <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -78,15 +77,12 @@ data based on certain conditions and displays the result in a datatable.</p>
 
 
 <dl><dt id="arg-dfresults">dfResults<a class="anchor" aria-label="anchor" href="#arg-dfresults"></a></dt>
-<dd><p><code>data.frame</code> A stacked summary of analysis pipeline output. Created by passing a list of results returned by <code><a href="Summarize.html">Summarize()</a></code> to <code><a href="BindResults.html">BindResults()</a></code>. Expected columns: <code>GroupID</code>, <code>GroupLevel</code>, <code>Numerator</code>, <code>Denominator</code>, <code>Metric</code>, <code>Score</code>, <code>Flag</code>, <code>MetricID</code>, <code>StudyID</code>, <code>SnapshotDate</code>.</p></dd>
+<dd><p><code>data.frame</code> A stacked summary of analysis pipeline output. Created by passing a list of results returned by <code><a href="Summarize.html">Summarize()</a></code> to <code><a href="BindResults.html">BindResults()</a></code>. Expected columns: <code>GroupID</code>, <code>GroupLevel</code>, <code>Numerator</code>, <code>Denominator</code>, <code>Metric</code>, <code>Score</code>, <code>Flag</code>, <code>MetricID</code>, <code>StudyID</code>, <code>SnapshotDate</code>.
+For this function, <code>dfResults</code> must be filtered to a single KRI (<code>MetricID</code>).</p></dd>
 
 
 <dt id="arg-dfgroups">dfGroups<a class="anchor" aria-label="anchor" href="#arg-dfgroups"></a></dt>
 <dd><p><code>data.frame</code> Group-level metadata dictionary. Created by passing CTMS site and study data to <code><a href="MakeLongMeta.html">MakeLongMeta()</a></code>. Expected columns: <code>GroupID</code>, <code>GroupLevel</code>, <code>Param</code>, <code>Value</code>.</p></dd>
-
-
-<dt id="arg-strsnapshotdate">strSnapshotDate<a class="anchor" aria-label="anchor" href="#arg-strsnapshotdate"></a></dt>
-<dd><p>user specified snapshot date as string</p></dd>
 
 
 <dt id="arg-strgrouplevel">strGroupLevel<a class="anchor" aria-label="anchor" href="#arg-strgrouplevel"></a></dt>

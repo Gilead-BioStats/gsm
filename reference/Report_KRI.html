@@ -9,7 +9,7 @@ This function generates a KRI report based on the provided inputs."></head><body
 
     <a class="navbar-brand me-2" href="../index.html">gsm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +63,8 @@ This function generates a KRI report based on the provided inputs."></head><body
 <span>  dfResults <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dfGroups <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dfMetrics <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  strOutpath <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>  strOutputDir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  strOutputFile <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -87,13 +88,19 @@ This function generates a KRI report based on the provided inputs."></head><body
 <dd><p><code>data.frame</code> Metric-specific metadata for use in charts and reporting. Created by passing an <code>lWorkflow</code> object to <code><a href="MakeMetric.html">MakeMetric()</a></code>. Expected columns: <code>File</code>, <code>MetricID</code>, <code>Group</code>, <code>Abbreviation</code>, <code>Metric</code>, <code>Numerator</code>, <code>Denominator</code>, <code>Model</code>, <code>Score</code>, and <code>Threshold</code>. For more details see the Data Model vignette: <code><a href="../articles/DataModel.html">vignette("DataModel", package = "gsm")</a></code>.</p></dd>
 
 
-<dt id="arg-stroutpath">strOutpath<a class="anchor" aria-label="anchor" href="#arg-stroutpath"></a></dt>
-<dd><p>The output path for the generated report. If not provided, the report will be saved in the current working directory with the name "kri_report.html".</p></dd>
+<dt id="arg-stroutputdir">strOutputDir<a class="anchor" aria-label="anchor" href="#arg-stroutputdir"></a></dt>
+<dd><p>The output directory path for the generated report. If not provided,
+the report will be saved in the current working directory.</p></dd>
+
+
+<dt id="arg-stroutputfile">strOutputFile<a class="anchor" aria-label="anchor" href="#arg-stroutputfile"></a></dt>
+<dd><p>The output file name for the generated report. If not provided,
+the report will be named based on the study ID, Group Level and Date.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>None</p>
+    <p>File path of the saved report html is returned invisibly. Save to object to view absolute output path.</p>
     </div>
 
     <div class="section level2">
@@ -107,13 +114,13 @@ This function generates a KRI report based on the provided inputs."></head><body
 <span class="r-in"><span>  dfBounds <span class="op">=</span> <span class="va">reportingBounds</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">strOutpath</span> <span class="op">&lt;-</span> <span class="st">"StandardSiteReport.html"</span></span></span>
-<span class="r-in"><span><span class="fu">Report_KRI</span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">strOutputFile</span> <span class="op">&lt;-</span> <span class="st">"StandardSiteReport.html"</span></span></span>
+<span class="r-in"><span><span class="va">kri_report_path</span> <span class="op">&lt;-</span> <span class="fu">Report_KRI</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  lCharts <span class="op">=</span> <span class="va">lCharts</span>,</span></span>
 <span class="r-in"><span>  dfResults <span class="op">=</span> <span class="va">reportingResults</span>,</span></span>
 <span class="r-in"><span>  dfGroups <span class="op">=</span> <span class="va">reportingGroups</span>,</span></span>
 <span class="r-in"><span>  dfMetrics <span class="op">=</span> <span class="va">reportingMetrics</span>,</span></span>
-<span class="r-in"><span>  strOutpath <span class="op">=</span> <span class="va">strOutpath</span></span></span>
+<span class="r-in"><span>  strOutputFile <span class="op">=</span> <span class="va">strOutputFile</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
