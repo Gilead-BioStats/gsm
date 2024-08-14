@@ -1,5 +1,7 @@
-# Check that all data.frames and columns in the spec are present in the data
 #' Check if the data and spec are compatible
+#'
+#' @description
+#' `r lifecycle::badge("stable")`
 #'
 #' Check if the data and spec are compatible by comparing the data.frames and
 #' columns in the spec with the data.

@@ -1,5 +1,8 @@
 #' Combine Specifications
 #'
+#' @description
+#' `r lifecycle::badge("stable")`
+#'
 #' Combine a list of specifications into a single specification.
 #'
 #' @param lSpecs A list of specifications.

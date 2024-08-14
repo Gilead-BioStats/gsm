@@ -13,6 +13,8 @@ CombineSpecs(lSpecs)
 A list representing the combined specification.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 Combine a list of specifications into a single specification.
 }
 \examples{

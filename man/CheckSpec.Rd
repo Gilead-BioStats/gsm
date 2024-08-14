@@ -17,6 +17,8 @@ that all data.frames and columns in the spec are present in the data, or throws 
 if any data.frame or column is missing.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 Check if the data and spec are compatible by comparing the data.frames and
 columns in the spec with the data.
 }

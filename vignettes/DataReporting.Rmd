@@ -66,16 +66,16 @@ To run the analysis workflow on all 13 KRIs using `clindata` Raw+ data, use the 
 ```{r include = TRUE, message = FALSE}
 # Create Mapped Data - filter/map raw data
 lData <- list(
-    dfSUBJ = clindata::rawplus_dm,
-    dfAE = clindata::rawplus_ae,
-    dfPD = clindata::ctms_protdev,
-    dfLB = clindata::rawplus_lb,
-    dfSTUDCOMP = clindata::rawplus_studcomp,
-    dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
-    dfDATACHG = clindata::edc_data_points,
-    dfDATAENT = clindata::edc_data_pages,
-    dfQUERY = clindata::edc_queries,
-    dfENROLL = clindata::rawplus_enroll
+    Raw_SUBJ = clindata::rawplus_dm,
+    Raw_AE = clindata::rawplus_ae,
+    Raw_PD = clindata::ctms_protdev,
+    Raw_LB = clindata::rawplus_lb,
+    Raw_STUDCOMP = clindata::rawplus_studcomp,
+    Raw_SDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
+    Raw_DATACHG = clindata::edc_data_points,
+    Raw_DATAENT = clindata::edc_data_pages,
+    Raw_QUERY = clindata::edc_queries,
+    Raw_ENROLL = clindata::rawplus_enroll
 )
 mapping_wf <- MakeWorkflowList(strNames = "data_mapping")
 mapped <- RunWorkflows(mapping_wf, lData, bKeepInputData=TRUE)
@@ -116,15 +116,15 @@ dfCTMSStudy <- RunQuery(df = clindata::ctms_study,
   MakeLongMeta(strGroupLevel = 'Study')
 
 # Get Participant and Site counts for Country, Site and Study
-dfSiteCounts <- RunQuery(df = mapped$dfEnrolled,
+dfSiteCounts <- RunQuery(df = mapped$Mapped_Enrolled,
                              strQuery = "SELECT invid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid") |>
   MakeLongMeta(strGroupLevel = "Site")
 
-dfStudyCounts <- RunQuery(df = mapped$dfEnrolled,
+dfStudyCounts <- RunQuery(df = mapped$Mapped_Enrolled,
                              strQuery = "SELECT studyid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY studyid") |>
   MakeLongMeta(strGroupLevel = "Study")
 
-dfCountryCounts <- RunQuery(df = mapped$dfEnrolled,
+dfCountryCounts <- RunQuery(df = mapped$Mapped_Enrolled,
                              strQuery = "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country") |>
   MakeLongMeta(strGroupLevel = "Country")
 
@@ -183,7 +183,7 @@ The reporting workflow requires that all metrics are stacked into a single data 
 
 ```{r include = TRUE}
 dfResults <- BindResults(lResults = lAnalysis,
-                         strName = "dfSummary",
+                         strName = "Analysis_Summary",
                          dSnapshotDate = Sys.Date(),
                          strStudyID = "ABC-123")
 ```
@@ -297,16 +297,16 @@ The second option is to run the `snapshot.yaml` workflow, which takes in all raw
 ```{r eval = FALSE, include = TRUE}
 # Step 1 - Create Mapped Data - filter/map raw data
 lData <- list(
-    dfSUBJ = clindata::rawplus_dm,
-    dfAE = clindata::rawplus_ae,
-    dfPD = clindata::ctms_protdev,
-    dfLB = clindata::rawplus_lb,
-    dfSTUDCOMP = clindata::rawplus_studcomp,
-    dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
-    dfDATACHG = clindata::edc_data_points,
-    dfDATAENT = clindata::edc_data_pages,
-    dfQUERY = clindata::edc_queries,
-    dfENROLL = clindata::rawplus_enroll
+    Raw_SUBJ = clindata::rawplus_dm,
+    Raw_AE = clindata::rawplus_ae,
+    Raw_PD = clindata::ctms_protdev,
+    Raw_LB = clindata::rawplus_lb,
+    Raw_STUDCOMP = clindata::rawplus_studcomp,
+    Raw_SDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
+    Raw_DATACHG = clindata::edc_data_points,
+    Raw_DATAENT = clindata::edc_data_pages,
+    Raw_QUERY = clindata::edc_queries,
+    Raw_ENROLL = clindata::rawplus_enroll
 )
 mapping_wf <- MakeWorkflowList(strNames = "data_mapping")
 mapped <- RunWorkflows(mapping_wf, lData, bKeepInputData=TRUE)
@@ -317,9 +317,9 @@ kris <- RunWorkflows(kri_wf, mapped)
 
 # Step 3 - Create Reporting Data - Import Metadata and stack KRI Results
 lReporting_Input <- list(
-    ctms_site = clindata::ctms_site,
-    ctms_study = clindata::ctms_study,
-    dfEnrolled = mapped$dfEnrolled,
+    Raw_ctms_site = clindata::ctms_site,
+    Raw_ctms_study = clindata::ctms_study,
+    Mapped_Enrolled = mapped$Mapped_Enrolled,
     lWorkflows = kri_wf,
     lAnalysis = kris,
     dSnapshotDate = Sys.Date(),
@@ -338,16 +338,16 @@ lReports <- RunWorkflows(wf_reports, reporting)
 ```{r eval = FALSE, include = TRUE}
 lData <- list(
     # Raw Data
-    dfSUBJ = clindata::rawplus_dm,
-    dfAE = clindata::rawplus_ae,
-    dfPD = clindata::ctms_protdev,
-    dfLB = clindata::rawplus_lb,
-    dfSTUDCOMP = clindata::rawplus_studcomp,
-    dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
-    dfDATACHG = clindata::edc_data_points,
-    dfDATAENT = clindata::edc_data_pages,
-    dfQUERY = clindata::edc_queries,
-    dfENROLL = clindata::rawplus_enroll,
+    Raw_SUBJ = clindata::rawplus_dm,
+    Raw_AE = clindata::rawplus_ae,
+    Raw_PD = clindata::ctms_protdev,
+    Raw_LB = clindata::rawplus_lb,
+    Raw_STUDCOMP = clindata::rawplus_studcomp,
+    Raw_SDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
+    Raw_DATACHG = clindata::edc_data_points,
+    Raw_DATAENT = clindata::edc_data_pages,
+    Raw_QUERY = clindata::edc_queries,
+    Raw_ENROLL = clindata::rawplus_enroll,
     # CTMS data
     ctms_site = clindata::ctms_site,
     ctms_study = clindata::ctms_study,
