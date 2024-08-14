@@ -1,7 +1,5 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/LICENSE.html</loc></url>
-<url><loc>https://gilead-biostats.github.io/gsm/dev/StandardReportCountry.html</loc></url>
-<url><loc>https://gilead-biostats.github.io/gsm/dev/StandardReportSite.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/articles/ContributorGuidelines.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/articles/Cookbook.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/articles/DataAnalysis.html</loc></url>
