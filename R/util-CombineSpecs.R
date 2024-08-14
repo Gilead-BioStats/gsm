@@ -13,12 +13,12 @@
 #'
 #' @export
 
-CombineSpecs <- function(lSpecs){
-    all_specs <- list()
-    for (spec in lSpecs){
-        for (domain in names(spec)){
-            all_specs[[domain]] <- c(all_specs[[domain]], spec[[domain]])
-        }
+CombineSpecs <- function(lSpecs) {
+  all_specs <- list()
+  for (spec in lSpecs) {
+    for (domain in names(spec)) {
+      all_specs[[domain]] <- c(all_specs[[domain]], spec[[domain]])
     }
-    return(all_specs)
+  }
+  return(all_specs)
 }

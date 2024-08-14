@@ -1,9 +1,13 @@
-#example lSpec
+# example lSpec
 lSpec <- list(
-  df1 = list(a = list(required = TRUE),
-             b = list(required = TRUE)),
-  df2 = list(x = list(required = TRUE),
-             y = list(required = TRUE))
+  df1 = list(
+    a = list(required = TRUE),
+    b = list(required = TRUE)
+  ),
+  df2 = list(
+    x = list(required = TRUE),
+    y = list(required = TRUE)
+  )
 )
 
 

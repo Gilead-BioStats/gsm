@@ -60,7 +60,7 @@ RunWorkflow <- function(
   } else {
     cli::cli_h3("No spec found in workflow. Proceeding without checking data.")
   }
-  
+
   # Run through each step in lWorkflow$workflow
   stepCount <- 1
   for (step in lWorkflow$steps) {
