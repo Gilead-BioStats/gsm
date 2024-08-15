@@ -6,7 +6,7 @@ steps:
   - name: MakeWorkflowList
     output: wf_mapping
     params:
-      strNames: mapping
+      strNames: data_mapping
   - name: RunWorkflows
     output: lMapped
     params:
@@ -18,7 +18,7 @@ steps:
   - name: MakeWorkflowList
     output: lWorkflows
     params:
-      strNames: Metrics
+      strPath: workflow/metrics
   - name: RunWorkflows
     output: lAnalysis
     params:
@@ -36,7 +36,7 @@ steps:
   - name: MakeWorkflowList
     output: wf_reporting_data
     params:
-      strNames: reporting
+      strNames: data_reporting
   - name: RunWorkflows
     output: lReporting
     params:
@@ -48,7 +48,7 @@ steps:
   - name: MakeWorkflowList
     output: wf_reports
     params:
-      strNames: reports
+      strPath: workflow/reports
   - name: RunWorkflows
     output: lReports
     params:

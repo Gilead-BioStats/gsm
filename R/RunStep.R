@@ -62,7 +62,7 @@ RunStep <- function(lStep, lData, lMeta) {
       # If the parameter value is named "lData", the lData parameter is passed
       cli::cli_alert_success("{paramName} = {paramVal}: Passing full lData object.")
       params[[paramName]] <- lData
-    } else if(length(paramVal == 1) %% paramVal %in% names(context)){
+    } else if(length(paramVal) == 1 && paramVal %in% names(context)){
       cli::cli_alert_success("{paramName} = {paramVal}: Passing lData${lStep$context}${paramVal}.")
       params[[paramName]] <- context[[paramVal]]
     } else if (length(paramVal) == 1 && paramVal %in% names(lMeta)) {

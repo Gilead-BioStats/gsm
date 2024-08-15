@@ -33,11 +33,11 @@ lReporting_Input <- list(
 reporting_wf <- MakeWorkflowList(strNames = "reporting")
 reporting <- RunWorkflows(reporting_wf, lReporting_Input)
 
-# Step 4 - Generate Reports - Create Charts + Report
-wf_reports <- MakeWorkflowList(strNames = "reports")
-lReports <- RunWorkflows(wf_reports, reporting)
+# Step 4 - Generate Site KRI Report - Create Charts + Report
+wf_report <- MakeWorkflowList(strNames = "report_kri_site")
+lReports <- RunWorkflows(wf_report, reporting)
 
-#### 3.2 - Create a KRI Report using 12 standard metrics with a single composite workflow
+#### 3.2 - Create site- and country- level KRI Reports using 12 standard metrics with a single composite workflow
 lData <- list(
     # Raw Data
     Raw_SUBJ = clindata::rawplus_dm,
@@ -55,19 +55,13 @@ lData <- list(
     Raw_ctms_study = clindata::ctms_study,
     # SnapshotDate and StudyID
     dSnapshotDate = Sys.Date(),
-    strStudyID = "ABC-123",
-    # Metrics
-    Metrics = 'kri'
+    strStudyID = "ABC-123"    
 )
 
 ss_wf <- MakeWorkflowList(strNames = "snapshot")
 snapshot <- RunWorkflows(ss_wf, lData, bKeepInputData = TRUE)
 
-#### 3.3 - Create a country-level KRI Report
-lData$Metrics <- 'cou'
-country_snapshot <- RunWorkflows(ss_wf, lData, bKeepInputData = TRUE)
-
-#### 3.4 Site-Level KRI Report with multiple SnapshotDate
+#### 3.3 Site-Level KRI Report with multiple SnapshotDate
 lCharts <- MakeCharts(
   dfResults = gsm::reportingResults,
   dfGroups = gsm::reportingGroups,

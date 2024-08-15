@@ -6,7 +6,8 @@
 #' `MakeWorkflowList()` is a utility function that creates a list of workflows for use in KRI pipelines.
 #'
 #' @param strNames `array of character` List of workflows to include. NULL (the default) includes all workflows in the specified locations.
-#' @param strPath `character` The location of workflow YAML files. If package is specified, function will look in `/inst` folder.
+#' @param strPackage `character` The package name where the workflow YAML files are located. If NULL, the package will use an absolute path. 
+#' @param strPath `character` The location of workflow YAML files. If NULL (the default), function will look in `/inst/workflow` folder.
 #' @param bExact `logical` Should strName matches be exact? If false, partial matches will be included. Default FALSE.
 #' @param bRecursive `logical` Find files in nested folders? Default TRUE
 #'
@@ -23,20 +24,16 @@
 
 MakeWorkflowList <- function(
   strNames = NULL,
-  strPath = NULL,
+  strPath = "workflow",
+  strPackage = "gsm",
   bExact = FALSE,
   bRecursive = TRUE
 ) {
-  if (is.null(strPath)) {
-    # if `strPath` is not specified, default to reading `inst/workflow` from {gsm}.
-    path <- system.file("workflow", package = "gsm")
-  } else {
-    # if `strPath` is specified, set as `path` and check that the full filepath exists.
-    stopifnot(
-      "[ strPath ] must exist." = dir.exists(strPath)
-    )
-
+  if(is.null(strPackage)){
+    stopifnot("[ strPath ] must exist." = dir.exists(strPath))
     path <- tools::file_path_as_absolute(strPath)
+  }else{
+    path <- system.file(strPath, package = strPackage)
   }
 
   # list all files to loop through to build the workflow list.
