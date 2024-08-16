@@ -12,7 +12,7 @@ meta:
   Threshold: -3,-2,2,3
   nMinDenominator: 3
 spec:
-  Mapped_Enrolled:
+  Mapped_ENROLL:
     subjid:
       required: true
     invid:
@@ -28,9 +28,10 @@ steps:
   - name: Input_Rate
     output: Analysis_Input
     params:
-      dfSubjects: Mapped_Enrolled
-      dfNumerator: Mapped_TreatmentDropouts
-      dfDenominator: Mapped_Enrolled
+      dfSubjects: Mapped_ENROLL
+      dfNumerator: Mapped_SDRGCOMP
+      dfDenominator: Mapped_ENROLL
+      expFilterNumerator: sdrgyn == 'N' & phase = "Blinded Study Drug Completion"
       strSubjectCol: subjid
       strGroupCol: invid
       strGroupLevel: GroupLevel

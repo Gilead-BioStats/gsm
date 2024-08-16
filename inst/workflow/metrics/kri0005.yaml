@@ -12,7 +12,7 @@ meta:
   Threshold: -3,-2,2,3
   nMinDenominator: 30
 spec:
-  Mapped_Enrolled:
+  Mapped_ENROLL:
     subjid:
       required: true
     invid:
@@ -31,9 +31,11 @@ steps:
   - name: Input_Rate
     output: Analysis_Input
     params:
-      dfSubjects: Mapped_Enrolled
-      dfNumerator: Mapped_ToxLabs
-      dfDenominator: Mapped_AllLabs
+      dfSubjects: Mapped_ENROLL
+      dfNumerator: Mapped_LB
+      dfDenominator: Mapped_LB
+      expFilterNumerator: toxgrg_nsv %in% c("3","4")
+      expFilterDenominator: toxgrg_nsv %in% c("0","1","2","3","4")
       strSubjectCol: subjid
       strGroupCol: invid
       strGroupLevel: GroupLevel

@@ -12,7 +12,7 @@ meta:
   Threshold: -3,-2,2,3
   nMinDenominator: 3
 spec: 
-  Mapped_Enrolled:
+  Mapped_ENROLL:
     subjid:
       required: true
     country:
@@ -28,9 +28,10 @@ steps:
   - name: Input_Rate
     output: Analysis_Input
     params:
-      dfSubjects: Mapped_Enrolled
-      dfNumerator: Mapped_StudyDropouts
-      dfDenominator: Mapped_Enrolled
+      dfSubjects: Mapped_ENROLL
+      dfNumerator: Mapped_STUDCOMP
+      dfDenominator: Mapped_ENROLL
+      expFilterNumerator: compyn == 'N'
       strSubjectCol: subjid
       strGroupCol: country
       strGroupLevel: GroupLevel

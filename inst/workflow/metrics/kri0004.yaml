@@ -15,7 +15,7 @@ spec:
   Mapped_ImportantPD:
     subjid:
       required: true
-  Mapped_Enrolled:
+  Mapped_ENROLL:
     subjid:
       required: true
     invid:
@@ -30,9 +30,10 @@ steps:
   - name: Input_Rate
     output: Analysis_Input
     params:
-      dfSubjects: Mapped_Enrolled
-      dfNumerator: Mapped_ImportantPD
-      dfDenominator: Mapped_Enrolled
+      dfSubjects: Mapped_ENROLL
+      dfNumerator: Mapped_PR
+      dfDenominator: Mapped_ENROLL
+      expFilterNumerator: deemedimportant == 'Y'
       strSubjectCol: subjid
       strGroupCol: invid
       strGroupLevel: GroupLevel

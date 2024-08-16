@@ -14,7 +14,7 @@ meta:
 spec:
   Mapped_AE:
     subjid: required
-  Mapped_Enrolled:
+  Mapped_ENROLL:
     subjid: required
     invid: required
     timeonstudy: required
@@ -26,9 +26,9 @@ steps:
   - name: Input_Rate
     output: Analysis_Input
     params:
-      dfSubjects: Mapped_Enrolled
+      dfSubjects: Mapped_ENROLL
       dfNumerator: Mapped_AE
-      dfDenominator: Mapped_Enrolled
+      dfDenominator: Mapped_ENROLL
       strSubjectCol: subjid
       strGroupCol: invid
       strGroupLevel: GroupLevel

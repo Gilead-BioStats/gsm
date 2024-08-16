@@ -28,9 +28,10 @@ steps:
   - name: Input_Rate
     output: Analysis_Input
     params:
-      dfSubjects: Mapped_Screened
-      dfNumerator: Mapped_ScreenFail
-      dfDenominator: Mapped_Screened
+      dfSubjects: Mapped_SCREEN
+      dfNumerator: Mapped_SCREEN
+      dfDenominator: Mapped_SCREEN
+      expFilterNumerator: enrollyn == 'N'
       strSubjectCol: subjectid
       strGroupCol: country
       strGroupLevel: GroupLevel

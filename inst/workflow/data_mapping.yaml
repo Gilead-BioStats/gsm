@@ -6,7 +6,7 @@ steps:
     output: Mapped_ENROLL
     params:
       df: Raw_SUBJ
-      strQuery: "SELECT subjectid as raw_subjectid, invid, country, timeonstudy FROM df WHERE enrollyn == 'Y'"
+      strQuery: "SELECT subjectid as raw_subjectid, subjid, invid, country, timeonstudy FROM df WHERE enrollyn == 'Y'"
   - name: RunQuery
     output: Mapped_AE
     params:
@@ -18,7 +18,7 @@ steps:
       df: Raw_PD
       strQuery: "SELECT subjectenrollmentnumber as subjid, deemedimportant FROM df"
   - name: RunQuery
-    output: Mapped_Labs
+    output: Mapped_LB
     params:
       df: Raw_LB
       strQuery: "SELECT subjid, toxgrg_nsv FROM df"

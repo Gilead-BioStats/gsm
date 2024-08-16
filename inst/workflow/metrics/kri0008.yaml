@@ -15,7 +15,7 @@ spec:
   Mapped_Query:
     subject_nsv:
       required: true
-  Mapped_Enrolled:
+  Mapped_ENROLL:
     subject_nsv:
       required: true
     invid:
@@ -31,9 +31,9 @@ steps:
   - name: Input_Rate
     output: Analysis_Input
     params:
-      dfSubjects: Mapped_Enrolled
-      dfNumerator: Mapped_Query
-      dfDenominator: Mapped_DataChanges
+      dfSubjects: Mapped_ENROLL
+      dfNumerator: Mapped_QUERY
+      dfDenominator: Mapped_DATACHG
       strSubjectCol: subject_nsv
       strGroupCol: invid
       strGroupLevel: GroupLevel
