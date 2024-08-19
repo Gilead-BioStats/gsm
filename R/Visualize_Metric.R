@@ -22,7 +22,6 @@
 #' - timeSeriesContinuousNumeratorJS: A time series chart using JavaScript with numerator on the y-axis.
 #' - metricTable: A table containing all
 #'
-#'
 #' @examples
 #' charts <- Visualize_Metric(
 #'   dfResults = reportingResults,
@@ -47,6 +46,10 @@ Visualize_Metric <- function(
   # if SnapshotDate is missing set it to today for all records
   if (!"SnapshotDate" %in% colnames(dfResults)) {
     dfResults$SnapshotDate <- as.Date(Sys.Date())
+  }
+
+  if (!"SnapshotDate" %in% colnames(dfBounds)) {
+    dfBounds$SnapshotDate <- as.Date(Sys.Date())
   }
 
   # get number of snapshots
@@ -74,7 +77,7 @@ Visualize_Metric <- function(
       length(unique(dfBounds$MetricID)) > 1 |
       length(unique(dfMetrics$MetricID)) > 1
   ) {
-    cli_abort("Multiple MetricIDs found in dfResults, dfBounds or dfMetrics. Specify `MetricID` to subset. No charts will be generated.")
+    cli::cli_abort("Multiple MetricIDs found in dfResults, dfBounds or dfMetrics. Specify `MetricID` to subset. No charts will be generated.")
     return(NULL)
   }
 
@@ -86,7 +89,6 @@ Visualize_Metric <- function(
   lCharts <- list()
   dfResults_current <- dfResults %>% filter(.data$SnapshotDate == strSnapshotDate)
   dfBounds_current <- dfBounds %>% filter(.data$SnapshotDate == strSnapshotDate)
-
 
   if (nrow(dfResults_current) == 0) {
     cli::cli_alert_warning("No data found for specified snapshot date: {strSnapshotDate}. No charts will be generated.")

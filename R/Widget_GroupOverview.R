@@ -53,10 +53,22 @@ Widget_GroupOverview <- function(
   # set strGroupLevel if NULL and dfMetrics is not NULL
   if (is.null(strGroupLevel) && !is.null(dfMetrics)) {
     strGroupLevel <- unique(dfMetrics$GroupLevel)
-  } else if (!is.null(strGroupLevel)) {
-    strGroupLevel <- strGroupLevel
   } else {
     stop("One of strGroupLevel or dfMetrics must be provided to create group-level output.")
+  }
+
+  # subset dfResults on latest snapshot date
+  if (length(unique(dfResults$SnapshotDate)) > 1) {
+    latest_snapshot_date <- max(dfResults$SnapshotDate)
+
+    cli::cli_alert_warning(
+      "[ dfResults ] contains multiple snapshot dates and will be subset on the latest snapshot date: {latest_snapshot_date}."
+    )
+
+    dfResults <- dfResults %>%
+      dplyr::filter(
+        .data$SnapshotDate == latest_snapshot_date
+      )
   }
 
   # forward options using x

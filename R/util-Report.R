@@ -8,7 +8,7 @@
 
 stop_if_empty <- function(x, x_arg = rlang::caller_arg(x)) {
   if (!length(x)) {
-    cli_abort(
+    cli::cli_abort(
       "{.arg {x_arg}} must not be `NULL`.",
       class = "gsm_error-null_arg"
     )
