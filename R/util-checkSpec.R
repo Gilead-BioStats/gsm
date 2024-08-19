@@ -64,8 +64,8 @@ CheckSpec <- function(lData, lSpec) {
     }
   }
   if (length(missingCols) > 0) {
-    cli_alert_danger("Not all columns in the spec are present in the data, missing columns are: {missingCols}")
+    cli_alert_danger("Not all required columns in the spec are present in the data, missing columns are: {missingCols}")
   } else {
-    cli_alert("All {length(allCols)} columns in the spec are present in the data: {allCols}")
+    cli_alert("All {length(allCols)} required columns in the spec are present in the data: {allCols}")
   }
 }
