@@ -14,7 +14,6 @@
 #'
 #' @keywords internal
 
-
 Report_StudyInfo <- function(
   lStudy,
   lStudyLabels = NULL
