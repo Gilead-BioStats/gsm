@@ -19,7 +19,9 @@
 #' @examples
 #' # site-level report
 #' Report_MetricTable(
-#'   dfResults = reportingResults,
+#'   dfResults = reportingResults %>%
+#'       filter(MetricID == 'kri0001') %>%
+#'       filter_by_latest_SnapshotDate(),
 #'   dfGroups = reportingGroups
 #' )
 #'
