@@ -72,7 +72,7 @@ if(setup$GroupLevel == "Site"){
 }  
 
 # subset data on latest snapshot date
-dfResults_current <- filter_by_latest_SnapshotDate(params$dfResults)
+dfResults_current <- FilterByLatestSnapshotDate(params$dfResults)
 
 htmltools::div(
   style = "table-layout: fixed; width: 100%; overflow: auto;",

@@ -87,8 +87,8 @@ Visualize_Metric <- function(
 
   # Cross-sectional Charts using most recent snapshot ------------------------
   lCharts <- list()
-  dfResults_latest <- filter_by_latest_SnapshotDate(dfResults, strSnapshotDate)
-  dfBounds_latest <- filter_by_latest_SnapshotDate(dfBounds, strSnapshotDate)
+  dfResults_latest <- FilterByLatestSnapshotDate(dfResults, strSnapshotDate)
+  dfBounds_latest <- FilterByLatestSnapshotDate(dfBounds, strSnapshotDate)
 
   if (nrow(dfResults_latest) == 0) {
     cli::cli_alert_warning("No data found for specified snapshot date: {strSnapshotDate}. No charts will be generated.")

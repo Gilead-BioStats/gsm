@@ -39,7 +39,7 @@ data based on certain conditions and displays the result in a datatable.
 Report_MetricTable(
   dfResults = reportingResults \%>\%
       dplyr::filter(.data$MetricID == 'kri0001') \%>\%
-      filter_by_latest_SnapshotDate(),
+      FilterByLatestSnapshotDate(),
   dfGroups = reportingGroups
 )
 

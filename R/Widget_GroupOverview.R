@@ -18,14 +18,14 @@
 #' @examples
 #' # site-level report
 #' Widget_GroupOverview(
-#'   dfResults = filter_by_latest_SnapshotDate(reportingResults),
+#'   dfResults = FilterByLatestSnapshotDate(reportingResults),
 #'   dfMetrics = reportingMetrics,
 #'   dfGroups = reportingGroups
 #' )
 #'
 #' # filter site-level report to all flags
 #' Widget_GroupOverview(
-#'   dfResults = filter_by_latest_SnapshotDate(reportingResults),
+#'   dfResults = FilterByLatestSnapshotDate(reportingResults),
 #'   dfMetrics = reportingMetrics,
 #'   dfGroups = reportingGroups,
 #'   strGroupSubset = "all"
@@ -34,7 +34,7 @@
 #' # country-level report
 #' reportingMetrics$GroupLevel <- "Country"
 #' Widget_GroupOverview(
-#'   dfResults = filter_by_latest_SnapshotDate(reportingResults),
+#'   dfResults = FilterByLatestSnapshotDate(reportingResults),
 #'   dfMetrics = reportingMetrics,
 #'   dfGroups = reportingGroups,
 #'   strGroupLevel = "Country"

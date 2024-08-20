@@ -25,18 +25,19 @@ stop_if_empty <- function(x, x_arg = rlang::caller_arg(x)) {
 #' @return A data frame containing the results for the most recent snapshot date.
 #'
 #' @examples
-#' reportingResults_latest <- filter_by_latest_SnapshotDate(reportingResults)
+#' reportingResults_latest <- FilterByLatestSnapshotDate(reportingResults)
 #'
 #' @export
 
-filter_by_latest_SnapshotDate <- function(df, strSnapshotDate = NULL) {
+FilterByLatestSnapshotDate <- function(df, strSnapshotDate = NULL) {
   if (!nrow(df)) {
     return(df)
   }
   if (!length(df$SnapshotDate)) {
     if (length(strSnapshotDate)) {
+      arg_name <- rlang::caller_arg(df)
       cli::cli_abort(c(
-        "{.arg df} must contain a {.var SnapshotDate} column."
+        "{.arg {arg_name}} must contain a {.var SnapshotDate} column."
       ))
     }
     return(df)
