@@ -65,7 +65,7 @@ metadata when provided.</p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">BindResults</span><span class="op">(</span></span>
-<span>  <span class="va">lResults</span>,</span>
+<span>  <span class="va">lAnalysis</span>,</span>
 <span>  <span class="va">strName</span>,</span>
 <span>  dSnapshotDate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">strStudyID</span>,</span>
@@ -77,14 +77,14 @@ metadata when provided.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-lresults">lResults<a class="anchor" aria-label="anchor" href="#arg-lresults"></a></dt>
+<dl><dt id="arg-lanalysis">lAnalysis<a class="anchor" aria-label="anchor" href="#arg-lanalysis"></a></dt>
 <dd><p>Named List of analysis results in the format returned by
 <code><a href="RunWorkflows.html">RunWorkflows()</a></code>.</p></dd>
 
 
 <dt id="arg-strname">strName<a class="anchor" aria-label="anchor" href="#arg-strname"></a></dt>
-<dd><p>Name of the object to stack. Pulled from <code>lResults</code> (or from
-<code>lResults$lData</code> when <code>bUselData</code> is <code>TRUE</code>).</p></dd>
+<dd><p>Name of the object to stack. Pulled from <code>lAnalysis</code> (or from
+<code>lAnalysis$lData</code> when <code>bUselData</code> is <code>TRUE</code>).</p></dd>
 
 
 <dt id="arg-dsnapshotdate">dSnapshotDate<a class="anchor" aria-label="anchor" href="#arg-dsnapshotdate"></a></dt>
@@ -97,7 +97,7 @@ metadata when provided.</p>
 
 <dt id="arg-buseldata">bUselData<a class="anchor" aria-label="anchor" href="#arg-buseldata"></a></dt>
 <dd><p>Should the function bind results from an <code>lData</code> object (or
-look directly in the root elements of <code>lResults</code>)? Default is <code>FALSE.</code></p></dd>
+look directly in the root elements of <code>lAnalysis</code>)? Default is <code>FALSE.</code></p></dd>
 
 </dl></div>
     <div class="section level2">
