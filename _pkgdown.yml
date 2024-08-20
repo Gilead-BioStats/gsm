@@ -76,6 +76,7 @@ reference:
      -  RunWorkflow
      -  RunWorkflows
      -  UseClindata
+     -  filter_by_latest_SnapshotDate
 
   - title: Sample Data
     desc: data used for examples and testing
