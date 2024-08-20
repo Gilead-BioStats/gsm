@@ -1,15 +1,16 @@
 #' Create Labels for Parameters
 #'
-#' @description
-#' `r lifecycle::badge("stable")`
+#' @description `r lifecycle::badge("stable")`
 #'
-#' Used to create components of the group metadata dictionary (dfGroups) for use
-#' in charts and reports. This function takes a data frame and a string
-#' specifying the group columns, and returns a long format data frame.
+#'   Convert a vector of parameters to labels in Title Case. `MakeParamLabels`
+#'   adds a `Labels` column to a `data.frame` that has a `Params` column (such
+#'   as `dfGroups`), while `MakeParamLabelsList` returns just the list of named
+#'   parameters.
 #'
 #' @inheritParams shared-params
 #'
-#' @return `dfGroups` with an added `Label` column.
+#' @return `dfGroups` with an added `Label` column, or a list of labeled
+#'   parameters.
 #'
 #' @examples
 #' head(gsm::reportingGroups)
@@ -18,19 +19,29 @@
 #'   head(gsm::reportingGroups),
 #'   list(ParticipantCount = "Number of Participants")
 #' )
+#' MakeParamLabelsList(head(gsm::reportingGroups$Params))
 #'
 #' @export
 MakeParamLabels <- function(dfGroups, lParamLabels = NULL) {
-  lParamLabels <- validate_lParamLabels(lParamLabels)
-  params <- sort(unique(dfGroups$Param))
-  known_params <- intersect(params, names(lParamLabels))
-  new_params <- setdiff(params, names(lParamLabels))
-  labels <- setNames(params, params)
-  labels[known_params] <- lParamLabels[known_params]
-  labels[new_params] <- ParamToLabel(new_params)
+  chrParams <- sort(unique(dfGroups$Param))
+  labels <- MakeParamLabelsList(chrParams, lParamLabels)
   dfLabels <- tibble::enframe(labels, name = "Param", value = "Label")
   dfLabels$Label <- unlist(dfLabels$Label)
   return(dplyr::left_join(dfGroups, dfLabels, by = "Param"))
+}
+
+#' @rdname MakeParamLabels
+#' @param chrParams A character vector of parameters, or a list that can be
+#'   coerced to a character vector.
+MakeParamLabelsList <- function(chrParams, lParamLabels) {
+  chrParams <- unlist(chrParams)
+  lParamLabels <- validate_lParamLabels(lParamLabels)
+  known_params <- intersect(chrParams, names(lParamLabels))
+  new_params <- setdiff(chrParams, names(lParamLabels))
+  labels <- setNames(chrParams, chrParams)
+  labels[known_params] <- lParamLabels[known_params]
+  labels[new_params] <- ParamToLabel(new_params)
+  return(labels)
 }
 
 validate_lParamLabels <- function(lParamLabels) {
