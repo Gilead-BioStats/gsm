@@ -90,25 +90,25 @@ Visualize_Metric <- function(
   dfResults_latest <- filter_by_latest_SnapshotDate(dfResults, strSnapshotDate)
   dfBounds_latest <- filter_by_latest_SnapshotDate(dfBounds, strSnapshotDate)
 
-  if (nrow(dfResults_current) == 0) {
+  if (nrow(dfResults_latest) == 0) {
     cli::cli_alert_warning("No data found for specified snapshot date: {strSnapshotDate}. No charts will be generated.")
   } else {
     lCharts$scatterJS <- Widget_ScatterPlot(
-      dfResults = dfResults_current,
+      dfResults = dfResults_latest,
       lMetric = lMetric,
       dfGroups = dfGroups,
-      dfBounds = dfBounds_current,
+      dfBounds = dfBounds_latest,
       bDebug = bDebug
     )
 
     lCharts$scatter <- Visualize_Scatter(
-      dfResults = dfResults_current,
-      dfBounds = dfBounds_current,
+      dfResults = dfResults_latest,
+      dfBounds = dfBounds_latest,
       strGroupLabel = lMetric$GroupLevel
     )
 
     lCharts$barMetricJS <- Widget_BarChart(
-      dfResults = dfResults_current,
+      dfResults = dfResults_latest,
       lMetric = lMetric,
       dfGroups = dfGroups,
       strOutcome = "Metric",
@@ -116,7 +116,7 @@ Visualize_Metric <- function(
     )
 
     lCharts$barScoreJS <- Widget_BarChart(
-      dfResults = dfResults_current,
+      dfResults = dfResults_latest,
       lMetric = lMetric,
       dfGroups = dfGroups,
       strOutcome = "Score",
@@ -124,18 +124,18 @@ Visualize_Metric <- function(
     )
 
     lCharts$barMetric <- Visualize_Score(
-      dfResults = dfResults_current,
+      dfResults = dfResults_latest,
       strType = "Metric"
     )
 
     lCharts$barScore <- Visualize_Score(
-      dfResults = dfResults_current,
+      dfResults = dfResults_latest,
       strType = "Score",
       vThreshold = vThreshold
     )
 
     lCharts$metricTable <- Report_MetricTable(
-      dfResults = dfResults_current,
+      dfResults = dfResults_latest,
       dfGroups = dfGroups,
       strGroupLevel = lMetric$GroupLevel
     )
