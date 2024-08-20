@@ -67,6 +67,7 @@ reference:
      -  MakeCharts
      -  MakeMetric
      -  MakeLongMeta
+     -  MakeParamLabels
      -  MakeWideGroups
      -  MakeWorkflowList
      -  ParseThreshold
