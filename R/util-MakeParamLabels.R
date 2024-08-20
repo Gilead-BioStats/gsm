@@ -38,7 +38,7 @@ MakeParamLabelsList <- function(chrParams, lParamLabels) {
   lParamLabels <- validate_lParamLabels(lParamLabels)
   known_params <- intersect(chrParams, names(lParamLabels))
   new_params <- setdiff(chrParams, names(lParamLabels))
-  labels <- setNames(chrParams, chrParams)
+  labels <- setNames(as.list(chrParams), chrParams)
   labels[known_params] <- lParamLabels[known_params]
   labels[new_params] <- ParamToLabel(new_params)
   return(labels)
