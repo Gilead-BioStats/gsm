@@ -5,7 +5,7 @@
 \title{Helper function to bind results from multiple workflows}
 \usage{
 BindResults(
-  lResults,
+  lAnalysis,
   strName,
   dSnapshotDate = Sys.Date(),
   strStudyID,
@@ -13,18 +13,18 @@ BindResults(
 )
 }
 \arguments{
-\item{lResults}{Named List of analysis results in the format returned by
+\item{lAnalysis}{Named List of analysis results in the format returned by
 \code{\link[=RunWorkflows]{RunWorkflows()}}.}
 
-\item{strName}{Name of the object to stack. Pulled from \code{lResults} (or from
-\code{lResults$lData} when \code{bUselData} is \code{TRUE}).}
+\item{strName}{Name of the object to stack. Pulled from \code{lAnalysis} (or from
+\code{lAnalysis$lData} when \code{bUselData} is \code{TRUE}).}
 
 \item{dSnapshotDate}{Date of the snapshot. Default is \code{\link[=Sys.Date]{Sys.Date()}}.}
 
 \item{strStudyID}{Study ID.}
 
 \item{bUselData}{Should the function bind results from an \code{lData} object (or
-look directly in the root elements of \code{lResults})? Default is \code{FALSE.}}
+look directly in the root elements of \code{lAnalysis})? Default is \code{FALSE.}}
 }
 \value{
 A data frame.

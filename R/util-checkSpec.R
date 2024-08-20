@@ -47,7 +47,7 @@ CheckSpec <- function(lData, lSpec) {
       i = "Missing data.frames: {MissingSpecDataFrames}"
     ))
   } else {
-    cli_alert("All {length(lSpecDataFrames)} data.frame(s) in the spec are present in the data: {lSpecDataFrames}")
+    cli::cli_alert("All {length(lSpecDataFrames)} data.frame(s) in the spec are present in the data: {lSpecDataFrames}")
   }
 
   # Check that all columns in the spec are present in the data
@@ -64,8 +64,8 @@ CheckSpec <- function(lData, lSpec) {
     }
   }
   if (length(missingCols) > 0) {
-    cli_alert_danger("Not all columns in the spec are present in the data, missing columns are: {missingCols}")
+    cli::cli_alert_danger("Not all columns in the spec are present in the data, missing columns are: {missingCols}")
   } else {
-    cli_alert("All {length(allCols)} columns in the spec are present in the data: {allCols}")
+    cli::cli_alert("All {length(allCols)} columns in the spec are present in the data: {allCols}")
   }
 }

@@ -18,14 +18,14 @@
 #' @examples
 #' # site-level report
 #' Widget_GroupOverview(
-#'   dfResults = reportingResults,
+#'   dfResults = FilterByLatestSnapshotDate(reportingResults),
 #'   dfMetrics = reportingMetrics,
 #'   dfGroups = reportingGroups
 #' )
 #'
 #' # filter site-level report to all flags
 #' Widget_GroupOverview(
-#'   dfResults = reportingResults,
+#'   dfResults = FilterByLatestSnapshotDate(reportingResults),
 #'   dfMetrics = reportingMetrics,
 #'   dfGroups = reportingGroups,
 #'   strGroupSubset = "all"
@@ -34,17 +34,18 @@
 #' # country-level report
 #' reportingMetrics$GroupLevel <- "Country"
 #' Widget_GroupOverview(
-#'   dfResults = reportingResults,
+#'   dfResults = FilterByLatestSnapshotDate(reportingResults),
 #'   dfMetrics = reportingMetrics,
-#'   dfGroups = reportingGroups
+#'   dfGroups = reportingGroups,
+#'   strGroupLevel = "Country"
 #' )
 #'
 #' @export
 
 Widget_GroupOverview <- function(
   dfResults,
-  dfMetrics = NULL,
-  dfGroups = NULL,
+  dfMetrics,
+  dfGroups,
   strGroupLevel = NULL,
   strGroupSubset = "red",
   strGroupLabelKey = "InvestigatorLastName",
@@ -53,10 +54,10 @@ Widget_GroupOverview <- function(
   # set strGroupLevel if NULL and dfMetrics is not NULL
   if (is.null(strGroupLevel) && !is.null(dfMetrics)) {
     strGroupLevel <- unique(dfMetrics$GroupLevel)
-  } else if (!is.null(strGroupLevel)) {
-    strGroupLevel <- strGroupLevel
-  } else {
-    stop("One of strGroupLevel or dfMetrics must be provided to create group-level output.")
+  }
+
+  if (is.null(strGroupLevel) || length(strGroupLevel) != 1) {
+    stop("A single group level must be provided to create group-level output.")
   }
 
   # forward options using x

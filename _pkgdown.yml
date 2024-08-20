@@ -63,6 +63,7 @@ reference:
      -  BindResults
      -  CheckSpec
      -  CombineSpecs
+     -  FilterByLatestSnapshotDate
      -  MakeBounds
      -  MakeCharts
      -  MakeMetric
