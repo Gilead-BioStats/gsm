@@ -590,7 +590,7 @@
       [1] "Reporting_Results"
       
       $data_reporting[[13]]$params
-      $data_reporting[[13]]$params$lResults
+      $data_reporting[[13]]$params$lAnalysis
       [1] "lAnalysis"
       
       $data_reporting[[13]]$params$strName

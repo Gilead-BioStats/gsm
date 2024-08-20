@@ -1,5 +1,5 @@
-test_that("BindResults binds dfs in lResults", {
-  lResults <- list(
+test_that("BindResults binds dfs in lAnalysis", {
+  lAnalysis <- list(
     resultA = list(
       tbl1 = tibble::tibble(
         a = 1:3,
@@ -17,7 +17,7 @@ test_that("BindResults binds dfs in lResults", {
   )
   expect_identical(
     BindResults(
-      lResults = lResults,
+      lAnalysis = lAnalysis,
       strName = "tbl1",
       strStudyID = "ThisStudy"
     ),
@@ -31,8 +31,8 @@ test_that("BindResults binds dfs in lResults", {
   )
 })
 
-test_that("BindResults binds dfs in lResults$lData", {
-  lResults <- list(
+test_that("BindResults binds dfs in lAnalysis$lData", {
+  lAnalysis <- list(
     resultA = list(
       lData = list(
         tbl1 = tibble::tibble(
@@ -54,7 +54,7 @@ test_that("BindResults binds dfs in lResults$lData", {
   )
   expect_identical(
     BindResults(
-      lResults = lResults,
+      lAnalysis = lAnalysis,
       strName = "tbl1",
       strStudyID = "ThisStudy",
       bUselData = TRUE

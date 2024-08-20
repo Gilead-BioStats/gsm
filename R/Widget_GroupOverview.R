@@ -18,14 +18,14 @@
 #' @examples
 #' # site-level report
 #' Widget_GroupOverview(
-#'   dfResults = reportingResults,
+#'   dfResults = filter_by_latest_SnapshotDate(reportingResults),
 #'   dfMetrics = reportingMetrics,
 #'   dfGroups = reportingGroups
 #' )
 #'
 #' # filter site-level report to all flags
 #' Widget_GroupOverview(
-#'   dfResults = reportingResults,
+#'   dfResults = filter_by_latest_SnapshotDate(reportingResults),
 #'   dfMetrics = reportingMetrics,
 #'   dfGroups = reportingGroups,
 #'   strGroupSubset = "all"
@@ -34,17 +34,18 @@
 #' # country-level report
 #' reportingMetrics$GroupLevel <- "Country"
 #' Widget_GroupOverview(
-#'   dfResults = reportingResults,
+#'   dfResults = filter_by_latest_SnapshotDate(reportingResults),
 #'   dfMetrics = reportingMetrics,
-#'   dfGroups = reportingGroups
+#'   dfGroups = reportingGroups,
+#'   strGroupLevel = "Country"
 #' )
 #'
 #' @export
 
 Widget_GroupOverview <- function(
   dfResults,
-  dfMetrics = NULL,
-  dfGroups = NULL,
+  dfMetrics,
+  dfGroups,
   strGroupLevel = NULL,
   strGroupSubset = "red",
   strGroupLabelKey = "InvestigatorLastName",
@@ -53,22 +54,10 @@ Widget_GroupOverview <- function(
   # set strGroupLevel if NULL and dfMetrics is not NULL
   if (is.null(strGroupLevel) && !is.null(dfMetrics)) {
     strGroupLevel <- unique(dfMetrics$GroupLevel)
-  } else {
-    stop("One of strGroupLevel or dfMetrics must be provided to create group-level output.")
   }
 
-  # subset dfResults on latest snapshot date
-  if (length(unique(dfResults$SnapshotDate)) > 1) {
-    latest_snapshot_date <- max(dfResults$SnapshotDate)
-
-    cli::cli_alert_warning(
-      "[ dfResults ] contains multiple snapshot dates and will be subset on the latest snapshot date: {latest_snapshot_date}."
-    )
-
-    dfResults <- dfResults %>%
-      dplyr::filter(
-        .data$SnapshotDate == latest_snapshot_date
-      )
+  if (is.null(strGroupLevel) || length(strGroupLevel) != 1) {
+    stop("A single group level must be provided to create group-level output.")
   }
 
   # forward options using x

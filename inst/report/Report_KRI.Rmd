@@ -71,11 +71,14 @@ if(setup$GroupLevel == "Site"){
   GroupLabelKey <- NULL 
 }  
 
+# subset data on latest snapshot date
+dfResults_current <- filter_by_latest_SnapshotDate(params$dfResults)
+
 htmltools::div(
   style = "table-layout: fixed; width: 100%; overflow: auto;",
   Widget_GroupOverview(
-      dfResults= params$dfResults,
-      dfGroups= params$dfGroups,
+      dfResults = dfResults_current,
+      dfGroups = params$dfGroups,
       dfMetrics = params$dfMetrics, 
       strGroupLevel = setup$GroupLevel,
       strGroupLabelKey = GroupLabelKey

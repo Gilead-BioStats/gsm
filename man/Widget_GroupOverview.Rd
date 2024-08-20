@@ -6,8 +6,8 @@
 \usage{
 Widget_GroupOverview(
   dfResults,
-  dfMetrics = NULL,
-  dfGroups = NULL,
+  dfMetrics,
+  dfGroups,
   strGroupLevel = NULL,
   strGroupSubset = "red",
   strGroupLabelKey = "InvestigatorLastName",
@@ -44,14 +44,14 @@ metrics.
 \examples{
 # site-level report
 Widget_GroupOverview(
-  dfResults = reportingResults,
+  dfResults = filter_by_latest_SnapshotDate(reportingResults),
   dfMetrics = reportingMetrics,
   dfGroups = reportingGroups
 )
 
 # filter site-level report to all flags
 Widget_GroupOverview(
-  dfResults = reportingResults,
+  dfResults = filter_by_latest_SnapshotDate(reportingResults),
   dfMetrics = reportingMetrics,
   dfGroups = reportingGroups,
   strGroupSubset = "all"
@@ -60,9 +60,10 @@ Widget_GroupOverview(
 # country-level report
 reportingMetrics$GroupLevel <- "Country"
 Widget_GroupOverview(
-  dfResults = reportingResults,
+  dfResults = filter_by_latest_SnapshotDate(reportingResults),
   dfMetrics = reportingMetrics,
-  dfGroups = reportingGroups
+  dfGroups = reportingGroups,
+  strGroupLevel = "Country"
 )
 
 }
