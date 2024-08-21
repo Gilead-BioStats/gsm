@@ -34,7 +34,7 @@ MakeParamLabels <- function(dfGroups, lParamLabels = NULL) {
 #' @param chrParams A character vector of parameters, or a list that can be
 #'   coerced to a character vector.
 #' @export
-MakeParamLabelsList <- function(chrParams, lParamLabels) {
+MakeParamLabelsList <- function(chrParams, lParamLabels = NULL) {
   chrParams <- unlist(chrParams)
   lParamLabels <- validate_lParamLabels(lParamLabels)
   known_params <- intersect(chrParams, names(lParamLabels))

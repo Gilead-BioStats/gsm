@@ -7,7 +7,7 @@
 \usage{
 MakeParamLabels(dfGroups, lParamLabels = NULL)
 
-MakeParamLabelsList(chrParams, lParamLabels)
+MakeParamLabelsList(chrParams, lParamLabels = NULL)
 }
 \arguments{
 \item{dfGroups}{\code{data.frame} Group-level metadata dictionary. Created by passing CTMS site and study data to \code{\link[=MakeLongMeta]{MakeLongMeta()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Param}, \code{Value}.}

@@ -43,9 +43,9 @@ Report_StudyInfo <- function(
     dplyr::select(-"Param") %>%
     dplyr::mutate(
       Value = dplyr::if_else(
-        is.na(Value),
-        Value,
-        prettyNum(Value, drop0trailing = TRUE)
+        is.na(.data$Value),
+        .data$Value,
+        prettyNum(.data$Value, drop0trailing = TRUE)
       )
     )
 
