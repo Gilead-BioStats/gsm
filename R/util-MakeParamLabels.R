@@ -33,6 +33,7 @@ MakeParamLabels <- function(dfGroups, lParamLabels = NULL) {
 #' @rdname MakeParamLabels
 #' @param chrParams A character vector of parameters, or a list that can be
 #'   coerced to a character vector.
+#' @export
 MakeParamLabelsList <- function(chrParams, lParamLabels) {
   chrParams <- unlist(chrParams)
   lParamLabels <- validate_lParamLabels(lParamLabels)
