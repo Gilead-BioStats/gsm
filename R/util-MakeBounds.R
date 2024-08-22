@@ -34,10 +34,10 @@ MakeBounds <- function(
   stop_if_empty(strMetrics)
   stop_if_empty(dSnapshotDate)
   stop_if_empty(strStudyID)
-  cli_inform("Creating stacked dfBounds data for {strMetrics}")
+  cli::cli_inform("Creating stacked dfBounds data for {strMetrics}")
 
   if (length(dSnapshotDate) != 1) {
-    cli_warn(
+      cli::cli_warn(
       "More than one SnapshotDate found. Returning NULL",
       class = "gsm_warning-multiple_values"
     )
@@ -45,7 +45,7 @@ MakeBounds <- function(
   }
 
   if (length(strStudyID) != 1) {
-    cli_warn(
+    cli::cli_warn(
       "More than one StudyID found. Return NULL",
       class = "gsm_warning-multiple_values"
     )

@@ -8,29 +8,44 @@
 
 stop_if_empty <- function(x, x_arg = rlang::caller_arg(x)) {
   if (!length(x)) {
-    cli_abort(
+    cli::cli_abort(
       "{.arg {x_arg}} must not be `NULL`.",
       class = "gsm_error-null_arg"
     )
   }
 }
 
-filter_by_latest_SnapshotDate <- function(dfResults, strSnapshotDate = NULL) {
-  if (!nrow(dfResults)) {
-    return(dfResults)
+#' Filter by Latest Snapshot Date
+#'
+#' Filter a data frame to the most recent snapshot date.
+#'
+#' @param df A data frame containing the results.
+#' @param strSnapshotDate A character string representing the snapshot date.
+#'
+#' @return A data frame containing the results for the most recent snapshot date.
+#'
+#' @examples
+#' reportingResults_latest <- FilterByLatestSnapshotDate(reportingResults)
+#'
+#' @export
+
+FilterByLatestSnapshotDate <- function(df, strSnapshotDate = NULL) {
+  if (!nrow(df)) {
+    return(df)
   }
-  if (!length(dfResults$SnapshotDate)) {
+  if (!length(df$SnapshotDate)) {
     if (length(strSnapshotDate)) {
+      arg_name <- rlang::caller_arg(df)
       cli::cli_abort(c(
-        "{.arg dfResults} must contain a {.var SnapshotDate} column."
+        "{.arg {arg_name}} must contain a {.var SnapshotDate} column."
       ))
     }
-    return(dfResults)
+    return(df)
   }
   # use most recent snapshot date if strSnapshotDate is missing
-  strSnapshotDate <- as.Date(strSnapshotDate) %|0|% max(dfResults$SnapshotDate)
-  dfResults$SnapshotDate <- as.Date(dfResults$SnapshotDate)
-  return(dplyr::filter(dfResults, .data$SnapshotDate == strSnapshotDate))
+  strSnapshotDate <- as.Date(strSnapshotDate) %|0|% max(df$SnapshotDate)
+  df$SnapshotDate <- as.Date(df$SnapshotDate)
+  return(dplyr::filter(df, .data$SnapshotDate == strSnapshotDate))
 }
 
 add_Groups_metadata <- function(
