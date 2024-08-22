@@ -158,12 +158,22 @@ Input_Rate <- function(
   return(dfInput)
 }
 
+#' Count or Sum a Column by Subject
+#'
+#' @inheritParams Input_Rate
+#' @param df The df to modify.
+#' @param strCol The column to produce.
+#' @param strColOriginal The name of `strCol` in `df`.
+#' @param strMethod Whether to "Count" or "Sum" the values in the column.
+#'
+#' @return The modified df.
+#' @keywords internal
 calculateCol_bySubj <- function(
     df,
-    strSubjectCol,
+    strSubjectCol = "SubjectID",
     strCol,
     strColOriginal,
-    strMethod
+    strMethod = c("Count", "Sum")
 ) {
   if (strMethod == "Count") {
     df[[strCol]] <- 1
@@ -176,6 +186,14 @@ calculateCol_bySubj <- function(
     dplyr::summarise(!!strCol := sum(.data[[strCol]]), .by = "SubjectID")
 }
 
+#' Filter by a String Expression
+#'
+#' @param df The df to filter.
+#' @param strFilter The filter expression as a comma-separated string or a
+#'   character vector.
+#'
+#' @return The filtered df.
+#' @keywords internal
 filterByStr <- function(df, strFilter) {
   strFilter <- gsub(",", ";", strFilter)
   dplyr::filter(df, !!!rlang::parse_exprs(strFilter))
