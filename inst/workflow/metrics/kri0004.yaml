@@ -31,7 +31,7 @@ steps:
     output: Analysis_Input
     params:
       dfSubjects: Mapped_ENROLL
-      dfNumerator: Mapped_PR
+      dfNumerator: Mapped_PD
       dfDenominator: Mapped_ENROLL
       expFilterNumerator: deemedimportant == 'Y'
       strSubjectCol: subjid
