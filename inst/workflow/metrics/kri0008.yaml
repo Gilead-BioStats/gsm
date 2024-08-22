@@ -34,6 +34,7 @@ steps:
       dfSubjects: Mapped_ENROLL
       dfNumerator: Mapped_QUERY
       dfDenominator: Mapped_DATACHG
+      expFilterNumerator: query_status %in% c('Open','Answered',"Closed")
       strSubjectCol: subject_nsv
       strGroupCol: invid
       strGroupLevel: GroupLevel
