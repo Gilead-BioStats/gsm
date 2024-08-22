@@ -12,7 +12,7 @@ meta:
   Threshold: -3,-2,2,3
   nMinDenominator: 30
 spec:
-  Mapped_Enrolled:
+  Mapped_ENROLL:
     subject_nsv:
       required: true
     invid:
@@ -31,9 +31,11 @@ steps:
   - name: Input_Rate
     output: Analysis_Input
     params:
-      dfSubjects: Mapped_Enrolled
-      dfNumerator: Mapped_OldValidQueries
-      dfDenominator: Mapped_ValidQueries
+      dfSubjects: Mapped_ENROLL
+      dfNumerator: Mapped_QUERY
+      dfDenominator: Mapped_QUERY
+      expFilterNumerator: query_status %in% c('Open','Answered',"Closed") & query_days > 30
+      expFilterDenominator: query_status %in% c('Open','Answered',"Closed")
       strSubjectCol: subject_nsv
       strGroupCol: invid
       strGroupLevel: GroupLevel

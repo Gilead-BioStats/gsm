@@ -11,11 +11,11 @@ meta:
   Score: Adjusted Z-Score
   Threshold: -2,-1,2,3
   nMinDenominator: 30
-spec: 
+mapping_spec: 
   Mapped_AE:
     subjid:
       required: true
-  Mapped_Enrolled:
+  Mapped_ENROLL:
     subjid:
       required: true
     country:
@@ -30,9 +30,9 @@ steps:
   - name: Input_Rate
     output: Analysis_Input
     params:
-      dfSubjects: Mapped_Enrolled
+      dfSubjects: Mapped_ENROLL
       dfNumerator: Mapped_AE
-      dfDenominator: Mapped_Enrolled
+      dfDenominator: Mapped_ENROLL
       strSubjectCol: subjid
       strGroupCol: country
       strGroupLevel: GroupLevel

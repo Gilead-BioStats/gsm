@@ -12,7 +12,7 @@ meta:
   Threshold: -3,-2,2,3
   nMinDenominator: 30
 spec: 
-  Mapped_Enrolled: 
+  Mapped_ENROLL: 
     subject_nsv:
       required: true
     country:
@@ -31,9 +31,10 @@ steps:
   - name: Input_Rate
     output: Analysis_Input
     params:
-      dfSubjects: Mapped_Enrolled
-      dfNumerator: Mapped_ChangedDataPoints
-      dfDenominator: Mapped_DataChanges
+      dfSubjects: Mapped_ENROLL
+      dfNumerator: Mapped_DATACHG
+      dfDenominator: Mapped_DATACHG
+      expFilterNumerator: n_changes > 0
       strSubjectCol: subject_nsv
       strGroupCol: country
       strGroupLevel: GroupLevel
