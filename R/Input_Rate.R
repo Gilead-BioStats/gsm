@@ -22,27 +22,43 @@
 #' found in dfNumerator/dfDenominator numerator and denominator values are filled with 0 in the output data frame.
 #'
 
-#' @param dfSubjects `data.frame` with columns for SubjectID and any other relevant subject information
-#' @param dfNumerator `data.frame` with a column for SubjectID and `strNumeratorCol` if `strNumeratorMethod` is "Sum"
-#' @param dfDenominator `data.frame` with a column for SubjectID and `strDenominatorCol` if `strDenominatorMethod` is "Sum"
-#' @param strGroupCol `character` Column name in `dfSubjects` to use for grouping. Default: "GroupID"
-#' @param strGroupLevel `character` value for the group level. Default: NULL which is parsed to `strGroupCol`
-#' @param strSubjectCol `character` Column name in `dfSubjects` to use for subject ID. Default: "SubjectID"
-#' @param strNumeratorMethod `character` Method to calculate numerator. Default: "Count"
-#' @param strDenominatorMethod `character` Method to calculate denominator. Default: "Count"
-#' @param strNumeratorCol `character` Column name in `dfNumerator` to use for numerator calculation. Default: NULL
-#' @param strDenominatorCol `character` Column name in `dfDenominator` to use for denominator calculation. Default: NULL
+#' @param dfSubjects `data.frame` with columns for SubjectID and any other
+#'   relevant subject information
+#' @param dfNumerator `data.frame` with a column for SubjectID and
+#'   `strNumeratorCol` if `strNumeratorMethod` is "Sum"
+#' @param dfDenominator `data.frame` with a column for SubjectID and
+#'   `strDenominatorCol` if `strDenominatorMethod` is "Sum"
+#' @param strGroupCol `character` Column name in `dfSubjects` to use for
+#'   grouping. Default: "GroupID"
+#' @param strGroupLevel `character` value for the group level. Default:
+#'   `strGroupCol`
+#' @param strSubjectCol `character` Column name in `dfSubjects` to use for
+#'   subject ID. Default: "SubjectID"
+#' @param strNumeratorMethod `character` Method to calculate numerator. Default:
+#'   "Count"
+#' @param strDenominatorMethod `character` Method to calculate denominator.
+#'   Default: "Count"
+#' @param strNumeratorCol `character` Column name in `dfNumerator` to use for
+#'   numerator calculation. Default: NULL
+#' @param strDenominatorCol `character` Column name in `dfDenominator` to use
+#'   for denominator calculation. Default: NULL
+#' @param strFilterSubjects,strFilterNumerator,strFilterDenominator `character`
+#'   A string with filters for `dfSubjects`, `dfNumerator`, or `dfDenominator`,
+#'   or a character vector of such filters. For example, if `dfSubjects`
+#'   contains a column `enrollyn` with values 'Y' and 'N', and a column `siteid`
+#'   with integer IDs, `strFilterSubjects` might be "enrollyn == 'y', siteid ==
+#'   5", or `c("enrollyn == 'y'", "siteid == 5")`. Default: NULL
 #'
 #' @return `data.frame` with the following specification:
 #'
-#' | Column Name  | Description                          | Type     |
-#' |--------------|--------------------------------------|----------|
-#' | SubjectID    | The subject ID                       | Character|
-#' | GroupID      | The group ID                         | Character|
-#' | GroupLevel   | The group type                       | Character|
-#' | Numerator    | The calculated numerator value       | Numeric  |
-#' | Denominator  | The calculated denominator value     | Numeric  |
-#' | Metric       | The calculated input rate/metric     | Numeric  |
+#'   | Column Name  | Description                          | Type     |
+#'   |--------------|--------------------------------------|----------| |
+#'   SubjectID    | The subject ID                       | Character| | GroupID
+#'   | The group ID                         | Character| | GroupLevel   | The
+#'   group type                       | Character| | Numerator    | The
+#'   calculated numerator value       | Numeric  | | Denominator  | The
+#'   calculated denominator value     | Numeric  | | Metric       | The
+#'   calculated input rate/metric     | Numeric  |
 #'
 #' @examples
 #' # Run for AE KRI
@@ -66,23 +82,22 @@ Input_Rate <- function(
   dfNumerator,
   dfDenominator,
   strGroupCol = "GroupID",
-  strGroupLevel = NULL,
+  strGroupLevel = strGroupCol,
   strSubjectCol = "SubjectID",
   strNumeratorMethod = c("Count", "Sum"),
   strDenominatorMethod = c("Count", "Sum"),
   strNumeratorCol = NULL,
-  strDenominatorCol = NULL
+  strDenominatorCol = NULL,
+  strFilterSubjects = NULL,
+  strFilterNumerator = NULL,
+  strFilterDenominator = NULL
 ) {
-  # Check if data frames are NULL
-  if (is.null(dfSubjects)) {
-    stop("dfSubjects must be provided")
-  }
-  if (is.null(dfDenominator)) {
-    stop("dfDenominator, must be provided")
-  }
-  if (is.null(dfNumerator)) {
-    stop("dfNumerator, must be provided")
-  }
+  dfSubjects <- validate_df(
+    dfSubjects,
+    required_colnames = c(strSubjectCol, strGroupCol)
+  )
+  dfDenominator <- validate_df(dfDenominator, required_colnames = strSubjectCol)
+  dfNumerator <- validate_df(dfNumerator, required_colnames = strSubjectCol)
 
   # must be eit
   strNumeratorMethod <- match.arg(strNumeratorMethod)
@@ -98,20 +113,9 @@ Input_Rate <- function(
     stop("strDenominatorCol must be provided when strDenominatorMethod is 'Sum'")
   }
 
-  # check that "strSubjectCol" is in all dfs
-  stopifnot(
-    strSubjectCol %in% colnames(dfSubjects),
-    strSubjectCol %in% colnames(dfNumerator),
-    strSubjectCol %in% colnames(dfDenominator)
-  )
-
-  # check that "strGroupCol" is in dfSubjects
-  stopifnot(strGroupCol %in% colnames(dfSubjects))
-
-  # if `strGroupLevel` is null, use `strGroupCol`
-  if (is.null(strGroupLevel)) {
-    strGroupLevel <- strGroupCol
-  }
+  dfSubjects <- filterByStr(dfSubjects, strFilterSubjects)
+  dfNumerator <- filterByStr(dfNumerator, strFilterNumerator)
+  dfDenominator <- filterByStr(dfDenominator, strFilterDenominator)
 
   # Rename SubjectID in dfSubjects
   dfSubjects <- dfSubjects %>%
@@ -123,44 +127,26 @@ Input_Rate <- function(
       "GroupLevel" = strGroupLevel
     )
 
-  # Calculate Numerator
-  dfNumerator <- dfNumerator %>%
-    rename("SubjectID" = !!strSubjectCol)
-
-  if (strNumeratorMethod == "Count") {
-    dfNumerator$Numerator <- 1
-  } else {
-    dfNumerator$Numerator <- dfNumerator[[strNumeratorCol]]
-  }
-
-  dfNumerator_subj <- dfNumerator %>%
-    group_by(.data$SubjectID) %>%
-    summarise("Numerator" = sum(.data$Numerator)) %>%
-    ungroup()
-
-  # Calculate Denominator
-  dfDenominator <- dfDenominator %>%
-    rename("SubjectID" = !!strSubjectCol)
-
-  if (strDenominatorMethod == "Count") {
-    dfDenominator$Denominator <- 1
-  } else {
-    dfDenominator$Denominator <- dfDenominator[[strDenominatorCol]]
-  }
-
-  dfDenominator_subj <- dfDenominator %>%
-    group_by(.data$SubjectID) %>%
-    summarise("Denominator" = sum(.data$Denominator)) %>%
-    ungroup()
+  dfNumerator_subj <- calculateCol_bySubj(
+    dfNumerator,
+    strSubjectCol,
+    "Numerator",
+    strNumeratorCol,
+    strNumeratorMethod
+  )
+  dfDenominator_subj <- calculateCol_bySubj(
+    dfDenominator,
+    strSubjectCol,
+    "Denominator",
+    strDenominatorCol,
+    strDenominatorMethod
+  )
 
   # Merge Numerator and Denominator with Subject Data. Keep all data in Subject. Fill in missing numerator/denominators with 0
   dfInput <- dfSubjects %>%
     left_join(dfNumerator_subj, by = "SubjectID") %>%
     left_join(dfDenominator_subj, by = "SubjectID") %>%
-    mutate(
-      "Numerator" = if_else(is.na(.data$Numerator), 0, .data$Numerator),
-      "Denominator" = if_else(is.na(.data$Denominator), 0, .data$Denominator)
-    ) %>%
+    tidyr::replace_na(list(Numerator = 0, Denominator = 0)) %>%
     mutate(Metric = .data$Numerator / .data$Denominator)
 
   if (any(is.na(dfInput$GroupID))) {
@@ -170,4 +156,27 @@ Input_Rate <- function(
   }
 
   return(dfInput)
+}
+
+calculateCol_bySubj <- function(
+    df,
+    strSubjectCol,
+    strCol,
+    strColOriginal,
+    strMethod
+) {
+  if (strMethod == "Count") {
+    df[[strCol]] <- 1
+  } else {
+    df[[strCol]] <- df[[strColOriginal]]
+  }
+
+  df %>%
+    dplyr::rename("SubjectID" = !!strSubjectCol) %>%
+    dplyr::summarise(!!strCol := sum(.data[[strCol]]), .by = "SubjectID")
+}
+
+filterByStr <- function(df, strFilter) {
+  strFilter <- gsub(",", ";", strFilter)
+  dplyr::filter(df, !!!rlang::parse_exprs(strFilter))
 }

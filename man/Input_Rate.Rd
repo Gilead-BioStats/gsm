@@ -9,45 +9,66 @@ Input_Rate(
   dfNumerator,
   dfDenominator,
   strGroupCol = "GroupID",
-  strGroupLevel = NULL,
+  strGroupLevel = strGroupCol,
   strSubjectCol = "SubjectID",
   strNumeratorMethod = c("Count", "Sum"),
   strDenominatorMethod = c("Count", "Sum"),
   strNumeratorCol = NULL,
-  strDenominatorCol = NULL
+  strDenominatorCol = NULL,
+  strFilterSubjects = NULL,
+  strFilterNumerator = NULL,
+  strFilterDenominator = NULL
 )
 }
 \arguments{
-\item{dfSubjects}{\code{data.frame} with columns for SubjectID and any other relevant subject information}
+\item{dfSubjects}{\code{data.frame} with columns for SubjectID and any other
+relevant subject information}
 
-\item{dfNumerator}{\code{data.frame} with a column for SubjectID and \code{strNumeratorCol} if \code{strNumeratorMethod} is "Sum"}
+\item{dfNumerator}{\code{data.frame} with a column for SubjectID and
+\code{strNumeratorCol} if \code{strNumeratorMethod} is "Sum"}
 
-\item{dfDenominator}{\code{data.frame} with a column for SubjectID and \code{strDenominatorCol} if \code{strDenominatorMethod} is "Sum"}
+\item{dfDenominator}{\code{data.frame} with a column for SubjectID and
+\code{strDenominatorCol} if \code{strDenominatorMethod} is "Sum"}
 
-\item{strGroupCol}{\code{character} Column name in \code{dfSubjects} to use for grouping. Default: "GroupID"}
+\item{strGroupCol}{\code{character} Column name in \code{dfSubjects} to use for
+grouping. Default: "GroupID"}
 
-\item{strGroupLevel}{\code{character} value for the group level. Default: NULL which is parsed to \code{strGroupCol}}
+\item{strGroupLevel}{\code{character} value for the group level. Default:
+\code{strGroupCol}}
 
-\item{strSubjectCol}{\code{character} Column name in \code{dfSubjects} to use for subject ID. Default: "SubjectID"}
+\item{strSubjectCol}{\code{character} Column name in \code{dfSubjects} to use for
+subject ID. Default: "SubjectID"}
 
-\item{strNumeratorMethod}{\code{character} Method to calculate numerator. Default: "Count"}
+\item{strNumeratorMethod}{\code{character} Method to calculate numerator. Default:
+"Count"}
 
-\item{strDenominatorMethod}{\code{character} Method to calculate denominator. Default: "Count"}
+\item{strDenominatorMethod}{\code{character} Method to calculate denominator.
+Default: "Count"}
 
-\item{strNumeratorCol}{\code{character} Column name in \code{dfNumerator} to use for numerator calculation. Default: NULL}
+\item{strNumeratorCol}{\code{character} Column name in \code{dfNumerator} to use for
+numerator calculation. Default: NULL}
 
-\item{strDenominatorCol}{\code{character} Column name in \code{dfDenominator} to use for denominator calculation. Default: NULL}
+\item{strDenominatorCol}{\code{character} Column name in \code{dfDenominator} to use
+for denominator calculation. Default: NULL}
+
+\item{strFilterSubjects, strFilterNumerator, strFilterDenominator}{\code{character}
+A string with filters for \code{dfSubjects}, \code{dfNumerator}, or \code{dfDenominator},
+or a character vector of such filters. For example, if \code{dfSubjects}
+contains a column \code{enrollyn} with values 'Y' and 'N', and a column \code{siteid}
+with integer IDs, \code{strFilterSubjects} might be "enrollyn == 'y', siteid ==
+5", or \code{c("enrollyn == 'y'", "siteid == 5")}. Default: NULL}
 }
 \value{
-\code{data.frame} with the following specification:\tabular{lll}{
-   Column Name \tab Description \tab Type \cr
-   SubjectID \tab The subject ID \tab Character \cr
-   GroupID \tab The group ID \tab Character \cr
-   GroupLevel \tab The group type \tab Character \cr
-   Numerator \tab The calculated numerator value \tab Numeric \cr
-   Denominator \tab The calculated denominator value \tab Numeric \cr
-   Metric \tab The calculated input rate/metric \tab Numeric \cr
-}
+\code{data.frame} with the following specification:
+
+| Column Name  | Description                          | Type     |
+|--------------|--------------------------------------|----------| |
+SubjectID    | The subject ID                       | Character| | GroupID
+| The group ID                         | Character| | GroupLevel   | The
+group type                       | Character| | Numerator    | The
+calculated numerator value       | Numeric  | | Denominator  | The
+calculated denominator value     | Numeric  | | Metric       | The
+calculated input rate/metric     | Numeric  |
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}

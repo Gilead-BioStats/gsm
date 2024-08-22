@@ -112,3 +112,73 @@ test_that("yaml workflow produces same table as R function", {
   expect_equal(dfInput$SubjectID, lResults$Analysis_Input$SubjectID)
   expect_equal(dim(dfInput), dim(lResults$Analysis_Input))
 })
+
+test_that("Input_Rate applies filters", {
+  subjects <- data.frame(
+    SubjectID = 1:4,
+    GroupID = 10:13,
+    filterthing = 1:4
+  )
+  numerators <- data.frame(
+    SubjectID = c(1, 1, 2, 3),
+    GroupID = 10:13,
+    Amount = c(10, 5, 10, 5),
+    filterthing = 1:4
+  )
+  denominators <- data.frame(
+    SubjectID = c(1, 2, 3, 4),
+    GroupID = 10:13,
+    Amount = c(15, 5, 20, 20),
+    filterthing = 1:4
+  )
+
+  result <- Input_Rate(
+    subjects,
+    numerators,
+    denominators,
+    strNumeratorMethod = "Sum",
+    strDenominatorMethod = "Sum",
+    strNumeratorCol = "Amount",
+    strDenominatorCol = "Amount",
+    strFilterSubjects = "filterthing != 4",
+    strFilterNumerator = "filterthing != 4",
+    strFilterDenominator = "filterthing != 4",
+  )
+  expected <- data.frame(
+    SubjectID = 1:3,
+    GroupID = 10:12,
+    GroupLevel = "GroupID",
+    Numerator = c(15, 10, 0),
+    Denominator = c(15, 5, 20),
+    Metric = c(1, 2, 0)
+  )
+  expect_equal(result, expected)
+
+  result <- Input_Rate(
+    subjects,
+    numerators,
+    denominators,
+    strNumeratorMethod = "Sum",
+    strDenominatorMethod = "Sum",
+    strNumeratorCol = "Amount",
+    strDenominatorCol = "Amount",
+    strFilterSubjects = "filterthing != 4, SubjectID %in% 1:3",
+    strFilterNumerator = "filterthing != 4",
+    strFilterDenominator = "filterthing != 4",
+  )
+  expect_equal(result, expected)
+
+  result <- Input_Rate(
+    subjects,
+    numerators,
+    denominators,
+    strNumeratorMethod = "Sum",
+    strDenominatorMethod = "Sum",
+    strNumeratorCol = "Amount",
+    strDenominatorCol = "Amount",
+    strFilterSubjects = c("filterthing != 4", "SubjectID %in% 1:3"),
+    strFilterNumerator = "filterthing != 4",
+    strFilterDenominator = "filterthing != 4",
+  )
+  expect_equal(result, expected)
+})
