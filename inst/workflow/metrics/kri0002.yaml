@@ -13,11 +13,15 @@ meta:
   nMinDenominator: 30
 spec:
   Mapped_SeriousAE:
-    - subjid
+    subjid:
+      required: true
   Mapped_ENROLL:
-    - subjid
-    - invid
-    - timeonstudy
+    subjid:
+      required: true
+    invid:
+      required: true
+    timeonstudy:
+      required: true
 steps:
   - name: ParseThreshold
     output: vThreshold

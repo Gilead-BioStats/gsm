@@ -50,11 +50,11 @@ CheckSpec <- function(lData, lSpec) {
     cli_alert("All {length(lSpecDataFrames)} data.frame(s) in the spec are present in the data: {lSpecDataFrames}")
   }
 
-  # Check that all columns in the spec are present in the data
+  # Check that all required columns in the spec are present in the data
   allCols <- c()
   missingCols <- c()
   for (strDataFrame in lSpecDataFrames) {
-    lSpecColumns <- names(lSpec[[strDataFrame]])
+    lSpecColumns <- which(sapply(lSpec[[strDataFrame]], function(x) x$required)) %>% names
     lDataColumns <- names(lData[[strDataFrame]])
     allCols <- c(allCols, paste(strDataFrame, lSpecColumns, sep = "$"))
 
@@ -64,8 +64,8 @@ CheckSpec <- function(lData, lSpec) {
     }
   }
   if (length(missingCols) > 0) {
-    cli_alert_danger("Not all columns in the spec are present in the data, missing columns are: {missingCols}")
+    cli_alert_danger("Not all required columns in the spec are present in the data, missing columns are: {missingCols}")
   } else {
-    cli_alert("All {length(allCols)} columns in the spec are present in the data: {allCols}")
+    cli_alert("All {length(allCols)} required columns in the spec are present in the data: {allCols}")
   }
 }
