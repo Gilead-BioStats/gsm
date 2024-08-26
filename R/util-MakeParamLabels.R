@@ -19,7 +19,7 @@
 #'   head(gsm::reportingGroups),
 #'   list(ParticipantCount = "Number of Participants")
 #' )
-#' MakeParamLabelsList(head(gsm::reportingGroups$Params))
+#' MakeParamLabelsList(head(gsm::reportingGroups$Param))
 #'
 #' @export
 MakeParamLabels <- function(dfGroups, lParamLabels = NULL) {
