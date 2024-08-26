@@ -75,7 +75,7 @@
             <h3 data-toc-skip class="subtitle">{gsm} v2.0.1</h3>
             
             <h4 data-toc-skip class="date">Report Run Date:
-2024-08-20</h4>
+2024-08-26</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/dev/vignettes/articles/Qualification.Rmd" class="external-link"><code>vignettes/articles/Qualification.Rmd</code></a></small>
       <div class="d-none name"><code>Qualification.Rmd</code></div>
@@ -1661,6 +1661,14 @@ R/util-MakeMetric.R
 </tr>
 <tr>
 <td style="text-align:left;">
+R/util-MakeParamLabels.R
+</td>
+<td style="text-align:left;">
+100.00 %
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 R/util-MakeWideGroups.R
 </td>
 <td style="text-align:left;">
@@ -1768,7 +1776,7 @@ R/Widget_TimeSeries.R
 Total Coverage
 </td>
 <td style="text-align:left;">
-91.11 %
+91.25 %
 </td>
 </tr>
 </tbody>
@@ -1804,7 +1812,7 @@ Total Coverage
 <em>fastmap(v.1.2.0)</em>, <em>lazyeval(v.0.2.2)</em>,
 <em>promises(v.1.3.0)</em>, <em>rex(v.1.2.1)</em>,
 <em>digest(v.0.6.37)</em>, <em>mime(v.0.12)</em>,
-<em>lifecycle(v.1.0.4)</em>, <em>waldo(v.0.5.2)</em>,
+<em>lifecycle(v.1.0.4)</em>, <em>waldo(v.0.5.3)</em>,
 <em>ellipsis(v.0.3.2)</em>, <em>RSQLite(v.2.3.7)</em>,
 <em>magrittr(v.2.0.3)</em>, <em>compiler(v.4.4.1)</em>,
 <em>rlang(v.1.1.4)</em>, <em>sass(v.0.4.9)</em>,
@@ -1826,7 +1834,7 @@ Total Coverage
 <em>remotes(v.2.5.0)</em>, <em>rstudioapi(v.0.16.0)</em>,
 <em>httr(v.1.4.7)</em>, <em>sessioninfo(v.1.2.2)</em>,
 <em>DBI(v.1.2.3)</em>, <em>cachem(v.1.1.0)</em>,
-<em>BiocManager(v.1.30.23)</em>, <em>vctrs(v.0.6.5)</em>,
+<em>BiocManager(v.1.30.24)</em>, <em>vctrs(v.0.6.5)</em>,
 <em>devtools(v.2.4.5)</em>, <em>jsonlite(v.1.8.8)</em>,
 <em>bit64(v.4.0.5)</em>, <em>systemfonts(v.1.1.0)</em>,
 <em>tidyr(v.1.3.1)</em>, <em>jquerylib(v.0.1.4)</em>,
@@ -1911,7 +1919,7 @@ dplyr
 1.1.4
 </td>
 <td style="text-align:left;">
-0.392
+0.390
 </td>
 </tr>
 <tr>
@@ -1922,7 +1930,7 @@ fs
 1.6.4
 </td>
 <td style="text-align:left;">
-0.336
+0.332
 </td>
 </tr>
 <tr>
@@ -1933,7 +1941,7 @@ ggplot2
 3.5.1
 </td>
 <td style="text-align:left;">
-0.393
+0.388
 </td>
 </tr>
 <tr>
@@ -1944,7 +1952,7 @@ glue
 1.7.0
 </td>
 <td style="text-align:left;">
-0.289
+0.283
 </td>
 </tr>
 <tr>
@@ -1955,7 +1963,7 @@ htmltools
 0.5.8.1
 </td>
 <td style="text-align:left;">
-0.406
+0.409
 </td>
 </tr>
 <tr>
@@ -1988,7 +1996,7 @@ magrittr
 2.0.3
 </td>
 <td style="text-align:left;">
-0.284
+0.286
 </td>
 </tr>
 <tr>
@@ -1999,7 +2007,7 @@ purrr
 1.0.2
 </td>
 <td style="text-align:left;">
-0.370
+0.362
 </td>
 </tr>
 <tr>
@@ -2032,7 +2040,7 @@ stringr
 1.5.1
 </td>
 <td style="text-align:left;">
-0.363
+0.345
 </td>
 </tr>
 <tr>
@@ -2110,6 +2118,33 @@ yaml
 <h2 id="pull-request-history">Pull Request History<a class="anchor" aria-label="anchor" href="#pull-request-history"></a>
 </h2>
 <div class="section level4">
+<h4 id="pull-request-1791-add-a-function-to-cleanly-convert-params-to-labels-">Pull Request 1791: Add a function to cleanly convert Params to
+Labels.<a class="anchor" aria-label="anchor" href="#pull-request-1791-add-a-function-to-cleanly-convert-params-to-labels-"></a>
+</h4>
+<p>Merging fix-1790 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1791" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1791</a></p>
+<table style="width:81%;" class="table">
+<colgroup>
+<col width="18%">
+<col width="18%">
+<col width="16%">
+<col width="27%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">jonthegeek</td>
+<td align="center">2024-08-19 21:34:15</td>
+<td align="center">jwildfire</td>
+<td align="center">CHANGES_REQUESTED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
 <h4 id="pull-request-1789-add-explicit-snapshot-date-subset-to-widget_groupoverview--">Pull Request 1789: Add explicit snapshot date subset to
 <code>Widget_GroupOverview</code> .<a class="anchor" aria-label="anchor" href="#pull-request-1789-add-explicit-snapshot-date-subset-to-widget_groupoverview--"></a>
 </h4>
@@ -2160,6 +2195,32 @@ yaml
 <td align="center">2024-08-19 13:54:18</td>
 <td align="center"></td>
 <td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1785-mapping-workflow-refactor">Pull Request 1785: Mapping workflow refactor<a class="anchor" aria-label="anchor" href="#pull-request-1785-mapping-workflow-refactor"></a>
+</h4>
+<p>Merging mapping-refactor into reporting-workflow</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1785" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1785</a></p>
+<table style="width:74%;" class="table">
+<colgroup>
+<col width="16%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">jwildfire</td>
+<td align="center">2024-08-15 15:33:12</td>
+<td align="center">dpastoor</td>
+<td align="center">COMMENTED</td>
 </tr></tbody>
 </table>
 </div>
@@ -4631,32 +4692,6 @@ experimental<a class="anchor" aria-label="anchor" href="#pull-request-1563-mark-
 <td align="center">2024-04-24 16:32:59</td>
 <td align="center"></td>
 <td align="center"></td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1525-v2-dev">Pull Request 1525: V2 dev<a class="anchor" aria-label="anchor" href="#pull-request-1525-v2-dev"></a>
-</h4>
-<p>Merging v2-dev into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1525" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1525</a></p>
-<table style="width:74%;" class="table">
-<colgroup>
-<col width="16%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">jwildfire</td>
-<td align="center">2024-04-24 09:47:17</td>
-<td align="center">dpastoor</td>
-<td align="center">APPROVED</td>
 </tr></tbody>
 </table>
 </div>
