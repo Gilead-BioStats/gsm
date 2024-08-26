@@ -15,7 +15,6 @@
 #' - `StudyID` (character): The study ID.
 #' - `red_kris` (numeric): The number of red flags.
 #' - `amber_kris` (numeric): The number of amber flags.
-#'
 
 Report_Setup <- function(dfGroups = NULL, dfMetrics = NULL, dfResults = NULL) {
   output <- list()
