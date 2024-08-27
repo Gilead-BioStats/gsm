@@ -12,13 +12,10 @@ meta:
   Threshold: -3,-2,2,3
   nMinDenominator: 3
 spec:
-  Mapped_Screened:
+  Mapped_SCREEN:
     subjectid:
       required: true
     invid:
-      required: true
-  Mapped_ScreenFail:
-    subjectid:
       required: true
 steps:
   - name: ParseThreshold

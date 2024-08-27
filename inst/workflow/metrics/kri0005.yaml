@@ -17,10 +17,7 @@ spec:
       required: true
     invid:
       required: true
-  Mapped_ToxLabs:
-    subjid:
-      required: true
-  Mapped_AllLabs:
+  Mapped_LB:
     subjid:
       required: true
 steps:

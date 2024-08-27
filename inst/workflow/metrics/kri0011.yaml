@@ -17,10 +17,7 @@ spec:
       required: true
     invid:
       required: true
-  Mapped_ChangedDataPoints:
-    subject_nsv:
-      required: true
-  Mapped_DataChanges:
+  Mapped_DATACHG:
     subject_nsv:
       required: true
 steps:

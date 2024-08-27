@@ -764,7 +764,7 @@
       [1] "Mapped_PD"
       
       $cou0003[[2]]$params$strQuery
-      [1] "SELECT * FROM df WHERE deemedimportant = 'N'"
+      [1] "SELECT * FROM df WHERE deemedimportant = 'No'"
       
       
       
@@ -893,7 +893,7 @@
       [1] "Mapped_PD"
       
       $cou0004[[2]]$params$strQuery
-      [1] "SELECT * FROM df WHERE deemedimportant = 'Y'"
+      [1] "SELECT * FROM df WHERE deemedimportant = 'Yes'"
       
       
       
@@ -2288,7 +2288,7 @@
       [1] "Mapped_PD"
       
       $kri0003[[2]]$params$strQuery
-      [1] "SELECT * FROM df WHERE deemedimportant = 'N'"
+      [1] "SELECT * FROM df WHERE deemedimportant = 'No'"
       
       
       
@@ -2417,7 +2417,7 @@
       [1] "Mapped_PD"
       
       $kri0004[[2]]$params$strQuery
-      [1] "SELECT * FROM df WHERE deemedimportant = 'Y'"
+      [1] "SELECT * FROM df WHERE deemedimportant = 'Yes'"
       
       
       

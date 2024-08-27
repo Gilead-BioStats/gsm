@@ -17,9 +17,6 @@ spec:
       required: true
     invid:
       required: true
-  Mapped_StudyDropouts:
-    subjid:
-      required: true
 steps:
   - name: ParseThreshold
     output: vThreshold

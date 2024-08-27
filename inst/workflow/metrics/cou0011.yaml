@@ -17,10 +17,7 @@ spec:
       required: true
     country:
       required: true
-  Mapped_ChangedDataPoints:
-    subject_nsv:
-      required: true
-  Mapped_DataChanges:
+  Mapped_DATAENT:
     subject_nsv:
       required: true
 steps:

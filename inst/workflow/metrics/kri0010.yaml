@@ -17,10 +17,7 @@ spec:
       required: true
     invid:
       required: true
-  Mapped_SlowDataEntry:
-    subject_nsv:
-      required: true
-  Mapped_DataEntry:
+  Mapped_DATAENT:
     subject_nsv:
       required: true
 steps:

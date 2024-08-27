@@ -17,10 +17,7 @@ spec:
       required: true
     country:
       required: true
-  Mapped_ValidQueries:
-    subject_nsv:
-      required: true
-  Mapped_OldValidQueries:
+  Mapped_QUERY:
     subject_nsv:
       required: true
 steps:

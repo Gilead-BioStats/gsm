@@ -12,7 +12,7 @@ meta:
   Threshold: -3,-2,2,3
   nMinDenominator: 30
 spec:
-  Mapped_Query:
+  Mapped_QUERY:
     subject_nsv:
       required: true
   Mapped_ENROLL:
@@ -20,7 +20,7 @@ spec:
       required: true
     country:
       required: true
-  Mapped_DataChanges:
+  Mapped_DATACHG:
     subject_nsv:
       required: true
 steps:

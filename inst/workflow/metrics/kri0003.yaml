@@ -12,7 +12,7 @@ meta:
   Threshold: -3,-2,2,3
   nMinDenominator: 30
 spec:
-  Mapped_NonimportantPD:
+  Mapped_PD:
     subjid:
       required: true
   Mapped_ENROLL:
@@ -31,7 +31,7 @@ steps:
     output: Temp_NONIMPORTANT
     params:
       df: Mapped_PD
-      strQuery: "SELECT * FROM df WHERE deemedimportant = 'N'"
+      strQuery: "SELECT * FROM df WHERE deemedimportant = 'No'"
   - name: Input_Rate
     output: Analysis_Input
     params:

@@ -17,7 +17,7 @@ spec:
       required: true
     country:
       required: true
-  Mapped_TreatmentDropouts:
+  Mapped_SDRGCOMP:
     subjID:
       required: true
 steps:
