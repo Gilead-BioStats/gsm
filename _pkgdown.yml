@@ -63,10 +63,13 @@ reference:
      -  BindResults
      -  CheckSpec
      -  CombineSpecs
+     -  FilterByLatestSnapshotDate
      -  MakeBounds
      -  MakeCharts
      -  MakeMetric
      -  MakeLongMeta
+     -  MakeParamLabels
+     -  MakeParamLabelsList
      -  MakeWideGroups
      -  MakeWorkflowList
      -  ParseThreshold

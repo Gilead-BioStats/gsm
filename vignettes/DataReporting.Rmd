@@ -182,7 +182,7 @@ datatable(dfMetrics)
 The reporting workflow requires that all metrics are stacked into a single data frame, `dfResults`. This stacked data frame is created by feeding the `lAnalysis` list from the analysis workflow into `BindResults()` along with the snapshot date and the study id.
 
 ```{r include = TRUE}
-dfResults <- BindResults(lResults = lAnalysis,
+dfResults <- BindResults(lAnalysis = lAnalysis,
                          strName = "Analysis_Summary",
                          dSnapshotDate = Sys.Date(),
                          strStudyID = "ABC-123")

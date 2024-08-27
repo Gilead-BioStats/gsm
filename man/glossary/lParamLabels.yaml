@@ -1,0 +1,3 @@
+class: list
+definition: >
+  Labels for parameters, with the parameters as names, and the label as value.

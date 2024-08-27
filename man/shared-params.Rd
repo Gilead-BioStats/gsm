@@ -16,6 +16,8 @@
 
 \item{lMetric}{\code{list} Metric-specific metadata for use in charts and reporting. Created by passing an \code{lWorkflow} object to \code{\link[=MakeMetric]{MakeMetric()}} and turing it into a list. Expected columns: \code{File},\code{MetricID}, \code{Group}, \code{Abbreviation}, \code{Metric}, \code{Numerator}, \code{Denominator}, \code{Model}, \code{Score}, and \code{strThreshold}. For more details see the Data Model vignette: \code{vignette("DataModel", package = "gsm")}.}
 
+\item{lParamLabels}{\code{list} Labels for parameters, with the parameters as names, and the label as value.}
+
 \item{bDebug}{\code{logical} Print debug messages? Default: \code{FALSE}.}
 }
 \description{

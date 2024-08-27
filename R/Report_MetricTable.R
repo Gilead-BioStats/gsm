@@ -12,15 +12,26 @@
 #'   `r gloss_extra("dfResults_filtered")`
 #' @param strGroupLevel  group level for the table
 #' @param strGroupDetailsParams one or more parameters from dfGroups to be added as columns in the table
+#' @param vFlags `integer` List of flag values to include in output table. Default: `c(-2, -1, 1, 2)`.
 #'
 #' @return A datatable containing the summary table
+#'
+#' @examples
+#' # site-level report
+#' Report_MetricTable(
+#'   dfResults = reportingResults %>%
+#'       dplyr::filter(.data$MetricID == 'kri0001') %>%
+#'       FilterByLatestSnapshotDate(),
+#'   dfGroups = reportingGroups
+#' )
 #'
 #' @export
 Report_MetricTable <- function(
   dfResults,
   dfGroups,
   strGroupLevel = c("Site", "Country", "Study"),
-  strGroupDetailsParams = NULL
+  strGroupDetailsParams = NULL,
+  vFlags = c(-2, -1, 1, 2)
 ) {
   dfResults <- dfResults %>%
     add_Groups_metadata(
@@ -28,7 +39,9 @@ Report_MetricTable <- function(
       strGroupLevel,
       strGroupDetailsParams
     ) %>%
-    dplyr::filter(.data$Flag != 0)
+    dplyr::filter(
+      .data$Flag %in% vFlags
+    )
 
   if (!nrow(dfResults)) {
     return("Nothing flagged for this KRI.")

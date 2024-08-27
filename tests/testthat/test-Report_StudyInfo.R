@@ -30,7 +30,6 @@ test_that("Uses default study labels when lStudyLabels is NULL", {
   expect_true(any(grepl("Study Status", output)))
   expect_true(any(grepl("Show Details", output)))
   expect_true(any(grepl("Unique Study ID", output)))
-  expect_true(any(grepl("protocol_title", output)))
 })
 
 test_that("Uses custom study labels when lStudyLabels is provided", {

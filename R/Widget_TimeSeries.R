@@ -32,7 +32,7 @@
 
 Widget_TimeSeries <- function(
   dfResults,
-  lMetric,
+  lMetric = list(),
   dfGroups = NULL,
   vThreshold = NULL,
   strOutcome = "Score",

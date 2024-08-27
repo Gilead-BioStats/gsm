@@ -107,7 +107,7 @@ steps:
   - name: BindResults
     output: Reporting_Results
     params:
-      lResults: lAnalysis
+      lAnalysis: lAnalysis
       strName: "Analysis_Summary"
       dSnapshotDate: dSnapshotDate
       strStudyID: strStudyID

@@ -8,7 +8,8 @@ Report_MetricTable(
   dfResults,
   dfGroups,
   strGroupLevel = c("Site", "Country", "Study"),
-  strGroupDetailsParams = NULL
+  strGroupDetailsParams = NULL,
+  vFlags = c(-2, -1, 1, 2)
 )
 }
 \arguments{
@@ -20,6 +21,8 @@ For this function, \code{dfResults} must be filtered to a single KRI (\code{Metr
 \item{strGroupLevel}{group level for the table}
 
 \item{strGroupDetailsParams}{one or more parameters from dfGroups to be added as columns in the table}
+
+\item{vFlags}{\code{integer} List of flag values to include in output table. Default: \code{c(-2, -1, 1, 2)}.}
 }
 \value{
 A datatable containing the summary table
@@ -30,4 +33,14 @@ A datatable containing the summary table
 This function generates a summary table for a report by joining the provided
 results data frame with the site-level metadata from dfGroups. It then filters and arranges the
 data based on certain conditions and displays the result in a datatable.
+}
+\examples{
+# site-level report
+Report_MetricTable(
+  dfResults = reportingResults \%>\%
+      dplyr::filter(.data$MetricID == 'kri0001') \%>\%
+      FilterByLatestSnapshotDate(),
+  dfGroups = reportingGroups
+)
+
 }

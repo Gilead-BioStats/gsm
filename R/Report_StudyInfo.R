@@ -14,7 +14,6 @@
 #'
 #' @keywords internal
 
-
 Report_StudyInfo <- function(
   lStudy,
   lStudyLabels = NULL
@@ -30,23 +29,27 @@ Report_StudyInfo <- function(
     )
   }
 
-  study_status_table <- lStudy %>% imap_dfr(function(value, param) {
-    data.frame(
-      Description = ifelse(
-        param %in% names(lStudyLabels),
-        lStudyLabels[[param]],
-        param
-      ),
-      Value = ifelse(
-        is.na(value),
-        value,
-        prettyNum(value, drop0trailing = TRUE)
+  lLabels <- MakeParamLabelsList(names(lStudy), lStudyLabels)
+  dfLabels <- data.frame(
+    Param = names(lLabels),
+    Description = unname(unlist(lLabels))
+  )
+
+  study_status_table <- data.frame(
+    Param = names(lStudy),
+    Value = unname(unlist(lStudy))
+  ) %>%
+    dplyr::left_join(dfLabels, by = "Param") %>%
+    dplyr::select(-"Param") %>%
+    dplyr::mutate(
+      Value = dplyr::if_else(
+        is.na(.data$Value),
+        .data$Value,
+        prettyNum(.data$Value, drop0trailing = TRUE)
       )
     )
-  })
 
   show_table <- study_status_table %>%
-    slice(1:5) %>%
     gsm_gt(id = "study_table")
 
   hide_table <- study_status_table %>%
