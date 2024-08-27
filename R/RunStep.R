@@ -43,7 +43,7 @@ RunStep <- function(lStep, lData, lMeta) {
   cli::cli_h3("Evaluating {length(params)} parameter(s) for {.fn {lStep$name}}")
 
   # Allow setting parameters from a list in lData when the 'context' parameter is present in the 'lStep' object.
-  if(!is.null(lStep$context) || !("context" %in% names(lStep))) {
+  if(!is.null(lStep$context)) {
     if(is.list(lData$context)){
       context <- lData$context
     }else{
