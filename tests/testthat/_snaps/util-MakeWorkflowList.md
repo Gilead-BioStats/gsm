@@ -4,13 +4,13 @@
       map(wf_list, ~ names(.))
     Output
       $data_mapping
-      [1] "meta"  "spec"  "steps" "path"  "name" 
+      [1] "meta"  "steps" "path"  "name" 
       
       $data_reporting
       [1] "meta"  "spec"  "steps" "path"  "name" 
       
       $cou0001
-      [1] "meta"  "spec"  "steps" "path"  "name" 
+      [1] "meta"         "mapping_spec" "steps"        "path"         "name"        
       
       $cou0002
       [1] "meta"  "spec"  "steps" "path"  "name" 
@@ -81,7 +81,10 @@
       $kri0012
       [1] "meta"  "spec"  "steps" "path"  "name" 
       
-      $reports
+      $report_kri_country
+      [1] "meta"  "steps" "path"  "name" 
+      
+      $report_kri_site
       [1] "meta"  "steps" "path"  "name" 
       
       $snapshot
@@ -99,14 +102,14 @@
       [1] "RunQuery"
       
       $data_mapping[[1]]$output
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
       
       $data_mapping[[1]]$params
       $data_mapping[[1]]$params$df
       [1] "Raw_SUBJ"
       
       $data_mapping[[1]]$params$strQuery
-      [1] "SELECT subjectid as raw_subjectid, * FROM df WHERE enrollyn == 'Y'"
+      [1] "SELECT subjectid as raw_subjectid, subjid, invid, country, timeonstudy FROM df WHERE enrollyn == 'Y'"
       
       
       
@@ -115,14 +118,14 @@
       [1] "RunQuery"
       
       $data_mapping[[2]]$output
-      [1] "Mapped_SeriousAE"
+      [1] "Mapped_AE"
       
       $data_mapping[[2]]$params
       $data_mapping[[2]]$params$df
       [1] "Raw_AE"
       
       $data_mapping[[2]]$params$strQuery
-      [1] "SELECT * FROM df WHERE aeser = 'Y'"
+      [1] "SELECT subjid, aeser FROM df"
       
       
       
@@ -131,14 +134,14 @@
       [1] "RunQuery"
       
       $data_mapping[[3]]$output
-      [1] "Mapped_AE"
+      [1] "Mapped_PD"
       
       $data_mapping[[3]]$params
       $data_mapping[[3]]$params$df
-      [1] "Raw_AE"
+      [1] "Raw_PD"
       
       $data_mapping[[3]]$params$strQuery
-      [1] "SELECT * FROM df"
+      [1] "SELECT subjectenrollmentnumber as subjid, deemedimportant FROM df"
       
       
       
@@ -147,14 +150,14 @@
       [1] "RunQuery"
       
       $data_mapping[[4]]$output
-      [1] "Mapped_NonimportantPD"
+      [1] "Mapped_LB"
       
       $data_mapping[[4]]$params
       $data_mapping[[4]]$params$df
-      [1] "Raw_PD"
+      [1] "Raw_LB"
       
       $data_mapping[[4]]$params$strQuery
-      [1] "SELECT subjectenrollmentnumber as subjid, * FROM df WHERE deemedimportant == 'No'"
+      [1] "SELECT subjid, toxgrg_nsv FROM df"
       
       
       
@@ -163,14 +166,14 @@
       [1] "RunQuery"
       
       $data_mapping[[5]]$output
-      [1] "Mapped_ImportantPD"
+      [1] "Mapped_STUDCOMP"
       
       $data_mapping[[5]]$params
       $data_mapping[[5]]$params$df
-      [1] "Raw_PD"
+      [1] "Raw_STUDCOMP"
       
       $data_mapping[[5]]$params$strQuery
-      [1] "SELECT subjectenrollmentnumber as subjid, * FROM df WHERE deemedimportant == 'Yes'"
+      [1] "SELECT subjid, compyn FROM df"
       
       
       
@@ -179,14 +182,14 @@
       [1] "RunQuery"
       
       $data_mapping[[6]]$output
-      [1] "Mapped_AllLabs"
+      [1] "Mapped_SDRGCOMP"
       
       $data_mapping[[6]]$params
       $data_mapping[[6]]$params$df
-      [1] "Raw_LB"
+      [1] "Raw_SDRGCOMP"
       
       $data_mapping[[6]]$params$strQuery
-      [1] "SELECT * FROM df WHERE toxgrg_nsv IN ('0', '1', '2', '3', '4')"
+      [1] "SELECT subjid, sdrgyn, phase FROM df"
       
       
       
@@ -195,14 +198,14 @@
       [1] "RunQuery"
       
       $data_mapping[[7]]$output
-      [1] "Mapped_ToxLabs"
+      [1] "Mapped_QUERY"
       
       $data_mapping[[7]]$params
       $data_mapping[[7]]$params$df
-      [1] "Raw_LB"
+      [1] "Raw_QUERY"
       
       $data_mapping[[7]]$params$strQuery
-      [1] "SELECT * FROM df WHERE toxgrg_nsv IN ('3', '4')"
+      [1] "SELECT subjectname as subject_nsv, querystatus, queryage FROM df"
       
       
       
@@ -211,14 +214,14 @@
       [1] "RunQuery"
       
       $data_mapping[[8]]$output
-      [1] "Mapped_StudyDropouts"
+      [1] "Mapped_DATACHG"
       
       $data_mapping[[8]]$params
       $data_mapping[[8]]$params$df
-      [1] "Raw_STUDCOMP"
+      [1] "Raw_DATACHG"
       
       $data_mapping[[8]]$params$strQuery
-      [1] "SELECT * FROM df WHERE compyn IN ('N')"
+      [1] "SELECT subjectname as subject_nsv, n_changes FROM df"
       
       
       
@@ -227,14 +230,14 @@
       [1] "RunQuery"
       
       $data_mapping[[9]]$output
-      [1] "Mapped_TreatmentDropouts"
+      [1] "Mapped_DATAENT"
       
       $data_mapping[[9]]$params
       $data_mapping[[9]]$params$df
-      [1] "Raw_SDRGCOMP"
+      [1] "Raw_DATAENT"
       
       $data_mapping[[9]]$params$strQuery
-      [1] "SELECT * FROM df WHERE sdrgyn IN ('N') AND phase = 'Blinded Study Drug Completion'"
+      [1] "SELECT subjectname as subject_nsv, data_entry_lag FROM df"
       
       
       
@@ -243,142 +246,14 @@
       [1] "RunQuery"
       
       $data_mapping[[10]]$output
-      [1] "Mapped_ValidQueries"
+      [1] "Mapped_SCREEN"
       
       $data_mapping[[10]]$params
       $data_mapping[[10]]$params$df
-      [1] "Raw_QUERY"
+      [1] "Raw_ENROLL"
       
       $data_mapping[[10]]$params$strQuery
-      [1] "SELECT subjectname as subject_nsv, * FROM df WHERE querystatus IN ('Open', 'Answered', 'Closed')"
-      
-      
-      
-      $data_mapping[[11]]
-      $data_mapping[[11]]$name
-      [1] "RunQuery"
-      
-      $data_mapping[[11]]$output
-      [1] "Mapped_OldValidQueries"
-      
-      $data_mapping[[11]]$params
-      $data_mapping[[11]]$params$df
-      [1] "Mapped_ValidQueries"
-      
-      $data_mapping[[11]]$params$strQuery
-      [1] "SELECT * FROM df WHERE queryage > 30"
-      
-      
-      
-      $data_mapping[[12]]
-      $data_mapping[[12]]$name
-      [1] "RunQuery"
-      
-      $data_mapping[[12]]$output
-      [1] "Mapped_DataChanges"
-      
-      $data_mapping[[12]]$params
-      $data_mapping[[12]]$params$df
-      [1] "Raw_DATACHG"
-      
-      $data_mapping[[12]]$params$strQuery
-      [1] "SELECT subjectname as subject_nsv, * FROM df"
-      
-      
-      
-      $data_mapping[[13]]
-      $data_mapping[[13]]$name
-      [1] "RunQuery"
-      
-      $data_mapping[[13]]$output
-      [1] "Mapped_Query"
-      
-      $data_mapping[[13]]$params
-      $data_mapping[[13]]$params$df
-      [1] "Raw_QUERY"
-      
-      $data_mapping[[13]]$params$strQuery
-      [1] "SELECT subjectname as subject_nsv, * FROM df"
-      
-      
-      
-      $data_mapping[[14]]
-      $data_mapping[[14]]$name
-      [1] "RunQuery"
-      
-      $data_mapping[[14]]$output
-      [1] "Mapped_DataEntry"
-      
-      $data_mapping[[14]]$params
-      $data_mapping[[14]]$params$df
-      [1] "Raw_DATAENT"
-      
-      $data_mapping[[14]]$params$strQuery
-      [1] "SELECT subjectname as subject_nsv, * FROM df"
-      
-      
-      
-      $data_mapping[[15]]
-      $data_mapping[[15]]$name
-      [1] "RunQuery"
-      
-      $data_mapping[[15]]$output
-      [1] "Mapped_SlowDataEntry"
-      
-      $data_mapping[[15]]$params
-      $data_mapping[[15]]$params$df
-      [1] "Raw_DATAENT"
-      
-      $data_mapping[[15]]$params$strQuery
-      [1] "SELECT subjectname as subject_nsv, * FROM df WHERE data_entry_lag > 10"
-      
-      
-      
-      $data_mapping[[16]]
-      $data_mapping[[16]]$name
-      [1] "RunQuery"
-      
-      $data_mapping[[16]]$output
-      [1] "Mapped_ChangedDataPoints"
-      
-      $data_mapping[[16]]$params
-      $data_mapping[[16]]$params$df
-      [1] "Raw_DATACHG"
-      
-      $data_mapping[[16]]$params$strQuery
-      [1] "SELECT subjectname as subject_nsv, * FROM df WHERE n_changes > 0"
-      
-      
-      
-      $data_mapping[[17]]
-      $data_mapping[[17]]$name
-      [1] "RunQuery"
-      
-      $data_mapping[[17]]$output
-      [1] "Mapped_Screened"
-      
-      $data_mapping[[17]]$params
-      $data_mapping[[17]]$params$df
-      [1] "Raw_ENROLL"
-      
-      $data_mapping[[17]]$params$strQuery
-      [1] "SELECT * FROM df"
-      
-      
-      
-      $data_mapping[[18]]
-      $data_mapping[[18]]$name
-      [1] "RunQuery"
-      
-      $data_mapping[[18]]$output
-      [1] "Mapped_ScreenFail"
-      
-      $data_mapping[[18]]$params
-      $data_mapping[[18]]$params$df
-      [1] "Raw_ENROLL"
-      
-      $data_mapping[[18]]$params$strQuery
-      [1] "SELECT * FROM df WHERE enrollyn = 'N'"
+      [1] "SELECT subjid, invid, country, enrollyn FROM df"
       
       
       
@@ -644,13 +519,13 @@
       
       $cou0001[[2]]$params
       $cou0001[[2]]$params$dfSubjects
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
       
       $cou0001[[2]]$params$dfNumerator
       [1] "Mapped_AE"
       
       $cou0001[[2]]$params$dfDenominator
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
       
       $cou0001[[2]]$params$strSubjectCol
       [1] "subjid"
@@ -757,13 +632,16 @@
       
       $cou0002[[2]]$params
       $cou0002[[2]]$params$dfSubjects
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
       
       $cou0002[[2]]$params$dfNumerator
-      [1] "Mapped_SeriousAE"
+      [1] "Mapped_AE"
       
       $cou0002[[2]]$params$dfDenominator
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
+      
+      $cou0002[[2]]$params$strFilterNumerator
+      [1] "aeser == 'Y'"
       
       $cou0002[[2]]$params$strSubjectCol
       [1] "subjid"
@@ -870,13 +748,16 @@
       
       $cou0003[[2]]$params
       $cou0003[[2]]$params$dfSubjects
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
       
       $cou0003[[2]]$params$dfNumerator
-      [1] "Mapped_NonimportantPD"
+      [1] "Mapped_PD"
       
       $cou0003[[2]]$params$dfDenominator
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
+      
+      $cou0003[[2]]$params$strFilterNumerator
+      [1] "deemedimportant == 'N'"
       
       $cou0003[[2]]$params$strSubjectCol
       [1] "subjid"
@@ -983,13 +864,16 @@
       
       $cou0004[[2]]$params
       $cou0004[[2]]$params$dfSubjects
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
       
       $cou0004[[2]]$params$dfNumerator
-      [1] "Mapped_ImportantPD"
+      [1] "Mapped_PR"
       
       $cou0004[[2]]$params$dfDenominator
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
+      
+      $cou0004[[2]]$params$strFilterNumerator
+      [1] "deemedimportant == 'Y'"
       
       $cou0004[[2]]$params$strSubjectCol
       [1] "subjid"
@@ -1096,13 +980,19 @@
       
       $cou0005[[2]]$params
       $cou0005[[2]]$params$dfSubjects
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
       
       $cou0005[[2]]$params$dfNumerator
-      [1] "Mapped_ToxLabs"
+      [1] "Mapped_LB"
       
       $cou0005[[2]]$params$dfDenominator
-      [1] "Mapped_AllLabs"
+      [1] "Mapped_LB"
+      
+      $cou0005[[2]]$params$strFilterNumerator
+      [1] "toxgrg_nsv %in% c(\"3\",\"4\")"
+      
+      $cou0005[[2]]$params$strFilterDenominator
+      [1] "toxgrg_nsv %in% c(\"0\",\"1\",\"2\",\"3\",\"4\")"
       
       $cou0005[[2]]$params$strSubjectCol
       [1] "subjid"
@@ -1206,13 +1096,16 @@
       
       $cou0006[[2]]$params
       $cou0006[[2]]$params$dfSubjects
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
       
       $cou0006[[2]]$params$dfNumerator
-      [1] "Mapped_StudyDropouts"
+      [1] "Mapped_STUDCOMP"
       
       $cou0006[[2]]$params$dfDenominator
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
+      
+      $cou0006[[2]]$params$strFilterNumerator
+      [1] "compyn == 'N'"
       
       $cou0006[[2]]$params$strSubjectCol
       [1] "subjid"
@@ -1316,13 +1209,16 @@
       
       $cou0007[[2]]$params
       $cou0007[[2]]$params$dfSubjects
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
       
       $cou0007[[2]]$params$dfNumerator
-      [1] "Mapped_TreatmentDropouts"
+      [1] "Mapped_SDRGCOMP"
       
       $cou0007[[2]]$params$dfDenominator
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
+      
+      $cou0007[[2]]$params$strFilterNumerator
+      [1] "sdrgyn == 'N' & phase = \"Blinded Study Drug Completion\""
       
       $cou0007[[2]]$params$strSubjectCol
       [1] "subjid"
@@ -1426,13 +1322,13 @@
       
       $cou0008[[2]]$params
       $cou0008[[2]]$params$dfSubjects
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
       
       $cou0008[[2]]$params$dfNumerator
-      [1] "Mapped_Query"
+      [1] "Mapped_QUERY"
       
       $cou0008[[2]]$params$dfDenominator
-      [1] "Mapped_DataChanges"
+      [1] "Mapped_DATACHG"
       
       $cou0008[[2]]$params$strSubjectCol
       [1] "subject_nsv"
@@ -1536,13 +1432,19 @@
       
       $cou0009[[2]]$params
       $cou0009[[2]]$params$dfSubjects
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
       
       $cou0009[[2]]$params$dfNumerator
-      [1] "Mapped_OldValidQueries"
+      [1] "Mapped_QUERY"
       
       $cou0009[[2]]$params$dfDenominator
-      [1] "Mapped_ValidQueries"
+      [1] "Mapped_QUERY"
+      
+      $cou0009[[2]]$params$strFilterNumerator
+      [1] "query_status %in% c('Open','Answered',\"Closed\") & query_days > 30"
+      
+      $cou0009[[2]]$params$strFilterDenominator
+      [1] "query_status %in% c('Open','Answered',\"Closed\")"
       
       $cou0009[[2]]$params$strSubjectCol
       [1] "subject_nsv"
@@ -1646,13 +1548,16 @@
       
       $cou0010[[2]]$params
       $cou0010[[2]]$params$dfSubjects
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
       
       $cou0010[[2]]$params$dfNumerator
-      [1] "Mapped_SlowDataEntry"
+      [1] "Mapped_DATAENT"
       
       $cou0010[[2]]$params$dfDenominator
-      [1] "Mapped_DataEntry"
+      [1] "Mapped_DATAENT"
+      
+      $cou0010[[2]]$params$strFilterNumerator
+      [1] "data_entry_lag > 10"
       
       $cou0010[[2]]$params$strSubjectCol
       [1] "subject_nsv"
@@ -1756,13 +1661,16 @@
       
       $cou0011[[2]]$params
       $cou0011[[2]]$params$dfSubjects
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
       
       $cou0011[[2]]$params$dfNumerator
-      [1] "Mapped_ChangedDataPoints"
+      [1] "Mapped_DATACHG"
       
       $cou0011[[2]]$params$dfDenominator
-      [1] "Mapped_DataChanges"
+      [1] "Mapped_DATACHG"
+      
+      $cou0011[[2]]$params$strFilterNumerator
+      [1] "n_changes > 0"
       
       $cou0011[[2]]$params$strSubjectCol
       [1] "subject_nsv"
@@ -1866,13 +1774,16 @@
       
       $cou0012[[2]]$params
       $cou0012[[2]]$params$dfSubjects
-      [1] "Mapped_Screened"
+      [1] "Mapped_SCREEN"
       
       $cou0012[[2]]$params$dfNumerator
-      [1] "Mapped_ScreenFail"
+      [1] "Mapped_SCREEN"
       
       $cou0012[[2]]$params$dfDenominator
-      [1] "Mapped_Screened"
+      [1] "Mapped_SCREEN"
+      
+      $cou0012[[2]]$params$strFilterNumerator
+      [1] "enrollyn == 'N'"
       
       $cou0012[[2]]$params$strSubjectCol
       [1] "subjectid"
@@ -1976,13 +1887,13 @@
       
       $kri0001[[2]]$params
       $kri0001[[2]]$params$dfSubjects
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
       
       $kri0001[[2]]$params$dfNumerator
       [1] "Mapped_AE"
       
       $kri0001[[2]]$params$dfDenominator
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
       
       $kri0001[[2]]$params$strSubjectCol
       [1] "subjid"
@@ -2089,13 +2000,16 @@
       
       $kri0002[[2]]$params
       $kri0002[[2]]$params$dfSubjects
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
       
       $kri0002[[2]]$params$dfNumerator
-      [1] "Mapped_SeriousAE"
+      [1] "Mapped_AE"
       
       $kri0002[[2]]$params$dfDenominator
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
+      
+      $kri0002[[2]]$params$strFilterNumerator
+      [1] "aeser == 'Y'"
       
       $kri0002[[2]]$params$strSubjectCol
       [1] "subjid"
@@ -2202,13 +2116,16 @@
       
       $kri0003[[2]]$params
       $kri0003[[2]]$params$dfSubjects
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
       
       $kri0003[[2]]$params$dfNumerator
-      [1] "Mapped_NonimportantPD"
+      [1] "Mapped_PD"
       
       $kri0003[[2]]$params$dfDenominator
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
+      
+      $kri0003[[2]]$params$strFilterNumerator
+      [1] "deemedimportant == 'N'"
       
       $kri0003[[2]]$params$strSubjectCol
       [1] "subjid"
@@ -2315,13 +2232,16 @@
       
       $kri0004[[2]]$params
       $kri0004[[2]]$params$dfSubjects
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
       
       $kri0004[[2]]$params$dfNumerator
-      [1] "Mapped_ImportantPD"
+      [1] "Mapped_PD"
       
       $kri0004[[2]]$params$dfDenominator
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
+      
+      $kri0004[[2]]$params$strFilterNumerator
+      [1] "deemedimportant == 'Y'"
       
       $kri0004[[2]]$params$strSubjectCol
       [1] "subjid"
@@ -2428,13 +2348,19 @@
       
       $kri0005[[2]]$params
       $kri0005[[2]]$params$dfSubjects
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
       
       $kri0005[[2]]$params$dfNumerator
-      [1] "Mapped_ToxLabs"
+      [1] "Mapped_LB"
       
       $kri0005[[2]]$params$dfDenominator
-      [1] "Mapped_AllLabs"
+      [1] "Mapped_LB"
+      
+      $kri0005[[2]]$params$strFilterNumerator
+      [1] "toxgrg_nsv %in% c(\"3\",\"4\")"
+      
+      $kri0005[[2]]$params$strFilterDenominator
+      [1] "toxgrg_nsv %in% c(\"0\",\"1\",\"2\",\"3\",\"4\")"
       
       $kri0005[[2]]$params$strSubjectCol
       [1] "subjid"
@@ -2538,13 +2464,16 @@
       
       $kri0006[[2]]$params
       $kri0006[[2]]$params$dfSubjects
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
       
       $kri0006[[2]]$params$dfNumerator
-      [1] "Mapped_StudyDropouts"
+      [1] "Mapped_STUDCOMP"
       
       $kri0006[[2]]$params$dfDenominator
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
+      
+      $kri0006[[2]]$params$strFilterNumerator
+      [1] "compyn == 'N'"
       
       $kri0006[[2]]$params$strSubjectCol
       [1] "subjid"
@@ -2648,13 +2577,16 @@
       
       $kri0007[[2]]$params
       $kri0007[[2]]$params$dfSubjects
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
       
       $kri0007[[2]]$params$dfNumerator
-      [1] "Mapped_TreatmentDropouts"
+      [1] "Mapped_SDRGCOMP"
       
       $kri0007[[2]]$params$dfDenominator
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
+      
+      $kri0007[[2]]$params$strFilterNumerator
+      [1] "sdrgyn == 'N' & phase = \"Blinded Study Drug Completion\""
       
       $kri0007[[2]]$params$strSubjectCol
       [1] "subjid"
@@ -2758,13 +2690,16 @@
       
       $kri0008[[2]]$params
       $kri0008[[2]]$params$dfSubjects
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
       
       $kri0008[[2]]$params$dfNumerator
-      [1] "Mapped_Query"
+      [1] "Mapped_QUERY"
       
       $kri0008[[2]]$params$dfDenominator
-      [1] "Mapped_DataChanges"
+      [1] "Mapped_DATACHG"
+      
+      $kri0008[[2]]$params$strFilterNumerator
+      [1] "query_status %in% c('Open','Answered',\"Closed\")"
       
       $kri0008[[2]]$params$strSubjectCol
       [1] "subject_nsv"
@@ -2868,13 +2803,19 @@
       
       $kri0009[[2]]$params
       $kri0009[[2]]$params$dfSubjects
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
       
       $kri0009[[2]]$params$dfNumerator
-      [1] "Mapped_OldValidQueries"
+      [1] "Mapped_QUERY"
       
       $kri0009[[2]]$params$dfDenominator
-      [1] "Mapped_ValidQueries"
+      [1] "Mapped_QUERY"
+      
+      $kri0009[[2]]$params$strFilterNumerator
+      [1] "query_status %in% c('Open','Answered',\"Closed\") & query_days > 30"
+      
+      $kri0009[[2]]$params$strFilterDenominator
+      [1] "query_status %in% c('Open','Answered',\"Closed\")"
       
       $kri0009[[2]]$params$strSubjectCol
       [1] "subject_nsv"
@@ -2978,13 +2919,16 @@
       
       $kri0010[[2]]$params
       $kri0010[[2]]$params$dfSubjects
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
       
       $kri0010[[2]]$params$dfNumerator
-      [1] "Mapped_SlowDataEntry"
+      [1] "Mapped_DATAENT"
       
       $kri0010[[2]]$params$dfDenominator
-      [1] "Mapped_DataEntry"
+      [1] "Mapped_DATAENT"
+      
+      $kri0010[[2]]$params$strFilterNumerator
+      [1] "data_entry_lag > 10"
       
       $kri0010[[2]]$params$strSubjectCol
       [1] "subject_nsv"
@@ -3088,13 +3032,16 @@
       
       $kri0011[[2]]$params
       $kri0011[[2]]$params$dfSubjects
-      [1] "Mapped_Enrolled"
+      [1] "Mapped_ENROLL"
       
       $kri0011[[2]]$params$dfNumerator
-      [1] "Mapped_ChangedDataPoints"
+      [1] "Mapped_DATACHG"
       
       $kri0011[[2]]$params$dfDenominator
-      [1] "Mapped_DataChanges"
+      [1] "Mapped_DATACHG"
+      
+      $kri0011[[2]]$params$strFilterNumerator
+      [1] "n_changes > 0"
       
       $kri0011[[2]]$params$strSubjectCol
       [1] "subject_nsv"
@@ -3198,13 +3145,16 @@
       
       $kri0012[[2]]$params
       $kri0012[[2]]$params$dfSubjects
-      [1] "Mapped_Screened"
+      [1] "Mapped_SCREEN"
       
       $kri0012[[2]]$params$dfNumerator
-      [1] "Mapped_ScreenFail"
+      [1] "Mapped_SCREEN"
       
       $kri0012[[2]]$params$dfDenominator
-      [1] "Mapped_Screened"
+      [1] "Mapped_SCREEN"
+      
+      $kri0012[[2]]$params$strFilterNumerator
+      [1] "enrollyn == 'N'"
       
       $kri0012[[2]]$params$strSubjectCol
       [1] "subjectid"
@@ -3285,48 +3235,158 @@
       
       
       
-      $reports
-      $reports[[1]]
-      $reports[[1]]$name
+      $report_kri_country
+      $report_kri_country[[1]]
+      $report_kri_country[[1]]$name
+      [1] "RunQuery"
+      
+      $report_kri_country[[1]]$output
+      [1] "Reporting_Results_Country"
+      
+      $report_kri_country[[1]]$params
+      $report_kri_country[[1]]$params$df
+      [1] "Reporting_Results"
+      
+      $report_kri_country[[1]]$params$strQuery
+      [1] "SELECT * FROM df WHERE GroupLevel == 'Country'"
+      
+      
+      
+      $report_kri_country[[2]]
+      $report_kri_country[[2]]$name
+      [1] "RunQuery"
+      
+      $report_kri_country[[2]]$output
+      [1] "Reporting_Metrics_Country"
+      
+      $report_kri_country[[2]]$params
+      $report_kri_country[[2]]$params$df
+      [1] "Reporting_Metrics"
+      
+      $report_kri_country[[2]]$params$strQuery
+      [1] "SELECT * FROM df WHERE GroupLevel == 'Country'"
+      
+      
+      
+      $report_kri_country[[3]]
+      $report_kri_country[[3]]$name
       [1] "MakeCharts"
       
-      $reports[[1]]$output
-      [1] "lCharts"
+      $report_kri_country[[3]]$output
+      [1] "lCharts_Country"
       
-      $reports[[1]]$params
-      $reports[[1]]$params$dfResults
-      [1] "Reporting_Results"
+      $report_kri_country[[3]]$params
+      $report_kri_country[[3]]$params$dfResults
+      [1] "Reporting_Results_Country"
       
-      $reports[[1]]$params$dfGroups
+      $report_kri_country[[3]]$params$dfGroups
       [1] "Reporting_Groups"
       
-      $reports[[1]]$params$dfBounds
+      $report_kri_country[[3]]$params$dfBounds
       [1] "Reporting_Bounds"
       
-      $reports[[1]]$params$dfMetrics
+      $report_kri_country[[3]]$params$dfMetrics
       [1] "Reporting_Metrics"
       
       
       
-      $reports[[2]]
-      $reports[[2]]$name
+      $report_kri_country[[4]]
+      $report_kri_country[[4]]$name
       [1] "Report_KRI"
       
-      $reports[[2]]$output
+      $report_kri_country[[4]]$output
       [1] "lReport"
       
-      $reports[[2]]$params
-      $reports[[2]]$params$lCharts
-      [1] "lCharts"
+      $report_kri_country[[4]]$params
+      $report_kri_country[[4]]$params$lCharts
+      [1] "lCharts_Country"
       
-      $reports[[2]]$params$dfResults
-      [1] "Reporting_Results"
+      $report_kri_country[[4]]$params$dfResults
+      [1] "Reporting_Results_Country"
       
-      $reports[[2]]$params$dfGroups
+      $report_kri_country[[4]]$params$dfGroups
       [1] "Reporting_Groups"
       
-      $reports[[2]]$params$dfMetrics
+      $report_kri_country[[4]]$params$dfMetrics
+      [1] "Reporting_Metrics_Country"
+      
+      
+      
+      
+      $report_kri_site
+      $report_kri_site[[1]]
+      $report_kri_site[[1]]$name
+      [1] "RunQuery"
+      
+      $report_kri_site[[1]]$output
+      [1] "Reporting_Results_Site"
+      
+      $report_kri_site[[1]]$params
+      $report_kri_site[[1]]$params$df
+      [1] "Reporting_Results"
+      
+      $report_kri_site[[1]]$params$strQuery
+      [1] "SELECT * FROM df WHERE GroupLevel == 'Site'"
+      
+      
+      
+      $report_kri_site[[2]]
+      $report_kri_site[[2]]$name
+      [1] "RunQuery"
+      
+      $report_kri_site[[2]]$output
+      [1] "Reporting_Metrics_Site"
+      
+      $report_kri_site[[2]]$params
+      $report_kri_site[[2]]$params$df
       [1] "Reporting_Metrics"
+      
+      $report_kri_site[[2]]$params$strQuery
+      [1] "SELECT * FROM df WHERE GroupLevel == 'Site'"
+      
+      
+      
+      $report_kri_site[[3]]
+      $report_kri_site[[3]]$name
+      [1] "MakeCharts"
+      
+      $report_kri_site[[3]]$output
+      [1] "lCharts_Site"
+      
+      $report_kri_site[[3]]$params
+      $report_kri_site[[3]]$params$dfResults
+      [1] "Reporting_Results_Site"
+      
+      $report_kri_site[[3]]$params$dfGroups
+      [1] "Reporting_Groups"
+      
+      $report_kri_site[[3]]$params$dfBounds
+      [1] "Reporting_Bounds"
+      
+      $report_kri_site[[3]]$params$dfMetrics
+      [1] "Reporting_Metrics_Site"
+      
+      
+      
+      $report_kri_site[[4]]
+      $report_kri_site[[4]]$name
+      [1] "Report_KRI"
+      
+      $report_kri_site[[4]]$output
+      [1] "lReport"
+      
+      $report_kri_site[[4]]$params
+      $report_kri_site[[4]]$params$lCharts
+      [1] "lCharts_Site"
+      
+      $report_kri_site[[4]]$params$dfResults
+      [1] "Reporting_Results_Site"
+      
+      $report_kri_site[[4]]$params$dfGroups
+      [1] "Reporting_Groups"
+      
+      $report_kri_site[[4]]$params$dfMetrics
+      [1] "Reporting_Metrics_Site"
       
       
       
@@ -3341,7 +3401,7 @@
       
       $snapshot[[1]]$params
       $snapshot[[1]]$params$strNames
-      [1] "mapping"
+      [1] "data_mapping"
       
       
       
@@ -3372,8 +3432,8 @@
       [1] "lWorkflows"
       
       $snapshot[[3]]$params
-      $snapshot[[3]]$params$strNames
-      [1] "Metrics"
+      $snapshot[[3]]$params$strPath
+      [1] "workflow/metrics"
       
       
       
@@ -3421,7 +3481,7 @@
       
       $snapshot[[6]]$params
       $snapshot[[6]]$params$strNames
-      [1] "reporting"
+      [1] "data_reporting"
       
       
       
@@ -3452,8 +3512,8 @@
       [1] "wf_reports"
       
       $snapshot[[8]]$params
-      $snapshot[[8]]$params$strNames
-      [1] "reports"
+      $snapshot[[8]]$params$strPath
+      [1] "workflow/reports"
       
       
       
