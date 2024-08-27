@@ -97,6 +97,7 @@ for (i in 1:12) {
                 Raw_QUERY = clindata::edc_queries,
                 Raw_ENROLL = clindata::rawplus_enroll)
 
+  ##TODO: update this section to use "modern" workflows to make all of this data
   lMapped <-
     RunWorkflow(lWorkflow = wf_mapping[[1]], lData = lData)
   lResults_site <-
