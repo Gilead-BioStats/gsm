@@ -31,7 +31,7 @@ steps:
       dfSubjects: Mapped_ENROLL
       dfNumerator: Mapped_STUDCOMP
       dfDenominator: Mapped_ENROLL
-      expFilterNumerator: compyn == 'N'
+      strFilterNumerator: compyn == 'N'
       strSubjectCol: subjid
       strGroupCol: invid
       strGroupLevel: GroupLevel

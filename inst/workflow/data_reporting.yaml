@@ -26,7 +26,7 @@ spec:
     invid:
       required: true
     subjectid:
-      required: true 
+      required: true
     studyid:
       required: true
     country:
@@ -118,5 +118,4 @@ steps:
     params:
       dfResults: Reporting_Results
       dfMetrics: Reporting_Metrics
-
 

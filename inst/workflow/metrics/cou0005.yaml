@@ -34,8 +34,8 @@ steps:
       dfSubjects: Mapped_ENROLL
       dfNumerator: Mapped_LB
       dfDenominator: Mapped_LB
-      expFilterNumerator: toxgrg_nsv %in% c("3","4")
-      expFilterDenominator: toxgrg_nsv %in% c("0","1","2","3","4")
+      strFilterNumerator: toxgrg_nsv %in% c("3","4")
+      strFilterDenominator: toxgrg_nsv %in% c("0","1","2","3","4")
       strSubjectCol: subjid
       strGroupCol: country
       strGroupLevel: GroupLevel

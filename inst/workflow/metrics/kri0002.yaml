@@ -12,7 +12,7 @@ meta:
   Threshold: -2,-1,2,3
   nMinDenominator: 30
 spec:
-  Mapped_SeriousAE:
+  Mapped_AE:
     subjid:
       required: true
   Mapped_ENROLL:
@@ -33,7 +33,7 @@ steps:
       dfSubjects: Mapped_ENROLL
       dfNumerator: Mapped_AE
       dfDenominator: Mapped_ENROLL
-      expFilterNumerator: aeser == 'Y'
+      strFilterNumerator: aeser == 'Y'
       strSubjectCol: subjid
       strGroupCol: invid
       strGroupLevel: GroupLevel

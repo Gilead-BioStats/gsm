@@ -34,7 +34,7 @@ steps:
       dfSubjects: Mapped_ENROLL
       dfNumerator: Mapped_DATAENT
       dfDenominator: Mapped_DATAENT
-      expFilterNumerator: data_entry_lag > 10
+      strFilterNumerator: data_entry_lag > 10
       strSubjectCol: subject_nsv
       strGroupCol: invid
       strGroupLevel: GroupLevel
