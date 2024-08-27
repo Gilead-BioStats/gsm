@@ -31,7 +31,7 @@ steps:
       dfSubjects: Mapped_ENROLL
       dfNumerator: Mapped_SDRGCOMP
       dfDenominator: Mapped_ENROLL
-      expFilterNumerator: sdrgyn == 'N' & phase = "Blinded Study Drug Completion"
+      strFilterNumerator: sdrgyn == 'N' & phase = "Blinded Study Drug Completion"
       strSubjectCol: subjid
       strGroupCol: country
       strGroupLevel: GroupLevel

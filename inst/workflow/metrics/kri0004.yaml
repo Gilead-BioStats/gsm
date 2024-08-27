@@ -33,7 +33,7 @@ steps:
       dfSubjects: Mapped_ENROLL
       dfNumerator: Mapped_PD
       dfDenominator: Mapped_ENROLL
-      expFilterNumerator: deemedimportant == 'Y'
+      strFilterNumerator: deemedimportant == 'Y'
       strSubjectCol: subjid
       strGroupCol: invid
       strGroupLevel: GroupLevel

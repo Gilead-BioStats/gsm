@@ -34,8 +34,8 @@ steps:
       dfSubjects: Mapped_ENROLL
       dfNumerator: Mapped_QUERY
       dfDenominator: Mapped_QUERY
-      expFilterNumerator: query_status %in% c('Open','Answered',"Closed") & query_days > 30
-      expFilterDenominator: query_status %in% c('Open','Answered',"Closed")
+      strFilterNumerator: query_status %in% c('Open','Answered',"Closed") & query_days > 30
+      strFilterDenominator: query_status %in% c('Open','Answered',"Closed")
       strSubjectCol: subject_nsv
       strGroupCol: country
       strGroupLevel: GroupLevel

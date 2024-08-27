@@ -33,7 +33,7 @@ steps:
       dfSubjects: Mapped_ENROLL
       dfNumerator: Mapped_AE
       dfDenominator: Mapped_ENROLL
-      expFilterNumerator: aeser == 'Y'
+      strFilterNumerator: aeser == 'Y'
       strSubjectCol: subjid
       strGroupCol: country
       strGroupLevel: GroupLevel

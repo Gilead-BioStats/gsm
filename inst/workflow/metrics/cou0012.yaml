@@ -31,7 +31,7 @@ steps:
       dfSubjects: Mapped_SCREEN
       dfNumerator: Mapped_SCREEN
       dfDenominator: Mapped_SCREEN
-      expFilterNumerator: enrollyn == 'N'
+      strFilterNumerator: enrollyn == 'N'
       strSubjectCol: subjectid
       strGroupCol: country
       strGroupLevel: GroupLevel

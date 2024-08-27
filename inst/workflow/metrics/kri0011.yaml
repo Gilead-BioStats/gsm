@@ -34,7 +34,7 @@ steps:
       dfSubjects: Mapped_ENROLL
       dfNumerator: Mapped_DATACHG
       dfDenominator: Mapped_DATACHG
-      expFilterNumerator: n_changes > 0
+      strFilterNumerator: n_changes > 0
       strSubjectCol: subject_nsv
       strGroupCol: invid
       strGroupLevel: GroupLevel
