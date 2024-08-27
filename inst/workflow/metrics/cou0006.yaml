@@ -17,6 +17,11 @@ spec:
       required: true
     country:
       required: true
+  Mapped_STUDCOMP:
+    subjid:
+      required: true
+    compyn:
+      required: true
 steps:
   - name: ParseThreshold
     output: vThreshold
@@ -25,7 +30,7 @@ steps:
   - name: RunQuery
     output: Temp_DROPOUT
     params:
-      df: Mapped_ENROLL
+      df: Mapped_STUDCOMP
       strQuery: "SELECT * FROM df WHERE compyn = 'N'"
   - name: Input_Rate
     output: Analysis_Input

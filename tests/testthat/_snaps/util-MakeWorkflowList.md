@@ -109,7 +109,7 @@
       [1] "Raw_SUBJ"
       
       $data_mapping[[1]]$params$strQuery
-      [1] "SELECT subjectid as raw_subjectid, subjid, invid, country, timeonstudy FROM df WHERE enrollyn == 'Y'"
+      [1] "SELECT subjectid as raw_subjectid, subjid, invid, country, timeonstudy, subject_nsv FROM df WHERE enrollyn == 'Y'"
       
       
       
@@ -1161,7 +1161,7 @@
       
       $cou0006[[2]]$params
       $cou0006[[2]]$params$df
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_STUDCOMP"
       
       $cou0006[[2]]$params$strQuery
       [1] "SELECT * FROM df WHERE compyn = 'N'"
@@ -1526,7 +1526,7 @@
       [1] "Mapped_QUERY"
       
       $cou0009[[2]]$params$strQuery
-      [1] "SELECT * FROM df WHERE query_status IN ('Open','Answered','Closed') AND query_days > 30"
+      [1] "SELECT * FROM df WHERE querystatus IN ('Open','Answered','Closed') AND queryage > 30"
       
       
       
@@ -1542,7 +1542,7 @@
       [1] "Mapped_QUERY"
       
       $cou0009[[3]]$params$strQuery
-      [1] "SELECT * FROM df WHERE query_status IN ('Open','Answered','Closed')"
+      [1] "SELECT * FROM df WHERE querystatus IN ('Open','Answered','Closed')"
       
       
       
@@ -1791,7 +1791,7 @@
       
       $cou0011[[2]]$params
       $cou0011[[2]]$params$df
-      [1] "Mapped_DATAENT"
+      [1] "Mapped_DATACHG"
       
       $cou0011[[2]]$params$strQuery
       [1] "SELECT * FROM df WHERE n_changes > 0"
@@ -2685,7 +2685,7 @@
       
       $kri0006[[2]]$params
       $kri0006[[2]]$params$df
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_STUDCOMP"
       
       $kri0006[[2]]$params$strQuery
       [1] "SELECT * FROM df WHERE compyn = 'N'"
@@ -2940,7 +2940,7 @@
       [1] "Mapped_QUERY"
       
       $kri0008[[2]]$params$strQuery
-      [1] "SELECT * FROM df WHERE query_status IN ('Open','Answered','Closed')"
+      [1] "SELECT * FROM df WHERE querystatus IN ('Open','Answered','Closed')"
       
       
       
@@ -3066,7 +3066,7 @@
       [1] "Mapped_QUERY"
       
       $kri0009[[2]]$params$strQuery
-      [1] "SELECT * FROM df WHERE query_status IN ('Open','Answered','Closed') AND query_days > 30"
+      [1] "SELECT * FROM df WHERE querystatus IN ('Open','Answered','Closed') AND queryage > 30"
       
       
       
@@ -3082,7 +3082,7 @@
       [1] "Mapped_QUERY"
       
       $kri0009[[3]]$params$strQuery
-      [1] "SELECT * FROM df WHERE query_status IN ('Open','Answered','Closed')"
+      [1] "SELECT * FROM df WHERE querystatus IN ('Open','Answered','Closed')"
       
       
       
@@ -3331,7 +3331,7 @@
       
       $kri0011[[2]]$params
       $kri0011[[2]]$params$df
-      [1] "Mapped_DATAENT"
+      [1] "Mapped_DATACHG"
       
       $kri0011[[2]]$params$strQuery
       [1] "SELECT * FROM df WHERE n_changes > 0"
@@ -3482,7 +3482,7 @@
       [1] "Mapped_SCREEN"
       
       $kri0012[[3]]$params$strSubjectCol
-      [1] "subjectid"
+      [1] "subjid"
       
       $kri0012[[3]]$params$strGroupCol
       [1] "invid"

@@ -28,7 +28,7 @@ steps:
   - name: RunQuery
     output: Temp_CHANGED
     params:
-      df: Mapped_DATAENT
+      df: Mapped_DATACHG
       strQuery: "SELECT * FROM df WHERE n_changes > 0"
   - name: Input_Rate
     output: Analysis_Input

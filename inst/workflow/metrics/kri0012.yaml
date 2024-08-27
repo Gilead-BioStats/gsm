@@ -13,7 +13,7 @@ meta:
   nMinDenominator: 3
 spec:
   Mapped_SCREEN:
-    subjectid:
+    subjid:
       required: true
     invid:
       required: true
@@ -33,7 +33,7 @@ steps:
       dfSubjects: Mapped_SCREEN
       dfNumerator: Temp_SCREENED
       dfDenominator: Mapped_SCREEN
-      strSubjectCol: subjectid
+      strSubjectCol: subjid
       strGroupCol: invid
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
