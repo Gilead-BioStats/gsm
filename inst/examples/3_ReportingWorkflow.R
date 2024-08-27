@@ -17,7 +17,7 @@ mapping_wf <- MakeWorkflowList(strNames = "data_mapping")
 mapped <- RunWorkflows(mapping_wf, lData, bKeepInputData=TRUE)
 
 # Step 2 - Create Analysis Data - Generate 12 KRIs
-kri_wf <- MakeWorkflowList(strNames = "kri")
+kri_wf <- MakeWorkflowList(strPath = "workflow/metrics", strNames = "kri")
 kris <- RunWorkflows(kri_wf, mapped)
 
 # Step 3 - Create Reporting Data - Import Metadata and stack KRI Results
@@ -55,7 +55,7 @@ lData <- list(
     Raw_ctms_study = clindata::ctms_study,
     # SnapshotDate and StudyID
     dSnapshotDate = Sys.Date(),
-    strStudyID = "ABC-123"    
+    strStudyID = "ABC-123"
 )
 
 ss_wf <- MakeWorkflowList(strNames = "snapshot")
