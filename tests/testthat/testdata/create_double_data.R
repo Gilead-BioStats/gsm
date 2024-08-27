@@ -1,16 +1,16 @@
 # yaml workflow
 test_wf <- MakeWorkflowList(
-  strPath = system.file("workflow", "metrics", package = "gsm"),
   strNames = "kri0001"
 )
 test_mapping <- MakeWorkflowList(
   strPath = test_path("testdata"),
-  strNames = "mapping"
+  strNames = "mapping",
+  strPackage = NULL
 )
 lRaw <- UseClindata(
   list(
-    "dfSUBJ" = "clindata::rawplus_dm",
-    "dfAE" = "clindata::rawplus_ae"
+    "Raw_SUBJ" = "clindata::rawplus_dm",
+    "Raw_AE" = "clindata::rawplus_ae"
   )
 )
 lMapped <- quiet_RunWorkflow(lWorkflow = test_mapping[[1]], lData = lRaw)
@@ -33,3 +33,4 @@ dfTransformed <- Transform_Rate(dfInput)
 dfAnalyzed <- quiet_Analyze_NormalApprox(dfTransformed, strType = "rate")
 dfFlagged <- Flag_NormalApprox(dfAnalyzed, vThreshold = c(-2, -1, 2, 3))
 dfSummarized <- Summarize(dfFlagged)
+#
