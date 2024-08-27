@@ -28,13 +28,17 @@ steps:
     output: vThreshold
     params:
       strThreshold: Threshold
+  - name: RunQuery
+    output: Temp_QUERY
+    params:
+      df: Mapped_QUERY
+      strQuery: "SELECT * FROM df WHERE query_status IN ('Open','Answered','Closed')"
   - name: Input_Rate
     output: Analysis_Input
     params:
       dfSubjects: Mapped_ENROLL
-      dfNumerator: Mapped_QUERY
+      dfNumerator: Temp_QUERY
       dfDenominator: Mapped_DATACHG
-      strFilterNumerator: query_status %in% c('Open','Answered',"Closed")
       strSubjectCol: subject_nsv
       strGroupCol: invid
       strGroupLevel: GroupLevel

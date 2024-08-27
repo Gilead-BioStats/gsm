@@ -27,13 +27,17 @@ steps:
     output: vThreshold
     params:
       strThreshold: Threshold
+  - name: RunQuery
+    output: Temp_SAE
+    params:
+      df: Mapped_AE
+      strQuery: "SELECT * FROM df WHERE aeser = 'Y'"
   - name: Input_Rate
     output: Analysis_Input
     params:
       dfSubjects: Mapped_ENROLL
-      dfNumerator: Mapped_AE
+      dfNumerator: Temp_SAE
       dfDenominator: Mapped_ENROLL
-      strFilterNumerator: aeser == 'Y'
       strSubjectCol: subjid
       strGroupCol: country
       strGroupLevel: GroupLevel

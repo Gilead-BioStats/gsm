@@ -25,13 +25,17 @@ steps:
     output: vThreshold
     params:
       strThreshold: Threshold
+  - name: RunQuery
+    output: Temp_DROPOUT
+    params:
+      df: Mapped_ENROLL
+      strQuery: "SELECT * FROM df WHERE compyn = 'N'"
   - name: Input_Rate
     output: Analysis_Input
     params:
       dfSubjects: Mapped_ENROLL
-      dfNumerator: Mapped_STUDCOMP
+      dfNumerator: Temp_DROPOUT
       dfDenominator: Mapped_ENROLL
-      strFilterNumerator: compyn == 'N'
       strSubjectCol: subjid
       strGroupCol: invid
       strGroupLevel: GroupLevel

@@ -28,14 +28,22 @@ steps:
     output: vThreshold
     params:
       strThreshold: Threshold
+  - name: RunQuery
+    output: Temp_OLDQUERY
+    params:
+      df: Mapped_QUERY
+      strQuery: "SELECT * FROM df WHERE query_status IN ('Open','Answered','Closed') AND query_days > 30"
+  - name: RunQuery
+    output: Temp_QUERY
+    params:
+      df: Mapped_QUERY
+      strQuery: "SELECT * FROM df WHERE query_status IN ('Open','Answered','Closed')"
   - name: Input_Rate
     output: Analysis_Input
     params:
       dfSubjects: Mapped_ENROLL
-      dfNumerator: Mapped_QUERY
-      dfDenominator: Mapped_QUERY
-      strFilterNumerator: query_status %in% c('Open','Answered',"Closed") & query_days > 30
-      strFilterDenominator: query_status %in% c('Open','Answered',"Closed")
+      dfNumerator: Temp_OLDQUERY
+      dfDenominator: Temp_QUERY
       strSubjectCol: subject_nsv
       strGroupCol: invid
       strGroupLevel: GroupLevel

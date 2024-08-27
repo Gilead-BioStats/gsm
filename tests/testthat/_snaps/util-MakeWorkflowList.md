@@ -625,101 +625,114 @@
       
       $cou0002[[2]]
       $cou0002[[2]]$name
-      [1] "Input_Rate"
+      [1] "RunQuery"
       
       $cou0002[[2]]$output
-      [1] "Analysis_Input"
+      [1] "Temp_SAE"
       
       $cou0002[[2]]$params
-      $cou0002[[2]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
-      
-      $cou0002[[2]]$params$dfNumerator
+      $cou0002[[2]]$params$df
       [1] "Mapped_AE"
       
-      $cou0002[[2]]$params$dfDenominator
-      [1] "Mapped_ENROLL"
-      
-      $cou0002[[2]]$params$strFilterNumerator
-      [1] "aeser == 'Y'"
-      
-      $cou0002[[2]]$params$strSubjectCol
-      [1] "subjid"
-      
-      $cou0002[[2]]$params$strGroupCol
-      [1] "country"
-      
-      $cou0002[[2]]$params$strGroupLevel
-      [1] "GroupLevel"
-      
-      $cou0002[[2]]$params$strNumeratorMethod
-      [1] "Count"
-      
-      $cou0002[[2]]$params$strDenominatorMethod
-      [1] "Sum"
-      
-      $cou0002[[2]]$params$strDenominatorCol
-      [1] "timeonstudy"
+      $cou0002[[2]]$params$strQuery
+      [1] "SELECT * FROM df WHERE aeser = 'Y'"
       
       
       
       $cou0002[[3]]
       $cou0002[[3]]$name
-      [1] "Transform_Rate"
+      [1] "Input_Rate"
       
       $cou0002[[3]]$output
-      [1] "Analysis_Transformed"
+      [1] "Analysis_Input"
       
       $cou0002[[3]]$params
-      $cou0002[[3]]$params$dfInput
-      [1] "Analysis_Input"
+      $cou0002[[3]]$params$dfSubjects
+      [1] "Mapped_ENROLL"
+      
+      $cou0002[[3]]$params$dfNumerator
+      [1] "Temp_SAE"
+      
+      $cou0002[[3]]$params$dfDenominator
+      [1] "Mapped_ENROLL"
+      
+      $cou0002[[3]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $cou0002[[3]]$params$strGroupCol
+      [1] "country"
+      
+      $cou0002[[3]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $cou0002[[3]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $cou0002[[3]]$params$strDenominatorMethod
+      [1] "Sum"
+      
+      $cou0002[[3]]$params$strDenominatorCol
+      [1] "timeonstudy"
       
       
       
       $cou0002[[4]]
       $cou0002[[4]]$name
-      [1] "Analyze_NormalApprox"
+      [1] "Transform_Rate"
       
       $cou0002[[4]]$output
-      [1] "Analysis_Analyzed"
-      
-      $cou0002[[4]]$params
-      $cou0002[[4]]$params$dfTransformed
       [1] "Analysis_Transformed"
       
-      $cou0002[[4]]$params$strType
-      [1] "Type"
+      $cou0002[[4]]$params
+      $cou0002[[4]]$params$dfInput
+      [1] "Analysis_Input"
       
       
       
       $cou0002[[5]]
       $cou0002[[5]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Analyze_NormalApprox"
       
       $cou0002[[5]]$output
-      [1] "Analysis_Flagged"
-      
-      $cou0002[[5]]$params
-      $cou0002[[5]]$params$dfAnalyzed
       [1] "Analysis_Analyzed"
       
-      $cou0002[[5]]$params$vThreshold
-      [1] "vThreshold"
+      $cou0002[[5]]$params
+      $cou0002[[5]]$params$dfTransformed
+      [1] "Analysis_Transformed"
+      
+      $cou0002[[5]]$params$strType
+      [1] "Type"
       
       
       
       $cou0002[[6]]
       $cou0002[[6]]$name
-      [1] "Summarize"
+      [1] "Flag_NormalApprox"
       
       $cou0002[[6]]$output
-      [1] "Analysis_Summary"
-      
-      $cou0002[[6]]$params
-      $cou0002[[6]]$params$dfFlagged
       [1] "Analysis_Flagged"
       
-      $cou0002[[6]]$params$nMinDenominator
+      $cou0002[[6]]$params
+      $cou0002[[6]]$params$dfAnalyzed
+      [1] "Analysis_Analyzed"
+      
+      $cou0002[[6]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $cou0002[[7]]
+      $cou0002[[7]]$name
+      [1] "Summarize"
+      
+      $cou0002[[7]]$output
+      [1] "Analysis_Summary"
+      
+      $cou0002[[7]]$params
+      $cou0002[[7]]$params$dfFlagged
+      [1] "Analysis_Flagged"
+      
+      $cou0002[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -741,101 +754,114 @@
       
       $cou0003[[2]]
       $cou0003[[2]]$name
-      [1] "Input_Rate"
+      [1] "RunQuery"
       
       $cou0003[[2]]$output
-      [1] "Analysis_Input"
+      [1] "Temp_NONIMPORTANT"
       
       $cou0003[[2]]$params
-      $cou0003[[2]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
-      
-      $cou0003[[2]]$params$dfNumerator
+      $cou0003[[2]]$params$df
       [1] "Mapped_PD"
       
-      $cou0003[[2]]$params$dfDenominator
-      [1] "Mapped_ENROLL"
-      
-      $cou0003[[2]]$params$strFilterNumerator
-      [1] "deemedimportant == 'N'"
-      
-      $cou0003[[2]]$params$strSubjectCol
-      [1] "subjid"
-      
-      $cou0003[[2]]$params$strGroupCol
-      [1] "country"
-      
-      $cou0003[[2]]$params$strGroupLevel
-      [1] "GroupLevel"
-      
-      $cou0003[[2]]$params$strNumeratorMethod
-      [1] "Count"
-      
-      $cou0003[[2]]$params$strDenominatorMethod
-      [1] "Sum"
-      
-      $cou0003[[2]]$params$strDenominatorCol
-      [1] "timeonstudy"
+      $cou0003[[2]]$params$strQuery
+      [1] "SELECT * FROM df WHERE deemedimportant = 'N'"
       
       
       
       $cou0003[[3]]
       $cou0003[[3]]$name
-      [1] "Transform_Rate"
+      [1] "Input_Rate"
       
       $cou0003[[3]]$output
-      [1] "Analysis_Transformed"
+      [1] "Analysis_Input"
       
       $cou0003[[3]]$params
-      $cou0003[[3]]$params$dfInput
-      [1] "Analysis_Input"
+      $cou0003[[3]]$params$dfSubjects
+      [1] "Mapped_ENROLL"
+      
+      $cou0003[[3]]$params$dfNumerator
+      [1] "Temp_NONIMPORTANT"
+      
+      $cou0003[[3]]$params$dfDenominator
+      [1] "Mapped_ENROLL"
+      
+      $cou0003[[3]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $cou0003[[3]]$params$strGroupCol
+      [1] "country"
+      
+      $cou0003[[3]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $cou0003[[3]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $cou0003[[3]]$params$strDenominatorMethod
+      [1] "Sum"
+      
+      $cou0003[[3]]$params$strDenominatorCol
+      [1] "timeonstudy"
       
       
       
       $cou0003[[4]]
       $cou0003[[4]]$name
-      [1] "Analyze_NormalApprox"
+      [1] "Transform_Rate"
       
       $cou0003[[4]]$output
-      [1] "Analysis_Analyzed"
-      
-      $cou0003[[4]]$params
-      $cou0003[[4]]$params$dfTransformed
       [1] "Analysis_Transformed"
       
-      $cou0003[[4]]$params$strType
-      [1] "Type"
+      $cou0003[[4]]$params
+      $cou0003[[4]]$params$dfInput
+      [1] "Analysis_Input"
       
       
       
       $cou0003[[5]]
       $cou0003[[5]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Analyze_NormalApprox"
       
       $cou0003[[5]]$output
-      [1] "Analysis_Flagged"
-      
-      $cou0003[[5]]$params
-      $cou0003[[5]]$params$dfAnalyzed
       [1] "Analysis_Analyzed"
       
-      $cou0003[[5]]$params$vThreshold
-      [1] "vThreshold"
+      $cou0003[[5]]$params
+      $cou0003[[5]]$params$dfTransformed
+      [1] "Analysis_Transformed"
+      
+      $cou0003[[5]]$params$strType
+      [1] "Type"
       
       
       
       $cou0003[[6]]
       $cou0003[[6]]$name
-      [1] "Summarize"
+      [1] "Flag_NormalApprox"
       
       $cou0003[[6]]$output
-      [1] "Analysis_Summary"
-      
-      $cou0003[[6]]$params
-      $cou0003[[6]]$params$dfFlagged
       [1] "Analysis_Flagged"
       
-      $cou0003[[6]]$params$nMinDenominator
+      $cou0003[[6]]$params
+      $cou0003[[6]]$params$dfAnalyzed
+      [1] "Analysis_Analyzed"
+      
+      $cou0003[[6]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $cou0003[[7]]
+      $cou0003[[7]]$name
+      [1] "Summarize"
+      
+      $cou0003[[7]]$output
+      [1] "Analysis_Summary"
+      
+      $cou0003[[7]]$params
+      $cou0003[[7]]$params$dfFlagged
+      [1] "Analysis_Flagged"
+      
+      $cou0003[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -857,101 +883,114 @@
       
       $cou0004[[2]]
       $cou0004[[2]]$name
-      [1] "Input_Rate"
+      [1] "RunQuery"
       
       $cou0004[[2]]$output
-      [1] "Analysis_Input"
+      [1] "Temp_Important"
       
       $cou0004[[2]]$params
-      $cou0004[[2]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
+      $cou0004[[2]]$params$df
+      [1] "Mapped_PD"
       
-      $cou0004[[2]]$params$dfNumerator
-      [1] "Mapped_PR"
-      
-      $cou0004[[2]]$params$dfDenominator
-      [1] "Mapped_ENROLL"
-      
-      $cou0004[[2]]$params$strFilterNumerator
-      [1] "deemedimportant == 'Y'"
-      
-      $cou0004[[2]]$params$strSubjectCol
-      [1] "subjid"
-      
-      $cou0004[[2]]$params$strGroupCol
-      [1] "country"
-      
-      $cou0004[[2]]$params$strGroupLevel
-      [1] "GroupLevel"
-      
-      $cou0004[[2]]$params$strNumeratorMethod
-      [1] "Count"
-      
-      $cou0004[[2]]$params$strDenominatorMethod
-      [1] "Sum"
-      
-      $cou0004[[2]]$params$strDenominatorCol
-      [1] "timeonstudy"
+      $cou0004[[2]]$params$strQuery
+      [1] "SELECT * FROM df WHERE deemedimportant = 'Y'"
       
       
       
       $cou0004[[3]]
       $cou0004[[3]]$name
-      [1] "Transform_Rate"
+      [1] "Input_Rate"
       
       $cou0004[[3]]$output
-      [1] "Analysis_Transformed"
+      [1] "Analysis_Input"
       
       $cou0004[[3]]$params
-      $cou0004[[3]]$params$dfInput
-      [1] "Analysis_Input"
+      $cou0004[[3]]$params$dfSubjects
+      [1] "Mapped_ENROLL"
+      
+      $cou0004[[3]]$params$dfNumerator
+      [1] "Temp_Important"
+      
+      $cou0004[[3]]$params$dfDenominator
+      [1] "Mapped_ENROLL"
+      
+      $cou0004[[3]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $cou0004[[3]]$params$strGroupCol
+      [1] "country"
+      
+      $cou0004[[3]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $cou0004[[3]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $cou0004[[3]]$params$strDenominatorMethod
+      [1] "Sum"
+      
+      $cou0004[[3]]$params$strDenominatorCol
+      [1] "timeonstudy"
       
       
       
       $cou0004[[4]]
       $cou0004[[4]]$name
-      [1] "Analyze_NormalApprox"
+      [1] "Transform_Rate"
       
       $cou0004[[4]]$output
-      [1] "Analysis_Analyzed"
-      
-      $cou0004[[4]]$params
-      $cou0004[[4]]$params$dfTransformed
       [1] "Analysis_Transformed"
       
-      $cou0004[[4]]$params$strType
-      [1] "Type"
+      $cou0004[[4]]$params
+      $cou0004[[4]]$params$dfInput
+      [1] "Analysis_Input"
       
       
       
       $cou0004[[5]]
       $cou0004[[5]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Analyze_NormalApprox"
       
       $cou0004[[5]]$output
-      [1] "Analysis_Flagged"
-      
-      $cou0004[[5]]$params
-      $cou0004[[5]]$params$dfAnalyzed
       [1] "Analysis_Analyzed"
       
-      $cou0004[[5]]$params$vThreshold
-      [1] "vThreshold"
+      $cou0004[[5]]$params
+      $cou0004[[5]]$params$dfTransformed
+      [1] "Analysis_Transformed"
+      
+      $cou0004[[5]]$params$strType
+      [1] "Type"
       
       
       
       $cou0004[[6]]
       $cou0004[[6]]$name
-      [1] "Summarize"
+      [1] "Flag_NormalApprox"
       
       $cou0004[[6]]$output
-      [1] "Analysis_Summary"
-      
-      $cou0004[[6]]$params
-      $cou0004[[6]]$params$dfFlagged
       [1] "Analysis_Flagged"
       
-      $cou0004[[6]]$params$nMinDenominator
+      $cou0004[[6]]$params
+      $cou0004[[6]]$params$dfAnalyzed
+      [1] "Analysis_Analyzed"
+      
+      $cou0004[[6]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $cou0004[[7]]
+      $cou0004[[7]]$name
+      [1] "Summarize"
+      
+      $cou0004[[7]]$output
+      [1] "Analysis_Summary"
+      
+      $cou0004[[7]]$params
+      $cou0004[[7]]$params$dfFlagged
+      [1] "Analysis_Flagged"
+      
+      $cou0004[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -973,101 +1012,127 @@
       
       $cou0005[[2]]
       $cou0005[[2]]$name
-      [1] "Input_Rate"
+      [1] "RunQuery"
       
       $cou0005[[2]]$output
-      [1] "Analysis_Input"
+      [1] "Temp_ABNORMAL"
       
       $cou0005[[2]]$params
-      $cou0005[[2]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
-      
-      $cou0005[[2]]$params$dfNumerator
+      $cou0005[[2]]$params$df
       [1] "Mapped_LB"
       
-      $cou0005[[2]]$params$dfDenominator
-      [1] "Mapped_LB"
-      
-      $cou0005[[2]]$params$strFilterNumerator
-      [1] "toxgrg_nsv %in% c(\"3\",\"4\")"
-      
-      $cou0005[[2]]$params$strFilterDenominator
-      [1] "toxgrg_nsv %in% c(\"0\",\"1\",\"2\",\"3\",\"4\")"
-      
-      $cou0005[[2]]$params$strSubjectCol
-      [1] "subjid"
-      
-      $cou0005[[2]]$params$strGroupCol
-      [1] "country"
-      
-      $cou0005[[2]]$params$strGroupLevel
-      [1] "GroupLevel"
-      
-      $cou0005[[2]]$params$strNumeratorMethod
-      [1] "Count"
-      
-      $cou0005[[2]]$params$strDenominatorMethod
-      [1] "Count"
+      $cou0005[[2]]$params$strQuery
+      [1] "SELECT * FROM df WHERE toxgrg_nsv IN ('3', '4')"
       
       
       
       $cou0005[[3]]
       $cou0005[[3]]$name
-      [1] "Transform_Rate"
+      [1] "RunQuery"
       
       $cou0005[[3]]$output
-      [1] "Analysis_Transformed"
+      [1] "Temp_LB"
       
       $cou0005[[3]]$params
-      $cou0005[[3]]$params$dfInput
-      [1] "Analysis_Input"
+      $cou0005[[3]]$params$df
+      [1] "Mapped_LB"
+      
+      $cou0005[[3]]$params$strQuery
+      [1] "SELECT * FROM df WHERE toxgrg_nsv IN ('0', '1', '2', '3', '4')"
       
       
       
       $cou0005[[4]]
       $cou0005[[4]]$name
-      [1] "Analyze_NormalApprox"
+      [1] "Input_Rate"
       
       $cou0005[[4]]$output
-      [1] "Analysis_Analyzed"
+      [1] "Analysis_Input"
       
       $cou0005[[4]]$params
-      $cou0005[[4]]$params$dfTransformed
-      [1] "Analysis_Transformed"
+      $cou0005[[4]]$params$dfSubjects
+      [1] "Mapped_ENROLL"
       
-      $cou0005[[4]]$params$strType
-      [1] "Type"
+      $cou0005[[4]]$params$dfNumerator
+      [1] "Temp_ABNORMAL"
+      
+      $cou0005[[4]]$params$dfDenominator
+      [1] "Temp_LB"
+      
+      $cou0005[[4]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $cou0005[[4]]$params$strGroupCol
+      [1] "country"
+      
+      $cou0005[[4]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $cou0005[[4]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $cou0005[[4]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $cou0005[[5]]
       $cou0005[[5]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Transform_Rate"
       
       $cou0005[[5]]$output
-      [1] "Analysis_Flagged"
+      [1] "Analysis_Transformed"
       
       $cou0005[[5]]$params
-      $cou0005[[5]]$params$dfAnalyzed
-      [1] "Analysis_Analyzed"
-      
-      $cou0005[[5]]$params$vThreshold
-      [1] "vThreshold"
+      $cou0005[[5]]$params$dfInput
+      [1] "Analysis_Input"
       
       
       
       $cou0005[[6]]
       $cou0005[[6]]$name
-      [1] "Summarize"
+      [1] "Analyze_NormalApprox"
       
       $cou0005[[6]]$output
-      [1] "Analysis_Summary"
+      [1] "Analysis_Analyzed"
       
       $cou0005[[6]]$params
-      $cou0005[[6]]$params$dfFlagged
+      $cou0005[[6]]$params$dfTransformed
+      [1] "Analysis_Transformed"
+      
+      $cou0005[[6]]$params$strType
+      [1] "Type"
+      
+      
+      
+      $cou0005[[7]]
+      $cou0005[[7]]$name
+      [1] "Flag_NormalApprox"
+      
+      $cou0005[[7]]$output
       [1] "Analysis_Flagged"
       
-      $cou0005[[6]]$params$nMinDenominator
+      $cou0005[[7]]$params
+      $cou0005[[7]]$params$dfAnalyzed
+      [1] "Analysis_Analyzed"
+      
+      $cou0005[[7]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $cou0005[[8]]
+      $cou0005[[8]]$name
+      [1] "Summarize"
+      
+      $cou0005[[8]]$output
+      [1] "Analysis_Summary"
+      
+      $cou0005[[8]]$params
+      $cou0005[[8]]$params$dfFlagged
+      [1] "Analysis_Flagged"
+      
+      $cou0005[[8]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -1089,98 +1154,111 @@
       
       $cou0006[[2]]
       $cou0006[[2]]$name
-      [1] "Input_Rate"
+      [1] "RunQuery"
       
       $cou0006[[2]]$output
-      [1] "Analysis_Input"
+      [1] "Temp_DROPOUT"
       
       $cou0006[[2]]$params
-      $cou0006[[2]]$params$dfSubjects
+      $cou0006[[2]]$params$df
       [1] "Mapped_ENROLL"
       
-      $cou0006[[2]]$params$dfNumerator
-      [1] "Mapped_STUDCOMP"
-      
-      $cou0006[[2]]$params$dfDenominator
-      [1] "Mapped_ENROLL"
-      
-      $cou0006[[2]]$params$strFilterNumerator
-      [1] "compyn == 'N'"
-      
-      $cou0006[[2]]$params$strSubjectCol
-      [1] "subjid"
-      
-      $cou0006[[2]]$params$strGroupCol
-      [1] "country"
-      
-      $cou0006[[2]]$params$strGroupLevel
-      [1] "GroupLevel"
-      
-      $cou0006[[2]]$params$strNumeratorMethod
-      [1] "Count"
-      
-      $cou0006[[2]]$params$strDenominatorMethod
-      [1] "Count"
+      $cou0006[[2]]$params$strQuery
+      [1] "SELECT * FROM df WHERE compyn = 'N'"
       
       
       
       $cou0006[[3]]
       $cou0006[[3]]$name
-      [1] "Transform_Rate"
+      [1] "Input_Rate"
       
       $cou0006[[3]]$output
-      [1] "Analysis_Transformed"
+      [1] "Analysis_Input"
       
       $cou0006[[3]]$params
-      $cou0006[[3]]$params$dfInput
-      [1] "Analysis_Input"
+      $cou0006[[3]]$params$dfSubjects
+      [1] "Mapped_ENROLL"
+      
+      $cou0006[[3]]$params$dfNumerator
+      [1] "Temp_DROPOUT"
+      
+      $cou0006[[3]]$params$dfDenominator
+      [1] "Mapped_ENROLL"
+      
+      $cou0006[[3]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $cou0006[[3]]$params$strGroupCol
+      [1] "country"
+      
+      $cou0006[[3]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $cou0006[[3]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $cou0006[[3]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $cou0006[[4]]
       $cou0006[[4]]$name
-      [1] "Analyze_NormalApprox"
+      [1] "Transform_Rate"
       
       $cou0006[[4]]$output
-      [1] "Analysis_Analyzed"
-      
-      $cou0006[[4]]$params
-      $cou0006[[4]]$params$dfTransformed
       [1] "Analysis_Transformed"
       
-      $cou0006[[4]]$params$strType
-      [1] "Type"
+      $cou0006[[4]]$params
+      $cou0006[[4]]$params$dfInput
+      [1] "Analysis_Input"
       
       
       
       $cou0006[[5]]
       $cou0006[[5]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Analyze_NormalApprox"
       
       $cou0006[[5]]$output
-      [1] "Analysis_Flagged"
-      
-      $cou0006[[5]]$params
-      $cou0006[[5]]$params$dfAnalyzed
       [1] "Analysis_Analyzed"
       
-      $cou0006[[5]]$params$vThreshold
-      [1] "vThreshold"
+      $cou0006[[5]]$params
+      $cou0006[[5]]$params$dfTransformed
+      [1] "Analysis_Transformed"
+      
+      $cou0006[[5]]$params$strType
+      [1] "Type"
       
       
       
       $cou0006[[6]]
       $cou0006[[6]]$name
-      [1] "Summarize"
+      [1] "Flag_NormalApprox"
       
       $cou0006[[6]]$output
-      [1] "Analysis_Summary"
-      
-      $cou0006[[6]]$params
-      $cou0006[[6]]$params$dfFlagged
       [1] "Analysis_Flagged"
       
-      $cou0006[[6]]$params$nMinDenominator
+      $cou0006[[6]]$params
+      $cou0006[[6]]$params$dfAnalyzed
+      [1] "Analysis_Analyzed"
+      
+      $cou0006[[6]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $cou0006[[7]]
+      $cou0006[[7]]$name
+      [1] "Summarize"
+      
+      $cou0006[[7]]$output
+      [1] "Analysis_Summary"
+      
+      $cou0006[[7]]$params
+      $cou0006[[7]]$params$dfFlagged
+      [1] "Analysis_Flagged"
+      
+      $cou0006[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -1202,98 +1280,111 @@
       
       $cou0007[[2]]
       $cou0007[[2]]$name
-      [1] "Input_Rate"
+      [1] "RunQuery"
       
       $cou0007[[2]]$output
-      [1] "Analysis_Input"
+      [1] "Temp_DISCONTINUED"
       
       $cou0007[[2]]$params
-      $cou0007[[2]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
-      
-      $cou0007[[2]]$params$dfNumerator
+      $cou0007[[2]]$params$df
       [1] "Mapped_SDRGCOMP"
       
-      $cou0007[[2]]$params$dfDenominator
-      [1] "Mapped_ENROLL"
-      
-      $cou0007[[2]]$params$strFilterNumerator
-      [1] "sdrgyn == 'N' & phase = \"Blinded Study Drug Completion\""
-      
-      $cou0007[[2]]$params$strSubjectCol
-      [1] "subjid"
-      
-      $cou0007[[2]]$params$strGroupCol
-      [1] "country"
-      
-      $cou0007[[2]]$params$strGroupLevel
-      [1] "GroupLevel"
-      
-      $cou0007[[2]]$params$strNumeratorMethod
-      [1] "Count"
-      
-      $cou0007[[2]]$params$strDenominatorMethod
-      [1] "Count"
+      $cou0007[[2]]$params$strQuery
+      [1] "SELECT * FROM df WHERE sdrgyn = 'N' AND phase = 'Blinded Study Drug Completion'"
       
       
       
       $cou0007[[3]]
       $cou0007[[3]]$name
-      [1] "Transform_Rate"
+      [1] "Input_Rate"
       
       $cou0007[[3]]$output
-      [1] "Analysis_Transformed"
+      [1] "Analysis_Input"
       
       $cou0007[[3]]$params
-      $cou0007[[3]]$params$dfInput
-      [1] "Analysis_Input"
+      $cou0007[[3]]$params$dfSubjects
+      [1] "Mapped_ENROLL"
+      
+      $cou0007[[3]]$params$dfNumerator
+      [1] "Temp_DISCONTINUED"
+      
+      $cou0007[[3]]$params$dfDenominator
+      [1] "Mapped_ENROLL"
+      
+      $cou0007[[3]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $cou0007[[3]]$params$strGroupCol
+      [1] "country"
+      
+      $cou0007[[3]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $cou0007[[3]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $cou0007[[3]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $cou0007[[4]]
       $cou0007[[4]]$name
-      [1] "Analyze_NormalApprox"
+      [1] "Transform_Rate"
       
       $cou0007[[4]]$output
-      [1] "Analysis_Analyzed"
-      
-      $cou0007[[4]]$params
-      $cou0007[[4]]$params$dfTransformed
       [1] "Analysis_Transformed"
       
-      $cou0007[[4]]$params$strType
-      [1] "Type"
+      $cou0007[[4]]$params
+      $cou0007[[4]]$params$dfInput
+      [1] "Analysis_Input"
       
       
       
       $cou0007[[5]]
       $cou0007[[5]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Analyze_NormalApprox"
       
       $cou0007[[5]]$output
-      [1] "Analysis_Flagged"
-      
-      $cou0007[[5]]$params
-      $cou0007[[5]]$params$dfAnalyzed
       [1] "Analysis_Analyzed"
       
-      $cou0007[[5]]$params$vThreshold
-      [1] "vThreshold"
+      $cou0007[[5]]$params
+      $cou0007[[5]]$params$dfTransformed
+      [1] "Analysis_Transformed"
+      
+      $cou0007[[5]]$params$strType
+      [1] "Type"
       
       
       
       $cou0007[[6]]
       $cou0007[[6]]$name
-      [1] "Summarize"
+      [1] "Flag_NormalApprox"
       
       $cou0007[[6]]$output
-      [1] "Analysis_Summary"
-      
-      $cou0007[[6]]$params
-      $cou0007[[6]]$params$dfFlagged
       [1] "Analysis_Flagged"
       
-      $cou0007[[6]]$params$nMinDenominator
+      $cou0007[[6]]$params
+      $cou0007[[6]]$params$dfAnalyzed
+      [1] "Analysis_Analyzed"
+      
+      $cou0007[[6]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $cou0007[[7]]
+      $cou0007[[7]]$name
+      [1] "Summarize"
+      
+      $cou0007[[7]]$output
+      [1] "Analysis_Summary"
+      
+      $cou0007[[7]]$params
+      $cou0007[[7]]$params$dfFlagged
+      [1] "Analysis_Flagged"
+      
+      $cou0007[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -1425,101 +1516,127 @@
       
       $cou0009[[2]]
       $cou0009[[2]]$name
-      [1] "Input_Rate"
+      [1] "RunQuery"
       
       $cou0009[[2]]$output
-      [1] "Analysis_Input"
+      [1] "Temp_OLDQUERY"
       
       $cou0009[[2]]$params
-      $cou0009[[2]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
-      
-      $cou0009[[2]]$params$dfNumerator
+      $cou0009[[2]]$params$df
       [1] "Mapped_QUERY"
       
-      $cou0009[[2]]$params$dfDenominator
-      [1] "Mapped_QUERY"
-      
-      $cou0009[[2]]$params$strFilterNumerator
-      [1] "query_status %in% c('Open','Answered',\"Closed\") & query_days > 30"
-      
-      $cou0009[[2]]$params$strFilterDenominator
-      [1] "query_status %in% c('Open','Answered',\"Closed\")"
-      
-      $cou0009[[2]]$params$strSubjectCol
-      [1] "subject_nsv"
-      
-      $cou0009[[2]]$params$strGroupCol
-      [1] "country"
-      
-      $cou0009[[2]]$params$strGroupLevel
-      [1] "GroupLevel"
-      
-      $cou0009[[2]]$params$strNumeratorMethod
-      [1] "Count"
-      
-      $cou0009[[2]]$params$strDenominatorMethod
-      [1] "Count"
+      $cou0009[[2]]$params$strQuery
+      [1] "SELECT * FROM df WHERE query_status IN ('Open','Answered','Closed') AND query_days > 30"
       
       
       
       $cou0009[[3]]
       $cou0009[[3]]$name
-      [1] "Transform_Rate"
+      [1] "RunQuery"
       
       $cou0009[[3]]$output
-      [1] "Analysis_Transformed"
+      [1] "Temp_QUERY"
       
       $cou0009[[3]]$params
-      $cou0009[[3]]$params$dfInput
-      [1] "Analysis_Input"
+      $cou0009[[3]]$params$df
+      [1] "Mapped_QUERY"
+      
+      $cou0009[[3]]$params$strQuery
+      [1] "SELECT * FROM df WHERE query_status IN ('Open','Answered','Closed')"
       
       
       
       $cou0009[[4]]
       $cou0009[[4]]$name
-      [1] "Analyze_NormalApprox"
+      [1] "Input_Rate"
       
       $cou0009[[4]]$output
-      [1] "Analysis_Analyzed"
+      [1] "Analysis_Input"
       
       $cou0009[[4]]$params
-      $cou0009[[4]]$params$dfTransformed
-      [1] "Analysis_Transformed"
+      $cou0009[[4]]$params$dfSubjects
+      [1] "Mapped_ENROLL"
       
-      $cou0009[[4]]$params$strType
-      [1] "Type"
+      $cou0009[[4]]$params$dfNumerator
+      [1] "Temp_OLDQUERY"
+      
+      $cou0009[[4]]$params$dfDenominator
+      [1] "Temp_QUERY"
+      
+      $cou0009[[4]]$params$strSubjectCol
+      [1] "subject_nsv"
+      
+      $cou0009[[4]]$params$strGroupCol
+      [1] "country"
+      
+      $cou0009[[4]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $cou0009[[4]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $cou0009[[4]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $cou0009[[5]]
       $cou0009[[5]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Transform_Rate"
       
       $cou0009[[5]]$output
-      [1] "Analysis_Flagged"
+      [1] "Analysis_Transformed"
       
       $cou0009[[5]]$params
-      $cou0009[[5]]$params$dfAnalyzed
-      [1] "Analysis_Analyzed"
-      
-      $cou0009[[5]]$params$vThreshold
-      [1] "vThreshold"
+      $cou0009[[5]]$params$dfInput
+      [1] "Analysis_Input"
       
       
       
       $cou0009[[6]]
       $cou0009[[6]]$name
-      [1] "Summarize"
+      [1] "Analyze_NormalApprox"
       
       $cou0009[[6]]$output
-      [1] "Analysis_Summary"
+      [1] "Analysis_Analyzed"
       
       $cou0009[[6]]$params
-      $cou0009[[6]]$params$dfFlagged
+      $cou0009[[6]]$params$dfTransformed
+      [1] "Analysis_Transformed"
+      
+      $cou0009[[6]]$params$strType
+      [1] "Type"
+      
+      
+      
+      $cou0009[[7]]
+      $cou0009[[7]]$name
+      [1] "Flag_NormalApprox"
+      
+      $cou0009[[7]]$output
       [1] "Analysis_Flagged"
       
-      $cou0009[[6]]$params$nMinDenominator
+      $cou0009[[7]]$params
+      $cou0009[[7]]$params$dfAnalyzed
+      [1] "Analysis_Analyzed"
+      
+      $cou0009[[7]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $cou0009[[8]]
+      $cou0009[[8]]$name
+      [1] "Summarize"
+      
+      $cou0009[[8]]$output
+      [1] "Analysis_Summary"
+      
+      $cou0009[[8]]$params
+      $cou0009[[8]]$params$dfFlagged
+      [1] "Analysis_Flagged"
+      
+      $cou0009[[8]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -1541,98 +1658,111 @@
       
       $cou0010[[2]]
       $cou0010[[2]]$name
-      [1] "Input_Rate"
+      [1] "RunQuery"
       
       $cou0010[[2]]$output
-      [1] "Analysis_Input"
+      [1] "Temp_LAG"
       
       $cou0010[[2]]$params
-      $cou0010[[2]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
-      
-      $cou0010[[2]]$params$dfNumerator
+      $cou0010[[2]]$params$df
       [1] "Mapped_DATAENT"
       
-      $cou0010[[2]]$params$dfDenominator
-      [1] "Mapped_DATAENT"
-      
-      $cou0010[[2]]$params$strFilterNumerator
-      [1] "data_entry_lag > 10"
-      
-      $cou0010[[2]]$params$strSubjectCol
-      [1] "subject_nsv"
-      
-      $cou0010[[2]]$params$strGroupCol
-      [1] "country"
-      
-      $cou0010[[2]]$params$strGroupLevel
-      [1] "GroupLevel"
-      
-      $cou0010[[2]]$params$strNumeratorMethod
-      [1] "Count"
-      
-      $cou0010[[2]]$params$strDenominatorMethod
-      [1] "Count"
+      $cou0010[[2]]$params$strQuery
+      [1] "SELECT * FROM df WHERE data_entry_lag > 10"
       
       
       
       $cou0010[[3]]
       $cou0010[[3]]$name
-      [1] "Transform_Rate"
+      [1] "Input_Rate"
       
       $cou0010[[3]]$output
-      [1] "Analysis_Transformed"
+      [1] "Analysis_Input"
       
       $cou0010[[3]]$params
-      $cou0010[[3]]$params$dfInput
-      [1] "Analysis_Input"
+      $cou0010[[3]]$params$dfSubjects
+      [1] "Mapped_ENROLL"
+      
+      $cou0010[[3]]$params$dfNumerator
+      [1] "Temp_LAG"
+      
+      $cou0010[[3]]$params$dfDenominator
+      [1] "Mapped_DATAENT"
+      
+      $cou0010[[3]]$params$strSubjectCol
+      [1] "subject_nsv"
+      
+      $cou0010[[3]]$params$strGroupCol
+      [1] "country"
+      
+      $cou0010[[3]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $cou0010[[3]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $cou0010[[3]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $cou0010[[4]]
       $cou0010[[4]]$name
-      [1] "Analyze_NormalApprox"
+      [1] "Transform_Rate"
       
       $cou0010[[4]]$output
-      [1] "Analysis_Analyzed"
-      
-      $cou0010[[4]]$params
-      $cou0010[[4]]$params$dfTransformed
       [1] "Analysis_Transformed"
       
-      $cou0010[[4]]$params$strType
-      [1] "Type"
+      $cou0010[[4]]$params
+      $cou0010[[4]]$params$dfInput
+      [1] "Analysis_Input"
       
       
       
       $cou0010[[5]]
       $cou0010[[5]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Analyze_NormalApprox"
       
       $cou0010[[5]]$output
-      [1] "Analysis_Flagged"
-      
-      $cou0010[[5]]$params
-      $cou0010[[5]]$params$dfAnalyzed
       [1] "Analysis_Analyzed"
       
-      $cou0010[[5]]$params$vThreshold
-      [1] "vThreshold"
+      $cou0010[[5]]$params
+      $cou0010[[5]]$params$dfTransformed
+      [1] "Analysis_Transformed"
+      
+      $cou0010[[5]]$params$strType
+      [1] "Type"
       
       
       
       $cou0010[[6]]
       $cou0010[[6]]$name
-      [1] "Summarize"
+      [1] "Flag_NormalApprox"
       
       $cou0010[[6]]$output
-      [1] "Analysis_Summary"
-      
-      $cou0010[[6]]$params
-      $cou0010[[6]]$params$dfFlagged
       [1] "Analysis_Flagged"
       
-      $cou0010[[6]]$params$nMinDenominator
+      $cou0010[[6]]$params
+      $cou0010[[6]]$params$dfAnalyzed
+      [1] "Analysis_Analyzed"
+      
+      $cou0010[[6]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $cou0010[[7]]
+      $cou0010[[7]]$name
+      [1] "Summarize"
+      
+      $cou0010[[7]]$output
+      [1] "Analysis_Summary"
+      
+      $cou0010[[7]]$params
+      $cou0010[[7]]$params$dfFlagged
+      [1] "Analysis_Flagged"
+      
+      $cou0010[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -1654,98 +1784,111 @@
       
       $cou0011[[2]]
       $cou0011[[2]]$name
-      [1] "Input_Rate"
+      [1] "RunQuery"
       
       $cou0011[[2]]$output
-      [1] "Analysis_Input"
+      [1] "Temp_CHANGED"
       
       $cou0011[[2]]$params
-      $cou0011[[2]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
+      $cou0011[[2]]$params$df
+      [1] "Mapped_DATAENT"
       
-      $cou0011[[2]]$params$dfNumerator
-      [1] "Mapped_DATACHG"
-      
-      $cou0011[[2]]$params$dfDenominator
-      [1] "Mapped_DATACHG"
-      
-      $cou0011[[2]]$params$strFilterNumerator
-      [1] "n_changes > 0"
-      
-      $cou0011[[2]]$params$strSubjectCol
-      [1] "subject_nsv"
-      
-      $cou0011[[2]]$params$strGroupCol
-      [1] "country"
-      
-      $cou0011[[2]]$params$strGroupLevel
-      [1] "GroupLevel"
-      
-      $cou0011[[2]]$params$strNumeratorMethod
-      [1] "Count"
-      
-      $cou0011[[2]]$params$strDenominatorMethod
-      [1] "Count"
+      $cou0011[[2]]$params$strQuery
+      [1] "SELECT * FROM df WHERE n_changes > 0"
       
       
       
       $cou0011[[3]]
       $cou0011[[3]]$name
-      [1] "Transform_Rate"
+      [1] "Input_Rate"
       
       $cou0011[[3]]$output
-      [1] "Analysis_Transformed"
+      [1] "Analysis_Input"
       
       $cou0011[[3]]$params
-      $cou0011[[3]]$params$dfInput
-      [1] "Analysis_Input"
+      $cou0011[[3]]$params$dfSubjects
+      [1] "Mapped_ENROLL"
+      
+      $cou0011[[3]]$params$dfNumerator
+      [1] "Temp_CHANGED"
+      
+      $cou0011[[3]]$params$dfDenominator
+      [1] "Mapped_DATACHG"
+      
+      $cou0011[[3]]$params$strSubjectCol
+      [1] "subject_nsv"
+      
+      $cou0011[[3]]$params$strGroupCol
+      [1] "country"
+      
+      $cou0011[[3]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $cou0011[[3]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $cou0011[[3]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $cou0011[[4]]
       $cou0011[[4]]$name
-      [1] "Analyze_NormalApprox"
+      [1] "Transform_Rate"
       
       $cou0011[[4]]$output
-      [1] "Analysis_Analyzed"
-      
-      $cou0011[[4]]$params
-      $cou0011[[4]]$params$dfTransformed
       [1] "Analysis_Transformed"
       
-      $cou0011[[4]]$params$strType
-      [1] "Type"
+      $cou0011[[4]]$params
+      $cou0011[[4]]$params$dfInput
+      [1] "Analysis_Input"
       
       
       
       $cou0011[[5]]
       $cou0011[[5]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Analyze_NormalApprox"
       
       $cou0011[[5]]$output
-      [1] "Analysis_Flagged"
-      
-      $cou0011[[5]]$params
-      $cou0011[[5]]$params$dfAnalyzed
       [1] "Analysis_Analyzed"
       
-      $cou0011[[5]]$params$vThreshold
-      [1] "vThreshold"
+      $cou0011[[5]]$params
+      $cou0011[[5]]$params$dfTransformed
+      [1] "Analysis_Transformed"
+      
+      $cou0011[[5]]$params$strType
+      [1] "Type"
       
       
       
       $cou0011[[6]]
       $cou0011[[6]]$name
-      [1] "Summarize"
+      [1] "Flag_NormalApprox"
       
       $cou0011[[6]]$output
-      [1] "Analysis_Summary"
-      
-      $cou0011[[6]]$params
-      $cou0011[[6]]$params$dfFlagged
       [1] "Analysis_Flagged"
       
-      $cou0011[[6]]$params$nMinDenominator
+      $cou0011[[6]]$params
+      $cou0011[[6]]$params$dfAnalyzed
+      [1] "Analysis_Analyzed"
+      
+      $cou0011[[6]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $cou0011[[7]]
+      $cou0011[[7]]$name
+      [1] "Summarize"
+      
+      $cou0011[[7]]$output
+      [1] "Analysis_Summary"
+      
+      $cou0011[[7]]$params
+      $cou0011[[7]]$params$dfFlagged
+      [1] "Analysis_Flagged"
+      
+      $cou0011[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -1767,98 +1910,111 @@
       
       $cou0012[[2]]
       $cou0012[[2]]$name
-      [1] "Input_Rate"
+      [1] "RunQuery"
       
       $cou0012[[2]]$output
-      [1] "Analysis_Input"
+      [1] "Temp_SCREENED"
       
       $cou0012[[2]]$params
-      $cou0012[[2]]$params$dfSubjects
+      $cou0012[[2]]$params$df
       [1] "Mapped_SCREEN"
       
-      $cou0012[[2]]$params$dfNumerator
-      [1] "Mapped_SCREEN"
-      
-      $cou0012[[2]]$params$dfDenominator
-      [1] "Mapped_SCREEN"
-      
-      $cou0012[[2]]$params$strFilterNumerator
-      [1] "enrollyn == 'N'"
-      
-      $cou0012[[2]]$params$strSubjectCol
-      [1] "subjectid"
-      
-      $cou0012[[2]]$params$strGroupCol
-      [1] "country"
-      
-      $cou0012[[2]]$params$strGroupLevel
-      [1] "GroupLevel"
-      
-      $cou0012[[2]]$params$strNumeratorMethod
-      [1] "Count"
-      
-      $cou0012[[2]]$params$strDenominatorMethod
-      [1] "Count"
+      $cou0012[[2]]$params$strQuery
+      [1] "SELECT * FROM df WHERE enrollyn = 'N'"
       
       
       
       $cou0012[[3]]
       $cou0012[[3]]$name
-      [1] "Transform_Rate"
+      [1] "Input_Rate"
       
       $cou0012[[3]]$output
-      [1] "Analysis_Transformed"
+      [1] "Analysis_Input"
       
       $cou0012[[3]]$params
-      $cou0012[[3]]$params$dfInput
-      [1] "Analysis_Input"
+      $cou0012[[3]]$params$dfSubjects
+      [1] "Mapped_SCREEN"
+      
+      $cou0012[[3]]$params$dfNumerator
+      [1] "Temp_SCREENED"
+      
+      $cou0012[[3]]$params$dfDenominator
+      [1] "Mapped_SCREEN"
+      
+      $cou0012[[3]]$params$strSubjectCol
+      [1] "subjectid"
+      
+      $cou0012[[3]]$params$strGroupCol
+      [1] "country"
+      
+      $cou0012[[3]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $cou0012[[3]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $cou0012[[3]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $cou0012[[4]]
       $cou0012[[4]]$name
-      [1] "Analyze_NormalApprox"
+      [1] "Transform_Rate"
       
       $cou0012[[4]]$output
-      [1] "Analysis_Analyzed"
-      
-      $cou0012[[4]]$params
-      $cou0012[[4]]$params$dfTransformed
       [1] "Analysis_Transformed"
       
-      $cou0012[[4]]$params$strType
-      [1] "Type"
+      $cou0012[[4]]$params
+      $cou0012[[4]]$params$dfInput
+      [1] "Analysis_Input"
       
       
       
       $cou0012[[5]]
       $cou0012[[5]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Analyze_NormalApprox"
       
       $cou0012[[5]]$output
-      [1] "Analysis_Flagged"
-      
-      $cou0012[[5]]$params
-      $cou0012[[5]]$params$dfAnalyzed
       [1] "Analysis_Analyzed"
       
-      $cou0012[[5]]$params$vThreshold
-      [1] "vThreshold"
+      $cou0012[[5]]$params
+      $cou0012[[5]]$params$dfTransformed
+      [1] "Analysis_Transformed"
+      
+      $cou0012[[5]]$params$strType
+      [1] "Type"
       
       
       
       $cou0012[[6]]
       $cou0012[[6]]$name
-      [1] "Summarize"
+      [1] "Flag_NormalApprox"
       
       $cou0012[[6]]$output
-      [1] "Analysis_Summary"
-      
-      $cou0012[[6]]$params
-      $cou0012[[6]]$params$dfFlagged
       [1] "Analysis_Flagged"
       
-      $cou0012[[6]]$params$nMinDenominator
+      $cou0012[[6]]$params
+      $cou0012[[6]]$params$dfAnalyzed
+      [1] "Analysis_Analyzed"
+      
+      $cou0012[[6]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $cou0012[[7]]
+      $cou0012[[7]]$name
+      [1] "Summarize"
+      
+      $cou0012[[7]]$output
+      [1] "Analysis_Summary"
+      
+      $cou0012[[7]]$params
+      $cou0012[[7]]$params$dfFlagged
+      [1] "Analysis_Flagged"
+      
+      $cou0012[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -1993,101 +2149,114 @@
       
       $kri0002[[2]]
       $kri0002[[2]]$name
-      [1] "Input_Rate"
+      [1] "RunQuery"
       
       $kri0002[[2]]$output
-      [1] "Analysis_Input"
+      [1] "Temp_SAE"
       
       $kri0002[[2]]$params
-      $kri0002[[2]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
-      
-      $kri0002[[2]]$params$dfNumerator
+      $kri0002[[2]]$params$df
       [1] "Mapped_AE"
       
-      $kri0002[[2]]$params$dfDenominator
-      [1] "Mapped_ENROLL"
-      
-      $kri0002[[2]]$params$strFilterNumerator
-      [1] "aeser == 'Y'"
-      
-      $kri0002[[2]]$params$strSubjectCol
-      [1] "subjid"
-      
-      $kri0002[[2]]$params$strGroupCol
-      [1] "invid"
-      
-      $kri0002[[2]]$params$strGroupLevel
-      [1] "GroupLevel"
-      
-      $kri0002[[2]]$params$strNumeratorMethod
-      [1] "Count"
-      
-      $kri0002[[2]]$params$strDenominatorMethod
-      [1] "Sum"
-      
-      $kri0002[[2]]$params$strDenominatorCol
-      [1] "timeonstudy"
+      $kri0002[[2]]$params$strQuery
+      [1] "SELECT * FROM df WHERE aeser = 'Y'"
       
       
       
       $kri0002[[3]]
       $kri0002[[3]]$name
-      [1] "Transform_Rate"
+      [1] "Input_Rate"
       
       $kri0002[[3]]$output
-      [1] "Analysis_Transformed"
+      [1] "Analysis_Input"
       
       $kri0002[[3]]$params
-      $kri0002[[3]]$params$dfInput
-      [1] "Analysis_Input"
+      $kri0002[[3]]$params$dfSubjects
+      [1] "Mapped_ENROLL"
+      
+      $kri0002[[3]]$params$dfNumerator
+      [1] "Temp_SAE"
+      
+      $kri0002[[3]]$params$dfDenominator
+      [1] "Mapped_ENROLL"
+      
+      $kri0002[[3]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $kri0002[[3]]$params$strGroupCol
+      [1] "invid"
+      
+      $kri0002[[3]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $kri0002[[3]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $kri0002[[3]]$params$strDenominatorMethod
+      [1] "Sum"
+      
+      $kri0002[[3]]$params$strDenominatorCol
+      [1] "timeonstudy"
       
       
       
       $kri0002[[4]]
       $kri0002[[4]]$name
-      [1] "Analyze_NormalApprox"
+      [1] "Transform_Rate"
       
       $kri0002[[4]]$output
-      [1] "Analysis_Analyzed"
-      
-      $kri0002[[4]]$params
-      $kri0002[[4]]$params$dfTransformed
       [1] "Analysis_Transformed"
       
-      $kri0002[[4]]$params$strType
-      [1] "Type"
+      $kri0002[[4]]$params
+      $kri0002[[4]]$params$dfInput
+      [1] "Analysis_Input"
       
       
       
       $kri0002[[5]]
       $kri0002[[5]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Analyze_NormalApprox"
       
       $kri0002[[5]]$output
-      [1] "Analysis_Flagged"
-      
-      $kri0002[[5]]$params
-      $kri0002[[5]]$params$dfAnalyzed
       [1] "Analysis_Analyzed"
       
-      $kri0002[[5]]$params$vThreshold
-      [1] "vThreshold"
+      $kri0002[[5]]$params
+      $kri0002[[5]]$params$dfTransformed
+      [1] "Analysis_Transformed"
+      
+      $kri0002[[5]]$params$strType
+      [1] "Type"
       
       
       
       $kri0002[[6]]
       $kri0002[[6]]$name
-      [1] "Summarize"
+      [1] "Flag_NormalApprox"
       
       $kri0002[[6]]$output
-      [1] "Analysis_Summary"
-      
-      $kri0002[[6]]$params
-      $kri0002[[6]]$params$dfFlagged
       [1] "Analysis_Flagged"
       
-      $kri0002[[6]]$params$nMinDenominator
+      $kri0002[[6]]$params
+      $kri0002[[6]]$params$dfAnalyzed
+      [1] "Analysis_Analyzed"
+      
+      $kri0002[[6]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $kri0002[[7]]
+      $kri0002[[7]]$name
+      [1] "Summarize"
+      
+      $kri0002[[7]]$output
+      [1] "Analysis_Summary"
+      
+      $kri0002[[7]]$params
+      $kri0002[[7]]$params$dfFlagged
+      [1] "Analysis_Flagged"
+      
+      $kri0002[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -2109,101 +2278,114 @@
       
       $kri0003[[2]]
       $kri0003[[2]]$name
-      [1] "Input_Rate"
+      [1] "RunQuery"
       
       $kri0003[[2]]$output
-      [1] "Analysis_Input"
+      [1] "Temp_NONIMPORTANT"
       
       $kri0003[[2]]$params
-      $kri0003[[2]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
-      
-      $kri0003[[2]]$params$dfNumerator
+      $kri0003[[2]]$params$df
       [1] "Mapped_PD"
       
-      $kri0003[[2]]$params$dfDenominator
-      [1] "Mapped_ENROLL"
-      
-      $kri0003[[2]]$params$strFilterNumerator
-      [1] "deemedimportant == 'N'"
-      
-      $kri0003[[2]]$params$strSubjectCol
-      [1] "subjid"
-      
-      $kri0003[[2]]$params$strGroupCol
-      [1] "invid"
-      
-      $kri0003[[2]]$params$strGroupLevel
-      [1] "GroupLevel"
-      
-      $kri0003[[2]]$params$strNumeratorMethod
-      [1] "Count"
-      
-      $kri0003[[2]]$params$strDenominatorMethod
-      [1] "Sum"
-      
-      $kri0003[[2]]$params$strDenominatorCol
-      [1] "timeonstudy"
+      $kri0003[[2]]$params$strQuery
+      [1] "SELECT * FROM df WHERE deemedimportant = 'N'"
       
       
       
       $kri0003[[3]]
       $kri0003[[3]]$name
-      [1] "Transform_Rate"
+      [1] "Input_Rate"
       
       $kri0003[[3]]$output
-      [1] "Analysis_Transformed"
+      [1] "Analysis_Input"
       
       $kri0003[[3]]$params
-      $kri0003[[3]]$params$dfInput
-      [1] "Analysis_Input"
+      $kri0003[[3]]$params$dfSubjects
+      [1] "Mapped_ENROLL"
+      
+      $kri0003[[3]]$params$dfNumerator
+      [1] "Temp_NONIMPORTANT"
+      
+      $kri0003[[3]]$params$dfDenominator
+      [1] "Mapped_ENROLL"
+      
+      $kri0003[[3]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $kri0003[[3]]$params$strGroupCol
+      [1] "invid"
+      
+      $kri0003[[3]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $kri0003[[3]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $kri0003[[3]]$params$strDenominatorMethod
+      [1] "Sum"
+      
+      $kri0003[[3]]$params$strDenominatorCol
+      [1] "timeonstudy"
       
       
       
       $kri0003[[4]]
       $kri0003[[4]]$name
-      [1] "Analyze_NormalApprox"
+      [1] "Transform_Rate"
       
       $kri0003[[4]]$output
-      [1] "Analysis_Analyzed"
-      
-      $kri0003[[4]]$params
-      $kri0003[[4]]$params$dfTransformed
       [1] "Analysis_Transformed"
       
-      $kri0003[[4]]$params$strType
-      [1] "Type"
+      $kri0003[[4]]$params
+      $kri0003[[4]]$params$dfInput
+      [1] "Analysis_Input"
       
       
       
       $kri0003[[5]]
       $kri0003[[5]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Analyze_NormalApprox"
       
       $kri0003[[5]]$output
-      [1] "Analysis_Flagged"
-      
-      $kri0003[[5]]$params
-      $kri0003[[5]]$params$dfAnalyzed
       [1] "Analysis_Analyzed"
       
-      $kri0003[[5]]$params$vThreshold
-      [1] "vThreshold"
+      $kri0003[[5]]$params
+      $kri0003[[5]]$params$dfTransformed
+      [1] "Analysis_Transformed"
+      
+      $kri0003[[5]]$params$strType
+      [1] "Type"
       
       
       
       $kri0003[[6]]
       $kri0003[[6]]$name
-      [1] "Summarize"
+      [1] "Flag_NormalApprox"
       
       $kri0003[[6]]$output
-      [1] "Analysis_Summary"
-      
-      $kri0003[[6]]$params
-      $kri0003[[6]]$params$dfFlagged
       [1] "Analysis_Flagged"
       
-      $kri0003[[6]]$params$nMinDenominator
+      $kri0003[[6]]$params
+      $kri0003[[6]]$params$dfAnalyzed
+      [1] "Analysis_Analyzed"
+      
+      $kri0003[[6]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $kri0003[[7]]
+      $kri0003[[7]]$name
+      [1] "Summarize"
+      
+      $kri0003[[7]]$output
+      [1] "Analysis_Summary"
+      
+      $kri0003[[7]]$params
+      $kri0003[[7]]$params$dfFlagged
+      [1] "Analysis_Flagged"
+      
+      $kri0003[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -2225,101 +2407,114 @@
       
       $kri0004[[2]]
       $kri0004[[2]]$name
-      [1] "Input_Rate"
+      [1] "RunQuery"
       
       $kri0004[[2]]$output
-      [1] "Analysis_Input"
+      [1] "Temp_IMPORTANT"
       
       $kri0004[[2]]$params
-      $kri0004[[2]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
-      
-      $kri0004[[2]]$params$dfNumerator
+      $kri0004[[2]]$params$df
       [1] "Mapped_PD"
       
-      $kri0004[[2]]$params$dfDenominator
-      [1] "Mapped_ENROLL"
-      
-      $kri0004[[2]]$params$strFilterNumerator
-      [1] "deemedimportant == 'Y'"
-      
-      $kri0004[[2]]$params$strSubjectCol
-      [1] "subjid"
-      
-      $kri0004[[2]]$params$strGroupCol
-      [1] "invid"
-      
-      $kri0004[[2]]$params$strGroupLevel
-      [1] "GroupLevel"
-      
-      $kri0004[[2]]$params$strNumeratorMethod
-      [1] "Count"
-      
-      $kri0004[[2]]$params$strDenominatorMethod
-      [1] "Sum"
-      
-      $kri0004[[2]]$params$strDenominatorCol
-      [1] "timeonstudy"
+      $kri0004[[2]]$params$strQuery
+      [1] "SELECT * FROM df WHERE deemedimportant = 'Y'"
       
       
       
       $kri0004[[3]]
       $kri0004[[3]]$name
-      [1] "Transform_Rate"
+      [1] "Input_Rate"
       
       $kri0004[[3]]$output
-      [1] "Analysis_Transformed"
+      [1] "Analysis_Input"
       
       $kri0004[[3]]$params
-      $kri0004[[3]]$params$dfInput
-      [1] "Analysis_Input"
+      $kri0004[[3]]$params$dfSubjects
+      [1] "Mapped_ENROLL"
+      
+      $kri0004[[3]]$params$dfNumerator
+      [1] "Temp_IMPORTANT"
+      
+      $kri0004[[3]]$params$dfDenominator
+      [1] "Mapped_ENROLL"
+      
+      $kri0004[[3]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $kri0004[[3]]$params$strGroupCol
+      [1] "invid"
+      
+      $kri0004[[3]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $kri0004[[3]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $kri0004[[3]]$params$strDenominatorMethod
+      [1] "Sum"
+      
+      $kri0004[[3]]$params$strDenominatorCol
+      [1] "timeonstudy"
       
       
       
       $kri0004[[4]]
       $kri0004[[4]]$name
-      [1] "Analyze_NormalApprox"
+      [1] "Transform_Rate"
       
       $kri0004[[4]]$output
-      [1] "Analysis_Analyzed"
-      
-      $kri0004[[4]]$params
-      $kri0004[[4]]$params$dfTransformed
       [1] "Analysis_Transformed"
       
-      $kri0004[[4]]$params$strType
-      [1] "Type"
+      $kri0004[[4]]$params
+      $kri0004[[4]]$params$dfInput
+      [1] "Analysis_Input"
       
       
       
       $kri0004[[5]]
       $kri0004[[5]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Analyze_NormalApprox"
       
       $kri0004[[5]]$output
-      [1] "Analysis_Flagged"
-      
-      $kri0004[[5]]$params
-      $kri0004[[5]]$params$dfAnalyzed
       [1] "Analysis_Analyzed"
       
-      $kri0004[[5]]$params$vThreshold
-      [1] "vThreshold"
+      $kri0004[[5]]$params
+      $kri0004[[5]]$params$dfTransformed
+      [1] "Analysis_Transformed"
+      
+      $kri0004[[5]]$params$strType
+      [1] "Type"
       
       
       
       $kri0004[[6]]
       $kri0004[[6]]$name
-      [1] "Summarize"
+      [1] "Flag_NormalApprox"
       
       $kri0004[[6]]$output
-      [1] "Analysis_Summary"
-      
-      $kri0004[[6]]$params
-      $kri0004[[6]]$params$dfFlagged
       [1] "Analysis_Flagged"
       
-      $kri0004[[6]]$params$nMinDenominator
+      $kri0004[[6]]$params
+      $kri0004[[6]]$params$dfAnalyzed
+      [1] "Analysis_Analyzed"
+      
+      $kri0004[[6]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $kri0004[[7]]
+      $kri0004[[7]]$name
+      [1] "Summarize"
+      
+      $kri0004[[7]]$output
+      [1] "Analysis_Summary"
+      
+      $kri0004[[7]]$params
+      $kri0004[[7]]$params$dfFlagged
+      [1] "Analysis_Flagged"
+      
+      $kri0004[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -2341,101 +2536,127 @@
       
       $kri0005[[2]]
       $kri0005[[2]]$name
-      [1] "Input_Rate"
+      [1] "RunQuery"
       
       $kri0005[[2]]$output
-      [1] "Analysis_Input"
+      [1] "Temp_ABNORMAL"
       
       $kri0005[[2]]$params
-      $kri0005[[2]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
-      
-      $kri0005[[2]]$params$dfNumerator
+      $kri0005[[2]]$params$df
       [1] "Mapped_LB"
       
-      $kri0005[[2]]$params$dfDenominator
-      [1] "Mapped_LB"
-      
-      $kri0005[[2]]$params$strFilterNumerator
-      [1] "toxgrg_nsv %in% c(\"3\",\"4\")"
-      
-      $kri0005[[2]]$params$strFilterDenominator
-      [1] "toxgrg_nsv %in% c(\"0\",\"1\",\"2\",\"3\",\"4\")"
-      
-      $kri0005[[2]]$params$strSubjectCol
-      [1] "subjid"
-      
-      $kri0005[[2]]$params$strGroupCol
-      [1] "invid"
-      
-      $kri0005[[2]]$params$strGroupLevel
-      [1] "GroupLevel"
-      
-      $kri0005[[2]]$params$strNumeratorMethod
-      [1] "Count"
-      
-      $kri0005[[2]]$params$strDenominatorMethod
-      [1] "Count"
+      $kri0005[[2]]$params$strQuery
+      [1] "SELECT * FROM df WHERE toxgrg_nsv IN ('3', '4')"
       
       
       
       $kri0005[[3]]
       $kri0005[[3]]$name
-      [1] "Transform_Rate"
+      [1] "RunQuery"
       
       $kri0005[[3]]$output
-      [1] "Analysis_Transformed"
+      [1] "Temp_LB"
       
       $kri0005[[3]]$params
-      $kri0005[[3]]$params$dfInput
-      [1] "Analysis_Input"
+      $kri0005[[3]]$params$df
+      [1] "Mapped_LB"
+      
+      $kri0005[[3]]$params$strQuery
+      [1] "SELECT * FROM df WHERE toxgrg_nsv IN ('0', '1', '2', '3', '4')"
       
       
       
       $kri0005[[4]]
       $kri0005[[4]]$name
-      [1] "Analyze_NormalApprox"
+      [1] "Input_Rate"
       
       $kri0005[[4]]$output
-      [1] "Analysis_Analyzed"
+      [1] "Analysis_Input"
       
       $kri0005[[4]]$params
-      $kri0005[[4]]$params$dfTransformed
-      [1] "Analysis_Transformed"
+      $kri0005[[4]]$params$dfSubjects
+      [1] "Mapped_ENROLL"
       
-      $kri0005[[4]]$params$strType
-      [1] "Type"
+      $kri0005[[4]]$params$dfNumerator
+      [1] "Temp_ABNORMAL"
+      
+      $kri0005[[4]]$params$dfDenominator
+      [1] "Temp_LB"
+      
+      $kri0005[[4]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $kri0005[[4]]$params$strGroupCol
+      [1] "invid"
+      
+      $kri0005[[4]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $kri0005[[4]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $kri0005[[4]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $kri0005[[5]]
       $kri0005[[5]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Transform_Rate"
       
       $kri0005[[5]]$output
-      [1] "Analysis_Flagged"
+      [1] "Analysis_Transformed"
       
       $kri0005[[5]]$params
-      $kri0005[[5]]$params$dfAnalyzed
-      [1] "Analysis_Analyzed"
-      
-      $kri0005[[5]]$params$vThreshold
-      [1] "vThreshold"
+      $kri0005[[5]]$params$dfInput
+      [1] "Analysis_Input"
       
       
       
       $kri0005[[6]]
       $kri0005[[6]]$name
-      [1] "Summarize"
+      [1] "Analyze_NormalApprox"
       
       $kri0005[[6]]$output
-      [1] "Analysis_Summary"
+      [1] "Analysis_Analyzed"
       
       $kri0005[[6]]$params
-      $kri0005[[6]]$params$dfFlagged
+      $kri0005[[6]]$params$dfTransformed
+      [1] "Analysis_Transformed"
+      
+      $kri0005[[6]]$params$strType
+      [1] "Type"
+      
+      
+      
+      $kri0005[[7]]
+      $kri0005[[7]]$name
+      [1] "Flag_NormalApprox"
+      
+      $kri0005[[7]]$output
       [1] "Analysis_Flagged"
       
-      $kri0005[[6]]$params$nMinDenominator
+      $kri0005[[7]]$params
+      $kri0005[[7]]$params$dfAnalyzed
+      [1] "Analysis_Analyzed"
+      
+      $kri0005[[7]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $kri0005[[8]]
+      $kri0005[[8]]$name
+      [1] "Summarize"
+      
+      $kri0005[[8]]$output
+      [1] "Analysis_Summary"
+      
+      $kri0005[[8]]$params
+      $kri0005[[8]]$params$dfFlagged
+      [1] "Analysis_Flagged"
+      
+      $kri0005[[8]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -2457,98 +2678,111 @@
       
       $kri0006[[2]]
       $kri0006[[2]]$name
-      [1] "Input_Rate"
+      [1] "RunQuery"
       
       $kri0006[[2]]$output
-      [1] "Analysis_Input"
+      [1] "Temp_DROPOUT"
       
       $kri0006[[2]]$params
-      $kri0006[[2]]$params$dfSubjects
+      $kri0006[[2]]$params$df
       [1] "Mapped_ENROLL"
       
-      $kri0006[[2]]$params$dfNumerator
-      [1] "Mapped_STUDCOMP"
-      
-      $kri0006[[2]]$params$dfDenominator
-      [1] "Mapped_ENROLL"
-      
-      $kri0006[[2]]$params$strFilterNumerator
-      [1] "compyn == 'N'"
-      
-      $kri0006[[2]]$params$strSubjectCol
-      [1] "subjid"
-      
-      $kri0006[[2]]$params$strGroupCol
-      [1] "invid"
-      
-      $kri0006[[2]]$params$strGroupLevel
-      [1] "GroupLevel"
-      
-      $kri0006[[2]]$params$strNumeratorMethod
-      [1] "Count"
-      
-      $kri0006[[2]]$params$strDenominatorMethod
-      [1] "Count"
+      $kri0006[[2]]$params$strQuery
+      [1] "SELECT * FROM df WHERE compyn = 'N'"
       
       
       
       $kri0006[[3]]
       $kri0006[[3]]$name
-      [1] "Transform_Rate"
+      [1] "Input_Rate"
       
       $kri0006[[3]]$output
-      [1] "Analysis_Transformed"
+      [1] "Analysis_Input"
       
       $kri0006[[3]]$params
-      $kri0006[[3]]$params$dfInput
-      [1] "Analysis_Input"
+      $kri0006[[3]]$params$dfSubjects
+      [1] "Mapped_ENROLL"
+      
+      $kri0006[[3]]$params$dfNumerator
+      [1] "Temp_DROPOUT"
+      
+      $kri0006[[3]]$params$dfDenominator
+      [1] "Mapped_ENROLL"
+      
+      $kri0006[[3]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $kri0006[[3]]$params$strGroupCol
+      [1] "invid"
+      
+      $kri0006[[3]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $kri0006[[3]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $kri0006[[3]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $kri0006[[4]]
       $kri0006[[4]]$name
-      [1] "Analyze_NormalApprox"
+      [1] "Transform_Rate"
       
       $kri0006[[4]]$output
-      [1] "Analysis_Analyzed"
-      
-      $kri0006[[4]]$params
-      $kri0006[[4]]$params$dfTransformed
       [1] "Analysis_Transformed"
       
-      $kri0006[[4]]$params$strType
-      [1] "Type"
+      $kri0006[[4]]$params
+      $kri0006[[4]]$params$dfInput
+      [1] "Analysis_Input"
       
       
       
       $kri0006[[5]]
       $kri0006[[5]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Analyze_NormalApprox"
       
       $kri0006[[5]]$output
-      [1] "Analysis_Flagged"
-      
-      $kri0006[[5]]$params
-      $kri0006[[5]]$params$dfAnalyzed
       [1] "Analysis_Analyzed"
       
-      $kri0006[[5]]$params$vThreshold
-      [1] "vThreshold"
+      $kri0006[[5]]$params
+      $kri0006[[5]]$params$dfTransformed
+      [1] "Analysis_Transformed"
+      
+      $kri0006[[5]]$params$strType
+      [1] "Type"
       
       
       
       $kri0006[[6]]
       $kri0006[[6]]$name
-      [1] "Summarize"
+      [1] "Flag_NormalApprox"
       
       $kri0006[[6]]$output
-      [1] "Analysis_Summary"
-      
-      $kri0006[[6]]$params
-      $kri0006[[6]]$params$dfFlagged
       [1] "Analysis_Flagged"
       
-      $kri0006[[6]]$params$nMinDenominator
+      $kri0006[[6]]$params
+      $kri0006[[6]]$params$dfAnalyzed
+      [1] "Analysis_Analyzed"
+      
+      $kri0006[[6]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $kri0006[[7]]
+      $kri0006[[7]]$name
+      [1] "Summarize"
+      
+      $kri0006[[7]]$output
+      [1] "Analysis_Summary"
+      
+      $kri0006[[7]]$params
+      $kri0006[[7]]$params$dfFlagged
+      [1] "Analysis_Flagged"
+      
+      $kri0006[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -2570,98 +2804,111 @@
       
       $kri0007[[2]]
       $kri0007[[2]]$name
-      [1] "Input_Rate"
+      [1] "RunQuery"
       
       $kri0007[[2]]$output
-      [1] "Analysis_Input"
+      [1] "Temp_DISCONTINUED"
       
       $kri0007[[2]]$params
-      $kri0007[[2]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
-      
-      $kri0007[[2]]$params$dfNumerator
+      $kri0007[[2]]$params$df
       [1] "Mapped_SDRGCOMP"
       
-      $kri0007[[2]]$params$dfDenominator
-      [1] "Mapped_ENROLL"
-      
-      $kri0007[[2]]$params$strFilterNumerator
-      [1] "sdrgyn == 'N' & phase = \"Blinded Study Drug Completion\""
-      
-      $kri0007[[2]]$params$strSubjectCol
-      [1] "subjid"
-      
-      $kri0007[[2]]$params$strGroupCol
-      [1] "invid"
-      
-      $kri0007[[2]]$params$strGroupLevel
-      [1] "GroupLevel"
-      
-      $kri0007[[2]]$params$strNumeratorMethod
-      [1] "Count"
-      
-      $kri0007[[2]]$params$strDenominatorMethod
-      [1] "Count"
+      $kri0007[[2]]$params$strQuery
+      [1] "SELECT * FROM df WHERE sdrgyn = 'N' AND phase = 'Blinded Study Drug Completion'"
       
       
       
       $kri0007[[3]]
       $kri0007[[3]]$name
-      [1] "Transform_Rate"
+      [1] "Input_Rate"
       
       $kri0007[[3]]$output
-      [1] "Analysis_Transformed"
+      [1] "Analysis_Input"
       
       $kri0007[[3]]$params
-      $kri0007[[3]]$params$dfInput
-      [1] "Analysis_Input"
+      $kri0007[[3]]$params$dfSubjects
+      [1] "Mapped_ENROLL"
+      
+      $kri0007[[3]]$params$dfNumerator
+      [1] "Temp_DISCONTINUED"
+      
+      $kri0007[[3]]$params$dfDenominator
+      [1] "Mapped_ENROLL"
+      
+      $kri0007[[3]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $kri0007[[3]]$params$strGroupCol
+      [1] "invid"
+      
+      $kri0007[[3]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $kri0007[[3]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $kri0007[[3]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $kri0007[[4]]
       $kri0007[[4]]$name
-      [1] "Analyze_NormalApprox"
+      [1] "Transform_Rate"
       
       $kri0007[[4]]$output
-      [1] "Analysis_Analyzed"
-      
-      $kri0007[[4]]$params
-      $kri0007[[4]]$params$dfTransformed
       [1] "Analysis_Transformed"
       
-      $kri0007[[4]]$params$strType
-      [1] "Type"
+      $kri0007[[4]]$params
+      $kri0007[[4]]$params$dfInput
+      [1] "Analysis_Input"
       
       
       
       $kri0007[[5]]
       $kri0007[[5]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Analyze_NormalApprox"
       
       $kri0007[[5]]$output
-      [1] "Analysis_Flagged"
-      
-      $kri0007[[5]]$params
-      $kri0007[[5]]$params$dfAnalyzed
       [1] "Analysis_Analyzed"
       
-      $kri0007[[5]]$params$vThreshold
-      [1] "vThreshold"
+      $kri0007[[5]]$params
+      $kri0007[[5]]$params$dfTransformed
+      [1] "Analysis_Transformed"
+      
+      $kri0007[[5]]$params$strType
+      [1] "Type"
       
       
       
       $kri0007[[6]]
       $kri0007[[6]]$name
-      [1] "Summarize"
+      [1] "Flag_NormalApprox"
       
       $kri0007[[6]]$output
-      [1] "Analysis_Summary"
-      
-      $kri0007[[6]]$params
-      $kri0007[[6]]$params$dfFlagged
       [1] "Analysis_Flagged"
       
-      $kri0007[[6]]$params$nMinDenominator
+      $kri0007[[6]]$params
+      $kri0007[[6]]$params$dfAnalyzed
+      [1] "Analysis_Analyzed"
+      
+      $kri0007[[6]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $kri0007[[7]]
+      $kri0007[[7]]$name
+      [1] "Summarize"
+      
+      $kri0007[[7]]$output
+      [1] "Analysis_Summary"
+      
+      $kri0007[[7]]$params
+      $kri0007[[7]]$params$dfFlagged
+      [1] "Analysis_Flagged"
+      
+      $kri0007[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -2683,98 +2930,111 @@
       
       $kri0008[[2]]
       $kri0008[[2]]$name
-      [1] "Input_Rate"
+      [1] "RunQuery"
       
       $kri0008[[2]]$output
-      [1] "Analysis_Input"
+      [1] "Temp_QUERY"
       
       $kri0008[[2]]$params
-      $kri0008[[2]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
-      
-      $kri0008[[2]]$params$dfNumerator
+      $kri0008[[2]]$params$df
       [1] "Mapped_QUERY"
       
-      $kri0008[[2]]$params$dfDenominator
-      [1] "Mapped_DATACHG"
-      
-      $kri0008[[2]]$params$strFilterNumerator
-      [1] "query_status %in% c('Open','Answered',\"Closed\")"
-      
-      $kri0008[[2]]$params$strSubjectCol
-      [1] "subject_nsv"
-      
-      $kri0008[[2]]$params$strGroupCol
-      [1] "invid"
-      
-      $kri0008[[2]]$params$strGroupLevel
-      [1] "GroupLevel"
-      
-      $kri0008[[2]]$params$strNumeratorMethod
-      [1] "Count"
-      
-      $kri0008[[2]]$params$strDenominatorMethod
-      [1] "Count"
+      $kri0008[[2]]$params$strQuery
+      [1] "SELECT * FROM df WHERE query_status IN ('Open','Answered','Closed')"
       
       
       
       $kri0008[[3]]
       $kri0008[[3]]$name
-      [1] "Transform_Rate"
+      [1] "Input_Rate"
       
       $kri0008[[3]]$output
-      [1] "Analysis_Transformed"
+      [1] "Analysis_Input"
       
       $kri0008[[3]]$params
-      $kri0008[[3]]$params$dfInput
-      [1] "Analysis_Input"
+      $kri0008[[3]]$params$dfSubjects
+      [1] "Mapped_ENROLL"
+      
+      $kri0008[[3]]$params$dfNumerator
+      [1] "Temp_QUERY"
+      
+      $kri0008[[3]]$params$dfDenominator
+      [1] "Mapped_DATACHG"
+      
+      $kri0008[[3]]$params$strSubjectCol
+      [1] "subject_nsv"
+      
+      $kri0008[[3]]$params$strGroupCol
+      [1] "invid"
+      
+      $kri0008[[3]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $kri0008[[3]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $kri0008[[3]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $kri0008[[4]]
       $kri0008[[4]]$name
-      [1] "Analyze_NormalApprox"
+      [1] "Transform_Rate"
       
       $kri0008[[4]]$output
-      [1] "Analysis_Analyzed"
-      
-      $kri0008[[4]]$params
-      $kri0008[[4]]$params$dfTransformed
       [1] "Analysis_Transformed"
       
-      $kri0008[[4]]$params$strType
-      [1] "Type"
+      $kri0008[[4]]$params
+      $kri0008[[4]]$params$dfInput
+      [1] "Analysis_Input"
       
       
       
       $kri0008[[5]]
       $kri0008[[5]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Analyze_NormalApprox"
       
       $kri0008[[5]]$output
-      [1] "Analysis_Flagged"
-      
-      $kri0008[[5]]$params
-      $kri0008[[5]]$params$dfAnalyzed
       [1] "Analysis_Analyzed"
       
-      $kri0008[[5]]$params$vThreshold
-      [1] "vThreshold"
+      $kri0008[[5]]$params
+      $kri0008[[5]]$params$dfTransformed
+      [1] "Analysis_Transformed"
+      
+      $kri0008[[5]]$params$strType
+      [1] "Type"
       
       
       
       $kri0008[[6]]
       $kri0008[[6]]$name
-      [1] "Summarize"
+      [1] "Flag_NormalApprox"
       
       $kri0008[[6]]$output
-      [1] "Analysis_Summary"
-      
-      $kri0008[[6]]$params
-      $kri0008[[6]]$params$dfFlagged
       [1] "Analysis_Flagged"
       
-      $kri0008[[6]]$params$nMinDenominator
+      $kri0008[[6]]$params
+      $kri0008[[6]]$params$dfAnalyzed
+      [1] "Analysis_Analyzed"
+      
+      $kri0008[[6]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $kri0008[[7]]
+      $kri0008[[7]]$name
+      [1] "Summarize"
+      
+      $kri0008[[7]]$output
+      [1] "Analysis_Summary"
+      
+      $kri0008[[7]]$params
+      $kri0008[[7]]$params$dfFlagged
+      [1] "Analysis_Flagged"
+      
+      $kri0008[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -2796,101 +3056,127 @@
       
       $kri0009[[2]]
       $kri0009[[2]]$name
-      [1] "Input_Rate"
+      [1] "RunQuery"
       
       $kri0009[[2]]$output
-      [1] "Analysis_Input"
+      [1] "Temp_OLDQUERY"
       
       $kri0009[[2]]$params
-      $kri0009[[2]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
-      
-      $kri0009[[2]]$params$dfNumerator
+      $kri0009[[2]]$params$df
       [1] "Mapped_QUERY"
       
-      $kri0009[[2]]$params$dfDenominator
-      [1] "Mapped_QUERY"
-      
-      $kri0009[[2]]$params$strFilterNumerator
-      [1] "query_status %in% c('Open','Answered',\"Closed\") & query_days > 30"
-      
-      $kri0009[[2]]$params$strFilterDenominator
-      [1] "query_status %in% c('Open','Answered',\"Closed\")"
-      
-      $kri0009[[2]]$params$strSubjectCol
-      [1] "subject_nsv"
-      
-      $kri0009[[2]]$params$strGroupCol
-      [1] "invid"
-      
-      $kri0009[[2]]$params$strGroupLevel
-      [1] "GroupLevel"
-      
-      $kri0009[[2]]$params$strNumeratorMethod
-      [1] "Count"
-      
-      $kri0009[[2]]$params$strDenominatorMethod
-      [1] "Count"
+      $kri0009[[2]]$params$strQuery
+      [1] "SELECT * FROM df WHERE query_status IN ('Open','Answered','Closed') AND query_days > 30"
       
       
       
       $kri0009[[3]]
       $kri0009[[3]]$name
-      [1] "Transform_Rate"
+      [1] "RunQuery"
       
       $kri0009[[3]]$output
-      [1] "Analysis_Transformed"
+      [1] "Temp_QUERY"
       
       $kri0009[[3]]$params
-      $kri0009[[3]]$params$dfInput
-      [1] "Analysis_Input"
+      $kri0009[[3]]$params$df
+      [1] "Mapped_QUERY"
+      
+      $kri0009[[3]]$params$strQuery
+      [1] "SELECT * FROM df WHERE query_status IN ('Open','Answered','Closed')"
       
       
       
       $kri0009[[4]]
       $kri0009[[4]]$name
-      [1] "Analyze_NormalApprox"
+      [1] "Input_Rate"
       
       $kri0009[[4]]$output
-      [1] "Analysis_Analyzed"
+      [1] "Analysis_Input"
       
       $kri0009[[4]]$params
-      $kri0009[[4]]$params$dfTransformed
-      [1] "Analysis_Transformed"
+      $kri0009[[4]]$params$dfSubjects
+      [1] "Mapped_ENROLL"
       
-      $kri0009[[4]]$params$strType
-      [1] "Type"
+      $kri0009[[4]]$params$dfNumerator
+      [1] "Temp_OLDQUERY"
+      
+      $kri0009[[4]]$params$dfDenominator
+      [1] "Temp_QUERY"
+      
+      $kri0009[[4]]$params$strSubjectCol
+      [1] "subject_nsv"
+      
+      $kri0009[[4]]$params$strGroupCol
+      [1] "invid"
+      
+      $kri0009[[4]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $kri0009[[4]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $kri0009[[4]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $kri0009[[5]]
       $kri0009[[5]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Transform_Rate"
       
       $kri0009[[5]]$output
-      [1] "Analysis_Flagged"
+      [1] "Analysis_Transformed"
       
       $kri0009[[5]]$params
-      $kri0009[[5]]$params$dfAnalyzed
-      [1] "Analysis_Analyzed"
-      
-      $kri0009[[5]]$params$vThreshold
-      [1] "vThreshold"
+      $kri0009[[5]]$params$dfInput
+      [1] "Analysis_Input"
       
       
       
       $kri0009[[6]]
       $kri0009[[6]]$name
-      [1] "Summarize"
+      [1] "Analyze_NormalApprox"
       
       $kri0009[[6]]$output
-      [1] "Analysis_Summary"
+      [1] "Analysis_Analyzed"
       
       $kri0009[[6]]$params
-      $kri0009[[6]]$params$dfFlagged
+      $kri0009[[6]]$params$dfTransformed
+      [1] "Analysis_Transformed"
+      
+      $kri0009[[6]]$params$strType
+      [1] "Type"
+      
+      
+      
+      $kri0009[[7]]
+      $kri0009[[7]]$name
+      [1] "Flag_NormalApprox"
+      
+      $kri0009[[7]]$output
       [1] "Analysis_Flagged"
       
-      $kri0009[[6]]$params$nMinDenominator
+      $kri0009[[7]]$params
+      $kri0009[[7]]$params$dfAnalyzed
+      [1] "Analysis_Analyzed"
+      
+      $kri0009[[7]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $kri0009[[8]]
+      $kri0009[[8]]$name
+      [1] "Summarize"
+      
+      $kri0009[[8]]$output
+      [1] "Analysis_Summary"
+      
+      $kri0009[[8]]$params
+      $kri0009[[8]]$params$dfFlagged
+      [1] "Analysis_Flagged"
+      
+      $kri0009[[8]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -2912,98 +3198,111 @@
       
       $kri0010[[2]]
       $kri0010[[2]]$name
-      [1] "Input_Rate"
+      [1] "RunQuery"
       
       $kri0010[[2]]$output
-      [1] "Analysis_Input"
+      [1] "Temp_LAG"
       
       $kri0010[[2]]$params
-      $kri0010[[2]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
-      
-      $kri0010[[2]]$params$dfNumerator
+      $kri0010[[2]]$params$df
       [1] "Mapped_DATAENT"
       
-      $kri0010[[2]]$params$dfDenominator
-      [1] "Mapped_DATAENT"
-      
-      $kri0010[[2]]$params$strFilterNumerator
-      [1] "data_entry_lag > 10"
-      
-      $kri0010[[2]]$params$strSubjectCol
-      [1] "subject_nsv"
-      
-      $kri0010[[2]]$params$strGroupCol
-      [1] "invid"
-      
-      $kri0010[[2]]$params$strGroupLevel
-      [1] "GroupLevel"
-      
-      $kri0010[[2]]$params$strNumeratorMethod
-      [1] "Count"
-      
-      $kri0010[[2]]$params$strDenominatorMethod
-      [1] "Count"
+      $kri0010[[2]]$params$strQuery
+      [1] "SELECT * FROM df WHERE data_entry_lag > 10"
       
       
       
       $kri0010[[3]]
       $kri0010[[3]]$name
-      [1] "Transform_Rate"
+      [1] "Input_Rate"
       
       $kri0010[[3]]$output
-      [1] "Analysis_Transformed"
+      [1] "Analysis_Input"
       
       $kri0010[[3]]$params
-      $kri0010[[3]]$params$dfInput
-      [1] "Analysis_Input"
+      $kri0010[[3]]$params$dfSubjects
+      [1] "Mapped_ENROLL"
+      
+      $kri0010[[3]]$params$dfNumerator
+      [1] "Temp_LAG"
+      
+      $kri0010[[3]]$params$dfDenominator
+      [1] "Mapped_DATAENT"
+      
+      $kri0010[[3]]$params$strSubjectCol
+      [1] "subject_nsv"
+      
+      $kri0010[[3]]$params$strGroupCol
+      [1] "invid"
+      
+      $kri0010[[3]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $kri0010[[3]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $kri0010[[3]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $kri0010[[4]]
       $kri0010[[4]]$name
-      [1] "Analyze_NormalApprox"
+      [1] "Transform_Rate"
       
       $kri0010[[4]]$output
-      [1] "Analysis_Analyzed"
-      
-      $kri0010[[4]]$params
-      $kri0010[[4]]$params$dfTransformed
       [1] "Analysis_Transformed"
       
-      $kri0010[[4]]$params$strType
-      [1] "Type"
+      $kri0010[[4]]$params
+      $kri0010[[4]]$params$dfInput
+      [1] "Analysis_Input"
       
       
       
       $kri0010[[5]]
       $kri0010[[5]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Analyze_NormalApprox"
       
       $kri0010[[5]]$output
-      [1] "Analysis_Flagged"
-      
-      $kri0010[[5]]$params
-      $kri0010[[5]]$params$dfAnalyzed
       [1] "Analysis_Analyzed"
       
-      $kri0010[[5]]$params$vThreshold
-      [1] "vThreshold"
+      $kri0010[[5]]$params
+      $kri0010[[5]]$params$dfTransformed
+      [1] "Analysis_Transformed"
+      
+      $kri0010[[5]]$params$strType
+      [1] "Type"
       
       
       
       $kri0010[[6]]
       $kri0010[[6]]$name
-      [1] "Summarize"
+      [1] "Flag_NormalApprox"
       
       $kri0010[[6]]$output
-      [1] "Analysis_Summary"
-      
-      $kri0010[[6]]$params
-      $kri0010[[6]]$params$dfFlagged
       [1] "Analysis_Flagged"
       
-      $kri0010[[6]]$params$nMinDenominator
+      $kri0010[[6]]$params
+      $kri0010[[6]]$params$dfAnalyzed
+      [1] "Analysis_Analyzed"
+      
+      $kri0010[[6]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $kri0010[[7]]
+      $kri0010[[7]]$name
+      [1] "Summarize"
+      
+      $kri0010[[7]]$output
+      [1] "Analysis_Summary"
+      
+      $kri0010[[7]]$params
+      $kri0010[[7]]$params$dfFlagged
+      [1] "Analysis_Flagged"
+      
+      $kri0010[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -3025,98 +3324,111 @@
       
       $kri0011[[2]]
       $kri0011[[2]]$name
-      [1] "Input_Rate"
+      [1] "RunQuery"
       
       $kri0011[[2]]$output
-      [1] "Analysis_Input"
+      [1] "Temp_CHANGED"
       
       $kri0011[[2]]$params
-      $kri0011[[2]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
+      $kri0011[[2]]$params$df
+      [1] "Mapped_DATAENT"
       
-      $kri0011[[2]]$params$dfNumerator
-      [1] "Mapped_DATACHG"
-      
-      $kri0011[[2]]$params$dfDenominator
-      [1] "Mapped_DATACHG"
-      
-      $kri0011[[2]]$params$strFilterNumerator
-      [1] "n_changes > 0"
-      
-      $kri0011[[2]]$params$strSubjectCol
-      [1] "subject_nsv"
-      
-      $kri0011[[2]]$params$strGroupCol
-      [1] "invid"
-      
-      $kri0011[[2]]$params$strGroupLevel
-      [1] "GroupLevel"
-      
-      $kri0011[[2]]$params$strNumeratorMethod
-      [1] "Count"
-      
-      $kri0011[[2]]$params$strDenominatorMethod
-      [1] "Count"
+      $kri0011[[2]]$params$strQuery
+      [1] "SELECT * FROM df WHERE n_changes > 0"
       
       
       
       $kri0011[[3]]
       $kri0011[[3]]$name
-      [1] "Transform_Rate"
+      [1] "Input_Rate"
       
       $kri0011[[3]]$output
-      [1] "Analysis_Transformed"
+      [1] "Analysis_Input"
       
       $kri0011[[3]]$params
-      $kri0011[[3]]$params$dfInput
-      [1] "Analysis_Input"
+      $kri0011[[3]]$params$dfSubjects
+      [1] "Mapped_ENROLL"
+      
+      $kri0011[[3]]$params$dfNumerator
+      [1] "Temp_CHANGED"
+      
+      $kri0011[[3]]$params$dfDenominator
+      [1] "Mapped_DATACHG"
+      
+      $kri0011[[3]]$params$strSubjectCol
+      [1] "subject_nsv"
+      
+      $kri0011[[3]]$params$strGroupCol
+      [1] "invid"
+      
+      $kri0011[[3]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $kri0011[[3]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $kri0011[[3]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $kri0011[[4]]
       $kri0011[[4]]$name
-      [1] "Analyze_NormalApprox"
+      [1] "Transform_Rate"
       
       $kri0011[[4]]$output
-      [1] "Analysis_Analyzed"
-      
-      $kri0011[[4]]$params
-      $kri0011[[4]]$params$dfTransformed
       [1] "Analysis_Transformed"
       
-      $kri0011[[4]]$params$strType
-      [1] "Type"
+      $kri0011[[4]]$params
+      $kri0011[[4]]$params$dfInput
+      [1] "Analysis_Input"
       
       
       
       $kri0011[[5]]
       $kri0011[[5]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Analyze_NormalApprox"
       
       $kri0011[[5]]$output
-      [1] "Analysis_Flagged"
-      
-      $kri0011[[5]]$params
-      $kri0011[[5]]$params$dfAnalyzed
       [1] "Analysis_Analyzed"
       
-      $kri0011[[5]]$params$vThreshold
-      [1] "vThreshold"
+      $kri0011[[5]]$params
+      $kri0011[[5]]$params$dfTransformed
+      [1] "Analysis_Transformed"
+      
+      $kri0011[[5]]$params$strType
+      [1] "Type"
       
       
       
       $kri0011[[6]]
       $kri0011[[6]]$name
-      [1] "Summarize"
+      [1] "Flag_NormalApprox"
       
       $kri0011[[6]]$output
-      [1] "Analysis_Summary"
-      
-      $kri0011[[6]]$params
-      $kri0011[[6]]$params$dfFlagged
       [1] "Analysis_Flagged"
       
-      $kri0011[[6]]$params$nMinDenominator
+      $kri0011[[6]]$params
+      $kri0011[[6]]$params$dfAnalyzed
+      [1] "Analysis_Analyzed"
+      
+      $kri0011[[6]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $kri0011[[7]]
+      $kri0011[[7]]$name
+      [1] "Summarize"
+      
+      $kri0011[[7]]$output
+      [1] "Analysis_Summary"
+      
+      $kri0011[[7]]$params
+      $kri0011[[7]]$params$dfFlagged
+      [1] "Analysis_Flagged"
+      
+      $kri0011[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       
@@ -3138,98 +3450,111 @@
       
       $kri0012[[2]]
       $kri0012[[2]]$name
-      [1] "Input_Rate"
+      [1] "RunQuery"
       
       $kri0012[[2]]$output
-      [1] "Analysis_Input"
+      [1] "Temp_SCREENED"
       
       $kri0012[[2]]$params
-      $kri0012[[2]]$params$dfSubjects
+      $kri0012[[2]]$params$df
       [1] "Mapped_SCREEN"
       
-      $kri0012[[2]]$params$dfNumerator
-      [1] "Mapped_SCREEN"
-      
-      $kri0012[[2]]$params$dfDenominator
-      [1] "Mapped_SCREEN"
-      
-      $kri0012[[2]]$params$strFilterNumerator
-      [1] "enrollyn == 'N'"
-      
-      $kri0012[[2]]$params$strSubjectCol
-      [1] "subjectid"
-      
-      $kri0012[[2]]$params$strGroupCol
-      [1] "invid"
-      
-      $kri0012[[2]]$params$strGroupLevel
-      [1] "GroupLevel"
-      
-      $kri0012[[2]]$params$strNumeratorMethod
-      [1] "Count"
-      
-      $kri0012[[2]]$params$strDenominatorMethod
-      [1] "Count"
+      $kri0012[[2]]$params$strQuery
+      [1] "SELECT * FROM df WHERE enrollyn = 'N'"
       
       
       
       $kri0012[[3]]
       $kri0012[[3]]$name
-      [1] "Transform_Rate"
+      [1] "Input_Rate"
       
       $kri0012[[3]]$output
-      [1] "Analysis_Transformed"
+      [1] "Analysis_Input"
       
       $kri0012[[3]]$params
-      $kri0012[[3]]$params$dfInput
-      [1] "Analysis_Input"
+      $kri0012[[3]]$params$dfSubjects
+      [1] "Mapped_SCREEN"
+      
+      $kri0012[[3]]$params$dfNumerator
+      [1] "Temp_SCREENED"
+      
+      $kri0012[[3]]$params$dfDenominator
+      [1] "Mapped_SCREEN"
+      
+      $kri0012[[3]]$params$strSubjectCol
+      [1] "subjectid"
+      
+      $kri0012[[3]]$params$strGroupCol
+      [1] "invid"
+      
+      $kri0012[[3]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $kri0012[[3]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $kri0012[[3]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $kri0012[[4]]
       $kri0012[[4]]$name
-      [1] "Analyze_NormalApprox"
+      [1] "Transform_Rate"
       
       $kri0012[[4]]$output
-      [1] "Analysis_Analyzed"
-      
-      $kri0012[[4]]$params
-      $kri0012[[4]]$params$dfTransformed
       [1] "Analysis_Transformed"
       
-      $kri0012[[4]]$params$strType
-      [1] "Type"
+      $kri0012[[4]]$params
+      $kri0012[[4]]$params$dfInput
+      [1] "Analysis_Input"
       
       
       
       $kri0012[[5]]
       $kri0012[[5]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Analyze_NormalApprox"
       
       $kri0012[[5]]$output
-      [1] "Analysis_Flagged"
-      
-      $kri0012[[5]]$params
-      $kri0012[[5]]$params$dfAnalyzed
       [1] "Analysis_Analyzed"
       
-      $kri0012[[5]]$params$vThreshold
-      [1] "vThreshold"
+      $kri0012[[5]]$params
+      $kri0012[[5]]$params$dfTransformed
+      [1] "Analysis_Transformed"
+      
+      $kri0012[[5]]$params$strType
+      [1] "Type"
       
       
       
       $kri0012[[6]]
       $kri0012[[6]]$name
-      [1] "Summarize"
+      [1] "Flag_NormalApprox"
       
       $kri0012[[6]]$output
-      [1] "Analysis_Summary"
-      
-      $kri0012[[6]]$params
-      $kri0012[[6]]$params$dfFlagged
       [1] "Analysis_Flagged"
       
-      $kri0012[[6]]$params$nMinDenominator
+      $kri0012[[6]]$params
+      $kri0012[[6]]$params$dfAnalyzed
+      [1] "Analysis_Analyzed"
+      
+      $kri0012[[6]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $kri0012[[7]]
+      $kri0012[[7]]$name
+      [1] "Summarize"
+      
+      $kri0012[[7]]$output
+      [1] "Analysis_Summary"
+      
+      $kri0012[[7]]$params
+      $kri0012[[7]]$params$dfFlagged
+      [1] "Analysis_Flagged"
+      
+      $kri0012[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       

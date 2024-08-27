@@ -28,13 +28,17 @@ steps:
     output: vThreshold
     params:
       strThreshold: Threshold
+  - name: RunQuery
+    output: Temp_CHANGED
+    params:
+      df: Mapped_DATAENT
+      strQuery: "SELECT * FROM df WHERE n_changes > 0"
   - name: Input_Rate
     output: Analysis_Input
     params:
       dfSubjects: Mapped_ENROLL
-      dfNumerator: Mapped_DATACHG
+      dfNumerator: Temp_CHANGED
       dfDenominator: Mapped_DATACHG
-      strFilterNumerator: n_changes > 0
       strSubjectCol: subject_nsv
       strGroupCol: invid
       strGroupLevel: GroupLevel

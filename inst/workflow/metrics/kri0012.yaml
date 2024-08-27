@@ -25,13 +25,17 @@ steps:
     output: vThreshold
     params:
       strThreshold: Threshold
+  - name: RunQuery
+    output: Temp_SCREENED
+    params:
+      df: Mapped_SCREEN
+      strQuery: "SELECT * FROM df WHERE enrollyn = 'N'"
   - name: Input_Rate
     output: Analysis_Input
     params:
       dfSubjects: Mapped_SCREEN
-      dfNumerator: Mapped_SCREEN
+      dfNumerator: Temp_SCREENED
       dfDenominator: Mapped_SCREEN
-      strFilterNumerator: enrollyn == 'N'
       strSubjectCol: subjectid
       strGroupCol: invid
       strGroupLevel: GroupLevel

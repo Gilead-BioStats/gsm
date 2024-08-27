@@ -28,13 +28,17 @@ steps:
     output: vThreshold
     params:
       strThreshold: Threshold
+  - name: RunQuery
+    output: Temp_LAG
+    params:
+      df: Mapped_DATAENT
+      strQuery: "SELECT * FROM df WHERE data_entry_lag > 10"
   - name: Input_Rate
     output: Analysis_Input
     params:
       dfSubjects: Mapped_ENROLL
-      dfNumerator: Mapped_DATAENT
+      dfNumerator: Temp_LAG
       dfDenominator: Mapped_DATAENT
-      strFilterNumerator: data_entry_lag > 10
       strSubjectCol: subject_nsv
       strGroupCol: country
       strGroupLevel: GroupLevel
