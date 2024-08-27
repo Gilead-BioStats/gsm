@@ -42,41 +42,34 @@ RunStep <- function(lStep, lData, lMeta) {
 
   cli::cli_h3("Evaluating {length(params)} parameter(s) for {.fn {lStep$name}}")
 
-  # Allow setting parameters from a list in lData when the 'context' parameter is present in the 'lStep' object.
-  if(!is.null(lStep$context)) {
-    if(is.list(lData$context)){
-      context <- lData$context
-    }else{
-      context <- NULL
-    }
-  }
-
   # This loop iterates over each parameter in the 'params' object.
   for (paramName in names(params)) {
     paramVal <- params[[paramName]]
-   if (length(paramVal) == 1 && paramVal == "lMeta") {
-      # If the parameter value is named "lMeta", the lMeta parameter (typically from the workflow header) is passed
-      cli::cli_alert_success("{paramName} = {paramVal}:  Passing full lMeta object.")
-      params[[paramName]] <- lMeta
-    } else if (length(paramVal) == 1 && paramVal == "lData") {
-      # If the parameter value is named "lData", the lData parameter is passed
-      cli::cli_alert_success("{paramName} = {paramVal}: Passing full lData object.")
-      params[[paramName]] <- lData
-    } else if(length(paramVal) == 1 && paramVal %in% names(context)){
-      cli::cli_alert_success("{paramName} = {paramVal}: Passing lData${lStep$context}${paramVal}.")
-      params[[paramName]] <- context[[paramVal]]
-    } else if (length(paramVal) == 1 && paramVal %in% names(lMeta)) {
-      # If the parameter value is a named item within the 'lMeta' object, it updates the parameter value with the corresponding value from 'lMeta'.
-      cli::cli_alert_success("{paramName} = {paramVal}: Passing lMeta${paramVal}.")
-      params[[paramName]] <- lMeta[[paramVal]]
-    } else if (length(paramVal) == 1 && paramVal %in% names(lData)) {
-      # If the parameter value is a named item within the 'lData' object, it updates the parameter value with the corresponding value from 'lData'.
-      cli::cli_alert_success("{paramName} = {paramVal}: Passing lData${paramVal}.")
-      params[[paramName]] <- lData[[paramVal]]
-    } else {
-      # If the parameter value is not found in 'lMeta' or 'lData', pass the parameter value as a string.
-      cli::cli_alert_info("{paramName} = {paramVal}: No matching data found. Passing '{paramVal}' as a string.")
+    use_context <- !is.null(lStep$context) && !is.null(lData$context)
+    if (length(paramVal) == 1) {
+      if (paramVal == "lMeta") {
+        # Pass lMeta (typically from the workflow header)
+        cli::cli_alert_success("{paramName} = {paramVal}:  Passing full lMeta object.")
+        params[[paramName]] <- lMeta
+      } else if (paramVal == "lData") {
+        # Pass lData
+        cli::cli_alert_success("{paramName} = {paramVal}:  Passing full lData object.")
+        params[[paramName]] <- lData
+      } else if (use_context && paramVal %in% names(lData$context)) {
+        # Use named items from context
+        cli::cli_alert_success("{paramName} = {paramVal}: Passing lData${lStep$context}${paramVal}.")
+        params[[paramName]] <- lData$context[[paramVal]]
+      } else if (paramVal %in% names(lData)) {
+        cli::cli_alert_success("{paramName} = {paramVal}: Passing lData${paramVal}.")
+        params[[paramName]] <- lData[[paramVal]]
+      } else if (paramVal %in% names(lMeta)) {
+        # Use named items from lMeta
+        cli::cli_alert_success("{paramName} = {paramVal}: Passing lMeta${paramVal}.")
+        params[[paramName]] <- lMeta[[paramVal]]
+      }
     }
+    # If the parameter value is not found in 'lMeta' or 'lData', pass the parameter value as a string.
+    cli::cli_alert_info("{paramName} = {paramVal}: No matching data found. Passing '{paramVal}' as a string.")
   }
 
   cli::cli_h3("Calling {.fn {lStep$name}}")

@@ -109,7 +109,7 @@
       [1] "Raw_SUBJ"
       
       $data_mapping[[1]]$params$strQuery
-      [1] "SELECT subjectid as raw_subjectid, subjid, invid, country, timeonstudy, subject_nsv FROM df WHERE enrollyn == 'Y'"
+      [1] "SELECT subjectid as raw_subjectid, subjid, invid, country, timeonstudy, subject_nsv, studyid FROM df WHERE enrollyn == 'Y'"
       
       
       

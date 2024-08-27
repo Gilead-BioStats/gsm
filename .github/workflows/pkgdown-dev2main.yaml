@@ -59,7 +59,7 @@ jobs:
           lReporting_Input <- list(
               ctms_site = clindata::ctms_site,
               ctms_study = clindata::ctms_study,
-              dfEnrolled = mapped$dfEnrolled,
+              dfEnrolled = mapped$Mapped_ENROLL,
               lWorkflows = kri_wf,
               lAnalysis = kris,
               dSnapshotDate = Sys.Date(),
@@ -92,7 +92,7 @@ jobs:
           lReporting_Input_country <- list(
               ctms_site = clindata::ctms_site,
               ctms_study = clindata::ctms_study,
-              dfEnrolled = mapped$dfEnrolled,
+              dfEnrolled = mapped$Mapped_ENROLL,
               lWorkflows = cou_wf,
               lAnalysis = cous,
               dSnapshotDate = Sys.Date(),

@@ -6,7 +6,7 @@ steps:
     output: Mapped_ENROLL
     params:
       df: Raw_SUBJ
-      strQuery: "SELECT subjectid as raw_subjectid, subjid, invid, country, timeonstudy, subject_nsv FROM df WHERE enrollyn == 'Y'"
+      strQuery: "SELECT subjectid as raw_subjectid, subjid, invid, country, timeonstudy, subject_nsv, studyid FROM df WHERE enrollyn == 'Y'"
   - name: RunQuery
     output: Mapped_AE
     params:
