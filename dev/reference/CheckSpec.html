@@ -102,12 +102,12 @@ if any data.frame or column is missing.</p>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">CheckSpec</span><span class="op">(</span><span class="va">lData</span>, <span class="va">lSpec</span><span class="op">)</span> <span class="co"># Prints message that everything is found</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> → All 2 data.frame(s) in the spec are present in the data: reporting_groups and reporting_results</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → All 8 columns in the spec are present in the data: reporting_groups$GroupID, reporting_groups$GroupLevel, reporting_groups$Param, reporting_groups$Value, reporting_results$GroupID, reporting_results$GroupLevel, reporting_results$Numerator, and reporting_results$Denominator</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → All 8 required columns in the spec are present in the data: reporting_groups$GroupID, reporting_groups$GroupLevel, reporting_groups$Param, reporting_groups$Value, reporting_results$GroupID, reporting_results$GroupLevel, reporting_results$Numerator, and reporting_results$Denominator</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">lSpec</span><span class="op">$</span><span class="va">reporting_groups</span><span class="op">$</span><span class="va">NotACol</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>required <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">CheckSpec</span><span class="op">(</span><span class="va">lData</span>, <span class="va">lSpec</span><span class="op">)</span> <span class="co"># Throws error that NotACol is missing</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> → All 2 data.frame(s) in the spec are present in the data: reporting_groups and reporting_results</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> Not all columns in the spec are present in the data, missing columns are: reporting_groups$NotACol</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">✖</span> Not all required columns in the spec are present in the data, missing columns are: reporting_groups$NotACol</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
