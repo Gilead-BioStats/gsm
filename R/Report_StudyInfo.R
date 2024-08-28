@@ -50,6 +50,7 @@ Report_StudyInfo <- function(
     )
 
   show_table <- study_status_table %>%
+    dplyr::slice(1:5) %>%
     gsm_gt(id = "study_table")
 
   hide_table <- study_status_table %>%
