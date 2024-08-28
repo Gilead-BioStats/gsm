@@ -24,7 +24,7 @@ kris <- RunWorkflows(kri_wf, mapped)
 lReporting_Input <- list(
     Raw_ctms_site = clindata::ctms_site,
     Raw_ctms_study = clindata::ctms_study,
-    Mapped_Enrolled = mapped$Mapped_ENROLL,
+    Mapped_ENROLL = mapped$Mapped_ENROLL,
     lWorkflows = kri_wf,
     lAnalysis = kris,
     dSnapshotDate = Sys.Date(),
