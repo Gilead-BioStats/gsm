@@ -6,7 +6,7 @@
 #' `MakeWorkflowList()` is a utility function that creates a list of workflows for use in KRI pipelines.
 #'
 #' @param strNames `array of character` List of workflows to include. NULL (the default) includes all workflows in the specified locations.
-#' @param strPackage `character` The package name where the workflow YAML files are located. If NULL, the package will use an absolute path. 
+#' @param strPackage `character` The package name where the workflow YAML files are located. If NULL, the package will use an absolute path.
 #' @param strPath `character` The location of workflow YAML files. If NULL (the default), function will look in `/inst/workflow` folder.
 #' @param bExact `logical` Should strName matches be exact? If false, partial matches will be included. Default FALSE.
 #' @param bRecursive `logical` Find files in nested folders? Default TRUE
@@ -29,12 +29,12 @@ MakeWorkflowList <- function(
   bExact = FALSE,
   bRecursive = TRUE
 ) {
-  if(is.null(strPackage)){
-    stopifnot("[ strPath ] must exist." = dir.exists(strPath))
-    path <- tools::file_path_as_absolute(strPath)
-  }else{
+  path <- strPath
+  if (length(strPackage)) {
     path <- system.file(strPath, package = strPackage)
   }
+  stopifnot("[ strPath ] must exist." = dir.exists(path))
+  path <- tools::file_path_as_absolute(path)
 
   # list all files to loop through to build the workflow list.
   yaml_files <- list.files(

@@ -1942,7 +1942,7 @@
       [1] "Mapped_SCREEN"
       
       $cou0012[[3]]$params$strSubjectCol
-      [1] "subjectid"
+      [1] "subjid"
       
       $cou0012[[3]]$params$strGroupCol
       [1] "country"
@@ -3786,7 +3786,7 @@
       [1] "RunQuery"
       
       $snapshot[[5]]$output
-      [1] "Mapping_Enrolled"
+      [1] "Mapped_ENROLL"
       
       $snapshot[[5]]$params
       $snapshot[[5]]$params$df

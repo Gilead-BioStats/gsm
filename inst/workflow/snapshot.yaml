@@ -29,7 +29,7 @@ steps:
   # Generate Reporting Data Model
   # Minor hack to regenerate dfEnrolled in the core lData object. Can pull from mapping database in prod
   - name: RunQuery
-    output: Mapping_Enrolled
+    output: Mapped_ENROLL
     params:
       df: Raw_SUBJ
       strQuery: "SELECT subjectid as raw_subjectid, * FROM df WHERE enrollyn == 'Y'"

@@ -33,7 +33,7 @@ steps:
       dfSubjects: Mapped_SCREEN
       dfNumerator: Temp_SCREENED
       dfDenominator: Mapped_SCREEN
-      strSubjectCol: subjectid
+      strSubjectCol: subjid
       strGroupCol: country
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
