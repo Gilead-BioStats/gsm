@@ -40,7 +40,7 @@ Report_StudyInfo <- function(
     Value = unname(unlist(lStudy))
   ) %>%
     dplyr::left_join(dfLabels, by = "Param") %>%
-    dplyr::select(-"Param") %>%
+    dplyr::select("Description", "Value") %>%
     dplyr::mutate(
       Value = dplyr::if_else(
         is.na(.data$Value),
