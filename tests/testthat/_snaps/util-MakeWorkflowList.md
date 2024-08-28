@@ -332,10 +332,10 @@
       
       $data_reporting[[5]]$params
       $data_reporting[[5]]$params$df
-      [1] "Raw_ENROLL"
+      [1] "Mapped_ENROLL"
       
       $data_reporting[[5]]$params$strQuery
-      [1] "SELECT invid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid"
+      [1] "SELECT invid as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid"
       
       
       
@@ -364,10 +364,10 @@
       
       $data_reporting[[7]]$params
       $data_reporting[[7]]$params$df
-      [1] "Raw_ENROLL"
+      [1] "Mapped_ENROLL"
       
       $data_reporting[[7]]$params$strQuery
-      [1] "SELECT studyid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY studyid"
+      [1] "SELECT studyid as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY studyid"
       
       
       
@@ -396,10 +396,10 @@
       
       $data_reporting[[9]]$params
       $data_reporting[[9]]$params$df
-      [1] "Raw_ENROLL"
+      [1] "Mapped_ENROLL"
       
       $data_reporting[[9]]$params$strQuery
-      [1] "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country"
+      [1] "SELECT country as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country"
       
       
       
