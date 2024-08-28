@@ -1,0 +1,118 @@
+---
+title: "Report Setup for Gismo"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Report Setup for Gismo}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(gsm)
+```
+
+## Overview
+
+This vignette describes how to create new metrics, reports and shiny app modules that are compatible with `gismo`. 
+
+## Study Configuration
+
+Each study will select a set of metrics, reports and apps to be run as part of the Risk Assessment process. These will be documented in the Central Monitoring Plan and converted to a machine-readable study configuration yaml that looks something like this: 
+
+```
+StudyID: ABC-123
+Users: Admin, User, Restricted
+Reports: 
+  Admin:
+     - deep_dive_app
+     - endpoint_pfs_bicr
+  User: 
+     - kri_Site
+     - kri_country
+     - endpoints_pfs
+  Restricted:
+     - unblinded_kri_Site
+Metrics: # all available to everyone
+     - kri0001
+     - end0001 
+     ...
+```
+
+Reports listed in the study config can then be set up via metadata provided as part of the package. 
+
+## Report/App Set-up
+
+Each Report will have a standard configuration file(s) `{report_name}.yaml` that includes the following:
+   - include report metadata in `meta`
+   - include mapping data requirement in `spec`
+   - include functions to run the report in `steps`
+   
+### `meta` section content
+
+#### Required fields
+
+### `spec` section content
+
+### `steps` section content
+
+Example YAML for KRI Report: 
+
+```
+meta:
+  File: report_example.yaml
+  ReportID: example_report
+  Name: An example report
+  Description: A report that is an example
+  Repo: gsm.example
+  ExampleURL: https://gilead-biostats.github.io/gsm.example/example_report.html
+spec: 
+# any needed data in the mapping layer should be documented here. 
+  Mapped_AE:
+    subjid:
+      required: true
+  Mapped_ENROLL:
+    subjid:
+      required: true
+    invid:
+      required: true
+    timeonstudy:
+      required: true
+  Mapped_CTMS_SITE
+    discontinued_count:
+      required: true
+steps:
+# TODO Update this to some examples steps
+  - name: RunQuery
+    output: Reporting_Results_Country
+    params:
+      df: Reporting_Results
+      strQuery: "SELECT * FROM df WHERE GroupLevel == 'Country'"
+  - name: RunQuery
+    output: Reporting_Metrics_Country
+    params:
+      df: Reporting_Metrics
+      strQuery: "SELECT * FROM df WHERE GroupLevel == 'Country'"
+  - name: MakeCharts
+    output: lCharts_Country
+    params:
+      dfResults: Reporting_Results_Country
+      dfGroups: Reporting_Groups
+      dfBounds: Reporting_Bounds
+      dfMetrics: Reporting_Metrics
+  - name: Report_KRI
+    output: lReport 
+    params:
+      lCharts: lCharts_Country
+      dfResults: Reporting_Results_Country
+      dfGroups: Reporting_Groups
+      dfMetrics: Reporting_Metrics_Country
+```
+
+## Step-by-Step
