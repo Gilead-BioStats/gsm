@@ -58,3 +58,35 @@ test_that("Multiple missing columns are correctly reported", {
     regexp = "missing columns are: df1\\$b and df2\\$y"
   )
 })
+
+test_that("Missing column only gets a flag when it is required", {
+  lData <- list(reporting_groups = gsm::reportingGroups)
+  lSpec <- list(
+    reporting_groups = list(
+      GroupID = list(required = TRUE),
+      GroupLevel = list(required = TRUE),
+      Param = list(required = TRUE),
+      Value = list(required = TRUE),
+      NewVar = list(required = FALSE)
+    )
+  )
+  expect_message(
+    CheckSpec(lData, lSpec),
+    regexp = "All 4 required columns"
+  )
+
+  lSpec <- list(
+    reporting_groups = list(
+      GroupID = list(required = TRUE),
+      GroupLevel = list(required = TRUE),
+      Param = list(required = TRUE),
+      Value = list(required = TRUE),
+      NewVar = list(required = TRUE)
+    )
+  )
+  expect_message(
+    CheckSpec(lData, lSpec),
+    regexp = "Not all required columns"
+  )
+
+})

@@ -12,25 +12,32 @@ meta:
   Threshold: -3,-2,2,3
   nMinDenominator: 3
 spec:
-  Mapped_Enrolled:
+  Mapped_ENROLL:
     subjid:
       required: true
     invid:
       required: true
-  Mapped_StudyDropouts:
+  Mapped_STUDCOMP:
     subjid:
+      required: true
+    compyn:
       required: true
 steps:
   - name: ParseThreshold
     output: vThreshold
     params:
       strThreshold: Threshold
+  - name: RunQuery
+    output: Temp_DROPOUT
+    params:
+      df: Mapped_STUDCOMP
+      strQuery: "SELECT * FROM df WHERE compyn = 'N'"
   - name: Input_Rate
     output: Analysis_Input
     params:
-      dfSubjects: Mapped_Enrolled
-      dfNumerator: Mapped_StudyDropouts
-      dfDenominator: Mapped_Enrolled
+      dfSubjects: Mapped_ENROLL
+      dfNumerator: Temp_DROPOUT
+      dfDenominator: Mapped_ENROLL
       strSubjectCol: subjid
       strGroupCol: invid
       strGroupLevel: GroupLevel

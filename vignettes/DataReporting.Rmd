@@ -61,7 +61,7 @@ To run the analysis workflow on all 13 KRIs using `clindata` Raw+ data, use the 
 
 1. `lAnalysis` -  list of data frames in the analysis data model
 2. `lWorkflow` - list containing the metadata for each of the KRIs
-3. `mapped$dfEnrolled` - mapped data.frame of enrolled participants
+3. `mapped$Mapped_ENROLL` - mapped data.frame of enrolled participants
 
 ```{r include = TRUE, message = FALSE}
 # Create Mapped Data - filter/map raw data
@@ -81,7 +81,7 @@ mapping_wf <- MakeWorkflowList(strNames = "data_mapping")
 mapped <- RunWorkflows(mapping_wf, lData, bKeepInputData=TRUE)
 
 # Create Analysis Data - Generate 12 KRIs
-lWorkflow <- MakeWorkflowList(strNames = "kri")
+lWorkflow <- MakeWorkflowList(strPath = "workflow/metrics", strNames = "kri")
 lAnalysis <- RunWorkflows(lWorkflow, mapped)
 ```
 
@@ -116,16 +116,16 @@ dfCTMSStudy <- RunQuery(df = clindata::ctms_study,
   MakeLongMeta(strGroupLevel = 'Study')
 
 # Get Participant and Site counts for Country, Site and Study
-dfSiteCounts <- RunQuery(df = mapped$Mapped_Enrolled,
-                             strQuery = "SELECT invid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid") |>
+dfSiteCounts <- RunQuery(df = mapped$Mapped_ENROLL,
+                             strQuery = "SELECT invid as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid") |>
   MakeLongMeta(strGroupLevel = "Site")
 
-dfStudyCounts <- RunQuery(df = mapped$Mapped_Enrolled,
-                             strQuery = "SELECT studyid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY studyid") |>
+dfStudyCounts <- RunQuery(df = mapped$Mapped_ENROLL,
+                             strQuery = "SELECT studyid as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY studyid") |>
   MakeLongMeta(strGroupLevel = "Study")
 
-dfCountryCounts <- RunQuery(df = mapped$Mapped_Enrolled,
-                             strQuery = "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country") |>
+dfCountryCounts <- RunQuery(df = mapped$Mapped_ENROLL,
+                             strQuery = "SELECT country as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country") |>
   MakeLongMeta(strGroupLevel = "Country")
 
 
@@ -312,14 +312,14 @@ mapping_wf <- MakeWorkflowList(strNames = "data_mapping")
 mapped <- RunWorkflows(mapping_wf, lData, bKeepInputData=TRUE)
 
 # Step 2 - Create Analysis Data - Generate 12 KRIs
-kri_wf <- MakeWorkflowList(strNames = "kri")
+kri_wf <- MakeWorkflowList(strPath = "workflow/metrics", strNames = "kri")
 kris <- RunWorkflows(kri_wf, mapped)
 
 # Step 3 - Create Reporting Data - Import Metadata and stack KRI Results
 lReporting_Input <- list(
     Raw_ctms_site = clindata::ctms_site,
     Raw_ctms_study = clindata::ctms_study,
-    Mapped_Enrolled = mapped$Mapped_Enrolled,
+    Mapped_Enrolled = mapped$Mapped_ENROLL,
     lWorkflows = kri_wf,
     lAnalysis = kris,
     dSnapshotDate = Sys.Date(),

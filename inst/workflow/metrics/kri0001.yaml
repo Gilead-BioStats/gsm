@@ -13,11 +13,15 @@ meta:
   nMinDenominator: 30
 spec:
   Mapped_AE:
-    subjid: required
-  Mapped_Enrolled:
-    subjid: required
-    invid: required
-    timeonstudy: required
+    subjid:
+      required: true
+  Mapped_ENROLL:
+    subjid:
+      required: true
+    invid:
+      required: true
+    timeonstudy:
+      required: true
 steps:
   - name: ParseThreshold
     output: vThreshold
@@ -26,9 +30,9 @@ steps:
   - name: Input_Rate
     output: Analysis_Input
     params:
-      dfSubjects: Mapped_Enrolled
+      dfSubjects: Mapped_ENROLL
       dfNumerator: Mapped_AE
-      dfDenominator: Mapped_Enrolled
+      dfDenominator: Mapped_ENROLL
       strSubjectCol: subjid
       strGroupCol: invid
       strGroupLevel: GroupLevel

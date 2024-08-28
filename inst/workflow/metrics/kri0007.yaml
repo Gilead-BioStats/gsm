@@ -12,12 +12,12 @@ meta:
   Threshold: -3,-2,2,3
   nMinDenominator: 3
 spec:
-  Mapped_Enrolled:
+  Mapped_ENROLL:
     subjid:
       required: true
     invid:
       required: true
-  Mapped_TreatmentDropouts:
+  Mapped_SDRGCOMP:
     subjid:
       required: true
 steps:
@@ -25,12 +25,17 @@ steps:
     output: vThreshold
     params:
       strThreshold: Threshold
+  - name: RunQuery
+    output: Temp_DISCONTINUED
+    params:
+      df: Mapped_SDRGCOMP
+      strQuery: "SELECT * FROM df WHERE sdrgyn = 'N' AND phase = 'Blinded Study Drug Completion'"
   - name: Input_Rate
     output: Analysis_Input
     params:
-      dfSubjects: Mapped_Enrolled
-      dfNumerator: Mapped_TreatmentDropouts
-      dfDenominator: Mapped_Enrolled
+      dfSubjects: Mapped_ENROLL
+      dfNumerator: Temp_DISCONTINUED
+      dfDenominator: Mapped_ENROLL
       strSubjectCol: subjid
       strGroupCol: invid
       strGroupLevel: GroupLevel

@@ -21,7 +21,7 @@ This function takes a list of workflows and returns a data frame with one row
 per \code{MetricID}.
 }
 \examples{
-lWorkflows <- MakeWorkflowList(strNames = "kri")
+lWorkflows <- MakeWorkflowList(strPath = "workflow/metrics", strNames = "kri")
 dfMetrics <- MakeMetric(lWorkflows)
 
 }

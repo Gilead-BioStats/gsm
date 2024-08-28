@@ -12,10 +12,10 @@ meta:
   Threshold: -3,-2,2,3
   nMinDenominator: 30
 spec:
-  Mapped_NonimportantPD:
+  Mapped_PD:
     subjid:
       required: true
-  Mapped_Enrolled:
+  Mapped_ENROLL:
     subjid:
       required: true
     invid:
@@ -27,12 +27,17 @@ steps:
     output: vThreshold
     params:
       strThreshold: Threshold
+  - name: RunQuery
+    output: Temp_NONIMPORTANT
+    params:
+      df: Mapped_PD
+      strQuery: "SELECT * FROM df WHERE deemedimportant = 'No'"
   - name: Input_Rate
     output: Analysis_Input
     params:
-      dfSubjects: Mapped_Enrolled
-      dfNumerator: Mapped_NonimportantPD
-      dfDenominator: Mapped_Enrolled
+      dfSubjects: Mapped_ENROLL
+      dfNumerator: Temp_NONIMPORTANT
+      dfDenominator: Mapped_ENROLL
       strSubjectCol: subjid
       strGroupCol: invid
       strGroupLevel: GroupLevel
