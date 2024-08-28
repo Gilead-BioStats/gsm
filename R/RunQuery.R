@@ -7,6 +7,7 @@
 #'
 #' @param strQuery `character` SQL query to run using the format expected by glue_sql. Mapping values provided in curly braces will be replaced with the appropriate column names.
 #' @param df `data.frame` A data frame to use in the SQL query
+#' @param engine `character` The engine used to run the query. Currently supports 'duckdb' and 'sqldf'
 #'
 #' @return `data.frame` containing the results of the SQL query
 #'
@@ -22,8 +23,10 @@
 #'
 #' @export
 
-RunQuery <- function(strQuery, df) {
-  rlang::check_installed("sqldf", reason = "to run `RunQuery()`")
+RunQuery <- function(strQuery,
+                     df,
+                     engine = "sqldf") {
+  rlang::check_installed(engine, reason = "to run `RunQuery()`")
 
   # Check inputs
   stopifnot(is.character(strQuery), is.data.frame(df))
@@ -38,7 +41,16 @@ RunQuery <- function(strQuery, df) {
     return(df)
   } else {
     # run the query
+    if (engine == "sqldf") {
     result <- sqldf::sqldf(strQuery)
+    }
+    if (engine == "duckdb") {
+      strQuery_duck <- gsub("FROM df", paste0("FROM ", rlang::caller_arg(df)), strQuery)
+      con <- duckdb::dbConnect(duckdb::duckdb())
+      duckdb::duckdb_register(con, rlang::caller_arg(df), lData[[rlang::caller_arg(df)]])
+      result <- DBI::dbGetQuery(con, strQuery_duck)
+      DBI::dbDisconnect(conn = con)
+    }
     cli::cli_text("SQL Query complete: {nrow(result)} rows returned.")
     return(result)
   }

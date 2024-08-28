@@ -54,16 +54,19 @@ steps:
     params:
       df: Raw_SUBJ
       strQuery: "SELECT subjectid as raw_subjectid, * FROM df WHERE enrollyn == 'Y'"
+      engine: duckdb
   - name: RunQuery
     output: Mapped_SeriousAE
     params:
       df: Raw_AE
       strQuery: "SELECT * FROM df WHERE aeser = 'Y'"
+      engine: duckdb
   - name: RunQuery
     output: Mapped_AE
     params:
       df: Raw_AE
       strQuery: "SELECT * FROM df"
+      engine: duckdb
   - name: RunQuery
     output: Mapped_NonimportantPD
     params:
@@ -79,6 +82,7 @@ steps:
     params:
       df: Raw_LB
       strQuery: "SELECT * FROM df WHERE toxgrg_nsv IN ('0', '1', '2', '3', '4')"
+      engine: duckdb
   - name: RunQuery
     output: Mapped_ToxLabs
     params:
