@@ -47,7 +47,7 @@ RunQuery <- function(strQuery,
     if (engine == "duckdb") {
       strQuery_duck <- gsub("FROM df", paste0("FROM ", rlang::caller_arg(df)), strQuery)
       con <- duckdb::dbConnect(duckdb::duckdb())
-      duckdb::duckdb_register(con, rlang::caller_arg(df), lData[[rlang::caller_arg(df)]])
+      duckdb::duckdb_register(con, rlang::caller_arg(df), df)
       result <- DBI::dbGetQuery(con, strQuery_duck)
       DBI::dbDisconnect(conn = con)
     }
