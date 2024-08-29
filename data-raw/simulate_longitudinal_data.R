@@ -5,6 +5,7 @@ devtools::load_all()
 ## Function to simulate participant enrollment
 AddParticipants <-
   function(df,
+           studyid,
            n = 100,
            sites = 1:10,
            countries = c("US", "China", "Japan"),
@@ -18,6 +19,7 @@ AddParticipants <-
       siteid = sample(sites, n, replace = TRUE),
       country = sample(countries, n, replace = TRUE),
       invid = sample(invid, n, replace = TRUE),
+      studyid = studyid,
       enrolldt = sample(seq(
         as.Date(startDate), as.Date(endDate), by = "day"
       ), n, replace = TRUE),
@@ -57,8 +59,6 @@ endDate <- seq(as.Date("2012-02-01"), length = 12, by = "months") - 1
 
 dfParticipants <- data.frame()
 dfAEs <- data.frame()
-dfSummary_site <- data.frame()
-dfSummary_country <- data.frame()
 
 set.seed(1)
 
@@ -67,6 +67,7 @@ for (i in 1:12) {
   dfParticipants <-
     AddParticipants(
       dfParticipants,
+      studyid = "ABC-123",
       n = sample(10:50, 1),
       sites = unique(dfSite$GroupID),
       invid = unique(dfSite$pi_number),
@@ -97,53 +98,58 @@ for (i in 1:12) {
                 Raw_QUERY = clindata::edc_queries,
                 Raw_ENROLL = clindata::rawplus_enroll)
 
-  ##TODO: update this section to use "modern" workflows to make all of this data
-  lMapped <-
-    RunWorkflow(lWorkflow = wf_mapping[[1]], lData = lData)
-  lResults_site <-
-    wf_metrics_site %>% map( ~ RunWorkflow(lWorkflow = .x, lData = lMapped))
-  lResults_country <-
-    wf_metrics_country %>% map( ~ RunWorkflow(lWorkflow = .x, lData = lMapped))
+  mapping_wf <- MakeWorkflowList(strNames = "data_mapping")
+  mapped <- RunWorkflows(mapping_wf, lData, bKeepInputData=TRUE)
 
+  # Step 2 - Create Analysis Data - Generate 12 KRIs
+  kri_wf <- MakeWorkflowList(strPath = "workflow/metrics", strNames = "kri0005")
+  kris <- RunWorkflows(kri_wf, mapped)
 
-  logger::log_info("workflows complete! moving on to add needed columns")
+  cou_wf <- MakeWorkflowList(strPath = "workflow/metrics", strNames = "cou")
+  cous <- RunWorkflows(cou_wf, mapped)
 
-  dfSummary_site_new <- lResults_site %>%
-    imap_dfr( ~ .x$Analysis_Summary %>% mutate(MetricID = .y)) %>%
-    mutate(StudyID = "ABC-123") %>%
-    mutate(snapshot_date = endDate[i])
+  # Step 3 - Create Reporting Data - Import Metadata and stack KRI Results
+  lReporting_Input_site <- list(
+    Raw_ctms_site = clindata::ctms_site,
+    Raw_ctms_study = clindata::ctms_study,
+    Mapped_ENROLL = mapped$Mapped_ENROLL,
+    lWorkflows = kri_wf,
+    lAnalysis = kris,
+    dSnapshotDate = endDate[i],
+    strStudyID = "ABC-123"
+  )
+  reporting_wf_site <- MakeWorkflowList(strNames = "reporting")
+  reporting_site <- RunWorkflows(reporting_wf_site, lReporting_Input_site)
 
-  dfSummary_country_new <- lResults_country %>%
-    imap_dfr( ~ .x$Analysis_Summary %>% mutate(MetricID = .y)) %>%
-    mutate(StudyID = "ABC-123") %>%
-    mutate(snapshot_date = endDate[i])
+  lReporting_Input_country <- list(
+    Raw_ctms_site = clindata::ctms_site,
+    Raw_ctms_study = clindata::ctms_study,
+    Mapped_ENROLL = mapped$Mapped_ENROLL,
+    lWorkflows = kri_wf,
+    lAnalysis = kris,
+    dSnapshotDate = endDate[i],
+    strStudyID = "ABC-123"
+  )
+  reporting_wf_country <- MakeWorkflowList(strNames = "reporting")
+  reporting_country <- RunWorkflows(reporting_wf_country, lReporting_Input_country)
 
-  logger::log_info("binding new data to dfSummary")
+  if (i == 1) {
+    lAnalysis_site <- kris
+    lAnalysis_country <- cous
+    lReporting_site <- reporting_site
+    lReporting_country <- reporting_country
+  }
+  else {
+  lAnalysis_site <- imap(lAnalysis_site, \(this, metric)
+                         imap(this[grep("Analysis", names(this))], \(x, idx)
+                              bind_rows(x, kris[[metric]][[idx]])))
+  lAnalysis_country <-  imap(lAnalysis_site, \(this, metric)
+                             imap(this[grep("Analysis", names(this))],\(x, idx)
+                                  bind_rows(x, cous[[metric]][[idx]])))
 
-  dfSummary_site <- bind_rows(dfSummary_site, dfSummary_site_new)
-  dfSummary_country <- bind_rows(dfSummary_country, dfSummary_country_new)
+  lReporting_site <- imap(lReporting_site[grep("Reporting", names(lReporting_site))], \(x, idx)
+                               bind_rows(x, reporting_site[[idx]]))
+  lReporting_country <-  imap(lReporting_country[grep("Reporting", names(lReporting_country))], \(x, idx)
+                              bind_rows(x, reporting_country[[idx]]))
+  }
 }
-
-# prep needed metadata for charts/report
-dfMetrics_site <- wf_metrics_site %>% map_df(function(wf) {
-  wf$meta$vThreshold <- paste(wf$meta$vThreshold, collapse = ",")
-  return(wf$meta)
-})
-
-dfMetrics_country <- wf_metrics_country %>% map_df(function(wf) {
-  wf$meta$vThreshold <- paste(wf$meta$vThreshold, collapse = ",")
-  return(wf$meta)
-})
-
-dfBounds_site <- lResults_site %>%
-  imap_dfr( ~ .x$lData$dfBounds %>% mutate(MetricID = .y)) %>%
-  mutate(StudyID = "ABC-123") %>%
-  mutate(snapshot_date = endDate[i])
-
-dfBounds_country <- lResults_country %>%
-  imap_dfr( ~ .x$lData$dfBounds %>% mutate(MetricID = .y)) %>%
-  mutate(StudyID = "ABC-123") %>%
-  mutate(snapshot_date = endDate[i])
-
-
-##make dfGroups(?)
