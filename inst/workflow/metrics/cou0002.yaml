@@ -11,11 +11,11 @@ meta:
   Type: rate
   Threshold: -2,-1,2,3
   nMinDenominator: 30
-spec: 
-  Mapped_SeriousAE:
+spec:
+  Mapped_AE:
     subjid:
       required: true
-  Mapped_Enrolled:
+  Mapped_ENROLL:
     subjid:
       required: true
     country:
@@ -27,12 +27,17 @@ steps:
     output: vThreshold
     params:
       strThreshold: Threshold
+  - name: RunQuery
+    output: Temp_SAE
+    params:
+      df: Mapped_AE
+      strQuery: "SELECT * FROM df WHERE aeser = 'Y'"
   - name: Input_Rate
     output: Analysis_Input
     params:
-      dfSubjects: Mapped_Enrolled
-      dfNumerator: Mapped_SeriousAE
-      dfDenominator: Mapped_Enrolled
+      dfSubjects: Mapped_ENROLL
+      dfNumerator: Temp_SAE
+      dfDenominator: Mapped_ENROLL
       strSubjectCol: subjid
       strGroupCol: country
       strGroupLevel: GroupLevel

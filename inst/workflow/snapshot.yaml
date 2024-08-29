@@ -6,7 +6,7 @@ steps:
   - name: MakeWorkflowList
     output: wf_mapping
     params:
-      strNames: mapping
+      strNames: data_mapping
   - name: RunWorkflows
     output: lMapped
     params:
@@ -18,7 +18,7 @@ steps:
   - name: MakeWorkflowList
     output: lWorkflows
     params:
-      strNames: Metrics
+      strPath: workflow/metrics
   - name: RunWorkflows
     output: lAnalysis
     params:
@@ -29,14 +29,14 @@ steps:
   # Generate Reporting Data Model
   # Minor hack to regenerate dfEnrolled in the core lData object. Can pull from mapping database in prod
   - name: RunQuery
-    output: Mapping_Enrolled
+    output: Mapped_ENROLL
     params:
       df: Raw_SUBJ
       strQuery: "SELECT subjectid as raw_subjectid, * FROM df WHERE enrollyn == 'Y'"
   - name: MakeWorkflowList
     output: wf_reporting_data
     params:
-      strNames: reporting
+      strNames: data_reporting
   - name: RunWorkflows
     output: lReporting
     params:
@@ -48,7 +48,7 @@ steps:
   - name: MakeWorkflowList
     output: wf_reports
     params:
-      strNames: reports
+      strPath: workflow/reports
   - name: RunWorkflows
     output: lReports
     params:

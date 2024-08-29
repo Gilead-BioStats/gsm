@@ -12,15 +12,12 @@ meta:
   Threshold: -3,-2,2,3
   nMinDenominator: 30
 spec:
-  Mapped_Enrolled:
+  Mapped_ENROLL:
     subject_nsv:
       required: true
     country:
       required: true
-  Mapped_ValidQueries:
-    subject_nsv:
-      required: true
-  Mapped_OldValidQueries:
+  Mapped_QUERY:
     subject_nsv:
       required: true
 steps:
@@ -28,12 +25,22 @@ steps:
     output: vThreshold
     params:
       strThreshold: Threshold
+  - name: RunQuery
+    output: Temp_OLDQUERY
+    params:
+      df: Mapped_QUERY
+      strQuery: "SELECT * FROM df WHERE querystatus IN ('Open','Answered','Closed') AND queryage > 30"
+  - name: RunQuery
+    output: Temp_QUERY
+    params:
+      df: Mapped_QUERY
+      strQuery: "SELECT * FROM df WHERE querystatus IN ('Open','Answered','Closed')"
   - name: Input_Rate
     output: Analysis_Input
     params:
-      dfSubjects: Mapped_Enrolled
-      dfNumerator: Mapped_OldValidQueries
-      dfDenominator: Mapped_ValidQueries
+      dfSubjects: Mapped_ENROLL
+      dfNumerator: Temp_OLDQUERY
+      dfDenominator: Temp_QUERY
       strSubjectCol: subject_nsv
       strGroupCol: country
       strGroupLevel: GroupLevel

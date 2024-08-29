@@ -12,15 +12,12 @@ meta:
   Threshold: -3,-2,2,3
   nMinDenominator: 30
 spec:
-  Mapped_Enrolled:
+  Mapped_ENROLL:
     subject_nsv:
       required: true
     country:
       required: true
-  Mapped_SlowDataEntry:
-    subject_nsv:
-      required: true
-  Mapped_DataEntry:
+  Mapped_DATAENT:
     subject_nsv:
       required: true
 steps:
@@ -28,12 +25,17 @@ steps:
     output: vThreshold
     params:
       strThreshold: Threshold
+  - name: RunQuery
+    output: Temp_LAG
+    params:
+      df: Mapped_DATAENT
+      strQuery: "SELECT * FROM df WHERE data_entry_lag > 10"
   - name: Input_Rate
     output: Analysis_Input
     params:
-      dfSubjects: Mapped_Enrolled
-      dfNumerator: Mapped_SlowDataEntry
-      dfDenominator: Mapped_DataEntry
+      dfSubjects: Mapped_ENROLL
+      dfNumerator: Temp_LAG
+      dfDenominator: Mapped_DATAENT
       strSubjectCol: subject_nsv
       strGroupCol: country
       strGroupLevel: GroupLevel

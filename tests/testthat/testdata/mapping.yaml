@@ -1,14 +1,16 @@
 meta:
   File: mapping.yaml
   description: Data Mappings to prepare for metric calculations
+spec:
+
 steps:
   - name: RunQuery
-    output: Mapped_Enrolled
+    output: Mapped_ENROLL
     params:
-      df: dfSUBJ
+      df: Raw_SUBJ
       strQuery: "SELECT * FROM df WHERE enrollyn == 'Y'"
   - name: RunQuery
     output: Mapped_AE
     params:
-      df: dfAE
+      df: Raw_AE
       strQuery: "SELECT * FROM df WHERE aeser = 'Y'"

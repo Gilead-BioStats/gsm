@@ -12,15 +12,12 @@ meta:
   Threshold: -3,-2,2,3
   nMinDenominator: 30
 spec:
-  Mapped_Enrolled:
+  Mapped_ENROLL:
     subjid:
       required: true
     invid:
       required: true
-  Mapped_ToxLabs:
-    subjid:
-      required: true
-  Mapped_AllLabs:
+  Mapped_LB:
     subjid:
       required: true
 steps:
@@ -28,12 +25,22 @@ steps:
     output: vThreshold
     params:
       strThreshold: Threshold
+  - name: RunQuery
+    output: Temp_ABNORMAL
+    params:
+      df: Mapped_LB
+      strQuery: "SELECT * FROM df WHERE toxgrg_nsv IN ('3', '4')"
+  - name: RunQuery
+    output: Temp_LB
+    params:
+      df: Mapped_LB
+      strQuery: "SELECT * FROM df WHERE toxgrg_nsv IN ('0', '1', '2', '3', '4')"
   - name: Input_Rate
     output: Analysis_Input
     params:
-      dfSubjects: Mapped_Enrolled
-      dfNumerator: Mapped_ToxLabs
-      dfDenominator: Mapped_AllLabs
+      dfSubjects: Mapped_ENROLL
+      dfNumerator: Temp_ABNORMAL
+      dfDenominator: Temp_LB
       strSubjectCol: subjid
       strGroupCol: invid
       strGroupLevel: GroupLevel

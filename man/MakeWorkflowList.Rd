@@ -6,7 +6,8 @@
 \usage{
 MakeWorkflowList(
   strNames = NULL,
-  strPath = NULL,
+  strPath = "workflow",
+  strPackage = "gsm",
   bExact = FALSE,
   bRecursive = TRUE
 )
@@ -14,7 +15,9 @@ MakeWorkflowList(
 \arguments{
 \item{strNames}{\verb{array of character} List of workflows to include. NULL (the default) includes all workflows in the specified locations.}
 
-\item{strPath}{\code{character} The location of workflow YAML files. If package is specified, function will look in \verb{/inst} folder.}
+\item{strPath}{\code{character} The location of workflow YAML files. If NULL (the default), function will look in \verb{/inst/workflow} folder.}
+
+\item{strPackage}{\code{character} The package name where the workflow YAML files are located. If NULL, the package will use an absolute path.}
 
 \item{bExact}{\code{logical} Should strName matches be exact? If false, partial matches will be included. Default FALSE.}
 

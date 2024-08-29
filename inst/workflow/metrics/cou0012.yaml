@@ -12,26 +12,28 @@ meta:
   Threshold: -3,-2,2,3
   nMinDenominator: 3
 spec:
-  Mapped_Screened:
+  Mapped_SCREEN:
     subjectid:
       required: true
     country:
-      required: true
-  Mapped_ScreenFail:
-    subjectid:
       required: true
 steps:
   - name: ParseThreshold
     output: vThreshold
     params:
       strThreshold: Threshold
+  - name: RunQuery
+    output: Temp_SCREENED
+    params:
+      df: Mapped_SCREEN
+      strQuery: "SELECT * FROM df WHERE enrollyn = 'N'"
   - name: Input_Rate
     output: Analysis_Input
     params:
-      dfSubjects: Mapped_Screened
-      dfNumerator: Mapped_ScreenFail
-      dfDenominator: Mapped_Screened
-      strSubjectCol: subjectid
+      dfSubjects: Mapped_SCREEN
+      dfNumerator: Temp_SCREENED
+      dfDenominator: Mapped_SCREEN
+      strSubjectCol: subjid
       strGroupCol: country
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count

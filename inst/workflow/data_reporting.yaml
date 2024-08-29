@@ -22,11 +22,11 @@ spec:
       required: true
     status:
       required: true
-  Raw_ENROLL:
+  Mapped_ENROLL:
     invid:
       required: true
-    subjectid:
-      required: true 
+    subjid:
+      required: true
     studyid:
       required: true
     country:
@@ -59,8 +59,8 @@ steps:
   - name: RunQuery
     output: Temp_SiteCountsWide
     params:
-      df: Raw_ENROLL
-      strQuery: "SELECT invid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid"
+      df: Mapped_ENROLL
+      strQuery: "SELECT invid as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid"
   - name: MakeLongMeta
     output: Temp_SiteCounts
     params:
@@ -69,8 +69,8 @@ steps:
   - name: RunQuery
     output: Temp_StudyCountsWide
     params:
-      df: Raw_ENROLL
-      strQuery: "SELECT studyid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY studyid"
+      df: Mapped_ENROLL
+      strQuery: "SELECT studyid as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY studyid"
   - name: MakeLongMeta
     output: Temp_StudyCounts
     params:
@@ -79,8 +79,8 @@ steps:
   - name: RunQuery
     output: Temp_CountryCountsWide
     params:
-      df: Raw_ENROLL
-      strQuery: "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country"
+      df: Mapped_ENROLL
+      strQuery: "SELECT country as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country"
   - name: MakeLongMeta
     output: Temp_CountryCounts
     params:
@@ -118,5 +118,4 @@ steps:
     params:
       dfResults: Reporting_Results
       dfMetrics: Reporting_Metrics
-
 

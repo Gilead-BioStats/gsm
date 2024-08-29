@@ -52,14 +52,14 @@ jobs:
           mapping_wf <- MakeWorkflowList(strNames = "data_mapping")
           mapped <- RunWorkflows(mapping_wf, lData, bKeepInputData=TRUE)
 
-          kri_wf <- MakeWorkflowList(strNames = "kri")
+          kri_wf <- MakeWorkflowList(strPath = "workflow/metrics", strNames = "kri")
           kris <- RunWorkflows(kri_wf, mapped)
 
           # Step 3 - Create Reporting Data - Import Metadata and stack KRI Results
           lReporting_Input <- list(
               ctms_site = clindata::ctms_site,
               ctms_study = clindata::ctms_study,
-              dfEnrolled = mapped$dfEnrolled,
+              dfEnrolled = mapped$Mapped_ENROLL,
               lWorkflows = kri_wf,
               lAnalysis = kris,
               dSnapshotDate = Sys.Date(),
@@ -92,7 +92,7 @@ jobs:
           lReporting_Input_country <- list(
               ctms_site = clindata::ctms_site,
               ctms_study = clindata::ctms_study,
-              dfEnrolled = mapped$dfEnrolled,
+              dfEnrolled = mapped$Mapped_ENROLL,
               lWorkflows = cou_wf,
               lAnalysis = cous,
               dSnapshotDate = Sys.Date(),
