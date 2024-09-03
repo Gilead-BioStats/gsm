@@ -50,13 +50,13 @@ Report_StudyInfo <- function(
 
   show_table <- study_status_table %>%
     dplyr::filter(Param %in% c("StudyID", "nickname", "enrolled_sites", "enrolled_participants")) %>%
-    gsm_gt(id = "study_table") %>%
-    dplyr::select("Description", "Value")
+    dplyr::select("Description", "Value") %>%
+    gsm_gt(id = "study_table")
 
 
   hide_table <- study_status_table %>%
-    gsm_gt(id = "study_table_hide") %>%
-    dplyr::select("Description", "Value")
+    dplyr::select("Description", "Value") %>%
+    gsm_gt(id = "study_table_hide")
 
   toggle_switch <- glue::glue('<label class="toggle">
   <input class="toggle-checkbox btn-show-details" type="checkbox">
