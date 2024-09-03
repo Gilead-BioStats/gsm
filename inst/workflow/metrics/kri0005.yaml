@@ -15,11 +15,17 @@ spec:
   Mapped_ENROLL:
     subjid:
       required: true
-    invid:
+      type: character
+    country:
       required: true
+      type: character
   Mapped_LB:
     subjid:
       required: true
+      type: character
+    toxgrg_nsv:
+      required: true
+      type: character
 steps:
   - name: ParseThreshold
     output: vThreshold

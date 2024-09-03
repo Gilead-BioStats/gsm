@@ -11,17 +11,21 @@ meta:
   Score: Adjusted Z-Score
   Threshold: -2,-1,2,3
   nMinDenominator: 30
-mapping_spec: 
+spec:
   Mapped_AE:
     subjid:
       required: true
+      type: character
   Mapped_ENROLL:
     subjid:
       required: true
+      type: character
     country:
       required: true
+      type: character
     timeonstudy:
       required: true
+      type: numeric
 steps:
   - name: ParseThreshold
     output: vThreshold

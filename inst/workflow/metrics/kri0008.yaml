@@ -15,14 +15,21 @@ spec:
   Mapped_QUERY:
     subject_nsv:
       required: true
+      type: character
+    querystatus:
+      required: true
+      type: character
   Mapped_ENROLL:
     subject_nsv:
       required: true
-    invid:
+      type: character
+    country:
       required: true
+      type: character
   Mapped_DATACHG:
     subject_nsv:
       required: true
+      type: character
 steps:
   - name: ParseThreshold
     output: vThreshold

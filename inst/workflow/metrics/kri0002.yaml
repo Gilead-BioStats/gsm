@@ -15,13 +15,20 @@ spec:
   Mapped_AE:
     subjid:
       required: true
+      type: character
+    aeser:
+      required: true
+      type: character
   Mapped_ENROLL:
     subjid:
       required: true
+      type: character
     invid:
       required: true
+      type: character
     timeonstudy:
       required: true
+      type: numeric
 steps:
   - name: ParseThreshold
     output: vThreshold
