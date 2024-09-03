@@ -31,9 +31,7 @@ Depends:
 Imports:
     broom,
     cli,
-    DBI,
     dplyr,
-    fs,
     ggplot2,
     glue,
     htmltools,
@@ -48,7 +46,6 @@ Imports:
     tidyr,
     tools,
     utils,
-    withr,
     yaml
 Suggests:
     clindata,
@@ -73,7 +70,8 @@ Suggests:
     sqldf,
     styler,
     testthat,
-    usethis
+    usethis,
+    withr
 VignetteBuilder: 
     knitr
 Remotes:
