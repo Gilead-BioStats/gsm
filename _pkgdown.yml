@@ -11,19 +11,19 @@ navbar:
   components:
     articles:
     - title: "Data Model"
-      navbar: ~
+      navbar: "Data Model"
       contents:
         - DataModel
         - Cookbook
         - DataAnalysis
         - DataReporting
-        - KRI Methods
+        - articles/KRIMethod
     - title: "Quality"
-      navbar: ~
+      navbar: "Quality"
       contents:
-        - QualificationWorkflow
-        - Qualification
-        - ContributorGuidelines
+        - articles/QualificationWorkflow
+        - articles/Qualification
+        - articles/ContributorGuidelines
     Reports:
       text: Sample Reports
       menu:
