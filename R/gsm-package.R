@@ -79,7 +79,6 @@
 #' @importFrom utils read.csv
 #' @importFrom utils sessionInfo
 #' @importFrom utils write.csv
-#' @importFrom withr with_envvar
 #' @importFrom yaml read_yaml
 ## usethis namespace: end
 NULL
