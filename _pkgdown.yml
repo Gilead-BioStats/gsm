@@ -9,21 +9,6 @@ navbar:
     left: [articles, Reports, reference, news]
     right: [search, github]
   components:
-    articles:
-    - title: "Data Model"
-      navbar: "Data Model"
-      contents:
-        - DataModel
-        - Cookbook
-        - DataAnalysis
-        - DataReporting
-        - articles/KRIMethod
-    - title: "Quality"
-      navbar: "Quality"
-      contents:
-        - articles/QualificationWorkflow
-        - articles/Qualification
-        - articles/ContributorGuidelines
     Reports:
       text: Sample Reports
       menu:
@@ -31,6 +16,22 @@ navbar:
           href: StandardReportSite.html
         - text: Country Report
           href: StandardReportCountry.html
+
+articles:
+  - title: "Data Model"
+    navbar: "Data Model"
+    contents:
+      - DataModel
+      - Cookbook
+      - DataAnalysis
+      - DataReporting
+      - articles/KRIMethod
+  - title: "Quality"
+    navbar: "Quality"
+    contents:
+      - articles/QualificationWorkflow
+      - articles/Qualification
+      - articles/ContributorGuidelines
 
 reference:
   - title: Visualize
