@@ -15,11 +15,17 @@ spec:
   Mapped_ENROLL:
     subject_nsv:
       required: true
+      type: character
     invid:
       required: true
+      type: character
   Mapped_DATACHG:
     subject_nsv:
       required: true
+      type: character
+    n_changes:
+      required: true
+      type: numeric
 steps:
   - name: ParseThreshold
     output: vThreshold

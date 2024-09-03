@@ -16,7 +16,7 @@ spec:
     subject_nsv:
       required: true
       type: character
-    country:
+    invid:
       required: true
       type: character
   Mapped_DATAENT:

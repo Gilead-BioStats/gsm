@@ -23,7 +23,7 @@ spec:
     subjid:
       required: true
       type: character
-    country:
+    invid:
       required: true
       type: character
     timeonstudy:
