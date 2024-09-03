@@ -42,6 +42,116 @@ AddAEs <- function(df, n = 100, startDate, endDate, dfParticipants) {
   return(df)
 }
 
+## Function to simulate LBs
+AddLBs <- function(df, n = 5000, dfParticipants) {
+  newLBs <- data.frame(
+    subjid = sample(dfParticipants$subjid, n, replace = TRUE),
+    toxgrg_nsv = sample(c("", "0", "1", "2", "3", "4"),
+                        n,
+                        prob = c(0.49,0.4875,0.01, 0.005, 0.005, 0.0025),
+                        replace = TRUE)
+  )
+  df <- bind_rows(df, newLBs)
+  return(df)
+}
+
+## Function to simulate PDs
+AddPDs <- function(df, n = 500, dfParticipants) {
+  newPDs <- data.frame(
+    subjectenrollmentnumber = sample(dfParticipants$subjid, n, replace = TRUE),
+    deemedimportant = sample(c("Y", "N"), n, replace = TRUE)
+  )
+  df <- bind_rows(df, newPDs)
+  return(df)
+}
+
+AddSTUDCOMP <- function(df, n = 20, dfParticipants) {
+  newSTUDCOMP <- data.frame(
+    subjid = sample(dfParticipants$subjid, n, replace = TRUE),
+    compyn = sample(c("", "N"),
+                    prob = c(0.1, 0.9),
+                    n,
+                    replace = TRUE)
+  )
+  df <- bind_rows(df, newSTUDCOMP)
+  return(df)
+}
+
+AddQUERY <- function(df, n = 1000, dfParticipants) {
+  newQUERY <- data.frame(
+    subjectname = sample(dfParticipants$subject_nsv, n, replace = TRUE),
+    querystatus = sample(c("Answered", "Closed", "Open"),
+                    prob = c(0.02, 0.96, 0.02),
+                    n,
+                    replace = TRUE),
+    queryage = sample(clindata::edc_queries$queryage,
+                      n,
+                      replace = T)
+  )
+  df <- bind_rows(df, newQUERY)
+  return(df)
+}
+
+AddSDRGCOMP <- function(df, n = 50, dfParticipants) {
+  newSDRGCOMP <- data.frame(
+    subjid = sample(dfParticipants$subjid, n, replace = TRUE),
+    sdrgyn = sample(c("Y", "N"),
+                    prob = c(0.75, 0.25),
+                    n,
+                    replace = TRUE),
+    phase = "Blinded Study Drug Completion"
+  )
+  df <- bind_rows(df, newSDRGCOMP)
+  return(df)
+}
+
+AddDATACHG <- function(df, n = 10000, dfParticipants) {
+  newDATACHG <- data.frame(
+    subjectname = sample(dfParticipants$subject_nsv, n, replace = TRUE),
+    n_changes = sample(0:6,
+                    prob = c(0.74, 0.22, 0.03, 0.005, 0.003, 0.0019, 0.0001),
+                    n,
+                    replace = TRUE)
+  )
+  df <- bind_rows(df, newDATACHG)
+  return(df)
+}
+
+AddDATAENT <- function(df, n = 1000000, dfParticipants) {
+  newDATAENT <- data.frame(
+    subjectname = sample(dfParticipants$subject_nsv, n, replace = TRUE),
+    data_entry_lag = sample(0:20,
+                       prob = c(0.25, 0.18, 0.14, 0.10, 0.07, 0.05, 0.05, 0.04, 0.03, 0.02, 0.02,
+                                rep(0.005, 10)),
+                       n,
+                       replace = TRUE)
+  )
+  df <- bind_rows(df, newDATAENT)
+  return(df)
+}
+
+AddENROLL <- function(df,
+                      dfParticipants,
+                      start_date,
+                      end_date) {
+  screened <- sample(25:75, size = 1)
+  newENROLL <- data.frame(
+    subjid = paste0(LETTERS[i], 1:screened),
+    subjectid = paste0(LETTERS[i], 1:screened),
+    subject_nsv = paste0(LETTERS[i], 1:screened, "-XXXX"),
+    siteid = sample(dfParticipants$siteid, screened, replace = TRUE),
+    country = sample(dfParticipants$country, screened, replace = TRUE),
+    invid = sample(dfParticipants$invid, screened, replace = TRUE),
+    studyid = dfParticipants$studyid[1],
+    enrolldt = sample(seq(
+      as.Date(start_date), as.Date(end_date), by = "day"
+    ), screened, replace = TRUE),
+    enrollyn = "N"
+  )
+  df <- bind_rows(df, dfParticipants, newENROLL)
+  return(df)
+}
+
 dfSite <- clindata::ctms_site %>% rename(GroupID = site_num)
 dfStudy <-
   clindata::ctms_study %>% rename(StudyID = protocol_number)
@@ -59,6 +169,14 @@ endDate <- seq(as.Date("2012-02-01"), length = 12, by = "months") - 1
 
 dfParticipants <- data.frame()
 dfAEs <- data.frame()
+dfPD <- data.frame()
+dfLB <- data.frame()
+dfSTUDCOMP <- data.frame()
+dfSDRGCOMP <- data.frame()
+dfQUERY <- data.frame()
+dfDATACHG <- data.frame()
+dfDATAENT <- data.frame()
+dfENROLL <- data.frame()
 
 set.seed(1)
 
@@ -85,24 +203,42 @@ for (i in 1:12) {
   dfAEs <-
     AddAEs(dfAEs, n = sample(seq(from = nparticipants, to = nparticipants *
                                    2), 1), startDate[i], endDate[i], dfParticipants)
+  dfPD <- AddPDs(df = dfPD,
+                 dfParticipants = dfParticipants)
+  dfLB <- AddLBs(df = dfLB,
+                 dfParticipants = dfParticipants)
+  dfSTUDCOMP <- AddSTUDCOMP(df = dfSTUDCOMP,
+                            dfParticipants = dfParticipants)
+  dfSDRGCOMP <- AddSDRGCOMP(df = dfSDRGCOMP,
+                            dfParticipants = dfParticipants)
+  dfQUERY <- AddQUERY(df = dfQUERY,
+                      dfParticipants = dfParticipants)
+  dfDATACHG <- AddDATACHG(df = dfSTUDCOMP,
+                          dfParticipants = dfParticipants)
+  dfDATAENT <- AddDATAENT(df = dfDATAENT,
+                          dfParticipants = dfParticipants)
+  dfENROLL <- AddENROLL(df = dfENROLL,
+                        dfParticipants = dfParticipants,
+                        startDate[i],
+                        endDate[i])
 
   # Calculate AE/SAE metrics using simulated data
   lData <- list(Raw_AE = dfAEs,
                 Raw_SUBJ = dfParticipants,
-                Raw_PD = clindata::ctms_protdev,
-                Raw_LB = clindata::rawplus_lb,
-                Raw_STUDCOMP = clindata::rawplus_studcomp,
-                Raw_SDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
-                Raw_DATACHG = clindata::edc_data_points,
-                Raw_DATAENT = clindata::edc_data_pages,
-                Raw_QUERY = clindata::edc_queries,
-                Raw_ENROLL = clindata::rawplus_enroll)
+                Raw_PD = dfPD,
+                Raw_LB = dfLB,
+                Raw_STUDCOMP = dfSTUDCOMP,
+                Raw_SDRGCOMP = dfSDRGCOMP,
+                Raw_DATACHG = dfDATACHG,
+                Raw_DATAENT = dfDATAENT,
+                Raw_QUERY = dfQUERY,
+                Raw_ENROLL = dfENROLL)
 
   mapping_wf <- MakeWorkflowList(strNames = "data_mapping")
   mapped <- RunWorkflows(mapping_wf, lData, bKeepInputData=TRUE)
 
   # Step 2 - Create Analysis Data - Generate 12 KRIs
-  kri_wf <- MakeWorkflowList(strPath = "workflow/metrics", strNames = "kri0005")
+  kri_wf <- MakeWorkflowList(strPath = "workflow/metrics", strNames = "kri")
   kris <- RunWorkflows(kri_wf, mapped)
 
   cou_wf <- MakeWorkflowList(strPath = "workflow/metrics", strNames = "cou")
