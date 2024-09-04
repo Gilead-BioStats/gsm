@@ -15,8 +15,13 @@ spec:
   Mapped_SCREEN:
     subjid:
       required: true
+      type: character
     invid:
       required: true
+      type: character
+    enrollyn:
+      required: true
+      type: character
 steps:
   - name: ParseThreshold
     output: vThreshold

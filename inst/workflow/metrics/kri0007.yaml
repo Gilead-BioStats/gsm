@@ -15,11 +15,20 @@ spec:
   Mapped_ENROLL:
     subjid:
       required: true
+      type: character
     invid:
       required: true
+      type: character
   Mapped_SDRGCOMP:
-    subjid:
+    subjID:
       required: true
+      type: character
+    sdrgyn:
+      required: true
+      type: character
+    phase:
+      required: true
+      type: character
 steps:
   - name: ParseThreshold
     output: vThreshold
