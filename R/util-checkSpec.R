@@ -54,18 +54,25 @@ CheckSpec <- function(lData, lSpec) {
   allCols <- c()
   missingCols <- c()
   for (strDataFrame in lSpecDataFrames) {
-    wrongType <- c()
+    chrDataFrameColnames <- colnames(lData[[strDataFrame]])
     #check modes in data
-    imap(lSpec[[strDataFrame]], \(x, idx) {
-      if (!is.null(x$type)) {
-        #check if data is the expected mode
-        res <- x$type %in% mode(lData[[strDataFrame]][[idx]])
-        if (!res) {
-          wrongType <<- c(wrongType, idx)
+    wrongType <- purrr::reduce2(
+      lSpec[[strDataFrame]],
+      names(lSpec[[strDataFrame]]),
+      function(so_far, x, idx) {
+        if (!is.null(x$type) && idx %in% chrDataFrameColnames) {
+          #check if data is the expected mode
+          res <- all(x$type %in% mode(lData[[strDataFrame]][[idx]]))
+          if (!res) {
+            so_far <- c(so_far, idx)
+          }
+          return(so_far)
         }
-      }
-    })
-    if (length(wrongType) > 0) {
+      },
+      .init = character()
+    )
+
+    if (length(wrongType)) {
       cli::cli_alert_danger("Not all columns of {strDataFrame} in the spec are in the expected format, improperly formatted columns are: {wrongType}")
     } else {
       cli::cli_alert("All specified columns in {strDataFrame} are in the expected format")
