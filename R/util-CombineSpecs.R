@@ -1,47 +1,93 @@
-#' Combine Specifications
+#' Combine Multiple Specifications
 #'
-#' @description
-#' `r lifecycle::badge("stable")`
+#' This function combines multiple domain specifications into a single specification list,
+#' ensuring deduplication of columns, resolving conflicts in the `required` field,
+#' and checking for type mismatches.
 #'
-#' Combine a list of specifications into a single specification.
+#' @param lSpecs A list of lists, where each sublist represents a specification for multiple domains.
 #'
-#' @param lSpecs A list of specifications.
-#' @return A list representing the combined specification.
+#' @return A list representing the combined specifications across all domains.
 #' @examples
 #' all_wf <- MakeWorkflowList()
 #' all_specs <- CombineSpecs(all_wf)
 #'
 #' @export
-
 CombineSpecs <- function(lSpecs) {
-  all_specs <- list()
+  # Get all unique domains across all specs
+  all_domains <- unique(unlist(map(lSpecs, names)))
 
-  for (spec in lSpecs) {
-    for (domain in names(spec)) {
-      if (!is.list(all_specs[[domain]])) {
-        all_specs[[domain]] <- list()
-      }
+  # Combine specs for each domain using lapply/map
+  combined_specs <- map(all_domains, function(domain) {
+    domain_specs <- map(lSpecs, ~ .x[[domain]] %||% list())
+    combine_domain(domain_specs)
+  })
 
-      for (col in names(spec[[domain]])) {
-        if (!is.null(all_specs[[domain]][[col]])) {
-          # Deduplication: If the column already exists in the domain, update it instead of adding a duplicate
+  # Set the names of combined_specs to the domain names
+  names(combined_specs) <- all_domains
 
-          # Handle required conflict
-          all_specs[[domain]][[col]]$required <- all_specs[[domain]][[col]]$required || spec[[domain]][[col]]$required
+  return(combined_specs)
+}
 
-          # Handle type conflict with a warning (type handling is just a placeholder here)
-          if (!is.null(spec[[domain]][[col]]$type) && !is.null(all_specs[[domain]][[col]]$type)) {
-            if (spec[[domain]][[col]]$type != all_specs[[domain]][[col]]$type) {
-              warning(paste("Type mismatch for", col, "in domain", domain, ". Using first type:", all_specs[[domain]][[col]]$type))
-            }
-          }
-        } else {
-          # If column is not yet in all_specs, just add it
-          all_specs[[domain]][[col]] <- spec[[domain]][[col]]
-        }
+#' Combine Domain Specifications
+#'
+#' This function combines multiple column specifications for a single domain by applying deduplication and resolving conflicts.
+#'
+#' @param domain_specs A list of lists, where each sublist represents the specifications for a domain across multiple specs.
+#'
+#' @return A list representing the combined specifications for the domain.
+#' @export
+#'
+#' @examples
+#' domain_specs <- list(
+#'   list(col1 = list(required = TRUE), col2 = list(required = TRUE)),
+#'   list(col1 = list(required = FALSE), col3 = list(required = TRUE))
+#' )
+#' combine_domain(domain_specs)
+combine_domain <- function(domain_specs) {
+  combined <- reduce(domain_specs, function(combined, spec) {
+    # Ensure all columns exist in both combined and spec
+    combined_cols <- union(names(combined), names(spec))
+
+    # Fill missing columns with NULLs in both lists
+    combined <- map(combined_cols, ~ combined[[.x]] %||% NULL)
+    spec <- map(combined_cols, ~ spec[[.x]] %||% NULL)
+    names(combined) <- combined_cols
+    names(spec) <- combined_cols
+
+    # Combine the specifications using map2
+    map2(combined, spec, update_column)
+  }, .init = list())
+
+  return(combined)
+}
+
+#' Update Column Specification
+#'
+#' This function updates a column specification by handling deduplication, resolving conflicts in the `required` field, and checking for type mismatches.
+#'
+#' @param existing_col A list representing the existing column specification (can be `NULL` if the column does not yet exist).
+#' @param new_col A list representing the new column specification to be merged with the existing one.
+#'
+#' @return A list containing the updated column specification.
+#'
+#' @examples
+#' existing_col <- list(required = TRUE, type = "numeric")
+#' new_col <- list(required = FALSE, type = "character")
+#' update_column(existing_col, new_col)
+update_column <- function(existing_col, new_col) {
+  if (!is.null(existing_col)) {
+    # Handle required conflict
+    existing_col$required <- existing_col$required || new_col$required
+
+    # Handle type conflict with a warning when available
+    if (!is.null(existing_col$type) && !is.null(new_col$type)) {
+      if (existing_col$type != new_col$type) {
+        cli_warn("Type mismatch for {names(existing_col)}. Using first type: {existing_col$type}")
       }
     }
+  } else {
+    # If the column doesn't exist, use the new column
+    existing_col <- new_col
   }
-
-  return(all_specs)
+  return(existing_col)
 }
