@@ -34,11 +34,11 @@ Reports:
      - deep_dive_app
      - endpoint_pfs_bicr
   User: 
-     - kri_Site
+     - kri_site
      - kri_country
      - endpoints_pfs
   Restricted:
-     - unblinded_kri_Site
+     - unblinded_kri_site
 Metrics: # all available to everyone
      - kri0001
      - end0001 
@@ -50,19 +50,48 @@ Reports listed in the study config can then be set up via metadata provided as p
 ## Report/App Set-up
 
 Each Report will have a standard configuration file(s) `{report_name}.yaml` that includes the following:
-   - include report metadata in `meta`
-   - include mapping data requirement in `spec`
-   - include functions to run the report in `steps`
+   - Report metadata in `meta`
+   - Mapping data requirement in `spec`
+   - Functions to run the report in `steps`
    
 ### `meta` section content
+
+Meta header required fields for **all** `yaml`s: 
+- `Name`: Name of the reporting output.
+- `File`: `yaml` file that contains the workflow.
+- `ReportID`: The unique report ID that is referenced in the Study Config `yaml`. 
+- `Description`: A description of the reporting output specified in the workflow.
+- `ReportType`: The type of reporting output specified in the workflow. Valid values: `Application`, `Report`, `Metric`.
+- `Repo`: Package repo and version
+- `Status`: The validation status of the reporting output. Valid values: 
+    - `Qualified`: Output has been qualified via our qualification process specified [here](https://gilead-biostats.github.io/gsm/articles/QualificationWorkflow.html). 
+    - `Pilot`: Output is being used by pilot studies and is maintained in a package repository.
+    - `Prototype`: Output is created using custom scripts on an ad-hoc basis.
+    
+
+Additional meta header required fields **apps** and **reports**: 
+- `Permission`: Level of permissions for viewing that match the `Users` argument in the Study Config file. Common values: `Admin`, `Users`.
+- `Outputs`: The output
+- `Dependencies`: `{gsm}` ecosystem package dependencies. Specified with two elements, `Functions`, `Data`.
+    - `Functions`: Names of any functions from other `{gsm}` packages that are required for this workflow. Specify with {package}::{function}.
+    - `Data`: Names of any dataframes created in other `{gsm}` packages that are required for this workflow
+- `ExampleURL`: Location of a sample report (typically on the pkgdown site)
+
+Example:
+
 
 #### Required fields
 
 ### `spec` section content
 
+any needed data in the mapping layer should be documented here. each column that is needed will contain the following information:
+- `required`:
+- `type`:
+
+
 ### `steps` section content
 
-Example YAML for KRI Report: 
+#### Example YAML for KRI Report: 
 
 ```
 meta:
@@ -77,16 +106,21 @@ spec:
   Mapped_AE:
     subjid:
       required: true
+      type: character
   Mapped_ENROLL:
     subjid:
       required: true
+      type: character
     invid:
       required: true
+      type: character
     timeonstudy:
       required: true
+      type: numeric
   Mapped_CTMS_SITE
     discontinued_count:
       required: true
+      type: numeric
 steps:
 # TODO Update this to some examples steps
   - name: RunQuery
