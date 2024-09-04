@@ -56,14 +56,6 @@ CombineSpecs <- function(lSpecs) {
 #' @param domain_specs A list of lists, where each sublist represents the specifications for a domain across multiple specs.
 #'
 #' @return A list representing the combined specifications for the domain.
-#' @export
-#'
-#' @examples
-#' domain_specs <- list(
-#'   list(col1 = list(required = TRUE), col2 = list(required = TRUE)),
-#'   list(col1 = list(required = FALSE), col3 = list(required = TRUE))
-#' )
-#' combine_domain(domain_specs)
 combine_domain <- function(domain_specs) {
   combined <- reduce(domain_specs, function(combined, spec) {
     # Ensure all columns exist in both combined and spec
@@ -95,11 +87,6 @@ combine_domain <- function(domain_specs) {
 #' @param new_col A list representing the new column specification to be merged with the existing one.
 #'
 #' @return A list containing the updated column specification.
-#'
-#' @examples
-#' existing_col <- list(required = TRUE, type = "numeric")
-#' new_col <- list(required = FALSE, type = "character")
-#' update_column(existing_col, new_col)
 update_column <- function(existing_col, new_col, col_name) {
   if (!is.null(existing_col)) {
     # Handle required conflict

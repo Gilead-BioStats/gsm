@@ -15,10 +15,3 @@ A list representing the combined specifications for the domain.
 \description{
 This function combines multiple column specifications for a single domain by applying deduplication and resolving conflicts.
 }
-\examples{
-domain_specs <- list(
-  list(col1 = list(required = TRUE), col2 = list(required = TRUE)),
-  list(col1 = list(required = FALSE), col3 = list(required = TRUE))
-)
-combine_domain(domain_specs)
-}

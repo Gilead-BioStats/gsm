@@ -17,8 +17,3 @@ A list containing the updated column specification.
 \description{
 This function updates a column specification by handling deduplication, resolving conflicts in the \code{required} field, and checking for type mismatches.
 }
-\examples{
-existing_col <- list(required = TRUE, type = "numeric")
-new_col <- list(required = FALSE, type = "character")
-update_column(existing_col, new_col)
-}
