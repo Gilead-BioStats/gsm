@@ -62,7 +62,7 @@ CheckSpec <- function(lData, lSpec) {
       function(so_far, x, idx) {
         if (!is.null(x$type) && idx %in% chrDataFrameColnames) {
           #check if data is the expected mode
-          res <- all(x$type %in% mode(lData[[strDataFrame]][[idx]]))
+          res <- all(x$type == mode(lData[[strDataFrame]][[idx]]))
           if (!res) {
             so_far <- c(so_far, idx)
           }
