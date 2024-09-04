@@ -191,7 +191,7 @@ test_that("warning if type doesn't match first instance", {
   )
   expect_warning(
     combined <- CombineSpecs(list(spec1, spec2)),
-    regexp = "Type mismatch for required and type. Using first type: numeric"
+    regexp = "Type mismatch for `col1`. Using first type: numeric"
   )
 
   expected <- list(

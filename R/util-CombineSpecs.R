@@ -55,7 +55,12 @@ combine_domain <- function(domain_specs) {
     names(spec) <- combined_cols
 
     # Combine the specifications using map2
-    map2(combined, spec, update_column)
+    combined <- pmap(list(combined, spec, combined_cols), function(combined_col, spec_col, col_name) {
+      update_column(combined_col, spec_col, col_name)
+    })
+
+    # Ensure the output is a named list
+    set_names(combined, combined_cols)
   }, .init = list())
 
   return(combined)
@@ -74,7 +79,7 @@ combine_domain <- function(domain_specs) {
 #' existing_col <- list(required = TRUE, type = "numeric")
 #' new_col <- list(required = FALSE, type = "character")
 #' update_column(existing_col, new_col)
-update_column <- function(existing_col, new_col) {
+update_column <- function(existing_col, new_col, col_name) {
   if (!is.null(existing_col)) {
     # Handle required conflict
     existing_col$required <- existing_col$required || new_col$required
@@ -82,7 +87,7 @@ update_column <- function(existing_col, new_col) {
     # Handle type conflict with a warning when available
     if (!is.null(existing_col$type) && !is.null(new_col$type)) {
       if (existing_col$type != new_col$type) {
-        cli_warn("Type mismatch for {names(existing_col)}. Using first type: {existing_col$type}")
+        cli_warn("Type mismatch for `{col_name}`. Using first type: {existing_col$type}")
       }
     }
   } else {
