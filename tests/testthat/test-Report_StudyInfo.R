@@ -1,5 +1,4 @@
 lStudy <- list(
-  # Are these variable names standardized?
   StudyID = "Unique Study ID",
   protocol_title = "Study Title",
   nickname = "Nickname",
