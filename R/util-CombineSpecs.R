@@ -56,6 +56,7 @@ CombineSpecs <- function(lSpecs) {
 #' @param domain_specs A list of lists, where each sublist represents the specifications for a domain across multiple specs.
 #'
 #' @return A list representing the combined specifications for the domain.
+#' @keywords internal
 combine_domain <- function(domain_specs) {
   combined <- reduce(domain_specs, function(combined, spec) {
     # Ensure all columns exist in both combined and spec
@@ -87,6 +88,7 @@ combine_domain <- function(domain_specs) {
 #' @param new_col A list representing the new column specification to be merged with the existing one.
 #'
 #' @return A list containing the updated column specification.
+#' @keywords internal
 update_column <- function(existing_col, new_col, col_name) {
   if (!is.null(existing_col)) {
     # Handle required conflict

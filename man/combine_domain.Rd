@@ -15,3 +15,4 @@ A list representing the combined specifications for the domain.
 \description{
 This function combines multiple column specifications for a single domain by applying deduplication and resolving conflicts.
 }
+\keyword{internal}

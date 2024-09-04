@@ -17,3 +17,4 @@ A list containing the updated column specification.
 \description{
 This function updates a column specification by handling deduplication, resolving conflicts in the \code{required} field, and checking for type mismatches.
 }
+\keyword{internal}
