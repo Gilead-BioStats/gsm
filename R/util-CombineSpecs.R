@@ -8,8 +8,29 @@
 #'
 #' @return A list representing the combined specifications across all domains.
 #' @examples
-#' all_wf <- MakeWorkflowList()
-#' all_specs <- CombineSpecs(all_wf)
+#' spec1 <- list(
+#'   df1 = list(
+#'     col1 = list(required = TRUE),
+#'     col2 = list(required = TRUE)
+#'   ),
+#'   df2 = list(
+#'     col3 = list(required = TRUE),
+#'     col4 = list(required = TRUE)
+#'  )
+#' )
+#'
+#' spec2 <- list(
+#'   df1 = list(
+#'     col1 = list(required = TRUE),
+#'     col5 = list(required = TRUE)
+#'   ),
+#'   df3 = list(
+#'     col6 = list(required = TRUE),
+#'     col7 = list(required = TRUE)
+#'   )
+#' )
+#'
+#' combined <- CombineSpecs(list(spec1, spec2))
 #'
 #' @export
 CombineSpecs <- function(lSpecs) {
