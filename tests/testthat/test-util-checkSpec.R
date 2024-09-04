@@ -90,3 +90,33 @@ test_that("Missing column only gets a flag when it is required", {
   )
 
 })
+
+test_that("Validate column type works", {
+  lData <- list(reporting_results = gsm::reportingResults)
+  lSpec <- list(
+    reporting_results = list(
+      GroupID = list(required = TRUE, type = "character"),
+      GroupLevel = list(required = TRUE, type = "character"),
+      Numerator = list(required = TRUE, type = "numeric"),
+      Denominator = list(required = TRUE, type = "numeric")
+    )
+  )
+  expect_message(
+    CheckSpec(lData, lSpec),
+    regexp = "All specified columns"
+  )
+
+  lSpec <- list(
+    reporting_results = list(
+      GroupID = list(required = TRUE, type = "character"),
+      GroupLevel = list(required = TRUE, type = "character"),
+      Numerator = list(required = TRUE, type = "character"),
+      Denominator = list(required = TRUE, type = "numeric")
+    )
+  )
+  expect_message(
+    CheckSpec(lData, lSpec),
+    regexp = "Not all columns"
+  )
+
+})

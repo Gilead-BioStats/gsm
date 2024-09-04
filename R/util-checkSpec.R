@@ -53,15 +53,15 @@ CheckSpec <- function(lData, lSpec) {
   # Check that all required columns in the spec are present in the data
   allCols <- c()
   missingCols <- c()
-  wrongType <- c()
   for (strDataFrame in lSpecDataFrames) {
+    wrongType <- c()
     #check modes in data
     imap(lSpec[[strDataFrame]], \(x, idx) {
       if (!is.null(x$type)) {
         #check if data is the expected mode
         res <- x$type %in% mode(lData[[strDataFrame]][[idx]])
         if (!res) {
-          wrongType <- c(wrongType, idx)
+          wrongType <<- c(wrongType, idx)
         }
       }
     })
