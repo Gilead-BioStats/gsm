@@ -3,6 +3,8 @@ url: https://gilead-biostats.github.io/gsm
 template:
   bootstrap: 5
   bootswatch: yeti
+  includes:
+    in_header: '<link href="pkgdown/extra.css" rel="stylesheet">'
 
 navbar:
   structure:
