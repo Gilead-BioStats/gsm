@@ -48,7 +48,6 @@
   padding: var(--bs-dropdown-header-padding-y) var(--bs-dropdown-header-padding-x);
   margin-bottom: 0;
   font-size: 0.875rem;
-  font-weight: 500;
   color: var(--bs-dropdown-header-color);
   white-space: nowrap;
 }
