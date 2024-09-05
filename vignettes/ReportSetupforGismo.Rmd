@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup include = F}
 library(gsm)
 ```
 
@@ -50,7 +50,7 @@ Reports listed in the study config can then be set up via metadata provided as p
 
 ## Report/App Set-up
 
-Each Report will have standard configuration files: 
+Each Report will be part of a qualified package and have standard configuration files: 
 
 1. `{report_name}_mapping.yaml` which specifies mappings that go from `Raw_*` data (typically from `Raw+`) to all required `Mapped_*` data to produce the report. 
 2. `{report_name}.yaml` A workflow that specifies the steps required to produce the report. This includes the following sections:
@@ -69,11 +69,11 @@ If the report requires the aggregation of metrics, then each metric will have a 
 
 Throughout this vignette, we will reference a variety of types of data, that all have fixed prefixes to identify their source and usage. Below, the five types of data are defined.
 
-- `Raw_*`
-- `Mapped_*`
-- `Analytics_*`
-- `Reporting_*`
-- `Temp_*`
+- `Raw_*`: Raw data table from g.dash, Raw+, edc, or other validated source.
+- `Mapped_*`: Mapped data table that specifies and renames the columns needed from the `Raw_*` data for a given report.
+- `Temp_*`: A temporary data table that is created by a step in a workflow and not saved externally. Typically used for custom filtering of data for particular metric analytics.
+- `Analytics_*`: The output data tables of the `{gsm}` analytics workflow, specified in the [Analytics Workflow Vignette](LINK)
+- `Reporting_*`: The output data tables of the `{gsm}` reporting workflow, specified in the [Reporting Workflow Vignette](LINK)
    
 ### `meta` section content
 
