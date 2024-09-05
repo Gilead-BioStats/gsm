@@ -40,7 +40,6 @@ Report_StudyInfo <- function(
     Value = unname(unlist(lStudy))
   ) %>%
     dplyr::left_join(dfLabels, by = "Param") %>%
-    dplyr::select("Description", "Value") %>%
     dplyr::mutate(
       Value = dplyr::if_else(
         is.na(.data$Value),
@@ -50,10 +49,13 @@ Report_StudyInfo <- function(
     )
 
   show_table <- study_status_table %>%
-    dplyr::slice(1:5) %>%
+    dplyr::filter(Param %in% c("GroupID", "nickname", "Status", "SiteCount", "ParticipantCount")) %>%
+    dplyr::select("Description", "Value") %>%
     gsm_gt(id = "study_table")
 
+
   hide_table <- study_status_table %>%
+    dplyr::select("Description", "Value") %>%
     gsm_gt(id = "study_table_hide")
 
   toggle_switch <- glue::glue('<label class="toggle">
