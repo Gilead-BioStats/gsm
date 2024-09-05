@@ -47,16 +47,38 @@ Metrics: # all available to everyone
 
 Reports listed in the study config can then be set up via metadata provided as part of the package. 
 
+
 ## Report/App Set-up
 
-Each Report will have a standard configuration file(s) `{report_name}.yaml` that includes the following:
-   - Report metadata in `meta`
-   - Mapping data requirement in `spec`
-   - Functions to run the report in `steps`
+Each Report will have standard configuration files: 
+
+1. `{report_name}_mapping.yaml` which specifies mappings that go from `Raw_*` data (typically from `Raw+`) to all required `Mapped_*` data to produce the report. 
+2. `{report_name}.yaml` A workflow that specifies the steps required to produce the report. This includes the following sections:
+  -  `meta`: (required) Report metadata used for centralized library and fields referenced in `steps` section of workflow.
+    - This is not required in the `{report_name}.yaml` if the report is entirely comprised of `metric`s that have their own `yaml` configuration files. 
+  - `spec`: (optional) Data requirement for the report, when `metric`s are not specified, or do not fully encompass the data requirements of the report. Typically from `Mapped_*` data, but occasionally from `Analytics_*` and `Reporting_*` data sources.
+  - `steps`: (required) Functions to produce the reporting output from `Mapped_*` and/or `Reporting_*` data to final output (`html`, `csv` or `shinyApp`).
+   
+If the report requires the aggregation of metrics, then each metric will have a `{metric_name}.yaml` in the `metrics` directory that includes:
+
+- `meta`: Report metadata used for centralized library and fields referenced in `steps` section of workflow.
+- `spec`: Data requirement for that specific metric, typically from `Mapped_*` data, but occasionally from `Analytics_*` and `Reporting_*` data sources.
+- `steps`: Functions to create the metric output to be used in the report.
+   
+### Types of Data Used in Workflows
+
+Throughout this vignette, we will reference a variety of types of data, that all have fixed prefixes to identify their source and usage. Below, the five types of data are defined.
+
+- `Raw_*`
+- `Mapped_*`
+- `Analytics_*`
+- `Reporting_*`
+- `Temp_*`
    
 ### `meta` section content
 
 Meta header required fields for **all** `yaml`s: 
+
 - `Name`: Name of the reporting output.
 - `File`: `yaml` file that contains the workflow.
 - `ReportID`: The unique report ID that is referenced in the Study Config `yaml`. 
