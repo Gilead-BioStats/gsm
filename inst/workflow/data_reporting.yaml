@@ -31,6 +31,7 @@ spec:
       required: true
     country:
       required: true
+  Analysis_Summary: true
 steps:
   # Get CTMS data
   - name: RunQuery # Need to add additional renames

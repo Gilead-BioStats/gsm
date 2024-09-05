@@ -2,6 +2,11 @@ meta:
   File: report_kri_country.yaml
   Name: Country-Level Key Risk Indicator Report
   Description: A report summarizing key risk indicators at the country level.
+spec:
+  Reporting_Results: true
+  Reporting_Metrics: true
+  Reporting_Groups: true
+  Reporting_Bounds: true
 steps:
   - name: RunQuery
     output: Reporting_Results_Country
@@ -21,7 +26,7 @@ steps:
       dfBounds: Reporting_Bounds
       dfMetrics: Reporting_Metrics
   - name: Report_KRI
-    output: lReport 
+    output: lReport
     params:
       lCharts: lCharts_Country
       dfResults: Reporting_Results_Country
