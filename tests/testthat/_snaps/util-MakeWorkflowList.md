@@ -3883,6 +3883,7 @@
 
     Code
       wf_list <- MakeWorkflowList(strNames = "kri8675309", bRecursive = bRecursive)
-    Message
-      ! No workflows found.
+    Condition
+      Warning:
+      No workflows found.
 

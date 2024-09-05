@@ -72,7 +72,7 @@ Summarize <- function(
     dfSummary$Score[dfSummary$Denominator < nMinDenominator] <- NA
     dfSummary$Flag[dfSummary$Denominator < nMinDenominator] <- NA
 
-    cli::cli_alert_info(
+    cli::cli_inform(
       paste0(
         sum(dfSummary$Denominator < nMinDenominator),
         " Site(s) have insufficient sample size due to KRI denominator less than {nMinDenominator}. \nThese site(s) will not have KRI score and flag summarized."

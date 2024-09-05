@@ -63,7 +63,7 @@ Visualize_Metric <- function(
   # Filter to selected MetricID ----------------------------------------------
   if (!is.null(strMetricID)) {
     if (!(strMetricID %in% unique(dfResults$MetricID))) {
-      cli::cli_alert_danger("MetricID not found in dfResults. No charts will be generated.")
+      cli::cli_warn("MetricID not found in dfResults. No charts will be generated.")
       return(NULL)
     } else {
       dfResults <- dfResults %>% filter(.data$MetricID == strMetricID)
@@ -91,7 +91,7 @@ Visualize_Metric <- function(
   dfBounds_latest <- FilterByLatestSnapshotDate(dfBounds, strSnapshotDate)
 
   if (nrow(dfResults_latest) == 0) {
-    cli::cli_alert_warning("No data found for specified snapshot date: {strSnapshotDate}. No charts will be generated.")
+    cli::cli_warn("No data found for specified snapshot date: {strSnapshotDate}. No charts will be generated.")
   } else {
     lCharts$scatterJS <- Widget_ScatterPlot(
       dfResults = dfResults_latest,
@@ -142,7 +142,7 @@ Visualize_Metric <- function(
   }
   # Continuous Charts -------------------------------------------------------
   if (number_of_snapshots <= 1) {
-    cli::cli_alert_info("Only one snapshot found. Time series charts will not be generated.")
+    cli::cli_inform("Only one snapshot found. Time series charts will not be generated.")
   } else {
     lCharts$timeSeriesContinuousScoreJS <- Widget_TimeSeries(
       dfResults = dfResults,

@@ -49,27 +49,27 @@ RunStep <- function(lStep, lData, lMeta) {
     if (length(paramVal) == 1) {
       if (paramVal == "lMeta") {
         # Pass lMeta (typically from the workflow header)
-        cli::cli_alert_success("{paramName} = {paramVal}:  Passing full lMeta object.")
+        cli::cli_inform("{paramName} = {paramVal}:  Passing full lMeta object.")
         params[[paramName]] <- lMeta
       } else if (paramVal == "lData") {
         # Pass lData
-        cli::cli_alert_success("{paramName} = {paramVal}:  Passing full lData object.")
+        cli::cli_inform("{paramName} = {paramVal}:  Passing full lData object.")
         params[[paramName]] <- lData
       } else if (use_context && paramVal %in% names(lData$context)) {
         # Use named items from context
-        cli::cli_alert_success("{paramName} = {paramVal}: Passing lData${lStep$context}${paramVal}.")
+        cli::cli_inform("{paramName} = {paramVal}: Passing lData${lStep$context}${paramVal}.")
         params[[paramName]] <- lData$context[[paramVal]]
       } else if (paramVal %in% names(lData)) {
-        cli::cli_alert_success("{paramName} = {paramVal}: Passing lData${paramVal}.")
+        cli::cli_inform("{paramName} = {paramVal}: Passing lData${paramVal}.")
         params[[paramName]] <- lData[[paramVal]]
       } else if (paramVal %in% names(lMeta)) {
         # Use named items from lMeta
-        cli::cli_alert_success("{paramName} = {paramVal}: Passing lMeta${paramVal}.")
+        cli::cli_inform("{paramName} = {paramVal}: Passing lMeta${paramVal}.")
         params[[paramName]] <- lMeta[[paramVal]]
       }
     }
     # If the parameter value is not found in 'lMeta' or 'lData', pass the parameter value as a string.
-    cli::cli_alert_info("{paramName} = {paramVal}: No matching data found. Passing '{paramVal}' as a string.")
+    cli::cli_inform("{paramName} = {paramVal}: No matching data found. Passing '{paramVal}' as a string.")
   }
 
   cli::cli_h3("Calling {.fn {lStep$name}}")

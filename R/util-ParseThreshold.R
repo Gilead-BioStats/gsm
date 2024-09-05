@@ -15,14 +15,16 @@
 
 ParseThreshold <- function(strThreshold) {
   # Parse from a comma separated string to a vector of numeric values
-  vThreshold <- strsplit(strThreshold, ",")[[1]] %>% as.numeric()
+  suppressWarnings(
+    vThreshold <- strsplit(strThreshold, ",")[[1]] %>% as.numeric()
+  )
 
   # Check if all values are numeric
   if (length(vThreshold > 0) && all(!is.na(vThreshold))) {
-    cli::cli_alert_success("Parsed {strThreshold} to numeric vector: {sort(vThreshold)}")
+    cli::cli_inform("Parsed {strThreshold} to numeric vector: {sort(vThreshold)}")
     return(sort(vThreshold))
   } else {
-    cli::cli_alert_warning("Warning: Failed to parse strThreshold ('{strThreshold}') to a numeric vector.")
+    cli::cli_warn("Warning: Failed to parse strThreshold ('{strThreshold}') to a numeric vector.")
     return(NULL)
   }
 }

@@ -34,7 +34,7 @@ RunQuery <- function(strQuery, df) {
   }
   # return the data frame and print a warning if there are 0 rows
   if (nrow(df) == 0) {
-    cli::cli_alert_warning("df has 0 rows. Query not run. Returning empty data frame.")
+    cli::cli_warn("df has 0 rows. Query not run. Returning empty data frame.")
     return(df)
   } else {
     # run the query

@@ -69,7 +69,7 @@ RunWorkflow <- function(
     result <- RunStep(lStep = step, lData = lWorkflow$lData, lMeta = lWorkflow$meta)
 
     if (step$output %in% names(lData)) {
-      cli::cli_alert_warning("Overwriting existing data in `lData`.")
+      cli::cli_warn("Overwriting existing data in `lData`.")
     }
 
     lWorkflow$lData[[step$output]] <- result
@@ -86,9 +86,9 @@ RunWorkflow <- function(
   if (!bKeepInputData) {
     outputs <- lWorkflow$steps %>% purrr::map_chr(~ .x$output)
     lWorkflow$lData <- lWorkflow$lData[outputs]
-    cli::cli_alert_info("Returning workflow outputs: {names(lWorkflow$lData)}")
+    cli::cli_inform("Returning workflow outputs: {names(lWorkflow$lData)}")
   } else {
-    cli::cli_alert_info("Returning workflow inputs and outputs: {names(lWorkflow$lData)}")
+    cli::cli_inform("Returning workflow inputs and outputs: {names(lWorkflow$lData)}")
   }
 
   cli::cli_h1(paste0("Completed `", lWorkflow$meta$File, "` Workflow"))

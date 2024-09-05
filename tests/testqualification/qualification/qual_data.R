@@ -66,9 +66,9 @@ verify_req_cols <- function(lData) {
     discard(is.null)
 
   if (length(output) == 0) {
-    cli_alert_success("All required columns for mapping lData are present")
+    cli::cli_inform("All required columns for mapping lData are present")
   } else {
-    cli_alert_danger("Missing required columns detected in following data.frames:\n\n")
+    cli::cli_warn("Missing required columns detected in following data.frames:\n\n")
     return(output)
   }
 }
@@ -95,7 +95,7 @@ robust_runworkflow <- function(lWorkflow,
     cli::cli_h2(paste0("Workflow steps ", stepCount, " of ", length(lWorkflow$steps), ": `", steps$name, "`"))
     result0 <- purrr::safely(~ gsm::RunStep(lStep = steps, lData = lWorkflow$lData, lMeta = lWorkflow$meta))()
     if (names(result0[!map_vec(result0, is.null)]) == "error") {
-      cli::cli_alert_danger(paste0("Error:`", result0$error$message, "`: ", "error message stored as result"))
+      cli::cli_warn(paste0("Error:`", result0$error$message, "`: ", "error message stored as result"))
       result1 <- result0$error$message
     } else {
       result1 <- result0$result

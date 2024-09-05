@@ -5,9 +5,9 @@
         "2012-12-31"), dfMetrics = reportingMetrics)
     Message
       Creating stacked dfBounds data for kri0001 and kri0002
-      v Parsed -2,-1,2,3 to numeric vector: -2, -1, 2, and 3
+      Parsed -2,-1,2,3 to numeric vector: -2, -1, 2, and 3
       nStep was not provided. Setting default step to 50.64.
-      v Parsed -2,-1,2,3 to numeric vector: -2, -1, 2, and 3
+      Parsed -2,-1,2,3 to numeric vector: -2, -1, 2, and 3
       nStep was not provided. Setting default step to 50.64.
     Output
       # A tibble: 2,530 x 8
@@ -33,7 +33,7 @@
         "2012-12-31"), dfMetrics = reportingMetrics, strMetrics = "kri0001")
     Message
       Creating stacked dfBounds data for kri0001
-      v Parsed -2,-1,2,3 to numeric vector: -2, -1, 2, and 3
+      Parsed -2,-1,2,3 to numeric vector: -2, -1, 2, and 3
       nStep was not provided. Setting default step to 50.64.
     Output
       # A tibble: 1,265 x 8
@@ -59,9 +59,9 @@
         "2012-12-31"), dfMetrics = reportingMetrics)
     Message
       Creating stacked dfBounds data for kri0001 and kri0002
-      v Parsed -2,-1,2,3 to numeric vector: -2, -1, 2, and 3
+      Parsed -2,-1,2,3 to numeric vector: -2, -1, 2, and 3
       > nStep was not provided. Setting default step to 0.0164434954566932
-      v Parsed -2,-1,2,3 to numeric vector: -2, -1, 2, and 3
+      Parsed -2,-1,2,3 to numeric vector: -2, -1, 2, and 3
       > nStep was not provided. Setting default step to 0.0164434954566932
     Output
       # A tibble: 2,530 x 7

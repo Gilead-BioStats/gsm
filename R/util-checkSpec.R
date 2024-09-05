@@ -73,9 +73,9 @@ CheckSpec <- function(lData, lSpec) {
     )
 
     if (length(wrongType)) {
-      cli::cli_alert_danger("Not all columns of {strDataFrame} in the spec are in the expected format, improperly formatted columns are: {wrongType}")
+      cli::cli_warn("Not all columns of {strDataFrame} in the spec are in the expected format, improperly formatted columns are: {wrongType}")
     } else {
-      cli::cli_alert("All specified columns in {strDataFrame} are in the expected format")
+      cli::cli_inform("All specified columns in {strDataFrame} are in the expected format")
     }
     #check that required exist in data
     lSpecColumns <- which(sapply(lSpec[[strDataFrame]], function(x) x$required)) %>% names
@@ -88,8 +88,8 @@ CheckSpec <- function(lData, lSpec) {
     }
   }
   if (length(missingCols) > 0) {
-    cli::cli_alert_danger("Not all required columns in the spec are present in the data, missing columns are: {missingCols}")
+    cli::cli_inform("Not all required columns in the spec are present in the data, missing columns are: {missingCols}")
   } else {
-    cli::cli_alert("All {length(allCols)} required columns in the spec are present in the data: {allCols}")
+    cli::cli_inform("All {length(allCols)} required columns in the spec are present in the data: {allCols}")
   }
 }

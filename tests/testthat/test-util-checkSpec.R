@@ -154,8 +154,19 @@ test_that("Validate column type works", {
       Denominator = list(required = TRUE, type = "numeric")
     )
   )
-  expect_message(
-    expect_message(expect_message(CheckSpec(lData, lSpec), "All 1"), "All 4"),
+  expect_warning(
+    CheckSpec(lData, lSpec),
     regexp = "Not all columns"
   )
+  expect_message(
+    expect_message(
+      suppressWarnings(CheckSpec(lData, lSpec)),
+      "All 1"
+    ),
+    "All 4"
+  )
+  # expect_message(
+  #   expect_message(expect_message(CheckSpec(lData, lSpec), "All 1"), "All 4"),
+  #   regexp = "Not all columns"
+  # )
 })

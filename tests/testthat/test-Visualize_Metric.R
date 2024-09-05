@@ -19,7 +19,10 @@ test_that("Visualize_Metric processes data correctly", {
 })
 
 test_that("Visualize_Metric handles missing MetricID", {
-  charts <- Visualize_Metric(reportingResults, reportingBounds, reportingGroups, reportingMetrics, strMetricID = "kri1000")
+  expect_warning(
+    charts <- Visualize_Metric(reportingResults, reportingBounds, reportingGroups, reportingMetrics, strMetricID = "kri1000"),
+    regexp = "No charts will be generated."
+  )
 
   # Test if the function returns NULL when MetricID is not found
   expect_null(charts)

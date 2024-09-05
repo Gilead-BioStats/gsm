@@ -76,7 +76,7 @@ MakeWorkflowList <- function(
   }
 
   if (length(workflows) == 0) {
-    cli::cli_alert_warning("No workflows found.")
+    cli::cli_warn("No workflows found.")
   }
 
   return(workflows)
