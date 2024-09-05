@@ -88,7 +88,7 @@ htmltools::div(
 ```
 
 ```{r echo=FALSE, warning=FALSE, results = 'asis'}
-if(nrow(dfResults_current == 0)) {
+if(!any(dfResults_current$Flag %in% c(-1, 1, 2))) {
   cat("0 of 15 groups selected. Update filter to see more data.")
 }
 ```
