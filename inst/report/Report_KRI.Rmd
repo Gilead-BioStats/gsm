@@ -87,12 +87,6 @@ htmltools::div(
 
 ```
 
-```{r echo=FALSE, warning=FALSE, results = 'asis'}
-if(all(dfResults_current$Flag == 0 | is.na(dfResults_current))) {
-  cat("0 of 15 groups selected. Update filter to see more data.")
-}
-```
-
 :::
 
 ```{r, echo=FALSE, results = 'asis'}

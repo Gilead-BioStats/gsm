@@ -28,6 +28,10 @@ Report_OverviewText <- function(lSetup, dfResults, lStudy) {
     group_type <- "countries"
   }
 
+  if(is_empty(amber_or_red_KRI_groups)) {
+    cat("0 of 15 groups selected. Update filter to see more data.")
+  }
+
   glue("
         <div style = 'margin-top: 1em;'>As of {lSetup$SnapshotDate}, {lSetup$StudyID} has {as.numeric(lStudy$ParticipantCount)} participants enrolled across {lStudy$SiteCount} {group_type}. {length(red_KRI_groups)} Site-KRI combinations have been flagged across {length(unique(red_KRI_groups))} {group_type} as shown in the Study Overview Table above.</div>
        - <div>{length(unique(red_KRI_groups))} {group_type} have at least one red KRI</div>
