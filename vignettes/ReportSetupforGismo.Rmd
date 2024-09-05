@@ -47,16 +47,14 @@ Metrics: # all available to everyone
 
 Reports listed in the study config can then be set up via metadata provided as part of the package. 
 
-
 ## Report/App Set-up
 
 Each Report will be part of a qualified package and have standard configuration files: 
 
-1. `{report_name}_mapping.yaml` which specifies mappings that go from `Raw_*` data (typically from `Raw+`) to all required `Mapped_*` data to produce the report. 
-2. `{report_name}.yaml` A workflow that specifies the steps required to produce the report. This includes the following sections:
+1. `{report_name}.yaml` A workflow that specifies the steps required to produce the report. This includes the following sections:
   -  `meta`: (required) Report metadata used for centralized library and fields referenced in `steps` section of workflow.
     - This is not required in the `{report_name}.yaml` if the report is entirely comprised of `metric`s that have their own `yaml` configuration files. 
-  - `spec`: (optional) Data requirement for the report, when `metric`s are not specified, or do not fully encompass the data requirements of the report. Typically from `Mapped_*` data, but occasionally from `Analytics_*` and `Reporting_*` data sources.
+  - `spec`: (required) Data table requirement for the report. Typically from `Mapped_*` or `Reporting_*` data, but occasionally from `Analytics_*` and `Reporting_*` data sources. 
   - `steps`: (required) Functions to produce the reporting output from `Mapped_*` and/or `Reporting_*` data to final output (`html`, `csv` or `shinyApp`).
    
 If the report requires the aggregation of metrics, then each metric will have a `{metric_name}.yaml` in the `metrics` directory that includes:
@@ -92,6 +90,7 @@ Meta header required fields for **all** `yaml`s:
     
 
 Additional meta header required fields **apps** and **reports**: 
+
 - `Permission`: Level of permissions for viewing that match the `Users` argument in the Study Config file. Common values: `Admin`, `Users`.
 - `Outputs`: The output
 - `Dependencies`: `{gsm}` ecosystem package dependencies. Specified with two elements, `Functions`, `Data`.
