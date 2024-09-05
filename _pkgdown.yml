@@ -3,6 +3,8 @@ url: https://gilead-biostats.github.io/gsm
 template:
   bootstrap: 5
   bootswatch: yeti
+  includes:
+    in_header: '<link href="pkgdown/extra.css" rel="stylesheet">'
 
 navbar:
   structure:
@@ -16,6 +18,22 @@ navbar:
           href: StandardReportSite.html
         - text: Country Report
           href: StandardReportCountry.html
+
+articles:
+  - title: "Data Model"
+    navbar: "Data Model"
+    contents:
+      - DataModel
+      - Cookbook
+      - DataAnalysis
+      - DataReporting
+      - articles/KRIMethod
+  - title: "Quality"
+    navbar: "Quality"
+    contents:
+      - articles/QualificationWorkflow
+      - articles/Qualification
+      - articles/ContributorGuidelines
 
 reference:
   - title: Visualize
