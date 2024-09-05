@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup include = F}
+```{r setup, include = F}
 library(gsm)
 ```
 
