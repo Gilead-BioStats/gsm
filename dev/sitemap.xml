@@ -69,6 +69,7 @@
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/analyticsInput.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/analyticsSummary.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/cols_label_month.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/dev/reference/combine_domain.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/gsm-package.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/gsm_gt.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/gt-shared.html</loc></url>
@@ -81,5 +82,6 @@
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/reportingResults.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/shared-params.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/tidyeval.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/dev/reference/update_column.html</loc></url>
 </urlset>
 
