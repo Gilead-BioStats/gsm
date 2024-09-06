@@ -9,6 +9,7 @@
 #' @inheritParams shared-params
 #' @param bAddGroupSelect `logical` Add a dropdown to highlight sites? Default: `TRUE`.
 #' @param strShinyGroupSelectID `character` Element ID of group select in Shiny context. Default: `'GroupID'`.
+#' @param strFootnote `character` The text to display as a footnote below the scatter plot.
 #'
 #' @examples
 #' ## Filter data to one metric and snapshot
@@ -38,6 +39,7 @@ Widget_ScatterPlot <- function(
   dfBounds = NULL,
   bAddGroupSelect = TRUE,
   strShinyGroupSelectID = "GroupID",
+  strFootnote = "Default footnote text",
   bDebug = FALSE
 ) {
   # define widget inputs
@@ -48,6 +50,7 @@ Widget_ScatterPlot <- function(
     dfBounds = dfBounds,
     bAddGroupSelect = bAddGroupSelect,
     strShinyGroupSelectID = strShinyGroupSelectID,
+    strFootnote = strFootnote, # Include the footnote in the inputs.
     bDebug = bDebug
   )
 

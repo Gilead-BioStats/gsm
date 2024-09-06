@@ -30,6 +30,18 @@ HTMLWidgets.widget({
                     input.dfGroups,
                     input.bAddGroupSelect
                 );
+
+                // Add a footnote below the scatter plot.
+                const footnote = document.createElement('div'); // Create a div for the footnote.
+                footnote.style.marginTop = '10px'; // Add some space between the plot and footnote.
+                footnote.style.fontSize = '12px'; // Set a smaller font size for the footnote.
+                footnote.style.color = '#555'; // Use a lighter color for the footnote text.
+
+                // Set the content of the footnote from the input.
+                footnote.innerHTML = input.strFootnote; // Use the footnote passed from R.
+
+                // Append the footnote div to the element containing the scatter plot.
+                el.appendChild(footnote);
             },
             resize: function(width, height) {
             }
