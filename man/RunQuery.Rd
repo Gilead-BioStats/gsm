@@ -7,7 +7,7 @@
 RunQuery(strQuery, df)
 }
 \arguments{
-\item{strQuery}{\code{character} SQL query to run using the format expected by glue_sql. Mapping values provided in curly braces will be replaced with the appropriate column names.}
+\item{strQuery}{\code{character} SQL query to run.}
 
 \item{df}{\code{data.frame} A data frame to use in the SQL query}
 }
@@ -17,7 +17,7 @@ RunQuery(strQuery, df)
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
-Run a SQL query via DBI::dbGetQuery using the format expected by glue_sql. Values from lMapping provided using the format expected by qlue_sql (e.g.  {\code{strIDCol}}) will be replaced with the appropriate column names/values.
+Run a SQL query against a dataframe.
 }
 \examples{
 df <- data.frame(
