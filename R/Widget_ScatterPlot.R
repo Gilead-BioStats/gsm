@@ -39,7 +39,7 @@ Widget_ScatterPlot <- function(
   dfBounds = NULL,
   bAddGroupSelect = TRUE,
   strShinyGroupSelectID = "GroupID",
-  strFootnote = "Default footnote text",
+  strFootnote = ifelse(bAddGroupSelect, "Size of the point is relative to size of the group.", ""),
   bDebug = FALSE
 ) {
   # define widget inputs
