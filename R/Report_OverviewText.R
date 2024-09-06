@@ -29,7 +29,8 @@ Report_OverviewText <- function(lSetup, dfResults, lStudy) {
   }
 
   if(is_empty(amber_or_red_KRI_groups)) {
-    cat("0 of 15 groups selected. Update filter to see more data.")
+    glue("0 of {length(unique(dfResults$GroupID))} groups applicable to this filter. Update filter to see more data.") %>%
+    cat()
   }
 
   glue("
