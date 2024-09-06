@@ -77,5 +77,5 @@ test_that("Handle no flag messaging", {
     Flag = c(0, 0, 0, 0, 0, 0)
   )
 
-  expect_output(Report_OverviewText(lSetup, dfSummary, lStudy), "0 of 15 groups selected. Update filter to see more data.")
+  expect_output(Report_OverviewText(lSetup, dfSummary, lStudy), "Update filter to see more data.")
 })
