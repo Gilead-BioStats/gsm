@@ -47,9 +47,11 @@ Metrics: # all available to everyone
 
 Reports listed in the study config can then be set up via metadata provided as part of the package. 
 
-## Report/App Set-up
+## Module Set-up
 
-Each Report will be part of a qualified package and have standard configuration files: 
+### Overview
+
+Each Report will be part of a qualified package and have at least one standard configuration file, but supporting files are likely necessary: 
 
 1. `{report_name}.yaml` A workflow that specifies the steps required to produce the report. This includes the following sections:
   -  `meta`: (required) Report metadata used for centralized library and fields referenced in `steps` section of workflow.
@@ -60,9 +62,10 @@ Each Report will be part of a qualified package and have standard configuration 
 If the report requires the aggregation of metrics, then each metric will have a `{metric_name}.yaml` in the `metrics` directory that includes:
 
 - `meta`: Report metadata used for centralized library and fields referenced in `steps` section of workflow.
-- `spec`: Data requirement for that specific metric, typically from `Mapped_*` data, but occasionally from `Analytics_*` and `Reporting_*` data sources.
-- `steps`: Functions to create the metric output to be used in the report.
-   
+- `spec`: Data requirement for that specific metric, typically from `Mapped_*` data, but occasionally from `Analysis_*` or `Reporting_*` data sources.
+- `steps`: Function calls to create the metric output to be used in the report.
+
+ 
 ### Types of Data Used in Workflows
 
 Throughout this vignette, we will reference a variety of types of data, that all have fixed prefixes to identify their source and usage. Below, the five types of data are defined.
@@ -70,7 +73,7 @@ Throughout this vignette, we will reference a variety of types of data, that all
 - `Raw_*`: Raw data table from g.dash, Raw+, edc, or other validated source.
 - `Mapped_*`: Mapped data table that specifies and renames the columns needed from the `Raw_*` data for a given report.
 - `Temp_*`: A temporary data table that is created by a step in a workflow and not saved externally. Typically used for custom filtering of data for particular metric analytics.
-- `Analytics_*`: The output data tables of the `{gsm}` analytics workflow, specified in the [Analytics Workflow Vignette](LINK)
+- `Analysis_*`: The output data tables of the `{gsm}` analytics workflow, specified in the [Analytics Workflow Vignette](LINK)
 - `Reporting_*`: The output data tables of the `{gsm}` reporting workflow, specified in the [Reporting Workflow Vignette](LINK)
    
 ### `meta` section content
@@ -79,10 +82,9 @@ Meta header required fields for **all** `yaml`s:
 
 - `Name`: Name of the reporting output.
 - `File`: `yaml` file that contains the workflow.
-- `ReportID`: The unique report ID that is referenced in the Study Config `yaml`. 
+- `ModuleID`/`MetricID`: The unique ID that is referenced in the Study Config `yaml`. 
 - `Description`: A description of the reporting output specified in the workflow.
-- `ReportType`: The type of reporting output specified in the workflow. Valid values: `Application`, `Report`, `Metric`.
-- `Repo`: Package repo and version
+- `Repo`: Package repo and version.
 - `Status`: The validation status of the reporting output. Valid values: 
     - `Qualified`: Output has been qualified via our qualification process specified [here](https://gilead-biostats.github.io/gsm/articles/QualificationWorkflow.html). 
     - `Pilot`: Output is being used by pilot studies and is maintained in a package repository.
@@ -91,59 +93,52 @@ Meta header required fields for **all** `yaml`s:
 
 Additional meta header required fields **apps** and **reports**: 
 
+- `ModuleType`: The type of reporting output specified in the workflow. Valid values: `Application`, `Report`, `Metric`.
 - `Permission`: Level of permissions for viewing that match the `Users` argument in the Study Config file. Common values: `Admin`, `Users`.
-- `Outputs`: The output
+- `Outputs`: The output of the workflow, including format.
 - `Dependencies`: `{gsm}` ecosystem package dependencies. Specified with two elements, `Functions`, `Data`.
     - `Functions`: Names of any functions from other `{gsm}` packages that are required for this workflow. Specify with {package}::{function}.
     - `Data`: Names of any dataframes created in other `{gsm}` packages that are required for this workflow
-- `ExampleURL`: Location of a sample report (typically on the pkgdown site)
-
-Example:
-
+- `ExampleURL`: Location of a sample report (typically on the pkgdown site) **Standardize this**
 
 #### Required fields
 
 ### `spec` section content
 
-any needed data in the mapping layer should be documented here. each column that is needed will contain the following information:
-- `required`:
-- `type`:
+Any needed data for the workflow to run, whether that be `Mapped_*`, `Analysis_*` or `Reporting_*`. For `Mapped_*` data, each column that is needed will be specified and contain the following information:
+
+- `required`: Boolean field specifying whether of not this column is required for the workflow to run, or optional/recommended for inclusion for user experience or augmented information.
+- `type`: Character field describing the data type of the column. Use a `mode` as defined by R.
 
 
 ### `steps` section content
 
-#### Example YAML for KRI Report: 
+#### Example yamls for KRI Reports
 
+The Report yaml:
 ```
-meta:
   File: report_example.yaml
-  ReportID: example_report
+  ModuleID: example_report
   Name: An example report
   Description: A report that is an example
-  Repo: gsm.example
+  ModuleType: Report
+  Repo: gsm v2.0.1
+  Status: Qualified
+  Permission: Users
+  Outputs: An html report
+  Dependencies:
+    Data:
+      - Reporting_Results
+      - Reporting_Groups
+      - Reporting_Metrics
+      - Reporting_Bounds
   ExampleURL: https://gilead-biostats.github.io/gsm.example/example_report.html
 spec: 
-# any needed data in the mapping layer should be documented here. 
-  Mapped_AE:
-    subjid:
-      required: true
-      type: character
-  Mapped_ENROLL:
-    subjid:
-      required: true
-      type: character
-    invid:
-      required: true
-      type: character
-    timeonstudy:
-      required: true
-      type: numeric
-  Mapped_CTMS_SITE
-    discontinued_count:
-      required: true
-      type: numeric
+  Reporting_Results: Reporting_Results
+  Reporting_Groups: Reporting_Groups
+  Reporting_Metrics: Reporting_Metrics
+  Reporting_Bounds: Reporting_Bounds
 steps:
-# TODO Update this to some examples steps
   - name: RunQuery
     output: Reporting_Results_Country
     params:
@@ -169,5 +164,80 @@ steps:
       dfGroups: Reporting_Groups
       dfMetrics: Reporting_Metrics_Country
 ```
+
+A supporting metric yaml:
+```
+meta:
+  File: kri0003.yaml
+  Name: An example metric
+  Description: A metric that is an example
+  Repo: gsm v2.0.1
+  Status: Qualified
+  MetricID: kri0003
+  GroupLevel: Site
+  Abbreviation: PD
+  Metric: Non-Important Protocol Deviation Rate
+  Numerator: Non-Important Protocol Deviations
+  Denominator: Days on Study
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
+  Type: rate
+  Threshold: -3,-2,2,3
+  nMinDenominator: 30
+spec:
+  Mapped_PD:
+    subjid:
+      required: true
+  Mapped_ENROLL:
+    subjid:
+      required: true
+    invid:
+      required: true
+    timeonstudy:
+      required: true
+steps:
+  - name: ParseThreshold
+    output: vThreshold
+    params:
+      strThreshold: Threshold
+  - name: RunQuery
+    output: Temp_NONIMPORTANT
+    params:
+      df: Mapped_PD
+      strQuery: "SELECT * FROM df WHERE deemedimportant = 'No'"
+  - name: Input_Rate
+    output: Analysis_Input
+    params:
+      dfSubjects: Mapped_ENROLL
+      dfNumerator: Temp_NONIMPORTANT
+      dfDenominator: Mapped_ENROLL
+      strSubjectCol: subjid
+      strGroupCol: invid
+      strGroupLevel: GroupLevel
+      strNumeratorMethod: Count
+      strDenominatorMethod: Sum
+      strDenominatorCol: timeonstudy
+  - name: Transform_Rate
+    output: Analysis_Transformed
+    params:
+      dfInput: Analysis_Input
+  - name: Analyze_NormalApprox
+    output: Analysis_Analyzed
+    params:
+      dfTransformed: Analysis_Transformed
+      strType: Type
+  - name: Flag_NormalApprox
+    output: Analysis_Flagged
+    params:
+      dfAnalyzed: Analysis_Analyzed
+      vThreshold: vThreshold
+  - name: Summarize
+    output: Analysis_Summary
+    params:
+      dfFlagged: Analysis_Flagged
+      nMinDenominator: nMinDenominator
+```
+  
+
 
 ## Step-by-Step
