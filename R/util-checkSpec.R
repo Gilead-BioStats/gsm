@@ -53,6 +53,8 @@ CheckSpec <- function(lData, lSpec) {
   # Check that all required columns in the spec are present in the data
   allCols <- c()
   missingCols <- c()
+  #remove all lSpec entries that are just the name of the table
+  lSpecDataFrames <- which(sapply(lSpec, function(x) length(x) > 1)) %>% names
   for (strDataFrame in lSpecDataFrames) {
     chrDataFrameColnames <- colnames(lData[[strDataFrame]])
     #check modes in data
