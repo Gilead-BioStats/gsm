@@ -10,7 +10,7 @@
       [1] "meta"  "spec"  "steps" "path"  "name" 
       
       $cou0001
-      [1] "meta"         "mapping_spec" "steps"        "path"         "name"        
+      [1] "meta"  "spec"  "steps" "path"  "name" 
       
       $cou0002
       [1] "meta"  "spec"  "steps" "path"  "name" 
@@ -1406,95 +1406,111 @@
       
       $cou0008[[2]]
       $cou0008[[2]]$name
-      [1] "Input_Rate"
+      [1] "RunQuery"
       
       $cou0008[[2]]$output
-      [1] "Analysis_Input"
+      [1] "Temp_QUERY"
       
       $cou0008[[2]]$params
-      $cou0008[[2]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
-      
-      $cou0008[[2]]$params$dfNumerator
+      $cou0008[[2]]$params$df
       [1] "Mapped_QUERY"
       
-      $cou0008[[2]]$params$dfDenominator
-      [1] "Mapped_DATACHG"
-      
-      $cou0008[[2]]$params$strSubjectCol
-      [1] "subject_nsv"
-      
-      $cou0008[[2]]$params$strGroupCol
-      [1] "country"
-      
-      $cou0008[[2]]$params$strGroupLevel
-      [1] "GroupLevel"
-      
-      $cou0008[[2]]$params$strNumeratorMethod
-      [1] "Count"
-      
-      $cou0008[[2]]$params$strDenominatorMethod
-      [1] "Count"
+      $cou0008[[2]]$params$strQuery
+      [1] "SELECT * FROM df WHERE querystatus IN ('Open','Answered','Closed')"
       
       
       
       $cou0008[[3]]
       $cou0008[[3]]$name
-      [1] "Transform_Rate"
+      [1] "Input_Rate"
       
       $cou0008[[3]]$output
-      [1] "Analysis_Transformed"
+      [1] "Analysis_Input"
       
       $cou0008[[3]]$params
-      $cou0008[[3]]$params$dfInput
-      [1] "Analysis_Input"
+      $cou0008[[3]]$params$dfSubjects
+      [1] "Mapped_ENROLL"
+      
+      $cou0008[[3]]$params$dfNumerator
+      [1] "Temp_QUERY"
+      
+      $cou0008[[3]]$params$dfDenominator
+      [1] "Mapped_DATACHG"
+      
+      $cou0008[[3]]$params$strSubjectCol
+      [1] "subject_nsv"
+      
+      $cou0008[[3]]$params$strGroupCol
+      [1] "country"
+      
+      $cou0008[[3]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $cou0008[[3]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $cou0008[[3]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $cou0008[[4]]
       $cou0008[[4]]$name
-      [1] "Analyze_NormalApprox"
+      [1] "Transform_Rate"
       
       $cou0008[[4]]$output
-      [1] "Analysis_Analyzed"
-      
-      $cou0008[[4]]$params
-      $cou0008[[4]]$params$dfTransformed
       [1] "Analysis_Transformed"
       
-      $cou0008[[4]]$params$strType
-      [1] "Type"
+      $cou0008[[4]]$params
+      $cou0008[[4]]$params$dfInput
+      [1] "Analysis_Input"
       
       
       
       $cou0008[[5]]
       $cou0008[[5]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Analyze_NormalApprox"
       
       $cou0008[[5]]$output
-      [1] "Analysis_Flagged"
-      
-      $cou0008[[5]]$params
-      $cou0008[[5]]$params$dfAnalyzed
       [1] "Analysis_Analyzed"
       
-      $cou0008[[5]]$params$vThreshold
-      [1] "vThreshold"
+      $cou0008[[5]]$params
+      $cou0008[[5]]$params$dfTransformed
+      [1] "Analysis_Transformed"
+      
+      $cou0008[[5]]$params$strType
+      [1] "Type"
       
       
       
       $cou0008[[6]]
       $cou0008[[6]]$name
-      [1] "Summarize"
+      [1] "Flag_NormalApprox"
       
       $cou0008[[6]]$output
-      [1] "Analysis_Summary"
-      
-      $cou0008[[6]]$params
-      $cou0008[[6]]$params$dfFlagged
       [1] "Analysis_Flagged"
       
-      $cou0008[[6]]$params$nMinDenominator
+      $cou0008[[6]]$params
+      $cou0008[[6]]$params$dfAnalyzed
+      [1] "Analysis_Analyzed"
+      
+      $cou0008[[6]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $cou0008[[7]]
+      $cou0008[[7]]$name
+      [1] "Summarize"
+      
+      $cou0008[[7]]$output
+      [1] "Analysis_Summary"
+      
+      $cou0008[[7]]$params
+      $cou0008[[7]]$params$dfFlagged
+      [1] "Analysis_Flagged"
+      
+      $cou0008[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
       
       

@@ -13,10 +13,15 @@ meta:
   nMinDenominator: 3
 spec:
   Mapped_SCREEN:
-    subjectid:
+    subjid:
       required: true
+      type: character
     country:
       required: true
+      type: character
+    enrollyn:
+      required: true
+      type: character
 steps:
   - name: ParseThreshold
     output: vThreshold
