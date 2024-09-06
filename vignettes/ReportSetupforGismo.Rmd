@@ -14,10 +14,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup, include = F}
-library(gsm)
-```
-
 ## Overview
 
 This vignette describes how to create new metrics, reports and shiny app modules that are compatible with `gismo`. 
