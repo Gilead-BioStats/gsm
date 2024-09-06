@@ -3,10 +3,10 @@ meta:
   Name: Site-Level Key Risk Indicator Report
   Description: A report summarizing key risk indicators at the country level
 spec:
-  Reporting_Results: true
-  Reporting_Metrics: true
-  Reporting_Groups: true
-  Reporting_Bounds: true
+  Reporting_Results: _include_all
+  Reporting_Metrics: _include_all
+  Reporting_Groups: _include_all
+  Reporting_Bounds: _include_all
 steps:
   - name: RunQuery
     output: Reporting_Results_Site
