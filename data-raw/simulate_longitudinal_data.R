@@ -261,8 +261,8 @@ for (i in 1:12) {
     Raw_ctms_site = clindata::ctms_site,
     Raw_ctms_study = clindata::ctms_study,
     Mapped_ENROLL = mapped$Mapped_ENROLL,
-    lWorkflows = kri_wf,
-    lAnalysis = kris,
+    lWorkflows = cou_wf,
+    lAnalysis = cous,
     dSnapshotDate = endDate[i],
     strStudyID = "ABC-123"
   )
@@ -333,7 +333,8 @@ write.csv(file = "data-raw/reportingGroups.csv",
 write.csv(file = "data-raw/reportingBounds.csv",
           x = lReporting_site$Reporting_Bounds,
           row.names = F)
-write.csv(file = "data-raw/reportingMetrics.csv",  x = lReporting_site$Reporting_Metrics,
+write.csv(file = "data-raw/reportingMetrics.csv",
+          x = lReporting_site$Reporting_Metrics,
           row.names = F)
 write.csv(file = "data-raw/reportingResults.csv",
           x = lReporting_site$Reporting_Results,
