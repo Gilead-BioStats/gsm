@@ -59,7 +59,7 @@ AddLBs <- function(df, n = 5000, dfParticipants) {
 AddPDs <- function(df, n = 500, dfParticipants) {
   newPDs <- data.frame(
     subjectenrollmentnumber = sample(dfParticipants$subjid, n, replace = TRUE),
-    deemedimportant = sample(c("Y", "N"), n, replace = TRUE)
+    deemedimportant = sample(c("Yes", "No"), n, replace = TRUE)
   )
   df <- bind_rows(df, newPDs)
   return(df)
@@ -289,3 +289,66 @@ for (i in 1:12) {
                               bind_rows(x, reporting_country[[idx]]))
   }
 }
+
+#only save the most recent groups, bounds and metrics entry for use in reporting
+lReporting_site$Reporting_Groups <- reporting_site$Reporting_Groups
+lReporting_site$Reporting_Bounds <- reporting_site$Reporting_Bounds
+lReporting_site$Reporting_Metrics <- reporting_site$Reporting_Metrics
+
+lReporting_country$Reporting_Groups <- reporting_country$Reporting_Groups
+lReporting_country$Reporting_Bounds <- reporting_country$Reporting_Bounds
+lReporting_country$Reporting_Metrics <- reporting_country$Reporting_Metrics
+
+## test out the data on a report
+# wf_report_site <- MakeWorkflowList(strNames = "report_kri_site")
+# lReports_site <- RunWorkflows(wf_report_site, lReporting_site)
+# wf_report_country <- MakeWorkflowList(strNames = "report_kri_country")
+# lReports_country <- RunWorkflows(wf_report_country, lReporting_country)
+
+# write CSVs
+
+# analysis data
+## site
+# write.csv(file = "data-raw/analyticsSummary.csv",
+#           x = kris$kri0001$Analysis_Summary,
+#           row.names = F)
+# write.csv(file = "data-raw/analyticsInput.csv",
+#           x = kris$kri0001$Analysis_Input,
+#           row.names = F)
+
+## country
+# write.csv(file = "data-raw/analyticsSummary_country.csv",
+#           x = cous$Analysis_Summary,
+#           row.names = F)
+# write.csv(file = "data-raw/analyticsInput_country.csv",
+#           x = cous$Analysis_Input,
+#           row.names = F)
+
+
+# reporting data
+## site
+write.csv(file = "data-raw/reportingGroups.csv",
+          x = lReporting_site$Reporting_Groups,
+          row.names = F)
+write.csv(file = "data-raw/reportingBounds.csv",
+          x = lReporting_site$Reporting_Bounds,
+          row.names = F)
+write.csv(file = "data-raw/reportingMetrics.csv",  x = lReporting_site$Reporting_Metrics,
+          row.names = F)
+write.csv(file = "data-raw/reportingResults.csv",
+          x = lReporting_site$Reporting_Results,
+          row.names = F)
+
+##country
+write.csv(file = "data-raw/reportingGroups_country.csv",
+          x = lReporting_country$Reporting_Groups,
+          row.names = F)
+write.csv(file = "data-raw/reportingBounds_country.csv",
+          x = lReporting_country$Reporting_Bounds,
+          row.names = F)
+write.csv(file = "data-raw/reportingMetrics_country.csv",
+          x = lReporting_country$Reporting_Metrics,
+          row.names = F)
+write.csv(file = "data-raw/reportingResults_country.csv",
+          x = lReporting_country$Reporting_Results,
+          row.names = F)
