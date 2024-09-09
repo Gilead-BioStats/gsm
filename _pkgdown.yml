@@ -13,9 +13,9 @@ navbar:
       text: Sample Reports
       menu:
         - text: Site Report
-          href: StandardReportSite.html
+          href: report_kri_site.html
         - text: Country Report
-          href: StandardReportCountry.html
+          href: report_kri_country.html
 
 reference:
   - title: Visualize
