@@ -34,7 +34,7 @@ articles:
       - articles/QualificationWorkflow
       - articles/Qualification
       - articles/ContributorGuidelines
-      - ReportSetupforGismo
+      - gsmExtensions
 
 reference:
   - title: Visualize

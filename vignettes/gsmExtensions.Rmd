@@ -2,7 +2,7 @@
 title: "gsm Extensions"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Report Setup for Gismo}
+  %\VignetteIndexEntry{gsmExtensions}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -31,10 +31,10 @@ Detailed specifications for each of these sections are provided below and links 
 
 ## Example Module Configuration YAMLs
 
-Here are links to several sample module configuration files (TODO: Add links):
+Here are links to several sample module configuration files:
 
-- [12 Standard gsm KRIs]() (e.g. [Adverse Event KRI Metric]())
-- [Site-]() and [Country-level KRI Report]()
+- [12 Standard gsm KRIs](https://github.com/Gilead-BioStats/gsm/tree/dev/inst/workflow/metrics) (e.g. [Adverse Event KRI Metric](https://github.com/Gilead-BioStats/gsm/tree/dev/inst/workflow/metrics/kri0001.yaml))
+- [Site-](https://github.com/Gilead-BioStats/gsm/blob/dev/inst/workflow/reports/report_kri_site.yaml) and [Country-level KRI Report](https://github.com/Gilead-BioStats/gsm/blob/dev/inst/workflow/reports/report_kri_country.yaml)
 - [GSM Deep Dive Shiny App]()
 
 ## `meta` Specification
@@ -42,7 +42,6 @@ Here are links to several sample module configuration files (TODO: Add links):
 The `meta` section of workflow YAML provides key metadata describing the module. It must include the following fields: 
 
 - `Name`: Name of the reporting output.
-- `File`: `yaml` file that contains the workflow. (TODO: Thinking we can remove?)
 - `Type`: "Report", "Metric" or "App"
 - `ModuleID`/`MetricID`: The unique ID for the module. `ModuleID` is used for reports and apps, while `MetricID` is used for metrics.
 - `Description`: A one-line description of the module specified in the workflow.
@@ -57,10 +56,7 @@ Additional meta header required fields **apps** and **reports**:
 
 - `Permission`: Level of permissions for viewing that match the `Users` argument in the Study Config file. Common values: `Admin`, `Users`. (TODO: move this to "gsm.template")
 - `Outputs`: The output of the workflow, including format.
-- `Dependencies`: `{gsm}` ecosystem package dependencies. Specified with two elements, `Functions`, `Data`. (TODO: I think we can just remove this and use the pacakge dependencies from Repo above?)
-    - `Functions`: Names of any functions from other `{gsm}` packages that are required for this workflow. Specify with {package}::{function}.
-    - `Data`: Names of any dataframes created in other `{gsm}` packages that are required for this workflow
-- `ExampleURL`: Location of a sample report (typically on the pkgdown site) **Standardize this**
+- `ExampleURL`: Location of a sample report. Typically on the pkgdown site, ending with "/{ModuleID}.html".
 
 Additional meta header required fields **metrics**:
 - `GroupLevel`: The level at which the metric is calculated. Common values: `Site`, `Country`, `Region`, `Study`.
@@ -81,7 +77,7 @@ A simple `meta` section for a report might look like this:
   Name: An example report
   Description: A report that is an example
   ModuleType: Report
-  Repo: gsm v2.0.1
+  Repo: gsm.example v1.0.0
   Status: Qualified
   Permission: Users
   Outputs: An html report
@@ -99,7 +95,7 @@ The `spec` section of the workflow YAML is formatted as a list of data tables, w
 
 ### `spec` example: Metric Module
 
-Metric `spec`s are typically pulled from the `mapped` data layer. For example, the `spec` section for the [AE KRI metric]() (TODO: link to yaml) is: 
+Metric `spec`s are typically pulled from the `mapped` data layer. For example, the `spec` section for the [AE KRI metric](https://github.com/Gilead-BioStats/gsm/tree/dev/inst/workflow/metrics/kri0001.yaml) is: 
 
 ```
 spec:
@@ -119,11 +115,11 @@ spec:
       type: numeric
 ```
 
-So, in summary, the AE KRI metric requires two data tables, `Mapped_AE` and `Mapped_ENROLL`, both of which are from the mapped data layer. The `Mapped_AE` table must have a character Subject ID column called `subjid` while `Mapped_ENROLL` must have character Subject ID (`subjid`) and Investigator ID (`invid`) columns and a a numeric `timeonstudy` column. All columns are required for this metric. Note that other columns may be present in these tables (perhaps due to a `spec` from a differenty module), but only the columns listed in the `spec` section are required for the metric to run.
+So, in summary, the AE KRI metric requires two data tables, `Mapped_AE` and `Mapped_ENROLL`, both of which are from the mapped data layer. The `Mapped_AE` table must have a character Subject ID column called `subjid` while `Mapped_ENROLL` must have character Subject ID (`subjid`) and Investigator ID (`invid`) columns and a a numeric `timeonstudy` column. All columns are required for this metric. Note that other columns may be present in these tables (perhaps due to a `spec` from a differently module), but only the columns listed in the `spec` section are required for the metric to run.
 
 ### `spec` examples: Report Module
 
-Report modules most often pull data from the `Reporting` data layer. For example, the [Site-level KRI report]() (TODO: link to yaml) has the following `spec`: 
+Report modules most often pull data from the `Reporting` data layer. For example, the [Site-level KRI report](https://github.com/Gilead-BioStats/gsm/blob/dev/inst/workflow/reports/report_kri_site.yaml) has the following `spec`: 
 
 ```
 spec:
@@ -143,7 +139,7 @@ spec:
 
 Note that the `_all` key word is used to specify that all standard columns from the `Reporting_Results` data table are expected and that the table required - without it, the report can't run. The other `Reporting` tables are used to enhance the report, but are not required.
 
-The `Mapped` data layer is also available for use in reports and apps. Most typically, mapped data is used to drill down from high-level metric findings (e.g. "Site 5 has an elevated AE rate relative to other studies") to site- or participant- level details (e.g. "Participant 00016 from Site 5 had 5 AEs and 3 SAEs reported in the last 3 months."). For example, the [Deep Dive app]() includes both Reporting and Mapped data in its `spec`. Here is an representative exerpt from the `spec`:
+The `Mapped` data layer is also available for use in reports and apps. Most typically, mapped data is used to drill down from high-level metric findings (e.g. "Site 5 has an elevated AE rate relative to other studies") to site- or participant- level details (e.g. "Participant 00016 from Site 5 had 5 AEs and 3 SAEs reported in the last 3 months."). For example, the [Deep Dive app]() includes both Reporting and Mapped data in its `spec`. Here is a representative exerpt from the `spec`:
 
 ```
 spec:
@@ -177,7 +173,7 @@ The `steps` is the most complex part of the module configuration and will vary g
 
 After processing the YAML `meta` and `spec` sections, `gsm::RunWorkflow()` calls `gsm::RunStep()` for each step in the `steps` section of the YAML. The `params` section of each step is passed to `run_step()` as a list of parameters along with a copy of the metadata header (`lMeta`) and any data (`lData`). `RunStep()` then parses the list of `params` using the logic described below and passes the parsed parameters to the function specified in the `name` field of the step.
 
-To parse the `params` list, each item is split in to `paramName` and `paramVal`. For example, `lData: Mapped_AE` is parese to `paramName = 'lData'` and `paramVal = 'Mapped_AE'` and the following rules are applied in order (TODO: file an issue and assign to jeremy to clean up lStep so that it matches below): 
+To parse the `params` list, each item is split in to `paramName` and `paramVal`. For example, `lData: Mapped_AE` is parsed to `paramName = 'lData'` and `paramVal = 'Mapped_AE'` and the following rules are applied in order: 
 
 1. If `paramVal` is equal to "lMeta", the the full `lMeta` object is passed to the function (for the given `paramName`). 
 2. If `paramVal` is equal to  "lData", the full `lData` object is passed to the function. 
@@ -208,157 +204,4 @@ Throughout this vignette, we will reference a variety of types of data, that all
 - `Temp_*`: A temporary data table that is created by a step in a workflow and not saved externally. Typically used for custom filtering of data for particular metric analytics.
 - `Analysis_*`: The output data tables of the `{gsm}` analytics workflow, specified in the [Analytics Workflow Vignette](LINK)
 - `Reporting_*`: The output data tables of the `{gsm}` reporting workflow, specified in the [Reporting Workflow Vignette](LINK)
-   
-
-#### Required fields
-
-### `spec` section content
-
-Any needed data for the workflow to run, whether that be `Mapped_*`, `Analysis_*` or `Reporting_*`. For `Mapped_*` data, each column that is needed will be specified and contain the following information:
-
-- `required`: Boolean field specifying whether of not this column is required for the workflow to run, or optional/recommended for inclusion for user experience or augmented information.
-- `type`: Character field describing the data type of the column. Use a `mode` as defined by R.
-
-
-### `steps` section content
-
-#### Example yamls for KRI Reports
-
-The Report yaml:
-
-spec: 
-  Reporting_Results: Reporting_Results
-  Reporting_Groups: Reporting_Groups
-  Reporting_Metrics: Reporting_Metrics
-  Reporting_Bounds: Reporting_Bounds
-steps:
-  - name: RunQuery
-    output: Reporting_Results_Country
-    params:
-      df: Reporting_Results
-      strQuery: "SELECT * FROM df WHERE GroupLevel == 'Country'"
-  - name: RunQuery
-    output: Reporting_Metrics_Country
-    params:
-      df: Reporting_Metrics
-      strQuery: "SELECT * FROM df WHERE GroupLevel == 'Country'"
-  - name: MakeCharts
-    output: lCharts_Country
-    params:
-      dfResults: Reporting_Results_Country
-      dfGroups: Reporting_Groups
-      dfBounds: Reporting_Bounds
-      dfMetrics: Reporting_Metrics
-  - name: Report_KRI
-    output: lReport 
-    params:
-      lCharts: lCharts_Country
-      dfResults: Reporting_Results_Country
-      dfGroups: Reporting_Groups
-      dfMetrics: Reporting_Metrics_Country
-```
-
-A supporting metric yaml:
-```
-meta:
-  File: kri0003.yaml
-  Name: An example metric
-  Description: A metric that is an example
-  Repo: gsm v2.0.1
-  Status: Qualified
-  MetricID: kri0003
-  GroupLevel: Site
-  Abbreviation: PD
-  Metric: Non-Important Protocol Deviation Rate
-  Numerator: Non-Important Protocol Deviations
-  Denominator: Days on Study
-  Model: Normal Approximation
-  Score: Adjusted Z-Score
-  Type: rate
-  Threshold: -3,-2,2,3
-  nMinDenominator: 30
-spec:
-  Mapped_PD:
-    subjid:
-      required: true
-  Mapped_ENROLL:
-    subjid:
-      required: true
-    invid:
-      required: true
-    timeonstudy:
-      required: true
-steps:
-  - name: ParseThreshold
-    output: vThreshold
-    params:
-      strThreshold: Threshold
-  - name: RunQuery
-    output: Temp_NONIMPORTANT
-    params:
-      df: Mapped_PD
-      strQuery: "SELECT * FROM df WHERE deemedimportant = 'No'"
-  - name: Input_Rate
-    output: Analysis_Input
-    params:
-      dfSubjects: Mapped_ENROLL
-      dfNumerator: Temp_NONIMPORTANT
-      dfDenominator: Mapped_ENROLL
-      strSubjectCol: subjid
-      strGroupCol: invid
-      strGroupLevel: GroupLevel
-      strNumeratorMethod: Count
-      strDenominatorMethod: Sum
-      strDenominatorCol: timeonstudy
-  - name: Transform_Rate
-    output: Analysis_Transformed
-    params:
-      dfInput: Analysis_Input
-  - name: Analyze_NormalApprox
-    output: Analysis_Analyzed
-    params:
-      dfTransformed: Analysis_Transformed
-      strType: Type
-  - name: Flag_NormalApprox
-    output: Analysis_Flagged
-    params:
-      dfAnalyzed: Analysis_Analyzed
-      vThreshold: vThreshold
-  - name: Summarize
-    output: Analysis_Summary
-    params:
-      dfFlagged: Analysis_Flagged
-      nMinDenominator: nMinDenominator
-```
-  
-
-
-## Step-by-Step
-
-
-## Study Configuration
-
-(Note: I think we probably migrate this section to gsm.template)
-
-A machine-readable study configuration yaml looks like this: 
-
-```
-StudyID: ABC-123
-Users: Admin, User, Restricted
-Reports: 
-  Admin:
-     - deep_dive_app
-     - endpoint_pfs_bicr
-  User: 
-     - kri_site
-     - kri_country
-     - endpoints_pfs
-  Restricted:
-     - unblinded_kri_site
-Metrics: # all available to everyone
-     - kri0001
-     - end0001 
-     ...
-```
-
-Reports listed in the study config can then be set up via metadata provided as part of the package. 
+ 
