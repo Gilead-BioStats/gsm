@@ -89,4 +89,8 @@ reference:
       - reportingGroups
       - reportingMetrics
       - reportingResults
+      - reportingBounds_country
+      - reportingGroups_country
+      - reportingMetrics_country
+      - reportingResults_country
 
