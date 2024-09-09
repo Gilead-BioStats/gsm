@@ -40,6 +40,15 @@ Widget_ScatterPlot <- function(
   strShinyGroupSelectID = "GroupID",
   bDebug = FALSE
 ) {
+  stopifnot(
+    "dfResults is not a data.frame" = is.data.frame(dfResults),
+    "lMetric must be a list, but not a data.frame" = is.list(lMetric) && !is.data.frame(lMetric),
+    "dfGroups is not a data.frame" = is.null(dfGroups) | is.data.frame(dfGroups),
+    "dfBounds is not a data.frame" = is.null(dfBounds) | is.data.frame(dfBounds),
+    "bAddGroupSelect is not a logical" = is.logical(bAddGroupSelect),
+    "strShinyGroupSelectID is not a character" = is.character(strShinyGroupSelectID),
+    "bDebug is not a logical" = is.logical(bDebug)
+  )
   # define widget inputs
   input <- list(
     dfResults = dfResults,
