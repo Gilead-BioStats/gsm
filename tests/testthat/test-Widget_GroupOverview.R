@@ -10,7 +10,7 @@ test_that("Widget_GroupOverview returns expected data", {
     fromJSON(widget$x$dfResults),
     c(
       "GroupID", "GroupLevel", "Numerator", "Denominator", "Metric", "Score",
-      "Flag", "MetricID", "StudyID", "SnapshotDate"
+      "Flag", "MetricID", "SnapshotDate", "StudyID"
     )
   )
 
