@@ -33,7 +33,7 @@ jobs:
       - name: Generate sample reports
         shell: Rscript {0}
         run: |
-          devtools::load_all(dependencies = T)
+          devtools::load_all()
           dir.create(here::here("pkgdown", "assets"), recursive = TRUE)
 
           lCharts <- MakeCharts(
