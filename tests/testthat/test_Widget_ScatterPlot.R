@@ -33,3 +33,61 @@ test_that("Widget_ScatterPlot processes dfGroups correctly", {
   dfGroups_json <- jsonlite::toJSON(reportingGroups, na = "string")
   expect_equal(widget$x$dfGroups, dfGroups_json)
 })
+
+test_that("Widget_ScatterPlot assertions works", {
+  reportingResults_modified <- as.list(reportingResults)
+  reportingGroups_modified <- as.list(reportingGroups)
+  reportingBounds_modified <- as.list(reportingBounds)
+  expect_error(
+    Widget_ScatterPlot(
+      reportingResults_modified,
+      reportingMetrics %>% as.list()
+    ),
+    "dfResults is not a data.frame"
+  )
+  expect_error(
+    Widget_ScatterPlot(reportingResults, reportingMetrics),
+    "lMetric must be a list, but not a data.frame"
+  )
+  expect_error(
+    Widget_ScatterPlot(
+      reportingResults,
+      reportingMetrics %>% as.list(),
+      reportingGroups_modified
+    ),
+    "dfGroups is not a data.frame"
+  )
+  expect_error(
+    Widget_ScatterPlot(
+      reportingResults,
+      reportingMetrics %>% as.list(),
+      reportingGroups,
+      reportingBounds_modified
+    ),
+    "dfBounds is not a data.frame"
+  )
+  expect_error(
+    Widget_ScatterPlot(
+      reportingResults,
+      reportingMetrics %>% as.list(),
+      bAddGroupSelect = NULL
+    ),
+    "bAddGroupSelect is not a logical"
+  )
+  expect_error(
+    Widget_ScatterPlot(
+      reportingResults,
+      reportingMetrics %>% as.list(),
+      strShinyGroupSelectID = 1
+    ),
+    "strShinyGroupSelectID is not a character"
+  )
+  expect_error(
+    Widget_ScatterPlot(
+      reportingResults,
+      reportingMetrics %>% as.list(),
+      bDebug = NULL
+    ),
+    "bDebug is not a logical"
+  )
+})

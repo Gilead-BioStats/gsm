@@ -30,3 +30,33 @@ test_that("Widget_GroupOverview uses correct Group or errors out when strGroupLe
     jsonlite::toJSON(na = "string", auto_unbox = T)
   expect_equal(widget$x$strGroupLevel, sampleGroupLevel)
 })
+
+test_that("Widget_GroupOverview assertions works", {
+  reportingResults_modified <- as.list(reportingResults)
+  reportingMetrics_modified <- as.list(reportingMetrics)
+  reportingGroups_modified <- as.list(reportingGroups)
+  expect_error(
+    Widget_GroupOverview(reportingResults_modified, reportingMetrics, reportingGroups),
+    "dfResults is not a data.frame"
+  )
+  expect_error(
+    Widget_GroupOverview(reportingResults, reportingMetrics_modified, reportingGroups),
+    "dfMetrics is not a data.frame"
+  )
+  expect_error(
+    Widget_GroupOverview(reportingResults, reportingMetrics, reportingGroups_modified),
+    "dfGroups is not a data.frame"
+  )
+  expect_error(
+    Widget_GroupOverview(reportingResults, reportingMetrics, reportingGroups, strGroupSubset = 1),
+    "strGroupSubset is not a character"
+  )
+  expect_error(
+    Widget_GroupOverview(reportingResults, reportingMetrics, reportingGroups, strGroupLabelKey = 1),
+    "strGroupLabelKey is not a character"
+  )
+  expect_error(
+    Widget_GroupOverview(reportingResults, reportingMetrics, reportingGroups, bDebug = 1),
+    "bDebug is not a logical"
+  )
+})
