@@ -20,14 +20,14 @@ test_that("MakeWideGroups fails for missing columns", {
 test_that("MakeWideGroups widens dfGroups", {
   reporting_subset <- reportingGroups %>%
     dplyr::filter(
-      GroupID %in% c(10, 20),
+      GroupID %in% c("0X004", "0X005"),
       Param %in% c("Status", "Country")
     )
   expected <- tibble::tibble(
-    GroupID = c("10", "20"),
+    GroupID = c("0X005", "0X004"),
     GroupLevel = "Site",
     Status = "Active",
-    Country = c("China", "US")
+    Country = c("US", "China")
   )
   expect_identical(
     MakeWideGroups(reporting_subset, "Site"),
