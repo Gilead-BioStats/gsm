@@ -52,20 +52,26 @@ The `meta` section of workflow YAML provides key metadata describing the module.
     - `Pilot`: Output is being used by pilot studies and is maintained in a package repository.
     - `Prototype`: Output is created using custom scripts on an ad-hoc basis.
     
-Additional meta header required fields **apps** and **reports**: 
+Additional meta header required fields for **Modules**: 
 
 - `Permission`: Level of permissions for viewing that match the `Users` argument in the Study Config file. Common values: `Admin`, `Users`. (TODO: move this to "gsm.template")
 - `Outputs`: The output of the workflow, including format.
 - `ExampleURL`: Location of a sample report. Typically on the pkgdown site, ending with "/{ModuleID}.html".
 
+TODO: add `Category` section here, and think of standard categories for modules to sit in.
+
 Additional meta header required fields **metrics**:
-- `GroupLevel`: The level at which the metric is calculated. Common values: `Site`, `Country`, `Region`, `Study`.
+
+- `GroupLevel`: The level at which the metric is calculated. Common values: `Site`, `Country`.
 - `Abbreviation`: Abbreviation of the metric.
 - `Metric`: Full name of the metric.
 - `Numerator`: The numerator of the metric.
 - `Denominator`: The denominator of the metric.
 - `Model`: The model used to calculate the metric. Common values: `Normal Approximation`, `Exact`, `Bayesian`.
 - `Score`: The score used to calculate the metric. Common values: `Z-Score`, `Adjusted Z-Score`, `P-Value`.
+- `Threshold`: The thresholds needed to flag.
+
+
 
 
 ### `meta` example
