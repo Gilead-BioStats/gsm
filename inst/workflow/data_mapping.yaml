@@ -24,6 +24,9 @@ spec:
     studyid:
       required: true
       type: character
+    enrollyn:
+      required: true
+      type: character
   Raw_AE:
     subjid:
       required: true
