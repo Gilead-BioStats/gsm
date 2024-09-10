@@ -2,6 +2,19 @@ meta:
   File: report_kri_site.yaml
   Name: Site-Level Key Risk Indicator Report
   Description: A report summarizing key risk indicators at the country level
+spec:
+  Reporting_Results:
+    _all:
+      required: true
+  Reporting_Metrics:
+    _all:
+      required: true
+  Reporting_Groups:
+    _all:
+      required: true
+  Reporting_Bounds:
+    _all:
+      required: true
 steps:
   - name: RunQuery
     output: Reporting_Results_Site
@@ -21,7 +34,7 @@ steps:
       dfBounds: Reporting_Bounds
       dfMetrics: Reporting_Metrics_Site
   - name: Report_KRI
-    output: lReport 
+    output: lReport
     params:
       lCharts: lCharts_Site
       dfResults: Reporting_Results_Site

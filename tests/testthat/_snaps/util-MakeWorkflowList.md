@@ -4,7 +4,7 @@
       map(wf_list, ~ names(.))
     Output
       $data_mapping
-      [1] "meta"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path"  "name" 
       
       $data_reporting
       [1] "meta"  "spec"  "steps" "path"  "name" 
@@ -82,10 +82,10 @@
       [1] "meta"  "spec"  "steps" "path"  "name" 
       
       $report_kri_country
-      [1] "meta"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path"  "name" 
       
       $report_kri_site
-      [1] "meta"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path"  "name" 
       
       $snapshot
       [1] "meta"  "steps" "path"  "name" 
