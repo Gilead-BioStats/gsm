@@ -182,26 +182,79 @@ To parse the `params` list, each item is split in to `paramName` and `paramVal`.
 5. Otherwise `paramVal` is passed to the function as a string. 
 
 
-### `steps` example
+### `steps` examples
 
-(TODO: add examples from a metric and a gsm app)
+#### `Metric` steps example
 
+In the example below, the steps to produce the AE analysis output is specified. Here, `Threshold`, `GroupLevel`, `Type` and `nMinDenominator` are specified in the `meta` section of the workflow, and would be access via tha `paramVal` process discussed above.
 
+```
+steps:
+  - name: ParseThreshold
+    output: vThreshold
+    params:
+      strThreshold: Threshold
+  - name: Input_Rate
+    output: Analysis_Input
+    params:
+      dfSubjects: Mapped_ENROLL
+      dfNumerator: Mapped_AE
+      dfDenominator: Mapped_ENROLL
+      strSubjectCol: subjid
+      strGroupCol: invid
+      strGroupLevel: GroupLevel
+      strNumeratorMethod: Count
+      strDenominatorMethod: Sum
+      strDenominatorCol: timeonstudy
+  - name: Transform_Rate
+    output: Analysis_Transformed
+    params:
+      dfInput: Analysis_Input
+  - name: Analyze_NormalApprox
+    output: Analysis_Analyzed
+    params:
+      dfTransformed: Analysis_Transformed
+      strType: Type
+  - name: Flag_NormalApprox
+    output: Analysis_Flagged
+    params:
+      dfAnalyzed: Analysis_Analyzed
+      vThreshold: vThreshold
+  - name: Summarize
+    output: Analysis_Summary
+    params:
+      dfFlagged: Analysis_Flagged
+      nMinDenominator: nMinDenominator
+```
 
----- 
+#### `Report` steps example
 
+In this example, the steps to produce a site-level KRI report is displayed. Here, the only inputs are the `Reporting_*` data, which goes through a simple filtering process via `RunQuery` before the Charts and Report are created in the following two functions
 
-(TODO: I think we can remove the rest of this)  
-
-## Types of Data Used in Workflows
-
-
-
-Throughout this vignette, we will reference a variety of types of data, that all have fixed prefixes to identify their source and usage. Below, the five types of data are defined.
-
-- `Raw_*`: Raw data table from g.dash, Raw+, edc, or other validated source.
-- `Mapped_*`: Mapped data table that specifies and renames the columns needed from the `Raw_*` data for a given report.
-- `Temp_*`: A temporary data table that is created by a step in a workflow and not saved externally. Typically used for custom filtering of data for particular metric analytics.
-- `Analysis_*`: The output data tables of the `{gsm}` analytics workflow, specified in the [Analytics Workflow Vignette](LINK)
-- `Reporting_*`: The output data tables of the `{gsm}` reporting workflow, specified in the [Reporting Workflow Vignette](LINK)
- 
+```
+steps:
+  - name: RunQuery
+    output: Reporting_Results_Site
+    params:
+      df: Reporting_Results
+      strQuery: "SELECT * FROM df WHERE GroupLevel == 'Site'"
+  - name: RunQuery
+    output: Reporting_Metrics_Site
+    params:
+      df: Reporting_Metrics
+      strQuery: "SELECT * FROM df WHERE GroupLevel == 'Site'"
+  - name: MakeCharts
+    output: lCharts_Site
+    params:
+      dfResults: Reporting_Results_Site
+      dfGroups: Reporting_Groups
+      dfBounds: Reporting_Bounds
+      dfMetrics: Reporting_Metrics_Site
+  - name: Report_KRI
+    output: lReport 
+    params:
+      lCharts: lCharts_Site
+      dfResults: Reporting_Results_Site
+      dfGroups: Reporting_Groups
+      dfMetrics: Reporting_Metrics_Site
+```
