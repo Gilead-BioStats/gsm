@@ -28,8 +28,6 @@ Widget_ScatterPlot(
 \item{strShinyGroupSelectID}{\code{character} Element ID of group select in Shiny context. Default: \code{'GroupID'}.}
 
 \item{bDebug}{\code{logical} Print debug messages? Default: \code{FALSE}.}
-
-\item{strFootnote}{\code{character} The text to display as a footnote below the scatter plot.}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}

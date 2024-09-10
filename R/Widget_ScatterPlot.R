@@ -9,7 +9,6 @@
 #' @inheritParams shared-params
 #' @param bAddGroupSelect `logical` Add a dropdown to highlight sites? Default: `TRUE`.
 #' @param strShinyGroupSelectID `character` Element ID of group select in Shiny context. Default: `'GroupID'`.
-#' @param strFootnote `character` The text to display as a footnote below the scatter plot.
 #'
 #' @examples
 #' ## Filter data to one metric and snapshot
