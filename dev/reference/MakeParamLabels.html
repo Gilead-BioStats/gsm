@@ -40,8 +40,8 @@ parameters."><meta name="robots" content="noindex"><link href="pkgdown/extra.css
   </ul></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-sample-reports" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Sample Reports</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-sample-reports"><li><a class="dropdown-item" href="../StandardReportSite.html">Site Report</a></li>
-    <li><a class="dropdown-item" href="../StandardReportCountry.html">Country Report</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-sample-reports"><li><a class="dropdown-item" href="../report_kri_site.html">Site Report</a></li>
+    <li><a class="dropdown-item" href="../report_kri_country.html">Country Report</a></li>
   </ul></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -103,31 +103,31 @@ parameters.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">gsm</span><span class="fu">::</span><span class="va"><a href="reportingGroups.html">reportingGroups</a></span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   GroupID            Param Value GroupLevel</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      10 ParticipantCount    20       Site</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2      10        SiteCount     1       Site</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     100 ParticipantCount     2       Site</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4     100        SiteCount     1       Site</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     101 ParticipantCount     3       Site</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     101        SiteCount     1       Site</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   0X001 ParticipantCount     4       Site</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   0X001        SiteCount     1       Site</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   0X002 ParticipantCount     3       Site</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   0X002        SiteCount     1       Site</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   0X003 ParticipantCount     1       Site</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   0X003        SiteCount     1       Site</span>
 <span class="r-in"><span><span class="fu">MakeParamLabels</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">gsm</span><span class="fu">::</span><span class="va"><a href="reportingGroups.html">reportingGroups</a></span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   GroupID            Param Value GroupLevel             Label</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      10 ParticipantCount    20       Site Participant Count</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2      10        SiteCount     1       Site        Site Count</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     100 ParticipantCount     2       Site Participant Count</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4     100        SiteCount     1       Site        Site Count</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     101 ParticipantCount     3       Site Participant Count</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     101        SiteCount     1       Site        Site Count</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   0X001 ParticipantCount     4       Site Participant Count</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   0X001        SiteCount     1       Site        Site Count</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   0X002 ParticipantCount     3       Site Participant Count</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   0X002        SiteCount     1       Site        Site Count</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   0X003 ParticipantCount     1       Site Participant Count</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   0X003        SiteCount     1       Site        Site Count</span>
 <span class="r-in"><span><span class="fu">MakeParamLabels</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">gsm</span><span class="fu">::</span><span class="va"><a href="reportingGroups.html">reportingGroups</a></span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>ParticipantCount <span class="op">=</span> <span class="st">"Number of Participants"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   GroupID            Param Value GroupLevel                  Label</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      10 ParticipantCount    20       Site Number of Participants</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2      10        SiteCount     1       Site             Site Count</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     100 ParticipantCount     2       Site Number of Participants</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4     100        SiteCount     1       Site             Site Count</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     101 ParticipantCount     3       Site Number of Participants</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     101        SiteCount     1       Site             Site Count</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   0X001 ParticipantCount     4       Site Number of Participants</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   0X001        SiteCount     1       Site             Site Count</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   0X002 ParticipantCount     3       Site Number of Participants</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   0X002        SiteCount     1       Site             Site Count</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   0X003 ParticipantCount     1       Site Number of Participants</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   0X003        SiteCount     1       Site             Site Count</span>
 <span class="r-in"><span><span class="fu">MakeParamLabelsList</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">gsm</span><span class="fu">::</span><span class="va"><a href="reportingGroups.html">reportingGroups</a></span><span class="op">$</span><span class="va">Param</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ParticipantCount</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Participant Count"</span>

@@ -52,8 +52,8 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-sample-reports" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Sample Reports</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-sample-reports">
-<li><a class="dropdown-item" href="../StandardReportSite.html">Site Report</a></li>
-    <li><a class="dropdown-item" href="../StandardReportCountry.html">Country Report</a></li>
+<li><a class="dropdown-item" href="../report_kri_site.html">Site Report</a></li>
+    <li><a class="dropdown-item" href="../report_kri_country.html">Country Report</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
@@ -81,7 +81,7 @@
             <h3 data-toc-skip class="subtitle">{gsm} v2.0.1</h3>
             
             <h4 data-toc-skip class="date">Report Run Date:
-2024-09-06</h4>
+2024-09-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/dev/vignettes/articles/Qualification.Rmd" class="external-link"><code>vignettes/articles/Qualification.Rmd</code></a></small>
       <div class="d-none name"><code>Qualification.Rmd</code></div>
@@ -1885,7 +1885,7 @@ cli
 3.6.3
 </td>
 <td style="text-align:left;">
-0.401
+0.399
 </td>
 </tr>
 <tr>
@@ -1896,7 +1896,7 @@ dplyr
 1.1.4
 </td>
 <td style="text-align:left;">
-0.383
+0.385
 </td>
 </tr>
 <tr>
@@ -1951,7 +1951,7 @@ jsonlite
 1.8.8
 </td>
 <td style="text-align:left;">
-0.474
+0.476
 </td>
 </tr>
 <tr>
@@ -2006,7 +2006,7 @@ stringr
 1.5.1
 </td>
 <td style="text-align:left;">
-0.347
+0.350
 </td>
 </tr>
 <tr>
@@ -2072,6 +2072,32 @@ yaml
 <div class="section level2">
 <h2 id="pull-request-history">Pull Request History<a class="anchor" aria-label="anchor" href="#pull-request-history"></a>
 </h2>
+<div class="section level4">
+<h4 id="pull-request-1828-update-sample-reporting-data">Pull Request 1828: Update sample reporting data<a class="anchor" aria-label="anchor" href="#pull-request-1828-update-sample-reporting-data"></a>
+</h4>
+<p>Merging fix-1800 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1828" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1828</a></p>
+<table style="width:78%;" class="table">
+<colgroup>
+<col width="20%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">lauramaxwell</td>
+<td align="center">2024-09-09 17:48:52</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
 <div class="section level4">
 <h4 id="pull-request-1826-update-pr-template">Pull Request 1826: Update PR template<a class="anchor" aria-label="anchor" href="#pull-request-1826-update-pr-template"></a>
 </h4>
@@ -4545,87 +4571,6 @@ names<a class="anchor" aria-label="anchor" href="#pull-request-1584-update-readm
 <td align="center">2024-06-13 21:21:24</td>
 <td align="center"></td>
 <td align="center">COMMENTED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1578-update-naming-conventions-in-workflow-helper-function-and-fix-pkgdown-reporting-step">Pull Request 1578: Update naming conventions in workflow helper
-function and fix pkgdown reporting step<a class="anchor" aria-label="anchor" href="#pull-request-1578-update-naming-conventions-in-workflow-helper-function-and-fix-pkgdown-reporting-step"></a>
-</h4>
-<p>Merging fix-1554 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1578" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1578</a></p>
-<table style="width:78%;" class="table">
-<colgroup>
-<col width="20%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">lauramaxwell</td>
-<td align="center">2024-06-13 13:29:13</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1574-add-nmindenominator-param-to-yaml-workflows-and-update-all-column-names-of-dfs-fed-into-widgets">Pull Request 1574: Add nMinDenominator param to yaml workflows and
-update all column names of dfs fed into widgets<a class="anchor" aria-label="anchor" href="#pull-request-1574-add-nmindenominator-param-to-yaml-workflows-and-update-all-column-names-of-dfs-fed-into-widgets"></a>
-</h4>
-<p>Merging fix-1568 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1574" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1574</a></p>
-<table style="width:78%;" class="table">
-<colgroup>
-<col width="20%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">lauramaxwell</td>
-<td align="center">2024-06-11 14:28:17</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1572-create-sampleinput-data-and-update-tests-and-headers-to-use-it">Pull Request 1572: Create <code>sampleInput</code> data and update
-tests and headers to use it<a class="anchor" aria-label="anchor" href="#pull-request-1572-create-sampleinput-data-and-update-tests-and-headers-to-use-it"></a>
-</h4>
-<p>Merging fix-1550 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1572" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1572</a></p>
-<table style="width:78%;" class="table">
-<colgroup>
-<col width="20%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">lauramaxwell</td>
-<td align="center">2024-06-10 14:42:20</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
 </tr></tbody>
 </table>
 </div>

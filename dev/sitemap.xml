@@ -77,9 +77,13 @@
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/index.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/pipe.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/reportingBounds.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/dev/reference/reportingBounds_country.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/reportingGroups.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/dev/reference/reportingGroups_country.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/reportingMetrics.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/dev/reference/reportingMetrics_country.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/reportingResults.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/dev/reference/reportingResults_country.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/shared-params.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/tidyeval.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/update_column.html</loc></url>
