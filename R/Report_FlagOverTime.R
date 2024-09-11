@@ -13,7 +13,7 @@
 #' @export
 Report_FlagOverTime <- function(
   dfResults,
-  dfMetrics,
+  dfMetrics = NULL,
   strGroupLevel = c("Site", "Study", "Country")
 ) {
   strGroupLevel <- rlang::arg_match(strGroupLevel)
@@ -54,14 +54,28 @@ flag_changes <- function(dfResults) {
 }
 
 widen_results <- function(dfResults, dfMetrics, strGroupLevel) {
-  dfMetrics_join <- dfMetrics %>%
-    dplyr::mutate(GroupLevel = stringr::str_to_sentence(.data$GroupLevel)) %>%
-    dplyr::filter(.data$GroupLevel == strGroupLevel) %>%
-    dplyr::select(
-      "MetricID",
-      "Abbreviation",
-      "GroupLevel"
-    )
+  if(!is.null(dfMetrics)) {
+    dfMetrics_join <- dfMetrics %>%
+      dplyr::mutate(GroupLevel = stringr::str_to_sentence(.data$GroupLevel)) %>%
+      dplyr::filter(.data$GroupLevel == strGroupLevel) %>%
+      dplyr::select(
+        "MetricID",
+        "Abbreviation",
+        "GroupLevel"
+      )
+  }
+  else {
+    dfMetrics_join <- dfResults %>%
+      dplyr::mutate(GroupLevel = stringr::str_to_sentence(.data$GroupLevel),
+                    Abbreviation = MetricID) %>%
+      dplyr::filter(.data$GroupLevel == strGroupLevel) %>%
+      dplyr::select(
+        "MetricID",
+        "Abbreviation",
+        "GroupLevel"
+      ) %>%
+      unique()
+  }
   dfFlagOverTime <- dfResults %>%
     dplyr::mutate(GroupLevel = stringr::str_to_sentence(.data$GroupLevel)) %>%
     dplyr::inner_join(dfMetrics_join, by = c("MetricID", "GroupLevel")) %>%
