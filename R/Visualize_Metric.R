@@ -83,10 +83,11 @@ Visualize_Metric <- function(
   # Prep chart inputs ---------------------------------------------------------
   if(is.null(dfMetrics)){
     lMetric <- NULL
+    vThreshold <- NULL
   } else {
     lMetric <- as.list(dfMetrics)
+    vThreshold <- ParseThreshold(lMetric$Threshold)
   }
-  vThreshold <- ifelse(length(lMetric) != 0, ParseThreshold(lMetric$Threshold), c(-2, -1, 2, 3))
 
   # Cross-sectional Charts using most recent snapshot ------------------------
   lCharts <- list()
