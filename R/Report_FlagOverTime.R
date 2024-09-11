@@ -12,9 +12,9 @@
 #' @inherit gt-shared return
 #' @export
 Report_FlagOverTime <- function(
-  dfResults,
-  dfMetrics = NULL,
-  strGroupLevel = c("Site", "Study", "Country")
+    dfResults,
+    dfMetrics,
+    strGroupLevel = c("Site", "Study", "Country")
 ) {
   strGroupLevel <- rlang::arg_match(strGroupLevel)
   dfFlagOverTime <- dfResults %>%
@@ -54,28 +54,14 @@ flag_changes <- function(dfResults) {
 }
 
 widen_results <- function(dfResults, dfMetrics, strGroupLevel) {
-  if(!is.null(dfMetrics)) {
-    dfMetrics_join <- dfMetrics %>%
-      dplyr::mutate(GroupLevel = stringr::str_to_sentence(.data$GroupLevel)) %>%
-      dplyr::filter(.data$GroupLevel == strGroupLevel) %>%
-      dplyr::select(
-        "MetricID",
-        "Abbreviation",
-        "GroupLevel"
-      )
-  }
-  else {
-    dfMetrics_join <- dfResults %>%
-      dplyr::mutate(GroupLevel = stringr::str_to_sentence(.data$GroupLevel),
-                    Abbreviation = MetricID) %>%
-      dplyr::filter(.data$GroupLevel == strGroupLevel) %>%
-      dplyr::select(
-        "MetricID",
-        "Abbreviation",
-        "GroupLevel"
-      ) %>%
-      unique()
-  }
+  dfMetrics_join <- dfMetrics %>%
+    dplyr::mutate(GroupLevel = stringr::str_to_sentence(.data$GroupLevel)) %>%
+    dplyr::filter(.data$GroupLevel == strGroupLevel) %>%
+    dplyr::select(
+      "MetricID",
+      "Abbreviation",
+      "GroupLevel"
+    )
   dfFlagOverTime <- dfResults %>%
     dplyr::mutate(GroupLevel = stringr::str_to_sentence(.data$GroupLevel)) %>%
     dplyr::inner_join(dfMetrics_join, by = c("MetricID", "GroupLevel")) %>%
@@ -108,17 +94,17 @@ fmt_flag_rag <- function(data, columns = gt::everything()) {
 # Cells ------------------------------------------------------------------------
 
 fmt_sign_rag <- function(
-  data,
-  columns = gt::everything(),
-  rows = gt::everything()) {
+    data,
+    columns = gt::everything(),
+    rows = gt::everything()) {
   data_color_rag(data, columns = columns) %>%
     fmt_sign(columns = columns, rows = rows)
 }
 
 data_color_rag <- function(
-  data,
-  columns = gt::everything(),
-  rows = gt::everything()) {
+    data,
+    columns = gt::everything(),
+    rows = gt::everything()) {
   gt::data_color(
     data,
     columns = columns,
@@ -128,9 +114,9 @@ data_color_rag <- function(
 }
 
 fmt_sign <- function(
-  data,
-  columns = gt::everything(),
-  rows = gt::everything()) {
+    data,
+    columns = gt::everything(),
+    rows = gt::everything()) {
   gt::fmt(
     data,
     columns = columns,
@@ -160,9 +146,9 @@ n_to_rag <- function(x) {
 }
 
 fmt_present <- function(
-  data,
-  columns = gt::everything(),
-  rows = gt::everything()) {
+    data,
+    columns = gt::everything(),
+    rows = gt::everything()) {
   gt::fmt(
     data,
     columns = columns,

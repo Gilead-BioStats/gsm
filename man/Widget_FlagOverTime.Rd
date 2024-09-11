@@ -6,7 +6,7 @@
 \usage{
 Widget_FlagOverTime(
   dfResults,
-  dfMetrics,
+  dfMetrics = NULL,
   strGroupLevel = c("Site", "Study", "Country")
 )
 }
