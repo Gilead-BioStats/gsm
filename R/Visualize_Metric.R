@@ -48,7 +48,7 @@ Visualize_Metric <- function(
     dfResults$SnapshotDate <- as.Date(Sys.Date())
   }
 
-  if (!"SnapshotDate" %in% colnames(dfBounds)) {
+  if (!"SnapshotDate" %in% colnames(dfBounds) & !is.null(dfBounds)) {
     dfBounds$SnapshotDate <- as.Date(Sys.Date())
   }
 
@@ -80,15 +80,22 @@ Visualize_Metric <- function(
     cli::cli_abort("Multiple MetricIDs found in dfResults, dfBounds or dfMetrics. Specify `MetricID` to subset. No charts will be generated.")
     return(NULL)
   }
-
   # Prep chart inputs ---------------------------------------------------------
-  lMetric <- as.list(dfMetrics)
-  vThreshold <- ParseThreshold(lMetric$Threshold)
+  if(is.null(dfMetrics)){
+    lMetric <- NULL
+  } else {
+    lMetric <- as.list(dfMetrics)
+  }
+  vThreshold <- ifelse(length(lMetric) != 0, ParseThreshold(lMetric$Threshold), c(-2, -1, 2, 3))
 
   # Cross-sectional Charts using most recent snapshot ------------------------
   lCharts <- list()
   dfResults_latest <- FilterByLatestSnapshotDate(dfResults, strSnapshotDate)
-  dfBounds_latest <- FilterByLatestSnapshotDate(dfBounds, strSnapshotDate)
+  if(is.null(dfBounds)) {
+    dfBounds_latest <- NULL
+  } else{
+    dfBounds_latest <- FilterByLatestSnapshotDate(dfBounds, strSnapshotDate)
+  }
 
   if (nrow(dfResults_latest) == 0) {
     cli::cli_alert_warning("No data found for specified snapshot date: {strSnapshotDate}. No charts will be generated.")
@@ -134,11 +141,11 @@ Visualize_Metric <- function(
       vThreshold = vThreshold
     )
 
-    lCharts$metricTable <- Report_MetricTable(
-      dfResults = dfResults_latest,
-      dfGroups = dfGroups,
-      strGroupLevel = lMetric$GroupLevel
-    )
+    # lCharts$metricTable <- Report_MetricTable(
+    #   dfResults = dfResults_latest,
+    #   dfGroups = dfGroups,
+    #   strGroupLevel = lMetric$GroupLevel
+    # )
   }
   # Continuous Charts -------------------------------------------------------
   if (number_of_snapshots <= 1) {
