@@ -17,7 +17,7 @@
 #' @export
 Widget_FlagOverTime <- function(
   dfResults,
-  dfMetrics = NULL,
+  dfMetrics,
   strGroupLevel = c("Site", "Study", "Country")
 ) {
   gtFlagOverTime <- Report_FlagOverTime(
