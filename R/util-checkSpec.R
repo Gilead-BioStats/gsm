@@ -38,7 +38,7 @@
 #'
 CheckSpec <- function(lData, lSpec) {
   # Check that all data.frames in the spec are present in the data
-  lSpecDataFrames <- names(lSpec)
+  lSpecDataFrames <- Reduce(\(x, y) grep(y, x, value = TRUE, invert = TRUE), "Analysis", names(lSpec))
   lDataFrames <- names(lData)
   if (!all(lSpecDataFrames %in% lDataFrames)) {
     MissingSpecDataFrames <- lSpecDataFrames[!lSpecDataFrames %in% lDataFrames]
