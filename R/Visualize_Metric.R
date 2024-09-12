@@ -82,7 +82,7 @@ Visualize_Metric <- function(
   }
   # Prep chart inputs ---------------------------------------------------------
   if(is.null(dfMetrics)){
-    lMetric <- NULL
+    lMetric <- list()
     vThreshold <- NULL
   } else {
     lMetric <- as.list(dfMetrics)
@@ -141,7 +141,7 @@ Visualize_Metric <- function(
       strType = "Score",
       vThreshold = vThreshold
     )
-    if(!is.null(lMetric)) {
+    if(length(lMetric) != 0) {
       lCharts$metricTable <- Report_MetricTable(
         dfResults = dfResults_latest,
         dfGroups = dfGroups,
