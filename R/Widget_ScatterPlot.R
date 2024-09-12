@@ -48,7 +48,7 @@ Widget_ScatterPlot <- function(
     dfBounds = dfBounds,
     bAddGroupSelect = bAddGroupSelect,
     strShinyGroupSelectID = strShinyGroupSelectID,
-    strFootnote = ifelse(bAddGroupSelect, "Size of the point is relative to size of the group.", ""),
+    strFootnote = ifelse(!is.null(dfGroups), "Point size is relative to the number of enrolled participants.", ""),
     bDebug = bDebug
   )
 
