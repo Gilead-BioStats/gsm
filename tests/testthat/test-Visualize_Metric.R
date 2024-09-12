@@ -33,3 +33,19 @@ test_that("Visualize_Metric handles multiple snapshots", {
   expect_true("timeSeriesContinuousMetricJS" %in% names(charts))
   expect_true("timeSeriesContinuousNumeratorJS" %in% names(charts))
 })
+
+test_that("Visualize_Metric can run on just results", {
+  charts <- Visualize_Metric(filter(reportingResults, MetricID == "kri0001"))
+
+  # Test if the list contains expected chart names
+  expect_true("scatterJS" %in% names(charts))
+  expect_true("scatter" %in% names(charts))
+  expect_true("barMetricJS" %in% names(charts))
+  expect_true("barScoreJS" %in% names(charts))
+  expect_true("barMetric" %in% names(charts))
+  expect_true("barScore" %in% names(charts))
+  expect_true("timeSeriesContinuousScoreJS" %in% names(charts))
+  expect_true("timeSeriesContinuousMetricJS" %in% names(charts))
+  expect_true("timeSeriesContinuousNumeratorJS" %in% names(charts))
+  expect_true("metricTable" %in% names(charts))
+})
