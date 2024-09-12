@@ -20,6 +20,12 @@ Widget_FlagOverTime <- function(
   dfMetrics,
   strGroupLevel = c("Site", "Study", "Country")
 ) {
+  stopifnot(
+    "dfResults is not a data.frame" = is.data.frame(dfResults),
+    "dfMetrics is not a data.frame" = is.data.frame(dfMetrics),
+    "strGroupLevel is not a character" = is.character(strGroupLevel)
+  )
+
   gtFlagOverTime <- Report_FlagOverTime(
     dfResults,
     dfMetrics,
