@@ -141,16 +141,12 @@ Visualize_Metric <- function(
       strType = "Score",
       vThreshold = vThreshold
     )
-    if(!is.null(dfGroups)) {
-      lCharts$metricTable <- Report_MetricTable(
-        dfResults = dfResults_latest,
-        dfGroups = dfGroups,
-        strGroupLevel = unique(dfGroups$GroupLevel)
-      )
-    }
-    else {
-      cli_inform("Group Metric Table was not rendered")
-    }
+
+    lCharts$metricTable <- Report_MetricTable(
+      dfResults = dfResults_latest,
+      dfGroups = dfGroups,
+      strGroupLevel = unique(dfGroups$GroupLevel)
+    )
   }
   # Continuous Charts -------------------------------------------------------
   if (number_of_snapshots <= 1) {

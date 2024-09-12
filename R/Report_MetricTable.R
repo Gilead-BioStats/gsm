@@ -28,17 +28,20 @@
 #' @export
 Report_MetricTable <- function(
   dfResults,
-  dfGroups,
+  dfGroups = NULL,
   strGroupLevel = c("Site", "Country", "Study"),
   strGroupDetailsParams = NULL,
   vFlags = c(-2, -1, 1, 2)
 ) {
+  if(!is.null(dfGroups)) {
+    dfResults <- dfResults %>%
+      add_Groups_metadata(
+        dfGroups,
+        strGroupLevel,
+        strGroupDetailsParams
+      )
+  }
   dfResults <- dfResults %>%
-    add_Groups_metadata(
-      dfGroups,
-      strGroupLevel,
-      strGroupDetailsParams
-    ) %>%
     dplyr::filter(
       .data$Flag %in% vFlags
     )
@@ -51,7 +54,7 @@ Report_MetricTable <- function(
     stop("Expecting `dfResults` to be filtered to one unique MetricID, but many detected.")
   }
 
-  if (rlang::arg_match(strGroupLevel) == "Site") {
+  if (rlang::arg_match(strGroupLevel) == "Site" & !is.null(dfGroups)) {
     dfResults$Group <- glue::glue("{dfResults$GroupID} ({dfResults$InvestigatorLastName})")
   } else {
     dfResults$Group <- dfResults$GroupID
