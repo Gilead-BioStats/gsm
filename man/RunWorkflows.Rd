@@ -4,7 +4,13 @@
 \alias{RunWorkflows}
 \title{Convenience function to easily run multiple workflows}
 \usage{
-RunWorkflows(lWorkflows, lData, bReturnData = TRUE, bKeepInputData = FALSE)
+RunWorkflows(
+  lWorkflows,
+  lData = NULL,
+  lInputConfig = NULL,
+  bReturnData = TRUE,
+  bKeepInputData = FALSE
+)
 }
 \arguments{
 \item{lWorkflows}{\code{list} A named list of metadata defining how the workflow should be run.}

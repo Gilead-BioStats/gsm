@@ -4,7 +4,13 @@
 \alias{RunWorkflow}
 \title{Run a workflow via it's YAML specification.}
 \usage{
-RunWorkflow(lWorkflow, lData, bReturnData = TRUE, bKeepInputData = FALSE)
+RunWorkflow(
+  lWorkflow,
+  lData = NULL,
+  lInputConfig = NULL,
+  bReturnData = TRUE,
+  bKeepInputData = FALSE
+)
 }
 \arguments{
 \item{lWorkflow}{\code{list} A named list of metadata defining how the workflow should be run.}
