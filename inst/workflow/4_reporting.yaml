@@ -2,26 +2,6 @@ meta:
   File: reporting.yaml
   description: Generate reporting data model including site-, country- and study-level metadata (dfGroups), metric metadata (dfMetrics) and results data with added study-level columsn (dfSummary and dfBounds).
 spec:
-  Raw_ctms_site:
-    pi_number:
-      required: true
-    site_status:
-      required: true
-    pi_first_name:
-      required: true
-    pi_last_name:
-      required: true
-    city:
-      required: true
-    state:
-      required: true
-    country:
-      required: true
-  Raw_ctms_study:
-    protocol_number:
-      required: true
-    status:
-      required: true
   Mapped_ENROLL:
     invid:
       required: true

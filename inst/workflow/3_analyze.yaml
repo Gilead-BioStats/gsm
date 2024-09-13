@@ -1,0 +1,15 @@
+meta:
+  File: 3_analyze.yaml
+  Description: run all metrics in a snapshot
+steps:
+  # Run Metrics
+  - name: MakeWorkflowList
+    output: lWorkflows
+    params:
+      strPath: workflow/metrics
+  - name: RunWorkflows
+    output: lAnalysis
+    params:
+      lWorkflows: lWorkflows
+      lData: lMapped
+      bKeepInputData: FALSE

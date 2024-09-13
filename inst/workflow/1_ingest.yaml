@@ -1,0 +1,122 @@
+meta:
+  File: 1_ingest.yaml
+  description: Data Mappings to prepare for metric calculations
+spec:
+ Source_ctms_site:
+    pi_number:
+      required: true
+    site_status:
+      required: true
+    pi_first_name:
+      required: true
+    pi_last_name:
+      required: true
+    city:
+      required: true
+    state:
+      required: true
+    country:
+      required: true
+  Source_ctms_study:
+    protocol_number:
+      required: true
+    status:
+      required: true
+  Source_SUBJ:
+    subjectid:
+      required: true
+      type: character
+      target_col: subject_nsv
+    subjid:
+      required: true
+      type: character
+    invid:
+      required: true
+      type: character
+    country:
+      required: true
+      type: character
+    timeonstudy:
+      required: true
+      type: numeric
+    subject_nsv:
+      required: true
+      type: character
+    studyid:
+      required: true
+      type: character
+    enrollyn:
+      required: true
+      type: character
+  Source_AE:
+    subjid:
+      required: true
+      type: character
+    aeser:
+      required: true
+      type: character
+  Source_PD:
+    subjid:
+      required: true
+      type: character
+      target_col: subjectenrollmentnumber
+    deemedimportant:
+      required: true
+      type: character
+  Source_LB:
+    subjid:
+      required: true
+      type: character
+    toxgrg_nsv:
+      required: true
+      type: character
+  Source_STUDCOMP:
+    subjid:
+      required: true
+      type: character
+    compyn:
+      required: true
+      type: character
+  Source_SDRGCOMP:
+    subjid:
+      required: true
+      type: character
+    sdrgyn:
+      required: true
+      type: character
+    phase:
+      required: true
+      type: character
+  Source_QUERY:
+    subjectname:
+      required: true
+      type: character
+      target_col: subject_nsv
+    querystatus:
+      required: true
+      type: character
+    queryage:
+      required: true
+      type: numeric
+  Source_DATAENT:
+    subjectname:
+      required: true
+      type: character
+      target_col: subject_nsv 
+    data_entry_lag:
+      required: true
+      type: numeric
+  Source_DATACHG:
+    subjectname:
+      required: true
+      type: character
+      target_col: subject_nsv
+    n_changes:
+      required: true
+      type: numeric
+steps:
+  - name: Ingest
+    output: lRaw
+    params:
+      lData: lSource
+      lSpec: lSpec

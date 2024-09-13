@@ -1,0 +1,26 @@
+meta:
+  File: 2_map.yaml
+  description: Data Mappings to prepare for metric calculations
+spec:
+  Mapped_ENROLL:
+    subjid:
+      required: true
+      type: character
+    subject_nsv:
+      required: true
+      type: character
+    invid:
+      required: true
+      type: character
+    country:
+      required: true
+      type: character
+    enrollyn:
+      required: true
+      type: character
+steps:
+  - name: RunQuery
+    output: Mapped_ENROLL
+    params:
+      df: Raw_SUBJ
+      strQuery: "SELECT * FROM df WHERE enrollyn == 'Y'"

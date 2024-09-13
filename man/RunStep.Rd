@@ -4,7 +4,7 @@
 \alias{RunStep}
 \title{Run a single step in a workflow.}
 \usage{
-RunStep(lStep, lData, lMeta)
+RunStep(lStep, lData, lMeta, lSpec = NULL)
 }
 \arguments{
 \item{lStep}{\code{list} single workflow step (typically pulled from \code{lWorkflow$steps}). Should
@@ -13,6 +13,8 @@ include the name of the function to run (\code{lStep$name}), name of the object 
 \item{lData}{\code{list} a named list of domain level data frames.}
 
 \item{lMeta}{\code{list} a named list of meta data.}
+
+\item{lSpec}{\code{list} a data specification containing required columns. See \code{vignette("gsm_extensions")}.}
 }
 \value{
 \code{list} containing the results of the \code{lStep$name} function call should contain \code{.$checks}
@@ -38,6 +40,7 @@ Full prioritization for parsing parameters is below:
 \item If a single parameter value is equal to "lMeta", the the full lMeta object is passed to the function
 (for the given paramName).
 \item If a single parameter value is equal to "lData", the full lData object is passed to the function.
+\item If a single parameter value is equal to "lSpec", the full lSpec object is passed to the function.
 \item If a single parameter value is found in names(lMeta), that property is pulled from lMeta (e.g.
 lMeta${paramVal}) and passed to the function.
 \item If a single parameter value is found in names(lData), that property is pulled from lData (e.g.
