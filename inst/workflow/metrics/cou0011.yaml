@@ -12,14 +12,14 @@ meta:
   Threshold: -3,-2,2,3
   nMinDenominator: 30
 spec:
-  Mapped_ENROLL:
+  Mapped_SUBJ:
     subject_nsv:
       required: true
       type: character
     country:
       required: true
       type: character
-  Mapped_DATAENT:
+  Mapped_DATACHG:
     subject_nsv:
       required: true
       type: character
@@ -39,7 +39,7 @@ steps:
   - name: Input_Rate
     output: Analysis_Input
     params:
-      dfSubjects: Mapped_ENROLL
+      dfSubjects: Mapped_SUBJ
       dfNumerator: Temp_CHANGED
       dfDenominator: Mapped_DATACHG
       strSubjectCol: subject_nsv

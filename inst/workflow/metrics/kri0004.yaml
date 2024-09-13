@@ -19,7 +19,7 @@ spec:
     deemedimportant:
       required: true
       type: character
-  Mapped_ENROLL:
+  Mapped_SUBJ:
     subjid:
       required: true
       type: character
@@ -42,9 +42,9 @@ steps:
   - name: Input_Rate
     output: Analysis_Input
     params:
-      dfSubjects: Mapped_ENROLL
+      dfSubjects: Mapped_SUBJ
       dfNumerator: Temp_IMPORTANT
-      dfDenominator: Mapped_ENROLL
+      dfDenominator: Mapped_SUBJ
       strSubjectCol: subjid
       strGroupCol: invid
       strGroupLevel: GroupLevel

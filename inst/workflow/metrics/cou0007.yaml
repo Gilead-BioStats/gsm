@@ -12,7 +12,7 @@ meta:
   Threshold: -3,-2,2,3
   nMinDenominator: 3
 spec:
-  Mapped_ENROLL:
+  Mapped_SUBJ:
     subjid:
       required: true
       type: character
@@ -20,7 +20,7 @@ spec:
       required: true
       type: character
   Mapped_SDRGCOMP:
-    subjID:
+    subjid:
       required: true
       type: character
     sdrgyn:
@@ -42,9 +42,9 @@ steps:
   - name: Input_Rate
     output: Analysis_Input
     params:
-      dfSubjects: Mapped_ENROLL
+      dfSubjects: Mapped_SUBJ
       dfNumerator: Temp_DISCONTINUED
-      dfDenominator: Mapped_ENROLL
+      dfDenominator: Mapped_SUBJ
       strSubjectCol: subjid
       strGroupCol: country
       strGroupLevel: GroupLevel
