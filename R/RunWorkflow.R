@@ -74,7 +74,7 @@ RunWorkflow <- function(
   for (step in lWorkflow$steps) {
     cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lWorkflow$steps), ": `", step$name, "`"))
 
-    result <- RunStep(lStep = step, lData = lWorkflow$lData, lMeta = lWorkflow$meta)
+    result <- RunStep(lStep = step, lData = lWorkflow$lData, lMeta = lWorkflow$meta, lSpec = lWorkflow$spec)
 
     if (step$output %in% names(lData)) {
       cli::cli_alert_warning("Overwriting existing data in `lData`.")
