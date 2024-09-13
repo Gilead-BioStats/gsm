@@ -20,16 +20,18 @@
 #' 1. If a single parameter value is equal to "lMeta", the the full lMeta object is passed to the function 
 #' (for the given paramName).
 #' 2. If a single parameter value is equal to "lData", the full lData object is passed to the function.
-#' 3. If a single parameter value is found in names(lMeta), that property is pulled from lMeta (e.g. 
+#' 3. If a single parameter value is equal to "lSpec", the full lSpec object is passed to the function.
+#' 4. If a single parameter value is found in names(lMeta), that property is pulled from lMeta (e.g. 
 #' lMeta${paramVal}) and passed to the function.
-#' 4. If a single parameter value is found in names(lData), that property is pulled from lData (e.g. 
+#' 5. If a single parameter value is found in names(lData), that property is pulled from lData (e.g. 
 #' lData${paramVal}) and passed to the function.
-#' 5. Otherwise single parameter value is passed to the function as a string. 
-#' 6. If the parameter value is a vector, the vector is passed to the function as a vector or strings. 
+#' 6. Otherwise single parameter value is passed to the function as a string. 
+#' 7. If the parameter value is a vector, the vector is passed to the function as a vector or strings. 
 #' 
 #' @param lStep `list` single workflow step (typically pulled from `lWorkflow$steps`). Should
 #'   include the name of the function to run (`lStep$name`), name of the object where the function result should be saved (`lStep$output`) and configurable parameters (`lStep$params`) (if any)
 #' @param lData `list` a named list of domain level data frames.
+#' @param lSpec `list` a data specification containing required columns. See `vignette("gsm_extensions")`.
 #' @param lMeta `list` a named list of meta data.
 #'
 #' @examples
@@ -52,7 +54,7 @@
 #'
 #' @export
 
-RunStep <- function(lStep, lData, lMeta) {
+RunStep <- function(lStep, lData, lMeta, lSpec = NULL) {
   # prepare parameter list inputs
   params <- lStep$params
 

@@ -65,6 +65,7 @@ RunWorkflow <- function(
     cli::cli_h3("Checking data against spec")
     CheckSpec(lData, lWorkflow$spec)
   } else {
+    lWorkflow$spec <- NULL
     cli::cli_h3("No spec found in workflow. Proceeding without checking data.")
   }
 
