@@ -45,7 +45,7 @@ Ingest <- function(lSource, lSpec) {
 
                 if('target_col' %in% columnSpec[columnName]) {
                     targetName <- columSpec[columnName]$target_col  
-                    strColQuery <- c(strColQuery, glue::glue("{columnName} as {targetName}"))
+                    strColQuery <- c(strColQuery, glue::glue("{targetName} as {columnName}"))
                 } else {
                     strColQuery <- c(strColQuery, columnName)
                 }

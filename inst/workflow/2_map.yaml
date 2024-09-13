@@ -2,7 +2,7 @@ meta:
   File: 2_map.yaml
   description: Data Mappings to prepare for metric calculations
 spec:
-  Mapped_ENROLL:
+  Raw_SUBJ:
     studyid:
       required: true
       type: character
@@ -21,6 +21,16 @@ spec:
     timeonstudy:
       required: true
       type: numeric
+  Raw_QUERY:
+    subject_nsv:
+      required: true
+      type: character
+    querystatus:
+      required: true
+      type: character
+    queryage:
+      required: true
+      type: numeric
 steps:
   - name: RunQuery
     output: Mapped_ENROLL
@@ -31,13 +41,12 @@ steps:
     output: Temp_SubjectLookup
     params:
       .data: Mapped_ENROLL
-      ...:
-        - subjid
-        - subject_nsv
-  - name: left_join
-    output: Mapped_QUERY
-    params:
-      x: Raw_QUERY
-      y: Temp_SubjectLookup
-      by: subject_nsv
+      subjid: subjid
+      subject_nsv: subject_nsv
+        #- name: left_join
+        #  output: Mapped_QUERY
+        #  params:
+        #    x: Raw_QUERY
+        #    y: Temp_SubjectLookup
+        #    by: subject_nsv
 
