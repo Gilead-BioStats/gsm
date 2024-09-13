@@ -10,8 +10,12 @@
 #' @param strGroupLevel `character` Value for the group level. Default: "Site".
 #'
 #' @examples
+#' reportingResultsSubset <- dplyr::filter(
+#'   reportingResults,
+#'   GroupID %in% head(unique(reportingResults$GroupID))
+#' )
 #' Widget_FlagOverTime(
-#'   dfResults = reportingResults,
+#'   dfResults = reportingResultsSubset,
 #'   dfMetrics = reportingMetrics
 #' )
 #' @export

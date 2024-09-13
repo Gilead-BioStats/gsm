@@ -24,8 +24,12 @@ A widget that generates a table of flags over time using
 \code{\link[=Report_FlagOverTime]{Report_FlagOverTime()}}.
 }
 \examples{
+reportingResultsSubset <- dplyr::filter(
+  reportingResults,
+  GroupID \%in\% head(unique(reportingResults$GroupID))
+)
 Widget_FlagOverTime(
-  dfResults = reportingResults,
+  dfResults = reportingResultsSubset,
   dfMetrics = reportingMetrics
 )
 }
