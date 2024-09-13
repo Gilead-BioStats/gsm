@@ -41,11 +41,12 @@ Ingest <- function(lSource, lSpec) {
             # write a query to select the columns from the source
             strColQuery <- c()
             for (columnName in names(columnSpecs)) {
-                columnSpec <- columnSpecs[[columnName]]
+                columnSpec <- columnSpecs[[ columnName ]]
 
-                if('target_col' %in% columnSpec[columnName]) {
-                    targetName <- columSpec[columnName]$target_col  
-                    strColQuery <- c(strColQuery, glue::glue("{targetName} as {columnName}"))
+                if('target_col' %in% names(columnSpec)) {
+                    targetName <- columnSpec$target_col  
+                    print(targetName)
+                    strColQuery <- c(strColQuery, glue::glue("{columnName} as {targetName}"))
                 } else {
                     strColQuery <- c(strColQuery, columnName)
                 }
@@ -66,7 +67,7 @@ Ingest <- function(lSource, lSpec) {
         }
     )
 
-    #names(lRaw) <- names(lSpec)
+    names(lRaw) <- sub('^Source_', 'Raw_', names(lRaw))
 
     return(lRaw)
 }
