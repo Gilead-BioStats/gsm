@@ -3,10 +3,7 @@ meta:
   description: Data Mappings to prepare for metric calculations
 spec:
   Mapped_ENROLL:
-    subjid:
-      required: true
-      type: character
-    subject_nsv:
+    studyid:
       required: true
       type: character
     invid:
@@ -15,12 +12,32 @@ spec:
     country:
       required: true
       type: character
-    enrollyn:
+    subjid:
       required: true
       type: character
+    subject_nsv:
+      required: true
+      type: character
+    timeonstudy:
+      required: true
+      type: numeric
 steps:
   - name: RunQuery
     output: Mapped_ENROLL
     params:
       df: Raw_SUBJ
       strQuery: "SELECT * FROM df WHERE enrollyn == 'Y'"
+  - name: select
+    output: Temp_SubjectLookup
+    params:
+      .data: Mapped_ENROLL
+      ...:
+        - subjid
+        - subject_nsv
+  - name: left_join
+    output: Mapped_QUERY
+    params:
+      x: Raw_QUERY
+      y: Temp_SubjectLookup
+      by: subject_nsv
+
