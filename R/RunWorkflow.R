@@ -36,7 +36,8 @@
 
 RunWorkflow <- function(
   lWorkflow,
-  lData,
+  lData = NULL,
+  lInputConfig = NULL,
   bReturnData = TRUE,
   bKeepInputData = FALSE
 ) {
@@ -49,6 +50,12 @@ RunWorkflow <- function(
 
   if (!"meta" %in% names(lWorkflow)) {
     cli::cli_alert("Workflow `{lWorkflow$Meta$File}` has no `meta` property.")
+  }
+
+  # If no data is provided, attempt to load data from lInputConfig
+  if (is.null(lData) && !is.null(lInputConfig)) {
+    cli::cli_alert("No data provided. Attempting to load data from `lInputConfig`.")
+    lData <- LoadData(lWorkflow, lInputConfig)
   }
 
   lWorkflow$lData <- lData
@@ -92,6 +99,12 @@ RunWorkflow <- function(
   }
 
   cli::cli_h1(paste0("Completed `", lWorkflow$meta$File, "` Workflow"))
+
+  # Save data.
+  if (!is.null(lInputConfig)) {
+    SaveData(lWorkflow$lData, lInputConfig)
+  }
+
   if (bReturnData) {
     return(lWorkflow$lData)
   } else {

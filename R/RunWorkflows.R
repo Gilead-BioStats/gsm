@@ -20,7 +20,8 @@
 
 RunWorkflows <- function(
   lWorkflows,
-  lData,
+  lData = NULL,
+  lInputConfig = NULL,
   bReturnData = TRUE,
   bKeepInputData = FALSE
 ) {
@@ -29,12 +30,12 @@ RunWorkflows <- function(
     cli::cli_h1("Running {length(lWorkflows)} Workflows")
     lResults <- purrr::map(
       lWorkflows,
-      ~ RunWorkflow(.x, lData, bReturnData, bKeepInputData)
+      ~ RunWorkflow(.x, lData, lInputConfig, bReturnData, bKeepInputData)
     ) %>% setNames(names(lWorkflows))
   } else {
     # if there is only one workflow, run it
     print(names(lWorkflows[[1]]))
-    lResults <- RunWorkflow(lWorkflow = lWorkflows[[1]], lData, bReturnData, bKeepInputData)
+    lResults <- RunWorkflow(lWorkflow = lWorkflows[[1]], lData, lInputConfig, bReturnData, bKeepInputData)
   }
   return(lResults)
 }

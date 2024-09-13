@@ -32,8 +32,6 @@
 #' @return `list` containing the results of the `lStep$name` function call should contain `.$checks`
 #'   parameter with results from `is_mapping_vald` for each domain in `lStep$inputs`.
 #'
-#'
-#'
 #' @export
 
 RunStep <- function(lStep, lData, lMeta) {
@@ -66,10 +64,11 @@ RunStep <- function(lStep, lData, lMeta) {
         # Use named items from lMeta
         cli::cli_alert_success("{paramName} = {paramVal}: Passing lMeta${paramVal}.")
         params[[paramName]] <- lMeta[[paramVal]]
+      } else {
+        # If the parameter value is not found in 'lMeta' or 'lData', pass the parameter value as a string.
+        cli::cli_alert_info("{paramName} = {paramVal}: No matching data found. Passing '{paramVal}' as a string.")
       }
     }
-    # If the parameter value is not found in 'lMeta' or 'lData', pass the parameter value as a string.
-    cli::cli_alert_info("{paramName} = {paramVal}: No matching data found. Passing '{paramVal}' as a string.")
   }
 
   cli::cli_h3("Calling {.fn {lStep$name}}")
