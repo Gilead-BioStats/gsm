@@ -13,61 +13,74 @@
 #' specification.
 #'
 #' @examples
-#' lSource <- list(
-#'   Source_ctms_study = clindata::ctms_study,
-#'   Source_ctms_site = clindata::ctms_site,
-#'   Source_SUBJ = clindata::rawplus_dm,
-#'   Source_AE = clindata::rawplus_ae,
-#'   Source_PD = clindata::ctms_protdev,
-#'   Source_LB = clindata::rawplus_lb,
-#'   Source_STUDCOMP = clindata::rawplus_studcomp,
-#'   Source_SDRGCOMP = clindata::rawplus_sdrgcomp,
-#'   Source_DATAENT = clindata::edc_data_pages,
-#'   Source_DATACHG = clindata::edc_data_points,
-#'   Source_QUERY = clindata::edc_queries,
-#'   Source_ENROLL = clindata::rawplus_enroll
+#' lSourceData <- list(
+#'     Source_STUDY = clindata::ctms_study,
+#'     Source_SITE = clindata::ctms_site,
+#'     Source_SUBJ = clindata::rawplus_dm,
+#'     Source_AE = clindata::rawplus_ae,
+#'     Source_PD = clindata::ctms_protdev,
+#'     Source_LB = clindata::rawplus_lb,
+#'     Source_STUDCOMP = clindata::rawplus_studcomp,
+#'     Source_SDRGCOMP = clindata::rawplus_sdrgcomp,
+#'     Source_QUERY = clindata::edc_queries,
+#'     Source_DATAENT = clindata::edc_data_pages,
+#'     Source_DATACHG = clindata::edc_data_points,
+#'     Source_ENROLL = clindata::rawplus_enroll
 #' )
 #'
-#' lSpec <- MakeWorkflowList('ingest')[[1]]$spec
-#' lRaw <- Ingest(lSource, lSpec)
-#' 
+#' lIngestWorkflow <- MakeWorkflowList('ingest')[[1]]
+#' lRawData <- Ingest(lSourceData, lIngestWorkflow$spec)
+#'
 #' @export
 
-Ingest <- function(lSource, lSpec) {
-    lRaw <- lSpec %>% imap(
+Ingest <- function(lSourceData, lSpec) {
+    stopifnot(
+        '[ lSourceData ] must be a list.' = is.list(lSourceData),
+        '[ lSpec ] must be a list.' = is.list(lSpec)
+    )
+
+    lRawData <- lSpec %>% imap(
         function(columnSpecs, domain) {
-            # check that the columns exist in the source data
+            cli::cli_alert_info(glue("Ingesting data from {domain}."))
+
+            # check that the domain exists in the source data
+            dfSource <- lSourceData[[ domain ]]
+            if (is.null(dfSource)) {
+                stop(glue("Domain '{domain}' not found in source data."))
+            }
 
             # write a query to select the columns from the source
+            columns <- names(columnSpecs)
             strColQuery <- c()
-            for (columnName in names(columnSpecs)) {
-                columnSpec <- columnSpecs[[ columnName ]]
+            for (column in columns) {
+                # check that the column exists in the source data
+                if (!column %in% names(lSource[[ domain ]])) {
+                    stop(glue("Column '{column}' not found in source data for domain '{domain}'."))
+                }
+
+                columnSpec <- columnSpecs[[ column ]]
 
                 if('target_col' %in% names(columnSpec)) {
                     targetName <- columnSpec$target_col  
-                    print(targetName)
-                    strColQuery <- c(strColQuery, glue::glue("{columnName} as {targetName}"))
+                    strColQuery <- c(strColQuery, glue::glue("{column} as {targetName}"))
                 } else {
-                    strColQuery <- c(strColQuery, columnName)
+                    strColQuery <- c(strColQuery, column)
                 }
             }
 
             strQuery <- glue("SELECT {paste(strColQuery, collapse = ', ')} FROM df")
-            print(strQuery)
 
             # call RunQuery to get the data
-            # replace "source_" with "raw_" in the domain name
-            # sourceDomain <- domain %>% str_replace("Source_", "Raw_")
-            df <- RunQuery(
-                lSource[[ domain ]],
-                strQuery =  strQuery
+            dfRaw <- RunQuery(
+                dfSource,
+                strQuery = strQuery
             )
 
-            return(df)
+            return(dfRaw)
         }
     )
 
-    names(lRaw) <- sub('^Source_', 'Raw_', names(lRaw))
+    names(lRawData) <- sub('^Source_', 'Raw_', names(lRawData))
 
-    return(lRaw)
+    return(lRawData)
 }

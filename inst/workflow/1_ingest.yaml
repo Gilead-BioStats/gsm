@@ -2,7 +2,14 @@ meta:
   File: 1_ingest.yaml
   description: Data Mappings to prepare for metric calculations
 spec:
-  Source_ctms_site:
+  Source_STUDY:
+    protocol_number:
+      required: true
+      type: character
+    status:
+      required: true
+      type: character
+  Source_SITE:
     pi_number:
       required: true
       type: character
@@ -22,13 +29,6 @@ spec:
       required: true
       type: character
     country:
-      required: true
-      type: character
-  Source_ctms_study:
-    protocol_number:
-      required: true
-      type: character
-    status:
       required: true
       type: character
   Source_SUBJ:
@@ -119,9 +119,26 @@ spec:
     n_changes:
       required: true
       type: numeric
+  Source_ENROLL:
+    studyid:
+      required: true
+      type: character
+    invid:
+      required: true
+      type: character
+    country:
+      required: true
+      type: character
+    subjectid:
+      required: yes
+      type: character
+    enrollyn:
+      required: true
+      type: character
 steps:
   - name: Ingest
     output: lRaw
     params:
       lData: lSource
       lSpec: lSpec
+

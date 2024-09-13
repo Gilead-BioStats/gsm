@@ -2,79 +2,170 @@ meta:
   File: 2_map.yaml
   description: Data Mappings to prepare for metric calculations
 spec:
+  Raw_STUDY:
+    _all:
+      required: true
+  Raw_SITE:
+    _all:
+      required: true
   Raw_SUBJ:
-    studyid:
+    _all:
       required: true
-      type: character
-    invid:
+  Raw_AE:
+    _all:
       required: true
-      type: character
-    country:
+  Raw_PD:
+    _all:
       required: true
-      type: character
-    subjid:
+  Raw_LB:
+    _all:
       required: true
-      type: character
-    subject_nsv:
+  Raw_STUDCOMP:
+    _all:
       required: true
-      type: character
-    timeonstudy:
+  Raw_SDRGCOMP:
+    _all:
       required: true
-      type: numeric
   Raw_QUERY:
-    subject_nsv:
+    _all:
       required: true
-      type: character
-    querystatus:
-      required: true
-      type: character
-    queryage:
-      required: true
-      type: numeric
   Raw_DATAENT:
-    subject_nsv:
+    _all:
       required: true
-      type: character
-      target_col: subject_nsv 
-    data_entry_lag:
-      required: true
-      type: numeric
   Raw_DATACHG:
-    subject_nsv:
+    _all:
       required: true
-      type: character
-      target_col: subject_nsv
-    n_changes:
+  Raw_ENROLL:
+    _all:
       required: true
-      type: numeric
 steps:
-  - name: RunQuery
-    output: Mapped_ENROLL
+  - output: Mapped_SUBJ
+    name: RunQuery
     params:
       df: Raw_SUBJ
       strQuery: "SELECT * FROM df WHERE enrollyn == 'Y'"
-  - name: select
-    output: Temp_SubjectLookup
+
+  # Study metadata
+  - output: Temp_CTMSStudyWide
+    name: RunQuery
     params:
-      .data: Mapped_ENROLL
+      df: Raw_STUDY
+      strQuery: "SELECT protocol_number as GroupID, status as Status, * FROM df"
+  - output: Temp_CTMSStudy
+    name: MakeLongMeta
+    params:
+      data: Temp_CTMSStudyWide
+      strGroupLevel: "Study"
+  - output: Temp_StudyCountsWide
+    name: RunQuery
+    params:
+      df: Mapped_SUBJ
+      strQuery: "SELECT studyid as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY studyid"
+  - output: Temp_StudyCounts
+    name: MakeLongMeta
+    params:
+      data: Temp_StudyCountsWide
+      strGroupLevel: "Study"
+  - output: Mapped_STUDY
+    name: bind_rows
+    params:
+      Temp_CTMSStudy: Temp_CTMSStudy
+      Temp_StudyCounts: Temp_StudyCounts
+
+  # Site metadata
+  - output: Temp_CTMSSiteWide
+    name: RunQuery
+    params:
+      df: Raw_SITE
+      strQuery: "SELECT pi_number as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df"
+  - output: Temp_CTMSSite
+    name: MakeLongMeta
+    params:
+      data: Temp_CTMSSiteWide
+      strGroupLevel: 'Site'
+  - output: Temp_SiteCountsWide
+    name: RunQuery
+    params:
+      df: Mapped_SUBJ
+      strQuery: "SELECT invid as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid"
+  - output: Temp_SiteCounts
+    name: MakeLongMeta
+    params:
+      data: Temp_SiteCountsWide
+      strGroupLevel: "Site"
+  - output: Mapped_SITE
+    name: bind_rows
+    params:
+      Temp_CTMSSite: Temp_CTMSSite
+      Temp_SiteCounts: Temp_SiteCounts
+
+  # Get Participant and Site counts for Country, Site and Study
+  - output: Temp_CountryCountsWide
+    name: RunQuery
+    params:
+      df: Mapped_SUBJ
+      strQuery: "SELECT country as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country"
+  - output: Mapped_COUNTRY
+    name: MakeLongMeta
+    params:
+      data: Temp_CountryCountsWide
+      strGroupLevel: "Country"
+
+  # Merge [ subjid ] onto EDC domains.
+  - output: Temp_SubjectLookup
+    name: select
+    params:
+      .data: Mapped_SUBJ
       subjid: subjid
       subject_nsv: subject_nsv
-  - name: left_join
-    output: Mapped_QUERY
+  - output: Mapped_QUERY
+    name: left_join
     params:
       x: Raw_QUERY
       "y": Temp_SubjectLookup
       by: subject_nsv
-  - name: left_join
-    output: Mapped_DATAENT
+  - output: Mapped_DATAENT
+    name: left_join
     params:
       x: Raw_DATAENT
       "y": Temp_SubjectLookup
       by: subject_nsv
-  - name: left_join
-    output: Mapped_DATACHG
+  - output: Mapped_DATACHG
+    name: left_join
     params:
       x: Raw_DATACHG
       "y": Temp_SubjectLookup
       by: subject_nsv
+
+  # Copy Raw_* to Mapped_* for the remaining domains
+  - output: Mapped_AE
+    name: <-
+    params:
+      name: Mapped_AE
+      value: Raw_AE
+  - output: Mapped_PD
+    name: <-
+    params:
+      name: Mapped_PD
+      value: Raw_PD
+  - output: Mapped_LB
+    name: <-
+    params:
+      name: Mapped_LB
+      value: Raw_LB
+  - output: Mapped_STUDCOMP
+    name: <-
+    params:
+      name: Mapped_STUDCOMP
+      value: Raw_STUDCOMP
+  - output: Mapped_SDRGCOMP
+    name: <-
+    params:
+      name: Mapped_SDRGCOMP
+      value: Raw_SDRGCOMP
+  - output: Mapped_ENROLL
+    name: <-
+    params:
+      name: Mapped_ENROLL
+      value: Raw_ENROLL
 
