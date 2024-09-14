@@ -2,32 +2,37 @@ meta:
   File: 1_ingest.yaml
   description: Data Mappings to prepare for metric calculations
 spec:
- Source_ctms_site:
-    pi_number:
-      required: true
-    site_status:
-      required: true
-    pi_first_name:
-      required: true
-    pi_last_name:
-      required: true
-    city:
-      required: true
-    state:
-      required: true
-    country:
-      required: true
-  Source_ctms_study:
+  Source_STUDY:
     protocol_number:
       required: true
+      type: character
     status:
       required: true
-  Source_SUBJ:
-    subjectid:
+      type: character
+  Source_SITE:
+    pi_number:
       required: true
       type: character
-      target_col: subject_nsv
-    subjid:
+    site_status:
+      required: true
+      type: character
+    pi_first_name:
+      required: true
+      type: character
+    pi_last_name:
+      required: true
+      type: character
+    city:
+      required: true
+      type: character
+    state:
+      required: true
+      type: character
+    country:
+      required: true
+      type: character
+  Source_SUBJ:
+    studyid:
       required: true
       type: character
     invid:
@@ -36,18 +41,18 @@ spec:
     country:
       required: true
       type: character
-    timeonstudy:
-      required: true
-      type: numeric
-    subject_nsv:
+    subjid:
       required: true
       type: character
-    studyid:
+    subject_nsv:
       required: true
       type: character
     enrollyn:
       required: true
       type: character
+    timeonstudy:
+      required: true
+      type: numeric
   Source_AE:
     subjid:
       required: true
@@ -56,10 +61,10 @@ spec:
       required: true
       type: character
   Source_PD:
-    subjid:
+    subjectenrollmentnumber:
       required: true
       type: character
-      target_col: subjectenrollmentnumber
+      target_col: subjid
     deemedimportant:
       required: true
       type: character
@@ -114,9 +119,26 @@ spec:
     n_changes:
       required: true
       type: numeric
+  Source_ENROLL:
+    studyid:
+      required: true
+      type: character
+    invid:
+      required: true
+      type: character
+    country:
+      required: true
+      type: character
+    subjectid:
+      required: yes
+      type: character
+    enrollyn:
+      required: true
+      type: character
 steps:
   - name: Ingest
     output: lRaw
     params:
       lData: lSource
       lSpec: lSpec
+

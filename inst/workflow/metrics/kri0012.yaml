@@ -12,8 +12,8 @@ meta:
   Threshold: -3,-2,2,3
   nMinDenominator: 3
 spec:
-  Mapped_SCREEN:
-    subjid:
+  Mapped_ENROLL:
+    subjectid:
       required: true
       type: character
     invid:
@@ -30,15 +30,15 @@ steps:
   - name: RunQuery
     output: Temp_SCREENED
     params:
-      df: Mapped_SCREEN
+      df: Mapped_ENROLL
       strQuery: "SELECT * FROM df WHERE enrollyn = 'N'"
   - name: Input_Rate
     output: Analysis_Input
     params:
-      dfSubjects: Mapped_SCREEN
+      dfSubjects: Mapped_ENROLL
       dfNumerator: Temp_SCREENED
-      dfDenominator: Mapped_SCREEN
-      strSubjectCol: subjid
+      dfDenominator: Mapped_ENROLL
+      strSubjectCol: subjectid
       strGroupCol: invid
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
