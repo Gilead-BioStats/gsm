@@ -27,13 +27,11 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck
+          extra-packages: any::rcmdcheck, local::.
           needs: check
 
       - name: build vignette
         run: |
-          install.packages("devtools")
-          devtools::install(dependencies=TRUE)
           tools::buildVignette("./vignettes/articles/Qualification.Rmd")
         shell: Rscript {0}
 
