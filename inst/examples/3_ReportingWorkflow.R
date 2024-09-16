@@ -2,19 +2,21 @@
 
 # Step 1 - Create Mapped Data - filter/map raw data
 lData <- list(
-    Raw_SUBJ = clindata::rawplus_dm,
-    Raw_AE = clindata::rawplus_ae,
-    Raw_PD = clindata::ctms_protdev,
-    Raw_LB = clindata::rawplus_lb,
-    Raw_STUDCOMP = clindata::rawplus_studcomp,
-    Raw_SDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
-    Raw_DATACHG = clindata::edc_data_points,
-    Raw_DATAENT = clindata::edc_data_pages,
-    Raw_QUERY = clindata::edc_queries,
-    Raw_ENROLL = clindata::rawplus_enroll
+    Source_SUBJ = clindata::rawplus_dm,
+    Source_AE = clindata::rawplus_ae,
+    Source_PD = clindata::ctms_protdev,
+    Source_LB = clindata::rawplus_lb,
+    Source_STUDCOMP = clindata::rawplus_studcomp,
+    Source_SDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
+    Source_DATACHG = clindata::edc_data_points,
+    Source_DATAENT = clindata::edc_data_pages,
+    Source_QUERY = clindata::edc_queries,
+    Source_ENROLL = clindata::rawplus_enroll,
+    Source_SITE = clindata::ctms_site,
+    Source_STUDY = clindata::ctms_study
 )
-mapping_wf <- MakeWorkflowList(strNames = "data_mapping")
-mapped <- RunWorkflows(mapping_wf, lData, bKeepInputData=TRUE)
+ingest_wf <- MakeWorkflowList(strNames = "1_ingest")
+raw <- RunWorkflows(ingest_wf, lData, bKeepInputData=TRUE)
 
 # Step 2 - Create Analysis Data - Generate 12 KRIs
 kri_wf <- MakeWorkflowList(strPath = "workflow/metrics", strNames = "kri")
@@ -22,8 +24,7 @@ kris <- RunWorkflows(kri_wf, mapped)
 
 # Step 3 - Create Reporting Data - Import Metadata and stack KRI Results
 lReporting_Input <- list(
-    Raw_ctms_site = clindata::ctms_site,
-    Raw_ctms_study = clindata::ctms_study,
+   
     Mapped_ENROLL = mapped$Mapped_ENROLL,
     lWorkflows = kri_wf,
     lAnalysis = kris,

@@ -139,6 +139,6 @@ steps:
   - name: Ingest
     output: lRaw
     params:
-      lData: lSource
+      lSourceData: lData
       lSpec: lSpec
 

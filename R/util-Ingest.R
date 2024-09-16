@@ -6,7 +6,7 @@
 #' retrieve the data. The resulting data frames are stored in a list, where each data frame
 #' corresponds to a domain in the specification.
 #'
-#' @param lSource `list` A named list of source data frames.
+#' @param lSourceData `list` A named list of source data frames.
 #' @param lSpec `list` A named list of column specifications.
 #'
 #' @return `list` A named list of data frames, where each data frame corresponds to a domain in the
@@ -54,7 +54,7 @@ Ingest <- function(lSourceData, lSpec) {
             strColQuery <- c()
             for (column in columns) {
                 # check that the column exists in the source data
-                if (!column %in% names(lSource[[ domain ]])) {
+                if (!column %in% names(lSourceData[[ domain ]])) {
                     stop(glue("Column '{column}' not found in source data for domain '{domain}'."))
                 }
 

@@ -72,6 +72,10 @@ RunStep <- function(lStep, lData, lMeta, lSpec = NULL) {
         # Pass lData
         cli::cli_alert_success("{paramName} = {paramVal}:  Passing full lData object.")
         params[[paramName]] <- lData
+      } else if (paramVal == "lSpec") {
+        # Pass lSpec
+        cli::cli_alert_success("{paramName} = {paramVal}:  Passing full lSpec object.")
+        params[[paramName]] <- lSpec
       } else if (paramVal %in% names(lMeta)) {
         # Use named items from lMeta
         cli::cli_alert_success("{paramName} = {paramVal}: Passing lMeta${paramVal}.")
