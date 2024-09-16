@@ -23,14 +23,8 @@ jobs:
       - name: Install dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::pkgdown, local::.
+          extra-packages: any::pkgdown, any::devtools, local::.
           needs: website
-
-      - name: Install pkgdown and devtools
-        shell: Rscript {0}
-        run: |
-          if (!requireNamespace("pkgdown", quietly = TRUE)) install.packages("pkgdown")
-          if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")
 
       # Cache installed dependencies
       - name: Cache R dependencies
