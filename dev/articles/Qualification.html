@@ -81,7 +81,7 @@
             <h3 data-toc-skip class="subtitle">{gsm} v2.0.1</h3>
             
             <h4 data-toc-skip class="date">Report Run Date:
-2024-09-12</h4>
+2024-09-16</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/dev/vignettes/articles/Qualification.Rmd" class="external-link"><code>vignettes/articles/Qualification.Rmd</code></a></small>
       <div class="d-none name"><code>Qualification.Rmd</code></div>
@@ -1484,7 +1484,7 @@ R/Report_MetricCharts.R
 R/Report_MetricTable.R
 </td>
 <td style="text-align:left;">
-97.62 %
+100.00 %
 </td>
 </tr>
 <tr>
@@ -1649,6 +1649,14 @@ R/util-MakeMetric.R
 </tr>
 <tr>
 <td style="text-align:left;">
+R/util-MakeMetricTable.R
+</td>
+<td style="text-align:left;">
+96.30 %
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 R/util-MakeParamLabels.R
 </td>
 <td style="text-align:left;">
@@ -1764,7 +1772,7 @@ R/Widget_TimeSeries.R
 Total Coverage
 </td>
 <td style="text-align:left;">
-91.51 %
+91.56 %
 </td>
 </tr>
 </tbody>
@@ -1896,7 +1904,7 @@ dplyr
 1.1.4
 </td>
 <td style="text-align:left;">
-0.385
+0.388
 </td>
 </tr>
 <tr>
@@ -1907,7 +1915,7 @@ ggplot2
 3.5.1
 </td>
 <td style="text-align:left;">
-0.405
+0.404
 </td>
 </tr>
 <tr>
@@ -1918,7 +1926,7 @@ glue
 1.7.0
 </td>
 <td style="text-align:left;">
-0.283
+0.282
 </td>
 </tr>
 <tr>
@@ -1951,7 +1959,7 @@ jsonlite
 1.8.8
 </td>
 <td style="text-align:left;">
-0.476
+0.474
 </td>
 </tr>
 <tr>
@@ -1984,7 +1992,7 @@ rlang
 1.1.4
 </td>
 <td style="text-align:left;">
-0.425
+0.427
 </td>
 </tr>
 <tr>
@@ -2017,7 +2025,7 @@ tibble
 3.2.1
 </td>
 <td style="text-align:left;">
-0.357
+0.355
 </td>
 </tr>
 <tr>
@@ -2072,6 +2080,59 @@ yaml
 <div class="section level2">
 <h2 id="pull-request-history">Pull Request History<a class="anchor" aria-label="anchor" href="#pull-request-history"></a>
 </h2>
+<div class="section level4">
+<h4 id="pull-request-1844-add-subjid-to-edc-domains-in-mapping-workflow-">Pull Request 1844: Add <code>subjid</code> to EDC domains in mapping
+workflow.<a class="anchor" aria-label="anchor" href="#pull-request-1844-add-subjid-to-edc-domains-in-mapping-workflow-"></a>
+</h4>
+<p>Merging fix-1761 into ingest</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1844" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1844</a></p>
+<table style="width:78%;" class="table">
+<colgroup>
+<col width="16%">
+<col width="18%">
+<col width="20%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">samussiah</td>
+<td align="center">2024-09-13 16:53:31</td>
+<td align="center">lauramaxwell</td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1843-makemetrictable">Pull Request 1843: MakeMetricTable()<a class="anchor" aria-label="anchor" href="#pull-request-1843-makemetrictable"></a>
+</h4>
+<p>Merging fix-1835 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1843" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1843</a></p>
+<table style="width:75%;" class="table">
+<colgroup>
+<col width="18%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">jonthegeek</td>
+<td align="center">2024-09-13 16:11:28</td>
+<td align="center"></td>
+<td align="center">COMMENTED</td>
+</tr></tbody>
+</table>
+</div>
 <div class="section level4">
 <h4 id="pull-request-1831-closes-1728-adds-footnote-to-scatterplot-widget">Pull Request 1831: Closes #1728 Adds footnote to scatterplot
 widget<a class="anchor" aria-label="anchor" href="#pull-request-1831-closes-1728-adds-footnote-to-scatterplot-widget"></a>
@@ -2201,6 +2262,34 @@ inputs<a class="anchor" aria-label="anchor" href="#pull-request-1829-closes-1795
 <td align="center">2024-09-05 20:51:10</td>
 <td align="center"></td>
 <td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1824-closes-1686-renders-a-message-in-kri_report-when-there-are-0-rows-in-the-summary-table">Pull Request 1824: Closes #1686 Renders a message in
+<code>KRI_Report()</code> when there are 0 rows in the summary
+table<a class="anchor" aria-label="anchor" href="#pull-request-1824-closes-1686-renders-a-message-in-kri_report-when-there-are-0-rows-in-the-summary-table"></a>
+</h4>
+<p>Merging fix-1686 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1824" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1824</a></p>
+<table style="width:74%;" class="table">
+<colgroup>
+<col width="16%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">zdz2101</td>
+<td align="center">2024-09-05 20:30:12</td>
+<td align="center"></td>
+<td align="center">COMMENTED</td>
 </tr></tbody>
 </table>
 </div>
@@ -4519,110 +4608,6 @@ checks<a class="anchor" aria-label="anchor" href="#pull-request-1621-fix-tests-e
 <tbody><tr class="odd">
 <td align="center">lauramaxwell</td>
 <td align="center">2024-06-25 12:26:09</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1594-site-overview-table">Pull Request 1594: Site overview table<a class="anchor" aria-label="anchor" href="#pull-request-1594-site-overview-table"></a>
-</h4>
-<p>Merging fix-1457 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1594" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1594</a></p>
-<table style="width:78%;" class="table">
-<colgroup>
-<col width="16%">
-<col width="18%">
-<col width="20%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">samussiah</td>
-<td align="center">2024-06-24 17:12:14</td>
-<td align="center">lauramaxwell</td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1589-fix-1587">Pull Request 1589: Fix 1587<a class="anchor" aria-label="anchor" href="#pull-request-1589-fix-1587"></a>
-</h4>
-<p>Merging fix-1587 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1589" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1589</a></p>
-<table style="width:74%;" class="table">
-<colgroup>
-<col width="16%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">jwildfire</td>
-<td align="center">2024-06-21 14:26:55</td>
-<td align="center"></td>
-<td align="center"></td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1588-add-demo-scripts">Pull Request 1588: Add demo scripts<a class="anchor" aria-label="anchor" href="#pull-request-1588-add-demo-scripts"></a>
-</h4>
-<p>Merging fix-1587 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1588" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1588</a></p>
-<table style="width:78%;" class="table">
-<colgroup>
-<col width="20%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">lauramaxwell</td>
-<td align="center">2024-06-20 21:19:01</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1586-cookbook-vignette-update">Pull Request 1586: Cookbook vignette update<a class="anchor" aria-label="anchor" href="#pull-request-1586-cookbook-vignette-update"></a>
-</h4>
-<p>Merging fix-1579 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1586" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1586</a></p>
-<table style="width:78%;" class="table">
-<colgroup>
-<col width="20%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">lauramaxwell</td>
-<td align="center">2024-06-20 18:39:22</td>
 <td align="center"></td>
 <td align="center">APPROVED</td>
 </tr></tbody>
