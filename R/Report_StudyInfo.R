@@ -49,7 +49,9 @@ Report_StudyInfo <- function(
     )
 
   show_table <- study_status_table %>%
-    dplyr::filter(Param %in% c("GroupID", "nickname", "Status", "SiteCount", "ParticipantCount")) %>%
+    dplyr::filter(
+      .data$Param %in% c("GroupID", "nickname", "Status", "SiteCount", "ParticipantCount")
+    ) %>%
     dplyr::select("Description", "Value") %>%
     gsm_gt(id = "study_table")
 
