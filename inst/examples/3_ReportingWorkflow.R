@@ -1,6 +1,6 @@
 #### 3.1 - Create a KRI Report using 12 standard metrics with multiple workflows
 
-# Step 1 - Create Mapped Data - filter/map raw data
+# Step 1 - Ingest Raw Data - select needed columns and rename them if needed
 lData <- list(
     Source_SUBJ = clindata::rawplus_dm,
     Source_AE = clindata::rawplus_ae,
@@ -16,16 +16,21 @@ lData <- list(
     Source_STUDY = clindata::ctms_study
 )
 ingest_wf <- MakeWorkflowList(strNames = "1_ingest")
-raw <- RunWorkflows(ingest_wf, lData, bKeepInputData=TRUE)
+raw <- RunWorkflows(ingest_wf, lData)
 
-# Step 2 - Create Analysis Data - Generate 12 KRIs
-kri_wf <- MakeWorkflowList(strPath = "workflow/metrics", strNames = "kri")
+# Step 2 - Create Mapped Data - filter, aggregate and join raw data to create mapped data layer
+map_wf <- MakeWorkflowList(strNames = "2_map")
+mapped <- RunWorkflows(map_wf, raw$lRaw)
+
+# Step 3 - Create Analysis Data - Generate 12 KRIs
+kri_wf <- MakeWorkflowList(strPath = "workflow/metrics")
 kris <- RunWorkflows(kri_wf, mapped)
 
-# Step 3 - Create Reporting Data - Import Metadata and stack KRI Results
+# Step 4 - Create Reporting Data - Import Metadata and stack KRI Results
 lReporting_Input <- list(
-   
-    Mapped_ENROLL = mapped$Mapped_ENROLL,
+    Mapped_SITE = mapped$Mapped_SITE,
+    Mapped_COUNTRY = mapped$Mapped_COUNTRY,
+    Mapped_STUDY = mapped$Mapped_STUDY,
     lWorkflows = kri_wf,
     lAnalysis = kris,
     dSnapshotDate = Sys.Date(),
@@ -34,8 +39,8 @@ lReporting_Input <- list(
 reporting_wf <- MakeWorkflowList(strNames = "reporting")
 reporting <- RunWorkflows(reporting_wf, lReporting_Input)
 
-# Step 4 - Generate Site KRI Report - Create Charts + Report
-wf_report <- MakeWorkflowList(strNames = "report_kri_site")
+# Step 5 - Generate Site KRI Report - Create Charts + Report
+wf_report <- MakeWorkflowList(strPath = "workflow/modules")
 lReports <- RunWorkflows(wf_report, reporting)
 
 #### 3.2 - Create site- and country- level KRI Reports using 12 standard metrics with a single composite workflow

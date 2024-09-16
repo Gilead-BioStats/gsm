@@ -13,14 +13,14 @@ meta:
   nMinDenominator: 30
 spec:
   Mapped_SUBJ:
-    subject_nsv:
+    subjid:
       required: true
       type: character
     country:
       required: true
       type: character
   Mapped_QUERY:
-    subject_nsv:
+    subjid:
       required: true
       type: character
     querystatus:
@@ -50,7 +50,7 @@ steps:
       dfSubjects: Mapped_SUBJ
       dfNumerator: Temp_OLDQUERY
       dfDenominator: Temp_QUERY
-      strSubjectCol: subject_nsv
+      strSubjectCol: subjid
       strGroupCol: country
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count

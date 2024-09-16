@@ -13,14 +13,14 @@ meta:
   nMinDenominator: 30
 spec:
   Mapped_SUBJ:
-    subject_nsv:
+    subjid:
       required: true
       type: character
     invid:
       required: true
       type: character
   Mapped_DATACHG:
-    subject_nsv:
+    subjid:
       required: true
       type: character
     n_changes:
@@ -42,7 +42,7 @@ steps:
       dfSubjects: Mapped_SUBJ
       dfNumerator: Temp_CHANGED
       dfDenominator: Mapped_DATACHG
-      strSubjectCol: subject_nsv
+      strSubjectCol: subjid
       strGroupCol: invid
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count

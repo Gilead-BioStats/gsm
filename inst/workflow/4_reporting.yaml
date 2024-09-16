@@ -1,17 +1,14 @@
 meta:
   File: reporting.yaml
   description: Generate reporting data model including site-, country- and study-level metadata (dfGroups), metric metadata (dfMetrics) and results data with added study-level columsn (dfSummary and dfBounds).
-spec:
-  Mapped_ENROLL:
-    invid:
+spec: 
+  Mapped_COUNTRY:
+    _all:
       required: true
-    subjid:
+  Mapped_SITE:
+    _all:
       required: true
-    studyid:
-      required: true
-    country:
-      required: true
-  Analysis_Summary:
+  Mapped_STUDY:
     _all:
       required: true
 steps:
@@ -19,11 +16,9 @@ steps:
   - name: bind_rows
     output: Reporting_Groups
     params:
-      SiteCounts: Temp_SiteCounts
-      StudyCounts: Temp_StudyCounts
-      CountryCounts: Temp_CountryCounts
-      Site: Temp_CTMSSite
-      Study: Temp_CTMSStudy
+      Country: Mapped_COUNTRY
+      Site: Mapped_SITE
+      Study: Mapped_STUDY
 
 # Create Metric Medatadata
   - name: MakeMetric

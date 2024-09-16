@@ -1,0 +1,15 @@
+meta:
+  File: 5_modules.yaml
+  Description: generate/initialize modules
+steps:
+  # Generate Reports
+  - name: MakeWorkflowList
+    output: wf_modules
+    params:
+      strPath: workflow/reports
+  - name: RunWorkflows
+    output: lReports
+    params:
+      lWorkflows: wf_modules
+      lData: lData
+      bKeepInputData: FALSE

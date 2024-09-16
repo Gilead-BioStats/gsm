@@ -13,14 +13,14 @@ meta:
   nMinDenominator: 30
 spec:
   Mapped_SUBJ:
-    subject_nsv:
+    subjid:
       required: true
       type: character
     invid:
       required: true
       type: character
   Mapped_DATAENT:
-    subject_nsv:
+    subjid:
       required: true
       type: character
     data_entry_lag:
@@ -42,7 +42,7 @@ steps:
       dfSubjects: Mapped_SUBJ
       dfNumerator: Temp_LAG
       dfDenominator: Mapped_DATAENT
-      strSubjectCol: subject_nsv
+      strSubjectCol: subjid
       strGroupCol: invid
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
