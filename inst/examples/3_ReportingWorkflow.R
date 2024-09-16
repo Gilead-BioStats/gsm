@@ -36,6 +36,7 @@ lReporting_Input <- list(
     dSnapshotDate = Sys.Date(),
     strStudyID = "ABC-123"
 )
+
 reporting_wf <- MakeWorkflowList(strNames = "reporting")
 reporting <- RunWorkflows(reporting_wf, lReporting_Input)
 
