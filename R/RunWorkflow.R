@@ -104,7 +104,7 @@ RunWorkflow <- function(
     cli::cli_alert_info("Returning workflow inputs and outputs: {names(lWorkflow$lData)}")
   }
 
-  cli::cli_h1(paste0("Completed `", lWorkflow$meta$File, "` Workflow"))
+  cli::cli_h1("Completed `{lWorkflow$meta$File}` Workflow")
 
   # Save data.
   if (!is.null(lInputConfig)) {

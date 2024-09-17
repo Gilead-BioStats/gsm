@@ -99,7 +99,7 @@ steps:
       Temp_CTMSSite: Temp_CTMSSite
       Temp_SiteCounts: Temp_SiteCounts
 
-  # Get Participant and Site counts for Country, Site and Study
+  # Country metadata
   - output: Temp_CountryCountsWide
     name: RunQuery
     params:
@@ -137,35 +137,35 @@ steps:
       "y": Temp_SubjectLookup
       by: subject_nsv
 
-  # Copy Raw_* to Mapped_* for the remaining domains
+  # Copy Raw_* to Mapped_* for the remaining domains.
   - output: Mapped_AE
-    name: <-
+    name: =
     params:
-      name: Mapped_AE
-      value: Raw_AE
+      lhs: lhs
+      rhs: Raw_AE
   - output: Mapped_PD
-    name: <-
+    name: =
     params:
-      name: Mapped_PD
-      value: Raw_PD
+      lhs: lhs
+      rhs: Raw_PD
   - output: Mapped_LB
-    name: <-
+    name: =
     params:
-      name: Mapped_LB
-      value: Raw_LB
+      lhs: lhs
+      rhs: Raw_LB
   - output: Mapped_STUDCOMP
-    name: <-
+    name: =
     params:
-      name: Mapped_STUDCOMP
-      value: Raw_STUDCOMP
+      lhs: lhs
+      rhs: Raw_STUDCOMP
   - output: Mapped_SDRGCOMP
-    name: <-
+    name: =
     params:
-      name: Mapped_SDRGCOMP
-      value: Raw_SDRGCOMP
+      lhs: lhs
+      rhs: Raw_SDRGCOMP
   - output: Mapped_ENROLL
-    name: <-
+    name: =
     params:
-      name: Mapped_ENROLL
-      value: Raw_ENROLL
+      lhs: lhs
+      rhs: Raw_ENROLL
 
