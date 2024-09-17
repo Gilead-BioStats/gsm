@@ -16,17 +16,17 @@ steps:
   - name: bind_rows
     output: Reporting_Groups
     params:
-      Country: Mapped_COUNTRY
-      Site: Mapped_SITE
       Study: Mapped_STUDY
+      Site: Mapped_SITE
+      Country: Mapped_COUNTRY
 
-# Create Metric Medatadata
+  # Create Metric Medatadata
   - name: MakeMetric
     output: Reporting_Metrics
     params:
       lWorkflows: lWorkflows
 
-# Stack dfSummary data into dfResults
+  # Stack dfSummary data into dfResults
   - name: BindResults
     output: Reporting_Results
     params:
@@ -35,7 +35,7 @@ steps:
       dSnapshotDate: dSnapshotDate
       strStudyID: strStudyID
 
-# Calculate Bounds for confidence intervals
+  # Calculate Bounds for confidence intervals
   - name: MakeBounds
     output: Reporting_Bounds
     params:

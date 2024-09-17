@@ -42,23 +42,20 @@ spec:
     _all:
       required: yes
 steps:
-  # Encapsulate individual mapped data frames in a list.
-  - name: <-
-    output: lMapped
-    params:
-      lhs: lMapped
-      rhs: lData
-
   # Run metric workflows.
   - name: MakeWorkflowList
     output: lWorkflows
     params:
       strPath: workflow/metrics
+  - name: MakeMetric
+    output: Reporting_Metrics
+    params:
+      lWorkflows: lWorkflows
   - name: RunWorkflows
     output: lAnalysis
     params:
       lWorkflows: lWorkflows
-      lData: lMapped
+      lData: lData # output of 2_map.yaml
       bKeepInputData: FALSE
 
   # Set snapshot date to today.
