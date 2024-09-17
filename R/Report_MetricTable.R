@@ -27,12 +27,13 @@
 #'
 #' @export
 Report_MetricTable <- function(
-  dfResults,
-  dfGroups = NULL,
-  strGroupLevel = c("Site", "Country", "Study"),
-  strGroupDetailsParams = NULL,
-  vFlags = c(-2, -1, 1, 2)
+    dfResults,
+    dfGroups = NULL,
+    strGroupLevel = c("Site", "Country", "Study"),
+    strGroupDetailsParams = NULL,
+    vFlags = c(-2, -1, 1, 2)
 ) {
+  # Check for if dfGroups was provided and process group metadata if available
   if(!is.null(dfGroups)) {
     dfResults <- dfResults %>%
       add_Groups_metadata(
@@ -41,48 +42,21 @@ Report_MetricTable <- function(
         strGroupDetailsParams
       )
   }
+
   dfResults <- dfResults %>%
     dplyr::filter(
       .data$Flag %in% vFlags
     )
 
+  MetricTable <- MakeMetricTable(
+    dfResults, dfGroups, strGroupLevel, strGroupDetailsParams, vFlags
+  )
+
   if (!nrow(dfResults)) {
     return("Nothing flagged for this KRI.")
   }
 
-  if (length(unique(dfResults$MetricID)) > 1) {
-    stop("Expecting `dfResults` to be filtered to one unique MetricID, but many detected.")
-  }
-
-  if (rlang::arg_match(strGroupLevel) == "Site" && !is.null(dfGroups) && !is.null(dfGroups$InvestigatorLastName)) {
-    dfResults$Group <- glue::glue("{dfResults$GroupID} ({dfResults$InvestigatorLastName})")
-  } else {
-    dfResults$Group <- dfResults$GroupID
-  }
-
-  SummaryTable <- dfResults %>%
-    dplyr::arrange(
-      desc(abs(.data$Flag)),
-      desc(abs(.data$Score))
-    ) %>%
-    dplyr::mutate(
-      Flag = Report_FormatFlag(.data$Flag),
-      dplyr::across(
-        dplyr::where(is.numeric),
-        ~ round(.x, 2)
-      )
-    ) %>%
-    dplyr::select(
-      dplyr::any_of(c(
-        "Group",
-        "Enrolled" = "ParticipantCount",
-        "Numerator",
-        "Denominator",
-        "Metric",
-        "Score",
-        "Flag"
-      ))
-    ) %>%
+  SummaryTable <- MetricTable %>%
     kableExtra::kbl(format = "html", escape = FALSE) %>%
     kableExtra::kable_styling("striped", full_width = FALSE)
 
