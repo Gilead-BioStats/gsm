@@ -67,7 +67,20 @@ Visualize_Metric <- function(
       return(NULL)
     } else {
       dfResults <- dfResults %>% filter(.data$MetricID == strMetricID)
+    }
+  }
+  if (!is.null(strMetricID)) {
+    if (!(strMetricID %in% unique(dfBounds$MetricID))) {
+      cli::cli_inform("MetricID not found in dfBounds. Please double check input data if intentional.")
+    } else {
       dfBounds <- dfBounds %>% filter(.data$MetricID == strMetricID)
+    }
+  }
+
+  if (!is.null(strMetricID)) {
+    if (!(strMetricID %in% unique(dfMetrics$MetricID))) {
+      cli::cli_inform("MetricID not found in dfMetrics. Please double check input data if intentional.")
+    } else {
       dfMetrics <- dfMetrics %>% filter(.data$MetricID == strMetricID)
     }
   }
@@ -80,6 +93,7 @@ Visualize_Metric <- function(
     cli::cli_abort("Multiple MetricIDs found in dfResults, dfBounds or dfMetrics. Specify `MetricID` to subset. No charts will be generated.")
     return(NULL)
   }
+
   # Prep chart inputs ---------------------------------------------------------
   if(is.null(dfMetrics)){
     lMetric <- list()
