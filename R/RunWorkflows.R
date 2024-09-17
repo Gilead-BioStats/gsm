@@ -28,13 +28,13 @@ RunWorkflows <- function(
   if (length(lWorkflows) > 1) {
     # if there are multiple workflows, run them all
     cli::cli_h1("Running {length(lWorkflows)} Workflows")
+
     lResults <- purrr::map(
       lWorkflows,
       ~ RunWorkflow(.x, lData, lInputConfig, bReturnData, bKeepInputData)
     ) %>% setNames(names(lWorkflows))
   } else {
     # if there is only one workflow, run it
-    print(names(lWorkflows[[1]]))
     lResults <- RunWorkflow(lWorkflow = lWorkflows[[1]], lData, lInputConfig, bReturnData, bKeepInputData)
   }
   return(lResults)

@@ -83,7 +83,7 @@ RunStep <- function(lStep, lData, lMeta, lSpec = NULL) {
       } else if (paramVal %in% names(lData)) {
         cli::cli_alert_success("{paramName} = {paramVal}: Passing lData${paramVal}.")
         params[[paramName]] <- lData[[paramVal]]
-      }  else {
+      } else {
         # If the parameter value is not found in 'lMeta' or 'lData', pass the parameter value as a string.
         cli::cli_alert_info("{paramName} = {paramVal}: No matching data found. Passing '{paramVal}' as a string.")
       }
@@ -94,5 +94,6 @@ RunStep <- function(lStep, lData, lMeta, lSpec = NULL) {
   }
 
   cli::cli_h3("Calling {.fn {lStep$name}}")
+
   return(do.call(lStep$name, params))
 }
