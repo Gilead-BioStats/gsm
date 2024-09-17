@@ -33,7 +33,7 @@
 
 Widget_ScatterPlot <- function(
   dfResults,
-  lMetric = list(), # TODO: coerce list to object instead of array with jsonlite::toJSON()
+  lMetric = NULL,
   dfGroups = NULL,
   dfBounds = NULL,
   bAddGroupSelect = TRUE,
@@ -42,13 +42,14 @@ Widget_ScatterPlot <- function(
 ) {
   stopifnot(
     "dfResults is not a data.frame" = is.data.frame(dfResults),
-    "lMetric must be a list, but not a data.frame" = is.list(lMetric) && !is.data.frame(lMetric),
+    "lMetric must be a list, but not a data.frame" = is.null(lMetric) || (is.list(lMetric) && !is.data.frame(lMetric)),
     "dfGroups is not a data.frame" = is.null(dfGroups) || is.data.frame(dfGroups),
     "dfBounds is not a data.frame" = is.null(dfBounds) || is.data.frame(dfBounds),
     "bAddGroupSelect is not a logical" = is.logical(bAddGroupSelect),
     "strShinyGroupSelectID is not a character" = is.character(strShinyGroupSelectID),
     "bDebug is not a logical" = is.logical(bDebug)
   )
+
   # define widget inputs
   input <- list(
     dfResults = dfResults,
