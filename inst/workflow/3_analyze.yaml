@@ -1,15 +1,115 @@
 meta:
   File: 3_analyze.yaml
   Description: run all metrics in a snapshot
+spec:
+  Mapped_STUDY:
+    _all:
+      required: yes
+  Mapped_SITE:
+    _all:
+      required: yes
+  Mapped_COUNTRY:
+    _all:
+      required: yes
+  Mapped_SUBJ:
+    _all:
+      required: yes
+  Mapped_AE:
+    _all:
+      required: yes
+  Mapped_PD:
+    _all:
+      required: yes
+  Mapped_LB:
+    _all:
+      required: yes
+  Mapped_STUDCOMP:
+    _all:
+      required: yes
+  Mapped_SDRGCOMP:
+    _all:
+      required: yes
+  Mapped_QUERY:
+    _all:
+      required: yes
+  Mapped_DATAENT:
+    _all:
+      required: yes
+  Mapped_DATACHG:
+    _all:
+      required: yes
+  Mapped_ENROLL:
+    _all:
+      required: yes
 steps:
-  # Run Metrics
-  - name: MakeWorkflowList
-    output: lWorkflows
+  # Run metric workflows.
+  - output: lWorkflows
+    name: MakeWorkflowList
     params:
       strPath: workflow/metrics
-  - name: RunWorkflows
-    output: lAnalysis
+  - output: lMappedData
+    name: list
+    params:
+      Mapped_SUBJ: Mapped_SUBJ
+      Mapped_AE: Mapped_AE
+      Mapped_PD: Mapped_PD
+      Mapped_LB: Mapped_LB
+      Mapped_STUDCOMP: Mapped_STUDCOMP
+      Mapped_SDRGCOMP: Mapped_SDRGCOMP
+      Mapped_QUERY: Mapped_QUERY
+      Mapped_DATAENT: Mapped_DATAENT
+      Mapped_DATACHG: Mapped_DATACHG
+      Mapped_ENROLL: Mapped_ENROLL
+  - output: lAnalysis
+    name: RunWorkflows
     params:
       lWorkflows: lWorkflows
-      lData: lMapped
+      lData: lMappedData
       bKeepInputData: FALSE
+
+  # Capture study ID from the GroupID column in the study metadata.
+  - output: GroupID
+    name: pull
+    params:
+      .data: Mapped_STUDY
+      var: GroupID
+  - output: strStudyID
+    name: unique
+    params:
+      x: GroupID
+
+  # Bind results.
+  - output: Analysis_Metrics
+    name: MakeMetric
+    params:
+      lWorkflows: lWorkflows
+  - output: Analysis_Input
+    name: BindResults
+    params:
+      lAnalysis: lAnalysis
+      strName: "Analysis_Input"
+      strStudyID: strStudyID
+  - output: Analysis_Summary
+    name: BindResults
+    params:
+      lAnalysis: lAnalysis
+      strName: "Analysis_Summary"
+      strStudyID: strStudyID
+
+  # Keep mapped data needed in the reporting data model.
+  - output: Mapped_STUDY
+    name: =
+    params:
+      lhs: lhs
+      rhs: Mapped_STUDY
+  - output: Mapped_SITE
+    name: =
+    params:
+      lhs: lhs
+      rhs: Mapped_SITE
+  - output: Mapped_COUNTRY
+    name: =
+    params:
+      lhs: lhs
+      rhs: Mapped_COUNTRY
+

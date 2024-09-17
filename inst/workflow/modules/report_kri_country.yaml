@@ -32,7 +32,7 @@ steps:
       dfResults: Reporting_Results_Country
       dfGroups: Reporting_Groups
       dfBounds: Reporting_Bounds
-      dfMetrics: Reporting_Metrics
+      dfMetrics: Reporting_Metrics_Country
   - name: Report_KRI
     output: lReport
     params:
