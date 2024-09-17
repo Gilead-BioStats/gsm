@@ -10,6 +10,7 @@
 #'
 #' @param lWorkflows `list` A named list of metadata defining how the workflow should be run.
 #' @param lData `list` A named list of domain-level data frames. Names should match the values specified in `lMapping` and `lAssessments`, which are generally based on the expected inputs from `X_Map_Raw`.
+#' @param lInputConfig `list` A named list of data sources to pull data from external source.
 #' @param bReturnData `boolean` should function return only bData or should meta and steps be included? Default is `TRUE`.
 #' @param bKeepInputData `boolean` should the input data be returned? Default is `FALSE`.
 #'
