@@ -10,7 +10,7 @@
       [1] "meta"  "spec"  "steps" "path"  "name" 
       
       $`3_analyze`
-      [1] "meta"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path"  "name" 
       
       $`4_reporting`
       [1] "meta"  "spec"  "steps" "path"  "name" 
@@ -104,11 +104,11 @@
     Output
       $`1_ingest`
       $`1_ingest`[[1]]
-      $`1_ingest`[[1]]$name
-      [1] "Ingest"
-      
       $`1_ingest`[[1]]$output
       [1] "lRaw"
+      
+      $`1_ingest`[[1]]$name
+      [1] "Ingest"
       
       $`1_ingest`[[1]]$params
       $`1_ingest`[[1]]$params$lSourceData
@@ -410,13 +410,13 @@
       [1] "Mapped_AE"
       
       $`2_map`[[18]]$name
-      [1] "<-"
+      [1] "="
       
       $`2_map`[[18]]$params
-      $`2_map`[[18]]$params$name
-      [1] "Mapped_AE"
+      $`2_map`[[18]]$params$lhs
+      [1] "lhs"
       
-      $`2_map`[[18]]$params$value
+      $`2_map`[[18]]$params$rhs
       [1] "Raw_AE"
       
       
@@ -426,13 +426,13 @@
       [1] "Mapped_PD"
       
       $`2_map`[[19]]$name
-      [1] "<-"
+      [1] "="
       
       $`2_map`[[19]]$params
-      $`2_map`[[19]]$params$name
-      [1] "Mapped_PD"
+      $`2_map`[[19]]$params$lhs
+      [1] "lhs"
       
-      $`2_map`[[19]]$params$value
+      $`2_map`[[19]]$params$rhs
       [1] "Raw_PD"
       
       
@@ -442,13 +442,13 @@
       [1] "Mapped_LB"
       
       $`2_map`[[20]]$name
-      [1] "<-"
+      [1] "="
       
       $`2_map`[[20]]$params
-      $`2_map`[[20]]$params$name
-      [1] "Mapped_LB"
+      $`2_map`[[20]]$params$lhs
+      [1] "lhs"
       
-      $`2_map`[[20]]$params$value
+      $`2_map`[[20]]$params$rhs
       [1] "Raw_LB"
       
       
@@ -458,13 +458,13 @@
       [1] "Mapped_STUDCOMP"
       
       $`2_map`[[21]]$name
-      [1] "<-"
+      [1] "="
       
       $`2_map`[[21]]$params
-      $`2_map`[[21]]$params$name
-      [1] "Mapped_STUDCOMP"
+      $`2_map`[[21]]$params$lhs
+      [1] "lhs"
       
-      $`2_map`[[21]]$params$value
+      $`2_map`[[21]]$params$rhs
       [1] "Raw_STUDCOMP"
       
       
@@ -474,13 +474,13 @@
       [1] "Mapped_SDRGCOMP"
       
       $`2_map`[[22]]$name
-      [1] "<-"
+      [1] "="
       
       $`2_map`[[22]]$params
-      $`2_map`[[22]]$params$name
-      [1] "Mapped_SDRGCOMP"
+      $`2_map`[[22]]$params$lhs
+      [1] "lhs"
       
-      $`2_map`[[22]]$params$value
+      $`2_map`[[22]]$params$rhs
       [1] "Raw_SDRGCOMP"
       
       
@@ -490,13 +490,13 @@
       [1] "Mapped_ENROLL"
       
       $`2_map`[[23]]$name
-      [1] "<-"
+      [1] "="
       
       $`2_map`[[23]]$params
-      $`2_map`[[23]]$params$name
-      [1] "Mapped_ENROLL"
+      $`2_map`[[23]]$params$lhs
+      [1] "lhs"
       
-      $`2_map`[[23]]$params$value
+      $`2_map`[[23]]$params$rhs
       [1] "Raw_ENROLL"
       
       
@@ -504,11 +504,11 @@
       
       $`3_analyze`
       $`3_analyze`[[1]]
-      $`3_analyze`[[1]]$name
-      [1] "MakeWorkflowList"
-      
       $`3_analyze`[[1]]$output
       [1] "lWorkflows"
+      
+      $`3_analyze`[[1]]$name
+      [1] "MakeWorkflowList"
       
       $`3_analyze`[[1]]$params
       $`3_analyze`[[1]]$params$strPath
@@ -517,86 +517,251 @@
       
       
       $`3_analyze`[[2]]
-      $`3_analyze`[[2]]$name
-      [1] "RunWorkflows"
-      
       $`3_analyze`[[2]]$output
-      [1] "lAnalysis"
+      [1] "lMappedData"
+      
+      $`3_analyze`[[2]]$name
+      [1] "list"
       
       $`3_analyze`[[2]]$params
-      $`3_analyze`[[2]]$params$lWorkflows
+      $`3_analyze`[[2]]$params$Mapped_SUBJ
+      [1] "Mapped_SUBJ"
+      
+      $`3_analyze`[[2]]$params$Mapped_AE
+      [1] "Mapped_AE"
+      
+      $`3_analyze`[[2]]$params$Mapped_PD
+      [1] "Mapped_PD"
+      
+      $`3_analyze`[[2]]$params$Mapped_LB
+      [1] "Mapped_LB"
+      
+      $`3_analyze`[[2]]$params$Mapped_STUDCOMP
+      [1] "Mapped_STUDCOMP"
+      
+      $`3_analyze`[[2]]$params$Mapped_SDRGCOMP
+      [1] "Mapped_SDRGCOMP"
+      
+      $`3_analyze`[[2]]$params$Mapped_QUERY
+      [1] "Mapped_QUERY"
+      
+      $`3_analyze`[[2]]$params$Mapped_DATAENT
+      [1] "Mapped_DATAENT"
+      
+      $`3_analyze`[[2]]$params$Mapped_DATACHG
+      [1] "Mapped_DATACHG"
+      
+      $`3_analyze`[[2]]$params$Mapped_ENROLL
+      [1] "Mapped_ENROLL"
+      
+      
+      
+      $`3_analyze`[[3]]
+      $`3_analyze`[[3]]$output
+      [1] "lAnalysis"
+      
+      $`3_analyze`[[3]]$name
+      [1] "RunWorkflows"
+      
+      $`3_analyze`[[3]]$params
+      $`3_analyze`[[3]]$params$lWorkflows
       [1] "lWorkflows"
       
-      $`3_analyze`[[2]]$params$lData
-      [1] "lMapped"
+      $`3_analyze`[[3]]$params$lData
+      [1] "lMappedData"
       
-      $`3_analyze`[[2]]$params$bKeepInputData
+      $`3_analyze`[[3]]$params$bKeepInputData
       [1] FALSE
+      
+      
+      
+      $`3_analyze`[[4]]
+      $`3_analyze`[[4]]$output
+      [1] "GroupID"
+      
+      $`3_analyze`[[4]]$name
+      [1] "pull"
+      
+      $`3_analyze`[[4]]$params
+      $`3_analyze`[[4]]$params$.data
+      [1] "Mapped_STUDY"
+      
+      $`3_analyze`[[4]]$params$var
+      [1] "GroupID"
+      
+      
+      
+      $`3_analyze`[[5]]
+      $`3_analyze`[[5]]$output
+      [1] "strStudyID"
+      
+      $`3_analyze`[[5]]$name
+      [1] "unique"
+      
+      $`3_analyze`[[5]]$params
+      $`3_analyze`[[5]]$params$x
+      [1] "GroupID"
+      
+      
+      
+      $`3_analyze`[[6]]
+      $`3_analyze`[[6]]$output
+      [1] "Analysis_Metrics"
+      
+      $`3_analyze`[[6]]$name
+      [1] "MakeMetric"
+      
+      $`3_analyze`[[6]]$params
+      $`3_analyze`[[6]]$params$lWorkflows
+      [1] "lWorkflows"
+      
+      
+      
+      $`3_analyze`[[7]]
+      $`3_analyze`[[7]]$output
+      [1] "Analysis_Input"
+      
+      $`3_analyze`[[7]]$name
+      [1] "BindResults"
+      
+      $`3_analyze`[[7]]$params
+      $`3_analyze`[[7]]$params$lAnalysis
+      [1] "lAnalysis"
+      
+      $`3_analyze`[[7]]$params$strName
+      [1] "Analysis_Input"
+      
+      $`3_analyze`[[7]]$params$strStudyID
+      [1] "strStudyID"
+      
+      
+      
+      $`3_analyze`[[8]]
+      $`3_analyze`[[8]]$output
+      [1] "Analysis_Summary"
+      
+      $`3_analyze`[[8]]$name
+      [1] "BindResults"
+      
+      $`3_analyze`[[8]]$params
+      $`3_analyze`[[8]]$params$lAnalysis
+      [1] "lAnalysis"
+      
+      $`3_analyze`[[8]]$params$strName
+      [1] "Analysis_Summary"
+      
+      $`3_analyze`[[8]]$params$strStudyID
+      [1] "strStudyID"
+      
+      
+      
+      $`3_analyze`[[9]]
+      $`3_analyze`[[9]]$output
+      [1] "Mapped_STUDY"
+      
+      $`3_analyze`[[9]]$name
+      [1] "="
+      
+      $`3_analyze`[[9]]$params
+      $`3_analyze`[[9]]$params$lhs
+      [1] "lhs"
+      
+      $`3_analyze`[[9]]$params$rhs
+      [1] "Mapped_STUDY"
+      
+      
+      
+      $`3_analyze`[[10]]
+      $`3_analyze`[[10]]$output
+      [1] "Mapped_SITE"
+      
+      $`3_analyze`[[10]]$name
+      [1] "="
+      
+      $`3_analyze`[[10]]$params
+      $`3_analyze`[[10]]$params$lhs
+      [1] "lhs"
+      
+      $`3_analyze`[[10]]$params$rhs
+      [1] "Mapped_SITE"
+      
+      
+      
+      $`3_analyze`[[11]]
+      $`3_analyze`[[11]]$output
+      [1] "Mapped_COUNTRY"
+      
+      $`3_analyze`[[11]]$name
+      [1] "="
+      
+      $`3_analyze`[[11]]$params
+      $`3_analyze`[[11]]$params$lhs
+      [1] "lhs"
+      
+      $`3_analyze`[[11]]$params$rhs
+      [1] "Mapped_COUNTRY"
       
       
       
       
       $`4_reporting`
       $`4_reporting`[[1]]
-      $`4_reporting`[[1]]$name
-      [1] "bind_rows"
-      
       $`4_reporting`[[1]]$output
-      [1] "Reporting_Groups"
+      [1] "Reporting_Metrics"
+      
+      $`4_reporting`[[1]]$name
+      [1] "="
       
       $`4_reporting`[[1]]$params
-      $`4_reporting`[[1]]$params$Country
-      [1] "Mapped_COUNTRY"
+      $`4_reporting`[[1]]$params$lhs
+      [1] "lhs"
       
-      $`4_reporting`[[1]]$params$Site
-      [1] "Mapped_SITE"
-      
-      $`4_reporting`[[1]]$params$Study
-      [1] "Mapped_STUDY"
+      $`4_reporting`[[1]]$params$rhs
+      [1] "Analysis_Metrics"
       
       
       
       $`4_reporting`[[2]]
-      $`4_reporting`[[2]]$name
-      [1] "MakeMetric"
-      
       $`4_reporting`[[2]]$output
-      [1] "Reporting_Metrics"
+      [1] "Reporting_Results"
+      
+      $`4_reporting`[[2]]$name
+      [1] "="
       
       $`4_reporting`[[2]]$params
-      $`4_reporting`[[2]]$params$lWorkflows
-      [1] "lWorkflows"
+      $`4_reporting`[[2]]$params$lhs
+      [1] "lhs"
+      
+      $`4_reporting`[[2]]$params$rhs
+      [1] "Analysis_Summary"
       
       
       
       $`4_reporting`[[3]]
-      $`4_reporting`[[3]]$name
-      [1] "BindResults"
-      
       $`4_reporting`[[3]]$output
-      [1] "Reporting_Results"
+      [1] "Reporting_Groups"
+      
+      $`4_reporting`[[3]]$name
+      [1] "bind_rows"
       
       $`4_reporting`[[3]]$params
-      $`4_reporting`[[3]]$params$lAnalysis
-      [1] "lAnalysis"
+      $`4_reporting`[[3]]$params$Study
+      [1] "Mapped_STUDY"
       
-      $`4_reporting`[[3]]$params$strName
-      [1] "Analysis_Summary"
+      $`4_reporting`[[3]]$params$Site
+      [1] "Mapped_SITE"
       
-      $`4_reporting`[[3]]$params$dSnapshotDate
-      [1] "dSnapshotDate"
-      
-      $`4_reporting`[[3]]$params$strStudyID
-      [1] "strStudyID"
+      $`4_reporting`[[3]]$params$Country
+      [1] "Mapped_COUNTRY"
       
       
       
       $`4_reporting`[[4]]
-      $`4_reporting`[[4]]$name
-      [1] "MakeBounds"
-      
       $`4_reporting`[[4]]$output
       [1] "Reporting_Bounds"
+      
+      $`4_reporting`[[4]]$name
+      [1] "MakeBounds"
       
       $`4_reporting`[[4]]$params
       $`4_reporting`[[4]]$params$dfResults
@@ -610,11 +775,11 @@
       
       $`5_modules`
       $`5_modules`[[1]]
-      $`5_modules`[[1]]$name
-      [1] "MakeWorkflowList"
-      
       $`5_modules`[[1]]$output
       [1] "wf_modules"
+      
+      $`5_modules`[[1]]$name
+      [1] "MakeWorkflowList"
       
       $`5_modules`[[1]]$params
       $`5_modules`[[1]]$params$strPath
@@ -623,11 +788,11 @@
       
       
       $`5_modules`[[2]]
-      $`5_modules`[[2]]$name
-      [1] "RunWorkflows"
-      
       $`5_modules`[[2]]$output
       [1] "lReports"
+      
+      $`5_modules`[[2]]$name
+      [1] "RunWorkflows"
       
       $`5_modules`[[2]]$params
       $`5_modules`[[2]]$params$lWorkflows
@@ -3773,7 +3938,7 @@
       [1] "Reporting_Bounds"
       
       $report_kri_country[[3]]$params$dfMetrics
-      [1] "Reporting_Metrics"
+      [1] "Reporting_Metrics_Country"
       
       
       

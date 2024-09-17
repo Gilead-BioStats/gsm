@@ -1,4 +1,4 @@
-wf_mapping <- MakeWorkflowList(strNames = "data_mapping")$data_mapping
+wf_mapping <- MakeWorkflowList(strNames = "2_map")[[1]]
 workflows <- MakeWorkflowList(strNames = paste0("kri", sprintf("%04d", 1:2)))
 
 # Don't run things we don't use.
@@ -25,7 +25,9 @@ lData <- UseClindata(
     "Raw_DATACHG" = "clindata::edc_data_points",
     "Raw_DATAENT" = "clindata::edc_data_pages",
     "Raw_QUERY" = "clindata::edc_queries",
-    "Raw_ENROLL" = "clindata::rawplus_enroll"
+    "Raw_ENROLL" = "clindata::rawplus_enroll",
+    "Raw_STUDY" = "clindata::ctms_study",
+    "Raw_SITE" = "clindata::ctms_site"
   )
 )
 
