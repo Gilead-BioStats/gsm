@@ -11,18 +11,17 @@
 #' @examples
 #' lStudy <- list(
 #'   StudyID = "Unique Study ID",
-#'   protocol_title = "Study Title",
-#'   nickname = "Nickname",
-#'   status = "Ongoing",
-#'   phase = "Phase 1",
-#'   therapeutic_area = "Therapeutic Area",
-#'   protocol_indication = "Indication",
+#'   SiteCount = 10,
+#'   ParticipantCount = 100,
+#'   Status = "Ongoing"
 #' )
+#' MakeStudyInfo(lStudy)
+#' MakeStudyInfo(lStudy, list(SiteCount = "# Sites"))
 #'
 #' @export
 MakeStudyInfo <- function(
-    lStudy,
-    lStudyLabels = NULL
+  lStudy,
+  lStudyLabels = NULL
 ) {
   if (is.null(lStudyLabels)) {
     # Default values for labels.
