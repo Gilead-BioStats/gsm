@@ -6,7 +6,7 @@
 \usage{
 MakeMetricTable(
   dfResults,
-  dfGroups,
+  dfGroups = NULL,
   strGroupLevel = c("Site", "Country", "Study"),
   strGroupDetailsParams = NULL,
   vFlags = c(-2, -1, 1, 2)

@@ -6,7 +6,7 @@
 \usage{
 Widget_BarChart(
   dfResults,
-  lMetric = list(),
+  lMetric = NULL,
   dfGroups = NULL,
   vThreshold = NULL,
   strOutcome = "Score",
