@@ -24,7 +24,7 @@ BindResults <- function(
   lAnalysis,
   strName,
   dSnapshotDate = Sys.Date(),
-  strStudyID,
+  strStudyID = NULL,
   bUselData = FALSE
 ) {
   dfResults <- lAnalysis %>%
@@ -38,10 +38,15 @@ BindResults <- function(
         return(subResult %>% dplyr::mutate(MetricID = metric))
       }
     ) %>%
-    purrr::list_rbind() %>%
-    dplyr::mutate(
-      SnapshotDate = dSnapshotDate,
-      StudyID = strStudyID
-    )
+    purrr::list_rbind()
+
+  if (!is.null(dSnapshotDate)) {
+    dfResults$SnapshotDate <- dSnapshotDate
+  }
+
+  if (!is.null(strStudyID)) {
+    dfResults$StudyID <- strStudyID
+  }
+
   return(dfResults)
 }
