@@ -7,6 +7,7 @@
 #
 #' @param lCharts A list of charts for the selected metric.
 #' @param strMetricID `character` MetricID to subset the data.
+#' @param overview `logical` TRUE for generating Study Overview & Flag Over Time
 #'
 #' @return Markdown content with charts and a summary table for the metric
 #'

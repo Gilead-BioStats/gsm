@@ -10,6 +10,8 @@ Report_MetricCharts(lCharts, strMetricID = "", overview = FALSE)
 \item{lCharts}{A list of charts for the selected metric.}
 
 \item{strMetricID}{\code{character} MetricID to subset the data.}
+
+\item{overview}{\code{logical} TRUE for generating Study Overview & Flag Over Time}
 }
 \value{
 Markdown content with charts and a summary table for the metric
