@@ -4,7 +4,7 @@
 \alias{Report_MetricCharts}
 \title{Render charts for a given metric to markdown}
 \usage{
-Report_MetricCharts(lCharts, strMetricID = "")
+Report_MetricCharts(lCharts, strMetricID = "", overview = FALSE)
 }
 \arguments{
 \item{lCharts}{A list of charts for the selected metric.}

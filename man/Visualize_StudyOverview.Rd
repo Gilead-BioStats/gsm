@@ -2,7 +2,7 @@
 % Please edit documentation in R/Visualize_StudyOverview.R
 \name{Visualize_StudyOverview}
 \alias{Visualize_StudyOverview}
-\title{Title}
+\title{Visualize_StudyOverview Function}
 \usage{
 Visualize_StudyOverview(
   dfResults,
@@ -15,23 +15,35 @@ Visualize_StudyOverview(
 )
 }
 \arguments{
-\item{dfResults}{a data.frame}
+\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
 
-\item{dfMetrics}{a data.frame}
+\item{dfMetrics}{\code{data.frame} Metric-specific metadata for use in charts and reporting. Created by passing an \code{lWorkflow} object to \code{\link[=MakeMetric]{MakeMetric()}}. Expected columns: \code{File}, \code{MetricID}, \code{Group}, \code{Abbreviation}, \code{Metric}, \code{Numerator}, \code{Denominator}, \code{Model}, \code{Score}, and \code{Threshold}. For more details see the Data Model vignette: \code{vignette("DataModel", package = "gsm")}.}
 
-\item{dfGroups}{a data.frame}
+\item{dfGroups}{\code{data.frame} Group-level metadata dictionary. Created by passing CTMS site and study data to \code{\link[=MakeLongMeta]{MakeLongMeta()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Param}, \code{Value}.}
 
-\item{strGroupLevel}{a character}
+\item{strGroupLevel}{\code{character} Value for the group level. Default: NULL and taken from \code{dfMetrics$GroupLevel} if available.}
 
-\item{strGroupSubset}{a character}
+\item{strGroupSubset}{\code{character} Subset of groups to include in the table. Default: 'red'. Options:
+\itemize{
+\item 'all': All groups.
+\item 'red': Groups with 1+ red flags.
+\item 'red/amber': Groups with 1+ red/amber flag.
+\item 'amber': Groups with 1+ amber flag.
+}}
 
-\item{strGroupLabelKey}{a character}
+\item{strGroupLabelKey}{\code{character} Value for the group label key. Default: 'InvestigatorLastName'.}
 
-\item{bDebug}{a logical}
+\item{bDebug}{\code{logical} Print debug messages? Default: \code{FALSE}.}
 }
 \value{
-a list of visualizations
+A list containing the following charts:
+\itemize{
+\item studyOverviewJS: Study Overview table using Javascript
+\item flagOverTimeJS: Flag Over Time Table using Javascript
+}
 }
 \description{
-Title
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
+The function creates the tabular outputs like study overview and flag over time using the data provided
 }
