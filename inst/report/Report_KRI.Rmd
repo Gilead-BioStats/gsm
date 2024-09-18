@@ -74,14 +74,15 @@ if(setup$GroupLevel == "Site"){
 # subset data on latest snapshot date
 dfResults_current <- FilterByLatestSnapshotDate(params$dfResults)
 
-test <- Visualize_StudyOverview(
-      dfResults = dfResults_current,
-      dfGroups = params$dfGroups,
-      dfMetrics = params$dfMetrics, 
-      strGroupLevel = "Site"
+overview_viz <- Visualize_StudyOverview(
+  dfResults = dfResults_current,
+  dfGroups = params$dfGroups,
+  dfMetrics = params$dfMetrics, 
+  strGroupLevel = setup$GroupLevel,
+  strGroupLabelKey = GroupLabelKey
 )
 
-Report_MetricCharts(test, overview = TRUE)
+Report_MetricCharts(overview_viz, overview = TRUE)
 ```
 
 :::

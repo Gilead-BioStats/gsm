@@ -46,8 +46,8 @@ Report_MetricCharts <- function(lCharts, strMetricID = "", overview = FALSE) {
       timeSeriesContinuousScoreJS = paste0(fontawesome::fa("chart-line", fill = "#337ab7"), "  KRI Score"),
       timeSeriesContinuousMetricJS = paste0(fontawesome::fa("chart-line", fill = "#337ab7"), "  KRI Metric"),
       timeSeriesContinuousNumeratorJS = paste0(fontawesome::fa("chart-line", fill = "#337ab7"), "  Numerator"),
-      studyOverviewJS = paste0(fontawesome::fa("chart-line", fill = "#337ab7"), "  Study Overview"),
-      flagOverTimeJS = paste0(fontawesome::fa("chart-line", fill = "#337ab7"), "  Flag Over Time")
+      studyOverviewJS = paste0(fontawesome::fa("table", fill = "#337ab7"), "  Study Overview"),
+      flagOverTimeJS = paste0(fontawesome::fa("table", fill = "#337ab7"), "  Flag Over Time")
     )
 
     ##### chart tab /

@@ -43,7 +43,8 @@ Widget_FlagOverTime <- function(
   htmlwidgets::createWidget(
     name = "Widget_FlagOverTime",
     x,
-    width = "100%",
+    width = "100%", # You can adjust these as needed
+    height = "400px", # This can be customized for different heights
     package = "gsm"
   )
 }
