@@ -22,19 +22,11 @@
 #'
 #' @export
 MakeMetricTable <- function(
-<<<<<<< fix-1636
-    dfResults,
-    dfGroups = NULL,
-    strGroupLevel = c("Site", "Country", "Study"),
-    strGroupDetailsParams = NULL,
-    vFlags = c(-2, -1, 1, 2)
-=======
   dfResults,
-  dfGroups,
+  dfGroups = NULL,
   strGroupLevel = c("Site", "Country", "Study"),
   strGroupDetailsParams = NULL,
   vFlags = c(-2, -1, 1, 2)
->>>>>>> dev
 ) {
   # Check for if dfGroups was provided and process group metadata if available
   if(!is.null(dfGroups)) {
