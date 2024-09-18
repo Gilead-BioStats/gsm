@@ -81,7 +81,7 @@
             <h3 data-toc-skip class="subtitle">{gsm} v2.0.1</h3>
             
             <h4 data-toc-skip class="date">Report Run Date:
-2024-09-16</h4>
+2024-09-18</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/dev/vignettes/articles/Qualification.Rmd" class="external-link"><code>vignettes/articles/Qualification.Rmd</code></a></small>
       <div class="d-none name"><code>Qualification.Rmd</code></div>
@@ -1665,6 +1665,14 @@ R/util-MakeParamLabels.R
 </tr>
 <tr>
 <td style="text-align:left;">
+R/util-MakeStudyInfo.R
+</td>
+<td style="text-align:left;">
+100.00 %
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 R/util-MakeWideGroups.R
 </td>
 <td style="text-align:left;">
@@ -1836,13 +1844,13 @@ Total Coverage
 <em>tidyr(v.1.3.1)</em>, <em>jquerylib(v.0.1.4)</em>,
 <em>proto(v.1.0.0)</em>, <em>glue(v.1.7.0)</em>,
 <em>clindata(v.1.0.5)</em>, <em>rematch2(v.2.1.2)</em>,
-<em>pkgdown(v.2.1.0)</em>, <em>stringi(v.1.8.4)</em>,
+<em>pkgdown(v.2.1.1)</em>, <em>stringi(v.1.8.4)</em>,
 <em>gtable(v.0.3.5)</em>, <em>later(v.1.3.2)</em>,
 <em>munsell(v.0.5.1)</em>, <em>tibble(v.3.2.1)</em>,
 <em>pillar(v.1.9.0)</em>, <em>htmltools(v.0.5.8.1)</em>,
 <em>brio(v.1.1.5)</em>, <em>R6(v.2.5.1)</em>,
 <em>textshaping(v.0.4.0)</em>, <em>rprojroot(v.2.0.4)</em>,
-<em>kableExtra(v.1.4.0)</em>, <em>evaluate(v.0.24.0)</em>,
+<em>kableExtra(v.1.4.0)</em>, <em>evaluate(v.1.0.0)</em>,
 <em>shiny(v.1.9.1)</em>, <em>highr(v.0.11)</em>, <em>gsubfn(v.0.7)</em>,
 <em>backports(v.1.5.0)</em>, <em>memoise(v.2.0.1)</em>,
 <em>broom(v.1.0.6)</em>, <em>httpuv(v.1.6.15)</em>,
@@ -1904,7 +1912,7 @@ dplyr
 1.1.4
 </td>
 <td style="text-align:left;">
-0.388
+0.387
 </td>
 </tr>
 <tr>
@@ -1915,7 +1923,7 @@ ggplot2
 3.5.1
 </td>
 <td style="text-align:left;">
-0.404
+0.405
 </td>
 </tr>
 <tr>
@@ -2080,6 +2088,58 @@ yaml
 <div class="section level2">
 <h2 id="pull-request-history">Pull Request History<a class="anchor" aria-label="anchor" href="#pull-request-history"></a>
 </h2>
+<div class="section level4">
+<h4 id="pull-request-1849-makestudyinfo-function">Pull Request 1849: MakeStudyInfo() function<a class="anchor" aria-label="anchor" href="#pull-request-1849-makestudyinfo-function"></a>
+</h4>
+<p>Merging fix-1820 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1849" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1849</a></p>
+<table style="width:75%;" class="table">
+<colgroup>
+<col width="18%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">jonthegeek</td>
+<td align="center">2024-09-17 20:31:37</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1847-make-analysis-workflow-work">Pull Request 1847: make analysis workflow work<a class="anchor" aria-label="anchor" href="#pull-request-1847-make-analysis-workflow-work"></a>
+</h4>
+<p>Merging workflow-tweaks into ingest</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1847" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1847</a></p>
+<table style="width:78%;" class="table">
+<colgroup>
+<col width="16%">
+<col width="18%">
+<col width="20%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">samussiah</td>
+<td align="center">2024-09-17 15:14:12</td>
+<td align="center">jonthegeek lauramaxwell</td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
 <div class="section level4">
 <h4 id="pull-request-1844-add-subjid-to-edc-domains-in-mapping-workflow-">Pull Request 1844: Add <code>subjid</code> to EDC domains in mapping
 workflow.<a class="anchor" aria-label="anchor" href="#pull-request-1844-add-subjid-to-edc-domains-in-mapping-workflow-"></a>
@@ -4561,58 +4621,6 @@ checks<a class="anchor" aria-label="anchor" href="#pull-request-1621-fix-tests-e
 </tr></tbody>
 </table>
 </div>
-<div class="section level4">
-<h4 id="pull-request-1600-fix-1593">Pull Request 1600: Fix 1593<a class="anchor" aria-label="anchor" href="#pull-request-1600-fix-1593"></a>
-</h4>
-<p>Merging fix-1593 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1600" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1600</a></p>
-<table style="width:78%;" class="table">
-<colgroup>
-<col width="16%">
-<col width="18%">
-<col width="20%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">jwildfire</td>
-<td align="center">2024-06-25 21:31:14</td>
-<td align="center">samussiah lauramaxwell</td>
-<td align="center"></td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1598-clean-up-inst-folder">Pull Request 1598: Clean up <code>inst</code> folder<a class="anchor" aria-label="anchor" href="#pull-request-1598-clean-up-inst-folder"></a>
-</h4>
-<p>Merging fix-1591 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1598" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1598</a></p>
-<table style="width:78%;" class="table">
-<colgroup>
-<col width="20%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">lauramaxwell</td>
-<td align="center">2024-06-25 12:26:09</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
@@ -4625,7 +4633,7 @@ checks<a class="anchor" aria-label="anchor" href="#pull-request-1621-fix-tests-e
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>
