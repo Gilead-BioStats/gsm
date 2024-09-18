@@ -15,18 +15,26 @@
 #' # site-level report
 #' MakeMetricTable(
 #'   dfResults = reportingResults %>%
-#'       dplyr::filter(.data$MetricID == 'kri0001') %>%
-#'       FilterByLatestSnapshotDate(),
+#'     dplyr::filter(.data$MetricID == "kri0001") %>%
+#'     FilterByLatestSnapshotDate(),
 #'   dfGroups = reportingGroups
 #' )
 #'
 #' @export
 MakeMetricTable <- function(
+<<<<<<< fix-1636
     dfResults,
     dfGroups = NULL,
     strGroupLevel = c("Site", "Country", "Study"),
     strGroupDetailsParams = NULL,
     vFlags = c(-2, -1, 1, 2)
+=======
+  dfResults,
+  dfGroups,
+  strGroupLevel = c("Site", "Country", "Study"),
+  strGroupDetailsParams = NULL,
+  vFlags = c(-2, -1, 1, 2)
+>>>>>>> dev
 ) {
   # Check for if dfGroups was provided and process group metadata if available
   if(!is.null(dfGroups)) {
@@ -46,7 +54,7 @@ MakeMetricTable <- function(
   if (!nrow(dfResults)) {
     return(
       data.frame(
-        Group = character(),  Enrolled = character(), Numerator = double(),
+        Group = character(), Enrolled = character(), Numerator = double(),
         Denominator = double(), Metric = double(), Score = double(),
         Flag = character()
       )

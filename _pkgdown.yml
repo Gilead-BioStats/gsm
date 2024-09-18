@@ -89,6 +89,7 @@ reference:
      -  MakeLongMeta
      -  MakeParamLabels
      -  MakeParamLabelsList
+     -  MakeStudyInfo
      -  MakeWideGroups
      -  MakeWorkflowList
      -  ParseThreshold
