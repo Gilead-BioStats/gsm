@@ -1,29 +1,47 @@
 #### 3.1 - Create a KRI Report using 12 standard metrics with multiple workflows
 
-# Step 1 - Ingest Raw Data - select needed columns and rename them if needed
-lData <- list(
-    Source_SUBJ = clindata::rawplus_dm,
-    Source_AE = clindata::rawplus_ae,
-    Source_PD = clindata::ctms_protdev,
-    Source_LB = clindata::rawplus_lb,
-    Source_STUDCOMP = clindata::rawplus_studcomp,
-    Source_SDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
-    Source_DATACHG = clindata::edc_data_points,
-    Source_DATAENT = clindata::edc_data_pages,
-    Source_QUERY = clindata::edc_queries,
-    Source_ENROLL = clindata::rawplus_enroll,
-    Source_SITE = clindata::ctms_site,
-    Source_STUDY = clindata::ctms_study
+lRaw <- list(
+    Raw_SUBJ = clindata::rawplus_dm,
+    Raw_AE = clindata::rawplus_ae,
+    Raw_PD = clindata::ctms_protdev %>% rename(subjid = subjectenrollmentnumber),
+    Raw_LB = clindata::rawplus_lb,
+    Raw_STUDCOMP = clindata::rawplus_studcomp,
+    Raw_SDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
+    Raw_DATACHG = clindata::edc_data_points %>%
+      rename(subject_nsv = subjectname),
+    Raw_DATAENT = clindata::edc_data_pages %>%
+      rename(subject_nsv = subjectname),
+    Raw_QUERY = clindata::edc_queries %>%
+      rename(subject_nsv = subjectname),
+    Raw_ENROLL = clindata::rawplus_enroll,
+    Raw_SITE = clindata::ctms_site %>% 
+      rename(studyid = protocol) %>% 
+      rename(invid = pi_number) %>%
+      rename(InvestigatorFirstName = pi_first_name) %>%
+      rename(InvestigatorLastName = pi_last_name) %>%
+      rename(City = city) %>%
+      rename(State = state) %>%
+      rename(Country = country),
+    Raw_STUDY = clindata::ctms_study %>% 
+      rename(studyid = protocol_number) %>%
+      rename(Status = status)
 )
-ingest_wf <- MakeWorkflowList(strNames = "1_ingest")
-raw <- RunWorkflows(ingest_wf, lData)
+# Step 1 - Create Mapped Data - filter, aggregate and join raw data to create mapped data layer
+devtools::load_all()
+mappings_wf <- MakeWorkflowList(strPath = "workflow/1_mappings")
+mapped <- RunWorkflows(mappings_wf, lRaw)
 
-# Step 2 - Create Mapped Data - filter, aggregate and join raw data to create mapped data layer
-map_wf <- MakeWorkflowList(strNames = "2_map")
-mapped <- RunWorkflows(map_wf, raw$lRaw)
+metrics_wf <- MakeWorkflowList(strPath = "workflow/2_metrics")
+analyzed <- RunWorkflows(metrics_wf, mapped)
+
+reporting_wf <- MakeWorkflowList(strPath = "3_reporting")
+module_wf <- MakeWorkflowList(strPath = "4_modules")
+
+
+
 
 # Step 3 - Create Analysis Data - Generate 12 KRIs
-kri_wf <- MakeWorkflowList(strPath = "workflow/metrics")
+
 kris <- RunWorkflows(kri_wf, mapped)
 
 # Step 4 - Create Reporting Data - Import Metadata and stack KRI Results
@@ -37,11 +55,11 @@ lReporting_Input <- list(
     strStudyID = "ABC-123"
 )
 
-reporting_wf <- MakeWorkflowList(strNames = "reporting")
+
 reporting <- RunWorkflows(reporting_wf, lReporting_Input)
 
 # Step 5 - Generate Site KRI Report - Create Charts + Report
-wf_report <- MakeWorkflowList(strPath = "workflow/modules")
+
 lReports <- RunWorkflows(wf_report, reporting)
 
 #### 3.2 - Create site- and country- level KRI Reports using 12 standard metrics with a single composite workflow
@@ -67,6 +85,9 @@ lData <- list(
 
 ss_wf <- MakeWorkflowList(strNames = "snapshot")
 snapshot <- RunWorkflows(ss_wf, lData, bKeepInputData = TRUE)
+
+#### 3.2 - Generate reports using dbConfig
+
 
 #### 3.3 Site-Level KRI Report with multiple SnapshotDate
 lCharts <- MakeCharts(

@@ -1,0 +1,73 @@
+meta:
+  Type: Metric
+  ID: cou0001
+  GroupLevel: Country
+  Abbreviation: AE
+  Metric: Adverse Event Rate
+  Numerator: Adverse Events
+  Denominator: Days on Study
+  Model: Normal Approximation
+  AnalysisType: rate
+  Score: Adjusted Z-Score
+  Threshold: -2,-1,2,3
+  nMinDenominator: 30
+spec:
+  Mapped_AE:
+    subjid:
+      required: true
+      type: character
+  Mapped_SUBJ:
+    subjid:
+      required: true
+      type: character
+    country:
+      required: true
+      type: character
+    timeonstudy:
+      required: true
+      type: numeric
+steps:
+  - name: ParseThreshold
+    output: vThreshold
+    params:
+      strThreshold: Threshold
+  - name: Input_Rate
+    output: Analysis_Input
+    params:
+      dfSubjects: Mapped_SUBJ
+      dfNumerator: Mapped_AE
+      dfDenominator: Mapped_SUBJ
+      strSubjectCol: subjid
+      strGroupCol: country
+      strGroupLevel: GroupLevel
+      strNumeratorMethod: Count
+      strDenominatorMethod: Sum
+      strDenominatorCol: timeonstudy
+  - name: Transform_Rate
+    output: Analysis_Transformed
+    params:
+      dfInput: Analysis_Input
+  - name: Analyze_NormalApprox
+    output: Analysis_Analyzed
+    params:
+      dfTransformed: Analysis_Transformed
+      strType: AnalysisType
+  - name: Flag_NormalApprox
+    output: Analysis_Flagged
+    params:
+      dfAnalyzed: Analysis_Analyzed
+      vThreshold: vThreshold
+  - name: Summarize
+    output: Analysis_Summary
+    params:
+      dfFlagged: Analysis_Flagged
+      nMinDenominator: nMinDenominator
+  - name: list
+    output: cou0001
+    params:
+      id: ID
+      input: Analysis_Input
+      transformed: Analysis_Transformed
+      analyzed: Analysis_Analyzed
+      flagged: Analysis_Flagged
+      summary: Analysis_Summary
