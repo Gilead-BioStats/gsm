@@ -47,6 +47,7 @@ Report_MetricCharts <- function(lCharts, strMetricID = "") {
     purrr::map(
       lCharts,
       ~ .x %>%
+        # these aren't tables? so no need to gt-ify them?
         knitr::knit_print() %>%
         attr("knit_meta") %>%
         knitr::knit_meta_add() %>%
