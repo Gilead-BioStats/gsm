@@ -74,13 +74,30 @@ if(setup$GroupLevel == "Site"){
 # subset data on latest snapshot date
 dfResults_current <- FilterByLatestSnapshotDate(params$dfResults)
 
-overview_viz <- Visualize_StudyOverview(
+GroupOverViz <- Widget_GroupOverview(
   dfResults = dfResults_current,
   dfGroups = params$dfGroups,
   dfMetrics = params$dfMetrics, 
   strGroupLevel = setup$GroupLevel,
   strGroupLabelKey = GroupLabelKey
 )
+
+# Remove sites whose metrics have no flags 
+dfResults_atleastoneflag <- params$dfResults %>% 
+  group_by(GroupID, MetricID) %>% 
+  mutate(flagsum = sum(Flag)) %>% # na.rm = TRUE depending on meaning
+  ungroup() %>% 
+  filter(flagsum != 0 | is.na(flagsum)) %>% 
+  select(-flagsum)
+
+
+FlagOverViz <- Widget_FlagOverTime(
+  dfResults = dfResults_atleastoneflag,
+  dfMetrics = params$dfMetrics,
+  strGroupLevel = setup$GroupLevel
+)
+
+overview_viz <- list(groupOverviewJS = GroupOverViz, flagOverTimeJS = FlagOverViz)
 
 Report_MetricCharts(overview_viz, overview = TRUE)
 ```
