@@ -1,5 +1,5 @@
 meta:
-  WorkflowType: Type
+  Type: Mapped
   ID: LB
   Description: Lab Data Mapping 
   Priority: 1

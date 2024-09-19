@@ -1,5 +1,6 @@
 meta:
-  File: report_kri_site.yaml
+  Type: Report 
+  ID: report_kri_site
   Name: Site-Level Key Risk Indicator Report
   Description: A report summarizing key risk indicators at the country level
 spec:

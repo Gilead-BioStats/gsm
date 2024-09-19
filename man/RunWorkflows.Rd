@@ -7,29 +7,32 @@
 RunWorkflows(
   lWorkflows,
   lData = NULL,
-  lInputConfig = NULL,
-  bReturnData = TRUE,
-  bKeepInputData = FALSE
+  lConfig = NULL,
+  bKeepInputData = FALSE,
+  bReturnResult = TRUE,
+  strResultNames = c("Type", "ID")
 )
 }
 \arguments{
 \item{lWorkflows}{\code{list} A named list of metadata defining how the workflow should be run.}
 
-\item{lData}{\code{list} A named list of domain-level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
+\item{lData}{\code{list} A named list of domain-level data frames.}
 
-\item{bReturnData}{\code{boolean} should function return only bData or should meta and steps be included? Default is \code{TRUE}.}
+\item{lConfig}{\code{list} Study configuration object. Default is \code{NULL}}
 
-\item{bKeepInputData}{\code{boolean} should the input data be returned? Default is \code{FALSE}.}
+\item{bKeepInputData}{\code{boolean} should the input data be included in \code{lData} after the workflow is run? Only relevant when bReturnResult is FALSE. Default is \code{TRUE}.}
+
+\item{bReturnResult}{\code{boolean} should \emph{only} the result from the last step (\code{lResults}) be returned? If false, the full workflow (including \code{lResults}) is returned. Default is \code{TRUE}.}
 }
 \value{
-A named list of results, where the names correspond to the names of
-the workflows
+A named list of results from \code{RunWorkflow()}, where the names correspond to the names of
+the workflow ID
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
-This function takes a list of workflows and a list of data as input. If there
-are multiple workflows in the list, it runs each workflow and returns the
-results as a named list. If there is only one workflow, it runs that workflow
-and returns the result.
+This function takes a list of workflows and a list of data as input.  It runs each workflow and returns the
+results as a named list where the names of the list correspond to the workflow ID ($meta$ID).
+
+Workflows are run in the order they are provided in the lWorkflows. The results from each workflow are passed as inputs (along with lData) for later workflows.
 }

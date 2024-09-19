@@ -1,8 +1,8 @@
 meta:
   Type: Reporting
-  ID: Metrics
-  Description: Generate reporting data model including site-, country- and study-level metadata (dfGroups), metric metadata (dfMetrics) and results data with added study-level columsn (dfSummary and dfBounds).
-  Priority: 2
+  ID: Groups
+  Description: Reporting Groups Data
+  Priority: 1
 spec: 
   Mapped_STUDY:
     _all:
@@ -11,12 +11,6 @@ spec:
     _all:
       required: true
   Mapped_COUNTRY:
-    _all:
-      required: true
-  Analysis_Metrics:
-    _all:
-      required: true
-  Analysis_Summary:
     _all:
       required: true
 steps:

@@ -1,5 +1,6 @@
 meta:
-  File: report_kri_country.yaml
+  Type: Report 
+  ID: report_kri_country
   Name: Country-Level Key Risk Indicator Report
   Description: A report summarizing key risk indicators at the country level.
 spec:

@@ -1,47 +1,27 @@
 meta:
-  File: reporting.yaml
-  description: Generate reporting data model including site-, country- and study-level metadata (dfGroups), metric metadata (dfMetrics) and results data with added study-level columsn (dfSummary and dfBounds).
+  Type: Reporting
+  ID: Results
+  Description: Reporting Results Data 
+  Priority: 1
 spec: 
   Mapped_STUDY:
-    _all:
-      required: true
-  Mapped_SITE:
-    _all:
-      required: true
-  Mapped_COUNTRY:
-    _all:
-      required: true
-  Analysis_Metrics:
-    _all:
-      required: true
-  Analysis_Summary:
-    _all:
+    GroupID:
       required: true
 steps:
-  # Copy data defined in analysis step to reporting step.
-  - output: Reporting_Metrics
-    name: =
+  # Capture study ID from the GroupID column in the study metadata.
+  - output: GroupID
+    name: pull
     params:
-      lhs: lhs
-      rhs: Analysis_Metrics
-  - output: Reporting_Results
-    name: =
+      .data: Mapped_STUDY
+      var: GroupID
+  - output: strStudyID
+    name: unique
     params:
-      lhs: lhs
-      rhs: Analysis_Summary
-
-  # Combine group-level metadata and site/participant counts.
-  - output: Reporting_Groups
-    name: bind_rows
+      x: GroupID
+  # Stack all analysis results data into a single data frame.
+  - output: Results_Summary
+    name: BindResults
     params:
-      Study: Mapped_STUDY
-      Site: Mapped_SITE
-      Country: Mapped_COUNTRY
-
-  # Calculate bounds for confidence intervals.
-  - output: Reporting_Bounds
-    name: MakeBounds
-    params:
-      dfResults: Reporting_Results
-      dfMetrics: Reporting_Metrics
-
+      lAnalysis: lAnalyzed
+      strName: "summary"
+      strStudyID: strStudyID

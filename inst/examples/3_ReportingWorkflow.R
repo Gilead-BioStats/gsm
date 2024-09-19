@@ -26,41 +26,22 @@ lRaw <- list(
       rename(studyid = protocol_number) %>%
       rename(Status = status)
 )
-# Step 1 - Create Mapped Data - filter, aggregate and join raw data to create mapped data layer
-devtools::load_all()
+
+# Step 1 - Create Mapped Data Layer - filter, aggregate and join raw data to create mapped data layer
 mappings_wf <- MakeWorkflowList(strPath = "workflow/1_mappings")
 mapped <- RunWorkflows(mappings_wf, lRaw)
 
+# Step 2 - Create Metrics - calculate metrics using mapped data 
 metrics_wf <- MakeWorkflowList(strPath = "workflow/2_metrics")
 analyzed <- RunWorkflows(metrics_wf, mapped)
 
-reporting_wf <- MakeWorkflowList(strPath = "3_reporting")
-module_wf <- MakeWorkflowList(strPath = "4_modules")
+# Step 3 - Create Reporting Layer - create reports using metrics data
+reporting_wf <- MakeWorkflowList(strPath = "workflow/3_reporting")
+reporting <- RunWorkflows(reporting_wf, c(mapped, list(lAnalyzed = analyzed, lWorkflows = metrics_wf)))
 
-
-
-
-# Step 3 - Create Analysis Data - Generate 12 KRIs
-
-kris <- RunWorkflows(kri_wf, mapped)
-
-# Step 4 - Create Reporting Data - Import Metadata and stack KRI Results
-lReporting_Input <- list(
-    Mapped_SITE = mapped$Mapped_SITE,
-    Mapped_COUNTRY = mapped$Mapped_COUNTRY,
-    Mapped_STUDY = mapped$Mapped_STUDY,
-    lWorkflows = kri_wf,
-    lAnalysis = kris,
-    dSnapshotDate = Sys.Date(),
-    strStudyID = "ABC-123"
-)
-
-
-reporting <- RunWorkflows(reporting_wf, lReporting_Input)
-
-# Step 5 - Generate Site KRI Report - Create Charts + Report
-
-lReports <- RunWorkflows(wf_report, reporting)
+# Step 4 - Create KRI Report - create KRI report using reporting data
+module_wf <- MakeWorkflowList(strPath = "workflow/4_modules")
+lReports <- RunWorkflows(module_wf, reporting)
 
 #### 3.2 - Create site- and country- level KRI Reports using 12 standard metrics with a single composite workflow
 lData <- list(

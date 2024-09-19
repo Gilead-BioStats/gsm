@@ -1,45 +1,16 @@
 meta:
   Type: Reporting
-  ID: Reporting_Bounds
+  ID: Bounds
   Description: Generate reporting data model including site-, country- and study-level metadata (dfGroups), metric metadata (dfMetrics) and results data with added study-level columsn (dfSummary and dfBounds).
   Priority: 2
 spec: 
-  Mapped_STUDY:
+  Reporting_Metrics:
     _all:
       required: true
-  Mapped_SITE:
-    _all:
-      required: true
-  Mapped_COUNTRY:
-    _all:
-      required: true
-  Analysis_Metrics:
-    _all:
-      required: true
-  Analysis_Summary:
+  Reporting_Results:
     _all:
       required: true
 steps:
-  # Copy data defined in analysis step to reporting step.
-  - output: Reporting_Metrics
-    name: =
-    params:
-      lhs: lhs
-      rhs: Analysis_Metrics
-  - output: Reporting_Results
-    name: =
-    params:
-      lhs: lhs
-      rhs: Analysis_Summary
-
-  # Combine group-level metadata and site/participant counts.
-  - output: Reporting_Groups
-    name: bind_rows
-    params:
-      Study: Mapped_STUDY
-      Site: Mapped_SITE
-      Country: Mapped_COUNTRY
-
   # Calculate bounds for confidence intervals.
   - output: Reporting_Bounds
     name: MakeBounds

@@ -1,4 +1,5 @@
 meta:
+  Type: Metric
   ID: kri0001
   File: kri0001.yaml
   GroupLevel: Site
