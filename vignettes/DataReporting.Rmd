@@ -65,20 +65,30 @@ To run the analysis workflow on all 13 KRIs using `clindata` Raw+ data, use the 
 
 ```{r include = TRUE, message = FALSE}
 # Create Mapped Data - filter/map raw data
-lData <- list(
-    Raw_SUBJ = clindata::rawplus_dm,
-    Raw_AE = clindata::rawplus_ae,
-    Raw_PD = clindata::ctms_protdev,
-    Raw_LB = clindata::rawplus_lb,
-    Raw_STUDCOMP = clindata::rawplus_studcomp,
-    Raw_SDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
-    Raw_DATACHG = clindata::edc_data_points,
-    Raw_DATAENT = clindata::edc_data_pages,
-    Raw_QUERY = clindata::edc_queries,
-    Raw_ENROLL = clindata::rawplus_enroll
+lSourceData <- UseClindata(
+  list(
+    "Source_SUBJ" = "clindata::rawplus_dm",
+    "Source_AE" = "clindata::rawplus_ae",
+    "Source_PD" = "clindata::ctms_protdev",
+    "Source_CONSENT" = "clindata::rawplus_consent",
+    "Source_IE" = "clindata::rawplus_ie",
+    "Source_LB" = "clindata::rawplus_lb",
+    "Source_STUDCOMP" = "clindata::rawplus_studcomp",
+    "Source_SDRGCOMP" = "clindata::rawplus_sdrgcomp %>%
+            dplyr::filter(.data$phase == 'Blinded Study Drug Completion')",
+    "Source_DATACHG" = "clindata::edc_data_points",
+    "Source_DATAENT" = "clindata::edc_data_pages",
+    "Source_QUERY" = "clindata::edc_queries",
+    "Source_ENROLL" = "clindata::rawplus_enroll",
+    "Source_STUDY" = "clindata::ctms_study",
+    "Source_SITE" = "clindata::ctms_site"
+  )
 )
-mapping_wf <- MakeWorkflowList(strNames = "data_mapping")
-mapped <- RunWorkflows(mapping_wf, lData, bKeepInputData=TRUE)
+lIngestWorkflow <- MakeWorkflowList('ingest')[[1]]
+lRawData <- Ingest(lSourceData, lIngestWorkflow$spec)
+
+mapping_wf <- MakeWorkflowList(strNames = "2_map")
+mapped <- RunWorkflows(mapping_wf, lRawData, bKeepInputData=TRUE)
 
 # Create Analysis Data - Generate 12 KRIs
 lWorkflow <- MakeWorkflowList(strPath = "workflow/metrics", strNames = "kri")
@@ -117,15 +127,15 @@ dfCTMSStudy <- RunQuery(df = clindata::ctms_study,
 
 # Get Participant and Site counts for Country, Site and Study
 dfSiteCounts <- RunQuery(df = mapped$Mapped_ENROLL,
-                             strQuery = "SELECT invid as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid") |>
+                             strQuery = "SELECT invid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid") |>
   MakeLongMeta(strGroupLevel = "Site")
 
 dfStudyCounts <- RunQuery(df = mapped$Mapped_ENROLL,
-                             strQuery = "SELECT studyid as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY studyid") |>
+                             strQuery = "SELECT studyid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY studyid") |>
   MakeLongMeta(strGroupLevel = "Study")
 
 dfCountryCounts <- RunQuery(df = mapped$Mapped_ENROLL,
-                             strQuery = "SELECT country as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country") |>
+                             strQuery = "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country") |>
   MakeLongMeta(strGroupLevel = "Country")
 
 

@@ -33,7 +33,7 @@ spec:
       type: character
 steps:
   - name: RunQuery
-    output: Mapped_ENROLL
+    output: Mapped_SUBJ
     params:
       df: Raw_SUBJ
       strQuery: "SELECT * FROM df WHERE enrollyn == 'Y'"

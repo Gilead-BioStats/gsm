@@ -30,7 +30,7 @@ LoadData <- function(lWorkflow, lInputConfig) {
         } else if (domain_config$db == 'local') {
             # check extension
             if (grepl('\\.csv$', domain_config$table)) {
-                lData[[ domain ]] <- readr::read_csv(domain_config$table)
+                lData[[ domain ]] <- read.csv(domain_config$table, stringsAsFactors = F)
             } else if (grepl('\\.ya?ml$', domain_config$table)) {
                 lData[[ domain ]] <- yaml::read_yaml(domain_config$table)
             } else {
