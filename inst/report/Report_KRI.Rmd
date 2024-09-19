@@ -94,7 +94,8 @@ dfResults_atleastoneflag <- params$dfResults %>%
 FlagOverViz <- Widget_FlagOverTime(
   dfResults = dfResults_atleastoneflag,
   dfMetrics = params$dfMetrics,
-  strGroupLevel = setup$GroupLevel
+  strGroupLevel = setup$GroupLevel,
+  strFootnote = "*Only sites with at least one flag are shown."
 )
 
 overview_viz <- list(groupOverviewJS = GroupOverViz, flagOverTimeJS = FlagOverViz)

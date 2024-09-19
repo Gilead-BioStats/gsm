@@ -8,6 +8,7 @@
 #'
 #' @inheritParams shared-params
 #' @param strGroupLevel `character` Value for the group level. Default: "Site".
+#' @param strFootnote `character` Text to insert for figure
 #'
 #' @examples
 #' reportingResultsSubset <- dplyr::filter(
@@ -22,7 +23,8 @@
 Widget_FlagOverTime <- function(
   dfResults,
   dfMetrics,
-  strGroupLevel = c("Site", "Study", "Country")
+  strGroupLevel = c("Site", "Study", "Country"),
+  strFootnote = NULL
 ) {
   stopifnot(
     "dfResults is not a data.frame" = is.data.frame(dfResults),
@@ -38,7 +40,8 @@ Widget_FlagOverTime <- function(
     gt::tab_options(table.align = "left") %>%
     gt::as_raw_html()
   x <- list(
-    html = gtFlagOverTime
+    html = gtFlagOverTime,
+    strFootnote = strFootnote
   )
   htmlwidgets::createWidget(
     name = "Widget_FlagOverTime",
