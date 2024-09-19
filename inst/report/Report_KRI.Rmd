@@ -123,7 +123,7 @@ for (i in unique(params$dfMetrics$MetricID)) {
 
 ## Metric Details
 ```{r, echo=FALSE, results='asis'}
-#print dfMetrics table
+#print dfMetrics table - good candidate for gt-ifying?
 params$dfMetrics %>%
 kbl(format="html", escape=FALSE) %>%
 kable_styling ("striped", full_width = FALSE) %>%

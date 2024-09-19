@@ -82,6 +82,7 @@ Specifications <- spec_df %>%
   select(-c(sort1, sort2))
 colnames(Specifications) <- c("Spec ID", "Spec Description", "Risk", "Impact", "Associated Test IDs")
 
+# another candidate for GT-ifiying?
 knitr::kable(Specifications, booktabs = TRUE, longtable = TRUE) %>%
   kableExtra::kable_styling(latex_options = c("repeat_header", "striped", "bordered"),
                             font_size = 9, full_width = FALSE) %>%
