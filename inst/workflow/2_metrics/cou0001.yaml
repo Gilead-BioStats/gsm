@@ -1,7 +1,6 @@
 meta:
   Type: Metric
   ID: cou0001
-  MetricID: cou0001
   GroupLevel: Country
   Abbreviation: AE
   Metric: Adverse Event Rate

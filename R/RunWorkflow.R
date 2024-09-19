@@ -43,7 +43,7 @@ RunWorkflow <- function(
   bKeepInputData = TRUE
 ) {
   # Create a unique identifier for the workflow
-  uid <- paste0(lWorkflow$meta$Type,":",lWorkflow$meta$ID)
+  uid <- paste0(lWorkflow$meta$Type,"_",lWorkflow$meta$ID)
   cli::cli_h1("Initializing `{uid}` Workflow")
   
   # check that the workflow has steps
@@ -102,7 +102,7 @@ RunWorkflow <- function(
 
   # Save data.
   if (!is.null(lConfig)) {
-    SaveData(lWorkflow$lData, lConfig)
+    SaveData(lWorkflow$lResult, lConfig)
   }
 
   # Return the result of the last step (the default) or the full workflow
