@@ -64,7 +64,7 @@ lReports <- RunWorkflows(module_wf, reporting)
 #### 3.2 - Automate data ingestion using Ingest() and CombineSpecs()
 # Step 0 - Data Ingestion - standardize tables/columns names 
 mappings_wf <- MakeWorkflowList(strPath = "workflow/1_mappings")
-mappings_spec <- mappings_wf %>%  map(~.x$spec) %>% CombineSpecs
+mappings_spec <- CombineSpecs(mappings_wf) 
 lRaw <- Ingest(lSource, mappings_spec)
 
 # Step 1 - Create Mapped Data Layer - filter, aggregate and join raw data to create mapped data layer
@@ -82,15 +82,16 @@ reporting <- RunWorkflows(reporting_wf, c(mapped, list(lAnalyzed = analyzed, lWo
 module_wf <- MakeWorkflowList(strPath = "workflow/4_modules")
 lReports <- RunWorkflows(module_wf, reporting)
 
+#### 3.4 - Combine steps in to a single workflow
+#ss_wf <- MakeWorkflowList(strNames = "Snapshot")
+#lReports <- RunWorkflows(ss_wf, lSource)
 
 #### 3.4 - Use Study configuration to specify data sources
-StudyConfig <- Read_yaml("inst/workflow/config.yaml")
-mapped <- RunWorkflows(mappings_wf, lConfig=StudyConfig)
-analyzed <- RunWorkflows(metrics_wf,  lConfig=StudyConfig)
-reporting <- RunWorkflows(reporting_wf,  lConfig=StudyConfig)
-lReports <- RunWorkflows(module_wf,  lConfig=StudyConfig)
-
-
+# StudyConfig <- Read_yaml("inst/workflow/config.yaml")
+# mapped <- RunWorkflows(mappings_wf, lConfig=StudyConfig)
+# analyzed <- RunWorkflows(metrics_wf,  lConfig=StudyConfig)
+# reporting <- RunWorkflows(reporting_wf,  lConfig=StudyConfig)
+# lReports <- RunWorkflows(module_wf,  lConfig=StudyConfig)
 
 #### 3.3 Site-Level KRI Report with multiple SnapshotDate
 lCharts <- MakeCharts(
