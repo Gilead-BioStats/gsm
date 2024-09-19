@@ -8,8 +8,9 @@
 #'
 #' @param lSourceData `list` A named list of source data frames.
 #' @param lSpec `list` A named list of column specifications.
+#' @param strDomain `character` Domain name to add to the data frames after ingestions. Default: "Raw"
 #'
-#' @return `list` A named list of data frames, where each data frame corresponds to a domain in the
+#'  @return `list` A named list of data frames, where each data frame corresponds to a domain in the
 #' specification.
 #'
 #' @examples
@@ -33,54 +34,70 @@
 #'
 #' @export
 
-Ingest <- function(lSourceData, lSpec) {
+Ingest <- function(lSourceData, lSpec, strDomain="Raw") {
     stopifnot(
         '[ lSourceData ] must be a list.' = is.list(lSourceData),
         '[ lSpec ] must be a list.' = is.list(lSpec)
     )
 
-    lRawData <- lSpec %>% imap(
+    # If there is a domain (specificed with and underscore) in lSourceData/lSpec names, remove it
+    names(lSourceData) <- sub('.*_', '', names(lSourceData))
+    names(lSpec) <- sub('.*_', '', names(lSpec))
+
+    lMappedData <- lSpec %>% imap(
         function(columnSpecs, domain) {
-            cli::cli_alert_info(glue("Ingesting data from {domain}."))
+            cli::cli_alert_info(glue("Ingesting data for {domain}."))
 
             # check that the domain exists in the source data
-            dfSource <- lSourceData[[ domain ]]
+            dfSource <- lSourceData[[ domain ]] 
+
             if (is.null(dfSource)) {
-                stop(glue("Domain '{domain}' not found in source data."))
+                stop(glue("Domain '*_{domain}' not found in source data."))
             }
 
             # write a query to select the columns from the source
-            columns <- names(columnSpecs)
-            strColQuery <- c()
-            for (column in columns) {
-                # check that the column exists in the source data
-                if (!column %in% names(lSourceData[[ domain ]])) {
-                    stop(glue("Column '{column}' not found in source data for domain '{domain}'."))
+            columnMapping <- columnSpecs %>% imap(
+                function(spec,name){
+                    mapping = list(target=name)
+                    if('source_col' %in% names(spec)) {
+                        mapping$source = spec$source_col
+                    } else {
+                        mapping$source = name
+                    }
+                    return(mapping)
                 }
+            )
 
-                columnSpec <- columnSpecs[[ column ]]
-
-                if('target_col' %in% names(columnSpec)) {
-                    targetName <- columnSpec$target_col  
-                    strColQuery <- c(strColQuery, glue::glue("{column} as {targetName}"))
-                } else {
-                    strColQuery <- c(strColQuery, column)
-                }
+            # check that the source columns exists in the source data
+            sourceCols <- columnMapping %>% map('source')
+            if(!all(sourceCols %in% names(dfSource))) {
+                missingCols <- sourceCols[!sourceCols %in% names(dfSource)]
+                stop(glue("Columns not found in source data for domain '{domain}': {missingCols}."))
             }
 
-            strQuery <- glue("SELECT {paste(strColQuery, collapse = ', ')} FROM df")
+            # Write query to select/rename required columns from source to target
+            strColQuery <- columnMapping %>% map_chr(function(mapping){
+                if(mapping$source == mapping$target) {
+                    return(mapping$source)
+                } else {
+                    return(glue("{mapping$source} as {mapping$target}"))
+                }
+            }) %>% paste(collapse = ', ')
+
+
+            strQuery <- glue("SELECT {strColQuery} FROM df")
 
             # call RunQuery to get the data
-            dfRaw <- RunQuery(
+            dfMapped <- RunQuery(
                 dfSource,
                 strQuery = strQuery
             )
 
-            return(dfRaw)
+            return(dfMapped)
         }
     )
 
-    names(lRawData) <- sub('^Source_', 'Raw_', names(lRawData))
+    names(lMappedData) <- paste(strDomain, names(lMappedData), sep = '_')
 
-    return(lRawData)
+    return(lMappedData)
 }

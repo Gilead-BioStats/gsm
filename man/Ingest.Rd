@@ -4,16 +4,17 @@
 \alias{Ingest}
 \title{Ingests data from a source based on a given specification.}
 \usage{
-Ingest(lSourceData, lSpec)
+Ingest(lSourceData, lSpec, strDomain = "Raw")
 }
 \arguments{
 \item{lSourceData}{\code{list} A named list of source data frames.}
 
 \item{lSpec}{\code{list} A named list of column specifications.}
-}
-\value{
-\code{list} A named list of data frames, where each data frame corresponds to a domain in the
-specification.
+
+\item{strDomain}{\code{character} Domain name to add to the data frames after ingestions. Default: "Raw"
+
+@return \code{list} A named list of data frames, where each data frame corresponds to a domain in the
+specification.}
 }
 \description{
 This function ingests data from a source based on a given specification. It iterates over each
