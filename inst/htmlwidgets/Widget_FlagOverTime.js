@@ -22,11 +22,11 @@ HTMLWidgets.widget({
           // Set the content of the footnote from the input.
           footnote.innerHTML = x.strFootnote;
 
-          // Insert the footnote div at the top of the element (before scatter plot).
+          // Insert the footnote div at the top of the element (before flag overtime table).
           el.insertBefore(footnote, el.firstChild);
         }
 
-        // Insert the scatter plot content.
+        // Insert the flag overtime table content.
         el.insertAdjacentHTML('beforeend', x.html);
 
         addGroupSubsetLongitudinalListener(el);
