@@ -6,7 +6,7 @@
 #'
 #' @param lSpecs A list of lists, where each sublist represents a either a gsm workflow or a spec object from a workflow
 #' @param bIsWorkflow Is lSpecs a list of workflows? If so, .$spec is extracted. Default: TRUE
-#' 
+#'
 #' @return A list representing the combined specifications across all domains.
 #' @examples
 #' spec1 <- list(
@@ -32,17 +32,17 @@
 #' )
 #'
 #' combined <- CombineSpecs(list(spec1, spec2), bIsWorkflow = FALSE)
-#' 
-#' mappings <- MakeWorkflowList("workflow/1_mappings")
+#'
+#' mappings <- MakeWorkflowList(strPath = "inst/workflow/1_mappings")
 #' mapping_spec <- CombineSpecs(mappings)
-#' 
+#'
 #' @export
 
 CombineSpecs <- function(lSpecs, bIsWorkflow = TRUE) {
 
   if (bIsWorkflow) {
     lSpecs <- map(lSpecs, ~ .x$spec)
-  } 
+  }
 
   # Get all unique domains across all specs
   all_domains <- unique(unlist(map(lSpecs, names)))

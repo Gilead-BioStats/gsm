@@ -39,7 +39,7 @@ lSourceData <- list(
     Source_ENROLL = clindata::rawplus_enroll
 )
 
-lIngestWorkflow <- MakeWorkflowList('ingest')[[1]]
+lIngestWorkflow <- MakeWorkflowList(strPath = '/inst/workflow/1_mappings')[[1]]
 lRawData <- Ingest(lSourceData, lIngestWorkflow$spec)
 
 }

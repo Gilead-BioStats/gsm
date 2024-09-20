@@ -29,7 +29,7 @@
 #'     Source_ENROLL = clindata::rawplus_enroll
 #' )
 #'
-#' lIngestWorkflow <- MakeWorkflowList('ingest')[[1]]
+#' lIngestWorkflow <- MakeWorkflowList(strPath = '/inst/workflow/1_mappings')[[1]]
 #' lRawData <- Ingest(lSourceData, lIngestWorkflow$spec)
 #'
 #' @export
@@ -49,7 +49,7 @@ Ingest <- function(lSourceData, lSpec, strDomain="Raw") {
             cli::cli_alert_info(glue("Ingesting data for {domain}."))
 
             # check that the domain exists in the source data
-            dfSource <- lSourceData[[ domain ]] 
+            dfSource <- lSourceData[[ domain ]]
 
             if (is.null(dfSource)) {
                 stop(glue("Domain '*_{domain}' not found in source data."))

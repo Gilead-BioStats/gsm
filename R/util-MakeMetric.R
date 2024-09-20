@@ -13,7 +13,7 @@
 #' @return A data frame.
 #'
 #' @examples
-#' lWorkflows <- MakeWorkflowList(strPath = "workflow/metrics", strNames = "kri")
+#' lWorkflows <- MakeWorkflowList(strPath = "./inst/workflow/2_metrics", strNames = "kri")
 #' dfMetrics <- MakeMetric(lWorkflows)
 #'
 #' @export
