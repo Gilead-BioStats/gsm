@@ -13,34 +13,34 @@ lSource <- list(
     Source_QUERY = clindata::edc_queries,
     Source_ENROLL = clindata::rawplus_enroll,
     Source_SITE = clindata::ctms_site,
-    Source_STUDY = clindata::ctms_study 
+    Source_STUDY = clindata::ctms_study
 )
 
-# Step 0 - Data Ingestion - standardize tables/columns names 
+# Step 0 - Data Ingestion - standardize tables/columns names
 lRaw <- list(
-    Raw_SUBJ = Source_SUBJ,
-    Raw_AE = Source_AE,
-    Raw_PD = Source_PD %>% 
+    Raw_SUBJ = lSource$Source_SUBJ,
+    Raw_AE = lSource$Source_AE,
+    Raw_PD = lSource$Source_PD %>%
       rename(subjid = subjectenrollmentnumber),
-    Raw_LB = Source_LB,
-    Raw_STUDCOMP = Source_STUDCOMP,
-    Raw_SDRGCOMP = Source_SDRGCOMP,
-    Raw_DATACHG = Source_DATACHG %>%
+    Raw_LB = lSource$Source_LB,
+    Raw_STUDCOMP = lSource$Source_STUDCOMP,
+    Raw_SDRGCOMP = lSource$Source_SDRGCOMP,
+    Raw_DATACHG = lSource$Source_DATACHG %>%
       rename(subject_nsv = subjectname),
-    Raw_DATAENT = Source_DATAENT %>%
+    Raw_DATAENT = lSource$Source_DATAENT %>%
       rename(subject_nsv = subjectname),
-    Raw_QUERY = SOURCE_QUERY %>%
+    Raw_QUERY = lSource$Source_QUERY %>%
       rename(subject_nsv = subjectname),
-    Raw_ENROLL = SOURCE_ENROLL,
-    Raw_SITE = SOURCE_SITE %>% 
-      rename(studyid = protocol) %>% 
+    Raw_ENROLL = lSource$Source_ENROLL,
+    Raw_SITE = lSource$Source_SITE %>%
+      rename(studyid = protocol) %>%
       rename(invid = pi_number) %>%
       rename(InvestigatorFirstName = pi_first_name) %>%
       rename(InvestigatorLastName = pi_last_name) %>%
       rename(City = city) %>%
       rename(State = state) %>%
       rename(Country = country),
-    Raw_STUDY = SOURCE_STUDY %>% 
+    Raw_STUDY = lSource$Source_STUDY %>%
       rename(studyid = protocol_number) %>%
       rename(Status = status)
 )
@@ -49,7 +49,7 @@ lRaw <- list(
 mappings_wf <- MakeWorkflowList(strPath = "workflow/1_mappings")
 mapped <- RunWorkflows(mappings_wf, lRaw)
 
-# Step 2 - Create Metrics - calculate metrics using mapped data 
+# Step 2 - Create Metrics - calculate metrics using mapped data
 metrics_wf <- MakeWorkflowList(strPath = "workflow/2_metrics")
 analyzed <- RunWorkflows(metrics_wf, mapped)
 
@@ -62,15 +62,15 @@ module_wf <- MakeWorkflowList(strPath = "workflow/4_modules")
 lReports <- RunWorkflows(module_wf, reporting)
 
 #### 3.2 - Automate data ingestion using Ingest() and CombineSpecs()
-# Step 0 - Data Ingestion - standardize tables/columns names 
+# Step 0 - Data Ingestion - standardize tables/columns names
 mappings_wf <- MakeWorkflowList(strPath = "workflow/1_mappings")
-mappings_spec <- CombineSpecs(mappings_wf) 
+mappings_spec <- CombineSpecs(mappings_wf)
 lRaw <- Ingest(lSource, mappings_spec)
 
 # Step 1 - Create Mapped Data Layer - filter, aggregate and join raw data to create mapped data layer
 mapped <- RunWorkflows(mappings_wf, lRaw)
 
-# Step 2 - Create Metrics - calculate metrics using mapped data 
+# Step 2 - Create Metrics - calculate metrics using mapped data
 metrics_wf <- MakeWorkflowList(strPath = "workflow/2_metrics")
 analyzed <- RunWorkflows(metrics_wf, mapped)
 
