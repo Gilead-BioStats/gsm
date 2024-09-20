@@ -1,0 +1,10 @@
+meta:
+  Type: Reporting
+  ID: Metrics
+  Description: Reporting Metrics Data 
+  Priority: 1
+steps:
+  - output: Reporting_Metrics
+    name: MakeMetric
+    params:
+      lWorkflows: lWorkflows

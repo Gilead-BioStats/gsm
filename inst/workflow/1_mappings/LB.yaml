@@ -1,0 +1,19 @@
+meta:
+  Type: Mapped
+  ID: LB
+  Description: Lab Data Mapping 
+  Priority: 1
+spec: 
+  Raw_LB:
+    subjid:
+      required: true
+      type: character
+    toxgrg_nsv:
+      required: true
+      type: character
+steps:
+  - output: Mapped_LB
+    name: =
+    params:
+      lhs: Mapped_LB
+      rhs: Raw_LB
