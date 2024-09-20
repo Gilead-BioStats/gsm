@@ -85,7 +85,6 @@ GroupOverViz <- Widget_GroupOverview(
 # Remove sites whose metrics have no flags at all timepoints
 dfResults_flags <- FilterByFlags(params$dfResults)
 
-
 FlagOverViz <- Widget_FlagOverTime(
   dfResults = dfResults_flags,
   dfMetrics = params$dfMetrics,
