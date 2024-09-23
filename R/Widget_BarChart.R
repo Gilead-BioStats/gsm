@@ -33,7 +33,7 @@
 
 Widget_BarChart <- function(
   dfResults,
-  lMetric = list(), # TODO: coerce list to object instead of array with jsonlite::toJSON()
+  lMetric = NULL,
   dfGroups = NULL,
   vThreshold = NULL,
   strOutcome = "Score",
@@ -43,7 +43,7 @@ Widget_BarChart <- function(
 ) {
   stopifnot(
     "dfResults is not a data.frame" = is.data.frame(dfResults),
-    "lMetric must be a list, but not a data.frame" = is.list(lMetric) && !is.data.frame(lMetric),
+    "lMetric must be a list, but not a data.frame" = is.null(lMetric) || (is.list(lMetric) && !is.data.frame(lMetric)),
     "dfGroups is not a data.frame" = is.null(dfGroups) || is.data.frame(dfGroups),
     "strOutcome must be length 1" = length(strOutcome) == 1,
     "strOutcome is not a character" = is.character(strOutcome),

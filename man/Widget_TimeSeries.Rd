@@ -6,7 +6,7 @@
 \usage{
 Widget_TimeSeries(
   dfResults,
-  lMetric = list(),
+  lMetric = NULL,
   dfGroups = NULL,
   vThreshold = NULL,
   strOutcome = "Score",
