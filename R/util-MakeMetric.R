@@ -24,7 +24,7 @@ MakeMetric <- function(lWorkflows) {
     if (length(missing_types > 0)) {
       stop(glue::glue("The following workflows are missing the 'Type' field in `meta`: {missing_types}"))
     }
-    if (is.null(wf$meta$ID)) {
+    if (length(missing_ids > 0)) {
       stop(glue::glue("The following workflows are missing the 'ID' field in `meta`: {missing_ids}"))
     }
   dfMetrics <- lWorkflows %>%
