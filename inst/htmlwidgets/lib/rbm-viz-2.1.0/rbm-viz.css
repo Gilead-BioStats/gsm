@@ -40,21 +40,27 @@
     cursor: pointer;
     padding: 0.25em 0.5em;
 }
-.group-overview th.group-overview--GroupLabel { }
-.group-overview th.group-overview--ParticipantCount { }
-.group-overview th.group-overview--nRedFlags { }
-.group-overview th.group-overview--nAmberFlags { }
+.group-overview th.group-overview--GroupLabel {
+}
+.group-overview th.group-overview--ParticipantCount {
+}
+.group-overview th.group-overview--nRedFlags {
+}
+.group-overview th.group-overview--nAmberFlags {
+}
 .group-overview th.group-overview--metric {
     font-size: 0.8em;
 }
 
 /* table body */
 
-.group-overview td { }
+.group-overview td {
+}
 .group-overview td.group-overview--GroupLabel {
     white-space: nowrap;
 }
-.group-overview td.group-overview--ParticipantCount { }
+.group-overview td.group-overview--ParticipantCount {
+}
 .group-overview td.group-overview--nRedFlags {
     background-color: #ffcccc;
 }
@@ -64,5 +70,5 @@
 .group-overview td.group-overview--metric {
     width: 3em;
     text-align: center;
-    padding-top: .4em;
+    padding-top: 0.4em;
 }
