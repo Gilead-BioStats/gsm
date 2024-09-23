@@ -1,3 +1,9 @@
+quiet_RunWorkflows <- function(...) {
+  suppressMessages({
+    RunWorkflows(...)
+  })
+}
+
 quiet_RunWorkflow <- function(...) {
   suppressMessages({
     RunWorkflow(...)
