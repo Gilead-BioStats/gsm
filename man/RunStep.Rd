@@ -50,7 +50,7 @@ lData${paramVal}) and passed to the function.
 }
 }
 \examples{
-wf_mapping <- MakeWorkflowList(strPath = "/inst/workflow/1_mappings")
+wf_mapping <- MakeWorkflowList(strPath = "workflow/1_mappings")
 lStep <- MakeWorkflowList("kri0001")[["kri0001"]][["steps"]][[1]]
 lMeta <- MakeWorkflowList("kri0001")[["kri0001"]][["meta"]]
 lData <- list(
