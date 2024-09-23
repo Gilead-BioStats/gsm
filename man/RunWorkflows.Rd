@@ -23,6 +23,8 @@ RunWorkflows(
 \item{bKeepInputData}{\code{boolean} should the input data be included in \code{lData} after the workflow is run? Only relevant when bReturnResult is FALSE. Default is \code{TRUE}.}
 
 \item{bReturnResult}{\code{boolean} should \emph{only} the result from the last step (\code{lResults}) be returned? If false, the full workflow (including \code{lResults}) is returned. Default is \code{TRUE}.}
+
+\item{strResultNames}{\code{string} vector of length two, which describes the meta fields used to name the output}
 }
 \value{
 A named list of results from \code{RunWorkflow()}, where the names correspond to the names of
