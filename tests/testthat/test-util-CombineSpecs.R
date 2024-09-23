@@ -21,7 +21,7 @@ test_that("Combining multiple specs with overlapping dfs, deduplicating cols", {
     )
   )
 
-  combined <- CombineSpecs(list(spec1, spec2))
+  combined <- CombineSpecs(list(spec1, spec2), bIsWorkflow = FALSE)
 
   expected <- list(
     df1 = list(
@@ -57,7 +57,7 @@ test_that("Combining specs with non-overlapping dfs", {
     )
   )
 
-  combined <- CombineSpecs(list(spec1, spec2))
+  combined <- CombineSpecs(list(spec1, spec2), bIsWorkflow = FALSE)
 
   expected <- list(
     df1 = list(
@@ -87,7 +87,7 @@ test_that("Combining specs with some empty dfs", {
     df3 = list()
   )
 
-  combined <- CombineSpecs(list(spec1, spec2))
+  combined <- CombineSpecs(list(spec1, spec2), bIsWorkflow = FALSE)
 
   expected <- list(
     df1 = list(),
@@ -103,7 +103,7 @@ test_that("Combining specs with some empty dfs", {
 })
 
 test_that("Combining empty list of specs returns an empty list", {
-  combined <- CombineSpecs(list())
+  combined <- CombineSpecs(list(), bIsWorkflow = FALSE)
   expect_equal(combined, list())
 })
 
@@ -119,7 +119,7 @@ test_that("Combining a single spec returns the same spec", {
     )
   )
 
-  combined <- CombineSpecs(list(spec1))
+  combined <- CombineSpecs(list(spec1), bIsWorkflow = FALSE)
 
   expect_equal(combined, spec1)
 })
@@ -138,7 +138,7 @@ test_that("Combining specs with NULL entries is handled correctly", {
     df2 = list(col4 = list(required = TRUE))
   )
 
-  combined <- CombineSpecs(list(spec1, spec2))
+  combined <- CombineSpecs(list(spec1, spec2), bIsWorkflow = FALSE)
 
   expected <- list(
     df1 = list(
@@ -165,7 +165,7 @@ test_that("if any required is TRUE then combined is TRUE", {
       col1 = list(required = TRUE)
     )
   )
-  combined <- CombineSpecs(list(spec1, spec2))
+  combined <- CombineSpecs(list(spec1, spec2), bIsWorkflow = FALSE)
 
   expected <- list(
     df1 = list(
@@ -190,7 +190,7 @@ test_that("warning if type doesn't match first instance", {
     )
   )
   expect_warning(
-    combined <- CombineSpecs(list(spec1, spec2)),
+    combined <- CombineSpecs(list(spec1, spec2), bIsWorkflow = FALSE),
     regexp = "Type mismatch for `col1`. Using first type: numeric"
   )
 
