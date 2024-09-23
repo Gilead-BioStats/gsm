@@ -65,7 +65,7 @@ results <- map(
 
 yaml_outputs <- map(
   map(workflows, ~ map_vec(.x$steps, ~ .x$output)),
-  ~ .x[!grepl("lCharts|vThreshold", .x)]
+  ~ .x[!grepl("lCharts", .x)]
 )
 
 test_that("RunWorkflow preserves all steps when bReturnResult = FALSE", {
@@ -86,9 +86,7 @@ test_that("RunWorkflow contains all outputs from yaml steps", {
     purrr::iwalk(
       results,
       function(this_result, this_name) {
-            expect_setequal(yaml_outputs[[this_name]]], names(this_result$lData))
-        )
-
+            expect_setequal(yaml_outputs[[this_name]], names(this_result$lData))
       }
     )
   })
