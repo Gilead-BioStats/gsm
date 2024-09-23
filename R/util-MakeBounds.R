@@ -58,10 +58,9 @@ MakeBounds <- function(
       lMetric <- dfMetrics %>%
         dplyr::filter(.data$MetricID == strMetric) %>%
         as.list()
-
       vThreshold <- ParseThreshold(strThreshold = lMetric$Threshold)
-      if (!is.null(lMetric$Type) &&
-        tolower(unique(lMetric$Type)) %in% c("poisson")) {
+      if (!is.null(lMetric$AnalysisType) &&
+        tolower(unique(lMetric$AnalysisType)) %in% c("poisson")) {
         dfBounds <- Analyze_Poisson_PredictBounds(
           dfResult,
           vThreshold = vThreshold
@@ -72,7 +71,7 @@ MakeBounds <- function(
       } else {
         dfBounds <- Analyze_NormalApprox_PredictBounds(
           dfResult,
-          strType = lMetric$Type %||% "binary",
+          strType = lMetric$AnalysisType %||% "binary",
           vThreshold = vThreshold
         ) %>%
           mutate(MetricID = strMetric) %>%

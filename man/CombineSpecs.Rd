@@ -4,10 +4,12 @@
 \alias{CombineSpecs}
 \title{Combine Multiple Specifications}
 \usage{
-CombineSpecs(lSpecs)
+CombineSpecs(lSpecs, bIsWorkflow = TRUE)
 }
 \arguments{
-\item{lSpecs}{A list of lists, where each sublist represents a specification for multiple domains.}
+\item{lSpecs}{A list of lists, where each sublist represents a either a gsm workflow or a spec object from a workflow}
+
+\item{bIsWorkflow}{Is lSpecs a list of workflows? If so, .$spec is extracted. Default: TRUE}
 }
 \value{
 A list representing the combined specifications across all domains.
@@ -40,6 +42,9 @@ spec2 <- list(
   )
 )
 
-combined <- CombineSpecs(list(spec1, spec2))
+combined <- CombineSpecs(list(spec1, spec2), bIsWorkflow = FALSE)
+
+mappings <- MakeWorkflowList(strPath = "workflow/1_mappings")
+mapping_spec <- CombineSpecs(mappings)
 
 }

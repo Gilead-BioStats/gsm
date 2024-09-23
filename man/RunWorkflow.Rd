@@ -4,19 +4,27 @@
 \alias{RunWorkflow}
 \title{Run a workflow via it's YAML specification.}
 \usage{
-RunWorkflow(lWorkflow, lData, bReturnData = TRUE, bKeepInputData = FALSE)
+RunWorkflow(
+  lWorkflow,
+  lData = NULL,
+  lConfig = NULL,
+  bReturnResult = TRUE,
+  bKeepInputData = TRUE
+)
 }
 \arguments{
 \item{lWorkflow}{\code{list} A named list of metadata defining how the workflow should be run.}
 
-\item{lData}{\code{list} A named list of domain-level data frames. Names should match the values specified in \code{lMapping} and \code{lAssessments}, which are generally based on the expected inputs from \code{X_Map_Raw}.}
+\item{lData}{\code{list} A named list of domain-level data frames.}
 
-\item{bReturnData}{\code{boolean} should function return only lData or should meta and steps be included? Default is \code{TRUE}.}
+\item{lConfig}{\code{list} Study configuration object. Default is \code{NULL}}
 
-\item{bKeepInputData}{\code{boolean} should the input data be returned? Default is \code{FALSE}.}
+\item{bReturnResult}{\code{boolean} should \emph{only} the result from the last step (\code{lResults}) be returned? If false, the full workflow (including \code{lResults}) is returned. Default is \code{TRUE}.}
+
+\item{bKeepInputData}{\code{boolean} should the input data be included in \code{lData} after the workflow is run? Only relevant when bReturnResult is FALSE. Default is \code{TRUE}.}
 }
 \value{
-\code{list} containing objects named: \code{steps}, \code{path}, \code{name}, \code{lData}, \code{lChecks}, \code{bStatus}, \code{lWorkflowChecks}, and \code{lResults}.
+Object containing the results of the workflow's last step (if \code{bLastResult} is \code{TRUE}) or the full workflow object (if \code{bReturnResults} is \code{TRUE}) or the full workflow object (if \code{bReturnResults} is \code{FALSE}).
 
 \code{list} contains just lData if \code{bReturnData} is \code{TRUE}, otherwise returns the full \code{lWorkflow} object.
 }

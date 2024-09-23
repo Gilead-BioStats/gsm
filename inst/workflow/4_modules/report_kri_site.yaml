@@ -1,0 +1,44 @@
+meta:
+  Type: Report 
+  ID: report_kri_site
+  Output: html
+  Name: Site-Level Key Risk Indicator Report
+  Description: A report summarizing key risk indicators at the country level
+spec:
+  Reporting_Results:
+    _all:
+      required: true
+  Reporting_Metrics:
+    _all:
+      required: true
+  Reporting_Groups:
+    _all:
+      required: true
+  Reporting_Bounds:
+    _all:
+      required: true
+steps:
+  - name: RunQuery
+    output: Reporting_Results_Site
+    params:
+      df: Reporting_Results
+      strQuery: "SELECT * FROM df WHERE GroupLevel == 'Site'"
+  - name: RunQuery
+    output: Reporting_Metrics_Site
+    params:
+      df: Reporting_Metrics
+      strQuery: "SELECT * FROM df WHERE GroupLevel == 'Site'"
+  - name: MakeCharts
+    output: lCharts_Site
+    params:
+      dfResults: Reporting_Results_Site
+      dfGroups: Reporting_Groups
+      dfBounds: Reporting_Bounds
+      dfMetrics: Reporting_Metrics_Site
+  - name: Report_KRI
+    output: lReport
+    params:
+      lCharts: lCharts_Site
+      dfResults: Reporting_Results_Site
+      dfGroups: Reporting_Groups
+      dfMetrics: Reporting_Metrics_Site
