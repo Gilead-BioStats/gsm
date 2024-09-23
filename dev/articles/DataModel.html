@@ -1250,70 +1250,7 @@ passed to the function</li>
 <p>For example, the default workflow for the AE assessment
 (<code>system.file("workflow/metrics/kri0001.yaml", package = "gsm")</code>)
 is shown below:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">meta</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">MetricID</span><span class="kw">:</span><span class="at"> kri0001</span></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="at">  </span><span class="fu">File</span><span class="kw">:</span><span class="at"> kri0001.yaml</span></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="at">  </span><span class="fu">GroupLevel</span><span class="kw">:</span><span class="at"> Site</span></span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="at">  </span><span class="fu">Abbreviation</span><span class="kw">:</span><span class="at"> AE</span></span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="at">  </span><span class="fu">Metric</span><span class="kw">:</span><span class="at"> Adverse Event Rate</span></span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="at">  </span><span class="fu">Numerator</span><span class="kw">:</span><span class="at"> Adverse Events</span></span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="at">  </span><span class="fu">Denominator</span><span class="kw">:</span><span class="at"> Days on Study</span></span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="at">  </span><span class="fu">Model</span><span class="kw">:</span><span class="at"> Normal Approximation</span></span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="at">  </span><span class="fu">Score</span><span class="kw">:</span><span class="at"> Adjusted Z-Score</span></span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="at">  </span><span class="fu">Type</span><span class="kw">:</span><span class="at"> rate</span></span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="at">  </span><span class="fu">Threshold</span><span class="kw">:</span><span class="at"> -2,-1,2,3</span></span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="at">  </span><span class="fu">nMinDenominator</span><span class="kw">:</span><span class="at"> </span><span class="dv">30</span></span>
-<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="fu">spec</span><span class="kw">:</span></span>
-<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="at">  </span><span class="fu">Mapped_AE</span><span class="kw">:</span></span>
-<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="at">    </span><span class="fu">subjid</span><span class="kw">:</span></span>
-<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="at">      </span><span class="fu">required</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="at">      </span><span class="fu">type</span><span class="kw">:</span><span class="at"> character</span></span>
-<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="at">  </span><span class="fu">Mapped_ENROLL</span><span class="kw">:</span></span>
-<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="at">    </span><span class="fu">subjid</span><span class="kw">:</span></span>
-<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="at">      </span><span class="fu">required</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="at">      </span><span class="fu">type</span><span class="kw">:</span><span class="at"> character</span></span>
-<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="at">    </span><span class="fu">invid</span><span class="kw">:</span></span>
-<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a><span class="at">      </span><span class="fu">required</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a><span class="at">      </span><span class="fu">type</span><span class="kw">:</span><span class="at"> character</span></span>
-<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a><span class="at">    </span><span class="fu">timeonstudy</span><span class="kw">:</span></span>
-<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a><span class="at">      </span><span class="fu">required</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a><span class="at">      </span><span class="fu">type</span><span class="kw">:</span><span class="at"> numeric</span></span>
-<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a><span class="fu">steps</span><span class="kw">:</span></span>
-<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> ParseThreshold</span></span>
-<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> vThreshold</span></span>
-<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a><span class="at">      </span><span class="fu">strThreshold</span><span class="kw">:</span><span class="at"> Threshold</span></span>
-<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Input_Rate</span></span>
-<span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> Analysis_Input</span></span>
-<span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb1-37"><a href="#cb1-37" tabindex="-1"></a><span class="at">      </span><span class="fu">dfSubjects</span><span class="kw">:</span><span class="at"> Mapped_ENROLL</span></span>
-<span id="cb1-38"><a href="#cb1-38" tabindex="-1"></a><span class="at">      </span><span class="fu">dfNumerator</span><span class="kw">:</span><span class="at"> Mapped_AE</span></span>
-<span id="cb1-39"><a href="#cb1-39" tabindex="-1"></a><span class="at">      </span><span class="fu">dfDenominator</span><span class="kw">:</span><span class="at"> Mapped_ENROLL</span></span>
-<span id="cb1-40"><a href="#cb1-40" tabindex="-1"></a><span class="at">      </span><span class="fu">strSubjectCol</span><span class="kw">:</span><span class="at"> subjid</span></span>
-<span id="cb1-41"><a href="#cb1-41" tabindex="-1"></a><span class="at">      </span><span class="fu">strGroupCol</span><span class="kw">:</span><span class="at"> invid</span></span>
-<span id="cb1-42"><a href="#cb1-42" tabindex="-1"></a><span class="at">      </span><span class="fu">strGroupLevel</span><span class="kw">:</span><span class="at"> GroupLevel</span></span>
-<span id="cb1-43"><a href="#cb1-43" tabindex="-1"></a><span class="at">      </span><span class="fu">strNumeratorMethod</span><span class="kw">:</span><span class="at"> Count</span></span>
-<span id="cb1-44"><a href="#cb1-44" tabindex="-1"></a><span class="at">      </span><span class="fu">strDenominatorMethod</span><span class="kw">:</span><span class="at"> Sum</span></span>
-<span id="cb1-45"><a href="#cb1-45" tabindex="-1"></a><span class="at">      </span><span class="fu">strDenominatorCol</span><span class="kw">:</span><span class="at"> timeonstudy</span></span>
-<span id="cb1-46"><a href="#cb1-46" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Transform_Rate</span></span>
-<span id="cb1-47"><a href="#cb1-47" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> Analysis_Transformed</span></span>
-<span id="cb1-48"><a href="#cb1-48" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb1-49"><a href="#cb1-49" tabindex="-1"></a><span class="at">      </span><span class="fu">dfInput</span><span class="kw">:</span><span class="at"> Analysis_Input</span></span>
-<span id="cb1-50"><a href="#cb1-50" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Analyze_NormalApprox</span></span>
-<span id="cb1-51"><a href="#cb1-51" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> Analysis_Analyzed</span></span>
-<span id="cb1-52"><a href="#cb1-52" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb1-53"><a href="#cb1-53" tabindex="-1"></a><span class="at">      </span><span class="fu">dfTransformed</span><span class="kw">:</span><span class="at"> Analysis_Transformed</span></span>
-<span id="cb1-54"><a href="#cb1-54" tabindex="-1"></a><span class="at">      </span><span class="fu">strType</span><span class="kw">:</span><span class="at"> Type</span></span>
-<span id="cb1-55"><a href="#cb1-55" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Flag_NormalApprox</span></span>
-<span id="cb1-56"><a href="#cb1-56" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> Analysis_Flagged</span></span>
-<span id="cb1-57"><a href="#cb1-57" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb1-58"><a href="#cb1-58" tabindex="-1"></a><span class="at">      </span><span class="fu">dfAnalyzed</span><span class="kw">:</span><span class="at"> Analysis_Analyzed</span></span>
-<span id="cb1-59"><a href="#cb1-59" tabindex="-1"></a><span class="at">      </span><span class="fu">vThreshold</span><span class="kw">:</span><span class="at"> vThreshold</span></span>
-<span id="cb1-60"><a href="#cb1-60" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Summarize</span></span>
-<span id="cb1-61"><a href="#cb1-61" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> Analysis_Summary</span></span>
-<span id="cb1-62"><a href="#cb1-62" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb1-63"><a href="#cb1-63" tabindex="-1"></a><span class="at">      </span><span class="fu">dfFlagged</span><span class="kw">:</span><span class="at"> Analysis_Flagged</span></span>
-<span id="cb1-64"><a href="#cb1-64" tabindex="-1"></a><span class="at">      </span><span class="fu">nMinDenominator</span><span class="kw">:</span><span class="at"> nMinDenominator</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

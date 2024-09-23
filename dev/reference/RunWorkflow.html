@@ -65,7 +65,13 @@ Calls <code>RunStep</code> for each item in <code>lWorkflow$workflow</code> and 
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">RunWorkflow</span><span class="op">(</span><span class="va">lWorkflow</span>, <span class="va">lData</span>, bReturnData <span class="op">=</span> <span class="cn">TRUE</span>, bKeepInputData <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">RunWorkflow</span><span class="op">(</span></span>
+<span>  <span class="va">lWorkflow</span>,</span>
+<span>  lData <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lConfig <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  bReturnResult <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  bKeepInputData <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -77,20 +83,24 @@ Calls <code>RunStep</code> for each item in <code>lWorkflow$workflow</code> and 
 
 
 <dt id="arg-ldata">lData<a class="anchor" aria-label="anchor" href="#arg-ldata"></a></dt>
-<dd><p><code>list</code> A named list of domain-level data frames. Names should match the values specified in <code>lMapping</code> and <code>lAssessments</code>, which are generally based on the expected inputs from <code>X_Map_Raw</code>.</p></dd>
+<dd><p><code>list</code> A named list of domain-level data frames.</p></dd>
 
 
-<dt id="arg-breturndata">bReturnData<a class="anchor" aria-label="anchor" href="#arg-breturndata"></a></dt>
-<dd><p><code>boolean</code> should function return only lData or should meta and steps be included? Default is <code>TRUE</code>.</p></dd>
+<dt id="arg-lconfig">lConfig<a class="anchor" aria-label="anchor" href="#arg-lconfig"></a></dt>
+<dd><p><code>list</code> Study configuration object. Default is <code>NULL</code></p></dd>
+
+
+<dt id="arg-breturnresult">bReturnResult<a class="anchor" aria-label="anchor" href="#arg-breturnresult"></a></dt>
+<dd><p><code>boolean</code> should <em>only</em> the result from the last step (<code>lResults</code>) be returned? If false, the full workflow (including <code>lResults</code>) is returned. Default is <code>TRUE</code>.</p></dd>
 
 
 <dt id="arg-bkeepinputdata">bKeepInputData<a class="anchor" aria-label="anchor" href="#arg-bkeepinputdata"></a></dt>
-<dd><p><code>boolean</code> should the input data be returned? Default is <code>FALSE</code>.</p></dd>
+<dd><p><code>boolean</code> should the input data be included in <code>lData</code> after the workflow is run? Only relevant when bReturnResult is FALSE. Default is <code>TRUE</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p><code>list</code> containing objects named: <code>steps</code>, <code>path</code>, <code>name</code>, <code>lData</code>, <code>lChecks</code>, <code>bStatus</code>, <code>lWorkflowChecks</code>, and <code>lResults</code>.</p>
+    <p>Object containing the results of the workflow's last step (if <code>bLastResult</code> is <code>TRUE</code>) or the full workflow object (if <code>bReturnResults</code> is <code>TRUE</code>) or the full workflow object (if <code>bReturnResults</code> is <code>FALSE</code>).</p>
 <p><code>list</code> contains just lData if <code>bReturnData</code> is <code>TRUE</code>, otherwise returns the full <code>lWorkflow</code> object.</p>
     </div>
 
