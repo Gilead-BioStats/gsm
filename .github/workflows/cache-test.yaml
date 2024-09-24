@@ -31,7 +31,6 @@ jobs:
         with:
           cache: FALSE
           extra-packages: local::.
-          needs: website
 
       - name: test small snippet of local pacakge code
         shell: Rscript {0}
