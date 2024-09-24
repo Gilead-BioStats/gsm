@@ -48,6 +48,29 @@ FilterByLatestSnapshotDate <- function(df, strSnapshotDate = NULL) {
   return(dplyr::filter(df, .data$SnapshotDate == strSnapshotDate))
 }
 
+#' Filter out non-flagged rows on FlagOverTime Widget
+#'
+#' Filter a results dataframe so that only metrics across all timepoints
+#' that have at least one flag are kept
+#'
+#' @param df A data frame containing the results.
+#'
+#' @return A data frame containing the results with at least one flagged record
+#' over time for an group's individual metric
+#'
+#' @examples
+#' reportingResults_flags <- FilterByFlags(reportingResults)
+#'
+#' @export
+FilterByFlags <- function(df) {
+  df %>%
+    group_by(GroupID, MetricID) %>%
+    mutate(flagsum = sum(Flag)) %>%
+    ungroup() %>%
+    filter(flagsum != 0 | is.na(flagsum)) %>%
+    select(-flagsum)
+}
+
 add_Groups_metadata <- function(
   dfResults,
   dfGroups,

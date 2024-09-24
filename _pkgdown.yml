@@ -82,6 +82,7 @@ reference:
      -  CheckSpec
      -  CombineSpecs
      -  FilterByLatestSnapshotDate
+     -  FilterByFlags
      -  Ingest
      -  MakeBounds
      -  MakeCharts
