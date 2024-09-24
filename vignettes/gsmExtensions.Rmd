@@ -18,9 +18,95 @@ knitr::opts_chunk$set(
 
 This vignette describes how to extend `gsm` by creating new "modules", including metrics, reports and shiny apps that be run using the standard `gsm` pipeline described in these vignettes (`vignette("DataAnalysis")`, `vignette("DataReporting")`). As shown in the `vignette("DataAnalysis")`, the `gsm` data pipeline can be used to capture a monitoring 'snapshot' for a study that includes a variety of "modules" including [metrics](https://github.com/Gilead-BioStats/gsm/tree/dev/inst/workflow/metrics/kri0001.yaml), [reports](https://github.com/Gilead-BioStats/gsm/blob/dev/inst/workflow/reports/report_kri_site.yaml) and [apps](TODO: Add this link).Some core modules are included in the `gsm` package, while others can be added as extensions. This vignette provide detailed specifications for creating new modules and links to resources that can be used to configure study-level gsm pipelines that utilize these `gsm` extensions.
 
+TODO: Add a paragraph about the directory structure
+
+
+# Directory Structure for Workflows 
+
+Each extension that produces report(s) will have a `workflow` directory in `inst` that follows a standard structure. This directory will contain 4 folders in which to store the `yaml` workflow files that map data, perform analysis, produce reporting data, and generate the output of a module. Each module output requires it's own unique `yaml` in the `4_modules` folder, which will take inputs generated from the previous three directories.
+
+TODO: insert image of workflow
+
+### `1_mappings`
+
+This folder contains all of the mappings from `Raw_*` data to `Mapped_*` data. Each file within this directory is to be named for the data table it is creating, minus the `Mapped_` suffix. The `yaml`s will contain the three required sections, which are discussed in detail in the `Module Configuration` section. 
+
+Below are two examples of these mapping `yaml` files- the first which requires no transformations, and is very simple, and the second which requires multiple steps to produce the desired mapped data. 
+
+#### Mapped_AE mapping `yaml` file
+
+```
+meta:
+  Type: Mapped
+  ID: AE
+  Description: Adverse Event Data Mapping 
+  Priority: 1
+spec: 
+ Raw_AE:
+    subjid:
+      required: true
+      type: character
+    aeser:
+      required: true
+      type: character
+steps:
+  - output: Mapped_AE
+    name: =
+    params:
+      lhs: Mapped_AE
+      rhs: Raw_AE
+```
+#### Mapped_AE mapping `yaml` file
+```
+meta:
+  Type: Mapped
+  ID: DATACHG
+  Description: Data Changes Data Mapping 
+  Priority: 2
+spec: 
+  Raw_DATACHG:
+    subject_nsv:
+      required: true
+      type: character
+      source_col: subjectname
+    n_changes:
+      required: true
+      type: numeric
+  Mapped_SUBJ:
+    subjid:
+      required: true
+      type: character
+    subject_nsv:
+      required: true
+      type: character
+steps:
+  # Merge [ subjid ] onto EDC domains.
+  - output: Temp_SubjectLookup
+    name: select
+    params:
+      .data: Mapped_SUBJ
+      subjid: subjid
+      subject_nsv: subject_nsv
+  - output: Mapped_DATACHG
+    name: left_join
+    params:
+      x: Raw_DATACHG
+      "y": Temp_SubjectLookup
+      by: subject_nsv
+```
+
+### `2_metrics`
+
+### `3_reporting`
+
+### `4_modules`
+
+It is important to note, that the default behavior of the `RunWorkflow()` and `RunWorkflows()` functions is to return the *last* output in the steps section of the workflow. therefore, each `yaml` file- regardless of which directory it is in- should only produce one output, whether that be a data table, list, html output, deployed shiny app, or any other object needed to produce the module output.
+
+
 # Module Configuration
 
-`gsm` modules will typically be part of an R package and have a YAML configuration file - `{module_name}.yaml` - saved under `\inst\workflow`. Module config files include 3 key properties: 
+`gsm` modules will typically be part of an R package and have a YAML configuration file - `{module_name}.yaml` - saved under `\inst\workflow\4_modules`. Module config files include 3 key properties: 
 
   -  `meta`: (required) Report metadata used for centralized library and fields referenced in `steps` section of workflow.
     - This is not required in the `{report_name}.yaml` if the report is entirely comprised of `metric`s that have their own `yaml` configuration files. 
@@ -45,6 +131,7 @@ The `meta` section of a workflow YAML provides key metadata describing the modul
 - `Type`: "Report", "Metric" or "App"
 - `ID`: The unique ID for the module.
 - `Description`: A one-line description of the module specified in the workflow.
+- `Priority`: A number specifying the priority of the workflow within the directory, with lower numbers having higher priority, and running first. This is used when workflows within the same directory require outputs from other workflows, and thus need to be run in a particular order.
 - `Details`: *optional* A more detailed description of the module specified in the workflow.
 - `Repo`: Package repo and version. Should be compatible with the `repo` parameter in `remotes::install_github()`. 
 - `Status`: The validation status of the reporting output. Valid values: 
@@ -264,17 +351,3 @@ steps:
       dfGroups: Reporting_Groups
       dfMetrics: Reporting_Metrics_Site
 ```
-
-## Directory Structure for Workflows 
-
-Each extension that produces report(s) will have a `workflow` directory in `inst` that follow a standard structure. This directory will contain 4 folders in which to store the `yaml` workflow files that map data, perform analysis, produce reporting data, and generate the output of a module. Each module output requires it's own unique `yaml` in the `4_modules` folder, which will take inputs generated from the previous three directories.
-
-TODO: insert image of workflow
-
-#### `1_mappings`
-
-#### `2_metrics`
-
-#### `3_reporting`
-
-#### `4_modules`
