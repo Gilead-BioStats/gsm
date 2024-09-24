@@ -6,7 +6,7 @@
 \usage{
 Report_MetricTable(
   dfResults,
-  dfGroups,
+  dfGroups = NULL,
   strGroupLevel = c("Site", "Country", "Study"),
   strGroupDetailsParams = NULL,
   vFlags = c(-2, -1, 1, 2)
@@ -38,8 +38,8 @@ data based on certain conditions and displays the result in a datatable.
 # site-level report
 Report_MetricTable(
   dfResults = reportingResults \%>\%
-      dplyr::filter(.data$MetricID == 'kri0001') \%>\%
-      FilterByLatestSnapshotDate(),
+    dplyr::filter(.data$MetricID == "kri0001") \%>\%
+    FilterByLatestSnapshotDate(),
   dfGroups = reportingGroups
 )
 

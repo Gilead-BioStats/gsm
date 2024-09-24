@@ -53,6 +53,8 @@ CheckSpec <- function(lData, lSpec) {
   # Check that all required columns in the spec are present in the data
   allCols <- c()
   missingCols <- c()
+  #remove all lSpec entries where we are requesting `_all` columns
+  lSpecDataFrames <- which(sapply(lSpec, function(x) names(x)[1] != "_all")) %>% names
   for (strDataFrame in lSpecDataFrames) {
     chrDataFrameColnames <- colnames(lData[[strDataFrame]])
     #check modes in data
@@ -89,7 +91,9 @@ CheckSpec <- function(lData, lSpec) {
   }
   if (length(missingCols) > 0) {
     cli::cli_alert_danger("Not all required columns in the spec are present in the data, missing columns are: {missingCols}")
+  } else if (length(lSpecDataFrames) > 0) {
+    cli::cli_alert("All {length(allCols)} required column{?s} in the spec are present in the data: {allCols}")
   } else {
-    cli::cli_alert("All {length(allCols)} required columns in the spec are present in the data: {allCols}")
+    cli::cli_alert("No required columns specified in the spec. All data.frames are pulling in all available columns.")
   }
 }

@@ -15,9 +15,9 @@ navbar:
       text: Sample Reports
       menu:
         - text: Site Report
-          href: StandardReportSite.html
+          href: report_kri_site.html
         - text: Country Report
-          href: StandardReportCountry.html
+          href: report_kri_country.html
 
 articles:
   - title: "Data Model"
@@ -83,12 +83,15 @@ reference:
      -  CheckSpec
      -  CombineSpecs
      -  FilterByLatestSnapshotDate
+     -  Ingest
      -  MakeBounds
      -  MakeCharts
      -  MakeMetric
+     -  MakeMetricTable
      -  MakeLongMeta
      -  MakeParamLabels
      -  MakeParamLabelsList
+     -  MakeStudyInfo
      -  MakeWideGroups
      -  MakeWorkflowList
      -  ParseThreshold
@@ -108,4 +111,8 @@ reference:
       - reportingGroups
       - reportingMetrics
       - reportingResults
+      - reportingBounds_country
+      - reportingGroups_country
+      - reportingMetrics_country
+      - reportingResults_country
 

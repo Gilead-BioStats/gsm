@@ -1,3 +1,13 @@
 "MetricID","File","GroupLevel","Abbreviation","Metric","Numerator","Denominator","Model","Score","Type","Threshold","nMinDenominator"
 "kri0001","kri0001.yaml","Site","AE","Adverse Event Rate","Adverse Events","Days on Study","Normal Approximation","Adjusted Z-Score","rate","-2,-1,2,3",30
 "kri0002","kri0002.yaml","Site","SAE","Serious Adverse Event Rate","Serious Adverse Events","Days on Study","Normal Approximation","Adjusted Z-Score","rate","-2,-1,2,3",30
+"kri0003","kri0003.yaml","Site","PD","Non-Important Protocol Deviation Rate","Non-Important Protocol Deviations","Days on Study","Normal Approximation","Adjusted Z-Score","rate","-3,-2,2,3",30
+"kri0004","kri0004.yaml","Site","PD","Important Protocol Deviation Rate","Important Protocol Deviations","Days on Study","Normal Approximation","Adjusted Z-Score","rate","-3,-2,2,3",30
+"kri0005","kri0005.yaml","Site","LB","Grade 3+ Lab Abnormality Rate","Grade 3+ Abnormal Labs Samples","Total Lab Samples","Normal Approximation","Adjusted Z-Score","binary","-3,-2,2,3",30
+"kri0006","kri0006.yaml","Site","SDSC","Study Discontinuation Rate","Subjects Discontinued - Study","Enrolled Subjects","Normal Approximation","Adjusted Z-Score","binary","-3,-2,2,3",3
+"kri0007","kri0007.yaml","Site","TDSC","Treatment Discontinuation Rate","Subjects Discontinued - Treatment","Enrolled Subjects","Normal Approximation","Adjusted Z-Score","binary","-3,-2,2,3",3
+"kri0008","kri0008.yaml","Site","QRY","Query Rate","Queries","Total Data Points","Normal Approximation","Adjusted Z-Score","rate","-3,-2,2,3",30
+"kri0009","kri0009.yaml","Site","OQRY","Outstanding Query Rate","Queries Open > 30 Days","Total Queries","Normal Approximation","Adjusted Z-Score","binary","-3,-2,2,3",30
+"kri0010","kri0010.yaml","Site","ODAT","Outstanding Data Entry Rate","Data Pages Entered > 10 Days","Total Data Pages","Normal Approximation","Adjusted Z-Score","binary","-3,-2,2,3",30
+"kri0011","kri0011.yaml","Site","CDAT","Data Change Rate","Data Points with 1+ Change","Total Data Points","Normal Approximation","Adjusted Z-Score","binary","-3,-2,2,3",30
+"kri0012","kri0012.yaml","Site","SF","Screen Failure Rate","Screen Failures","Screened Subjects","Normal Approximation","Adjusted Z-Score","binary","-3,-2,2,3",3

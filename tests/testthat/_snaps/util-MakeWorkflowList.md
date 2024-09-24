@@ -3,92 +3,134 @@
     Code
       map(wf_list, ~ names(.))
     Output
-      $data_mapping
-      [1] "meta"  "steps" "path"  "name" 
-      
-      $data_reporting
-      [1] "meta"  "spec"  "steps" "path"  "name" 
-      
       $cou0001
-      [1] "meta"  "spec"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path" 
       
       $cou0002
-      [1] "meta"  "spec"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path" 
       
       $cou0003
-      [1] "meta"  "spec"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path" 
       
       $cou0004
-      [1] "meta"  "spec"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path" 
       
       $cou0005
-      [1] "meta"  "spec"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path" 
       
       $cou0006
-      [1] "meta"  "spec"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path" 
       
       $cou0007
-      [1] "meta"  "spec"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path" 
       
       $cou0008
-      [1] "meta"  "spec"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path" 
       
       $cou0009
-      [1] "meta"  "spec"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path" 
       
       $cou0010
-      [1] "meta"  "spec"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path" 
       
       $cou0011
-      [1] "meta"  "spec"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path" 
       
       $cou0012
-      [1] "meta"  "spec"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path" 
       
       $kri0001
-      [1] "meta"  "spec"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path" 
       
       $kri0002
-      [1] "meta"  "spec"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path" 
       
       $kri0003
-      [1] "meta"  "spec"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path" 
       
       $kri0004
-      [1] "meta"  "spec"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path" 
       
       $kri0005
-      [1] "meta"  "spec"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path" 
       
       $kri0006
-      [1] "meta"  "spec"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path" 
       
       $kri0007
-      [1] "meta"  "spec"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path" 
       
       $kri0008
-      [1] "meta"  "spec"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path" 
       
       $kri0009
-      [1] "meta"  "spec"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path" 
       
       $kri0010
-      [1] "meta"  "spec"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path" 
       
       $kri0011
-      [1] "meta"  "spec"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path" 
       
       $kri0012
-      [1] "meta"  "spec"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path" 
       
       $report_kri_country
-      [1] "meta"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path" 
       
       $report_kri_site
-      [1] "meta"  "steps" "path"  "name" 
+      [1] "meta"  "spec"  "steps" "path" 
       
-      $snapshot
-      [1] "meta"  "steps" "path"  "name" 
+      $AE
+      [1] "meta"  "spec"  "steps" "path" 
+      
+      $ENROLL
+      [1] "meta"  "spec"  "steps" "path" 
+      
+      $LB
+      [1] "meta"  "spec"  "steps" "path" 
+      
+      $PD
+      [1] "meta"  "spec"  "steps" "path" 
+      
+      $SDRGCOMP
+      [1] "meta"  "spec"  "steps" "path" 
+      
+      $STUDCOMP
+      [1] "meta"  "spec"  "steps" "path" 
+      
+      $SUBJ
+      [1] "meta"  "spec"  "steps" "path" 
+      
+      $Groups
+      [1] "meta"  "spec"  "steps" "path" 
+      
+      $Metrics
+      [1] "meta"  "steps" "path" 
+      
+      $Results
+      [1] "meta"  "spec"  "steps" "path" 
+      
+      $DATACHG
+      [1] "meta"  "spec"  "steps" "path" 
+      
+      $DATAENT
+      [1] "meta"  "spec"  "steps" "path" 
+      
+      $QUERY
+      [1] "meta"  "spec"  "steps" "path" 
+      
+      $Bounds
+      [1] "meta"  "spec"  "steps" "path" 
+      
+      $COUNTRY
+      [1] "meta"  "spec"  "steps" "path" 
+      
+      $SITE
+      [1] "meta"  "spec"  "steps" "path" 
+      
+      $STUDY
+      [1] "meta"  "spec"  "steps" "path" 
       
 
 # Metadata is returned as expected
@@ -96,406 +138,6 @@
     Code
       map(wf_list, ~ .x$steps)
     Output
-      $data_mapping
-      $data_mapping[[1]]
-      $data_mapping[[1]]$name
-      [1] "RunQuery"
-      
-      $data_mapping[[1]]$output
-      [1] "Mapped_ENROLL"
-      
-      $data_mapping[[1]]$params
-      $data_mapping[[1]]$params$df
-      [1] "Raw_SUBJ"
-      
-      $data_mapping[[1]]$params$strQuery
-      [1] "SELECT subjectid as raw_subjectid, subjid, invid, country, timeonstudy, subject_nsv, studyid FROM df WHERE enrollyn == 'Y'"
-      
-      
-      
-      $data_mapping[[2]]
-      $data_mapping[[2]]$name
-      [1] "RunQuery"
-      
-      $data_mapping[[2]]$output
-      [1] "Mapped_AE"
-      
-      $data_mapping[[2]]$params
-      $data_mapping[[2]]$params$df
-      [1] "Raw_AE"
-      
-      $data_mapping[[2]]$params$strQuery
-      [1] "SELECT subjid, aeser FROM df"
-      
-      
-      
-      $data_mapping[[3]]
-      $data_mapping[[3]]$name
-      [1] "RunQuery"
-      
-      $data_mapping[[3]]$output
-      [1] "Mapped_PD"
-      
-      $data_mapping[[3]]$params
-      $data_mapping[[3]]$params$df
-      [1] "Raw_PD"
-      
-      $data_mapping[[3]]$params$strQuery
-      [1] "SELECT subjectenrollmentnumber as subjid, deemedimportant FROM df"
-      
-      
-      
-      $data_mapping[[4]]
-      $data_mapping[[4]]$name
-      [1] "RunQuery"
-      
-      $data_mapping[[4]]$output
-      [1] "Mapped_LB"
-      
-      $data_mapping[[4]]$params
-      $data_mapping[[4]]$params$df
-      [1] "Raw_LB"
-      
-      $data_mapping[[4]]$params$strQuery
-      [1] "SELECT subjid, toxgrg_nsv FROM df"
-      
-      
-      
-      $data_mapping[[5]]
-      $data_mapping[[5]]$name
-      [1] "RunQuery"
-      
-      $data_mapping[[5]]$output
-      [1] "Mapped_STUDCOMP"
-      
-      $data_mapping[[5]]$params
-      $data_mapping[[5]]$params$df
-      [1] "Raw_STUDCOMP"
-      
-      $data_mapping[[5]]$params$strQuery
-      [1] "SELECT subjid, compyn FROM df"
-      
-      
-      
-      $data_mapping[[6]]
-      $data_mapping[[6]]$name
-      [1] "RunQuery"
-      
-      $data_mapping[[6]]$output
-      [1] "Mapped_SDRGCOMP"
-      
-      $data_mapping[[6]]$params
-      $data_mapping[[6]]$params$df
-      [1] "Raw_SDRGCOMP"
-      
-      $data_mapping[[6]]$params$strQuery
-      [1] "SELECT subjid, sdrgyn, phase FROM df"
-      
-      
-      
-      $data_mapping[[7]]
-      $data_mapping[[7]]$name
-      [1] "RunQuery"
-      
-      $data_mapping[[7]]$output
-      [1] "Mapped_QUERY"
-      
-      $data_mapping[[7]]$params
-      $data_mapping[[7]]$params$df
-      [1] "Raw_QUERY"
-      
-      $data_mapping[[7]]$params$strQuery
-      [1] "SELECT subjectname as subject_nsv, querystatus, queryage FROM df"
-      
-      
-      
-      $data_mapping[[8]]
-      $data_mapping[[8]]$name
-      [1] "RunQuery"
-      
-      $data_mapping[[8]]$output
-      [1] "Mapped_DATACHG"
-      
-      $data_mapping[[8]]$params
-      $data_mapping[[8]]$params$df
-      [1] "Raw_DATACHG"
-      
-      $data_mapping[[8]]$params$strQuery
-      [1] "SELECT subjectname as subject_nsv, n_changes FROM df"
-      
-      
-      
-      $data_mapping[[9]]
-      $data_mapping[[9]]$name
-      [1] "RunQuery"
-      
-      $data_mapping[[9]]$output
-      [1] "Mapped_DATAENT"
-      
-      $data_mapping[[9]]$params
-      $data_mapping[[9]]$params$df
-      [1] "Raw_DATAENT"
-      
-      $data_mapping[[9]]$params$strQuery
-      [1] "SELECT subjectname as subject_nsv, data_entry_lag FROM df"
-      
-      
-      
-      $data_mapping[[10]]
-      $data_mapping[[10]]$name
-      [1] "RunQuery"
-      
-      $data_mapping[[10]]$output
-      [1] "Mapped_SCREEN"
-      
-      $data_mapping[[10]]$params
-      $data_mapping[[10]]$params$df
-      [1] "Raw_ENROLL"
-      
-      $data_mapping[[10]]$params$strQuery
-      [1] "SELECT subjid, invid, country, enrollyn FROM df"
-      
-      
-      
-      
-      $data_reporting
-      $data_reporting[[1]]
-      $data_reporting[[1]]$name
-      [1] "RunQuery"
-      
-      $data_reporting[[1]]$output
-      [1] "Temp_CTMSSiteWide"
-      
-      $data_reporting[[1]]$params
-      $data_reporting[[1]]$params$df
-      [1] "Raw_ctms_site"
-      
-      $data_reporting[[1]]$params$strQuery
-      [1] "SELECT pi_number as GroupID, site_status as Status, pi_first_name as InvestigatorFirstName, pi_last_name as InvestigatorLastName, city as City, state as State, country as Country, * FROM df"
-      
-      
-      
-      $data_reporting[[2]]
-      $data_reporting[[2]]$name
-      [1] "MakeLongMeta"
-      
-      $data_reporting[[2]]$output
-      [1] "Temp_CTMSSite"
-      
-      $data_reporting[[2]]$params
-      $data_reporting[[2]]$params$data
-      [1] "Temp_CTMSSiteWide"
-      
-      $data_reporting[[2]]$params$strGroupLevel
-      [1] "Site"
-      
-      
-      
-      $data_reporting[[3]]
-      $data_reporting[[3]]$name
-      [1] "RunQuery"
-      
-      $data_reporting[[3]]$output
-      [1] "Temp_CTMSStudyWide"
-      
-      $data_reporting[[3]]$params
-      $data_reporting[[3]]$params$df
-      [1] "Raw_ctms_study"
-      
-      $data_reporting[[3]]$params$strQuery
-      [1] "SELECT protocol_number as GroupID, status as Status, * FROM df"
-      
-      
-      
-      $data_reporting[[4]]
-      $data_reporting[[4]]$name
-      [1] "MakeLongMeta"
-      
-      $data_reporting[[4]]$output
-      [1] "Temp_CTMSStudy"
-      
-      $data_reporting[[4]]$params
-      $data_reporting[[4]]$params$data
-      [1] "Temp_CTMSStudyWide"
-      
-      $data_reporting[[4]]$params$strGroupLevel
-      [1] "Study"
-      
-      
-      
-      $data_reporting[[5]]
-      $data_reporting[[5]]$name
-      [1] "RunQuery"
-      
-      $data_reporting[[5]]$output
-      [1] "Temp_SiteCountsWide"
-      
-      $data_reporting[[5]]$params
-      $data_reporting[[5]]$params$df
-      [1] "Mapped_ENROLL"
-      
-      $data_reporting[[5]]$params$strQuery
-      [1] "SELECT invid as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid"
-      
-      
-      
-      $data_reporting[[6]]
-      $data_reporting[[6]]$name
-      [1] "MakeLongMeta"
-      
-      $data_reporting[[6]]$output
-      [1] "Temp_SiteCounts"
-      
-      $data_reporting[[6]]$params
-      $data_reporting[[6]]$params$data
-      [1] "Temp_SiteCountsWide"
-      
-      $data_reporting[[6]]$params$strGroupLevel
-      [1] "Site"
-      
-      
-      
-      $data_reporting[[7]]
-      $data_reporting[[7]]$name
-      [1] "RunQuery"
-      
-      $data_reporting[[7]]$output
-      [1] "Temp_StudyCountsWide"
-      
-      $data_reporting[[7]]$params
-      $data_reporting[[7]]$params$df
-      [1] "Mapped_ENROLL"
-      
-      $data_reporting[[7]]$params$strQuery
-      [1] "SELECT studyid as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY studyid"
-      
-      
-      
-      $data_reporting[[8]]
-      $data_reporting[[8]]$name
-      [1] "MakeLongMeta"
-      
-      $data_reporting[[8]]$output
-      [1] "Temp_StudyCounts"
-      
-      $data_reporting[[8]]$params
-      $data_reporting[[8]]$params$data
-      [1] "Temp_StudyCountsWide"
-      
-      $data_reporting[[8]]$params$strGroupLevel
-      [1] "Study"
-      
-      
-      
-      $data_reporting[[9]]
-      $data_reporting[[9]]$name
-      [1] "RunQuery"
-      
-      $data_reporting[[9]]$output
-      [1] "Temp_CountryCountsWide"
-      
-      $data_reporting[[9]]$params
-      $data_reporting[[9]]$params$df
-      [1] "Mapped_ENROLL"
-      
-      $data_reporting[[9]]$params$strQuery
-      [1] "SELECT country as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country"
-      
-      
-      
-      $data_reporting[[10]]
-      $data_reporting[[10]]$name
-      [1] "MakeLongMeta"
-      
-      $data_reporting[[10]]$output
-      [1] "Temp_CountryCounts"
-      
-      $data_reporting[[10]]$params
-      $data_reporting[[10]]$params$data
-      [1] "Temp_CountryCountsWide"
-      
-      $data_reporting[[10]]$params$strGroupLevel
-      [1] "Country"
-      
-      
-      
-      $data_reporting[[11]]
-      $data_reporting[[11]]$name
-      [1] "bind_rows"
-      
-      $data_reporting[[11]]$output
-      [1] "Reporting_Groups"
-      
-      $data_reporting[[11]]$params
-      $data_reporting[[11]]$params$SiteCounts
-      [1] "Temp_SiteCounts"
-      
-      $data_reporting[[11]]$params$StudyCounts
-      [1] "Temp_StudyCounts"
-      
-      $data_reporting[[11]]$params$CountryCounts
-      [1] "Temp_CountryCounts"
-      
-      $data_reporting[[11]]$params$Site
-      [1] "Temp_CTMSSite"
-      
-      $data_reporting[[11]]$params$Study
-      [1] "Temp_CTMSStudy"
-      
-      
-      
-      $data_reporting[[12]]
-      $data_reporting[[12]]$name
-      [1] "MakeMetric"
-      
-      $data_reporting[[12]]$output
-      [1] "Reporting_Metrics"
-      
-      $data_reporting[[12]]$params
-      $data_reporting[[12]]$params$lWorkflows
-      [1] "lWorkflows"
-      
-      
-      
-      $data_reporting[[13]]
-      $data_reporting[[13]]$name
-      [1] "BindResults"
-      
-      $data_reporting[[13]]$output
-      [1] "Reporting_Results"
-      
-      $data_reporting[[13]]$params
-      $data_reporting[[13]]$params$lAnalysis
-      [1] "lAnalysis"
-      
-      $data_reporting[[13]]$params$strName
-      [1] "Analysis_Summary"
-      
-      $data_reporting[[13]]$params$dSnapshotDate
-      [1] "dSnapshotDate"
-      
-      $data_reporting[[13]]$params$strStudyID
-      [1] "strStudyID"
-      
-      
-      
-      $data_reporting[[14]]
-      $data_reporting[[14]]$name
-      [1] "MakeBounds"
-      
-      $data_reporting[[14]]$output
-      [1] "Reporting_Bounds"
-      
-      $data_reporting[[14]]$params
-      $data_reporting[[14]]$params$dfResults
-      [1] "Reporting_Results"
-      
-      $data_reporting[[14]]$params$dfMetrics
-      [1] "Reporting_Metrics"
-      
-      
-      
-      
       $cou0001
       $cou0001[[1]]
       $cou0001[[1]]$name
@@ -519,13 +161,13 @@
       
       $cou0001[[2]]$params
       $cou0001[[2]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $cou0001[[2]]$params$dfNumerator
       [1] "Mapped_AE"
       
       $cou0001[[2]]$params$dfDenominator
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $cou0001[[2]]$params$strSubjectCol
       [1] "subjid"
@@ -572,7 +214,7 @@
       [1] "Analysis_Transformed"
       
       $cou0001[[4]]$params$strType
-      [1] "Type"
+      [1] "AnalysisType"
       
       
       
@@ -605,6 +247,34 @@
       
       $cou0001[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
+      
+      
+      
+      $cou0001[[7]]
+      $cou0001[[7]]$name
+      [1] "list"
+      
+      $cou0001[[7]]$output
+      [1] "cou0001"
+      
+      $cou0001[[7]]$params
+      $cou0001[[7]]$params$id
+      [1] "ID"
+      
+      $cou0001[[7]]$params$input
+      [1] "Analysis_Input"
+      
+      $cou0001[[7]]$params$transformed
+      [1] "Analysis_Transformed"
+      
+      $cou0001[[7]]$params$analyzed
+      [1] "Analysis_Analyzed"
+      
+      $cou0001[[7]]$params$flagged
+      [1] "Analysis_Flagged"
+      
+      $cou0001[[7]]$params$summary
+      [1] "Analysis_Summary"
       
       
       
@@ -648,13 +318,13 @@
       
       $cou0002[[3]]$params
       $cou0002[[3]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $cou0002[[3]]$params$dfNumerator
       [1] "Temp_SAE"
       
       $cou0002[[3]]$params$dfDenominator
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $cou0002[[3]]$params$strSubjectCol
       [1] "subjid"
@@ -701,7 +371,7 @@
       [1] "Analysis_Transformed"
       
       $cou0002[[5]]$params$strType
-      [1] "Type"
+      [1] "AnalysisType"
       
       
       
@@ -734,6 +404,34 @@
       
       $cou0002[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
+      
+      
+      
+      $cou0002[[8]]
+      $cou0002[[8]]$name
+      [1] "list"
+      
+      $cou0002[[8]]$output
+      [1] "cou0002"
+      
+      $cou0002[[8]]$params
+      $cou0002[[8]]$params$id
+      [1] "ID"
+      
+      $cou0002[[8]]$params$input
+      [1] "Analysis_Input"
+      
+      $cou0002[[8]]$params$transformed
+      [1] "Analysis_Transformed"
+      
+      $cou0002[[8]]$params$analyzed
+      [1] "Analysis_Analyzed"
+      
+      $cou0002[[8]]$params$flagged
+      [1] "Analysis_Flagged"
+      
+      $cou0002[[8]]$params$summary
+      [1] "Analysis_Summary"
       
       
       
@@ -777,13 +475,13 @@
       
       $cou0003[[3]]$params
       $cou0003[[3]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $cou0003[[3]]$params$dfNumerator
       [1] "Temp_NONIMPORTANT"
       
       $cou0003[[3]]$params$dfDenominator
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $cou0003[[3]]$params$strSubjectCol
       [1] "subjid"
@@ -830,7 +528,7 @@
       [1] "Analysis_Transformed"
       
       $cou0003[[5]]$params$strType
-      [1] "Type"
+      [1] "AnalysisType"
       
       
       
@@ -863,6 +561,34 @@
       
       $cou0003[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
+      
+      
+      
+      $cou0003[[8]]
+      $cou0003[[8]]$name
+      [1] "list"
+      
+      $cou0003[[8]]$output
+      [1] "cou0003"
+      
+      $cou0003[[8]]$params
+      $cou0003[[8]]$params$id
+      [1] "ID"
+      
+      $cou0003[[8]]$params$input
+      [1] "Analysis_Input"
+      
+      $cou0003[[8]]$params$transformed
+      [1] "Analysis_Transformed"
+      
+      $cou0003[[8]]$params$analyzed
+      [1] "Analysis_Analyzed"
+      
+      $cou0003[[8]]$params$flagged
+      [1] "Analysis_Flagged"
+      
+      $cou0003[[8]]$params$summary
+      [1] "Analysis_Summary"
       
       
       
@@ -906,13 +632,13 @@
       
       $cou0004[[3]]$params
       $cou0004[[3]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $cou0004[[3]]$params$dfNumerator
       [1] "Temp_Important"
       
       $cou0004[[3]]$params$dfDenominator
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $cou0004[[3]]$params$strSubjectCol
       [1] "subjid"
@@ -959,7 +685,7 @@
       [1] "Analysis_Transformed"
       
       $cou0004[[5]]$params$strType
-      [1] "Type"
+      [1] "AnalysisType"
       
       
       
@@ -992,6 +718,34 @@
       
       $cou0004[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
+      
+      
+      
+      $cou0004[[8]]
+      $cou0004[[8]]$name
+      [1] "list"
+      
+      $cou0004[[8]]$output
+      [1] "cou0004"
+      
+      $cou0004[[8]]$params
+      $cou0004[[8]]$params$id
+      [1] "ID"
+      
+      $cou0004[[8]]$params$input
+      [1] "Analysis_Input"
+      
+      $cou0004[[8]]$params$transformed
+      [1] "Analysis_Transformed"
+      
+      $cou0004[[8]]$params$analyzed
+      [1] "Analysis_Analyzed"
+      
+      $cou0004[[8]]$params$flagged
+      [1] "Analysis_Flagged"
+      
+      $cou0004[[8]]$params$summary
+      [1] "Analysis_Summary"
       
       
       
@@ -1051,7 +805,7 @@
       
       $cou0005[[4]]$params
       $cou0005[[4]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $cou0005[[4]]$params$dfNumerator
       [1] "Temp_ABNORMAL"
@@ -1101,7 +855,7 @@
       [1] "Analysis_Transformed"
       
       $cou0005[[6]]$params$strType
-      [1] "Type"
+      [1] "AnalysisType"
       
       
       
@@ -1134,6 +888,34 @@
       
       $cou0005[[8]]$params$nMinDenominator
       [1] "nMinDenominator"
+      
+      
+      
+      $cou0005[[9]]
+      $cou0005[[9]]$name
+      [1] "list"
+      
+      $cou0005[[9]]$output
+      [1] "cou0005"
+      
+      $cou0005[[9]]$params
+      $cou0005[[9]]$params$id
+      [1] "ID"
+      
+      $cou0005[[9]]$params$input
+      [1] "Analysis_Input"
+      
+      $cou0005[[9]]$params$transformed
+      [1] "Analysis_Transformed"
+      
+      $cou0005[[9]]$params$analyzed
+      [1] "Analysis_Analyzed"
+      
+      $cou0005[[9]]$params$flagged
+      [1] "Analysis_Flagged"
+      
+      $cou0005[[9]]$params$summary
+      [1] "Analysis_Summary"
       
       
       
@@ -1177,13 +959,13 @@
       
       $cou0006[[3]]$params
       $cou0006[[3]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $cou0006[[3]]$params$dfNumerator
       [1] "Temp_DROPOUT"
       
       $cou0006[[3]]$params$dfDenominator
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $cou0006[[3]]$params$strSubjectCol
       [1] "subjid"
@@ -1227,7 +1009,7 @@
       [1] "Analysis_Transformed"
       
       $cou0006[[5]]$params$strType
-      [1] "Type"
+      [1] "AnalysisType"
       
       
       
@@ -1260,6 +1042,34 @@
       
       $cou0006[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
+      
+      
+      
+      $cou0006[[8]]
+      $cou0006[[8]]$name
+      [1] "list"
+      
+      $cou0006[[8]]$output
+      [1] "cou0006"
+      
+      $cou0006[[8]]$params
+      $cou0006[[8]]$params$id
+      [1] "ID"
+      
+      $cou0006[[8]]$params$input
+      [1] "Analysis_Input"
+      
+      $cou0006[[8]]$params$transformed
+      [1] "Analysis_Transformed"
+      
+      $cou0006[[8]]$params$analyzed
+      [1] "Analysis_Analyzed"
+      
+      $cou0006[[8]]$params$flagged
+      [1] "Analysis_Flagged"
+      
+      $cou0006[[8]]$params$summary
+      [1] "Analysis_Summary"
       
       
       
@@ -1303,13 +1113,13 @@
       
       $cou0007[[3]]$params
       $cou0007[[3]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $cou0007[[3]]$params$dfNumerator
       [1] "Temp_DISCONTINUED"
       
       $cou0007[[3]]$params$dfDenominator
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $cou0007[[3]]$params$strSubjectCol
       [1] "subjid"
@@ -1353,7 +1163,7 @@
       [1] "Analysis_Transformed"
       
       $cou0007[[5]]$params$strType
-      [1] "Type"
+      [1] "AnalysisType"
       
       
       
@@ -1386,6 +1196,34 @@
       
       $cou0007[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
+      
+      
+      
+      $cou0007[[8]]
+      $cou0007[[8]]$name
+      [1] "list"
+      
+      $cou0007[[8]]$output
+      [1] "cou0007"
+      
+      $cou0007[[8]]$params
+      $cou0007[[8]]$params$id
+      [1] "ID"
+      
+      $cou0007[[8]]$params$input
+      [1] "Analysis_Input"
+      
+      $cou0007[[8]]$params$transformed
+      [1] "Analysis_Transformed"
+      
+      $cou0007[[8]]$params$analyzed
+      [1] "Analysis_Analyzed"
+      
+      $cou0007[[8]]$params$flagged
+      [1] "Analysis_Flagged"
+      
+      $cou0007[[8]]$params$summary
+      [1] "Analysis_Summary"
       
       
       
@@ -1429,7 +1267,7 @@
       
       $cou0008[[3]]$params
       $cou0008[[3]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $cou0008[[3]]$params$dfNumerator
       [1] "Temp_QUERY"
@@ -1438,7 +1276,7 @@
       [1] "Mapped_DATACHG"
       
       $cou0008[[3]]$params$strSubjectCol
-      [1] "subject_nsv"
+      [1] "subjid"
       
       $cou0008[[3]]$params$strGroupCol
       [1] "country"
@@ -1479,7 +1317,7 @@
       [1] "Analysis_Transformed"
       
       $cou0008[[5]]$params$strType
-      [1] "Type"
+      [1] "AnalysisType"
       
       
       
@@ -1512,6 +1350,34 @@
       
       $cou0008[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
+      
+      
+      
+      $cou0008[[8]]
+      $cou0008[[8]]$name
+      [1] "list"
+      
+      $cou0008[[8]]$output
+      [1] "cou0008"
+      
+      $cou0008[[8]]$params
+      $cou0008[[8]]$params$id
+      [1] "ID"
+      
+      $cou0008[[8]]$params$input
+      [1] "Analysis_Input"
+      
+      $cou0008[[8]]$params$transformed
+      [1] "Analysis_Transformed"
+      
+      $cou0008[[8]]$params$analyzed
+      [1] "Analysis_Analyzed"
+      
+      $cou0008[[8]]$params$flagged
+      [1] "Analysis_Flagged"
+      
+      $cou0008[[8]]$params$summary
+      [1] "Analysis_Summary"
       
       
       
@@ -1571,7 +1437,7 @@
       
       $cou0009[[4]]$params
       $cou0009[[4]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $cou0009[[4]]$params$dfNumerator
       [1] "Temp_OLDQUERY"
@@ -1580,7 +1446,7 @@
       [1] "Temp_QUERY"
       
       $cou0009[[4]]$params$strSubjectCol
-      [1] "subject_nsv"
+      [1] "subjid"
       
       $cou0009[[4]]$params$strGroupCol
       [1] "country"
@@ -1621,7 +1487,7 @@
       [1] "Analysis_Transformed"
       
       $cou0009[[6]]$params$strType
-      [1] "Type"
+      [1] "AnalysisType"
       
       
       
@@ -1654,6 +1520,34 @@
       
       $cou0009[[8]]$params$nMinDenominator
       [1] "nMinDenominator"
+      
+      
+      
+      $cou0009[[9]]
+      $cou0009[[9]]$name
+      [1] "list"
+      
+      $cou0009[[9]]$output
+      [1] "cou0009"
+      
+      $cou0009[[9]]$params
+      $cou0009[[9]]$params$id
+      [1] "ID"
+      
+      $cou0009[[9]]$params$input
+      [1] "Analysis_Input"
+      
+      $cou0009[[9]]$params$transformed
+      [1] "Analysis_Transformed"
+      
+      $cou0009[[9]]$params$analyzed
+      [1] "Analysis_Analyzed"
+      
+      $cou0009[[9]]$params$flagged
+      [1] "Analysis_Flagged"
+      
+      $cou0009[[9]]$params$summary
+      [1] "Analysis_Summary"
       
       
       
@@ -1697,7 +1591,7 @@
       
       $cou0010[[3]]$params
       $cou0010[[3]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $cou0010[[3]]$params$dfNumerator
       [1] "Temp_LAG"
@@ -1706,7 +1600,7 @@
       [1] "Mapped_DATAENT"
       
       $cou0010[[3]]$params$strSubjectCol
-      [1] "subject_nsv"
+      [1] "subjid"
       
       $cou0010[[3]]$params$strGroupCol
       [1] "country"
@@ -1747,7 +1641,7 @@
       [1] "Analysis_Transformed"
       
       $cou0010[[5]]$params$strType
-      [1] "Type"
+      [1] "AnalysisType"
       
       
       
@@ -1780,6 +1674,34 @@
       
       $cou0010[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
+      
+      
+      
+      $cou0010[[8]]
+      $cou0010[[8]]$name
+      [1] "list"
+      
+      $cou0010[[8]]$output
+      [1] "cou0010"
+      
+      $cou0010[[8]]$params
+      $cou0010[[8]]$params$id
+      [1] "ID"
+      
+      $cou0010[[8]]$params$input
+      [1] "Analysis_Input"
+      
+      $cou0010[[8]]$params$transformed
+      [1] "Analysis_Transformed"
+      
+      $cou0010[[8]]$params$analyzed
+      [1] "Analysis_Analyzed"
+      
+      $cou0010[[8]]$params$flagged
+      [1] "Analysis_Flagged"
+      
+      $cou0010[[8]]$params$summary
+      [1] "Analysis_Summary"
       
       
       
@@ -1823,7 +1745,7 @@
       
       $cou0011[[3]]$params
       $cou0011[[3]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $cou0011[[3]]$params$dfNumerator
       [1] "Temp_CHANGED"
@@ -1832,7 +1754,7 @@
       [1] "Mapped_DATACHG"
       
       $cou0011[[3]]$params$strSubjectCol
-      [1] "subject_nsv"
+      [1] "subjid"
       
       $cou0011[[3]]$params$strGroupCol
       [1] "country"
@@ -1873,7 +1795,7 @@
       [1] "Analysis_Transformed"
       
       $cou0011[[5]]$params$strType
-      [1] "Type"
+      [1] "AnalysisType"
       
       
       
@@ -1909,6 +1831,34 @@
       
       
       
+      $cou0011[[8]]
+      $cou0011[[8]]$name
+      [1] "list"
+      
+      $cou0011[[8]]$output
+      [1] "cou0011"
+      
+      $cou0011[[8]]$params
+      $cou0011[[8]]$params$id
+      [1] "ID"
+      
+      $cou0011[[8]]$params$input
+      [1] "Analysis_Input"
+      
+      $cou0011[[8]]$params$transformed
+      [1] "Analysis_Transformed"
+      
+      $cou0011[[8]]$params$analyzed
+      [1] "Analysis_Analyzed"
+      
+      $cou0011[[8]]$params$flagged
+      [1] "Analysis_Flagged"
+      
+      $cou0011[[8]]$params$summary
+      [1] "Analysis_Summary"
+      
+      
+      
       
       $cou0012
       $cou0012[[1]]
@@ -1933,7 +1883,7 @@
       
       $cou0012[[2]]$params
       $cou0012[[2]]$params$df
-      [1] "Mapped_SCREEN"
+      [1] "Mapped_ENROLL"
       
       $cou0012[[2]]$params$strQuery
       [1] "SELECT * FROM df WHERE enrollyn = 'N'"
@@ -1949,16 +1899,16 @@
       
       $cou0012[[3]]$params
       $cou0012[[3]]$params$dfSubjects
-      [1] "Mapped_SCREEN"
+      [1] "Mapped_ENROLL"
       
       $cou0012[[3]]$params$dfNumerator
       [1] "Temp_SCREENED"
       
       $cou0012[[3]]$params$dfDenominator
-      [1] "Mapped_SCREEN"
+      [1] "Mapped_ENROLL"
       
       $cou0012[[3]]$params$strSubjectCol
-      [1] "subjid"
+      [1] "subjectid"
       
       $cou0012[[3]]$params$strGroupCol
       [1] "country"
@@ -1999,7 +1949,7 @@
       [1] "Analysis_Transformed"
       
       $cou0012[[5]]$params$strType
-      [1] "Type"
+      [1] "AnalysisType"
       
       
       
@@ -2035,6 +1985,34 @@
       
       
       
+      $cou0012[[8]]
+      $cou0012[[8]]$name
+      [1] "list"
+      
+      $cou0012[[8]]$output
+      [1] "cou0012"
+      
+      $cou0012[[8]]$params
+      $cou0012[[8]]$params$id
+      [1] "ID"
+      
+      $cou0012[[8]]$params$input
+      [1] "Analysis_Input"
+      
+      $cou0012[[8]]$params$transformed
+      [1] "Analysis_Transformed"
+      
+      $cou0012[[8]]$params$analyzed
+      [1] "Analysis_Analyzed"
+      
+      $cou0012[[8]]$params$flagged
+      [1] "Analysis_Flagged"
+      
+      $cou0012[[8]]$params$summary
+      [1] "Analysis_Summary"
+      
+      
+      
       
       $kri0001
       $kri0001[[1]]
@@ -2059,13 +2037,13 @@
       
       $kri0001[[2]]$params
       $kri0001[[2]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $kri0001[[2]]$params$dfNumerator
       [1] "Mapped_AE"
       
       $kri0001[[2]]$params$dfDenominator
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $kri0001[[2]]$params$strSubjectCol
       [1] "subjid"
@@ -2112,7 +2090,7 @@
       [1] "Analysis_Transformed"
       
       $kri0001[[4]]$params$strType
-      [1] "Type"
+      [1] "AnalysisType"
       
       
       
@@ -2145,6 +2123,34 @@
       
       $kri0001[[6]]$params$nMinDenominator
       [1] "nMinDenominator"
+      
+      
+      
+      $kri0001[[7]]
+      $kri0001[[7]]$name
+      [1] "list"
+      
+      $kri0001[[7]]$output
+      [1] "kri0001"
+      
+      $kri0001[[7]]$params
+      $kri0001[[7]]$params$id
+      [1] "ID"
+      
+      $kri0001[[7]]$params$input
+      [1] "Analysis_Input"
+      
+      $kri0001[[7]]$params$transformed
+      [1] "Analysis_Transformed"
+      
+      $kri0001[[7]]$params$analyzed
+      [1] "Analysis_Analyzed"
+      
+      $kri0001[[7]]$params$flagged
+      [1] "Analysis_Flagged"
+      
+      $kri0001[[7]]$params$summary
+      [1] "Analysis_Summary"
       
       
       
@@ -2188,13 +2194,13 @@
       
       $kri0002[[3]]$params
       $kri0002[[3]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $kri0002[[3]]$params$dfNumerator
       [1] "Temp_SAE"
       
       $kri0002[[3]]$params$dfDenominator
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $kri0002[[3]]$params$strSubjectCol
       [1] "subjid"
@@ -2241,7 +2247,7 @@
       [1] "Analysis_Transformed"
       
       $kri0002[[5]]$params$strType
-      [1] "Type"
+      [1] "AnalysisType"
       
       
       
@@ -2274,6 +2280,34 @@
       
       $kri0002[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
+      
+      
+      
+      $kri0002[[8]]
+      $kri0002[[8]]$name
+      [1] "list"
+      
+      $kri0002[[8]]$output
+      [1] "kri0002"
+      
+      $kri0002[[8]]$params
+      $kri0002[[8]]$params$id
+      [1] "ID"
+      
+      $kri0002[[8]]$params$input
+      [1] "Analysis_Input"
+      
+      $kri0002[[8]]$params$transformed
+      [1] "Analysis_Transformed"
+      
+      $kri0002[[8]]$params$analyzed
+      [1] "Analysis_Analyzed"
+      
+      $kri0002[[8]]$params$flagged
+      [1] "Analysis_Flagged"
+      
+      $kri0002[[8]]$params$summary
+      [1] "Analysis_Summary"
       
       
       
@@ -2317,13 +2351,13 @@
       
       $kri0003[[3]]$params
       $kri0003[[3]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $kri0003[[3]]$params$dfNumerator
       [1] "Temp_NONIMPORTANT"
       
       $kri0003[[3]]$params$dfDenominator
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $kri0003[[3]]$params$strSubjectCol
       [1] "subjid"
@@ -2370,7 +2404,7 @@
       [1] "Analysis_Transformed"
       
       $kri0003[[5]]$params$strType
-      [1] "Type"
+      [1] "AnalysisType"
       
       
       
@@ -2403,6 +2437,34 @@
       
       $kri0003[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
+      
+      
+      
+      $kri0003[[8]]
+      $kri0003[[8]]$name
+      [1] "list"
+      
+      $kri0003[[8]]$output
+      [1] "kri0003"
+      
+      $kri0003[[8]]$params
+      $kri0003[[8]]$params$id
+      [1] "ID"
+      
+      $kri0003[[8]]$params$input
+      [1] "Analysis_Input"
+      
+      $kri0003[[8]]$params$transformed
+      [1] "Analysis_Transformed"
+      
+      $kri0003[[8]]$params$analyzed
+      [1] "Analysis_Analyzed"
+      
+      $kri0003[[8]]$params$flagged
+      [1] "Analysis_Flagged"
+      
+      $kri0003[[8]]$params$summary
+      [1] "Analysis_Summary"
       
       
       
@@ -2446,13 +2508,13 @@
       
       $kri0004[[3]]$params
       $kri0004[[3]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $kri0004[[3]]$params$dfNumerator
       [1] "Temp_IMPORTANT"
       
       $kri0004[[3]]$params$dfDenominator
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $kri0004[[3]]$params$strSubjectCol
       [1] "subjid"
@@ -2499,7 +2561,7 @@
       [1] "Analysis_Transformed"
       
       $kri0004[[5]]$params$strType
-      [1] "Type"
+      [1] "AnalysisType"
       
       
       
@@ -2532,6 +2594,34 @@
       
       $kri0004[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
+      
+      
+      
+      $kri0004[[8]]
+      $kri0004[[8]]$name
+      [1] "list"
+      
+      $kri0004[[8]]$output
+      [1] "kri0004"
+      
+      $kri0004[[8]]$params
+      $kri0004[[8]]$params$id
+      [1] "ID"
+      
+      $kri0004[[8]]$params$input
+      [1] "Analysis_Input"
+      
+      $kri0004[[8]]$params$transformed
+      [1] "Analysis_Transformed"
+      
+      $kri0004[[8]]$params$analyzed
+      [1] "Analysis_Analyzed"
+      
+      $kri0004[[8]]$params$flagged
+      [1] "Analysis_Flagged"
+      
+      $kri0004[[8]]$params$summary
+      [1] "Analysis_Summary"
       
       
       
@@ -2591,7 +2681,7 @@
       
       $kri0005[[4]]$params
       $kri0005[[4]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $kri0005[[4]]$params$dfNumerator
       [1] "Temp_ABNORMAL"
@@ -2641,7 +2731,7 @@
       [1] "Analysis_Transformed"
       
       $kri0005[[6]]$params$strType
-      [1] "Type"
+      [1] "AnalysisType"
       
       
       
@@ -2674,6 +2764,34 @@
       
       $kri0005[[8]]$params$nMinDenominator
       [1] "nMinDenominator"
+      
+      
+      
+      $kri0005[[9]]
+      $kri0005[[9]]$name
+      [1] "list"
+      
+      $kri0005[[9]]$output
+      [1] "kri0005"
+      
+      $kri0005[[9]]$params
+      $kri0005[[9]]$params$id
+      [1] "ID"
+      
+      $kri0005[[9]]$params$input
+      [1] "Analysis_Input"
+      
+      $kri0005[[9]]$params$transformed
+      [1] "Analysis_Transformed"
+      
+      $kri0005[[9]]$params$analyzed
+      [1] "Analysis_Analyzed"
+      
+      $kri0005[[9]]$params$flagged
+      [1] "Analysis_Flagged"
+      
+      $kri0005[[9]]$params$summary
+      [1] "Analysis_Summary"
       
       
       
@@ -2717,13 +2835,13 @@
       
       $kri0006[[3]]$params
       $kri0006[[3]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $kri0006[[3]]$params$dfNumerator
       [1] "Temp_DROPOUT"
       
       $kri0006[[3]]$params$dfDenominator
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $kri0006[[3]]$params$strSubjectCol
       [1] "subjid"
@@ -2767,7 +2885,7 @@
       [1] "Analysis_Transformed"
       
       $kri0006[[5]]$params$strType
-      [1] "Type"
+      [1] "AnalysisType"
       
       
       
@@ -2800,6 +2918,34 @@
       
       $kri0006[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
+      
+      
+      
+      $kri0006[[8]]
+      $kri0006[[8]]$name
+      [1] "list"
+      
+      $kri0006[[8]]$output
+      [1] "kri0006"
+      
+      $kri0006[[8]]$params
+      $kri0006[[8]]$params$id
+      [1] "ID"
+      
+      $kri0006[[8]]$params$input
+      [1] "Analysis_Input"
+      
+      $kri0006[[8]]$params$transformed
+      [1] "Analysis_Transformed"
+      
+      $kri0006[[8]]$params$analyzed
+      [1] "Analysis_Analyzed"
+      
+      $kri0006[[8]]$params$flagged
+      [1] "Analysis_Flagged"
+      
+      $kri0006[[8]]$params$summary
+      [1] "Analysis_Summary"
       
       
       
@@ -2843,13 +2989,13 @@
       
       $kri0007[[3]]$params
       $kri0007[[3]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $kri0007[[3]]$params$dfNumerator
       [1] "Temp_DISCONTINUED"
       
       $kri0007[[3]]$params$dfDenominator
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $kri0007[[3]]$params$strSubjectCol
       [1] "subjid"
@@ -2893,7 +3039,7 @@
       [1] "Analysis_Transformed"
       
       $kri0007[[5]]$params$strType
-      [1] "Type"
+      [1] "AnalysisType"
       
       
       
@@ -2926,6 +3072,34 @@
       
       $kri0007[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
+      
+      
+      
+      $kri0007[[8]]
+      $kri0007[[8]]$name
+      [1] "list"
+      
+      $kri0007[[8]]$output
+      [1] "kri0007"
+      
+      $kri0007[[8]]$params
+      $kri0007[[8]]$params$id
+      [1] "ID"
+      
+      $kri0007[[8]]$params$input
+      [1] "Analysis_Input"
+      
+      $kri0007[[8]]$params$transformed
+      [1] "Analysis_Transformed"
+      
+      $kri0007[[8]]$params$analyzed
+      [1] "Analysis_Analyzed"
+      
+      $kri0007[[8]]$params$flagged
+      [1] "Analysis_Flagged"
+      
+      $kri0007[[8]]$params$summary
+      [1] "Analysis_Summary"
       
       
       
@@ -2969,7 +3143,7 @@
       
       $kri0008[[3]]$params
       $kri0008[[3]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $kri0008[[3]]$params$dfNumerator
       [1] "Temp_QUERY"
@@ -2978,7 +3152,7 @@
       [1] "Mapped_DATACHG"
       
       $kri0008[[3]]$params$strSubjectCol
-      [1] "subject_nsv"
+      [1] "subjid"
       
       $kri0008[[3]]$params$strGroupCol
       [1] "invid"
@@ -3019,7 +3193,7 @@
       [1] "Analysis_Transformed"
       
       $kri0008[[5]]$params$strType
-      [1] "Type"
+      [1] "AnalysisType"
       
       
       
@@ -3052,6 +3226,34 @@
       
       $kri0008[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
+      
+      
+      
+      $kri0008[[8]]
+      $kri0008[[8]]$name
+      [1] "list"
+      
+      $kri0008[[8]]$output
+      [1] "kri0008"
+      
+      $kri0008[[8]]$params
+      $kri0008[[8]]$params$id
+      [1] "ID"
+      
+      $kri0008[[8]]$params$input
+      [1] "Analysis_Input"
+      
+      $kri0008[[8]]$params$transformed
+      [1] "Analysis_Transformed"
+      
+      $kri0008[[8]]$params$analyzed
+      [1] "Analysis_Analyzed"
+      
+      $kri0008[[8]]$params$flagged
+      [1] "Analysis_Flagged"
+      
+      $kri0008[[8]]$params$summary
+      [1] "Analysis_Summary"
       
       
       
@@ -3111,7 +3313,7 @@
       
       $kri0009[[4]]$params
       $kri0009[[4]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $kri0009[[4]]$params$dfNumerator
       [1] "Temp_OLDQUERY"
@@ -3120,7 +3322,7 @@
       [1] "Temp_QUERY"
       
       $kri0009[[4]]$params$strSubjectCol
-      [1] "subject_nsv"
+      [1] "subjid"
       
       $kri0009[[4]]$params$strGroupCol
       [1] "invid"
@@ -3161,7 +3363,7 @@
       [1] "Analysis_Transformed"
       
       $kri0009[[6]]$params$strType
-      [1] "Type"
+      [1] "AnalysisType"
       
       
       
@@ -3194,6 +3396,34 @@
       
       $kri0009[[8]]$params$nMinDenominator
       [1] "nMinDenominator"
+      
+      
+      
+      $kri0009[[9]]
+      $kri0009[[9]]$name
+      [1] "list"
+      
+      $kri0009[[9]]$output
+      [1] "kri0009"
+      
+      $kri0009[[9]]$params
+      $kri0009[[9]]$params$id
+      [1] "ID"
+      
+      $kri0009[[9]]$params$input
+      [1] "Analysis_Input"
+      
+      $kri0009[[9]]$params$transformed
+      [1] "Analysis_Transformed"
+      
+      $kri0009[[9]]$params$analyzed
+      [1] "Analysis_Analyzed"
+      
+      $kri0009[[9]]$params$flagged
+      [1] "Analysis_Flagged"
+      
+      $kri0009[[9]]$params$summary
+      [1] "Analysis_Summary"
       
       
       
@@ -3237,7 +3467,7 @@
       
       $kri0010[[3]]$params
       $kri0010[[3]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $kri0010[[3]]$params$dfNumerator
       [1] "Temp_LAG"
@@ -3246,7 +3476,7 @@
       [1] "Mapped_DATAENT"
       
       $kri0010[[3]]$params$strSubjectCol
-      [1] "subject_nsv"
+      [1] "subjid"
       
       $kri0010[[3]]$params$strGroupCol
       [1] "invid"
@@ -3287,7 +3517,7 @@
       [1] "Analysis_Transformed"
       
       $kri0010[[5]]$params$strType
-      [1] "Type"
+      [1] "AnalysisType"
       
       
       
@@ -3320,6 +3550,34 @@
       
       $kri0010[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
+      
+      
+      
+      $kri0010[[8]]
+      $kri0010[[8]]$name
+      [1] "list"
+      
+      $kri0010[[8]]$output
+      [1] "kri0010"
+      
+      $kri0010[[8]]$params
+      $kri0010[[8]]$params$id
+      [1] "ID"
+      
+      $kri0010[[8]]$params$input
+      [1] "Analysis_Input"
+      
+      $kri0010[[8]]$params$transformed
+      [1] "Analysis_Transformed"
+      
+      $kri0010[[8]]$params$analyzed
+      [1] "Analysis_Analyzed"
+      
+      $kri0010[[8]]$params$flagged
+      [1] "Analysis_Flagged"
+      
+      $kri0010[[8]]$params$summary
+      [1] "Analysis_Summary"
       
       
       
@@ -3363,7 +3621,7 @@
       
       $kri0011[[3]]$params
       $kri0011[[3]]$params$dfSubjects
-      [1] "Mapped_ENROLL"
+      [1] "Mapped_SUBJ"
       
       $kri0011[[3]]$params$dfNumerator
       [1] "Temp_CHANGED"
@@ -3372,7 +3630,7 @@
       [1] "Mapped_DATACHG"
       
       $kri0011[[3]]$params$strSubjectCol
-      [1] "subject_nsv"
+      [1] "subjid"
       
       $kri0011[[3]]$params$strGroupCol
       [1] "invid"
@@ -3413,7 +3671,7 @@
       [1] "Analysis_Transformed"
       
       $kri0011[[5]]$params$strType
-      [1] "Type"
+      [1] "AnalysisType"
       
       
       
@@ -3449,6 +3707,34 @@
       
       
       
+      $kri0011[[8]]
+      $kri0011[[8]]$name
+      [1] "list"
+      
+      $kri0011[[8]]$output
+      [1] "kri0011"
+      
+      $kri0011[[8]]$params
+      $kri0011[[8]]$params$id
+      [1] "ID"
+      
+      $kri0011[[8]]$params$input
+      [1] "Analysis_Input"
+      
+      $kri0011[[8]]$params$transformed
+      [1] "Analysis_Transformed"
+      
+      $kri0011[[8]]$params$analyzed
+      [1] "Analysis_Analyzed"
+      
+      $kri0011[[8]]$params$flagged
+      [1] "Analysis_Flagged"
+      
+      $kri0011[[8]]$params$summary
+      [1] "Analysis_Summary"
+      
+      
+      
       
       $kri0012
       $kri0012[[1]]
@@ -3473,7 +3759,7 @@
       
       $kri0012[[2]]$params
       $kri0012[[2]]$params$df
-      [1] "Mapped_SCREEN"
+      [1] "Mapped_ENROLL"
       
       $kri0012[[2]]$params$strQuery
       [1] "SELECT * FROM df WHERE enrollyn = 'N'"
@@ -3489,16 +3775,16 @@
       
       $kri0012[[3]]$params
       $kri0012[[3]]$params$dfSubjects
-      [1] "Mapped_SCREEN"
+      [1] "Mapped_ENROLL"
       
       $kri0012[[3]]$params$dfNumerator
       [1] "Temp_SCREENED"
       
       $kri0012[[3]]$params$dfDenominator
-      [1] "Mapped_SCREEN"
+      [1] "Mapped_ENROLL"
       
       $kri0012[[3]]$params$strSubjectCol
-      [1] "subjid"
+      [1] "subjectid"
       
       $kri0012[[3]]$params$strGroupCol
       [1] "invid"
@@ -3539,7 +3825,7 @@
       [1] "Analysis_Transformed"
       
       $kri0012[[5]]$params$strType
-      [1] "Type"
+      [1] "AnalysisType"
       
       
       
@@ -3572,6 +3858,34 @@
       
       $kri0012[[7]]$params$nMinDenominator
       [1] "nMinDenominator"
+      
+      
+      
+      $kri0012[[8]]
+      $kri0012[[8]]$name
+      [1] "list"
+      
+      $kri0012[[8]]$output
+      [1] "kri0012"
+      
+      $kri0012[[8]]$params
+      $kri0012[[8]]$params$id
+      [1] "ID"
+      
+      $kri0012[[8]]$params$input
+      [1] "Analysis_Input"
+      
+      $kri0012[[8]]$params$transformed
+      [1] "Analysis_Transformed"
+      
+      $kri0012[[8]]$params$analyzed
+      [1] "Analysis_Analyzed"
+      
+      $kri0012[[8]]$params$flagged
+      [1] "Analysis_Flagged"
+      
+      $kri0012[[8]]$params$summary
+      [1] "Analysis_Summary"
       
       
       
@@ -3627,7 +3941,7 @@
       [1] "Reporting_Bounds"
       
       $report_kri_country[[3]]$params$dfMetrics
-      [1] "Reporting_Metrics"
+      [1] "Reporting_Metrics_Country"
       
       
       
@@ -3732,148 +4046,550 @@
       
       
       
-      $snapshot
-      $snapshot[[1]]
-      $snapshot[[1]]$name
-      [1] "MakeWorkflowList"
+      $AE
+      $AE[[1]]
+      $AE[[1]]$output
+      [1] "Mapped_AE"
       
-      $snapshot[[1]]$output
-      [1] "wf_mapping"
+      $AE[[1]]$name
+      [1] "="
       
-      $snapshot[[1]]$params
-      $snapshot[[1]]$params$strNames
-      [1] "data_mapping"
+      $AE[[1]]$params
+      $AE[[1]]$params$lhs
+      [1] "Mapped_AE"
       
-      
-      
-      $snapshot[[2]]
-      $snapshot[[2]]$name
-      [1] "RunWorkflows"
-      
-      $snapshot[[2]]$output
-      [1] "lMapped"
-      
-      $snapshot[[2]]$params
-      $snapshot[[2]]$params$lData
-      [1] "lData"
-      
-      $snapshot[[2]]$params$lWorkflow
-      [1] "wf_mapping"
-      
-      $snapshot[[2]]$params$bKeepInputData
-      [1] FALSE
+      $AE[[1]]$params$rhs
+      [1] "Raw_AE"
       
       
       
-      $snapshot[[3]]
-      $snapshot[[3]]$name
-      [1] "MakeWorkflowList"
       
-      $snapshot[[3]]$output
-      [1] "lWorkflows"
-      
-      $snapshot[[3]]$params
-      $snapshot[[3]]$params$strPath
-      [1] "workflow/metrics"
-      
-      
-      
-      $snapshot[[4]]
-      $snapshot[[4]]$name
-      [1] "RunWorkflows"
-      
-      $snapshot[[4]]$output
-      [1] "lAnalysis"
-      
-      $snapshot[[4]]$params
-      $snapshot[[4]]$params$lWorkflows
-      [1] "lWorkflows"
-      
-      $snapshot[[4]]$params$lData
-      [1] "lMapped"
-      
-      $snapshot[[4]]$params$bKeepInputData
-      [1] FALSE
-      
-      
-      
-      $snapshot[[5]]
-      $snapshot[[5]]$name
-      [1] "RunQuery"
-      
-      $snapshot[[5]]$output
+      $ENROLL
+      $ENROLL[[1]]
+      $ENROLL[[1]]$output
       [1] "Mapped_ENROLL"
       
-      $snapshot[[5]]$params
-      $snapshot[[5]]$params$df
+      $ENROLL[[1]]$name
+      [1] "="
+      
+      $ENROLL[[1]]$params
+      $ENROLL[[1]]$params$lhs
+      [1] "Mapped_ENROLL"
+      
+      $ENROLL[[1]]$params$rhs
+      [1] "Raw_ENROLL"
+      
+      
+      
+      
+      $LB
+      $LB[[1]]
+      $LB[[1]]$output
+      [1] "Mapped_LB"
+      
+      $LB[[1]]$name
+      [1] "="
+      
+      $LB[[1]]$params
+      $LB[[1]]$params$lhs
+      [1] "Mapped_LB"
+      
+      $LB[[1]]$params$rhs
+      [1] "Raw_LB"
+      
+      
+      
+      
+      $PD
+      $PD[[1]]
+      $PD[[1]]$output
+      [1] "Mapped_PD"
+      
+      $PD[[1]]$name
+      [1] "="
+      
+      $PD[[1]]$params
+      $PD[[1]]$params$lhs
+      [1] "Mapped_PD"
+      
+      $PD[[1]]$params$rhs
+      [1] "Raw_PD"
+      
+      
+      
+      
+      $SDRGCOMP
+      $SDRGCOMP[[1]]
+      $SDRGCOMP[[1]]$output
+      [1] "Mapped_SDRGCOMP"
+      
+      $SDRGCOMP[[1]]$name
+      [1] "="
+      
+      $SDRGCOMP[[1]]$params
+      $SDRGCOMP[[1]]$params$lhs
+      [1] "Mapped_SDRGCOMP"
+      
+      $SDRGCOMP[[1]]$params$rhs
+      [1] "Raw_SDRGCOMP"
+      
+      
+      
+      
+      $STUDCOMP
+      $STUDCOMP[[1]]
+      $STUDCOMP[[1]]$output
+      [1] "Mapped_STUDCOMP"
+      
+      $STUDCOMP[[1]]$name
+      [1] "="
+      
+      $STUDCOMP[[1]]$params
+      $STUDCOMP[[1]]$params$lhs
+      [1] "Mapped_STUDCOMP"
+      
+      $STUDCOMP[[1]]$params$rhs
+      [1] "Raw_STUDCOMP"
+      
+      
+      
+      
+      $SUBJ
+      $SUBJ[[1]]
+      $SUBJ[[1]]$output
+      [1] "Mapped_SUBJ"
+      
+      $SUBJ[[1]]$name
+      [1] "RunQuery"
+      
+      $SUBJ[[1]]$params
+      $SUBJ[[1]]$params$df
       [1] "Raw_SUBJ"
       
-      $snapshot[[5]]$params$strQuery
-      [1] "SELECT subjectid as raw_subjectid, * FROM df WHERE enrollyn == 'Y'"
+      $SUBJ[[1]]$params$strQuery
+      [1] "SELECT * FROM df WHERE enrollyn == 'Y'"
       
       
       
-      $snapshot[[6]]
-      $snapshot[[6]]$name
-      [1] "MakeWorkflowList"
       
-      $snapshot[[6]]$output
-      [1] "wf_reporting_data"
+      $Groups
+      $Groups[[1]]
+      $Groups[[1]]$output
+      [1] "Reporting_Groups"
       
-      $snapshot[[6]]$params
-      $snapshot[[6]]$params$strNames
-      [1] "data_reporting"
+      $Groups[[1]]$name
+      [1] "bind_rows"
       
+      $Groups[[1]]$params
+      $Groups[[1]]$params$Study
+      [1] "Mapped_STUDY"
       
+      $Groups[[1]]$params$Site
+      [1] "Mapped_SITE"
       
-      $snapshot[[7]]
-      $snapshot[[7]]$name
-      [1] "RunWorkflows"
-      
-      $snapshot[[7]]$output
-      [1] "lReporting"
-      
-      $snapshot[[7]]$params
-      $snapshot[[7]]$params$lWorkflows
-      [1] "wf_reporting_data"
-      
-      $snapshot[[7]]$params$lData
-      [1] "lData"
-      
-      $snapshot[[7]]$params$bKeepInputData
-      [1] FALSE
+      $Groups[[1]]$params$Country
+      [1] "Mapped_COUNTRY"
       
       
       
-      $snapshot[[8]]
-      $snapshot[[8]]$name
-      [1] "MakeWorkflowList"
       
-      $snapshot[[8]]$output
-      [1] "wf_reports"
+      $Metrics
+      $Metrics[[1]]
+      $Metrics[[1]]$output
+      [1] "Reporting_Metrics"
       
-      $snapshot[[8]]$params
-      $snapshot[[8]]$params$strPath
-      [1] "workflow/reports"
+      $Metrics[[1]]$name
+      [1] "MakeMetric"
+      
+      $Metrics[[1]]$params
+      $Metrics[[1]]$params$lWorkflows
+      [1] "lWorkflows"
       
       
       
-      $snapshot[[9]]
-      $snapshot[[9]]$name
-      [1] "RunWorkflows"
       
-      $snapshot[[9]]$output
-      [1] "lReports"
+      $Results
+      $Results[[1]]
+      $Results[[1]]$output
+      [1] "GroupID"
       
-      $snapshot[[9]]$params
-      $snapshot[[9]]$params$lWorkflows
-      [1] "wf_reports"
+      $Results[[1]]$name
+      [1] "pull"
       
-      $snapshot[[9]]$params$lData
-      [1] "lReporting"
+      $Results[[1]]$params
+      $Results[[1]]$params$.data
+      [1] "Mapped_STUDY"
       
-      $snapshot[[9]]$params$bKeepInputData
-      [1] FALSE
+      $Results[[1]]$params$var
+      [1] "GroupID"
+      
+      
+      
+      $Results[[2]]
+      $Results[[2]]$output
+      [1] "strStudyID"
+      
+      $Results[[2]]$name
+      [1] "unique"
+      
+      $Results[[2]]$params
+      $Results[[2]]$params$x
+      [1] "GroupID"
+      
+      
+      
+      $Results[[3]]
+      $Results[[3]]$output
+      [1] "Results_Summary"
+      
+      $Results[[3]]$name
+      [1] "BindResults"
+      
+      $Results[[3]]$params
+      $Results[[3]]$params$lAnalysis
+      [1] "lAnalyzed"
+      
+      $Results[[3]]$params$strName
+      [1] "summary"
+      
+      $Results[[3]]$params$strStudyID
+      [1] "strStudyID"
+      
+      
+      
+      
+      $DATACHG
+      $DATACHG[[1]]
+      $DATACHG[[1]]$output
+      [1] "Temp_SubjectLookup"
+      
+      $DATACHG[[1]]$name
+      [1] "select"
+      
+      $DATACHG[[1]]$params
+      $DATACHG[[1]]$params$.data
+      [1] "Mapped_SUBJ"
+      
+      $DATACHG[[1]]$params$subjid
+      [1] "subjid"
+      
+      $DATACHG[[1]]$params$subject_nsv
+      [1] "subject_nsv"
+      
+      
+      
+      $DATACHG[[2]]
+      $DATACHG[[2]]$output
+      [1] "Mapped_DATACHG"
+      
+      $DATACHG[[2]]$name
+      [1] "left_join"
+      
+      $DATACHG[[2]]$params
+      $DATACHG[[2]]$params$x
+      [1] "Raw_DATACHG"
+      
+      $DATACHG[[2]]$params$y
+      [1] "Temp_SubjectLookup"
+      
+      $DATACHG[[2]]$params$by
+      [1] "subject_nsv"
+      
+      
+      
+      
+      $DATAENT
+      $DATAENT[[1]]
+      $DATAENT[[1]]$output
+      [1] "Temp_SubjectLookup"
+      
+      $DATAENT[[1]]$name
+      [1] "select"
+      
+      $DATAENT[[1]]$params
+      $DATAENT[[1]]$params$.data
+      [1] "Mapped_SUBJ"
+      
+      $DATAENT[[1]]$params$subjid
+      [1] "subjid"
+      
+      $DATAENT[[1]]$params$subject_nsv
+      [1] "subject_nsv"
+      
+      
+      
+      $DATAENT[[2]]
+      $DATAENT[[2]]$output
+      [1] "Mapped_DATAENT"
+      
+      $DATAENT[[2]]$name
+      [1] "left_join"
+      
+      $DATAENT[[2]]$params
+      $DATAENT[[2]]$params$x
+      [1] "Raw_DATAENT"
+      
+      $DATAENT[[2]]$params$y
+      [1] "Temp_SubjectLookup"
+      
+      $DATAENT[[2]]$params$by
+      [1] "subject_nsv"
+      
+      
+      
+      
+      $QUERY
+      $QUERY[[1]]
+      $QUERY[[1]]$output
+      [1] "Temp_SubjectLookup"
+      
+      $QUERY[[1]]$name
+      [1] "select"
+      
+      $QUERY[[1]]$params
+      $QUERY[[1]]$params$.data
+      [1] "Mapped_SUBJ"
+      
+      $QUERY[[1]]$params$subjid
+      [1] "subjid"
+      
+      $QUERY[[1]]$params$subject_nsv
+      [1] "subject_nsv"
+      
+      
+      
+      $QUERY[[2]]
+      $QUERY[[2]]$output
+      [1] "Mapped_QUERY"
+      
+      $QUERY[[2]]$name
+      [1] "left_join"
+      
+      $QUERY[[2]]$params
+      $QUERY[[2]]$params$x
+      [1] "Raw_QUERY"
+      
+      $QUERY[[2]]$params$y
+      [1] "Temp_SubjectLookup"
+      
+      $QUERY[[2]]$params$by
+      [1] "subject_nsv"
+      
+      
+      
+      
+      $Bounds
+      $Bounds[[1]]
+      $Bounds[[1]]$output
+      [1] "Reporting_Bounds"
+      
+      $Bounds[[1]]$name
+      [1] "MakeBounds"
+      
+      $Bounds[[1]]$params
+      $Bounds[[1]]$params$dfResults
+      [1] "Reporting_Results"
+      
+      $Bounds[[1]]$params$dfMetrics
+      [1] "Reporting_Metrics"
+      
+      
+      
+      
+      $COUNTRY
+      $COUNTRY[[1]]
+      $COUNTRY[[1]]$output
+      [1] "Temp_CountryCountsWide"
+      
+      $COUNTRY[[1]]$name
+      [1] "RunQuery"
+      
+      $COUNTRY[[1]]$params
+      $COUNTRY[[1]]$params$df
+      [1] "Mapped_SUBJ"
+      
+      $COUNTRY[[1]]$params$strQuery
+      [1] "SELECT country as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country"
+      
+      
+      
+      $COUNTRY[[2]]
+      $COUNTRY[[2]]$output
+      [1] "Mapped_COUNTRY"
+      
+      $COUNTRY[[2]]$name
+      [1] "MakeLongMeta"
+      
+      $COUNTRY[[2]]$params
+      $COUNTRY[[2]]$params$data
+      [1] "Temp_CountryCountsWide"
+      
+      $COUNTRY[[2]]$params$strGroupLevel
+      [1] "Country"
+      
+      
+      
+      
+      $SITE
+      $SITE[[1]]
+      $SITE[[1]]$output
+      [1] "Temp_CTMSSiteWide"
+      
+      $SITE[[1]]$name
+      [1] "RunQuery"
+      
+      $SITE[[1]]$params
+      $SITE[[1]]$params$df
+      [1] "Raw_SITE"
+      
+      $SITE[[1]]$params$strQuery
+      [1] "SELECT invid as GroupID, * FROM df"
+      
+      
+      
+      $SITE[[2]]
+      $SITE[[2]]$output
+      [1] "Temp_CTMSSite"
+      
+      $SITE[[2]]$name
+      [1] "MakeLongMeta"
+      
+      $SITE[[2]]$params
+      $SITE[[2]]$params$data
+      [1] "Temp_CTMSSiteWide"
+      
+      $SITE[[2]]$params$strGroupLevel
+      [1] "Site"
+      
+      
+      
+      $SITE[[3]]
+      $SITE[[3]]$output
+      [1] "Temp_SiteCountsWide"
+      
+      $SITE[[3]]$name
+      [1] "RunQuery"
+      
+      $SITE[[3]]$params
+      $SITE[[3]]$params$df
+      [1] "Mapped_SUBJ"
+      
+      $SITE[[3]]$params$strQuery
+      [1] "SELECT invid as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid"
+      
+      
+      
+      $SITE[[4]]
+      $SITE[[4]]$output
+      [1] "Temp_SiteCounts"
+      
+      $SITE[[4]]$name
+      [1] "MakeLongMeta"
+      
+      $SITE[[4]]$params
+      $SITE[[4]]$params$data
+      [1] "Temp_SiteCountsWide"
+      
+      $SITE[[4]]$params$strGroupLevel
+      [1] "Site"
+      
+      
+      
+      $SITE[[5]]
+      $SITE[[5]]$output
+      [1] "Mapped_SITE"
+      
+      $SITE[[5]]$name
+      [1] "bind_rows"
+      
+      $SITE[[5]]$params
+      $SITE[[5]]$params$Temp_CTMSSite
+      [1] "Temp_CTMSSite"
+      
+      $SITE[[5]]$params$Temp_SiteCounts
+      [1] "Temp_SiteCounts"
+      
+      
+      
+      
+      $STUDY
+      $STUDY[[1]]
+      $STUDY[[1]]$output
+      [1] "Temp_CTMSStudyWide"
+      
+      $STUDY[[1]]$name
+      [1] "RunQuery"
+      
+      $STUDY[[1]]$params
+      $STUDY[[1]]$params$df
+      [1] "Raw_STUDY"
+      
+      $STUDY[[1]]$params$strQuery
+      [1] "SELECT studyid as GroupID, * FROM df"
+      
+      
+      
+      $STUDY[[2]]
+      $STUDY[[2]]$output
+      [1] "Temp_CTMSStudy"
+      
+      $STUDY[[2]]$name
+      [1] "MakeLongMeta"
+      
+      $STUDY[[2]]$params
+      $STUDY[[2]]$params$data
+      [1] "Temp_CTMSStudyWide"
+      
+      $STUDY[[2]]$params$strGroupLevel
+      [1] "Study"
+      
+      
+      
+      $STUDY[[3]]
+      $STUDY[[3]]$output
+      [1] "Temp_StudyCountsWide"
+      
+      $STUDY[[3]]$name
+      [1] "RunQuery"
+      
+      $STUDY[[3]]$params
+      $STUDY[[3]]$params$df
+      [1] "Mapped_SUBJ"
+      
+      $STUDY[[3]]$params$strQuery
+      [1] "SELECT studyid as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY studyid"
+      
+      
+      
+      $STUDY[[4]]
+      $STUDY[[4]]$output
+      [1] "Temp_StudyCounts"
+      
+      $STUDY[[4]]$name
+      [1] "MakeLongMeta"
+      
+      $STUDY[[4]]$params
+      $STUDY[[4]]$params$data
+      [1] "Temp_StudyCountsWide"
+      
+      $STUDY[[4]]$params$strGroupLevel
+      [1] "Study"
+      
+      
+      
+      $STUDY[[5]]
+      $STUDY[[5]]$output
+      [1] "Mapped_STUDY"
+      
+      $STUDY[[5]]$name
+      [1] "bind_rows"
+      
+      $STUDY[[5]]$params
+      $STUDY[[5]]$params$Temp_CTMSStudy
+      [1] "Temp_CTMSStudy"
+      
+      $STUDY[[5]]$params$Temp_StudyCounts
+      [1] "Temp_StudyCounts"
       
       
       

@@ -43,5 +43,5 @@ test_that("invalid data returns list NULL elements", {
   ### bRecursive
   wf_list <- MakeWorkflowList(bRecursive = TRUE, strNames = "kri0002")$kri0002
   expect_true(is.list(wf_list))
-  expect_length(wf_list, 5)
+  expect_length(wf_list, 4)
 })

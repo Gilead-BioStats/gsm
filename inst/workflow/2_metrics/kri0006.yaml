@@ -1,0 +1,78 @@
+meta:
+  Type: Metric
+  ID: kri0006
+  GroupLevel: Site
+  Abbreviation: SDSC
+  Metric: Study Discontinuation Rate
+  Numerator: Subjects Discontinued - Study
+  Denominator: Enrolled Subjects
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
+  AnalysisType: binary
+  Threshold: -3,-2,2,3
+  nMinDenominator: 3
+spec:
+  Mapped_SUBJ:
+    subjid:
+      required: true
+      type: character
+    invid:
+      required: true
+      type: character
+  Mapped_STUDCOMP:
+    subjid:
+      required: true
+      type: character
+    compyn:
+      required: true
+      type: character
+steps:
+  - name: ParseThreshold
+    output: vThreshold
+    params:
+      strThreshold: Threshold
+  - name: RunQuery
+    output: Temp_DROPOUT
+    params:
+      df: Mapped_STUDCOMP
+      strQuery: "SELECT * FROM df WHERE compyn = 'N'"
+  - name: Input_Rate
+    output: Analysis_Input
+    params:
+      dfSubjects: Mapped_SUBJ
+      dfNumerator: Temp_DROPOUT
+      dfDenominator: Mapped_SUBJ
+      strSubjectCol: subjid
+      strGroupCol: invid
+      strGroupLevel: GroupLevel
+      strNumeratorMethod: Count
+      strDenominatorMethod: Count
+  - name: Transform_Rate
+    output: Analysis_Transformed
+    params:
+      dfInput: Analysis_Input
+  - name: Analyze_NormalApprox
+    output: Analysis_Analyzed
+    params:
+      dfTransformed: Analysis_Transformed
+      strType: AnalysisType
+  - name: Flag_NormalApprox
+    output: Analysis_Flagged
+    params:
+      dfAnalyzed: Analysis_Analyzed
+      vThreshold: vThreshold
+  - name: Summarize
+    output: Analysis_Summary
+    params:
+      dfFlagged: Analysis_Flagged
+      nMinDenominator: nMinDenominator
+  - name: list
+    output: kri0006
+    params:
+      id: ID
+      input: Analysis_Input
+      transformed: Analysis_Transformed
+      analyzed: Analysis_Analyzed
+      flagged: Analysis_Flagged
+      summary: Analysis_Summary
+

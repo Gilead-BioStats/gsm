@@ -17,6 +17,7 @@ None
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
-This function generates a table summarizing study metadata.
+This function generates a table summarizing study metadata as an interactive
+\code{\link[gt:gt]{gt::gt()}} wrapped in HTML.
 }
 \keyword{internal}
