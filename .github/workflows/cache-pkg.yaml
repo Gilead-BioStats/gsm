@@ -23,11 +23,13 @@ jobs:
       - name: Install dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          cache-version: 2
           extra-packages: |
             any::pkgdown
             any::devtools
             any::here
+            any::rcmdcheck
+            any::covr
+            any::xml2
             local::.
           needs: website
 
