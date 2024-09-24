@@ -16,15 +16,15 @@ knitr::opts_chunk$set(
 
 # Overview
 
-This vignette describes how to extend `gsm` by creating new "modules", including metrics, reports and shiny apps that be run using the standard `gsm` pipeline described in these vignettes (`vignette("DataAnalysis")`, `vignette("DataReporting")`). As shown in the `vignette("DataAnalysis")`, the `gsm` data pipeline can be used to capture a monitoring 'snapshot' for a study that includes a variety of "modules" including [metrics](https://github.com/Gilead-BioStats/gsm/tree/dev/inst/workflow/metrics/kri0001.yaml), [reports](https://github.com/Gilead-BioStats/gsm/blob/dev/inst/workflow/reports/report_kri_site.yaml) and [apps](TODO: Add this link). While some core modules are included in the `gsm` package while others can be added as extensions. This vignette provide detailed specifications for creating new modules and links to resources that can be used to configure study-level gsm pipelines that include these `gsm` extensions.
+This vignette describes how to extend `gsm` by creating new "modules", including metrics, reports and shiny apps that be run using the standard `gsm` pipeline described in these vignettes (`vignette("DataAnalysis")`, `vignette("DataReporting")`). As shown in the `vignette("DataAnalysis")`, the `gsm` data pipeline can be used to capture a monitoring 'snapshot' for a study that includes a variety of "modules" including [metrics](https://github.com/Gilead-BioStats/gsm/tree/dev/inst/workflow/metrics/kri0001.yaml), [reports](https://github.com/Gilead-BioStats/gsm/blob/dev/inst/workflow/reports/report_kri_site.yaml) and [apps](TODO: Add this link).Some core modules are included in the `gsm` package, while others can be added as extensions. This vignette provide detailed specifications for creating new modules and links to resources that can be used to configure study-level gsm pipelines that utilize these `gsm` extensions.
 
 # Module Configuration
 
-`gsm` modules will typically be part of an R package and have a YAML configuration file - `{module_name}.yaml` - saved under `\inst\workflows`. Module config files include 3 key properties: 
+`gsm` modules will typically be part of an R package and have a YAML configuration file - `{module_name}.yaml` - saved under `\inst\workflow`. Module config files include 3 key properties: 
 
   -  `meta`: (required) Report metadata used for centralized library and fields referenced in `steps` section of workflow.
     - This is not required in the `{report_name}.yaml` if the report is entirely comprised of `metric`s that have their own `yaml` configuration files. 
-  - `spec`: (required) Data table requirement for the report. Typically from `Mapped_*` or `Reporting_*` data, but occasionally from `Analytics_*` and `Reporting_*` data sources. 
+  - `spec`: (required) Data table requirement for the report. Typically from `Mapped_*` or `Reporting_*` data. 
   - `steps`: (required) Functions to produce the reporting output from `Mapped_*` and/or `Reporting_*` data to final output (`html`, `csv` or `shinyApp`).
    
 Detailed specifications for each of these sections are provided below and links to several example module configuration files are provided at the end of this vignette (TODO: Add this). 
@@ -39,28 +39,28 @@ Here are links to several sample module configuration files:
 
 ## `meta` Specification
 
-The `meta` section of workflow YAML provides key metadata describing the module. It must include the following fields: 
+The `meta` section of a workflow YAML provides key metadata describing the module. It must include the following fields: 
 
 - `Name`: Name of the reporting output.
 - `Type`: "Report", "Metric" or "App"
-- `ModuleID`/`MetricID`: The unique ID for the module. `ModuleID` is used for reports and apps, while `MetricID` is used for metrics.
+- `ID`: The unique ID for the module.
 - `Description`: A one-line description of the module specified in the workflow.
-- `Details`: A more detailed description of the module specified in the workflow.
-- `Repo`: Package repo and version. Should be compatible with the `repo` parameter in `devtools::install_github()`. 
+- `Details`: *optional* A more detailed description of the module specified in the workflow.
+- `Repo`: Package repo and version. Should be compatible with the `repo` parameter in `remotes::install_github()`. 
 - `Status`: The validation status of the reporting output. Valid values: 
     - `Qualified`: Output has been qualified via our qualification process specified [here](https://gilead-biostats.github.io/gsm/articles/QualificationWorkflow.html). 
     - `Pilot`: Output is being used by pilot studies and is maintained in a package repository.
     - `Prototype`: Output is created using custom scripts on an ad-hoc basis.
     
-Additional meta header required fields for **Modules**: 
+Additional `meta` header required fields for **Modules**: 
 
 - `Permission`: Level of permissions for viewing that match the `Users` argument in the Study Config file. Common values: `Admin`, `Users`. (TODO: move this to "gsm.template")
-- `Outputs`: The output of the workflow, including format.
-- `ExampleURL`: Location of a sample report. Typically on the pkgdown site, ending with "/{ModuleID}.html".
+- `Output`: The output of the workflow, including format. Each workflow should only produce a single reporting output.
+- `ExampleURL`: Location of a sample report. For html reports, this is typically a page on the pkgdown site (ending with "/{ModuleID}.html"), or a sample app deployed on [shinyapps.io](https://shinyapps.io).
 
 TODO: add `Category` section here, and think of standard categories for modules to sit in.
 
-Additional meta header required fields **metrics**:
+Additional `meta` header required fields for `{gsm}` **metrics**:
 
 - `GroupLevel`: The level at which the metric is calculated. Common values: `Site`, `Country`.
 - `Abbreviation`: Abbreviation of the metric.
@@ -79,7 +79,7 @@ Additional meta header required fields **metrics**:
 A simple `meta` section for a report might look like this:
 ```
   File: report_example.yaml
-  ModuleID: example_report
+  ID: example_report
   Name: An example report
   Description: A report that is an example
   ModuleType: Report
@@ -96,7 +96,7 @@ The `spec` section of the workflow YAML specifies the data requirements for the 
 
 The `spec` section of the workflow YAML is formatted as a list of data tables, with each table containing a list of columns. Finally, each column contains the following parameters:
 
-- `required`: Boolean field specifying whether of not this column is required for the workflow to run, or optional/recommended for inclusion for user experience or augmented information. This parameter is required and must be included for all columns. 
+- `required`: Boolean field specifying whether this column is required for the workflow to run, or optional/recommended for inclusion for user experience or augmented information. This parameter is required and must be included for all columns. 
 - `type`: Character field describing the data type of the column. Use a `mode` as defined by R. This parameter is optional. 
 
 ### `spec` example: Metric Module
@@ -264,3 +264,17 @@ steps:
       dfGroups: Reporting_Groups
       dfMetrics: Reporting_Metrics_Site
 ```
+
+## Directory Structure for Workflows 
+
+Each extension that produces report(s) will have a `workflow` directory in `inst` that follow a standard structure. This directory will contain 4 folders in which to store the `yaml` workflow files that map data, perform analysis, produce reporting data, and generate the output of a module. Each module output requires it's own unique `yaml` in the `4_modules` folder, which will take inputs generated from the previous three directories.
+
+TODO: insert image of workflow
+
+#### `1_mappings`
+
+#### `2_metrics`
+
+#### `3_reporting`
+
+#### `4_modules`
