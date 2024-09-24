@@ -1,6 +1,8 @@
 name: cache
 
 on:
+  push:
+    branches: [fix-1804]
   workflow_dispatch:
 
 jobs:

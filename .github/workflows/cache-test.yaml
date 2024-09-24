@@ -1,7 +1,9 @@
-on:
-  workflow_dispatch:
-
 name: testing the cache
+
+on:
+  push:
+    branches: [fix-1804]
+  workflow_dispatch:
 
 jobs:
   test_w_cache:
