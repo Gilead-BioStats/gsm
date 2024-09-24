@@ -1,0 +1,19 @@
+meta:
+  Type: Mapped
+  ID: STUDCOMP
+  Description: Study Completion Data Mapping 
+  Priority: 1
+spec: 
+  Raw_STUDCOMP:
+    subjid:
+      required: true
+      type: character
+    compyn:
+      required: true
+      type: character
+steps:
+  - output: Mapped_STUDCOMP
+    name: =
+    params:
+      lhs: Mapped_STUDCOMP
+      rhs: Raw_STUDCOMP

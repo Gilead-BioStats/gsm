@@ -1,0 +1,74 @@
+meta:
+  Type: Mapped
+  ID: SITE
+  Description: SITE Data Mapping 
+  Priority: 3
+spec:
+  Raw_SITE:
+    studyid:
+      required: true
+      type: character
+      source_col: protocol 
+    invid:
+      required: true
+      type: character
+      source_col: pi_number
+    InvestigatorFirstName:
+      required: true
+      type: character
+      source_col: pi_first_name
+    InvestigatorLastName:
+      required: true
+      type: character
+      source_col: pi_last_name
+    site_status:
+      required: true
+      type: character
+    City:
+      required: true
+      type: character
+      source_col: city
+    State:
+      required: true
+      type: character
+      source_col: state
+    Country:
+      required: true
+      type: character
+      source_col: country
+  Mapped_SUBJ:
+    studyid:
+      required: true
+      type: character
+    invid:
+      required: true
+      type: character
+    subjid:
+      required: true
+      type: character
+steps:
+  - output: Temp_CTMSSiteWide
+    name: RunQuery
+    params:
+      df: Raw_SITE
+      strQuery: "SELECT invid as GroupID, * FROM df"
+  - output: Temp_CTMSSite
+    name: MakeLongMeta
+    params:
+      data: Temp_CTMSSiteWide
+      strGroupLevel: 'Site'
+  - output: Temp_SiteCountsWide
+    name: RunQuery
+    params:
+      df: Mapped_SUBJ
+      strQuery: "SELECT invid as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid"
+  - output: Temp_SiteCounts
+    name: MakeLongMeta
+    params:
+      data: Temp_SiteCountsWide
+      strGroupLevel: "Site"
+  - output: Mapped_SITE
+    name: bind_rows
+    params:
+      Temp_CTMSSite: Temp_CTMSSite
+      Temp_SiteCounts: Temp_SiteCounts

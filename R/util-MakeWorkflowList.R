@@ -52,17 +52,14 @@ MakeWorkflowList <- function(
       # set the `path` for logging purposes
       workflow$path <- yaml_file
 
-      # each workflow step should have a name attribute
-      # extract the name for logging/debugging purposes
-      if (!utils::hasName(workflow, "name")) {
-        workflow$name <- workflow$path %>%
-          tools::file_path_sans_ext() %>%
-          basename()
-      }
+      # each workflow should have an $meta and $steps $meta$ID attributes
+      stopifnot(utils::hasName(workflow, "meta"))
+      stopifnot(utils::hasName(workflow, "steps"))
+      stopifnot(utils::hasName(workflow$meta, "ID"))
 
       return(workflow)
     }) %>%
-    stats::setNames(purrr::map_chr(., ~ .x$name))
+    stats::setNames(purrr::map_chr(., ~ .x$meta$ID))
 
   # if `strNames` is not null, subset the workflow list to only include
   # files that match the character vector (`strNames`)
@@ -75,6 +72,18 @@ MakeWorkflowList <- function(
     }
   }
 
+  # Sort the list according to the $meta$priority property
+
+  # Set priority to 0 if not defined
+  workflows <- workflows %>% map(function(wf){ 
+    if(is.null(wf$meta$Priority)){
+      wf$meta$Priority <- 0
+    }
+    return(wf)
+  })
+  workflows <- workflows[order(workflows %>% map_dbl(~.x$meta$Priority))]
+    
+  # throw a warning if no workflows are found
   if (length(workflows) == 0) {
     cli::cli_alert_warning("No workflows found.")
   }

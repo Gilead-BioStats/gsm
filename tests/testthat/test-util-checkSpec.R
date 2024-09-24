@@ -192,3 +192,29 @@ test_that("skip column check when `_all` is specified", {
   )
 })
 
+test_that("proper message appears when all data frames require `_all` columns", {
+  # example lSpec
+  lSpec <- list(
+    df1 = list(
+      `_all` = list(required = TRUE)
+    ),
+    df2 = list(
+      `_all` = list(required = TRUE)
+    ),
+    df3 = list(
+      `_all` = list(required = TRUE)
+    )
+  )
+
+  # Example data
+  lData <- list(
+    df1 = data.frame(a = 1:3, b = 4:6),
+    df2 = data.frame(x = 7:9, y = 10:12),
+    df3 = data.frame(z = 1:3, t = 20:22)
+  )
+
+  expect_message(
+    expect_message(CheckSpec(lData, lSpec), "All 3 data"),
+    " No required columns specified"
+  )
+})

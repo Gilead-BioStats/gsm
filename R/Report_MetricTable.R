@@ -20,18 +20,18 @@
 #' # site-level report
 #' Report_MetricTable(
 #'   dfResults = reportingResults %>%
-#'       dplyr::filter(.data$MetricID == 'kri0001') %>%
-#'       FilterByLatestSnapshotDate(),
+#'     dplyr::filter(.data$MetricID == "kri0001") %>%
+#'     FilterByLatestSnapshotDate(),
 #'   dfGroups = reportingGroups
 #' )
 #'
 #' @export
 Report_MetricTable <- function(
-  dfResults,
-  dfGroups,
-  strGroupLevel = c("Site", "Country", "Study"),
-  strGroupDetailsParams = NULL,
-  vFlags = c(-2, -1, 1, 2)
+    dfResults,
+    dfGroups = NULL,
+    strGroupLevel = c("Site", "Country", "Study"),
+    strGroupDetailsParams = NULL,
+    vFlags = c(-2, -1, 1, 2)
 ) {
   MetricTable <- MakeMetricTable(
     dfResults, dfGroups, strGroupLevel, strGroupDetailsParams, vFlags

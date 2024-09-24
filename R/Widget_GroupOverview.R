@@ -56,7 +56,7 @@ Widget_GroupOverview <- function(
     "dfMetrics is not a data.frame" = is.data.frame(dfMetrics),
     "dfGroups is not a data.frame" = is.data.frame(dfGroups),
     "strGroupSubset is not a character" = is.character(strGroupSubset),
-    "strGroupLabelKey is not a character" = is.character(strGroupLabelKey),
+    "strGroupLabelKey is not a character or NULL" = is.character(strGroupLabelKey) || is.null(strGroupLabelKey),
     "bDebug is not a logical" = is.logical(bDebug)
   )
 

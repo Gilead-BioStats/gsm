@@ -15,25 +15,30 @@
 #' # site-level report
 #' MakeMetricTable(
 #'   dfResults = reportingResults %>%
-#'       dplyr::filter(.data$MetricID == 'kri0001') %>%
-#'       FilterByLatestSnapshotDate(),
+#'     dplyr::filter(.data$MetricID == "kri0001") %>%
+#'     FilterByLatestSnapshotDate(),
 #'   dfGroups = reportingGroups
 #' )
 #'
 #' @export
 MakeMetricTable <- function(
-    dfResults,
-    dfGroups,
-    strGroupLevel = c("Site", "Country", "Study"),
-    strGroupDetailsParams = NULL,
-    vFlags = c(-2, -1, 1, 2)
+  dfResults,
+  dfGroups = NULL,
+  strGroupLevel = c("Site", "Country", "Study"),
+  strGroupDetailsParams = NULL,
+  vFlags = c(-2, -1, 1, 2)
 ) {
+  # Check for if dfGroups was provided and process group metadata if available
+  if(!is.null(dfGroups)) {
+    dfResults <- dfResults %>%
+      add_Groups_metadata(
+        dfGroups,
+        strGroupLevel,
+        strGroupDetailsParams
+      )
+  }
+
   dfResults <- dfResults %>%
-    add_Groups_metadata(
-      dfGroups,
-      strGroupLevel,
-      strGroupDetailsParams
-    ) %>%
     dplyr::filter(
       .data$Flag %in% vFlags
     )
@@ -41,7 +46,7 @@ MakeMetricTable <- function(
   if (!nrow(dfResults)) {
     return(
       data.frame(
-        Group = character(),  Enrolled = character(), Numerator = double(),
+        Group = character(), Enrolled = character(), Numerator = double(),
         Denominator = double(), Metric = double(), Score = double(),
         Flag = character()
       )
@@ -61,7 +66,7 @@ MakeMetricTable <- function(
     stop("Expecting `dfResults` to be filtered to one unique MetricID, but many detected.")
   }
 
-  if (rlang::arg_match(strGroupLevel) == "Site") {
+  if (rlang::arg_match(strGroupLevel) == "Site" & !is.null(dfGroups)) {
     dfResults$Group <- glue::glue("{dfResults$GroupID} ({dfResults$InvestigatorLastName})")
   } else {
     dfResults$Group <- dfResults$GroupID

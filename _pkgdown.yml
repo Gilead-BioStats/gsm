@@ -83,6 +83,7 @@ reference:
      -  CombineSpecs
      -  FilterByLatestSnapshotDate
      -  FilterByFlags
+     -  Ingest
      -  MakeBounds
      -  MakeCharts
      -  MakeMetric
@@ -90,6 +91,7 @@ reference:
      -  MakeLongMeta
      -  MakeParamLabels
      -  MakeParamLabelsList
+     -  MakeStudyInfo
      -  MakeWideGroups
      -  MakeWorkflowList
      -  ParseThreshold
