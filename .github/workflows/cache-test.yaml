@@ -6,7 +6,7 @@ on:
 name: testing the cache
 
 jobs:
-  pkgdown-main:
+  cache-test:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -36,13 +36,13 @@ jobs:
         with:
           extra-packages: local::.
 
-      - name: Generate sample reports
+      - name: test small snippet of local pacakge code
         shell: Rscript {0}
         run: |
           lCharts <- gsm::MakeCharts(
             dfResults = gsm::reportingResults,
             dfGroups = gsm::reportingGroups,
-            dfMetrics = gsm::reportinMetrics,
+            dfMetrics = gsm::reportingMetrics,
             dfBounds = gsm::reportingBounds
           )
           cat(names(lCharts))
