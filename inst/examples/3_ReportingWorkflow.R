@@ -71,7 +71,7 @@ lCharts <- MakeCharts(
 
 kri_report_path <- Report_KRI(
   lCharts = lCharts,
-  dfResults =  gsm::reportingResults,
+  dfResults =  FilterByLatestSnapshotDate(reportingResults),
   dfGroups =  gsm::reportingGroups,
   dfMetrics = gsm::reportingMetrics
 )

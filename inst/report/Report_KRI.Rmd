@@ -81,18 +81,25 @@ GroupOverViz <- Widget_GroupOverview(
   strGroupLevel = setup$GroupLevel,
   strGroupLabelKey = GroupLabelKey
 )
+overview_viz <- list(groupOverviewJS = GroupOverViz)
 
-# Remove sites whose metrics have no flags at all timepoints
-dfResults_flags <- FilterByFlags(params$dfResults)
 
-FlagOverViz <- Widget_FlagOverTime(
-  dfResults = dfResults_flags,
-  dfMetrics = params$dfMetrics,
-  strGroupLevel = setup$GroupLevel,
-  strFootnote = "*Only sites with at least one flag are shown."
-)
+# Add FlagOverTime Table if data has more than one snapshot
 
-overview_viz <- list(groupOverviewJS = GroupOverViz, flagOverTimeJS = FlagOverViz)
+if(length(unique((params$dfResults)$SnapshotDate)) > 1){
+  # Remove sites/countries whose metrics have no flags at all timepoints
+  dfResults_flags <- FilterByFlags(params$dfResults)
+  
+  FlagOverViz <- Widget_FlagOverTime(
+    dfResults = dfResults_flags,
+    dfMetrics = params$dfMetrics,
+    strGroupLevel = setup$GroupLevel,
+    strFootnote = "*Only sites with at least one flag are shown."
+  )
+  
+  overview_viz$flagOverTimeJS <- FlagOverViz
+}
+
 
 Report_MetricCharts(overview_viz, overview = TRUE)
 ```
