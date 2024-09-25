@@ -7,8 +7,7 @@ steps:
   - output: lWorkflows
     name: MakeWorkflowList
     params:
-      strPath: 'AA-AA-000-0000/workflows/2_metrics'
-      strPackage: null
+      strPackage: gsm
   - output: Reporting_Metrics
     name: MakeMetric
     params:
