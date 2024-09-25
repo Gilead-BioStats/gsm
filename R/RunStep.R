@@ -22,9 +22,9 @@
 #' 2. If a single parameter value is equal to "lData", the full lData object is passed to the function.
 #' 3. If a single parameter value is equal to "lSpec", the full lSpec object is passed to the function.
 #' 4. If a single parameter value is found in names(lMeta), that property is pulled from lMeta (e.g.
-#' lMeta$\{paramVal\}) and passed to the function.
+#' lMeta${paramVal}) and passed to the function.
 #' 5. If a single parameter value is found in names(lData), that property is pulled from lData (e.g.
-#' lData$\{paramVal\}) and passed to the function.
+#' lData${paramVal}) and passed to the function.
 #' 6. Otherwise single parameter value is passed to the function as a string.
 #' 7. If the parameter value is a vector, the vector is passed to the function as a vector or strings.
 #'
@@ -35,7 +35,7 @@
 #' @param lMeta `list` a named list of meta data.
 #'
 #' @examples
-#' wf_mapping <- MakeWorkflowList(strPath = "workflow/1_mappings")
+#' wf_mapping <- MakeWorkflowList(strPath = "/inst/workflow/1_mappings")
 #' lStep <- MakeWorkflowList("kri0001")[["kri0001"]][["steps"]][[1]]
 #' lMeta <- MakeWorkflowList("kri0001")[["kri0001"]][["meta"]]
 #' lData <- list(
@@ -54,7 +54,7 @@
 #'
 #' @export
 
-RunStep <- function(lStep, lData, lMeta, lSpec = NULL) {
+RunStep <- function(lStep, lData, lMeta, lSpec = NULL, lConfig = NULL) {
   # prepare parameter list inputs
   params <- lStep$params
 

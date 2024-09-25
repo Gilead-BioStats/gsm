@@ -56,9 +56,13 @@ RunWorkflow <- function(
   }
 
   # If no data is provided, attempt to load data from lConfig
-  if (is.null(lData) && !is.null(lConfig)) {
-    cli::cli_alert("No data provided. Attempting to load data from `lConfig`.")
-    lData <- LoadData(lWorkflow, lConfig)
+  if (!is.null(lConfig)) {
+    cli::cli_alert("Attempting to load data with `lConfig`.")
+    lData <- LoadData(
+      lWorkflow,
+      lConfig
+    )
+    browser()
   }
 
   lWorkflow$lData <- lData
@@ -66,6 +70,7 @@ RunWorkflow <- function(
   # If the workflow has a spec, check that the data and spec are compatible
   if ("spec" %in% names(lWorkflow)) {
     cli::cli_h3("Checking data against spec")
+    # TODO: verify domain names in [ lData ] exist in [ lWorkflow$spec ]
     CheckSpec(lData, lWorkflow$spec)
   } else {
     lWorkflow$spec <- NULL
@@ -90,6 +95,14 @@ RunWorkflow <- function(
 
     lWorkflow$lData[[step$output]] <- result
     lWorkflow$lResult <- result
+
+    if (!is.null(step$save) && step$save) {
+      SaveData(
+        lWorkflow,
+        lConfig,
+        step$output
+      )
+    }
     
     if (is.data.frame(result)) {
       cli::cli_h3("{paste(dim(result),collapse='x')} data.frame saved as `lData${step$output}`.")
@@ -102,7 +115,10 @@ RunWorkflow <- function(
 
   # Save data.
   if (!is.null(lConfig)) {
-    SaveData(lWorkflow$lResult, lConfig)
+    SaveData(
+      lWorkflow,
+      lConfig
+    )
   }
 
   # Return the result of the last step (the default) or the full workflow

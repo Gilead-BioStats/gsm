@@ -91,9 +91,7 @@ CheckSpec <- function(lData, lSpec) {
   }
   if (length(missingCols) > 0) {
     cli::cli_alert_danger("Not all required columns in the spec are present in the data, missing columns are: {missingCols}")
-  } else if (length(lSpecDataFrames) > 0) {
-    cli::cli_alert("All {length(allCols)} required column{?s} in the spec are present in the data: {allCols}")
   } else {
-    cli::cli_alert("No required columns specified in the spec. All data.frames are pulling in all available columns.")
+    cli::cli_alert("All {length(allCols)} required columns in the spec are present in the data: {allCols}")
   }
 }
