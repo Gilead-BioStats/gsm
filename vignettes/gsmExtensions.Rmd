@@ -47,7 +47,7 @@ The `meta` section of a workflow YAML provides key metadata describing the modul
 - `Type`: "Report", "Metric" or "App"
 - `ID`: The unique ID for the module.
 - `Description`: A one-line description of the module specified in the workflow.
-- `Priority`: A number specifying the priority of the workflow within the directory, with lower numbers having higher priority, and running first. This is used when workflows within the same directory require outputs from other workflows, and thus need to be run in a particular order.
+- `Priority`: *optional* A number specifying the priority of the workflow within the directory, with lower numbers having higher priority, and running first. This is used when workflows within the same directory require outputs from other workflows, and thus need to be run in a particular order. If missing, will be set to 0 to run first.
 - `Details`: *optional* A more detailed description of the module specified in the workflow.
 - `Repo`: Package repo and version. Should be compatible with the `repo` parameter in `remotes::install_github()`. 
 - `Status`: The validation status of the reporting output. Valid values: 
@@ -177,11 +177,13 @@ Finally, each module YAML config should have a `steps` property that describes i
 - `output`: The name of the output of the function. This is the name of the data table that is created by the function.
 - `params`: A list of parameters that are passed to the function. The parameters are specific to the function that is being run. See below for more details on how to specify parameters for each function.
 
+**Note**: It is important to note that the default behavior of the `RunWorkflow()` and `RunWorkflows()` functions is to return the *last* output in the steps section of the workflow. therefore, each `yaml` file- regardless of which directory it is in- should only produce one output, whether that be a data table, list, html output, deployed shiny app, or any other object needed to produce the module output.
+
 The `steps` is the most complex part of the module configuration and will vary greatly depending on the module type and the specific requirements of the module. `gsm` provides several functions that allow for module yaml files to be run in a standard way. See `?gsm::RunWorkflow()` for more details.
 
 ### `steps[]$params` Specification
 
-After processing the YAML `meta` and `spec` sections, `gsm::RunWorkflow()` calls `gsm::RunStep()` for each step in the `steps` section of the YAML. The `params` section of each step is passed to `run_step()` as a list of parameters along with a copy of the metadata header (`lMeta`) and any data (`lData`). `RunStep()` then parses the list of `params` using the logic described below and passes the parsed parameters to the function specified in the `name` field of the step.
+After processing the YAML `meta` and `spec` sections, `gsm::RunWorkflow()` calls `gsm::RunStep()` for each step in the `steps` section of the YAML. The `params` section of each step is passed to `RunStep()` as a list of parameters along with a copy of the metadata header (`lMeta`) and any data (`lData`). `RunStep()` then parses the list of `params` using the logic described below and passes the parsed parameters to the function specified in the `name` field of the step.
 
 To parse the `params` list, each item is split in to `paramName` and `paramVal`. For example, `lData: Mapped_AE` is parsed to `paramName = 'lData'` and `paramVal = 'Mapped_AE'` and the following rules are applied in order: 
 
@@ -196,7 +198,7 @@ To parse the `params` list, each item is split in to `paramName` and `paramVal`.
 
 #### `Metric` steps example
 
-In the example below, the steps to produce the AE analysis output is specified. Here, `Threshold`, `GroupLevel`, `Type` and `nMinDenominator` are specified in the `meta` section of the workflow, and would be access via tha `paramVal` process discussed above.
+In the example below, the steps to produce the AE analysis output is specified. Here, `Threshold`, `GroupLevel`, `Type` and `nMinDenominator` are specified in the `meta` section of the workflow, and would be access via the `paramVal` process discussed above. As a default, the output of these steps as run with `RunWorkflows()` would be a list of data tables, as specified in the final `list` step of the workflow.
 
 ```
 steps:
@@ -207,9 +209,9 @@ steps:
   - name: Input_Rate
     output: Analysis_Input
     params:
-      dfSubjects: Mapped_ENROLL
+      dfSubjects: Mapped_SUBJ
       dfNumerator: Mapped_AE
-      dfDenominator: Mapped_ENROLL
+      dfDenominator: Mapped_SUBJ
       strSubjectCol: subjid
       strGroupCol: invid
       strGroupLevel: GroupLevel
@@ -224,7 +226,7 @@ steps:
     output: Analysis_Analyzed
     params:
       dfTransformed: Analysis_Transformed
-      strType: Type
+      strType: AnalysisType
   - name: Flag_NormalApprox
     output: Analysis_Flagged
     params:
@@ -235,6 +237,15 @@ steps:
     params:
       dfFlagged: Analysis_Flagged
       nMinDenominator: nMinDenominator
+  - name: list
+    output: kri0001
+    params:
+      id: ID
+      input: Analysis_Input
+      transformed: Analysis_Transformed
+      analyzed: Analysis_Analyzed
+      flagged: Analysis_Flagged
+      summary: Analysis_Summary
 ```
 
 #### `Report` steps example
@@ -272,8 +283,6 @@ steps:
 # Directory Structure for Workflows 
 
 Each extension that produces report(s) will have a `workflow` directory in `inst` that follows a standard structure. This directory will contain 4 folders in which to store the `yaml` workflow files that map data, perform analysis, produce reporting data, and generate the output of a module. Each module output requires it's own unique `yaml` in the `4_modules` folder, which will take inputs generated from the previous three directories.
-
-**Note**: It is important to note that the default behavior of the `RunWorkflow()` and `RunWorkflows()` functions is to return the *last* output in the steps section of the workflow. therefore, each `yaml` file- regardless of which directory it is in- should only produce one output, whether that be a data table, list, html output, deployed shiny app, or any other object needed to produce the module output.
 
 
 TODO: insert image of workflow
