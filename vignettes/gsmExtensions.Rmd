@@ -273,11 +273,14 @@ steps:
 
 Each extension that produces report(s) will have a `workflow` directory in `inst` that follows a standard structure. This directory will contain 4 folders in which to store the `yaml` workflow files that map data, perform analysis, produce reporting data, and generate the output of a module. Each module output requires it's own unique `yaml` in the `4_modules` folder, which will take inputs generated from the previous three directories.
 
+**Note**: It is important to note that the default behavior of the `RunWorkflow()` and `RunWorkflows()` functions is to return the *last* output in the steps section of the workflow. therefore, each `yaml` file- regardless of which directory it is in- should only produce one output, whether that be a data table, list, html output, deployed shiny app, or any other object needed to produce the module output.
+
+
 TODO: insert image of workflow
 
-### `1_mappings`
+### `/1_mappings`
 
-This folder contains all of the mappings from `Raw_*` data to `Mapped_*` data. Each file within this directory is to be named for the data table it is creating, minus the `Mapped_` suffix. The `yaml`s will contain the three required sections, which are discussed in detail in the `Module Configuration` section above. 
+The mappings folder contains all of the mappings from `Raw_*` data to `Mapped_*` data. Each file within this directory is to be named for the data table it is creating, minus the `Mapped_` suffix. The `yaml`s will contain the three required sections, which are discussed in detail in the `Module Configuration` section above. The `yaml`s in this folder will be combined via `CombineSpecs()` to create a master spec that defines all necessary tables and columns for the module(s) in this package.
 
 Below are two examples of these mapping `yaml` files- the first which requires no transformations, and is very simple, and the second which requires multiple steps to produce the desired mapped data. 
 
@@ -304,7 +307,7 @@ steps:
       lhs: Mapped_AE
       rhs: Raw_AE
 ```
-#### Mapped_AE mapping `yaml` file
+#### Mapped_DATACHG mapping `yaml` file
 ```
 meta:
   Type: Mapped
@@ -343,12 +346,16 @@ steps:
       by: subject_nsv
 ```
 
-### `2_metrics`
+### `/2_metrics`
 
-### `3_reporting`
+The metrics directory contains all of the workflows that perform analysis steps, converting mapped data into metrics that are displayed in a report. In the case of `{gsm}`, these metrics are the 12 Key Risk Indicators, calculated at both the site- and country-level, that are discussed in the Data Analysis Step-by-Step Vignette. Each `yaml` in this file produces a list of analysis data tables that capture the formatted input table, the transformed table, the flagged table, and the summary table. In general, these `yaml`s should at least provide a summary table that contains statistics about the metric at the specified level of aggregation.
 
-### `4_modules`
+Examples of these yamls can be found above in the `Module Configuration` section, as well as in the Data Analysis Vignette.
 
-It is important to note, that the default behavior of the `RunWorkflow()` and `RunWorkflows()` functions is to return the *last* output in the steps section of the workflow. therefore, each `yaml` file- regardless of which directory it is in- should only produce one output, whether that be a data table, list, html output, deployed shiny app, or any other object needed to produce the module output.
+### `/3_reporting`
+
+Examples of these yamls can be found above in the `Module Configuration` section, as well as in the Data Reporting Vignette.
+
+### `/4_modules`
 
 
