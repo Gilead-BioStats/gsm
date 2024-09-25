@@ -38,8 +38,11 @@ lData_missing_values <- map(lData, function(df) {
 
 yaml_path_custom <- system.file("tests", "testqualification", "qualification", "qual_workflows", package = "gsm")
 
-mapping_workflow <- flatten(MakeWorkflowList("mapping"))
-mapping_output <- map_vec(mapping_workflow$steps, ~ .x$output)
+map_names = c("AE", "COUNTRY", "DATACHG", "DATAENT", "ENROLL", "LB", "PD", "QUERY", "SDRGCOMP", "SITE", "STUDCOMP", "STUDY",
+              "SUBJ")
+
+mapping_workflow <- flatten(MakeWorkflowList(map_names))
+mapping_output <- map_vec(flatten(mapping_workflow_dev[which(names(mapping_workflow_dev) == "steps")]), ~ .x$output)
 mapping_input <- map_vec(mapping_workflow$steps, ~ .x$params$df)
 
 ## helper functions ---------------------------------------------
