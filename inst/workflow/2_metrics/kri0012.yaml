@@ -1,5 +1,5 @@
 meta:
-  Type: Metric
+  Type: Analysis
   ID: kri0012
   GroupLevel: Site
   Abbreviation: SF
@@ -34,6 +34,7 @@ steps:
       strQuery: "SELECT * FROM df WHERE enrollyn = 'N'"
   - name: Input_Rate
     output: Analysis_Input
+    save: true
     params:
       dfSubjects: Mapped_ENROLL
       dfNumerator: Temp_SCREENED
@@ -59,16 +60,8 @@ steps:
       vThreshold: vThreshold
   - name: Summarize
     output: Analysis_Summary
+    save: true
     params:
       dfFlagged: Analysis_Flagged
       nMinDenominator: nMinDenominator
-  - name: list
-    output: kri0012
-    params:
-      id: ID
-      input: Analysis_Input
-      transformed: Analysis_Transformed
-      analyzed: Analysis_Analyzed
-      flagged: Analysis_Flagged
-      summary: Analysis_Summary
 

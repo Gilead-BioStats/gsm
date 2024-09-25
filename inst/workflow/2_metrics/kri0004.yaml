@@ -1,5 +1,5 @@
 meta:
-  Type: Metric
+  Type: Analysis
   ID: kri0004
   GroupLevel: Site
   Abbreviation: PD
@@ -41,6 +41,7 @@ steps:
       strQuery: "SELECT * FROM df WHERE deemedimportant = 'Yes'"
   - name: Input_Rate
     output: Analysis_Input
+    save: true
     params:
       dfSubjects: Mapped_SUBJ
       dfNumerator: Temp_IMPORTANT
@@ -67,16 +68,8 @@ steps:
       vThreshold: vThreshold
   - name: Summarize
     output: Analysis_Summary
+    save: true
     params:
       dfFlagged: Analysis_Flagged
       nMinDenominator: nMinDenominator
-  - name: list
-    output: kri0004
-    params:
-      id: ID
-      input: Analysis_Input
-      transformed: Analysis_Transformed
-      analyzed: Analysis_Analyzed
-      flagged: Analysis_Flagged
-      summary: Analysis_Summary
 

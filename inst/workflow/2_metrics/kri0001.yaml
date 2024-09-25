@@ -1,7 +1,6 @@
 meta:
-  Type: Metric
+  Type: Analysis
   ID: kri0001
-  File: kri0001.yaml
   GroupLevel: Site
   Abbreviation: AE
   Metric: Adverse Event Rate
@@ -34,6 +33,7 @@ steps:
       strThreshold: Threshold
   - name: Input_Rate
     output: Analysis_Input
+    save: true
     params:
       dfSubjects: Mapped_SUBJ
       dfNumerator: Mapped_AE
@@ -60,16 +60,8 @@ steps:
       vThreshold: vThreshold
   - name: Summarize
     output: Analysis_Summary
+    save: true
     params:
       dfFlagged: Analysis_Flagged
       nMinDenominator: nMinDenominator
-  - name: list
-    output: kri0001
-    params:
-      id: ID
-      input: Analysis_Input
-      transformed: Analysis_Transformed
-      analyzed: Analysis_Analyzed
-      flagged: Analysis_Flagged
-      summary: Analysis_Summary
 

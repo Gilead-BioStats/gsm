@@ -8,6 +8,16 @@ spec:
   Reporting_Results:
     _all:
       required: true
+    Numerator:
+      type: numeric
+    Denominator:
+      type: numeric
+    Metric:
+      type: numeric
+    Score:
+      type: numeric
+    Flag:
+      type: numeric
   Reporting_Metrics:
     _all:
       required: true
@@ -17,6 +27,16 @@ spec:
   Reporting_Bounds:
     _all:
       required: true
+    Threshold:
+      type: numeric
+    Numerator:
+      type: numeric
+    Denominator:
+      type: numeric
+    LogDenominator:
+      type: numeric
+    Metric:
+      type: numeric
 steps:
   - name: RunQuery
     output: Reporting_Results_Site

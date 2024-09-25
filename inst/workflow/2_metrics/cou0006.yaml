@@ -1,5 +1,5 @@
 meta:
-  Type: Metric
+  Type: Analysis
   ID: cou0006
   GroupLevel: Country
   Abbreviation: SDSC
@@ -38,6 +38,7 @@ steps:
       strQuery: "SELECT * FROM df WHERE compyn = 'N'"
   - name: Input_Rate
     output: Analysis_Input
+    save: true
     params:
       dfSubjects: Mapped_SUBJ
       dfNumerator: Temp_DROPOUT
@@ -63,16 +64,8 @@ steps:
       vThreshold: vThreshold
   - name: Summarize
     output: Analysis_Summary
+    save: true
     params:
       dfFlagged: Analysis_Flagged
       nMinDenominator: nMinDenominator
-  - name: list
-    output: cou0006
-    params:
-      id: ID
-      input: Analysis_Input
-      transformed: Analysis_Transformed
-      analyzed: Analysis_Analyzed
-      flagged: Analysis_Flagged
-      summary: Analysis_Summary
 

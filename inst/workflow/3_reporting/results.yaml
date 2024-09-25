@@ -7,6 +7,9 @@ spec:
   Mapped_STUDY:
     GroupID:
       required: true
+  Analysis_Summary:
+    _all:
+      required: true
 steps:
   # Capture study ID from the GroupID column in the study metadata.
   - output: GroupID
@@ -19,9 +22,15 @@ steps:
     params:
       x: GroupID
   # Stack all analysis results data into a single data frame.
-  - output: Results_Summary
-    name: BindResults
+  #- output: Results_Summary
+  #  name: BindResults
+  #  params:
+  #    lAnalysis: lAnalyzed
+  #    strName: "summary"
+  #    strStudyID: strStudyID
+  - output: Reporting_Results
+    name: =
     params:
-      lAnalysis: lAnalyzed
-      strName: "summary"
-      strStudyID: strStudyID
+      lhs: Reporting_Results
+      rhs: Analysis_Summary
+

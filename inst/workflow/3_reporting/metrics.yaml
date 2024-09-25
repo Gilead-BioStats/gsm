@@ -4,7 +4,13 @@ meta:
   Description: Reporting Metrics Data 
   Priority: 1
 steps:
+  - output: lWorkflows
+    name: MakeWorkflowList
+    params:
+      strPath: 'AA-AA-000-0000/workflows/2_metrics'
+      strPackage: null
   - output: Reporting_Metrics
     name: MakeMetric
     params:
       lWorkflows: lWorkflows
+

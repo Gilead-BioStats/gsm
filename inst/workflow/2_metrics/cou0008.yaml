@@ -1,5 +1,5 @@
 meta:
-  Type: Metric
+  Type: Analysis
   ID: cou0008
   GroupLevel: Country
   Abbreviation: QRY
@@ -42,6 +42,7 @@ steps:
       strQuery: "SELECT * FROM df WHERE querystatus IN ('Open','Answered','Closed')"
   - name: Input_Rate
     output: Analysis_Input
+    save: true
     params:
       dfSubjects: Mapped_SUBJ
       dfNumerator: Temp_QUERY
@@ -67,17 +68,8 @@ steps:
       vThreshold: vThreshold
   - name: Summarize
     output: Analysis_Summary
+    save: true
     params:
       dfFlagged: Analysis_Flagged
       nMinDenominator: nMinDenominator
-  - name: list
-    output: cou0008
-    params:
-      id: ID
-      input: Analysis_Input
-      transformed: Analysis_Transformed
-      analyzed: Analysis_Analyzed
-      flagged: Analysis_Flagged
-      summary: Analysis_Summary
-
 
