@@ -5,7 +5,7 @@ set.seed(123)
 lData <- gsm::UseClindata(
   list(
     "dfSUBJ" = "clindata::rawplus_dm",
-    "dfAE" = "clindata::rawplus_ae",
+    "RAW_AE" = "clindata::rawplus_ae",
     "dfPD" = "clindata::ctms_protdev",
     "dfCONSENT" = "clindata::rawplus_consent",
     "dfIE" = "clindata::rawplus_ie",
@@ -41,9 +41,9 @@ yaml_path_custom <- system.file("tests", "testqualification", "qualification", "
 map_names = c("AE", "COUNTRY", "DATACHG", "DATAENT", "ENROLL", "LB", "PD", "QUERY", "SDRGCOMP", "SITE", "STUDCOMP", "STUDY",
               "SUBJ")
 
-mapping_workflow <- flatten(MakeWorkflowList(map_names))
-mapping_output <- map_vec(flatten(mapping_workflow_dev[which(names(mapping_workflow_dev) == "steps")]), ~ .x$output)
-mapping_input <- map_vec(mapping_workflow$steps, ~ .x$params$df)
+mapping_workflow <- MakeWorkflowList(map_names)
+mapping_output <- map_vec(mapping_workflow, ~ .x$steps[[1]]$output)
+mapping_input <- map(mapping_workflow, ~ .x$steps[[1]]$params)
 
 ## helper functions ---------------------------------------------
 # verify all columns specified in mapping yaml are present in lData data.frames
