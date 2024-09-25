@@ -1,7 +1,8 @@
 const clickCallback = function(el, input) {
     return function(d) {
         // Get chart instance, attached to canvas element.
-        const instance = el.querySelector('canvas').chart;
+        const canvas = el.querySelector('canvas');
+        const instance = canvas.chart;
 
         instance.data.config.selectedGroupIDs = instance.data.config.selectedGroupIDs.includes(d.GroupID)
             ? 'None'
@@ -43,5 +44,8 @@ const clickCallback = function(el, input) {
                 )
             }
         }
+
+        // Trigger `riskSignalSelected` event.
+        canvas.dispatchEvent(canvas.riskSignalSelected);
     };
 };

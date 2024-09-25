@@ -43,6 +43,10 @@ function overallClick() {
         });
     }
   }
+
+    // Trigger `riskSignalSelected` event.
+    // TODO: attach group data to `riskSignalSelected` event before dispatch
+    //canvas.dispatchEvent(canvas.riskSignalSelected);
 }
 
 /**
