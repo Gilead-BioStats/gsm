@@ -10,7 +10,7 @@ spec:
     Numerator:
       type: numeric
     Denominator:
-      type: nmeric
+      type: numeric
     Metric:
       type: numeric
     Score:
