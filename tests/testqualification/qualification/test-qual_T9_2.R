@@ -2,7 +2,7 @@
 source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
 
 kri_workflows <- MakeWorkflowList(c("kri0005", "cou0005"))
-kri_custom <- MakeWorkflowList(c("kri0005", "cou0005"))
+kri_custom <- MakeWorkflowList(c("kri0005", "cou0005")) # is this meant to have _custom in the testqual folder?
 
 mapped_data <- get_data(kri_workflows, lData)
 

@@ -1,3 +1,6 @@
+# This test no longer applies right because of `CheckSpec()` ? RunWorkflow has it such that `lData` must contain all data.frames in `lSpec`.
+
+
 ## Test Setup
 source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
 
