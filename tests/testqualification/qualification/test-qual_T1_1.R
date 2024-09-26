@@ -1,3 +1,6 @@
+# This test has fundamentally changed, should it be reworked to check each/a couple domains?
+
+
 test_that("lData is correctly mapped for processing using `mapping.yaml` in conjunction with `MakeWorkflowList()` and `RunWorkflow`", {
   source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
 
@@ -83,3 +86,4 @@ test_that("lData is correctly mapped for processing using `mapping.yaml` in conj
     }))
   )
 })
+
