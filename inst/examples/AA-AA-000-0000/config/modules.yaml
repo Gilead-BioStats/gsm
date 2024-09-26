@@ -1,0 +1,19 @@
+- id: report_kri_site
+  repo: Gilead-BioStats/gsm
+  path: inst/workflow/reports/report_kri_site.yaml
+  version: dev # 2.0.0
+  package: gsm
+  file: workflow/reports/report_kri_site.yaml
+    #- id: report_kri_country
+    #  repo: Gilead-BioStats/gsm
+    #  path: inst/workflow/reports/report_kri_country.yaml
+    #  version: 2.0.0
+    #- id: risk_signal_snapshot
+    #  repo: Gilead-BioStats/grail
+    #  path: inst/workflows/risk_signal_snapshot.yaml
+    #  version: 1.0.0
+    #- id: deep_dive_app
+    #  repo: Gilead-BioStats/gsm.app
+    #  path: inst/workflows/deep_dive_app.yaml
+    #  version: 1.0.0
+

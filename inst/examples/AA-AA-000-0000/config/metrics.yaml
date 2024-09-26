@@ -1,0 +1,73 @@
+- id: kri0001
+  repo: Gilead-BioStats/gsm
+  path: inst/workflow/metrics/kri0001.yaml
+  version: dev # 2.0.0
+  package: gsm
+  file: workflow/metrics/kri0001.yaml
+- id: kri0002
+  repo: Gilead-BioStats/gsm
+  path: inst/workflow/metrics/kri0002.yaml
+  version: dev # 2.0.0
+  package: gsm
+  file: workflow/metrics/kri0002.yaml
+- id: kri0003
+  repo: Gilead-BioStats/gsm
+  path: inst/workflow/metrics/kri0003.yaml
+  version: dev # 2.0.0
+  package: gsm
+  file: workflow/metrics/kri0003.yaml
+- id: kri0004
+  repo: Gilead-BioStats/gsm
+  path: inst/workflow/metrics/kri0004.yaml
+  version: dev # 2.0.0
+  package: gsm
+  file: workflow/metrics/kri0004.yaml
+    #- id: kri0005
+    #  repo: Gilead-BioStats/gsm
+    #  path: inst/workflow/metrics/kri0005.yaml
+    #  version: dev # 2.0.0
+    #  package: gsm
+    #  file: workflow/metrics/kri0005.yaml
+    #- id: kri0006
+    #  repo: Gilead-BioStats/gsm
+    #  path: inst/workflow/metrics/kri0006.yaml
+    #  version: dev # 2.0.0
+    #  package: gsm
+    #  file: workflow/metrics/kri0006.yaml 
+    #- id: kri0007
+    #  repo: Gilead-BioStats/gsm
+    #  path: inst/workflow/metrics/kri0007.yaml
+    #  version: dev # 2.0.0
+    #  package: gsm
+    #  file: workflow/metrics/kri0007.yaml
+    #- id: kri0008
+    #  repo: Gilead-BioStats/gsm
+    #  path: inst/workflow/metrics/kri0008.yaml
+    #  version: dev # 2.0.0
+    #  package: gsm
+    #  file: workflow/metrics/kri0008.yaml
+    #- id: kri0009
+    #  repo: Gilead-BioStats/gsm
+    #  path: inst/workflow/metrics/kri0009.yaml
+    #  version: dev # 2.0.0
+    #  package: gsm
+    #  file: workflow/metrics/kri0009.yaml
+    #- id: kri0010
+    #  repo: Gilead-BioStats/gsm
+    #  path: inst/workflow/metrics/kri0010.yaml
+    #  version: dev # 2.0.0
+    #  package: gsm
+    #  file: workflow/metrics/kri0010.yaml
+    #- id: kri0011
+    #  repo: Gilead-BioStats/gsm
+    #  path: inst/workflow/metrics/kri0011.yaml
+    #  version: dev # 2.0.0
+    #  package: gsm
+    #  file: workflow/metrics/kri0011.yaml
+    #- id: kri0012
+    #  repo: Gilead-BioStats/gsm
+    #  path: inst/workflow/metrics/kri0012.yaml
+    #  version: dev # 2.0.0
+    #  package: gsm
+    #  file: workflow/metrics/kri0012.yaml
+
