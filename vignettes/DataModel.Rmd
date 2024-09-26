@@ -73,10 +73,10 @@ More details about analysis data pipelines can be found in `vignette("DataAnalys
 
 A rigid Reporting Data framework is provided in {gsm} to allow for standardized reporting, visualization and meta-analysis that compare risk profiles across timepoints, and even across multiple studies.  The Reporting Data sets used in {gsm} are: 
 
-1. `dfResults`: Summary data; Standardized subset of the flagged data. This summary data has the same structure for all assessments and always includes both KRI and Flag values so that a user can easily look at trends for any given site across multiple assessments. Created using the `Summarize()` function in the analytics pipeline, followed by the `BindResults()` function to add columns necessary for reporting and stack metrics and snapshots into a single data.frame.
-3. `dfBounds`: Bounded data; A data.frame containing predicted boundary values with upper and lower bounds across the range of observed values. Created with the `MakeBounds()` function.
-4. `dfGroups`: Grouped data; Long data.frame of summarized group CTMS data with site, study, and country level counts and metrics. Constructed by binding data.frames created with `MakeLongMeta()`.
-5. `dfMetrics`: Metric metadata; Metric-specific metadata for use in charts and reporting. Created by passing an `lWorkflow` object to the `MakeMetric()` function.
+1. `Reporting_Results`: Summary data; Standardized subset of the flagged data. This summary data has the same structure for all assessments and always includes both KRI and Flag values so that a user can easily look at trends for any given site across multiple assessments. Created using the `Summarize()` function in the analytics pipeline, followed by the `BindResults()` function to add columns necessary for reporting and stack metrics and snapshots into a single data.frame.
+3. `Reporting_Bounds`: Bounded data; A data.frame containing predicted boundary values with upper and lower bounds across the range of observed values. Created with the `MakeBounds()` function.
+4. `Reporting_Groups`: Grouped data; Long data.frame of summarized group CTMS data with site, study, and country level counts and metrics. Constructed by binding data.frames created with `MakeLongMeta()`.
+5. `Reporting_Metrics`: Metric metadata; Metric-specific metadata for use in charts and reporting. Created by passing an `lWorkflow` object to the `MakeMetric()` function.
 
 Similar to Analysis Workflows, reporting data pipelines can be run as R scripts or as YAML workflows.  Example 3 in the cookbook vignette shows how to populate the Reporting Data tables using output from the Analysis Workflows and other study data sources. The Reporting Deep Dive Vignette provides more details on the Reporting Data model.
 
@@ -91,109 +91,109 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
 
 ## Analysis Data Tables
   
-### `dfInput`
+### `Analysis_Input`
   - Function(s) used to create table: 
     - `Input_Rate()`
   - Inputs: 
-    - `dfSubjects`
-    - `dfNumerator`
-    - `dfDenominator`
+    - `Analysis_Subjects`
+    - `Analysis_Numerator`
+    - `Analysis_Denominator`
   - Usage: The base data.frame for all Analysis workflows. Feeds into the `Transform_*()` functions.
   - Structure:
 
   | Table    | Column Name  | Description                          | Type     | Optional  | 
   |----------|--------------|--------------------------------------|----------|--|
-  | dfInput  | SubjectID    | The subject ID                       | Character| |
-  | dfInput  | GroupID      | The group ID for the metric          | Character| | |
-  | dfInput  | GroupLevel   | The group type for the metric (e.g. "Site")    | Character| | 
-  | dfInput  | Numerator    | The calculated numerator value       | Numeric  | |
-  | dfInput  | Denominator  | The calculated denominator value     | Numeric | |
-  | dfInput  | Metric       | The calculated rate/metric value     | Numeric  | |
+  | Analysis_Input  | SubjectID    | The subject ID                       | Character| |
+  | Analysis_Input  | GroupID      | The group ID for the metric          | Character| | |
+  | Analysis_Input  | GroupLevel   | The group type for the metric (e.g. "Site")    | Character| | 
+  | Analysis_Input  | Numerator    | The calculated numerator value       | Numeric  | |
+  | Analysis_Input  | Denominator  | The calculated denominator value     | Numeric | |
+  | Analysis_Input  | Metric       | The calculated rate/metric value     | Numeric  | |
 
 
-### `dfTransformed`
+### `Analysis_Transformed`
   - Function(s) used to create table:
     - `Transform_Rate()`
     - `Transform_Count()`
-  - Inputs: `dfInput`
+  - Inputs: `Analysis_Input`
   - Usage: Convert from input data format to needed format to derive KRI for an Assessment via the `Analyze_*()` functions.
   - Structure:
 
   | Table    | Column Name  | Description                          | Type     | Optional  | 
   |----------|--------------|--------------------------------------|----------|--|
-  | dfTransformed | GroupID      | The group ID for the metric          | Character| | |
-  | dfTransformed | GroupLevel   | The group type for the metric (e.g. "Site")    | Character| | 
-  | dfTransformed | Numerator    | The calculated numerator value       | Numeric  | |
-  | dfTransformed | Denominator  | The calculated denominator value     | Numeric | |
-  | dfTransformed | Metric       | The calculated rate/metric value     | Numeric  | |
+  | Analysis_Transformed | GroupID      | The group ID for the metric          | Character| | |
+  | Analysis_Transformed | GroupLevel   | The group type for the metric (e.g. "Site")    | Character| | 
+  | Analysis_Transformed | Numerator    | The calculated numerator value       | Numeric  | |
+  | Analysis_Transformed | Denominator  | The calculated denominator value     | Numeric | |
+  | Analysis_Transformed | Metric       | The calculated rate/metric value     | Numeric  | |
 
-###  `dfAnalyzed`
+###  `Analysis_Analyzed`
   - Function(s) used to create table:
     - `Analyze_Fisher()`
     - `Analyze_Identity()`
     - `Analyze_NormalApprox()`
     - `Analyze_Poisson()`
-  - Inputs: `dfTransformed`
+  - Inputs: `Analysis_Transformed`
   - Usage: Prepare the data for `Flag_*()` by performing the specified test on the metric provided.
   - Structure:
 
   | Table    | Column Name  | Description                          | Type     | Optional  | 
   |----------|--------------|--------------------------------------|----------|--|
-  | dfAnalyzed | GroupID      | The group ID for the metric          | Character| | |
-  | dfAnalyzed | GroupLevel   | The group type for the metric (e.g. "Site")    | Character| | 
-  | dfAnalyzed | Numerator    | The calculated numerator value       | Numeric  | |
-  | dfAnalyzed | Denominator  | The calculated denominator value     | Numeric | |
-  | dfAnalyzed | Metric       | The calculated rate/metric value     | Numeric  | |
-  | dfAnalyzed | Score        | The Statistical Score      | Numeric  | |
-  | dfAnalyzed | Overall Metric |       | Numeric  |* |
-  | dfAnalyzed | Factor |      | Numeric  |* |
-  | dfAnalyzed | Predicted Count |      | Numeric  |* |
+  | Analysis_Analyzed | GroupID      | The group ID for the metric          | Character| | |
+  | Analysis_Analyzed | GroupLevel   | The group type for the metric (e.g. "Site")    | Character| | 
+  | Analysis_Analyzed | Numerator    | The calculated numerator value       | Numeric  | |
+  | Analysis_Analyzed | Denominator  | The calculated denominator value     | Numeric | |
+  | Analysis_Analyzed | Metric       | The calculated rate/metric value     | Numeric  | |
+  | Analysis_Analyzed | Score        | The Statistical Score      | Numeric  | |
+  | Analysis_Analyzed | Overall Metric |       | Numeric  |* |
+  | Analysis_Analyzed | Factor |      | Numeric  |* |
+  | Analysis_Analyzed | Predicted Count |      | Numeric  |* |
 
 
-### `dfFlagged`
+### `Analysis_Flagged`
   - Function(s) used to create table:
     - `Flag_Fisher()`
     - `Flag_Identity()`
     - `Flag_NormalApprox()`
     - `Flag_Poisson()`
-  - Inputs: `dfAnalyzed`
+  - Inputs: `Analysis_Analyzed`
   - Usage: Flag a group-level metric to be summarized via `Summarize()` and used for reporting.
   - Structure:
 
   | Table    | Column Name  | Description                          | Type     | Optional  | 
   |----------|--------------|--------------------------------------|----------|--|
-  | dfFlagged | GroupID      | The group ID for the metric          | Character| | |
-  | dfFlagged | GroupLevel   | The group type for the metric (e.g. "Site")    | Character| | 
-  | dfFlagged | Numerator    | The calculated numerator value       | Numeric  | |
-  | dfFlagged | Denominator  | The calculated denominator value     | Numeric | |
-  | dfFlagged | Metric       | The calculated rate/metric value     | Numeric  | |
-  | dfFlagged | Score        | The Statistical Score     | Numeric  | |  
-  | dfFlagged | Flag        | The ordinal Flag to be applied     | Numeric  | |  
-  | dfFlagged | Overall Metric |       | Numeric  |* |
-  | dfFlagged | Factor |      | Numeric  |* |
-  | dfFlagged | Predicted Count |      | Numeric  |* |
+  | Analysis_Flagged | GroupID      | The group ID for the metric          | Character| | |
+  | Analysis_Flagged | GroupLevel   | The group type for the metric (e.g. "Site")    | Character| | 
+  | Analysis_Flagged | Numerator    | The calculated numerator value       | Numeric  | |
+  | Analysis_Flagged | Denominator  | The calculated denominator value     | Numeric | |
+  | Analysis_Flagged | Metric       | The calculated rate/metric value     | Numeric  | |
+  | Analysis_Flagged | Score        | The Statistical Score     | Numeric  | |  
+  | Analysis_Flagged | Flag        | The ordinal Flag to be applied     | Numeric  | |  
+  | Analysis_Flagged | Overall Metric |       | Numeric  |* |
+  | Analysis_Flagged | Factor |      | Numeric  |* |
+  | Analysis_Flagged | Predicted Count |      | Numeric  |* |
 
-###  `dfSummary`
+###  `Analysis_Summary`
   - Function(s) used to create table:
     - `Summarize()`
-  - Inputs: `dfFlagged`
+  - Inputs: `Analysis_Flagged`
   - Usage: Summarize KRI at the group level for reporting.
   - Structure:
 
   | Table    | Column Name  | Description                          | Type     | Optional  | 
   |----------|--------------|--------------------------------------|----------|--|
-  | dfSummary      | GroupID      | The group ID for the metric          | Character| | |
-  | dfSummary      | GroupLevel   | The group type for the metric (e.g. "Site")    | Character| | 
-  | dfSummary      | Numerator    | The calculated numerator value       | Numeric  | |
-  | dfSummary      | Denominator  | The calculated denominator value     | Numeric | |
-  | dfSummary      | Metric       | The calculated rate/metric value     | Numeric  | |
+  | Analysis_Summary      | GroupID      | The group ID for the metric          | Character| | |
+  | Analysis_Summary      | GroupLevel   | The group type for the metric (e.g. "Site")    | Character| | 
+  | Analysis_Summary      | Numerator    | The calculated numerator value       | Numeric  | |
+  | Analysis_Summary      | Denominator  | The calculated denominator value     | Numeric | |
+  | Analysis_Summary      | Metric       | The calculated rate/metric value     | Numeric  | |
   
 
 # Overview of Reporting data model
   
 ## Reporting Data Tables
   
-###  `dfResults`
+###  `Reporting_Results`
   - Function(s) used to create table:
     - `BindResults()`
   - Inputs: `lAnalysis`, `strStudyID`, `dSnapshotDate`
@@ -203,18 +203,18 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
 
   | Table    | Column Name  | Description                          | Type     | Optional  | 
   |----------|--------------|--------------------------------------|----------|--|-----------|
-  | dfResults      | GroupID      | The group ID for the metric          | Character| |
-  | dfResults      | GroupLevel   | The group type for the metric (e.g. "Site")    | Character| |
-  | dfResults      | Numerator    | The calculated numerator value       | Numeric  | |
-  | dfResults      | Denominator  | The calculated denominator value     | Numeric | |
-  | dfResults      | Metric       | The calculated rate/metric value     | Numeric  | |
-  | dfResults      | Score        | The calculated metric score          | Numeric  | | 
-  | dfResults      | Flag         | The calculated flag                  | Numeric  | |
-  | dfResults      | MetricID     | The Metric ID                        | Character| * |
-  | dfResults      | StudyID      | The Study ID                         | Character| * |
-  | dfResults      | SnapshotDate | The Date of the snapshot             | Date     | * |
+  | Reporting_Results      | GroupID      | The group ID for the metric          | Character| |
+  | Reporting_Results      | GroupLevel   | The group type for the metric (e.g. "Site")    | Character| |
+  | Reporting_Results      | Numerator    | The calculated numerator value       | Numeric  | |
+  | Reporting_Results      | Denominator  | The calculated denominator value     | Numeric | |
+  | Reporting_Results      | Metric       | The calculated rate/metric value     | Numeric  | |
+  | Reporting_Results      | Score        | The calculated metric score          | Numeric  | | 
+  | Reporting_Results      | Flag         | The calculated flag                  | Numeric  | |
+  | Reporting_Results      | MetricID     | The Metric ID                        | Character| * |
+  | Reporting_Results      | StudyID      | The Study ID                         | Character| * |
+  | Reporting_Results      | SnapshotDate | The Date of the snapshot             | Date     | * |
 
-### `dfBounds`
+### `Reporting_Bounds`
   - Function(s) used to create table:
     - `MakeBounds()`
     - `Analyze_NormalApprox_PredictBounds()` (called within `MakeBounds()`)
@@ -225,16 +225,16 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
 
   | Table    | Column Name  | Description                          | Type     | Optional  |
   |----------|--------------|--------------------------------------|----------|--|----------|
-  | dfBounds | Threshold    | The number of standard deviations that the upper and lower bounds are based on   | Numeric| |
-  | dfBounds | Denominator  | The calculated denominator value     | Numeric | |
-  | dfBounds | LogDenominator  | The calculated log denominator value     | Numeric | |
-  | dfBounds | Numerator    | The calculated numerator value       | Numeric  | |
-  | dfBounds | Metric       | The calculated rate/metric value     | Numeric  | |
-  | dfBounds | MetricID     | The Metric ID                        | Character|  |
-  | dfBounds | StudyID      | The Study ID                         | Character|  | 
-  | dfBounds | SnapshotDate | The Date of the snapshot             | Date     |  |
+  | Reporting_Bounds | Threshold    | The number of standard deviations that the upper and lower bounds are based on   | Numeric| |
+  | Reporting_Bounds | Denominator  | The calculated denominator value     | Numeric | |
+  | Reporting_Bounds | LogDenominator  | The calculated log denominator value     | Numeric | |
+  | Reporting_Bounds | Numerator    | The calculated numerator value       | Numeric  | |
+  | Reporting_Bounds | Metric       | The calculated rate/metric value     | Numeric  | |
+  | Reporting_Bounds | MetricID     | The Metric ID                        | Character|  |
+  | Reporting_Bounds | StudyID      | The Study ID                         | Character|  | 
+  | Reporting_Bounds | SnapshotDate | The Date of the snapshot             | Date     |  |
 
-###  `dfGroups`
+###  `Reporting_Groups`
   - Function(s) used to create table:
     - `MakeLongMeta()`
     - `bind_rows()`
@@ -246,10 +246,10 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
 
 | Table       | Column                | Description                       |Type      | Optional  |  
 |-------------|-----------------------|-----------------------------------|----------|-----------|
-| dfGroups | GroupID                  | Unique Group ID                   | Character| | 
-| dfGroups | GroupLevel               | Group Level (e.g. Site, Country)  | Character| |
-| dfGroups | Param                    | Parameter Name (e.g. "Status")  | Character| | 
-| dfGroups | Value                    | Parameter Value (e.g. "Active")        | Character| | 
+| Reporting_Groups | GroupID                  | Unique Group ID                   | Character| | 
+| Reporting_Groups | GroupLevel               | Group Level (e.g. Site, Country)  | Character| |
+| Reporting_Groups | Param                    | Parameter Name (e.g. "Status")  | Character| | 
+| Reporting_Groups | Value                    | Parameter Value (e.g. "Active")        | Character| | 
 
 Expected `Param` by `GroupLevel` for use in gsm reporting. User may add other Param values as needed. 
 
@@ -268,7 +268,7 @@ Expected `Param` by `GroupLevel` for use in gsm reporting. User may add other Pa
 | Country      | EnrolledParticipants   | # of Enrolled Participants        | Numeric | 
 
 
-###  `dfMetrics`
+###  `Reporting_Metrics`
   - Function used to create table: `MakeMetric()`
   - Inputs: `lWorkflows` - metadata for the corresponding kri(s) made with `MakeWorkflowList()`
   - Workflow used to create table: `data_reporting.yaml`
@@ -277,15 +277,15 @@ Expected `Param` by `GroupLevel` for use in gsm reporting. User may add other Pa
 
   | Table    | Column Name  | Description                          | Type     | Optional  |
   |----------|--------------|--------------------------------------|----------|--| -------------- |
-  | dfMetrics| File         | The YAML file for workflow          | Character|           | 
-  | dfMetrics| MetricID     | ID for the Metric   | Character| |
-  | dfMetrics| Group        | The group type for the metric (e.g. "Site")      | Character| | 
-  | dfMetrics| Abbreviation | Abbreviation for the metric   | Character| | 
-  | dfMetrics| Metric       | Name of the metric    | Character| | 
-  | dfMetrics| Numerator    | Data source for the Numerator          | Character| |
-  | dfMetrics| Denominator  | Data source for the Denominator | Character| | 
-  | dfMetrics| Model        | Model used to calculate metric     | Character| | 
-  | dfMetrics| Score        | Type of Score reported      | Character| | 
+  | Reporting_Metrics| File         | The YAML file for workflow          | Character|           | 
+  | Reporting_Metrics| MetricID     | ID for the Metric   | Character| |
+  | Reporting_Metrics| Group        | The group type for the metric (e.g. "Site")      | Character| | 
+  | Reporting_Metrics| Abbreviation | Abbreviation for the metric   | Character| | 
+  | Reporting_Metrics| Metric       | Name of the metric    | Character| | 
+  | Reporting_Metrics| Numerator    | Data source for the Numerator          | Character| |
+  | Reporting_Metrics| Denominator  | Data source for the Denominator | Character| | 
+  | Reporting_Metrics| Model        | Model used to calculate metric     | Character| | 
+  | Reporting_Metrics| Score        | Type of Score reported      | Character| | 
 
 ## Appendix 2 - Analysis Workflow Specifications
 

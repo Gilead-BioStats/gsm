@@ -27,7 +27,7 @@ These functions provide data frames, visualizations, and metadata to be used in 
 
 ![](data_analysis.png){width="100%"} 
 
-All of these functions will run automatically and sequentially when a user calls upon the `RunWorkflow()` function with a specified `yaml` file for KRI metrics.
+All of these functions will run automatically and sequentially when a user calls upon the `RunWorkflow()` function with a specified `yaml` file for KRI metrics found in the `workflow/2_metrics` directory of the `{gsm}` package.
 
 Each of these individual functions can also be run independently outside of a specified `yaml` workflow.
 
