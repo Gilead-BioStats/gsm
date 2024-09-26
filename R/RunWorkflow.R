@@ -62,7 +62,6 @@ RunWorkflow <- function(
       lWorkflow,
       lConfig
     )
-    browser()
   }
 
   lWorkflow$lData <- lData
