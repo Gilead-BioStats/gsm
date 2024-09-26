@@ -54,7 +54,7 @@
 #'
 #' @export
 
-RunStep <- function(lStep, lData, lMeta, lSpec = NULL, lConfig = NULL) {
+RunStep <- function(lStep, lData, lMeta, lSpec = NULL) {
   # prepare parameter list inputs
   params <- lStep$params
 
