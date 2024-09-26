@@ -3,17 +3,23 @@ load_all()
 # ----
 # Run process from the study directory.
 
-  setwd(
-      system.file(
-          'examples',
-          'AA-AA-000-0000',
-          package = 'gsm'
-      )
-  )
+setwd(
+    system.file(
+        'examples',
+        'AA-AA-000-0000',
+        package = 'gsm'
+    )
+)
 
 # Create snapshot sub-directories and inject snapshot date into the configuration.
+strSnapshotDate <- 1:(as.integer(Sys.Date() - as.Date(0))) %>%
+  sample(1) %>%
+  as.Date()
+
 source('R/UpdateConfig.R')
-lConfig <- UpdateConfig()
+lConfig <- UpdateConfig(
+    strSnapshotDate = strSnapshotDate
+)
 
 # ----
 # mapped data

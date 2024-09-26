@@ -46,76 +46,76 @@ schemas:
         table: edc_queries
   Mapped:
     db:
-      local: ./data/2024-09-26/Mapped/{ID}.csv
-      s3: s3://AA-AA-000-0000/data/2024-09-26/Mapped/{ID}.parquet
+      local: ./data/1980-05-26/Mapped/{ID}.csv
+      s3: s3://AA-AA-000-0000/data/1980-05-26/Mapped/{ID}.parquet
     domains:
       Mapped_STUDY:
         db: local
-        table: ./data/2024-09-26/Mapped/STUDY.csv
+        table: ./data/1980-05-26/Mapped/STUDY.csv
       Mapped_SITE:
         db: local
-        table: ./data/2024-09-26/Mapped/SITE.csv
+        table: ./data/1980-05-26/Mapped/SITE.csv
       Mapped_COUNTRY:
         db: local
-        table: ./data/2024-09-26/Mapped/COUNTRY.csv
+        table: ./data/1980-05-26/Mapped/COUNTRY.csv
       Mapped_SUBJ:
         db: local
-        table: ./data/2024-09-26/Mapped/SUBJ.csv
+        table: ./data/1980-05-26/Mapped/SUBJ.csv
       Mapped_ENROLL:
         db: local
-        table: ./data/2024-09-26/Mapped/ENROLL.csv
+        table: ./data/1980-05-26/Mapped/ENROLL.csv
       Mapped_STUDCOMP:
         db: local
-        table: ./data/2024-09-26/Mapped/STUDCOMP.csv
+        table: ./data/1980-05-26/Mapped/STUDCOMP.csv
       Mapped_SDRGCOMP:
         db: local
-        table: ./data/2024-09-26/Mapped/SDRGCOMP.csv
+        table: ./data/1980-05-26/Mapped/SDRGCOMP.csv
       Mapped_AE:
         db: local
-        table: ./data/2024-09-26/Mapped/AE.csv
+        table: ./data/1980-05-26/Mapped/AE.csv
       Mapped_LB:
         db: local
-        table: ./data/2024-09-26/Mapped/LB.csv
+        table: ./data/1980-05-26/Mapped/LB.csv
       Mapped_PD:
         db: local
-        table: ./data/2024-09-26/Mapped/PD.csv
+        table: ./data/1980-05-26/Mapped/PD.csv
       Mapped_DATAENT:
         db: local
-        table: ./data/2024-09-26/Mapped/DATAENT.csv
+        table: ./data/1980-05-26/Mapped/DATAENT.csv
       Mapped_DATACHG:
         db: local
-        table: ./data/2024-09-26/Mapped/DATACHG.csv
+        table: ./data/1980-05-26/Mapped/DATACHG.csv
       Mapped_QUERY:
         db: local
-        table: ./data/2024-09-26/Mapped/QUERY.csv
+        table: ./data/1980-05-26/Mapped/QUERY.csv
   Analysis:
     db:
-      local: ./data/2024-09-26/Analysis/{ID}/*.csv
-      s3: s3://AA-AA-000-0000/data/2024-09-26/Analysis/{ID}/*.parquet
+      local: ./data/1980-05-26/Analysis/{ID}/*.csv
+      s3: s3://AA-AA-000-0000/data/1980-05-26/Analysis/{ID}/*.parquet
     domains:
       Analysis_Input:
         db: local
-        table: ./data/2024-09-26/Analysis/{ID}/Analysis_Input.csv
+        table: ./data/1980-05-26/Analysis/{ID}/Analysis_Input.csv
       Analysis_Summary:
         db: local
-        table: ./data/2024-09-26/Analysis/{ID}/Analysis_Summary.csv
+        table: ./data/1980-05-26/Analysis/{ID}/Analysis_Summary.csv
   Reporting:
     db:
-      local: ./data/2024-09-26/Reporting/{ID}.csv
-      s3: s3://AA-AA-000-0000/data/2024-09-26/Reporting/{ID}.parquet
+      local: ./data/1980-05-26/Reporting/{ID}.csv
+      s3: s3://AA-AA-000-0000/data/1980-05-26/Reporting/{ID}.parquet
     domains:
       Reporting_Results:
         db: local
-        table: ./data/2024-09-26/Reporting/Results.csv
+        table: ./data/1980-05-26/Reporting/Results.csv
       Reporting_Metrics:
         db: local
-        table: ./data/2024-09-26/Reporting/Metrics.csv
+        table: ./data/1980-05-26/Reporting/Metrics.csv
       Reporting_Groups:
         db: local
-        table: ./data/2024-09-26/Reporting/Groups.csv
+        table: ./data/1980-05-26/Reporting/Groups.csv
       Reporting_Bounds:
         db: local
-        table: ./data/2024-09-26/Reporting/Bounds.csv
+        table: ./data/1980-05-26/Reporting/Bounds.csv
 dependencies:
 - id: gsm
   repo: Gilead-BioStats/gsm
@@ -161,7 +161,7 @@ metrics:
   version: dev
   package: gsm
   file: workflow/metrics/kri0004.yaml
-SnapshotDate: '2024-09-26'
+SnapshotDate: '1980-05-26'
 domains:
   Raw_STUDY:
     db: clindata
@@ -201,58 +201,58 @@ domains:
     table: edc_queries
   Mapped_STUDY:
     db: local
-    table: ./data/2024-09-26/Mapped/STUDY.csv
+    table: ./data/1980-05-26/Mapped/STUDY.csv
   Mapped_SITE:
     db: local
-    table: ./data/2024-09-26/Mapped/SITE.csv
+    table: ./data/1980-05-26/Mapped/SITE.csv
   Mapped_COUNTRY:
     db: local
-    table: ./data/2024-09-26/Mapped/COUNTRY.csv
+    table: ./data/1980-05-26/Mapped/COUNTRY.csv
   Mapped_SUBJ:
     db: local
-    table: ./data/2024-09-26/Mapped/SUBJ.csv
+    table: ./data/1980-05-26/Mapped/SUBJ.csv
   Mapped_ENROLL:
     db: local
-    table: ./data/2024-09-26/Mapped/ENROLL.csv
+    table: ./data/1980-05-26/Mapped/ENROLL.csv
   Mapped_STUDCOMP:
     db: local
-    table: ./data/2024-09-26/Mapped/STUDCOMP.csv
+    table: ./data/1980-05-26/Mapped/STUDCOMP.csv
   Mapped_SDRGCOMP:
     db: local
-    table: ./data/2024-09-26/Mapped/SDRGCOMP.csv
+    table: ./data/1980-05-26/Mapped/SDRGCOMP.csv
   Mapped_AE:
     db: local
-    table: ./data/2024-09-26/Mapped/AE.csv
+    table: ./data/1980-05-26/Mapped/AE.csv
   Mapped_LB:
     db: local
-    table: ./data/2024-09-26/Mapped/LB.csv
+    table: ./data/1980-05-26/Mapped/LB.csv
   Mapped_PD:
     db: local
-    table: ./data/2024-09-26/Mapped/PD.csv
+    table: ./data/1980-05-26/Mapped/PD.csv
   Mapped_DATAENT:
     db: local
-    table: ./data/2024-09-26/Mapped/DATAENT.csv
+    table: ./data/1980-05-26/Mapped/DATAENT.csv
   Mapped_DATACHG:
     db: local
-    table: ./data/2024-09-26/Mapped/DATACHG.csv
+    table: ./data/1980-05-26/Mapped/DATACHG.csv
   Mapped_QUERY:
     db: local
-    table: ./data/2024-09-26/Mapped/QUERY.csv
+    table: ./data/1980-05-26/Mapped/QUERY.csv
   Analysis_Input:
     db: local
-    table: ./data/2024-09-26/Analysis/{ID}/Analysis_Input.csv
+    table: ./data/1980-05-26/Analysis/{ID}/Analysis_Input.csv
   Analysis_Summary:
     db: local
-    table: ./data/2024-09-26/Analysis/{ID}/Analysis_Summary.csv
+    table: ./data/1980-05-26/Analysis/{ID}/Analysis_Summary.csv
   Reporting_Results:
     db: local
-    table: ./data/2024-09-26/Reporting/Results.csv
+    table: ./data/1980-05-26/Reporting/Results.csv
   Reporting_Metrics:
     db: local
-    table: ./data/2024-09-26/Reporting/Metrics.csv
+    table: ./data/1980-05-26/Reporting/Metrics.csv
   Reporting_Groups:
     db: local
-    table: ./data/2024-09-26/Reporting/Groups.csv
+    table: ./data/1980-05-26/Reporting/Groups.csv
   Reporting_Bounds:
     db: local
-    table: ./data/2024-09-26/Reporting/Bounds.csv
+    table: ./data/1980-05-26/Reporting/Bounds.csv

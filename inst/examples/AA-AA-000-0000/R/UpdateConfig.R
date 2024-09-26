@@ -19,7 +19,7 @@ UpdateConfig <- function(
     config <- yaml::read_yaml(glue::glue('{strStudyPath}/config/study.yaml'))
 
     # Update the snapshot date in the configuration.
-    config$SnapshotDate <- strSnapshotDate
+    config$SnapshotDate <- as.character(strSnapshotDate)
     config <- config %>%
         yaml::as.yaml() %>%
         gsub('\\{SnapshotDate\\}', strSnapshotDate, .) %>%
