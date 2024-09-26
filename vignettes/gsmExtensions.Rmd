@@ -57,11 +57,9 @@ The `meta` section of a workflow YAML provides key metadata describing the modul
     
 Additional `meta` header required fields for **Modules**: 
 
-- `Permission`: Level of permissions for viewing that match the `Users` argument in the Study Config file. Common values: `Admin`, `Users`. (TODO: move this to "gsm.template")
+- `Permission`: Level of permissions for viewing that match the `Users` argument in the Study Config file. Common values: `Admin`, `Users`.
 - `Output`: The output of the workflow, including format. Each workflow should only produce a single reporting output.
 - `ExampleURL`: Location of a sample report. For html reports, this is typically a page on the pkgdown site (ending with "/{ModuleID}.html"), or a sample app deployed on [shinyapps.io](https://shinyapps.io).
-
-TODO: add `Category` section here, and think of standard categories for modules to sit in.
 
 Additional `meta` header required fields for `{gsm}` **metrics**:
 
@@ -282,10 +280,8 @@ steps:
 
 # Directory Structure for Workflows 
 
-Each extension that produces report(s) will have a `workflow` directory in `inst` that follows a standard structure. This directory will contain 4 folders in which to store the `yaml` workflow files that map data, perform analysis, produce reporting data, and generate the output of a module. Each module output requires it's own unique `yaml` in the `4_modules` folder, which will take inputs generated from the previous three directories.
+Each extension that produces report(s) will have a `workflow` directory in the `inst` of the package that follows a standard structure. This directory will contain 4 folders in which to store the `yaml` workflow files that map data, perform analysis, produce reporting data, and generate the output of a module. Each module output requires it's own unique `yaml` in the `4_modules` folder, which will take inputs generated from the previous three directories.
 
-
-TODO: insert image of workflow
 
 ### `/1_mappings`
 
