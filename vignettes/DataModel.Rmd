@@ -301,7 +301,7 @@ The `lWorkflow` object is a named list of metadata and steps defining how each a
         -   `workflow[]$steps$output`: specifies the output data from the workflow step, which can be used as an input in the next step in the workflow
         -   `workflow[]$steps$params`: specifies parameters to be passed to the function
 
-For example, the default workflow for the AE assessment (`system.file("workflow/metrics/kri0001.yaml", package = "gsm")`) is shown below:
+For example, the default workflow for the AE assessment (`system.file("workflow/2_metrics/kri0001.yaml", package = "gsm")`) is shown below:
 
-```{yaml, code = readLines(system.file("workflow/metrics/kri0001.yaml", package = "gsm")), eval = FALSE}
+```{yaml, code = readLines(system.file("workflow/2_metrics/kri0001.yaml", package = "gsm")), eval = FALSE}
 ```
