@@ -1,0 +1,24 @@
+meta:
+  Type: Analysis
+  ID: cou0010
+  GroupLevel: Country
+  Abbreviation: ODAT
+  Metric: Outstanding Data Entry Rate
+  Numerator: Data Pages Entered > 10 Days
+  Denominator: Total Data Pages
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
+  AnalysisType: binary
+  Threshold: -3,-2,2,3
+  nMinDenominator: 30
+  Priority: 4.0
+spec:
+  Analysis_Analyzed:
+    _all:
+      required: yes
+steps:
+  name: Flag_NormalApprox
+  output: Analysis_Flagged
+  params:
+    dfAnalyzed: Analysis_Analyzed
+    vThreshold: vThreshold

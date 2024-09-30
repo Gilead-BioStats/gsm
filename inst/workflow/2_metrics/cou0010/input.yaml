@@ -1,0 +1,50 @@
+meta:
+  Type: Analysis
+  ID: cou0010
+  GroupLevel: Country
+  Abbreviation: ODAT
+  Metric: Outstanding Data Entry Rate
+  Numerator: Data Pages Entered > 10 Days
+  Denominator: Total Data Pages
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
+  AnalysisType: binary
+  Threshold: -3,-2,2,3
+  nMinDenominator: 30
+  Priority: 1.0
+spec:
+  Mapped_SUBJ:
+    subjid:
+      required: yes
+      type: character
+    country:
+      required: yes
+      type: character
+  Mapped_DATAENT:
+    subjid:
+      required: yes
+      type: character
+    data_entry_lag:
+      required: yes
+      type: numeric
+steps:
+- name: ParseThreshold
+  output: vThreshold
+  params:
+    strThreshold: Threshold
+- name: RunQuery
+  output: Temp_LAG
+  params:
+    df: Mapped_DATAENT
+    strQuery: SELECT * FROM df WHERE data_entry_lag > 10
+- name: Input_Rate
+  output: Analysis_Input
+  params:
+    dfSubjects: Mapped_SUBJ
+    dfNumerator: Temp_LAG
+    dfDenominator: Mapped_DATAENT
+    strSubjectCol: subjid
+    strGroupCol: country
+    strGroupLevel: GroupLevel
+    strNumeratorMethod: Count
+    strDenominatorMethod: Count

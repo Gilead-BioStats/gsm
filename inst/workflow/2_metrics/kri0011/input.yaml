@@ -1,0 +1,50 @@
+meta:
+  Type: Analysis
+  ID: kri0011
+  GroupLevel: Site
+  Abbreviation: CDAT
+  Metric: Data Change Rate
+  Numerator: Data Points with 1+ Change
+  Denominator: Total Data Points
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
+  AnalysisType: binary
+  Threshold: -3,-2,2,3
+  nMinDenominator: 30
+  Priority: 1.0
+spec:
+  Mapped_SUBJ:
+    subjid:
+      required: yes
+      type: character
+    invid:
+      required: yes
+      type: character
+  Mapped_DATACHG:
+    subjid:
+      required: yes
+      type: character
+    n_changes:
+      required: yes
+      type: numeric
+steps:
+- name: ParseThreshold
+  output: vThreshold
+  params:
+    strThreshold: Threshold
+- name: RunQuery
+  output: Temp_CHANGED
+  params:
+    df: Mapped_DATACHG
+    strQuery: SELECT * FROM df WHERE n_changes > 0
+- name: Input_Rate
+  output: Analysis_Input
+  params:
+    dfSubjects: Mapped_SUBJ
+    dfNumerator: Temp_CHANGED
+    dfDenominator: Mapped_DATACHG
+    strSubjectCol: subjid
+    strGroupCol: invid
+    strGroupLevel: GroupLevel
+    strNumeratorMethod: Count
+    strDenominatorMethod: Count

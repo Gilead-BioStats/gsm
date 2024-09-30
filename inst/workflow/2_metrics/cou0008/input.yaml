@@ -1,0 +1,54 @@
+meta:
+  Type: Analysis
+  ID: cou0008
+  GroupLevel: Country
+  Abbreviation: QRY
+  Metric: Query Rate
+  Numerator: Queries
+  Denominator: Total Data Points
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
+  AnalysisType: rate
+  Threshold: -3,-2,2,3
+  nMinDenominator: 30
+  Priority: 1.0
+spec:
+  Mapped_QUERY:
+    subjid:
+      required: yes
+      type: character
+    querystatus:
+      required: yes
+      type: character
+  Mapped_SUBJ:
+    subjid:
+      required: yes
+      type: character
+    country:
+      required: yes
+      type: character
+  Mapped_DATACHG:
+    subjid:
+      required: yes
+      type: character
+steps:
+- name: ParseThreshold
+  output: vThreshold
+  params:
+    strThreshold: Threshold
+- name: RunQuery
+  output: Temp_QUERY
+  params:
+    df: Mapped_QUERY
+    strQuery: SELECT * FROM df WHERE querystatus IN ('Open','Answered','Closed')
+- name: Input_Rate
+  output: Analysis_Input
+  params:
+    dfSubjects: Mapped_SUBJ
+    dfNumerator: Temp_QUERY
+    dfDenominator: Mapped_DATACHG
+    strSubjectCol: subjid
+    strGroupCol: country
+    strGroupLevel: GroupLevel
+    strNumeratorMethod: Count
+    strDenominatorMethod: Count
