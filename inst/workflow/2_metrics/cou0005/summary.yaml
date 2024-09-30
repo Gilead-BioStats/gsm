@@ -1,0 +1,24 @@
+meta:
+  Type: Analysis
+  ID: Summary
+  GroupLevel: Country
+  Abbreviation: LB
+  Metric: Grade 3+ Lab Abnormality Rate
+  Numerator: Grade 3+ Abnormal Labs Samples
+  Denominator: Total Lab Samples
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
+  AnalysisType: binary
+  Threshold: -3,-2,2,3
+  nMinDenominator: 30
+  Priority: 5
+spec:
+  Analysis_Flagged:
+    _all:
+      required: yes
+steps:
+- name: Summarize
+  output: Analysis_Summary
+  params:
+    dfFlagged: Analysis_Flagged
+    nMinDenominator: nMinDenominator

@@ -1,6 +1,6 @@
 meta:
   Type: Analysis
-  ID: cou0005
+  ID: Input
   GroupLevel: Country
   Abbreviation: LB
   Metric: Grade 3+ Lab Abnormality Rate
@@ -11,7 +11,7 @@ meta:
   AnalysisType: binary
   Threshold: -3,-2,2,3
   nMinDenominator: 30
-  Priority: 1.0
+  Priority: 1
 spec:
   Mapped_SUBJ:
     subjid:

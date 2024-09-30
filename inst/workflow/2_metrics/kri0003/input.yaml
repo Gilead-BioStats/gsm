@@ -1,6 +1,6 @@
 meta:
   Type: Analysis
-  ID: kri0003
+  ID: Input
   GroupLevel: Site
   Abbreviation: PD
   Metric: Non-Important Protocol Deviation Rate
@@ -11,7 +11,7 @@ meta:
   AnalysisType: rate
   Threshold: -3,-2,2,3
   nMinDenominator: 30
-  Priority: 1.0
+  Priority: 1
 spec:
   Mapped_PD:
     subjid:

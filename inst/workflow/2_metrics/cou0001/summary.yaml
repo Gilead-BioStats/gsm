@@ -1,0 +1,24 @@
+meta:
+  Type: Analysis
+  ID: Summary
+  GroupLevel: Country
+  Abbreviation: AE
+  Metric: Adverse Event Rate
+  Numerator: Adverse Events
+  Denominator: Days on Study
+  Model: Normal Approximation
+  AnalysisType: rate
+  Score: Adjusted Z-Score
+  Threshold: -2,-1,2,3
+  nMinDenominator: 30
+  Priority: 5
+spec:
+  Analysis_Flagged:
+    _all:
+      required: yes
+steps:
+- name: Summarize
+  output: Analysis_Summary
+  params:
+    dfFlagged: Analysis_Flagged
+    nMinDenominator: nMinDenominator

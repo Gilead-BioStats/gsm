@@ -1,0 +1,23 @@
+meta:
+  Type: Analysis
+  ID: Transformed
+  GroupLevel: Site
+  Abbreviation: SAE
+  Metric: Serious Adverse Event Rate
+  Numerator: Serious Adverse Events
+  Denominator: Days on Study
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
+  AnalysisType: rate
+  Threshold: -2,-1,2,3
+  nMinDenominator: 30
+  Priority: 2
+spec:
+  Analysis_Input:
+    _all:
+      required: yes
+steps:
+- name: Transform_Rate
+  output: Analysis_Transformed
+  params:
+    dfInput: Analysis_Input

@@ -1,6 +1,6 @@
 meta:
   Type: Analysis
-  ID: kri0006
+  ID: Input
   GroupLevel: Site
   Abbreviation: SDSC
   Metric: Study Discontinuation Rate
@@ -11,7 +11,7 @@ meta:
   AnalysisType: binary
   Threshold: -3,-2,2,3
   nMinDenominator: 3
-  Priority: 1.0
+  Priority: 1
 spec:
   Mapped_SUBJ:
     subjid:

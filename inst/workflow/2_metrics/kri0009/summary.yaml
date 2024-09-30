@@ -1,0 +1,24 @@
+meta:
+  Type: Analysis
+  ID: Summary
+  GroupLevel: Site
+  Abbreviation: OQRY
+  Metric: Outstanding Query Rate
+  Numerator: Queries Open > 30 Days
+  Denominator: Total Queries
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
+  AnalysisType: binary
+  Threshold: -3,-2,2,3
+  nMinDenominator: 30
+  Priority: 5
+spec:
+  Analysis_Flagged:
+    _all:
+      required: yes
+steps:
+- name: Summarize
+  output: Analysis_Summary
+  params:
+    dfFlagged: Analysis_Flagged
+    nMinDenominator: nMinDenominator

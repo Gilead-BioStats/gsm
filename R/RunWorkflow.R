@@ -45,7 +45,7 @@ RunWorkflow <- function(
   # Create a unique identifier for the workflow
   uid <- paste0(lWorkflow$meta$Type,"_",lWorkflow$meta$ID)
   cli::cli_h1("Initializing `{uid}` Workflow")
-  
+
   # check that the workflow has steps
   if (length(lWorkflow$steps) == 0) {
     cli::cli_alert("Workflow `{uid}` has no `steps` property.")
@@ -80,7 +80,6 @@ RunWorkflow <- function(
   stepCount <- 1
   for (step in lWorkflow$steps) {
     cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lWorkflow$steps), ": `", step$name, "`"))
-
     result <- RunStep(
         lStep = step,
         lData = lWorkflow$lData,
@@ -95,14 +94,6 @@ RunWorkflow <- function(
     lWorkflow$lData[[step$output]] <- result
     lWorkflow$lResult <- result
 
-    if (!is.null(step$save) && step$save) {
-      SaveData(
-        lWorkflow,
-        lConfig,
-        step$output
-      )
-    }
-    
     if (is.data.frame(result)) {
       cli::cli_h3("{paste(dim(result),collapse='x')} data.frame saved as `lData${step$output}`.")
     } else {

@@ -1,6 +1,6 @@
 meta:
   Type: Analysis
-  ID: cou0001
+  ID: Input
   GroupLevel: Country
   Abbreviation: AE
   Metric: Adverse Event Rate
@@ -11,7 +11,7 @@ meta:
   Score: Adjusted Z-Score
   Threshold: -2,-1,2,3
   nMinDenominator: 30
-  Priority: 1.0
+  Priority: 1
 spec:
   Mapped_AE:
     subjid:

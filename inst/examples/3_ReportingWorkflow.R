@@ -50,12 +50,25 @@ mappings_wf <- MakeWorkflowList(strPath = "workflow/1_mappings")
 mapped <- RunWorkflows(mappings_wf, lRaw)
 
 # Step 2 - Create Metrics - calculate metrics using mapped data
-metrics_wf <- MakeWorkflowList(strPath = "workflow/2_metrics")
-analyzed <- RunWorkflows(metrics_wf, mapped)
+metric_dirs <- list.dirs("inst/workflow/2_metrics")[-1]
+names(metric_dirs) <- gsub("inst/workflow/2_metrics/", "", metric_dirs)
+
+## nested analysis output
+analyzed_nested <- purrr::map(metric_dirs, \(metric_path) {
+  metrics_wf <- MakeWorkflowList(strPath = metric_path %>% gsub("inst/", "", .))
+  RunWorkflows(metrics_wf, mapped)
+}) %>%
+ setNames(names(metric_dirs))
+
+## stacked analysis output
+analyzed <- purrr::map(names(analyzed_nested[[1]]), \(table) {BindResults(analyzed_nested, table, strStudyID = "AA-AA-867-5309")}) %>%
+                         setNames(names(analyzed_nested[[1]]))
+mapped <- c(mapped, analyzed)
 
 # Step 3 - Create Reporting Layer - create reports using metrics data
+all_metrics_wf <- MakeWorkflowList(strPath = "workflow/2_metrics")
 reporting_wf <- MakeWorkflowList(strPath = "workflow/3_reporting")
-reporting <- RunWorkflows(reporting_wf, c(mapped, list(lAnalyzed = analyzed, lWorkflows = metrics_wf)))
+reporting <- RunWorkflows(reporting_wf, c(mapped, list(lWorkflows = all_metrics_wf)))
 
 # Step 4 - Create KRI Reports - create KRI report using reporting data
 module_wf <- MakeWorkflowList(strPath = "workflow/4_modules")

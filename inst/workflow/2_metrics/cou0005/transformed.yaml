@@ -1,0 +1,23 @@
+meta:
+  Type: Analysis
+  ID: Transformed
+  GroupLevel: Country
+  Abbreviation: LB
+  Metric: Grade 3+ Lab Abnormality Rate
+  Numerator: Grade 3+ Abnormal Labs Samples
+  Denominator: Total Lab Samples
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
+  AnalysisType: binary
+  Threshold: -3,-2,2,3
+  nMinDenominator: 30
+  Priority: 2
+spec:
+  Analysis_Input:
+    _all:
+      required: yes
+steps:
+- name: Transform_Rate
+  output: Analysis_Transformed
+  params:
+    dfInput: Analysis_Input
