@@ -22,7 +22,7 @@ steps:
   - output: Results_Summary
     name: BindResults
     params:
-      lAnalysis: lAnalysis
+      lAnalysis: lAnalyzed
       strName: "Analysis_Summary"
       strStudyID: strStudyID
 
