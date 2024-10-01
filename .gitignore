@@ -32,9 +32,3 @@ inst/doc
 /doc/
 /Meta/
 docs
-
-# gsm.template side effects
-/inst/examples/AA-AA-000-0000/config/**/
-/inst/examples/AA-AA-000-0000/config/snapshot.yaml
-/inst/examples/AA-AA-000-0000/data/**/
-/inst/examples/AA-AA-000-0000/modules/**/
