@@ -68,7 +68,7 @@ Additional `meta` header required fields for `{gsm}` **metrics**:
 - `Metric`: Full name of the metric.
 - `Numerator`: The numerator of the metric.
 - `Denominator`: The denominator of the metric.
-- `AnalysisType`: 
+- `AnalysisType`: The analysis type. Common values: `rate`, `binary`
 - `Model`: The model used to calculate the metric. Common values: `Normal Approximation`, `Exact`, `Bayesian`.
 - `Score`: The score used to calculate the metric. Common values: `Z-Score`, `Adjusted Z-Score`, `P-Value`.
 - `Threshold`: The thresholds needed to flag.
