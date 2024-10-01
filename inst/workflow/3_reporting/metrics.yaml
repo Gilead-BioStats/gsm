@@ -4,7 +4,12 @@ meta:
   Description: Reporting Metrics Data 
   Priority: 1
 steps:
+  - output: lWorkflows
+    name: MakeWorkflowList
+    params:
+      strPackage: gsm
   - output: Reporting_Metrics
     name: MakeMetric
     params:
       lWorkflows: lWorkflows
+

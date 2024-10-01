@@ -8,7 +8,6 @@
 #'
 #' @param lWorkflow `list` A named list of metadata defining how the workflow should be run.
 #' @param lData `list` A named list of domain-level data frames.
-#' @param lConfig `list` Study configuration object. Default is `NULL`
 #' @param bKeepInputData `boolean` should the input data be included in `lData` after the workflow is run? Only relevant when bReturnResult is FALSE. Default is `TRUE`.
 #' @param bReturnResult `boolean` should *only* the result from the last step (`lResults`) be returned? If false, the full workflow (including `lResults`) is returned. Default is `TRUE`.
 #'
@@ -38,14 +37,13 @@
 RunWorkflow <- function(
   lWorkflow,
   lData = NULL,
-  lConfig = NULL,
   bReturnResult = TRUE,
   bKeepInputData = TRUE
 ) {
   # Create a unique identifier for the workflow
   uid <- paste0(lWorkflow$meta$Type,"_",lWorkflow$meta$ID)
   cli::cli_h1("Initializing `{uid}` Workflow")
-  
+
   # check that the workflow has steps
   if (length(lWorkflow$steps) == 0) {
     cli::cli_alert("Workflow `{uid}` has no `steps` property.")
@@ -55,17 +53,12 @@ RunWorkflow <- function(
     cli::cli_alert("Workflow `{uid}` has no `meta` property.")
   }
 
-  # If no data is provided, attempt to load data from lConfig
-  if (is.null(lData) && !is.null(lConfig)) {
-    cli::cli_alert("No data provided. Attempting to load data from `lConfig`.")
-    lData <- LoadData(lWorkflow, lConfig)
-  }
-
   lWorkflow$lData <- lData
 
   # If the workflow has a spec, check that the data and spec are compatible
   if ("spec" %in% names(lWorkflow)) {
     cli::cli_h3("Checking data against spec")
+    # TODO: verify domain names in [ lData ] exist in [ lWorkflow$spec ]
     CheckSpec(lData, lWorkflow$spec)
   } else {
     lWorkflow$spec <- NULL
@@ -76,7 +69,6 @@ RunWorkflow <- function(
   stepCount <- 1
   for (step in lWorkflow$steps) {
     cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lWorkflow$steps), ": `", step$name, "`"))
-
     result <- RunStep(
         lStep = step,
         lData = lWorkflow$lData,
@@ -90,7 +82,7 @@ RunWorkflow <- function(
 
     lWorkflow$lData[[step$output]] <- result
     lWorkflow$lResult <- result
-    
+
     if (is.data.frame(result)) {
       cli::cli_h3("{paste(dim(result),collapse='x')} data.frame saved as `lData${step$output}`.")
     } else {
@@ -98,11 +90,6 @@ RunWorkflow <- function(
     }
 
     stepCount <- stepCount + 1
-  }
-
-  # Save data.
-  if (!is.null(lConfig)) {
-    SaveData(lWorkflow$lResult, lConfig)
   }
 
   # Return the result of the last step (the default) or the full workflow

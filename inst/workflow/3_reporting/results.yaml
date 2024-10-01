@@ -1,9 +1,9 @@
 meta:
   Type: Reporting
   ID: Results
-  Description: Reporting Results Data 
+  Description: Reporting Results Data
   Priority: 1
-spec: 
+spec:
   Mapped_STUDY:
     GroupID:
       required: true
@@ -23,5 +23,6 @@ steps:
     name: BindResults
     params:
       lAnalysis: lAnalyzed
-      strName: "summary"
+      strName: "Analysis_Summary"
       strStudyID: strStudyID
+

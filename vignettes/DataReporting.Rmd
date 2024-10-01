@@ -220,7 +220,7 @@ The reporting workflow requires that all metrics are stacked into a single data 
 
 ```{r include = TRUE}
 dfResults <- BindResults(lAnalysis = lAnalysis,
-                         strName = "summary",
+                         strName = "Analysis_Summary",
                          dSnapshotDate = Sys.Date(),
                          strStudyID = "ABC-123")
 ```
@@ -297,9 +297,9 @@ If the data only contains one snapshot data then the `timeseries` charts will no
 Below are the static and interactive versions of the scatter plot for the AE KRI:
 
 ```{r fig.height=6, fig.width=8, warning=FALSE}
-lCharts$Metric_kri0001$scatter
+lCharts$Analysis_kri0001$scatter
 
-lCharts$Metric_kri0001$scatterJS
+lCharts$Analysis_kri0001$scatterJS
 ```
 
 
