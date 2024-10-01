@@ -71,7 +71,6 @@ results as a named list where the names of the list correspond to the workflow I
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">RunWorkflows</span><span class="op">(</span></span>
 <span>  <span class="va">lWorkflows</span>,</span>
 <span>  lData <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  lConfig <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  bKeepInputData <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  bReturnResult <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  strResultNames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Type"</span>, <span class="st">"ID"</span><span class="op">)</span></span>
@@ -90,10 +89,6 @@ results as a named list where the names of the list correspond to the workflow I
 <dd><p><code>list</code> A named list of domain-level data frames.</p></dd>
 
 
-<dt id="arg-lconfig">lConfig<a class="anchor" aria-label="anchor" href="#arg-lconfig"></a></dt>
-<dd><p><code>list</code> Study configuration object. Default is <code>NULL</code></p></dd>
-
-
 <dt id="arg-bkeepinputdata">bKeepInputData<a class="anchor" aria-label="anchor" href="#arg-bkeepinputdata"></a></dt>
 <dd><p><code>boolean</code> should the input data be included in <code>lData</code> after the workflow is run? Only relevant when bReturnResult is FALSE. Default is <code>TRUE</code>.</p></dd>
 
@@ -103,7 +98,7 @@ results as a named list where the names of the list correspond to the workflow I
 
 
 <dt id="arg-strresultnames">strResultNames<a class="anchor" aria-label="anchor" href="#arg-strresultnames"></a></dt>
-<dd><p><code>string</code> vector of length two, which describes the meta fields used to name the output</p></dd>
+<dd><p><code>string</code> vector of length two, which describes the meta fields used to name the output.</p></dd>
 
 </dl></div>
     <div class="section level2">
