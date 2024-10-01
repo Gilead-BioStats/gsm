@@ -38,25 +38,25 @@ spec:
     Metric:
       type: numeric
 steps:
-  - name: RunQuery
-    output: Reporting_Results_Country
+  - output: Reporting_Results_Country
+    name: RunQuery
     params:
       df: Reporting_Results
       strQuery: "SELECT * FROM df WHERE GroupLevel == 'Country'"
-  - name: RunQuery
-    output: Reporting_Metrics_Country
+  - output: Reporting_Metrics_Country
+    name: RunQuery
     params:
       df: Reporting_Metrics
       strQuery: "SELECT * FROM df WHERE GroupLevel == 'Country'"
-  - name: MakeCharts
-    output: lCharts_Country
+  - output: lCharts_Country
+    name: MakeCharts
     params:
       dfResults: Reporting_Results_Country
       dfGroups: Reporting_Groups
       dfBounds: Reporting_Bounds
       dfMetrics: Reporting_Metrics_Country
-  - name: Report_KRI
-    output: lReport
+  - output: lReport
+    name: Report_KRI
     params:
       lCharts: lCharts_Country
       dfResults: Reporting_Results_Country
