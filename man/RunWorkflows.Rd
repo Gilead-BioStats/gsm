@@ -7,7 +7,6 @@
 RunWorkflows(
   lWorkflows,
   lData = NULL,
-  lConfig = NULL,
   bKeepInputData = FALSE,
   bReturnResult = TRUE,
   strResultNames = c("Type", "ID")
@@ -17,8 +16,6 @@ RunWorkflows(
 \item{lWorkflows}{\code{list} A named list of metadata defining how the workflow should be run.}
 
 \item{lData}{\code{list} A named list of domain-level data frames.}
-
-\item{lConfig}{\code{list} Study configuration object. Default is \code{NULL}}
 
 \item{bKeepInputData}{\code{boolean} should the input data be included in \code{lData} after the workflow is run? Only relevant when bReturnResult is FALSE. Default is \code{TRUE}.}
 

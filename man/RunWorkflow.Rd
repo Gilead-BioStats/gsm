@@ -7,7 +7,6 @@
 RunWorkflow(
   lWorkflow,
   lData = NULL,
-  lConfig = NULL,
   bReturnResult = TRUE,
   bKeepInputData = TRUE
 )
@@ -16,8 +15,6 @@ RunWorkflow(
 \item{lWorkflow}{\code{list} A named list of metadata defining how the workflow should be run.}
 
 \item{lData}{\code{list} A named list of domain-level data frames.}
-
-\item{lConfig}{\code{list} Study configuration object. Default is \code{NULL}}
 
 \item{bReturnResult}{\code{boolean} should \emph{only} the result from the last step (\code{lResults}) be returned? If false, the full workflow (including \code{lResults}) is returned. Default is \code{TRUE}.}
 
