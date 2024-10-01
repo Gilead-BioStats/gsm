@@ -8,7 +8,6 @@
 #'
 #' @param lWorkflow `list` A named list of metadata defining how the workflow should be run.
 #' @param lData `list` A named list of domain-level data frames.
-#' @param lConfig `list` Study configuration object. Default is `NULL`
 #' @param bKeepInputData `boolean` should the input data be included in `lData` after the workflow is run? Only relevant when bReturnResult is FALSE. Default is `TRUE`.
 #' @param bReturnResult `boolean` should *only* the result from the last step (`lResults`) be returned? If false, the full workflow (including `lResults`) is returned. Default is `TRUE`.
 #'
@@ -38,7 +37,6 @@
 RunWorkflow <- function(
   lWorkflow,
   lData = NULL,
-  lConfig = NULL,
   bReturnResult = TRUE,
   bKeepInputData = TRUE
 ) {
@@ -53,15 +51,6 @@ RunWorkflow <- function(
 
   if (!"meta" %in% names(lWorkflow)) {
     cli::cli_alert("Workflow `{uid}` has no `meta` property.")
-  }
-
-  # If no data is provided, attempt to load data from lConfig
-  if (!is.null(lConfig)) {
-    cli::cli_alert("Attempting to load data with `lConfig`.")
-    lData <- LoadData(
-      lWorkflow,
-      lConfig
-    )
   }
 
   lWorkflow$lData <- lData
@@ -101,14 +90,6 @@ RunWorkflow <- function(
     }
 
     stepCount <- stepCount + 1
-  }
-
-  # Save data.
-  if (!is.null(lConfig)) {
-    SaveData(
-      lWorkflow,
-      lConfig
-    )
   }
 
   # Return the result of the last step (the default) or the full workflow
