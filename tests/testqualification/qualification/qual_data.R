@@ -53,7 +53,7 @@ lData_missing_values <- map(lData, function(df) {
 })
 
 ## custom kris path instead of inst/workflow
-yaml_path_custom <- "tests/testqualification/qualification/qual_workflows"
+yaml_path_custom_mappings <- "tests/testqualification/qualification/qual_workflows/1_mappings"
 
 
 ## Get Mapped data
