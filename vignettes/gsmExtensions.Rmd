@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 # Overview
 
-This vignette describes how to extend `gsm` by creating new "modules", including metrics, reports and shiny apps that can be run using the standard `gsm` pipeline described in these vignettes (`vignette("DataAnalysis")`, `vignette("DataReporting")`). As shown in the `vignette("DataAnalysis")`, the `gsm` data pipeline can be used to capture a monitoring 'snapshot' for a study that includes a variety of "modules" including [metrics](https://github.com/Gilead-BioStats/gsm/tree/dev/inst/workflow/metrics/kri0001.yaml), [reports](https://github.com/Gilead-BioStats/gsm/blob/dev/inst/workflow/reports/report_kri_site.yaml) and [apps](TODO: Add this link).Some core modules are included in the `gsm` package, while others can be added as extensions. 
+This vignette describes how to extend `gsm` by creating new "modules", including metrics, reports and shiny apps that can be run using the standard `gsm` pipeline described in these vignettes (`vignette("DataAnalysis")`, `vignette("DataReporting")`). As shown in the `vignette("DataAnalysis")`, the `gsm` data pipeline can be used to capture a monitoring 'snapshot' for a study that includes a variety of "modules" including [metrics](https://github.com/Gilead-BioStats/gsm/tree/dev/inst/workflow/metrics/kri0001.yaml) and [reports](https://github.com/Gilead-BioStats/gsm/blob/dev/inst/workflow/reports/report_kri_site.yaml). Some core modules are included in the `gsm` package, while others can be added as extensions. 
 
 This vignette provide detailed specifications for creating new modules, a description of the directory structure for the `yaml` workflows that comprise a module pipeline, and links to resources that can be used to configure study-level gsm pipelines that utilize these `gsm` extensions.
 
@@ -29,7 +29,7 @@ This vignette provide detailed specifications for creating new modules, a descri
   - `spec`: (required) Data table requirement for the report. Typically from `Mapped_*` or `Reporting_*` data. 
   - `steps`: (required) Functions to produce the reporting output from `Mapped_*` and/or `Reporting_*` data to final output (`html`, `csv` or `shinyApp`).
    
-Detailed specifications for each of these sections are provided below and links to several example module configuration files are provided at the end of this vignette (TODO: Add this). 
+Detailed specifications for each of these sections are provided below. 
 
 ## Example Module Configuration YAMLs
 
@@ -181,15 +181,7 @@ The `steps` is the most complex part of the module configuration and will vary g
 
 ### `steps[]$params` Specification
 
-After processing the YAML `meta` and `spec` sections, `gsm::RunWorkflow()` calls `gsm::RunStep()` for each step in the `steps` section of the YAML. The `params` section of each step is passed to `RunStep()` as a list of parameters along with a copy of the metadata header (`lMeta`) and any data (`lData`). `RunStep()` then parses the list of `params` using the logic described below and passes the parsed parameters to the function specified in the `name` field of the step.
-
-To parse the `params` list, each item is split in to `paramName` and `paramVal`. For example, `lData: Mapped_AE` is parsed to `paramName = 'lData'` and `paramVal = 'Mapped_AE'` and the following rules are applied in order: 
-
-1. If `paramVal` is equal to "lMeta", the the full `lMeta` object is passed to the function (for the given `paramName`). 
-2. If `paramVal` is equal to  "lData", the full `lData` object is passed to the function. 
-3. If `paramVal` is found in `names(lMeta)`, that property is pulled from `lMeta` (e.g. `lMeta${paramVal}`) and passed to the function.
-4. If `paramVal` is found in `names(lData)`, that property is pulled from `lData` (e.g. `lData${paramVal}`) and passed to the function.
-5. Otherwise `paramVal` is passed to the function as a string. 
+After processing the YAML `meta` and `spec` sections, `gsm::RunWorkflow()` calls `gsm::RunStep()` for each step in the `steps` section of the YAML. The `params` section of each step is passed to `RunStep()` as a list of parameters along with a copy of the metadata header (`lMeta`) and any data (`lData`). `RunStep()` then parses the list of `params` by passing data from `lMeta` and `lData` when appropriate - see `?RunStep` for a detailed of how parameter values are populated. Finally, the parsed parameters are passed to the function specified in the `name` field of the step. 
 
 
 ### `steps` examples
@@ -355,7 +347,7 @@ steps:
 
 The metrics directory contains all of the workflows that perform analysis steps, converting mapped data into metrics that are displayed in a report. In the case of `{gsm}`, these metrics are the 12 Key Risk Indicators, calculated at both the site- and country-level, that are discussed in the Data Analysis Step-by-Step Vignette. Each `yaml` in this file produces a list of analysis data tables that capture the formatted input table, the transformed table, the flagged table, and the summary table. In general, these `yaml`s should at least provide a summary table that contains statistics about the metric at the specified level of aggregation.
 
-Examples of these yamls can be found above in the `Module Configuration` section, as well as in the Data Analysis Vignette.
+Examples of these `yaml`s can be found above in the `Module Configuration` section, as well as in the (`vignette("DataAnalysis")`) vignette.
 
 ### `/3_reporting`
 
