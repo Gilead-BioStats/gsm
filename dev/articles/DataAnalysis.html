@@ -47,6 +47,7 @@
     <li><a class="dropdown-item" href="../articles/QualificationWorkflow.html">Qualification Workflow</a></li>
     <li><a class="dropdown-item" href="../articles/Qualification.html">Qualification Report for the {gsm} R Package</a></li>
     <li><a class="dropdown-item" href="../articles/ContributorGuidelines.html">Contributor Guidelines</a></li>
+    <li><a class="dropdown-item" href="../articles/gsmExtensions.html">gsm Extensions</a></li>
   </ul>
 </li>
 <li class="nav-item dropdown">
@@ -101,19 +102,19 @@ Indicators (KRIs) and thresholds to conduct study-level and site-level
 Risk Based Monitoring for clinical trials.</p>
 <p>These functions provide data frames, visualizations, and metadata to
 be used in reporting and error checking at clinical sites. The image
-below illustrates the supporting functions that feed into the
-<code>yaml</code> workflow that is specified in each analysis
-workflow.</p>
+below illustrates the supporting functions that feed into the yaml
+workflow that is specified in each analysis workflow.</p>
 <p><img src="data_analysis.png" style="width:100.0%"></p>
 <p>All of these functions will run automatically and sequentially when a
 user calls upon the <code><a href="../reference/RunWorkflow.html">RunWorkflow()</a></code> function with a specified
-<code>yaml</code> file for KRI metrics.</p>
+yaml file for KRI metrics found in the <code>workflow/2_metrics</code>
+directory of the <a href="https://github.com/Gilead-BioStats/gsm" class="external-link">gsm</a> package.</p>
 <p>Each of these individual functions can also be run independently
-outside of a specified <code>yaml</code> workflow.</p>
+outside of a specified yaml workflow.</p>
 <p>For the purposes of this documentation, we will evaluate the input(s)
 and output(s) of each individual function for a specific KRI to show the
-stepwise progression of how a <code>yaml</code> workflow is set up to
-handle and process data.</p>
+stepwise progression of how a yaml workflow is set up to handle and
+process data.</p>
 <hr>
 <div class="section level3">
 <h3 id="case-study---step-by-step-adverse-event-kri">Case Study - Step-by-Step Adverse Event KRI<a class="anchor" aria-label="anchor" href="#case-study---step-by-step-adverse-event-kri"></a>
@@ -507,8 +508,8 @@ metric using the data provided.</li>
 <h4 id="what-statistical-models-are-available-for-each-assessment">What Statistical Models Are Available For Each Assessment?<a class="anchor" aria-label="anchor" href="#what-statistical-models-are-available-for-each-assessment"></a>
 </h4>
 <ul>
-<li>By default, all <code>yaml</code> workflow assessments specified in
-the <code>inst/workflows/</code> directory use the <a href="https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-normal-approximation-method">normal
+<li>By default, all yaml workflow assessments specified in the
+<code>inst/workflows/</code> directory use the <a href="https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-normal-approximation-method">normal
 approximation</a> method.</li>
 <li>Optionally, other statistical methods include: <a href="https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-poisson-regression-method"><strong>Poisson</strong></a>,
 <a href="https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-fishers-exact-method"><strong>Fisher’s
