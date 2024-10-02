@@ -23,7 +23,7 @@ testthat::test_that("Adverse Event Assessments can be done correctly using a gro
   # data is properly transformed by correct group in dfTransformed
   iwalk(test, ~ expect_equal(
     n_distinct(.x$dfEnrolled[[kri_workflows[[.y]]$steps[[2]]$params$strGroupCol]]),
-    nrow(.x$dfTransformed)
+    nrow(.x$Analysis_Transformed)
   ))
 
   ## custom -------------------------------------------
@@ -38,7 +38,7 @@ testthat::test_that("Adverse Event Assessments can be done correctly using a gro
   # data is properly transformed by correct group in dfTransformed
   iwalk(test_custom, ~ expect_equal(
     n_distinct(.x$dfEnrolled[[kri_custom[[.y]]$steps[[2]]$params$strGroupCol]]),
-    nrow(.x$dfTransformed)
+    nrow(.x$Analysis_Transformed)
   ))
 
   mapped_data$dfEnrolled %>% glimpse()
@@ -61,6 +61,6 @@ testthat::test_that("Adverse Event Assessments can be done correctly using a gro
   # data is properly transformed by correct group in dfTransformed
   iwalk(test_custom2, ~ expect_equal(
     n_distinct(.x$dfEnrolled[[kri_custom2[[.y]]$steps[[2]]$params$strGroupCol]]),
-    nrow(.x$dfTransformed)
+    nrow(.x$Analysis_Transformed)
   ))
 })

@@ -2,9 +2,10 @@
 source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
 
 kri_workflows <- MakeWorkflowList(c(sprintf("kri%04d", 8:9), sprintf("cou%04d", 8:9)))
-kri_custom <- MakeWorkflowList(c(sprintf("kri%04d_custom", 8:9), sprintf("cou%04d_custom", 8:9)), yaml_path_custom)
+kri_custom <- MakeWorkflowList(c(sprintf("kri%04d_custom", 8:9), sprintf("cou%04d_custom", 8:9)), yaml_path_custom_metrics)
 
-mapped_data <- get_data(kri_workflows, lData)
+#mapped_data <- get_data(mappings_wf, lData)
+mapped_data <- RunWorkflows(mappings_wf, lData)
 
 ## Test Code
 testthat::test_that("Query Rate Assessments can be done correctly using a grouping variable, such as Site, Country, or Study, when applicable.", {
@@ -20,7 +21,7 @@ testthat::test_that("Query Rate Assessments can be done correctly using a groupi
   # data is properly transformed by correct group in dfTransformed
   iwalk(test, ~ expect_equal(
     n_distinct(.x$dfEnrolled[[kri_workflows[[.y]]$steps[[2]]$params$strGroupCol]]),
-    nrow(.x$dfTransformed)
+    nrow(.x$Analysis_Transformed)
   ))
 
   ## custom -------------------------------------------
@@ -35,6 +36,6 @@ testthat::test_that("Query Rate Assessments can be done correctly using a groupi
   # data is properly transformed by correct group in dfTransformed
   iwalk(test_custom, ~ expect_equal(
     n_distinct(.x$dfEnrolled[[kri_custom[[.y]]$steps[[2]]$params$strGroupCol]]),
-    nrow(.x$dfTransformed)
+    nrow(.x$Analysis_Transformed)
   ))
 })

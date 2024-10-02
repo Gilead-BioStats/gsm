@@ -20,7 +20,7 @@ testthat::test_that("Disposition Assessments can be done correctly using a group
   # data is properly transformed by correct group in dfTransformed
   iwalk(test, ~ expect_equal(
     n_distinct(.x$dfEnrolled[[kri_workflows[[.y]]$steps[[2]]$params$strGroupCol]]),
-    nrow(.x$dfTransformed)
+    nrow(.x$Analysis_Transformed)
   ))
 
   ## custom -------------------------------------------
@@ -35,6 +35,6 @@ testthat::test_that("Disposition Assessments can be done correctly using a group
   # data is properly transformed by correct group in dfTransformed
   iwalk(test_custom, ~ expect_equal(
     n_distinct(.x$dfEnrolled[[kri_custom[[.y]]$steps[[2]]$params$strGroupCol]]),
-    nrow(.x$dfTransformed)
+    nrow(.x$Analysis_Transformed)
   ))
 })
