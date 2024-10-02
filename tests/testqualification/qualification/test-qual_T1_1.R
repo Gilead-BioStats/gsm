@@ -1,89 +1,147 @@
-# This test has fundamentally changed, should it be reworked to check each/a couple domains?
+source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
+# priority1_names <- c("AE", "ENROLL", "LB", "PD", "SDRGCOMP", "STUDCOMP", "SUBJ")
+# mapping_p1 <- MakeWorkflowList(priority1_names)
+lData_mapped <- RunWorkflows(mappings_wf, lData)
 
+priority2_names <- c("DATACHG", "DATAENT", "QUERY", "SUBJ")
+mapping_p2 <- MakeWorkflowList(priority2_names)
+lData_mapped2 <- RunWorkflows(mapping_p2, lData)
 
-test_that("lData is correctly mapped for processing using `mapping.yaml` in conjunction with `MakeWorkflowList()` and `RunWorkflow`", {
-  source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
+# Priority 1 mappings
+test_that("mappings now done by individual domain, test that inputs and outputs of AE are completed as expected", {
 
-  lData_mapped <- robust_runworkflow(mapping_workflow, lData)
-  mapping_yaml <- yaml::read_yaml(system.file("workflow", "data_mapping.yaml", package = "gsm"))
-
-  ## Rename columns
-  mapping_renaming_config <- map_df(mapping_yaml$steps, function(step) {
-    data.frame(
-      "input" = step$params$df,
-      "output" = step$output,
-      "original_col" = str_extract(step$params$strQuery, "(?<=SELECT )(.*?)(?= AS)"),
-      "new_col" = stringr::str_extract(step$params$strQuery, "(?<=AS )(.*?)(?=,)")
-    )
-  }, .id = "step") %>%
-    na.omit()
-
-  original_names_present <- map_lgl(unique(mapping_renaming_config$input), function(df) {
-    original_col <- mapping_renaming_config %>%
-      filter(input == df) %>%
-      distinct(original_col) %>%
-      pull()
-
-    all(original_col %in% names(lData[[df]]))
-  })
-
-  new_names_present <- map_lgl(unique(mapping_renaming_config$output), function(df) {
-    new_col <- mapping_renaming_config %>%
-      filter(output == df) %>%
-      distinct(new_col) %>%
-      pull()
-
-    all(new_col %in% names(lData_mapped[[df]]))
-  })
-
-  expect_true(all(original_names_present))
-  expect_true(all(new_names_present))
-
-  ## filtering cols
-  mapping_filter_config <- map_df(mapping_yaml$steps, function(step) {
-    data.frame(
-      "input" = step$params$df,
-      "output" = step$output,
-      "filter_raw" = str_extract(step$params$strQuery, "(?<=WHERE )(.*?)(?=;)")
-    ) %>%
-      mutate(
-        "filter_call" = case_when(
-          str_detect(filter_raw, "IN ") ~ stringr::str_replace_all(filter_raw, "IN ", "%in% c"),
-          TRUE ~ filter_raw
-        ),
-        "filter_call" = case_when(
-          str_detect(filter_call, "AND") ~ stringr::str_replace_all(filter_call, "AND", "&"),
-          TRUE ~ filter_call
-        )
-      )
-  }, .id = "step") %>%
-    na.omit()
-
-
-  need_input <- map_vec(mapping_yaml$steps, ~ .x$params$df)[map_vec(mapping_yaml$steps, ~ .x$params$df) %in%
-    map_vec(mapping_yaml$steps, ~ .x$output)]
-  lData_new <- lData
-  if (!is.null(need_input)) {
-    all_need_input <- mapping_filter_config %>%
-      filter(output %in% need_input)
-    lData_new <- map(split(all_need_input, row_number(all_need_input)), function(df) {
-      lData_new[[df$output]] <- lData[[df$input]] %>%
-        filter(eval(parse(text = df$filter_call)))
-      return(lData_new)
-    }) %>% flatten()
-  }
-
-  filter_test <- list()
-  mapping_filter_output <- map(split(mapping_filter_config, row_number(mapping_filter_config)), function(df) {
-    filter_test[[df$output]] <- lData_new[[df$input]] %>%
-      filter(eval(parse(text = df$filter_call)))
-    return(filter_test)
-  }) %>% flatten()
-
-  expect_true(
-    all(imap_lgl(mapping_filter_output, function(df, name) {
-      nrow(df) == nrow(lData_mapped[[name]])
-    }))
+  # For AE.yaml
+  mapped_ae_yaml <- read_yaml(
+    system.file("tests", "testqualification", "qualification", "qual_workflows", "1_mappings", "AE.yaml", package = "gsm")
   )
+
+  # Requried raw data is in data source
+  expect_true(all(names(mapped_ae_yaml$spec) %in% names(lData)))
+
+  # Output from yaml is in the mapped data object
+  expect_true(flatten(mapped_ae_yaml$steps)$output %in% names(lData_mapped))
+
+  # Needed columns of raw data are actually in raw data and retained in final data
+  expect_true(all(names(flatten(mapped_ae_yaml$spec)) %in% names(lData[names(mapped_ae_yaml$spec)][[1]])))
+  expect_true(all(names(flatten(mapped_ae_yaml$spec)) %in% names(lData_mapped[[flatten(mapped_ae_yaml$steps)$output]])))
 })
 
+test_that("mappings now done by individual domain, test that inputs and outputs of ENROLL are completed as expected", {
+
+  # For ENROLL.yaml
+  mapped_enroll_yaml <- read_yaml(
+    system.file("tests", "testqualification", "qualification", "qual_workflows", "1_mappings", "ENROLL.yaml", package = "gsm")
+  )
+
+  # Requried raw data is in data source
+  expect_true(all(names(mapped_enroll_yaml$spec) %in% names(lData)))
+
+  # Output from yaml is in the mapped data object
+  expect_true(flatten(mapped_enroll_yaml$steps)$output %in% names(lData_mapped))
+
+  # Needed columns of raw data are actually in raw data and retained in final data
+  expect_true(all(names(flatten(mapped_enroll_yaml$spec)) %in% names(lData[names(mapped_enroll_yaml$spec)][[1]])))
+  expect_true(all(names(flatten(mapped_enroll_yaml$spec)) %in% names(lData_mapped[[flatten(mapped_enroll_yaml$steps)$output]])))
+})
+
+test_that("mappings now done by individual domain, test that inputs and outputs of LB are completed as expected", {
+
+  # For LB.yaml
+  mapped_lb_yaml <- read_yaml(
+    system.file("tests", "testqualification", "qualification", "qual_workflows", "1_mappings", "LB.yaml", package = "gsm")
+  )
+
+  # Requried raw data is in data source
+  expect_true(all(names(mapped_lb_yaml$spec) %in% names(lData)))
+
+  # Output from yaml is in the mapped data object
+  expect_true(flatten(mapped_lb_yaml$steps)$output %in% names(lData_mapped))
+
+  # Needed columns of raw data are actually in raw data and retained in final data
+  expect_true(all(names(flatten(mapped_lb_yaml$spec)) %in% names(lData[names(mapped_lb_yaml$spec)][[1]])))
+  expect_true(all(names(flatten(mapped_lb_yaml$spec)) %in% names(lData_mapped[[flatten(mapped_lb_yaml$steps)$output]])))
+})
+
+test_that("mappings now done by individual domain, test that inputs and outputs of PD are completed as expected", {
+
+  # For PD.yaml
+  mapped_pd_yaml <- read_yaml(
+    system.file("tests", "testqualification", "qualification", "qual_workflows", "1_mappings", "PD.yaml", package = "gsm")
+  )
+
+  # Requried raw data is in data source
+  expect_true(all(names(mapped_pd_yaml$spec) %in% names(lData)))
+
+  # Output from yaml is in the mapped data object
+  expect_true(flatten(mapped_pd_yaml$steps)$output %in% names(lData_mapped))
+
+  # Needed columns of raw data are actually in raw data and retained in final data
+  expect_true(all(names(flatten(mapped_pd_yaml$spec)) %in% names(lData[names(mapped_pd_yaml$spec)][[1]])))
+  expect_true(all(names(flatten(mapped_pd_yaml$spec)) %in% names(lData_mapped[[flatten(mapped_pd_yaml$steps)$output]])))
+})
+
+test_that("mappings now done by individual domain, test that inputs and outputs of SDRGCOMP are completed as expected", {
+
+  # For SDRGCOMP.yaml
+  mapped_sdrgcomp_yaml <- read_yaml(
+    system.file("tests", "testqualification", "qualification", "qual_workflows", "1_mappings", "SDRGCOMP.yaml", package = "gsm")
+  )
+
+  # Requried raw data is in data source
+  expect_true(all(names(mapped_sdrgcomp_yaml$spec) %in% names(lData)))
+
+  # Output from yaml is in the mapped data object
+  expect_true(flatten(mapped_sdrgcomp_yaml$steps)$output %in% names(lData_mapped))
+
+  # Needed columns of raw data are actually in raw data and retained in final data
+  expect_true(all(names(flatten(mapped_sdrgcomp_yaml$spec)) %in% names(lData[names(mapped_sdrgcomp_yaml$spec)][[1]])))
+  expect_true(all(names(flatten(mapped_sdrgcomp_yaml$spec)) %in% names(lData_mapped[[flatten(mapped_sdrgcomp_yaml$steps)$output]])))
+})
+
+test_that("mappings now done by individual domain, test that inputs and outputs of STUDCOMP are completed as expected", {
+
+  # For STUDCOMP.yaml
+  mapped_studcomp_yaml <- read_yaml(
+    system.file("tests", "testqualification", "qualification", "qual_workflows", "1_mappings", "STUDCOMP.yaml", package = "gsm")
+  )
+
+  # Requried raw data is in data source
+  expect_true(all(names(mapped_studcomp_yaml$spec) %in% names(lData)))
+
+  # Output from yaml is in the mapped data object
+  expect_true(flatten(mapped_studcomp_yaml$steps)$output %in% names(lData_mapped))
+
+  # Needed columns of raw data are actually in raw data and retained in final data
+  expect_true(all(names(flatten(mapped_studcomp_yaml$spec)) %in% names(lData[names(mapped_studcomp_yaml$spec)][[1]])))
+  expect_true(all(names(flatten(mapped_studcomp_yaml$spec)) %in% names(lData_mapped[[flatten(mapped_studcomp_yaml$steps)$output]])))
+})
+
+test_that("mappings now done by individual domain, test that inputs and outputs of SUBJ are completed as expected", {
+
+  # For SUBJ.yaml
+  mapped_subj_yaml <- read_yaml(
+    system.file("tests", "testqualification", "qualification", "qual_workflows", "1_mappings", "SUBJ.yaml", package = "gsm")
+  )
+
+  # Requried raw data is in data source
+  expect_true(all(names(mapped_subj_yaml$spec) %in% names(lData)))
+
+  # Output from yaml is in the mapped data object
+  expect_true(flatten(mapped_subj_yaml$steps)$output %in% names(lData_mapped))
+
+  # Needed columns of raw data are actually in raw data and retained in final data
+  expect_true(all(names(flatten(mapped_subj_yaml$spec)) %in% names(lData[names(mapped_subj_yaml$spec)][[1]])))
+  expect_true(all(names(flatten(mapped_subj_yaml$spec)) %in% names(lData_mapped[[flatten(mapped_subj_yaml$steps)$output]])))
+})
+
+# Priority 2 Mappings
+
+test_that("mappings now done by individual domain, test that inputs and outputs of SUBJ are completed as expected", {
+
+  # For DATACHG.yaml
+  mapped_datachg_yaml <- read_yaml(
+    system.file("tests", "testqualification", "qualification", "qual_workflows", "1_mappings", "DATACHG.yaml", package = "gsm")
+  )
+
+  names(mapped_datachg_yaml$spec)
+})
