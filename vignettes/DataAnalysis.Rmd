@@ -23,15 +23,15 @@ library(DT)
 
 This vignette walks users through the mechanics of the functions that produce all of the Analysis workflow output within the `{gsm}` package. `{gsm}` leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level and site-level Risk Based Monitoring for clinical trials.
 
-These functions provide data frames, visualizations, and metadata to be used in reporting and error checking at clinical sites. The image below illustrates the supporting functions that feed into the `yaml` workflow that is specified in each analysis workflow.
+These functions provide data frames, visualizations, and metadata to be used in reporting and error checking at clinical sites. The image below illustrates the supporting functions that feed into the yaml workflow that is specified in each analysis workflow.
 
 ![](data_analysis.png){width="100%"} 
 
-All of these functions will run automatically and sequentially when a user calls upon the `RunWorkflow()` function with a specified `yaml` file for KRI metrics found in the `workflow/2_metrics` directory of the `{gsm}` package.
+All of these functions will run automatically and sequentially when a user calls upon the `RunWorkflow()` function with a specified yaml file for KRI metrics found in the `workflow/2_metrics` directory of the `{gsm}` package.
 
-Each of these individual functions can also be run independently outside of a specified `yaml` workflow.
+Each of these individual functions can also be run independently outside of a specified yaml workflow.
 
-For the purposes of this documentation, we will evaluate the input(s) and output(s) of each individual function for a specific KRI to show the stepwise progression of how a  `yaml` workflow is set up to handle and process data.
+For the purposes of this documentation, we will evaluate the input(s) and output(s) of each individual function for a specific KRI to show the stepwise progression of how a  yaml workflow is set up to handle and process data.
 
 ------------------------------------------------------------------------
 
@@ -241,7 +241,7 @@ The following sections include various examples of supporting functions and stat
 
 ### What Statistical Models Are Available For Each Assessment?
 
--   By default, all `yaml` workflow assessments specified in the `inst/workflows/` directory use the [normal approximation](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-normal-approximation-method) method.
+-   By default, all yaml workflow assessments specified in the `inst/workflows/` directory use the [normal approximation](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-normal-approximation-method) method.
 -   Optionally, other statistical methods include: [**Poisson**](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-poisson-regression-method), [**Fisher's Exact**](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-fishers-exact-method), and [**Identity**](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-identity-method).
 
 ![](data_analysis_combined.png){width="100%"}

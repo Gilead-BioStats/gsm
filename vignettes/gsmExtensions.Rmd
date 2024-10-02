@@ -18,14 +18,13 @@ knitr::opts_chunk$set(
 
 This vignette describes how to extend `gsm` by creating new "modules", including metrics, reports and shiny apps that can be run using the standard `gsm` pipeline described in these vignettes (`vignette("DataAnalysis")`, `vignette("DataReporting")`). As shown in the `vignette("DataAnalysis")`, the `gsm` data pipeline can be used to capture a monitoring 'snapshot' for a study that includes a variety of "modules" including [metrics](https://github.com/Gilead-BioStats/gsm/tree/dev/inst/workflow/metrics/kri0001.yaml) and [reports](https://github.com/Gilead-BioStats/gsm/blob/dev/inst/workflow/reports/report_kri_site.yaml). Some core modules are included in the `gsm` package, while others can be added as extensions. 
 
-This vignette provide detailed specifications for creating new modules, a description of the directory structure for the `yaml` workflows that comprise a module pipeline, and links to resources that can be used to configure study-level gsm pipelines that utilize these `gsm` extensions.
+This vignette provide detailed specifications for creating new modules, a description of the directory structure for the yaml workflows that comprise a module pipeline, and links to resources that can be used to configure study-level gsm pipelines that utilize these `gsm` extensions.
 
 # Module Configuration
 
 `gsm` modules will typically be part of an R package and have a YAML configuration file - `{module_name}.yaml` - saved under `\inst\workflow\4_modules`. Module config files include 3 key properties: 
 
   -  `meta`: (required) Report metadata used for centralized library and fields referenced in `steps` section of workflow.
-    - This is not required in the `{report_name}.yaml` if the report is entirely comprised of `metric`s that have their own `yaml` configuration files. 
   - `spec`: (required) Data table requirement for the report. Typically from `Mapped_*` or `Reporting_*` data. 
   - `steps`: (required) Functions to produce the reporting output from `Mapped_*` and/or `Reporting_*` data to final output (`html`, `csv` or `shinyApp`).
    
@@ -37,7 +36,6 @@ Here are links to several sample module configuration files:
 
 - [12 Standard gsm KRIs](https://github.com/Gilead-BioStats/gsm/tree/dev/inst/workflow/metrics) (e.g. [Adverse Event KRI Metric](https://github.com/Gilead-BioStats/gsm/tree/dev/inst/workflow/metrics/kri0001.yaml))
 - [Site-](https://github.com/Gilead-BioStats/gsm/blob/dev/inst/workflow/reports/report_kri_site.yaml) and [Country-level KRI Report](https://github.com/Gilead-BioStats/gsm/blob/dev/inst/workflow/reports/report_kri_country.yaml)
-- [GSM Deep Dive Shiny App]()
 
 ## `meta` Specification
 
@@ -94,7 +92,7 @@ A simple `meta` section for a report might look like this:
 
 ## `spec` Specification
 
-The `spec` section of the workflow YAML specifies the data requirements for the workflow, including the data tables that are required and the columns that are needed from each table. The `gsm` data pipeline is designed to be highly customizatble, but for the purposes of this vignette, we will assume usage of the standard `gsm` data model described in the [Data Model vignette](). For this standard use case, modules will pull primarily from the "Mapped" and "Reporting" data layers. 
+The `spec` section of the workflow YAML specifies the data requirements for the workflow, including the data tables that are required and the columns that are needed from each table. The `gsm` data pipeline is designed to be highly customizatble, but for the purposes of this vignette, we will assume usage of the standard `gsm` data model described in `vignette("DataModel")`. For this standard use case, modules will pull primarily from the "Mapped" and "Reporting" data layers. 
 
 The `spec` section of the workflow YAML is formatted as a list of data tables, with each table containing a list of columns. Finally, each column contains the following parameters:
 
@@ -175,7 +173,7 @@ Finally, each module YAML config should have a `steps` property that describes i
 - `output`: The name of the output of the function. This is the name of the data table that is created by the function.
 - `params`: A list of parameters that are passed to the function. The parameters are specific to the function that is being run. See below for more details on how to specify parameters for each function.
 
-**Note**: It is important to note that the default behavior of the `RunWorkflow()` and `RunWorkflows()` functions is to return the *last* output in the steps section of the workflow. therefore, each `yaml` file- regardless of which directory it is in- should only produce one output, whether that be a data table, list, html output, deployed shiny app, or any other object needed to produce the module output.
+**Note**: It is important to note that the default behavior of the `RunWorkflow()` and `RunWorkflows()` functions is to return the *last* output in the steps section of the workflow. therefore, each yaml file- regardless of which directory it is in- should only produce one output, whether that be a data table, list, html output, deployed shiny app, or any other object needed to produce the module output.
 
 The `steps` is the most complex part of the module configuration and will vary greatly depending on the module type and the specific requirements of the module. `gsm` provides several functions that allow for module yaml files to be run in a standard way. See `?gsm::RunWorkflow()` for more details.
 
@@ -272,16 +270,16 @@ steps:
 
 # Directory Structure for Workflows 
 
-Each extension that produces report(s) will have a `workflow` directory in the `inst` of the package that follows a standard structure. This directory will contain 4 folders in which to store the `yaml` workflow files that map data, perform analysis, produce reporting data, and generate the output of a module. Each module output requires it's own unique `yaml` in the `4_modules` folder, which will take inputs generated from the previous three directories.
+Each extension that produces report(s) will have a `workflow` directory in the `inst` of the package that follows a standard structure. This directory will contain 4 folders in which to store the yaml workflow files that map data, perform analysis, produce reporting data, and generate the output of a module. Each module output requires it's own unique yaml in the `4_modules` folder, which will take inputs generated from the previous three directories.
 
 
 ### `/1_mappings`
 
-The mappings folder contains all of the mappings from `Raw_*` data to `Mapped_*` data. Each file within this directory is to be named for the data table it is creating, minus the `Mapped_` suffix. The `yaml`s will contain the three required sections, which are discussed in detail in the `Module Configuration` section above. The `yaml`s in this folder will be combined via `CombineSpecs()` to create a master spec that defines all necessary tables and columns for the module(s) in this package.
+The mappings folder contains all of the mappings from `Raw_*` data to `Mapped_*` data. Each file within this directory is to be named for the data table it is creating, minus the `Mapped_` suffix. The yamls will contain the three required sections, which are discussed in detail in the `Module Configuration` section above. The yamls in this folder will be combined via `CombineSpecs()` to create a master spec that defines all necessary tables and columns for the module(s) in this package.
 
-Below are two examples of these mapping `yaml` files- the first which requires no transformations, and is very simple, and the second which requires multiple steps to produce the desired mapped data. 
+Below are two examples of these mapping yaml files- the first which requires no transformations, and is very simple, and the second which requires multiple steps to produce the desired mapped data. 
 
-#### Mapped_AE mapping `yaml` file
+#### Mapped_AE mapping yaml file
 
 ```
 meta:
@@ -304,7 +302,7 @@ steps:
       lhs: Mapped_AE
       rhs: Raw_AE
 ```
-#### Mapped_DATACHG mapping `yaml` file
+#### Mapped_DATACHG mapping yaml file
 ```
 meta:
   Type: Mapped
@@ -345,21 +343,21 @@ steps:
 
 ### `/2_metrics`
 
-The metrics directory contains all of the workflows that perform analysis steps, converting mapped data into metrics that are displayed in a report. In the case of `{gsm}`, these metrics are the 12 Key Risk Indicators, calculated at both the site- and country-level, that are discussed in the Data Analysis Step-by-Step Vignette. Each `yaml` in this file produces a list of analysis data tables that capture the formatted input table, the transformed table, the flagged table, and the summary table. In general, these `yaml`s should at least provide a summary table that contains statistics about the metric at the specified level of aggregation.
+The metrics directory contains all of the workflows that perform analysis steps, converting mapped data into metrics that are displayed in a report. In the case of `{gsm}`, these metrics are the 12 Key Risk Indicators, calculated at both the site- and country-level, that are discussed in the Data Analysis Step-by-Step Vignette. Each yaml in this file produces a list of analysis data tables that capture the formatted input table, the transformed table, the flagged table, and the summary table. In general, these yamls should at least provide a summary table that contains statistics about the metric at the specified level of aggregation.
 
-Examples of these `yaml`s can be found above in the `Module Configuration` section, as well as in the (`vignette("DataAnalysis")`) vignette.
+Examples of these yamls can be found above in the `Module Configuration` section, as well as in the (`vignette("DataAnalysis")`) vignette.
 
 ### `/3_reporting`
 
 The reporting directory is intended to hold all of the workflows that produce the data that is required for the module outputs. This typically requires the stacking of analysis data from all of the relevant metrics into a single `results` data frame that can be surfaced in a report, or multiple reports. Additionally, any further information that must be taken from the analysis output, such as study/site/group/metric metadata and supporting statistics will be constructed through workflows in this folder.
 
-Examples of these `yaml`s can be found above in the `Module Configuration` section, as well as in the Data Reporting Vignette.
+Examples of these yamls can be found above in the `Module Configuration` section, as well as in `vignette("DataReporting")`.
 
 ### `/4_modules`
 
 The modules directory contains the final workflow(s) of the reporting pipeline. These workflows each produce a single output based on the data tables that have been produced in the previous directories. These module workflows will contain all of the necessary meta information, as detailed in the `Module Configuration` section above, along with the data tables required, and steps to produce it, so that `gsm::RunWorkflow()` can take this workflow and produce the module output.  
 
-Below is an example of the module `yaml` workflow for the KRI Site Report in `{gsm}`
+Below is an example of the module yaml workflow for the KRI Site Report in `{gsm}`
 
 ```
 meta:
