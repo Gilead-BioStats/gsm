@@ -7,12 +7,13 @@
 #
 #' @param lCharts A list of charts for the selected metric.
 #' @param strMetricID `character` MetricID to subset the data.
+#' @param overview `logical` TRUE for generating Study Overview & Flag Over Time
 #'
 #' @return Markdown content with charts and a summary table for the metric
 #'
 #' @export
 #'
-Report_MetricCharts <- function(lCharts, strMetricID = "") {
+Report_MetricCharts <- function(lCharts, strMetricID = "", overview = FALSE) {
   #### charts tabset
   cat("#### Summary Charts {.tabset} \n")
   chartTypes <- c(
@@ -23,7 +24,18 @@ Report_MetricCharts <- function(lCharts, strMetricID = "") {
     "timeSeriesContinuousMetricJS",
     "timeSeriesContinuousNumeratorJS"
   )
-  lCharts <- lCharts[names(lCharts) %in% chartTypes]
+
+  chartTypes2 <- c(
+    "groupOverviewJS",
+    "flagOverTimeJS"
+  )
+
+  if (overview == FALSE) {
+    lCharts <- lCharts[names(lCharts) %in% chartTypes]
+  } else {
+    lCharts <- lCharts[names(lCharts) %in% chartTypes2]
+  }
+
   for (j in seq_along(lCharts)) {
     chart_key <- names(lCharts)[j]
     chart <- lCharts[[j]]
@@ -34,7 +46,9 @@ Report_MetricCharts <- function(lCharts, strMetricID = "") {
       barMetricJS = paste0(fontawesome::fa("chart-simple", fill = "#337ab7"), "  KRI Metric"),
       timeSeriesContinuousScoreJS = paste0(fontawesome::fa("chart-line", fill = "#337ab7"), "  KRI Score"),
       timeSeriesContinuousMetricJS = paste0(fontawesome::fa("chart-line", fill = "#337ab7"), "  KRI Metric"),
-      timeSeriesContinuousNumeratorJS = paste0(fontawesome::fa("chart-line", fill = "#337ab7"), "  Numerator")
+      timeSeriesContinuousNumeratorJS = paste0(fontawesome::fa("chart-line", fill = "#337ab7"), "  Numerator"),
+      groupOverviewJS = paste0(fontawesome::fa("table", fill = "#337ab7"), "  Group Overview"),
+      flagOverTimeJS = paste0(fontawesome::fa("table", fill = "#337ab7"), "  Flags Over Time")
     )
 
     ##### chart tab /

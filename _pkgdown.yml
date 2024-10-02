@@ -79,10 +79,12 @@ reference:
   - title: Utility
     desc: Utility functions for use within the Data Model
   - contents:
+     -  ApplySpec
      -  BindResults
      -  CheckSpec
      -  CombineSpecs
      -  FilterByLatestSnapshotDate
+     -  FilterByFlags
      -  Ingest
      -  MakeBounds
      -  MakeCharts

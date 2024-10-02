@@ -70,6 +70,6 @@ test_that("output is correctly sorted by Flag and Score", {
 
 test_that("yaml workflow produces same table as R function", {
   source(test_path("testdata", "create_double_data.R"), local = TRUE)
-  expect_equal(dfSummarized$Flag, lResults$Metric_kri0001$summary$Flag)
-  expect_equal(dim(dfSummarized), dim(lResults$Metric_kri0001$summary))
+  expect_equal(dfSummarized$Flag, lResults$Analysis_kri0001$Analysis_Summary$Flag)
+  expect_equal(dim(dfSummarized), dim(lResults$Analysis_kri0001$Analysis_Summary))
 })

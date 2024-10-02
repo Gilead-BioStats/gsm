@@ -1,5 +1,5 @@
 meta:
-  Type: Metric
+  Type: Analysis
   ID: cou0008
   GroupLevel: Country
   Abbreviation: QRY
@@ -31,17 +31,17 @@ spec:
       required: true
       type: character
 steps:
-  - name: ParseThreshold
-    output: vThreshold
+  - output: vThreshold
+    name: ParseThreshold
     params:
       strThreshold: Threshold
-  - name: RunQuery
-    output: Temp_QUERY
+  - output: Temp_QUERY
+    name: RunQuery
     params:
       df: Mapped_QUERY
       strQuery: "SELECT * FROM df WHERE querystatus IN ('Open','Answered','Closed')"
-  - name: Input_Rate
-    output: Analysis_Input
+  - output: Analysis_Input
+    name: Input_Rate
     params:
       dfSubjects: Mapped_SUBJ
       dfNumerator: Temp_QUERY
@@ -51,33 +51,32 @@ steps:
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count
-  - name: Transform_Rate
-    output: Analysis_Transformed
+  - output: Analysis_Transformed
+    name: Transform_Rate
     params:
       dfInput: Analysis_Input
-  - name: Analyze_NormalApprox
-    output: Analysis_Analyzed
+  - output: Analysis_Analyzed
+    name: Analyze_NormalApprox
     params:
       dfTransformed: Analysis_Transformed
       strType: AnalysisType
-  - name: Flag_NormalApprox
-    output: Analysis_Flagged
+  - output: Analysis_Flagged
+    name: Flag_NormalApprox
     params:
       dfAnalyzed: Analysis_Analyzed
       vThreshold: vThreshold
-  - name: Summarize
-    output: Analysis_Summary
+  - output: Analysis_Summary
+    name: Summarize
     params:
       dfFlagged: Analysis_Flagged
       nMinDenominator: nMinDenominator
-  - name: list
-    output: cou0008
+  - output: lAnalysis
+    name: list
     params:
-      id: ID
-      input: Analysis_Input
-      transformed: Analysis_Transformed
-      analyzed: Analysis_Analyzed
-      flagged: Analysis_Flagged
-      summary: Analysis_Summary
-
+      ID: ID
+      Analysis_Input: Analysis_Input
+      Analysis_Transformed: Analysis_Transformed
+      Analysis_Analyzed: Analysis_Analyzed
+      Analysis_Flagged: Analysis_Flagged
+      Analysis_Summary: Analysis_Summary
 

@@ -1,5 +1,5 @@
 meta:
-  Type: Metric
+  Type: Analysis
   ID: kri0005
   GroupLevel: Site
   Abbreviation: LB
@@ -27,22 +27,22 @@ spec:
       required: true
       type: character
 steps:
-  - name: ParseThreshold
-    output: vThreshold
+  - output: vThreshold
+    name: ParseThreshold
     params:
       strThreshold: Threshold
-  - name: RunQuery
-    output: Temp_ABNORMAL
+  - output: Temp_ABNORMAL
+    name: RunQuery
     params:
       df: Mapped_LB
       strQuery: "SELECT * FROM df WHERE toxgrg_nsv IN ('3', '4')"
-  - name: RunQuery
-    output: Temp_LB
+  - output: Temp_LB
+    name: RunQuery
     params:
       df: Mapped_LB
       strQuery: "SELECT * FROM df WHERE toxgrg_nsv IN ('0', '1', '2', '3', '4')"
-  - name: Input_Rate
-    output: Analysis_Input
+  - output: Analysis_Input
+    name: Input_Rate
     params:
       dfSubjects: Mapped_SUBJ
       dfNumerator: Temp_ABNORMAL
@@ -52,32 +52,32 @@ steps:
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count
-  - name: Transform_Rate
-    output: Analysis_Transformed
+  - output: Analysis_Transformed
+    name: Transform_Rate
     params:
       dfInput: Analysis_Input
-  - name: Analyze_NormalApprox
-    output: Analysis_Analyzed
+  - output: Analysis_Analyzed
+    name: Analyze_NormalApprox
     params:
       dfTransformed: Analysis_Transformed
       strType: AnalysisType
-  - name: Flag_NormalApprox
-    output: Analysis_Flagged
+  - output: Analysis_Flagged
+    name: Flag_NormalApprox
     params:
       dfAnalyzed: Analysis_Analyzed
       vThreshold: vThreshold
-  - name: Summarize
-    output: Analysis_Summary
+  - output: Analysis_Summary
+    name: Summarize
     params:
       dfFlagged: Analysis_Flagged
       nMinDenominator: nMinDenominator
-  - name: list
-    output: kri0005
+  - output: lAnalysis
+    name: list
     params:
-      id: ID
-      input: Analysis_Input
-      transformed: Analysis_Transformed
-      analyzed: Analysis_Analyzed
-      flagged: Analysis_Flagged
-      summary: Analysis_Summary
+      ID: ID
+      Analysis_Input: Analysis_Input
+      Analysis_Transformed: Analysis_Transformed
+      Analysis_Analyzed: Analysis_Analyzed
+      Analysis_Flagged: Analysis_Flagged
+      Analysis_Summary: Analysis_Summary
 
