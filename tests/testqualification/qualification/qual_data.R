@@ -1,3 +1,5 @@
+set.seed(123)
+
 ## Declare all the data
 lSource <- list(
   Source_SUBJ = clindata::rawplus_dm,

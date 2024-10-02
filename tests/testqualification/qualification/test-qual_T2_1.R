@@ -14,7 +14,7 @@ testthat::test_that("Given raw participant-level data, a properly specified Work
 
   # test output stucture
   expect_true(is.vector(test$vThreshold))
-  expect_true(all(map_lgl(test[outputs[!(outputs %in% c("vThreshold", "kri0001"))]], is.data.frame)))
+  expect_true(all(map_lgl(test[outputs[!(outputs %in% c("vThreshold", "lAnalysis"))]], is.data.frame)))
   expect_equal(nrow(test$Analysis_Flagged), expected_rows)
   expect_equal(nrow(test$Analysis_Summary), expected_rows)
 
