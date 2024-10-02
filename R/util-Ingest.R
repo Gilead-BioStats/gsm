@@ -55,42 +55,10 @@ Ingest <- function(lSourceData, lSpec, strDomain="Raw") {
                 stop(glue("Domain '*_{domain}' not found in source data."))
             }
 
-            # write a query to select the columns from the source
-            columnMapping <- columnSpecs %>% imap(
-                function(spec,name){
-                    mapping = list(target=name)
-                    if('source_col' %in% names(spec)) {
-                        mapping$source = spec$source_col
-                    } else {
-                        mapping$source = name
-                    }
-                    return(mapping)
-                }
-            )
-
-            # check that the source columns exists in the source data
-            sourceCols <- columnMapping %>% map('source')
-            if(!all(sourceCols %in% names(dfSource))) {
-                missingCols <- sourceCols[!sourceCols %in% names(dfSource)]
-                stop(glue("Columns not found in source data for domain '{domain}': {missingCols}."))
-            }
-
-            # Write query to select/rename required columns from source to target
-            strColQuery <- columnMapping %>% map_chr(function(mapping){
-                if(mapping$source == mapping$target) {
-                    return(mapping$source)
-                } else {
-                    return(glue("{mapping$source} as {mapping$target}"))
-                }
-            }) %>% paste(collapse = ', ')
-
-
-            strQuery <- glue("SELECT {strColQuery} FROM df")
-
-            # call RunQuery to get the data
-            dfMapped <- RunQuery(
+            dfMapped <- ApplySpec(
                 dfSource,
-                strQuery = strQuery
+                columnSpecs,
+                domain
             )
 
             return(dfMapped)
