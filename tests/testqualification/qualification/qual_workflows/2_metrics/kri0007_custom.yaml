@@ -20,6 +20,9 @@ spec:
     invid:
       required: true
       type: character
+    race:
+      required: true
+      type: character
   Mapped_SDRGCOMP:
     subjid:
       required: true
@@ -47,7 +50,7 @@ steps:
       dfNumerator: Temp_DISCONTINUED
       dfDenominator: Mapped_SUBJ
       strSubjectCol: subjid
-      strGroupCol: invid
+      strGroupCol: race
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count

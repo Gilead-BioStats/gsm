@@ -20,6 +20,9 @@ spec:
     invid:
       required: true
       type: character
+    race:
+      required: true
+      type: character
     enrollyn:
       required: true
       type: character
@@ -40,7 +43,7 @@ steps:
       dfNumerator: Temp_SCREENED
       dfDenominator: Mapped_ENROLL
       strSubjectCol: subjectid
-      strGroupCol: invid
+      strGroupCol: race
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count

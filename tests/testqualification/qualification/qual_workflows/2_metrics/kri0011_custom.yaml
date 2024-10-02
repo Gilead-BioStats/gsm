@@ -20,6 +20,9 @@ spec:
     invid:
       required: true
       type: character
+    race:
+      required: true
+      type: character
   Mapped_DATACHG:
     subjid:
       required: true
@@ -44,7 +47,7 @@ steps:
       dfNumerator: Temp_CHANGED
       dfDenominator: Mapped_DATACHG
       strSubjectCol: subjid
-      strGroupCol: invid
+      strGroupCol: race
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count

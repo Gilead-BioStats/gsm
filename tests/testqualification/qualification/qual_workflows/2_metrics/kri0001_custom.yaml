@@ -24,6 +24,9 @@ spec:
     invid:
       required: true
       type: character
+    race:
+      required: true
+      type: character
     timeonstudy:
       required: true
       type: numeric
@@ -39,7 +42,7 @@ steps:
       dfNumerator: Mapped_AE
       dfDenominator: Mapped_SUBJ
       strSubjectCol: subjid
-      strGroupCol: invid
+      strGroupCol: race
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Sum
