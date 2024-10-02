@@ -1,7 +1,7 @@
 ## Test Setup
 source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
 
-kri_workflows <- flatten(MakeWorkflowList("kri0001_custom", yaml_path_custom))
+kri_workflows <- flatten(MakeWorkflowList("kri0001_custom", yaml_path_custom_metrics))
 
 mapped_data <- get_data(kri_workflows, lData)
 

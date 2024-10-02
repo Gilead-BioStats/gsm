@@ -64,7 +64,7 @@ steps:
       dfFlagged: Analysis_Flagged
       nMinDenominator: nMinDenominator
   - name: list
-    output: kri0001_custom
+    output: lAnalysis
     params:
       id: ID
       input: Analysis_Input

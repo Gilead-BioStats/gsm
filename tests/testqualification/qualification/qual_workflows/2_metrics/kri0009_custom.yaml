@@ -1,6 +1,7 @@
 meta:
-  File: kri0009.yaml
-  MetricID: kri0009
+  Type: Metric
+  ID: kri0009_custom
+  File: kri0009_custom.yaml
   GroupLevel: Race
   Abbreviation: OQRY
   Metric: Outstanding Query Rate
@@ -8,41 +9,78 @@ meta:
   Denominator: Total Queries
   Model: Normal Approximation
   Score: Adjusted Z-Score
-  Type: binary
+  AnalysisType: binary
   Threshold: -5,-3,3,5
   nMinDenominator: 300
+spec:
+  Mapped_SUBJ:
+    subjid:
+      required: true
+      type: character
+    invid:
+      required: true
+      type: character
+  Mapped_QUERY:
+    subjid:
+      required: true
+      type: character
+    querystatus:
+      required: true
+      type: character
+    queryage:
+      required: true
+      type: numeric
 steps:
-  - name: ParseThreshold
-    output: vThreshold
+  - output: vThreshold
+    name: ParseThreshold
     params:
       strThreshold: Threshold
-  - name: Input_Rate
-    output: dfInput
+  - output: Temp_OLDQUERY
+    name: RunQuery
     params:
-      dfSubjects: dfEnrolled
-      dfNumerator: dfOldValidQueries
-      dfDenominator: dfValidQueries
-      strSubjectCol: subject_nsv
-      strGroupCol: race
+      df: Mapped_QUERY
+      strQuery: "SELECT * FROM df WHERE querystatus IN ('Open','Answered','Closed') AND queryage > 30"
+  - output: Temp_QUERY
+    name: RunQuery
+    params:
+      df: Mapped_QUERY
+      strQuery: "SELECT * FROM df WHERE querystatus IN ('Open','Answered','Closed')"
+  - output: Analysis_Input
+    name: Input_Rate
+    params:
+      dfSubjects: Mapped_SUBJ
+      dfNumerator: Temp_OLDQUERY
+      dfDenominator: Temp_QUERY
+      strSubjectCol: subjid
+      strGroupCol: invid
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count
-  - name: Transform_Rate
-    output: dfTransformed
+  - output: Analysis_Transformed
+    name: Transform_Rate
     params:
-      dfInput: dfInput
-  - name: Analyze_NormalApprox
-    output: dfAnalyzed
+      dfInput: Analysis_Input
+  - output: Analysis_Analyzed
+    name: Analyze_NormalApprox
     params:
-      dfTransformed: dfTransformed
-      strType: Type
-  - name: Flag_NormalApprox
-    output: dfFlagged
+      dfTransformed: Analysis_Transformed
+      strType: AnalysisType
+  - output: Analysis_Flagged
+    name: Flag_NormalApprox
     params:
-      dfAnalyzed: dfAnalyzed
+      dfAnalyzed: Analysis_Analyzed
       vThreshold: vThreshold
-  - name: Summarize
-    output: dfSummary
+  - output: Analysis_Summary
+    name: Summarize
     params:
-      dfFlagged: dfFlagged
+      dfFlagged: Analysis_Flagged
       nMinDenominator: nMinDenominator
+  - output: lAnalysis
+    name: list
+    params:
+      ID: ID
+      Analysis_Input: Analysis_Input
+      Analysis_Transformed: Analysis_Transformed
+      Analysis_Analyzed: Analysis_Analyzed
+      Analysis_Flagged: Analysis_Flagged
+      Analysis_Summary: Analysis_Summary
