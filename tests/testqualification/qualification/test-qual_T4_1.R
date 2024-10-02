@@ -12,7 +12,7 @@ testthat::test_that("Given appropriate metadata (i.e. vThresholds), flagged obse
   test <- robust_runworkflow(kri_workflows, mapped_data)
   expect_true(all(outputs %in% names(test)))
   expect_true(is.vector(test[["vThreshold"]]))
-  expect_true(all(map_lgl(test[outputs[!(outputs %in% c("vThreshold", "kri0001_custom"))]], is.data.frame)))
+  expect_true(all(map_lgl(test[outputs[!(outputs %in% c("vThreshold", "lAnalysis"))]], is.data.frame)))
   expect_equal(nrow(test$Analysis_Flagged), nrow(test$Analysis_Summary))
   expect_identical(sort(test$Analysis_Flagged$GroupID), sort(test$Analysis_Summary$GroupID))
 

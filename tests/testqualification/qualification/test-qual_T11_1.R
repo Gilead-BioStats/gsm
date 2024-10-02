@@ -2,7 +2,7 @@
 source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
 
 kri_workflows <- MakeWorkflowList(c(sprintf("kri%04d", 10), sprintf("cou%04d", 10)))
-kri_custom <- MakeWorkflowList(c(sprintf("kri%04d_custom", 10), sprintf("cou%04d_custom", 10)), yaml_path_custom)
+kri_custom <- MakeWorkflowList(c(sprintf("kri%04d_custom", 10), sprintf("cou%04d_custom", 10)), yaml_path_custom_metrics)
 
 mapped_data <- get_data(kri_workflows, lData)
 
@@ -51,7 +51,7 @@ testthat::test_that("Given appropriate raw participant-level data, a Data Entry 
   expect_true(
     all(
       map_lgl(test_custom, function(kri) {
-        output <- kri$dfFlagged %>%
+        output <- kri$Analysis_Flagged %>%
           mutate(hardcode_flag = case_when(
             Score <= kri$vThreshold[1] |
               Score >= kri$vThreshold[4] ~ 2,

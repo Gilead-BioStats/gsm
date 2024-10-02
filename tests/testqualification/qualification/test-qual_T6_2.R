@@ -2,9 +2,10 @@
 source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
 
 kri_workflows <- MakeWorkflowList(c(sprintf("kri%04d", 1:2), sprintf("cou%04d", 1:2)))
-kri_custom <- MakeWorkflowList(c(sprintf("kri%04d_custom", 1:2), sprintf("cou%04d_custom", 1:2)), yaml_path_custom)
+kri_custom <- MakeWorkflowList(c(sprintf("kri%04d_custom", 1:2), sprintf("cou%04d_custom", 1:2)), yaml_path_custom_metrics)
 
-mapped_data <- get_data(kri_workflows, lData)
+#mapped_data <- get_data(kri_workflows, lData)
+mapped_data <- RunWorkflows(mappings_wf, lData)
 
 outputs <- map(kri_workflows, ~ map_vec(.x$steps, ~ .x$output))
 
@@ -15,8 +16,8 @@ testthat::test_that("Adverse Event Assessments can be done correctly using a gro
 
   # grouping col in yaml file is interpreted correctly in dfInput GroupID
   iwalk(test, ~ expect_identical(
-    sort(unique(.x$dfInput$GroupID)),
-    sort(unique(.x$dfEnrolled[[kri_workflows[[.y]]$steps[[2]]$params$strGroupCol]]))
+    sort(unique(.x$Analysis_Input$GroupID)),
+    sort(unique(.x$Mapped_SUBJ[[kri_workflows[[.y]]$steps[[2]]$params$strGroupCol]]))
   ))
 
   # data is properly transformed by correct group in dfTransformed
@@ -30,7 +31,7 @@ testthat::test_that("Adverse Event Assessments can be done correctly using a gro
 
   # grouping col in custom yaml file is interpreted correctly in dfInput GroupID
   iwalk(test_custom, ~ expect_identical(
-    sort(unique(.x$dfInput$GroupID)),
+    sort(unique(.x$Analysis_Input$GroupID)),
     sort(unique(.x$dfEnrolled[[kri_custom[[.y]]$steps[[2]]$params$strGroupCol]]))
   ))
 
@@ -53,7 +54,7 @@ testthat::test_that("Adverse Event Assessments can be done correctly using a gro
 
   # grouping col in custom2 workflow is interpreted correctly in dfInput GroupID
   iwalk(test_custom2, ~ expect_identical(
-    sort(unique(.x$dfInput$GroupID)),
+    sort(unique(.x$Analysis_Input$GroupID)),
     sort(unique(.x$dfEnrolled[[kri_custom2[[.y]]$steps[[2]]$params$strGroupCol]]))
   ))
 

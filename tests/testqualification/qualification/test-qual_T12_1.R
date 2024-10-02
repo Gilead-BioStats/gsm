@@ -51,7 +51,7 @@ testthat::test_that("Given appropriate raw participant-level data, a Query Age A
   expect_true(
     all(
       map_lgl(test_custom, function(kri) {
-        output <- kri$dfFlagged %>%
+        output <- kri$Analysis_Flagged %>%
           mutate(hardcode_flag = case_when(
             Score <= kri$vThreshold[1] |
               Score >= kri$vThreshold[4] ~ 2,

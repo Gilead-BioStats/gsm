@@ -19,7 +19,7 @@ testthat::test_that("Given appropriate raw participant-level data, a Protocol De
   expect_true(
     all(
       imap_lgl(test, function(kri, kri_name) {
-        all(map_lgl(kri[outputs[[kri_name]][!(outputs[[kri_name]] %in% c("vThreshold", "kri0003", "kri0004", "cou0003", "cou0004"))]], is.data.frame))
+        all(map_lgl(kri[outputs[[kri_name]][!(outputs[[kri_name]] %in% c("vThreshold", "lAnalysis"))]], is.data.frame))
       })
     )
   )

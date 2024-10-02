@@ -2,7 +2,7 @@
 source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
 
 kri_workflows <- MakeWorkflowList(c("kri0005", "cou0005"))
-kri_custom <- MakeWorkflowList(c("kri0005", "cou0005")) # is this meant to have _custom in the testqual folder?
+kri_custom <- MakeWorkflowList(c("kri0005", "cou0005"), yaml_path_custom_metrics)
 
 mapped_data <- get_data(kri_workflows, lData)
 
@@ -15,7 +15,7 @@ testthat::test_that("Labs Assessments can be done correctly using a grouping var
 
   # grouping col in yaml file is interpreted correctly in dfInput GroupID
   iwalk(test, ~ expect_identical(
-    sort(unique(.x$dfInput$GroupID)),
+    sort(unique(.x$Analysis_Input$GroupID)),
     sort(unique(.x$dfEnrolled[[kri_workflows[[.y]]$steps[[2]]$params$strGroupCol]]))
   ))
 
@@ -30,7 +30,7 @@ testthat::test_that("Labs Assessments can be done correctly using a grouping var
 
   # grouping col in custom yaml file is interpreted correctly in dfInput GroupID
   iwalk(test_custom, ~ expect_identical(
-    sort(unique(.x$dfInput$GroupID)),
+    sort(unique(.x$Analysis_Input$GroupID)),
     sort(unique(.x$dfEnrolled[[kri_custom[[.y]]$steps[[2]]$params$strGroupCol]]))
   ))
 

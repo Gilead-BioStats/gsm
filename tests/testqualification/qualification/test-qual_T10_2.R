@@ -2,9 +2,10 @@
 source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
 
 kri_workflows <- MakeWorkflowList(c("kri0011", "cou0011"))
-kri_custom <- MakeWorkflowList(c("kri0011_custom", "cou0011_custom"), yaml_path_custom)
+kri_custom <- MakeWorkflowList(c("kri0011_custom", "cou0011_custom"), yaml_path_custom_metrics)
 
-mapped_data <- get_data(kri_workflows, lData)
+#mapped_data <- get_data(mappings_wf, lData)
+mapped_data <- RunWorkflows(mappings_wf, lData)
 
 ## Test Code
 testthat::test_that("Data Change Rate Assessments can be done correctly using a grouping variable, such as Site, Country, or Study, when applicable.", {
@@ -13,7 +14,7 @@ testthat::test_that("Data Change Rate Assessments can be done correctly using a 
 
   # grouping col in yaml file is interpreted correctly in dfInput GroupID
   iwalk(test, ~ expect_identical(
-    sort(unique(.x$dfInput$GroupID)),
+    sort(unique(.x$Analysis_Input$GroupID)),
     sort(unique(.x$dfEnrolled[[kri_workflows[[.y]]$steps[[2]]$params$strGroupCol]]))
   ))
 
@@ -28,7 +29,7 @@ testthat::test_that("Data Change Rate Assessments can be done correctly using a 
 
   # grouping col in custom yaml file is interpreted correctly in dfInput GroupID
   iwalk(test_custom, ~ expect_identical(
-    sort(unique(.x$dfInput$GroupID)),
+    sort(unique(.x$Analysis_Input$GroupID)),
     sort(unique(.x$dfEnrolled[[kri_custom[[.y]]$steps[[2]]$params$strGroupCol]]))
   ))
 

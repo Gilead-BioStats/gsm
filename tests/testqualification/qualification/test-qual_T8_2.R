@@ -13,7 +13,7 @@ testthat::test_that("Disposition Assessments can be done correctly using a group
 
   # grouping col in yaml file is interpreted correctly in dfInput GroupID
   iwalk(test, ~ expect_identical(
-    sort(unique(.x$dfInput$GroupID)),
+    sort(unique(.x$Analysis_Input$GroupID)),
     sort(unique(.x$dfEnrolled[[kri_workflows[[.y]]$steps[[2]]$params$strGroupCol]]))
   ))
 
@@ -28,7 +28,7 @@ testthat::test_that("Disposition Assessments can be done correctly using a group
 
   # grouping col in custom yaml file is interpreted correctly in dfInput GroupID
   iwalk(test_custom, ~ expect_identical(
-    sort(unique(.x$dfInput$GroupID)),
+    sort(unique(.x$Analysis_Input$GroupID)),
     sort(unique(.x$dfEnrolled[[kri_custom[[.y]]$steps[[2]]$params$strGroupCol]]))
   ))
 

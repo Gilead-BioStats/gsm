@@ -2,7 +2,7 @@
 source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
 
 kri_workflows <- MakeWorkflowList(c("kri0003", "kri0004", "cou0003", "cou0004"))
-kri_custom <- MakeWorkflowList(c("kri0003_custom", "kri0004_custom", "cou0003_custom", "cou0004_custom"), yaml_path_custom)
+kri_custom <- MakeWorkflowList(c("kri0003_custom", "kri0004_custom", "cou0003_custom", "cou0004_custom"), yaml_path_custom_metrics)
 
 mapped_data <- get_data(kri_workflows, lData)
 
@@ -13,7 +13,7 @@ testthat::test_that("Protocol Deviation Assessments can be done correctly using 
 
   # grouping col in yaml file is interpreted correctly in dfInput GroupID
   iwalk(test, ~ expect_identical(
-    sort(unique(.x$dfInput$GroupID)),
+    sort(unique(.x$Analysis_Input$GroupID)),
     sort(unique(.x$dfEnrolled[[kri_workflows[[.y]]$steps[[2]]$params$strGroupCol]]))
   ))
 
@@ -28,7 +28,7 @@ testthat::test_that("Protocol Deviation Assessments can be done correctly using 
 
   # grouping col in custom yaml file is interpreted correctly in dfInput GroupID
   iwalk(test_custom, ~ expect_identical(
-    sort(unique(.x$dfInput$GroupID)),
+    sort(unique(.x$Analysis_Input$GroupID)),
     sort(unique(.x$dfEnrolled[[kri_custom[[.y]]$steps[[2]]$params$strGroupCol]]))
   ))
 

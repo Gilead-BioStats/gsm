@@ -2,7 +2,7 @@
 source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
 
 kri_workflows <- MakeWorkflowList(c("kri0005", "cou0005"))
-kri_custom <- MakeWorkflowList(c("kri0005", "cou0005")) # is this meant to have _custom in the testqual folder?
+kri_custom <- MakeWorkflowList(c("kri0005_custom", "cou0005_custom"), yaml_path_custom_metrics)
 
 mapped_data <- get_data(kri_workflows, lData)
 
@@ -19,7 +19,7 @@ testthat::test_that("Given appropriate raw participant-level data, a Labs Assess
   expect_true(
     all(
       imap_lgl(test, function(kri, kri_name) {
-        all(map_lgl(kri[outputs[[kri_name]][!(outputs[[kri_name]] %in% c("vThreshold", "kri0005", "cou0005"))]], is.data.frame))
+        all(map_lgl(kri[outputs[[kri_name]][!(outputs[[kri_name]] %in% c("vThreshold", "lAnalysis"))]], is.data.frame))
       })
     )
   )
@@ -38,7 +38,7 @@ testthat::test_that("Given appropriate raw participant-level data, a Labs Assess
   expect_true(
     all(
       imap_lgl(test_custom, function(kri, kri_name) {
-        all(map_lgl(kri[outputs[[kri_name]][!(outputs[[kri_name]] %in% c("vThreshold", "kri0005", "cou0005"))]], is.data.frame))
+        all(map_lgl(kri[outputs[[kri_name]][!(outputs[[kri_name]] %in% c("vThreshold", "lAnalysis"))]], is.data.frame))
       })
     )
   )
