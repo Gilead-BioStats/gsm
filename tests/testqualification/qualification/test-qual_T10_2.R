@@ -22,8 +22,6 @@ testthat::test_that("Data Change Rate Assessments can be done correctly using a 
   ## custom -------------------------------------------
   test_custom <- map(kri_custom, ~ robust_runworkflow(.x, mapped_data, steps = 1:4))
 
-  test_custom <- list(test_custom[[1]], test_custom[[2]]) # seem to be some workflow errors, getting an extra object
-
   # grouping col in custom yaml file is interpreted correctly in dfInput GroupID
   iwalk(test_custom, ~ expect_identical(
     sort(unique(.x$Analysis_Input$GroupID)),

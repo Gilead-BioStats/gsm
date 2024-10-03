@@ -1,7 +1,7 @@
 meta:
   Type: Metric
-  ID: kri0011_custom
-  File: kri0011_custom.yaml
+  ID: kri0012_custom
+  File: kri0012_custom.yaml
   GroupLevel: Race
   Abbreviation: SF
   Metric: Screen Failure Rate

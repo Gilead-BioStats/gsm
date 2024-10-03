@@ -2,6 +2,8 @@
 kri_workflows <- MakeWorkflowList(c("kri0011", "cou0011"))
 kri_custom <- MakeWorkflowList(c("kri0011_custom", "cou0011_custom"), yaml_path_custom_metrics)
 
+outputs <- map(kri_workflows, ~ map_vec(.x$steps, ~ .x$output))
+
 ## Test Code
 testthat::test_that("Given appropriate raw participant-level data, a Data Change Rate Assessment can be done using the Normal Approximation method.", {
   # default ---------------------------------
@@ -27,7 +29,7 @@ testthat::test_that("Given appropriate raw participant-level data, a Data Change
   test_custom <- map(kri_custom, ~ robust_runworkflow(.x, mapped_data))
 
   # verify outputs names exported
-  iwalk(test_custom2, ~ expect_true(all(outputs[[.y]] %in% names(.x))))
+  iwalk(test_custom, ~ expect_true(all(outputs[[.y]] %in% names(.x))))
 
   # verify output data expected as data.frames are in fact data.frames
   expect_true(
@@ -41,11 +43,10 @@ testthat::test_that("Given appropriate raw participant-level data, a Data Change
   # verify vThreshold was converted to threshold vector of length 4
   walk(test_custom, ~ expect_true(is.vector(.x$vThreshold) & length(.x$vThreshold) == 4))
 
-  test_custom2 <- list(test_custom[[1]], test_custom[[2]])
   # verify vThreshold was properly applied to data to assign flags
   expect_true(
     all(
-      map_lgl(test_custom2, function(kri) {
+      map_lgl(test_custom, function(kri) {
         output <- kri$Analysis_Flagged %>%
           mutate(hardcode_flag = case_when(
             Score <= kri$vThreshold[1] |
