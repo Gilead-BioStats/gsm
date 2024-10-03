@@ -1,5 +1,3 @@
-source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
-
 # Priority 1 mappings
 test_that("mappings now done by individual domain, test that inputs and outputs of priority 1 mappings are completed as expected", {
   priority1 <- c("AE.yaml", "ENROLL.yaml", "LB.yaml", "PD.yaml", "SDRGCOMP.yaml", "STUDCOMP.yaml", "SUBJ.yaml")
