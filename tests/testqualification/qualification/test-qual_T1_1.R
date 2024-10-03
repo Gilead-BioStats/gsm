@@ -23,12 +23,15 @@ test_that("mappings now done by individual domain, test that inputs and outputs 
 # Priority 2 Mappings
 
 test_that("mappings now done by individual domain, test that inputs and outputs of SUBJ are completed as expected", {
-  priority2 <- c("DATACHG.yaml", "DATAENT.yaml", "QUERY.yaml", "SUBJ.yaml")
-  # p2workflows <- MakeWorkflowList(c("DATACHG", "DATAENT", "QUERY", "SUBJ"), yaml_path_custom_mappings)
-  # test <- map(p2workflows ~ robust_runworkflow(.x, lData))
+  priority2 <- c("DATACHG.yaml", "DATAENT.yaml", "QUERY.yaml")
+
   mapped_p2_yaml <- map(priority2, ~ read_yaml(
     system.file("tests", "testqualification", "qualification", "qual_workflows", "1_mappings", .x, package = "gsm")
   ))
 
+  iwalk(mapped_p2_yaml, ~ expect_true(all(names(.x$spec) %in% c(names(lData), "Mapped_SUBJ"))))
 
+  iwalk(mapped_p2_yaml, ~ expect_true(flatten(.x$steps)$output %in% c(names(mapped_data), "Temp_SubjectLookup")))
+
+  iwalk(mapped_p2_yaml, ~ expect_true(all(names(flatten(.x$spec)) %in% c(names(lData[names(.x$spec)][[1]]), names(lData["Raw_SUBJ"][[1]])))))
 })
