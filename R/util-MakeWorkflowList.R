@@ -75,14 +75,14 @@ MakeWorkflowList <- function(
   # Sort the list according to the $meta$priority property
 
   # Set priority to 0 if not defined
-  workflows <- workflows %>% map(function(wf){ 
-    if(is.null(wf$meta$Priority)){
+  workflows <- workflows %>% map(function(wf) {
+    if (is.null(wf$meta$Priority)) {
       wf$meta$Priority <- 0
     }
     return(wf)
   })
-  workflows <- workflows[order(workflows %>% map_dbl(~.x$meta$Priority))]
-    
+  workflows <- workflows[order(workflows %>% map_dbl(~ .x$meta$Priority))]
+
   # throw a warning if no workflows are found
   if (length(workflows) == 0) {
     cli::cli_alert_warning("No workflows found.")

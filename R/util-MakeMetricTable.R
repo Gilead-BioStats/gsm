@@ -29,7 +29,7 @@ MakeMetricTable <- function(
   vFlags = c(-2, -1, 1, 2)
 ) {
   # Check for if dfGroups was provided and process group metadata if available
-  if(!is.null(dfGroups)) {
+  if (!is.null(dfGroups)) {
     dfResults <- dfResults %>%
       add_Groups_metadata(
         dfGroups,

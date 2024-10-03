@@ -17,7 +17,7 @@
 #'   df2 = list(
 #'     col3 = list(required = TRUE),
 #'     col4 = list(required = TRUE)
-#'  )
+#'   )
 #' )
 #'
 #' spec2 <- list(
@@ -39,7 +39,6 @@
 #' @export
 
 CombineSpecs <- function(lSpecs, bIsWorkflow = TRUE) {
-
   if (bIsWorkflow) {
     lSpecs <- map(lSpecs, ~ .x$spec)
   }

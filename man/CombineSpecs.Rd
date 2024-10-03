@@ -28,7 +28,7 @@ spec1 <- list(
   df2 = list(
     col3 = list(required = TRUE),
     col4 = list(required = TRUE)
- )
+  )
 )
 
 spec2 <- list(

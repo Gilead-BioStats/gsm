@@ -29,10 +29,12 @@ test_that("invalid data returns list NULL elements", {
 
   ### strPath - testing strPath equal to non-existent/incorrect location of assessment YAML files
   expect_error(
-    MakeWorkflowList(strNames = strNames,
-                     strPath = "beyonce",
-                     strPackage = NULL,
-                     bRecursive = bRecursive)
+    MakeWorkflowList(
+      strNames = strNames,
+      strPath = "beyonce",
+      strPackage = NULL,
+      bRecursive = bRecursive
+    )
   )
 
   ### strPackage - testing strPackage equal to non-existent/incorrect package name

@@ -25,25 +25,27 @@ RunWorkflows <- function(
   lData = NULL,
   bKeepInputData = FALSE,
   bReturnResult = TRUE,
-  strResultNames = c("Type","ID")
+  strResultNames = c("Type", "ID")
 ) {
-    cli::cli_h1("Running {length(lWorkflows)} Workflows")
+  cli::cli_h1("Running {length(lWorkflows)} Workflows")
 
-    lResults <- list()
-    for(wf in lWorkflows){
-      lResult <- RunWorkflow(
-        lWorkflow = wf,
-        lData = c(lResults,lData),
-        bReturnResult = bReturnResult,
-        bKeepInputData = bKeepInputData
-      )
+  lResults <- list()
+  for (wf in lWorkflows) {
+    lResult <- RunWorkflow(
+      lWorkflow = wf,
+      lData = c(lResults, lData),
+      bReturnResult = bReturnResult,
+      bKeepInputData = bKeepInputData
+    )
 
-      resultName <- strResultNames %>% map(function(name){
+    resultName <- strResultNames %>%
+      map(function(name) {
         return(wf$meta[[name]])
-      }) %>% paste0(collapse = "_")
+      }) %>%
+      paste0(collapse = "_")
 
-      lResults[[resultName]] <- lResult
-    }
+    lResults[[resultName]] <- lResult
+  }
 
-    return(lResults)
+  return(lResults)
 }
