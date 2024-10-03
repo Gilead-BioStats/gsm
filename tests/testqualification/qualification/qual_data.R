@@ -154,7 +154,7 @@ robust_runworkflow <- function(
 
 # get only the relevant data for a workflow to speed up mapping
 # Just a fancy wrapper for robust_runworkflow
-get_data <- function(lWorkflow, data) {
+get_data <- function(lWorkflow, data, steps) {
   # if ("spec" %in% names(lWorkflow)){
   #   if (!is.null(lWorkflow$spec)) {
   #     maps_needed <- names(mapping_output[which(mapping_output %in% names(lWorkflow$spec))])
@@ -167,5 +167,6 @@ get_data <- function(lWorkflow, data) {
   maps_needed_index <- map(lWorkflow, ~names(.x$spec)) %>% unlist() %>% unique()
   maps_needed <- names(mapping_output[which(mapping_output %in% maps_needed_index)])
   mapped_needed_data <- RunWorkflows(mappings_wf[maps_needed], data)
+  mapped_needed_data <- map(mappings_wf[maps_needed], ~ robust_runworkflow(.x, data, steps))
   return(mapped_needed_data)
 }

@@ -22,7 +22,7 @@ test_that("mappings now done by individual domain, test that inputs and outputs 
 
 # Priority 2 Mappings
 
-test_that("mappings now done by individual domain, test that inputs and outputs of SUBJ are completed as expected", {
+test_that("mappings now done by individual domain, test that inputs and outputs of priority 2 mappings are completed as expected", {
   priority2 <- c("DATACHG.yaml", "DATAENT.yaml", "QUERY.yaml")
 
   mapped_p2_yaml <- map(priority2, ~ read_yaml(
@@ -34,4 +34,24 @@ test_that("mappings now done by individual domain, test that inputs and outputs 
   iwalk(mapped_p2_yaml, ~ expect_true(flatten(.x$steps)$output %in% c(names(mapped_data), "Temp_SubjectLookup")))
 
   iwalk(mapped_p2_yaml, ~ expect_true(all(names(flatten(.x$spec)) %in% c(names(lData[names(.x$spec)][[1]]), names(lData["Raw_SUBJ"][[1]])))))
+})
+
+# Priority 3 Mappings
+
+test_that("mappings now done by individual domain, test that inputs and outputs of priority 3 mappings are completed as expected", {
+  priority3 <- c("COUNTRY.yaml", "SITE.yaml", "STUDY.yaml")
+
+  mapped_p3_yaml <- map(priority3, ~ read_yaml(
+    system.file("tests", "testqualification", "qualification", "qual_workflows", "1_mappings", .x, package = "gsm")
+  ))
+
+  iwalk(mapped_p3_yaml, ~ expect_true(all(names(.x$spec) %in% c(names(lData), "Mapped_SUBJ"))))
+
+  temp_objs <- c("Temp_CountryCountsWide",
+                 "Temp_CTMSSiteWide", "Temp_CTMSSite", "Temp_SiteCountsWide", "Temp_SiteCounts",
+                 "Temp_CTMSStudyWide", "Temp_CTMSStudy", "Temp_StudyCountsWide", "Temp_StudyCounts")
+
+  iwalk(mapped_p3_yaml, ~ expect_true(flatten(.x$steps)$output %in% c(names(mapped_data), temp_objs)))
+
+  iwalk(mapped_p3_yaml, ~ expect_true(all(names(flatten(.x$spec)) %in% c(names(lData[names(.x$spec)][[1]]), names(lData["Raw_SUBJ"][[1]])))))
 })
