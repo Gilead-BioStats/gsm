@@ -5,7 +5,7 @@ kri_custom <- MakeWorkflowList(c("kri0005_custom", "cou0005_custom"), yaml_path_
 ## Test Code
 testthat::test_that("Labs Assessments can be done correctly using a grouping variable, such as Site or Country for KRIs, and Study for QTLs, when applicable.", {
   ## regular -----------------------------------------
-  test <- map(kri_workflows, ~ robust_runworkflow(.x, mapped_data, steps = 1:4))
+  test <- map(kri_workflows, ~ robust_runworkflow(.x, mapped_data, steps = 1:5))
 
   # grouping col in yaml file is interpreted correctly in dfInput GroupID
   iwalk(test, ~ expect_identical(
@@ -20,7 +20,7 @@ testthat::test_that("Labs Assessments can be done correctly using a grouping var
   ))
 
   ## custom -------------------------------------------
-  test_custom <- map(kri_custom, ~ robust_runworkflow(.x, mapped_data, steps = 1:4))
+  test_custom <- map(kri_custom, ~ robust_runworkflow(.x, mapped_data, steps = 1:5))
 
   # grouping col in custom yaml file is interpreted correctly in dfInput GroupID
   iwalk(test_custom, ~ expect_identical(
