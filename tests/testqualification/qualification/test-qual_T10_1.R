@@ -1,11 +1,6 @@
 ## Test Setup
-source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
-
 kri_workflows <- MakeWorkflowList(c("kri0011", "cou0011"))
 kri_custom <- MakeWorkflowList(c("kri0011_custom", "cou0011_custom"), yaml_path_custom_metrics)
-
-#mapped_data <- get_data(mappings_wf, lData)
-mapped_data <- RunWorkflows(mappings_wf, lData, bKeepInputData = FALSE)
 
 outputs <- map(kri_workflows, ~ map_vec(.x$steps, ~ .x$output))
 

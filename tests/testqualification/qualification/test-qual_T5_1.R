@@ -1,10 +1,6 @@
 # Test Setup -------------------------------------------------------
-source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
-
 ae_workflow_custom <- flatten(MakeWorkflowList("kri0001_custom", yaml_path_custom_metrics))
 ae_workflow_default <- flatten(MakeWorkflowList("kri0001"))
-
-mapped_data <- get_data(ae_workflow_default, lData)
 
 # define Data ------------------------------------------------------
 test_custom <- robust_runworkflow(ae_workflow_custom, mapped_data)

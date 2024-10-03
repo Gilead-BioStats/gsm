@@ -1,11 +1,12 @@
 source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
+
 # priority1_names <- c("AE", "ENROLL", "LB", "PD", "SDRGCOMP", "STUDCOMP", "SUBJ")
 # mapping_p1 <- MakeWorkflowList(priority1_names)
-lData_mapped <- RunWorkflows(mappings_wf, lData)
+mapped_data <- RunWorkflows(mappings_wf, lData)
 
 priority2_names <- c("DATACHG", "DATAENT", "QUERY", "SUBJ")
 mapping_p2 <- MakeWorkflowList(priority2_names)
-lData_mapped2 <- RunWorkflows(mapping_p2, lData)
+mapped_data2 <- RunWorkflows(mapping_p2, lData)
 
 # Priority 1 mappings
 test_that("mappings now done by individual domain, test that inputs and outputs of AE are completed as expected", {
@@ -19,11 +20,11 @@ test_that("mappings now done by individual domain, test that inputs and outputs 
   expect_true(all(names(mapped_ae_yaml$spec) %in% names(lData)))
 
   # Output from yaml is in the mapped data object
-  expect_true(flatten(mapped_ae_yaml$steps)$output %in% names(lData_mapped))
+  expect_true(flatten(mapped_ae_yaml$steps)$output %in% names(mapped_data))
 
   # Needed columns of raw data are actually in raw data and retained in final data
   expect_true(all(names(flatten(mapped_ae_yaml$spec)) %in% names(lData[names(mapped_ae_yaml$spec)][[1]])))
-  expect_true(all(names(flatten(mapped_ae_yaml$spec)) %in% names(lData_mapped[[flatten(mapped_ae_yaml$steps)$output]])))
+  expect_true(all(names(flatten(mapped_ae_yaml$spec)) %in% names(mapped_data[[flatten(mapped_ae_yaml$steps)$output]])))
 })
 
 test_that("mappings now done by individual domain, test that inputs and outputs of ENROLL are completed as expected", {
@@ -37,11 +38,11 @@ test_that("mappings now done by individual domain, test that inputs and outputs 
   expect_true(all(names(mapped_enroll_yaml$spec) %in% names(lData)))
 
   # Output from yaml is in the mapped data object
-  expect_true(flatten(mapped_enroll_yaml$steps)$output %in% names(lData_mapped))
+  expect_true(flatten(mapped_enroll_yaml$steps)$output %in% names(mapped_data))
 
   # Needed columns of raw data are actually in raw data and retained in final data
   expect_true(all(names(flatten(mapped_enroll_yaml$spec)) %in% names(lData[names(mapped_enroll_yaml$spec)][[1]])))
-  expect_true(all(names(flatten(mapped_enroll_yaml$spec)) %in% names(lData_mapped[[flatten(mapped_enroll_yaml$steps)$output]])))
+  expect_true(all(names(flatten(mapped_enroll_yaml$spec)) %in% names(mapped_data[[flatten(mapped_enroll_yaml$steps)$output]])))
 })
 
 test_that("mappings now done by individual domain, test that inputs and outputs of LB are completed as expected", {
@@ -55,11 +56,11 @@ test_that("mappings now done by individual domain, test that inputs and outputs 
   expect_true(all(names(mapped_lb_yaml$spec) %in% names(lData)))
 
   # Output from yaml is in the mapped data object
-  expect_true(flatten(mapped_lb_yaml$steps)$output %in% names(lData_mapped))
+  expect_true(flatten(mapped_lb_yaml$steps)$output %in% names(mapped_data))
 
   # Needed columns of raw data are actually in raw data and retained in final data
   expect_true(all(names(flatten(mapped_lb_yaml$spec)) %in% names(lData[names(mapped_lb_yaml$spec)][[1]])))
-  expect_true(all(names(flatten(mapped_lb_yaml$spec)) %in% names(lData_mapped[[flatten(mapped_lb_yaml$steps)$output]])))
+  expect_true(all(names(flatten(mapped_lb_yaml$spec)) %in% names(mapped_data[[flatten(mapped_lb_yaml$steps)$output]])))
 })
 
 test_that("mappings now done by individual domain, test that inputs and outputs of PD are completed as expected", {
@@ -73,11 +74,11 @@ test_that("mappings now done by individual domain, test that inputs and outputs 
   expect_true(all(names(mapped_pd_yaml$spec) %in% names(lData)))
 
   # Output from yaml is in the mapped data object
-  expect_true(flatten(mapped_pd_yaml$steps)$output %in% names(lData_mapped))
+  expect_true(flatten(mapped_pd_yaml$steps)$output %in% names(mapped_data))
 
   # Needed columns of raw data are actually in raw data and retained in final data
   expect_true(all(names(flatten(mapped_pd_yaml$spec)) %in% names(lData[names(mapped_pd_yaml$spec)][[1]])))
-  expect_true(all(names(flatten(mapped_pd_yaml$spec)) %in% names(lData_mapped[[flatten(mapped_pd_yaml$steps)$output]])))
+  expect_true(all(names(flatten(mapped_pd_yaml$spec)) %in% names(mapped_data[[flatten(mapped_pd_yaml$steps)$output]])))
 })
 
 test_that("mappings now done by individual domain, test that inputs and outputs of SDRGCOMP are completed as expected", {
@@ -91,11 +92,11 @@ test_that("mappings now done by individual domain, test that inputs and outputs 
   expect_true(all(names(mapped_sdrgcomp_yaml$spec) %in% names(lData)))
 
   # Output from yaml is in the mapped data object
-  expect_true(flatten(mapped_sdrgcomp_yaml$steps)$output %in% names(lData_mapped))
+  expect_true(flatten(mapped_sdrgcomp_yaml$steps)$output %in% names(mapped_data))
 
   # Needed columns of raw data are actually in raw data and retained in final data
   expect_true(all(names(flatten(mapped_sdrgcomp_yaml$spec)) %in% names(lData[names(mapped_sdrgcomp_yaml$spec)][[1]])))
-  expect_true(all(names(flatten(mapped_sdrgcomp_yaml$spec)) %in% names(lData_mapped[[flatten(mapped_sdrgcomp_yaml$steps)$output]])))
+  expect_true(all(names(flatten(mapped_sdrgcomp_yaml$spec)) %in% names(mapped_data[[flatten(mapped_sdrgcomp_yaml$steps)$output]])))
 })
 
 test_that("mappings now done by individual domain, test that inputs and outputs of STUDCOMP are completed as expected", {
@@ -109,11 +110,11 @@ test_that("mappings now done by individual domain, test that inputs and outputs 
   expect_true(all(names(mapped_studcomp_yaml$spec) %in% names(lData)))
 
   # Output from yaml is in the mapped data object
-  expect_true(flatten(mapped_studcomp_yaml$steps)$output %in% names(lData_mapped))
+  expect_true(flatten(mapped_studcomp_yaml$steps)$output %in% names(mapped_data))
 
   # Needed columns of raw data are actually in raw data and retained in final data
   expect_true(all(names(flatten(mapped_studcomp_yaml$spec)) %in% names(lData[names(mapped_studcomp_yaml$spec)][[1]])))
-  expect_true(all(names(flatten(mapped_studcomp_yaml$spec)) %in% names(lData_mapped[[flatten(mapped_studcomp_yaml$steps)$output]])))
+  expect_true(all(names(flatten(mapped_studcomp_yaml$spec)) %in% names(mapped_data[[flatten(mapped_studcomp_yaml$steps)$output]])))
 })
 
 test_that("mappings now done by individual domain, test that inputs and outputs of SUBJ are completed as expected", {
@@ -127,11 +128,11 @@ test_that("mappings now done by individual domain, test that inputs and outputs 
   expect_true(all(names(mapped_subj_yaml$spec) %in% names(lData)))
 
   # Output from yaml is in the mapped data object
-  expect_true(flatten(mapped_subj_yaml$steps)$output %in% names(lData_mapped))
+  expect_true(flatten(mapped_subj_yaml$steps)$output %in% names(mapped_data))
 
   # Needed columns of raw data are actually in raw data and retained in final data
   expect_true(all(names(flatten(mapped_subj_yaml$spec)) %in% names(lData[names(mapped_subj_yaml$spec)][[1]])))
-  expect_true(all(names(flatten(mapped_subj_yaml$spec)) %in% names(lData_mapped[[flatten(mapped_subj_yaml$steps)$output]])))
+  expect_true(all(names(flatten(mapped_subj_yaml$spec)) %in% names(mapped_data[[flatten(mapped_subj_yaml$steps)$output]])))
 })
 
 # Priority 2 Mappings

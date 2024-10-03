@@ -1,8 +1,6 @@
 ## Test Setup
-source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
-
 kri_workflows <- c(MakeWorkflowList(c("kri0001", "cou0001")), MakeWorkflowList("kri0001_custom", yaml_path_custom_metrics))
-mapped_data <- get_data(kri_workflows, lData)
+
 partial_mapped_workflows <- map(kri_workflows, ~ robust_runworkflow(.x, mapped_data, steps = 1:6))
 
 ## Test Code

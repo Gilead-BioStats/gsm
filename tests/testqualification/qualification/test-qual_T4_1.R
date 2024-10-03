@@ -1,10 +1,4 @@
 ## Test Setup
-source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
-
-kri_workflows <- flatten(MakeWorkflowList("kri0001_custom", yaml_path_custom_metrics))
-
-mapped_data <- get_data(kri_workflows, lData)
-
 outputs <- map_vec(kri_workflows$steps, ~ .x$output)
 
 ## Test Code
@@ -25,7 +19,6 @@ testthat::test_that("Given appropriate metadata (i.e. vThresholds), flagged obse
       TRUE ~ 0
     ))
 
-  # I'm not sure what goes into calculating score/flag and how to impute NAs but the below tests will fail
-  #expect_identical(abs(flags$Flag), flags$flagged_hardcode)
-  #expect_identical(test$Analysis_Flagged$Flag, test$Analysis_Summary$Flag)
+  expect_identical(abs(flags$Flag), flags$flagged_hardcode)
+  expect_identical(test$Analysis_Flagged$Flag, test$Analysis_Summary$Flag)
 })
