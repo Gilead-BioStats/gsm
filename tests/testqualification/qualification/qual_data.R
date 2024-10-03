@@ -59,7 +59,9 @@ yaml_path_custom_mappings <- "tests/testqualification/qualification/qual_workflo
 yaml_path_custom_metrics <- "tests/testqualification/qualification/qual_workflows/2_metrics"
 
 ## Get Mapped data
-mappings_wf <- MakeWorkflowList(strPath = "workflow/1_mappings")
+mappings_wf <- MakeWorkflowList(strPath = yaml_path_custom_mappings)
+mapped_data <- RunWorkflows(mappings_wf, lData)
+
 mapping_output <- map(mappings_wf, ~.x$steps[[1]]$output) %>% unlist()
 
 # Robust version of Runworkflow no config that will always run even with errors, and can be specified for specific steps in workflow to run
