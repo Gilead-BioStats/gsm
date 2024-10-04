@@ -702,10 +702,10 @@ Number Skipped
 Adverse Event Assessment
 </td>
 <td style="text-align:right;">
-0
+52
 </td>
 <td style="text-align:right;">
-0
+52
 </td>
 <td style="text-align:right;">
 0
@@ -719,13 +719,13 @@ Adverse Event Assessment
 Analysis workflow
 </td>
 <td style="text-align:right;">
-20
+22
 </td>
 <td style="text-align:right;">
-11
+22
 </td>
 <td style="text-align:right;">
-9
+0
 </td>
 <td style="text-align:right;">
 0
@@ -736,10 +736,10 @@ Analysis workflow
 Analyze_NormalApprox_PredictBounds
 </td>
 <td style="text-align:right;">
-0
+19
 </td>
 <td style="text-align:right;">
-0
+19
 </td>
 <td style="text-align:right;">
 0
@@ -753,10 +753,10 @@ Analyze_NormalApprox_PredictBounds
 Data Change Rate Assessment
 </td>
 <td style="text-align:right;">
-0
+19
 </td>
 <td style="text-align:right;">
-0
+19
 </td>
 <td style="text-align:right;">
 0
@@ -770,10 +770,10 @@ Data Change Rate Assessment
 Data Entry Lag Assessment
 </td>
 <td style="text-align:right;">
-0
+19
 </td>
 <td style="text-align:right;">
-0
+19
 </td>
 <td style="text-align:right;">
 0
@@ -787,10 +787,10 @@ Data Entry Lag Assessment
 Disposition Assessment
 </td>
 <td style="text-align:right;">
-0
+35
 </td>
 <td style="text-align:right;">
-0
+35
 </td>
 <td style="text-align:right;">
 0
@@ -804,10 +804,10 @@ Disposition Assessment
 Flag_NormalApprox
 </td>
 <td style="text-align:right;">
-0
+7
 </td>
 <td style="text-align:right;">
-0
+7
 </td>
 <td style="text-align:right;">
 0
@@ -821,13 +821,13 @@ Flag_NormalApprox
 Labs Assessment
 </td>
 <td style="text-align:right;">
-12
+19
 </td>
 <td style="text-align:right;">
-10
+19
 </td>
 <td style="text-align:right;">
-2
+0
 </td>
 <td style="text-align:right;">
 0
@@ -838,10 +838,10 @@ Labs Assessment
 Mapping workflow
 </td>
 <td style="text-align:right;">
-6
+46
 </td>
 <td style="text-align:right;">
-3
+46
 </td>
 <td style="text-align:right;">
 0
@@ -855,13 +855,13 @@ Mapping workflow
 Protocol Deviation Assessment
 </td>
 <td style="text-align:right;">
-14
+30
 </td>
 <td style="text-align:right;">
-13
+30
 </td>
 <td style="text-align:right;">
-1
+0
 </td>
 <td style="text-align:right;">
 0
@@ -872,10 +872,10 @@ Protocol Deviation Assessment
 Query Age Assessment
 </td>
 <td style="text-align:right;">
-0
+35
 </td>
 <td style="text-align:right;">
-0
+35
 </td>
 <td style="text-align:right;">
 0
@@ -889,10 +889,10 @@ Query Age Assessment
 Query Rate Assessment
 </td>
 <td style="text-align:right;">
-0
+35
 </td>
 <td style="text-align:right;">
-0
+35
 </td>
 <td style="text-align:right;">
 0
@@ -906,10 +906,10 @@ Query Rate Assessment
 Summarize
 </td>
 <td style="text-align:right;">
-0
+16
 </td>
 <td style="text-align:right;">
-0
+16
 </td>
 <td style="text-align:right;">
 0
@@ -1431,9 +1431,44 @@ S1_1
 T1_1
 </td>
 <td style="text-align:left;width: 6cm; ">
-lData is correctly mapped for processing using <code>mapping.yaml</code>
-in conjunction with <code><a href="../reference/MakeWorkflowList.html">MakeWorkflowList()</a></code> and
-<code>RunWorkflow</code>
+mappings now done by individual domain, test that inputs and outputs of
+priority 1 mappings are completed as expected
+</td>
+<td style="text-align:left;">
+Pass
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+Mapping workflow
+</td>
+<td style="text-align:left;width: 3cm; ">
+S1_1
+</td>
+<td style="text-align:left;">
+T1_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+mappings now done by individual domain, test that inputs and outputs of
+priority 2 mappings are completed as expected
+</td>
+<td style="text-align:left;">
+Pass
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+Mapping workflow
+</td>
+<td style="text-align:left;width: 3cm; ">
+S1_1
+</td>
+<td style="text-align:left;">
+T1_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+mappings now done by individual domain, test that inputs and outputs of
+priority 3 mappings are completed as expected
 </td>
 <td style="text-align:left;">
 Pass
@@ -1454,7 +1489,7 @@ Given raw participant-level data, a properly specified Workflow for a
 KRI creates summarized and flagged data
 </td>
 <td style="text-align:left;">
-Fail
+Pass
 </td>
 </tr>
 <tr>
@@ -1472,7 +1507,7 @@ Given raw participant-level data with missingness, a properly specified
 Workflow for a KRI creates summarized and flagged data
 </td>
 <td style="text-align:left;">
-|Fail
+|Pass
 </td>
 </tr>
 <tr>
@@ -1490,7 +1525,7 @@ Given pre-processed input data, a properly specified Workflow for a KRI
 creates summarized and flagged data
 </td>
 <td style="text-align:left;">
-Fail
+Pass
 </td>
 </tr>
 <tr>
@@ -1504,7 +1539,8 @@ S4_1
 T4_1
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Given appropriate metadata (i.e. vThresholds), flagged observations are
+properly marked in summary data
 </td>
 <td style="text-align:left;">
 Pass
@@ -1521,7 +1557,8 @@ S4_2
 T4_2
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Given appropriate metadata (i.e. vThresholds), bounds are properly
+applied to generate flags
 </td>
 <td style="text-align:left;">
 Pass
@@ -1538,7 +1575,9 @@ S5_1
 T5_1
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Given appropriate raw participant-level data, flag values can be
+correctly assigned to records that meet flagging criteria, including
+custom thresholding.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1555,7 +1594,8 @@ S5_2
 T5_2
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Given appropriate raw participant-level data, flag values are correctly
+assigned as NA for sites with low enrollment.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1572,7 +1612,8 @@ S6_1
 T6_1
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Given appropriate raw participant-level data, an Adverse Event
+Assessment can be done using the Normal Approximation method.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1589,7 +1630,9 @@ S6_2
 T6_2
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Adverse Event Assessments can be done correctly using a grouping
+variable, such as Site or Country for KRIs, and Study for QTLs, when
+applicable.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1610,7 +1653,7 @@ Given appropriate raw participant-level data, a Protocol Deviation
 Assessment can be done using the Normal Approximation method.
 </td>
 <td style="text-align:left;">
-Fail
+Pass
 </td>
 </tr>
 <tr>
@@ -1624,7 +1667,9 @@ S7_2
 T7_2
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Protocol Deviation Assessments can be done correctly using a grouping
+variable, such as Site or Country for KRIs, and Study for QTLs, when
+applicable.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1641,7 +1686,8 @@ S8_1
 T8_1
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Given appropriate raw participant-level data, a Dispositon Assessment
+can be done using the Normal Approximation method.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1658,7 +1704,8 @@ S8_2
 T8_2
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Disposition Assessments can be done correctly using a grouping variable,
+such as Site or Country for KRIs, and Study for QTLs, when applicable.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1679,7 +1726,7 @@ Given appropriate raw participant-level data, a Labs Assessment can be
 done using the Normal Approximation method.
 </td>
 <td style="text-align:left;">
-Fail
+Pass
 </td>
 </tr>
 <tr>
@@ -1711,7 +1758,8 @@ S10_1
 T10_1
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Given appropriate raw participant-level data, a Data Change Rate
+Assessment can be done using the Normal Approximation method.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1728,7 +1776,8 @@ S10_2
 T10_2
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Data Change Rate Assessments can be done correctly using a grouping
+variable, such as Site, Country, or Study, when applicable.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1745,7 +1794,8 @@ S11_1
 T11_1
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Given appropriate raw participant-level data, a Data Entry Lag
+Assessment can be done using the Normal Approximation method.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1762,7 +1812,8 @@ S11_2
 T11_2
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Data Entry Lag Assessments can be done correctly using a grouping
+variable, such as Site, Country, or Study, when applicable.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1779,7 +1830,8 @@ S12_1
 T12_1
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Given appropriate raw participant-level data, a Query Age Assessment can
+be done using the Normal Approximation method.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1796,7 +1848,8 @@ S12_2
 T12_2
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Query Age Assessments can be done correctly using a grouping variable,
+such as Site, Country, or Study, when applicable.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1813,7 +1866,8 @@ S13_1
 T13_1
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Given appropriate raw participant-level data, a Query Rate Assessment
+can be done using the Normal Approximation method.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1830,7 +1884,8 @@ S13_2
 T13_2
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Query Rate Assessments can be done correctly using a grouping variable,
+such as Site, Country, or Study, when applicable.
 </td>
 <td style="text-align:left;">
 Pass

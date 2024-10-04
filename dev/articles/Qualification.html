@@ -196,10 +196,10 @@ Number Skipped
 Adverse Event Assessment
 </td>
 <td style="text-align:right;">
-0
+52
 </td>
 <td style="text-align:right;">
-0
+52
 </td>
 <td style="text-align:right;">
 0
@@ -213,13 +213,13 @@ Adverse Event Assessment
 Analysis workflow
 </td>
 <td style="text-align:right;">
-20
+22
 </td>
 <td style="text-align:right;">
-11
+22
 </td>
 <td style="text-align:right;">
-9
+0
 </td>
 <td style="text-align:right;">
 0
@@ -230,10 +230,10 @@ Analysis workflow
 Analyze_NormalApprox_PredictBounds
 </td>
 <td style="text-align:right;">
-0
+19
 </td>
 <td style="text-align:right;">
-0
+19
 </td>
 <td style="text-align:right;">
 0
@@ -247,10 +247,10 @@ Analyze_NormalApprox_PredictBounds
 Data Change Rate Assessment
 </td>
 <td style="text-align:right;">
-0
+19
 </td>
 <td style="text-align:right;">
-0
+19
 </td>
 <td style="text-align:right;">
 0
@@ -264,10 +264,10 @@ Data Change Rate Assessment
 Data Entry Lag Assessment
 </td>
 <td style="text-align:right;">
-0
+19
 </td>
 <td style="text-align:right;">
-0
+19
 </td>
 <td style="text-align:right;">
 0
@@ -281,10 +281,10 @@ Data Entry Lag Assessment
 Disposition Assessment
 </td>
 <td style="text-align:right;">
-0
+35
 </td>
 <td style="text-align:right;">
-0
+35
 </td>
 <td style="text-align:right;">
 0
@@ -298,10 +298,10 @@ Disposition Assessment
 Flag_NormalApprox
 </td>
 <td style="text-align:right;">
-0
+7
 </td>
 <td style="text-align:right;">
-0
+7
 </td>
 <td style="text-align:right;">
 0
@@ -315,13 +315,13 @@ Flag_NormalApprox
 Labs Assessment
 </td>
 <td style="text-align:right;">
-12
+19
 </td>
 <td style="text-align:right;">
-10
+19
 </td>
 <td style="text-align:right;">
-2
+0
 </td>
 <td style="text-align:right;">
 0
@@ -332,10 +332,10 @@ Labs Assessment
 Mapping workflow
 </td>
 <td style="text-align:right;">
-6
+46
 </td>
 <td style="text-align:right;">
-3
+46
 </td>
 <td style="text-align:right;">
 0
@@ -349,13 +349,13 @@ Mapping workflow
 Protocol Deviation Assessment
 </td>
 <td style="text-align:right;">
-14
+30
 </td>
 <td style="text-align:right;">
-13
+30
 </td>
 <td style="text-align:right;">
-1
+0
 </td>
 <td style="text-align:right;">
 0
@@ -366,10 +366,10 @@ Protocol Deviation Assessment
 Query Age Assessment
 </td>
 <td style="text-align:right;">
-0
+35
 </td>
 <td style="text-align:right;">
-0
+35
 </td>
 <td style="text-align:right;">
 0
@@ -383,10 +383,10 @@ Query Age Assessment
 Query Rate Assessment
 </td>
 <td style="text-align:right;">
-0
+35
 </td>
 <td style="text-align:right;">
-0
+35
 </td>
 <td style="text-align:right;">
 0
@@ -400,10 +400,10 @@ Query Rate Assessment
 Summarize
 </td>
 <td style="text-align:right;">
-0
+16
 </td>
 <td style="text-align:right;">
-0
+16
 </td>
 <td style="text-align:right;">
 0
@@ -912,9 +912,44 @@ S1_1
 T1_1
 </td>
 <td style="text-align:left;width: 6cm; ">
-lData is correctly mapped for processing using <code>mapping.yaml</code>
-in conjunction with <code><a href="../reference/MakeWorkflowList.html">MakeWorkflowList()</a></code> and
-<code>RunWorkflow</code>
+mappings now done by individual domain, test that inputs and outputs of
+priority 1 mappings are completed as expected
+</td>
+<td style="text-align:left;">
+Pass
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+Mapping workflow
+</td>
+<td style="text-align:left;width: 3cm; ">
+S1_1
+</td>
+<td style="text-align:left;">
+T1_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+mappings now done by individual domain, test that inputs and outputs of
+priority 2 mappings are completed as expected
+</td>
+<td style="text-align:left;">
+Pass
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 4cm; ">
+Mapping workflow
+</td>
+<td style="text-align:left;width: 3cm; ">
+S1_1
+</td>
+<td style="text-align:left;">
+T1_1
+</td>
+<td style="text-align:left;width: 6cm; ">
+mappings now done by individual domain, test that inputs and outputs of
+priority 3 mappings are completed as expected
 </td>
 <td style="text-align:left;">
 Pass
@@ -935,7 +970,7 @@ Given raw participant-level data, a properly specified Workflow for a
 KRI creates summarized and flagged data
 </td>
 <td style="text-align:left;">
-Fail
+Pass
 </td>
 </tr>
 <tr>
@@ -953,7 +988,7 @@ Given raw participant-level data with missingness, a properly specified
 Workflow for a KRI creates summarized and flagged data
 </td>
 <td style="text-align:left;">
-|Fail
+|Pass
 </td>
 </tr>
 <tr>
@@ -971,7 +1006,7 @@ Given pre-processed input data, a properly specified Workflow for a KRI
 creates summarized and flagged data
 </td>
 <td style="text-align:left;">
-Fail
+Pass
 </td>
 </tr>
 <tr>
@@ -985,7 +1020,8 @@ S4_1
 T4_1
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Given appropriate metadata (i.e. vThresholds), flagged observations are
+properly marked in summary data
 </td>
 <td style="text-align:left;">
 Pass
@@ -1002,7 +1038,8 @@ S4_2
 T4_2
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Given appropriate metadata (i.e. vThresholds), bounds are properly
+applied to generate flags
 </td>
 <td style="text-align:left;">
 Pass
@@ -1019,7 +1056,9 @@ S5_1
 T5_1
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Given appropriate raw participant-level data, flag values can be
+correctly assigned to records that meet flagging criteria, including
+custom thresholding.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1036,7 +1075,8 @@ S5_2
 T5_2
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Given appropriate raw participant-level data, flag values are correctly
+assigned as NA for sites with low enrollment.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1053,7 +1093,8 @@ S6_1
 T6_1
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Given appropriate raw participant-level data, an Adverse Event
+Assessment can be done using the Normal Approximation method.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1070,7 +1111,9 @@ S6_2
 T6_2
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Adverse Event Assessments can be done correctly using a grouping
+variable, such as Site or Country for KRIs, and Study for QTLs, when
+applicable.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1091,7 +1134,7 @@ Given appropriate raw participant-level data, a Protocol Deviation
 Assessment can be done using the Normal Approximation method.
 </td>
 <td style="text-align:left;">
-Fail
+Pass
 </td>
 </tr>
 <tr>
@@ -1105,7 +1148,9 @@ S7_2
 T7_2
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Protocol Deviation Assessments can be done correctly using a grouping
+variable, such as Site or Country for KRIs, and Study for QTLs, when
+applicable.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1122,7 +1167,8 @@ S8_1
 T8_1
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Given appropriate raw participant-level data, a Dispositon Assessment
+can be done using the Normal Approximation method.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1139,7 +1185,8 @@ S8_2
 T8_2
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Disposition Assessments can be done correctly using a grouping variable,
+such as Site or Country for KRIs, and Study for QTLs, when applicable.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1160,7 +1207,7 @@ Given appropriate raw participant-level data, a Labs Assessment can be
 done using the Normal Approximation method.
 </td>
 <td style="text-align:left;">
-Fail
+Pass
 </td>
 </tr>
 <tr>
@@ -1192,7 +1239,8 @@ S10_1
 T10_1
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Given appropriate raw participant-level data, a Data Change Rate
+Assessment can be done using the Normal Approximation method.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1209,7 +1257,8 @@ S10_2
 T10_2
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Data Change Rate Assessments can be done correctly using a grouping
+variable, such as Site, Country, or Study, when applicable.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1226,7 +1275,8 @@ S11_1
 T11_1
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Given appropriate raw participant-level data, a Data Entry Lag
+Assessment can be done using the Normal Approximation method.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1243,7 +1293,8 @@ S11_2
 T11_2
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Data Entry Lag Assessments can be done correctly using a grouping
+variable, such as Site, Country, or Study, when applicable.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1260,7 +1311,8 @@ S12_1
 T12_1
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Given appropriate raw participant-level data, a Query Age Assessment can
+be done using the Normal Approximation method.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1277,7 +1329,8 @@ S12_2
 T12_2
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Query Age Assessments can be done correctly using a grouping variable,
+such as Site, Country, or Study, when applicable.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1294,7 +1347,8 @@ S13_1
 T13_1
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Given appropriate raw participant-level data, a Query Rate Assessment
+can be done using the Normal Approximation method.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1311,7 +1365,8 @@ S13_2
 T13_2
 </td>
 <td style="text-align:left;width: 6cm; ">
-NA
+Query Rate Assessments can be done correctly using a grouping variable,
+such as Site, Country, or Study, when applicable.
 </td>
 <td style="text-align:left;">
 Pass
@@ -1822,10 +1877,10 @@ Total Coverage
 <p><strong>attached base packages:</strong> <em>stats</em>,
 <em>graphics</em>, <em>grDevices</em>, <em>utils</em>,
 <em>datasets</em>, <em>methods</em> and <em>base</em></p>
-<p><strong>other attached packages:</strong> <em>gsm(v.2.0.1)</em>,
-<em>testthat(v.3.2.1.1)</em>, <em>riskmetric(v.0.2.4)</em>,
-<em>stringr(v.1.5.1)</em>, <em>gh(v.1.4.1)</em>,
-<em>pander(v.0.6.5)</em>, <em>purrr(v.1.0.2)</em>,
+<p><strong>other attached packages:</strong> <em>RSQLite(v.2.3.7)</em>,
+<em>gsm(v.2.0.1)</em>, <em>testthat(v.3.2.1.1)</em>,
+<em>riskmetric(v.0.2.4)</em>, <em>stringr(v.1.5.1)</em>,
+<em>gh(v.1.4.1)</em>, <em>pander(v.0.6.5)</em>, <em>purrr(v.1.0.2)</em>,
 <em>dplyr(v.1.1.4)</em> and <em>knitr(v.1.48)</em></p>
 <p><strong>loaded via a namespace (and not attached):</strong>
 <em>tidyselect(v.1.2.1)</em>, <em>viridisLite(v.0.4.2)</em>,
@@ -1834,10 +1889,9 @@ Total Coverage
 <em>promises(v.1.3.0)</em>, <em>rex(v.1.2.1)</em>,
 <em>digest(v.0.6.37)</em>, <em>mime(v.0.12)</em>,
 <em>lifecycle(v.1.0.4)</em>, <em>waldo(v.0.5.3)</em>,
-<em>ellipsis(v.0.3.2)</em>, <em>RSQLite(v.2.3.7)</em>,
-<em>magrittr(v.2.0.3)</em>, <em>compiler(v.4.4.1)</em>,
-<em>rlang(v.1.1.4)</em>, <em>sass(v.0.4.9)</em>,
-<em>tools(v.4.4.1)</em>, <em>utf8(v.1.2.4)</em>,
+<em>ellipsis(v.0.3.2)</em>, <em>magrittr(v.2.0.3)</em>,
+<em>compiler(v.4.4.1)</em>, <em>rlang(v.1.1.4)</em>,
+<em>sass(v.0.4.9)</em>, <em>tools(v.4.4.1)</em>, <em>utf8(v.1.2.4)</em>,
 <em>yaml(v.2.3.10)</em>, <em>htmlwidgets(v.1.6.4)</em>,
 <em>bit(v.4.5.0)</em>, <em>pkgbuild(v.1.4.4)</em>,
 <em>curl(v.5.2.3)</em>, <em>here(v.1.0.1)</em>, <em>xml2(v.1.3.6)</em>,
@@ -1845,12 +1899,11 @@ Total Coverage
 <em>miniUI(v.0.1.1.1)</em>, <em>covr(v.3.6.4)</em>,
 <em>withr(v.3.0.1)</em>, <em>desc(v.1.4.3)</em>,
 <em>triebeard(v.0.4.1)</em>, <em>grid(v.4.4.1)</em>,
-<em>fansi(v.1.0.6)</em>, <em>diffobj(v.0.3.5)</em>,
-<em>urlchecker(v.1.0.1)</em>, <em>profvis(v.0.4.0)</em>,
-<em>xtable(v.1.8-4)</em>, <em>colorspace(v.2.1-1)</em>,
-<em>ggplot2(v.3.5.1)</em>, <em>scales(v.1.3.0)</em>,
-<em>cli(v.3.6.3)</em>, <em>chron(v.2.3-61)</em>,
-<em>rmarkdown(v.2.28)</em>, <em>crayon(v.1.5.3)</em>,
+<em>fansi(v.1.0.6)</em>, <em>urlchecker(v.1.0.1)</em>,
+<em>profvis(v.0.4.0)</em>, <em>xtable(v.1.8-4)</em>,
+<em>colorspace(v.2.1-1)</em>, <em>ggplot2(v.3.5.1)</em>,
+<em>scales(v.1.3.0)</em>, <em>cli(v.3.6.3)</em>,
+<em>chron(v.2.3-61)</em>, <em>rmarkdown(v.2.28)</em>,
 <em>ragg(v.1.3.3)</em>, <em>generics(v.0.1.3)</em>,
 <em>remotes(v.2.5.0)</em>, <em>rstudioapi(v.0.16.0)</em>,
 <em>httr(v.1.4.7)</em>, <em>sessioninfo(v.1.2.2)</em>,
@@ -1860,12 +1913,12 @@ Total Coverage
 <em>bit64(v.4.5.2)</em>, <em>systemfonts(v.1.1.0)</em>,
 <em>tidyr(v.1.3.1)</em>, <em>jquerylib(v.0.1.4)</em>,
 <em>proto(v.1.0.0)</em>, <em>glue(v.1.8.0)</em>,
-<em>clindata(v.1.0.5)</em>, <em>rematch2(v.2.1.2)</em>,
-<em>pkgdown(v.2.1.1)</em>, <em>stringi(v.1.8.4)</em>,
-<em>gtable(v.0.3.5)</em>, <em>later(v.1.3.2)</em>,
-<em>munsell(v.0.5.1)</em>, <em>tibble(v.3.2.1)</em>,
-<em>pillar(v.1.9.0)</em>, <em>htmltools(v.0.5.8.1)</em>,
-<em>brio(v.1.1.5)</em>, <em>R6(v.2.5.1)</em>,
+<em>clindata(v.1.0.5)</em>, <em>pkgdown(v.2.1.1)</em>,
+<em>stringi(v.1.8.4)</em>, <em>gtable(v.0.3.5)</em>,
+<em>later(v.1.3.2)</em>, <em>munsell(v.0.5.1)</em>,
+<em>tibble(v.3.2.1)</em>, <em>pillar(v.1.9.0)</em>,
+<em>htmltools(v.0.5.8.1)</em>, <em>brio(v.1.1.5)</em>,
+<em>R6(v.2.5.1)</em>, <em>tcltk(v.4.4.1)</em>,
 <em>textshaping(v.0.4.0)</em>, <em>rprojroot(v.2.0.4)</em>,
 <em>kableExtra(v.1.4.0)</em>, <em>evaluate(v.1.0.0)</em>,
 <em>shiny(v.1.9.1)</em>, <em>highr(v.0.11)</em>, <em>gsubfn(v.0.7)</em>,
@@ -1951,7 +2004,7 @@ glue
 1.8.0
 </td>
 <td style="text-align:left;">
-0.278
+0.276
 </td>
 </tr>
 <tr>
@@ -2153,6 +2206,34 @@ yaml
 <td align="center">jwildfire</td>
 <td align="center">2024-09-30 21:36:28</td>
 <td align="center"></td>
+<td align="center">COMMENTED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1862-closes-1859-checks-and-updates-qualification-tests-in-testtestqualification-to-align-with-new-workflows-for-v2-1-0-release">Pull Request 1862: Closes #1859 checks and updates qualification
+tests in test/testqualification to align with new workflows for v2.1.0
+release<a class="anchor" aria-label="anchor" href="#pull-request-1862-closes-1859-checks-and-updates-qualification-tests-in-testtestqualification-to-align-with-new-workflows-for-v2-1-0-release"></a>
+</h4>
+<p>Merging fix-1859 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1862" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1862</a></p>
+<table style="width:83%;" class="table">
+<colgroup>
+<col width="16%">
+<col width="18%">
+<col width="26%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">zdz2101</td>
+<td align="center">2024-09-26 19:51:16</td>
+<td align="center">andersonjake1988</td>
 <td align="center">COMMENTED</td>
 </tr></tbody>
 </table>
