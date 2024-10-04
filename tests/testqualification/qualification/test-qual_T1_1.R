@@ -1,85 +1,57 @@
-test_that("lData is correctly mapped for processing using `mapping.yaml` in conjunction with `MakeWorkflowList()` and `RunWorkflow`", {
-  source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
+source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
 
-  lData_mapped <- robust_runworkflow(mapping_workflow, lData)
-  mapping_yaml <- yaml::read_yaml(system.file("workflow", "data_mapping.yaml", package = "gsm"))
+# Priority 1 mappings
+test_that("mappings now done by individual domain, test that inputs and outputs of priority 1 mappings are completed as expected", {
+  priority1 <- c("AE.yaml", "ENROLL.yaml", "LB.yaml", "PD.yaml", "SDRGCOMP.yaml", "STUDCOMP.yaml", "SUBJ.yaml")
 
-  ## Rename columns
-  mapping_renaming_config <- map_df(mapping_yaml$steps, function(step) {
-    data.frame(
-      "input" = step$params$df,
-      "output" = step$output,
-      "original_col" = str_extract(step$params$strQuery, "(?<=SELECT )(.*?)(?= AS)"),
-      "new_col" = stringr::str_extract(step$params$strQuery, "(?<=AS )(.*?)(?=,)")
-    )
-  }, .id = "step") %>%
-    na.omit()
+  mapped_p1_yaml <- map(priority1, ~ read_yaml(
+    system.file("tests", "testqualification", "qualification", "qual_workflows", "1_mappings", .x, package = "gsm")
+  ))
 
-  original_names_present <- map_lgl(unique(mapping_renaming_config$input), function(df) {
-    original_col <- mapping_renaming_config %>%
-      filter(input == df) %>%
-      distinct(original_col) %>%
-      pull()
+  # Requried raw data is in data source
+  iwalk(mapped_p1_yaml, ~ expect_true(all(names(.x$spec) %in% names(lData))))
 
-    all(original_col %in% names(lData[[df]]))
-  })
+  # Output from yaml is in the mapped data object
+  iwalk(mapped_p1_yaml, ~ expect_true(flatten(.x$steps)$output %in% names(mapped_data)))
 
-  new_names_present <- map_lgl(unique(mapping_renaming_config$output), function(df) {
-    new_col <- mapping_renaming_config %>%
-      filter(output == df) %>%
-      distinct(new_col) %>%
-      pull()
-
-    all(new_col %in% names(lData_mapped[[df]]))
-  })
-
-  expect_true(all(original_names_present))
-  expect_true(all(new_names_present))
-
-  ## filtering cols
-  mapping_filter_config <- map_df(mapping_yaml$steps, function(step) {
-    data.frame(
-      "input" = step$params$df,
-      "output" = step$output,
-      "filter_raw" = str_extract(step$params$strQuery, "(?<=WHERE )(.*?)(?=;)")
-    ) %>%
-      mutate(
-        "filter_call" = case_when(
-          str_detect(filter_raw, "IN ") ~ stringr::str_replace_all(filter_raw, "IN ", "%in% c"),
-          TRUE ~ filter_raw
-        ),
-        "filter_call" = case_when(
-          str_detect(filter_call, "AND") ~ stringr::str_replace_all(filter_call, "AND", "&"),
-          TRUE ~ filter_call
-        )
-      )
-  }, .id = "step") %>%
-    na.omit()
+  # Needed columns of raw data are actually in raw data and retained in final data
+  iwalk(mapped_p1_yaml, ~ expect_true(all(names(flatten(.x$spec)) %in% names(lData[names(.x$spec)][[1]]))))
+  iwalk(mapped_p1_yaml, ~ expect_true(all(names(flatten(.x$spec)) %in% names(mapped_data[[flatten(.x$steps)$output]]))))
+})
 
 
-  need_input <- map_vec(mapping_yaml$steps, ~ .x$params$df)[map_vec(mapping_yaml$steps, ~ .x$params$df) %in%
-    map_vec(mapping_yaml$steps, ~ .x$output)]
-  lData_new <- lData
-  if (!is.null(need_input)) {
-    all_need_input <- mapping_filter_config %>%
-      filter(output %in% need_input)
-    lData_new <- map(split(all_need_input, row_number(all_need_input)), function(df) {
-      lData_new[[df$output]] <- lData[[df$input]] %>%
-        filter(eval(parse(text = df$filter_call)))
-      return(lData_new)
-    }) %>% flatten()
-  }
+# Priority 2 Mappings
 
-  filter_test <- list()
-  mapping_filter_output <- map(split(mapping_filter_config, row_number(mapping_filter_config)), function(df) {
-    filter_test[[df$output]] <- lData_new[[df$input]] %>%
-      filter(eval(parse(text = df$filter_call)))
-    return(filter_test)
-  }) %>% flatten()
+test_that("mappings now done by individual domain, test that inputs and outputs of priority 2 mappings are completed as expected", {
+  priority2 <- c("DATACHG.yaml", "DATAENT.yaml", "QUERY.yaml")
 
-  expect_true(
-    all(imap_lgl(mapping_filter_output, function(df, name) {
-      nrow(df) == nrow(lData_mapped[[name]])
-    }))
-  )
+  mapped_p2_yaml <- map(priority2, ~ read_yaml(
+    system.file("tests", "testqualification", "qualification", "qual_workflows", "1_mappings", .x, package = "gsm")
+  ))
+
+  iwalk(mapped_p2_yaml, ~ expect_true(all(names(.x$spec) %in% c(names(lData), "Mapped_SUBJ"))))
+
+  iwalk(mapped_p2_yaml, ~ expect_true(flatten(.x$steps)$output %in% c(names(mapped_data), "Temp_SubjectLookup")))
+
+  iwalk(mapped_p2_yaml, ~ expect_true(all(names(flatten(.x$spec)) %in% c(names(lData[names(.x$spec)][[1]]), names(lData["Raw_SUBJ"][[1]])))))
+})
+
+# Priority 3 Mappings
+
+test_that("mappings now done by individual domain, test that inputs and outputs of priority 3 mappings are completed as expected", {
+  priority3 <- c("COUNTRY.yaml", "SITE.yaml", "STUDY.yaml")
+
+  mapped_p3_yaml <- map(priority3, ~ read_yaml(
+    system.file("tests", "testqualification", "qualification", "qual_workflows", "1_mappings", .x, package = "gsm")
+  ))
+
+  iwalk(mapped_p3_yaml, ~ expect_true(all(names(.x$spec) %in% c(names(lData), "Mapped_SUBJ"))))
+
+  temp_objs <- c("Temp_CountryCountsWide",
+                 "Temp_CTMSSiteWide", "Temp_CTMSSite", "Temp_SiteCountsWide", "Temp_SiteCounts",
+                 "Temp_CTMSStudyWide", "Temp_CTMSStudy", "Temp_StudyCountsWide", "Temp_StudyCounts")
+
+  iwalk(mapped_p3_yaml, ~ expect_true(flatten(.x$steps)$output %in% c(names(mapped_data), temp_objs)))
+
+  iwalk(mapped_p3_yaml, ~ expect_true(all(names(flatten(.x$spec)) %in% c(names(lData[names(.x$spec)][[1]]), names(lData["Raw_SUBJ"][[1]])))))
 })
