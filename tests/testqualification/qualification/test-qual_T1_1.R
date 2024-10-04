@@ -47,9 +47,11 @@ test_that("mappings now done by individual domain, test that inputs and outputs 
 
   iwalk(mapped_p3_yaml, ~ expect_true(all(names(.x$spec) %in% c(names(lData), "Mapped_SUBJ"))))
 
-  temp_objs <- c("Temp_CountryCountsWide",
-                 "Temp_CTMSSiteWide", "Temp_CTMSSite", "Temp_SiteCountsWide", "Temp_SiteCounts",
-                 "Temp_CTMSStudyWide", "Temp_CTMSStudy", "Temp_StudyCountsWide", "Temp_StudyCounts")
+  temp_objs <- c(
+    "Temp_CountryCountsWide",
+    "Temp_CTMSSiteWide", "Temp_CTMSSite", "Temp_SiteCountsWide", "Temp_SiteCounts",
+    "Temp_CTMSStudyWide", "Temp_CTMSStudy", "Temp_StudyCountsWide", "Temp_StudyCounts"
+  )
 
   iwalk(mapped_p3_yaml, ~ expect_true(flatten(.x$steps)$output %in% c(names(mapped_data), temp_objs)))
 
