@@ -1,26 +1,26 @@
 dependencies:
   - name: rbmviz
-    version: 1.2.0
-    src: 'rbm-viz-1.2.0'
+    version: 2.1.0
+    src: 'htmlwidgets/lib/rbm-viz-2.1.0'
     script: 'rbm-viz.js'
   - name: clickCallback
-    version: 0.0.1
-    src: 'utils-0.0.1'
+    version: 1.0.0
+    src: 'htmlwidgets/lib'
     script: 'clickCallback.js'
   - name: addWidgetControls
-    version: 0.0.1
-    src: 'utils-0.0.1'
+    version: 1.0.0
+    src: 'htmlwidgets/lib'
     script: 'addWidgetControls.js'
     stylesheet: 'widgetControls.css'
   - name: addSelectControl
-    version: 0.0.1
-    src: 'utils-0.0.1'
+    version: 1.0.0
+    src: 'htmlwidgets/lib'
     script: 'addSelectControl.js'
   - name: getGroups
-    version: 0.0.1
-    src: 'utils-0.0.1'
+    version: 1.0.0
+    src: 'htmlwidgets/lib'
     script: 'getGroups.js'
   - name: getCountries
-    version: 0.0.1
-    src: 'utils-0.0.1'
+    version: 1.0.0
+    src: 'htmlwidgets/lib'
     script: 'getCountries.js'
