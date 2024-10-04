@@ -1,8 +1,6 @@
 on:
   pull_request:
-    branches: main
-  push:
-    branches: main
+    branches: dev
   workflow_dispatch:
 
 name: qualification-tests-dev
