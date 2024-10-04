@@ -43,46 +43,54 @@ MakeWorkflowList <- function(
     full.names = TRUE,
     recursive = bRecursive
   )
-
-  workflows <- yaml_files %>%
-    purrr::map(function(yaml_file) {
-      # read the individual YAML file
-      workflow <- yaml::read_yaml(yaml_file)
-
-      # set the `path` for logging purposes
-      workflow$path <- yaml_file
-
-      # each workflow should have an $meta and $steps $meta$ID attributes
-      stopifnot(utils::hasName(workflow, "meta"))
-      stopifnot(utils::hasName(workflow, "steps"))
-      stopifnot(utils::hasName(workflow$meta, "ID"))
-
-      return(workflow)
-    }) %>%
-    stats::setNames(purrr::map_chr(., ~ .x$meta$ID))
+  names(yaml_files) <- yaml_files
 
   # if `strNames` is not null, subset the workflow list to only include
   # files that match the character vector (`strNames`)
 
   if (!is.null(strNames)) {
     if (bExact) {
-      workflows <- purrr::keep(workflows, names(workflows) %in% strNames)
+      yaml_files <- purrr::keep(yaml_files, names(yaml_files) %in% strNames)
     } else {
-      workflows <- purrr::keep(workflows, grepl(paste(strNames, collapse = "|"), names(workflows)))
+      yaml_files <- purrr::keep(yaml_files, grepl(paste(strNames, collapse = "|"), names(yaml_files)))
     }
   }
+
+  workflows <- yaml_files %>%
+    purrr::map2(., names(yaml_files), function(yaml_file, file_name) {
+      # read the individual YAML file
+      workflow <- yaml::read_yaml(yaml_file)
+      name_for_error <- file_name
+
+      # set the `path` for logging purposes
+      workflow$path <- yaml_file
+
+      # each workflow should have an $meta and $steps $meta$ID attributes
+      if(!utils::hasName(workflow, "meta")){
+        cli::cli_abort(c("{file_name} must contain `meta` attributes."))
+      }
+      if(!utils::hasName(workflow, "steps")){
+        cli::cli_abort(c("{file_name} must contain `steps` attributes."))
+      }
+      if(!utils::hasName(workflow, "meta")){
+        cli::cli_abort(c("{file_name} must contain `ID` attribute in `meta` section."))
+      }
+
+      return(workflow)
+    }) %>%
+    stats::setNames(purrr::map_chr(., ~ .x$meta$ID))
 
   # Sort the list according to the $meta$priority property
 
   # Set priority to 0 if not defined
-  workflows <- workflows %>% map(function(wf){ 
+  workflows <- workflows %>% map(function(wf){
     if(is.null(wf$meta$Priority)){
       wf$meta$Priority <- 0
     }
     return(wf)
   })
   workflows <- workflows[order(workflows %>% map_dbl(~.x$meta$Priority))]
-    
+
   # throw a warning if no workflows are found
   if (length(workflows) == 0) {
     cli::cli_alert_warning("No workflows found.")
