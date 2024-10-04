@@ -2,7 +2,7 @@ meta:
   Type: Metric
   ID: kri0001b_custom
   File: kri0001b_custom.yaml
-  GroupLevel: Race
+  GroupLevel: Site
   Abbreviation: AE
   Metric: Adverse Event Rate
   Numerator: Adverse Events
@@ -14,16 +14,22 @@ meta:
   nMinDenominator: 300
 spec:
   Analysis_Input:
-    subjid:
+    SubjectID:
+      required: true
+      type: numeric
+    GroupID:
       required: true
       type: character
-    invid:
+    GroupLevel:
       required: true
       type: character
-    race:
+    Numerator:
       required: true
-      type: character
-    timeonstudy:
+      type: numeric
+    Denominator:
+      required: true
+      type: numeric
+    Metric:
       required: true
       type: numeric
 steps:
