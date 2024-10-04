@@ -57,6 +57,9 @@ const addWidgetControls = function(el, dfResults, lMetrics, dfGroups, bAddGroupS
         else if (Object.keys(instance.helpers).includes('updateSelectedGroupIDs')) {
             instance.helpers.updateSelectedGroupIDs(instance.data.config.selectedGroupIDs);
         }
+
+        // Dispatch [ riskSignalSelected ] event.
+        instance.canvas.dispatchEvent(instance.canvas.riskSignalSelected);
     });
 
     // add event listener to country select

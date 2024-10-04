@@ -149,9 +149,9 @@ cat
 
 ```
 ```{r echo=FALSE}
-group_dropdown <- system.file('utils-0.0.1', 'overallGroupDropdown.js', package = "gsm")
-dropdown_drag <- system.file('utils-0.0.1', 'dragOverallGroupDropdown.js', package = "gsm")
-meta_details <- system.file('utils-0.0.1', 'showMetaTableDetails.js', package = "gsm")
+group_dropdown <- system.file('report', 'lib', 'overallGroupDropdown.js', package = "gsm")
+dropdown_drag <- system.file('report', 'lib', 'dragOverallGroupDropdown.js', package = "gsm")
+meta_details <- system.file('report', 'lib', 'showMetaTableDetails.js', package = "gsm")
 ```
 
 ```{js, file={group_dropdown}, echo=FALSE}
