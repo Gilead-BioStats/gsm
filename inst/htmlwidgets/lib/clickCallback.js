@@ -45,8 +45,7 @@ const clickCallback = function(el, input) {
             }
         }
 
-        // Trigger `riskSignalSelected` event.
-        console.log(canvas.clickEvent.data);
-        canvas.dispatchEvent(canvas.riskSignalSelected);
+        // Dispatch [ riskSignalSelected ] event.
+        instance.canvas.dispatchEvent(instance.canvas.riskSignalSelected);
     };
 };

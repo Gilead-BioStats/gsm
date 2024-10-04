@@ -58,9 +58,8 @@ const addWidgetControls = function(el, dfResults, lMetrics, dfGroups, bAddGroupS
             instance.helpers.updateSelectedGroupIDs(instance.data.config.selectedGroupIDs);
         }
 
-        // Trigger `riskSignalSelected` event.
-        // TODO: attach group data to `riskSignalSelected` event before dispatch
-        canvas.dispatchEvent(canvas.riskSignalSelected);
+        // Dispatch [ riskSignalSelected ] event.
+        instance.canvas.dispatchEvent(instance.canvas.riskSignalSelected);
     });
 
     // add event listener to country select
