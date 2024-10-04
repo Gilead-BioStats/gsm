@@ -1,10 +1,5 @@
 ## Test Setup
-source(system.file("tests", "testqualification", "qualification", "qual_data.R", package = "gsm"))
-
-kri_workflows <- flatten(MakeWorkflowList("kri0001_custom", yaml_path_custom))
-
-mapped_data <- get_data(kri_workflows, lData)
-
+kri_workflows <- flatten(MakeWorkflowList("kri0001_custom", yaml_path_custom_metrics))
 outputs <- map_vec(kri_workflows$steps, ~ .x$output)
 
 ## Test Code
@@ -12,11 +7,11 @@ testthat::test_that("Given appropriate metadata (i.e. vThresholds), flagged obse
   test <- robust_runworkflow(kri_workflows, mapped_data)
   expect_true(all(outputs %in% names(test)))
   expect_true(is.vector(test[["vThreshold"]]))
-  expect_true(all(map_lgl(test[outputs[outputs != "vThreshold"]], is.data.frame)))
-  expect_equal(nrow(test$dfFlagged), nrow(test$dfSummary))
-  expect_identical(sort(test$dfFlagged$GroupID), sort(test$dfSummary$GroupID))
+  expect_true(all(map_lgl(test[outputs[!(outputs %in% c("vThreshold", "lAnalysis"))]], is.data.frame)))
+  expect_equal(nrow(test$Analysis_Flagged), nrow(test$Analysis_Summary))
+  expect_identical(sort(test$Analysis_Flagged$GroupID), sort(test$Analysis_Summary$GroupID))
 
-  flags <- test$dfSummary %>%
+  flags <- test$Analysis_Summary %>%
     mutate(flagged_hardcode = case_when(
       Score <= test$vThreshold[1] |
         Score >= test$vThreshold[4] ~ 2,
@@ -26,5 +21,5 @@ testthat::test_that("Given appropriate metadata (i.e. vThresholds), flagged obse
     ))
 
   expect_identical(abs(flags$Flag), flags$flagged_hardcode)
-  expect_identical(test$dfFlagged$Flag, test$dfSummary$Flag)
+  expect_identical(test$Analysis_Flagged$Flag, test$Analysis_Summary$Flag)
 })
