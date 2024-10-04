@@ -48,8 +48,7 @@ MakeWorkflowList <- function(
     pattern = "\\.yaml$",
     full.names = FALSE,
     recursive = bRecursive
-  ) %>%
-    stringr::str_replace(., pattern = ".yaml", "")
+  )
 
   # if `strNames` is not null, subset the workflow list to only include
   # files that match the character vector (`strNames`)
