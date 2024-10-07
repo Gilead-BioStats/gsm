@@ -43,9 +43,32 @@ MakeWorkflowList <- function(
     full.names = TRUE,
     recursive = bRecursive
   )
+  names(yaml_files) <- list.files(
+    path,
+    pattern = "\\.yaml$",
+    full.names = FALSE,
+    recursive = bRecursive
+  )
 
-  workflows <- yaml_files %>%
-    purrr::map(function(yaml_file) {
+  # if `strNames` is not null, subset the workflow list to only include
+  # files that match the character vector (`strNames`)
+  good_strNames <- c(
+    strNames,
+    paste(strNames, ".yaml", sep = "")
+  )
+
+  if (!is.null(strNames)) {
+    if (bExact) {
+      yaml_files <- purrr::keep(yaml_files, names(yaml_files) %in% good_strNames)
+    } else {
+      yaml_files <- purrr::keep(yaml_files, grepl(paste(strNames, collapse = "|"), names(yaml_files))) # this may have unintended consequences, AE vs DATAENT
+    }
+  }
+
+  workflows <-  purrr::map2(
+    yaml_files,
+    names(yaml_files),
+    function(yaml_file, file_name) {
       # read the individual YAML file
       workflow <- yaml::read_yaml(yaml_file)
 
@@ -53,36 +76,38 @@ MakeWorkflowList <- function(
       workflow$path <- yaml_file
 
       # each workflow should have an $meta and $steps $meta$ID attributes
-      stopifnot(utils::hasName(workflow, "meta"))
-      stopifnot(utils::hasName(workflow, "steps"))
-      stopifnot(utils::hasName(workflow$meta, "ID"))
+      if(!utils::hasName(workflow, "meta")){
+        cli::cli_abort(c("{file_name} must contain `meta` attributes."))
+      }
+      if(!utils::hasName(workflow, "steps")){
+        cli::cli_abort(c("{file_name} must contain `steps` attributes."))
+      }
+      if(!utils::hasName(workflow$meta, "Type")){
+        cli::cli_abort(c("{file_name} must contain `Type` attribute in `meta` section."))
+      }
+      if(!utils::hasName(workflow$meta, "ID")){
+        cli::cli_abort(c("{file_name} must contain `ID` attribute in `meta` section."))
+      }
+      # warn user if file name doesn't match ID specified
+      if(gsub(".yaml", "", file_name) != workflow$meta$ID) {
+        cli::cli_warn(c("`ID` attribute does not match name of the file, {file_name}."))
+      }
 
       return(workflow)
     }) %>%
     stats::setNames(purrr::map_chr(., ~ .x$meta$ID))
 
-  # if `strNames` is not null, subset the workflow list to only include
-  # files that match the character vector (`strNames`)
-
-  if (!is.null(strNames)) {
-    if (bExact) {
-      workflows <- purrr::keep(workflows, names(workflows) %in% strNames)
-    } else {
-      workflows <- purrr::keep(workflows, grepl(paste(strNames, collapse = "|"), names(workflows)))
-    }
-  }
-
   # Sort the list according to the $meta$priority property
 
   # Set priority to 0 if not defined
-  workflows <- workflows %>% map(function(wf){ 
+  workflows <- workflows %>% map(function(wf){
     if(is.null(wf$meta$Priority)){
       wf$meta$Priority <- 0
     }
     return(wf)
   })
   workflows <- workflows[order(workflows %>% map_dbl(~.x$meta$Priority))]
-    
+
   # throw a warning if no workflows are found
   if (length(workflows) == 0) {
     cli::cli_alert_warning("No workflows found.")
