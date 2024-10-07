@@ -52,20 +52,25 @@ MakeWorkflowList <- function(
 
   # if `strNames` is not null, subset the workflow list to only include
   # files that match the character vector (`strNames`)
+  good_strNames <- c(
+    strNames,
+    paste(strNames, ".yaml", sep = "")
+  )
 
   if (!is.null(strNames)) {
     if (bExact) {
-      yaml_files <- purrr::keep(yaml_files, names(yaml_files) %in% strNames)
+      yaml_files <- purrr::keep(yaml_files, names(yaml_files) %in% good_strNames)
     } else {
-      yaml_files <- purrr::keep(yaml_files, grepl(paste(strNames, collapse = "|"), names(yaml_files)))
+      yaml_files <- purrr::keep(yaml_files, grepl(paste(strNames, collapse = "|"), names(yaml_files))) # this may have unintended consequences, AE vs DATAENT
     }
   }
 
-  workflows <- yaml_files %>%
-    purrr::map2(., names(yaml_files), function(yaml_file, file_name) {
+  workflows <-  purrr::map2(
+    yaml_files,
+    names(yaml_files),
+    function(yaml_file, file_name) {
       # read the individual YAML file
       workflow <- yaml::read_yaml(yaml_file)
-      name_for_error <- file_name
 
       # set the `path` for logging purposes
       workflow$path <- yaml_file
@@ -77,8 +82,12 @@ MakeWorkflowList <- function(
       if(!utils::hasName(workflow, "steps")){
         cli::cli_abort(c("{file_name} must contain `steps` attributes."))
       }
-      if(!utils::hasName(workflow, "meta")){
+      if(!utils::hasName(workflow$meta, "ID")){
         cli::cli_abort(c("{file_name} must contain `ID` attribute in `meta` section."))
+      }
+      # warn user if file name doesn't match ID specified
+      if(gsub(".yaml", "", file_name) != workflow$meta$ID) {
+        cli::cli_warn(c("`ID` attribute does not match name of the file, {file_name}."))
       }
 
       return(workflow)
