@@ -82,6 +82,9 @@ MakeWorkflowList <- function(
       if(!utils::hasName(workflow, "steps")){
         cli::cli_abort(c("{file_name} must contain `steps` attributes."))
       }
+      if(!utils::hasName(workflow$meta, "Type")){
+        cli::cli_abort(c("{file_name} must contain `Type` attribute in `meta` section."))
+      }
       if(!utils::hasName(workflow$meta, "ID")){
         cli::cli_abort(c("{file_name} must contain `ID` attribute in `meta` section."))
       }
