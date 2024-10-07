@@ -27,6 +27,7 @@ articles:
       - Cookbook
       - DataAnalysis
       - DataReporting
+      - gsmExtensions
       - articles/KRIMethod
   - title: "Quality"
     navbar: "Quality"
@@ -34,7 +35,6 @@ articles:
       - articles/QualificationWorkflow
       - articles/Qualification
       - articles/ContributorGuidelines
-      - gsmExtensions
 
 reference:
   - title: Visualize
