@@ -43,7 +43,7 @@ The `meta` section of a workflow YAML provides key metadata describing the modul
 
 - `Name`: Name of the reporting output.
 - `Type`: "Report", "Metric" or "App"
-- `ID`: The unique ID for the module.
+- `ID`: The unique ID for the module. This should be the same as the workflow file name, without extension.
 - `Description`: A one-line description of the module specified in the workflow.
 - `Priority`: *optional* A number specifying the priority of the workflow within the directory, with lower numbers having higher priority, and running first. This is used when workflows within the same directory require outputs from other workflows, and thus need to be run in a particular order. If missing, will be set to 0 to run first.
 - `Details`: *optional* A more detailed description of the module specified in the workflow.
