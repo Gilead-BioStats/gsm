@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gsm</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.0.1</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,13 +23,13 @@
     <li><a class="dropdown-item" href="../articles/Cookbook.html">Cookbook</a></li>
     <li><a class="dropdown-item" href="../articles/DataAnalysis.html">Step-by-Step Analysis Workflow</a></li>
     <li><a class="dropdown-item" href="../articles/DataReporting.html">Step-by-Step Reporting Workflow</a></li>
+    <li><a class="dropdown-item" href="../articles/gsmExtensions.html">gsm Extensions</a></li>
     <li><a class="dropdown-item" href="../articles/KRIMethod.html">KRI Method</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Quality</h6></li>
     <li><a class="dropdown-item" href="../articles/QualificationWorkflow.html">Qualification Workflow</a></li>
     <li><a class="dropdown-item" href="../articles/Qualification.html">Qualification Report for the {gsm} R Package</a></li>
     <li><a class="dropdown-item" href="../articles/ContributorGuidelines.html">Contributor Guidelines</a></li>
-    <li><a class="dropdown-item" href="../articles/gsmExtensions.html">gsm Extensions</a></li>
   </ul></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-sample-reports" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Sample Reports</button>
@@ -50,9 +50,18 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/gsm-v2.1.0-rc/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/dev/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.1.0" id="gsm-v210">gsm v2.1.0<a class="anchor" aria-label="anchor" href="#gsm-v210"></a></h2>
+<p>This minor release addresses workflow updates which are required for improved modularity and automation. These updates include:</p>
+<ul><li>Specification of all required data sources in all yaml workflow files, via the <code>spec</code> section of the yaml, which are checked</li>
+<li>Allow a master spec document to be constructed via the <code>CombineSpecs</code>.</li>
+<li>Enforce that by default, each yaml file produces only one output- the final output in the workflow <code>steps</code>.</li>
+<li>Parse out the mapping yamls into individual workflows, one per mapped dataframe.</li>
+<li>Create a standard structure for yamls and the directories that yamls are stored in, specified in <code><a href="../articles/gsmExtensions.html">vignette('gsmExtensions')</a></code>,</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.0.1" id="gsm-v201">gsm v2.0.1<a class="anchor" aria-label="anchor" href="#gsm-v201"></a></h2>
 <p>This minor patch release addresses two reporting bugs. The first ensures the summary table is properly filtered and appears in the report html output under each chart widget. The second allows more flexibility to the report output path and file names, and ensure that intermediary rendering occurs in a temporary directory.</p>
@@ -410,7 +419,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans, Jacob Anderson, Laura Maxwell, Jon Harmon.</p>
+  <p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Spencer Childress, Laura Maxwell, Jacob Anderson, Jon Harmon, Zelos <a href="mailto:zelos.zhu@atorusresearch.com" class="email">zelos.zhu@atorusresearch.com</a> Zhu, Nathan Kosiba, Douglas Sanders, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
 </div>
 
 <div class="pkgdown-footer-right">

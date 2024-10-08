@@ -15,7 +15,7 @@ corresponds to a domain in the specification."><meta name="robots" content="noin
 
     <a class="navbar-brand me-2" href="../index.html">gsm</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.0.1</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,13 +31,13 @@ corresponds to a domain in the specification."><meta name="robots" content="noin
     <li><a class="dropdown-item" href="../articles/Cookbook.html">Cookbook</a></li>
     <li><a class="dropdown-item" href="../articles/DataAnalysis.html">Step-by-Step Analysis Workflow</a></li>
     <li><a class="dropdown-item" href="../articles/DataReporting.html">Step-by-Step Reporting Workflow</a></li>
+    <li><a class="dropdown-item" href="../articles/gsmExtensions.html">gsm Extensions</a></li>
     <li><a class="dropdown-item" href="../articles/KRIMethod.html">KRI Method</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Quality</h6></li>
     <li><a class="dropdown-item" href="../articles/QualificationWorkflow.html">Qualification Workflow</a></li>
     <li><a class="dropdown-item" href="../articles/Qualification.html">Qualification Report for the {gsm} R Package</a></li>
     <li><a class="dropdown-item" href="../articles/ContributorGuidelines.html">Contributor Guidelines</a></li>
-    <li><a class="dropdown-item" href="../articles/gsmExtensions.html">gsm Extensions</a></li>
   </ul></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-sample-reports" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Sample Reports</button>
@@ -58,7 +58,7 @@ corresponds to a domain in the specification."><meta name="robots" content="noin
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Ingests data from a source based on a given specification.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/gsm-v2.1.0-rc/R/util-Ingest.R" class="external-link"><code>R/util-Ingest.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/dev/R/util-Ingest.R" class="external-link"><code>R/util-Ingest.R</code></a></small>
       <div class="d-none name"><code>Ingest.Rd</code></div>
     </div>
 
@@ -97,21 +97,21 @@ specification.</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">lSourceData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    Source_STUDY <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_study.html" class="external-link">ctms_study</a></span>,</span></span>
-<span class="r-in"><span>    Source_SITE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_site.html" class="external-link">ctms_site</a></span>,</span></span>
-<span class="r-in"><span>    Source_SUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span></span>
-<span class="r-in"><span>    Source_AE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_ae.html" class="external-link">rawplus_ae</a></span>,</span></span>
-<span class="r-in"><span>    Source_PD <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_protdev.html" class="external-link">ctms_protdev</a></span>,</span></span>
-<span class="r-in"><span>    Source_LB <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_lb.html" class="external-link">rawplus_lb</a></span>,</span></span>
-<span class="r-in"><span>    Source_STUDCOMP <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_studcomp.html" class="external-link">rawplus_studcomp</a></span>,</span></span>
-<span class="r-in"><span>    Source_SDRGCOMP <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_sdrgcomp.html" class="external-link">rawplus_sdrgcomp</a></span>,</span></span>
-<span class="r-in"><span>    Source_QUERY <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/edc_queries.html" class="external-link">edc_queries</a></span>,</span></span>
-<span class="r-in"><span>    Source_DATAENT <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/edc_data_pages.html" class="external-link">edc_data_pages</a></span>,</span></span>
-<span class="r-in"><span>    Source_DATACHG <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/edc_data_points.html" class="external-link">edc_data_points</a></span>,</span></span>
-<span class="r-in"><span>    Source_ENROLL <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_enroll</span></span></span>
+<span class="r-in"><span>  Source_STUDY <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_study.html" class="external-link">ctms_study</a></span>,</span></span>
+<span class="r-in"><span>  Source_SITE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_site.html" class="external-link">ctms_site</a></span>,</span></span>
+<span class="r-in"><span>  Source_SUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span></span>
+<span class="r-in"><span>  Source_AE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_ae.html" class="external-link">rawplus_ae</a></span>,</span></span>
+<span class="r-in"><span>  Source_PD <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_protdev.html" class="external-link">ctms_protdev</a></span>,</span></span>
+<span class="r-in"><span>  Source_LB <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_lb.html" class="external-link">rawplus_lb</a></span>,</span></span>
+<span class="r-in"><span>  Source_STUDCOMP <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_studcomp.html" class="external-link">rawplus_studcomp</a></span>,</span></span>
+<span class="r-in"><span>  Source_SDRGCOMP <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_sdrgcomp.html" class="external-link">rawplus_sdrgcomp</a></span>,</span></span>
+<span class="r-in"><span>  Source_QUERY <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/edc_queries.html" class="external-link">edc_queries</a></span>,</span></span>
+<span class="r-in"><span>  Source_DATAENT <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/edc_data_pages.html" class="external-link">edc_data_pages</a></span>,</span></span>
+<span class="r-in"><span>  Source_DATACHG <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/edc_data_points.html" class="external-link">edc_data_points</a></span>,</span></span>
+<span class="r-in"><span>  Source_ENROLL <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_enroll</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">lIngestWorkflow</span> <span class="op">&lt;-</span> <span class="fu"><a href="MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span>strPath <span class="op">=</span> <span class="st">'workflow/1_mappings'</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">lIngestWorkflow</span> <span class="op">&lt;-</span> <span class="fu"><a href="MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span>strPath <span class="op">=</span> <span class="st">"workflow/1_mappings"</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">lRawData</span> <span class="op">&lt;-</span> <span class="fu">Ingest</span><span class="op">(</span><span class="va">lSourceData</span>, <span class="va">lIngestWorkflow</span><span class="op">$</span><span class="va">spec</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Ingesting data for AE.</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>no DISPLAY variable so Tk is not available</span>
@@ -124,7 +124,7 @@ specification.</p></dd>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans, Jacob Anderson, Laura Maxwell, Jon Harmon.</p>
+  <p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Spencer Childress, Laura Maxwell, Jacob Anderson, Jon Harmon, Zelos <a href="mailto:zelos.zhu@atorusresearch.com" class="email">zelos.zhu@atorusresearch.com</a> Zhu, Nathan Kosiba, Douglas Sanders, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
 </div>
 
 <div class="pkgdown-footer-right">

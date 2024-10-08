@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gsm</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.0.1</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,13 +23,13 @@
     <li><a class="dropdown-item" href="../articles/Cookbook.html">Cookbook</a></li>
     <li><a class="dropdown-item" href="../articles/DataAnalysis.html">Step-by-Step Analysis Workflow</a></li>
     <li><a class="dropdown-item" href="../articles/DataReporting.html">Step-by-Step Reporting Workflow</a></li>
+    <li><a class="dropdown-item" href="../articles/gsmExtensions.html">gsm Extensions</a></li>
     <li><a class="dropdown-item" href="../articles/KRIMethod.html">KRI Method</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Quality</h6></li>
     <li><a class="dropdown-item" href="../articles/QualificationWorkflow.html">Qualification Workflow</a></li>
     <li><a class="dropdown-item" href="../articles/Qualification.html">Qualification Report for the {gsm} R Package</a></li>
     <li><a class="dropdown-item" href="../articles/ContributorGuidelines.html">Contributor Guidelines</a></li>
-    <li><a class="dropdown-item" href="../articles/gsmExtensions.html">gsm Extensions</a></li>
   </ul></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-sample-reports" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Sample Reports</button>
@@ -50,7 +50,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>gsm: Good Statistical Monitoring</h1>
-      <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/gsm-v2.1.0-rc/R/gsm-package.R" class="external-link"><code>R/gsm-package.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/dev/R/gsm-package.R" class="external-link"><code>R/gsm-package.R</code></a></small>
       <div class="d-none name"><code>gsm-package.Rd</code></div>
     </div>
 
@@ -71,17 +71,18 @@
     <p><strong>Maintainer</strong>: George Wu <a href="mailto:george.wu@gilead.com">george.wu@gilead.com</a></p>
 <p>Authors:</p><ul><li><p>Jeremy Wildfire <a href="mailto:jwildfire@gmail.com">jwildfire@gmail.com</a></p></li>
 <li><p>Matt Roumaya <a href="mailto:matthewroumaya@gmail.com">matthewroumaya@gmail.com</a> (<a href="https://orcid.org/0000-0002-8009-2771" class="external-link">ORCID</a>)</p></li>
+<li><p>Spencer Childress <a href="mailto:spencer.childress@gilead.com">spencer.childress@gilead.com</a> (<a href="https://orcid.org/0000-0001-6877-8511" class="external-link">ORCID</a>)</p></li>
+<li><p>Laura Maxwell <a href="mailto:laura.maxwell@atorusresearch.com">laura.maxwell@atorusresearch.com</a></p></li>
+<li><p>Jacob Anderson <a href="mailto:jacob.anderson@atorusresearch.com">jacob.anderson@atorusresearch.com</a></p></li>
+<li><p>Jon Harmon <a href="mailto:jon.harmon@atorusresearch.com">jon.harmon@atorusresearch.com</a></p></li>
+<li><p>Zelos zelos.zhu@atorusresearch.com Zhu</p></li>
 <li><p>Nathan Kosiba <a href="mailto:Nathan.Kosiba@atorusresearch.com">Nathan.Kosiba@atorusresearch.com</a></p></li>
 <li><p>Douglas Sanders</p></li>
-<li><p>Spencer Childress <a href="mailto:spencer.childress@gilead.com">spencer.childress@gilead.com</a> (<a href="https://orcid.org/0000-0001-6877-8511" class="external-link">ORCID</a>)</p></li>
 <li><p>Li Ge</p></li>
 <li><p>Zhongkai Wang <a href="mailto:zhongkai.wang6@gilead.com">zhongkai.wang6@gilead.com</a> (<a href="https://orcid.org/0000-0002-1883-2265" class="external-link">ORCID</a>)</p></li>
 <li><p>Colleen McLaughlin <a href="mailto:colleen.mclaughlin@atorusresearch.com">colleen.mclaughlin@atorusresearch.com</a></p></li>
 <li><p>Chelsea Dickens <a href="mailto:chelsea.dickens@atorusresearch.com">chelsea.dickens@atorusresearch.com</a></p></li>
 <li><p>Maya Gans <a href="mailto:maya.gans@atorusresearch.com">maya.gans@atorusresearch.com</a></p></li>
-<li><p>Jacob Anderson <a href="mailto:jacob.anderson@atorusresearch.com">jacob.anderson@atorusresearch.com</a></p></li>
-<li><p>Laura Maxwell <a href="mailto:laura.maxwell@atorusresearch.com">laura.maxwell@atorusresearch.com</a></p></li>
-<li><p>Jon Harmon <a href="mailto:jon.harmon@atorusresearch.com">jon.harmon@atorusresearch.com</a></p></li>
 </ul><p>Other contributors:</p><ul><li><p>Gilead Sciences [copyright holder]</p></li>
 </ul></div>
 
@@ -90,7 +91,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans, Jacob Anderson, Laura Maxwell, Jon Harmon.</p>
+  <p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Spencer Childress, Laura Maxwell, Jacob Anderson, Jon Harmon, Zelos <a href="mailto:zelos.zhu@atorusresearch.com" class="email">zelos.zhu@atorusresearch.com</a> Zhu, Nathan Kosiba, Douglas Sanders, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
 </div>
 
 <div class="pkgdown-footer-right">

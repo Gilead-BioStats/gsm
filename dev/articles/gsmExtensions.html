@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gsm</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.0.1</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,13 +41,13 @@
     <li><a class="dropdown-item" href="../articles/Cookbook.html">Cookbook</a></li>
     <li><a class="dropdown-item" href="../articles/DataAnalysis.html">Step-by-Step Analysis Workflow</a></li>
     <li><a class="dropdown-item" href="../articles/DataReporting.html">Step-by-Step Reporting Workflow</a></li>
+    <li><a class="dropdown-item" href="../articles/gsmExtensions.html">gsm Extensions</a></li>
     <li><a class="dropdown-item" href="../articles/KRIMethod.html">KRI Method</a></li>
     <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Quality</h6></li>
     <li><a class="dropdown-item" href="../articles/QualificationWorkflow.html">Qualification Workflow</a></li>
     <li><a class="dropdown-item" href="../articles/Qualification.html">Qualification Report for the {gsm} R Package</a></li>
     <li><a class="dropdown-item" href="../articles/ContributorGuidelines.html">Contributor Guidelines</a></li>
-    <li><a class="dropdown-item" href="../articles/gsmExtensions.html">gsm Extensions</a></li>
   </ul>
 </li>
 <li class="nav-item dropdown">
@@ -81,7 +81,7 @@
       <h1>gsm Extensions</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/gsm-v2.1.0-rc/vignettes/gsmExtensions.Rmd" class="external-link"><code>vignettes/gsmExtensions.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/dev/vignettes/gsmExtensions.Rmd" class="external-link"><code>vignettes/gsmExtensions.Rmd</code></a></small>
       <div class="d-none name"><code>gsmExtensions.Rmd</code></div>
     </div>
 
@@ -160,7 +160,8 @@ fields:</p>
 <li>
 <code>Type</code>: “Report”, “Metric” or “App”</li>
 <li>
-<code>ID</code>: The unique ID for the module.</li>
+<code>ID</code>: The unique ID for the module. This should be the
+same as the workflow file name, without extension.</li>
 <li>
 <code>Description</code>: A one-line description of the module
 specified in the workflow.</li>
@@ -199,8 +200,8 @@ ad-hoc basis.</li>
 <ul>
 <li>
 <code>Permission</code>: Level of permissions for viewing that match
-the <code>Users</code> argument in the Study Config file. Common values:
-<code>Admin</code>, <code>Users</code>.</li>
+the <code>Users</code> argument in the Study Configuration file. Common
+values: <code>Admin</code>, <code>Users</code>.</li>
 <li>
 <code>Output</code>: The output of the workflow, including format.
 Each workflow should only produce a single reporting output.</li>
@@ -263,7 +264,7 @@ this:</p>
 <p>The <code>spec</code> section of the workflow YAML specifies the data
 requirements for the workflow, including the data tables that are
 required and the columns that are needed from each table. The
-<code>gsm</code> data pipeline is designed to be highly customizatble,
+<code>gsm</code> data pipeline is designed to be highly customizable,
 but for the purposes of this vignette, we will assume usage of the
 standard <code>gsm</code> data model described in
 <code><a href="../articles/DataModel.html">vignette("DataModel")</a></code>. For this standard use case, modules
@@ -349,7 +350,7 @@ relative to other studies”) to site- or participant- level details
 (e.g. “Participant 00016 from Site 5 had 5 AEs and 3 SAEs reported in
 the last 3 months.”). For example, the <a href="">Deep Dive app</a>
 includes both Reporting and Mapped data in its <code>spec</code>. Here
-is a representative exerpt from the <code>spec</code>:</p>
+is a representative excerpt from the <code>spec</code>:</p>
 <pre><code>spec:
   Reporting_Results: 
     _all:
@@ -371,10 +372,10 @@ is a representative exerpt from the <code>spec</code>:</p>
 <h3 id="steps-specification">
 <code>steps</code> Specification<a class="anchor" aria-label="anchor" href="#steps-specification"></a>
 </h3>
-<p>Finally, each module YAML config should have a <code>steps</code>
-property that describes in detail how the module is run. The
-<code>steps</code> section is a list of functions that are run in
-sequence to produce the final output. Each item in <code>steps</code>
+<p>Finally, each module yaml configuration file should have a
+<code>steps</code> property that describes in detail how the module is
+run. The <code>steps</code> section is a list of functions that are run
+in sequence to produce the final output. Each item in <code>steps</code>
 has the following properties:</p>
 <ul>
 <li>
@@ -716,7 +717,7 @@ steps:
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans, Jacob Anderson, Laura Maxwell, Jon Harmon.</p>
+  <p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Spencer Childress, Laura Maxwell, Jacob Anderson, Jon Harmon, Zelos <a href="mailto:zelos.zhu@atorusresearch.com" class="email">zelos.zhu@atorusresearch.com</a> Zhu, Nathan Kosiba, Douglas Sanders, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
 </div>
 
 <div class="pkgdown-footer-right">
