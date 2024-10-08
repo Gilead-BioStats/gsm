@@ -1,9 +1,9 @@
 meta:
   Type: Mapped
   ID: ENROLL
-  Description: Enrollment Data Mapping 
+  Description: Enrollment Data Mapping
   Priority: 1
-spec: 
+spec:
   Raw_ENROLL:
     studyid:
       required: true
@@ -15,7 +15,7 @@ spec:
       required: true
       type: character
     subjectid:
-      required: yes
+      required: true
       type: character
     enrollyn:
       required: true
