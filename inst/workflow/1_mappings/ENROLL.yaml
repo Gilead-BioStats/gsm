@@ -14,6 +14,9 @@ spec:
     country:
       required: true
       type: character
+    subjid:
+      required: true
+      type: character
     subjectid:
       required: true
       type: character
