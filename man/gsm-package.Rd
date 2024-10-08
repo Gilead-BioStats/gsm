@@ -24,17 +24,18 @@ Authors:
 \itemize{
   \item Jeremy Wildfire \email{jwildfire@gmail.com}
   \item Matt Roumaya \email{matthewroumaya@gmail.com} (\href{https://orcid.org/0000-0002-8009-2771}{ORCID})
+  \item Spencer Childress \email{spencer.childress@gilead.com} (\href{https://orcid.org/0000-0001-6877-8511}{ORCID})
+  \item Laura Maxwell \email{laura.maxwell@atorusresearch.com}
+  \item Jacob Anderson \email{jacob.anderson@atorusresearch.com}
+  \item Jon Harmon \email{jon.harmon@atorusresearch.com}
+  \item Zelos zelos.zhu@atorusresearch.com Zhu
   \item Nathan Kosiba \email{Nathan.Kosiba@atorusresearch.com}
   \item Douglas Sanders
-  \item Spencer Childress \email{spencer.childress@gilead.com} (\href{https://orcid.org/0000-0001-6877-8511}{ORCID})
   \item Li Ge
   \item Zhongkai Wang \email{zhongkai.wang6@gilead.com} (\href{https://orcid.org/0000-0002-1883-2265}{ORCID})
   \item Colleen McLaughlin \email{colleen.mclaughlin@atorusresearch.com}
   \item Chelsea Dickens \email{chelsea.dickens@atorusresearch.com}
   \item Maya Gans \email{maya.gans@atorusresearch.com}
-  \item Jacob Anderson \email{jacob.anderson@atorusresearch.com}
-  \item Laura Maxwell \email{laura.maxwell@atorusresearch.com}
-  \item Jon Harmon \email{jon.harmon@atorusresearch.com}
 }
 
 Other contributors:

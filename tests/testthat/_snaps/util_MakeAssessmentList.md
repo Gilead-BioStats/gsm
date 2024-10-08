@@ -3,11 +3,19 @@
     Code
       names(assessment_list)
     Output
-       [1] "data_mapping"   "data_reporting" "cou0001"        "cou0002"       
-       [5] "cou0003"        "cou0004"        "cou0005"        "cou0006"       
-       [9] "cou0007"        "cou0008"        "cou0009"        "cou0010"       
-      [13] "cou0011"        "cou0012"        "kri0001"        "kri0002"       
-      [17] "kri0003"        "kri0004"        "kri0005"        "kri0006"       
-      [21] "kri0007"        "kri0008"        "kri0009"        "kri0010"       
-      [25] "kri0011"        "kri0012"        "reports"        "snapshot"      
+       [1] "cou0001"            "cou0002"            "cou0003"           
+       [4] "cou0004"            "cou0005"            "cou0006"           
+       [7] "cou0007"            "cou0008"            "cou0009"           
+      [10] "cou0010"            "cou0011"            "cou0012"           
+      [13] "kri0001"            "kri0002"            "kri0003"           
+      [16] "kri0004"            "kri0005"            "kri0006"           
+      [19] "kri0007"            "kri0008"            "kri0009"           
+      [22] "kri0010"            "kri0011"            "kri0012"           
+      [25] "report_kri_country" "report_kri_site"    "AE"                
+      [28] "ENROLL"             "LB"                 "PD"                
+      [31] "SDRGCOMP"           "STUDCOMP"           "SUBJ"              
+      [34] "Groups"             "Metrics"            "Results"           
+      [37] "DATACHG"            "DATAENT"            "QUERY"             
+      [40] "Bounds"             "COUNTRY"            "SITE"              
+      [43] "STUDY"             
 

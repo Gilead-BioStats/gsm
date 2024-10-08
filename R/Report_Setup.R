@@ -15,7 +15,6 @@
 #' - `StudyID` (character): The study ID.
 #' - `red_kris` (numeric): The number of red flags.
 #' - `amber_kris` (numeric): The number of amber flags.
-#'
 
 Report_Setup <- function(dfGroups = NULL, dfMetrics = NULL, dfResults = NULL) {
   output <- list()
@@ -25,7 +24,7 @@ Report_Setup <- function(dfGroups = NULL, dfMetrics = NULL, dfResults = NULL) {
   if (length(group) == 1) {
     output$GroupLevel <- group
   } else {
-    cli_alert("Multiple `GroupLevel`s detected in dfMetrics, so GroupLevel not specifed for KRI Report. ")
+    cli::cli_alert("Multiple `GroupLevel`s detected in dfMetrics, so GroupLevel not specifed for KRI Report. ")
     output$GroupLevel <- ""
   }
 
@@ -33,7 +32,7 @@ Report_Setup <- function(dfGroups = NULL, dfMetrics = NULL, dfResults = NULL) {
   if ("SnapshotDate" %in% names(dfResults)) {
     output$SnapshotDate <- max(dfResults$SnapshotDate)
   } else {
-    cli_alert("No `SnapshotDate` detected in dfResults, setting to today: {Sys.Date()}")
+    cli::cli_alert("No `SnapshotDate` detected in dfResults, setting to today: {Sys.Date()}")
     output$SnapshotDate <- Sys.Date()
     dfResults$SnapshotDate <- Sys.Date()
   }

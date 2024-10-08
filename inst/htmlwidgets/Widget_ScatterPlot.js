@@ -7,6 +7,11 @@ HTMLWidgets.widget({
                 if (input.bDebug)
                     console.log(input);
 
+                // Coerce `input.lMetric` to an object if it is not already.
+                if (Object.prototype.toString.call(input.lMetric) !== '[object Object]') {
+                    input.lMetric = {};
+                };
+
                 // Assign a unique ID to the element.
                 el.id = `scatterPlot--${input.lMetric.MetricID}`;
 
@@ -30,6 +35,17 @@ HTMLWidgets.widget({
                     input.dfGroups,
                     input.bAddGroupSelect
                 );
+
+                // Add a footnote below the scatter plot.
+                const footnote = document.createElement('div'); // Create a div for the footnote.
+                footnote.style.fontSize = '10px'; // Set a smaller font size for the footnote.
+                footnote.style.color = '#555'; // Use a lighter color for the footnote text.
+
+                // Set the content of the footnote from the input.
+                footnote.innerHTML = input.strFootnote; // Use the footnote passed from R.
+
+                // Append the footnote div to the element containing the scatter plot.
+                el.appendChild(footnote);
             },
             resize: function(width, height) {
             }

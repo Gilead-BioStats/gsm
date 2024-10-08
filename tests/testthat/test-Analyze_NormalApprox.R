@@ -29,7 +29,7 @@ test_that("rate output created as expected and has correct structure", {
   expect_equal(names(rate), c("GroupID", "GroupLevel", "Numerator", "Denominator", "Metric", "OverallMetric", "Factor", "Score"))
   expect_type(rate$GroupID, "character")
   expect_type(c(rate$Numerator, rate$Denominator, rate$Metric, rate$OverallMetric, rate$Factor, rate$Score), "double")
-  expect_equal(unique(rate$GroupID)[1:5], c("143",  "10", "172", "173", "140"))
+  expect_equal(unique(rate$GroupID)[1:5], c("143", "10", "172", "173", "140"))
 })
 
 test_that("incorrect inputs throw errors", {
@@ -103,6 +103,6 @@ test_that("Score (z_i) is 0 when vMu is 1 or 0", {
 
 test_that("yaml workflow produces same table as R function", {
   source(test_path("testdata", "create_double_data.R"), local = TRUE)
-  expect_equal(dfAnalyzed$Metric, lResults$dfAnalyzed$Metric)
-  expect_equal(dim(dfAnalyzed), dim(lResults$dfAnalyzed))
+  expect_equal(dfAnalyzed$Metric, lResults$Analysis_kri0001$Analysis_Analyzed$Metric)
+  expect_equal(dim(dfAnalyzed), dim(lResults$Analysis_kri0001$Analysis_Analyzed))
 })

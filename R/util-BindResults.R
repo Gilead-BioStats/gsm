@@ -7,27 +7,27 @@
 #' output formatted like the result of `RunWorkflows()`. Also adds study level
 #' metadata when provided.
 #'
-#' @param lResults Named List of analysis results in the format returned by
+#' @param lAnalysis Named List of analysis results in the format returned by
 #'   [RunWorkflows()].
-#' @param strName Name of the object to stack. Pulled from `lResults` (or from
-#'   `lResults$lData` when `bUselData` is `TRUE`).
+#' @param strName Name of the object to stack. Pulled from `lAnalysis` (or from
+#'   `lAnalysis$lData` when `bUselData` is `TRUE`).
 #' @param dSnapshotDate Date of the snapshot. Default is [Sys.Date()].
 #' @param strStudyID Study ID.
 #' @param bUselData Should the function bind results from an `lData` object (or
-#'   look directly in the root elements of `lResults`)? Default is `FALSE.`
+#'   look directly in the root elements of `lAnalysis`)? Default is `FALSE.`
 #'
 #' @return A data frame.
 #'
 #' @export
 
 BindResults <- function(
-  lResults,
+  lAnalysis,
   strName,
   dSnapshotDate = Sys.Date(),
-  strStudyID,
+  strStudyID = NULL,
   bUselData = FALSE
 ) {
-  dfResults <- lResults %>%
+  dfResults <- lAnalysis %>%
     purrr::imap(
       function(result, metric) {
         if (bUselData) {
@@ -38,10 +38,15 @@ BindResults <- function(
         return(subResult %>% dplyr::mutate(MetricID = metric))
       }
     ) %>%
-    purrr::list_rbind() %>%
-    dplyr::mutate(
-      SnapshotDate = dSnapshotDate,
-      StudyID = strStudyID
-    )
+    purrr::list_rbind()
+
+  if (!is.null(dSnapshotDate)) {
+    dfResults$SnapshotDate <- dSnapshotDate
+  }
+
+  if (!is.null(strStudyID)) {
+    dfResults$StudyID <- strStudyID
+  }
+
   return(dfResults)
 }

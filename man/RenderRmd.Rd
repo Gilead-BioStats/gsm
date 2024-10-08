@@ -6,7 +6,7 @@
 \usage{
 RenderRmd(
   strInputPath,
-  strOutputFile = fs::path_file(strInputPath),
+  strOutputFile = basename(strInputPath),
   strOutputDir = getwd(),
   lParams
 )

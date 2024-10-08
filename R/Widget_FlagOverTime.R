@@ -8,18 +8,30 @@
 #'
 #' @inheritParams shared-params
 #' @param strGroupLevel `character` Value for the group level. Default: "Site".
+#' @param strFootnote `character` Text to insert for figure
 #'
 #' @examples
+#' reportingResultsSubset <- dplyr::filter(
+#'   reportingResults,
+#'   GroupID %in% head(unique(reportingResults$GroupID))
+#' )
 #' Widget_FlagOverTime(
-#'   dfResults = reportingResults,
+#'   dfResults = reportingResultsSubset,
 #'   dfMetrics = reportingMetrics
 #' )
 #' @export
 Widget_FlagOverTime <- function(
   dfResults,
   dfMetrics,
-  strGroupLevel = c("Site", "Study", "Country")
+  strGroupLevel = c("Site", "Study", "Country"),
+  strFootnote = NULL
 ) {
+  stopifnot(
+    "dfResults is not a data.frame" = is.data.frame(dfResults),
+    "dfMetrics is not a data.frame" = is.data.frame(dfMetrics),
+    "strGroupLevel is not a character" = is.character(strGroupLevel)
+  )
+
   gtFlagOverTime <- Report_FlagOverTime(
     dfResults,
     dfMetrics,
@@ -28,12 +40,14 @@ Widget_FlagOverTime <- function(
     gt::tab_options(table.align = "left") %>%
     gt::as_raw_html()
   x <- list(
-    html = gtFlagOverTime
+    html = gtFlagOverTime,
+    strFootnote = strFootnote
   )
   htmlwidgets::createWidget(
     name = "Widget_FlagOverTime",
     x,
-    width = "100%",
+    width = "100%", # You can adjust these as needed
+    height = "400px", # This can be customized for different heights
     package = "gsm"
   )
 }

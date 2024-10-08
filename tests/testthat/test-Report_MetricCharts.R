@@ -55,6 +55,6 @@ test_that("Output formatting and no errors", {
   output <- capture.output(Report_MetricCharts(lCharts))
   expect_true(any(grepl("Summary", output)))
   expect_true(any(grepl("KRI Score", output)))
-  expect_true(any(grepl("<div class\\s*=", output)))
+  expect_true(any(grepl("<div class", output)))
   expect_true(any(grepl("</div>", output)))
 })

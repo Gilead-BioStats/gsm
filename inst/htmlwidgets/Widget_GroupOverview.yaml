@@ -1,10 +1,10 @@
 dependencies:
   - name: rbmviz
-    version: 1.2.0
-    src: 'rbm-viz-1.2.0'
+    version: 2.1.0
+    src: 'htmlwidgets/lib/rbm-viz-2.1.0'
     script: 'rbm-viz.js'
     stylesheet: 'rbm-viz.css'
   - name: addGroupSubset
-    version: 0.0.1
-    src: 'utils-0.0.1'
+    version: 1.0.0
+    src: 'htmlwidgets/lib'
     script: 'addGroupSubset.js'

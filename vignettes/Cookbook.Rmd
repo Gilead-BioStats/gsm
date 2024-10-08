@@ -66,9 +66,8 @@ This examples introduces YAML workflows to re-generate the same results as in **
 This example extends the previous examples to generate charts and reports for multiple KRIs. See the [Data Reporting Vignette](https://gilead-biostats.github.io/gsm/articles/DataReporting.html) for more detail.
 
 - **Example 3.1** steps through several workflows to generate a report for all 12 standard site-level KRIs.
-- **Example 3.2** combines the analytics and reporting steps into a single workflow.
-- **Example 3.3** generates a report for all 12 standard country-level KRIs.
-- **Example 3.4** generates a report incorporating multiple timepoints using the sample `reporting` data saved as part of {gsm}.  
+- **Example 3.2** automates data ingestion using `Ingest()` and `CombineSpecs()`.
+- **Example 3.3** generates a report incorporating multiple timepoints using the sample `reporting` data saved as part of {gsm}.  
 
 ```{r file = system.file("examples", "3_ReportingWorkflow.R", package = "gsm"), eval = FALSE, include = TRUE}
 

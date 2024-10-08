@@ -39,11 +39,11 @@ These functions and workflows produce data frames, visualizations, metadata, and
 
 ![](data_model_detailed.png){width="100%"}
 
-All of the functions to create the data frames in the reporting data model will run automatically and sequentially when a user specifies the metadata and data needed for the report, and calls upon the `RunWorkflow()` function with the  `data_reporting.yaml` file. To create a report, the output of the `data_reporting.yaml` is fed into the `reports.yaml` to produce and html document with all charts and tables created in the reporting workflow.
+All of the functions to create the data frames in the reporting data model will run automatically and sequentially when a user specifies the metadata and data needed for the report, and calls upon the `RunWorkflow()` function on the yaml files in the `workflow/3_reporting` directory. To create a report, the output of the reporting yamls is fed into the yamls in the `workflow/4_modules` directoty to produce and html document with all charts and tables created in the reporting workflow. For a more detailed discussion of the yaml file and directory structure, see (`vignette("gsmExtensions")`).
 
-Each of the individual functions can also be run independently outside of a specified `yaml` workflow.
+Each of the individual functions can also be run independently outside of a specified yaml workflow.
 
-For the purposes of this documentation, we will evaluate the input(s) and output(s) of each individual function for a specific KRI to show the stepwise progression of how a  `yaml` workflow is set up to handle and process reporting-level data.
+For the purposes of this documentation, we will evaluate the input(s) and output(s) of each individual function for a specific KRI to show the stepwise progression of how a  yaml workflow is set up to handle and process reporting-level data.
 
 ------------------------------------------------------------------------
   
@@ -61,28 +61,65 @@ To run the analysis workflow on all 13 KRIs using `clindata` Raw+ data, use the 
 
 1. `lAnalysis` -  list of data frames in the analysis data model
 2. `lWorkflow` - list containing the metadata for each of the KRIs
-3. `mapped$dfEnrolled` - mapped data.frame of enrolled participants
+3. `mapped$Mapped_ENROLL` - mapped data.frame of enrolled participants
 
 ```{r include = TRUE, message = FALSE}
 # Create Mapped Data - filter/map raw data
-lData <- list(
-    dfSUBJ = clindata::rawplus_dm,
-    dfAE = clindata::rawplus_ae,
-    dfPD = clindata::ctms_protdev,
-    dfLB = clindata::rawplus_lb,
-    dfSTUDCOMP = clindata::rawplus_studcomp,
-    dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
-    dfDATACHG = clindata::edc_data_points,
-    dfDATAENT = clindata::edc_data_pages,
-    dfQUERY = clindata::edc_queries,
-    dfENROLL = clindata::rawplus_enroll
+lSource <- UseClindata(
+  list(
+    "Source_SUBJ" = "clindata::rawplus_dm",
+    "Source_AE" = "clindata::rawplus_ae",
+    "Source_PD" = "clindata::ctms_protdev",
+    "Source_CONSENT" = "clindata::rawplus_consent",
+    "Source_IE" = "clindata::rawplus_ie",
+    "Source_LB" = "clindata::rawplus_lb",
+    "Source_STUDCOMP" = "clindata::rawplus_studcomp",
+    "Source_SDRGCOMP" = "clindata::rawplus_sdrgcomp %>%
+            dplyr::filter(.data$phase == 'Blinded Study Drug Completion')",
+    "Source_DATACHG" = "clindata::edc_data_points",
+    "Source_DATAENT" = "clindata::edc_data_pages",
+    "Source_QUERY" = "clindata::edc_queries",
+    "Source_ENROLL" = "clindata::rawplus_enroll",
+    "Source_STUDY" = "clindata::ctms_study",
+    "Source_SITE" = "clindata::ctms_site"
+  )
 )
-mapping_wf <- MakeWorkflowList(strNames = "data_mapping")
-mapped <- RunWorkflows(mapping_wf, lData, bKeepInputData=TRUE)
 
-# Create Analysis Data - Generate 12 KRIs
-lWorkflow <- MakeWorkflowList(strNames = "kri")
-lAnalysis <- RunWorkflows(lWorkflow, mapped)
+lRaw <- list(
+    Raw_SUBJ = lSource$Source_SUBJ,
+    Raw_AE = lSource$Source_AE,
+    Raw_PD = lSource$Source_PD %>%
+      dplyr::rename(subjid = subjectenrollmentnumber),
+    Raw_LB = lSource$Source_LB,
+    Raw_STUDCOMP = lSource$Source_STUDCOMP,
+    Raw_SDRGCOMP = lSource$Source_SDRGCOMP,
+    Raw_DATACHG = lSource$Source_DATACHG %>%
+      dplyr::rename(subject_nsv = subjectname),
+    Raw_DATAENT = lSource$Source_DATAENT %>%
+      dplyr::rename(subject_nsv = subjectname),
+    Raw_QUERY = lSource$Source_QUERY %>%
+      dplyr::rename(subject_nsv = subjectname),
+    Raw_ENROLL = lSource$Source_ENROLL,
+    Raw_SITE = lSource$Source_SITE %>%
+      dplyr::rename(studyid = protocol) %>%
+      dplyr::rename(invid = pi_number) %>%
+      dplyr::rename(InvestigatorFirstName = pi_first_name) %>%
+      dplyr::rename(InvestigatorLastName = pi_last_name) %>%
+      dplyr::rename(City = city) %>%
+      dplyr::rename(State = state) %>%
+      dplyr::rename(Country = country),
+    Raw_STUDY = lSource$Source_STUDY %>%
+      dplyr::rename(studyid = protocol_number) %>%
+      dplyr::rename(Status = status)
+)
+
+# Step 1 - Create Mapped Data Layer - filter, aggregate and join raw data to create mapped data layer
+mappings_wf <- MakeWorkflowList(strPath = "workflow/1_mappings")
+mapped <- RunWorkflows(mappings_wf, lRaw)
+
+# Step 2 - Create Metrics - calculate metrics using mapped data
+metrics_wf <- MakeWorkflowList(strPath = "workflow/2_metrics", strNames = "kri")
+lAnalysis <- RunWorkflows(metrics_wf, mapped)
 ```
 
 
@@ -116,15 +153,15 @@ dfCTMSStudy <- RunQuery(df = clindata::ctms_study,
   MakeLongMeta(strGroupLevel = 'Study')
 
 # Get Participant and Site counts for Country, Site and Study
-dfSiteCounts <- RunQuery(df = mapped$dfEnrolled,
+dfSiteCounts <- RunQuery(df = mapped$Mapped_ENROLL,
                              strQuery = "SELECT invid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid") |>
   MakeLongMeta(strGroupLevel = "Site")
 
-dfStudyCounts <- RunQuery(df = mapped$dfEnrolled,
+dfStudyCounts <- RunQuery(df = mapped$Mapped_ENROLL,
                              strQuery = "SELECT studyid as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY studyid") |>
   MakeLongMeta(strGroupLevel = "Study")
 
-dfCountryCounts <- RunQuery(df = mapped$dfEnrolled,
+dfCountryCounts <- RunQuery(df = mapped$Mapped_ENROLL,
                              strQuery = "SELECT country as GroupID, COUNT(DISTINCT subjectid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country") |>
   MakeLongMeta(strGroupLevel = "Country")
 
@@ -152,11 +189,11 @@ datatable(dfGroups)
 
 #### Step 1.2 - Create `dfMetrics` Metadata
 
-The `dfMetrics` table contains the metadata for each of the KRIs in the report. This information comes from the `meta` section of the metric workflows, `lWorkflow` defined in Step 0. Using this workflow information as the input, `MakeMetric()` is used to produce a data frame with one row per metric.
+The `dfMetrics` table contains the metadata for each of the KRIs in the report. This information comes from the `meta` section of the metric workflows, `metrics_wf` defined in Step 0. Using this workflow information as the input, `MakeMetric()` is used to produce a data frame with one row per metric.
 
 
 ```{r include = TRUE}
-dfMetrics <- MakeMetric(lWorkflows = lWorkflow)
+dfMetrics <- MakeMetric(lWorkflows = metrics_wf)
 ```
 
 The resulting `dfMetrics` dataframe contains the following columns:
@@ -182,8 +219,8 @@ datatable(dfMetrics)
 The reporting workflow requires that all metrics are stacked into a single data frame, `dfResults`. This stacked data frame is created by feeding the `lAnalysis` list from the analysis workflow into `BindResults()` along with the snapshot date and the study id.
 
 ```{r include = TRUE}
-dfResults <- BindResults(lResults = lAnalysis,
-                         strName = "dfSummary",
+dfResults <- BindResults(lAnalysis = lAnalysis,
+                         strName = "Analysis_Summary",
                          dSnapshotDate = Sys.Date(),
                          strStudyID = "ABC-123")
 ```
@@ -260,9 +297,9 @@ If the data only contains one snapshot data then the `timeseries` charts will no
 Below are the static and interactive versions of the scatter plot for the AE KRI:
 
 ```{r fig.height=6, fig.width=8, warning=FALSE}
-lCharts$kri0001$scatter
+lCharts$Analysis_kri0001$scatter
 
-lCharts$kri0001$scatterJS
+lCharts$Analysis_kri0001$scatterJS
 ```
 
 
@@ -296,71 +333,87 @@ The second option is to run the `snapshot.yaml` workflow, which takes in all raw
 
 ```{r eval = FALSE, include = TRUE}
 # Step 1 - Create Mapped Data - filter/map raw data
-lData <- list(
-    dfSUBJ = clindata::rawplus_dm,
-    dfAE = clindata::rawplus_ae,
-    dfPD = clindata::ctms_protdev,
-    dfLB = clindata::rawplus_lb,
-    dfSTUDCOMP = clindata::rawplus_studcomp,
-    dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
-    dfDATACHG = clindata::edc_data_points,
-    dfDATAENT = clindata::edc_data_pages,
-    dfQUERY = clindata::edc_queries,
-    dfENROLL = clindata::rawplus_enroll
-)
-mapping_wf <- MakeWorkflowList(strNames = "data_mapping")
-mapped <- RunWorkflows(mapping_wf, lData, bKeepInputData=TRUE)
-
-# Step 2 - Create Analysis Data - Generate 12 KRIs
-kri_wf <- MakeWorkflowList(strNames = "kri")
-kris <- RunWorkflows(kri_wf, mapped)
-
-# Step 3 - Create Reporting Data - Import Metadata and stack KRI Results
-lReporting_Input <- list(
-    ctms_site = clindata::ctms_site,
-    ctms_study = clindata::ctms_study,
-    dfEnrolled = mapped$dfEnrolled,
-    lWorkflows = kri_wf,
-    lAnalysis = kris,
-    dSnapshotDate = Sys.Date(),
-    strStudyID = "ABC-123"
-)
-reporting_wf <- MakeWorkflowList(strNames = "reporting")
-reporting <- RunWorkflows(reporting_wf, lReporting_Input)
-
-# Step 4 - Generate Reports - Create Charts + Report
-wf_reports <- MakeWorkflowList(strNames = "reports")
-lReports <- RunWorkflows(wf_reports, reporting)
-```
-
-### Option 2 - Run Single `snapshot` Workflow
-
-```{r eval = FALSE, include = TRUE}
-lData <- list(
-    # Raw Data
-    dfSUBJ = clindata::rawplus_dm,
-    dfAE = clindata::rawplus_ae,
-    dfPD = clindata::ctms_protdev,
-    dfLB = clindata::rawplus_lb,
-    dfSTUDCOMP = clindata::rawplus_studcomp,
-    dfSDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
-    dfDATACHG = clindata::edc_data_points,
-    dfDATAENT = clindata::edc_data_pages,
-    dfQUERY = clindata::edc_queries,
-    dfENROLL = clindata::rawplus_enroll,
-    # CTMS data
-    ctms_site = clindata::ctms_site,
-    ctms_study = clindata::ctms_study,
-    # SnapshotDate and StudyID
-    dSnapshotDate = Sys.Date(),
-    strStudyID = "ABC-123",
-    # Metrics
-    Metrics = 'kri'
+# Source Data
+lSource <- list(
+    Source_SUBJ = clindata::rawplus_dm,
+    Source_AE = clindata::rawplus_ae,
+    Source_PD = clindata::ctms_protdev,
+    Source_LB = clindata::rawplus_lb,
+    Source_STUDCOMP = clindata::rawplus_studcomp,
+    Source_SDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
+    Source_DATACHG = clindata::edc_data_points,
+    Source_DATAENT = clindata::edc_data_pages,
+    Source_QUERY = clindata::edc_queries,
+    Source_ENROLL = clindata::rawplus_enroll,
+    Source_SITE = clindata::ctms_site,
+    Source_STUDY = clindata::ctms_study
 )
 
-ss_wf <- MakeWorkflowList(strNames = "snapshot")
-snapshot <- RunWorkflows(ss_wf, lData, bKeepInputData = TRUE)
+# Step 0 - Data Ingestion - standardize tables/columns names
+lRaw <- list(
+    Raw_SUBJ = lSource$Source_SUBJ,
+    Raw_AE = lSource$Source_AE,
+    Raw_PD = lSource$Source_PD %>%
+      dplyr::rename(subjid = subjectenrollmentnumber),
+    Raw_LB = lSource$Source_LB,
+    Raw_STUDCOMP = lSource$Source_STUDCOMP,
+    Raw_SDRGCOMP = lSource$Source_SDRGCOMP,
+    Raw_DATACHG = lSource$Source_DATACHG %>%
+      dplyr::rename(subject_nsv = subjectname),
+    Raw_DATAENT = lSource$Source_DATAENT %>%
+      dplyr::rename(subject_nsv = subjectname),
+    Raw_QUERY = lSource$Source_QUERY %>%
+      dplyr::rename(subject_nsv = subjectname),
+    Raw_ENROLL = lSource$Source_ENROLL,
+    Raw_SITE = lSource$Source_SITE %>%
+      dplyr::rename(studyid = protocol) %>%
+      dplyr::rename(invid = pi_number) %>%
+      dplyr::rename(InvestigatorFirstName = pi_first_name) %>%
+      dplyr::rename(InvestigatorLastName = pi_last_name) %>%
+      dplyr::rename(City = city) %>%
+      dplyr::rename(State = state) %>%
+      dplyr::rename(Country = country),
+    Raw_STUDY = lSource$Source_STUDY %>%
+      dplyr::rename(studyid = protocol_number) %>%
+      dplyr::rename(Status = status)
+)
 
+# Step 1 - Create Mapped Data Layer - filter, aggregate and join raw data to create mapped data layer
+mappings_wf <- MakeWorkflowList(strPath = "workflow/1_mappings")
+mapped <- RunWorkflows(mappings_wf, lRaw)
+
+# Step 2 - Create Metrics - calculate metrics using mapped data
+metrics_wf <- MakeWorkflowList(strPath = "workflow/2_metrics")
+analyzed <- RunWorkflows(metrics_wf, mapped)
+
+# Step 3 - Create Reporting Layer - create reports using metrics data
+reporting_wf <- MakeWorkflowList(strPath = "workflow/3_reporting")
+reporting <- RunWorkflows(reporting_wf, c(mapped, list(lAnalyzed = analyzed, lWorkflows = metrics_wf)))
+
+# Step 4 - Create KRI Reports - create KRI report using reporting data
+module_wf <- MakeWorkflowList(strPath = "workflow/4_modules")
+lReports <- RunWorkflows(module_wf, reporting)
+
+#### 3.2 - Automate data ingestion using Ingest() and CombineSpecs()
+# Step 0 - Data Ingestion - standardize tables/columns names
+mappings_wf <- MakeWorkflowList(strPath = "workflow/1_mappings")
+mappings_spec <- CombineSpecs(mappings_wf)
+lRaw <- Ingest(lSource, mappings_spec)
+
+# Step 1 - Create Mapped Data Layer - filter, aggregate and join raw data to create mapped data layer
+mapped <- RunWorkflows(mappings_wf, lRaw)
+
+# Step 2 - Create Metrics - calculate metrics using mapped data
+metrics_wf <- MakeWorkflowList(strPath = "workflow/2_metrics")
+analyzed <- RunWorkflows(metrics_wf, mapped)
+
+# Step 3 - Create Reporting Layer - create reports using metrics data
+reporting_wf <- MakeWorkflowList(strPath = "workflow/3_reporting")
+reporting <- RunWorkflows(reporting_wf, c(mapped, list(lAnalyzed = analyzed, lWorkflows = metrics_wf)))
+
+# Step 4 - Create KRI Report - create KRI report using reporting data
+module_wf <- MakeWorkflowList(strPath = "workflow/4_modules")
+lReports <- RunWorkflows(module_wf, reporting)
 ```
 
 

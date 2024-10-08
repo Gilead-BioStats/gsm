@@ -3,71 +3,97 @@
 # Define YAML workflow
 AE_workflow <- read_yaml(text=
 'meta:
-  File: AE_KRI
+  Type: Analysis
+  ID: kri0001
   GroupLevel: Site
+  Abbreviation: AE
   Metric: Adverse Event Rate
   Numerator: Adverse Events
   Denominator: Days on Study
   Model: Normal Approximation
   Score: Adjusted Z-Score
-  Type: rate
+  AnalysisType: rate
   Threshold: -2,-1,2,3
   nMinDenominator: 30
+spec:
+  Mapped_AE:
+    subjid:
+      required: true
+      type: character
+  Mapped_SUBJ:
+    subjid:
+      required: true
+      type: character
+    invid:
+      required: true
+      type: character
+    timeonstudy:
+      required: true
+      type: numeric
 steps:
-  - name: ParseThreshold
-    output: vThreshold
+  - output: vThreshold
+    name: ParseThreshold
     params:
       strThreshold: Threshold
-  - name: Input_Rate
-    output: dfInput
+  - output: Analysis_Input
+    name: Input_Rate
     params:
-      dfSubjects: dfSubjects
-      dfNumerator: dfAE
-      dfDenominator: dfSubjects
+      dfSubjects: Mapped_SUBJ
+      dfNumerator: Mapped_AE
+      dfDenominator: Mapped_SUBJ
       strSubjectCol: subjid
       strGroupCol: invid
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Sum
       strDenominatorCol: timeonstudy
-  - name: Transform_Rate
-    output: dfTransformed
+  - output: Analysis_Transformed
+    name: Transform_Rate
     params:
-      dfInput: dfInput
-  - name: Analyze_NormalApprox
-    output: dfAnalyzed
+      dfInput: Analysis_Input
+  - output: Analysis_Analyzed
+    name: Analyze_NormalApprox
     params:
-      dfTransformed: dfTransformed
-      strType: Type
-  - name: Flag_NormalApprox
-    output: dfFlagged
+      dfTransformed: Analysis_Transformed
+      strType: AnalysisType
+  - output: Analysis_Flagged
+    name: Flag_NormalApprox
     params:
-      dfAnalyzed: dfAnalyzed
+      dfAnalyzed: Analysis_Analyzed
       vThreshold: vThreshold
-  - name: Summarize
-    output: dfSummary
+  - output: Analysis_Summary
+    name: Summarize
     params:
-      dfFlagged: dfFlagged
+      dfFlagged: Analysis_Flagged
       nMinDenominator: nMinDenominator
+  - output: lAnalysis
+    name: list
+    params:
+      ID: ID
+      Analysis_Input: Analysis_Input
+      Analysis_Transformed: Analysis_Transformed
+      Analysis_Analyzed: Analysis_Analyzed
+      Analysis_Flagged: Analysis_Flagged
+      Analysis_Summary: Analysis_Summary
 ')
 
 # Run the workflow
 AE_data <-list(
-  dfSubjects= clindata::rawplus_dm,
-  dfAE= clindata::rawplus_ae
+  Mapped_SUBJ= clindata::rawplus_dm,
+  Mapped_AE= clindata::rawplus_ae
 )
-AE_KRI <- RunWorkflow(lWorkflow = AE_workflow, lData = AE_data )
+AE_KRI <- RunWorkflow(lWorkflow = AE_workflow, lData = AE_data)
 
 # Create Barchart from workflow
-Widget_BarChart(dfResults = AE_KRI$dfSummary, lMetric = AE_workflow$meta)
+Widget_BarChart(dfResults = AE_KRI$Analysis_Summary)
 
 #### Example 2.2 - Run Country-Level Metric
 AE_country_workflow <- AE_workflow
 AE_country_workflow$meta$GroupLevel <- "Country"
 AE_country_workflow$steps[[2]]$params$strGroupCol <- "country"
 
-AE_country_KRI <- RunWorkflow(lWorkflow = AE_country_workflow, lData = AE_data )
-Widget_BarChart(dfResults = AE_country_KRI$dfSummary, lMetric = AE_country_workflow$meta)
+AE_country_KRI <- RunWorkflow(lWorkflow = AE_country_workflow, lData = AE_data)
+Widget_BarChart(dfResults = AE_country_KRI$Analysis_Summary, lMetric = AE_country_workflow$meta)
 
 #### Example 2.3 - Create SAE workflow
 
@@ -80,9 +106,9 @@ SAE_workflow$meta$Numerator <- "Serious Adverse Events"
 # Add a step to filter out non-serious AEs `RunQuery`
 filterStep <- list(list(
   name = "RunQuery",
-  output = "dfAE",
+  output = "Mapped_AE",
   params= list(
-    df= "dfAE",
+    df= "Mapped_AE",
     strQuery = "SELECT * FROM df WHERE aeser = 'Y'"
   ))
 )
@@ -90,7 +116,7 @@ SAE_workflow$steps <- SAE_workflow$steps %>% append(filterStep, after=0)
 
 # Run the updated workflow
 SAE_KRI <- RunWorkflow(lWorkflow = SAE_workflow, lData = AE_data )
-Widget_BarChart(dfResults = SAE_KRI$dfSummary, lMetric = SAE_workflow$meta)
+Widget_BarChart(dfResults = SAE_KRI$Analysis_Summary, lMetric = SAE_workflow$meta)
 
 
 

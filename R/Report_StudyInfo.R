@@ -3,7 +3,8 @@
 #' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' This function generates a table summarizing study metadata.
+#' This function generates a table summarizing study metadata as an interactive
+#' [gt::gt()] wrapped in HTML.
 #'
 #' @param lStudy A list containing study information.
 #' @param lStudyLabels A list containing study labels. Default is NULL.
@@ -14,42 +15,24 @@
 #'
 #' @keywords internal
 
-
 Report_StudyInfo <- function(
   lStudy,
   lStudyLabels = NULL
 ) {
-  rlang::check_installed("gt", reason = "to render table from `MakeStudyStatusTable`")
+  rlang::check_installed("gt", reason = "to render table from `Report_StudyInfo`")
 
-  # default study labels - also used to sort the meta datatable
-  if (is.null(lStudyLabels)) {
-    lStudyLabels <- list(
-      SiteCount = "Sites Enrolled",
-      ParticipantCount = "Participants Enrolled",
-      Status = "Study Status"
-    )
-  }
-
-  study_status_table <- lStudy %>% imap_dfr(function(value, param) {
-    data.frame(
-      Description = ifelse(
-        param %in% names(lStudyLabels),
-        lStudyLabels[[param]],
-        param
-      ),
-      Value = ifelse(
-        is.na(value),
-        value,
-        prettyNum(value, drop0trailing = TRUE)
-      )
-    )
-  })
+  study_status_table <- MakeStudyInfo(lStudy, lStudyLabels)
 
   show_table <- study_status_table %>%
-    slice(1:5) %>%
+    dplyr::filter(
+      .data$Param %in% c("GroupID", "nickname", "Status", "SiteCount", "ParticipantCount")
+    ) %>%
+    dplyr::select("Description", "Value") %>%
     gsm_gt(id = "study_table")
 
+
   hide_table <- study_status_table %>%
+    dplyr::select("Description", "Value") %>%
     gsm_gt(id = "study_table_hide")
 
   toggle_switch <- glue::glue('<label class="toggle">

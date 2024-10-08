@@ -22,7 +22,6 @@
 #' - timeSeriesContinuousNumeratorJS: A time series chart using JavaScript with numerator on the y-axis.
 #' - metricTable: A table containing all
 #'
-#'
 #' @examples
 #' charts <- Visualize_Metric(
 #'   dfResults = reportingResults,
@@ -49,6 +48,10 @@ Visualize_Metric <- function(
     dfResults$SnapshotDate <- as.Date(Sys.Date())
   }
 
+  if (!"SnapshotDate" %in% colnames(dfBounds) & !is.null(dfBounds)) {
+    dfBounds$SnapshotDate <- as.Date(Sys.Date())
+  }
+
   # get number of snapshots
   number_of_snapshots <- length(unique(dfResults$SnapshotDate))
 
@@ -64,7 +67,20 @@ Visualize_Metric <- function(
       return(NULL)
     } else {
       dfResults <- dfResults %>% filter(.data$MetricID == strMetricID)
+    }
+  }
+  if (!is.null(strMetricID)) {
+    if (!(strMetricID %in% unique(dfBounds$MetricID))) {
+      cli::cli_inform("MetricID not found in dfBounds. Please double check input data if intentional.")
+    } else {
       dfBounds <- dfBounds %>% filter(.data$MetricID == strMetricID)
+    }
+  }
+
+  if (!is.null(strMetricID)) {
+    if (!(strMetricID %in% unique(dfMetrics$MetricID))) {
+      cli::cli_inform("MetricID not found in dfMetrics. Please double check input data if intentional.")
+    } else {
       dfMetrics <- dfMetrics %>% filter(.data$MetricID == strMetricID)
     }
   }
@@ -74,39 +90,47 @@ Visualize_Metric <- function(
       length(unique(dfBounds$MetricID)) > 1 |
       length(unique(dfMetrics$MetricID)) > 1
   ) {
-    cli_abort("Multiple MetricIDs found in dfResults, dfBounds or dfMetrics. Specify `MetricID` to subset. No charts will be generated.")
+    cli::cli_abort("Multiple MetricIDs found in dfResults, dfBounds or dfMetrics. Specify `MetricID` to subset. No charts will be generated.")
     return(NULL)
   }
 
   # Prep chart inputs ---------------------------------------------------------
-  lMetric <- as.list(dfMetrics)
-  vThreshold <- ParseThreshold(lMetric$Threshold)
+  if (is.null(dfMetrics)) {
+    lMetric <- NULL
+    vThreshold <- NULL
+  } else {
+    lMetric <- as.list(dfMetrics)
+    vThreshold <- ParseThreshold(lMetric$Threshold)
+  }
 
   # Cross-sectional Charts using most recent snapshot ------------------------
   lCharts <- list()
-  dfResults_current <- dfResults %>% filter(.data$SnapshotDate == strSnapshotDate)
-  dfBounds_current <- dfBounds %>% filter(.data$SnapshotDate == strSnapshotDate)
+  dfResults_latest <- FilterByLatestSnapshotDate(dfResults, strSnapshotDate)
+  if (is.null(dfBounds)) {
+    dfBounds_latest <- NULL
+  } else {
+    dfBounds_latest <- FilterByLatestSnapshotDate(dfBounds, strSnapshotDate)
+  }
 
-
-  if (nrow(dfResults_current) == 0) {
+  if (nrow(dfResults_latest) == 0) {
     cli::cli_alert_warning("No data found for specified snapshot date: {strSnapshotDate}. No charts will be generated.")
   } else {
     lCharts$scatterJS <- Widget_ScatterPlot(
-      dfResults = dfResults_current,
+      dfResults = dfResults_latest,
       lMetric = lMetric,
       dfGroups = dfGroups,
-      dfBounds = dfBounds_current,
+      dfBounds = dfBounds_latest,
       bDebug = bDebug
     )
 
     lCharts$scatter <- Visualize_Scatter(
-      dfResults = dfResults_current,
-      dfBounds = dfBounds_current,
+      dfResults = dfResults_latest,
+      dfBounds = dfBounds_latest,
       strGroupLabel = lMetric$GroupLevel
     )
 
     lCharts$barMetricJS <- Widget_BarChart(
-      dfResults = dfResults_current,
+      dfResults = dfResults_latest,
       lMetric = lMetric,
       dfGroups = dfGroups,
       strOutcome = "Metric",
@@ -114,7 +138,7 @@ Visualize_Metric <- function(
     )
 
     lCharts$barScoreJS <- Widget_BarChart(
-      dfResults = dfResults_current,
+      dfResults = dfResults_latest,
       lMetric = lMetric,
       dfGroups = dfGroups,
       strOutcome = "Score",
@@ -122,21 +146,24 @@ Visualize_Metric <- function(
     )
 
     lCharts$barMetric <- Visualize_Score(
-      dfResults = dfResults_current,
+      dfResults = dfResults_latest,
       strType = "Metric"
     )
 
     lCharts$barScore <- Visualize_Score(
-      dfResults = dfResults_current,
+      dfResults = dfResults_latest,
       strType = "Score",
       vThreshold = vThreshold
     )
-
-    lCharts$metricTable <- Report_MetricTable(
-      dfResults = dfResults_current,
-      dfGroups = dfGroups,
-      strGroupLevel = lMetric$GroupLevel
-    )
+    if (!is.null(lMetric)) {
+      lCharts$metricTable <- Report_MetricTable(
+        dfResults = dfResults_latest,
+        dfGroups = dfGroups,
+        strGroupLevel = lMetric$GroupLevel
+      )
+    } else {
+      lCharts$metricTable <- Report_MetricTable(dfResults_latest)
+    }
   }
   # Continuous Charts -------------------------------------------------------
   if (number_of_snapshots <= 1) {

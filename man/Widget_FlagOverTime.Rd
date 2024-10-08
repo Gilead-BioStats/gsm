@@ -7,7 +7,8 @@
 Widget_FlagOverTime(
   dfResults,
   dfMetrics,
-  strGroupLevel = c("Site", "Study", "Country")
+  strGroupLevel = c("Site", "Study", "Country"),
+  strFootnote = NULL
 )
 }
 \arguments{
@@ -16,6 +17,8 @@ Widget_FlagOverTime(
 \item{dfMetrics}{\code{data.frame} Metric-specific metadata for use in charts and reporting. Created by passing an \code{lWorkflow} object to \code{\link[=MakeMetric]{MakeMetric()}}. Expected columns: \code{File}, \code{MetricID}, \code{Group}, \code{Abbreviation}, \code{Metric}, \code{Numerator}, \code{Denominator}, \code{Model}, \code{Score}, and \code{Threshold}. For more details see the Data Model vignette: \code{vignette("DataModel", package = "gsm")}.}
 
 \item{strGroupLevel}{\code{character} Value for the group level. Default: "Site".}
+
+\item{strFootnote}{\code{character} Text to insert for figure}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
@@ -24,8 +27,12 @@ A widget that generates a table of flags over time using
 \code{\link[=Report_FlagOverTime]{Report_FlagOverTime()}}.
 }
 \examples{
+reportingResultsSubset <- dplyr::filter(
+  reportingResults,
+  GroupID \%in\% head(unique(reportingResults$GroupID))
+)
 Widget_FlagOverTime(
-  dfResults = reportingResults,
+  dfResults = reportingResultsSubset,
   dfMetrics = reportingMetrics
 )
 }

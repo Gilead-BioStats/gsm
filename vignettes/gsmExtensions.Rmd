@@ -1,0 +1,412 @@
+---
+title: "gsm Extensions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{gsmExtensions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Overview
+
+This vignette describes how to extend `gsm` by creating new "modules", including metrics, reports and shiny apps that can be run using the standard `gsm` pipeline described in these vignettes (`vignette("DataAnalysis")`, `vignette("DataReporting")`). As shown in the `vignette("DataAnalysis")`, the `gsm` data pipeline can be used to capture a monitoring 'snapshot' for a study that includes a variety of "modules" including [metrics](https://github.com/Gilead-BioStats/gsm/tree/dev/inst/workflow/metrics/kri0001.yaml) and [reports](https://github.com/Gilead-BioStats/gsm/blob/dev/inst/workflow/reports/report_kri_site.yaml). Some core modules are included in the `gsm` package, while others can be added as extensions. 
+
+This vignette provide detailed specifications for creating new modules, a description of the directory structure for the yaml workflows that comprise a module pipeline, and links to resources that can be used to configure study-level gsm pipelines that utilize these `gsm` extensions.
+
+# Module Configuration
+
+`gsm` modules will typically be part of an R package and have a YAML configuration file - `{module_name}.yaml` - saved under `\inst\workflow\4_modules`. Module config files include 3 key properties: 
+
+  -  `meta`: (required) Report metadata used for centralized library and fields referenced in `steps` section of workflow.
+  - `spec`: (required) Data table requirement for the report. Typically from `Mapped_*` or `Reporting_*` data. 
+  - `steps`: (required) Functions to produce the reporting output from `Mapped_*` and/or `Reporting_*` data to final output (`html`, `csv` or `shinyApp`).
+   
+Detailed specifications for each of these sections are provided below. 
+
+## Example Module Configuration YAMLs
+
+Here are links to several sample module configuration files:
+
+- [12 Standard gsm KRIs](https://github.com/Gilead-BioStats/gsm/tree/dev/inst/workflow/metrics) (e.g. [Adverse Event KRI Metric](https://github.com/Gilead-BioStats/gsm/tree/dev/inst/workflow/metrics/kri0001.yaml))
+- [Site-](https://github.com/Gilead-BioStats/gsm/blob/dev/inst/workflow/reports/report_kri_site.yaml) and [Country-level KRI Report](https://github.com/Gilead-BioStats/gsm/blob/dev/inst/workflow/reports/report_kri_country.yaml)
+
+## `meta` Specification
+
+The `meta` section of a workflow YAML provides key metadata describing the module. It must include the following fields: 
+
+- `Name`: Name of the reporting output.
+- `Type`: "Report", "Metric" or "App"
+- `ID`: The unique ID for the module. This should be the same as the workflow file name, without extension.
+- `Description`: A one-line description of the module specified in the workflow.
+- `Priority`: *optional* A number specifying the priority of the workflow within the directory, with lower numbers having higher priority, and running first. This is used when workflows within the same directory require outputs from other workflows, and thus need to be run in a particular order. If missing, will be set to 0 to run first.
+- `Details`: *optional* A more detailed description of the module specified in the workflow.
+- `Repo`: Package repo and version. Should be compatible with the `repo` parameter in `remotes::install_github()`. 
+- `Status`: The validation status of the reporting output. Valid values: 
+    - `Qualified`: Output has been qualified via our qualification process specified [here](https://gilead-biostats.github.io/gsm/articles/QualificationWorkflow.html). 
+    - `Pilot`: Output is being used by pilot studies and is maintained in a package repository.
+    - `Prototype`: Output is created using custom scripts on an ad-hoc basis.
+    
+Additional `meta` header required fields for **Modules**: 
+
+- `Permission`: Level of permissions for viewing that match the `Users` argument in the Study Configuration file. Common values: `Admin`, `Users`.
+- `Output`: The output of the workflow, including format. Each workflow should only produce a single reporting output.
+- `ExampleURL`: Location of a sample report. For html reports, this is typically a page on the pkgdown site (ending with "/{ModuleID}.html"), or a sample app deployed on [shinyapps.io](https://shinyapps.io).
+
+Additional `meta` header required fields for `{gsm}` **metrics**:
+
+- `GroupLevel`: The level at which the metric is calculated. Common values: `Site`, `Country`.
+- `Abbreviation`: Abbreviation of the metric.
+- `Metric`: Full name of the metric.
+- `Numerator`: The numerator of the metric.
+- `Denominator`: The denominator of the metric.
+- `AnalysisType`: The analysis type. Common values: `rate`, `binary`
+- `Model`: The model used to calculate the metric. Common values: `Normal Approximation`, `Exact`, `Bayesian`.
+- `Score`: The score used to calculate the metric. Common values: `Z-Score`, `Adjusted Z-Score`, `P-Value`.
+- `Threshold`: The thresholds needed to flag.
+
+
+
+
+### `meta` example
+
+A simple `meta` section for a report might look like this:
+```
+  File: report_example.yaml
+  ID: example_report
+  Name: An example report
+  Description: A report that is an example
+  Type: Report
+  Repo: gsm.example v1.0.0
+  Status: Qualified
+  Permission: Users
+  Outputs: An html report
+  ExampleURL: https://gilead-biostats.github.io/gsm.example/example_report.html
+```
+
+## `spec` Specification
+
+The `spec` section of the workflow YAML specifies the data requirements for the workflow, including the data tables that are required and the columns that are needed from each table. The `gsm` data pipeline is designed to be highly customizable, but for the purposes of this vignette, we will assume usage of the standard `gsm` data model described in `vignette("DataModel")`. For this standard use case, modules will pull primarily from the "Mapped" and "Reporting" data layers. 
+
+The `spec` section of the workflow YAML is formatted as a list of data tables, with each table containing a list of columns. Finally, each column contains the following parameters:
+
+- `required`: Boolean field specifying whether this column is required for the workflow to run, or optional/recommended for inclusion for user experience or augmented information. This parameter is required and must be included for all columns. 
+- `type`: Character field describing the data type of the column. Use a `mode` as defined by R. This parameter is optional. 
+
+### `spec` example: Metric Module
+
+Metric `spec`s are typically pulled from the `mapped` data layer. For example, the `spec` section for the [AE KRI metric](https://github.com/Gilead-BioStats/gsm/tree/dev/inst/workflow/metrics/kri0001.yaml) is: 
+
+```
+spec:
+  Mapped_AE:
+    subjid:
+      required: true
+      type: character
+  Mapped_ENROLL:
+    subjid:
+      required: true
+      type: character
+    invid:
+      required: true
+      type: character
+    timeonstudy:
+      required: true
+      type: numeric
+```
+
+So, in summary, the AE KRI metric requires two data tables, `Mapped_AE` and `Mapped_ENROLL`, both of which are from the mapped data layer. The `Mapped_AE` table must have a character Subject ID column called `subjid` while `Mapped_ENROLL` must have character Subject ID (`subjid`) and Investigator ID (`invid`) columns and a numeric `timeonstudy` column. All columns are required for this metric. Note that other columns may be present in these tables (perhaps due to a `spec` from a differently module), but only the columns listed in the `spec` section are required for the metric to run.
+
+### `spec` examples: Report Module
+
+Report modules most often pull data from the `Reporting` data layer. For example, the [Site-level KRI report](https://github.com/Gilead-BioStats/gsm/blob/dev/inst/workflow/reports/report_kri_site.yaml) has the following `spec`: 
+
+```
+spec:
+  Reporting_Results: 
+    _all:
+      required: true
+  Reporting_Groups:
+    _all:
+      required: false
+  Reporting_Metrics:
+    _all:
+      required: false
+  Reporting_Bounds:
+    _all: 
+      require: false
+```
+
+Note that the `_all` key word is used to specify that all standard columns from the `Reporting_Results` data table are expected and that the table required - without it, the report can't run. The other `Reporting` tables are used to enhance the report, but are not required.
+
+The `Mapped` data layer is also available for use in reports and apps. Most typically, mapped data is used to drill down from high-level metric findings (e.g. "Site 5 has an elevated AE rate relative to other studies") to site- or participant- level details (e.g. "Participant 00016 from Site 5 had 5 AEs and 3 SAEs reported in the last 3 months."). For example, the [Deep Dive app]() includes both Reporting and Mapped data in its `spec`. Here is a representative excerpt from the `spec`:
+
+```
+spec:
+  Reporting_Results: 
+    _all:
+      required: true
+  Mapped_AE:
+    subjid:
+      required: false
+      type: character
+    aeterm:
+      required: false
+      type: character 
+    aesev: 
+      required: false
+      type: character
+    ...
+```
+
+## `steps` Specification
+
+Finally, each module yaml configuration file should have a `steps` property that describes in detail how the module is run. The `steps` section is a list of functions that are run in sequence to produce the final output. Each item in `steps` has the following properties:
+
+- `name`: The name of the function to be run. This must be a function that is available in `{gsm}` package or in a package that is listed in the `repo` section of the `meta` header.
+- `output`: The name of the output of the function. This is the name of the data table that is created by the function.
+- `params`: A list of parameters that are passed to the function. The parameters are specific to the function that is being run. See below for more details on how to specify parameters for each function.
+
+**Note**: It is important to note that the default behavior of the `RunWorkflow()` and `RunWorkflows()` functions is to return the *last* output in the steps section of the workflow. therefore, each yaml file- regardless of which directory it is in- should only produce one output, whether that be a data table, list, html output, deployed shiny app, or any other object needed to produce the module output.
+
+The `steps` is the most complex part of the module configuration and will vary greatly depending on the module type and the specific requirements of the module. `gsm` provides several functions that allow for module yaml files to be run in a standard way. See `?gsm::RunWorkflow()` for more details.
+
+### `steps[]$params` Specification
+
+After processing the YAML `meta` and `spec` sections, `gsm::RunWorkflow()` calls `gsm::RunStep()` for each step in the `steps` section of the YAML. The `params` section of each step is passed to `RunStep()` as a list of parameters along with a copy of the metadata header (`lMeta`) and any data (`lData`). `RunStep()` then parses the list of `params` by passing data from `lMeta` and `lData` when appropriate - see `?RunStep` for a detailed of how parameter values are populated. Finally, the parsed parameters are passed to the function specified in the `name` field of the step. 
+
+
+### `steps` examples
+
+#### `Metric` steps example
+
+In the example below, the steps to produce the AE analysis output is specified. Here, `Threshold`, `GroupLevel`, `Type` and `nMinDenominator` are specified in the `meta` section of the workflow, and would be access via the `paramVal` process discussed above. As a default, the output of these steps as run with `RunWorkflows()` would be a list of data tables, as specified in the final `list` step of the workflow.
+
+```
+steps:
+  - name: ParseThreshold
+    output: vThreshold
+    params:
+      strThreshold: Threshold
+  - name: Input_Rate
+    output: Analysis_Input
+    params:
+      dfSubjects: Mapped_SUBJ
+      dfNumerator: Mapped_AE
+      dfDenominator: Mapped_SUBJ
+      strSubjectCol: subjid
+      strGroupCol: invid
+      strGroupLevel: GroupLevel
+      strNumeratorMethod: Count
+      strDenominatorMethod: Sum
+      strDenominatorCol: timeonstudy
+  - name: Transform_Rate
+    output: Analysis_Transformed
+    params:
+      dfInput: Analysis_Input
+  - name: Analyze_NormalApprox
+    output: Analysis_Analyzed
+    params:
+      dfTransformed: Analysis_Transformed
+      strType: AnalysisType
+  - name: Flag_NormalApprox
+    output: Analysis_Flagged
+    params:
+      dfAnalyzed: Analysis_Analyzed
+      vThreshold: vThreshold
+  - name: Summarize
+    output: Analysis_Summary
+    params:
+      dfFlagged: Analysis_Flagged
+      nMinDenominator: nMinDenominator
+  - name: list
+    output: kri0001
+    params:
+      id: ID
+      input: Analysis_Input
+      transformed: Analysis_Transformed
+      analyzed: Analysis_Analyzed
+      flagged: Analysis_Flagged
+      summary: Analysis_Summary
+```
+
+#### `Report` steps example
+
+In this example, the steps to produce a site-level KRI report is displayed. Here, the only inputs are the `Reporting_*` data, which goes through a simple filtering process via `RunQuery` before the Charts and Report are created in the following two functions
+
+```
+steps:
+  - name: RunQuery
+    output: Reporting_Results_Site
+    params:
+      df: Reporting_Results
+      strQuery: "SELECT * FROM df WHERE GroupLevel == 'Site'"
+  - name: RunQuery
+    output: Reporting_Metrics_Site
+    params:
+      df: Reporting_Metrics
+      strQuery: "SELECT * FROM df WHERE GroupLevel == 'Site'"
+  - name: MakeCharts
+    output: lCharts_Site
+    params:
+      dfResults: Reporting_Results_Site
+      dfGroups: Reporting_Groups
+      dfBounds: Reporting_Bounds
+      dfMetrics: Reporting_Metrics_Site
+  - name: Report_KRI
+    output: lReport 
+    params:
+      lCharts: lCharts_Site
+      dfResults: Reporting_Results_Site
+      dfGroups: Reporting_Groups
+      dfMetrics: Reporting_Metrics_Site
+```
+
+# Directory Structure for Workflows 
+
+Each extension that produces report(s) will have a `workflow` directory in the `inst` of the package that follows a standard structure. This directory will contain 4 folders in which to store the yaml workflow files that map data, perform analysis, produce reporting data, and generate the output of a module. Each module output requires it's own unique yaml in the `4_modules` folder, which will take inputs generated from the previous three directories.
+
+
+### `/1_mappings`
+
+The mappings folder contains all of the mappings from `Raw_*` data to `Mapped_*` data. Each file within this directory is to be named for the data table it is creating, minus the `Mapped_` suffix. The yamls will contain the three required sections, which are discussed in detail in the `Module Configuration` section above. The yamls in this folder will be combined via `CombineSpecs()` to create a master spec that defines all necessary tables and columns for the module(s) in this package.
+
+Below are two examples of these mapping yaml files- the first which requires no transformations, and is very simple, and the second which requires multiple steps to produce the desired mapped data. 
+
+#### Mapped_AE mapping yaml file
+
+```
+meta:
+  Type: Mapped
+  ID: AE
+  Description: Adverse Event Data Mapping 
+  Priority: 1
+spec: 
+ Raw_AE:
+    subjid:
+      required: true
+      type: character
+    aeser:
+      required: true
+      type: character
+steps:
+  - output: Mapped_AE
+    name: =
+    params:
+      lhs: Mapped_AE
+      rhs: Raw_AE
+```
+#### Mapped_DATACHG mapping yaml file
+```
+meta:
+  Type: Mapped
+  ID: DATACHG
+  Description: Data Changes Data Mapping 
+  Priority: 2
+spec: 
+  Raw_DATACHG:
+    subject_nsv:
+      required: true
+      type: character
+      source_col: subjectname
+    n_changes:
+      required: true
+      type: numeric
+  Mapped_SUBJ:
+    subjid:
+      required: true
+      type: character
+    subject_nsv:
+      required: true
+      type: character
+steps:
+  # Merge [ subjid ] onto EDC domains.
+  - output: Temp_SubjectLookup
+    name: select
+    params:
+      .data: Mapped_SUBJ
+      subjid: subjid
+      subject_nsv: subject_nsv
+  - output: Mapped_DATACHG
+    name: left_join
+    params:
+      x: Raw_DATACHG
+      "y": Temp_SubjectLookup
+      by: subject_nsv
+```
+
+### `/2_metrics`
+
+The metrics directory contains all of the workflows that perform analysis steps, converting mapped data into metrics that are displayed in a report. In the case of `{gsm}`, these metrics are the 12 Key Risk Indicators, calculated at both the site- and country-level, that are discussed in the Data Analysis Step-by-Step Vignette. Each yaml in this file produces a list of analysis data tables that capture the formatted input table, the transformed table, the flagged table, and the summary table. In general, these yamls should at least provide a summary table that contains statistics about the metric at the specified level of aggregation.
+
+Examples of these yamls can be found above in the `Module Configuration` section, as well as in the (`vignette("DataAnalysis")`) vignette.
+
+### `/3_reporting`
+
+The reporting directory is intended to hold all of the workflows that produce the data that is required for the module outputs. This typically requires the stacking of analysis data from all of the relevant metrics into a single `results` data frame that can be surfaced in a report, or multiple reports. Additionally, any further information that must be taken from the analysis output, such as study/site/group/metric metadata and supporting statistics will be constructed through workflows in this folder.
+
+Examples of these yamls can be found above in the `Module Configuration` section, as well as in `vignette("DataReporting")`.
+
+### `/4_modules`
+
+The modules directory contains the final workflow(s) of the reporting pipeline. These workflows each produce a single output based on the data tables that have been produced in the previous directories. These module workflows will contain all of the necessary meta information, as detailed in the `Module Configuration` section above, along with the data tables required, and steps to produce it, so that `gsm::RunWorkflow()` can take this workflow and produce the module output.  
+
+Below is an example of the module yaml workflow for the KRI Site Report in `{gsm}`
+
+```
+meta:
+  Type: Report 
+  ID: report_kri_site
+  Output: html
+  Name: Site-Level Key Risk Indicator Report
+  Description: A report summarizing key risk indicators at the site level
+  Repo: gsm v2.1.0
+  Status: Qualified
+  Permission: Users
+  Outputs: An html report
+  ExampleURL: https://gilead-biostats.github.io/gsm/report_kri_site.html
+spec:
+  Reporting_Results:
+    _all:
+      required: true
+  Reporting_Metrics:
+    _all:
+      required: true
+  Reporting_Groups:
+    _all:
+      required: true
+  Reporting_Bounds:
+    _all:
+      required: true
+steps:
+  - name: RunQuery
+    output: Reporting_Results_Site
+    params:
+      df: Reporting_Results
+      strQuery: "SELECT * FROM df WHERE GroupLevel == 'Site'"
+  - name: RunQuery
+    output: Reporting_Metrics_Site
+    params:
+      df: Reporting_Metrics
+      strQuery: "SELECT * FROM df WHERE GroupLevel == 'Site'"
+  - name: MakeCharts
+    output: lCharts_Site
+    params:
+      dfResults: Reporting_Results_Site
+      dfGroups: Reporting_Groups
+      dfBounds: Reporting_Bounds
+      dfMetrics: Reporting_Metrics_Site
+  - name: Report_KRI
+    output: lReport
+    params:
+      lCharts: lCharts_Site
+      dfResults: Reporting_Results_Site
+      dfGroups: Reporting_Groups
+      dfMetrics: Reporting_Metrics_Site
+```

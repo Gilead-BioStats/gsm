@@ -6,7 +6,7 @@
 \usage{
 Widget_ScatterPlot(
   dfResults,
-  lMetric = list(),
+  lMetric = NULL,
   dfGroups = NULL,
   dfBounds = NULL,
   bAddGroupSelect = TRUE,

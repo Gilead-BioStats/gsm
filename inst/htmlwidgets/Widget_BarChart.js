@@ -7,6 +7,11 @@ HTMLWidgets.widget({
                 if (input.bDebug)
                     console.log(input);
 
+                // Coerce `input.lMetric` to an object if it is not already.
+                if (Object.prototype.toString.call(input.lMetric) !== '[object Object]') {
+                    input.lMetric = {};
+                };
+
                 // Assign a unique ID to the element.
                 el.id = `barChart--${input.lMetric.MetricID}_${input.strOutcome}`;
 
