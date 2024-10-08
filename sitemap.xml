@@ -1,16 +1,15 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://gilead-biostats.github.io/gsm/404.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/LICENSE.html</loc></url>
-<url><loc>https://gilead-biostats.github.io/gsm/StandardReportCountry.html</loc></url>
-<url><loc>https://gilead-biostats.github.io/gsm/StandardReportSite.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/articles/ContributorGuidelines.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/articles/Cookbook.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/articles/DataAnalysis.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/articles/DataModel.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/articles/DataReporting.html</loc></url>
-<url><loc>https://gilead-biostats.github.io/gsm/articles/KRI Method.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/articles/KRIMethod.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/articles/Qualification.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/articles/QualificationWorkflow.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/articles/gsmExtensions.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/articles/index.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/authors.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/index.html</loc></url>
@@ -21,16 +20,25 @@
 <url><loc>https://gilead-biostats.github.io/gsm/reference/Analyze_NormalApprox_PredictBounds.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/Analyze_Poisson.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/Analyze_Poisson_PredictBounds.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/ApplySpec.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/BindResults.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/CheckSpec.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/CombineSpecs.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/FilterByFlags.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/FilterByLatestSnapshotDate.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/Flag.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/Flag_Fisher.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/Flag_NormalApprox.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/Flag_Poisson.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/Ingest.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/Input_Rate.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/MakeBounds.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/MakeCharts.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/MakeLongMeta.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/MakeMetric.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/MakeMetricTable.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/MakeParamLabels.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/MakeStudyInfo.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/MakeWideGroups.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/MakeWorkflowList.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/Make_Timeline.html</loc></url>
@@ -68,6 +76,7 @@
 <url><loc>https://gilead-biostats.github.io/gsm/reference/analyticsInput.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/analyticsSummary.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/cols_label_month.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/combine_domain.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/gsm-package.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/gsm_gt.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/gt-shared.html</loc></url>
@@ -75,10 +84,17 @@
 <url><loc>https://gilead-biostats.github.io/gsm/reference/index.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/pipe.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/reportingBounds.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/reportingBounds_country.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/reportingGroups.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/reportingGroups_country.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/reportingMetrics.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/reportingMetrics_country.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/reportingResults.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/reportingResults_country.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/shared-params.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/tidyeval.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/update_column.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/report_kri_country.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/report_kri_site.html</loc></url>
 </urlset>
 

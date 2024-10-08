@@ -10,7 +10,9 @@
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Data Model">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
+<meta property="og:title" content="Data Model">
+<link href="pkgdown/extra.css" rel="stylesheet">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -20,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gsm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,21 +34,26 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/ContributorGuidelines.html">Contributor Guidelines</a></li>
+<li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Data Model</h6></li>
+    <li><a class="dropdown-item" href="../articles/DataModel.html">Data Model</a></li>
     <li><a class="dropdown-item" href="../articles/Cookbook.html">Cookbook</a></li>
     <li><a class="dropdown-item" href="../articles/DataAnalysis.html">Step-by-Step Analysis Workflow</a></li>
-    <li><a class="dropdown-item" href="../articles/DataModel.html">Data Model</a></li>
     <li><a class="dropdown-item" href="../articles/DataReporting.html">Step-by-Step Reporting Workflow</a></li>
-    <li><a class="dropdown-item" href="../articles/KRI%20Method.html">KRI Method</a></li>
-    <li><a class="dropdown-item" href="../articles/Qualification.html">Qualification Report for the {gsm} R Package</a></li>
+    <li><a class="dropdown-item" href="../articles/gsmExtensions.html">gsm Extensions</a></li>
+    <li><a class="dropdown-item" href="../articles/KRIMethod.html">KRI Method</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Quality</h6></li>
     <li><a class="dropdown-item" href="../articles/QualificationWorkflow.html">Qualification Workflow</a></li>
+    <li><a class="dropdown-item" href="../articles/Qualification.html">Qualification Report for the {gsm} R Package</a></li>
+    <li><a class="dropdown-item" href="../articles/ContributorGuidelines.html">Contributor Guidelines</a></li>
   </ul>
 </li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-sample-reports" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Sample Reports</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-sample-reports">
-<li><a class="dropdown-item" href="../StandardReportSite.html">Site Report</a></li>
-    <li><a class="dropdown-item" href="../StandardReportCountry.html">Country Report</a></li>
+<li><a class="dropdown-item" href="../report_kri_site.html">Site Report</a></li>
+    <li><a class="dropdown-item" href="../report_kri_country.html">Country Report</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
@@ -220,8 +227,8 @@ risk profiles across timepoints, and even across multiple studies. The
 Reporting Data sets used in {gsm} are:</p>
 <ol style="list-style-type: decimal">
 <li>
-<code>dfResults</code>: Summary data; Standardized subset of the
-flagged data. This summary data has the same structure for all
+<code>Reporting_Results</code>: Summary data; Standardized subset of
+the flagged data. This summary data has the same structure for all
 assessments and always includes both KRI and Flag values so that a user
 can easily look at trends for any given site across multiple
 assessments. Created using the <code><a href="../reference/Summarize.html">Summarize()</a></code> function in the
@@ -229,18 +236,18 @@ analytics pipeline, followed by the <code><a href="../reference/BindResults.html
 to add columns necessary for reporting and stack metrics and snapshots
 into a single data.frame.</li>
 <li>
-<code>dfBounds</code>: Bounded data; A data.frame containing
+<code>Reporting_Bounds</code>: Bounded data; A data.frame containing
 predicted boundary values with upper and lower bounds across the range
 of observed values. Created with the <code><a href="../reference/MakeBounds.html">MakeBounds()</a></code>
 function.</li>
 <li>
-<code>dfGroups</code>: Grouped data; Long data.frame of summarized
-group CTMS data with site, study, and country level counts and metrics.
-Constructed by binding data.frames created with
+<code>Reporting_Groups</code>: Grouped data; Long data.frame of
+summarized group CTMS data with site, study, and country level counts
+and metrics. Constructed by binding data.frames created with
 <code><a href="../reference/MakeLongMeta.html">MakeLongMeta()</a></code>.</li>
 <li>
-<code>dfMetrics</code>: Metric metadata; Metric-specific metadata
-for use in charts and reporting. Created by passing an
+<code>Reporting_Metrics</code>: Metric metadata; Metric-specific
+metadata for use in charts and reporting. Created by passing an
 <code>lWorkflow</code> object to the <code><a href="../reference/MakeMetric.html">MakeMetric()</a></code>
 function.</li>
 </ol>
@@ -274,8 +281,8 @@ the reporting data pipeline.</p>
 <h3 id="analysis-data-tables">Analysis Data Tables<a class="anchor" aria-label="anchor" href="#analysis-data-tables"></a>
 </h3>
 <div class="section level4">
-<h4 id="dfinput">
-<code>dfInput</code><a class="anchor" aria-label="anchor" href="#dfinput"></a>
+<h4 id="analysis_input">
+<code>Analysis_Input</code><a class="anchor" aria-label="anchor" href="#analysis_input"></a>
 </h4>
 <ul>
 <li>Function(s) used to create table:
@@ -285,9 +292,9 @@ the reporting data pipeline.</p>
 </li>
 <li>Inputs:
 <ul>
-<li><code>dfSubjects</code></li>
-<li><code>dfNumerator</code></li>
-<li><code>dfDenominator</code></li>
+<li><code>Analysis_Subjects</code></li>
+<li><code>Analysis_Numerator</code></li>
+<li><code>Analysis_Denominator</code></li>
 </ul>
 </li>
 <li>Usage: The base data.frame for all Analysis workflows. Feeds into
@@ -311,42 +318,42 @@ the <code>Transform_*()</code> functions.</li>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>dfInput</td>
+<td>Analysis_Input</td>
 <td>SubjectID</td>
 <td>The subject ID</td>
 <td>Character</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>dfInput</td>
+<td>Analysis_Input</td>
 <td>GroupID</td>
 <td>The group ID for the metric</td>
 <td>Character</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>dfInput</td>
+<td>Analysis_Input</td>
 <td>GroupLevel</td>
 <td>The group type for the metric (e.g. “Site”)</td>
 <td>Character</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>dfInput</td>
+<td>Analysis_Input</td>
 <td>Numerator</td>
 <td>The calculated numerator value</td>
 <td>Numeric</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>dfInput</td>
+<td>Analysis_Input</td>
 <td>Denominator</td>
 <td>The calculated denominator value</td>
 <td>Numeric</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>dfInput</td>
+<td>Analysis_Input</td>
 <td>Metric</td>
 <td>The calculated rate/metric value</td>
 <td>Numeric</td>
@@ -356,8 +363,8 @@ the <code>Transform_*()</code> functions.</li>
 </table>
 </div>
 <div class="section level4">
-<h4 id="dftransformed">
-<code>dfTransformed</code><a class="anchor" aria-label="anchor" href="#dftransformed"></a>
+<h4 id="analysis_transformed">
+<code>Analysis_Transformed</code><a class="anchor" aria-label="anchor" href="#analysis_transformed"></a>
 </h4>
 <ul>
 <li>Function(s) used to create table:
@@ -366,7 +373,7 @@ the <code>Transform_*()</code> functions.</li>
 <li><code><a href="../reference/Transform_Count.html">Transform_Count()</a></code></li>
 </ul>
 </li>
-<li>Inputs: <code>dfInput</code>
+<li>Inputs: <code>Analysis_Input</code>
 </li>
 <li>Usage: Convert from input data format to needed format to derive KRI
 for an Assessment via the <code>Analyze_*()</code> functions.</li>
@@ -389,35 +396,35 @@ for an Assessment via the <code>Analyze_*()</code> functions.</li>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>dfTransformed</td>
+<td>Analysis_Transformed</td>
 <td>GroupID</td>
 <td>The group ID for the metric</td>
 <td>Character</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>dfTransformed</td>
+<td>Analysis_Transformed</td>
 <td>GroupLevel</td>
 <td>The group type for the metric (e.g. “Site”)</td>
 <td>Character</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>dfTransformed</td>
+<td>Analysis_Transformed</td>
 <td>Numerator</td>
 <td>The calculated numerator value</td>
 <td>Numeric</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>dfTransformed</td>
+<td>Analysis_Transformed</td>
 <td>Denominator</td>
 <td>The calculated denominator value</td>
 <td>Numeric</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>dfTransformed</td>
+<td>Analysis_Transformed</td>
 <td>Metric</td>
 <td>The calculated rate/metric value</td>
 <td>Numeric</td>
@@ -427,8 +434,8 @@ for an Assessment via the <code>Analyze_*()</code> functions.</li>
 </table>
 </div>
 <div class="section level4">
-<h4 id="dfanalyzed">
-<code>dfAnalyzed</code><a class="anchor" aria-label="anchor" href="#dfanalyzed"></a>
+<h4 id="analysis_analyzed">
+<code>Analysis_Analyzed</code><a class="anchor" aria-label="anchor" href="#analysis_analyzed"></a>
 </h4>
 <ul>
 <li>Function(s) used to create table:
@@ -439,7 +446,7 @@ for an Assessment via the <code>Analyze_*()</code> functions.</li>
 <li><code><a href="../reference/Analyze_Poisson.html">Analyze_Poisson()</a></code></li>
 </ul>
 </li>
-<li>Inputs: <code>dfTransformed</code>
+<li>Inputs: <code>Analysis_Transformed</code>
 </li>
 <li>Usage: Prepare the data for <code>Flag_*()</code> by performing the
 specified test on the metric provided.</li>
@@ -462,63 +469,63 @@ specified test on the metric provided.</li>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>dfAnalyzed</td>
+<td>Analysis_Analyzed</td>
 <td>GroupID</td>
 <td>The group ID for the metric</td>
 <td>Character</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>dfAnalyzed</td>
+<td>Analysis_Analyzed</td>
 <td>GroupLevel</td>
 <td>The group type for the metric (e.g. “Site”)</td>
 <td>Character</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>dfAnalyzed</td>
+<td>Analysis_Analyzed</td>
 <td>Numerator</td>
 <td>The calculated numerator value</td>
 <td>Numeric</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>dfAnalyzed</td>
+<td>Analysis_Analyzed</td>
 <td>Denominator</td>
 <td>The calculated denominator value</td>
 <td>Numeric</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>dfAnalyzed</td>
+<td>Analysis_Analyzed</td>
 <td>Metric</td>
 <td>The calculated rate/metric value</td>
 <td>Numeric</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>dfAnalyzed</td>
+<td>Analysis_Analyzed</td>
 <td>Score</td>
 <td>The Statistical Score</td>
 <td>Numeric</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>dfAnalyzed</td>
+<td>Analysis_Analyzed</td>
 <td>Overall Metric</td>
 <td></td>
 <td>Numeric</td>
 <td>*</td>
 </tr>
 <tr class="even">
-<td>dfAnalyzed</td>
+<td>Analysis_Analyzed</td>
 <td>Factor</td>
 <td></td>
 <td>Numeric</td>
 <td>*</td>
 </tr>
 <tr class="odd">
-<td>dfAnalyzed</td>
+<td>Analysis_Analyzed</td>
 <td>Predicted Count</td>
 <td></td>
 <td>Numeric</td>
@@ -528,8 +535,8 @@ specified test on the metric provided.</li>
 </table>
 </div>
 <div class="section level4">
-<h4 id="dfflagged">
-<code>dfFlagged</code><a class="anchor" aria-label="anchor" href="#dfflagged"></a>
+<h4 id="analysis_flagged">
+<code>Analysis_Flagged</code><a class="anchor" aria-label="anchor" href="#analysis_flagged"></a>
 </h4>
 <ul>
 <li>Function(s) used to create table:
@@ -540,7 +547,7 @@ specified test on the metric provided.</li>
 <li><code><a href="../reference/Flag_Poisson.html">Flag_Poisson()</a></code></li>
 </ul>
 </li>
-<li>Inputs: <code>dfAnalyzed</code>
+<li>Inputs: <code>Analysis_Analyzed</code>
 </li>
 <li>Usage: Flag a group-level metric to be summarized via
 <code><a href="../reference/Summarize.html">Summarize()</a></code> and used for reporting.</li>
@@ -563,70 +570,70 @@ specified test on the metric provided.</li>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>dfFlagged</td>
+<td>Analysis_Flagged</td>
 <td>GroupID</td>
 <td>The group ID for the metric</td>
 <td>Character</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>dfFlagged</td>
+<td>Analysis_Flagged</td>
 <td>GroupLevel</td>
 <td>The group type for the metric (e.g. “Site”)</td>
 <td>Character</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>dfFlagged</td>
+<td>Analysis_Flagged</td>
 <td>Numerator</td>
 <td>The calculated numerator value</td>
 <td>Numeric</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>dfFlagged</td>
+<td>Analysis_Flagged</td>
 <td>Denominator</td>
 <td>The calculated denominator value</td>
 <td>Numeric</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>dfFlagged</td>
+<td>Analysis_Flagged</td>
 <td>Metric</td>
 <td>The calculated rate/metric value</td>
 <td>Numeric</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>dfFlagged</td>
+<td>Analysis_Flagged</td>
 <td>Score</td>
 <td>The Statistical Score</td>
 <td>Numeric</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>dfFlagged</td>
+<td>Analysis_Flagged</td>
 <td>Flag</td>
 <td>The ordinal Flag to be applied</td>
 <td>Numeric</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>dfFlagged</td>
+<td>Analysis_Flagged</td>
 <td>Overall Metric</td>
 <td></td>
 <td>Numeric</td>
 <td>*</td>
 </tr>
 <tr class="odd">
-<td>dfFlagged</td>
+<td>Analysis_Flagged</td>
 <td>Factor</td>
 <td></td>
 <td>Numeric</td>
 <td>*</td>
 </tr>
 <tr class="even">
-<td>dfFlagged</td>
+<td>Analysis_Flagged</td>
 <td>Predicted Count</td>
 <td></td>
 <td>Numeric</td>
@@ -636,8 +643,8 @@ specified test on the metric provided.</li>
 </table>
 </div>
 <div class="section level4">
-<h4 id="dfsummary">
-<code>dfSummary</code><a class="anchor" aria-label="anchor" href="#dfsummary"></a>
+<h4 id="analysis_summary">
+<code>Analysis_Summary</code><a class="anchor" aria-label="anchor" href="#analysis_summary"></a>
 </h4>
 <ul>
 <li>Function(s) used to create table:
@@ -645,7 +652,7 @@ specified test on the metric provided.</li>
 <li><code><a href="../reference/Summarize.html">Summarize()</a></code></li>
 </ul>
 </li>
-<li>Inputs: <code>dfFlagged</code>
+<li>Inputs: <code>Analysis_Flagged</code>
 </li>
 <li>Usage: Summarize KRI at the group level for reporting.</li>
 <li>Structure:</li>
@@ -667,35 +674,35 @@ specified test on the metric provided.</li>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>dfSummary</td>
+<td>Analysis_Summary</td>
 <td>GroupID</td>
 <td>The group ID for the metric</td>
 <td>Character</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>dfSummary</td>
+<td>Analysis_Summary</td>
 <td>GroupLevel</td>
 <td>The group type for the metric (e.g. “Site”)</td>
 <td>Character</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>dfSummary</td>
+<td>Analysis_Summary</td>
 <td>Numerator</td>
 <td>The calculated numerator value</td>
 <td>Numeric</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>dfSummary</td>
+<td>Analysis_Summary</td>
 <td>Denominator</td>
 <td>The calculated denominator value</td>
 <td>Numeric</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>dfSummary</td>
+<td>Analysis_Summary</td>
 <td>Metric</td>
 <td>The calculated rate/metric value</td>
 <td>Numeric</td>
@@ -713,8 +720,8 @@ specified test on the metric provided.</li>
 <h3 id="reporting-data-tables">Reporting Data Tables<a class="anchor" aria-label="anchor" href="#reporting-data-tables"></a>
 </h3>
 <div class="section level4">
-<h4 id="dfresults">
-<code>dfResults</code><a class="anchor" aria-label="anchor" href="#dfresults"></a>
+<h4 id="reporting_results">
+<code>Reporting_Results</code><a class="anchor" aria-label="anchor" href="#reporting_results"></a>
 </h4>
 <ul>
 <li>Function(s) used to create table:
@@ -749,7 +756,7 @@ specified test on the metric provided.</li>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>dfResults</td>
+<td>Reporting_Results</td>
 <td>GroupID</td>
 <td>The group ID for the metric</td>
 <td>Character</td>
@@ -757,7 +764,7 @@ specified test on the metric provided.</li>
 <td></td>
 </tr>
 <tr class="even">
-<td>dfResults</td>
+<td>Reporting_Results</td>
 <td>GroupLevel</td>
 <td>The group type for the metric (e.g. “Site”)</td>
 <td>Character</td>
@@ -765,7 +772,7 @@ specified test on the metric provided.</li>
 <td></td>
 </tr>
 <tr class="odd">
-<td>dfResults</td>
+<td>Reporting_Results</td>
 <td>Numerator</td>
 <td>The calculated numerator value</td>
 <td>Numeric</td>
@@ -773,7 +780,7 @@ specified test on the metric provided.</li>
 <td></td>
 </tr>
 <tr class="even">
-<td>dfResults</td>
+<td>Reporting_Results</td>
 <td>Denominator</td>
 <td>The calculated denominator value</td>
 <td>Numeric</td>
@@ -781,7 +788,7 @@ specified test on the metric provided.</li>
 <td></td>
 </tr>
 <tr class="odd">
-<td>dfResults</td>
+<td>Reporting_Results</td>
 <td>Metric</td>
 <td>The calculated rate/metric value</td>
 <td>Numeric</td>
@@ -789,7 +796,7 @@ specified test on the metric provided.</li>
 <td></td>
 </tr>
 <tr class="even">
-<td>dfResults</td>
+<td>Reporting_Results</td>
 <td>Score</td>
 <td>The calculated metric score</td>
 <td>Numeric</td>
@@ -797,7 +804,7 @@ specified test on the metric provided.</li>
 <td></td>
 </tr>
 <tr class="odd">
-<td>dfResults</td>
+<td>Reporting_Results</td>
 <td>Flag</td>
 <td>The calculated flag</td>
 <td>Numeric</td>
@@ -805,7 +812,7 @@ specified test on the metric provided.</li>
 <td></td>
 </tr>
 <tr class="even">
-<td>dfResults</td>
+<td>Reporting_Results</td>
 <td>MetricID</td>
 <td>The Metric ID</td>
 <td>Character</td>
@@ -813,7 +820,7 @@ specified test on the metric provided.</li>
 <td></td>
 </tr>
 <tr class="odd">
-<td>dfResults</td>
+<td>Reporting_Results</td>
 <td>StudyID</td>
 <td>The Study ID</td>
 <td>Character</td>
@@ -821,7 +828,7 @@ specified test on the metric provided.</li>
 <td></td>
 </tr>
 <tr class="even">
-<td>dfResults</td>
+<td>Reporting_Results</td>
 <td>SnapshotDate</td>
 <td>The Date of the snapshot</td>
 <td>Date</td>
@@ -832,8 +839,8 @@ specified test on the metric provided.</li>
 </table>
 </div>
 <div class="section level4">
-<h4 id="dfbounds">
-<code>dfBounds</code><a class="anchor" aria-label="anchor" href="#dfbounds"></a>
+<h4 id="reporting_bounds">
+<code>Reporting_Bounds</code><a class="anchor" aria-label="anchor" href="#reporting_bounds"></a>
 </h4>
 <ul>
 <li>Function(s) used to create table:
@@ -873,7 +880,7 @@ for reporting.</li>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>dfBounds</td>
+<td>Reporting_Bounds</td>
 <td>Threshold</td>
 <td>The number of standard deviations that the upper and lower bounds
 are based on</td>
@@ -882,7 +889,7 @@ are based on</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>dfBounds</td>
+<td>Reporting_Bounds</td>
 <td>Denominator</td>
 <td>The calculated denominator value</td>
 <td>Numeric</td>
@@ -890,7 +897,7 @@ are based on</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>dfBounds</td>
+<td>Reporting_Bounds</td>
 <td>LogDenominator</td>
 <td>The calculated log denominator value</td>
 <td>Numeric</td>
@@ -898,7 +905,7 @@ are based on</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>dfBounds</td>
+<td>Reporting_Bounds</td>
 <td>Numerator</td>
 <td>The calculated numerator value</td>
 <td>Numeric</td>
@@ -906,7 +913,7 @@ are based on</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>dfBounds</td>
+<td>Reporting_Bounds</td>
 <td>Metric</td>
 <td>The calculated rate/metric value</td>
 <td>Numeric</td>
@@ -914,7 +921,7 @@ are based on</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>dfBounds</td>
+<td>Reporting_Bounds</td>
 <td>MetricID</td>
 <td>The Metric ID</td>
 <td>Character</td>
@@ -922,7 +929,7 @@ are based on</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>dfBounds</td>
+<td>Reporting_Bounds</td>
 <td>StudyID</td>
 <td>The Study ID</td>
 <td>Character</td>
@@ -930,7 +937,7 @@ are based on</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>dfBounds</td>
+<td>Reporting_Bounds</td>
 <td>SnapshotDate</td>
 <td>The Date of the snapshot</td>
 <td>Date</td>
@@ -941,8 +948,8 @@ are based on</td>
 </table>
 </div>
 <div class="section level4">
-<h4 id="dfgroups">
-<code>dfGroups</code><a class="anchor" aria-label="anchor" href="#dfgroups"></a>
+<h4 id="reporting_groups">
+<code>Reporting_Groups</code><a class="anchor" aria-label="anchor" href="#reporting_groups"></a>
 </h4>
 <ul>
 <li>Function(s) used to create table:
@@ -976,28 +983,28 @@ for given <code>GroupLevel</code>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>dfGroups</td>
+<td>Reporting_Groups</td>
 <td>GroupID</td>
 <td>Unique Group ID</td>
 <td>Character</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>dfGroups</td>
+<td>Reporting_Groups</td>
 <td>GroupLevel</td>
 <td>Group Level (e.g. Site, Country)</td>
 <td>Character</td>
 <td></td>
 </tr>
 <tr class="odd">
-<td>dfGroups</td>
+<td>Reporting_Groups</td>
 <td>Param</td>
 <td>Parameter Name (e.g. “Status”)</td>
 <td>Character</td>
 <td></td>
 </tr>
 <tr class="even">
-<td>dfGroups</td>
+<td>Reporting_Groups</td>
 <td>Value</td>
 <td>Parameter Value (e.g. “Active”)</td>
 <td>Character</td>
@@ -1091,8 +1098,8 @@ reporting. User may add other Param values as needed.</p>
 </table>
 </div>
 <div class="section level4">
-<h4 id="dfmetrics">
-<code>dfMetrics</code><a class="anchor" aria-label="anchor" href="#dfmetrics"></a>
+<h4 id="reporting_metrics">
+<code>Reporting_Metrics</code><a class="anchor" aria-label="anchor" href="#reporting_metrics"></a>
 </h4>
 <ul>
 <li>Function used to create table: <code><a href="../reference/MakeMetric.html">MakeMetric()</a></code>
@@ -1124,7 +1131,7 @@ kri(s) made with <code><a href="../reference/MakeWorkflowList.html">MakeWorkflow
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>dfMetrics</td>
+<td>Reporting_Metrics</td>
 <td>File</td>
 <td>The YAML file for workflow</td>
 <td>Character</td>
@@ -1132,7 +1139,7 @@ kri(s) made with <code><a href="../reference/MakeWorkflowList.html">MakeWorkflow
 <td></td>
 </tr>
 <tr class="even">
-<td>dfMetrics</td>
+<td>Reporting_Metrics</td>
 <td>MetricID</td>
 <td>ID for the Metric</td>
 <td>Character</td>
@@ -1140,7 +1147,7 @@ kri(s) made with <code><a href="../reference/MakeWorkflowList.html">MakeWorkflow
 <td></td>
 </tr>
 <tr class="odd">
-<td>dfMetrics</td>
+<td>Reporting_Metrics</td>
 <td>Group</td>
 <td>The group type for the metric (e.g. “Site”)</td>
 <td>Character</td>
@@ -1148,7 +1155,7 @@ kri(s) made with <code><a href="../reference/MakeWorkflowList.html">MakeWorkflow
 <td></td>
 </tr>
 <tr class="even">
-<td>dfMetrics</td>
+<td>Reporting_Metrics</td>
 <td>Abbreviation</td>
 <td>Abbreviation for the metric</td>
 <td>Character</td>
@@ -1156,7 +1163,7 @@ kri(s) made with <code><a href="../reference/MakeWorkflowList.html">MakeWorkflow
 <td></td>
 </tr>
 <tr class="odd">
-<td>dfMetrics</td>
+<td>Reporting_Metrics</td>
 <td>Metric</td>
 <td>Name of the metric</td>
 <td>Character</td>
@@ -1164,7 +1171,7 @@ kri(s) made with <code><a href="../reference/MakeWorkflowList.html">MakeWorkflow
 <td></td>
 </tr>
 <tr class="even">
-<td>dfMetrics</td>
+<td>Reporting_Metrics</td>
 <td>Numerator</td>
 <td>Data source for the Numerator</td>
 <td>Character</td>
@@ -1172,7 +1179,7 @@ kri(s) made with <code><a href="../reference/MakeWorkflowList.html">MakeWorkflow
 <td></td>
 </tr>
 <tr class="odd">
-<td>dfMetrics</td>
+<td>Reporting_Metrics</td>
 <td>Denominator</td>
 <td>Data source for the Denominator</td>
 <td>Character</td>
@@ -1180,7 +1187,7 @@ kri(s) made with <code><a href="../reference/MakeWorkflowList.html">MakeWorkflow
 <td></td>
 </tr>
 <tr class="even">
-<td>dfMetrics</td>
+<td>Reporting_Metrics</td>
 <td>Model</td>
 <td>Model used to calculate metric</td>
 <td>Character</td>
@@ -1188,7 +1195,7 @@ kri(s) made with <code><a href="../reference/MakeWorkflowList.html">MakeWorkflow
 <td></td>
 </tr>
 <tr class="odd">
-<td>dfMetrics</td>
+<td>Reporting_Metrics</td>
 <td>Score</td>
 <td>Type of Score reported</td>
 <td>Character</td>
@@ -1241,11 +1248,11 @@ passed to the function</li>
 </li>
 </ul>
 <p>For example, the default workflow for the AE assessment
-(<code>system.file("workflow/metrics/kri0001.yaml", package = "gsm")</code>)
+(<code>system.file("workflow/2_metrics/kri0001.yaml", package = "gsm")</code>)
 is shown below:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">meta</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">MetricID</span><span class="kw">:</span><span class="at"> kri0001</span></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="at">  </span><span class="fu">File</span><span class="kw">:</span><span class="at"> kri0001.yaml</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">Type</span><span class="kw">:</span><span class="at"> Analysis</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="at">  </span><span class="fu">ID</span><span class="kw">:</span><span class="at"> kri0001</span></span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="at">  </span><span class="fu">GroupLevel</span><span class="kw">:</span><span class="at"> Site</span></span>
 <span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="at">  </span><span class="fu">Abbreviation</span><span class="kw">:</span><span class="at"> AE</span></span>
 <span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="at">  </span><span class="fu">Metric</span><span class="kw">:</span><span class="at"> Adverse Event Rate</span></span>
@@ -1253,45 +1260,69 @@ is shown below:</p>
 <span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="at">  </span><span class="fu">Denominator</span><span class="kw">:</span><span class="at"> Days on Study</span></span>
 <span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="at">  </span><span class="fu">Model</span><span class="kw">:</span><span class="at"> Normal Approximation</span></span>
 <span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="at">  </span><span class="fu">Score</span><span class="kw">:</span><span class="at"> Adjusted Z-Score</span></span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="at">  </span><span class="fu">Type</span><span class="kw">:</span><span class="at"> rate</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="at">  </span><span class="fu">AnalysisType</span><span class="kw">:</span><span class="at"> rate</span></span>
 <span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="at">  </span><span class="fu">Threshold</span><span class="kw">:</span><span class="at"> -2,-1,2,3</span></span>
 <span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="at">  </span><span class="fu">nMinDenominator</span><span class="kw">:</span><span class="at"> </span><span class="dv">30</span></span>
-<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="fu">steps</span><span class="kw">:</span></span>
-<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> ParseThreshold</span></span>
-<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> vThreshold</span></span>
-<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="at">      </span><span class="fu">strThreshold</span><span class="kw">:</span><span class="at"> Threshold</span></span>
-<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Input_Rate</span></span>
-<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfInput</span></span>
-<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="at">      </span><span class="fu">dfSubjects</span><span class="kw">:</span><span class="at"> dfEnrolled</span></span>
-<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="at">      </span><span class="fu">dfNumerator</span><span class="kw">:</span><span class="at"> dfAE</span></span>
-<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a><span class="at">      </span><span class="fu">dfDenominator</span><span class="kw">:</span><span class="at"> dfEnrolled</span></span>
-<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a><span class="at">      </span><span class="fu">strSubjectCol</span><span class="kw">:</span><span class="at"> subjid</span></span>
-<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a><span class="at">      </span><span class="fu">strGroupCol</span><span class="kw">:</span><span class="at"> invid</span></span>
-<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a><span class="at">      </span><span class="fu">strGroupLevel</span><span class="kw">:</span><span class="at"> GroupLevel</span></span>
-<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a><span class="at">      </span><span class="fu">strNumeratorMethod</span><span class="kw">:</span><span class="at"> Count</span></span>
-<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a><span class="at">      </span><span class="fu">strDenominatorMethod</span><span class="kw">:</span><span class="at"> Sum</span></span>
-<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a><span class="at">      </span><span class="fu">strDenominatorCol</span><span class="kw">:</span><span class="at"> timeonstudy</span></span>
-<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Transform_Rate</span></span>
-<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfTransformed</span></span>
-<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a><span class="at">      </span><span class="fu">dfInput</span><span class="kw">:</span><span class="at"> dfInput</span></span>
-<span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Analyze_NormalApprox</span></span>
-<span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfAnalyzed</span></span>
-<span id="cb1-37"><a href="#cb1-37" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb1-38"><a href="#cb1-38" tabindex="-1"></a><span class="at">      </span><span class="fu">dfTransformed</span><span class="kw">:</span><span class="at"> dfTransformed</span></span>
-<span id="cb1-39"><a href="#cb1-39" tabindex="-1"></a><span class="at">      </span><span class="fu">strType</span><span class="kw">:</span><span class="at"> Type</span></span>
-<span id="cb1-40"><a href="#cb1-40" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Flag_NormalApprox</span></span>
-<span id="cb1-41"><a href="#cb1-41" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfFlagged</span></span>
-<span id="cb1-42"><a href="#cb1-42" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb1-43"><a href="#cb1-43" tabindex="-1"></a><span class="at">      </span><span class="fu">dfAnalyzed</span><span class="kw">:</span><span class="at"> dfAnalyzed</span></span>
-<span id="cb1-44"><a href="#cb1-44" tabindex="-1"></a><span class="at">      </span><span class="fu">vThreshold</span><span class="kw">:</span><span class="at"> vThreshold</span></span>
-<span id="cb1-45"><a href="#cb1-45" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Summarize</span></span>
-<span id="cb1-46"><a href="#cb1-46" tabindex="-1"></a><span class="at">    </span><span class="fu">output</span><span class="kw">:</span><span class="at"> dfSummary</span></span>
-<span id="cb1-47"><a href="#cb1-47" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
-<span id="cb1-48"><a href="#cb1-48" tabindex="-1"></a><span class="at">      </span><span class="fu">dfFlagged</span><span class="kw">:</span><span class="at"> dfFlagged</span></span>
-<span id="cb1-49"><a href="#cb1-49" tabindex="-1"></a><span class="at">      </span><span class="fu">nMinDenominator</span><span class="kw">:</span><span class="at"> nMinDenominator</span></span></code></pre></div>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="fu">spec</span><span class="kw">:</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="at">  </span><span class="fu">Mapped_AE</span><span class="kw">:</span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="at">    </span><span class="fu">subjid</span><span class="kw">:</span></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="at">      </span><span class="fu">required</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="at">      </span><span class="fu">type</span><span class="kw">:</span><span class="at"> character</span></span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="at">  </span><span class="fu">Mapped_SUBJ</span><span class="kw">:</span></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="at">    </span><span class="fu">subjid</span><span class="kw">:</span></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="at">      </span><span class="fu">required</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="at">      </span><span class="fu">type</span><span class="kw">:</span><span class="at"> character</span></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="at">    </span><span class="fu">invid</span><span class="kw">:</span></span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a><span class="at">      </span><span class="fu">required</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a><span class="at">      </span><span class="fu">type</span><span class="kw">:</span><span class="at"> character</span></span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a><span class="at">    </span><span class="fu">timeonstudy</span><span class="kw">:</span></span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a><span class="at">      </span><span class="fu">required</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a><span class="at">      </span><span class="fu">type</span><span class="kw">:</span><span class="at"> numeric</span></span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a><span class="fu">steps</span><span class="kw">:</span></span>
+<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">output</span><span class="kw">:</span><span class="at"> vThreshold</span></span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> ParseThreshold</span></span>
+<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a><span class="at">      </span><span class="fu">strThreshold</span><span class="kw">:</span><span class="at"> Threshold</span></span>
+<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">output</span><span class="kw">:</span><span class="at"> Analysis_Input</span></span>
+<span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Input_Rate</span></span>
+<span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb1-37"><a href="#cb1-37" tabindex="-1"></a><span class="at">      </span><span class="fu">dfSubjects</span><span class="kw">:</span><span class="at"> Mapped_SUBJ</span></span>
+<span id="cb1-38"><a href="#cb1-38" tabindex="-1"></a><span class="at">      </span><span class="fu">dfNumerator</span><span class="kw">:</span><span class="at"> Mapped_AE</span></span>
+<span id="cb1-39"><a href="#cb1-39" tabindex="-1"></a><span class="at">      </span><span class="fu">dfDenominator</span><span class="kw">:</span><span class="at"> Mapped_SUBJ</span></span>
+<span id="cb1-40"><a href="#cb1-40" tabindex="-1"></a><span class="at">      </span><span class="fu">strSubjectCol</span><span class="kw">:</span><span class="at"> subjid</span></span>
+<span id="cb1-41"><a href="#cb1-41" tabindex="-1"></a><span class="at">      </span><span class="fu">strGroupCol</span><span class="kw">:</span><span class="at"> invid</span></span>
+<span id="cb1-42"><a href="#cb1-42" tabindex="-1"></a><span class="at">      </span><span class="fu">strGroupLevel</span><span class="kw">:</span><span class="at"> GroupLevel</span></span>
+<span id="cb1-43"><a href="#cb1-43" tabindex="-1"></a><span class="at">      </span><span class="fu">strNumeratorMethod</span><span class="kw">:</span><span class="at"> Count</span></span>
+<span id="cb1-44"><a href="#cb1-44" tabindex="-1"></a><span class="at">      </span><span class="fu">strDenominatorMethod</span><span class="kw">:</span><span class="at"> Sum</span></span>
+<span id="cb1-45"><a href="#cb1-45" tabindex="-1"></a><span class="at">      </span><span class="fu">strDenominatorCol</span><span class="kw">:</span><span class="at"> timeonstudy</span></span>
+<span id="cb1-46"><a href="#cb1-46" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">output</span><span class="kw">:</span><span class="at"> Analysis_Transformed</span></span>
+<span id="cb1-47"><a href="#cb1-47" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Transform_Rate</span></span>
+<span id="cb1-48"><a href="#cb1-48" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb1-49"><a href="#cb1-49" tabindex="-1"></a><span class="at">      </span><span class="fu">dfInput</span><span class="kw">:</span><span class="at"> Analysis_Input</span></span>
+<span id="cb1-50"><a href="#cb1-50" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">output</span><span class="kw">:</span><span class="at"> Analysis_Analyzed</span></span>
+<span id="cb1-51"><a href="#cb1-51" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Analyze_NormalApprox</span></span>
+<span id="cb1-52"><a href="#cb1-52" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb1-53"><a href="#cb1-53" tabindex="-1"></a><span class="at">      </span><span class="fu">dfTransformed</span><span class="kw">:</span><span class="at"> Analysis_Transformed</span></span>
+<span id="cb1-54"><a href="#cb1-54" tabindex="-1"></a><span class="at">      </span><span class="fu">strType</span><span class="kw">:</span><span class="at"> AnalysisType</span></span>
+<span id="cb1-55"><a href="#cb1-55" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">output</span><span class="kw">:</span><span class="at"> Analysis_Flagged</span></span>
+<span id="cb1-56"><a href="#cb1-56" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Flag_NormalApprox</span></span>
+<span id="cb1-57"><a href="#cb1-57" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb1-58"><a href="#cb1-58" tabindex="-1"></a><span class="at">      </span><span class="fu">dfAnalyzed</span><span class="kw">:</span><span class="at"> Analysis_Analyzed</span></span>
+<span id="cb1-59"><a href="#cb1-59" tabindex="-1"></a><span class="at">      </span><span class="fu">vThreshold</span><span class="kw">:</span><span class="at"> vThreshold</span></span>
+<span id="cb1-60"><a href="#cb1-60" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">output</span><span class="kw">:</span><span class="at"> Analysis_Summary</span></span>
+<span id="cb1-61"><a href="#cb1-61" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Summarize</span></span>
+<span id="cb1-62"><a href="#cb1-62" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb1-63"><a href="#cb1-63" tabindex="-1"></a><span class="at">      </span><span class="fu">dfFlagged</span><span class="kw">:</span><span class="at"> Analysis_Flagged</span></span>
+<span id="cb1-64"><a href="#cb1-64" tabindex="-1"></a><span class="at">      </span><span class="fu">nMinDenominator</span><span class="kw">:</span><span class="at"> nMinDenominator</span></span>
+<span id="cb1-65"><a href="#cb1-65" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">output</span><span class="kw">:</span><span class="at"> lAnalysis</span></span>
+<span id="cb1-66"><a href="#cb1-66" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> list</span></span>
+<span id="cb1-67"><a href="#cb1-67" tabindex="-1"></a><span class="at">    </span><span class="fu">params</span><span class="kw">:</span></span>
+<span id="cb1-68"><a href="#cb1-68" tabindex="-1"></a><span class="at">      </span><span class="fu">ID</span><span class="kw">:</span><span class="at"> ID</span></span>
+<span id="cb1-69"><a href="#cb1-69" tabindex="-1"></a><span class="at">      </span><span class="fu">Analysis_Input</span><span class="kw">:</span><span class="at"> Analysis_Input</span></span>
+<span id="cb1-70"><a href="#cb1-70" tabindex="-1"></a><span class="at">      </span><span class="fu">Analysis_Transformed</span><span class="kw">:</span><span class="at"> Analysis_Transformed</span></span>
+<span id="cb1-71"><a href="#cb1-71" tabindex="-1"></a><span class="at">      </span><span class="fu">Analysis_Analyzed</span><span class="kw">:</span><span class="at"> Analysis_Analyzed</span></span>
+<span id="cb1-72"><a href="#cb1-72" tabindex="-1"></a><span class="at">      </span><span class="fu">Analysis_Flagged</span><span class="kw">:</span><span class="at"> Analysis_Flagged</span></span>
+<span id="cb1-73"><a href="#cb1-73" tabindex="-1"></a><span class="at">      </span><span class="fu">Analysis_Summary</span><span class="kw">:</span><span class="at"> Analysis_Summary</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -1301,11 +1332,11 @@ is shown below:</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Nathan Kosiba, Douglas Sanders, Spencer Childress, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans, Jacob Anderson, Laura Maxwell, Jon Harmon.</p>
+  <p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Spencer Childress, Laura Maxwell, Jacob Anderson, Jon Harmon, Zelos <a href="mailto:zelos.zhu@atorusresearch.com" class="email">zelos.zhu@atorusresearch.com</a> Zhu, Nathan Kosiba, Douglas Sanders, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>
