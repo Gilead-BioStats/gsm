@@ -53,17 +53,17 @@ CheckSpec <- function(lData, lSpec) {
   # Check that all required columns in the spec are present in the data
   allCols <- c()
   missingCols <- c()
-  #remove all lSpec entries where we are requesting `_all` columns
-  lSpecDataFrames <- which(sapply(lSpec, function(x) names(x)[1] != "_all")) %>% names
+  # remove all lSpec entries where we are requesting `_all` columns
+  lSpecDataFrames <- which(sapply(lSpec, function(x) names(x)[1] != "_all")) %>% names()
   for (strDataFrame in lSpecDataFrames) {
     chrDataFrameColnames <- colnames(lData[[strDataFrame]])
-    #check modes in data
+    # check modes in data
     wrongType <- purrr::reduce2(
       lSpec[[strDataFrame]],
       names(lSpec[[strDataFrame]]),
       function(so_far, x, idx) {
         if (!is.null(x$type) && idx %in% chrDataFrameColnames) {
-          #check if data is the expected mode
+          # check if data is the expected mode
           res <- all(x$type == mode(lData[[strDataFrame]][[idx]]))
           if (!res) {
             so_far <- c(so_far, idx)
@@ -79,8 +79,8 @@ CheckSpec <- function(lData, lSpec) {
     } else {
       cli::cli_alert("All specified columns in {strDataFrame} are in the expected format")
     }
-    #check that required exist in data
-    lSpecColumns <- which(sapply(lSpec[[strDataFrame]], function(x) x$required)) %>% names
+    # check that required exist in data
+    lSpecColumns <- which(sapply(lSpec[[strDataFrame]], function(x) x$required)) %>% names()
     lDataColumns <- names(lData[[strDataFrame]])
     allCols <- c(allCols, paste(strDataFrame, lSpecColumns, sep = "$"))
 

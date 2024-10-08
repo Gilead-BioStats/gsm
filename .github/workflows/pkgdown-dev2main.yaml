@@ -27,7 +27,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::pkgdown, local::.
+          extra-packages: any::pkgdown
           needs: website
 
       - name: Generate sample reports
@@ -39,7 +39,7 @@ jobs:
           lCharts <- MakeCharts(
             dfResults = gsm::reportingResults,
             dfGroups = gsm::reportingGroups,
-            dfMetrics = gsm::reportinMetrics,
+            dfMetrics = gsm::reportingMetrics,
             dfBounds = gsm::reportingBounds
           )
 
@@ -56,7 +56,7 @@ jobs:
             lCharts_country <- MakeCharts(
             dfResults = gsm::reportingResults_country,
             dfGroups = gsm::reportingGroups_country,
-            dfMetrics = gsm::reportinMetrics_country,
+            dfMetrics = gsm::reportingMetrics_country,
             dfBounds = gsm::reportingBounds_country
           )
 

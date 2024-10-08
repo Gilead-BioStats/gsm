@@ -65,7 +65,7 @@ MakeWorkflowList <- function(
     }
   }
 
-  workflows <-  purrr::map2(
+  workflows <- purrr::map2(
     yaml_files,
     names(yaml_files),
     function(yaml_file, file_name) {
@@ -76,37 +76,38 @@ MakeWorkflowList <- function(
       workflow$path <- yaml_file
 
       # each workflow should have an $meta and $steps $meta$ID attributes
-      if(!utils::hasName(workflow, "meta")){
+      if (!utils::hasName(workflow, "meta")) {
         cli::cli_abort(c("{file_name} must contain `meta` attributes."))
       }
-      if(!utils::hasName(workflow, "steps")){
+      if (!utils::hasName(workflow, "steps")) {
         cli::cli_abort(c("{file_name} must contain `steps` attributes."))
       }
-      if(!utils::hasName(workflow$meta, "Type")){
+      if (!utils::hasName(workflow$meta, "Type")) {
         cli::cli_abort(c("{file_name} must contain `Type` attribute in `meta` section."))
       }
-      if(!utils::hasName(workflow$meta, "ID")){
+      if (!utils::hasName(workflow$meta, "ID")) {
         cli::cli_abort(c("{file_name} must contain `ID` attribute in `meta` section."))
       }
       # warn user if file name doesn't match ID specified
-      if(gsub(".yaml", "", file_name) != workflow$meta$ID) {
+      if (gsub(".yaml", "", file_name) != workflow$meta$ID) {
         cli::cli_warn(c("`ID` attribute does not match name of the file, {file_name}."))
       }
 
       return(workflow)
-    }) %>%
+    }
+  ) %>%
     stats::setNames(purrr::map_chr(., ~ .x$meta$ID))
 
   # Sort the list according to the $meta$priority property
 
   # Set priority to 0 if not defined
-  workflows <- workflows %>% map(function(wf){
-    if(is.null(wf$meta$Priority)){
+  workflows <- workflows %>% map(function(wf) {
+    if (is.null(wf$meta$Priority)) {
       wf$meta$Priority <- 0
     }
     return(wf)
   })
-  workflows <- workflows[order(workflows %>% map_dbl(~.x$meta$Priority))]
+  workflows <- workflows[order(workflows %>% map_dbl(~ .x$meta$Priority))]
 
   # throw a warning if no workflows are found
   if (length(workflows) == 0) {

@@ -1,6 +1,6 @@
 test_that("Widget_BarChart handles dfResults correctly", {
   widget <- Widget_BarChart(
-    reportingResults[1:1000,],
+    reportingResults[1:1000, ],
     reportingMetrics %>% as.list()
   )
 
@@ -8,7 +8,7 @@ test_that("Widget_BarChart handles dfResults correctly", {
   expect_true("Widget_BarChart" %in% class(widget))
 
   widget_data <- widget$x$dfResults
-  dfResults <- reportingResults[1:1000,] %>%
+  dfResults <- reportingResults[1:1000, ] %>%
     dplyr::mutate(
       Metric = round(Metric, 4),
       Score = round(Score, 4),
@@ -96,4 +96,3 @@ test_that("Widget_BarChart assertions works", {
     "bDebug is not a logical"
   )
 })
-

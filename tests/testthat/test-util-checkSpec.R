@@ -173,7 +173,7 @@ test_that("skip column check when `_all` is specified", {
     ),
     df3 = list(
       `_all` = list(required = TRUE)
-      )
+    )
   )
 
   # Example data

@@ -1,3 +1,13 @@
+# gsm v2.1.0
+
+This minor release addresses workflow updates which are required for improved modularity and automation. These updates include:
+
+- Specification of all required data sources in all yaml workflow files, via the `spec` section of the yaml, which are checked
+- Allow a master spec document to be constructed via the `CombineSpecs`.
+- Enforce that by default, each yaml file produces only one output- the final output in the workflow `steps`.
+- Parse out the mapping yamls into individual workflows, one per mapped dataframe.
+- Create a standard structure for yamls and the directories that yamls are stored in, specified in `vignette('gsmExtensions')`,
+
 # gsm v2.0.1
 
 This minor patch release addresses two reporting bugs. The first ensures the summary table is properly filtered and appears in the report html output under each chart widget. The second allows more flexibility to the report output path and file names, and ensure that intermediary rendering occurs in a temporary directory.

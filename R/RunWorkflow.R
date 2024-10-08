@@ -41,7 +41,7 @@ RunWorkflow <- function(
   bKeepInputData = TRUE
 ) {
   # Create a unique identifier for the workflow
-  uid <- paste0(lWorkflow$meta$Type,"_",lWorkflow$meta$ID)
+  uid <- paste0(lWorkflow$meta$Type, "_", lWorkflow$meta$ID)
   cli::cli_h1("Initializing `{uid}` Workflow")
 
   # check that the workflow has steps
@@ -70,10 +70,10 @@ RunWorkflow <- function(
   for (step in lWorkflow$steps) {
     cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lWorkflow$steps), ": `", step$name, "`"))
     result <- RunStep(
-        lStep = step,
-        lData = lWorkflow$lData,
-        lMeta = lWorkflow$meta,
-        lSpec = lWorkflow$spec
+      lStep = step,
+      lData = lWorkflow$lData,
+      lMeta = lWorkflow$meta,
+      lSpec = lWorkflow$spec
     )
 
     if (step$output %in% names(lData)) {

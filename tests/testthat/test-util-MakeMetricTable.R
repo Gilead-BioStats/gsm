@@ -4,7 +4,7 @@ test_that("Empty dfs return empty dfs", {
   expect_equal(
     MakeMetricTable(dfResults_empty, dfGroups_empty),
     data.frame(
-      Group = character(),  Enrolled = character(), Numerator = double(),
+      Group = character(), Enrolled = character(), Numerator = double(),
       Denominator = double(), Metric = double(), Score = double(),
       Flag = character()
     )

@@ -13,12 +13,12 @@ testthat::test_that("Adverse Event Assessments can be done correctly using a gro
   # grouping col in yaml file is interpreted correctly in dfInput GroupID
   iwalk(test, ~ expect_identical(
     sort(unique(.x$Analysis_Input$GroupID)),
-    sort(unique(.x$Mapped_SUBJ[[kri_workflows[[.y]]$steps[[which(map_chr(kri_workflows[[.y]]$steps, ~.x$name) == "Input_Rate")]]$params$strGroupCol]])) # No guarantee the Input_Rate mapping is done step 2, need better index
+    sort(unique(.x$Mapped_SUBJ[[kri_workflows[[.y]]$steps[[which(map_chr(kri_workflows[[.y]]$steps, ~ .x$name) == "Input_Rate")]]$params$strGroupCol]])) # No guarantee the Input_Rate mapping is done step 2, need better index
   ))
 
   # data is properly transformed by correct group in dfTransformed
   iwalk(test, ~ expect_equal(
-    n_distinct(.x$Mapped_SUBJ[[kri_workflows[[.y]]$steps[[which(map_chr(kri_workflows[[.y]]$steps, ~.x$name) == "Input_Rate")]]$params$strGroupCol]]),
+    n_distinct(.x$Mapped_SUBJ[[kri_workflows[[.y]]$steps[[which(map_chr(kri_workflows[[.y]]$steps, ~ .x$name) == "Input_Rate")]]$params$strGroupCol]]),
     nrow(.x$Analysis_Transformed)
   ))
 
@@ -41,8 +41,8 @@ testthat::test_that("Adverse Event Assessments can be done correctly using a gro
 
   ## custom edits -------------------------------------
   kri_custom2 <- map(kri_workflows, function(kri) {
-    kri$steps[[which(map_chr(kri$steps, ~.x$name) == "Input_Rate")]]$params$strGroupCol <- "agerep"
-    kri$steps[[which(map_chr(kri$steps, ~.x$name) == "Input_Rate")]]$params$strGroupLevel <- "Age"
+    kri$steps[[which(map_chr(kri$steps, ~ .x$name) == "Input_Rate")]]$params$strGroupCol <- "agerep"
+    kri$steps[[which(map_chr(kri$steps, ~ .x$name) == "Input_Rate")]]$params$strGroupLevel <- "Age"
     return(kri)
   })
 
@@ -51,12 +51,12 @@ testthat::test_that("Adverse Event Assessments can be done correctly using a gro
   # grouping col in custom2 workflow is interpreted correctly in dfInput GroupID
   iwalk(test_custom2, ~ expect_identical(
     sort(unique(.x$Analysis_Input$GroupID)),
-    sort(unique(.x$Mapped_SUBJ[[kri_custom2[[.y]]$steps[[which(map_chr(kri_workflows[[.y]]$steps, ~.x$name) == "Input_Rate")]]$params$strGroupCol]]))
+    sort(unique(.x$Mapped_SUBJ[[kri_custom2[[.y]]$steps[[which(map_chr(kri_workflows[[.y]]$steps, ~ .x$name) == "Input_Rate")]]$params$strGroupCol]]))
   ))
 
   # data is properly transformed by correct group in dfTransformed
   iwalk(test_custom2, ~ expect_equal(
-    n_distinct(.x$Mapped_SUBJ[[kri_custom2[[.y]]$steps[[which(map_chr(kri_workflows[[.y]]$steps, ~.x$name) == "Input_Rate")]]$params$strGroupCol]]),
+    n_distinct(.x$Mapped_SUBJ[[kri_custom2[[.y]]$steps[[which(map_chr(kri_workflows[[.y]]$steps, ~ .x$name) == "Input_Rate")]]$params$strGroupCol]]),
     nrow(.x$Analysis_Transformed)
   ))
 })

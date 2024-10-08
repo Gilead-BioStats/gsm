@@ -7,7 +7,7 @@ lSource <- list(
   Source_PD = clindata::ctms_protdev,
   Source_LB = clindata::rawplus_lb,
   Source_STUDCOMP = clindata::rawplus_studcomp,
-  Source_SDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
+  Source_SDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == "Blinded Study Drug Completion"),
   Source_DATACHG = clindata::edc_data_points,
   Source_DATAENT = clindata::edc_data_pages,
   Source_QUERY = clindata::edc_queries,
@@ -62,18 +62,18 @@ yaml_path_custom_metrics <- "tests/testqualification/qualification/qual_workflow
 mappings_wf <- MakeWorkflowList(strPath = yaml_path_custom_mappings)
 mapped_data <- RunWorkflows(mappings_wf, lData)
 
-mapping_output <- map(mappings_wf, ~.x$steps[[1]]$output) %>% unlist()
+mapping_output <- map(mappings_wf, ~ .x$steps[[1]]$output) %>% unlist()
 
 # Robust version of Runworkflow no config that will always run even with errors, and can be specified for specific steps in workflow to run
 robust_runworkflow <- function(
-    lWorkflow,
-    lData,
-    steps = seq(lWorkflow$steps),
-    bReturnResult = TRUE,
-    bKeepInputData = TRUE
+  lWorkflow,
+  lData,
+  steps = seq(lWorkflow$steps),
+  bReturnResult = TRUE,
+  bKeepInputData = TRUE
 ) {
   # Create a unique identifier for the workflow
-  uid <- paste0(lWorkflow$meta$Type,"_",lWorkflow$meta$ID)
+  uid <- paste0(lWorkflow$meta$Type, "_", lWorkflow$meta$ID)
   cli::cli_h1("Initializing `{uid}` Workflow")
 
   # check that the workflow has steps
@@ -110,17 +110,17 @@ robust_runworkflow <- function(
 
     result0 <- purrr::safely(
       ~ gsm::RunStep(
-          lStep = steps,
-          lData = lWorkflow$lData,
-          lMeta = lWorkflow$meta
-        )
-      )()
-      if (names(result0[!map_vec(result0, is.null)]) == "error") {
-        cli::cli_alert_danger(paste0("Error:`", result0$error$message, "`: ", "error message stored as result"))
-        result1 <- result0$error$message
-      } else {
-        result1 <- result0$result
-      }
+        lStep = steps,
+        lData = lWorkflow$lData,
+        lMeta = lWorkflow$meta
+      )
+    )()
+    if (names(result0[!map_vec(result0, is.null)]) == "error") {
+      cli::cli_alert_danger(paste0("Error:`", result0$error$message, "`: ", "error message stored as result"))
+      result1 <- result0$error$message
+    } else {
+      result1 <- result0$result
+    }
 
     lWorkflow$lData[[steps$output]] <- result1
     lWorkflow$lResult <- result1
@@ -155,10 +155,12 @@ robust_runworkflow <- function(
 # get only the relevant data for a workflow to speed up mapping
 # Just a fancy wrapper for robust_runworkflow
 get_data <- function(lWorkflow, data, steps) {
-  if ("spec" %in% names(lWorkflow)){
-    lWorkflow = list(lWorkflow)
+  if ("spec" %in% names(lWorkflow)) {
+    lWorkflow <- list(lWorkflow)
   }
-  maps_needed_index <- map(lWorkflow, ~names(.x$spec)) %>% unlist() %>% unique()
+  maps_needed_index <- map(lWorkflow, ~ names(.x$spec)) %>%
+    unlist() %>%
+    unique()
   maps_needed <- names(mapping_output[which(mapping_output %in% maps_needed_index)])
   mapped_needed_data <- RunWorkflows(mappings_wf[maps_needed], data)
   return(mapped_needed_data)

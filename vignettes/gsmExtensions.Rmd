@@ -43,7 +43,7 @@ The `meta` section of a workflow YAML provides key metadata describing the modul
 
 - `Name`: Name of the reporting output.
 - `Type`: "Report", "Metric" or "App"
-- `ID`: The unique ID for the module.
+- `ID`: The unique ID for the module. This should be the same as the workflow file name, without extension.
 - `Description`: A one-line description of the module specified in the workflow.
 - `Priority`: *optional* A number specifying the priority of the workflow within the directory, with lower numbers having higher priority, and running first. This is used when workflows within the same directory require outputs from other workflows, and thus need to be run in a particular order. If missing, will be set to 0 to run first.
 - `Details`: *optional* A more detailed description of the module specified in the workflow.
@@ -55,7 +55,7 @@ The `meta` section of a workflow YAML provides key metadata describing the modul
     
 Additional `meta` header required fields for **Modules**: 
 
-- `Permission`: Level of permissions for viewing that match the `Users` argument in the Study Config file. Common values: `Admin`, `Users`.
+- `Permission`: Level of permissions for viewing that match the `Users` argument in the Study Configuration file. Common values: `Admin`, `Users`.
 - `Output`: The output of the workflow, including format. Each workflow should only produce a single reporting output.
 - `ExampleURL`: Location of a sample report. For html reports, this is typically a page on the pkgdown site (ending with "/{ModuleID}.html"), or a sample app deployed on [shinyapps.io](https://shinyapps.io).
 
@@ -92,7 +92,7 @@ A simple `meta` section for a report might look like this:
 
 ## `spec` Specification
 
-The `spec` section of the workflow YAML specifies the data requirements for the workflow, including the data tables that are required and the columns that are needed from each table. The `gsm` data pipeline is designed to be highly customizatble, but for the purposes of this vignette, we will assume usage of the standard `gsm` data model described in `vignette("DataModel")`. For this standard use case, modules will pull primarily from the "Mapped" and "Reporting" data layers. 
+The `spec` section of the workflow YAML specifies the data requirements for the workflow, including the data tables that are required and the columns that are needed from each table. The `gsm` data pipeline is designed to be highly customizable, but for the purposes of this vignette, we will assume usage of the standard `gsm` data model described in `vignette("DataModel")`. For this standard use case, modules will pull primarily from the "Mapped" and "Reporting" data layers. 
 
 The `spec` section of the workflow YAML is formatted as a list of data tables, with each table containing a list of columns. Finally, each column contains the following parameters:
 
@@ -145,7 +145,7 @@ spec:
 
 Note that the `_all` key word is used to specify that all standard columns from the `Reporting_Results` data table are expected and that the table required - without it, the report can't run. The other `Reporting` tables are used to enhance the report, but are not required.
 
-The `Mapped` data layer is also available for use in reports and apps. Most typically, mapped data is used to drill down from high-level metric findings (e.g. "Site 5 has an elevated AE rate relative to other studies") to site- or participant- level details (e.g. "Participant 00016 from Site 5 had 5 AEs and 3 SAEs reported in the last 3 months."). For example, the [Deep Dive app]() includes both Reporting and Mapped data in its `spec`. Here is a representative exerpt from the `spec`:
+The `Mapped` data layer is also available for use in reports and apps. Most typically, mapped data is used to drill down from high-level metric findings (e.g. "Site 5 has an elevated AE rate relative to other studies") to site- or participant- level details (e.g. "Participant 00016 from Site 5 had 5 AEs and 3 SAEs reported in the last 3 months."). For example, the [Deep Dive app]() includes both Reporting and Mapped data in its `spec`. Here is a representative excerpt from the `spec`:
 
 ```
 spec:
@@ -167,7 +167,7 @@ spec:
 
 ## `steps` Specification
 
-Finally, each module YAML config should have a `steps` property that describes in detail how the module is run. The `steps` section is a list of functions that are run in sequence to produce the final output. Each item in `steps` has the following properties:
+Finally, each module yaml configuration file should have a `steps` property that describes in detail how the module is run. The `steps` section is a list of functions that are run in sequence to produce the final output. Each item in `steps` has the following properties:
 
 - `name`: The name of the function to be run. This must be a function that is available in `{gsm}` package or in a package that is listed in the `repo` section of the `meta` header.
 - `output`: The name of the output of the function. This is the name of the data table that is created by the function.

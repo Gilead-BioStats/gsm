@@ -10,12 +10,12 @@ testthat::test_that("Protocol Deviation Assessments can be done correctly using 
   # grouping col in yaml file is interpreted correctly in dfInput GroupID
   iwalk(test, ~ expect_identical(
     sort(unique(.x$Analysis_Input$GroupID)),
-    sort(unique(.x$Mapped_SUBJ[[kri_workflows[[.y]]$steps[[which(map_chr(kri_workflows[[.y]]$steps, ~.x$name) == "Input_Rate")]]$params$strGroupCol]])) # No guarantee the Input_Rate mapping is done step 2, need better index
+    sort(unique(.x$Mapped_SUBJ[[kri_workflows[[.y]]$steps[[which(map_chr(kri_workflows[[.y]]$steps, ~ .x$name) == "Input_Rate")]]$params$strGroupCol]])) # No guarantee the Input_Rate mapping is done step 2, need better index
   ))
 
   # data is properly transformed by correct group in dfTransformed
   iwalk(test, ~ expect_equal(
-    n_distinct(.x$Mapped_SUBJ[[kri_workflows[[.y]]$steps[[which(map_chr(kri_workflows[[.y]]$steps, ~.x$name) == "Input_Rate")]]$params$strGroupCol]]),
+    n_distinct(.x$Mapped_SUBJ[[kri_workflows[[.y]]$steps[[which(map_chr(kri_workflows[[.y]]$steps, ~ .x$name) == "Input_Rate")]]$params$strGroupCol]]),
     nrow(.x$Analysis_Transformed)
   ))
 

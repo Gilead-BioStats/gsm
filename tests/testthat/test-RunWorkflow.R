@@ -16,7 +16,7 @@ lSource <- list(
   Source_PD = clindata::ctms_protdev,
   Source_LB = clindata::rawplus_lb,
   Source_STUDCOMP = clindata::rawplus_studcomp,
-  Source_SDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
+  Source_SDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == "Blinded Study Drug Completion"),
   Source_DATACHG = clindata::edc_data_points,
   Source_DATAENT = clindata::edc_data_pages,
   Source_QUERY = clindata::edc_queries,
@@ -86,7 +86,7 @@ test_that("RunWorkflow contains all outputs from yaml steps", {
     purrr::iwalk(
       results,
       function(this_result, this_name) {
-            expect_setequal(yaml_outputs[[this_name]], names(this_result$lData))
+        expect_setequal(yaml_outputs[[this_name]], names(this_result$lData))
       }
     )
   })

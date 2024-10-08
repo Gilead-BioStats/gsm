@@ -37,7 +37,7 @@ MakeBounds <- function(
   cli::cli_inform("Creating stacked dfBounds data for {strMetrics}")
 
   if (length(dSnapshotDate) != 1) {
-      cli::cli_warn(
+    cli::cli_warn(
       "More than one SnapshotDate found. Returning NULL",
       class = "gsm_warning-multiple_values"
     )
