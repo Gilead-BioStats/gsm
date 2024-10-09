@@ -41,9 +41,12 @@ Report_MetricTable <- function(
     return("Nothing flagged for this KRI.")
   }
 
+  ############## can this be gt'd ?? ###########
   SummaryTable <- MetricTable %>%
     kableExtra::kbl(format = "html", escape = FALSE) %>%
     kableExtra::kable_styling("striped", full_width = FALSE)
+  ##############################################
+
 
   return(SummaryTable)
 }

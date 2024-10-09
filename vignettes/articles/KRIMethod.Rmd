@@ -116,7 +116,7 @@ For example, in a $2 \times 2$ contingency table comparing a particular site to 
 library(knitr)
 table1<-data.frame(Site1=c("a","b"), RestSites=c("c","d"))
 rownames(table1)<-c("Yes", "No")
-kable(table1)
+kable(table1) # candidate for GT-ifying?
 ```
 
 Fisher (1922) showed that conditional on the margins of the table, $a$ is distributed as a hypergeometric distribution with $a+c$ draws from a population with $a+b$ successes and $c+d$ failures. Let $n=a+b+c+d$, the probability of obtaining such set of values is given by: 
