@@ -1,6 +1,6 @@
-strNames <- names(MakeWorkflowList())
+strNames <- suppressWarnings(names(MakeWorkflowList()))
 
-wf_list <- MakeWorkflowList(strNames = strNames)
+wf_list <- suppressWarnings(MakeWorkflowList(strNames = strNames))
 bRecursive <- TRUE
 
 ################################################################################################################
@@ -43,7 +43,9 @@ test_that("invalid data returns list NULL elements", {
   )
 
   ### bRecursive
-  wf_list <- MakeWorkflowList(bRecursive = TRUE, strNames = "kri0002")$kri0002
+  expect_warning({
+    wf_list <- MakeWorkflowList(bRecursive = TRUE, strNames = "kri0002")$kri0002
+  })
   expect_true(is.list(wf_list))
   expect_length(wf_list, 4)
 })

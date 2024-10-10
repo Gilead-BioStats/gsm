@@ -1,7 +1,7 @@
 # yaml workflow
-test_wf <- MakeWorkflowList(
+test_wf <- suppressWarnings(MakeWorkflowList(
   strNames = "kri0001"
-)
+))
 test_mapping <- MakeWorkflowList(
   strPath = test_path("testdata/mappings"),
   strPackage = NULL
@@ -12,8 +12,8 @@ lRaw <- UseClindata(
     "Raw_AE" = "clindata::rawplus_ae"
   )
 )
-lMapped <- quiet_RunWorkflows(lWorkflow = test_mapping, lData = lRaw)
-lResults <- quiet_RunWorkflows(lWorkflow = test_wf, lData = lMapped)
+lMapped <- quiet_RunWorkflows(lWorkflows = test_mapping, lData = lRaw)
+lResults <- quiet_RunWorkflows(lWorkflows = test_wf, lData = lMapped)
 
 # functional workflow
 Mapped_SUBJ <- clindata::rawplus_dm %>%

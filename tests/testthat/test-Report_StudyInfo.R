@@ -26,6 +26,7 @@ lStudyLabels <- list(
 )
 
 test_that("Uses default study labels when lStudyLabels is NULL", {
+  # output <- Report_StudyInfo(lStudy, NULL)
   output <- capture.output(Report_StudyInfo(lStudy, NULL))
   expect_true(any(grepl("Study Status", output)))
   expect_true(any(grepl("Show Details", output)))

@@ -1,5 +1,7 @@
 wf_mapping <- MakeWorkflowList(strPath = "workflow/1_mappings")
-workflows <- MakeWorkflowList(strNames = paste0("kri", sprintf("%04d", 1:2)))
+workflows <- suppressWarnings(
+  MakeWorkflowList(strNames = paste0("kri", sprintf("%04d", 1:2)))
+)
 
 # Don't run things we don't use.
 used_params <- map(workflows, ~ map(.x$steps, "params")) %>%
@@ -55,7 +57,7 @@ lRaw <- list(
 )
 
 # Create Mapped Data
-lMapped <- quiet_RunWorkflows(lWorkflow = wf_mapping, lData = lRaw)
+lMapped <- quiet_RunWorkflows(lWorkflows = wf_mapping, lData = lRaw)
 
 # Run Metrics
 results <- map(

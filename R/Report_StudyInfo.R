@@ -42,8 +42,10 @@ Report_StudyInfo <- function(
 </label>')
   show_details_button <- HTML(toggle_switch)
 
-  print(htmltools::h2("Study Status"))
-  print(htmltools::tagList(show_details_button))
-  print(htmltools::tagList(show_table))
-  print(htmltools::tagList(hide_table))
+  htmltools::tagList(
+    htmltools::h2("Study Status"),
+    show_details_button,
+    show_table,
+    hide_table
+  )
 }
