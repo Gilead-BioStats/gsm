@@ -82,7 +82,7 @@ GroupOverViz <- Widget_GroupOverview(
   strGroupSubset = switch(setup$GroupLevel,
     "Site" = "red",
     "Country" = "all",
-    "Study" = "All"
+    "Study" = "all"
   ),
   strGroupLabelKey = GroupLabelKey
 )
