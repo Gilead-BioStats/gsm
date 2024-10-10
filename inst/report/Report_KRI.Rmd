@@ -77,8 +77,13 @@ dfResults_current <- FilterByLatestSnapshotDate(params$dfResults)
 GroupOverViz <- Widget_GroupOverview(
   dfResults = dfResults_current,
   dfGroups = params$dfGroups,
-  dfMetrics = params$dfMetrics, 
+  dfMetrics = params$dfMetrics,
   strGroupLevel = setup$GroupLevel,
+  strGroupSubset = switch(setup$GroupLevel,
+    "Site" = "red",
+    "Country" = "all",
+    "Study" = "All"
+  ),
   strGroupLabelKey = GroupLabelKey
 )
 overview_viz <- list(groupOverviewJS = GroupOverViz)
