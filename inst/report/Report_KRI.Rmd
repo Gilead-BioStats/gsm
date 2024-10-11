@@ -132,9 +132,6 @@ for (i in unique(params$dfMetrics$MetricID)) {
     overview = FALSE
   )
 
- params$lCharts[[lMetric$MetricID]]$metricTable %>%
-   cat
-
 }
 
 ```

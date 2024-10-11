@@ -41,12 +41,8 @@ Report_MetricTable <- function(
     return("Nothing flagged for this KRI.")
   }
 
-  SummaryTable <- MetricTable %>%
-    # kableExtra::kbl(format = "html", escape = FALSE) %>%
-    # kableExtra::kable_styling("striped", full_width = FALSE)
+  MetricTable %>%
     gsm_gt() %>%
     fmt_sign_rag(columns = "Flag")
 
-
-  return(SummaryTable)
 }
