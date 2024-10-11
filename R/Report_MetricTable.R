@@ -42,8 +42,11 @@ Report_MetricTable <- function(
   }
 
   SummaryTable <- MetricTable %>%
-    kableExtra::kbl(format = "html", escape = FALSE) %>%
-    kableExtra::kable_styling("striped", full_width = FALSE)
+    # kableExtra::kbl(format = "html", escape = FALSE) %>%
+    # kableExtra::kable_styling("striped", full_width = FALSE)
+    gsm_gt() %>%
+    fmt_sign_rag(columns = "Flag")
+
 
   return(SummaryTable)
 }
