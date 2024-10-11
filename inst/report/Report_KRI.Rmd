@@ -143,11 +143,10 @@ for (i in unique(params$dfMetrics$MetricID)) {
 ```{r, echo=FALSE, results='asis'}
 #print dfMetrics table
 params$dfMetrics %>%
-kbl(format="html", escape=FALSE) %>%
-kable_styling ("striped", full_width = FALSE) %>%
-cat
+  gsm_gt(id = "metrics_table")
 
 ```
+
 ```{r echo=FALSE}
 group_dropdown <- system.file('report', 'lib', 'overallGroupDropdown.js', package = "gsm")
 dropdown_drag <- system.file('report', 'lib', 'dragOverallGroupDropdown.js', package = "gsm")
