@@ -75,7 +75,7 @@ Make_Timeline <- function(status_study, longitudinal = NULL, n_breaks = 10, date
       (theme(
         plot.background = element_rect(fill = "white"),
         panel.background = element_rect(fill = "white"),
-        legend.position.inside = c(0.5, 0.35),
+        legend.position = c(0.5, 0.35),
         legend.title = element_text(vjust = 2.5),
         legend.key = element_rect(fill = "white"),
         legend.box = "horizontal",
