@@ -115,7 +115,7 @@ Report_MetricCharts(overview_viz, overview = TRUE)
 
 Report_OverviewText(
   lSetup = setup,
-  dfResults = params$dfResults, 
+  dfResults = dfResults_current,
   lStudy = setup$lStudy
 )
 
