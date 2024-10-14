@@ -21,7 +21,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 ```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
 library(gsm)
-library(kableExtra)
+library(gt)
 
 setup <- Report_Setup(
   dfGroups =  params$dfGroups, 
@@ -140,7 +140,7 @@ for (i in unique(params$dfMetrics$MetricID)) {
 ```{r, echo=FALSE, results='asis'}
 #print dfMetrics table
 params$dfMetrics %>%
-  gsm_gt(id = "metrics_table")
+  gt::gt()
 
 ```
 
