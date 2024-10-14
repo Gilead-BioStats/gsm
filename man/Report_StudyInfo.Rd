@@ -10,6 +10,8 @@ Report_StudyInfo(dfGroups, lStudyLabels = NULL, lStudy = deprecated())
 \item{dfGroups}{\code{data.frame} Group-level metadata dictionary. Created by passing CTMS site and study data to \code{\link[=MakeLongMeta]{MakeLongMeta()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Param}, \code{Value}.}
 
 \item{lStudyLabels}{A list containing study labels. Default is NULL.}
+
+\item{lStudy}{\code{deprecated} Study information as a named list.}
 }
 \value{
 A \code{\link[htmltools:tagList]{htmltools::tagList()}} to display a table of study information.

@@ -8,6 +8,7 @@
 #'
 #' @inheritParams shared-params
 #' @param lStudyLabels A list containing study labels. Default is NULL.
+#' @param lStudy `deprecated` Study information as a named list.
 #'
 #' @export
 #'
