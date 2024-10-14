@@ -77,8 +77,13 @@ dfResults_current <- FilterByLatestSnapshotDate(params$dfResults)
 GroupOverViz <- Widget_GroupOverview(
   dfResults = dfResults_current,
   dfGroups = params$dfGroups,
-  dfMetrics = params$dfMetrics, 
+  dfMetrics = params$dfMetrics,
   strGroupLevel = setup$GroupLevel,
+  strGroupSubset = switch(setup$GroupLevel,
+    "Site" = "red",
+    "Country" = "all",
+    "Study" = "all"
+  ),
   strGroupLabelKey = GroupLabelKey
 )
 overview_viz <- list(groupOverviewJS = GroupOverViz)
@@ -110,7 +115,7 @@ Report_MetricCharts(overview_viz, overview = TRUE)
 
 Report_OverviewText(
   lSetup = setup,
-  dfResults = params$dfResults, 
+  dfResults = dfResults_current,
   lStudy = setup$lStudy
 )
 
