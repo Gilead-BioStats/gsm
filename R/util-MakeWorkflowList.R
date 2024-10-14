@@ -65,6 +65,10 @@ MakeWorkflowList <- function(
     }
   }
 
+  if (is.null(strNames) && strPath == "workflow") {
+    names(yaml_files) <-  sub("^.*/", "", names(yaml_files))
+  }
+
   workflows <- purrr::map2(
     yaml_files,
     names(yaml_files),
