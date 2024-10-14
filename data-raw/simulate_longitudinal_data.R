@@ -107,13 +107,14 @@ AddSDRGCOMP <- function(df, n = 50, dfParticipants) {
 
 AddDATACHG <- function(df, n = 10000, dfParticipants) {
   newDATACHG <- data.frame(
-    subjectname = sample(dfParticipants$subject_nsv, n, replace = TRUE),
+    subject_nsv = sample(dfParticipants$subject_nsv, n, replace = TRUE),
     n_changes = sample(0:6,
                     prob = c(0.74, 0.22, 0.03, 0.005, 0.003, 0.0019, 0.0001),
                     n,
                     replace = TRUE)
   )
-  df <- bind_rows(df, newDATACHG)
+  df <- bind_rows(df, newDATACHG) %>%
+    select(-subjid)
   return(df)
 }
 
@@ -130,10 +131,7 @@ AddDATAENT <- function(df, n = 1000000, dfParticipants) {
   return(df)
 }
 
-AddENROLL <- function(df,
-                      dfParticipants,
-                      start_date,
-                      end_date) {
+AddENROLL <- function(df, dfParticipants,  start_date, end_date) {
   screened <- sample(25:75, size = 1)
   newENROLL <- data.frame(
     subjid = paste0(LETTERS[i], 1:screened),
@@ -152,16 +150,15 @@ AddENROLL <- function(df,
   return(df)
 }
 
-dfSite <- clindata::ctms_site %>% rename(GroupID = site_num)
-dfStudy <-
-  clindata::ctms_study %>% rename(StudyID = protocol_number)
+dfSite <- clindata::ctms_site
+dfStudy <- clindata::ctms_study %>% rename(StudyID = protocol_number)
 
-wf_mapping <- MakeWorkflowList(strNames = "data_mapping")
+wf_mapping <- MakeWorkflowList(strPath = "workflow/1_mappings")
 #wf_mapping$steps <- wf_mapping$steps[1:2]
 wf_metrics_site <-
-  MakeWorkflowList(strNames = "kri")
+  MakeWorkflowList(strNames = "kri", strPath = "workflow/2_metrics")
 wf_metrics_country <-
-  MakeWorkflowList(strNames = "cou")
+  MakeWorkflowList(strNames = "cou", strPath = "workflow/2_metrics")
 
 ## Simulate data for 12 months
 startDate <- seq(as.Date("2012-01-01"), length = 12, by = "months")
@@ -185,9 +182,9 @@ for (i in 1:12) {
   dfParticipants <-
     AddParticipants(
       dfParticipants,
-      studyid = "ABC-123",
+      studyid = "AA-AA-000-0000",
       n = sample(10:50, 1),
-      sites = unique(dfSite$GroupID),
+      sites = unique(dfSite$site_num),
       invid = unique(dfSite$pi_number),
       countries = unique(dfSite$country),
       startDate[i],
@@ -223,25 +220,41 @@ for (i in 1:12) {
                         endDate[i])
 
   # Calculate AE/SAE metrics using simulated data
-  lData <- list(Raw_AE = dfAEs,
-                Raw_SUBJ = dfParticipants,
-                Raw_PD = dfPD,
-                Raw_LB = dfLB,
-                Raw_STUDCOMP = dfSTUDCOMP,
-                Raw_SDRGCOMP = dfSDRGCOMP,
-                Raw_DATACHG = dfDATACHG,
-                Raw_DATAENT = dfDATAENT,
-                Raw_QUERY = dfQUERY,
-                Raw_ENROLL = dfENROLL)
+  lData <- list(
+    Raw_SUBJ = dfParticipants,
+    Raw_AE = dfAEs,
+    Raw_PD = dfPD %>%
+      rename(subjid = subjectenrollmentnumber),
+    Raw_LB = dfLB,
+    Raw_STUDCOMP = dfSTUDCOMP,
+    Raw_SDRGCOMP = dfSDRGCOMP,
+    Raw_DATACHG = dfDATACHG,
+    Raw_DATAENT = dfDATAENT %>%
+      rename(subject_nsv = subjectname),
+    Raw_QUERY = dfQUERY %>%
+      rename(subject_nsv = subjectname),
+    Raw_ENROLL = dfENROLL,
+    Raw_SITE = dfSite %>%
+      rename(studyid = protocol) %>%
+      rename(invid = pi_number) %>%
+      rename(InvestigatorFirstName = pi_first_name) %>%
+      rename(InvestigatorLastName = pi_last_name) %>%
+      rename(City = city) %>%
+      rename(State = state) %>%
+      rename(Country = country),
+    Raw_STUDY = dfStudy %>%
+      rename(studyid = StudyID) %>%
+      rename(Status = status)
+  )
 
-  mapping_wf <- MakeWorkflowList(strNames = "data_mapping")
+  mapping_wf <- MakeWorkflowList(strPath = "workflow/1_mappings")
   mapped <- RunWorkflows(mapping_wf, lData, bKeepInputData=TRUE)
 
   # Step 2 - Create Analysis Data - Generate 12 KRIs
-  kri_wf <- MakeWorkflowList(strPath = "workflow/metrics", strNames = "kri")
+  kri_wf <- MakeWorkflowList(strPath = "workflow/2_metrics", strNames = "kri")
   kris <- RunWorkflows(kri_wf, mapped)
 
-  cou_wf <- MakeWorkflowList(strPath = "workflow/metrics", strNames = "cou")
+  cou_wf <- MakeWorkflowList(strPath = "workflow/2_metrics", strNames = "cou")
   cous <- RunWorkflows(cou_wf, mapped)
 
   # Step 3 - Create Reporting Data - Import Metadata and stack KRI Results
@@ -249,24 +262,30 @@ for (i in 1:12) {
     Raw_ctms_site = clindata::ctms_site,
     Raw_ctms_study = clindata::ctms_study,
     Mapped_ENROLL = mapped$Mapped_ENROLL,
+    Mapped_STUDY = mapped$Mapped_STUDY,
+    Mapped_SITE = mapped$Mapped_SITE,
+    Mapped_COUNTRY = mapped$Mapped_COUNTRY,
     lWorkflows = kri_wf,
-    lAnalysis = kris,
+    lAnalyzed = kris,
     dSnapshotDate = endDate[i],
-    strStudyID = "ABC-123"
+    strStudyID = "AA-AA-000-0000"
   )
-  reporting_wf_site <- MakeWorkflowList(strNames = "reporting")
+  reporting_wf_site <- MakeWorkflowList(strPath = "workflow/3_reporting")
   reporting_site <- RunWorkflows(reporting_wf_site, lReporting_Input_site)
 
   lReporting_Input_country <- list(
     Raw_ctms_site = clindata::ctms_site,
     Raw_ctms_study = clindata::ctms_study,
     Mapped_ENROLL = mapped$Mapped_ENROLL,
+    Mapped_STUDY = mapped$Mapped_STUDY,
+    Mapped_SITE = mapped$Mapped_SITE,
+    Mapped_COUNTRY = mapped$Mapped_COUNTRY,
     lWorkflows = cou_wf,
-    lAnalysis = cous,
+    lAnalyzed = cous,
     dSnapshotDate = endDate[i],
-    strStudyID = "ABC-123"
+    strStudyID = "AA-AA-000-0000"
   )
-  reporting_wf_country <- MakeWorkflowList(strNames = "reporting")
+  reporting_wf_country <- MakeWorkflowList(strPath = "workflow/3_reporting")
   reporting_country <- RunWorkflows(reporting_wf_country, lReporting_Input_country)
 
   if (i == 1) {
