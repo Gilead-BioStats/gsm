@@ -28,7 +28,7 @@ Authors:
   \item Laura Maxwell \email{laura.maxwell@atorusresearch.com}
   \item Jacob Anderson \email{jacob.anderson@atorusresearch.com}
   \item Jon Harmon \email{jon.harmon@atorusresearch.com}
-  \item Zelos zelos.zhu@atorusresearch.com Zhu
+  \item Zelos Zhu \email{zelos.zhu@atorusresearch.com}
   \item Nathan Kosiba \email{Nathan.Kosiba@atorusresearch.com}
   \item Douglas Sanders
   \item Li Ge

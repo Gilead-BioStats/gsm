@@ -50,3 +50,15 @@ test_that("MakeStudyInfo uses lLabels over default", {
     c("study#", "nsites", "nsubj", "stat")
   )
 })
+
+test_that("MakeStudyInfo warns about lStudy deprecation", {
+  expect_warning(
+    MakeStudyInfo(lStudy = list(
+      StudyID = "Unique Study ID",
+      SiteCount = 10,
+      ParticipantCount = 100,
+      Status = "Ongoing"
+    )),
+    "is deprecated as of"
+  )
+})

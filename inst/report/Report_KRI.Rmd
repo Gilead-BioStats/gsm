@@ -46,7 +46,7 @@ date: "Snapshot Date: `r setup$SnapshotDate`"
 :::
 
 ```{r, echo=FALSE, results='asis', fig.height=2}
-Report_StudyInfo(lStudy = setup$lStudy)
+Report_StudyInfo(params$dfGroups)
 ```
 
 ## Study Overview
