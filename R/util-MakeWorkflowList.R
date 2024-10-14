@@ -49,6 +49,7 @@ MakeWorkflowList <- function(
     full.names = FALSE,
     recursive = bRecursive
   )
+  names(yaml_files) <-  sub("^.*/", "", names(yaml_files))
 
   # if `strNames` is not null, subset the workflow list to only include
   # files that match the character vector (`strNames`)
@@ -63,10 +64,6 @@ MakeWorkflowList <- function(
     } else {
       yaml_files <- purrr::keep(yaml_files, grepl(paste(strNames, collapse = "|"), names(yaml_files))) # this may have unintended consequences, AE vs DATAENT
     }
-  }
-
-  if (is.null(strNames) && strPath == "workflow") {
-    names(yaml_files) <-  sub("^.*/", "", names(yaml_files))
   }
 
   workflows <- purrr::map2(

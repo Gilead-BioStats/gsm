@@ -82,7 +82,7 @@ ApplySpec <- function(dfSource, columnSpecs, domain) {
       spec <- columnSpecs[[col]]
       if ("type" %in% names(spec)) {
         # TODO: handle character NA values
-        dfTarget[[col]] <- as(dfTarget[[col]], spec$type)
+        dfTarget[[col]] <- methods::as(dfTarget[[col]], spec$type)
       }
     }
   }

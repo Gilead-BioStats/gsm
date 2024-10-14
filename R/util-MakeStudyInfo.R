@@ -26,7 +26,7 @@ MakeStudyInfo <- function(
   )
 
   dfGroups <- Choose_dfGroups(dfGroups, lStudy) %>%
-    dplyr::filter(GroupLevel == "Study") %>%
+    dplyr::filter(.data$GroupLevel == "Study") %>%
     dplyr::select(-"GroupLevel") %>%
     MakeParamLabels(lStudyLabels) %>%
     dplyr::select("Param", "Value", "Description" = "Label") %>%

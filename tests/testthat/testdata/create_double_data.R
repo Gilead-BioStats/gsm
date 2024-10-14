@@ -1,7 +1,5 @@
 # yaml workflow
-test_wf <- suppressWarnings(MakeWorkflowList(
-  strNames = "kri0001"
-))
+test_wf <- MakeWorkflowList(strNames = "kri0001")
 test_mapping <- MakeWorkflowList(
   strPath = test_path("testdata/mappings"),
   strPackage = NULL

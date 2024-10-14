@@ -40,6 +40,7 @@ Imports:
     jsonlite,
     lifecycle,
     magrittr,
+    methods,
     purrr,
     rlang (>= 0.4.11),
     stats,
