@@ -41,12 +41,13 @@ MakeStudyInfo <- function(
     Param = names(lStudy),
     Value = unname(unlist(lStudy))
   )
-  dplyr::mutate(
-    dplyr::left_join(dfStudy, dfLabels, by = "Param"),
-    Value = dplyr::if_else(
-      is.na(.data$Value),
-      .data$Value,
-      prettyNum(.data$Value, drop0trailing = TRUE)
-    )
-  )
+
+  #dplyr::mutate(
+    dplyr::left_join(dfStudy, dfLabels, by = "Param")
+  #  Value = dplyr::if_else(
+  #    is.na(.data$Value),
+  #    .data$Value,
+  #    prettyNum(.data$Value, drop0trailing = TRUE)
+  #  )
+  #)
 }
