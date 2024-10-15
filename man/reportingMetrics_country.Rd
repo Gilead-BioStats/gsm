@@ -5,7 +5,7 @@
 \alias{reportingMetrics_country}
 \title{reportingMetrics_country Dataset}
 \format{
-A data frame with 12 rows and 12 columns:
+A data frame with 12 rows and 17 columns:
 \describe{
 \item{MetricID}{unique metric identifier}
 \item{File}{yaml file for workflow}
