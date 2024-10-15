@@ -37,7 +37,7 @@ Report_MetricTable <- function(
     dfResults, dfGroups, strGroupLevel, strGroupDetailsParams, vFlags
   )
 
-  if (!nrow(dfResults)) {
+  if (!nrow(MetricTable)) {
     return("Nothing flagged for this KRI.")
   }
 
