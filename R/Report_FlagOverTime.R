@@ -28,6 +28,9 @@ Report_FlagOverTime <- function(
   )
 
   dfFlagOverTime %>%
+    dplyr::filter(
+      dplyr::if_any(dplyr::all_of(date_cols), ~!is.na(.x) & .x != 0)
+    ) %>%
     dplyr::group_by(.data$GroupLevel, .data$GroupID) %>%
     gsm_gt() %>%
     fmt_flag_rag(columns = date_cols) %>%
