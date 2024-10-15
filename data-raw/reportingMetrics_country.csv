@@ -1,13 +1,13 @@
-"File","MetricID","GroupLevel","Abbreviation","Metric","Numerator","Denominator","Model","Type","Score","Threshold","nMinDenominator"
-"cou0001.yaml","cou0001","Country","AE","Adverse Event Rate","Adverse Events","Days on Study","Normal Approximation","rate","Adjusted Z-Score","-2,-1,2,3",30
-"cou0002.yaml","cou0002","Country","SAE","Serious Adverse Event Rate","Serious Adverse Events","Days on Study","Normal Approximation","rate","Adjusted Z-Score","-2,-1,2,3",30
-"cou0003.yaml","cou0003","Country","PD","Non-Important Protocol Deviation Rate","Non-Important Protocol Deviations","Days on Study","Normal Approximation","rate","Adjusted Z-Score","-3,-2,2,3",30
-"cou0004.yaml","cou0004","Country","PD","Important Protocol Deviation Rate","Important Protocol Deviations","Days on Study","Normal Approximation","rate","Adjusted Z-Score","-3,-2,2,3",30
-"cou0005.yaml","cou0005","Country","LB","Grade 3+ Lab Abnormality Rate","Grade 3+ Abnormal Labs Samples","Total Lab Samples","Normal Approximation","binary","Adjusted Z-Score","-3,-2,2,3",30
-"cou0006.yaml","cou0006","Country","SDSC","Study Discontinuation Rate","Subjects Discontinued - Study","Enrolled Subjects","Normal Approximation","binary","Adjusted Z-Score","-3,-2,2,3",3
-"cou0007.yaml","cou0007","Country","TDSC","Treatment Discontinuation Rate","Subjects Discontinued - Treatment","Enrolled Subjects","Normal Approximation","binary","Adjusted Z-Score","-3,-2,2,3",3
-"cou0008.yaml","cou0008","Country","QRY","Query Rate","Queries","Total Data Points","Normal Approximation","rate","Adjusted Z-Score","-3,-2,2,3",30
-"cou0009.yaml","cou0009","Country","OQRY","Outstanding Query Rate","Queries Open > 30 Days","Total Queries","Normal Approximation","binary","Adjusted Z-Score","-3,-2,2,3",30
-"cou0010.yaml","cou0010","Country","ODAT","Outstanding Data Entry Rate","Data Pages Entered > 10 Days","Total Data Pages","Normal Approximation","binary","Adjusted Z-Score","-3,-2,2,3",30
-"cou0011.yaml","cou0011","Country","CDAT","Data Change Rate","Data Points with 1+ Change","Total Data Points","Normal Approximation","binary","Adjusted Z-Score","-3,-2,2,3",30
-"cou0012.yaml","cou0012","Country","SF","Screen Failure Rate","Screen Failures","Screened Subjects","Normal Approximation","binary","Adjusted Z-Score","-3,-2,2,3",3
+"Type","ID","GroupLevel","Abbreviation","Metric","Numerator","Denominator","Model","AnalysisType","Score","Threshold","nMinDenominator","Priority","Output","Name","Description","MetricID"
+"Analysis","cou0001","Country","AE","Adverse Event Rate","Adverse Events","Days on Study","Normal Approximation","rate","Adjusted Z-Score","-2,-1,2,3",30,0,NA,NA,NA,"Analysis_cou0001"
+"Analysis","cou0002","Country","SAE","Serious Adverse Event Rate","Serious Adverse Events","Days on Study","Normal Approximation","rate","Adjusted Z-Score","-2,-1,2,3",30,0,NA,NA,NA,"Analysis_cou0002"
+"Analysis","cou0003","Country","PD","Non-Important Protocol Deviation Rate","Non-Important Protocol Deviations","Days on Study","Normal Approximation","rate","Adjusted Z-Score","-3,-2,2,3",30,0,NA,NA,NA,"Analysis_cou0003"
+"Analysis","cou0004","Country","PD","Important Protocol Deviation Rate","Important Protocol Deviations","Days on Study","Normal Approximation","rate","Adjusted Z-Score","-3,-2,2,3",30,0,NA,NA,NA,"Analysis_cou0004"
+"Analysis","cou0005","Country","LB","Grade 3+ Lab Abnormality Rate","Grade 3+ Abnormal Labs Samples","Total Lab Samples","Normal Approximation","binary","Adjusted Z-Score","-3,-2,2,3",30,0,NA,NA,NA,"Analysis_cou0005"
+"Analysis","cou0006","Country","SDSC","Study Discontinuation Rate","Subjects Discontinued - Study","Enrolled Subjects","Normal Approximation","binary","Adjusted Z-Score","-3,-2,2,3",3,0,NA,NA,NA,"Analysis_cou0006"
+"Analysis","cou0007","Country","TDSC","Treatment Discontinuation Rate","Subjects Discontinued - Treatment","Enrolled Subjects","Normal Approximation","binary","Adjusted Z-Score","-3,-2,2,3",3,0,NA,NA,NA,"Analysis_cou0007"
+"Analysis","cou0008","Country","QRY","Query Rate","Queries","Total Data Points","Normal Approximation","rate","Adjusted Z-Score","-3,-2,2,3",30,0,NA,NA,NA,"Analysis_cou0008"
+"Analysis","cou0009","Country","OQRY","Outstanding Query Rate","Queries Open > 30 Days","Total Queries","Normal Approximation","binary","Adjusted Z-Score","-3,-2,2,3",30,0,NA,NA,NA,"Analysis_cou0009"
+"Analysis","cou0010","Country","ODAT","Outstanding Data Entry Rate","Data Pages Entered > 10 Days","Total Data Pages","Normal Approximation","binary","Adjusted Z-Score","-3,-2,2,3",30,0,NA,NA,NA,"Analysis_cou0010"
+"Analysis","cou0011","Country","CDAT","Data Change Rate","Data Points with 1+ Change","Total Data Points","Normal Approximation","binary","Adjusted Z-Score","-3,-2,2,3",30,0,NA,NA,NA,"Analysis_cou0011"
+"Analysis","cou0012","Country","SF","Screen Failure Rate","Screen Failures","Screened Subjects","Normal Approximation","binary","Adjusted Z-Score","-3,-2,2,3",3,0,NA,NA,NA,"Analysis_cou0012"

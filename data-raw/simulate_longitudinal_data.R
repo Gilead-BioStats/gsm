@@ -153,13 +153,6 @@ AddENROLL <- function(df, dfParticipants,  start_date, end_date) {
 dfSite <- clindata::ctms_site
 dfStudy <- clindata::ctms_study %>% rename(StudyID = protocol_number)
 
-wf_mapping <- MakeWorkflowList(strPath = "workflow/1_mappings")
-#wf_mapping$steps <- wf_mapping$steps[1:2]
-wf_metrics_site <-
-  MakeWorkflowList(strNames = "kri", strPath = "workflow/2_metrics")
-wf_metrics_country <-
-  MakeWorkflowList(strNames = "cou", strPath = "workflow/2_metrics")
-
 ## Simulate data for 12 months
 startDate <- seq(as.Date("2012-01-01"), length = 12, by = "months")
 endDate <- seq(as.Date("2012-02-01"), length = 12, by = "months") - 1
@@ -312,15 +305,17 @@ for (i in 1:12) {
 #only save the most recent groups, bounds and metrics entry for use in reporting
 lReporting_site$Reporting_Groups <- reporting_site$Reporting_Groups
 lReporting_site$Reporting_Bounds <- reporting_site$Reporting_Bounds
-lReporting_site$Reporting_Metrics <- reporting_site$Reporting_Metrics
+lReporting_site$Reporting_Metrics <- reporting_site$Reporting_Metrics %>%
+  filter(str_detect(MetricID, "Analysis_kri"))
 
 lReporting_country$Reporting_Groups <- reporting_country$Reporting_Groups
 lReporting_country$Reporting_Bounds <- reporting_country$Reporting_Bounds
-lReporting_country$Reporting_Metrics <- reporting_country$Reporting_Metrics
+lReporting_country$Reporting_Metrics <- reporting_country$Reporting_Metrics %>%
+  filter(str_detect(MetricID, "Analysis_cou"))
 
 ## test out the data on a report
-# wf_report_site <- MakeWorkflowList(strNames = "report_kri_site")
-# lReports_site <- RunWorkflows(wf_report_site, lReporting_site)
+wf_report_site <- MakeWorkflowList(strNames = "report_kri_site")
+lReports_site <- RunWorkflows(wf_report_site, lReporting_site)
 # wf_report_country <- MakeWorkflowList(strNames = "report_kri_country")
 # lReports_country <- RunWorkflows(wf_report_country, lReporting_country)
 
@@ -328,20 +323,20 @@ lReporting_country$Reporting_Metrics <- reporting_country$Reporting_Metrics
 
 # analysis data
 ## site
-# write.csv(file = "data-raw/analyticsSummary.csv",
-#           x = kris$kri0001$Analysis_Summary,
-#           row.names = F)
-# write.csv(file = "data-raw/analyticsInput.csv",
-#           x = kris$kri0001$Analysis_Input,
-#           row.names = F)
+write.csv(file = "data-raw/analyticsSummary.csv",
+          x = kris$Analysis_kri0001$Analysis_Summary,
+          row.names = F)
+write.csv(file = "data-raw/analyticsInput.csv",
+          x = kris$Analysis_kri0001$Analysis_Input,
+          row.names = F)
 
 ## country
-# write.csv(file = "data-raw/analyticsSummary_country.csv",
-#           x = cous$Analysis_Summary,
-#           row.names = F)
-# write.csv(file = "data-raw/analyticsInput_country.csv",
-#           x = cous$Analysis_Input,
-#           row.names = F)
+write.csv(file = "data-raw/analyticsSummary_country.csv",
+          x = cous$Analysis_cou0001$Analysis_Summary,
+          row.names = F)
+write.csv(file = "data-raw/analyticsInput_country.csv",
+          x = cous$Analysis_cou0001$Analysis_Input,
+          row.names = F)
 
 
 # reporting data
