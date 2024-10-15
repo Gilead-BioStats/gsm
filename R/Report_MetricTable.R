@@ -44,5 +44,4 @@ Report_MetricTable <- function(
   MetricTable %>%
     gsm_gt() %>%
     fmt_sign_rag(columns = "Flag")
-
 }

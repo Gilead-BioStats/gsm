@@ -29,21 +29,14 @@ MakeStudyInfo <- function(
     dplyr::filter(.data$GroupLevel == "Study") %>%
     dplyr::select(-"GroupLevel") %>%
     MakeParamLabels(lStudyLabels) %>%
-    dplyr::select("Param", "Value", "Description" = "Label") %>%
-    dplyr::mutate(
-      Value = dplyr::if_else(
-        is.na(.data$Value),
-        .data$Value,
-        prettyNum(.data$Value, drop0trailing = TRUE)
-      )
-    )
+    dplyr::select("Param", "Value", "Description" = "Label")
   return(dfGroups)
 }
 
 Choose_dfGroups <- function(dfGroups, lStudy = deprecated()) {
   # If they *specify* `lStudy` as the arg, we warn and then use it. If they just
   # pass by position, we convert it if necessary.
-  if (lifecycle::is_present(lStudy)) {
+  if (missing(dfGroups) && lifecycle::is_present(lStudy)) {
     lifecycle::deprecate_warn("2.2.0", "MakeStudyInfo(lStudy)")
     dfGroups <- lStudy
   }
