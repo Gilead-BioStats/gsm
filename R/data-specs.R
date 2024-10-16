@@ -64,6 +64,11 @@
 #'   \item{Type}{statistical outcome type}
 #'   \item{Threshold}{thresholds to be used for bounds and flags}
 #'   \item{nMinDenominator}{minimum denominator required to return a score and calculate a flag}
+#'   \item{ID}{ID}
+#'   \item{Priority}{Priority in workflow}
+#'   \item{Output}{output}
+#'   \item{Name}{name}
+#'   \item{Description}{description}
 #' }
 #' @source Generated from `reportingMetrics.csv` dataset in the `gsm` package.
 "reportingMetrics"
@@ -139,6 +144,11 @@
 #'   \item{Type}{statistical outcome type}
 #'   \item{Threshold}{thresholds to be used for bounds and flags}
 #'   \item{nMinDenominator}{minimum denominator required to return a score and calculate a flag}
+#'   \item{ID}{ID}
+#'   \item{Priority}{Priority in workflow}
+#'   \item{Output}{output}
+#'   \item{Name}{name}
+#'   \item{Description}{description}
 #' }
 #' @source Generated from `reportingMetrics_country.csv` dataset in the `gsm` package.
 "reportingMetrics_country"
