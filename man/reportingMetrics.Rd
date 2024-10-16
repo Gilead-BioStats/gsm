@@ -19,6 +19,11 @@ A data frame with 12 rows and 17 columns:
 \item{Type}{statistical outcome type}
 \item{Threshold}{thresholds to be used for bounds and flags}
 \item{nMinDenominator}{minimum denominator required to return a score and calculate a flag}
+\item{ID}{ID}
+\item{Priority}{Priority in workflow}
+\item{Output}{output}
+\item{Name}{name}
+\item{Description}{description}
 }
 }
 \source{
