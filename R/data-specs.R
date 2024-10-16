@@ -53,7 +53,6 @@
 #' @format `r df_dim_desc(reportingMetrics)`
 #' \describe{
 #'   \item{MetricID}{unique metric identifier}
-#'   \item{File}{yaml file for workflow}
 #'   \item{GroupLevel}{level of grouping variable}
 #'   \item{Abbreviation}{abbreviation for the metric}
 #'   \item{Metric}{name of the metric}
@@ -69,6 +68,7 @@
 #'   \item{Output}{output}
 #'   \item{Name}{name}
 #'   \item{Description}{description}
+#'   \item{AnalysisType}{analysis type}
 #' }
 #' @source Generated from `reportingMetrics.csv` dataset in the `gsm` package.
 "reportingMetrics"
@@ -133,7 +133,6 @@
 #' @format `r df_dim_desc(reportingMetrics_country)`
 #' \describe{
 #'   \item{MetricID}{unique metric identifier}
-#'   \item{File}{yaml file for workflow}
 #'   \item{GroupLevel}{level of grouping variable}
 #'   \item{Abbreviation}{abbreviation for the metric}
 #'   \item{Metric}{name of the metric}
@@ -149,6 +148,7 @@
 #'   \item{Output}{output}
 #'   \item{Name}{name}
 #'   \item{Description}{description}
+#'   \item{AnalysisType}{analysis type}
 #' }
 #' @source Generated from `reportingMetrics_country.csv` dataset in the `gsm` package.
 "reportingMetrics_country"

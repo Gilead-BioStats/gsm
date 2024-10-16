@@ -8,7 +8,6 @@
 A data frame with 12 rows and 17 columns:
 \describe{
 \item{MetricID}{unique metric identifier}
-\item{File}{yaml file for workflow}
 \item{GroupLevel}{level of grouping variable}
 \item{Abbreviation}{abbreviation for the metric}
 \item{Metric}{name of the metric}
@@ -24,6 +23,7 @@ A data frame with 12 rows and 17 columns:
 \item{Output}{output}
 \item{Name}{name}
 \item{Description}{description}
+\item{AnalysisType}{analysis type}
 }
 }
 \source{
