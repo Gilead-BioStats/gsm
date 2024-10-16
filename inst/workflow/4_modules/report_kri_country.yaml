@@ -9,15 +9,15 @@ spec:
     _all:
       required: true
     Numerator:
-      type: numeric
+      type: integer
     Denominator:
-      type: numeric
+      type: integer
     Metric:
-      type: numeric
+      type: integer
     Score:
-      type: numeric
+      type: integer
     Flag:
-      type: numeric
+      type: integer
   Reporting_Metrics:
     _all:
       required: true
@@ -28,15 +28,15 @@ spec:
     _all:
       required: true
     Threshold:
-      type: numeric
+      type: integer
     Numerator:
-      type: numeric
+      type: integer
     Denominator:
-      type: numeric
+      type: integer
     LogDenominator:
-      type: numeric
+      type: integer
     Metric:
-      type: numeric
+      type: integer
 steps:
   - output: Reporting_Results_Country
     name: RunQuery

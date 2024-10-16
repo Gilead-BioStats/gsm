@@ -8,15 +8,15 @@ spec:
     _all:
       required: true
     Numerator:
-      type: numeric
+      type: integer
     Denominator:
-      type: numeric
+      type: integer
     Metric:
-      type: numeric
+      type: integer
     Score:
-      type: numeric
+      type: integer
     Flag:
-      type: numeric
+      type: integer
   Reporting_Metrics:
     _all:
       required: true

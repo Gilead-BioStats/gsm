@@ -137,8 +137,8 @@ test_that("Validate column type works", {
     reporting_results = list(
       GroupID = list(required = TRUE, type = "character"),
       GroupLevel = list(required = TRUE, type = "character"),
-      Numerator = list(required = TRUE, type = "numeric"),
-      Denominator = list(required = TRUE, type = "numeric")
+      Numerator = list(required = TRUE, type = "integer"),
+      Denominator = list(required = TRUE, type = "integer")
     )
   )
   expect_message(
@@ -151,7 +151,7 @@ test_that("Validate column type works", {
       GroupID = list(required = TRUE, type = "character"),
       GroupLevel = list(required = TRUE, type = "character"),
       Numerator = list(required = TRUE, type = "character"),
-      Denominator = list(required = TRUE, type = "numeric")
+      Denominator = list(required = TRUE, type = "integer")
     )
   )
   expect_message(

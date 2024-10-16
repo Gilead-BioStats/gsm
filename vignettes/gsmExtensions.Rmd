@@ -118,7 +118,7 @@ spec:
       type: character
     timeonstudy:
       required: true
-      type: numeric
+      type: integer
 ```
 
 So, in summary, the AE KRI metric requires two data tables, `Mapped_AE` and `Mapped_ENROLL`, both of which are from the mapped data layer. The `Mapped_AE` table must have a character Subject ID column called `subjid` while `Mapped_ENROLL` must have character Subject ID (`subjid`) and Investigator ID (`invid`) columns and a numeric `timeonstudy` column. All columns are required for this metric. Note that other columns may be present in these tables (perhaps due to a `spec` from a differently module), but only the columns listed in the `spec` section are required for the metric to run.
@@ -317,7 +317,7 @@ spec:
       source_col: subjectname
     n_changes:
       required: true
-      type: numeric
+      type: integer
   Mapped_SUBJ:
     subjid:
       required: true

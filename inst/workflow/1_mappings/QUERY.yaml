@@ -14,7 +14,7 @@ spec:
       type: character
     queryage:
       required: true
-      type: numeric
+      type: integer
   Mapped_SUBJ:
     subjid:
       required: true

@@ -180,7 +180,7 @@ test_that("if any required is TRUE then combined is TRUE", {
 test_that("warning if type doesn't match first instance", {
   spec1 <- list(
     df1 = list(
-      col1 = list(required = TRUE, type = "numeric")
+      col1 = list(required = TRUE, type = "integer")
     )
   )
 
@@ -191,12 +191,12 @@ test_that("warning if type doesn't match first instance", {
   )
   expect_warning(
     combined <- CombineSpecs(list(spec1, spec2), bIsWorkflow = FALSE),
-    regexp = "Type mismatch for `col1`. Using first type: numeric"
+    regexp = "Type mismatch for `col1`. Using first type: integer"
   )
 
   expected <- list(
     df1 = list(
-      col1 = list(required = TRUE, type = "numeric")
+      col1 = list(required = TRUE, type = "integer")
     )
   )
 
