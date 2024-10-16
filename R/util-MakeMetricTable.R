@@ -78,7 +78,6 @@ MakeMetricTable <- function(
       desc(abs(.data$Score))
     ) %>%
     dplyr::mutate(
-      Flag = Report_FormatFlag(.data$Flag),
       dplyr::across(
         dplyr::where(is.numeric),
         ~ round(.x, 2)
@@ -95,6 +94,5 @@ MakeMetricTable <- function(
         "Flag"
       ))
     )
-
   return(MetricTable)
 }
