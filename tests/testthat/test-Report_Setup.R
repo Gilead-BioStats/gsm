@@ -8,8 +8,8 @@ test_that("Test with valid input and one group", {
   expect_equal(result$GroupLevel, "Site")
   expect_equal(result$SnapshotDate, as.Date("2012-12-31"))
   expect_equal(result$StudyID, "AA-AA-000-0000")
-  expect_equal(result$red_kris, 13)
-  expect_equal(result$amber_kris, 94)
+  expect_equal(result$red_kris, 10)
+  expect_equal(result$amber_kris, 116)
 })
 
 test_that("Test with missing SnapshotDate and protocol number/title", {
@@ -28,9 +28,9 @@ test_that("Test with missing SnapshotDate and protocol number/title", {
 
   expect_equal(result$GroupLevel, "Site")
   expect_equal(result$SnapshotDate, Sys.Date())
-  expect_equal(result$StudyID, "Unknown")
-  expect_equal(result$red_kris, 93)
-  expect_equal(result$amber_kris, 801)
+  # expect_equal(result$StudyID, "Unknown")  no longer dependent on protocol_title and protocol_number
+  expect_equal(result$red_kris, 91)
+  expect_equal(result$amber_kris, 858)
 })
 
 test_that("Test StudyID output with missing protocol number", {
@@ -41,9 +41,9 @@ test_that("Test StudyID output with missing protocol number", {
 
   expect_equal(result$GroupLevel, "Site")
   expect_equal(result$SnapshotDate, as.Date("2012-12-31"))
-  expect_equal(result$StudyID, "Protocol Title")
-  expect_equal(result$red_kris, 13)
-  expect_equal(result$amber_kris, 94)
+  expect_equal(result$StudyID, "AA-AA-000-0000")
+  expect_equal(result$red_kris, 10)
+  expect_equal(result$amber_kris, 116)
 })
 
 test_that("dfSummary empty data frame", {
