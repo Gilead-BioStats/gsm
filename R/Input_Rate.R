@@ -124,34 +124,25 @@ Input_Rate <- function(
     )
 
   # Calculate Numerator
-  dfNumerator <- dfNumerator %>%
-    rename("SubjectID" = !!strSubjectCol)
-
-  if (strNumeratorMethod == "Count") {
-    dfNumerator$Numerator <- 1
-  } else {
-    dfNumerator$Numerator <- dfNumerator[[strNumeratorCol]]
-  }
-
   dfNumerator_subj <- dfNumerator %>%
-    group_by(.data$SubjectID) %>%
-    summarise("Numerator" = sum(.data$Numerator)) %>%
+    rename(SubjectID = {{ strSubjectCol }}) %>%
+    mutate(Numerator = ifelse(strNumeratorMethod == "Count", 1, .data[[strNumeratorCol]])) %>%
+    group_by(SubjectID) %>%
+    summarise(Numerator = sum(Numerator, na.rm = TRUE)) %>%
     ungroup()
 
   # Calculate Denominator
-  dfDenominator <- dfDenominator %>%
-    rename("SubjectID" = !!strSubjectCol)
-
-  if (strDenominatorMethod == "Count") {
-    dfDenominator$Denominator <- 1
-  } else {
-    dfDenominator$Denominator <- dfDenominator[[strDenominatorCol]]
-  }
-
   dfDenominator_subj <- dfDenominator %>%
-    group_by(.data$SubjectID) %>%
-    summarise("Denominator" = sum(.data$Denominator)) %>%
+    rename(SubjectID = {{ strSubjectCol }}) %>%
+    mutate(Denominator = ifelse(strDenominatorMethod == "Count", 1, .data[[strDenominatorCol]])) %>%
+    group_by(SubjectID) %>%
+    summarise(Denominator = sum(Denominator, na.rm = TRUE)) %>%
     ungroup()
+  if (all(dfDenominator_subj$Denominator == 0)) {
+    cli::cli_abort(
+      "Method {strDenominatorMethod} for {strDenominatorCol} is causing all denominator values to be 0, please check {dfDenominator}"
+    )
+  }
 
   # Merge Numerator and Denominator with Subject Data. Keep all data in Subject. Fill in missing numerator/denominators with 0
   dfInput <- dfSubjects %>%
