@@ -107,6 +107,34 @@ test_that("handling of zero denominators and missing data", {
   expect_equal(result, expected)
 })
 
+test_that("if dfNumerator has 0 row data", {
+  subjects <- data.frame(
+    SubjectID = 1:4,
+    GroupID = 10:13
+  )
+  numerators <- data.frame(
+    SubjectID = numeric(),
+    GroupID = numeric()
+  )
+  denominators <- data.frame(
+    SubjectID = c(1, 2),
+    GroupID = 12:13
+  )
+
+  result <- Input_Rate(subjects, numerators, denominators)
+
+  expected <- data.frame(
+    SubjectID = 1:4,
+    GroupID = 10:13,
+    GroupLevel = "GroupID",
+    Numerator = c(0, 0, 0, 0),
+    Denominator = c(1, 1, 0, 0),
+    Metric = c(0, 0, NaN, NaN) # NaN because denominator is zero
+  )
+
+  expect_equal(result, expected)
+})
+
 test_that("if dfDenominator is incompatible with method and column choice", {
   subjects <- data.frame(
     SubjectID = 1:4,
