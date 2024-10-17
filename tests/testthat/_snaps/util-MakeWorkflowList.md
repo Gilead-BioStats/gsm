@@ -4560,49 +4560,100 @@
       
       $STUDY[[3]]
       $STUDY[[3]]$output
-      [1] "Temp_StudyCountsWide"
+      [1] "Temp_CTMSplanned"
       
       $STUDY[[3]]$name
       [1] "RunQuery"
       
       $STUDY[[3]]$params
       $STUDY[[3]]$params$df
-      [1] "Mapped_SUBJ"
+      [1] "Raw_STUDY"
       
       $STUDY[[3]]$params$strQuery
-      [1] "SELECT studyid as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY studyid"
+      [1] "SELECT studyid as GroupID, num_plan_site as SiteTarget, num_plan_subj as ParticipantTarget FROM df"
       
       
       
       $STUDY[[4]]
       $STUDY[[4]]$output
-      [1] "Temp_StudyCounts"
-      
-      $STUDY[[4]]$name
-      [1] "MakeLongMeta"
-      
-      $STUDY[[4]]$params
-      $STUDY[[4]]$params$data
       [1] "Temp_StudyCountsWide"
       
-      $STUDY[[4]]$params$strGroupLevel
-      [1] "Study"
+      $STUDY[[4]]$name
+      [1] "RunQuery"
+      
+      $STUDY[[4]]$params
+      $STUDY[[4]]$params$df
+      [1] "Mapped_SUBJ"
+      
+      $STUDY[[4]]$params$strQuery
+      [1] "SELECT studyid as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY studyid"
       
       
       
       $STUDY[[5]]
       $STUDY[[5]]$output
-      [1] "Mapped_STUDY"
+      [1] "Temp_CountTargetsWide"
       
       $STUDY[[5]]$name
-      [1] "bind_rows"
+      [1] "left_join"
       
       $STUDY[[5]]$params
-      $STUDY[[5]]$params$Temp_CTMSStudy
+      $STUDY[[5]]$params$x
+      [1] "Temp_CTMSplanned"
+      
+      $STUDY[[5]]$params$y
+      [1] "Temp_StudyCountsWide"
+      
+      $STUDY[[5]]$params$by
+      [1] "GroupID"
+      
+      
+      
+      $STUDY[[6]]
+      $STUDY[[6]]$output
+      [1] "Temp_CountTargetsPercsWide"
+      
+      $STUDY[[6]]$name
+      [1] "RunQuery"
+      
+      $STUDY[[6]]$params
+      $STUDY[[6]]$params$df
+      [1] "Temp_CountTargetsWide"
+      
+      $STUDY[[6]]$params$strQuery
+      [1] "SELECT (SiteCount*100 / SiteTarget) as PercentSitesActivated, (ParticipantCount*100 / ParticipantTarget) as PercentParticipantsEnrolled, CONCAT( CAST(SiteCount AS CHAR), CAST(' / ' AS CHAR), CAST(SiteTarget AS CHAR), CAST(' (' AS CHAR), CAST((SiteCount*100 / SiteTarget) AS CHAR), CAST('%)' AS CHAR) ) as SiteActivationLabel, CONCAT( CAST(ParticipantCount AS CHAR), CAST(' / ' AS CHAR), CAST(ParticipantTarget AS CHAR), CAST(' (' AS CHAR), CAST((ParticipantCount*100 / ParticipantTarget) AS CHAR), CAST('%)' AS CHAR) ) as ParticipantEnrollmentLabel, * FROM df"
+      
+      
+      
+      $STUDY[[7]]
+      $STUDY[[7]]$output
+      [1] "Temp_CountTargetsPercs"
+      
+      $STUDY[[7]]$name
+      [1] "MakeLongMeta"
+      
+      $STUDY[[7]]$params
+      $STUDY[[7]]$params$data
+      [1] "Temp_CountTargetsPercsWide"
+      
+      $STUDY[[7]]$params$strGroupLevel
+      [1] "Study"
+      
+      
+      
+      $STUDY[[8]]
+      $STUDY[[8]]$output
+      [1] "Mapped_STUDY"
+      
+      $STUDY[[8]]$name
+      [1] "bind_rows"
+      
+      $STUDY[[8]]$params
+      $STUDY[[8]]$params$Temp_CTMSStudy
       [1] "Temp_CTMSStudy"
       
-      $STUDY[[5]]$params$Temp_StudyCounts
-      [1] "Temp_StudyCounts"
+      $STUDY[[8]]$params$Temp_CountTargetsPercs
+      [1] "Temp_CountTargetsPercs"
       
       
       
