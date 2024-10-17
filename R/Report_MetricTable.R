@@ -42,7 +42,13 @@ Report_MetricTable <- function(
     return("Nothing flagged for this KRI.")
   }
 
+  cols_to_hide <- c("StudyID", "GroupID", "MetricID")
+  if (length(unique(MetricTable$SnapshotDate == 1))) {
+    cols_to_hide <- c(cols_to_hide, "SnapshotDate")
+  }
+
   MetricTable %>%
     gsm_gt() %>%
+    gt::cols_hide(cols_to_hide) %>%
     fmt_sign(columns = "Flag")
 }

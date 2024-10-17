@@ -69,6 +69,7 @@ test_that("Output is expected object", {
       )
     )
   expect_snapshot({
-    Report_MetricTable(reportingResults_filt, reportingGroups)
+    x <- Report_MetricTable(reportingResults_filt, reportingGroups)
+    str(x, max.level = 2)
   })
 })

@@ -4,7 +4,9 @@ test_that("Empty dfs return empty dfs", {
   expect_equal(
     MakeMetricTable(dfResults_empty, dfGroups_empty),
     data.frame(
-      Group = character(), Enrolled = integer(), Numerator = integer(),
+      StudyID = character(), GroupID = character(), MetricID = character(),
+      Group = character(), SnapshoteDate = as.Date(integer()),
+      Enrolled = integer(), Numerator = integer(),
       Denominator = integer(), Metric = double(), Score = double(),
       Flag = character()
     )
@@ -18,7 +20,10 @@ test_that("Correct data structure when proper dataframe is passed", {
   expect_s3_class(result, "data.frame")
   expect_setequal(
     colnames(result),
-    c("Group", "Enrolled", "Numerator", "Denominator", "Metric", "Score", "Flag")
+    c(
+      "StudyID", "GroupID", "MetricID", "Group", "SnapshotDate", "Enrolled",
+      "Numerator", "Denominator", "Metric", "Score", "Flag"
+    )
   )
 })
 

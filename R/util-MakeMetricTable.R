@@ -46,7 +46,9 @@ MakeMetricTable <- function(
   if (!nrow(dfResults)) {
     return(
       data.frame(
-        Group = character(), Enrolled = integer(), Numerator = integer(),
+        StudyID = character(), GroupID = character(), MetricID = character(),
+        Group = character(), SnapshoteDate = as.Date(integer()),
+        Enrolled = integer(), Numerator = integer(),
         Denominator = integer(), Metric = double(), Score = double(),
         Flag = character()
       )
@@ -85,7 +87,11 @@ MakeMetricTable <- function(
     ) %>%
     dplyr::select(
       dplyr::any_of(c(
+        "StudyID",
+        "GroupID",
+        "MetricID",
         "Group",
+        "SnapshotDate",
         "Enrolled" = "ParticipantCount",
         "Numerator",
         "Denominator",
