@@ -4,8 +4,8 @@ test_that("Empty dfs return empty dfs", {
   expect_equal(
     MakeMetricTable(dfResults_empty, dfGroups_empty),
     data.frame(
-      Group = character(), Enrolled = character(), Numerator = double(),
-      Denominator = double(), Metric = double(), Score = double(),
+      Group = character(), Enrolled = integer(), Numerator = integer(),
+      Denominator = integer(), Metric = double(), Score = double(),
       Flag = character()
     )
   )
@@ -50,4 +50,42 @@ test_that("Errors informatively when multiple MetricIDs passed in", {
     MakeMetricTable(reportingResults, reportingGroups),
     class = "gsm_error-multiple_values"
   )
+})
+
+test_that("Enrolled is an integer", {
+  reportingResults_filt <- reportingResults %>%
+    dplyr::filter(MetricID == unique(reportingResults$MetricID)[[1]])
+  result <- MakeMetricTable(reportingResults_filt, reportingGroups)
+  expect_type(result$Enrolled, "integer")
+})
+
+test_that("Output is expected object", {
+  zero_flags <- c("0X003", "0x039")
+  red_flags <- c("0X113", "0X025")
+  amber_flags <- c("0X119", "0X046")
+
+  reportingResults_filt <- reportingResults %>%
+    FilterByLatestSnapshotDate() %>%
+    dplyr::filter(
+      MetricID == unique(reportingResults$MetricID)[[1]],
+      GroupID %in% c(zero_flags, red_flags, amber_flags)
+    ) %>%
+    # Add an NA row back for representation.
+    dplyr::bind_rows(
+      tibble::tibble(
+        GroupID = "0X000",
+        GroupLevel = "Site",
+        Numerator = 4L,
+        Denominator = 8L,
+        Metric = 0.5,
+        Score = NA,
+        Flag = NA,
+        MetricID = "kri0001",
+        SnapshotDate = as.Date("2012-12-31"),
+        StudyID = "ABC-123"
+      )
+    )
+  expect_snapshot({
+    MakeMetricTable(reportingResults_filt, reportingGroups)
+  })
 })

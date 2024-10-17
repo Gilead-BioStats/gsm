@@ -68,3 +68,50 @@ cols_label_month <- function(data, columns = gt::everything()) {
       limit = 1
     )
 }
+
+# Cells ------------------------------------------------------------------------
+
+fmt_sign <- function(
+    data,
+    columns = gt::everything(),
+    rows = gt::everything()) {
+  gt::fmt(
+    data,
+    columns = columns,
+    rows = rows,
+    compat = c("numeric", "integer"),
+    fns = Report_FormatFlag
+  ) %>%
+    gt::cols_align(align = "center", columns = columns)
+}
+
+n_to_sign <- function(x) {
+  dplyr::case_when(
+    # Note: this is an actual minus sign for better printing, not a dash.
+    x < 0 ~ "\u2212",
+    x > 0 ~ "+",
+    TRUE ~ ""
+  )
+}
+
+n_to_rag <- function(x) {
+  dplyr::case_when(
+    x == 0 ~ colorScheme("green"),
+    abs(x) >= 2 ~ colorScheme("red"),
+    abs(x) >= 1 ~ colorScheme("amber"),
+    TRUE ~ colorScheme("gray")
+  )
+}
+
+fmt_present <- function(
+    data,
+    columns = gt::everything(),
+    rows = gt::everything()) {
+  gt::fmt(
+    data,
+    columns = columns,
+    rows = rows,
+    compat = "logical",
+    fns = function(x) dplyr::if_else(x, "\u2713", "")
+  )
+}
