@@ -89,13 +89,23 @@ Input_Rate <- function(
   strDenominatorMethod <- match.arg(strDenominatorMethod)
 
   # Check if strNumeratorCol is Null when strNumeratorMethod is 'Sum'
-  if (strNumeratorMethod == "Sum" && is.null(strNumeratorCol)) {
-    stop("strNumeratorCol must be provided when strNumeratorMethod is 'Sum'")
+  if (strNumeratorMethod == "Sum") {
+    if (is.null(strNumeratorCol)) {
+      stop("strNumeratorCol must be provided when strNumeratorMethod is 'Sum'")
+    }
+    if (!is.numeric(dfNumerator[[strNumeratorCol]])) {
+      stop("strNumeratorCol must be numeric when strNumeratorMethod is `Sum`")
+    }
   }
 
   # Check if strDenominatorCol is Null when strDenominatorMethod is 'Sum'
-  if (strDenominatorMethod == "Sum" && is.null(strDenominatorCol)) {
-    stop("strDenominatorCol must be provided when strDenominatorMethod is 'Sum'")
+  if (strDenominatorMethod == "Sum") {
+    if (is.null(strDenominatorCol)) {
+      stop("strDenominatorCol must be provided when strDenominatorMethod is 'Sum'")
+    }
+    if (!is.numeric(dfDenominator[[strDenominatorCol]])) {
+      stop("strDenominatorCol must be numeric when strDenominatorMethod is `Sum`")
+    }
   }
 
   # check that "strSubjectCol" is in all dfs
