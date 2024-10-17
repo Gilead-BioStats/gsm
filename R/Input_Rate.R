@@ -139,7 +139,7 @@ Input_Rate <- function(
 
   if (all(dfDenominator_subj$Denominator == 0)) {
     cli::cli_abort(
-      "Method {strDenominatorMethod} for {strDenominatorCol} is causing all denominator values to be 0, please check {dfDenominator}"
+      "Method `{strDenominatorMethod}` for `{strDenominatorCol}` is causing all denominator values to be 0, please check `dfDenominator`}"
     )
   }
 
