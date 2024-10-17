@@ -41,10 +41,10 @@ date on the x-axis and the outcome (numerator, denominator, metric, or score) on
 \examples{
 ## Filter data to one metric
 reportingResults_filter <- reportingResults \%>\%
-  dplyr::filter(MetricID == "kri0001")
+  dplyr::filter(MetricID == "Analysis_kri0001")
 
 reportingMetrics_filter <- reportingMetrics \%>\%
-  dplyr::filter(MetricID == "kri0001") \%>\%
+  dplyr::filter(MetricID == "Analysis_kri0001") \%>\%
   as.list()
 
 Widget_TimeSeries(

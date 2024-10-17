@@ -28,7 +28,7 @@
 #'   dfBounds = reportingBounds,
 #'   dfGroups = reportingGroups,
 #'   dfMetrics = reportingMetrics,
-#'   strMetricID = "kri0001"
+#'   strMetricID = "Analysis_kri0001"
 #' )
 #'
 #' @export
