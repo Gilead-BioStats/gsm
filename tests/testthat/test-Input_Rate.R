@@ -107,6 +107,26 @@ test_that("handling of zero denominators and missing data", {
   expect_equal(result, expected)
 })
 
+test_that("if dfDenominator is incompatible with method and column choice", {
+  subjects <- data.frame(
+    SubjectID = 1:4,
+    GroupID = 10:13
+  )
+  numerators <- data.frame(
+    SubjectID = c(1, 1),
+    GroupID = 10:11
+  )
+  denominators <- data.frame(
+    SubjectID = numeric(),
+    GroupID = numeric()
+  )
+
+  expect_error(
+    Input_Rate(subjects, numerators, denominators),
+    regexp = "causing all denominator values to be 0"
+  )
+})
+
 test_that("yaml workflow produces same table as R function", {
   source(test_path("testdata", "create_double_data.R"), local = TRUE)
   expect_equal(dfInput$SubjectID, lResults$Analysis_kri0001$Analysis_Input$SubjectID)
