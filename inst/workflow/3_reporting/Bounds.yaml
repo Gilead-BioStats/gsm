@@ -3,20 +3,20 @@ meta:
   ID: Bounds
   Description: Generate reporting data model including site-, country- and study-level metadata (dfGroups), metric metadata (dfMetrics) and results data with added study-level columsn (dfSummary and dfBounds).
   Priority: 2
-spec: 
+spec:
   Reporting_Results:
     _all:
       required: true
     Numerator:
-      type: integer
+      type: numeric
     Denominator:
-      type: integer
+      type: numeric
     Metric:
-      type: integer
+      type: numeric
     Score:
-      type: integer
+      type: numeric
     Flag:
-      type: integer
+      type: numeric
   Reporting_Metrics:
     _all:
       required: true
