@@ -1,3 +1,5 @@
+suppressPackageStartupMessages(suppressWarnings(library(tcltk)))
+
 quiet_RunWorkflows <- function(...) {
   suppressMessages({
     RunWorkflows(...)

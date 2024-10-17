@@ -37,6 +37,7 @@
 #' @importFrom htmlwidgets shinyWidgetOutput
 #' @importFrom jsonlite fromJSON
 #' @importFrom jsonlite toJSON
+#' @importFrom lifecycle deprecated
 #' @importFrom purrr map
 #' @importFrom rlang %||%
 #' @importFrom rlang .data

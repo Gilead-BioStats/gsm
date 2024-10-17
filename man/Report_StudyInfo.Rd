@@ -4,15 +4,17 @@
 \alias{Report_StudyInfo}
 \title{Report Study Information}
 \usage{
-Report_StudyInfo(lStudy, lStudyLabels = NULL)
+Report_StudyInfo(dfGroups, lStudyLabels = NULL, lStudy = deprecated())
 }
 \arguments{
-\item{lStudy}{A list containing study information.}
+\item{dfGroups}{\code{data.frame} Group-level metadata dictionary. Created by passing CTMS site and study data to \code{\link[=MakeLongMeta]{MakeLongMeta()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Param}, \code{Value}.}
 
 \item{lStudyLabels}{A list containing study labels. Default is NULL.}
+
+\item{lStudy}{\code{deprecated} Study information as a named list.}
 }
 \value{
-None
+A \code{\link[htmltools:tagList]{htmltools::tagList()}} to display a table of study information.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
@@ -20,4 +22,3 @@ None
 This function generates a table summarizing study metadata as an interactive
 \code{\link[gt:gt]{gt::gt()}} wrapped in HTML.
 }
-\keyword{internal}

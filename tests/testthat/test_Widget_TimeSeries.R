@@ -1,8 +1,8 @@
 test_that("Widget_TimeSeries processes dfResults correctly", {
-  widget <- suppressWarnings(Widget_TimeSeries(reportingResults,
+  widget <- Widget_TimeSeries(reportingResults,
     reportingMetrics %>% as.list(),
     strOutcome = "Metric"
-  ))
+  )
 
   dfResults_expected <- reportingResults %>%
     jsonlite::toJSON(na = "string")
@@ -16,8 +16,7 @@ test_that("Widget_TimeSeries handles dfGroups correctly", {
     reportingMetrics %>% as.list(),
     dfGroups = reportingGroups,
     strOutcome = "Score"
-  ) %>%
-    suppressWarnings()
+  )
 
   dfGroups_expected <- reportingGroups %>%
     jsonlite::toJSON(na = "string")

@@ -49,7 +49,7 @@ MakeWorkflowList <- function(
     full.names = FALSE,
     recursive = bRecursive
   )
-  names(yaml_files) <-  sub("^.*/", "", names(yaml_files))
+  names(yaml_files) <- sub("^.*/", "", names(yaml_files))
 
   # if `strNames` is not null, subset the workflow list to only include
   # files that match the character vector (`strNames`)

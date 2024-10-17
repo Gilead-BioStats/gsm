@@ -7,6 +7,19 @@ test_that("Empty data frames return default message", {
   )
 })
 
+test_that("Default message when nothing flagged", {
+  dfResults <- dplyr::filter(
+    reportingResults,
+    MetricID == "kri0001",
+    Flag == 0
+  )
+  dfGroups <- reportingGroups
+  expect_equal(
+    Report_MetricTable(dfResults, dfGroups),
+    "Nothing flagged for this KRI."
+  )
+})
+
 test_that("Correct data structure when proper dataframe is passed", {
   reportingResults_filt <- reportingResults %>%
     dplyr::filter(MetricID == unique(reportingResults$MetricID)[1])

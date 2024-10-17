@@ -32,6 +32,6 @@ MakeMetric <- function(lWorkflows) {
       return(tibble::as_tibble(wf$meta))
     }) %>%
     purrr::list_rbind() %>%
-    mutate(MetricID = paste0(Type, "_", ID))
+    mutate(MetricID = paste0(.data$Type, "_", .data$ID))
   return(dfMetrics)
 }

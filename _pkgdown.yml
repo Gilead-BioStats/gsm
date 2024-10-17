@@ -74,6 +74,7 @@ reference:
       - Report_KRI
       - Report_MetricCharts
       - Report_MetricTable
+      - Report_StudyInfo
 
 
   - title: Utility

@@ -4,9 +4,9 @@ date: 'Date: `r Sys.Date()`'
 output:
   rmarkdown::html_vignette
 vignette: >
- %\\VignetteIndexEntry{Qualification Workflow}
- %\\VignetteEncoding{UTF-8}
- %\\VignetteEngine{knitr::rmarkdown_notangle}
+  %\VignetteIndexEntry{Qualification Workflow}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown_notangle}
 ---
 
 ```{r setup, include = FALSE}

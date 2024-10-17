@@ -4,12 +4,14 @@
 \alias{MakeStudyInfo}
 \title{Generate a study information data.frame for use in reports}
 \usage{
-MakeStudyInfo(lStudy, lStudyLabels = NULL)
+MakeStudyInfo(dfGroups, lStudyLabels = NULL, lStudy = deprecated())
 }
 \arguments{
-\item{lStudy}{A list containing study information.}
+\item{dfGroups}{\code{data.frame} Group-level metadata dictionary. Created by passing CTMS site and study data to \code{\link[=MakeLongMeta]{MakeLongMeta()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Param}, \code{Value}.}
 
 \item{lStudyLabels}{A list containing study labels. Default is NULL.}
+
+\item{lStudy}{\code{deprecated} Study information as a named list.}
 }
 \value{
 A data.frame containing study metadata.
@@ -20,13 +22,7 @@ A data.frame containing study metadata.
 Generate a study info table summarizing study metadata.
 }
 \examples{
-lStudy <- list(
-  StudyID = "Unique Study ID",
-  SiteCount = 10,
-  ParticipantCount = 100,
-  Status = "Ongoing"
-)
-MakeStudyInfo(lStudy)
-MakeStudyInfo(lStudy, list(SiteCount = "# Sites"))
+MakeStudyInfo(gsm::reportingGroups)
+MakeStudyInfo(gsm::reportingGroups, list(SiteCount = "# Sites"))
 
 }
