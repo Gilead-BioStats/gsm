@@ -46,8 +46,10 @@ MakeMetricTable <- function(
   if (!nrow(dfResults)) {
     return(
       data.frame(
-        Group = character(), Enrolled = character(), Numerator = double(),
-        Denominator = double(), Metric = double(), Score = double(),
+        StudyID = character(), GroupID = character(), MetricID = character(),
+        Group = character(), SnapshoteDate = as.Date(integer()),
+        Enrolled = integer(), Numerator = integer(),
+        Denominator = integer(), Metric = double(), Score = double(),
         Flag = character()
       )
     )
@@ -62,12 +64,12 @@ MakeMetricTable <- function(
       ),
       class = "gsm_error-multiple_values"
     )
-
-    stop("Expecting `dfResults` to be filtered to one unique MetricID, but many detected.")
   }
 
   if (rlang::arg_match(strGroupLevel) == "Site" & !is.null(dfGroups)) {
-    dfResults$Group <- glue::glue("{dfResults$GroupID} ({dfResults$InvestigatorLastName})")
+    dfResults$Group <- glue::glue(
+      "{dfResults$GroupID} ({dfResults$InvestigatorLastName})"
+    )
   } else {
     dfResults$Group <- dfResults$GroupID
   }
@@ -79,13 +81,17 @@ MakeMetricTable <- function(
     ) %>%
     dplyr::mutate(
       dplyr::across(
-        dplyr::where(is.numeric),
+        dplyr::where(is.double),
         ~ round(.x, 2)
       )
     ) %>%
     dplyr::select(
       dplyr::any_of(c(
+        "StudyID",
+        "GroupID",
+        "MetricID",
         "Group",
+        "SnapshotDate",
         "Enrolled" = "ParticipantCount",
         "Numerator",
         "Denominator",

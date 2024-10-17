@@ -1,20 +1,21 @@
 #' Generate a summary table for a report
 #'
-#' @description
-#' `r lifecycle::badge("stable")`
+#' @description `r lifecycle::badge("stable")`
 #'
 #' This function generates a summary table for a report by joining the provided
-#' results data frame with the site-level metadata from dfGroups. It then filters and arranges the
-#' data based on certain conditions and displays the result in a datatable.
+#' results data frame with the site-level metadata from dfGroups. It then
+#' filters and arranges the data based on certain conditions and displays the
+#' result in a datatable.
 #'
 #' @inheritParams shared-params
-#' @param dfResults `r gloss_param("dfResults")`
-#'   `r gloss_extra("dfResults_filtered")`
+#' @param dfResults `r gloss_param("dfResults")` `r gloss_extra("dfResults_filtered")`
 #' @param strGroupLevel  group level for the table
-#' @param strGroupDetailsParams one or more parameters from dfGroups to be added as columns in the table
-#' @param vFlags `integer` List of flag values to include in output table. Default: `c(-2, -1, 1, 2)`.
+#' @param strGroupDetailsParams one or more parameters from dfGroups to be added
+#'   as columns in the table
+#' @param vFlags `integer` List of flag values to include in output table.
+#'   Default: `c(-2, -1, 1, 2)`.
 #'
-#' @return A datatable containing the summary table
+#' @return A [gt::gt()] containing the summary table.
 #'
 #' @examples
 #' # site-level report
@@ -41,8 +42,13 @@ Report_MetricTable <- function(
     return("Nothing flagged for this KRI.")
   }
 
+  cols_to_hide <- c("StudyID", "GroupID", "MetricID")
+  if (length(unique(MetricTable$SnapshotDate == 1))) {
+    cols_to_hide <- c(cols_to_hide, "SnapshotDate")
+  }
+
   MetricTable %>%
     gsm_gt() %>%
-    fmt_sign_rag(columns = "Flag")
-
+    gt::cols_hide(cols_to_hide) %>%
+    fmt_sign(columns = "Flag")
 }
