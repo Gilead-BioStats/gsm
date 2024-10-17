@@ -83,8 +83,7 @@ data based on provided conditions.</p>
 
 
 <dl><dt id="arg-dfresults">dfResults<a class="anchor" aria-label="anchor" href="#arg-dfresults"></a></dt>
-<dd><p><code>data.frame</code> A stacked summary of analysis pipeline output. Created by passing a list of results returned by <code><a href="Summarize.html">Summarize()</a></code> to <code><a href="BindResults.html">BindResults()</a></code>. Expected columns: <code>GroupID</code>, <code>GroupLevel</code>, <code>Numerator</code>, <code>Denominator</code>, <code>Metric</code>, <code>Score</code>, <code>Flag</code>, <code>MetricID</code>, <code>StudyID</code>, <code>SnapshotDate</code>.
-For this function, <code>dfResults</code> must be filtered to a single KRI (<code>MetricID</code>).</p></dd>
+<dd><p><code>data.frame</code> A stacked summary of analysis pipeline output. Created by passing a list of results returned by <code><a href="Summarize.html">Summarize()</a></code> to <code><a href="BindResults.html">BindResults()</a></code>. Expected columns: <code>GroupID</code>, <code>GroupLevel</code>, <code>Numerator</code>, <code>Denominator</code>, <code>Metric</code>, <code>Score</code>, <code>Flag</code>, <code>MetricID</code>, <code>StudyID</code>, <code>SnapshotDate</code>. For this function, <code>dfResults</code> must be filtered to a single KRI (<code>MetricID</code>).</p></dd>
 
 
 <dt id="arg-dfgroups">dfGroups<a class="anchor" aria-label="anchor" href="#arg-dfgroups"></a></dt>
@@ -96,11 +95,13 @@ For this function, <code>dfResults</code> must be filtered to a single KRI (<cod
 
 
 <dt id="arg-strgroupdetailsparams">strGroupDetailsParams<a class="anchor" aria-label="anchor" href="#arg-strgroupdetailsparams"></a></dt>
-<dd><p>one or more parameters from dfGroups to be added as columns in the table</p></dd>
+<dd><p>one or more parameters from dfGroups to be added
+as columns in the table</p></dd>
 
 
 <dt id="arg-vflags">vFlags<a class="anchor" aria-label="anchor" href="#arg-vflags"></a></dt>
-<dd><p><code>integer</code> List of flag values to include in output table. Default: <code>c(-2, -1, 1, 2)</code>.</p></dd>
+<dd><p><code>integer</code> List of flag values to include in output table.
+Default: <code>c(-2, -1, 1, 2)</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -117,29 +118,52 @@ For this function, <code>dfResults</code> must be filtered to a single KRI (<cod
 <span class="r-in"><span>    <span class="fu"><a href="FilterByLatestSnapshotDate.html">FilterByLatestSnapshotDate</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  dfGroups <span class="op">=</span> <span class="va">reportingGroups</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                         Group Enrolled Numerator Denominator Metric Score Flag</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          0X139 (el-Khalifa)        2        67        1863   0.04 -2.96   -2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  0X186 (Gallegos-Neiberger)        2        98        2518   0.04 -2.69   -2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3               0X162 (Campa)        2       186        4433   0.04 -2.54   -2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4               0X113 (Wilde)        3       359        8172   0.04 -2.53   -2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5               0X025 (Smith)        2       136        3210   0.04 -2.04   -2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6             0X155 (al-Sani)        3       379        6887   0.06  2.37    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7             0X119 (Cousins)        3       260        4695   0.06  2.08    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8              0X091 (Ostrom)        2       195        4462   0.04 -1.95   -1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9               0X138 (Black)        2        58        1454   0.04 -1.85   -1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10             0X020 (Hamlin)        3       268        5985   0.04 -1.83   -1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11          0X092 (al-Badour)        3       213        4795   0.04 -1.77   -1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12     0X121 (Rodriguez-Cruz)        2       111        2569   0.04 -1.61   -1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13              0X148 (Suess)        2       167        3742   0.04 -1.50   -1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14           0X173 (el-Yusuf)        2       200        4436   0.05 -1.47   -1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15           0X013 (el-Allam)        1        96        2215   0.04 -1.46   -1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16              0X164 (Jiron)        1        96        2215   0.04 -1.46   -1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17           0X143 (el-Salih)        3       216        4759   0.05 -1.42   -1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18           0X046 (al-Daoud)        5       432        9283   0.05 -1.42   -1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19          0X016 (el-Shaker)        3       245        5366   0.05 -1.41   -1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20            0X176 (Salazar)        3       285        6191   0.05 -1.36   -1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21            0X105 (Patalan)        2       170        3770   0.05 -1.36   -1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22              0X134 (Keese)        2       143        3165   0.05 -1.22   -1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    StudyID GroupID MetricID                      Group SnapshotDate Enrolled</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  ABC-123   0X139  kri0001         0X139 (el-Khalifa)   2012-12-31        2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  ABC-123   0X186  kri0001 0X186 (Gallegos-Neiberger)   2012-12-31        2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  ABC-123   0X162  kri0001              0X162 (Campa)   2012-12-31        2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  ABC-123   0X113  kri0001              0X113 (Wilde)   2012-12-31        3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  ABC-123   0X025  kri0001              0X025 (Smith)   2012-12-31        2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  ABC-123   0X155  kri0001            0X155 (al-Sani)   2012-12-31        3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  ABC-123   0X119  kri0001            0X119 (Cousins)   2012-12-31        3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  ABC-123   0X091  kri0001             0X091 (Ostrom)   2012-12-31        2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  ABC-123   0X138  kri0001              0X138 (Black)   2012-12-31        2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 ABC-123   0X020  kri0001             0X020 (Hamlin)   2012-12-31        3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 ABC-123   0X092  kri0001          0X092 (al-Badour)   2012-12-31        3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12 ABC-123   0X121  kri0001     0X121 (Rodriguez-Cruz)   2012-12-31        2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13 ABC-123   0X148  kri0001              0X148 (Suess)   2012-12-31        2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14 ABC-123   0X173  kri0001           0X173 (el-Yusuf)   2012-12-31        2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 ABC-123   0X013  kri0001           0X013 (el-Allam)   2012-12-31        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16 ABC-123   0X164  kri0001              0X164 (Jiron)   2012-12-31        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 ABC-123   0X143  kri0001           0X143 (el-Salih)   2012-12-31        3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18 ABC-123   0X046  kri0001           0X046 (al-Daoud)   2012-12-31        5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 ABC-123   0X016  kri0001          0X016 (el-Shaker)   2012-12-31        3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20 ABC-123   0X176  kri0001            0X176 (Salazar)   2012-12-31        3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21 ABC-123   0X105  kri0001            0X105 (Patalan)   2012-12-31        2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22 ABC-123   0X134  kri0001              0X134 (Keese)   2012-12-31        2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Numerator Denominator Metric Score Flag</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         67        1863   0.04 -2.96   -2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2         98        2518   0.04 -2.69   -2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3        186        4433   0.04 -2.54   -2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4        359        8172   0.04 -2.53   -2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5        136        3210   0.04 -2.04   -2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6        379        6887   0.06  2.37    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7        260        4695   0.06  2.08    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8        195        4462   0.04 -1.95   -1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9         58        1454   0.04 -1.85   -1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10       268        5985   0.04 -1.83   -1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11       213        4795   0.04 -1.77   -1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12       111        2569   0.04 -1.61   -1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13       167        3742   0.04 -1.50   -1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14       200        4436   0.05 -1.47   -1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15        96        2215   0.04 -1.46   -1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16        96        2215   0.04 -1.46   -1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17       216        4759   0.05 -1.42   -1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18       432        9283   0.05 -1.42   -1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19       245        5366   0.05 -1.41   -1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20       285        6191   0.05 -1.36   -1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21       170        3770   0.05 -1.36   -1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22       143        3165   0.05 -1.22   -1</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

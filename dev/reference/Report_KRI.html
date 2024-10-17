@@ -111,8 +111,8 @@ the report will be named based on the study ID, Group Level and Date.</p></dd>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="co"># Run reports</span></span></span>
-<span class="r-in"><span><span class="va">lCharts</span> <span class="op">&lt;-</span> <span class="fu"><a href="MakeCharts.html">MakeCharts</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="co"># Run site-level KRI report.</span></span></span>
+<span class="r-in"><span><span class="va">lChartsSite</span> <span class="op">&lt;-</span> <span class="fu"><a href="MakeCharts.html">MakeCharts</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  dfResults <span class="op">=</span> <span class="va">reportingResults</span>,</span></span>
 <span class="r-in"><span>  dfGroups <span class="op">=</span> <span class="va">reportingGroups</span>,</span></span>
 <span class="r-in"><span>  dfMetrics <span class="op">=</span> <span class="va">reportingMetrics</span>,</span></span>
@@ -121,10 +121,27 @@ the report will be named based on the study ID, Group Level and Date.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">strOutputFile</span> <span class="op">&lt;-</span> <span class="st">"StandardSiteReport.html"</span></span></span>
 <span class="r-in"><span><span class="va">kri_report_path</span> <span class="op">&lt;-</span> <span class="fu">Report_KRI</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  lCharts <span class="op">=</span> <span class="va">lCharts</span>,</span></span>
+<span class="r-in"><span>  lCharts <span class="op">=</span> <span class="va">lChartsSite</span>,</span></span>
 <span class="r-in"><span>  dfResults <span class="op">=</span> <span class="va">reportingResults</span>,</span></span>
 <span class="r-in"><span>  dfGroups <span class="op">=</span> <span class="va">reportingGroups</span>,</span></span>
 <span class="r-in"><span>  dfMetrics <span class="op">=</span> <span class="va">reportingMetrics</span>,</span></span>
+<span class="r-in"><span>  strOutputFile <span class="op">=</span> <span class="va">strOutputFile</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Run country-level KRI report.</span></span></span>
+<span class="r-in"><span><span class="va">lChartsCountry</span> <span class="op">&lt;-</span> <span class="fu"><a href="MakeCharts.html">MakeCharts</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  dfResults <span class="op">=</span> <span class="va">reportingResults_country</span>,</span></span>
+<span class="r-in"><span>  dfGroups <span class="op">=</span> <span class="va">reportingGroups_country</span>,</span></span>
+<span class="r-in"><span>  dfMetrics <span class="op">=</span> <span class="va">reportingMetrics_country</span>,</span></span>
+<span class="r-in"><span>  dfBounds <span class="op">=</span> <span class="va">reportingBounds_country</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">strOutputFile</span> <span class="op">&lt;-</span> <span class="st">"StandardCountryReport.html"</span></span></span>
+<span class="r-in"><span><span class="va">kri_report_path</span> <span class="op">&lt;-</span> <span class="fu">Report_KRI</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  lCharts <span class="op">=</span> <span class="va">lChartsCountry</span>,</span></span>
+<span class="r-in"><span>  dfResults <span class="op">=</span> <span class="va">reportingResults_country</span>,</span></span>
+<span class="r-in"><span>  dfGroups <span class="op">=</span> <span class="va">reportingGroups_country</span>,</span></span>
+<span class="r-in"><span>  dfMetrics <span class="op">=</span> <span class="va">reportingMetrics_country</span>,</span></span>
 <span class="r-in"><span>  strOutputFile <span class="op">=</span> <span class="va">strOutputFile</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
