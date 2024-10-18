@@ -4,21 +4,21 @@
       str(x, max.level = 2)
     Output
       List of 17
-       $ _data         : tibble [0 x 5] (S3: tbl_df/tbl/data.frame)
-       $ _boxhead      : tibble [5 x 8] (S3: tbl_df/tbl/data.frame)
-       $ _stub_df      :'data.frame':	0 obs. of  6 variables:
-        ..$ rownum_i         : int(0) 
-        ..$ row_id           : chr(0) 
-        ..$ group_id         : chr(0) 
-        ..$ group_label      : list()
-        ..$ indent           : chr(0) 
-        ..$ built_group_label: chr(0) 
-       $ _row_groups   : chr(0) 
+       $ _data         : tibble [6 x 8] (S3: tbl_df/tbl/data.frame)
+       $ _boxhead      : tibble [8 x 8] (S3: tbl_df/tbl/data.frame)
+       $ _stub_df      :'data.frame':	6 obs. of  6 variables:
+        ..$ rownum_i         : int [1:6] 1 2 3 4 5 6
+        ..$ row_id           : chr [1:6] NA NA NA NA ...
+        ..$ group_id         : chr [1:6] "Site - 0X007" "Site - 0X007" "Site - 0X007" "Site - 0X159" ...
+        ..$ group_label      :List of 6
+        ..$ indent           : chr [1:6] NA NA NA NA ...
+        ..$ built_group_label: chr [1:6] NA NA NA NA ...
+       $ _row_groups   : chr [1:2] "Site - 0X007" "Site - 0X159"
        $ _heading      :List of 3
         ..$ title    : chr "Flags Over Time"
         ..$ subtitle : NULL
         ..$ preheader: NULL
-       $ _spanners     : tibble [0 x 8] (S3: tbl_df/tbl/data.frame)
+       $ _spanners     : tibble [2 x 8] (S3: tbl_df/tbl/data.frame)
        $ _stubhead     :List of 1
         ..$ label: NULL
        $ _footnotes    : tibble [0 x 8] (S3: tbl_df/tbl/data.frame)
