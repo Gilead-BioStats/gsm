@@ -203,7 +203,7 @@ for (i in 1:12) {
                             dfParticipants = dfParticipants)
   dfQUERY <- AddQUERY(df = dfQUERY,
                       dfParticipants = dfParticipants)
-  dfDATACHG <- AddDATACHG(df = dfSTUDCOMP,
+  dfDATACHG <- AddDATACHG(df = dfDATACHG,
                           dfParticipants = dfParticipants)
   dfDATAENT <- AddDATAENT(df = dfDATAENT,
                           dfParticipants = dfParticipants)
