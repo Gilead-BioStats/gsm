@@ -136,6 +136,8 @@ for (i in unique(params$dfMetrics$MetricID)) {
     strMetricID = lMetric$MetricID,
     overview = FALSE
   )
+  
+  print(htmltools::tags$br())
 
 }
 

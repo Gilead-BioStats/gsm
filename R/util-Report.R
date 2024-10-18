@@ -105,7 +105,13 @@ widen_dfGroups <- function(dfGroups, strGroupLevel, strGroupDetailsParams) {
     }
     dfGroups <- dfGroups %>%
       dplyr::filter(.data$Param %in% strGroupDetailsParams) %>%
-      tidyr::pivot_wider(names_from = "Param", values_from = "Value")
+      tidyr::pivot_wider(names_from = "Param", values_from = "Value") %>%
+      dplyr::mutate(
+        dplyr::across(
+          dplyr::any_of(c("ParticipantCount", "SiteCount")),
+          as.integer
+        )
+      )
   }
   return(dplyr::select(dfGroups, -"GroupLevel"))
 }
