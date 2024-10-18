@@ -305,7 +305,7 @@ KRI metric</a> is:</p>
 <span>      <span class="va">type</span><span class="op">:</span> <span class="va">character</span></span>
 <span>    <span class="va">timeonstudy</span><span class="op">:</span></span>
 <span>      <span class="va">required</span><span class="op">:</span> <span class="va">true</span></span>
-<span>      <span class="va">type</span><span class="op">:</span> <span class="va">numeric</span></span></code></pre>
+<span>      <span class="va">type</span><span class="op">:</span> <span class="va">integer</span></span></code></pre>
 <p>So, in summary, the AE KRI metric requires two data tables,
 <code>Mapped_AE</code> and <code>Mapped_ENROLL</code>, both of which are
 from the mapped data layer. The <code>Mapped_AE</code> table must have a
@@ -587,7 +587,7 @@ spec:
       source_col: subjectname
     n_changes:
       required: true
-      type: numeric
+      type: integer
   Mapped_SUBJ:
     subjid:
       required: true
