@@ -12,7 +12,7 @@
 #' that will be parsed and then passed to the specified function as a set of parameter names/values.
 #' Parameter values should be specified as scalar strings. Those values are then pulled from `lMeta` or `lData`
 #' when possible. When no matching `lData` or `lMeta` objects are found, parameter values are passed through as
-#' stings. Note that parsing vectorized parameters is not supported at this time; they are passed directly
+#' strings. Note that parsing vectorized parameters is not supported at this time; they are passed directly
 #' as character vectors. To pass a vector or list, we recommend saving it as an object in `lData`.
 #'
 #' Full prioritization for parsing parameters is below:
