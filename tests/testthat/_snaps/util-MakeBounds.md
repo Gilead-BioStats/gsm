@@ -20,17 +20,17 @@
       v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
       nStep was not provided. Setting default step to 0.232.
       v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
-      nStep was not provided. Setting default step to 65.16.
+      nStep was not provided. Setting default step to 803.2.
       v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
       nStep was not provided. Setting default step to 82.46.
       v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
       nStep was not provided. Setting default step to 80511.168.
       v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
-      nStep was not provided. Setting default step to 65.16.
+      nStep was not provided. Setting default step to 803.2.
       v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
       nStep was not provided. Setting default step to 14.916.
     Output
-      # A tibble: 14,469 x 8
+      # A tibble: 14,484 x 8
          Threshold Denominator LogDenominator Numerator Metric MetricID        StudyID
              <dbl>       <dbl>          <dbl>     <dbl>  <dbl> <chr>           <chr>  
        1        -2        410.           6.02      13.3 0.0324 Analysis_kri00~ AA-AA-~
@@ -43,7 +43,7 @@
        8        -2        714.           6.57      27.2 0.0381 Analysis_kri00~ AA-AA-~
        9        -2        757.           6.63      29.3 0.0386 Analysis_kri00~ AA-AA-~
       10        -2        801.           6.69      31.3 0.0391 Analysis_kri00~ AA-AA-~
-      # i 14,459 more rows
+      # i 14,474 more rows
       # i 1 more variable: SnapshotDate <date>
 
 # MakeBounds uses user-supplied strMetrics
@@ -94,17 +94,17 @@
       v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
       nStep was not provided. Setting default step to 0.232.
       v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
-      nStep was not provided. Setting default step to 65.16.
+      nStep was not provided. Setting default step to 803.2.
       v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
       nStep was not provided. Setting default step to 82.46.
       v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
       nStep was not provided. Setting default step to 80511.168.
       v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
-      nStep was not provided. Setting default step to 65.16.
+      nStep was not provided. Setting default step to 803.2.
       v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
       nStep was not provided. Setting default step to 14.916.
     Output
-      # A tibble: 14,469 x 8
+      # A tibble: 14,484 x 8
          Threshold Denominator LogDenominator Numerator Metric MetricID        StudyID
              <dbl>       <dbl>          <dbl>     <dbl>  <dbl> <chr>           <chr>  
        1        -2        410.           6.02      13.3 0.0324 Analysis_kri00~ AA-AA-~
@@ -117,6 +117,6 @@
        8        -2        714.           6.57      27.2 0.0381 Analysis_kri00~ AA-AA-~
        9        -2        757.           6.63      29.3 0.0386 Analysis_kri00~ AA-AA-~
       10        -2        801.           6.69      31.3 0.0391 Analysis_kri00~ AA-AA-~
-      # i 14,459 more rows
+      # i 14,474 more rows
       # i 1 more variable: SnapshotDate <date>
 
