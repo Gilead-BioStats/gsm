@@ -66,24 +66,28 @@ gt::gt() wrapped in HTML."><meta name="robots" content="noindex"><link href="pkg
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Report_StudyInfo</span><span class="op">(</span><span class="va">lStudy</span>, lStudyLabels <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Report_StudyInfo</span><span class="op">(</span><span class="va">dfGroups</span>, lStudyLabels <span class="op">=</span> <span class="cn">NULL</span>, lStudy <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-lstudy">lStudy<a class="anchor" aria-label="anchor" href="#arg-lstudy"></a></dt>
-<dd><p>A list containing study information.</p></dd>
+<dl><dt id="arg-dfgroups">dfGroups<a class="anchor" aria-label="anchor" href="#arg-dfgroups"></a></dt>
+<dd><p><code>data.frame</code> Group-level metadata dictionary. Created by passing CTMS site and study data to <code><a href="MakeLongMeta.html">MakeLongMeta()</a></code>. Expected columns: <code>GroupID</code>, <code>GroupLevel</code>, <code>Param</code>, <code>Value</code>.</p></dd>
 
 
 <dt id="arg-lstudylabels">lStudyLabels<a class="anchor" aria-label="anchor" href="#arg-lstudylabels"></a></dt>
 <dd><p>A list containing study labels. Default is NULL.</p></dd>
 
+
+<dt id="arg-lstudy">lStudy<a class="anchor" aria-label="anchor" href="#arg-lstudy"></a></dt>
+<dd><p><code>deprecated</code> Study information as a named list.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>None</p>
+    <p>A <code><a href="https://rstudio.github.io/htmltools/reference/tagList.html" class="external-link">htmltools::tagList()</a></code> to display a table of study information.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
