@@ -80,7 +80,7 @@ CheckSpec <- function(lData, lSpec) {
       cli::cli_alert("All specified columns in {strDataFrame} are in the expected format")
     }
     # check that required exist in data, if _all required is not specified
-    if (isFALSE(lSpec[[strDataFrame]]$`_all`$required)) {
+    if (!isTRUE(lSpec[[strDataFrame]]$`_all`$required)) {
       lSpecColumns <- which(sapply(lSpec[[strDataFrame]], function(x) x$required)) %>% names()
       lDataColumns <- names(lData[[strDataFrame]])
       allCols <- c(allCols, paste(strDataFrame, lSpecColumns, sep = "$"))

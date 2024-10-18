@@ -138,11 +138,12 @@ test_that("Validate column type works", {
       GroupID = list(required = TRUE, type = "character"),
       GroupLevel = list(required = TRUE, type = "character"),
       Numerator = list(required = TRUE, type = "integer"),
-      Denominator = list(required = TRUE, type = "integer")
+      Denominator = list(required = TRUE, type = "integer"),
+      SnapshotDate = list(required = TRUE, type = "Date")
     )
   )
   expect_message(
-    expect_message(expect_message(CheckSpec(lData, lSpec), "All 1"), "All 4"),
+    expect_message(expect_message(CheckSpec(lData, lSpec), "All 1"), "All 5"),
     regexp = "All specified columns"
   )
 
@@ -151,11 +152,12 @@ test_that("Validate column type works", {
       GroupID = list(required = TRUE, type = "character"),
       GroupLevel = list(required = TRUE, type = "character"),
       Numerator = list(required = TRUE, type = "character"),
-      Denominator = list(required = TRUE, type = "integer")
+      Denominator = list(required = TRUE, type = "integer"),
+      SnapshotDate = list(required = TRUE, type = "Date")
     )
   )
   expect_message(
-    expect_message(expect_message(CheckSpec(lData, lSpec), "All 1"), "All 4"),
+    expect_message(expect_message(CheckSpec(lData, lSpec), "All 1"), "All 5"),
     regexp = "Not all columns"
   )
 })
@@ -218,3 +220,32 @@ test_that("proper message appears when all data frames require `_all` columns", 
     " No required columns specified"
   )
 })
+
+test_that("All dates are handles correctly", {
+  # example lSpec
+  lSpec <- list(
+    df1 = list(
+      a = list(required = TRUE),
+      b = list(required = TRUE)
+    ),
+    df2 = list(
+      x = list(required = TRUE),
+      y = list(required = TRUE)
+    )
+  )
+
+  # Example data
+  lData <- list(
+    df1 = data.frame(a = 1:3, b = 4:6),
+    df2 = data.frame(x = 7:9, y = 10:12)
+  )
+
+  expect_message(
+    expect_message(expect_message(
+      expect_message(CheckSpec(lData, lSpec), "All 2 data"),
+      "All specified"
+    ), "All specified"),
+    "All 4 required"
+  )
+})
+
