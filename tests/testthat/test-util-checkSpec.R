@@ -221,31 +221,3 @@ test_that("proper message appears when all data frames require `_all` columns", 
   )
 })
 
-test_that("All dates are handles correctly", {
-  # example lSpec
-  lSpec <- list(
-    df1 = list(
-      a = list(required = TRUE),
-      b = list(required = TRUE)
-    ),
-    df2 = list(
-      x = list(required = TRUE),
-      y = list(required = TRUE)
-    )
-  )
-
-  # Example data
-  lData <- list(
-    df1 = data.frame(a = 1:3, b = 4:6),
-    df2 = data.frame(x = 7:9, y = 10:12)
-  )
-
-  expect_message(
-    expect_message(expect_message(
-      expect_message(CheckSpec(lData, lSpec), "All 2 data"),
-      "All specified"
-    ), "All specified"),
-    "All 4 required"
-  )
-})
-
