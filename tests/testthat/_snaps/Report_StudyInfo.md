@@ -1440,14 +1440,14 @@
           </tr>
         </thead>
         <tbody class="gt_table_body">
-          <tr><td headers="Description" class="gt_row gt_left">Participants Enrolled</td>
-      <td headers="Value" class="gt_row gt_left">48</td></tr>
-          <tr><td headers="Description" class="gt_row gt_left">Sites Enrolled</td>
-      <td headers="Value" class="gt_row gt_left">158</td></tr>
-          <tr><td headers="Description" class="gt_row gt_left">Study Status</td>
-      <td headers="Value" class="gt_row gt_left">Active</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Nickname</td>
       <td headers="Value" class="gt_row gt_left">Protocol Nickname</td></tr>
+          <tr><td headers="Description" class="gt_row gt_left">Study Status</td>
+      <td headers="Value" class="gt_row gt_left">Active</td></tr>
+          <tr><td headers="Description" class="gt_row gt_left">Participants Enrolled</td>
+      <td headers="Value" class="gt_row gt_left">50</td></tr>
+          <tr><td headers="Description" class="gt_row gt_left">Sites Enrolled</td>
+      <td headers="Value" class="gt_row gt_left">154</td></tr>
         </tbody>
         
         
@@ -1910,15 +1910,9 @@
           </tr>
         </thead>
         <tbody class="gt_table_body">
-          <tr><td headers="Description" class="gt_row gt_left">Participants Enrolled</td>
-      <td headers="Value" class="gt_row gt_left">48</td></tr>
-          <tr><td headers="Description" class="gt_row gt_left">Sites Enrolled</td>
-      <td headers="Value" class="gt_row gt_left">158</td></tr>
-          <tr><td headers="Description" class="gt_row gt_left">Study Status</td>
-      <td headers="Value" class="gt_row gt_left">Active</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Protocol Row Id</td>
       <td headers="Value" class="gt_row gt_left">1-1G9113</td></tr>
-          <tr><td headers="Description" class="gt_row gt_left">Protocol Number</td>
+          <tr><td headers="Description" class="gt_row gt_left">Studyid</td>
       <td headers="Value" class="gt_row gt_left">AA-AA-000-0000</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Protocol Title</td>
       <td headers="Value" class="gt_row gt_left">Protocol Title</td></tr>
@@ -1944,7 +1938,7 @@
       <td headers="Value" class="gt_row gt_left">2020-06-01</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Act Lpfv</td>
       <td headers="Value" class="gt_row gt_left">2020-06-01</td></tr>
-          <tr><td headers="Description" class="gt_row gt_left">Status</td>
+          <tr><td headers="Description" class="gt_row gt_left">Study Status</td>
       <td headers="Value" class="gt_row gt_left">Active</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Num Plan Subj</td>
       <td headers="Value" class="gt_row gt_left">1300</td></tr>
@@ -1960,6 +1954,10 @@
       <td headers="Value" class="gt_row gt_left">123</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">X Rbm Flg</td>
       <td headers="Value" class="gt_row gt_left">Y</td></tr>
+          <tr><td headers="Description" class="gt_row gt_left">Participants Enrolled</td>
+      <td headers="Value" class="gt_row gt_left">50</td></tr>
+          <tr><td headers="Description" class="gt_row gt_left">Sites Enrolled</td>
+      <td headers="Value" class="gt_row gt_left">154</td></tr>
         </tbody>
         
         

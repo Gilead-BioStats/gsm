@@ -21,12 +21,12 @@ test_that("MakeWideGroups widens dfGroups", {
   reporting_subset <- reportingGroups %>%
     dplyr::filter(
       GroupID %in% c("0X004", "0X005"),
-      Param %in% c("Status", "Country")
+      Param %in% c("site_status", "Country")
     )
   expected <- tibble::tibble(
     GroupID = c("0X005", "0X004"),
     GroupLevel = "Site",
-    Status = "Active",
+    site_status = "Active",
     Country = c("US", "China")
   )
   expect_identical(
