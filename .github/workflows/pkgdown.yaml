@@ -44,7 +44,7 @@ jobs:
 
           Report_KRI(
             lCharts = lCharts,
-            dfResults =  gsm::reportingResults,
+            dfResults =  FilterByLatestSnapshotDate(gsm::reportingResults),
             dfGroups =  gsm::reportingGroups,
             dfMetrics = gsm::reportingMetrics,
             strOutputDir = here::here("pkgdown", "assets"),
@@ -61,7 +61,7 @@ jobs:
 
           Report_KRI(
             lCharts = lCharts_country,
-            dfResults =  gsm::reportingResults_country,
+            dfResults =  FilterByLatestSnapshotDate(gsm::reportingResults_country),
             dfGroups =  gsm::reportingGroups_country,
             dfMetrics = gsm::reportingMetrics_country,
             strOutputDir = here::here("pkgdown", "assets"),
