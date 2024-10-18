@@ -50,3 +50,34 @@ test_that("MakeStudyInfo uses lLabels over default", {
     c("study#", "nsites", "nsubj", "stat")
   )
 })
+
+test_that("MakeStudyInfo warns about lStudy deprecation", {
+  expect_warning(
+    MakeStudyInfo(lStudy = list(
+      StudyID = "Unique Study ID",
+      SiteCount = 10,
+      ParticipantCount = 100,
+      Status = "Ongoing"
+    )),
+    "is deprecated as of"
+  )
+})
+
+test_that("MakeStudyInfo works with NA values", {
+  expect_no_error({
+    test_result <- MakeStudyInfo(
+      list(
+        StudyID = "Unique Study ID",
+        SiteCount = 10,
+        ParticipantCount = NA,
+        Status = "Ongoing"
+      )
+    )
+  })
+  expect_s3_class(test_result, "data.frame")
+  expect_identical(
+    names(test_result),
+    c("Param", "Value", "Description")
+  )
+  expect_equal(nrow(test_result), 4)
+})
