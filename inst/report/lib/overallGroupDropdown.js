@@ -1,18 +1,39 @@
 /**
- * This function highlights a group ID in all widgets.
+ * This function highlights a group ID in all chart-type widgets.
  *
  * @returns {undefined}
  */
 function overallClick() {
-  const widgets = [
+    // Select all widget containers.
+    const widgetContainers = [
       ...document.querySelectorAll('.gsm-widget')
-  ].map(el => ({
-    chart: el.getElementsByTagName("canvas")[0].chart,
-    type: el.className
-  }))
+    ];
 
-  for (const widget of widgets) {
-    if (/timeSeries/.test(widget.type)) {
+    // Capture chart object attached to chart-type widgets.
+    const chartWidgets = widgetContainers
+        .map(el => {
+            const canvas = el.getElementsByTagName("canvas");
+
+            // Check if widget container contains a canvas element.
+            const chart = canvas.length > 0
+                ? canvas[0].chart
+                : null;
+
+            const chartType = el.className;
+
+            return {
+                chart,
+                chartType
+            };
+        })
+        .filter(
+            // remove non-chart widgets (tables generally)
+            widget => widget.chart !== null
+        );
+
+  // Loop over widgets, updating the selected group ID in each.
+  for (const widget of chartWidgets) {
+    if (/timeSeries/.test(widget.chartType)) {
         widget.chart.helpers.updateSelectedGroupIDs(event.target.value);
     } else {
         widget.chart.data.config.selectedGroupIDs = event.target.value; // group ID
