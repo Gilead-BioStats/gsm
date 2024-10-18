@@ -29,7 +29,7 @@ spec:
       type: character
     timeonstudy:
       required: true
-      type: numeric
+      type: integer
 steps:
   - output: vThreshold
     name: ParseThreshold

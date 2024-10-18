@@ -53,18 +53,18 @@ CheckSpec <- function(lData, lSpec) {
   # Check that all required columns in the spec are present in the data
   allCols <- c()
   missingCols <- c()
-  # remove all lSpec entries where we are requesting `_all` columns
-  lSpecDataFrames <- which(sapply(lSpec, function(x) names(x)[1] != "_all")) %>% names()
+  # remove all lSpec entries where we are requesting `_all` columns, and no other columns are included in the df's spec
+  lSpecDataFrames <- which(sapply(lSpec, function(x) (names(x)[1] != "_all") | (length(names(x)) > 1))) %>% names()
   for (strDataFrame in lSpecDataFrames) {
     chrDataFrameColnames <- colnames(lData[[strDataFrame]])
-    # check modes in data
+    # check classes in data
     wrongType <- purrr::reduce2(
       lSpec[[strDataFrame]],
       names(lSpec[[strDataFrame]]),
       function(so_far, x, idx) {
         if (!is.null(x$type) && idx %in% chrDataFrameColnames) {
           # check if data is the expected mode
-          res <- all(x$type == mode(lData[[strDataFrame]][[idx]]))
+          res <- all(x$type == class(lData[[strDataFrame]][[idx]]))
           if (!res) {
             so_far <- c(so_far, idx)
           }
@@ -79,19 +79,21 @@ CheckSpec <- function(lData, lSpec) {
     } else {
       cli::cli_alert("All specified columns in {strDataFrame} are in the expected format")
     }
-    # check that required exist in data
-    lSpecColumns <- which(sapply(lSpec[[strDataFrame]], function(x) x$required)) %>% names()
-    lDataColumns <- names(lData[[strDataFrame]])
-    allCols <- c(allCols, paste(strDataFrame, lSpecColumns, sep = "$"))
+    # check that required exist in data, if _all required is not specified
+    if (!isTRUE(lSpec[[strDataFrame]]$`_all`$required)) {
+      lSpecColumns <- which(sapply(lSpec[[strDataFrame]], function(x) x$required)) %>% names()
+      lDataColumns <- names(lData[[strDataFrame]])
+      allCols <- c(allCols, paste(strDataFrame, lSpecColumns, sep = "$"))
 
-    thisMissingCols <- lSpecColumns[!lSpecColumns %in% lDataColumns]
-    if (length(thisMissingCols) > 0) {
-      missingCols <- c(missingCols, paste(strDataFrame, thisMissingCols, sep = "$"))
+      thisMissingCols <- lSpecColumns[!lSpecColumns %in% lDataColumns]
+      if (length(thisMissingCols) > 0) {
+        missingCols <- c(missingCols, paste(strDataFrame, thisMissingCols, sep = "$"))
+      }
     }
   }
   if (length(missingCols) > 0) {
     cli::cli_alert_danger("Not all required columns in the spec are present in the data, missing columns are: {missingCols}")
-  } else if (length(lSpecDataFrames) > 0) {
+  } else if (length(allCols) > 0 ) {
     cli::cli_alert("All {length(allCols)} required column{?s} in the spec are present in the data: {allCols}")
   } else {
     cli::cli_alert("No required columns specified in the spec. All data.frames are pulling in all available columns.")
