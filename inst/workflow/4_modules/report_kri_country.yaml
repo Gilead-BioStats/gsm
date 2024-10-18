@@ -13,9 +13,9 @@ spec:
     Denominator:
       type: integer
     Metric:
-      type: integer
+      type: numeric
     Score:
-      type: integer
+      type: numeric
     Flag:
       type: integer
   Reporting_Metrics:
@@ -28,15 +28,15 @@ spec:
     _all:
       required: true
     Threshold:
-      type: integer
+      type: numeric
     Numerator:
-      type: integer
+      type: numeric
     Denominator:
-      type: integer
+      type: numeric
     LogDenominator:
-      type: integer
+      type: numeric
     Metric:
-      type: integer
+      type: numeric
 steps:
   - output: Reporting_Results_Country
     name: RunQuery
