@@ -1,43 +1,16 @@
 # Report_FlagOverTime returns the expected object
 
     Code
-      str(x, max.level = 2)
+      x$`_data`
     Output
-      List of 17
-       $ _data         : tibble [6 x 8] (S3: tbl_df/tbl/data.frame)
-       $ _boxhead      : tibble [8 x 8] (S3: tbl_df/tbl/data.frame)
-       $ _stub_df      :'data.frame':	6 obs. of  6 variables:
-        ..$ rownum_i         : int [1:6] 1 2 3 4 5 6
-        ..$ row_id           : chr [1:6] NA NA NA NA ...
-        ..$ group_id         : chr [1:6] "Site - 0X007" "Site - 0X007" "Site - 0X007" "Site - 0X159" ...
-        ..$ group_label      :List of 6
-        ..$ indent           : chr [1:6] NA NA NA NA ...
-        ..$ built_group_label: chr [1:6] NA NA NA NA ...
-       $ _row_groups   : chr [1:2] "Site - 0X007" "Site - 0X159"
-       $ _heading      :List of 3
-        ..$ title    : chr "Flags Over Time"
-        ..$ subtitle : NULL
-        ..$ preheader: NULL
-       $ _spanners     : tibble [2 x 8] (S3: tbl_df/tbl/data.frame)
-       $ _stubhead     :List of 1
-        ..$ label: NULL
-       $ _footnotes    : tibble [0 x 8] (S3: tbl_df/tbl/data.frame)
-       $ _source_notes : list()
-       $ _formats      :List of 2
-        ..$ :List of 4
-        ..$ :List of 4
-       $ _substitutions: list()
-       $ _styles       : tibble [0 x 7] (S3: tbl_df/tbl/data.frame)
-       $ _summary      : list()
-       $ _options      :'data.frame':	191 obs. of  5 variables:
-        ..$ parameter: chr [1:191] "heading_align" "heading_padding" "column_labels_padding" "row_group_padding" ...
-        ..$ value    :List of 191
-        ..$ scss     : logi [1:191] TRUE TRUE TRUE TRUE TRUE TRUE ...
-        ..$ category : chr [1:191] "heading" "heading" "column_labels" "row_group" ...
-        ..$ type     : chr [1:191] "value" "px" "px" "px" ...
-       $ _transforms   : list()
-       $ _locale       :List of 1
-        ..$ locale: NULL
-       $ _has_built    : logi FALSE
-       - attr(*, "class")= chr [1:2] "gt_tbl" "list"
+      # A tibble: 6 x 8
+        GroupLevel GroupID MetricID  Abbreviation FlagChange `2011-12-31` `2012-01-31`
+        <chr>      <chr>   <chr>     <chr>        <lgl>             <int>        <int>
+      1 Site       0X007   Analysis~ AE           FALSE                NA            0
+      2 Site       0X007   Analysis~ SAE          TRUE                 NA            0
+      3 Site       0X007   Analysis~ PD           FALSE                NA            0
+      4 Site       0X159   Analysis~ AE           FALSE                 0            0
+      5 Site       0X159   Analysis~ SAE          FALSE                 0            0
+      6 Site       0X159   Analysis~ PD           FALSE                 0            0
+      # i 1 more variable: `2012-02-29` <int>
 

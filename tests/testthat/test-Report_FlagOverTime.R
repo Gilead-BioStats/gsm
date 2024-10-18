@@ -18,6 +18,7 @@ test_that("Report_FlagOverTime returns the expected object", {
   x <- Report_FlagOverTime(dfResults, dfMetrics)
   expect_s3_class(x, "gt_tbl")
   expect_snapshot({
-    str(x, max.level = 2)
+    x$`_data`
   })
 })
+
