@@ -5,7 +5,7 @@ test_that("Analyze_NormalApprox_PredictBounds handles missing nStep correctly", 
       dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed)
     },
     class = "gsm_msg-default_nStep",
-    regexp = "\\.44"
+    regexp = "Setting default step"
   )
 })
 

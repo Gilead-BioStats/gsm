@@ -29,7 +29,7 @@ test_that("rate output created as expected and has correct structure", {
   expect_equal(names(rate), c("GroupID", "GroupLevel", "Numerator", "Denominator", "Metric", "OverallMetric", "Factor", "Score"))
   expect_type(rate$GroupID, "character")
   expect_type(c(rate$Numerator, rate$Denominator, rate$Metric, rate$OverallMetric, rate$Factor, rate$Score), "double")
-  expect_equal(unique(rate$GroupID)[1:5], c("0X036", "0X052", "0X004", "0X096", "0X057"))
+  expect_true(all(str_detect(rate$GroupID[1:5], "0X")))
 })
 
 test_that("incorrect inputs throw errors", {

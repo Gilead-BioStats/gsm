@@ -9,8 +9,8 @@ test_that("Correct data structure when proper dataframe is passed", {
     dplyr::filter(MetricID == unique(reportingResults$MetricID)[1])
   result <- Report_MetricTable(reportingResults_filt, reportingGroups)
   expect_s3_class(result, "gt_tbl")
-  #expect_true(any(grepl("162", result)))
-  #expect_true(any(grepl("Kimler", result)))
+  expect_true(is.character(result$`_data`$Group))
+  expect_true(all(result$`_data`$Metric >= 0 & result$`_data`$Metric < 1))
 })
 
 test_that("Flag filtering works correctly", {
@@ -18,7 +18,7 @@ test_that("Flag filtering works correctly", {
     dplyr::filter(MetricID == unique(reportingResults$MetricID)[1])
   result <- Report_MetricTable(reportingResults_filt, reportingGroups)
   expect_s3_class(result, "gt_tbl")
-  #expect_false(any(grepl("Nkaujiaong", result)))
+  expect_true(all(result$`_data`$Flag != 0))
 })
 
 test_that("Score rounding works correctly", {
@@ -38,4 +38,3 @@ test_that("Runs with just results with NULL group argument", {
   result <- Report_MetricTable(reportingResults_filt)
   expect_s3_class(result, "gt_tbl")
 })
-

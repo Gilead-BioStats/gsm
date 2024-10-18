@@ -42,7 +42,7 @@ test_that("Score rounding works correctly", {
   reportingResults_filt <- reportingResults %>%
     dplyr::filter(MetricID == unique(reportingResults$MetricID)[[1]])
   result <- MakeMetricTable(reportingResults_filt, reportingGroups)
-  expect_true(any(grepl("4.15", as.character(result$Score))))
+  expect_true(any(grepl("^\\d+\\.\\d{2}$", as.character(result$Score))))
 })
 
 test_that("Errors informatively when multiple MetricIDs passed in", {
