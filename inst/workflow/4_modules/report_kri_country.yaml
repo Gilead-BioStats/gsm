@@ -1,5 +1,5 @@
 meta:
-  Type: Report 
+  Type: Report
   ID: report_kri_country
   Output: html
   Name: Country-Level Key Risk Indicator Report
@@ -9,15 +9,15 @@ spec:
     _all:
       required: true
     Numerator:
-      type: integer
+      type: numeric
     Denominator:
-      type: integer
+      type: numeric
     Metric:
       type: numeric
     Score:
       type: numeric
     Flag:
-      type: integer
+      type: numeric
   Reporting_Metrics:
     _all:
       required: true
