@@ -1,5 +1,7 @@
 # yaml workflow
-test_wf <- MakeWorkflowList(strNames = "kri0001")
+test_wf <- MakeWorkflowList(
+  strNames = "kri0001", strPath = "workflow/2_metrics"
+)
 test_mapping <- MakeWorkflowList(
   strPath = test_path("testdata/mappings"),
   strPackage = NULL

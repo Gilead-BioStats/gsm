@@ -47,7 +47,7 @@ test_that("Score rounding works correctly", {
   reportingResults_filt <- reportingResults %>%
     dplyr::filter(MetricID == unique(reportingResults$MetricID)[[1]])
   result <- MakeMetricTable(reportingResults_filt, reportingGroups)
-  expect_true(any(grepl("3.02", as.character(result$Score))))
+  expect_true(any(grepl("^\\d+\\.\\d{2}$", as.character(result$Score))))
 })
 
 test_that("Errors informatively when multiple MetricIDs passed in", {
@@ -65,15 +65,14 @@ test_that("Enrolled is an integer", {
 })
 
 test_that("Output is expected object", {
-  zero_flags <- c("0X003", "0x039")
-  red_flags <- c("0X113", "0X025")
-  amber_flags <- c("0X119", "0X046")
+  zero_flags <- c("0X085", "0X086")
+  flags <- c("0X052", "0X027", "0X166")
 
   reportingResults_filt <- reportingResults %>%
     FilterByLatestSnapshotDate() %>%
     dplyr::filter(
       MetricID == unique(reportingResults$MetricID)[[1]],
-      GroupID %in% c(zero_flags, red_flags, amber_flags)
+      GroupID %in% c(zero_flags, flags)
     ) %>%
     # Add an NA row back for representation.
     dplyr::bind_rows(
@@ -85,9 +84,9 @@ test_that("Output is expected object", {
         Metric = 0.5,
         Score = NA,
         Flag = NA,
-        MetricID = "kri0001",
+        MetricID = "Analysis_kri0001",
         SnapshotDate = as.Date("2012-12-31"),
-        StudyID = "ABC-123"
+        StudyID = "AA-AA-000-0000"
       )
     )
   expect_snapshot({

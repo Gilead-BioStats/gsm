@@ -6,7 +6,7 @@ test_that("Visualize_Metric processes data correctly", {
         reportingBounds,
         reportingGroups,
         reportingMetrics,
-        strMetricID = "kri0001"
+        strMetricID = "Analysis_kri0001"
       )
     },
     "Parsed"
@@ -29,6 +29,7 @@ test_that("Visualize_Metric processes data correctly", {
 })
 
 test_that("Visualize_Metric handles missing MetricID", {
+
   expect_message(
     {
       charts <- Visualize_Metric(
@@ -36,7 +37,7 @@ test_that("Visualize_Metric handles missing MetricID", {
         reportingBounds,
         reportingGroups,
         reportingMetrics,
-        strMetricID = "kri1000"
+        strMetricID = "Analysis_kri1000"
       )
     },
     "MetricID not found"
@@ -54,7 +55,7 @@ test_that("Visualize_Metric handles multiple snapshots", {
         reportingBounds,
         reportingGroups,
         reportingMetrics,
-        strMetricID = "kri0001"
+        strMetricID = "Analysis_kri0001"
       )
     },
     "Parsed"
@@ -67,9 +68,7 @@ test_that("Visualize_Metric handles multiple snapshots", {
 })
 
 test_that("Visualize_Metric can run on just results", {
-  charts <- Visualize_Metric(
-    filter(reportingResults, MetricID == "kri0001")
-  )
+  charts <- Visualize_Metric(filter(reportingResults, MetricID == "Analysis_kri0001"))
 
   # Test if the list contains expected chart names
   expect_true("scatterJS" %in% names(charts))
@@ -85,11 +84,11 @@ test_that("Visualize_Metric can run on just results", {
 })
 
 test_that("Visualize_Metric can run on just results and MetricID", {
-  expect_message(
+   expect_message(
     {
       expect_message(
         {
-          charts <- Visualize_Metric(reportingResults, strMetricID = "kri0001")
+          charts <- Visualize_Metric(reportingResults, strMetricID = "Analysis_kri0001")
         },
         "MetricID not found in dfBounds"
       )
@@ -117,9 +116,9 @@ test_that("Visualize_Metric works with bad dfBounds", {
         {
           charts <- Visualize_Metric(
             reportingResults,
-            strMetricID = "kri0001",
+            strMetricID = "Analysis_kri0001",
             dfMetrics = reportingMetrics,
-            dfBounds = dplyr::filter(reportingBounds, MetricID != "kri0001")
+            dfBounds = dplyr::filter(reportingBounds, MetricID != "Analysis_kri0001")
           )
         },
         "MetricID not found in dfBounds"

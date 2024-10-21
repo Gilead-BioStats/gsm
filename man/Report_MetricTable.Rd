@@ -40,7 +40,7 @@ result in a datatable.
 # site-level report
 Report_MetricTable(
   dfResults = reportingResults \%>\%
-    dplyr::filter(.data$MetricID == "kri0001") \%>\%
+    dplyr::filter(.data$MetricID == "Analysis_kri0001") \%>\%
     FilterByLatestSnapshotDate(),
   dfGroups = reportingGroups
 )
