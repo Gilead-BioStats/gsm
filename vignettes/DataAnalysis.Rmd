@@ -1,6 +1,5 @@
 ---
 title: "Step-by-Step Analysis Workflow"
-subtitle: "DRAFT VERSION"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Step-by-Step Analysis Workflow}
