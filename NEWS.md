@@ -1,6 +1,6 @@
 # gsm v2.1.1
 
-This patch version addresses the following bugs and style improvements:
+This patch release addresses the following bugs and style improvements:
 
 - The checkSpec function properly checks Date columns
 - Country test data was incomplete, and not based on updates made in v2.1.0
