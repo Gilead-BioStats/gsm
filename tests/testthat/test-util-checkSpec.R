@@ -220,4 +220,3 @@ test_that("proper message appears when all data frames require `_all` columns", 
     " No required columns specified"
   )
 })
-

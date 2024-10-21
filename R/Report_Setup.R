@@ -45,8 +45,8 @@ Report_Setup <- function(dfGroups = NULL, dfMetrics = NULL, dfResults = NULL) {
     as.list()
 
   output$StudyID <- dfGroups %>%
-    filter(.data$GroupLevel == 'Study') %>%
-    pull('GroupID') %>%
+    filter(.data$GroupLevel == "Study") %>%
+    pull("GroupID") %>%
     unique()
 
   # Count Red and Amber Flags for most recent snapshot

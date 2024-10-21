@@ -29,7 +29,6 @@ test_that("Visualize_Metric processes data correctly", {
 })
 
 test_that("Visualize_Metric handles missing MetricID", {
-
   expect_message(
     {
       charts <- Visualize_Metric(
@@ -84,7 +83,7 @@ test_that("Visualize_Metric can run on just results", {
 })
 
 test_that("Visualize_Metric can run on just results and MetricID", {
-   expect_message(
+  expect_message(
     {
       expect_message(
         {

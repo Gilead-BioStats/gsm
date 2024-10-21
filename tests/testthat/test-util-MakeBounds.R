@@ -99,4 +99,3 @@ test_that("MakeBounds makes poisson dfBounds", {
     )
   })
 })
-

@@ -21,4 +21,3 @@ test_that("Report_FlagOverTime returns the expected object", {
     x$`_data`
   })
 })
-
