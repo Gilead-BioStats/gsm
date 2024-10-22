@@ -8,7 +8,9 @@ HTMLWidgets.widget({
 
     // Apply styles to make the content scrollable if it gets too long
     el.style.overflowY = 'auto';  // Enable vertical scrolling
+    el.style.overflowX = 'hidden';  // Prevent horizontal scrolling
     el.style.maxHeight = '400px'; // Set the max height for the widget
+    el.style.width = '100%';        // Set width to 100% to prevent overflow
 
     return {
       renderValue: function(x) {

@@ -8,7 +8,9 @@ Widget_FlagOverTime(
   dfResults,
   dfMetrics,
   strGroupLevel = c("Site", "Study", "Country"),
-  strFootnote = NULL
+  strFootnote = NULL,
+  width = "100\%",
+  height = "400px"
 )
 }
 \arguments{

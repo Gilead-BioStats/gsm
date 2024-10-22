@@ -24,7 +24,9 @@ Widget_FlagOverTime <- function(
   dfResults,
   dfMetrics,
   strGroupLevel = c("Site", "Study", "Country"),
-  strFootnote = NULL
+  strFootnote = NULL,
+  width = "100%",
+  height = "400px"
 ) {
   stopifnot(
     "dfResults is not a data.frame" = is.data.frame(dfResults),
@@ -46,8 +48,8 @@ Widget_FlagOverTime <- function(
   htmlwidgets::createWidget(
     name = "Widget_FlagOverTime",
     x,
-    width = "100%", # You can adjust these as needed
-    height = "400px", # This can be customized for different heights
+    width, # You can adjust these as needed
+    height, # This can be customized for different heights
     package = "gsm"
   )
 }
