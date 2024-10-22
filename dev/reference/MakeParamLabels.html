@@ -58,7 +58,7 @@ parameters."><meta name="robots" content="noindex"><link href="pkgdown/extra.css
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Create Labels for Parameters</h1>
-      <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/dev/R/util-MakeParamLabels.R" class="external-link"><code>R/util-MakeParamLabels.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/gsm-v2.1.1-rc/R/util-MakeParamLabels.R" class="external-link"><code>R/util-MakeParamLabels.R</code></a></small>
       <div class="d-none name"><code>MakeParamLabels.Rd</code></div>
     </div>
 
@@ -103,64 +103,50 @@ parameters.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">gsm</span><span class="fu">::</span><span class="va"><a href="reportingGroups.html">reportingGroups</a></span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          GroupID           Param                  Value GroupLevel</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 AA-AA-000-0000 protocol_row_id               1-1G9113      Study</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 AA-AA-000-0000         studyid         AA-AA-000-0000      Study</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 AA-AA-000-0000  protocol_title         Protocol Title      Study</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 AA-AA-000-0000        nickname      Protocol Nickname      Study</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 AA-AA-000-0000   protocol_type Investigator Sponsored      Study</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 AA-AA-000-0000           phase                     P3      Study</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   GroupID            Param Value GroupLevel</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   0X001 ParticipantCount     4       Site</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   0X001        SiteCount     1       Site</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   0X002 ParticipantCount     3       Site</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   0X002        SiteCount     1       Site</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   0X003 ParticipantCount     1       Site</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   0X003        SiteCount     1       Site</span>
 <span class="r-in"><span><span class="fu">MakeParamLabels</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">gsm</span><span class="fu">::</span><span class="va"><a href="reportingGroups.html">reportingGroups</a></span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          GroupID           Param                  Value GroupLevel</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 AA-AA-000-0000 protocol_row_id               1-1G9113      Study</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 AA-AA-000-0000         studyid         AA-AA-000-0000      Study</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 AA-AA-000-0000  protocol_title         Protocol Title      Study</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 AA-AA-000-0000        nickname      Protocol Nickname      Study</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 AA-AA-000-0000   protocol_type Investigator Sponsored      Study</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 AA-AA-000-0000           phase                     P3      Study</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             Label</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Protocol Row Id</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2         Studyid</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Protocol Title</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4        Nickname</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   Protocol Type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6           Phase</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   GroupID            Param Value GroupLevel             Label</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   0X001 ParticipantCount     4       Site Participant Count</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   0X001        SiteCount     1       Site        Site Count</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   0X002 ParticipantCount     3       Site Participant Count</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   0X002        SiteCount     1       Site        Site Count</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   0X003 ParticipantCount     1       Site Participant Count</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   0X003        SiteCount     1       Site        Site Count</span>
 <span class="r-in"><span><span class="fu">MakeParamLabels</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">gsm</span><span class="fu">::</span><span class="va"><a href="reportingGroups.html">reportingGroups</a></span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>ParticipantCount <span class="op">=</span> <span class="st">"Number of Participants"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          GroupID           Param                  Value GroupLevel</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 AA-AA-000-0000 protocol_row_id               1-1G9113      Study</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 AA-AA-000-0000         studyid         AA-AA-000-0000      Study</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 AA-AA-000-0000  protocol_title         Protocol Title      Study</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 AA-AA-000-0000        nickname      Protocol Nickname      Study</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 AA-AA-000-0000   protocol_type Investigator Sponsored      Study</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 AA-AA-000-0000           phase                     P3      Study</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             Label</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Protocol Row Id</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2         Studyid</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  Protocol Title</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4        Nickname</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   Protocol Type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6           Phase</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   GroupID            Param Value GroupLevel                  Label</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   0X001 ParticipantCount     4       Site Number of Participants</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   0X001        SiteCount     1       Site             Site Count</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   0X002 ParticipantCount     3       Site Number of Participants</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   0X002        SiteCount     1       Site             Site Count</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5   0X003 ParticipantCount     1       Site Number of Participants</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6   0X003        SiteCount     1       Site             Site Count</span>
 <span class="r-in"><span><span class="fu">MakeParamLabelsList</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">gsm</span><span class="fu">::</span><span class="va"><a href="reportingGroups.html">reportingGroups</a></span><span class="op">$</span><span class="va">Param</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $protocol_row_id</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Protocol Row Id"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ParticipantCount</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Participant Count"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $studyid</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Studyid"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $SiteCount</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Site Count"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $protocol_title</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Protocol Title"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ParticipantCount</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "ParticipantCount"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $nickname</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Nickname"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $SiteCount</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "SiteCount"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $protocol_type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Protocol Type"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ParticipantCount</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "ParticipantCount"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $phase</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Phase"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $SiteCount</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "SiteCount"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

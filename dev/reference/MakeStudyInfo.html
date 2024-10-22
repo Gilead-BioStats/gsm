@@ -52,7 +52,7 @@ Generate a study info table summarizing study metadata."><meta name="robots" con
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Generate a study information data.frame for use in reports</h1>
-      <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/dev/R/util-MakeStudyInfo.R" class="external-link"><code>R/util-MakeStudyInfo.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/gsm-v2.1.1-rc/R/util-MakeStudyInfo.R" class="external-link"><code>R/util-MakeStudyInfo.R</code></a></small>
       <div class="d-none name"><code>MakeStudyInfo.Rd</code></div>
     </div>
 
@@ -91,56 +91,58 @@ Generate a study info table summarizing study metadata."><meta name="robots" con
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">MakeStudyInfo</span><span class="op">(</span><span class="fu">gsm</span><span class="fu">::</span><span class="va"><a href="reportingGroups.html">reportingGroups</a></span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                      Param                  Value             Description</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          protocol_row_id               1-1G9113         Protocol Row Id</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                  studyid         AA-AA-000-0000                 Studyid</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3           protocol_title         Protocol Title          Protocol Title</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                 nickname      Protocol Nickname                Nickname</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5            protocol_type Investigator Sponsored           Protocol Type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6                    phase                     P3                   Phase</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7            num_plan_site                    190           Num Plan Site</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8            num_site_actl                    176           Num Site Actl</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9                 est_fpfv             2003-01-01                Est Fpfv</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10                act_fpfv             2003-01-01                Act Fpfv</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11                est_lplv             2021-06-01                Est Lplv</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12                act_lplv             2021-06-01                Act Lplv</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13                est_lpfv             2020-06-01                Est Lpfv</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14                act_lpfv             2020-06-01                Act Lpfv</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15                  Status                 Active            Study Status</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16           num_plan_subj                   1300           Num Plan Subj</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17     num_enrolled_subj_m                   1301     Num Enrolled Subj M</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18     protocol_indication    Protocol Indication     Protocol Indication</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19                 product                Product                 Product</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20        therapeutic_area       Therapeutic Area        Therapeutic Area</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 protocol_product_number                    123 Protocol Product Number</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22               x_rbm_flg                      Y               X Rbm Flg</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23        ParticipantCount                     50   Participants Enrolled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24               SiteCount                    154          Sites Enrolled</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         ParticipantCount                     48   Participants Enrolled</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                SiteCount                    158          Sites Enrolled</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                   Status                 Active            Study Status</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          protocol_row_id               1-1G9113         Protocol Row Id</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          protocol_number         AA-AA-000-0000         Protocol Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6           protocol_title         Protocol Title          Protocol Title</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                 nickname      Protocol Nickname                Nickname</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8            protocol_type Investigator Sponsored           Protocol Type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                    phase                     P3                   Phase</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10           num_plan_site                    190           Num Plan Site</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11           num_site_actl                    176           Num Site Actl</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                est_fpfv             2003-01-01                Est Fpfv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                act_fpfv             2003-01-01                Act Fpfv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                est_lplv             2021-06-01                Est Lplv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                act_lplv             2021-06-01                Act Lplv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                est_lpfv             2020-06-01                Est Lpfv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17                act_lpfv             2020-06-01                Act Lpfv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18                  status                 Active                  Status</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19           num_plan_subj                   1300           Num Plan Subj</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20     num_enrolled_subj_m                   1301     Num Enrolled Subj M</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21     protocol_indication    Protocol Indication     Protocol Indication</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22                 product                Product                 Product</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23        therapeutic_area       Therapeutic Area        Therapeutic Area</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 protocol_product_number                    123 Protocol Product Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25               x_rbm_flg                      Y               X Rbm Flg</span>
 <span class="r-in"><span><span class="fu">MakeStudyInfo</span><span class="op">(</span><span class="fu">gsm</span><span class="fu">::</span><span class="va"><a href="reportingGroups.html">reportingGroups</a></span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>SiteCount <span class="op">=</span> <span class="st">"# Sites"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                      Param                  Value             Description</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          protocol_row_id               1-1G9113         Protocol Row Id</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2                  studyid         AA-AA-000-0000                 Studyid</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3           protocol_title         Protocol Title          Protocol Title</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                 nickname      Protocol Nickname                Nickname</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5            protocol_type Investigator Sponsored           Protocol Type</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6                    phase                     P3                   Phase</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7            num_plan_site                    190           Num Plan Site</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8            num_site_actl                    176           Num Site Actl</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9                 est_fpfv             2003-01-01                Est Fpfv</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10                act_fpfv             2003-01-01                Act Fpfv</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11                est_lplv             2021-06-01                Est Lplv</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12                act_lplv             2021-06-01                Act Lplv</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13                est_lpfv             2020-06-01                Est Lpfv</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14                act_lpfv             2020-06-01                Act Lpfv</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15                  Status                 Active                  Status</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16           num_plan_subj                   1300           Num Plan Subj</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17     num_enrolled_subj_m                   1301     Num Enrolled Subj M</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18     protocol_indication    Protocol Indication     Protocol Indication</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19                 product                Product                 Product</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20        therapeutic_area       Therapeutic Area        Therapeutic Area</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21 protocol_product_number                    123 Protocol Product Number</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22               x_rbm_flg                      Y               X Rbm Flg</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23        ParticipantCount                     50       Participant Count</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24               SiteCount                    154                 # Sites</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         ParticipantCount                     48       Participant Count</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                SiteCount                    158                 # Sites</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                   Status                 Active                  Status</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          protocol_row_id               1-1G9113         Protocol Row Id</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5          protocol_number         AA-AA-000-0000         Protocol Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6           protocol_title         Protocol Title          Protocol Title</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                 nickname      Protocol Nickname                Nickname</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8            protocol_type Investigator Sponsored           Protocol Type</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                    phase                     P3                   Phase</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10           num_plan_site                    190           Num Plan Site</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11           num_site_actl                    176           Num Site Actl</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                est_fpfv             2003-01-01                Est Fpfv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                act_fpfv             2003-01-01                Act Fpfv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                est_lplv             2021-06-01                Est Lplv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                act_lplv             2021-06-01                Act Lplv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                est_lpfv             2020-06-01                Est Lpfv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17                act_lpfv             2020-06-01                Act Lpfv</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18                  status                 Active                  Status</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19           num_plan_subj                   1300           Num Plan Subj</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20     num_enrolled_subj_m                   1301     Num Enrolled Subj M</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21     protocol_indication    Protocol Indication     Protocol Indication</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22                 product                Product                 Product</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23        therapeutic_area       Therapeutic Area        Therapeutic Area</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24 protocol_product_number                    123 Protocol Product Number</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25               x_rbm_flg                      Y               X Rbm Flg</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
