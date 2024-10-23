@@ -5,7 +5,11 @@
     Output
       <h2>Study Status</h2>
       <label class="toggle">
-        <input class="toggle-checkbox btn-show-details" type="checkbox">
+        <input class="toggle-checkbox btn-show-details" type="checkbox"
+          data-shown-table="study_table"
+          data-hidden-table="study_table_hide"
+          data-hidden="false"
+          onclick="toggleTables(this)">
         <div class="toggle-switch"></div>
         <span class="toggle-label">Show Details</span>
       </label>
@@ -459,37 +463,33 @@
       }
       </style>
         <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-        <thead>
-          <tr class="gt_col_headings">
-            <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Description">Description</th>
-            <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Value">Value</th>
-          </tr>
-        </thead>
+        
         <tbody class="gt_table_body">
           <tr><td headers="Description" class="gt_row gt_left">Nickname</td>
-      <td headers="Value" class="gt_row gt_left">Nickname</td></tr>
+      <td headers="Value" class="gt_row gt_right">Nickname</td></tr>
         </tbody>
         
         
       </table>
       </div>
-      <div id="study_table_hide" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-        <style>#study_table_hide table {
+      <div id="study_table_hide" style="display: none;">
+        <div id="study_table_hide_gt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+          <style>#study_table_hide_gt table {
         font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
       }
       
-      #study_table_hide thead, #study_table_hide tbody, #study_table_hide tfoot, #study_table_hide tr, #study_table_hide td, #study_table_hide th {
+      #study_table_hide_gt thead, #study_table_hide_gt tbody, #study_table_hide_gt tfoot, #study_table_hide_gt tr, #study_table_hide_gt td, #study_table_hide_gt th {
         border-style: none;
       }
       
-      #study_table_hide p {
+      #study_table_hide_gt p {
         margin: 0;
         padding: 0;
       }
       
-      #study_table_hide .gt_table {
+      #study_table_hide_gt .gt_table {
         display: table;
         border-collapse: collapse;
         line-height: normal;
@@ -515,12 +515,12 @@
         border-left-color: #D3D3D3;
       }
       
-      #study_table_hide .gt_caption {
+      #study_table_hide_gt .gt_caption {
         padding-top: 4px;
         padding-bottom: 4px;
       }
       
-      #study_table_hide .gt_title {
+      #study_table_hide_gt .gt_title {
         color: #333333;
         font-size: 125%;
         font-weight: initial;
@@ -532,7 +532,7 @@
         border-bottom-width: 0;
       }
       
-      #study_table_hide .gt_subtitle {
+      #study_table_hide_gt .gt_subtitle {
         color: #333333;
         font-size: 85%;
         font-weight: initial;
@@ -544,7 +544,7 @@
         border-top-width: 0;
       }
       
-      #study_table_hide .gt_heading {
+      #study_table_hide_gt .gt_heading {
         background-color: #FFFFFF;
         text-align: center;
         border-bottom-color: #FFFFFF;
@@ -556,13 +556,13 @@
         border-right-color: #D3D3D3;
       }
       
-      #study_table_hide .gt_bottom_border {
+      #study_table_hide_gt .gt_bottom_border {
         border-bottom-style: solid;
         border-bottom-width: 2px;
         border-bottom-color: #D3D3D3;
       }
       
-      #study_table_hide .gt_col_headings {
+      #study_table_hide_gt .gt_col_headings {
         border-top-style: solid;
         border-top-width: 2px;
         border-top-color: #D3D3D3;
@@ -577,7 +577,7 @@
         border-right-color: #D3D3D3;
       }
       
-      #study_table_hide .gt_col_heading {
+      #study_table_hide_gt .gt_col_heading {
         color: #333333;
         background-color: #FFFFFF;
         font-size: 100%;
@@ -597,7 +597,7 @@
         overflow-x: hidden;
       }
       
-      #study_table_hide .gt_column_spanner_outer {
+      #study_table_hide_gt .gt_column_spanner_outer {
         color: #333333;
         background-color: #FFFFFF;
         font-size: 100%;
@@ -609,15 +609,15 @@
         padding-right: 4px;
       }
       
-      #study_table_hide .gt_column_spanner_outer:first-child {
+      #study_table_hide_gt .gt_column_spanner_outer:first-child {
         padding-left: 0;
       }
       
-      #study_table_hide .gt_column_spanner_outer:last-child {
+      #study_table_hide_gt .gt_column_spanner_outer:last-child {
         padding-right: 0;
       }
       
-      #study_table_hide .gt_column_spanner {
+      #study_table_hide_gt .gt_column_spanner {
         border-bottom-style: solid;
         border-bottom-width: 2px;
         border-bottom-color: #D3D3D3;
@@ -629,11 +629,11 @@
         width: 100%;
       }
       
-      #study_table_hide .gt_spanner_row {
+      #study_table_hide_gt .gt_spanner_row {
         border-bottom-style: hidden;
       }
       
-      #study_table_hide .gt_group_heading {
+      #study_table_hide_gt .gt_group_heading {
         padding-top: 4px;
         padding-bottom: 4px;
         padding-left: 5px;
@@ -659,7 +659,7 @@
         text-align: left;
       }
       
-      #study_table_hide .gt_empty_group_heading {
+      #study_table_hide_gt .gt_empty_group_heading {
         padding: 0.5px;
         color: #333333;
         background-color: #FFFFFF;
@@ -674,15 +674,15 @@
         vertical-align: middle;
       }
       
-      #study_table_hide .gt_from_md > :first-child {
+      #study_table_hide_gt .gt_from_md > :first-child {
         margin-top: 0;
       }
       
-      #study_table_hide .gt_from_md > :last-child {
+      #study_table_hide_gt .gt_from_md > :last-child {
         margin-bottom: 0;
       }
       
-      #study_table_hide .gt_row {
+      #study_table_hide_gt .gt_row {
         padding-top: 4px;
         padding-bottom: 4px;
         padding-left: 5px;
@@ -701,7 +701,7 @@
         overflow-x: hidden;
       }
       
-      #study_table_hide .gt_stub {
+      #study_table_hide_gt .gt_stub {
         color: #333333;
         background-color: #FFFFFF;
         font-size: 100%;
@@ -714,7 +714,7 @@
         padding-right: 5px;
       }
       
-      #study_table_hide .gt_stub_row_group {
+      #study_table_hide_gt .gt_stub_row_group {
         color: #333333;
         background-color: #FFFFFF;
         font-size: 100%;
@@ -728,15 +728,15 @@
         vertical-align: top;
       }
       
-      #study_table_hide .gt_row_group_first td {
+      #study_table_hide_gt .gt_row_group_first td {
         border-top-width: 2px;
       }
       
-      #study_table_hide .gt_row_group_first th {
+      #study_table_hide_gt .gt_row_group_first th {
         border-top-width: 2px;
       }
       
-      #study_table_hide .gt_summary_row {
+      #study_table_hide_gt .gt_summary_row {
         color: #333333;
         background-color: #FFFFFF;
         text-transform: inherit;
@@ -746,16 +746,16 @@
         padding-right: 5px;
       }
       
-      #study_table_hide .gt_first_summary_row {
+      #study_table_hide_gt .gt_first_summary_row {
         border-top-style: solid;
         border-top-color: #D3D3D3;
       }
       
-      #study_table_hide .gt_first_summary_row.thick {
+      #study_table_hide_gt .gt_first_summary_row.thick {
         border-top-width: 2px;
       }
       
-      #study_table_hide .gt_last_summary_row {
+      #study_table_hide_gt .gt_last_summary_row {
         padding-top: 4px;
         padding-bottom: 4px;
         padding-left: 5px;
@@ -765,7 +765,7 @@
         border-bottom-color: #D3D3D3;
       }
       
-      #study_table_hide .gt_grand_summary_row {
+      #study_table_hide_gt .gt_grand_summary_row {
         color: #333333;
         background-color: #FFFFFF;
         text-transform: inherit;
@@ -775,7 +775,7 @@
         padding-right: 5px;
       }
       
-      #study_table_hide .gt_first_grand_summary_row {
+      #study_table_hide_gt .gt_first_grand_summary_row {
         padding-top: 4px;
         padding-bottom: 4px;
         padding-left: 5px;
@@ -785,7 +785,7 @@
         border-top-color: #D3D3D3;
       }
       
-      #study_table_hide .gt_last_grand_summary_row_top {
+      #study_table_hide_gt .gt_last_grand_summary_row_top {
         padding-top: 4px;
         padding-bottom: 4px;
         padding-left: 5px;
@@ -795,11 +795,11 @@
         border-bottom-color: #D3D3D3;
       }
       
-      #study_table_hide .gt_striped {
+      #study_table_hide_gt .gt_striped {
         background-color: rgba(128, 128, 128, 0.05);
       }
       
-      #study_table_hide .gt_table_body {
+      #study_table_hide_gt .gt_table_body {
         border-top-style: solid;
         border-top-width: 2px;
         border-top-color: #D3D3D3;
@@ -808,7 +808,7 @@
         border-bottom-color: #D3D3D3;
       }
       
-      #study_table_hide .gt_footnotes {
+      #study_table_hide_gt .gt_footnotes {
         color: #333333;
         background-color: #FFFFFF;
         border-bottom-style: none;
@@ -822,7 +822,7 @@
         border-right-color: #D3D3D3;
       }
       
-      #study_table_hide .gt_footnote {
+      #study_table_hide_gt .gt_footnote {
         margin: 0px;
         font-size: 90%;
         padding-top: 2px;
@@ -831,7 +831,7 @@
         padding-right: 5px;
       }
       
-      #study_table_hide .gt_sourcenotes {
+      #study_table_hide_gt .gt_sourcenotes {
         color: #333333;
         background-color: #FFFFFF;
         border-bottom-style: none;
@@ -845,7 +845,7 @@
         border-right-color: #D3D3D3;
       }
       
-      #study_table_hide .gt_sourcenote {
+      #study_table_hide_gt .gt_sourcenote {
         font-size: 90%;
         padding-top: 2px;
         padding-bottom: 2px;
@@ -853,123 +853,119 @@
         padding-right: 5px;
       }
       
-      #study_table_hide .gt_left {
+      #study_table_hide_gt .gt_left {
         text-align: left;
       }
       
-      #study_table_hide .gt_center {
+      #study_table_hide_gt .gt_center {
         text-align: center;
       }
       
-      #study_table_hide .gt_right {
+      #study_table_hide_gt .gt_right {
         text-align: right;
         font-variant-numeric: tabular-nums;
       }
       
-      #study_table_hide .gt_font_normal {
+      #study_table_hide_gt .gt_font_normal {
         font-weight: normal;
       }
       
-      #study_table_hide .gt_font_bold {
+      #study_table_hide_gt .gt_font_bold {
         font-weight: bold;
       }
       
-      #study_table_hide .gt_font_italic {
+      #study_table_hide_gt .gt_font_italic {
         font-style: italic;
       }
       
-      #study_table_hide .gt_super {
+      #study_table_hide_gt .gt_super {
         font-size: 65%;
       }
       
-      #study_table_hide .gt_footnote_marks {
+      #study_table_hide_gt .gt_footnote_marks {
         font-size: 75%;
         vertical-align: 0.4em;
         position: initial;
       }
       
-      #study_table_hide .gt_asterisk {
+      #study_table_hide_gt .gt_asterisk {
         font-size: 100%;
         vertical-align: 0;
       }
       
-      #study_table_hide .gt_indent_1 {
+      #study_table_hide_gt .gt_indent_1 {
         text-indent: 5px;
       }
       
-      #study_table_hide .gt_indent_2 {
+      #study_table_hide_gt .gt_indent_2 {
         text-indent: 10px;
       }
       
-      #study_table_hide .gt_indent_3 {
+      #study_table_hide_gt .gt_indent_3 {
         text-indent: 15px;
       }
       
-      #study_table_hide .gt_indent_4 {
+      #study_table_hide_gt .gt_indent_4 {
         text-indent: 20px;
       }
       
-      #study_table_hide .gt_indent_5 {
+      #study_table_hide_gt .gt_indent_5 {
         text-indent: 25px;
       }
       
-      #study_table_hide .katex-display {
+      #study_table_hide_gt .katex-display {
         display: inline-flex !important;
         margin-bottom: 0.75em !important;
       }
       
-      #study_table_hide div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+      #study_table_hide_gt div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
         height: 0px !important;
       }
       </style>
-        <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-        <thead>
-          <tr class="gt_col_headings">
-            <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Description">Description</th>
-            <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Value">Value</th>
-          </tr>
-        </thead>
+          <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+        
         <tbody class="gt_table_body">
           <tr><td headers="Description" class="gt_row gt_left">Study ID</td>
-      <td headers="Value" class="gt_row gt_left">Unique Study ID</td></tr>
+      <td headers="Value" class="gt_row gt_right">Unique Study ID</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Protocol Title</td>
-      <td headers="Value" class="gt_row gt_left">Study Title</td></tr>
+      <td headers="Value" class="gt_row gt_right">Study Title</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Nickname</td>
-      <td headers="Value" class="gt_row gt_left">Nickname</td></tr>
+      <td headers="Value" class="gt_row gt_right">Nickname</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Enrolled Sites</td>
-      <td headers="Value" class="gt_row gt_left">10</td></tr>
+      <td headers="Value" class="gt_row gt_right">10</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Planned Sites</td>
-      <td headers="Value" class="gt_row gt_left">15</td></tr>
+      <td headers="Value" class="gt_row gt_right">15</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Enrolled Participants</td>
-      <td headers="Value" class="gt_row gt_left">100</td></tr>
+      <td headers="Value" class="gt_row gt_right">100</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Planned Participants</td>
-      <td headers="Value" class="gt_row gt_left">200</td></tr>
+      <td headers="Value" class="gt_row gt_right">200</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Status</td>
-      <td headers="Value" class="gt_row gt_left">Ongoing</td></tr>
+      <td headers="Value" class="gt_row gt_right">Ongoing</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Product</td>
-      <td headers="Value" class="gt_row gt_left">Product Name</td></tr>
+      <td headers="Value" class="gt_row gt_right">Product Name</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Phase</td>
-      <td headers="Value" class="gt_row gt_left">Phase 1</td></tr>
+      <td headers="Value" class="gt_row gt_right">Phase 1</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Therapeutic Area</td>
-      <td headers="Value" class="gt_row gt_left">Therapeutic Area</td></tr>
+      <td headers="Value" class="gt_row gt_right">Therapeutic Area</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Protocol Indication</td>
-      <td headers="Value" class="gt_row gt_left">Indication</td></tr>
+      <td headers="Value" class="gt_row gt_right">Indication</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Protocol Type</td>
-      <td headers="Value" class="gt_row gt_left">Type</td></tr>
+      <td headers="Value" class="gt_row gt_right">Type</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Protocol Row Id</td>
-      <td headers="Value" class="gt_row gt_left">123</td></tr>
+      <td headers="Value" class="gt_row gt_right">123</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Protocol Product Number</td>
-      <td headers="Value" class="gt_row gt_left">456</td></tr>
+      <td headers="Value" class="gt_row gt_right">456</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Est Fpfv</td>
-      <td headers="Value" class="gt_row gt_left">2023-01-01</td></tr>
+      <td headers="Value" class="gt_row gt_right">2023-01-01</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Est Lpfv</td>
-      <td headers="Value" class="gt_row gt_left">2023-12-01</td></tr>
+      <td headers="Value" class="gt_row gt_right">2023-12-01</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Est Lplv</td>
-      <td headers="Value" class="gt_row gt_left">2024-01-01</td></tr>
+      <td headers="Value" class="gt_row gt_right">2024-01-01</td></tr>
         </tbody>
         
         
       </table>
+        </div>
       </div>
 
 # Generated table has correct structure and content w/dfGroups
@@ -979,7 +975,11 @@
     Output
       <h2>Study Status</h2>
       <label class="toggle">
-        <input class="toggle-checkbox btn-show-details" type="checkbox">
+        <input class="toggle-checkbox btn-show-details" type="checkbox"
+          data-shown-table="study_table"
+          data-hidden-table="study_table_hide"
+          data-hidden="false"
+          onclick="toggleTables(this)">
         <div class="toggle-switch"></div>
         <span class="toggle-label">Show Details</span>
       </label>
@@ -1433,43 +1433,39 @@
       }
       </style>
         <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-        <thead>
-          <tr class="gt_col_headings">
-            <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Description">Description</th>
-            <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Value">Value</th>
-          </tr>
-        </thead>
+        
         <tbody class="gt_table_body">
           <tr><td headers="Description" class="gt_row gt_left">Nickname</td>
-      <td headers="Value" class="gt_row gt_left">Protocol Nickname</td></tr>
+      <td headers="Value" class="gt_row gt_right">Protocol Nickname</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Study Status</td>
-      <td headers="Value" class="gt_row gt_left">Active</td></tr>
+      <td headers="Value" class="gt_row gt_right">Active</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Participants Enrolled</td>
-      <td headers="Value" class="gt_row gt_left">50</td></tr>
+      <td headers="Value" class="gt_row gt_right">50</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Sites Enrolled</td>
-      <td headers="Value" class="gt_row gt_left">154</td></tr>
+      <td headers="Value" class="gt_row gt_right">154</td></tr>
         </tbody>
         
         
       </table>
       </div>
-      <div id="study_table_hide" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-        <style>#study_table_hide table {
+      <div id="study_table_hide" style="display: none;">
+        <div id="study_table_hide_gt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+          <style>#study_table_hide_gt table {
         font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
       }
       
-      #study_table_hide thead, #study_table_hide tbody, #study_table_hide tfoot, #study_table_hide tr, #study_table_hide td, #study_table_hide th {
+      #study_table_hide_gt thead, #study_table_hide_gt tbody, #study_table_hide_gt tfoot, #study_table_hide_gt tr, #study_table_hide_gt td, #study_table_hide_gt th {
         border-style: none;
       }
       
-      #study_table_hide p {
+      #study_table_hide_gt p {
         margin: 0;
         padding: 0;
       }
       
-      #study_table_hide .gt_table {
+      #study_table_hide_gt .gt_table {
         display: table;
         border-collapse: collapse;
         line-height: normal;
@@ -1495,12 +1491,12 @@
         border-left-color: #D3D3D3;
       }
       
-      #study_table_hide .gt_caption {
+      #study_table_hide_gt .gt_caption {
         padding-top: 4px;
         padding-bottom: 4px;
       }
       
-      #study_table_hide .gt_title {
+      #study_table_hide_gt .gt_title {
         color: #333333;
         font-size: 125%;
         font-weight: initial;
@@ -1512,7 +1508,7 @@
         border-bottom-width: 0;
       }
       
-      #study_table_hide .gt_subtitle {
+      #study_table_hide_gt .gt_subtitle {
         color: #333333;
         font-size: 85%;
         font-weight: initial;
@@ -1524,7 +1520,7 @@
         border-top-width: 0;
       }
       
-      #study_table_hide .gt_heading {
+      #study_table_hide_gt .gt_heading {
         background-color: #FFFFFF;
         text-align: center;
         border-bottom-color: #FFFFFF;
@@ -1536,13 +1532,13 @@
         border-right-color: #D3D3D3;
       }
       
-      #study_table_hide .gt_bottom_border {
+      #study_table_hide_gt .gt_bottom_border {
         border-bottom-style: solid;
         border-bottom-width: 2px;
         border-bottom-color: #D3D3D3;
       }
       
-      #study_table_hide .gt_col_headings {
+      #study_table_hide_gt .gt_col_headings {
         border-top-style: solid;
         border-top-width: 2px;
         border-top-color: #D3D3D3;
@@ -1557,7 +1553,7 @@
         border-right-color: #D3D3D3;
       }
       
-      #study_table_hide .gt_col_heading {
+      #study_table_hide_gt .gt_col_heading {
         color: #333333;
         background-color: #FFFFFF;
         font-size: 100%;
@@ -1577,7 +1573,7 @@
         overflow-x: hidden;
       }
       
-      #study_table_hide .gt_column_spanner_outer {
+      #study_table_hide_gt .gt_column_spanner_outer {
         color: #333333;
         background-color: #FFFFFF;
         font-size: 100%;
@@ -1589,15 +1585,15 @@
         padding-right: 4px;
       }
       
-      #study_table_hide .gt_column_spanner_outer:first-child {
+      #study_table_hide_gt .gt_column_spanner_outer:first-child {
         padding-left: 0;
       }
       
-      #study_table_hide .gt_column_spanner_outer:last-child {
+      #study_table_hide_gt .gt_column_spanner_outer:last-child {
         padding-right: 0;
       }
       
-      #study_table_hide .gt_column_spanner {
+      #study_table_hide_gt .gt_column_spanner {
         border-bottom-style: solid;
         border-bottom-width: 2px;
         border-bottom-color: #D3D3D3;
@@ -1609,11 +1605,11 @@
         width: 100%;
       }
       
-      #study_table_hide .gt_spanner_row {
+      #study_table_hide_gt .gt_spanner_row {
         border-bottom-style: hidden;
       }
       
-      #study_table_hide .gt_group_heading {
+      #study_table_hide_gt .gt_group_heading {
         padding-top: 4px;
         padding-bottom: 4px;
         padding-left: 5px;
@@ -1639,7 +1635,7 @@
         text-align: left;
       }
       
-      #study_table_hide .gt_empty_group_heading {
+      #study_table_hide_gt .gt_empty_group_heading {
         padding: 0.5px;
         color: #333333;
         background-color: #FFFFFF;
@@ -1654,15 +1650,15 @@
         vertical-align: middle;
       }
       
-      #study_table_hide .gt_from_md > :first-child {
+      #study_table_hide_gt .gt_from_md > :first-child {
         margin-top: 0;
       }
       
-      #study_table_hide .gt_from_md > :last-child {
+      #study_table_hide_gt .gt_from_md > :last-child {
         margin-bottom: 0;
       }
       
-      #study_table_hide .gt_row {
+      #study_table_hide_gt .gt_row {
         padding-top: 4px;
         padding-bottom: 4px;
         padding-left: 5px;
@@ -1681,7 +1677,7 @@
         overflow-x: hidden;
       }
       
-      #study_table_hide .gt_stub {
+      #study_table_hide_gt .gt_stub {
         color: #333333;
         background-color: #FFFFFF;
         font-size: 100%;
@@ -1694,7 +1690,7 @@
         padding-right: 5px;
       }
       
-      #study_table_hide .gt_stub_row_group {
+      #study_table_hide_gt .gt_stub_row_group {
         color: #333333;
         background-color: #FFFFFF;
         font-size: 100%;
@@ -1708,15 +1704,15 @@
         vertical-align: top;
       }
       
-      #study_table_hide .gt_row_group_first td {
+      #study_table_hide_gt .gt_row_group_first td {
         border-top-width: 2px;
       }
       
-      #study_table_hide .gt_row_group_first th {
+      #study_table_hide_gt .gt_row_group_first th {
         border-top-width: 2px;
       }
       
-      #study_table_hide .gt_summary_row {
+      #study_table_hide_gt .gt_summary_row {
         color: #333333;
         background-color: #FFFFFF;
         text-transform: inherit;
@@ -1726,16 +1722,16 @@
         padding-right: 5px;
       }
       
-      #study_table_hide .gt_first_summary_row {
+      #study_table_hide_gt .gt_first_summary_row {
         border-top-style: solid;
         border-top-color: #D3D3D3;
       }
       
-      #study_table_hide .gt_first_summary_row.thick {
+      #study_table_hide_gt .gt_first_summary_row.thick {
         border-top-width: 2px;
       }
       
-      #study_table_hide .gt_last_summary_row {
+      #study_table_hide_gt .gt_last_summary_row {
         padding-top: 4px;
         padding-bottom: 4px;
         padding-left: 5px;
@@ -1745,7 +1741,7 @@
         border-bottom-color: #D3D3D3;
       }
       
-      #study_table_hide .gt_grand_summary_row {
+      #study_table_hide_gt .gt_grand_summary_row {
         color: #333333;
         background-color: #FFFFFF;
         text-transform: inherit;
@@ -1755,7 +1751,7 @@
         padding-right: 5px;
       }
       
-      #study_table_hide .gt_first_grand_summary_row {
+      #study_table_hide_gt .gt_first_grand_summary_row {
         padding-top: 4px;
         padding-bottom: 4px;
         padding-left: 5px;
@@ -1765,7 +1761,7 @@
         border-top-color: #D3D3D3;
       }
       
-      #study_table_hide .gt_last_grand_summary_row_top {
+      #study_table_hide_gt .gt_last_grand_summary_row_top {
         padding-top: 4px;
         padding-bottom: 4px;
         padding-left: 5px;
@@ -1775,11 +1771,11 @@
         border-bottom-color: #D3D3D3;
       }
       
-      #study_table_hide .gt_striped {
+      #study_table_hide_gt .gt_striped {
         background-color: rgba(128, 128, 128, 0.05);
       }
       
-      #study_table_hide .gt_table_body {
+      #study_table_hide_gt .gt_table_body {
         border-top-style: solid;
         border-top-width: 2px;
         border-top-color: #D3D3D3;
@@ -1788,7 +1784,7 @@
         border-bottom-color: #D3D3D3;
       }
       
-      #study_table_hide .gt_footnotes {
+      #study_table_hide_gt .gt_footnotes {
         color: #333333;
         background-color: #FFFFFF;
         border-bottom-style: none;
@@ -1802,7 +1798,7 @@
         border-right-color: #D3D3D3;
       }
       
-      #study_table_hide .gt_footnote {
+      #study_table_hide_gt .gt_footnote {
         margin: 0px;
         font-size: 90%;
         padding-top: 2px;
@@ -1811,7 +1807,7 @@
         padding-right: 5px;
       }
       
-      #study_table_hide .gt_sourcenotes {
+      #study_table_hide_gt .gt_sourcenotes {
         color: #333333;
         background-color: #FFFFFF;
         border-bottom-style: none;
@@ -1825,7 +1821,7 @@
         border-right-color: #D3D3D3;
       }
       
-      #study_table_hide .gt_sourcenote {
+      #study_table_hide_gt .gt_sourcenote {
         font-size: 90%;
         padding-top: 2px;
         padding-bottom: 2px;
@@ -1833,134 +1829,130 @@
         padding-right: 5px;
       }
       
-      #study_table_hide .gt_left {
+      #study_table_hide_gt .gt_left {
         text-align: left;
       }
       
-      #study_table_hide .gt_center {
+      #study_table_hide_gt .gt_center {
         text-align: center;
       }
       
-      #study_table_hide .gt_right {
+      #study_table_hide_gt .gt_right {
         text-align: right;
         font-variant-numeric: tabular-nums;
       }
       
-      #study_table_hide .gt_font_normal {
+      #study_table_hide_gt .gt_font_normal {
         font-weight: normal;
       }
       
-      #study_table_hide .gt_font_bold {
+      #study_table_hide_gt .gt_font_bold {
         font-weight: bold;
       }
       
-      #study_table_hide .gt_font_italic {
+      #study_table_hide_gt .gt_font_italic {
         font-style: italic;
       }
       
-      #study_table_hide .gt_super {
+      #study_table_hide_gt .gt_super {
         font-size: 65%;
       }
       
-      #study_table_hide .gt_footnote_marks {
+      #study_table_hide_gt .gt_footnote_marks {
         font-size: 75%;
         vertical-align: 0.4em;
         position: initial;
       }
       
-      #study_table_hide .gt_asterisk {
+      #study_table_hide_gt .gt_asterisk {
         font-size: 100%;
         vertical-align: 0;
       }
       
-      #study_table_hide .gt_indent_1 {
+      #study_table_hide_gt .gt_indent_1 {
         text-indent: 5px;
       }
       
-      #study_table_hide .gt_indent_2 {
+      #study_table_hide_gt .gt_indent_2 {
         text-indent: 10px;
       }
       
-      #study_table_hide .gt_indent_3 {
+      #study_table_hide_gt .gt_indent_3 {
         text-indent: 15px;
       }
       
-      #study_table_hide .gt_indent_4 {
+      #study_table_hide_gt .gt_indent_4 {
         text-indent: 20px;
       }
       
-      #study_table_hide .gt_indent_5 {
+      #study_table_hide_gt .gt_indent_5 {
         text-indent: 25px;
       }
       
-      #study_table_hide .katex-display {
+      #study_table_hide_gt .katex-display {
         display: inline-flex !important;
         margin-bottom: 0.75em !important;
       }
       
-      #study_table_hide div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+      #study_table_hide_gt div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
         height: 0px !important;
       }
       </style>
-        <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-        <thead>
-          <tr class="gt_col_headings">
-            <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Description">Description</th>
-            <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Value">Value</th>
-          </tr>
-        </thead>
+          <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+        
         <tbody class="gt_table_body">
           <tr><td headers="Description" class="gt_row gt_left">Protocol Row Id</td>
-      <td headers="Value" class="gt_row gt_left">1-1G9113</td></tr>
+      <td headers="Value" class="gt_row gt_right">1-1G9113</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Studyid</td>
-      <td headers="Value" class="gt_row gt_left">AA-AA-000-0000</td></tr>
+      <td headers="Value" class="gt_row gt_right">AA-AA-000-0000</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Protocol Title</td>
-      <td headers="Value" class="gt_row gt_left">Protocol Title</td></tr>
+      <td headers="Value" class="gt_row gt_right">Protocol Title</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Nickname</td>
-      <td headers="Value" class="gt_row gt_left">Protocol Nickname</td></tr>
+      <td headers="Value" class="gt_row gt_right">Protocol Nickname</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Protocol Type</td>
-      <td headers="Value" class="gt_row gt_left">Investigator Sponsored</td></tr>
+      <td headers="Value" class="gt_row gt_right">Investigator Sponsored</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Phase</td>
-      <td headers="Value" class="gt_row gt_left">P3</td></tr>
+      <td headers="Value" class="gt_row gt_right">P3</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Num Plan Site</td>
-      <td headers="Value" class="gt_row gt_left">190</td></tr>
+      <td headers="Value" class="gt_row gt_right">190</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Num Site Actl</td>
-      <td headers="Value" class="gt_row gt_left">176</td></tr>
+      <td headers="Value" class="gt_row gt_right">176</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Est Fpfv</td>
-      <td headers="Value" class="gt_row gt_left">2003-01-01</td></tr>
+      <td headers="Value" class="gt_row gt_right">2003-01-01</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Act Fpfv</td>
-      <td headers="Value" class="gt_row gt_left">2003-01-01</td></tr>
+      <td headers="Value" class="gt_row gt_right">2003-01-01</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Est Lplv</td>
-      <td headers="Value" class="gt_row gt_left">2021-06-01</td></tr>
+      <td headers="Value" class="gt_row gt_right">2021-06-01</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Act Lplv</td>
-      <td headers="Value" class="gt_row gt_left">2021-06-01</td></tr>
+      <td headers="Value" class="gt_row gt_right">2021-06-01</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Est Lpfv</td>
-      <td headers="Value" class="gt_row gt_left">2020-06-01</td></tr>
+      <td headers="Value" class="gt_row gt_right">2020-06-01</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Act Lpfv</td>
-      <td headers="Value" class="gt_row gt_left">2020-06-01</td></tr>
+      <td headers="Value" class="gt_row gt_right">2020-06-01</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Study Status</td>
-      <td headers="Value" class="gt_row gt_left">Active</td></tr>
+      <td headers="Value" class="gt_row gt_right">Active</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Num Plan Subj</td>
-      <td headers="Value" class="gt_row gt_left">1300</td></tr>
+      <td headers="Value" class="gt_row gt_right">1300</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Num Enrolled Subj M</td>
-      <td headers="Value" class="gt_row gt_left">1301</td></tr>
+      <td headers="Value" class="gt_row gt_right">1301</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Protocol Indication</td>
-      <td headers="Value" class="gt_row gt_left">Protocol Indication</td></tr>
+      <td headers="Value" class="gt_row gt_right">Protocol Indication</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Product</td>
-      <td headers="Value" class="gt_row gt_left">Product</td></tr>
+      <td headers="Value" class="gt_row gt_right">Product</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Therapeutic Area</td>
-      <td headers="Value" class="gt_row gt_left">Therapeutic Area</td></tr>
+      <td headers="Value" class="gt_row gt_right">Therapeutic Area</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Protocol Product Number</td>
-      <td headers="Value" class="gt_row gt_left">123</td></tr>
+      <td headers="Value" class="gt_row gt_right">123</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">X Rbm Flg</td>
-      <td headers="Value" class="gt_row gt_left">Y</td></tr>
+      <td headers="Value" class="gt_row gt_right">Y</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Participants Enrolled</td>
-      <td headers="Value" class="gt_row gt_left">50</td></tr>
+      <td headers="Value" class="gt_row gt_right">50</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Sites Enrolled</td>
-      <td headers="Value" class="gt_row gt_left">154</td></tr>
+      <td headers="Value" class="gt_row gt_right">154</td></tr>
         </tbody>
         
         
       </table>
+        </div>
       </div>
 

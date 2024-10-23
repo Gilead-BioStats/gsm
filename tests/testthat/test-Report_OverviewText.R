@@ -11,6 +11,7 @@ test_that("It handles different lSetup group values correctly", {
   )
 
   lSetup$GroupLevel <- "Country"
+  lStudy$CountryCount <- "3"
   expect_output(
     Report_OverviewText(lSetup, reportingResults, lStudy),
     "countries"
@@ -63,5 +64,6 @@ test_that("Handles different flag configurations", {
 
   expect_output(Report_OverviewText(lSetup, dfSummary, lStudy), "2 sites have at least one red KRI")
   expect_output(Report_OverviewText(lSetup, dfSummary, lStudy), "3 sites have at least one red or amber KRI")
-  expect_output(Report_OverviewText(lSetup, dfSummary, lStudy), "1 sites have neither red nor amber KRIS and are not shown")
+  expect_output(Report_OverviewText(lSetup, dfSummary, lStudy), "0 sites have neither red nor amber KRIS and are not shown")
 })
+

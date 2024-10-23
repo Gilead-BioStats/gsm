@@ -139,7 +139,7 @@ JavaScript utility functions used to configure `htmlwidgets` and for custom repo
 ├── dragOverallSiteDropdown.js
 ├── number_to_array.js
 ├── overallSiteDropdown.js
-└── showMetaTableDetails.js
+└── toggleTables.js
 ```
 ---
 

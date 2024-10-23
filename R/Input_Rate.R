@@ -137,15 +137,15 @@ Input_Rate <- function(
   dfNumerator_subj <- dfNumerator %>%
     rename(SubjectID = {{ strSubjectCol }}) %>%
     mutate(Numerator = if (strNumeratorMethod == "Count") 1 else .data[[strNumeratorCol]]) %>%
-    group_by(SubjectID) %>%
-    summarise(Numerator = sum(Numerator, na.rm = TRUE))
+    group_by(.data$SubjectID) %>%
+    summarise(Numerator = sum(.data$Numerator, na.rm = TRUE))
 
   # Calculate Denominator
   dfDenominator_subj <- dfDenominator %>%
     rename(SubjectID = {{ strSubjectCol }}) %>%
     mutate(Denominator = if (strDenominatorMethod == "Count") 1 else .data[[strDenominatorCol]]) %>%
-    group_by(SubjectID) %>%
-    summarise(Denominator = sum(Denominator, na.rm = TRUE))
+    group_by(.data$SubjectID) %>%
+    summarise(Denominator = sum(.data$Denominator, na.rm = TRUE))
 
   if (all(dfDenominator_subj$Denominator == 0)) {
     cli::cli_abort(

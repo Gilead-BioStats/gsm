@@ -44,6 +44,10 @@ Report_Setup <- function(dfGroups = NULL, dfMetrics = NULL, dfResults = NULL) {
     pivot_wider(names_from = "Param", values_from = "Value") %>%
     as.list()
 
+  if( output$GroupLevel == "Country") {
+    output$lStudy$CountryCount <- length(unique(dfResults$GroupID)) %>% as.character()
+  }
+
   output$StudyID <- dfGroups %>%
     filter(.data$GroupLevel == "Study") %>%
     pull("GroupID") %>%

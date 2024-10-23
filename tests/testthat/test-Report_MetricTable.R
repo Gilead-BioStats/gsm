@@ -3,7 +3,7 @@ test_that("Empty data frames return default message", {
   dfGroups_empty <- reportingGroups[-c(1:nrow(reportingGroups)), ]
   expect_equal(
     Report_MetricTable(dfResults_empty, dfGroups_empty),
-    "Nothing flagged for this KRI."
+    htmltools::tags$p("Nothing flagged for this KRI.")
   )
 })
 
@@ -16,7 +16,7 @@ test_that("Default message when nothing flagged", {
   dfGroups <- reportingGroups
   expect_equal(
     Report_MetricTable(dfResults, dfGroups),
-    "Nothing flagged for this KRI."
+    htmltools::tags$p("Nothing flagged for this KRI.")
   )
 })
 
@@ -56,7 +56,7 @@ test_that("Runs with just results with NULL group argument", {
 })
 
 test_that("Output is expected object", {
-  zero_flags <- c("0X003", "0x039")
+  zero_flags <- c("0X003", "0X039")
   red_flags <- c("0X113", "0X025")
   amber_flags <- c("0X119", "0X046")
 
