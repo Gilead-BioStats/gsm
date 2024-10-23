@@ -62,10 +62,10 @@
 .group-overview td.group-overview--ParticipantCount {
 }
 .group-overview td.group-overview--nRedFlags {
-    background-color: #ff5859;
+    background-color: #ffcccc;
 }
 .group-overview td.group-overview--nAmberFlags {
-    background-color: #feaa02;
+    background-color: #ffcc99;
 }
 .group-overview td.group-overview--metric {
     width: 3em;
