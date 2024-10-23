@@ -66,4 +66,3 @@ test_that("Handles different flag configurations", {
   expect_output(Report_OverviewText(lSetup, dfSummary, lStudy), "3 sites have at least one red or amber KRI")
   expect_output(Report_OverviewText(lSetup, dfSummary, lStudy), "0 sites have neither red nor amber KRIS and are not shown")
 })
-

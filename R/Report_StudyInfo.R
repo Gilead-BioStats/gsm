@@ -58,7 +58,7 @@ htmlDetailsButton <- function(strId, strId_hide) {
     '    onclick="toggleTables(this)">',
     '  <div class="toggle-switch"></div>',
     '  <span class="toggle-label">Show Details</span>',
-    '</label>',
+    "</label>",
     .sep = "\n"
   ))
 }

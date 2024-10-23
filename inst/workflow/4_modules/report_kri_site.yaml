@@ -3,7 +3,7 @@ meta:
   ID: report_kri_site
   Output: html
   Name: Site-Level Key Risk Indicator Report
-  Description: A report summarizing key risk indicators at the country level
+  Description: A report summarizing key risk indicators at the site level
 spec:
   Reporting_Results:
     _all:
