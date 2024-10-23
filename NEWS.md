@@ -8,6 +8,8 @@ This patch release addresses the following bugs and style improvements:
 - Add appropriate spacing between KRIs in KRI report output
 - pkgdown menu subtitle improvement for readability.
 - Reporting handles empty tables/dfs appropriately
+- Update table styling in reports
+- Fix overview text to properly reflect the report, based on GroupLevel
 
 # gsm v2.1.0
 
