@@ -39,7 +39,7 @@ Report_MetricTable <- function(
   )
 
   if (!nrow(MetricTable)) {
-    return("Nothing flagged for this KRI.")
+    return(htmltools::tags$p("Nothing flagged for this KRI."))
   }
 
   cols_to_hide <- c("StudyID", "GroupID", "MetricID")
