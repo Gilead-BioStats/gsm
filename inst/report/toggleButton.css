@@ -1,0 +1,45 @@
+/* Toggle Switch Styling */
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.toggle-switch {
+  background: #ccc;
+  border-radius: 16px;
+  width: 58px;
+  height: 26px;
+  position: relative;
+  transition: background 0.25s ease-in-out;
+}
+
+.toggle-switch::before {
+  content: "";
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  transition: left 0.25s ease-in-out;
+}
+
+.toggle-checkbox:checked + .toggle-switch {
+  background: var(--blue-button-color);
+}
+
+.toggle-checkbox:checked + .toggle-switch::before {
+  left: 33px;
+}
+
+.toggle-checkbox {
+  position: absolute;
+  visibility: hidden;
+}
+
+.toggle-label {
+  margin-left: 8px;
+}
