@@ -32,7 +32,7 @@ Parameters should be specified as a named list in \code{lStep$params}, where eac
 that will be parsed and then passed to the specified function as a set of parameter names/values.
 Parameter values should be specified as scalar strings. Those values are then pulled from \code{lMeta} or \code{lData}
 when possible. When no matching \code{lData} or \code{lMeta} objects are found, parameter values are passed through as
-stings. Note that parsing vectorized parameters is not supported at this time; they are passed directly
+strings. Note that parsing vectorized parameters is not supported at this time; they are passed directly
 as character vectors. To pass a vector or list, we recommend saving it as an object in \code{lData}.
 
 Full prioritization for parsing parameters is below:
@@ -42,9 +42,9 @@ Full prioritization for parsing parameters is below:
 \item If a single parameter value is equal to "lData", the full lData object is passed to the function.
 \item If a single parameter value is equal to "lSpec", the full lSpec object is passed to the function.
 \item If a single parameter value is found in names(lMeta), that property is pulled from lMeta (e.g.
-lMeta${paramVal}) and passed to the function.
+lMeta$\{paramVal\}) and passed to the function.
 \item If a single parameter value is found in names(lData), that property is pulled from lData (e.g.
-lData${paramVal}) and passed to the function.
+lData$\{paramVal\}) and passed to the function.
 \item Otherwise single parameter value is passed to the function as a string.
 \item If the parameter value is a vector, the vector is passed to the function as a vector or strings.
 }

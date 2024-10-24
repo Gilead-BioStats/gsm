@@ -20,10 +20,10 @@ spec:
       type: character
     num_plan_site:
       required: true
-      type: numeric
+      type: integer
     num_plan_subj:
       required: true
-      type: numeric
+      type: integer
   Mapped_SUBJ:
     studyid:
       required: true

@@ -17,7 +17,7 @@ spec:
       type: character
     timeonstudy:
       required: true
-      type: numeric
+      type: integer
     subject_nsv:
       required: true
       type: character

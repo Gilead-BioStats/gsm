@@ -2,7 +2,7 @@
 #'
 #' `r lifecycle::badge("stable")`
 #'
-#' @format A data frame with 1301 rows and 6 columns:
+#' @format `r df_dim_desc(analyticsInput)`
 #' \describe{
 #'   \item{SubjectID}{unique subject identifier}
 #'   \item{GroupID}{grouping variable}
@@ -18,7 +18,7 @@
 #'
 #'  `r lifecycle::badge("stable")`
 #'
-#' @format A data frame with 176 rows and 7 columns:
+#' @format `r df_dim_desc(analyticsSummary)`
 #' \describe{
 #'   \item{GroupID}{grouping variable}
 #'   \item{GroupLevel}{level of grouping variable}
@@ -36,7 +36,7 @@
 #'
 #'  `r lifecycle::badge("stable")`
 #'
-#' @format A data frame with 3867 rows and 4 columns:
+#' @format `r df_dim_desc(reportingGroups)`
 #' \describe{
 #'   \item{GroupID}{grouping variable}
 #'   \item{GroupLevel}{level of grouping variable}
@@ -50,10 +50,9 @@
 #'
 #'  `r lifecycle::badge("stable")`
 #'
-#' @format A data frame with 12 rows and 12 columns:
+#' @format `r df_dim_desc(reportingMetrics)`
 #' \describe{
 #'   \item{MetricID}{unique metric identifier}
-#'   \item{File}{yaml file for workflow}
 #'   \item{GroupLevel}{level of grouping variable}
 #'   \item{Abbreviation}{abbreviation for the metric}
 #'   \item{Metric}{name of the metric}
@@ -64,6 +63,12 @@
 #'   \item{Type}{statistical outcome type}
 #'   \item{Threshold}{thresholds to be used for bounds and flags}
 #'   \item{nMinDenominator}{minimum denominator required to return a score and calculate a flag}
+#'   \item{ID}{ID}
+#'   \item{Priority}{Priority in workflow}
+#'   \item{Output}{output}
+#'   \item{Name}{name}
+#'   \item{Description}{description}
+#'   \item{AnalysisType}{analysis type}
 #' }
 #' @source Generated from `reportingMetrics.csv` dataset in the `gsm` package.
 "reportingMetrics"
@@ -72,7 +77,7 @@
 #'
 #'  `r lifecycle::badge("stable")`
 #'
-#' @format A data frame with 14639 rows and 8 columns:
+#' @format `r df_dim_desc(reportingBounds)`
 #' \describe{
 #'   \item{Threshold}{number of standard deviations that the upper and lower bounds are based on}
 #'   \item{Denominator}{calculated denominator value}
@@ -90,7 +95,7 @@
 #'
 #'  `r lifecycle::badge("stable")`
 #'
-#' @format A data frame with 15480 rows and 10 columns:
+#' @format `r df_dim_desc(reportingResults)`
 #' \describe{
 #'   \item{GroupID}{grouping variable}
 #'   \item{GroupLevel}{level of grouping variable}
@@ -111,7 +116,7 @@
 #'
 #'  `r lifecycle::badge("stable")`
 #'
-#' @format A data frame with 3867 rows and 4 columns:
+#' @format `r df_dim_desc(reportingGroups_country)`
 #' \describe{
 #'   \item{GroupID}{grouping variable}
 #'   \item{GroupLevel}{level of grouping variable}
@@ -125,10 +130,9 @@
 #'
 #'  `r lifecycle::badge("stable")`
 #'
-#' @format A data frame with 12 rows and 12 columns:
+#' @format `r df_dim_desc(reportingMetrics_country)`
 #' \describe{
 #'   \item{MetricID}{unique metric identifier}
-#'   \item{File}{yaml file for workflow}
 #'   \item{GroupLevel}{level of grouping variable}
 #'   \item{Abbreviation}{abbreviation for the metric}
 #'   \item{Metric}{name of the metric}
@@ -139,6 +143,12 @@
 #'   \item{Type}{statistical outcome type}
 #'   \item{Threshold}{thresholds to be used for bounds and flags}
 #'   \item{nMinDenominator}{minimum denominator required to return a score and calculate a flag}
+#'   \item{ID}{ID}
+#'   \item{Priority}{Priority in workflow}
+#'   \item{Output}{output}
+#'   \item{Name}{name}
+#'   \item{Description}{description}
+#'   \item{AnalysisType}{analysis type}
 #' }
 #' @source Generated from `reportingMetrics_country.csv` dataset in the `gsm` package.
 "reportingMetrics_country"
@@ -147,7 +157,7 @@
 #'
 #'  `r lifecycle::badge("stable")`
 #'
-#' @format A data frame with 15180 rows and 8 columns:
+#' @format `r df_dim_desc(reportingBounds_country)`
 #' \describe{
 #'   \item{Threshold}{number of standard deviations that the upper and lower bounds are based on}
 #'   \item{Denominator}{calculated denominator value}
@@ -165,7 +175,7 @@
 #'
 #'  `r lifecycle::badge("stable")`
 #'
-#' @format A data frame with 432 rows and 10 columns:
+#' @format `r df_dim_desc(reportingResults_country)`
 #' \describe{
 #'   \item{GroupID}{grouping variable}
 #'   \item{GroupLevel}{level of grouping variable}
@@ -180,3 +190,7 @@
 #' }
 #' @source Generated from `reportingResults_country.csv` dataset in the `gsm` package.
 "reportingResults_country"
+
+df_dim_desc <- function(df) {
+  paste0("A data frame with ", dim(df)[1], " rows and ", dim(df)[2], " columns:")
+}

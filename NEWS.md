@@ -1,3 +1,16 @@
+# gsm v2.1.1
+
+This patch release addresses the following bugs and style improvements:
+
+- The checkSpec function properly checks Date columns
+- Country test data was incomplete, and not based on updates made in v2.1.0
+- Move metric table in KRI report to the tabbed viewer for each KRI
+- Add appropriate spacing between KRIs in KRI report output
+- pkgdown menu subtitle improvement for readability.
+- Reporting handles empty tables/dfs appropriately
+- Update table styling in reports
+- Fix overview text to properly reflect the report, based on GroupLevel
+
 # gsm v2.1.0
 
 This minor release addresses workflow updates which are required for improved modularity and automation. These updates include:

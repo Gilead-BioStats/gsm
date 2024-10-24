@@ -16,7 +16,7 @@ spec:
   Analysis_Input:
     SubjectID:
       required: true
-      type: numeric
+      type: integer
     GroupID:
       required: true
       type: character
@@ -25,13 +25,13 @@ spec:
       type: character
     Numerator:
       required: true
-      type: numeric
+      type: integer
     Denominator:
       required: true
-      type: numeric
+      type: integer
     Metric:
       required: true
-      type: numeric
+      type: integer
 steps:
   - name: ParseThreshold
     output: vThreshold

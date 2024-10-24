@@ -11,7 +11,7 @@ spec:
       source_col: subjectname
     n_changes:
       required: true
-      type: numeric
+      type: integer
   Mapped_SUBJ:
     subjid:
       required: true

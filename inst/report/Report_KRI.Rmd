@@ -21,7 +21,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 ```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
 library(gsm)
-library(kableExtra)
+library(gt)
 
 setup <- Report_Setup(
   dfGroups =  params$dfGroups, 
@@ -46,7 +46,7 @@ date: "Snapshot Date: `r setup$SnapshotDate`"
 :::
 
 ```{r, echo=FALSE, results='asis', fig.height=2}
-Report_StudyInfo(lStudy = setup$lStudy)
+Report_StudyInfo(params$dfGroups)
 ```
 
 ## Study Overview
@@ -77,8 +77,13 @@ dfResults_current <- FilterByLatestSnapshotDate(params$dfResults)
 GroupOverViz <- Widget_GroupOverview(
   dfResults = dfResults_current,
   dfGroups = params$dfGroups,
-  dfMetrics = params$dfMetrics, 
+  dfMetrics = params$dfMetrics,
   strGroupLevel = setup$GroupLevel,
+  strGroupSubset = switch(setup$GroupLevel,
+    "Site" = "red",
+    "Country" = "all",
+    "Study" = "all"
+  ),
   strGroupLabelKey = GroupLabelKey
 )
 overview_viz <- list(groupOverviewJS = GroupOverViz)
@@ -110,7 +115,7 @@ Report_MetricCharts(overview_viz, overview = TRUE)
 
 Report_OverviewText(
   lSetup = setup,
-  dfResults = params$dfResults, 
+  dfResults = dfResults_current,
   lStudy = setup$lStudy
 )
 
@@ -131,9 +136,8 @@ for (i in unique(params$dfMetrics$MetricID)) {
     strMetricID = lMetric$MetricID,
     overview = FALSE
   )
-
- params$lCharts[[lMetric$MetricID]]$metricTable %>%
-   cat
+  
+  print(htmltools::tags$br())
 
 }
 
@@ -143,22 +147,17 @@ for (i in unique(params$dfMetrics$MetricID)) {
 ```{r, echo=FALSE, results='asis'}
 #print dfMetrics table
 params$dfMetrics %>%
-kbl(format="html", escape=FALSE) %>%
-kable_styling ("striped", full_width = FALSE) %>%
-cat
+  gt::gt()
 
 ```
+
 ```{r echo=FALSE}
 group_dropdown <- system.file('report', 'lib', 'overallGroupDropdown.js', package = "gsm")
 dropdown_drag <- system.file('report', 'lib', 'dragOverallGroupDropdown.js', package = "gsm")
-meta_details <- system.file('report', 'lib', 'showMetaTableDetails.js', package = "gsm")
 ```
 
 ```{js, file={group_dropdown}, echo=FALSE}
 ```
 
 ```{js, file={dropdown_drag}, echo=FALSE}
-```
-
-```{js, file={meta_details}, echo=FALSE}
 ```

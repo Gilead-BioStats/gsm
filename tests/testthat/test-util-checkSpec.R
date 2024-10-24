@@ -137,12 +137,13 @@ test_that("Validate column type works", {
     reporting_results = list(
       GroupID = list(required = TRUE, type = "character"),
       GroupLevel = list(required = TRUE, type = "character"),
-      Numerator = list(required = TRUE, type = "numeric"),
-      Denominator = list(required = TRUE, type = "numeric")
+      Numerator = list(required = TRUE, type = "integer"),
+      Denominator = list(required = TRUE, type = "integer"),
+      SnapshotDate = list(required = TRUE, type = "Date")
     )
   )
   expect_message(
-    expect_message(expect_message(CheckSpec(lData, lSpec), "All 1"), "All 4"),
+    expect_message(expect_message(CheckSpec(lData, lSpec), "All 1"), "All 5"),
     regexp = "All specified columns"
   )
 
@@ -151,11 +152,12 @@ test_that("Validate column type works", {
       GroupID = list(required = TRUE, type = "character"),
       GroupLevel = list(required = TRUE, type = "character"),
       Numerator = list(required = TRUE, type = "character"),
-      Denominator = list(required = TRUE, type = "numeric")
+      Denominator = list(required = TRUE, type = "integer"),
+      SnapshotDate = list(required = TRUE, type = "Date")
     )
   )
   expect_message(
-    expect_message(expect_message(CheckSpec(lData, lSpec), "All 1"), "All 4"),
+    expect_message(expect_message(CheckSpec(lData, lSpec), "All 1"), "All 5"),
     regexp = "Not all columns"
   )
 })

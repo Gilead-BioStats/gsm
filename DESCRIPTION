@@ -1,6 +1,6 @@
 Package: gsm
 Title: Good Statistical Monitoring
-Version: 2.1.0
+Version: 2.1.1
 Authors@R: c(
     person("George", "Wu", , "george.wu@gilead.com", role = c("aut", "cre")),
     person("Jeremy", "Wildfire", , "jwildfire@gmail.com", role = "aut"),
@@ -11,7 +11,7 @@ Authors@R: c(
     person("Laura", "Maxwell", , "laura.maxwell@atorusresearch.com", role = "aut"),
     person("Jacob", "Anderson", , "jacob.anderson@atorusresearch.com", role = "aut"),
     person("Jon", "Harmon", , "jon.harmon@atorusresearch.com", role = "aut"),
-    person("Zelos", "Zhu", "zelos.zhu@atorusresearch.com", role = "aut"),
+    person("Zelos", "Zhu", , "zelos.zhu@atorusresearch.com", role = "aut"),
     person("Nathan", "Kosiba", , "Nathan.Kosiba@atorusresearch.com", role = "aut"),
     person("Douglas", "Sanders", role = "aut"),
     person("Li", "Ge", role = "aut"),
@@ -38,7 +38,9 @@ Imports:
     htmltools,
     htmlwidgets,
     jsonlite,
+    lifecycle,
     magrittr,
+    methods,
     purrr,
     rlang (>= 0.4.11),
     stats,
@@ -60,7 +62,6 @@ Suggests:
     kableExtra,
     knitr,
     lamW,
-    lifecycle (>= 1.0.1),
     lubridate,
     pander,
     pkgdown,

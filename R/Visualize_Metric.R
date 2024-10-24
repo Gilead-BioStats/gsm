@@ -28,7 +28,7 @@
 #'   dfBounds = reportingBounds,
 #'   dfGroups = reportingGroups,
 #'   dfMetrics = reportingMetrics,
-#'   strMetricID = "kri0001"
+#'   strMetricID = "Analysis_kri0001"
 #' )
 #'
 #' @export
@@ -72,6 +72,7 @@ Visualize_Metric <- function(
   if (!is.null(strMetricID)) {
     if (!(strMetricID %in% unique(dfBounds$MetricID))) {
       cli::cli_inform("MetricID not found in dfBounds. Please double check input data if intentional.")
+      dfBounds <- NULL
     } else {
       dfBounds <- dfBounds %>% filter(.data$MetricID == strMetricID)
     }
@@ -80,6 +81,7 @@ Visualize_Metric <- function(
   if (!is.null(strMetricID)) {
     if (!(strMetricID %in% unique(dfMetrics$MetricID))) {
       cli::cli_inform("MetricID not found in dfMetrics. Please double check input data if intentional.")
+      dfMetrics <- NULL
     } else {
       dfMetrics <- dfMetrics %>% filter(.data$MetricID == strMetricID)
     }

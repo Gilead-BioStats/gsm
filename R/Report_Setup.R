@@ -44,13 +44,14 @@ Report_Setup <- function(dfGroups = NULL, dfMetrics = NULL, dfResults = NULL) {
     pivot_wider(names_from = "Param", values_from = "Value") %>%
     as.list()
 
-  if ("protocol_number" %in% names(output$lStudy)) {
-    output$StudyID <- output$lStudy$protocol_number
-  } else if ("protocol_title" %in% names(output$lStudy)) {
-    output$StudyID <- output$lStudy$protocol_title
-  } else {
-    output$StudyID <- "Unknown"
+  if (output$GroupLevel == "Country") {
+    output$lStudy$CountryCount <- length(unique(dfResults$GroupID)) %>% as.character()
   }
+
+  output$StudyID <- dfGroups %>%
+    filter(.data$GroupLevel == "Study") %>%
+    pull("GroupID") %>%
+    unique()
 
   # Count Red and Amber Flags for most recent snapshot
   output$red_kris <- dfResults %>%

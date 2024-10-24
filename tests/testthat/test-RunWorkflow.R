@@ -55,7 +55,7 @@ lRaw <- list(
 )
 
 # Create Mapped Data
-lMapped <- quiet_RunWorkflows(lWorkflow = wf_mapping, lData = lRaw)
+lMapped <- quiet_RunWorkflows(lWorkflows = wf_mapping, lData = lRaw)
 
 # Run Metrics
 results <- map(

@@ -13,16 +13,17 @@ MakeMetricTable(
 )
 }
 \arguments{
-\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.
-For this function, \code{dfResults} must be filtered to a single KRI (\code{MetricID}).}
+\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}. For this function, \code{dfResults} must be filtered to a single KRI (\code{MetricID}).}
 
 \item{dfGroups}{\code{data.frame} Group-level metadata dictionary. Created by passing CTMS site and study data to \code{\link[=MakeLongMeta]{MakeLongMeta()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Param}, \code{Value}.}
 
 \item{strGroupLevel}{group level for the table}
 
-\item{strGroupDetailsParams}{one or more parameters from dfGroups to be added as columns in the table}
+\item{strGroupDetailsParams}{one or more parameters from dfGroups to be added
+as columns in the table}
 
-\item{vFlags}{\code{integer} List of flag values to include in output table. Default: \code{c(-2, -1, 1, 2)}.}
+\item{vFlags}{\code{integer} List of flag values to include in output table.
+Default: \code{c(-2, -1, 1, 2)}.}
 }
 \value{
 A data.frame containing the summary table
@@ -38,7 +39,7 @@ data based on provided conditions.
 # site-level report
 MakeMetricTable(
   dfResults = reportingResults \%>\%
-    dplyr::filter(.data$MetricID == "kri0001") \%>\%
+    dplyr::filter(.data$MetricID == "Analysis_kri0001") \%>\%
     FilterByLatestSnapshotDate(),
   dfGroups = reportingGroups
 )

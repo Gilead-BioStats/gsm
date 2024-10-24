@@ -14,7 +14,7 @@
 #' @examples
 #' ## Filter data to one metric and snapshot
 #' reportingResults_filter <- reportingResults %>%
-#'   dplyr::filter(MetricID == "kri0001" & SnapshotDate == max(SnapshotDate))
+#'   dplyr::filter(MetricID == "Analysis_kri0001" & SnapshotDate == max(SnapshotDate))
 #'
 #' Visualize_Score(dfResults = reportingResults_filter)
 #'

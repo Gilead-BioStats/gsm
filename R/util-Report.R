@@ -64,11 +64,11 @@ FilterByLatestSnapshotDate <- function(df, strSnapshotDate = NULL) {
 #' @export
 FilterByFlags <- function(df) {
   df %>%
-    group_by(GroupID, MetricID) %>%
-    mutate(flagsum = sum(Flag)) %>%
+    group_by(.data$GroupID, .data$MetricID) %>%
+    mutate(flagsum = sum(.data$Flag)) %>%
     ungroup() %>%
-    filter(flagsum != 0 | is.na(flagsum)) %>%
-    select(-flagsum)
+    filter(.data$flagsum != 0 | is.na(.data$flagsum)) %>%
+    select(-"flagsum")
 }
 
 add_Groups_metadata <- function(
@@ -92,8 +92,15 @@ add_Groups_metadata <- function(
 }
 
 widen_dfGroups <- function(dfGroups, strGroupLevel, strGroupDetailsParams) {
-  dfGroups <- dplyr::filter(dfGroups, .data$GroupLevel == strGroupLevel)
-  if (nrow(dfGroups)) {
+  # Subset on the specified group level and columns.
+  dfGroupsSubset <- dfGroups %>%
+      dplyr::filter(
+        .data$GroupLevel == strGroupLevel
+      ) %>%
+      dplyr::select(
+        dplyr::all_of(c("GroupID", "Param", "Value"))
+      )
+  if (nrow(dfGroupsSubset)) {
     if (is.null(strGroupDetailsParams)) {
       if (strGroupLevel == "Site") {
         strGroupDetailsParams <- c(
@@ -103,11 +110,21 @@ widen_dfGroups <- function(dfGroups, strGroupLevel, strGroupDetailsParams) {
         strGroupDetailsParams <- c("SiteCount", "ParticipantCount")
       }
     }
-    dfGroups <- dfGroups %>%
+    dfGroupsWide <- dfGroupsSubset %>%
       dplyr::filter(.data$Param %in% strGroupDetailsParams) %>%
-      tidyr::pivot_wider(names_from = "Param", values_from = "Value")
+      tidyr::pivot_wider(
+        id_cols = "GroupID",
+        names_from = "Param",
+        values_from = "Value"
+      ) %>%
+      dplyr::mutate(
+        dplyr::across(
+          dplyr::any_of(c("ParticipantCount", "SiteCount")),
+          as.integer
+        )
+      )
   }
-  return(dplyr::select(dfGroups, -"GroupLevel"))
+  return(dfGroupsWide)
 }
 
 colorScheme <- function(
