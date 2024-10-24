@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gsm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,7 +35,7 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Data Model</h6></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Workflows</h6></li>
     <li><a class="dropdown-item" href="../articles/DataModel.html">Data Model</a></li>
     <li><a class="dropdown-item" href="../articles/Cookbook.html">Cookbook</a></li>
     <li><a class="dropdown-item" href="../articles/DataAnalysis.html">Step-by-Step Analysis Workflow</a></li>
@@ -78,10 +78,10 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Qualification Report for the {gsm} R Package</h1>
-            <h3 data-toc-skip class="subtitle">{gsm} v2.1.0</h3>
+            <h3 data-toc-skip class="subtitle">{gsm} v2.1.1</h3>
             
             <h4 data-toc-skip class="date">Report Run Date:
-2024-10-08</h4>
+2024-10-24</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/main/vignettes/articles/Qualification.Rmd" class="external-link"><code>vignettes/articles/Qualification.Rmd</code></a></small>
       <div class="d-none name"><code>Qualification.Rmd</code></div>
@@ -1435,7 +1435,7 @@ R/Analyze_Identity.R
 R/Analyze_NormalApprox_PredictBounds.R
 </td>
 <td style="text-align:left;">
-68.33 %
+100.00 %
 </td>
 </tr>
 <tr>
@@ -1460,6 +1460,14 @@ R/Analyze_Poisson.R
 </td>
 <td style="text-align:left;">
 100.00 %
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R/data-specs.R
+</td>
+<td style="text-align:left;">
+0.00 %
 </td>
 </tr>
 <tr>
@@ -1499,7 +1507,7 @@ R/Flag.R
 R/Input_Rate.R
 </td>
 <td style="text-align:left;">
-94.92 %
+91.80 %
 </td>
 </tr>
 <tr>
@@ -1507,7 +1515,7 @@ R/Input_Rate.R
 R/Report_FlagOverTime.R
 </td>
 <td style="text-align:left;">
-94.68 %
+100.00 %
 </td>
 </tr>
 <tr>
@@ -1531,7 +1539,7 @@ R/Report_KRI.R
 R/Report_MetricCharts.R
 </td>
 <td style="text-align:left;">
-97.67 %
+97.78 %
 </td>
 </tr>
 <tr>
@@ -1555,7 +1563,7 @@ R/Report_OverviewText.R
 R/Report_Setup.R
 </td>
 <td style="text-align:left;">
-93.75 %
+90.91 %
 </td>
 </tr>
 <tr>
@@ -1675,7 +1683,7 @@ R/util-CombineSpecs.R
 R/util-gt.R
 </td>
 <td style="text-align:left;">
-100.00 %
+75.00 %
 </td>
 </tr>
 <tr>
@@ -1723,7 +1731,7 @@ R/util-MakeMetric.R
 R/util-MakeMetricTable.R
 </td>
 <td style="text-align:left;">
-98.21 %
+100.00 %
 </td>
 </tr>
 <tr>
@@ -1755,7 +1763,7 @@ R/util-MakeWideGroups.R
 R/util-MakeWorkflowList.R
 </td>
 <td style="text-align:left;">
-91.67 %
+90.16 %
 </td>
 </tr>
 <tr>
@@ -1779,7 +1787,7 @@ R/util-RenderRmd.R
 R/util-Report.R
 </td>
 <td style="text-align:left;">
-75.76 %
+81.71 %
 </td>
 </tr>
 <tr>
@@ -1787,7 +1795,7 @@ R/util-Report.R
 R/Visualize_Metric.R
 </td>
 <td style="text-align:left;">
-94.23 %
+94.34 %
 </td>
 </tr>
 <tr>
@@ -1851,7 +1859,7 @@ R/Widget_TimeSeries.R
 Total Coverage
 </td>
 <td style="text-align:left;">
-87.43 %
+88.31 %
 </td>
 </tr>
 </tbody>
@@ -1873,11 +1881,11 @@ Total Coverage
 <em>LC_MESSAGES=C.UTF-8</em>, <em>LC_PAPER=C.UTF-8</em>,
 <em>LC_NAME=C</em>, <em>LC_ADDRESS=C</em>, <em>LC_TELEPHONE=C</em>,
 <em>LC_MEASUREMENT=C.UTF-8</em> and <em>LC_IDENTIFICATION=C</em></p>
-<p><strong>attached base packages:</strong> <em>stats</em>,
-<em>graphics</em>, <em>grDevices</em>, <em>utils</em>,
+<p><strong>attached base packages:</strong> <em>tcltk</em>,
+<em>stats</em>, <em>graphics</em>, <em>grDevices</em>, <em>utils</em>,
 <em>datasets</em>, <em>methods</em> and <em>base</em></p>
 <p><strong>other attached packages:</strong> <em>RSQLite(v.2.3.7)</em>,
-<em>gsm(v.2.1.0)</em>, <em>testthat(v.3.2.1.1)</em>,
+<em>gsm(v.2.1.1)</em>, <em>testthat(v.3.2.1.1)</em>,
 <em>riskmetric(v.0.2.4)</em>, <em>stringr(v.1.5.1)</em>,
 <em>gh(v.1.4.1)</em>, <em>pander(v.0.6.5)</em>, <em>purrr(v.1.0.2)</em>,
 <em>dplyr(v.1.1.4)</em> and <em>knitr(v.1.48)</em></p>
@@ -1904,7 +1912,7 @@ Total Coverage
 <em>scales(v.1.3.0)</em>, <em>cli(v.3.6.3)</em>,
 <em>chron(v.2.3-61)</em>, <em>rmarkdown(v.2.28)</em>,
 <em>ragg(v.1.3.3)</em>, <em>generics(v.0.1.3)</em>,
-<em>remotes(v.2.5.0)</em>, <em>rstudioapi(v.0.16.0)</em>,
+<em>remotes(v.2.5.0)</em>, <em>rstudioapi(v.0.17.1)</em>,
 <em>httr(v.1.4.7)</em>, <em>sessioninfo(v.1.2.2)</em>,
 <em>DBI(v.1.2.3)</em>, <em>cachem(v.1.1.0)</em>,
 <em>BiocManager(v.1.30.25)</em>, <em>vctrs(v.0.6.5)</em>,
@@ -1917,10 +1925,10 @@ Total Coverage
 <em>later(v.1.3.2)</em>, <em>munsell(v.0.5.1)</em>,
 <em>tibble(v.3.2.1)</em>, <em>pillar(v.1.9.0)</em>,
 <em>htmltools(v.0.5.8.1)</em>, <em>brio(v.1.1.5)</em>,
-<em>R6(v.2.5.1)</em>, <em>tcltk(v.4.4.1)</em>,
-<em>textshaping(v.0.4.0)</em>, <em>rprojroot(v.2.0.4)</em>,
-<em>kableExtra(v.1.4.0)</em>, <em>evaluate(v.1.0.0)</em>,
-<em>shiny(v.1.9.1)</em>, <em>highr(v.0.11)</em>, <em>gsubfn(v.0.7)</em>,
+<em>R6(v.2.5.1)</em>, <em>textshaping(v.0.4.0)</em>,
+<em>rprojroot(v.2.0.4)</em>, <em>kableExtra(v.1.4.0)</em>,
+<em>evaluate(v.1.0.1)</em>, <em>shiny(v.1.9.1)</em>,
+<em>highr(v.0.11)</em>, <em>gsubfn(v.0.7)</em>,
 <em>backports(v.1.5.0)</em>, <em>memoise(v.2.0.1)</em>,
 <em>broom(v.1.0.7)</em>, <em>httpuv(v.1.6.15)</em>,
 <em>bslib(v.0.8.0)</em>, <em>Rcpp(v.1.0.13)</em>,
@@ -1959,7 +1967,7 @@ broom
 1.0.7
 </td>
 <td style="text-align:left;">
-0.322
+0.319
 </td>
 </tr>
 <tr>
@@ -1981,7 +1989,7 @@ dplyr
 1.1.4
 </td>
 <td style="text-align:left;">
-0.387
+0.383
 </td>
 </tr>
 <tr>
@@ -1992,7 +2000,7 @@ ggplot2
 3.5.1
 </td>
 <td style="text-align:left;">
-0.397
+0.398
 </td>
 </tr>
 <tr>
@@ -2036,7 +2044,18 @@ jsonlite
 1.8.9
 </td>
 <td style="text-align:left;">
-0.474
+0.472
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lifecycle
+</td>
+<td style="text-align:left;">
+1.0.4
+</td>
+<td style="text-align:left;">
+0.314
 </td>
 </tr>
 <tr>
@@ -2052,13 +2071,24 @@ magrittr
 </tr>
 <tr>
 <td style="text-align:left;">
+methods
+</td>
+<td style="text-align:left;">
+4.4.1
+</td>
+<td style="text-align:left;">
+0.785
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 purrr
 </td>
 <td style="text-align:left;">
 1.0.2
 </td>
 <td style="text-align:left;">
-0.365
+0.363
 </td>
 </tr>
 <tr>
@@ -2091,7 +2121,7 @@ stringr
 1.5.1
 </td>
 <td style="text-align:left;">
-0.350
+0.347
 </td>
 </tr>
 <tr>
@@ -2113,7 +2143,7 @@ tidyr
 1.3.1
 </td>
 <td style="text-align:left;">
-0.364
+0.360
 </td>
 </tr>
 <tr>
@@ -2157,6 +2187,458 @@ yaml
 <div class="section level2">
 <h2 id="pull-request-history">Pull Request History<a class="anchor" aria-label="anchor" href="#pull-request-history"></a>
 </h2>
+<div class="section level4">
+<h4 id="pull-request-1910-avoid-column-name-conflicts-between-groups-and-results">Pull Request 1910: avoid column name conflicts between
+<code>Groups</code> and <code>Results</code><a class="anchor" aria-label="anchor" href="#pull-request-1910-avoid-column-name-conflicts-between-groups-and-results"></a>
+</h4>
+<p>Merging lock-down-groups into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1910" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1910</a></p>
+<table style="width:74%;" class="table">
+<colgroup>
+<col width="16%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">samussiah</td>
+<td align="center">2024-10-24 18:00:51</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1909-release-v2-1-1">Pull Request 1909: Release v2.1.1<a class="anchor" aria-label="anchor" href="#pull-request-1909-release-v2-1-1"></a>
+</h4>
+<p>Merging dev into main</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1909" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1909</a></p>
+<table style="width:78%;" class="table">
+<colgroup>
+<col width="20%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">lauramaxwell</td>
+<td align="center">2024-10-23 21:25:59</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1908-fix-country-overview-text">Pull Request 1908: Fix country overview text<a class="anchor" aria-label="anchor" href="#pull-request-1908-fix-country-overview-text"></a>
+</h4>
+<p>Merging fix-country-overview-text into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1908" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1908</a></p>
+<table style="width:78%;" class="table">
+<colgroup>
+<col width="20%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">lauramaxwell</td>
+<td align="center">2024-10-23 20:33:45</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1907-update-rbm-viz-">Pull Request 1907: Update rbm-viz.<a class="anchor" aria-label="anchor" href="#pull-request-1907-update-rbm-viz-"></a>
+</h4>
+<p>Merging rbm-viz-2.1.0 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1907" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1907</a></p>
+<table style="width:75%;" class="table">
+<colgroup>
+<col width="18%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">jonthegeek</td>
+<td align="center">2024-10-23 18:47:10</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1906-embed-necessary-dependencies-in-report_studyinfo-">Pull Request 1906: Embed necessary dependencies in
+Report_StudyInfo().<a class="anchor" aria-label="anchor" href="#pull-request-1906-embed-necessary-dependencies-in-report_studyinfo-"></a>
+</h4>
+<p>Merging fix-1905 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1906" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1906</a></p>
+<table style="width:75%;" class="table">
+<colgroup>
+<col width="18%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">jonthegeek</td>
+<td align="center">2024-10-23 17:15:14</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1904-gsm-v2-1-1-release-candidate">Pull Request 1904: Gsm v2.1.1 release candidate<a class="anchor" aria-label="anchor" href="#pull-request-1904-gsm-v2-1-1-release-candidate"></a>
+</h4>
+<p>Merging gsm-v2.1.1-rc into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1904" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1904</a></p>
+<table style="width:78%;" class="table">
+<colgroup>
+<col width="20%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">lauramaxwell</td>
+<td align="center">2024-10-21 20:20:24</td>
+<td align="center">zdz2101 jwildfire</td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1903-fix-overall-group-select-bug-">Pull Request 1903: Fix overall group select bug.<a class="anchor" aria-label="anchor" href="#pull-request-1903-fix-overall-group-select-bug-"></a>
+</h4>
+<p>Merging fix-1902 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1903" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1903</a></p>
+<table style="width:74%;" class="table">
+<colgroup>
+<col width="16%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">samussiah</td>
+<td align="center">2024-10-18 20:34:37</td>
+<td align="center">zdz2101</td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1901-closes-1890-and-1900-to-properly-check-for-dates-and-fix-other-bugs-in-checkspec">Pull Request 1901: Closes #1890 and #1900 to properly check for
+dates and fix other bugs in checkSpec<a class="anchor" aria-label="anchor" href="#pull-request-1901-closes-1890-and-1900-to-properly-check-for-dates-and-fix-other-bugs-in-checkspec"></a>
+</h4>
+<p>Merging fix-1890 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1901" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1901</a></p>
+<table style="width:78%;" class="table">
+<colgroup>
+<col width="20%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">lauramaxwell</td>
+<td align="center">2024-10-18 18:10:48</td>
+<td align="center">zdz2101</td>
+<td align="center">COMMENTED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1898-flag-colors">Pull Request 1898: Flag colors<a class="anchor" aria-label="anchor" href="#pull-request-1898-flag-colors"></a>
+</h4>
+<p>Merging fix-1896 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1898" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1898</a></p>
+<table style="width:75%;" class="table">
+<colgroup>
+<col width="18%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">jonthegeek</td>
+<td align="center">2024-10-17 15:48:50</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1897-closes-1894-address-bug-in-input_rate-for-0-row-dataframe-inputs-for-dfnumeratordfdenominator">Pull Request 1897: Closes #1894 address bug in
+<code>Input_Rate()</code> for 0 row dataframe inputs for
+dfNumerator/dfDenominator<a class="anchor" aria-label="anchor" href="#pull-request-1897-closes-1894-address-bug-in-input_rate-for-0-row-dataframe-inputs-for-dfnumeratordfdenominator"></a>
+</h4>
+<p>Merging fix-1894 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1897" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1897</a></p>
+<table style="width:74%;" class="table">
+<colgroup>
+<col width="16%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">zdz2101</td>
+<td align="center">2024-10-17 15:46:12</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1892-closes-1877-and-1883-addressing-bugfixes-related-to-studyid-on-report_setup-and-reportingxxxx-datasets">Pull Request 1892: Closes #1877 and #1883 addressing bugfixes
+related to <code>StudyID</code> on <code>Report_Setup()</code> and
+<code>reportingXXXX</code> datasets<a class="anchor" aria-label="anchor" href="#pull-request-1892-closes-1877-and-1883-addressing-bugfixes-related-to-studyid-on-report_setup-and-reportingxxxx-datasets"></a>
+</h4>
+<p>Merging fix-1877 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1892" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1892</a></p>
+<table style="width:74%;" class="table">
+<colgroup>
+<col width="16%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">zdz2101</td>
+<td align="center">2024-10-15 21:01:24</td>
+<td align="center">samussiah</td>
+<td align="center">COMMENTED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1891-only-show-flag-rows-in-report_flagovertime">Pull Request 1891: Only show flag-rows in Report_FlagOverTime()<a class="anchor" aria-label="anchor" href="#pull-request-1891-only-show-flag-rows-in-report_flagovertime"></a>
+</h4>
+<p>Merging fix-1879 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1891" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1891</a></p>
+<table style="width:75%;" class="table">
+<colgroup>
+<col width="18%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">jonthegeek</td>
+<td align="center">2024-10-15 15:50:40</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1889-resolve-errors-related-to-missing-data-and-an-incomplete-set-of-metricid-in-dfbounds--">Pull Request 1889: Resolve errors related to missing data and an
+incomplete set of <code>MetricID</code> in <code>dfBounds</code> .<a class="anchor" aria-label="anchor" href="#pull-request-1889-resolve-errors-related-to-missing-data-and-an-incomplete-set-of-metricid-in-dfbounds--"></a>
+</h4>
+<p>Merging missing-data-fixes into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1889" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1889</a></p>
+<table style="width:78%;" class="table">
+<colgroup>
+<col width="16%">
+<col width="18%">
+<col width="20%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">samussiah</td>
+<td align="center">2024-10-14 22:25:59</td>
+<td align="center">zdz2101 lauramaxwell</td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1885-make-report_studyinfo-friendlier-to-shiny">Pull Request 1885: Make Report_StudyInfo() Friendlier to Shiny<a class="anchor" aria-label="anchor" href="#pull-request-1885-make-report_studyinfo-friendlier-to-shiny"></a>
+</h4>
+<p>Merging fix-1799 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1885" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1885</a></p>
+<table style="width:75%;" class="table">
+<colgroup>
+<col width="18%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">jonthegeek</td>
+<td align="center">2024-10-14 18:12:12</td>
+<td align="center"></td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1884-closes-1659-and-1660-to-use-gt-instead-of-kbl-in-our-functions-and-reports">Pull Request 1884: Closes #1659 and #1660 to use <code>gt()</code>
+instead of <code>kbl()</code> in our functions and reports<a class="anchor" aria-label="anchor" href="#pull-request-1884-closes-1659-and-1660-to-use-gt-instead-of-kbl-in-our-functions-and-reports"></a>
+</h4>
+<p>Merging fix-1660 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1884" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1884</a></p>
+<table style="width:83%;" class="table">
+<colgroup>
+<col width="16%">
+<col width="18%">
+<col width="20%">
+<col width="27%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">zdz2101</td>
+<td align="center">2024-10-14 16:17:13</td>
+<td align="center">lauramaxwell samussiah</td>
+<td align="center">CHANGES_REQUESTED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1876-fix-country-report">Pull Request 1876: Fix country report<a class="anchor" aria-label="anchor" href="#pull-request-1876-fix-country-report"></a>
+</h4>
+<p>Merging fix-country-report into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1876" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1876</a></p>
+<table style="width:78%;" class="table">
+<colgroup>
+<col width="16%">
+<col width="18%">
+<col width="20%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">samussiah</td>
+<td align="center">2024-10-10 18:31:08</td>
+<td align="center">lauramaxwell</td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1875-closes-1872-fix-miscellaneous-aesthetics-things-and-issues">Pull Request 1875: Closes #1872 fix miscellaneous aesthetics things
+and issues<a class="anchor" aria-label="anchor" href="#pull-request-1875-closes-1872-fix-miscellaneous-aesthetics-things-and-issues"></a>
+</h4>
+<p>Merging fix-1872 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1875" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1875</a></p>
+<table style="width:74%;" class="table">
+<colgroup>
+<col width="16%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">zdz2101</td>
+<td align="center">2024-10-10 18:24:25</td>
+<td align="center"></td>
+<td align="center">COMMENTED</td>
+</tr></tbody>
+</table>
+</div>
 <div class="section level4">
 <h4 id="pull-request-1871-yes-to-true-in-yamls">Pull Request 1871: yes to true in yamls<a class="anchor" aria-label="anchor" href="#pull-request-1871-yes-to-true-in-yamls"></a>
 </h4>
@@ -2392,6 +2874,34 @@ store.<a class="anchor" aria-label="anchor" href="#pull-request-1861-run-gsm-usi
 <td align="center">2024-09-24 13:11:22</td>
 <td align="center"></td>
 <td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
+<div class="section level4">
+<h4 id="pull-request-1853-discuss-1848-sections-of-package-where-theres-a-difference-of-usage-between-gt-vs-not--gt">Pull Request 1853: Discuss #1848 sections of package where there’s a
+difference of usage between <code>gt</code> vs “not”-
+<code>gt</code><a class="anchor" aria-label="anchor" href="#pull-request-1853-discuss-1848-sections-of-package-where-theres-a-difference-of-usage-between-gt-vs-not--gt"></a>
+</h4>
+<p>Merging fix-1848 into dev</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1853" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1853</a></p>
+<table style="width:74%;" class="table">
+<colgroup>
+<col width="16%">
+<col width="18%">
+<col width="16%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">zdz2101</td>
+<td align="center">2024-09-19 20:18:58</td>
+<td align="center"></td>
+<td align="center">COMMENTED</td>
 </tr></tbody>
 </table>
 </div>
@@ -4301,480 +4811,6 @@ created<a class="anchor" aria-label="anchor" href="#pull-request-1687-update-mak
 </tr></tbody>
 </table>
 </div>
-<div class="section level4">
-<h4 id="pull-request-1676-vignette-updates">Pull Request 1676: Vignette Updates<a class="anchor" aria-label="anchor" href="#pull-request-1676-vignette-updates"></a>
-</h4>
-<p>Merging fix-1649 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1676" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1676</a></p>
-<table style="width:83%;" class="table">
-<colgroup>
-<col width="20%">
-<col width="18%">
-<col width="16%">
-<col width="27%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">lauramaxwell</td>
-<td align="center">2024-07-18 07:27:37</td>
-<td align="center"></td>
-<td align="center">CHANGES_REQUESTED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1675-move-dfbounds-to-reporting-model">Pull Request 1675: Move dfBounds to Reporting model<a class="anchor" aria-label="anchor" href="#pull-request-1675-move-dfbounds-to-reporting-model"></a>
-</h4>
-<p>Merging fix-1670 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1675" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1675</a></p>
-<table style="width:74%;" class="table">
-<colgroup>
-<col width="16%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">jwildfire</td>
-<td align="center">2024-07-17 20:09:22</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1672-add-util-tests">Pull Request 1672: Add util tests<a class="anchor" aria-label="anchor" href="#pull-request-1672-add-util-tests"></a>
-</h4>
-<p>Merging fix-1669 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1672" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1672</a></p>
-<table style="width:75%;" class="table">
-<colgroup>
-<col width="18%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">jonthegeek</td>
-<td align="center">2024-07-17 15:24:41</td>
-<td align="center">jwildfire</td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1667-implement-a-glossary">Pull Request 1667: Implement a glossary<a class="anchor" aria-label="anchor" href="#pull-request-1667-implement-a-glossary"></a>
-</h4>
-<p>Merging fix-1658 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1667" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1667</a></p>
-<table style="width:75%;" class="table">
-<colgroup>
-<col width="18%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">jonthegeek</td>
-<td align="center">2024-07-16 20:11:23</td>
-<td align="center"></td>
-<td align="center">COMMENTED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1666-update-all-sampledata-to-use-analyticsx-and-reportingx">Pull Request 1666: Update all sampleData to use analyticsX and
-reportingX<a class="anchor" aria-label="anchor" href="#pull-request-1666-update-all-sampledata-to-use-analyticsx-and-reportingx"></a>
-</h4>
-<p>Merging fix-1662 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1666" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1666</a></p>
-<table style="width:78%;" class="table">
-<colgroup>
-<col width="20%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">lauramaxwell</td>
-<td align="center">2024-07-16 15:56:47</td>
-<td align="center">jwildfire</td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1665-incorporate-flagovertime-to-standard-report">Pull Request 1665: Incorporate FlagOverTime to standard report<a class="anchor" aria-label="anchor" href="#pull-request-1665-incorporate-flagovertime-to-standard-report"></a>
-</h4>
-<p>Merging fix-1653 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1665" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1665</a></p>
-<table style="width:74%;" class="table">
-<colgroup>
-<col width="16%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">jwildfire</td>
-<td align="center">2024-07-16 15:22:24</td>
-<td align="center"></td>
-<td align="center"></td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1663-fix-overall-group-select-in-report_kri--">Pull Request 1663: Fix overall group select in
-<code>Report_KRI</code> .<a class="anchor" aria-label="anchor" href="#pull-request-1663-fix-overall-group-select-in-report_kri--"></a>
-</h4>
-<p>Merging fix-1654 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1663" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1663</a></p>
-<table style="width:74%;" class="table">
-<colgroup>
-<col width="16%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">samussiah</td>
-<td align="center">2024-07-16 14:50:23</td>
-<td align="center">jwildfire</td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1661-fix-sampledata">Pull Request 1661: Fix sampleData<a class="anchor" aria-label="anchor" href="#pull-request-1661-fix-sampledata"></a>
-</h4>
-<p>Merging fix-1651 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1661" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1661</a></p>
-<table style="width:78%;" class="table">
-<colgroup>
-<col width="20%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">lauramaxwell</td>
-<td align="center">2024-07-16 08:24:34</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1657-standardize-gt-usage">Pull Request 1657: Standardize gt usage<a class="anchor" aria-label="anchor" href="#pull-request-1657-standardize-gt-usage"></a>
-</h4>
-<p>Merging fix-1652 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1657" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1657</a></p>
-<table style="width:81%;" class="table">
-<colgroup>
-<col width="18%">
-<col width="18%">
-<col width="16%">
-<col width="27%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">jonthegeek</td>
-<td align="center">2024-07-15 17:04:06</td>
-<td align="center">jwildfire</td>
-<td align="center">CHANGES_REQUESTED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1656-fix-1616">Pull Request 1656: fix #1616<a class="anchor" aria-label="anchor" href="#pull-request-1656-fix-1616"></a>
-</h4>
-<p>Merging fix-1616 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1656" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1656</a></p>
-<table style="width:74%;" class="table">
-<colgroup>
-<col width="16%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">samussiah</td>
-<td align="center">2024-07-15 16:58:46</td>
-<td align="center">jwildfire</td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1650-tweaks">Pull Request 1650: tweaks<a class="anchor" aria-label="anchor" href="#pull-request-1650-tweaks"></a>
-</h4>
-<p>Merging fix-group-overview-css into fix-report</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1650" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1650</a></p>
-<table style="width:74%;" class="table">
-<colgroup>
-<col width="16%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">samussiah</td>
-<td align="center">2024-07-12 20:23:10</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1648-remove-legacy-datasets">Pull Request 1648: Remove Legacy Datasets<a class="anchor" aria-label="anchor" href="#pull-request-1648-remove-legacy-datasets"></a>
-</h4>
-<p>Merging fix-1642 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1648" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1648</a></p>
-<table style="width:75%;" class="table">
-<colgroup>
-<col width="18%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">jonthegeek</td>
-<td align="center">2024-07-11 22:32:41</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1647-add-strgrouplevel-to-input_rate-and-update-workflows">Pull Request 1647: Add strGroupLevel to Input_Rate and update
-workflows<a class="anchor" aria-label="anchor" href="#pull-request-1647-add-strgrouplevel-to-input_rate-and-update-workflows"></a>
-</h4>
-<p>Merging fix-1646 into fix-report-rbmViz</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1647" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1647</a></p>
-<table style="width:74%;" class="table">
-<colgroup>
-<col width="16%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">jwildfire</td>
-<td align="center">2024-07-11 21:55:58</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1645-integrate-gsm-and-rbmviz--">Pull Request 1645: Integrate <code>{gsm}</code> and
-<code>rbmViz</code> .<a class="anchor" aria-label="anchor" href="#pull-request-1645-integrate-gsm-and-rbmviz--"></a>
-</h4>
-<p>Merging fix-report-rbmViz into fix-report</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1645" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1645</a></p>
-<table style="width:78%;" class="table">
-<colgroup>
-<col width="16%">
-<col width="18%">
-<col width="20%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">samussiah</td>
-<td align="center">2024-07-11 20:36:09</td>
-<td align="center">lauramaxwell</td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1639-add-example-for-creating-a-new-missing-visit-kri">Pull Request 1639: add example for creating a new missing visit
-KRI<a class="anchor" aria-label="anchor" href="#pull-request-1639-add-example-for-creating-a-new-missing-visit-kri"></a>
-</h4>
-<p>Merging fix-1488 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1639" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1639</a></p>
-<table style="width:74%;" class="table">
-<colgroup>
-<col width="16%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">jwildfire</td>
-<td align="center">2024-07-11 12:31:53</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1638-fix-1606">Pull Request 1638: Fix 1606<a class="anchor" aria-label="anchor" href="#pull-request-1638-fix-1606"></a>
-</h4>
-<p>Merging fix-1606 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1638" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1638</a></p>
-<table style="width:75%;" class="table">
-<colgroup>
-<col width="18%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">jonthegeek</td>
-<td align="center">2024-07-10 21:36:54</td>
-<td align="center"></td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1632-fix-1631">Pull Request 1632: Fix 1631<a class="anchor" aria-label="anchor" href="#pull-request-1632-fix-1631"></a>
-</h4>
-<p>Merging fix-1631 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1632" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1632</a></p>
-<table style="width:75%;" class="table">
-<colgroup>
-<col width="18%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">jonthegeek</td>
-<td align="center">2024-07-09 18:03:44</td>
-<td align="center">jwildfire</td>
-<td align="center">COMMENTED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1630-group-grouplevel">Pull Request 1630: <code>Group</code> &gt;
-<code>GroupLevel</code><a class="anchor" aria-label="anchor" href="#pull-request-1630-group-grouplevel"></a>
-</h4>
-<p>Merging fix-report-GroupLevel into fix-report</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1630" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1630</a></p>
-<table style="width:78%;" class="table">
-<colgroup>
-<col width="16%">
-<col width="18%">
-<col width="20%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">samussiah</td>
-<td align="center">2024-07-09 13:53:55</td>
-<td align="center">lauramaxwell</td>
-<td align="center"></td>
-</tr></tbody>
-</table>
-</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
@@ -4783,7 +4819,7 @@ KRI<a class="anchor" aria-label="anchor" href="#pull-request-1639-add-example-fo
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Spencer Childress, Laura Maxwell, Jacob Anderson, Jon Harmon, Zelos <a href="mailto:zelos.zhu@atorusresearch.com" class="email">zelos.zhu@atorusresearch.com</a> Zhu, Nathan Kosiba, Douglas Sanders, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
+  <p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Spencer Childress, Laura Maxwell, Jacob Anderson, Jon Harmon, Zelos Zhu, Nathan Kosiba, Douglas Sanders, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
 </div>
 
 <div class="pkgdown-footer-right">

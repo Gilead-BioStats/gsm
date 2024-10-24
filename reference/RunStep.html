@@ -8,7 +8,7 @@ Parameters should be specified as a named list in lStep$params, where each eleme
 that will be parsed and then passed to the specified function as a set of parameter names/values.
 Parameter values should be specified as scalar strings. Those values are then pulled from lMeta or lData
 when possible. When no matching lData or lMeta objects are found, parameter values are passed through as
-stings. Note that parsing vectorized parameters is not supported at this time; they are passed directly
+strings. Note that parsing vectorized parameters is not supported at this time; they are passed directly
 as character vectors. To pass a vector or list, we recommend saving it as an object in lData.
 Full prioritization for parsing parameters is below:
 If a single parameter value is equal to "lMeta", the the full lMeta object is passed to the function
@@ -16,9 +16,9 @@ If a single parameter value is equal to "lMeta", the the full lMeta object is pa
 If a single parameter value is equal to "lData", the full lData object is passed to the function.
 If a single parameter value is equal to "lSpec", the full lSpec object is passed to the function.
 If a single parameter value is found in names(lMeta), that property is pulled from lMeta (e.g.
-lMeta$paramVal) and passed to the function.
+lMeta${paramVal}) and passed to the function.
 If a single parameter value is found in names(lData), that property is pulled from lData (e.g.
-lData$paramVal) and passed to the function.
+lData${paramVal}) and passed to the function.
 Otherwise single parameter value is passed to the function as a string.
 If the parameter value is a vector, the vector is passed to the function as a vector or strings.
 
@@ -31,7 +31,7 @@ Parameters should be specified as a named list in lStep$params, where each eleme
 that will be parsed and then passed to the specified function as a set of parameter names/values.
 Parameter values should be specified as scalar strings. Those values are then pulled from lMeta or lData
 when possible. When no matching lData or lMeta objects are found, parameter values are passed through as
-stings. Note that parsing vectorized parameters is not supported at this time; they are passed directly
+strings. Note that parsing vectorized parameters is not supported at this time; they are passed directly
 as character vectors. To pass a vector or list, we recommend saving it as an object in lData.
 Full prioritization for parsing parameters is below:
 If a single parameter value is equal to "lMeta", the the full lMeta object is passed to the function
@@ -39,9 +39,9 @@ If a single parameter value is equal to "lMeta", the the full lMeta object is pa
 If a single parameter value is equal to "lData", the full lData object is passed to the function.
 If a single parameter value is equal to "lSpec", the full lSpec object is passed to the function.
 If a single parameter value is found in names(lMeta), that property is pulled from lMeta (e.g.
-lMeta$paramVal) and passed to the function.
+lMeta${paramVal}) and passed to the function.
 If a single parameter value is found in names(lData), that property is pulled from lData (e.g.
-lData$paramVal) and passed to the function.
+lData${paramVal}) and passed to the function.
 Otherwise single parameter value is passed to the function as a string.
 If the parameter value is a vector, the vector is passed to the function as a vector or strings.
 
@@ -53,7 +53,7 @@ If the parameter value is a vector, the vector is passed to the function as a ve
 
     <a class="navbar-brand me-2" href="../index.html">gsm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,7 +64,7 @@ If the parameter value is a vector, the vector is passed to the function as a ve
       <ul class="navbar-nav me-auto"><li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Data Model</h6></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Workflows</h6></li>
     <li><a class="dropdown-item" href="../articles/DataModel.html">Data Model</a></li>
     <li><a class="dropdown-item" href="../articles/Cookbook.html">Cookbook</a></li>
     <li><a class="dropdown-item" href="../articles/DataAnalysis.html">Step-by-Step Analysis Workflow</a></li>
@@ -110,16 +110,16 @@ Parameters should be specified as a named list in <code>lStep$params</code>, whe
 that will be parsed and then passed to the specified function as a set of parameter names/values.
 Parameter values should be specified as scalar strings. Those values are then pulled from <code>lMeta</code> or <code>lData</code>
 when possible. When no matching <code>lData</code> or <code>lMeta</code> objects are found, parameter values are passed through as
-stings. Note that parsing vectorized parameters is not supported at this time; they are passed directly
+strings. Note that parsing vectorized parameters is not supported at this time; they are passed directly
 as character vectors. To pass a vector or list, we recommend saving it as an object in <code>lData</code>.</p>
 <p>Full prioritization for parsing parameters is below:</p><ol><li><p>If a single parameter value is equal to "lMeta", the the full lMeta object is passed to the function
 (for the given paramName).</p></li>
 <li><p>If a single parameter value is equal to "lData", the full lData object is passed to the function.</p></li>
 <li><p>If a single parameter value is equal to "lSpec", the full lSpec object is passed to the function.</p></li>
 <li><p>If a single parameter value is found in names(lMeta), that property is pulled from lMeta (e.g.
-lMeta$paramVal) and passed to the function.</p></li>
+lMeta${paramVal}) and passed to the function.</p></li>
 <li><p>If a single parameter value is found in names(lData), that property is pulled from lData (e.g.
-lData$paramVal) and passed to the function.</p></li>
+lData${paramVal}) and passed to the function.</p></li>
 <li><p>Otherwise single parameter value is passed to the function as a string.</p></li>
 <li><p>If the parameter value is a vector, the vector is passed to the function as a vector or strings.</p></li>
 </ol></div>
@@ -160,9 +160,7 @@ parameter with results from <code>is_mapping_vald</code> for each domain in <cod
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">wf_mapping</span> <span class="op">&lt;-</span> <span class="fu"><a href="MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span>strPath <span class="op">=</span> <span class="st">"workflow/1_mappings"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">lStep</span> <span class="op">&lt;-</span> <span class="fu"><a href="MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span><span class="st">"kri0001"</span><span class="op">)</span><span class="op">[[</span><span class="st">"kri0001"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="st">"steps"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`ID` attribute does not match name of the file, 2_metrics/kri0001.yaml.</span>
 <span class="r-in"><span><span class="va">lMeta</span> <span class="op">&lt;-</span> <span class="fu"><a href="MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span><span class="st">"kri0001"</span><span class="op">)</span><span class="op">[[</span><span class="st">"kri0001"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="st">"meta"</span><span class="op">]</span><span class="op">]</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`ID` attribute does not match name of the file, 2_metrics/kri0001.yaml.</span>
 <span class="r-in"><span><span class="va">lData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span></span>
 <span class="r-in"><span>  dfAE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_ae.html" class="external-link">rawplus_ae</a></span>,</span></span>
@@ -197,7 +195,7 @@ parameter with results from <code>is_mapping_vald</code> for each domain in <cod
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Spencer Childress, Laura Maxwell, Jacob Anderson, Jon Harmon, Zelos <a href="mailto:zelos.zhu@atorusresearch.com" class="email">zelos.zhu@atorusresearch.com</a> Zhu, Nathan Kosiba, Douglas Sanders, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
+  <p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Spencer Childress, Laura Maxwell, Jacob Anderson, Jon Harmon, Zelos Zhu, Nathan Kosiba, Douglas Sanders, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
 </div>
 
 <div class="pkgdown-footer-right">
