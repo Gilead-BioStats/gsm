@@ -42,7 +42,12 @@ Report_MetricTable <- function(
     return(htmltools::tags$p("Nothing flagged for this KRI."))
   }
 
-  cols_to_hide <- c("StudyID", "GroupID", "MetricID")
+  # Check these columns against columns in the output of [ MakeMetricTable ].
+  cols_to_hide <- intersect(
+      c("StudyID", "GroupID", "MetricID"),
+      names(MetricTable)
+  )
+
   if (length(unique(MetricTable$SnapshotDate == 1))) {
     cols_to_hide <- c(cols_to_hide, "SnapshotDate")
   }

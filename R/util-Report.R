@@ -92,8 +92,15 @@ add_Groups_metadata <- function(
 }
 
 widen_dfGroups <- function(dfGroups, strGroupLevel, strGroupDetailsParams) {
-  dfGroups <- dplyr::filter(dfGroups, .data$GroupLevel == strGroupLevel)
-  if (nrow(dfGroups)) {
+  # Subset on the specified group level and columns.
+  dfGroupsSubset <- dfGroups %>%
+      dplyr::filter(
+        .data$GroupLevel == strGroupLevel
+      ) %>%
+      dplyr::select(
+        tidyselect::all_of(c("GroupID", "Param", "Value"))
+      )
+  if (nrow(dfGroupsSubset)) {
     if (is.null(strGroupDetailsParams)) {
       if (strGroupLevel == "Site") {
         strGroupDetailsParams <- c(
@@ -103,9 +110,13 @@ widen_dfGroups <- function(dfGroups, strGroupLevel, strGroupDetailsParams) {
         strGroupDetailsParams <- c("SiteCount", "ParticipantCount")
       }
     }
-    dfGroups <- dfGroups %>%
+    dfGroupsWide <- dfGroupsSubset %>%
       dplyr::filter(.data$Param %in% strGroupDetailsParams) %>%
-      tidyr::pivot_wider(names_from = "Param", values_from = "Value") %>%
+      tidyr::pivot_wider(
+        id_cols = "GroupID",
+        names_from = "Param",
+        values_from = "Value"
+      ) %>%
       dplyr::mutate(
         dplyr::across(
           dplyr::any_of(c("ParticipantCount", "SiteCount")),
@@ -113,7 +124,7 @@ widen_dfGroups <- function(dfGroups, strGroupLevel, strGroupDetailsParams) {
         )
       )
   }
-  return(dplyr::select(dfGroups, -"GroupLevel"))
+  return(dfGroupsWide)
 }
 
 colorScheme <- function(
