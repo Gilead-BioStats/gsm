@@ -98,7 +98,7 @@ widen_dfGroups <- function(dfGroups, strGroupLevel, strGroupDetailsParams) {
         .data$GroupLevel == strGroupLevel
       ) %>%
       dplyr::select(
-        tidyselect::all_of(c("GroupID", "Param", "Value"))
+        dplyr::all_of(c("GroupID", "Param", "Value"))
       )
   if (nrow(dfGroupsSubset)) {
     if (is.null(strGroupDetailsParams)) {
