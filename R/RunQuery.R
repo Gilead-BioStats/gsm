@@ -32,13 +32,14 @@ RunQuery <- function(strQuery, df) {
   if (!stringr::str_detect(strQuery, "FROM df")) {
     stop("strQuery must contain 'FROM df'")
   }
+
   # return the data frame and print a warning if there are 0 rows
   if (nrow(df) == 0) {
     cli::cli_alert_warning("df has 0 rows. Query not run. Returning empty data frame.")
     return(df)
   } else {
     # run the query
-    result <- sqldf::sqldf(strQuery)
+    result <- sqldf::sqldf(strQuery, method = "name__class")
     cli::cli_text("SQL Query complete: {nrow(result)} rows returned.")
     return(result)
   }
