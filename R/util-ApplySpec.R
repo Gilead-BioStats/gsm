@@ -38,13 +38,8 @@ ApplySpec <- function(dfSource, columnSpecs, domain) {
   columnMapping <- columnSpecs %>% imap(
     function(spec, name) {
       mapping <- list(target = name)
-
-      if ("source_col" %in% names(spec)) {
-        mapping$source <- spec$source_col
-      } else {
-        mapping$source <- name
-      }
-
+      mapping$source <- spec$source_col %||% name
+      mapping$type <- spec$type %||% NULL
       return(mapping)
     }
   )
@@ -60,9 +55,13 @@ ApplySpec <- function(dfSource, columnSpecs, domain) {
   strColQuery <- columnMapping %>%
     map_chr(function(mapping) {
       if (mapping$source == mapping$target) {
-        return(mapping$source)
+        ifelse(!is.null(mapping$type),
+               glue("{mapping$source} AS {paste0(mapping$source, '__', mapping$type)}"),
+               mapping$source)
       } else {
-        return(glue("{mapping$source} as {mapping$target}"))
+        ifelse(!is.null(mapping$type),
+               glue("{mapping$source} AS {paste0(mapping$target, '__', mapping$type)}"),
+               glue("{mapping$source} AS {mapping$target}"))
       }
     }) %>%
     paste(collapse = ", ")
@@ -75,17 +74,6 @@ ApplySpec <- function(dfSource, columnSpecs, domain) {
     dfSource,
     strQuery = strQuery
   )
-
-  # Apply data types to each column in [ dfTarget ].
-  for (col in names(dfTarget)) {
-    if (col %in% names(columnSpecs)) {
-      spec <- columnSpecs[[col]]
-      if ("type" %in% names(spec)) {
-        # TODO: handle character NA values
-        dfTarget[[col]] <- methods::as(dfTarget[[col]], spec$type)
-      }
-    }
-  }
 
   return(dfTarget)
 }
