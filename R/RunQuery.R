@@ -6,7 +6,8 @@
 #' Run a SQL query against a dataframe.
 #'
 #' @param strQuery `character` SQL query to run.
-#' @param df `data.frame` A data frame to use in the SQL query
+#' @param df `data.frame` A data frame to use in the SQL query.
+#' @param method `character` A method argument to be passed to `sqldf::sqldf()`. Defaults to `NULL`.
 #'
 #' @return `data.frame` containing the results of the SQL query
 #'
@@ -22,7 +23,7 @@
 #'
 #' @export
 
-RunQuery <- function(strQuery, df) {
+RunQuery <- function(strQuery, df, method = NULL) {
   rlang::check_installed("sqldf", reason = "to run `RunQuery()`")
 
   # Check inputs
@@ -39,7 +40,7 @@ RunQuery <- function(strQuery, df) {
     return(df)
   } else {
     # run the query
-    result <- sqldf::sqldf(strQuery, method = "name__class")
+    result <- sqldf::sqldf(strQuery, method = method)
     cli::cli_text("SQL Query complete: {nrow(result)} rows returned.")
     return(result)
   }

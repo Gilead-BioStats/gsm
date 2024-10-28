@@ -4,12 +4,14 @@
 \alias{RunQuery}
 \title{Run a SQL query with mapping and data}
 \usage{
-RunQuery(strQuery, df)
+RunQuery(strQuery, df, method = NULL)
 }
 \arguments{
 \item{strQuery}{\code{character} SQL query to run.}
 
-\item{df}{\code{data.frame} A data frame to use in the SQL query}
+\item{df}{\code{data.frame} A data frame to use in the SQL query.}
+
+\item{method}{\code{character} A method argument to be passed to \code{sqldf::sqldf()}. Defaults to \code{NULL}.}
 }
 \value{
 \code{data.frame} containing the results of the SQL query

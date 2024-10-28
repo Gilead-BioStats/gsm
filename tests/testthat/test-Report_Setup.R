@@ -60,3 +60,7 @@ test_that("dfSummary empty data frame", {
   expect_equal(result$red_kris, 0)
   expect_equal(result$amber_kris, 0)
 })
+
+test_that("Makes StudyLabel properly", {
+
+})
