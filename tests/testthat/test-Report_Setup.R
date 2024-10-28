@@ -62,5 +62,19 @@ test_that("dfSummary empty data frame", {
 })
 
 test_that("Makes StudyLabel properly", {
+  result <- Report_Setup(reportingGroups, reportingMetrics, reportingResults)
+  expect_equal(result$StudyLabel, glue::glue("{result$StudyID} ({result$lStudy$nickname})"))
+
+  reportingGroups_alt1 <- reportingGroups %>%
+    filter(Param != "nickname")
+
+  result1 <- Report_Setup(reportingGroups_alt1, reportingMetrics, reportingResults)
+  expect_equal(result1$StudyLabel, result1$StudyID)
+
+  reportingGroups_alt2 <- reportingGroups
+  reportingGroups_alt2[reportingGroups_alt2$Param == "nickname",]$Value <- NA
+
+  result2 <- Report_Setup(reportingGroups_alt2, reportingMetrics, reportingResults)
+  expect_equal(result2$StudyLabel, result2$StudyID)
 
 })
