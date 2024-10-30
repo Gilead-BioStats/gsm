@@ -94,6 +94,7 @@ reference:
      -  MakeParamLabels
      -  MakeParamLabelsList
      -  MakeStudyInfo
+     -  MakeTargetData
      -  MakeWideGroups
      -  MakeWorkflowList
      -  ParseThreshold
