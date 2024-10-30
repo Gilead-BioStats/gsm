@@ -35,16 +35,20 @@ ApplySpec <- function(dfSource, columnSpecs, domain) {
   }
 
   # write a query to select the columns from the source
-  columnMapping <- columnSpecs %>% imap(
-    function(spec, name) {
-      mapping <- list(target = name)
-      mapping$source <- spec$source_col %||% name
-      mapping$type <- spec$type %||% NULL
-      return(mapping)
-    }
-  )
+  columnMapping <- columnSpecs %>%
+    imap(
+      function(spec, name) {
+        mapping <- list(target = name)
+        mapping$source <- spec$source_col %||% name
+        mapping$type <- spec$type %||% NULL
+        mapping$required <- spec$required %||% FALSE
+        return(mapping)
+      }
+    ) %>%
+    # Drop non-required columns that aren't in dfSource.
+    purrr::keep(~.x$required || .x$source %in% colnames(dfSource))
 
-  # check that the source columns exists in the source data
+  # check that the required columns exists in the source data
   sourceCols <- columnMapping %>% map("source")
   if (!all(sourceCols %in% names(dfSource))) {
     missingCols <- sourceCols[!sourceCols %in% names(dfSource)]
