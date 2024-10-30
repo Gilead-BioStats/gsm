@@ -12,10 +12,8 @@
 #' @param perc_val Name of column that will contain the numeric percentage value on enrollment
 #' @param perc_str_val Name of column that will contain the n/N (xx.x%) string
 #'
-#' @return
+#' @return A data frame containing two additional columns for the precentage value and associated string
 #' @export
-#'
-#' @examples
 MakeTargetData <- function(data, current_col, target_col, perc_val, perc_str_val) {
   if (!(current_col %in% names(data) & target_col %in% names(data))) {
     cli::cli_abort("Check that both {current_col} and {target_col} are in data")
