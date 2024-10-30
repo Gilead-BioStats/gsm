@@ -80,7 +80,7 @@ steps:
   - output: Temp_CountTargetsPercs
     name: MakeLongMeta
     params:
-      data: Temp_CountTargetsPercsWide
+      data: Temp_CountTargetsWide
       strGroupLevel: "Study"
   - output: Mapped_STUDY
     name: bind_rows

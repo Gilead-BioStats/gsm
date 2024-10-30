@@ -4611,48 +4611,82 @@
       
       $STUDY[[6]]
       $STUDY[[6]]$output
-      [1] "Temp_CountTargetsPercsWide"
-      
-      $STUDY[[6]]$name
-      [1] "RunQuery"
-      
-      $STUDY[[6]]$params
-      $STUDY[[6]]$params$df
       [1] "Temp_CountTargetsWide"
       
-      $STUDY[[6]]$params$strQuery
-      [1] "SELECT (SiteCount*100 / SiteTarget) as PercentSitesActivated, (ParticipantCount*100 / ParticipantTarget) as PercentParticipantsEnrolled, CONCAT( CAST(SiteCount AS CHAR), CAST(' / ' AS CHAR), CAST(SiteTarget AS CHAR), CAST(' (' AS CHAR), CAST((SiteCount*100 / SiteTarget) AS CHAR), CAST('%)' AS CHAR) ) as SiteActivationLabel, CONCAT( CAST(ParticipantCount AS CHAR), CAST(' / ' AS CHAR), CAST(ParticipantTarget AS CHAR), CAST(' (' AS CHAR), CAST((ParticipantCount*100 / ParticipantTarget) AS CHAR), CAST('%)' AS CHAR) ) as ParticipantEnrollmentLabel, * FROM df"
+      $STUDY[[6]]$names
+      [1] "MakeTargetData"
+      
+      $STUDY[[6]]$params
+      $STUDY[[6]]$params$data
+      [1] "Temp_CountTargetsWide"
+      
+      $STUDY[[6]]$params$current_col
+      [1] "SiteCount"
+      
+      $STUDY[[6]]$params$target_col
+      [1] "SiteTarget"
+      
+      $STUDY[[6]]$params$perc_val
+      [1] "PercentSitesActivated"
+      
+      $STUDY[[6]]$params$perc_str_val
+      [1] "SiteActivationLabel"
       
       
       
       $STUDY[[7]]
       $STUDY[[7]]$output
-      [1] "Temp_CountTargetsPercs"
+      [1] "Temp_CountTargetsWide"
       
-      $STUDY[[7]]$name
-      [1] "MakeLongMeta"
+      $STUDY[[7]]$names
+      [1] "MakeTargetData"
       
       $STUDY[[7]]$params
       $STUDY[[7]]$params$data
-      [1] "Temp_CountTargetsPercsWide"
+      [1] "Temp_CountTargetsWide"
       
-      $STUDY[[7]]$params$strGroupLevel
-      [1] "Study"
+      $STUDY[[7]]$params$current_col
+      [1] "ParticipantCount"
+      
+      $STUDY[[7]]$params$target_col
+      [1] "ParticipantTarget"
+      
+      $STUDY[[7]]$params$perc_val
+      [1] "PercentParticipantsEnrolled"
+      
+      $STUDY[[7]]$params$perc_str_val
+      [1] "ParticipantEnrollmentLabel"
       
       
       
       $STUDY[[8]]
       $STUDY[[8]]$output
-      [1] "Mapped_STUDY"
+      [1] "Temp_CountTargetsPercs"
       
       $STUDY[[8]]$name
-      [1] "bind_rows"
+      [1] "MakeLongMeta"
       
       $STUDY[[8]]$params
-      $STUDY[[8]]$params$Temp_CTMSStudy
+      $STUDY[[8]]$params$data
+      [1] "Temp_CountTargetsWide"
+      
+      $STUDY[[8]]$params$strGroupLevel
+      [1] "Study"
+      
+      
+      
+      $STUDY[[9]]
+      $STUDY[[9]]$output
+      [1] "Mapped_STUDY"
+      
+      $STUDY[[9]]$name
+      [1] "bind_rows"
+      
+      $STUDY[[9]]$params
+      $STUDY[[9]]$params$Temp_CTMSStudy
       [1] "Temp_CTMSStudy"
       
-      $STUDY[[8]]$params$Temp_CountTargetsPercs
+      $STUDY[[9]]$params$Temp_CountTargetsPercs
       [1] "Temp_CountTargetsPercs"
       
       
