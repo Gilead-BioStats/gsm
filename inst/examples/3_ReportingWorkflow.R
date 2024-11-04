@@ -55,7 +55,8 @@ analyzed <- RunWorkflows(metrics_wf, mapped)
 
 # Step 3 - Create Reporting Layer - create reports using metrics data
 reporting_wf <- MakeWorkflowList(strPath = "workflow/3_reporting")
-reporting <- RunWorkflows(reporting_wf, c(mapped, list(lAnalyzed = analyzed, lWorkflows = metrics_wf)))
+reporting <- RunWorkflows(reporting_wf, c(mapped, list(lAnalyzed = analyzed,
+                                                       lWorkflows = metrics_wf)))
 
 # Step 4 - Create KRI Reports - create KRI report using reporting data
 module_wf <- MakeWorkflowList(strPath = "workflow/4_modules")
@@ -76,7 +77,8 @@ analyzed <- RunWorkflows(metrics_wf, mapped)
 
 # Step 3 - Create Reporting Layer - create reports using metrics data
 reporting_wf <- MakeWorkflowList(strPath = "workflow/3_reporting")
-reporting <- RunWorkflows(reporting_wf, c(mapped, list(lAnalyzed = analyzed, lWorkflows = metrics_wf)))
+reporting <- RunWorkflows(reporting_wf, c(mapped, list(lAnalyzed = analyzed,
+                                                       lWorkflows = metrics_wf)))
 
 # Step 4 - Create KRI Report - create KRI report using reporting data
 module_wf <- MakeWorkflowList(strPath = "workflow/4_modules")
