@@ -202,3 +202,108 @@ test_that("warning if type doesn't match first instance", {
 
   expect_equal(combined, expected)
 })
+
+test_that("CombineSpecs works with optoinal columns", {
+  spec1 <- list(
+    df1 = list(
+      col1 = list(required = TRUE)
+    )
+  )
+  spec2 <- list(
+    df1 = list(
+      col2 = list(required = TRUE)
+    )
+  )
+  expected <- list(
+    df1 = list(
+      col1 = list(required = TRUE),
+      col2 = list(required = TRUE)
+    )
+  )
+  expect_no_error({
+    test_result <- CombineSpecs(list(spec1, spec2), bIsWorkflow = FALSE)
+  })
+  expect_identical(test_result, expected)
+
+  spec1 <- list(
+    df1 = list(
+      col1 = list(required = FALSE)
+    )
+  )
+  spec2 <- list(
+    df1 = list(
+      col2 = list(required = TRUE)
+    )
+  )
+  expected <- list(
+    df1 = list(
+      col1 = list(required = FALSE),
+      col2 = list(required = TRUE)
+    )
+  )
+  expect_no_error({
+    test_result <- CombineSpecs(list(spec1, spec2), bIsWorkflow = FALSE)
+  })
+  expect_identical(test_result, expected)
+
+  spec1 <- list(
+    df1 = list(
+      col1 = list(required = TRUE)
+    )
+  )
+  spec2 <- list(
+    df1 = list(
+      col2 = list(required = FALSE)
+    )
+  )
+  expected <- list(
+    df1 = list(
+      col1 = list(required = TRUE),
+      col2 = list(required = FALSE)
+    )
+  )
+  expect_no_error({
+    test_result <- CombineSpecs(list(spec1, spec2), bIsWorkflow = FALSE)
+  })
+  expect_identical(test_result, expected)
+
+  spec1 <- list(
+    df1 = list(
+      col1 = list(required = FALSE)
+    )
+  )
+  spec2 <- list(
+    df1 = list(
+      col1 = list(required = TRUE)
+    )
+  )
+  expected <- list(
+    df1 = list(
+      col1 = list(required = TRUE)
+    )
+  )
+  expect_no_error({
+    test_result <- CombineSpecs(list(spec1, spec2), bIsWorkflow = FALSE)
+  })
+  expect_identical(test_result, expected)
+
+  spec1 <- list(
+    df1 = list(
+      col1 = list(required = TRUE)
+    )
+  )
+  spec2 <- list(
+    df1 = list(
+      col1 = list(required = FALSE)
+    )
+  )
+  expected <- list(
+    df1 = list(
+      col1 = list(required = TRUE)
+    )
+  )
+  expect_no_error({
+    test_result <- CombineSpecs(list(spec1, spec2), bIsWorkflow = FALSE)
+  })
+  expect_identical(test_result, expected)
+})
