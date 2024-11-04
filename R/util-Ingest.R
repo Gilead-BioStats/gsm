@@ -10,7 +10,7 @@
 #' @param lSpec `list` A named list of column specifications.
 #' @param strDomain `character` Domain name to add to the data frames after ingestions. Default: "Raw"
 #'
-#'  @return `list` A named list of data frames, where each data frame corresponds to a domain in the
+#' @return `list` A named list of data frames, where each data frame corresponds to a domain in the
 #' specification.
 #'
 #' @examples
