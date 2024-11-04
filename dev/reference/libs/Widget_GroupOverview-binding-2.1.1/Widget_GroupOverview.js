@@ -12,7 +12,7 @@ HTMLWidgets.widget({
                     el,
                     input.dfResults,
                     {
-                        GroupLevel: input.GroupLevel,
+                        GroupLevel: input.strGroupLevel,
                         groupLabelKey: input.strGroupLabelKey //,
                         // Callbacks for Shiny, may need to move to a different file.
                         /*
