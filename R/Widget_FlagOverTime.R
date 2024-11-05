@@ -34,6 +34,13 @@ Widget_FlagOverTime <- function(
     "strGroupLevel is not a character" = is.character(strGroupLevel)
   )
 
+  most_recent12 <- dfResults %>%
+    pull(SnapshotDate) %>%
+    unique() %>%
+    sort(decreasing = TRUE) %>%
+    head(12) %>%
+    na.omit()
+
   gtFlagOverTime <- Report_FlagOverTime(
     dfResults,
     dfMetrics,
@@ -41,10 +48,22 @@ Widget_FlagOverTime <- function(
   ) %>%
     gt::tab_options(table.align = "left") %>%
     gt::as_raw_html()
+
+  gtFlagOverTime_recent12 <- Report_FlagOverTime(
+    dplyr::filter(dfResults, SnapshotDate %in% most_recent12),
+    dfMetrics,
+    strGroupLevel = strGroupLevel
+  ) %>%
+    gt::tab_options(table.align = "left") %>%
+    gt::as_raw_html()
+
+  # Pass both tables and add toggle state in Widget js
   x <- list(
-    html = gtFlagOverTime,
+    html_full = gtFlagOverTime,
+    html_recent12 = gtFlagOverTime_recent12,
     strFootnote = strFootnote
   )
+
   htmlwidgets::createWidget(
     name = "Widget_FlagOverTime",
     x,

@@ -14,6 +14,28 @@ HTMLWidgets.widget({
 
     return {
       renderValue: function(x) {
+        // Create the toggle button
+        const toggleButton = document.createElement('button');
+        toggleButton.textContent = 'Toggle Year/All Snapshot View';
+        toggleButton.style.marginBottom = '10px';
+
+        // Append the button to the widget container
+        el.appendChild(toggleButton);
+
+        // Function to update the displayed table
+        const updateTable = (showRecent) => {
+          el.querySelector('.flag-over-time-content').innerHTML = showRecent ? x.html_recent12 : x.html_full;
+        };
+
+        // Add initial table and button listener
+        const contentDiv = document.createElement('div');
+        contentDiv.classList.add('flag-over-time-content');
+        el.appendChild(contentDiv);
+
+        // Insert the flag overtime table content with default view set to recent (12-month) view.
+        let showRecent = true;
+        updateTable(showRecent);
+
         // Check if the footnote is not NULL or undefined
         if (x.strFootnote) {
           // Create a div for the footnote.
@@ -28,13 +50,17 @@ HTMLWidgets.widget({
           el.insertBefore(footnote, el.firstChild);
         }
 
-        // Insert the flag overtime table content.
-        el.insertAdjacentHTML('beforeend', x.html);
+        // Toggle button click event to switch between recent (12-month) and full view.
+        toggleButton.addEventListener('click', () => {
+          showRecent = !showRecent;
+          updateTable(showRecent);
+        });
 
         addGroupSubsetLongitudinalListener(el);
       },
 
       resize: function(width, height) {
+        // Resize function can be implemented if needed
       }
     };
   }
