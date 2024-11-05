@@ -9,6 +9,8 @@
 #' @inheritParams shared-params
 #' @param strGroupLevel `character` Value for the group level. Default: "Site".
 #' @param strFootnote `character` Text to insert for figure
+#' @param width `character` Pixel width or percentage size of page
+#' @param height `character` Pixel height or percentage size of page
 #'
 #' @examples
 #' reportingResultsSubset <- dplyr::filter(
@@ -35,10 +37,10 @@ Widget_FlagOverTime <- function(
   )
 
   most_recent12 <- dfResults %>%
-    pull(SnapshotDate) %>%
+    dplyr::pull(SnapshotDate) %>%
     unique() %>%
     sort(decreasing = TRUE) %>%
-    head(12) %>%
+    utils::head(12) %>%
     na.omit()
 
   gtFlagOverTime <- Report_FlagOverTime(
