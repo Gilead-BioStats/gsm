@@ -13,6 +13,7 @@ vignette: >
 suppressPackageStartupMessages({
   library(gsm)
   library(knitr)
+  library(gt)
   library(dplyr)
   library(purrr)
   library(pander)
