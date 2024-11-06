@@ -113,10 +113,10 @@ The function `Analyze_Fisher` in {gsm} utilizes `stats::fisher.test` to generate
 For example, in a $2 \times 2$ contingency table comparing a particular site to all other sites combined, the two rows displaying the binary outcome are considered repeated Bernoulli random samples with same probability $p=0.5$ of success or failure under the null. Given a $2 \times 2$ contingency table,
 
 ```{r echo = FALSE, results = 'asis'}
-library(knitr)
+library(gt)
 table1<-data.frame(Site1=c("a","b"), RestSites=c("c","d"))
 rownames(table1)<-c("Yes", "No")
-kable(table1)
+gt::gt(table1)
 ```
 
 Fisher (1922) showed that conditional on the margins of the table, $a$ is distributed as a hypergeometric distribution with $a+c$ draws from a population with $a+b$ successes and $c+d$ failures. Let $n=a+b+c+d$, the probability of obtaining such set of values is given by: 

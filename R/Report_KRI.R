@@ -64,7 +64,6 @@ Report_KRI <- function(
 ) {
   rlang::check_installed("rmarkdown", reason = "to run `Report_KRI()`")
   rlang::check_installed("knitr", reason = "to run `Report_KRI()`")
-  rlang::check_installed("kableExtra", reason = "to run `Report_KRI()`")
 
   # set output path
   if (is.null(strOutputFile)) {

@@ -59,7 +59,6 @@ Suggests:
     ggiraph,
     gt,
     here,
-    kableExtra,
     knitr,
     lamW,
     lubridate,

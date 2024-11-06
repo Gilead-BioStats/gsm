@@ -82,11 +82,16 @@ Specifications <- spec_df %>%
   select(-c(sort1, sort2))
 colnames(Specifications) <- c("Spec ID", "Spec Description", "Risk", "Impact", "Associated Test IDs")
 
-knitr::kable(Specifications, booktabs = TRUE, longtable = TRUE) %>%
-  kableExtra::kable_styling(latex_options = c("repeat_header", "striped", "bordered"),
-                            font_size = 9, full_width = FALSE) %>%
-  kableExtra::column_spec(2, width = "6cm") %>%
-  kableExtra::column_spec(5, width = "5cm")
+Specifications %>%
+  gt() %>%
+  tab_options(
+    table.font.size = px(9)
+  )%>%
+  cols_width(
+    `Spec Description` ~ px(180), 
+    `Associated Test IDs` ~ px(150) 
+  ) %>%
+  opt_row_striping() 
 ```  
 
 # Test Cases
@@ -174,10 +179,13 @@ scrape_new <- left_join(scrape, funcs, by = "Tests")
 ```
 
 ```{r}
-knitr::kable(testResultsIndividual, booktabs = TRUE, longtable = TRUE) %>%
-  kableExtra::kable_styling(latex_options = c("repeat_header", "striped", "bordered"),
-                            font_size = 9, full_width = FALSE) %>%
-  kableExtra::kable_classic()
+testResultsIndividual %>%
+  gt() %>%
+  tab_options(
+    table.font.size = px(9),
+    table.width = pct(80)  # Adjust width as needed
+  ) %>% 
+  opt_row_striping() 
 ``` 
 
 #### Test Results: Detailed  
@@ -201,11 +209,16 @@ Specifications <- spec_df %>%
   select(-c(sort1, sort2))
 colnames(Specifications) <- c("Spec ID", "Spec Description", "Risk", "Impact", "Associated Test IDs")
 
-knitr::kable(Specifications, booktabs = TRUE, longtable = TRUE) %>%
-  kableExtra::kable_styling(latex_options = c("repeat_header", "striped", "bordered"),
-                            font_size = 9, full_width = FALSE) %>%
-  kableExtra::column_spec(2, width = "6cm") %>%
-  kableExtra::column_spec(5, width = "5cm")
+Specifications %>%
+  gt() %>%
+  tab_options(
+    table.font.size = px(9)
+  )%>%
+  cols_width(
+    `Spec Description` ~ px(180), 
+    `Associated Test IDs` ~ px(150) 
+  ) %>%
+  opt_row_striping() 
 ```  
 
 - **One Row Per Test** - Each row corresponds to a single test (Test ID), and each test is presented with the function which is tested, the specification IDs the test satisfies, the detailed test description (including grouping variables and other function arguments that are tested), and the result of the test (Pass/Fail/Skip).  
@@ -224,12 +237,17 @@ Results <- left_join(test, qual_specs, by = "Tests") %>%
   select(-c(sort1, sort2))
 colnames(Results) <- c("Function", "Spec ID", "Test ID", "Test Description", "Test Result")
 
-knitr::kable(Results, booktabs = TRUE, longtable = TRUE) %>%
-  kableExtra::kable_styling(latex_options = c("repeat_header", "striped", "bordered"),
-                            font_size = 9, full_width = FALSE) %>%
-  kableExtra::column_spec(1, width = "4cm") %>%
-  kableExtra::column_spec(2, width = "3cm") %>%
-  kableExtra::column_spec(4, width = "6cm")
+Results %>%
+  gt() %>%
+  tab_options(
+    table.font.size = px(9)
+  ) %>%
+  cols_width(
+    `Function` ~ px(120), 
+    `Spec ID` ~ px(90),
+    `Test Description` ~ px(180)
+  ) %>%
+  opt_row_striping() 
 ```  
 
 ### Unit Tests
