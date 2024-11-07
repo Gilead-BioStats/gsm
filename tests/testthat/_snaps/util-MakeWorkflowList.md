@@ -4614,7 +4614,7 @@
       [1] "Temp_CountTargetsWide_addsite"
       
       $STUDY[[6]]$names
-      [1] "MakeTargetData"
+      [1] "CalculatePercentage"
       
       $STUDY[[6]]$params
       $STUDY[[6]]$params$data
@@ -4639,7 +4639,7 @@
       [1] "Temp_CountTargetsWide_addsitepts"
       
       $STUDY[[7]]$names
-      [1] "MakeTargetData"
+      [1] "CalculatePercentage"
       
       $STUDY[[7]]$params
       $STUDY[[7]]$params$data

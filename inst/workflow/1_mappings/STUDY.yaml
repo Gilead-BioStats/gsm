@@ -62,7 +62,7 @@ steps:
       "y": Temp_StudyCountsWide
       by: GroupID
   - output: Temp_CountTargetsWide_addsite
-    names: MakeTargetData
+    names: CalculatePercentage
     params:
       data: Temp_CountTargetsWide
       strCurrentCol: SiteCount
@@ -70,7 +70,7 @@ steps:
       strPercVal: PercentSitesActivated
       strPercStrVal: SiteActivationLabel
   - output: Temp_CountTargetsWide_addsitepts
-    names: MakeTargetData
+    names: CalculatePercentage
     params:
       data: Temp_CountTargetsWide_addsite
       strCurrentCol: ParticipantCount

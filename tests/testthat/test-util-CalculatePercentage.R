@@ -1,4 +1,4 @@
-test_that("MakeTargetData calculates percentage and formats correctly", {
+test_that("CalculatePercentage calculates percentage and formats correctly", {
   # Sample data
   sample_data <- data.frame(
     current = c(50, 20, 30),
@@ -6,7 +6,7 @@ test_that("MakeTargetData calculates percentage and formats correctly", {
   )
 
   # Run the function
-  result <- MakeTargetData(
+  result <- CalculatePercentage(
     data = sample_data,
     strCurrentCol = "current",
     strTargetCol = "target",

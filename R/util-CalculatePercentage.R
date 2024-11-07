@@ -14,7 +14,7 @@
 #'
 #' @return A data frame containing two additional columns for the precentage value and associated string
 #' @export
-MakeTargetData <- function(data, strCurrentCol, strTargetCol, strPercVal, strPercStrVal) {
+CalculatePercentage <- function(data, strCurrentCol, strTargetCol, strPercVal, strPercStrVal) {
   if (!(strCurrentCol %in% names(data) & strTargetCol %in% names(data))) {
     cli::cli_abort("Check that both {strCurrentCol} and {strTargetCol} are in data")
   }
