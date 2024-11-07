@@ -16,47 +16,44 @@ HTMLWidgets.widget({
       renderValue: function(x) {
         // Create the toggle button
         const toggleButton = document.createElement('button');
-        toggleButton.textContent = 'Toggle Year/All Snapshot View';
+        toggleButton.textContent = 'Toggle Year View';
         toggleButton.style.marginBottom = '10px';
 
         // Append the button to the widget container
         el.appendChild(toggleButton);
 
-        // Function to update the displayed table
-        const updateTable = (showRecent) => {
-          el.querySelector('.flag-over-time-content').innerHTML = showRecent ? x.html_recent12 : x.html_full;
-        };
-
-        // Add initial table and button listener
+        // Create container div for the flag over time content
         const contentDiv = document.createElement('div');
         contentDiv.classList.add('flag-over-time-content');
         el.appendChild(contentDiv);
 
-        // Insert the flag overtime table content with default view set to recent (12-month) view.
+        // Function to update the displayed table
+        const updateTable = (showRecent) => {
+          contentDiv.innerHTML = showRecent ? x.html_recent12 : x.html_full;
+          // Reapply the group subset filtering each time the table is updated
+          addGroupSubsetLongitudinalListener(el);
+        };
+
+        // Set the default view to recent (12-month) table view
         let showRecent = true;
         updateTable(showRecent);
 
-        // Check if the footnote is not NULL or undefined
+        // Insert footnote if provided
         if (x.strFootnote) {
-          // Create a div for the footnote.
           const footnote = document.createElement('div');
-          footnote.style.fontSize = '14px'; // Set a smaller font size for the footnote.
-          footnote.style.color = '#555'; // Use a lighter color for the footnote text.
-
-          // Set the content of the footnote from the input.
+          footnote.style.fontSize = '14px';
+          footnote.style.color = '#555';
           footnote.innerHTML = x.strFootnote;
-
-          // Insert the footnote div at the top of the element (before flag overtime table).
           el.insertBefore(footnote, el.firstChild);
         }
 
-        // Toggle button click event to switch between recent (12-month) and full view.
+        // Toggle button to switch between recent (12-month) and full view
         toggleButton.addEventListener('click', () => {
           showRecent = !showRecent;
           updateTable(showRecent);
         });
 
-        addGroupSubsetLongitudinalListener(el);
+        addGroupSubsetLongitudinalListener(el); // Initial call for filtering
       },
 
       resize: function(width, height) {
