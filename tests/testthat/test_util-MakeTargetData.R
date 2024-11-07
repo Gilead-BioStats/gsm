@@ -8,15 +8,15 @@ test_that("MakeTargetData calculates percentage and formats correctly", {
   # Run the function
   result <- MakeTargetData(
     data = sample_data,
-    current_col = "current",
-    target_col = "target",
-    perc_val = "percentage",
-    perc_str_val = "formatted_string"
+    strCurrentCol = "current",
+    strTargetCol = "target",
+    strPercVal = "percentage",
+    strPercStrVal = "formatted_string"
   )
 
   # Expected values
   expected_percentage <- c(50, 40, 50)
-  expected_formatted_string <- c("50 / 100 (50 %)", "20 / 50 (40 %)", "30 / 60 (50 %)")
+  expected_formatted_string <- c("50 / 100 (50%)", "20 / 50 (40%)", "30 / 60 (50%)")
 
   # Check if the result matches the expected values
   expect_equal(result$percentage, expected_percentage)

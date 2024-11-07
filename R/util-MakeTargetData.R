@@ -22,7 +22,7 @@ MakeTargetData <- function(data, strCurrentCol, strTargetCol, strPercVal, strPer
   data <- data %>%
     dplyr::mutate(
       {{ strPercVal }} := round(.data[[strCurrentCol]] * 100 / .data[[strTargetCol]], 1),
-      {{ strPercStrVal }} := paste0(.data[[strCurrentCol]], " / ", .data[[strTargetCol]], " (", .data[[perc_val]], "%)")
+      {{ strPercStrVal }} := paste0(.data[[strCurrentCol]], " / ", .data[[strTargetCol]], " (", .data[[strPercVal]], "%)")
     )
 
   return(data)
