@@ -81,6 +81,7 @@ reference:
   - contents:
      -  ApplySpec
      -  BindResults
+     -  CalculatePercentage
      -  CheckSpec
      -  CombineSpecs
      -  FilterByLatestSnapshotDate
@@ -94,7 +95,6 @@ reference:
      -  MakeParamLabels
      -  MakeParamLabelsList
      -  MakeStudyInfo
-     -  MakeTargetData
      -  MakeWideGroups
      -  MakeWorkflowList
      -  ParseThreshold
