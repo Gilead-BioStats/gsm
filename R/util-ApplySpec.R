@@ -76,7 +76,8 @@ ApplySpec <- function(dfSource, columnSpecs, domain) {
   # call RunQuery to get the data
   dfTarget <- RunQuery(
     dfSource,
-    strQuery = strQuery
+    strQuery = strQuery,
+    method = "name__class"
   )
 
   return(dfTarget)
