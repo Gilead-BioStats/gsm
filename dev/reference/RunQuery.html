@@ -9,7 +9,7 @@ Run a SQL query against a dataframe."><meta name="robots" content="noindex"><lin
 
     <a class="navbar-brand me-2" href="../index.html">gsm</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.1.1</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.1.1.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +63,7 @@ Run a SQL query against a dataframe."><meta name="robots" content="noindex"><lin
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">RunQuery</span><span class="op">(</span><span class="va">strQuery</span>, <span class="va">df</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">RunQuery</span><span class="op">(</span><span class="va">strQuery</span>, <span class="va">df</span>, method <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -75,7 +75,11 @@ Run a SQL query against a dataframe."><meta name="robots" content="noindex"><lin
 
 
 <dt id="arg-df">df<a class="anchor" aria-label="anchor" href="#arg-df"></a></dt>
-<dd><p><code>data.frame</code> A data frame to use in the SQL query</p></dd>
+<dd><p><code>data.frame</code> A data frame to use in the SQL query.</p></dd>
+
+
+<dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
+<dd><p><code>character</code> A method argument to be passed to <code><a href="https://rdrr.io/pkg/sqldf/man/sqldf.html" class="external-link">sqldf::sqldf()</a></code>. Defaults to <code>NULL</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
