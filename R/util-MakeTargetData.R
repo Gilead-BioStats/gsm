@@ -7,10 +7,10 @@
 #' as well.
 #'
 #' @param data The input dataframe
-#' @param strCurrent_col Column that represents site count or participant count
-#' @param strTarget_col Column that represents the target count for site/participants
-#' @param strPerc_val Name of column that will contain the numeric percentage value on enrollment
-#' @param strPerc_str_val Name of column that will contain the n/N (xx.x%) string
+#' @param strCurrentCol Column that represents site count or participant count
+#' @param strTargetCol Column that represents the target count for site/participants
+#' @param strPercVal Name of column that will contain the numeric percentage value on enrollment
+#' @param strPercStrVal Name of column that will contain the n/N (xx.x%) string
 #'
 #' @return A data frame containing two additional columns for the precentage value and associated string
 #' @export
