@@ -4196,26 +4196,13 @@
       $Metrics
       $Metrics[[1]]
       $Metrics[[1]]$output
-      [1] "lWorkflows"
-      
-      $Metrics[[1]]$name
-      [1] "MakeWorkflowList"
-      
-      $Metrics[[1]]$params
-      $Metrics[[1]]$params$strPackage
-      [1] "gsm"
-      
-      
-      
-      $Metrics[[2]]
-      $Metrics[[2]]$output
       [1] "Reporting_Metrics"
       
-      $Metrics[[2]]$name
+      $Metrics[[1]]$name
       [1] "MakeMetric"
       
-      $Metrics[[2]]$params
-      $Metrics[[2]]$params$lWorkflows
+      $Metrics[[1]]$params
+      $Metrics[[1]]$params$lWorkflows
       [1] "lWorkflows"
       
       
