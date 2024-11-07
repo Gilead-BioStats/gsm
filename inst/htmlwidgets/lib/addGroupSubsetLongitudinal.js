@@ -62,10 +62,10 @@ const addGroupSubsetLongitudinalListener = (el) => {
   // Create vars for row contents.
   const rows = gtTable.querySelectorAll('tbody tr');
   const flagRows = findMatchingRows(rows, 'td');
-  const amberRowsEver = findMatchingRows(rows, 'td[style*="background-color: #FFBF00"]');
-  const amberRowsLatest = findMatchingRows(rows, 'td:last-of-type[style*="background-color: #FFBF00"]');
-  const redRowsEver = findMatchingRows(rows, 'td[style*="background-color: #FF0040"]');
-  const redRowsLatest = findMatchingRows(rows, 'td:last-of-type[style*="background-color: #FF0040"]');
+  const amberRowsEver = findMatchingRows(rows, 'svg[style*="fill:#FEAA02"]');
+  const amberRowsLatest = findMatchingRows(rows, 'svg:last-of-type[style*="fill:#FEAA02"]');
+  const redRowsEver = findMatchingRows(rows, 'svg[style*="fill:#FF5859"]');
+  const redRowsLatest = findMatchingRows(rows, 'svg:last-of-type[style*="fill:#FF5859"]');
   const changeRows = findMatchingRows(rows, 'td[headers$="FlagChange"]:not(:empty)');
 
   // Find header rows that relate to those vars.
