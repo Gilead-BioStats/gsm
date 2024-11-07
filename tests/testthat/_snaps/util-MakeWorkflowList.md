@@ -4611,7 +4611,7 @@
       
       $STUDY[[6]]
       $STUDY[[6]]$output
-      [1] "Temp_CountTargetsWide"
+      [1] "Temp_CountTargetsWide_addsite"
       
       $STUDY[[6]]$names
       [1] "MakeTargetData"
@@ -4620,41 +4620,41 @@
       $STUDY[[6]]$params$data
       [1] "Temp_CountTargetsWide"
       
-      $STUDY[[6]]$params$current_col
+      $STUDY[[6]]$params$strCurrentCol
       [1] "SiteCount"
       
-      $STUDY[[6]]$params$target_col
+      $STUDY[[6]]$params$strTargetCol
       [1] "SiteTarget"
       
-      $STUDY[[6]]$params$perc_val
+      $STUDY[[6]]$params$strPercVal
       [1] "PercentSitesActivated"
       
-      $STUDY[[6]]$params$perc_str_val
+      $STUDY[[6]]$params$strPercStrVal
       [1] "SiteActivationLabel"
       
       
       
       $STUDY[[7]]
       $STUDY[[7]]$output
-      [1] "Temp_CountTargetsWide"
+      [1] "Temp_CountTargetsWide_addsitepts"
       
       $STUDY[[7]]$names
       [1] "MakeTargetData"
       
       $STUDY[[7]]$params
       $STUDY[[7]]$params$data
-      [1] "Temp_CountTargetsWide"
+      [1] "Temp_CountTargetsWide_addsite"
       
-      $STUDY[[7]]$params$current_col
+      $STUDY[[7]]$params$strCurrentCol
       [1] "ParticipantCount"
       
-      $STUDY[[7]]$params$target_col
+      $STUDY[[7]]$params$strTargetCol
       [1] "ParticipantTarget"
       
-      $STUDY[[7]]$params$perc_val
+      $STUDY[[7]]$params$strPercVal
       [1] "PercentParticipantsEnrolled"
       
-      $STUDY[[7]]$params$perc_str_val
+      $STUDY[[7]]$params$strPercStrVal
       [1] "ParticipantEnrollmentLabel"
       
       
@@ -4668,7 +4668,7 @@
       
       $STUDY[[8]]$params
       $STUDY[[8]]$params$data
-      [1] "Temp_CountTargetsWide"
+      [1] "Temp_CountTargetsWide_addsitepts"
       
       $STUDY[[8]]$params$strGroupLevel
       [1] "Study"
