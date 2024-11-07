@@ -61,26 +61,26 @@ steps:
       x: Temp_CTMSplanned
       "y": Temp_StudyCountsWide
       by: GroupID
-  - output: Temp_CountTargetsWide
+  - output: Temp_CountTargetsWide_addsite
     names: MakeTargetData
     params:
       data: Temp_CountTargetsWide
-      current_col: SiteCount
-      target_col: SiteTarget
-      perc_val: PercentSitesActivated
-      perc_str_val: SiteActivationLabel
-  - output: Temp_CountTargetsWide
+      strCurrentCol: SiteCount
+      strTargetCol: SiteTarget
+      strPercVal: PercentSitesActivated
+      strPercStrVal: SiteActivationLabel
+  - output: Temp_CountTargetsWide_addsitepts
     names: MakeTargetData
     params:
-      data: Temp_CountTargetsWide
-      current_col: ParticipantCount
-      target_col: ParticipantTarget
-      perc_val: PercentParticipantsEnrolled
-      perc_str_val: ParticipantEnrollmentLabel
+      data: Temp_CountTargetsWide_addsite
+      strCurrentCol: ParticipantCount
+      strTargetCol: ParticipantTarget
+      strPercVal: PercentParticipantsEnrolled
+      strPercStrVal: ParticipantEnrollmentLabel
   - output: Temp_CountTargetsPercs
     name: MakeLongMeta
     params:
-      data: Temp_CountTargetsWide
+      data: Temp_CountTargetsWide_addsitepts
       strGroupLevel: "Study"
   - output: Mapped_STUDY
     name: bind_rows

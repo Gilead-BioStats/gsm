@@ -7,22 +7,22 @@
 #' as well.
 #'
 #' @param data The input dataframe
-#' @param current_col Column that represents site count or participant count
-#' @param target_col Column that represents the target count for site/participants
-#' @param perc_val Name of column that will contain the numeric percentage value on enrollment
-#' @param perc_str_val Name of column that will contain the n/N (xx.x%) string
+#' @param strCurrent_col Column that represents site count or participant count
+#' @param strTarget_col Column that represents the target count for site/participants
+#' @param strPerc_val Name of column that will contain the numeric percentage value on enrollment
+#' @param strPerc_str_val Name of column that will contain the n/N (xx.x%) string
 #'
 #' @return A data frame containing two additional columns for the precentage value and associated string
 #' @export
-MakeTargetData <- function(data, current_col, target_col, perc_val, perc_str_val) {
-  if (!(current_col %in% names(data) & target_col %in% names(data))) {
-    cli::cli_abort("Check that both {current_col} and {target_col} are in data")
+MakeTargetData <- function(data, strCurrentCol, strTargetCol, strPercVal, strPercStrVal) {
+  if (!(strCurrentCol %in% names(data) & strTargetCol %in% names(data))) {
+    cli::cli_abort("Check that both {strCurrentCol} and {strTargetCol} are in data")
   }
 
   data <- data %>%
     dplyr::mutate(
-      {{ perc_val }} := round(.data[[current_col]] * 100 / .data[[target_col]], 1),
-      {{ perc_str_val }} := paste0(.data[[current_col]], " / ", .data[[target_col]], " (", .data[[perc_val]], " %)")
+      {{ strPercVal }} := round(.data[[strCurrentCol]] * 100 / .data[[strTargetCol]], 1),
+      {{ strPercStrVal }} := paste0(.data[[strCurrentCol]], " / ", .data[[strTargetCol]], " (", .data[[perc_val]], "%)")
     )
 
   return(data)

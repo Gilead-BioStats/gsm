@@ -4,18 +4,18 @@
 \alias{MakeTargetData}
 \title{Helper function to compile "long" group metadata}
 \usage{
-MakeTargetData(data, current_col, target_col, perc_val, perc_str_val)
+MakeTargetData(data, strCurrentCol, strTargetCol, strPercVal, strPercStrVal)
 }
 \arguments{
 \item{data}{The input dataframe}
 
-\item{current_col}{Column that represents site count or participant count}
+\item{strCurrent_col}{Column that represents site count or participant count}
 
-\item{target_col}{Column that represents the target count for site/participants}
+\item{strTarget_col}{Column that represents the target count for site/participants}
 
-\item{perc_val}{Name of column that will contain the numeric percentage value on enrollment}
+\item{strPerc_val}{Name of column that will contain the numeric percentage value on enrollment}
 
-\item{perc_str_val}{Name of column that will contain the n/N (xx.x\%) string}
+\item{strPerc_str_val}{Name of column that will contain the n/N (xx.x\%) string}
 }
 \value{
 A data frame containing two additional columns for the precentage value and associated string
