@@ -1,0 +1,21 @@
+INFO  [2024-11-08 14:07:39] [RunStep] Starting function execution.
+INFO  [2024-11-08 14:07:39] Evaluating 2 parameter(s) for `dummy_function`
+INFO  [2024-11-08 14:07:39] x = lMeta:  Passing full lMeta object.
+INFO  [2024-11-08 14:07:39] y = lData:  Passing full lData object.
+INFO  [2024-11-08 14:07:39] Calling `dummy_function`
+INFO  [2024-11-08 14:07:39] [RunStep] Starting function execution.
+INFO  [2024-11-08 14:07:39] Evaluating 2 parameter(s) for `dummy_function`
+INFO  [2024-11-08 14:07:39] x = meta1:  Passing lMeta$meta1 object.
+INFO  [2024-11-08 14:07:39] y = data1: Passing lData$data1.
+INFO  [2024-11-08 14:07:39] Calling `dummy_function`
+INFO  [2024-11-08 14:07:39] [RunStep] Starting function execution.
+INFO  [2024-11-08 14:07:39] Evaluating 2 parameter(s) for `dummy_function`
+INFO  [2024-11-08 14:07:39] x = meta1:  Passing lMeta$meta1 object.
+INFO  [2024-11-08 14:07:39] y = 100: No matching data found. Passing '100' as a string.
+INFO  [2024-11-08 14:07:39] Calling `dummy_function`
+INFO  [2024-11-08 14:07:39] [RunStep] Starting function execution.
+INFO  [2024-11-08 14:07:39] Evaluating 3 parameter(s) for `another_dummy_function`
+INFO  [2024-11-08 14:07:39] a = meta1:  Passing lMeta$meta1 object.
+INFO  [2024-11-08 14:07:39] b = data1: Passing lData$data1.
+INFO  [2024-11-08 14:07:39] c = some_value: No matching data found. Passing 'some_value' as a string.
+INFO  [2024-11-08 14:07:39] Calling `another_dummy_function`

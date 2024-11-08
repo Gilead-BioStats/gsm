@@ -1,3 +1,4 @@
+#demo log
 dummy_function <<- function(x, y) {
   return(list(x = x, y = y))
 }
