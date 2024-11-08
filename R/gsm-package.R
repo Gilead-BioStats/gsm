@@ -5,6 +5,7 @@
 
 #' @import dplyr
 #' @import ggplot2
+#' @import gt
 #' @import purrr
 #' @importFrom broom augment
 #' @importFrom broom glance
