@@ -42,33 +42,33 @@ RunWorkflow <- function(
 ) {
   # Create a unique identifier for the workflow
   uid <- paste0(lWorkflow$meta$Type, "_", lWorkflow$meta$ID)
-  cli::cli_h1("Initializing `{uid}` Workflow")
+  cli_logger_info(glue::glue("Initializing `{uid}` Workflow"))
 
   # check that the workflow has steps
   if (length(lWorkflow$steps) == 0) {
-    cli::cli_alert("Workflow `{uid}` has no `steps` property.")
+    cli_logger_warn(glue::glue("Workflow `{uid}` has no `steps` property."))
   }
 
   if (!"meta" %in% names(lWorkflow)) {
-    cli::cli_alert("Workflow `{uid}` has no `meta` property.")
+    cli_logger_warn(glue::glue("Workflow `{uid}` has no `meta` property."))
   }
 
   lWorkflow$lData <- lData
 
   # If the workflow has a spec, check that the data and spec are compatible
   if ("spec" %in% names(lWorkflow)) {
-    cli::cli_h3("Checking data against spec")
+    cli_logger_info("Checking data against spec")
     # TODO: verify domain names in [ lData ] exist in [ lWorkflow$spec ]
     CheckSpec(lData, lWorkflow$spec)
   } else {
     lWorkflow$spec <- NULL
-    cli::cli_h3("No spec found in workflow. Proceeding without checking data.")
+    cli_logger_info("No spec found in workflow. Proceeding without checking data.")
   }
 
   # Run through each step in lWorkflow$workflow
   stepCount <- 1
   for (step in lWorkflow$steps) {
-    cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lWorkflow$steps), ": `", step$name, "`"))
+    cli_logger_info(paste0("Workflow Step ", stepCount, " of ", length(lWorkflow$steps), ": `", step$name, "`"))
     result <- RunStep(
       lStep = step,
       lData = lWorkflow$lData,
@@ -77,16 +77,16 @@ RunWorkflow <- function(
     )
 
     if (step$output %in% names(lData)) {
-      cli::cli_alert_warning("Overwriting existing data in `lData`.")
+      cli_logger_warn("Overwriting existing data in `lData`.")
     }
 
     lWorkflow$lData[[step$output]] <- result
     lWorkflow$lResult <- result
 
     if (is.data.frame(result)) {
-      cli::cli_h3("{paste(dim(result),collapse='x')} data.frame saved as `lData${step$output}`.")
+      cli_logger_info(glue::glue("{paste(dim(result),collapse='x')} data.frame saved as `lData${step$output}`."))
     } else {
-      cli::cli_h3("{typeof(result)} of length {length(result)} saved as `lData${step$output}`.")
+      cli_logger_info(glue::glue("{typeof(result)} of length {length(result)} saved as `lData${step$output}`."))
     }
 
     stepCount <- stepCount + 1
@@ -95,9 +95,9 @@ RunWorkflow <- function(
   # Return the result of the last step (the default) or the full workflow
   if (bReturnResult) {
     if (is.data.frame(lWorkflow$lResult)) {
-      cli::cli_h2("Returning results from final step: {paste(dim(lWorkflow$lResult),collapse='x')} data.frame`.")
+      cli_logger_info(glue::glue("Returning results from final step: {paste(dim(lWorkflow$lResult),collapse='x')} data.frame`."))
     } else {
-      cli::cli_h2("Returning results from final step: {typeof(lWorkflow$lResult)} of length {length(lWorkflow$lResult)}`.")
+      cli_logger_info(glue::glue("Returning results from final step: {typeof(lWorkflow$lResult)} of length {length(lWorkflow$lResult)}`."))
     }
     cli::cli_h1("Completed `{uid}` Workflow")
     return(lWorkflow$lResult)
@@ -105,12 +105,12 @@ RunWorkflow <- function(
     if (!bKeepInputData) {
       outputs <- lWorkflow$steps %>% purrr::map_chr(~ .x$output)
       lWorkflow$lData <- lWorkflow$lData[outputs]
-      cli::cli_alert_info("Keeping only workflow outputs in $lData: {names(lWorkflow$lData)}")
+      cli_logger_info(glue::glue("Keeping only workflow outputs in $lData: {names(lWorkflow$lData)}"))
     } else {
-      cli::cli_alert_info("Keeping workflow inputs and outputs in $lData: {names(lWorkflow$lData)}")
+      cli_logger_info(glue::glue("Keeping workflow inputs and outputs in $lData: {names(lWorkflow$lData)}"))
     }
-    cli::cli_h2("Returning full workflow object.")
-    cli::cli_h1("Completed `{uid}` Workflow")
+    cli_logger_info(glue::glue("Returning full workflow object."))
+    cli_logger_info(glue::glue("Completed `{uid}` Workflow"))
     return(lWorkflow)
   }
 }
