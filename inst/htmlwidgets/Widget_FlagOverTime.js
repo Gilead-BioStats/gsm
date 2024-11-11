@@ -15,12 +15,31 @@ HTMLWidgets.widget({
     return {
       renderValue: function(x) {
         // Create the toggle button
-        const toggleButton = document.createElement('button');
-        toggleButton.textContent = 'Toggle Year View';
-        toggleButton.style.marginBottom = '10px';
+        const toggleContainer = document.createElement('div');
+        // Create the label for the checkbox
+        const label = document.createElement('label');
+        label.classList.add('toggle');
+        toggleContainer.appendChild(label);
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.classList.add('toggle-checkbox')
+        checkbox.id = 'toggle-checkbox';
+        toggleContainer.appendChild(checkbox);
+
+        // Create the switch element
+        const switchElement = document.createElement('div');
+        switchElement.classList.add('toggle-switch');
+        toggleContainer.appendChild(switchElement);
+
+        const labelText = document.createElement('span');
+        labelText.classList.add("toggle-label");
+        labelText.textContent = "Toggle Year View";
+        toggleContainer.appendChild(labelText);
+
 
         // Append the button to the widget container
-        el.appendChild(toggleButton);
+        el.appendChild(toggleContainer);
 
         // Create container div for the flag over time content
         const contentDiv = document.createElement('div');
@@ -48,7 +67,7 @@ HTMLWidgets.widget({
         }
 
         // Toggle button to switch between recent (12-month) and full view
-        toggleButton.addEventListener('click', () => {
+        toggleContainer.addEventListener('click', () => {
           showRecent = !showRecent;
           updateTable(showRecent);
         });
