@@ -72,7 +72,7 @@ HTMLWidgets.widget({
         toggleContainer.addEventListener('click', () => {
           showRecent = !showRecent;
           updateTable(showRecent);
-          for(toggle of document.getElementsByTagName('input')){if(toggle.id==='toggle-checkbox')toggle.checked=showRecent;}
+          checkbox.checked = showRecent;
         });
 
         addGroupSubsetLongitudinalListener(el); // Initial call for filtering
