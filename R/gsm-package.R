@@ -5,6 +5,7 @@
 
 #' @import dplyr
 #' @import ggplot2
+#' @import gt
 #' @import log4r
 #' @import purrr
 #' @importFrom broom augment
