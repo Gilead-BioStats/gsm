@@ -36,7 +36,7 @@ HTMLWidgets.widget({
 
         const labelText = document.createElement('span');
         labelText.classList.add("toggle-label");
-        labelText.textContent = "Toggle Year View";
+        labelText.textContent = "Show All Time";
         toggleContainer.appendChild(labelText);
 
 
@@ -72,7 +72,12 @@ HTMLWidgets.widget({
         toggleContainer.addEventListener('click', () => {
           showRecent = !showRecent;
           updateTable(showRecent);
-          checkbox.checked = showRecent;
+          checkbox.checked = !showRecent;
+          if (!showRecent) {
+            labelText.textContent = 'Show Recent';
+        } else {
+            labelText.textContent = 'Show All Time';
+        }
         });
 
         addGroupSubsetLongitudinalListener(el); // Initial call for filtering
