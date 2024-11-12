@@ -1,73 +1,101 @@
-#### 3.1 - Create a KRI Report using 12 standard metrics with multiple workflows
+#### 3.1 - Create a KRI Report using 12 standard metrics in a step-by-step workflow
 
-# Step 1 - Create Mapped Data - filter/map raw data
-lData <- list(
-    Raw_SUBJ = clindata::rawplus_dm,
-    Raw_AE = clindata::rawplus_ae,
-    Raw_PD = clindata::ctms_protdev,
-    Raw_LB = clindata::rawplus_lb,
-    Raw_STUDCOMP = clindata::rawplus_studcomp,
-    Raw_SDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
-    Raw_DATACHG = clindata::edc_data_points,
-    Raw_DATAENT = clindata::edc_data_pages,
-    Raw_QUERY = clindata::edc_queries,
-    Raw_ENROLL = clindata::rawplus_enroll
-)
-mapping_wf <- MakeWorkflowList(strNames = "data_mapping")
-mapped <- RunWorkflows(mapping_wf, lData, bKeepInputData=TRUE)
-
-# Step 2 - Create Analysis Data - Generate 12 KRIs
-kri_wf <- MakeWorkflowList(strNames = "kri")
-kris <- RunWorkflows(kri_wf, mapped)
-
-# Step 3 - Create Reporting Data - Import Metadata and stack KRI Results
-lReporting_Input <- list(
-    Raw_ctms_site = clindata::ctms_site,
-    Raw_ctms_study = clindata::ctms_study,
-    Mapped_Enrolled = mapped$Mapped_Enrolled,
-    lWorkflows = kri_wf,
-    lAnalysis = kris,
-    dSnapshotDate = Sys.Date(),
-    strStudyID = "ABC-123"
-)
-reporting_wf <- MakeWorkflowList(strNames = "reporting")
-reporting <- RunWorkflows(reporting_wf, lReporting_Input)
-
-# Step 4 - Generate Reports - Create Charts + Report
-wf_reports <- MakeWorkflowList(strNames = "reports")
-lReports <- RunWorkflows(wf_reports, reporting)
-
-#### 3.2 - Create a KRI Report using 12 standard metrics with a single composite workflow
-lData <- list(
-    # Raw Data
-    Raw_SUBJ = clindata::rawplus_dm,
-    Raw_AE = clindata::rawplus_ae,
-    Raw_PD = clindata::ctms_protdev,
-    Raw_LB = clindata::rawplus_lb,
-    Raw_STUDCOMP = clindata::rawplus_studcomp,
-    Raw_SDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
-    Raw_DATACHG = clindata::edc_data_points,
-    Raw_DATAENT = clindata::edc_data_pages,
-    Raw_QUERY = clindata::edc_queries,
-    Raw_ENROLL = clindata::rawplus_enroll,
-    # CTMS data
-    Raw_ctms_site = clindata::ctms_site,
-    Raw_ctms_study = clindata::ctms_study,
-    # SnapshotDate and StudyID
-    dSnapshotDate = Sys.Date(),
-    strStudyID = "ABC-123",
-    # Metrics
-    Metrics = 'kri'
+# Source Data
+lSource <- list(
+    Source_SUBJ = clindata::rawplus_dm,
+    Source_AE = clindata::rawplus_ae,
+    Source_PD = clindata::ctms_protdev,
+    Source_LB = clindata::rawplus_lb,
+    Source_STUDCOMP = clindata::rawplus_studcomp,
+    Source_SDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
+    Source_DATACHG = clindata::edc_data_points,
+    Source_DATAENT = clindata::edc_data_pages,
+    Source_QUERY = clindata::edc_queries,
+    Source_ENROLL = clindata::rawplus_enroll,
+    Source_SITE = clindata::ctms_site,
+    Source_STUDY = clindata::ctms_study
 )
 
-ss_wf <- MakeWorkflowList(strNames = "snapshot")
-snapshot <- RunWorkflows(ss_wf, lData, bKeepInputData = TRUE)
+# Step 0 - Data Ingestion - standardize tables/columns names
+lRaw <- list(
+    Raw_SUBJ = lSource$Source_SUBJ,
+    Raw_AE = lSource$Source_AE,
+    Raw_PD = lSource$Source_PD %>%
+      rename(subjid = subjectenrollmentnumber),
+    Raw_LB = lSource$Source_LB,
+    Raw_STUDCOMP = lSource$Source_STUDCOMP,
+    Raw_SDRGCOMP = lSource$Source_SDRGCOMP,
+    Raw_DATACHG = lSource$Source_DATACHG %>%
+      rename(subject_nsv = subjectname),
+    Raw_DATAENT = lSource$Source_DATAENT %>%
+      rename(subject_nsv = subjectname),
+    Raw_QUERY = lSource$Source_QUERY %>%
+      rename(subject_nsv = subjectname),
+    Raw_ENROLL = lSource$Source_ENROLL,
+    Raw_SITE = lSource$Source_SITE %>%
+      rename(studyid = protocol) %>%
+      rename(invid = pi_number) %>%
+      rename(InvestigatorFirstName = pi_first_name) %>%
+      rename(InvestigatorLastName = pi_last_name) %>%
+      rename(City = city) %>%
+      rename(State = state) %>%
+      rename(Country = country),
+    Raw_STUDY = lSource$Source_STUDY %>%
+      rename(studyid = protocol_number) %>%
+      rename(Status = status)
+)
 
-#### 3.3 - Create a country-level KRI Report
-lData$Metrics <- 'cou'
-country_snapshot <- RunWorkflows(ss_wf, lData, bKeepInputData = TRUE)
+# Step 1 - Create Mapped Data Layer - filter, aggregate and join raw data to create mapped data layer
+mappings_wf <- MakeWorkflowList(strPath = "workflow/1_mappings")
+mapped <- RunWorkflows(mappings_wf, lRaw)
 
-#### 3.4 Site-Level KRI Report with multiple SnapshotDate
+# Step 2 - Create Metrics - calculate metrics using mapped data
+metrics_wf <- MakeWorkflowList(strPath = "workflow/2_metrics")
+analyzed <- RunWorkflows(metrics_wf, mapped)
+
+# Step 3 - Create Reporting Layer - create reports using metrics data
+reporting_wf <- MakeWorkflowList(strPath = "workflow/3_reporting")
+reporting <- RunWorkflows(reporting_wf, c(mapped, list(lAnalyzed = analyzed,
+                                                       lWorkflows = metrics_wf)))
+
+# Step 4 - Create KRI Reports - create KRI report using reporting data
+module_wf <- MakeWorkflowList(strPath = "workflow/4_modules")
+lReports <- RunWorkflows(module_wf, reporting)
+
+#### 3.2 - Automate data ingestion using Ingest() and CombineSpecs()
+# Step 0 - Data Ingestion - standardize tables/columns names
+mappings_wf <- MakeWorkflowList(strPath = "workflow/1_mappings")
+mappings_spec <- CombineSpecs(mappings_wf)
+lRaw <- Ingest(lSource, mappings_spec)
+
+# Step 1 - Create Mapped Data Layer - filter, aggregate and join raw data to create mapped data layer
+mapped <- RunWorkflows(mappings_wf, lRaw)
+
+# Step 2 - Create Metrics - calculate metrics using mapped data
+metrics_wf <- MakeWorkflowList(strPath = "workflow/2_metrics")
+analyzed <- RunWorkflows(metrics_wf, mapped)
+
+# Step 3 - Create Reporting Layer - create reports using metrics data
+reporting_wf <- MakeWorkflowList(strPath = "workflow/3_reporting")
+reporting <- RunWorkflows(reporting_wf, c(mapped, list(lAnalyzed = analyzed,
+                                                       lWorkflows = metrics_wf)))
+
+# Step 4 - Create KRI Report - create KRI report using reporting data
+module_wf <- MakeWorkflowList(strPath = "workflow/4_modules")
+lReports <- RunWorkflows(module_wf, reporting)
+
+#### 3.4 - Combine steps in to a single workflow
+#ss_wf <- MakeWorkflowList(strNames = "Snapshot")
+#lReports <- RunWorkflows(ss_wf, lSource)
+
+#### 3.4 - Use Study configuration to specify data sources
+# StudyConfig <- Read_yaml("inst/workflow/config.yaml")
+# mapped <- RunWorkflows(mappings_wf, lConfig=StudyConfig)
+# analyzed <- RunWorkflows(metrics_wf,  lConfig=StudyConfig)
+# reporting <- RunWorkflows(reporting_wf,  lConfig=StudyConfig)
+# lReports <- RunWorkflows(module_wf,  lConfig=StudyConfig)
+
+#### 3.3 Site-Level KRI Report with multiple SnapshotDate
 lCharts <- MakeCharts(
   dfResults = gsm::reportingResults,
   dfGroups = gsm::reportingGroups,
@@ -77,7 +105,7 @@ lCharts <- MakeCharts(
 
 kri_report_path <- Report_KRI(
   lCharts = lCharts,
-  dfResults =  gsm::reportingResults,
+  dfResults =  FilterByLatestSnapshotDate(reportingResults),
   dfGroups =  gsm::reportingGroups,
   dfMetrics = gsm::reportingMetrics
 )

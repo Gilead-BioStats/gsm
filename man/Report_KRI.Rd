@@ -38,8 +38,8 @@ This function generates a KRI report based on the provided inputs.
 }
 \examples{
 \dontrun{
-# Run reports
-lCharts <- MakeCharts(
+# Run site-level KRI report.
+lChartsSite <- MakeCharts(
   dfResults = reportingResults,
   dfGroups = reportingGroups,
   dfMetrics = reportingMetrics,
@@ -48,10 +48,27 @@ lCharts <- MakeCharts(
 
 strOutputFile <- "StandardSiteReport.html"
 kri_report_path <- Report_KRI(
-  lCharts = lCharts,
+  lCharts = lChartsSite,
   dfResults = reportingResults,
   dfGroups = reportingGroups,
   dfMetrics = reportingMetrics,
+  strOutputFile = strOutputFile
+)
+
+# Run country-level KRI report.
+lChartsCountry <- MakeCharts(
+  dfResults = reportingResults_country,
+  dfGroups = reportingGroups_country,
+  dfMetrics = reportingMetrics_country,
+  dfBounds = reportingBounds_country
+)
+
+strOutputFile <- "StandardCountryReport.html"
+kri_report_path <- Report_KRI(
+  lCharts = lChartsCountry,
+  dfResults = reportingResults_country,
+  dfGroups = reportingGroups_country,
+  dfMetrics = reportingMetrics_country,
   strOutputFile = strOutputFile
 )
 }

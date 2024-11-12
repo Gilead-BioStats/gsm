@@ -1,0 +1,35 @@
+meta:
+  Type: Mapped
+  ID: DATACHG
+  Description: Data Changes Data Mapping 
+  Priority: 2
+spec: 
+  Raw_DATACHG:
+    subject_nsv:
+      required: true
+      type: character
+      source_col: subjectname
+    n_changes:
+      required: true
+      type: integer
+  Mapped_SUBJ:
+    subjid:
+      required: true
+      type: character
+    subject_nsv:
+      required: true
+      type: character
+steps:
+  # Merge [ subjid ] onto EDC domains.
+  - output: Temp_SubjectLookup
+    name: select
+    params:
+      .data: Mapped_SUBJ
+      subjid: subjid
+      subject_nsv: subject_nsv
+  - output: Mapped_DATACHG
+    name: left_join
+    params:
+      x: Raw_DATACHG
+      "y": Temp_SubjectLookup
+      by: subject_nsv

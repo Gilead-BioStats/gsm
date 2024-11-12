@@ -1,0 +1,20 @@
+meta:
+  Type: Mapped
+  ID: PD
+  Description: Protocol Deviation Data Mapping 
+  Priority: 1
+spec: 
+  Raw_PD:
+    subjid:
+      required: true
+      type: character
+      source_col: subjectenrollmentnumber
+    deemedimportant:
+      required: true
+      type: character
+steps:
+  - output: Mapped_PD
+    name: =
+    params:
+      lhs: Mapped_PD
+      rhs: Raw_PD

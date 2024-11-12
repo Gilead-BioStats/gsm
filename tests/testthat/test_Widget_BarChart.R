@@ -1,6 +1,6 @@
 test_that("Widget_BarChart handles dfResults correctly", {
   widget <- Widget_BarChart(
-    reportingResults,
+    reportingResults[1:1000, ],
     reportingMetrics %>% as.list()
   )
 
@@ -8,7 +8,7 @@ test_that("Widget_BarChart handles dfResults correctly", {
   expect_true("Widget_BarChart" %in% class(widget))
 
   widget_data <- widget$x$dfResults
-  dfResults <- reportingResults %>%
+  dfResults <- reportingResults[1:1000, ] %>%
     dplyr::mutate(
       Metric = round(Metric, 4),
       Score = round(Score, 4),
@@ -39,4 +39,60 @@ test_that("Widget_BarChart processes dfGRoups correctly", {
 
   reportingGroups_json <- jsonlite::toJSON(reportingGroups, na = "string")
   expect_equal(widget$x$dfGroups, reportingGroups_json)
+})
+
+test_that("Widget_BarChart assertions works", {
+  reportingResults_modified <- as.list(reportingResults)
+  reportingGroups_modified <- as.list(reportingGroups)
+  expect_error(
+    Widget_BarChart(
+      reportingResults_modified,
+      reportingMetrics %>% as.list()
+    ),
+    "dfResults is not a data.frame"
+  )
+  expect_error(
+    Widget_BarChart(reportingResults, reportingMetrics),
+    "lMetric must be a list, but not a data.frame"
+  )
+  expect_error(
+    Widget_BarChart(
+      reportingResults,
+      reportingMetrics %>% as.list(),
+      reportingGroups_modified
+    ),
+    "dfGroups is not a data.frame"
+  )
+  expect_error(
+    Widget_BarChart(
+      reportingResults,
+      reportingMetrics %>% as.list(),
+      strOutcome = 1
+    ),
+    "strOutcome is not a character"
+  )
+  expect_error(
+    Widget_BarChart(
+      reportingResults,
+      reportingMetrics %>% as.list(),
+      bAddGroupSelect = NULL
+    ),
+    "bAddGroupSelect is not a logical"
+  )
+  expect_error(
+    Widget_BarChart(
+      reportingResults,
+      reportingMetrics %>% as.list(),
+      strShinyGroupSelectID = 1
+    ),
+    "strShinyGroupSelectID is not a character"
+  )
+  expect_error(
+    Widget_BarChart(
+      reportingResults,
+      reportingMetrics %>% as.list(),
+      bDebug = NULL
+    ),
+    "bDebug is not a logical"
+  )
 })

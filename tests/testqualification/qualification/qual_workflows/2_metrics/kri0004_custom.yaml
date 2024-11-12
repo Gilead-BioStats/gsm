@@ -1,0 +1,85 @@
+meta:
+  Type: Metric
+  ID: kri0004_custom
+  File: kri0004_custom.yaml
+  GroupLevel: Race
+  Abbreviation: PD
+  Metric: Important Protocol Deviation Rate
+  Numerator: Important Protocol Deviations
+  Denominator: Days on Study
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
+  AnalysisType: rate
+  Threshold: -5,-3,3,5
+  nMinDenominator: 300
+spec:
+  Mapped_PD:
+    subjid:
+      required: true
+      type: character
+    deemedimportant:
+      required: true
+      type: character
+  Mapped_SUBJ:
+    subjid:
+      required: true
+      type: character
+    invid:
+      required: true
+      type: character
+    race:
+      required: true
+      type: character
+    timeonstudy:
+      required: true
+      type: integer
+steps:
+  - output: vThreshold
+    name: ParseThreshold
+    params:
+      strThreshold: Threshold
+  - output: Temp_IMPORTANT
+    name: RunQuery
+    params:
+      df: Mapped_PD
+      strQuery: "SELECT * FROM df WHERE deemedimportant = 'Yes'"
+  - output: Analysis_Input
+    name: Input_Rate
+    params:
+      dfSubjects: Mapped_SUBJ
+      dfNumerator: Temp_IMPORTANT
+      dfDenominator: Mapped_SUBJ
+      strSubjectCol: subjid
+      strGroupCol: race
+      strGroupLevel: GroupLevel
+      strNumeratorMethod: Count
+      strDenominatorMethod: Sum
+      strDenominatorCol: timeonstudy
+  - output: Analysis_Transformed
+    name: Transform_Rate
+    params:
+      dfInput: Analysis_Input
+  - output: Analysis_Analyzed
+    name: Analyze_NormalApprox
+    params:
+      dfTransformed: Analysis_Transformed
+      strType: AnalysisType
+  - output: Analysis_Flagged
+    name: Flag_NormalApprox
+    params:
+      dfAnalyzed: Analysis_Analyzed
+      vThreshold: vThreshold
+  - output: Analysis_Summary
+    name: Summarize
+    params:
+      dfFlagged: Analysis_Flagged
+      nMinDenominator: nMinDenominator
+  - output: lAnalysis
+    name: list
+    params:
+      ID: ID
+      Analysis_Input: Analysis_Input
+      Analysis_Transformed: Analysis_Transformed
+      Analysis_Analyzed: Analysis_Analyzed
+      Analysis_Flagged: Analysis_Flagged
+      Analysis_Summary: Analysis_Summary

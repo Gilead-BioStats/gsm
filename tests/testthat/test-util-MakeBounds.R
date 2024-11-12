@@ -13,7 +13,7 @@ test_that("MakeBounds uses user-supplied strMetrics", {
     MakeBounds(
       dfResults = dplyr::filter(reportingResults, SnapshotDate == "2012-12-31"),
       dfMetrics = reportingMetrics,
-      strMetrics = "kri0001"
+      strMetrics = "Analysis_kri0001"
     )
   })
 })

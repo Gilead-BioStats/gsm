@@ -7,20 +7,12 @@ HTMLWidgets.widget({
                 if (input.bDebug)
                     console.log(input);
 
-                // Define initial group subset.
-                const groupSubset = getGroupSubset(
-                    input.dfResults,
-                    input.strGroupSubset
-                );
-
                 // Generate site overview table.
                 const instance = rbmViz.default.groupOverview(
                     el,
-                    input.dfResults.filter(
-                        d => groupSubset.includes(d.GroupID)
-                    ),
+                    input.dfResults,
                     {
-                        GroupLevel: input.GroupLevel,
+                        GroupLevel: input.strGroupLevel,
                         groupLabelKey: input.strGroupLabelKey //,
                         // Callbacks for Shiny, may need to move to a different file.
                         /*
@@ -53,6 +45,18 @@ HTMLWidgets.widget({
 
                 // Add group subset dropdown.
                 addGroupSubset(el, instance, input.dfResults, input.strGroupSubset);
+
+                // Apply initial group subset.
+                const groupSubset = getGroupSubset(
+                    input.dfResults,
+                    input.strGroupSubset
+                );
+
+                const updatedResults = input.dfResults.filter((d) =>
+                    groupSubset.includes(d.GroupID)
+                );
+
+                instance.updateTable(updatedResults);
             },
             resize: function(width, height) {
             }

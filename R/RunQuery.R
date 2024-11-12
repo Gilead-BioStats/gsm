@@ -3,11 +3,11 @@
 #' @description
 #' `r lifecycle::badge("stable")`
 #'
-#' Run a SQL query via DBI::dbGetQuery using the format expected by glue_sql. Values from lMapping provided using the format expected by qlue_sql (e.g.  {`strIDCol`}) will be replaced with the appropriate column names/values.
+#' Run a SQL query against a dataframe.
 #'
-#' @param strQuery `character` SQL query to run using the format expected by glue_sql. Mapping values provided in curly braces will be replaced with the appropriate column names.
-#' @param df `data.frame` A data frame to use in the SQL query
-#' @param engine `character` The engine used to run the query. Currently supports 'duckdb' and 'sqldf'
+#' @param strQuery `character` SQL query to run.
+#' @param df `data.frame` A data frame to use in the SQL query.
+#' @param method `character` A method argument to be passed to `sqldf::sqldf()`. Defaults to `NULL`.
 #'
 #' @return `data.frame` containing the results of the SQL query
 #'
@@ -23,10 +23,8 @@
 #'
 #' @export
 
-RunQuery <- function(strQuery,
-                     df,
-                     engine = "sqldf") {
-  rlang::check_installed(engine, reason = "to run `RunQuery()`")
+RunQuery <- function(strQuery, df, method = NULL) {
+  rlang::check_installed("sqldf", reason = "to run `RunQuery()`")
 
   # Check inputs
   stopifnot(is.character(strQuery), is.data.frame(df))
@@ -35,22 +33,14 @@ RunQuery <- function(strQuery,
   if (!stringr::str_detect(strQuery, "FROM df")) {
     stop("strQuery must contain 'FROM df'")
   }
+
   # return the data frame and print a warning if there are 0 rows
   if (nrow(df) == 0) {
     cli::cli_alert_warning("df has 0 rows. Query not run. Returning empty data frame.")
     return(df)
   } else {
     # run the query
-    if (engine == "sqldf") {
-    result <- sqldf::sqldf(strQuery)
-    }
-    if (engine == "duckdb") {
-      strQuery_duck <- gsub("FROM df", paste0("FROM ", rlang::caller_arg(df)), strQuery)
-      con <- duckdb::dbConnect(duckdb::duckdb())
-      duckdb::duckdb_register(con, rlang::caller_arg(df), df)
-      result <- DBI::dbGetQuery(con, strQuery_duck)
-      DBI::dbDisconnect(conn = con)
-    }
+    result <- sqldf::sqldf(strQuery, method = method)
     cli::cli_text("SQL Query complete: {nrow(result)} rows returned.")
     return(result)
   }

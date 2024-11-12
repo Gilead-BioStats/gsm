@@ -1,0 +1,64 @@
+meta:
+  Type: Report
+  ID: report_kri_site
+  Output: html
+  Name: Site-Level Key Risk Indicator Report
+  Description: A report summarizing key risk indicators at the site level
+spec:
+  Reporting_Results:
+    _all:
+      required: true
+    Numerator:
+      type: numeric
+    Denominator:
+      type: numeric
+    Metric:
+      type: numeric
+    Score:
+      type: numeric
+    Flag:
+      type: numeric
+  Reporting_Metrics:
+    _all:
+      required: true
+  Reporting_Groups:
+    _all:
+      required: true
+  Reporting_Bounds:
+    _all:
+      required: true
+    Threshold:
+      type: numeric
+    Numerator:
+      type: numeric
+    Denominator:
+      type: numeric
+    LogDenominator:
+      type: numeric
+    Metric:
+      type: numeric
+steps:
+  - output: Reporting_Results_Site
+    name: RunQuery
+    params:
+      df: Reporting_Results
+      strQuery: "SELECT * FROM df WHERE GroupLevel == 'Site'"
+  - output: Reporting_Metrics_Site
+    name: RunQuery
+    params:
+      df: Reporting_Metrics
+      strQuery: "SELECT * FROM df WHERE GroupLevel == 'Site'"
+  - output: lCharts_Site
+    name: MakeCharts
+    params:
+      dfResults: Reporting_Results_Site
+      dfGroups: Reporting_Groups
+      dfBounds: Reporting_Bounds
+      dfMetrics: Reporting_Metrics_Site
+  - output: lReport
+    name: Report_KRI
+    params:
+      lCharts: lCharts_Site
+      dfResults: Reporting_Results_Site
+      dfGroups: Reporting_Groups
+      dfMetrics: Reporting_Metrics_Site

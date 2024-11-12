@@ -5,6 +5,7 @@
 
 #' @import dplyr
 #' @import ggplot2
+#' @import gt
 #' @import purrr
 #' @importFrom broom augment
 #' @importFrom broom glance
@@ -20,10 +21,6 @@
 #' @importFrom cli cli_text
 #' @importFrom cli cli_warn
 #' @importFrom cli col_br_yellow
-#' @importFrom DBI dbGetQuery
-#' @importFrom fs file_copy
-#' @importFrom fs path_abs
-#' @importFrom fs path_temp
 #' @importFrom glue glue
 #' @importFrom glue glue_collapse
 #' @importFrom htmltools h1
@@ -41,6 +38,7 @@
 #' @importFrom htmlwidgets shinyWidgetOutput
 #' @importFrom jsonlite fromJSON
 #' @importFrom jsonlite toJSON
+#' @importFrom lifecycle deprecated
 #' @importFrom purrr map
 #' @importFrom rlang %||%
 #' @importFrom rlang .data
@@ -75,11 +73,11 @@
 #' @importFrom tools file_path_sans_ext
 #' @importFrom tools toTitleCase
 #' @importFrom utils hasName
+#' @importFrom utils head
 #' @importFrom utils packageVersion
 #' @importFrom utils read.csv
 #' @importFrom utils sessionInfo
 #' @importFrom utils write.csv
-#' @importFrom withr with_envvar
 #' @importFrom yaml read_yaml
 ## usethis namespace: end
 NULL

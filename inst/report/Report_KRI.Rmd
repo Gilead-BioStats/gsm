@@ -21,7 +21,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 
 ```{r, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
 library(gsm)
-library(kableExtra)
+library(gt)
 
 setup <- Report_Setup(
   dfGroups =  params$dfGroups, 
@@ -34,7 +34,7 @@ setup <- Report_Setup(
 
 ---
 title: "`r setup$GroupLevel` KRI Overview"
-subtitle: "Study: `r setup$StudyID`"
+subtitle: "Study: `r setup$StudyLabel`"
 date: "Snapshot Date: `r setup$SnapshotDate`"
 --- 
 
@@ -46,7 +46,7 @@ date: "Snapshot Date: `r setup$SnapshotDate`"
 :::
 
 ```{r, echo=FALSE, results='asis', fig.height=2}
-Report_StudyInfo(lStudy = setup$lStudy)
+Report_StudyInfo(params$dfGroups)
 ```
 
 ## Study Overview
@@ -74,17 +74,39 @@ if(setup$GroupLevel == "Site"){
 # subset data on latest snapshot date
 dfResults_current <- FilterByLatestSnapshotDate(params$dfResults)
 
-htmltools::div(
-  style = "table-layout: fixed; width: 100%; overflow: auto;",
-  Widget_GroupOverview(
-      dfResults = dfResults_current,
-      dfGroups = params$dfGroups,
-      dfMetrics = params$dfMetrics, 
-      strGroupLevel = setup$GroupLevel,
-      strGroupLabelKey = GroupLabelKey
-  )
+GroupOverViz <- Widget_GroupOverview(
+  dfResults = dfResults_current,
+  dfGroups = params$dfGroups,
+  dfMetrics = params$dfMetrics,
+  strGroupLevel = setup$GroupLevel,
+  strGroupSubset = switch(setup$GroupLevel,
+    "Site" = "red",
+    "Country" = "all",
+    "Study" = "all"
+  ),
+  strGroupLabelKey = GroupLabelKey
 )
+overview_viz <- list(groupOverviewJS = GroupOverViz)
 
+
+# Add FlagOverTime Table if data has more than one snapshot
+
+if(length(unique((params$dfResults)$SnapshotDate)) > 1){
+  # Remove sites/countries whose metrics have no flags at all timepoints
+  dfResults_flags <- FilterByFlags(params$dfResults)
+  
+  FlagOverViz <- Widget_FlagOverTime(
+    dfResults = dfResults_flags,
+    dfMetrics = params$dfMetrics,
+    strGroupLevel = setup$GroupLevel,
+    strFootnote = "*Only sites with at least one flag are shown."
+  )
+  
+  overview_viz$flagOverTimeJS <- FlagOverViz
+}
+
+
+Report_MetricCharts(overview_viz, overview = TRUE)
 ```
 
 :::
@@ -93,7 +115,7 @@ htmltools::div(
 
 Report_OverviewText(
   lSetup = setup,
-  dfResults = params$dfResults, 
+  dfResults = dfResults_current,
   lStudy = setup$lStudy
 )
 
@@ -111,11 +133,11 @@ for (i in unique(params$dfMetrics$MetricID)) {
   
   Report_MetricCharts(
     lCharts = params$lCharts[[lMetric$MetricID]],
-    strMetricID = lMetric$MetricID
+    strMetricID = lMetric$MetricID,
+    overview = FALSE
   )
-
- params$lCharts[[lMetric$MetricID]]$metricTable %>%
-   cat
+  
+  print(htmltools::tags$br())
 
 }
 
@@ -125,22 +147,17 @@ for (i in unique(params$dfMetrics$MetricID)) {
 ```{r, echo=FALSE, results='asis'}
 #print dfMetrics table
 params$dfMetrics %>%
-kbl(format="html", escape=FALSE) %>%
-kable_styling ("striped", full_width = FALSE) %>%
-cat
+  gt::gt()
 
 ```
+
 ```{r echo=FALSE}
-group_dropdown <- system.file('utils-0.0.1', 'overallGroupDropdown.js', package = "gsm")
-dropdown_drag <- system.file('utils-0.0.1', 'dragOverallGroupDropdown.js', package = "gsm")
-meta_details <- system.file('utils-0.0.1', 'showMetaTableDetails.js', package = "gsm")
+group_dropdown <- system.file('report', 'lib', 'overallGroupDropdown.js', package = "gsm")
+dropdown_drag <- system.file('report', 'lib', 'dragOverallGroupDropdown.js', package = "gsm")
 ```
 
 ```{js, file={group_dropdown}, echo=FALSE}
 ```
 
 ```{js, file={dropdown_drag}, echo=FALSE}
-```
-
-```{js, file={meta_details}, echo=FALSE}
 ```

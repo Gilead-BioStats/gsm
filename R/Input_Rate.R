@@ -89,13 +89,23 @@ Input_Rate <- function(
   strDenominatorMethod <- match.arg(strDenominatorMethod)
 
   # Check if strNumeratorCol is Null when strNumeratorMethod is 'Sum'
-  if (strNumeratorMethod == "Sum" && is.null(strNumeratorCol)) {
-    stop("strNumeratorCol must be provided when strNumeratorMethod is 'Sum'")
+  if (strNumeratorMethod == "Sum") {
+    if (is.null(strNumeratorCol)) {
+      stop("strNumeratorCol must be provided when strNumeratorMethod is 'Sum'")
+    }
+    if (!is.numeric(dfNumerator[[strNumeratorCol]])) {
+      stop("strNumeratorCol must be numeric when strNumeratorMethod is `Sum`")
+    }
   }
 
   # Check if strDenominatorCol is Null when strDenominatorMethod is 'Sum'
-  if (strDenominatorMethod == "Sum" && is.null(strDenominatorCol)) {
-    stop("strDenominatorCol must be provided when strDenominatorMethod is 'Sum'")
+  if (strDenominatorMethod == "Sum") {
+    if (is.null(strDenominatorCol)) {
+      stop("strDenominatorCol must be provided when strDenominatorMethod is 'Sum'")
+    }
+    if (!is.numeric(dfDenominator[[strDenominatorCol]])) {
+      stop("strDenominatorCol must be numeric when strDenominatorMethod is `Sum`")
+    }
   }
 
   # check that "strSubjectCol" is in all dfs
@@ -124,34 +134,24 @@ Input_Rate <- function(
     )
 
   # Calculate Numerator
-  dfNumerator <- dfNumerator %>%
-    rename("SubjectID" = !!strSubjectCol)
-
-  if (strNumeratorMethod == "Count") {
-    dfNumerator$Numerator <- 1
-  } else {
-    dfNumerator$Numerator <- dfNumerator[[strNumeratorCol]]
-  }
-
   dfNumerator_subj <- dfNumerator %>%
+    rename(SubjectID = {{ strSubjectCol }}) %>%
+    mutate(Numerator = if (strNumeratorMethod == "Count") 1 else .data[[strNumeratorCol]]) %>%
     group_by(.data$SubjectID) %>%
-    summarise("Numerator" = sum(.data$Numerator)) %>%
-    ungroup()
+    summarise(Numerator = sum(.data$Numerator, na.rm = TRUE))
 
   # Calculate Denominator
-  dfDenominator <- dfDenominator %>%
-    rename("SubjectID" = !!strSubjectCol)
-
-  if (strDenominatorMethod == "Count") {
-    dfDenominator$Denominator <- 1
-  } else {
-    dfDenominator$Denominator <- dfDenominator[[strDenominatorCol]]
-  }
-
   dfDenominator_subj <- dfDenominator %>%
+    rename(SubjectID = {{ strSubjectCol }}) %>%
+    mutate(Denominator = if (strDenominatorMethod == "Count") 1 else .data[[strDenominatorCol]]) %>%
     group_by(.data$SubjectID) %>%
-    summarise("Denominator" = sum(.data$Denominator)) %>%
-    ungroup()
+    summarise(Denominator = sum(.data$Denominator, na.rm = TRUE))
+
+  if (all(dfDenominator_subj$Denominator == 0)) {
+    cli::cli_abort(
+      "Method `{strDenominatorMethod}` for `{strDenominatorCol}` is causing all denominator values to be 0, please check `dfDenominator`}"
+    )
+  }
 
   # Merge Numerator and Denominator with Subject Data. Keep all data in Subject. Fill in missing numerator/denominators with 0
   dfInput <- dfSubjects %>%

@@ -29,7 +29,12 @@ test_that("invalid data returns list NULL elements", {
 
   ### strPath - testing strPath equal to non-existent/incorrect location of assessment YAML files
   expect_error(
-    MakeWorkflowList(strNames = strNames, strPath = "beyonce", bRecursive = bRecursive)
+    MakeWorkflowList(
+      strNames = strNames,
+      strPath = "beyonce",
+      strPackage = NULL,
+      bRecursive = bRecursive
+    )
   )
 
   ### strPackage - testing strPackage equal to non-existent/incorrect package name
@@ -40,5 +45,5 @@ test_that("invalid data returns list NULL elements", {
   ### bRecursive
   wf_list <- MakeWorkflowList(bRecursive = TRUE, strNames = "kri0002")$kri0002
   expect_true(is.list(wf_list))
-  expect_length(wf_list, 5)
+  expect_length(wf_list, 4)
 })

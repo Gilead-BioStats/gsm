@@ -51,6 +51,15 @@ Widget_GroupOverview <- function(
   strGroupLabelKey = "InvestigatorLastName",
   bDebug = FALSE
 ) {
+  stopifnot(
+    "dfResults is not a data.frame" = is.data.frame(dfResults),
+    "dfMetrics is not a data.frame" = is.data.frame(dfMetrics),
+    "dfGroups is not a data.frame" = is.data.frame(dfGroups),
+    "strGroupSubset is not a character" = is.character(strGroupSubset),
+    "strGroupLabelKey is not a character or NULL" = is.character(strGroupLabelKey) || is.null(strGroupLabelKey),
+    "bDebug is not a logical" = is.logical(bDebug)
+  )
+
   # set strGroupLevel if NULL and dfMetrics is not NULL
   if (is.null(strGroupLevel) && !is.null(dfMetrics)) {
     strGroupLevel <- unique(dfMetrics$GroupLevel)

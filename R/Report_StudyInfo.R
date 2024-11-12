@@ -1,69 +1,93 @@
 #' Report Study Information
 #'
-#' @description
-#' `r lifecycle::badge("stable")`
+#' @description `r lifecycle::badge("stable")`
 #'
-#' This function generates a table summarizing study metadata.
+#' This function generates a table summarizing study metadata as an interactive
+#' [gt::gt()] wrapped in HTML.
 #'
-#' @param lStudy A list containing study information.
-#' @param lStudyLabels A list containing study labels. Default is NULL.
+#' @inheritParams shared-params
+#' @param lStudyLabels `list` A list containing study labels. Default is NULL.
+#' @param strId `character` A string to identify the output table.
+#' @param tagHeader `shiny.tag` An HTML tag or tags to use as a header for the
+#'   table.
+#' @param lStudy `deprecated` Study information as a named list.
 #'
 #' @export
 #'
-#' @return None
-#'
-#' @keywords internal
+#' @return A [htmltools::tagList()] to display a table of study information.
 
 Report_StudyInfo <- function(
-  lStudy,
-  lStudyLabels = NULL
+  dfGroups,
+  lStudyLabels = NULL,
+  strId = "study_table",
+  tagHeader = htmltools::h2("Study Status"),
+  lStudy = deprecated()
 ) {
-  rlang::check_installed("gt", reason = "to render table from `MakeStudyStatusTable`")
+  rlang::check_installed("gt", reason = "to render table from `Report_StudyInfo`")
 
-  # default study labels - also used to sort the meta datatable
-  if (is.null(lStudyLabels)) {
-    lStudyLabels <- list(
-      SiteCount = "Sites Enrolled",
-      ParticipantCount = "Participants Enrolled",
-      Status = "Study Status"
-    )
-  }
+  study_status_table <- MakeStudyInfo(dfGroups, lStudyLabels, lStudy = lStudy)
 
-  lLabels <- MakeParamLabelsList(names(lStudy), lStudyLabels)
-  dfLabels <- data.frame(
-    Param = names(lLabels),
-    Description = unname(unlist(lLabels))
+  subcols <- c("GroupID", "nickname", "Status", "SiteCount", "ParticipantCount")
+  show_table <- study_status_table %>%
+    dplyr::filter(.data$Param %in% subcols) %>%
+    gt_StudyInfo(id = strId)
+
+  strId_hide <- paste0(strId, "_hide")
+  hide_table <- htmltools::div(
+    id = strId_hide,
+    style = "display: none;",
+    gt_StudyInfo(study_status_table, id = paste0(strId_hide, "_gt"))
   )
 
-  study_status_table <- data.frame(
-    Param = names(lStudy),
-    Value = unname(unlist(lStudy))
-  ) %>%
-    dplyr::left_join(dfLabels, by = "Param") %>%
-    dplyr::select(-"Param") %>%
-    dplyr::mutate(
-      Value = dplyr::if_else(
-        is.na(.data$Value),
-        .data$Value,
-        prettyNum(.data$Value, drop0trailing = TRUE)
-      )
+  htmltools::tagList(
+    tagHeader,
+    htmlDetailsButton(strId, strId_hide),
+    show_table,
+    hide_table,
+    htmlDependency_toggleTables()
+  )
+}
+
+htmlDetailsButton <- function(strId, strId_hide) {
+  HTML(glue::glue(
+    '<label class="toggle">',
+    '  <input class="toggle-checkbox btn-show-details" type="checkbox"',
+    '    data-shown-table="{strId}"',
+    '    data-hidden-table="{strId_hide}"',
+    '    data-hidden="false"',
+    '    onclick="toggleTables(this)">',
+    '  <div class="toggle-switch"></div>',
+    '  <span class="toggle-label">Show Details</span>',
+    "</label>",
+    .sep = "\n"
+  ))
+}
+
+htmlDependency_toggleTables <- function() {
+  htmltools::tagList(
+    htmltools::htmlDependency(
+      name = "toggleTables",
+      version = "1.0.0",
+      src = "report/lib",
+      package = "gsm",
+      script = "toggleTables.js"
+    ),
+    htmltools::htmlDependency(
+      name = "toggleButton",
+      version = "1.0.0",
+      src = "report",
+      package = "gsm",
+      stylesheet = "toggleButton.css"
     )
+  )
+}
 
-  show_table <- study_status_table %>%
-    gsm_gt(id = "study_table")
-
-  hide_table <- study_status_table %>%
-    gsm_gt(id = "study_table_hide")
-
-  toggle_switch <- glue::glue('<label class="toggle">
-  <input class="toggle-checkbox btn-show-details" type="checkbox">
-  <div class="toggle-switch"></div>
-  <span class="toggle-label">Show Details</span>
-</label>')
-  show_details_button <- HTML(toggle_switch)
-
-  print(htmltools::h2("Study Status"))
-  print(htmltools::tagList(show_details_button))
-  print(htmltools::tagList(show_table))
-  print(htmltools::tagList(hide_table))
+gt_StudyInfo <- function(data, ...) {
+  data %>%
+    dplyr::select("Description", "Value") %>%
+    gsm_gt(...) %>%
+    gt::cols_align(columns = "Value", align = "right") %>%
+    gt::tab_options(
+      column_labels.hidden = TRUE
+    )
 }

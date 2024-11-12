@@ -1,0 +1,85 @@
+meta:
+  Type: Metric
+  ID: kri0008_custom
+  File: kri0008_custom.yaml
+  GroupLevel: Race
+  Abbreviation: QRY
+  Metric: Query Rate
+  Numerator: Queries
+  Denominator: Total Data Points
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
+  AnalysisType: rate
+  Threshold: -5,-3,3,5
+  nMinDenominator: 300
+spec:
+  Mapped_QUERY:
+    subjid:
+      required: true
+      type: character
+    querystatus:
+      required: true
+      type: character
+  Mapped_SUBJ:
+    subjid:
+      required: true
+      type: character
+    invid:
+      required: true
+      type: character
+    race:
+      required: true
+      type: character
+  Mapped_DATACHG:
+    subjid:
+      required: true
+      type: character
+steps:
+  - output: vThreshold
+    name: ParseThreshold
+    params:
+      strThreshold: Threshold
+  - output: Temp_QUERY
+    name: RunQuery
+    params:
+      df: Mapped_QUERY
+      strQuery: "SELECT * FROM df WHERE querystatus IN ('Open','Answered','Closed')"
+  - output: Analysis_Input
+    name: Input_Rate
+    params:
+      dfSubjects: Mapped_SUBJ
+      dfNumerator: Temp_QUERY
+      dfDenominator: Mapped_DATACHG
+      strSubjectCol: subjid
+      strGroupCol: race
+      strGroupLevel: GroupLevel
+      strNumeratorMethod: Count
+      strDenominatorMethod: Count
+  - output: Analysis_Transformed
+    name: Transform_Rate
+    params:
+      dfInput: Analysis_Input
+  - output: Analysis_Analyzed
+    name: Analyze_NormalApprox
+    params:
+      dfTransformed: Analysis_Transformed
+      strType: AnalysisType
+  - output: Analysis_Flagged
+    name: Flag_NormalApprox
+    params:
+      dfAnalyzed: Analysis_Analyzed
+      vThreshold: vThreshold
+  - output: Analysis_Summary
+    name: Summarize
+    params:
+      dfFlagged: Analysis_Flagged
+      nMinDenominator: nMinDenominator
+  - output: lAnalysis
+    name: list
+    params:
+      ID: ID
+      Analysis_Input: Analysis_Input
+      Analysis_Transformed: Analysis_Transformed
+      Analysis_Analyzed: Analysis_Analyzed
+      Analysis_Flagged: Analysis_Flagged
+      Analysis_Summary: Analysis_Summary

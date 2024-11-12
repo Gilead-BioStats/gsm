@@ -1,0 +1,27 @@
+meta:
+  Type: Mapped
+  ID: COUNTRY
+  Description: Country Data Mapping 
+  Priority: 3
+spec:
+  Mapped_SUBJ:
+    country:
+      required: true
+      type: character
+    invid:
+      required: true
+      type: character
+    subjid:
+      required: true
+      type: character
+steps:
+  - output: Temp_CountryCountsWide
+    name: RunQuery
+    params:
+      df: Mapped_SUBJ
+      strQuery: "SELECT country as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country"
+  - output: Mapped_COUNTRY
+    name: MakeLongMeta
+    params:
+      data: Temp_CountryCountsWide
+      strGroupLevel: "Country"

@@ -13,14 +13,14 @@
 #' @examples
 #' ## Filter data to one metric and snapshot
 #' reportingResults_filter <- reportingResults %>%
-#'   dplyr::filter(MetricID == "kri0001" & SnapshotDate == max(SnapshotDate))
+#'   dplyr::filter(MetricID == "Analysis_kri0001" & SnapshotDate == max(SnapshotDate))
 #'
 #' reportingMetrics_filter <- reportingMetrics %>%
-#'   dplyr::filter(MetricID == "kri0001") %>%
+#'   dplyr::filter(MetricID == "Analysis_kri0001") %>%
 #'   as.list()
 #'
 #' reportingBounds_filter <- reportingBounds %>%
-#'   dplyr::filter(MetricID == "kri0001" & SnapshotDate == max(SnapshotDate))
+#'   dplyr::filter(MetricID == "Analysis_kri0001" & SnapshotDate == max(SnapshotDate))
 #'
 #' Widget_ScatterPlot(
 #'   dfResults = reportingResults_filter,
@@ -33,13 +33,23 @@
 
 Widget_ScatterPlot <- function(
   dfResults,
-  lMetric = list(), # TODO: coerce list to object instead of array with jsonlite::toJSON()
+  lMetric = NULL,
   dfGroups = NULL,
   dfBounds = NULL,
   bAddGroupSelect = TRUE,
   strShinyGroupSelectID = "GroupID",
   bDebug = FALSE
 ) {
+  stopifnot(
+    "dfResults is not a data.frame" = is.data.frame(dfResults),
+    "lMetric must be a list, but not a data.frame" = is.null(lMetric) || (is.list(lMetric) && !is.data.frame(lMetric)),
+    "dfGroups is not a data.frame" = is.null(dfGroups) || is.data.frame(dfGroups),
+    "dfBounds is not a data.frame" = is.null(dfBounds) || is.data.frame(dfBounds),
+    "bAddGroupSelect is not a logical" = is.logical(bAddGroupSelect),
+    "strShinyGroupSelectID is not a character" = is.character(strShinyGroupSelectID),
+    "bDebug is not a logical" = is.logical(bDebug)
+  )
+
   # define widget inputs
   input <- list(
     dfResults = dfResults,
@@ -48,6 +58,7 @@ Widget_ScatterPlot <- function(
     dfBounds = dfBounds,
     bAddGroupSelect = bAddGroupSelect,
     strShinyGroupSelectID = strShinyGroupSelectID,
+    strFootnote = ifelse(!is.null(dfGroups), "Point size is relative to the number of enrolled participants.", ""),
     bDebug = bDebug
   )
 

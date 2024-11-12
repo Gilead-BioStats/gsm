@@ -5,10 +5,9 @@
 \alias{reportingMetrics}
 \title{reportingMetrics Dataset}
 \format{
-A data frame with 2 rows and 12 columns:
+A data frame with 12 rows and 17 columns:
 \describe{
 \item{MetricID}{unique metric identifier}
-\item{File}{yaml file for workflow}
 \item{GroupLevel}{level of grouping variable}
 \item{Abbreviation}{abbreviation for the metric}
 \item{Metric}{name of the metric}
@@ -19,6 +18,12 @@ A data frame with 2 rows and 12 columns:
 \item{Type}{statistical outcome type}
 \item{Threshold}{thresholds to be used for bounds and flags}
 \item{nMinDenominator}{minimum denominator required to return a score and calculate a flag}
+\item{ID}{ID}
+\item{Priority}{Priority in workflow}
+\item{Output}{output}
+\item{Name}{name}
+\item{Description}{description}
+\item{AnalysisType}{analysis type}
 }
 }
 \source{

@@ -1,0 +1,84 @@
+#' Apply Data Specification
+#'
+#' @description
+#' `r lifecycle::badge("stable")`
+#'
+#' Apply a column specification to a data frame. The column specification is a
+#' named list where the names are the target column names and the values are
+#' lists of column specifications. The column specifications can include:
+#'   - `required`: Whether the column is required.
+#'   - `type`: The data type to convert the column to.
+#'   - `source_col`: The name of the source column to map to the target column.
+#'
+#' @param dfSource `data.frame` Data frame to apply the column specification to.
+#' @param columnSpecs `list` Column specification.
+#' @param domain `character` Domain name.
+#'
+#' @return `data.frame` `dfSource` with the column specification applied.
+#'
+#' @export
+
+ApplySpec <- function(dfSource, columnSpecs, domain) {
+  # Add all columns to the spec if '_all' is present.
+  if ("_all" %in% names(columnSpecs)) {
+    missingColumnSpecs <- setdiff(names(dfSource), names(columnSpecs))
+
+    for (column in missingColumnSpecs) {
+      columnSpecs[[column]] <- list()
+    }
+
+    columnSpecs[["_all"]] <- NULL
+    columnSpecs <- map(columnSpecs, ~ {
+      .x$required <- TRUE
+      .x
+    })
+  }
+
+  # write a query to select the columns from the source
+  columnMapping <- columnSpecs %>%
+    imap(
+      function(spec, name) {
+        mapping <- list(target = name)
+        mapping$source <- spec$source_col %||% name
+        mapping$type <- spec$type %||% NULL
+        mapping$required <- spec$required %||% FALSE
+        return(mapping)
+      }
+    ) %>%
+    # Drop non-required columns that aren't in dfSource.
+    purrr::keep(~.x$required || .x$source %in% colnames(dfSource))
+
+  # check that the required columns exists in the source data
+  sourceCols <- columnMapping %>% map("source")
+  if (!all(sourceCols %in% names(dfSource))) {
+    missingCols <- sourceCols[!sourceCols %in% names(dfSource)]
+    stop(glue("Columns not found in source data for domain '{domain}': {missingCols}."))
+  }
+
+  # Write query to select/rename required columns from source to target
+  strColQuery <- columnMapping %>%
+    map_chr(function(mapping) {
+      if (mapping$source == mapping$target) {
+        ifelse(!is.null(mapping$type),
+               glue("{mapping$source} AS {paste0(mapping$source, '__', mapping$type)}"),
+               mapping$source)
+      } else {
+        ifelse(!is.null(mapping$type),
+               glue("{mapping$source} AS {paste0(mapping$target, '__', mapping$type)}"),
+               glue("{mapping$source} AS {mapping$target}"))
+      }
+    }) %>%
+    paste(collapse = ", ")
+
+
+  strQuery <- glue("SELECT {strColQuery} FROM df")
+
+  # call RunQuery to get the data
+  dfTarget <- RunQuery(
+    dfSource,
+    strQuery = strQuery,
+    method = "name__class"
+  )
+
+  return(dfTarget)
+}

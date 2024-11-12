@@ -3,6 +3,8 @@ url: https://gilead-biostats.github.io/gsm
 template:
   bootstrap: 5
   bootswatch: yeti
+  includes:
+    in_header: '<link href="pkgdown/extra.css" rel="stylesheet">'
 
 navbar:
   structure:
@@ -13,9 +15,26 @@ navbar:
       text: Sample Reports
       menu:
         - text: Site Report
-          href: StandardReportSite.html
+          href: report_kri_site.html
         - text: Country Report
-          href: StandardReportCountry.html
+          href: report_kri_country.html
+
+articles:
+  - title: "Workflows"
+    navbar: "Workflows"
+    contents:
+      - DataModel
+      - Cookbook
+      - DataAnalysis
+      - DataReporting
+      - gsmExtensions
+      - articles/KRIMethod
+  - title: "Quality"
+    navbar: "Quality"
+    contents:
+      - articles/QualificationWorkflow
+      - articles/Qualification
+      - articles/ContributorGuidelines
 
 reference:
   - title: Visualize
@@ -55,21 +74,28 @@ reference:
       - Report_KRI
       - Report_MetricCharts
       - Report_MetricTable
+      - Report_StudyInfo
 
 
   - title: Utility
     desc: Utility functions for use within the Data Model
   - contents:
+     -  ApplySpec
      -  BindResults
+     -  CalculatePercentage
      -  CheckSpec
      -  CombineSpecs
      -  FilterByLatestSnapshotDate
+     -  FilterByFlags
+     -  Ingest
      -  MakeBounds
      -  MakeCharts
      -  MakeMetric
+     -  MakeMetricTable
      -  MakeLongMeta
      -  MakeParamLabels
      -  MakeParamLabelsList
+     -  MakeStudyInfo
      -  MakeWideGroups
      -  MakeWorkflowList
      -  ParseThreshold
@@ -89,4 +115,8 @@ reference:
       - reportingGroups
       - reportingMetrics
       - reportingResults
+      - reportingBounds_country
+      - reportingGroups_country
+      - reportingMetrics_country
+      - reportingResults_country
 

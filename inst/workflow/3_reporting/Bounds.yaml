@@ -1,0 +1,30 @@
+meta:
+  Type: Reporting
+  ID: Bounds
+  Description: Generate reporting data model including site-, country- and study-level metadata (dfGroups), metric metadata (dfMetrics) and results data with added study-level columsn (dfSummary and dfBounds).
+  Priority: 2
+spec:
+  Reporting_Results:
+    _all:
+      required: true
+    Numerator:
+      type: numeric
+    Denominator:
+      type: numeric
+    Metric:
+      type: numeric
+    Score:
+      type: numeric
+    Flag:
+      type: numeric
+  Reporting_Metrics:
+    _all:
+      required: true
+steps:
+  # Calculate bounds for confidence intervals.
+  - output: Reporting_Bounds
+    name: MakeBounds
+    params:
+      dfResults: Reporting_Results
+      dfMetrics: Reporting_Metrics
+

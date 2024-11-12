@@ -1,0 +1,35 @@
+meta:
+  Type: Mapped
+  ID: DATAENT
+  Description: Data Entry Data Mapping 
+  Priority: 2
+spec: 
+  Raw_DATAENT:
+    subject_nsv:
+      required: true
+      type: character
+      source_col: subjectname 
+    data_entry_lag:
+      required: true
+      type: integer
+  Mapped_SUBJ:
+    subjid:
+      required: true
+      type: character
+    subject_nsv:
+      required: true
+      type: character
+steps:
+  # Merge [ subjid ] onto EDC domains.
+  - output: Temp_SubjectLookup
+    name: select
+    params:
+      .data: Mapped_SUBJ
+      subjid: subjid
+      subject_nsv: subject_nsv
+  - output: Mapped_DATAENT
+    name: left_join
+    params:
+      x: Raw_DATAENT
+      "y": Temp_SubjectLookup
+      by: subject_nsv

@@ -15,10 +15,10 @@
 #'
 #' ## Filter sample data to only one metric
 #' reportingResults_filter <- reportingResults %>%
-#'   dplyr::filter(MetricID == "kri0001")
+#'   dplyr::filter(MetricID == "Analysis_kri0001")
 #'
 #' reportingBounds_filter <- reportingBounds %>%
-#'   dplyr::filter(MetricID == "kri0001")
+#'   dplyr::filter(MetricID == "Analysis_kri0001")
 #'
 #' ## Output- filtered to one snapshot date
 #' Visualize_Scatter(

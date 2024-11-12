@@ -1,0 +1,62 @@
+meta:
+  Type: Mapped
+  ID: STUDY
+  Description: STUDY Data Mapping 
+  Priority: 3
+spec:
+  Raw_STUDY:
+    studyid:
+      required: true
+      type: character
+      source_col: protocol_number
+    nickname:
+      required: true
+      type: character
+    protocol_title:
+      required: true
+      type: character
+    status:
+      required: true
+      type: character
+    num_plan_site:
+      required: true
+      type: integer
+    num_plan_subj:
+      required: true
+      type: integer
+  Mapped_SUBJ:
+    studyid:
+      required: true
+      type: character
+    invid:
+      required: true
+      type: character
+    subjid:
+      required: true
+      type: character
+steps:
+  - output: Temp_CTMSStudyWide
+    name: RunQuery
+    params:
+      df: Raw_STUDY
+      strQuery: "SELECT studyid as GroupID, * FROM df"
+  - output: Temp_CTMSStudy
+    name: MakeLongMeta
+    params:
+      data: Temp_CTMSStudyWide
+      strGroupLevel: "Study"
+  - output: Temp_StudyCountsWide
+    name: RunQuery
+    params:
+      df: Mapped_SUBJ
+      strQuery: "SELECT studyid as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY studyid"
+  - output: Temp_StudyCounts
+    name: MakeLongMeta
+    params:
+      data: Temp_StudyCountsWide
+      strGroupLevel: "Study"
+  - output: Mapped_STUDY
+    name: bind_rows
+    params:
+      Temp_CTMSStudy: Temp_CTMSStudy
+      Temp_StudyCounts: Temp_StudyCounts

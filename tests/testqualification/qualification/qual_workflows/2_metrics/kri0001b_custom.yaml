@@ -1,0 +1,68 @@
+meta:
+  Type: Metric
+  ID: kri0001b_custom
+  File: kri0001b_custom.yaml
+  GroupLevel: Site
+  Abbreviation: AE
+  Metric: Adverse Event Rate
+  Numerator: Adverse Events
+  Denominator: Days on Study
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
+  AnalysisType: rate
+  Threshold: -5,-3,3,5
+  nMinDenominator: 300
+spec:
+  Analysis_Input:
+    SubjectID:
+      required: true
+      type: integer
+    GroupID:
+      required: true
+      type: character
+    GroupLevel:
+      required: true
+      type: character
+    Numerator:
+      required: true
+      type: integer
+    Denominator:
+      required: true
+      type: integer
+    Metric:
+      required: true
+      type: integer
+steps:
+  - name: ParseThreshold
+    output: vThreshold
+    params:
+      strThreshold: Threshold
+  - name: Transform_Rate
+    output: Analysis_Transformed
+    params:
+      dfInput: Analysis_Input
+  - name: Analyze_NormalApprox
+    output: Analysis_Analyzed
+    params:
+      dfTransformed: Analysis_Transformed
+      strType: AnalysisType
+  - name: Flag_NormalApprox
+    output: Analysis_Flagged
+    params:
+      dfAnalyzed: Analysis_Analyzed
+      vThreshold: vThreshold
+  - name: Summarize
+    output: Analysis_Summary
+    params:
+      dfFlagged: Analysis_Flagged
+      nMinDenominator: nMinDenominator
+  - name: list
+    output: lAnalysis
+    params:
+      id: ID
+      input: Analysis_Input
+      transformed: Analysis_Transformed
+      analyzed: Analysis_Analyzed
+      flagged: Analysis_Flagged
+      summary: Analysis_Summary
+

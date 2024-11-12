@@ -8,7 +8,7 @@ BindResults(
   lAnalysis,
   strName,
   dSnapshotDate = Sys.Date(),
-  strStudyID,
+  strStudyID = NULL,
   bUselData = FALSE
 )
 }

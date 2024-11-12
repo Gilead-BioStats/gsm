@@ -1,0 +1,77 @@
+meta:
+  Type: Analysis
+  ID: cou0010_custom
+  GroupLevel: Sex
+  Abbreviation: ODAT
+  Metric: Outstanding Data Entry Rate
+  Numerator: Data Pages Entered > 10 Days
+  Denominator: Total Data Pages
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
+  AnalysisType: binary
+  Threshold: -5,-3,3,5
+  nMinDenominator: 300
+spec:
+  Mapped_SUBJ:
+    subjid:
+      required: true
+      type: character
+    sex:
+      required: true
+      type: character
+  Mapped_DATAENT:
+    subjid:
+      required: true
+      type: character
+    data_entry_lag:
+      required: true
+      type: integer
+steps:
+  - output: vThreshold
+    name: ParseThreshold
+    params:
+      strThreshold: Threshold
+  - output: Temp_LAG
+    name: RunQuery
+    params:
+      df: Mapped_DATAENT
+      strQuery: "SELECT * FROM df WHERE data_entry_lag > 10"
+  - output: Analysis_Input
+    name: Input_Rate
+    params:
+      dfSubjects: Mapped_SUBJ
+      dfNumerator: Temp_LAG
+      dfDenominator: Mapped_DATAENT
+      strSubjectCol: subjid
+      strGroupCol: sex
+      strGroupLevel: GroupLevel
+      strNumeratorMethod: Count
+      strDenominatorMethod: Count
+  - output: Analysis_Transformed
+    name: Transform_Rate
+    params:
+      dfInput: Analysis_Input
+  - output: Analysis_Analyzed
+    name: Analyze_NormalApprox
+    params:
+      dfTransformed: Analysis_Transformed
+      strType: AnalysisType
+  - output: Analysis_Flagged
+    name: Flag_NormalApprox
+    params:
+      dfAnalyzed: Analysis_Analyzed
+      vThreshold: vThreshold
+  - output: Analysis_Summary
+    name: Summarize
+    params:
+      dfFlagged: Analysis_Flagged
+      nMinDenominator: nMinDenominator
+  - output: lAnalysis
+    name: list
+    params:
+      ID: ID
+      Analysis_Input: Analysis_Input
+      Analysis_Transformed: Analysis_Transformed
+      Analysis_Analyzed: Analysis_Analyzed
+      Analysis_Flagged: Analysis_Flagged
+      Analysis_Summary: Analysis_Summary
