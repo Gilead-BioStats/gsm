@@ -33,6 +33,7 @@ Imports:
     broom,
     cli,
     dplyr,
+    duckdb,
     ggplot2,
     glue,
     gt,

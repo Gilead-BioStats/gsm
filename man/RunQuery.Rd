@@ -2,24 +2,26 @@
 % Please edit documentation in R/RunQuery.R
 \name{RunQuery}
 \alias{RunQuery}
-\title{Run a SQL query with mapping and data}
+\title{Run a SQL query on a data frame or DuckDB table}
 \usage{
-RunQuery(strQuery, df, method = NULL)
+RunQuery(strQuery, df)
 }
 \arguments{
-\item{strQuery}{\code{character} SQL query to run.}
+\item{strQuery}{\code{character} SQL query to run, containing placeholders \code{"FROM df"}.}
 
-\item{df}{\code{data.frame} A data frame to use in the SQL query.}
-
-\item{method}{\code{character} A method argument to be passed to \code{sqldf::sqldf()}. Defaults to \code{NULL}.}
+\item{df}{\code{data.frame} or \code{tbl_dbi} A data frame or DuckDB lazy table to use in the SQL query.}
 }
 \value{
-\code{data.frame} containing the results of the SQL query
+\code{data.frame} containing the results of the SQL query.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
-Run a SQL query against a dataframe.
+\code{RunQuery} executes a SQL query on a data frame or a DuckDB lazy table, allowing dynamic use of local or database-backed data.
+If a DuckDB connection is passed in as \code{df}, it operates on the existing connection. Otherwise, it creates a temporary DuckDB
+table from the provided data frame for SQL processing.
+
+The SQL query should include the placeholder \verb{FROM df} to indicate where the primary data source (\code{df}) should be referenced.
 }
 \examples{
 df <- data.frame(
