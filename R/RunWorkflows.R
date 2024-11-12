@@ -21,13 +21,13 @@
 #' @export
 
 RunWorkflows <- function(
-  lWorkflows,
-  lData = NULL,
-  bKeepInputData = FALSE,
-  bReturnResult = TRUE,
-  strResultNames = c("Type", "ID")
+    lWorkflows,
+    lData = NULL,
+    bKeepInputData = FALSE,
+    bReturnResult = TRUE,
+    strResultNames = c("Type", "ID")
 ) {
-  cli_logger_info(glue::glue("Running {length(lWorkflows)} Workflows"))
+  cli::cli_h1("Running {length(lWorkflows)} Workflows")
 
   lResults <- list()
   for (wf in lWorkflows) {

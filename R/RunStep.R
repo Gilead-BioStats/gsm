@@ -55,11 +55,10 @@
 #' @export
 
 RunStep <- function(lStep, lData, lMeta, lSpec = NULL) {
-  log4r::info(.package_logger, "[RunStep] Starting function execution.")
   # prepare parameter list inputs
   params <- lStep$params
 
-  cli_log_info(glue::glue("Evaluating {length(params)} parameter(s) for `{lStep$name}`"))
+  cli::cli_h3("Evaluating {length(params)} parameter(s) for {.fn {lStep$name}}")
 
   # This loop iterates over each parameter in the 'params' object.
   for (paramName in names(params)) {
@@ -67,34 +66,34 @@ RunStep <- function(lStep, lData, lMeta, lSpec = NULL) {
     if (length(paramVal) == 1) {
       if (paramVal == "lMeta") {
         # Pass lMeta (typically from the workflow header)
-        cli_log_info(glue::glue("{paramName} = {paramVal}:  Passing full lMeta object."))
+        cli::cli_alert_success("{paramName} = {paramVal}:  Passing full lMeta object.")
         params[[paramName]] <- lMeta
       } else if (paramVal == "lData") {
         # Pass lData
-        cli_log_info(glue::glue("{paramName} = {paramVal}:  Passing full lData object."))
+        cli::cli_alert_success("{paramName} = {paramVal}:  Passing full lData object.")
         params[[paramName]] <- lData
       } else if (paramVal == "lSpec") {
         # Pass lSpec
-        cli_log_info(glue::glue("{paramName} = {paramVal}:  Passing full lSpec object."))
+        cli::cli_alert_success("{paramName} = {paramVal}:  Passing full lSpec object.")
         params[[paramName]] <- lSpec
       } else if (paramVal %in% names(lMeta)) {
         # Use named items from lMeta
-        cli_log_info(glue::glue("{paramName} = {paramVal}:  Passing lMeta${paramVal} object."))
+        cli::cli_alert_success("{paramName} = {paramVal}: Passing lMeta${paramVal}.")
         params[[paramName]] <- lMeta[[paramVal]]
       } else if (paramVal %in% names(lData)) {
-        cli_log_info(glue::glue("{paramName} = {paramVal}: Passing lData${paramVal}."))
+        cli::cli_alert_success("{paramName} = {paramVal}: Passing lData${paramVal}.")
         params[[paramName]] <- lData[[paramVal]]
       } else {
         # If the parameter value is not found in 'lMeta' or 'lData', pass the parameter value as a string.
-        cli_log_info(glue::glue("{paramName} = {paramVal}: No matching data found. Passing '{paramVal}' as a string."))
+        cli::cli_alert_info("{paramName} = {paramVal}: No matching data found. Passing '{paramVal}' as a string.")
       }
     } else {
       # If the parameter value is a vector, pass the vector as is.
-      cli_log_info(glue::glue("{paramName} = {paramVal}: Parameter is a vector. Passing as is."))
+      cli::cli_alert_info("{paramName} = {paramVal}: Parameter is a vector. Passing as is.")
     }
   }
 
-  cli_log_info(glue::glue("Calling `{lStep$name}`"))
+  cli::cli_h3("Calling {.fn {lStep$name}}")
 
   return(do.call(lStep$name, params))
 }

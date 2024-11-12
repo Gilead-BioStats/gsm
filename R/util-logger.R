@@ -2,7 +2,7 @@
 
 # Function to set up a logger with flexible output options
 set_logger <- function(name = "default",
-                       output_target = "both",
+                       output_target = "file",
                        log_level = "INFO",
                        metadata = list(),
                        log_file = NULL) {
