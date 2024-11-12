@@ -25,11 +25,13 @@ HTMLWidgets.widget({
         checkbox.type = 'checkbox';
         checkbox.classList.add('toggle-checkbox')
         checkbox.id = 'toggle-checkbox';
+        checkbox.checked = false;
         toggleContainer.appendChild(checkbox);
 
         // Create the switch element
         const switchElement = document.createElement('div');
         switchElement.classList.add('toggle-switch');
+        switchElement.id = "toggle-switch"
         toggleContainer.appendChild(switchElement);
 
         const labelText = document.createElement('span');
@@ -70,6 +72,7 @@ HTMLWidgets.widget({
         toggleContainer.addEventListener('click', () => {
           showRecent = !showRecent;
           updateTable(showRecent);
+          for(toggle of document.getElementsByTagName('input')){if(toggle.id==='toggle-checkbox')toggle.checked=showRecent;}
         });
 
         addGroupSubsetLongitudinalListener(el); // Initial call for filtering
