@@ -39,6 +39,10 @@ RunQuery <- function(strQuery, df) {
     con <- dbplyr::remote_con(df)
     table_name <- dbplyr::remote_name(df)
   } else {
+    if (ncol(df) == 0) {
+      cli::cli_alert_warning("df has no columns. Query not run. Returning empty data frame.")
+      return(df)
+    }
     cli::cli_text("Creating a new temporary DuckDB connection.")
     con <- DBI::dbConnect(duckdb::duckdb())
     temp_table_name <- paste0("temp_table_", format(Sys.time(), "%Y%m%d_%H%M%S"))
