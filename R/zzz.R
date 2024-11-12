@@ -4,17 +4,8 @@ NULL
 
 globalVariables(c("."))
 
-
-.package_logger <- log4r::logger(
-  threshold = "INFO",
-  appenders = log4r::file_appender("gsm_log.log")
-)
-
+# Default logger object
 .onLoad <- function(libname, pkgname) {
-  # Make sure .package_logger is available when package loads
-  if (!exists(".package_logger", envir = asNamespace(pkgname))) {
-    assign(".package_logger",
-           log4r::logger(threshold = "INFO", appenders = log4r::file_appender("gsm_log.log")),
-           envir = asNamespace(pkgname))
-  }
+  # Set a default logger name and instance on package load
+  set_logger("default")
 }
