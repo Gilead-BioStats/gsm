@@ -1,12 +1,12 @@
 # gsm v2.1.2
 
-This patch release primarily addresses report cosmetic updates and handling classes in sql queries properly. Specifically:
+This patch release primarily addresses minor report updates and handling classes in sql queries properly. Specifically:
 
 - Add method param to sqldf so that we can use `"name__class"` method
-- use `gt` for tables throughout entire package
 - update Flags Over Time widget to only show past 12 months by default, but add toggle to show full history
 - display site/participant target as `n/N (x%)` in reports
 - display study nickname on report (if present)
+- use `gt` for tables throughout entire package
 
 # gsm v2.1.1
 
