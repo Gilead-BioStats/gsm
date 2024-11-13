@@ -60,7 +60,7 @@ set_logger <- function(strName = NULL,
 #' @export
 get_logger <- function(strName = NULL) {
   if (is.null(strName)) {
-    strName <- getOption("my_pkg_default_logger_name")
+    strName <- "gsm_log"
   }
 
   # Fetch the logger by the resolved name
