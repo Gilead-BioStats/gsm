@@ -1,16 +1,20 @@
 # utils-logger.R
 
 # Function to set up a logger with flexible output options
-set_logger <- function(name = "default",
+set_logger <- function(name = NULL,
                        output_target = "file",
                        log_level = "INFO",
-                       metadata = list(),
-                       log_file = NULL) {
+                       metadata = list()) {
+  if(is.null(name)){
+    name <- "gsm_log"
+  }
+  log_file <- make_log_file(name)
+
   # Determine appenders based on the `output_target`
   appenders <- switch(output_target,
                       console = list(log4r::console_appender()),
-                      file = list(log4r::file_appender(log_file %||% "gsm_log.log")),  # Default file name or user-provided file
-                      both = list(log4r::console_appender(), log4r::file_appender(log_file %||% "gsm_log.log")),
+                      file = list(log4r::file_appender(log_file)),  # Default file name or user-provided file
+                      both = list(log4r::console_appender(), log4r::file_appender(log_file)),
                       stop("Invalid output_target. Choose 'console', 'file', or 'both'."))
 
   # Create a logger with specified settings
@@ -51,9 +55,9 @@ get_logger <- function(name = NULL) {
 
 make_log_file <- function(name) {
   # Define the filename and path
-  file_name <- name
-  file_path <- file.path(getwd(), name)
-  file.create(file_path)
+  file_name <- paste0(name, ".log", sep = "")
+  file_path <- file.path(getwd(), file_name)
+  file.create(paste0(file_path))
   absolute_path <- normalizePath(file_path)
   return(absolute_path)
 }
