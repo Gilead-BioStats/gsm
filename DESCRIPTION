@@ -32,6 +32,8 @@ Depends:
 Imports:
     broom,
     cli,
+    DBI,
+    dbplyr,
     dplyr,
     duckdb,
     ggplot2,
@@ -42,7 +44,6 @@ Imports:
     jsonlite,
     lifecycle,
     magrittr,
-    methods,
     purrr,
     rlang (>= 0.4.11),
     stats,
