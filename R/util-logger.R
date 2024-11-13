@@ -1,6 +1,17 @@
 # utils-logger.R
 
 # Function to set up a logger with flexible output options
+#' Title
+#'
+#' @param name
+#' @param output_target
+#' @param log_level
+#' @param metadata
+#'
+#' @return
+#' @export
+#'
+#' @examples
 set_logger <- function(name = NULL,
                        output_target = "file",
                        log_level = "INFO",
@@ -39,6 +50,14 @@ set_logger <- function(name = NULL,
 }
 
 # Function to retrieve the logger by name, using the default if no name is provided
+#' Title
+#'
+#' @param name
+#'
+#' @return
+#' @export
+#'
+#' @examples
 get_logger <- function(name = NULL) {
   if (is.null(name)) {
     name <- getOption("my_pkg_default_logger_name")
