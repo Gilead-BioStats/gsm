@@ -48,3 +48,12 @@ get_logger <- function(name = NULL) {
 
   logger
 }
+
+make_log_file <- function(name) {
+  # Define the filename and path
+  file_name <- name
+  file_path <- file.path(getwd(), name)
+  file.create(file_path)
+  absolute_path <- normalizePath(file_path)
+  return(absolute_path)
+}

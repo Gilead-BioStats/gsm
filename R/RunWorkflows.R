@@ -25,9 +25,13 @@ RunWorkflows <- function(
     lData = NULL,
     bKeepInputData = FALSE,
     bReturnResult = TRUE,
-    strResultNames = c("Type", "ID")
+    strResultNames = c("Type", "ID"),
+    strLogger = "default"
 ) {
+  logger <- get_logger(strLogger)
+
   cli::cli_h1("Running {length(lWorkflows)} Workflows")
+  log4r::info(logger, glue::glue("Running {length(lWorkflows)} Workflows"))
 
   lResults <- list()
   for (wf in lWorkflows) {
@@ -35,7 +39,8 @@ RunWorkflows <- function(
       lWorkflow = wf,
       lData = c(lResults, lData),
       bReturnResult = bReturnResult,
-      bKeepInputData = bKeepInputData
+      bKeepInputData = bKeepInputData,
+      strLogger = strLogger
     )
 
     resultName <- strResultNames %>%
