@@ -3,42 +3,40 @@
 # Function to set up a logger with flexible output options
 #' Title
 #'
-#' @param name
-#' @param output_target
-#' @param log_level
-#' @param metadata
+#' @param strName User defined name for the logger/log
+#' @param strOutputTarget Destination to sending logging to
+#' @param strLogLevel level of logs to include
+#' @param lMetadata
 #'
-#' @return
+#' @return logger object
 #' @export
-#'
-#' @examples
-set_logger <- function(name = NULL,
-                       output_target = "file",
-                       log_level = "INFO",
-                       metadata = list()) {
-  if(is.null(name)){
-    name <- "gsm_log"
+set_logger <- function(strName = NULL,
+                       strOutputTarget = "file",
+                       strLogLevel = "INFO",
+                       lMetadata = list()) {
+  if(is.null(strName)){
+    strName <- "gsm_log"
   }
-  log_file <- make_log_file(name)
+  log_file <- make_log_file(strName)
 
   # Determine appenders based on the `output_target`
-  appenders <- switch(output_target,
+  appenders <- switch(strOutputTarget,
                       console = list(log4r::console_appender()),
                       file = list(log4r::file_appender(log_file)),  # Default file name or user-provided file
                       both = list(log4r::console_appender(), log4r::file_appender(log_file)),
-                      stop("Invalid output_target. Choose 'console', 'file', or 'both'."))
+                      stop("Invalid `strOutputTarget`. Choose 'console', 'file', or 'both'."))
 
   # Create a logger with specified settings
   logger <- log4r::logger(
-    threshold = log_level,
+    threshold = strLogLevel,
     appenders = appenders
   )
 
   # Attach metadata to the logger instance
-  attr(logger, "metadata") <- metadata
+  attr(logger, "lMetadata") <- lMetadata
 
   # Dynamically construct the option name
-  option_name <- paste0("my_pkg_logger_", name)
+  option_name <- paste0("my_pkg_logger_", strName)
 
   # Use rlang::call to construct the options() call
   options_call <- call("options", setNames(list(logger), option_name))
@@ -52,22 +50,20 @@ set_logger <- function(name = NULL,
 # Function to retrieve the logger by name, using the default if no name is provided
 #' Title
 #'
-#' @param name
+#' @param strName Retrive logger object
 #'
-#' @return
+#' @return logger object
 #' @export
-#'
-#' @examples
-get_logger <- function(name = NULL) {
-  if (is.null(name)) {
-    name <- getOption("my_pkg_default_logger_name")
+get_logger <- function(strName = NULL) {
+  if (is.null(strName)) {
+    strName <- getOption("my_pkg_default_logger_name")
   }
 
   # Fetch the logger by the resolved name
-  logger <- getOption(paste0("my_pkg_logger_", name))
+  logger <- getOption(paste0("my_pkg_logger_", strName))
 
   # Error if the logger does not exist
-  if (is.null(logger)) stop("Logger '", name, "' not found. Please call `set_logger(name = '", name, "')` first.")
+  if (is.null(logger)) stop("Logger '", strName, "' not found. Please call `set_logger(name = '", strName, "')` first.")
 
   logger
 }

@@ -8,7 +8,8 @@ RunWorkflow(
   lWorkflow,
   lData = NULL,
   bReturnResult = TRUE,
-  bKeepInputData = TRUE
+  bKeepInputData = TRUE,
+  strLogger = strLogger
 )
 }
 \arguments{

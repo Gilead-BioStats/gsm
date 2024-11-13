@@ -4,7 +4,7 @@
 \alias{RunStep}
 \title{Run a single step in a workflow.}
 \usage{
-RunStep(lStep, lData, lMeta, lSpec = NULL)
+RunStep(lStep, lData, lMeta, lSpec = NULL, strLogger = strLogger)
 }
 \arguments{
 \item{lStep}{\code{list} single workflow step (typically pulled from \code{lWorkflow$steps}). Should

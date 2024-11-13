@@ -9,7 +9,8 @@ RunWorkflows(
   lData = NULL,
   bKeepInputData = FALSE,
   bReturnResult = TRUE,
-  strResultNames = c("Type", "ID")
+  strResultNames = c("Type", "ID"),
+  strLogger = "default"
 )
 }
 \arguments{
