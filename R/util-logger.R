@@ -13,7 +13,11 @@
 set_logger <- function(strName = NULL,
                        strOutputTarget = "file",
                        strLogLevel = "INFO",
-                       lMetadata = list()) {
+                       lMetadata = list(
+                         r_version = R.version,
+                         user = "testuser",
+                         renv = ifelse(file.exists("renv.lock"), "present", "not present")
+                       )) {
   if(is.null(strName)){
     strName <- "gsm_log"
   }
