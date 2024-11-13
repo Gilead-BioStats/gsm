@@ -1,4 +1,6 @@
 #### 3.1 - Create a KRI Report using 12 standard metrics in a step-by-step workflow
+devtools::load_all()
+library(jsonlite)
 
 # Source Data
 lSource <- list(
@@ -57,6 +59,61 @@ analyzed <- RunWorkflows(metrics_wf, mapped)
 reporting_wf <- MakeWorkflowList(strPath = "workflow/3_reporting")
 reporting <- RunWorkflows(reporting_wf, c(mapped, list(lAnalyzed = analyzed,
                                                        lWorkflows = metrics_wf)))
+
+pivoted_df <- reportingGroups %>%
+  pivot_wider(names_from = Param, values_from = Value) %>%
+  dplyr::filter(GroupLevel == "Study")
+
+
+json_output <- toJSON(pivoted_df, pretty = TRUE, auto_unbox = TRUE)
+
+if (dir.exists("json")){
+  fs::dir_delete("json")
+}
+dir.create("json")
+# Write the JSON output to a file
+write(json_output, file = "json/study.json")
+
+json_list <- pivoted_df %>%
+  mutate(
+    id = studyid,
+    name = nickname,
+    title = protocol_title,
+    characteristics = list(list(
+      status = Status,
+      siteActivation = paste0(round(100 * (as.numeric(num_site_actl) / as.numeric(num_plan_site))), "%"),
+      enrollment = paste0(num_enrolled_subj_m, "/", num_plan_subj),
+      fpfv = act_fpfv,
+      therapeuticArea = therapeutic_area,
+      indication = protocol_indication,
+      product = product,
+      phase = phase,
+      lpfv = act_lpfv,
+      lplv = act_lplv
+    ))
+  ) %>%
+  select(id, name, title, characteristics)
+
+
+# Convert to JSON and write to file
+json_output <- toJSON(json_list, pretty = TRUE, auto_unbox = TRUE)
+write(json_output, file = "json/study.json")
+
+study <- pivoted_df$studyid[1]
+module1 <- list(
+  studyId = study,
+  slug = "kri-country",
+  title = "KRI (by country)"
+)
+
+module2 <- list(
+  studyId = study,
+  slug = "kri-site",
+  title = "KRI (by site)"
+)
+
+modules <- list(module1, module2)
+write_json(modules, path = "json/module.json", pretty = TRUE, auto_unbox = TRUE)
 
 # Step 4 - Create KRI Reports - create KRI report using reporting data
 module_wf <- MakeWorkflowList(strPath = "workflow/4_modules")

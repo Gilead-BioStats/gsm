@@ -70,6 +70,31 @@ Report_KRI <- function(
     GroupLevel <- unique(dfMetrics$GroupLevel)
     StudyID <- unique(dfResults$StudyID)
     SnapshotDate <- max(unique(dfResults$SnapshotDate))
+    path <- file.path("reports", StudyID, paste0("kri-", tolower(GroupLevel)), SnapshotDate)
+
+    if (!dir.exists(path)) {
+      dir.create(path, recursive = TRUE)
+    }
+
+    new_entry <- list(
+      studyId = StudyID,
+      moduleSlug = paste0("kri-", tolower(GroupLevel)),
+      snapshotDate = SnapshotDate
+    )
+
+    # Check if the file "snapshot.json" exists
+    json_file <- "json/snapshot.json"
+    if (file.exists(json_file)) {
+      # Read existing JSON file and append new entry
+      existing_data <- fromJSON(json_file, simplifyDataFrame = FALSE)
+      updated_data <- c(existing_data, list(new_entry))
+    } else {
+      # If file doesn't exist, start with the new entry
+      updated_data <- list(new_entry)
+    }
+
+    write(toJSON(updated_data, pretty = TRUE, auto_unbox = TRUE), file = json_file)
+
     if (length(GroupLevel == 1) & length(StudyID) == 1) {
       # remove non alpha-numeric characters from StudyID, GroupLevel and SnapshotDate
       StudyID <- gsub("[^[:alnum:]]", "", StudyID)
@@ -84,8 +109,8 @@ Report_KRI <- function(
 
   RenderRmd(
     strInputPath = system.file("report", "Report_KRI.Rmd", package = "gsm"),
-    strOutputFile = strOutputFile,
-    strOutputDir = strOutputDir,
+    strOutputFile = "index.html",
+    strOutputDir = file.path(getwd(),path),
     lParams = list(
       lCharts = lCharts,
       dfResults = dfResults,
