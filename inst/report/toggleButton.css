@@ -27,10 +27,6 @@
   transition: left 0.25s ease-in-out; /* Smooth transition for position change */
 }
 
-.toggle-checkbox:checked + .toggle-switch {
-  background: var(--blue-button-color); /* Changes color when toggled */
-}
-
 .toggle-checkbox:checked + .toggle-switch::before {
   left: 33px; /* Moves the knob to the right when checked */
 }

@@ -35,21 +35,20 @@ ApplySpec <- function(dfSource, columnSpecs, domain) {
   }
 
   # write a query to select the columns from the source
-  columnMapping <- columnSpecs %>% imap(
-    function(spec, name) {
-      mapping <- list(target = name)
-
-      if ("source_col" %in% names(spec)) {
-        mapping$source <- spec$source_col
-      } else {
-        mapping$source <- name
+  columnMapping <- columnSpecs %>%
+    imap(
+      function(spec, name) {
+        mapping <- list(target = name)
+        mapping$source <- spec$source_col %||% name
+        mapping$type <- spec$type %||% NULL
+        mapping$required <- spec$required %||% FALSE
+        return(mapping)
       }
+    ) %>%
+    # Drop non-required columns that aren't in dfSource.
+    purrr::keep(~ .x$required || .x$source %in% colnames(dfSource))
 
-      return(mapping)
-    }
-  )
-
-  # check that the source columns exists in the source data
+  # check that the required columns exists in the source data
   sourceCols <- columnMapping %>% map("source")
   if (!all(sourceCols %in% names(dfSource))) {
     missingCols <- sourceCols[!sourceCols %in% names(dfSource)]
@@ -60,9 +59,15 @@ ApplySpec <- function(dfSource, columnSpecs, domain) {
   strColQuery <- columnMapping %>%
     map_chr(function(mapping) {
       if (mapping$source == mapping$target) {
-        return(mapping$source)
+        ifelse(!is.null(mapping$type),
+          glue("{mapping$source} AS {paste0(mapping$source, '__', mapping$type)}"),
+          mapping$source
+        )
       } else {
-        return(glue("{mapping$source} as {mapping$target}"))
+        ifelse(!is.null(mapping$type),
+          glue("{mapping$source} AS {paste0(mapping$target, '__', mapping$type)}"),
+          glue("{mapping$source} AS {mapping$target}")
+        )
       }
     }) %>%
     paste(collapse = ", ")
@@ -73,19 +78,9 @@ ApplySpec <- function(dfSource, columnSpecs, domain) {
   # call RunQuery to get the data
   dfTarget <- RunQuery(
     dfSource,
-    strQuery = strQuery
+    strQuery = strQuery,
+    method = "name__class"
   )
-
-  # Apply data types to each column in [ dfTarget ].
-  for (col in names(dfTarget)) {
-    if (col %in% names(columnSpecs)) {
-      spec <- columnSpecs[[col]]
-      if ("type" %in% names(spec)) {
-        # TODO: handle character NA values
-        dfTarget[[col]] <- methods::as(dfTarget[[col]], spec$type)
-      }
-    }
-  }
 
   return(dfTarget)
 }

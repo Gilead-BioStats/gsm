@@ -5,6 +5,7 @@
 
 #' @import dplyr
 #' @import ggplot2
+#' @import gt
 #' @import purrr
 #' @importFrom broom augment
 #' @importFrom broom glance
@@ -72,6 +73,7 @@
 #' @importFrom tools file_path_sans_ext
 #' @importFrom tools toTitleCase
 #' @importFrom utils hasName
+#' @importFrom utils head
 #' @importFrom utils packageVersion
 #' @importFrom utils read.csv
 #' @importFrom utils sessionInfo

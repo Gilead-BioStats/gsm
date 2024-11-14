@@ -11,10 +11,11 @@ Ingest(lSourceData, lSpec, strDomain = "Raw")
 
 \item{lSpec}{\code{list} A named list of column specifications.}
 
-\item{strDomain}{\code{character} Domain name to add to the data frames after ingestions. Default: "Raw"
-
-@return \code{list} A named list of data frames, where each data frame corresponds to a domain in the
-specification.}
+\item{strDomain}{\code{character} Domain name to add to the data frames after ingestions. Default: "Raw"}
+}
+\value{
+\code{list} A named list of data frames, where each data frame corresponds to a domain in the
+specification.
 }
 \description{
 This function ingests data from a source based on a given specification. It iterates over each

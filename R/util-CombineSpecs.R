@@ -99,9 +99,9 @@ combine_domain <- function(domain_specs) {
 #' @return A list containing the updated column specification.
 #' @keywords internal
 update_column <- function(existing_col, new_col, col_name) {
-  if (!is.null(existing_col)) {
+  if (length(existing_col)) {
     # Handle required conflict
-    existing_col$required <- existing_col$required || new_col$required
+    existing_col$required <- isTRUE(existing_col$required) || isTRUE(new_col$required)
 
     # Handle type conflict with a warning when available
     if (!is.null(existing_col$type) && !is.null(new_col$type)) {

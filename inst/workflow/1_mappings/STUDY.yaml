@@ -1,7 +1,7 @@
 meta:
   Type: Mapped
   ID: STUDY
-  Description: STUDY Data Mapping 
+  Description: STUDY Data Mapping
   Priority: 3
 spec:
   Raw_STUDY:
@@ -24,6 +24,12 @@ spec:
     num_plan_subj:
       required: true
       type: integer
+    act_fpfv:
+      required: true
+      type: Date
+    est_fpfv:
+      required: true
+      type: Date
   Mapped_SUBJ:
     studyid:
       required: true
@@ -45,18 +51,45 @@ steps:
     params:
       data: Temp_CTMSStudyWide
       strGroupLevel: "Study"
+  - output: Temp_CTMSplanned
+    name: RunQuery
+    params:
+      df: Raw_STUDY
+      strQuery: "SELECT studyid as GroupID, num_plan_site as SiteTarget, num_plan_subj as ParticipantTarget FROM df"
   - output: Temp_StudyCountsWide
     name: RunQuery
     params:
       df: Mapped_SUBJ
       strQuery: "SELECT studyid as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY studyid"
-  - output: Temp_StudyCounts
+  - output: Temp_CountTargetsWide
+    name: left_join
+    params:
+      x: Temp_CTMSplanned
+      "y": Temp_StudyCountsWide
+      by: GroupID
+  - output: Temp_CountTargetsWide_addsite
+    names: CalculatePercentage
+    params:
+      data: Temp_CountTargetsWide
+      strCurrentCol: SiteCount
+      strTargetCol: SiteTarget
+      strPercVal: PercentSitesActivated
+      strPercStrVal: SiteActivation
+  - output: Temp_CountTargetsWide_addsitepts
+    names: CalculatePercentage
+    params:
+      data: Temp_CountTargetsWide_addsite
+      strCurrentCol: ParticipantCount
+      strTargetCol: ParticipantTarget
+      strPercVal: PercentParticipantsEnrolled
+      strPercStrVal: ParticipantEnrollment
+  - output: Temp_CountTargetsPercs
     name: MakeLongMeta
     params:
-      data: Temp_StudyCountsWide
+      data: Temp_CountTargetsWide_addsitepts
       strGroupLevel: "Study"
   - output: Mapped_STUDY
     name: bind_rows
     params:
       Temp_CTMSStudy: Temp_CTMSStudy
-      Temp_StudyCounts: Temp_StudyCounts
+      Temp_CountTargetsPercs: Temp_CountTargetsPercs

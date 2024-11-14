@@ -94,12 +94,12 @@ add_Groups_metadata <- function(
 widen_dfGroups <- function(dfGroups, strGroupLevel, strGroupDetailsParams) {
   # Subset on the specified group level and columns.
   dfGroupsSubset <- dfGroups %>%
-      dplyr::filter(
-        .data$GroupLevel == strGroupLevel
-      ) %>%
-      dplyr::select(
-        dplyr::all_of(c("GroupID", "Param", "Value"))
-      )
+    dplyr::filter(
+      .data$GroupLevel == strGroupLevel
+    ) %>%
+    dplyr::select(
+      dplyr::all_of(c("GroupID", "Param", "Value"))
+    )
   if (nrow(dfGroupsSubset)) {
     if (is.null(strGroupDetailsParams)) {
       if (strGroupLevel == "Site") {
