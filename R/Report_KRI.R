@@ -74,40 +74,59 @@ Report_KRI <- function(
     dir.create(report_path, recursive = TRUE)
   }
 
-  json_path <- file.path("json", StudyID, SnapshotDate)
-  dir.create(json_path, recursive = TRUE)
+  json_path <- "json"
+  if (!dir.exists(json_path)) {
+    dir.create(json_path, recursive = TRUE)
+  }
 
   # Convert study-level data to JSON
-  pivoted_df <- dfGroups %>%
+  pivoted_groups <- dfGroups %>%
     pivot_wider(names_from = Param, values_from = Value) %>%
     filter(GroupLevel == "Study")
 
-  json_list <- pivoted_df %>%
+  json_list <- pivoted_groups %>%
     mutate(
-      id = pivoted_df[["studyid"]] %||% NA,
-      name = pivoted_df[["nickname"]] %||% NA,
-      title = pivoted_df[["protocol_title"]] %||% NA,
+      id = pivoted_groups[["StudyID"]] %||% NA,
+      name = pivoted_groups[["nickname"]] %||% NA,
+      title = pivoted_groups[["protocol_title"]] %||% NA,
       characteristics = list(list(
-        status = pivoted_df[["Status"]] %||% NA,
-        siteActivation = if_else("num_site_actl" %in% names(pivoted_df) & "num_plan_site" %in% names(pivoted_df),
-                                 paste0(round(100 * (as.numeric(pivoted_df$num_site_actl) / as.numeric(pivoted_df$num_plan_site))), "%"), NA),
-        enrollment = if_else("num_enrolled_subj_m" %in% names(pivoted_df) & "num_plan_subj" %in% names(pivoted_df),
-                             paste0(pivoted_df$num_enrolled_subj_m, "/", pivoted_df$num_plan_subj), NA),
-        fpfv = pivoted_df[["act_fpfv"]] %||% NA,
-        therapeuticArea = pivoted_df[["therapeutic_area"]] %||% NA,
-        indication = pivoted_df[["protocol_indication"]] %||% NA,
-        product = pivoted_df[["product"]] %||% NA,
-        phase = pivoted_df[["phase"]] %||% NA,
-        lpfv = pivoted_df[["act_lpfv"]] %||% NA,
-        lplv = pivoted_df[["act_lplv"]] %||% NA
+        status = pivoted_groups[["Status"]] %||% NA,
+        siteActivation = if_else("num_site_actl" %in% names(pivoted_groups) & "num_plan_site" %in% names(pivoted_groups),
+                                 paste0(round(100 * (as.numeric(pivoted_groups$num_site_actl) / as.numeric(pivoted_groups$num_plan_site))), "%"), NA),
+        enrollment = if_else("num_enrolled_subj_m" %in% names(pivoted_groups) & "num_plan_subj" %in% names(pivoted_groups),
+                             paste0(pivoted_groups$num_enrolled_subj_m, "/", pivoted_groups$num_plan_subj), NA),
+        fpfv = pivoted_groups[["act_fpfv"]] %||% NA,
+        therapeuticArea = pivoted_groups[["therapeutic_area"]] %||% NA,
+        indication = pivoted_groups[["protocol_indication"]] %||% NA,
+        product = pivoted_groups[["product"]] %||% NA,
+        phase = pivoted_groups[["phase"]] %||% NA,
+        lpfv = pivoted_groups[["act_lpfv"]] %||% NA,
+        lplv = pivoted_groups[["act_lplv"]] %||% NA
       ))
     ) %>%
     select(id, name, title, characteristics)
 
   write_json(json_list, path = file.path(json_path, "study.json"), pretty = TRUE, auto_unbox = TRUE)
 
+  #risk signals
+  reporting <- dfResults %>%
+    mutate(
+      studyId = .[["StudyID"]] %||% NA,
+      snapshotDate = .[["SnapshotDate"]] %||% NA,
+      metricId = .[["MetricID"]] %||% NA,
+      groupId = .[["GroupID"]] %||% NA,
+      flag = .[["Flag"]] %||% NA,
+      adoUrl = "tbd",
+      status = "tbd",
+      summary = "tbd",
+      recommendedAction = "tbd"
+    ) %>%
+    select(studyId, snapshotDate, metricId, groupId, flag, adoUrl, status, summary, recommendedAction)
+
+  write_json(reporting, path = file.path(json_path, "risk-signal.json"), pretty = TRUE, auto_unbox = TRUE)
+
   # Write module and snapshot JSON files
-  study <- pivoted_df$studyid[1]
+  study <- pivoted_groups$StudyID[1]
   modules <- list(
     list(studyId = study, slug = "kri-country", title = "KRI (by country)"),
     list(studyId = study, slug = "kri-site", title = "KRI (by site)")
