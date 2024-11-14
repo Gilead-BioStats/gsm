@@ -1,18 +1,19 @@
-# utils-logger.R
-
-# Function to set up a logger with flexible output options
-#' Title
+#' Custom logger
+#' Function that creates a custom logger object and dynamically creates
+#' logs and stores metadata
 #'
 #' @param strName User defined name for the logger/log
 #' @param strOutputTarget Destination to sending logging to
 #' @param strLogLevel level of logs to include
+#' @param strPath path to create logs to
 #' @param lMetadata a list of desired metadata to be collected
 #'
 #' @return logger object
 #' @export
-set_logger <- function(strName = "gsm",
+SetLogger <- function(strName = "gsm",
                        strOutputTarget = "file",
                        strLogLevel = "INFO",
+                       strPath = getwd(),
                        lMetadata = create_logger_metadata()) {
 
   # Assertion for strName
@@ -29,7 +30,7 @@ set_logger <- function(strName = "gsm",
   }
 
   # Make log file
-  log_file <- make_log_file(strName)
+  log_file <- make_log_file(strName, strPath)
 
   # Determine appenders based on the `output_target`
   # Assertion for strOutputTarget is baked in with the switch/stop message
@@ -63,14 +64,14 @@ set_logger <- function(strName = "gsm",
   invisible(logger)  # Return the logger invisibly
 }
 
-# Function to retrieve the logger by name, using the default if no name is provided
-#' Title
+#' Custom logger retriever
+#' Function that retries a custom logger object
 #'
-#' @param strName Retrive logger object
+#' @param strName string of logger object created from `set_logger()`
 #'
 #' @return logger object
 #' @export
-get_logger <- function(strName = "gsm") {
+GetLogger <- function(strName = "gsm") {
   # Fetch the logger by the resolved name
   logger <- getOption(paste0("my_pkg_logger_", strName))
 
@@ -81,12 +82,12 @@ get_logger <- function(strName = "gsm") {
   logger
 }
 
-make_log_file <- function(name) {
+make_log_file <- function(strName, strPath) {
   # Define the filename and path
   # Should log making be separate?
   # Trying to wrap the set/get into one function calls each, reduce arguments in all the other functions
-  file_name <- paste0(name, ".log", sep = "")
-  file_path <- file.path(getwd(), file_name)
+  file_name <- paste0(strName, ".log", sep = "")
+  file_path <- file.path(strPath, file_name)
   file.create(paste0(file_path))
   absolute_path <- normalizePath(file_path)
   return(absolute_path)
