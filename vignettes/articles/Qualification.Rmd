@@ -6,6 +6,7 @@ output:
   pdf_document:
     toc: true
     number_sections: true
+    extra_dependencies: ["float"]
 header-includes:
   - \usepackage{longtable}
 vignette: >
@@ -35,7 +36,9 @@ opts_chunk$set(
   echo = FALSE,
   results = "asis",
   message = FALSE,
-  tidy = FALSE
+  tidy = FALSE,
+  fig.pos = "H",
+  out.extra = ""
 )
 
 source(here::here("inst", "qualification", "specs.R"))
