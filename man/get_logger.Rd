@@ -4,7 +4,7 @@
 \alias{get_logger}
 \title{Title}
 \usage{
-get_logger(strName = NULL)
+get_logger(strName = "gsm")
 }
 \arguments{
 \item{strName}{Retrive logger object}

@@ -5,10 +5,10 @@
 \title{Title}
 \usage{
 set_logger(
-  strName = NULL,
+  strName = "gsm",
   strOutputTarget = "file",
   strLogLevel = "INFO",
-  lMetadata = create_metadata()
+  lMetadata = create_logger_metadata()
 )
 }
 \arguments{
