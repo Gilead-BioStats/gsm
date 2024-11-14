@@ -28,12 +28,12 @@ Report_StudyInfo <- function(
   study_status_table <- MakeStudyInfo(dfGroups, lStudyLabels, lStudy = lStudy)
 
   subcols <- c(
-      "GroupID",
-      "nickname",
-      "Status",
-      "SiteActivation",
-      "ParticipantEnrollment"
-    )
+    "GroupID",
+    "nickname",
+    "Status",
+    "SiteActivation",
+    "ParticipantEnrollment"
+  )
   show_table <- study_status_table %>%
     dplyr::filter(.data$Param %in% subcols) %>%
     gt_StudyInfo(id = strId)
