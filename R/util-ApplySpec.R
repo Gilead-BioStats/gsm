@@ -46,7 +46,7 @@ ApplySpec <- function(dfSource, columnSpecs, domain) {
       }
     ) %>%
     # Drop non-required columns that aren't in dfSource.
-    purrr::keep(~.x$required || .x$source %in% colnames(dfSource))
+    purrr::keep(~ .x$required || .x$source %in% colnames(dfSource))
 
   # check that the required columns exists in the source data
   sourceCols <- columnMapping %>% map("source")
@@ -60,12 +60,14 @@ ApplySpec <- function(dfSource, columnSpecs, domain) {
     map_chr(function(mapping) {
       if (mapping$source == mapping$target) {
         ifelse(!is.null(mapping$type),
-               glue("{mapping$source} AS {paste0(mapping$source, '__', mapping$type)}"),
-               mapping$source)
+          glue("{mapping$source} AS {paste0(mapping$source, '__', mapping$type)}"),
+          mapping$source
+        )
       } else {
         ifelse(!is.null(mapping$type),
-               glue("{mapping$source} AS {paste0(mapping$target, '__', mapping$type)}"),
-               glue("{mapping$source} AS {mapping$target}"))
+          glue("{mapping$source} AS {paste0(mapping$target, '__', mapping$type)}"),
+          glue("{mapping$source} AS {mapping$target}")
+        )
       }
     }) %>%
     paste(collapse = ", ")

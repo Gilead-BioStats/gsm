@@ -1439,10 +1439,6 @@
       <td headers="Value" class="gt_row gt_right">Protocol Nickname</td></tr>
           <tr><td headers="Description" class="gt_row gt_left">Study Status</td>
       <td headers="Value" class="gt_row gt_right">Active</td></tr>
-          <tr><td headers="Description" class="gt_row gt_left">Participants Enrolled</td>
-      <td headers="Value" class="gt_row gt_right">50</td></tr>
-          <tr><td headers="Description" class="gt_row gt_left">Sites Enrolled</td>
-      <td headers="Value" class="gt_row gt_right">154</td></tr>
         </tbody>
         
         
