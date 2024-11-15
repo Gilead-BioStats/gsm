@@ -59,15 +59,9 @@ ApplySpec <- function(dfSource, columnSpecs, domain) {
   strColQuery <- columnMapping %>%
     map_chr(function(mapping) {
       if (mapping$source == mapping$target) {
-        ifelse(!is.null(mapping$type),
-          glue("{mapping$source} AS {paste0(mapping$source, '__', mapping$type)}"),
-          mapping$source
-        )
+        mapping$source
       } else {
-        ifelse(!is.null(mapping$type),
-          glue("{mapping$source} AS {paste0(mapping$target, '__', mapping$type)}"),
-          glue("{mapping$source} AS {mapping$target}")
-        )
+        glue("{mapping$source} AS {mapping$target}")
       }
     }) %>%
     paste(collapse = ", ")
@@ -78,8 +72,7 @@ ApplySpec <- function(dfSource, columnSpecs, domain) {
   # call RunQuery to get the data
   dfTarget <- RunQuery(
     dfSource,
-    strQuery = strQuery,
-    method = "name__class"
+    strQuery = strQuery
   )
 
   return(dfTarget)
