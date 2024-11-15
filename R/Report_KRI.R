@@ -145,10 +145,11 @@ Report_KRI <- function(
   module_file <- file.path(json_path, "module.json")
   if (file.exists(module_file)) {
     existing_data <- fromJSON(module_file, simplifyDataFrame = FALSE)
-    write_json(c(existing_data, list(module_info)), path = module_file, pretty = TRUE, auto_unbox = TRUE)
+    write_json(c(existing_data, module_info), path = module_file, pretty = TRUE, auto_unbox = TRUE)
   } else {
-    write_json(list(module_info), path = module_file, pretty = TRUE, auto_unbox = TRUE)
+    write_json(module_info, path = module_file, pretty = TRUE, auto_unbox = TRUE)
   }
+
   snapshot_info <- list(
     studyId = StudyID,
     moduleSlug = GroupLevel,
@@ -158,9 +159,9 @@ Report_KRI <- function(
   snapshot_file <- file.path(json_path, "snapshot.json")
   if (file.exists(snapshot_file)) {
     existing_data <- fromJSON(snapshot_file, simplifyDataFrame = FALSE)
-    write_json(c(existing_data, list(snapshot_info)), path = snapshot_file, pretty = TRUE, auto_unbox = TRUE)
+    write_json(c(existing_data, snapshot_info), path = snapshot_file, pretty = TRUE, auto_unbox = TRUE)
   } else {
-    write_json(list(snapshot_info), path = snapshot_file, pretty = TRUE, auto_unbox = TRUE)
+    write_json(snapshot_info, path = snapshot_file, pretty = TRUE, auto_unbox = TRUE)
   }
 
   # set output path
