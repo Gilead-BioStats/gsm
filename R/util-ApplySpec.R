@@ -46,7 +46,7 @@ ApplySpec <- function(dfSource, columnSpecs, domain) {
       }
     ) %>%
     # Drop non-required columns that aren't in dfSource.
-    purrr::keep(~.x$required || .x$source %in% colnames(dfSource))
+    purrr::keep(~ .x$required || .x$source %in% colnames(dfSource))
 
   # check that the required columns exists in the source data
   sourceCols <- columnMapping %>% map("source")
