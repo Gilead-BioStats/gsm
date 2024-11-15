@@ -69,12 +69,12 @@ Report_KRI <- function(
   StudyID <- unique(dfResults$StudyID)
   SnapshotDate <- max(unique(dfResults$SnapshotDate))
 
-  report_path <- file.path("reports", StudyID, GroupLevel, SnapshotDate)
+  report_path <- file.path("..", "reports", StudyID, GroupLevel, SnapshotDate)
   if (!dir.exists(report_path)) {
     dir.create(report_path, recursive = TRUE)
   }
 
-  json_path <- "json"
+  json_path <- file.path("..", "json")
   if (!dir.exists(json_path)) {
     dir.create(json_path, recursive = TRUE)
   }
@@ -164,7 +164,7 @@ Report_KRI <- function(
   RenderRmd(
     strInputPath = system.file("report", "Report_KRI.Rmd", package = "gsm"),
     strOutputFile = "index.html",
-    strOutputDir = file.path(strOutputDir, report_path),
+    strOutputDir = normalizePath(report_path, mustWork = FALSE),
     lParams = list(
       lCharts = lCharts,
       dfResults = dfResults,
