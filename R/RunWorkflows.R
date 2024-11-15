@@ -28,7 +28,7 @@ RunWorkflows <- function(
     strResultNames = c("Type", "ID"),
     strLogger = "default"
 ) {
-  logger <- get_logger(strLogger)
+  logger <- GetLogger(strLogger)
 
   cli::cli_h1("Running {length(lWorkflows)} Workflows")
   log4r::info(logger, glue::glue("Running {length(lWorkflows)} Workflows"))

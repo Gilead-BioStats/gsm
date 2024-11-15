@@ -41,7 +41,7 @@ RunWorkflow <- function(
     bKeepInputData = TRUE,
     strLogger = strLogger
 ) {
-  logger <- get_logger(strLogger)
+  logger <- GetLogger(strLogger)
 
   # Create a unique identifier for the workflow
   uid <- paste0(lWorkflow$meta$Type, "_", lWorkflow$meta$ID)

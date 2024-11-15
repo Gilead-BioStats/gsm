@@ -1,7 +1,7 @@
 # test-utils-logger.R
 test_that("default logger works as expected", {
   # Retrieve the default logger
-  default_logger <- get_logger("default")
+  default_logger <- GetLogger("default")
 
   # Check that the default logger exists
   log4r::info(default_logger, "Default writes to gsm_log.log")
@@ -17,7 +17,7 @@ test_that("logger writes to a unique log file", {
   set_logger(name = "test_logger", output_target = "file")
 
   # Log a message
-  logger <- get_logger("test_logger")
+  logger <- GetLogger("test_logger")
   log4r::info(logger, "Write to user specified log.")
 
   # Check if the log file exists and contains the message

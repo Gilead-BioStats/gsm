@@ -57,7 +57,7 @@
 RunStep <- function(lStep, lData, lMeta, lSpec = NULL, strLogger = strLogger) {
   # prepare parameter list inputs
   params <- lStep$params
-  logger <- get_logger(strLogger)
+  logger <- GetLogger(strLogger)
 
   cli::cli_h3("Evaluating {length(params)} parameter(s) for {.fn {lStep$name}}")
   log4r::info(
