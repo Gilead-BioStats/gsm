@@ -2,18 +2,13 @@
 % Please edit documentation in R/util-Logger.R
 \name{GetLogger}
 \alias{GetLogger}
-\title{Custom logger retriever
-Function that retries a custom logger object}
+\title{Get a Custom Logger Object}
 \usage{
-GetLogger(strName = "gsm")
-}
-\arguments{
-\item{strName}{string of logger object created from \code{set_logger()}}
+GetLogger()
 }
 \value{
-logger object
+an option holding the logger
 }
 \description{
-Custom logger retriever
-Function that retries a custom logger object
+Get a Custom Logger Object
 }

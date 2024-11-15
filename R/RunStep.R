@@ -33,7 +33,6 @@
 #' @param lData `list` a named list of domain level data frames.
 #' @param lSpec `list` a data specification containing required columns. See `vignette("gsm_extensions")`.
 #' @param lMeta `list` a named list of meta data.
-#' @param strLogger `character` name of logger object, by default is "gsm"
 #'
 #' @examples
 #' wf_mapping <- MakeWorkflowList(strPath = "workflow/1_mappings")
@@ -55,16 +54,11 @@
 #'
 #' @export
 
-RunStep <- function(lStep, lData, lMeta, lSpec = NULL, strLogger = "gsm") {
+RunStep <- function(lStep, lData, lMeta, lSpec = NULL) {
   # prepare parameter list inputs
   params <- lStep$params
-  logger <- GetLogger(strLogger)
 
-  cli::cli_h3("Evaluating {length(params)} parameter(s) for {.fn {lStep$name}}")
-  log4r::info(
-    logger,
-    glue::glue("Evaluating {length(params)} parameter(s) for `{lStep$name}`")
-  )
+  LogMessage("info", "h3", "Evaluating {length(params)} parameter(s) for `{lStep$name}`")
 
   # This loop iterates over each parameter in the 'params' object.
   for (paramName in names(params)) {
@@ -72,42 +66,34 @@ RunStep <- function(lStep, lData, lMeta, lSpec = NULL, strLogger = "gsm") {
     if (length(paramVal) == 1) {
       if (paramVal == "lMeta") {
         # Pass lMeta (typically from the workflow header)
-        cli::cli_alert_success("{paramName} = {paramVal}:  Passing full lMeta object.")
-        log4r::info(logger, glue::glue("{paramName} = {paramVal}:  Passing full lMeta object."))
+        LogMessage("info", "success", "{paramName} = {paramVal}:  Passing full lMeta object.")
         params[[paramName]] <- lMeta
       } else if (paramVal == "lData") {
         # Pass lData
-        cli::cli_alert_success("{paramName} = {paramVal}:  Passing full lData object.")
-        log4r::info(logger, glue::glue("{paramName} = {paramVal}:  Passing full lData object."))
+        LogMessage("info", "success", "{paramName} = {paramVal}:  Passing full lData object.")
         params[[paramName]] <- lData
       } else if (paramVal == "lSpec") {
         # Pass lSpec
-        cli::cli_alert_success("{paramName} = {paramVal}:  Passing full lSpec object.")
-        log4r::info(logger, glue::glue("{paramName} = {paramVal}:  Passing full lSpec object."))
+        LogMessage("info", "success", "{paramName} = {paramVal}:  Passing full lSpec object.")
         params[[paramName]] <- lSpec
       } else if (paramVal %in% names(lMeta)) {
         # Use named items from lMeta
-        cli::cli_alert_success("{paramName} = {paramVal}: Passing lMeta${paramVal}.")
-        log4r::info(logger, glue::glue("{paramName} = {paramVal}: Passing lMeta${paramVal}."))
+        LogMessage("info", "success", "{paramName} = {paramVal}: Passing lMeta${paramVal}.")
         params[[paramName]] <- lMeta[[paramVal]]
       } else if (paramVal %in% names(lData)) {
-        cli::cli_alert_success("{paramName} = {paramVal}: Passing lData${paramVal}.")
-        log4r::info(logger, glue::glue("{paramName} = {paramVal}: Passing lData${paramVal}."))
+        LogMessage("info", "success", "{paramName} = {paramVal}: Passing lData${paramVal}.")
         params[[paramName]] <- lData[[paramVal]]
       } else {
         # If the parameter value is not found in 'lMeta' or 'lData', pass the parameter value as a string.
-        cli::cli_alert_info("{paramName} = {paramVal}: No matching data found. Passing '{paramVal}' as a string.")
-        log4r::info(logger, glue::glue("{paramName} = {paramVal}: No matching data found. Passing '{paramVal}' as a string."))
+        LogMessage("info", "success", "{paramName} = {paramVal}: No matching data found. Passing '{paramVal}' as a string.")
       }
     } else {
       # If the parameter value is a vector, pass the vector as is.
-      cli::cli_alert_info("{paramName} = {paramVal}: Parameter is a vector. Passing as is.")
-      log4r::info(logger, glue::glue("{paramName} = {paramVal}: Parameter is a vector. Passing as is."))
+      LogMessage("info", "reg", "{paramName} = {paramVal}: Parameter is a vector. Passing as is.")
     }
   }
 
-  cli::cli_h3("Calling {.fn {lStep$name}}")
-  log4r::info(logger, glue::glue("Calling `{lStep$name}`"))
+  LogMessage("info", "h3", "Calling `{lStep$name}`")
 
   return(do.call(lStep$name, params))
 }

@@ -1,107 +1,20 @@
-#' Custom logger
-#' Function that creates a custom logger object and dynamically creates
-#' logs and stores metadata
+#' Set a Custom Logger Object
 #'
-#' @param strName User defined name for the logger/log
-#' @param strOutputTarget Destination to sending logging to
-#' @param strLogLevel level of logs to include
-#' @param strPath path to create logs to
-#' @param lMetadata a list of desired metadata to be collected
-#'
-#' @return logger object
+#' @param logger A logger object
 #' @export
-SetLogger <- function(strName = "gsm",
-                       strOutputTarget = "file",
-                       strLogLevel = "INFO",
-                       strPath = getwd(),
-                       lMetadata = create_logger_metadata()) {
-
-  # Assertion for strName
-  stopifnot("`strName` must be of type `character`" = is.character(strName))
-
-  # Assertion for strLogLevel
-  loglevelchar <- names(log4r::available.loglevels())
-  message = paste0(
-    glue::glue("`strLogLevel` must be one of:"),
-    glue::glue("{glue::glue_collapse(loglevelchar, sep = ', ')}.")
-  )
-  if (!(strLogLevel %in% loglevelchar)) {
-    stop(message)
+#' @return an option holding the logger
+SetLogger <- function(logger) {
+  if (!inherits(logger, "logger")) {
+    stop("The provided logger must be a 'log4r_logger' object.")
   }
-
-  # Make log file
-  log_file <- make_log_file(strName, strPath)
-
-  # Determine appenders based on the `output_target`
-  # Assertion for strOutputTarget is baked in with the switch/stop message
-  # If we don't need the console functionality/appender, this should be fixed to file everytime
-  # Should we stick to our cli usage like he h1, h2, h3, success, etc.
-  appenders <- switch(
-    strOutputTarget,
-    console = list(log4r::console_appender()), # this would duplicate many of our cli messaging
-    file = list(log4r::file_appender(log_file)),
-    both = list(log4r::console_appender(), log4r::file_appender(log_file)),
-    stop("Invalid `strOutputTarget`. Choose 'console', 'file', or 'both'.")
-  )
-
-
-  # Create a logger with specified settings
-  logger <- log4r::logger(
-    threshold = strLogLevel,
-    appenders = appenders
-  )
-
-  # Attach metadata to the logger instance
-  attr(logger, "lMetadata") <- lMetadata
-
-  # Dynamically construct the option name
-  option_name <- paste0("my_pkg_logger_", strName)
-
-  # Use rlang::call to construct the options() call
-  options_call <- call("options", setNames(list(logger), option_name))
-
-  # Evaluate the call to set the logger in options
-  eval_tidy(options_call)
-
-  invisible(logger)  # Return the logger invisibly
+  options(gsm_logger = logger, gsm_usecli = FALSE)
+  invisible(logger)
 }
-
-#' Custom logger retriever
-#' Function that retries a custom logger object
-#'
-#' @param strName string of logger object created from `set_logger()`
-#'
-#' @return logger object
+#' Get a Custom Logger Object
 #' @export
-GetLogger <- function(strName = "gsm") {
-  # Fetch the logger by the resolved name
-  logger <- getOption(paste0("my_pkg_logger_", strName))
-
-  # Error if the logger does not exist
-  if (is.null(logger)) {
-    stop("Logger '", strName, "' not found. Please call `SetLogger(name = '", strName, "')` first.")
-  }
-  logger
-}
-
-make_log_file <- function(strName, strPath) {
-  # Define the filename and path
-  # Should log making be separate?
-  # Trying to wrap the set/get into one function calls each, reduce arguments in all the other functions
-  file_name <- paste0(strName, ".log", sep = "")
-  file_path <- file.path(strPath, file_name)
-  file.create(paste0(file_path))
-  absolute_path <- normalizePath(file_path)
-  return(absolute_path)
-}
-
-create_logger_metadata <- function(){
-  # Can add more things, throw em into a list?
-  # I imagine a variety of sys.xxx things may be helpful
-  lMetadata <- list(
-    r_version = R.version,
-    user = Sys.info()[["user"]],
-    renv = ifelse(file.exists("renv.lock"), "present", "not present")
-  )
-  return(lMetadata)
+#' @return an option holding the logger
+GetLogger <- function() {
+  logger <- getOption("gsm_logger")
+  if (is.null(logger)) stop("Logger is not set. Use `SetLogger()` to initialize.")
+  return(logger)
 }

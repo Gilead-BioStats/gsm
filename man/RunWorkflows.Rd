@@ -9,8 +9,7 @@ RunWorkflows(
   lData = NULL,
   bKeepInputData = FALSE,
   bReturnResult = TRUE,
-  strResultNames = c("Type", "ID"),
-  strLogger = "gsm"
+  strResultNames = c("Type", "ID")
 )
 }
 \arguments{
@@ -23,8 +22,6 @@ RunWorkflows(
 \item{bReturnResult}{\code{boolean} should \emph{only} the result from the last step (\code{lResults}) be returned? If false, the full workflow (including \code{lResults}) is returned. Default is \code{TRUE}.}
 
 \item{strResultNames}{\code{string} vector of length two, which describes the meta fields used to name the output.}
-
-\item{strLogger}{\code{character} name of logger object, by default is "gsm"}
 }
 \value{
 A named list of results from \code{RunWorkflow()}, where the names correspond to the names of

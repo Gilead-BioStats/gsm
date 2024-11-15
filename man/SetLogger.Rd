@@ -2,34 +2,16 @@
 % Please edit documentation in R/util-Logger.R
 \name{SetLogger}
 \alias{SetLogger}
-\title{Custom logger
-Function that creates a custom logger object and dynamically creates
-logs and stores metadata}
+\title{Set a Custom Logger Object}
 \usage{
-SetLogger(
-  strName = "gsm",
-  strOutputTarget = "file",
-  strLogLevel = "INFO",
-  strPath = getwd(),
-  lMetadata = create_logger_metadata()
-)
+SetLogger(logger = logger())
 }
 \arguments{
-\item{strName}{User defined name for the logger/log}
-
-\item{strOutputTarget}{Destination to sending logging to}
-
-\item{strLogLevel}{level of logs to include}
-
-\item{strPath}{path to create logs to}
-
-\item{lMetadata}{a list of desired metadata to be collected}
+\item{logger}{A logger object}
 }
 \value{
-logger object
+an option holding the logger
 }
 \description{
-Custom logger
-Function that creates a custom logger object and dynamically creates
-logs and stores metadata
+Set a Custom Logger Object
 }

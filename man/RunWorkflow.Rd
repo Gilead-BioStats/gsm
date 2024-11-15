@@ -8,8 +8,7 @@ RunWorkflow(
   lWorkflow,
   lData = NULL,
   bReturnResult = TRUE,
-  bKeepInputData = TRUE,
-  strLogger = "gsm"
+  bKeepInputData = TRUE
 )
 }
 \arguments{
@@ -20,8 +19,6 @@ RunWorkflow(
 \item{bReturnResult}{\code{boolean} should \emph{only} the result from the last step (\code{lResults}) be returned? If false, the full workflow (including \code{lResults}) is returned. Default is \code{TRUE}.}
 
 \item{bKeepInputData}{\code{boolean} should the input data be included in \code{lData} after the workflow is run? Only relevant when bReturnResult is FALSE. Default is \code{TRUE}.}
-
-\item{strLogger}{\code{character} name of logger object, by default is "gsm"}
 }
 \value{
 Object containing the results of the workflow's last step (if \code{bLastResult} is \code{TRUE}) or the full workflow object (if \code{bReturnResults} is \code{TRUE}) or the full workflow object (if \code{bReturnResults} is \code{FALSE}).
