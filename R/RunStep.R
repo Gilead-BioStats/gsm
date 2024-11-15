@@ -54,7 +54,7 @@
 #'
 #' @export
 
-RunStep <- function(lStep, lData, lMeta, lSpec = NULL, strLogger = strLogger) {
+RunStep <- function(lStep, lData, lMeta, lSpec = NULL, strLogger = "gsm") {
   # prepare parameter list inputs
   params <- lStep$params
   logger <- GetLogger(strLogger)

@@ -1,20 +1,6 @@
-# test-utils-logger.R
-test_that("default logger works as expected", {
-  # Retrieve the default logger
-  default_logger <- GetLogger("default")
-
-  # Check that the default logger exists
-  log4r::info(default_logger, "Default writes to gsm_log.log")
-  expect_true(!is.null(default_logger))
-  default_log_content <- readLines("gsm_log.log")
-  expect_true(grepl("Default writes to", default_log_content))
-  file.remove("gsm_log.log")
-})
-
-# Example unit test for set_logger
-
+# test-util-logger.R
 test_that("logger writes to a unique log file", {
-  set_logger(name = "test_logger", output_target = "file")
+  SetLogger(strName = "test_logger")
 
   # Log a message
   logger <- GetLogger("test_logger")

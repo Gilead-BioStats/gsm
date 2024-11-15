@@ -79,7 +79,7 @@ GetLogger <- function(strName = "gsm") {
 
   # Error if the logger does not exist
   if (is.null(logger)) {
-    stop("Logger '", strName, "' not found. Please call `set_logger(name = '", strName, "')` first.")
+    stop("Logger '", strName, "' not found. Please call `SetLogger(name = '", strName, "')` first.")
   }
   logger
 }

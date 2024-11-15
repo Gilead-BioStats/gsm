@@ -39,7 +39,7 @@ RunWorkflow <- function(
     lData = NULL,
     bReturnResult = TRUE,
     bKeepInputData = TRUE,
-    strLogger = strLogger
+    strLogger = "gsm"
 ) {
   logger <- GetLogger(strLogger)
 

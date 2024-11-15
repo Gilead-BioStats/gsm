@@ -10,7 +10,7 @@ RunWorkflows(
   bKeepInputData = FALSE,
   bReturnResult = TRUE,
   strResultNames = c("Type", "ID"),
-  strLogger = "default"
+  strLogger = "gsm"
 )
 }
 \arguments{
