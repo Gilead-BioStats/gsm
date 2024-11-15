@@ -6,7 +6,6 @@ output:
   pdf_document:
     toc: true
     number_sections: true
-    extra_dependencies: ["float"]
 header-includes:
   - \usepackage{longtable}
 vignette: >
@@ -36,9 +35,7 @@ opts_chunk$set(
   echo = FALSE,
   results = "asis",
   message = FALSE,
-  tidy = FALSE,
-  fig.pos = "H",
-  out.extra = ""
+  tidy = FALSE
 )
 
 source(here::here("inst", "qualification", "specs.R"))
@@ -150,6 +147,7 @@ colnames(Specifications) <- c("Spec ID", "Spec Description", "Risk", "Impact", "
 Specifications %>%
   gt() %>%
   tab_options(
+    latex.use_longtable = T,
     table.font.size = px(9)
   )%>%
   cols_width(
@@ -180,6 +178,7 @@ colnames(Results) <- c("Function", "Spec ID", "Test ID", "Test Description", "Te
 Results %>%
   gt() %>%
   tab_options(
+    latex.use_longtable = T,
     table.font.size = px(9)
   ) %>%
   cols_width(
@@ -223,6 +222,7 @@ pkg_coverage <- pkg_cov_df %>%
 pkg_coverage %>%
   gt() %>%
   tab_options(
+    latex.use_longtable = T,
     table.font.size = px(9)
   ) %>%
   opt_row_striping() 
@@ -259,6 +259,7 @@ import_risk <- strsplit(devtools::as.package(here::here())$imports, ",\n")[[1]] 
 import_risk %>%
   gt() %>%
   tab_options(
+    latex.use_longtable = T,
     table.font.size = px(9)
   ) %>%
   opt_row_striping() 
