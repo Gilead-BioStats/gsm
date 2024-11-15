@@ -10,3 +10,4 @@ library(testthat)
 library(gsm)
 
 test_check("gsm")
+file.remove("gsm.log")
