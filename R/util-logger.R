@@ -34,6 +34,8 @@ SetLogger <- function(strName = "gsm",
 
   # Determine appenders based on the `output_target`
   # Assertion for strOutputTarget is baked in with the switch/stop message
+  # If we don't need the console functionality/appender, this should be fixed to file everytime
+  # Should we stick to our cli usage like he h1, h2, h3, success, etc.
   appenders <- switch(
     strOutputTarget,
     console = list(log4r::console_appender()), # this would duplicate many of our cli messaging
@@ -95,6 +97,7 @@ make_log_file <- function(strName, strPath) {
 
 create_logger_metadata <- function(){
   # Can add more things, throw em into a list?
+  # I imagine a variety of sys.xxx things may be helpful
   lMetadata <- list(
     r_version = R.version,
     user = Sys.info()[["user"]],
