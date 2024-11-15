@@ -84,7 +84,7 @@ Report_KRI <- function(
     pivot_wider(names_from = Param, values_from = Value) %>%
     filter(GroupLevel == "Study")
 
-  json_list <- pivoted_groups %>%
+  study_info <- pivoted_groups %>%
     mutate(
       id = pivoted_groups[["StudyID"]] %||% NA,
       name = pivoted_groups[["nickname"]] %||% NA,
@@ -106,10 +106,15 @@ Report_KRI <- function(
     ) %>%
     select(id, name, title, characteristics)
 
-  write_json(json_list, path = file.path(json_path, "study.json"), pretty = TRUE, auto_unbox = TRUE)
-
+  study_file <- file.path(json_path, "study.json")
+  if (file.exists(study_file)) {
+    existing_data <- fromJSON(study_file, simplifyDataFrame = FALSE)
+    write_json(c(existing_data, list(study_info)), path = study_file, pretty = TRUE, auto_unbox = TRUE)
+  } else {
+    write_json(list(study_info), path = study_file, pretty = TRUE, auto_unbox = TRUE)
+  }
   #risk signals
-  reporting <- dfResults %>%
+  risk_signal_info <- dfResults %>%
     mutate(
       studyId = .[["StudyID"]] %||% NA,
       snapshotDate = .[["SnapshotDate"]] %||% NA,
@@ -123,17 +128,28 @@ Report_KRI <- function(
     ) %>%
     select(studyId, snapshotDate, metricId, groupId, flag, adoUrl, status, summary, recommendedAction)
 
-  write_json(reporting, path = file.path(json_path, "risk-signal.json"), pretty = TRUE, auto_unbox = TRUE)
+  risk_signal_file <- file.path(json_path, "risk-signal.json")
+  if (file.exists(risk_signal_file)) {
+    existing_data <- fromJSON(risk_signal_file, simplifyDataFrame = FALSE)
+    write_json(c(existing_data, list(risk_signal_info)), path = risk_signal_file, pretty = TRUE, auto_unbox = TRUE)
+  } else {
+    write_json(list(risk_signal_info), path = risk_signal_file, pretty = TRUE, auto_unbox = TRUE)
+  }
 
   # Write module and snapshot JSON files
   study <- pivoted_groups$StudyID[1]
-  modules <- list(
+  module_info <- list(
     list(studyId = study, slug = "kri-country", title = "KRI (by country)"),
     list(studyId = study, slug = "kri-site", title = "KRI (by site)")
   )
-  write_json(modules, path = file.path(json_path, "module.json"), pretty = TRUE, auto_unbox = TRUE)
-
-  new_entry <- list(
+  module_file <- file.path(json_path, "module.json")
+  if (file.exists(module_file)) {
+    existing_data <- fromJSON(module_file, simplifyDataFrame = FALSE)
+    write_json(c(existing_data, list(module_info)), path = module_file, pretty = TRUE, auto_unbox = TRUE)
+  } else {
+    write_json(list(module_info), path = module_file, pretty = TRUE, auto_unbox = TRUE)
+  }
+  snapshot_info <- list(
     studyId = StudyID,
     moduleSlug = GroupLevel,
     snapshotDate = SnapshotDate
@@ -142,9 +158,9 @@ Report_KRI <- function(
   snapshot_file <- file.path(json_path, "snapshot.json")
   if (file.exists(snapshot_file)) {
     existing_data <- fromJSON(snapshot_file, simplifyDataFrame = FALSE)
-    write_json(c(existing_data, list(new_entry)), path = snapshot_file, pretty = TRUE, auto_unbox = TRUE)
+    write_json(c(existing_data, list(snapshot_info)), path = snapshot_file, pretty = TRUE, auto_unbox = TRUE)
   } else {
-    write_json(list(new_entry), path = snapshot_file, pretty = TRUE, auto_unbox = TRUE)
+    write_json(list(snapshot_info), path = snapshot_file, pretty = TRUE, auto_unbox = TRUE)
   }
 
   # set output path
