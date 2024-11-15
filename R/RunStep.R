@@ -33,6 +33,7 @@
 #' @param lData `list` a named list of domain level data frames.
 #' @param lSpec `list` a data specification containing required columns. See `vignette("gsm_extensions")`.
 #' @param lMeta `list` a named list of meta data.
+#' @param strLogger `character` name of logger object, by default is "gsm"
 #'
 #' @examples
 #' wf_mapping <- MakeWorkflowList(strPath = "workflow/1_mappings")

@@ -4,7 +4,7 @@
 \alias{RunStep}
 \title{Run a single step in a workflow.}
 \usage{
-RunStep(lStep, lData, lMeta, lSpec = NULL, strLogger = strLogger)
+RunStep(lStep, lData, lMeta, lSpec = NULL, strLogger = "gsm")
 }
 \arguments{
 \item{lStep}{\code{list} single workflow step (typically pulled from \code{lWorkflow$steps}). Should
@@ -15,6 +15,8 @@ include the name of the function to run (\code{lStep$name}), name of the object 
 \item{lMeta}{\code{list} a named list of meta data.}
 
 \item{lSpec}{\code{list} a data specification containing required columns. See \code{vignette("gsm_extensions")}.}
+
+\item{strLogger}{\code{character} name of logger object, by default is "gsm"}
 }
 \value{
 \code{list} containing the results of the \code{lStep$name} function call should contain \code{.$checks}
