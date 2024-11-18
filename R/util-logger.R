@@ -1,20 +1,10 @@
-#' Set a Custom Logger Object
-#'
-#' @param logger A logger object
+#' set the default package logger
+#' @param logger a log4r logger
 #' @export
-#' @return an option holding the logger
 SetLogger <- function(logger) {
   if (!inherits(logger, "logger")) {
-    stop("The provided logger must be a 'log4r_logger' object.")
+    rlang::abort("logger must be of class `logger` from log4r")
   }
-  options(gsm_logger = logger, gsm_usecli = FALSE)
-  invisible(logger)
-}
-#' Get a Custom Logger Object
-#' @export
-#' @return an option holding the logger
-GetLogger <- function() {
-  logger <- getOption("gsm_logger")
-  if (is.null(logger)) stop("Logger is not set. Use `SetLogger()` to initialize.")
-  return(logger)
+  .le$logger <- logger
+  return(invisible(NULL))
 }

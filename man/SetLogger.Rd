@@ -2,16 +2,13 @@
 % Please edit documentation in R/util-Logger.R
 \name{SetLogger}
 \alias{SetLogger}
-\title{Set a Custom Logger Object}
+\title{set the default package logger}
 \usage{
-SetLogger(logger = logger())
+SetLogger(logger)
 }
 \arguments{
-\item{logger}{A logger object}
-}
-\value{
-an option holding the logger
+\item{logger}{a log4r logger}
 }
 \description{
-Set a Custom Logger Object
+set the default package logger
 }
