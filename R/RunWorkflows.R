@@ -27,7 +27,7 @@ RunWorkflows <- function(
     bReturnResult = TRUE,
     strResultNames = c("Type", "ID")
 ) {
-  LogMessage("info", "h1", "Running {length(lWorkflows)} Workflows")
+  cli::cli_h1("Running {length(lWorkflows)} Workflows")
 
   lResults <- list()
   for (wf in lWorkflows) {
