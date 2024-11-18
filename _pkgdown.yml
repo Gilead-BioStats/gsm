@@ -82,6 +82,7 @@ reference:
   - contents:
      -  ApplySpec
      -  BindResults
+     -  cli_fmt
      -  CalculatePercentage
      -  CheckSpec
      -  CombineSpecs
