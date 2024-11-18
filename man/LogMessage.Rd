@@ -4,14 +4,16 @@
 \alias{LogMessage}
 \title{Custom logging function that wraps cli messaging}
 \usage{
-LogMessage(level, message, cli_detail)
+LogMessage(level, message, cli_detail = NULL, .envir = parent.frame())
 }
 \arguments{
 \item{level}{logger levels}
 
-\item{message}{message to display}
+\item{message}{message to display; may contain glue-style placeholders}
 
 \item{cli_detail}{for cli style alerts the detail for info}
+
+\item{.envir}{the environment for glue expressions}
 }
 \description{
 Custom logging function that wraps cli messaging

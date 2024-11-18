@@ -87,8 +87,8 @@ reference:
      -  CombineSpecs
      -  FilterByLatestSnapshotDate
      -  FilterByFlags
-     -  GetLogger
      -  Ingest
+     -  LogMessage
      -  MakeBounds
      -  MakeCharts
      -  MakeMetric
