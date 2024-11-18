@@ -12,6 +12,8 @@ cli_fmt <- function(level, ...) {
     cli::cli_h2(fields$message)
   } else if (level == "INFO" && fields$cli_detail == "h3") {
     cli::cli_h3(fields$message)
+  } else if (level == "INFO" && fields$cli_detail == "alert") {
+    cli::cli_alert(fields$message)
   } else if (level == "INFO" && fields$cli_detail == "alert_success") {
     cli::cli_alert_success(fields$message)
   } else if (level == "INFO" && fields$cli_detail == "alert_info") {

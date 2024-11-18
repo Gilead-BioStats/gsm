@@ -60,7 +60,7 @@ RunStep <- function(lStep, lData, lMeta, lSpec = NULL) {
 
   LogMessage(
     level = "info",
-    message = ("Evaluating {length(params)} parameter(s) for `{lStep$name}`"),
+    message = "Evaluating {length(params)} parameter(s) for `{lStep$name}`",
     cli_detail = "h3"
   )
 
@@ -72,7 +72,7 @@ RunStep <- function(lStep, lData, lMeta, lSpec = NULL) {
         # Pass lMeta (typically from the workflow header)
         LogMessage(
           level = "info",
-          message = ("{paramName} = {paramVal}:  Passing full lMeta object."),
+          message = "{paramName} = {paramVal}:  Passing full lMeta object.",
           cli_detail = "alert_success"
         )
         params[[paramName]] <- lMeta
@@ -80,7 +80,7 @@ RunStep <- function(lStep, lData, lMeta, lSpec = NULL) {
         # Pass lData
         LogMessage(
           level = "info",
-          message = ("{paramName} = {paramVal}:  Passing full lData object."),
+          message = "{paramName} = {paramVal}:  Passing full lData object.",
           cli_detail = "alert_success"
         )
         params[[paramName]] <- lData
@@ -88,7 +88,7 @@ RunStep <- function(lStep, lData, lMeta, lSpec = NULL) {
         # Pass lSpec
         LogMessage(
           level = "info",
-          message = ("{paramName} = {paramVal}:  Passing full lSpec object."),
+          message = "{paramName} = {paramVal}:  Passing full lSpec object.",
           cli_detail = "alert_success"
         )
         params[[paramName]] <- lSpec
@@ -96,14 +96,14 @@ RunStep <- function(lStep, lData, lMeta, lSpec = NULL) {
         # Use named items from lMeta
         LogMessage(
           level = "info",
-          message = ("{paramName} = {paramVal}: Passing lMeta${paramVal}."),
+          message = "{paramName} = {paramVal}: Passing lMeta${paramVal}.",
           cli_detail = "alert_success"
         )
         params[[paramName]] <- lMeta[[paramVal]]
       } else if (paramVal %in% names(lData)) {
         LogMessage(
           level = "info",
-          message = ("{paramName} = {paramVal}: Passing lData${paramVal}."),
+          message = "{paramName} = {paramVal}: Passing lData${paramVal}.",
           cli_detail = "alert_success"
         )
         params[[paramName]] <- lData[[paramVal]]
@@ -111,7 +111,7 @@ RunStep <- function(lStep, lData, lMeta, lSpec = NULL) {
         # If the parameter value is not found in 'lMeta' or 'lData', pass the parameter value as a string.
         LogMessage(
           level = "info",
-          message = ("{paramName} = {paramVal}: No matching data found. Passing '{paramVal}' as a string."),
+          message = "{paramName} = {paramVal}: No matching data found. Passing '{paramVal}' as a string.",
           cli_detail = "alert_info"
         )
       }
@@ -119,7 +119,7 @@ RunStep <- function(lStep, lData, lMeta, lSpec = NULL) {
       # If the parameter value is a vector, pass the vector as is.
       LogMessage(
         level = "info",
-        message = ("{paramName} = {paramVal}: Parameter is a vector. Passing as is."),
+        message = "{paramName} = {paramVal}: Parameter is a vector. Passing as is.",
         cli_detail = "alert_info"
       )
     }
@@ -127,7 +127,7 @@ RunStep <- function(lStep, lData, lMeta, lSpec = NULL) {
 
   LogMessage(
     level = "info",
-    message = ("Calling `{lStep$name}`"),
+    message = "Calling `{lStep$name}`",
     cli_detail = "h3"
   )
 

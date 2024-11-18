@@ -26,7 +26,7 @@
 ---
 
     Code
-      LogMessage(level = "info", message = "cli style info", cli_detail = "success")
+      LogMessage(level = "info", message = "cli style info", cli_detail = "alert_success")
     Message
       v cli style info
 

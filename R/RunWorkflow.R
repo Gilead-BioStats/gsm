@@ -42,33 +42,37 @@ RunWorkflow <- function(
 ) {
   # Create a unique identifier for the workflow
   uid <- paste0(lWorkflow$meta$Type, "_", lWorkflow$meta$ID)
-  cli::cli_h1("Initializing `{uid}` Workflow")
+  LogMessage(level = "info", message = "Initializing `{uid}` Workflow", cli_detail = "h1")
 
   # check that the workflow has steps
   if (length(lWorkflow$steps) == 0) {
-    cli::cli_alert("Workflow `{uid}` has no `steps` property.")
+    LogMessage(level = "info", message = "Workflow `{uid}` has no `steps` property.", cli_detail = "alert")
   }
 
   if (!"meta" %in% names(lWorkflow)) {
-    cli::cli_alert("Workflow `{uid}` has no `meta` property.")
+    LogMessage(level = "info", message = "Workflow `{uid}` has no `meta` property.", cli_detail = "alert")
   }
 
   lWorkflow$lData <- lData
 
   # If the workflow has a spec, check that the data and spec are compatible
   if ("spec" %in% names(lWorkflow)) {
-    cli::cli_h3("Checking data against spec")
+    LogMessage(level = "info", message = "Checking data against spec", cli_detail = "h3")
     # TODO: verify domain names in [ lData ] exist in [ lWorkflow$spec ]
     CheckSpec(lData, lWorkflow$spec)
   } else {
     lWorkflow$spec <- NULL
-    cli::cli_h3("No spec found in workflow. Proceeding without checking data.")
+    LogMessage(level = "info", message = "No spec found in workflow. Proceeding without checking data.", cli_detail = "h3")
   }
 
   # Run through each step in lWorkflow$workflow
   stepCount <- 1
   for (step in lWorkflow$steps) {
-    cli::cli_h2(paste0("Workflow Step ", stepCount, " of ", length(lWorkflow$steps), ": `", step$name, "`"))
+    LogMessage(
+      level = "info",
+      message = paste0("Workflow Step ", stepCount, " of ", length(lWorkflow$steps), ": `", step$name, "`"),
+      cli_detail = "h2"
+    )
     result <- RunStep(
       lStep = step,
       lData = lWorkflow$lData,
@@ -77,16 +81,24 @@ RunWorkflow <- function(
     )
 
     if (step$output %in% names(lData)) {
-      cli::cli_alert_warning("Overwriting existing data in `lData`.")
+      LogMessage(level = "warn", message = "Overwriting existing data in `lData`.")
     }
 
     lWorkflow$lData[[step$output]] <- result
     lWorkflow$lResult <- result
 
     if (is.data.frame(result)) {
-      cli::cli_h3("{paste(dim(result),collapse='x')} data.frame saved as `lData${step$output}`.")
+      LogMessage(
+        level = "info",
+        message = "{paste(dim(result),collapse='x')} data.frame saved as `lData${step$output}`.",
+        cli_detail = "h3"
+      )
     } else {
-      cli::cli_h3("{typeof(result)} of length {length(result)} saved as `lData${step$output}`.")
+      LogMessage(
+        level = "info",
+        message = "{typeof(result)} of length {length(result)} saved as `lData${step$output}`.",
+        cli_detail = "h3"
+      )
     }
 
     stepCount <- stepCount + 1
@@ -95,22 +107,42 @@ RunWorkflow <- function(
   # Return the result of the last step (the default) or the full workflow
   if (bReturnResult) {
     if (is.data.frame(lWorkflow$lResult)) {
-      cli::cli_h2("Returning results from final step: {paste(dim(lWorkflow$lResult),collapse='x')} data.frame`.")
+      LogMessage(
+        level = "info",
+        message = "Returning results from final step: {paste(dim(lWorkflow$lResult),collapse='x')} data.frame`.",
+        cli_detail = "h2"
+      )
     } else {
-      cli::cli_h2("Returning results from final step: {typeof(lWorkflow$lResult)} of length {length(lWorkflow$lResult)}`.")
+      LogMessage(
+        level = "info",
+        message = "Returning results from final step: {typeof(lWorkflow$lResult)} of length {length(lWorkflow$lResult)}`.",
+        cli_detail = "h2"
+      )
     }
-    cli::cli_h1("Completed `{uid}` Workflow")
+    LogMessage(level = "info", message = "Completed `{uid}` Workflow", cli_detail = "h1")
     return(lWorkflow$lResult)
   } else {
     if (!bKeepInputData) {
       outputs <- lWorkflow$steps %>% purrr::map_chr(~ .x$output)
       lWorkflow$lData <- lWorkflow$lData[outputs]
-      cli::cli_alert_info("Keeping only workflow outputs in $lData: {names(lWorkflow$lData)}")
+      LogMessage(
+        level = "info",
+        message = "Keeping only workflow outputs in $lData: {names(lWorkflow$lData)}",
+        cli_detail = "alert_info"
+      )
     } else {
-      cli::cli_alert_info("Keeping workflow inputs and outputs in $lData: {names(lWorkflow$lData)}")
+      LogMessage(
+        level = "info",
+        message = "Keeping workflow inputs and outputs in $lData: {names(lWorkflow$lData)}",
+        cli_detail = "alert_info"
+      )
     }
-    cli::cli_h2("Returning full workflow object.")
-    cli::cli_h1("Completed `{uid}` Workflow")
+    LogMessage(
+      level = "info",
+      message = "Returning full workflow object.",
+      cli_detail = "h2"
+    )
+    LogMessage(level = "info", message = "Completed `{uid}` Workflow", cli_detail = "h1")
     return(lWorkflow)
   }
 }
