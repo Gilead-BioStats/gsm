@@ -6,7 +6,6 @@ meta:
 spec:
   Mapped_STUDY:
     GroupID:
-      required: true
 steps:
   # Capture study ID from the GroupID column in the study metadata.
   - output: GroupID

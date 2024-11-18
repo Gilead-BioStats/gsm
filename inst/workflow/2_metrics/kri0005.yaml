@@ -14,17 +14,13 @@ meta:
 spec:
   Mapped_SUBJ:
     subjid:
-      required: true
       type: character
     invid:
-      required: true
       type: character
   Mapped_LB:
     subjid:
-      required: true
       type: character
     toxgrg_nsv:
-      required: true
       type: character
 steps:
   - output: vThreshold

@@ -6,45 +6,34 @@ meta:
 spec:
   Raw_SITE:
     studyid:
-      required: true
       type: character
       source_col: protocol 
     invid:
-      required: true
       type: character
       source_col: pi_number
     InvestigatorFirstName:
-      required: true
       type: character
       source_col: pi_first_name
     InvestigatorLastName:
-      required: true
       type: character
       source_col: pi_last_name
     site_status:
-      required: true
       type: character
     City:
-      required: true
       type: character
       source_col: city
     State:
-      required: true
       type: character
       source_col: state
     Country:
-      required: true
       type: character
       source_col: country
   Mapped_SUBJ:
     studyid:
-      required: true
       type: character
     invid:
-      required: true
       type: character
     subjid:
-      required: true
       type: character
 steps:
   - output: Temp_CTMSSiteWide

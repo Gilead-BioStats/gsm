@@ -6,13 +6,10 @@ meta:
 spec: 
   Mapped_STUDY:
     _all:
-      required: true
   Mapped_SITE:
     _all:
-      required: true
   Mapped_COUNTRY:
     _all:
-      required: true
 steps:
   - output: Reporting_Groups
     name: bind_rows

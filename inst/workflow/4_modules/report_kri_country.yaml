@@ -7,7 +7,6 @@ meta:
 spec:
   Reporting_Results:
     _all:
-      required: true
     Numerator:
       type: numeric
     Denominator:
@@ -20,13 +19,10 @@ spec:
       type: numeric
   Reporting_Metrics:
     _all:
-      required: true
   Reporting_Groups:
     _all:
-      required: true
   Reporting_Bounds:
     _all:
-      required: true
     Threshold:
       type: numeric
     Numerator:
