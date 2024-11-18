@@ -1,14 +1,9 @@
-# test-util-logger.R
-test_print <- function(x){
-  LogMessage(type = "warning", message = x)
-}
-
-test_that("Use cli mode", {
-  expect_snapshot(test_print("test1"))
-})
-
-test_that("Use log4r mode", {
-  test_logger <- log4r::logger()
-  SetLogger(test_logger)
-  expect_snapshot(test_print("test2"))
+# test-util-cli_logger_wrappers.R
+test_that("Use cli style messages via logger", {
+  expect_snapshot(LogMessage(level = "info", message = "cli style info", cli_detail = "h1"))
+  expect_snapshot(LogMessage(level = "info", message = "cli style info",  cli_detail = "h2"))
+  expect_snapshot(LogMessage(level = "info", message = "cli style info",  cli_detail = "h3"))
+  expect_snapshot(LogMessage(level = "info", message = "cli style info",  cli_detail = "success"))
+  expect_snapshot(tryCatch(LogMessage(level = "warn", message = "cli style warn")))
+  expect_snapshot(tryCatch(LogMessage(level = "error", message = "cli style error")))
 })

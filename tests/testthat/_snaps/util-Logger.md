@@ -1,15 +1,46 @@
-# Use cli mode
+# Use cli style messages via logger
 
     Code
-      test_print("test1")
-    Condition
-      Warning:
-      test1
+      LogMessage(level = "info", message = "cli style info", cli_detail = "h1")
+    Message
+      
+      -- cli style info --------------------------------------------------------------
 
-# Use log4r mode
+---
 
     Code
-      test_print("test2")
-    Output
-      WARN  [2024-11-15 14:07:58] test2
+      LogMessage(level = "info", message = "cli style info", cli_detail = "h2")
+    Message
+      
+      -- cli style info --
+      
+
+---
+
+    Code
+      LogMessage(level = "info", message = "cli style info", cli_detail = "h3")
+    Message
+      
+      -- cli style info 
+
+---
+
+    Code
+      LogMessage(level = "info", message = "cli style info", cli_detail = "success")
+    Message
+      v cli style info
+
+---
+
+    Code
+      tryCatch(LogMessage(level = "warn", message = "cli style warn"))
+    Message
+      ! cli style warn
+
+---
+
+    Code
+      tryCatch(LogMessage(level = "error", message = "cli style error"))
+    Message
+      x cli style error
 

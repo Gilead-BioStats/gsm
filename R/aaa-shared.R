@@ -1,3 +1,5 @@
+.le <- new.env(parent = emptyenv())
+
 gloss_param <- function(param) {
   param_def <- yaml::read_yaml(paste0("man/glossary/", param, ".yaml"))
   glue::glue("`{param_def$class}` {param_def$definition}")
@@ -25,12 +27,3 @@ gloss_extra <- function(x) {
 #' @name shared-params
 #' @keywords internal
 NULL
-
-
-.le <- new.env(parent = emptyenv())
-.le$logger <- log4r::logger(threshold = "DEBUG")
-log_debug <- log4r::debug
-log_info <- log4r::info
-log_warn <- log4r::warn
-log_error <- log4r::error
-log_fatal <- log4r::fatal
