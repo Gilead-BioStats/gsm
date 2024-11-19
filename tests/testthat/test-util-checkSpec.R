@@ -131,7 +131,7 @@ test_that("Validate column type works", {
   )
 })
 
-test_that("skip column check when `_all` is specified", {
+test_that("skip column check when `_required` is specified", {
   # example lSpec
   lSpec <- list(
     df1 = list(
@@ -143,7 +143,7 @@ test_that("skip column check when `_all` is specified", {
       y = list(type = "integer")
     ),
     df3 = list(
-      `_all` = list(type = "integer")
+      `_required` = TRUE
     )
   )
 
@@ -163,17 +163,17 @@ test_that("skip column check when `_all` is specified", {
   )
 })
 
-test_that("proper message appears when all data frames require `_all` columns", {
+test_that("proper message appears when all data frames require `_required` columns", {
   # example lSpec
   lSpec <- list(
     df1 = list(
-      `_all` = list(required = TRUE)
+      `_required` = TRUE
     ),
     df2 = list(
-      `_all` = list(required = TRUE)
+      `_required` = TRUE
     ),
     df3 = list(
-      `_all` = list(required = TRUE)
+      `_required` = TRUE
     )
   )
 

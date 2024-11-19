@@ -3,13 +3,13 @@ meta:
   ID: Groups
   Description: Reporting Groups Data
   Priority: 1
-spec: 
+spec:
   Mapped_STUDY:
-    _all:
+    _required: true
   Mapped_SITE:
-    _all:
+    _required: true
   Mapped_COUNTRY:
-    _all:
+    _required: true
 steps:
   - output: Reporting_Groups
     name: bind_rows

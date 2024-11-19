@@ -23,24 +23,25 @@ Check if the data and spec are compatible by comparing the data.frames and
 columns in the spec with the data.
 }
 \examples{
-lData <- list(reporting_groups = gsm::reportingBounds, reporting_results = gsm::reportingResults)
+lData <- list(reporting_bounds = gsm::reportingBounds, reporting_results = gsm::reportingResults)
 lSpec <- list(
   reporting_bounds = list(
-    Threshold = list(type = "numeric"),
+    Metric = list(type = "numeric"),
     Numerator = list(type = "numeric"),
-    Denominator = list(type = "numeric"),
-    Metric = list(type = "character")
+    LogDenominator = list(type = "numeric"),
+    MetricID = list(type = "character")
   ),
   reporting_results = list(
     GroupID = list(type = "character"),
     GroupLevel = list(type = "character"),
-    Numerator = list(type = "numeric"),
-    Denominator = list(type = "numeric")
+    Numerator = list(type = "integer"),
+    Denominator = list(type = "integer")
   )
 )
 CheckSpec(lData, lSpec) # Prints message that everything is found
 
+\dontrun{
 lSpec$reporting_groups$NotACol <- list(type = "character")
 CheckSpec(lData, lSpec) # Throws error that NotACol is missing
-
+}
 }

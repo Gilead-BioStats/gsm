@@ -14,26 +14,27 @@
 #' if any data.frame or column is missing.
 #'
 #' @examples
-#' lData <- list(reporting_groups = gsm::reportingBounds, reporting_results = gsm::reportingResults)
+#' lData <- list(reporting_bounds = gsm::reportingBounds, reporting_results = gsm::reportingResults)
 #' lSpec <- list(
 #'   reporting_bounds = list(
-#'     Threshold = list(type = "numeric"),
+#'     Metric = list(type = "numeric"),
 #'     Numerator = list(type = "numeric"),
-#'     Denominator = list(type = "numeric"),
-#'     Metric = list(type = "character")
+#'     LogDenominator = list(type = "numeric"),
+#'     MetricID = list(type = "character")
 #'   ),
 #'   reporting_results = list(
 #'     GroupID = list(type = "character"),
 #'     GroupLevel = list(type = "character"),
-#'     Numerator = list(type = "numeric"),
-#'     Denominator = list(type = "numeric")
+#'     Numerator = list(type = "integer"),
+#'     Denominator = list(type = "integer")
 #'   )
 #' )
 #' CheckSpec(lData, lSpec) # Prints message that everything is found
 #'
+#' \dontrun{
 #' lSpec$reporting_groups$NotACol <- list(type = "character")
 #' CheckSpec(lData, lSpec) # Throws error that NotACol is missing
-#'
+#' }
 #' @export
 #'
 CheckSpec <- function(lData, lSpec) {
@@ -54,7 +55,7 @@ CheckSpec <- function(lData, lSpec) {
   allCols <- c()
   missingCols <- c()
   # remove all lSpec entries where we are requesting `_all` columns, and no other columns are included in the df's spec
-  lSpecDataFrames <- which(sapply(lSpec, function(x) (names(x)[1] != "_all") | (length(names(x)) > 1))) %>% names()
+  lSpecDataFrames <- which(sapply(lSpec, function(x) (names(x)[1] != "_required") | (length(names(x)) > 1))) %>% names()
   for (strDataFrame in lSpecDataFrames) {
     chrDataFrameColnames <- colnames(lData[[strDataFrame]])
     # check classes in data

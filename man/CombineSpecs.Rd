@@ -22,23 +22,23 @@ and checking for type mismatches.
 \examples{
 spec1 <- list(
   df1 = list(
-    col1 = list(type = character),
-    col2 = list(type = character)
+    col1 = list(type = "character"),
+    col2 = list(type = "character")
   ),
   df2 = list(
-    col3 = list(type = character),
-    col4 = list(type = integer)
+    col3 = list(type = "character"),
+    col4 = list(type = "integer")
   )
 )
 
 spec2 <- list(
   df1 = list(
-    col1 = list(type = character),
-    col5 = list(type = character)
+    col1 = list(type = "character"),
+    col5 = list(type = "character")
   ),
   df3 = list(
-    col6 = list(type = character),
-    col7 = list(type = character)
+    col6 = list(type = "character"),
+    col7 = list(type = "character")
   )
 )
 

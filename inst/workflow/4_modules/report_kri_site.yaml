@@ -6,7 +6,7 @@ meta:
   Description: A report summarizing key risk indicators at the site level
 spec:
   Reporting_Results:
-    _all:
+    _required: true
     Numerator:
       type: numeric
     Denominator:
@@ -18,11 +18,11 @@ spec:
     Flag:
       type: numeric
   Reporting_Metrics:
-    _all:
+    _required: true
   Reporting_Groups:
-    _all:
+    _required: true
   Reporting_Bounds:
-    _all:
+    _required: true
     Threshold:
       type: numeric
     Numerator:
