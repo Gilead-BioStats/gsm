@@ -91,10 +91,8 @@ Report_KRI <- function(
       title = pivoted_groups[["protocol_title"]] %||% NA,
       characteristics = list(list(
         status = pivoted_groups[["Status"]] %||% NA,
-        siteActivation = if_else("num_site_actl" %in% names(pivoted_groups) & "num_plan_site" %in% names(pivoted_groups),
-                                 paste0(round(100 * (as.numeric(pivoted_groups$num_site_actl) / as.numeric(pivoted_groups$num_plan_site))), "%"), NA),
-        enrollment = if_else("num_enrolled_subj_m" %in% names(pivoted_groups) & "num_plan_subj" %in% names(pivoted_groups),
-                             paste0(pivoted_groups$num_enrolled_subj_m, "/", pivoted_groups$num_plan_subj), NA),
+        siteActivation = pivoted_groups[["SiteActivation"]] %||% NA,
+        enrollment = pivoted_groups[["ParticipantEnrollment"]] %||% NA,
         fpfv = pivoted_groups[["act_fpfv"]] %||% NA,
         therapeuticArea = pivoted_groups[["therapeutic_area"]] %||% NA,
         indication = pivoted_groups[["protocol_indication"]] %||% NA,
