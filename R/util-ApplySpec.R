@@ -19,14 +19,14 @@
 
 ApplySpec <- function(dfSource, columnSpecs, domain) {
   # Add all columns to the spec if '_all' is present.
-  if ("_all" %in% names(columnSpecs)) {
+  if ("_required" %in% names(columnSpecs)) {
     missingColumnSpecs <- setdiff(names(dfSource), names(columnSpecs))
 
     for (column in missingColumnSpecs) {
       columnSpecs[[column]] <- list()
     }
 
-    columnSpecs[["_all"]] <- NULL
+    columnSpecs[["_required"]] <- NULL
   }
 
   # write a query to select the columns from the source
