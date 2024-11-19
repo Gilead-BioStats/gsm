@@ -26,21 +26,21 @@ columns in the spec with the data.
 lData <- list(reporting_groups = gsm::reportingBounds, reporting_results = gsm::reportingResults)
 lSpec <- list(
   reporting_bounds = list(
-    Threshold = list(type = numeric),
-    Numerator = list(type = numeric),
-    Denominator = list(type = numeric),
-    Metirc = list(type = numeric)
+    Threshold = list(type = "numeric"),
+    Numerator = list(type = "numeric"),
+    Denominator = list(type = "numeric"),
+    Metric = list(type = "character")
   ),
   reporting_results = list(
-    GroupID = list(type = character),
-    GroupLevel = list(type = character),
-    Numerator = list(type = numeric),
-    Denominator = list(type = numeric)
+    GroupID = list(type = "character"),
+    GroupLevel = list(type = "character"),
+    Numerator = list(type = "numeric"),
+    Denominator = list(type = "numeric")
   )
 )
 CheckSpec(lData, lSpec) # Prints message that everything is found
 
-lSpec$reporting_groups$NotACol <- list(type = character)
+lSpec$reporting_groups$NotACol <- list(type = "character")
 CheckSpec(lData, lSpec) # Throws error that NotACol is missing
 
 }
