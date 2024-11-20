@@ -20,9 +20,9 @@ spec:
   Reporting_Metrics:
     _required: true
   Reporting_Groups:
-    _required: true
+    _required: false
   Reporting_Bounds:
-    _required: true
+    _required: false
     Threshold:
       type: numeric
     Numerator:
