@@ -96,7 +96,6 @@ The `spec` section of the workflow YAML specifies the data requirements for the 
 
 The `spec` section of the workflow YAML is formatted as a list of data tables, with each table containing a list of columns. Finally, each column contains the following parameters:
 
-- `required`: Boolean field specifying whether this column is required for the workflow to run, or optional/recommended for inclusion for user experience or augmented information. This parameter is required and must be included for all columns. 
 - `type`: Character field describing the data type of the column. Use a `mode` as defined by R. This parameter is optional. 
 
 ### `spec` example: Metric Module
@@ -107,17 +106,13 @@ Metric `spec`s are typically pulled from the `mapped` data layer. For example, t
 spec:
   Mapped_AE:
     subjid:
-      required: true
       type: character
   Mapped_ENROLL:
     subjid:
-      required: true
       type: character
     invid:
-      required: true
       type: character
     timeonstudy:
-      required: true
       type: integer
 ```
 
@@ -130,17 +125,13 @@ Report modules most often pull data from the `Reporting` data layer. For example
 ```
 spec:
   Reporting_Results: 
-    _all:
-      required: true
+    _required: true
   Reporting_Groups:
-    _all:
-      required: false
+    _required: false
   Reporting_Metrics:
-    _all:
-      required: false
+    _required: false
   Reporting_Bounds:
-    _all: 
-      require: false
+    _required: false
 ```
 
 Note that the `_all` key word is used to specify that all standard columns from the `Reporting_Results` data table are expected and that the table required - without it, the report can't run. The other `Reporting` tables are used to enhance the report, but are not required.
