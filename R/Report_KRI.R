@@ -114,17 +114,17 @@ Report_KRI <- function(
   #risk signals
   risk_signal_info <- dfResults %>%
     mutate(
-      studyId = .[["StudyID"]] %||% NA,
-      snapshotDate = .[["SnapshotDate"]] %||% NA,
-      metricId = .[["MetricID"]] %||% NA,
-      groupId = .[["GroupID"]] %||% NA,
+      study_id = .[["StudyID"]] %||% NA,
+      snapshot_date = .[["SnapshotDate"]] %||% NA,
+      metric_id = .[["MetricID"]] %||% NA,
+      group_id = .[["GroupID"]] %||% NA,
       flag = .[["Flag"]] %||% NA,
-      adoUrl = "tbd",
+      ado_url = "tbd",
       status = "tbd",
       summary = "tbd",
-      recommendedAction = "tbd"
+      recommended_action = "tbd"
     ) %>%
-    select(studyId, snapshotDate, metricId, groupId, flag, adoUrl, status, summary, recommendedAction) %>%
+    select(study_id, snapshot_date, metric_id, group_id, flag, ado_url, status, summary, recommended_action) %>%
     split(., seq(nrow(.)))
 
   risk_signal_file <- file.path(json_path, "risk-signal.json")
@@ -138,7 +138,7 @@ Report_KRI <- function(
   # Write module and snapshot JSON files
   module_info <- list(
     list(
-      studyId = StudyID,
+      study_id = StudyID,
       slug = GroupLevel,
       title = if (GroupLevel == "kri-country") {
         "KRI (by country)"
@@ -159,9 +159,9 @@ Report_KRI <- function(
   }
 
   snapshot_info <- list(
-    studyId = StudyID,
-    moduleSlug = GroupLevel,
-    snapshotDate = SnapshotDate
+    study_id = StudyID,
+    module_id = GroupLevel,
+    snapshot_date = SnapshotDate
   )
 
   snapshot_file <- file.path(json_path, "snapshot.json")
