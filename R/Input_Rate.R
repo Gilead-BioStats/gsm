@@ -148,7 +148,8 @@ Input_Rate <- function(
     summarise(Denominator = sum(.data$Denominator, na.rm = TRUE))
 
   if (all(dfDenominator_subj$Denominator == 0)) {
-    cli::cli_abort(
+    LogMessage(
+      level = "fatal",
       "Method `{strDenominatorMethod}` for `{strDenominatorCol}` is causing all denominator values to be 0, please check `dfDenominator`}"
     )
   }
@@ -164,7 +165,10 @@ Input_Rate <- function(
     mutate(Metric = .data$Numerator / .data$Denominator)
 
   if (any(is.na(dfInput$GroupID))) {
-    cli::cli_alert_warning(glue::glue("{sum(is.na(dfInput$GroupID))} cases of NA's in GroupID, cases are removed in output"))
+    LogMessage(
+      level = "warn",
+      message = "{sum(is.na(dfInput$GroupID))} cases of NA's in GroupID, cases are removed in output",
+    )
     dfInput <- dfInput %>%
       filter(!is.na(.data$GroupID))
   }

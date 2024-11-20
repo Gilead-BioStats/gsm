@@ -57,12 +57,13 @@ MakeMetricTable <- function(
 
   metric_ids <- sort(unique(dfResults$MetricID))
   if (length(metric_ids) > 1) {
-    cli::cli_abort(
-      c(
-        "{.arg dfResults} must only contain one unique {.field MetricID}.",
-        x = "{.arg dfResults} contains these {.field MetricID} values: {metric_ids}."
-      ),
-      class = "gsm_error-multiple_values"
+    LogMessage(
+      level = "fatal",
+      message =
+        paste0(
+          "{dfResults} must only contain one unique `MetricID`.",
+          "{dfResults} contains these `MetricID` values: {metric_ids}."
+        )
     )
   }
 

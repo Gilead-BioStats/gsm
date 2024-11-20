@@ -63,7 +63,7 @@ Visualize_Metric <- function(
   # Filter to selected MetricID ----------------------------------------------
   if (!is.null(strMetricID)) {
     if (!(strMetricID %in% unique(dfResults$MetricID))) {
-      cli::cli_alert_danger("MetricID not found in dfResults. No charts will be generated.")
+      LogMessage(level = "error", message = "MetricID not found in dfResults. No charts will be generated.")
       return(NULL)
     } else {
       dfResults <- dfResults %>% filter(.data$MetricID == strMetricID)
@@ -71,7 +71,11 @@ Visualize_Metric <- function(
   }
   if (!is.null(strMetricID)) {
     if (!(strMetricID %in% unique(dfBounds$MetricID))) {
-      cli::cli_inform("MetricID not found in dfBounds. Please double check input data if intentional.")
+      LogMessage(
+        level = "info",
+        message = "MetricID not found in dfBounds. Please double check input data if intentional.",
+        cli_detail = "inform"
+      )
       dfBounds <- NULL
     } else {
       dfBounds <- dfBounds %>% filter(.data$MetricID == strMetricID)
@@ -80,7 +84,11 @@ Visualize_Metric <- function(
 
   if (!is.null(strMetricID)) {
     if (!(strMetricID %in% unique(dfMetrics$MetricID))) {
-      cli::cli_inform("MetricID not found in dfMetrics. Please double check input data if intentional.")
+      LogMessage(
+        level = "info",
+        message = "MetricID not found in dfMetrics. Please double check input data if intentional.",
+        cli_detail = "inform"
+      )
       dfMetrics <- NULL
     } else {
       dfMetrics <- dfMetrics %>% filter(.data$MetricID == strMetricID)
@@ -92,7 +100,10 @@ Visualize_Metric <- function(
       length(unique(dfBounds$MetricID)) > 1 |
       length(unique(dfMetrics$MetricID)) > 1
   ) {
-    cli::cli_abort("Multiple MetricIDs found in dfResults, dfBounds or dfMetrics. Specify `MetricID` to subset. No charts will be generated.")
+    LogMessage(
+      level = "fatal",
+      message = "Multiple MetricIDs found in dfResults, dfBounds or dfMetrics. Specify `MetricID` to subset. No charts will be generated."
+    )
     return(NULL)
   }
 
@@ -115,7 +126,10 @@ Visualize_Metric <- function(
   }
 
   if (nrow(dfResults_latest) == 0) {
-    cli::cli_alert_warning("No data found for specified snapshot date: {strSnapshotDate}. No charts will be generated.")
+    LogMessage(
+      level = "warn",
+      message = "No data found for specified snapshot date: {strSnapshotDate}. No charts will be generated."
+    )
   } else {
     lCharts$scatterJS <- Widget_ScatterPlot(
       dfResults = dfResults_latest,
@@ -169,7 +183,11 @@ Visualize_Metric <- function(
   }
   # Continuous Charts -------------------------------------------------------
   if (number_of_snapshots <= 1) {
-    cli::cli_alert_info("Only one snapshot found. Time series charts will not be generated.")
+    LogMessage(
+      level = "info",
+      message = "Only one snapshot found. Time series charts will not be generated.",
+      cli_detail = "alert_info"
+    )
   } else {
     lCharts$timeSeriesContinuousScoreJS <- Widget_TimeSeries(
       dfResults = dfResults,

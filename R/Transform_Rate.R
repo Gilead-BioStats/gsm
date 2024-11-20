@@ -61,9 +61,9 @@ Transform_Rate <- function(
     ) # issue arises where a site has enrolled a participant but participant has not started treatment > exposure is 0 > rate is NaN or Inf
 
   if (nrow(dfTransformed) < length(unique(dfInput$GroupID))) {
-    cli::cli_warn(
-      "{length(unique(dfInput[['GroupID']])) - nrow(dfTransformed)} values of [ GroupID ] with a [ {strDenominatorCol} ] value of 0 removed.",
-      class = "gsm_wrn-remove_rows"
+    LogMessage(
+      level = "warn",
+      message = "{length(unique(dfInput[['GroupID']])) - nrow(dfTransformed)} values of [ GroupID ] with a [ {strDenominatorCol} ] value of 0 removed.",
     )
   }
 

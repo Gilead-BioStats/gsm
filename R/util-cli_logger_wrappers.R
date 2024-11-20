@@ -18,12 +18,16 @@ cli_fmt <- function(level, ...) {
     cli::cli_alert_success(fields$message)
   } else if (level == "INFO" && fields$cli_detail == "alert_info") {
     cli::cli_alert_info(fields$message)
+  } else if (level == "INFO" && fields$cli_detail == "text") {
+    cli::cli_text(fields$message)
+  } else if (level == "INFO" && fields$cli_detail == "inform") {
+    cli::cli_inform(fields$message)
   } else if (level == "WARN") {
     cli::cli_alert_warning(fields$message)
   } else if (level == "ERROR") {
     cli::cli_alert_danger(fields$message)
-  } else {
-    cli::cli_inform(fields$message)
+  } else if (level == "FATAL") {
+    cli::cli_abort(fields$message)
   }
   return(NULL)
 }

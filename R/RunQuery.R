@@ -36,12 +36,19 @@ RunQuery <- function(strQuery, df, method = NULL) {
 
   # return the data frame and print a warning if there are 0 rows
   if (nrow(df) == 0) {
-    cli::cli_alert_warning("df has 0 rows. Query not run. Returning empty data frame.")
+    LogMessage(
+      level = "warn",
+      message = "df has 0 rows. Query not run. Returning empty data frame."
+    )
     return(df)
   } else {
     # run the query
     result <- sqldf::sqldf(strQuery, method = method)
-    cli::cli_text("SQL Query complete: {nrow(result)} rows returned.")
+    LogMessage(
+      level = "warn",
+      message = "SQL Query complete: {nrow(result)} rows returned.",
+      cli_detail = "text"
+    )
     return(result)
   }
 }

@@ -8,9 +8,9 @@
 
 stop_if_empty <- function(x, x_arg = rlang::caller_arg(x)) {
   if (!length(x)) {
-    cli::cli_abort(
-      "{.arg {x_arg}} must not be `NULL`.",
-      class = "gsm_error-null_arg"
+    LogMessage(
+      level = "fatal",
+      message = "{.arg {x_arg}} must not be `NULL`."
     )
   }
 }
@@ -36,9 +36,10 @@ FilterByLatestSnapshotDate <- function(df, strSnapshotDate = NULL) {
   if (!length(df$SnapshotDate)) {
     if (length(strSnapshotDate)) {
       arg_name <- rlang::caller_arg(df)
-      cli::cli_abort(c(
-        "{.arg {arg_name}} must contain a {.var SnapshotDate} column."
-      ))
+      LogMessage(
+        level = "fatal",
+        message ="`{arg_name}` must contain a `SnapshotDate` column."
+      )
     }
     return(df)
   }

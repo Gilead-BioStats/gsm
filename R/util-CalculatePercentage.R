@@ -16,7 +16,10 @@
 #' @export
 CalculatePercentage <- function(data, strCurrentCol, strTargetCol, strPercVal, strPercStrVal) {
   if (!(strCurrentCol %in% names(data) & strTargetCol %in% names(data))) {
-    cli::cli_abort("Check that both {strCurrentCol} and {strTargetCol} are in data")
+    LogMessage(
+      level = "fatal",
+      message = "Check that both {strCurrentCol} and {strTargetCol} are in data"
+    )
   }
 
   data <- data %>%
