@@ -5,11 +5,14 @@ meta:
   Priority: 1
 spec:
   Mapped_STUDY:
-    _required: true
+    _all:
+      required:  true
   Mapped_SITE:
-    _required: true
+    _all:
+      required:  true
   Mapped_COUNTRY:
-    _required: true
+    _all:
+      required:  true
 steps:
   - output: Reporting_Groups
     name: bind_rows
