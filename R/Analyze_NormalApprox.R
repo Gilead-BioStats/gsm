@@ -95,7 +95,7 @@ Analyze_NormalApprox <- function(
 
   LogMessage(
     level = "info",
-    message = "{OverallMetric}, {Factor}, and {Score} columns created from normal approximation.",
+    message = "`OverallMetric`, `Factor`, and `Score` columns created from normal approximation.",
     cli_detail = "inform"
   )
 
