@@ -72,9 +72,8 @@ test_that("Makes StudyLabel properly", {
   expect_equal(result1$StudyLabel, result1$StudyID)
 
   reportingGroups_alt2 <- reportingGroups
-  reportingGroups_alt2[reportingGroups_alt2$Param == "nickname",]$Value <- NA
+  reportingGroups_alt2[reportingGroups_alt2$Param == "nickname", ]$Value <- NA
 
   result2 <- Report_Setup(reportingGroups_alt2, reportingMetrics, reportingResults)
   expect_equal(result2$StudyLabel, result2$StudyID)
-
 })

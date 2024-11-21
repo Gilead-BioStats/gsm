@@ -74,7 +74,7 @@ steps:
       strCurrentCol: SiteCount
       strTargetCol: SiteTarget
       strPercVal: PercentSitesActivated
-      strPercStrVal: SiteActivationLabel
+      strPercStrVal: SiteActivation
   - output: Temp_CountTargetsWide_addsitepts
     names: CalculatePercentage
     params:
@@ -82,7 +82,7 @@ steps:
       strCurrentCol: ParticipantCount
       strTargetCol: ParticipantTarget
       strPercVal: PercentParticipantsEnrolled
-      strPercStrVal: ParticipantEnrollmentLabel
+      strPercStrVal: ParticipantEnrollment
   - output: Temp_CountTargetsPercs
     name: MakeLongMeta
     params:
