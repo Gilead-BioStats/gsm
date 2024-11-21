@@ -34,13 +34,7 @@
 
     Code
       tryCatch(LogMessage(level = "warn", message = "cli style warn"))
-    Message
-      ! cli style warn
-
----
-
-    Code
-      tryCatch(LogMessage(level = "error", message = "cli style error"))
-    Message
-      x cli style error
+    Condition
+      Warning:
+      cli style warn
 

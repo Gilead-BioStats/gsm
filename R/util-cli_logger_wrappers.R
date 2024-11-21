@@ -23,9 +23,9 @@ cli_fmt <- function(level, ...) {
   } else if (level == "INFO" && fields$cli_detail == "inform") {
     cli::cli_inform(fields$message)
   } else if (level == "WARN") {
-    cli::cli_alert_warning(fields$message)
+    cli::cli_warn(fields$message)
   } else if (level == "ERROR") {
-    cli::cli_alert_danger(fields$message)
+    cli::cli_abort(fields$message)
   } else if (level == "FATAL") {
     cli::cli_abort(fields$message)
   }
@@ -48,11 +48,11 @@ LogMessage <- function(level, message, cli_detail = NULL, .envir = parent.frame(
   # Pass the formatted message to the appropriate logging level
   switch(
     toupper(level),
-    "DEBUG" = log4r::debug(logger = .le$logger, message),
-    "INFO" = log4r::info(logger = .le$logger, message = message, cli_detail = cli_detail),
-    "WARN" = log4r::warn(logger = .le$logger, message = message),
-    "ERROR" = log4r::error(logger = .le$logger, message = message),
-    "FATAL" = log4r::fatal(logger = .le$logger, message)
+    "DEBUG" = log4r::debug(logger = .le$logger, level = toupper(level), message = message),
+    "INFO" = log4r::info(logger = .le$logger, level = toupper(level), message = message, cli_detail = cli_detail),
+    "WARN" = log4r::warn(logger = .le$logger, level = toupper(level), message = message),
+    "ERROR" = log4r::error(logger = .le$logger, level = toupper(level), message = message),
+    "FATAL" = log4r::fatal(logger = .le$logger, level = toupper(level), message = message)
   )
 }
 

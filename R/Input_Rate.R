@@ -150,7 +150,7 @@ Input_Rate <- function(
   if (all(dfDenominator_subj$Denominator == 0)) {
     LogMessage(
       level = "fatal",
-      "Method `{strDenominatorMethod}` for `{strDenominatorCol}` is causing all denominator values to be 0, please check `dfDenominator`}"
+      message = "All denominator values are 0, please check `dfDenominator`"
     )
   }
 

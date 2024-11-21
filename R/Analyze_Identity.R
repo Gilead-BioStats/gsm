@@ -34,7 +34,7 @@ Analyze_Identity <- function(dfTransformed, strValueCol = "Metric") {
 
   LogMessage(
     level = "info",
-    message = paste0("{.var Score} column created from `", strValueCol, "`."),
+    message = paste0("`Score` column created from `", strValueCol, "`."),
     cli_detail = "text"
   )
 

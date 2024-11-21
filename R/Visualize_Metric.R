@@ -63,7 +63,10 @@ Visualize_Metric <- function(
   # Filter to selected MetricID ----------------------------------------------
   if (!is.null(strMetricID)) {
     if (!(strMetricID %in% unique(dfResults$MetricID))) {
-      LogMessage(level = "error", message = "MetricID not found in dfResults. No charts will be generated.")
+      LogMessage(
+        level = "info",
+        message = "MetricID not found in dfResults. No charts will be generated.",
+        cli_detail = "alert_info")
       return(NULL)
     } else {
       dfResults <- dfResults %>% filter(.data$MetricID == strMetricID)

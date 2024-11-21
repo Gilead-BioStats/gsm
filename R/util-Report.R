@@ -10,7 +10,7 @@ stop_if_empty <- function(x, x_arg = rlang::caller_arg(x)) {
   if (!length(x)) {
     LogMessage(
       level = "fatal",
-      message = "{.arg {x_arg}} must not be `NULL`."
+      message = "{x_arg} must not be `NULL`."
     )
   }
 }

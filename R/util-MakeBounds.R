@@ -36,14 +36,14 @@ MakeBounds <- function(
   stop_if_empty(strStudyID)
   LogMessage(
     level = "info",
-    message = "Creating stacked dfBounds data for {strMetrics}",
+    message = "Creating stacked dfBounds data for strMetrics",
     cli_detail = "inform"
   )
 
   if (length(dSnapshotDate) != 1) {
     LogMessage(
       level = "warn",
-      message = "More than one SnapshotDate found. Returning NULL"
+      message = "More than one `dSnapshotDate` found. Returning NULL"
     )
     return(NULL)
   }
@@ -51,7 +51,7 @@ MakeBounds <- function(
   if (length(strStudyID) != 1) {
     LogMessage(
       level = "warn",
-      message = "More than one StudyID found. Return NULL"
+      message = "More than one `strStudyID` found. Return NULL"
     )
     return(NULL)
   }

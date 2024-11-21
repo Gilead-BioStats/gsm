@@ -4,30 +4,30 @@
       MakeBounds(dfResults = dplyr::filter(reportingResults, SnapshotDate ==
         "2012-12-31"), dfMetrics = reportingMetrics)
     Message
-      Creating stacked dfBounds data for Analysis_kri0001, Analysis_kri0002, Analysis_kri0003, Analysis_kri0004, Analysis_kri0005, Analysis_kri0006, Analysis_kri0007, Analysis_kri0008, Analysis_kri0009, Analysis_kri0010, Analysis_kri0011, and Analysis_kri0012
-      v Parsed -2,-1,2,3 to numeric vector: -2, -1, 2, and 3
+      Creating stacked dfBounds data for strMetrics
+      v Parsed -2,-1,2,3 to numeric vector: -2Parsed -2,-1,2,3 to numeric vector: -1Parsed -2,-1,2,3 to numeric vector: 2Parsed -2,-1,2,3 to numeric vector: 3
       nStep was not provided. Setting default step to 43.44.
-      v Parsed -2,-1,2,3 to numeric vector: -2, -1, 2, and 3
+      v Parsed -2,-1,2,3 to numeric vector: -2Parsed -2,-1,2,3 to numeric vector: -1Parsed -2,-1,2,3 to numeric vector: 2Parsed -2,-1,2,3 to numeric vector: 3
       nStep was not provided. Setting default step to 43.44.
-      v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
+      v Parsed -3,-2,2,3 to numeric vector: -3Parsed -3,-2,2,3 to numeric vector: -2Parsed -3,-2,2,3 to numeric vector: 2Parsed -3,-2,2,3 to numeric vector: 3
       nStep was not provided. Setting default step to 43.44.
-      v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
+      v Parsed -3,-2,2,3 to numeric vector: -3Parsed -3,-2,2,3 to numeric vector: -2Parsed -3,-2,2,3 to numeric vector: 2Parsed -3,-2,2,3 to numeric vector: 3
       nStep was not provided. Setting default step to 43.44.
-      v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
+      v Parsed -3,-2,2,3 to numeric vector: -3Parsed -3,-2,2,3 to numeric vector: -2Parsed -3,-2,2,3 to numeric vector: 2Parsed -3,-2,2,3 to numeric vector: 3
       nStep was not provided. Setting default step to 18.776.
-      v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
+      v Parsed -3,-2,2,3 to numeric vector: -3Parsed -3,-2,2,3 to numeric vector: -2Parsed -3,-2,2,3 to numeric vector: 2Parsed -3,-2,2,3 to numeric vector: 3
       nStep was not provided. Setting default step to 0.232.
-      v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
+      v Parsed -3,-2,2,3 to numeric vector: -3Parsed -3,-2,2,3 to numeric vector: -2Parsed -3,-2,2,3 to numeric vector: 2Parsed -3,-2,2,3 to numeric vector: 3
       nStep was not provided. Setting default step to 0.232.
-      v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
+      v Parsed -3,-2,2,3 to numeric vector: -3Parsed -3,-2,2,3 to numeric vector: -2Parsed -3,-2,2,3 to numeric vector: 2Parsed -3,-2,2,3 to numeric vector: 3
       nStep was not provided. Setting default step to 803.2.
-      v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
+      v Parsed -3,-2,2,3 to numeric vector: -3Parsed -3,-2,2,3 to numeric vector: -2Parsed -3,-2,2,3 to numeric vector: 2Parsed -3,-2,2,3 to numeric vector: 3
       nStep was not provided. Setting default step to 82.46.
-      v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
+      v Parsed -3,-2,2,3 to numeric vector: -3Parsed -3,-2,2,3 to numeric vector: -2Parsed -3,-2,2,3 to numeric vector: 2Parsed -3,-2,2,3 to numeric vector: 3
       nStep was not provided. Setting default step to 80511.168.
-      v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
+      v Parsed -3,-2,2,3 to numeric vector: -3Parsed -3,-2,2,3 to numeric vector: -2Parsed -3,-2,2,3 to numeric vector: 2Parsed -3,-2,2,3 to numeric vector: 3
       nStep was not provided. Setting default step to 803.2.
-      v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
+      v Parsed -3,-2,2,3 to numeric vector: -3Parsed -3,-2,2,3 to numeric vector: -2Parsed -3,-2,2,3 to numeric vector: 2Parsed -3,-2,2,3 to numeric vector: 3
       nStep was not provided. Setting default step to 14.916.
     Output
       # A tibble: 14,484 x 8
@@ -52,8 +52,8 @@
       MakeBounds(dfResults = dplyr::filter(reportingResults, SnapshotDate ==
         "2012-12-31"), dfMetrics = reportingMetrics, strMetrics = "Analysis_kri0001")
     Message
-      Creating stacked dfBounds data for Analysis_kri0001
-      v Parsed -2,-1,2,3 to numeric vector: -2, -1, 2, and 3
+      Creating stacked dfBounds data for strMetrics
+      v Parsed -2,-1,2,3 to numeric vector: -2Parsed -2,-1,2,3 to numeric vector: -1Parsed -2,-1,2,3 to numeric vector: 2Parsed -2,-1,2,3 to numeric vector: 3
       nStep was not provided. Setting default step to 43.44.
     Output
       # A tibble: 1,265 x 8
@@ -78,30 +78,30 @@
       MakeBounds(dfResults = dplyr::filter(reportingResults, SnapshotDate ==
         "2012-12-31"), dfMetrics = reportingMetrics)
     Message
-      Creating stacked dfBounds data for Analysis_kri0001, Analysis_kri0002, Analysis_kri0003, Analysis_kri0004, Analysis_kri0005, Analysis_kri0006, Analysis_kri0007, Analysis_kri0008, Analysis_kri0009, Analysis_kri0010, Analysis_kri0011, and Analysis_kri0012
-      v Parsed -2,-1,2,3 to numeric vector: -2, -1, 2, and 3
+      Creating stacked dfBounds data for strMetrics
+      v Parsed -2,-1,2,3 to numeric vector: -2Parsed -2,-1,2,3 to numeric vector: -1Parsed -2,-1,2,3 to numeric vector: 2Parsed -2,-1,2,3 to numeric vector: 3
       nStep was not provided. Setting default step to 43.44.
-      v Parsed -2,-1,2,3 to numeric vector: -2, -1, 2, and 3
+      v Parsed -2,-1,2,3 to numeric vector: -2Parsed -2,-1,2,3 to numeric vector: -1Parsed -2,-1,2,3 to numeric vector: 2Parsed -2,-1,2,3 to numeric vector: 3
       nStep was not provided. Setting default step to 43.44.
-      v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
+      v Parsed -3,-2,2,3 to numeric vector: -3Parsed -3,-2,2,3 to numeric vector: -2Parsed -3,-2,2,3 to numeric vector: 2Parsed -3,-2,2,3 to numeric vector: 3
       nStep was not provided. Setting default step to 43.44.
-      v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
+      v Parsed -3,-2,2,3 to numeric vector: -3Parsed -3,-2,2,3 to numeric vector: -2Parsed -3,-2,2,3 to numeric vector: 2Parsed -3,-2,2,3 to numeric vector: 3
       nStep was not provided. Setting default step to 43.44.
-      v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
+      v Parsed -3,-2,2,3 to numeric vector: -3Parsed -3,-2,2,3 to numeric vector: -2Parsed -3,-2,2,3 to numeric vector: 2Parsed -3,-2,2,3 to numeric vector: 3
       nStep was not provided. Setting default step to 18.776.
-      v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
+      v Parsed -3,-2,2,3 to numeric vector: -3Parsed -3,-2,2,3 to numeric vector: -2Parsed -3,-2,2,3 to numeric vector: 2Parsed -3,-2,2,3 to numeric vector: 3
       nStep was not provided. Setting default step to 0.232.
-      v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
+      v Parsed -3,-2,2,3 to numeric vector: -3Parsed -3,-2,2,3 to numeric vector: -2Parsed -3,-2,2,3 to numeric vector: 2Parsed -3,-2,2,3 to numeric vector: 3
       nStep was not provided. Setting default step to 0.232.
-      v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
+      v Parsed -3,-2,2,3 to numeric vector: -3Parsed -3,-2,2,3 to numeric vector: -2Parsed -3,-2,2,3 to numeric vector: 2Parsed -3,-2,2,3 to numeric vector: 3
       nStep was not provided. Setting default step to 803.2.
-      v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
+      v Parsed -3,-2,2,3 to numeric vector: -3Parsed -3,-2,2,3 to numeric vector: -2Parsed -3,-2,2,3 to numeric vector: 2Parsed -3,-2,2,3 to numeric vector: 3
       nStep was not provided. Setting default step to 82.46.
-      v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
+      v Parsed -3,-2,2,3 to numeric vector: -3Parsed -3,-2,2,3 to numeric vector: -2Parsed -3,-2,2,3 to numeric vector: 2Parsed -3,-2,2,3 to numeric vector: 3
       nStep was not provided. Setting default step to 80511.168.
-      v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
+      v Parsed -3,-2,2,3 to numeric vector: -3Parsed -3,-2,2,3 to numeric vector: -2Parsed -3,-2,2,3 to numeric vector: 2Parsed -3,-2,2,3 to numeric vector: 3
       nStep was not provided. Setting default step to 803.2.
-      v Parsed -3,-2,2,3 to numeric vector: -3, -2, 2, and 3
+      v Parsed -3,-2,2,3 to numeric vector: -3Parsed -3,-2,2,3 to numeric vector: -2Parsed -3,-2,2,3 to numeric vector: 2Parsed -3,-2,2,3 to numeric vector: 3
       nStep was not provided. Setting default step to 14.916.
     Output
       # A tibble: 14,484 x 8

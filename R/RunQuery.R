@@ -79,7 +79,11 @@ RunQuery <- function(strQuery, df) {
   }, finally = {
     if (!inherits(df, "tbl_dbi")) {
       DBI::dbDisconnect(con)
-      cli::cli_text("Disconnected from temporary DuckDB connection.")
+      LogMessage(
+        level = "info",
+        message = "Disconnected from temporary DuckDB connection.",
+        cli_detail = "text"
+      )
     }
   })
 
