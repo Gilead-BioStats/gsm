@@ -30,6 +30,24 @@ spec:
     est_fpfv:
       required: true
       type: Date
+    est_lplv:
+      required: true
+      type: Date
+    est_lpfv:
+      required: true
+      type: Date
+    therapeutic_area:
+      required: true
+      type: character
+    protocol_indication:
+      required: true
+      type: character
+    phase:
+      required: true
+      type: character
+    product:
+      required: true
+      type: character
   Mapped_SUBJ:
     studyid:
       required: true
