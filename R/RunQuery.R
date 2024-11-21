@@ -38,7 +38,7 @@ RunQuery <- function(strQuery, df) {
     LogMessage(
       level = "info",
       message = "Using provided DuckDB connection.",
-      cli_detial = "text"
+      cli_detail = "text"
     )
     con <- dbplyr::remote_con(df)
     table_name <- dbplyr::remote_name(df)
