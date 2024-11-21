@@ -4617,7 +4617,7 @@
       [1] "PercentSitesActivated"
       
       $STUDY[[6]]$params$strPercStrVal
-      [1] "SiteActivationLabel"
+      [1] "SiteActivation"
       
       
       
@@ -4642,7 +4642,7 @@
       [1] "PercentParticipantsEnrolled"
       
       $STUDY[[7]]$params$strPercStrVal
-      [1] "ParticipantEnrollmentLabel"
+      [1] "ParticipantEnrollment"
       
       
       

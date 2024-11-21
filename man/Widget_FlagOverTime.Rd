@@ -8,7 +8,9 @@ Widget_FlagOverTime(
   dfResults,
   dfMetrics,
   strGroupLevel = c("Site", "Study", "Country"),
-  strFootnote = NULL
+  strFootnote = NULL,
+  width = "100\%",
+  height = "400px"
 )
 }
 \arguments{
@@ -19,6 +21,10 @@ Widget_FlagOverTime(
 \item{strGroupLevel}{\code{character} Value for the group level. Default: "Site".}
 
 \item{strFootnote}{\code{character} Text to insert for figure}
+
+\item{width}{\code{character} Pixel width or percentage size of page}
+
+\item{height}{\code{character} Pixel height or percentage size of page}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
