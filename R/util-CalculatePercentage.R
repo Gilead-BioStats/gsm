@@ -15,15 +15,22 @@
 #' @return A data frame containing two additional columns for the precentage value and associated string
 #' @export
 CalculatePercentage <- function(data, strCurrentCol, strTargetCol, strPercVal, strPercStrVal) {
-  if (!(strCurrentCol %in% names(data) & strTargetCol %in% names(data))) {
-    cli::cli_abort("Check that both {strCurrentCol} and {strTargetCol} are in data")
+  if (!(strCurrentCol %in% names(data))) {
+    cli::cli_abort("Check that {strCurrentCol} is in data")
   }
 
-  data <- data %>%
-    dplyr::mutate(
-      {{ strPercVal }} := round(.data[[strCurrentCol]] * 100 / .data[[strTargetCol]], 1),
-      {{ strPercStrVal }} := paste0(.data[[strCurrentCol]], " / ", .data[[strTargetCol]], " (", .data[[strPercVal]], "%)")
-    )
+  if (strTargetCol %in% names(data)) {
+    data <- data %>%
+      dplyr::mutate(
+        {{ strPercVal }} := round(.data[[strCurrentCol]] * 100 / .data[[strTargetCol]], 1),
+        {{ strPercStrVal }} := paste0(.data[[strCurrentCol]], " / ", .data[[strTargetCol]], " (", .data[[strPercVal]], "%)")
+      )
+  } else {
+    data <- data %>%
+      dplyr::mutate(
+        {{ strPercStrVal }} := .data[[strCurrentCol]]
+      )
+  }
 
   return(data)
 }

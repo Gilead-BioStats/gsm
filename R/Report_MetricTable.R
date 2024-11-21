@@ -44,8 +44,8 @@ Report_MetricTable <- function(
 
   # Check these columns against columns in the output of [ MakeMetricTable ].
   cols_to_hide <- intersect(
-      c("StudyID", "GroupID", "MetricID"),
-      names(MetricTable)
+    c("StudyID", "GroupID", "MetricID"),
+    names(MetricTable)
   )
 
   if (length(unique(MetricTable$SnapshotDate == 1))) {

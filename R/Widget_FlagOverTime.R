@@ -37,7 +37,7 @@ Widget_FlagOverTime <- function(
   )
 
   most_recent12 <- dfResults %>%
-    dplyr::pull(SnapshotDate) %>%
+    dplyr::pull(.data$SnapshotDate) %>%
     unique() %>%
     sort(decreasing = TRUE) %>%
     utils::head(12) %>%
@@ -52,7 +52,7 @@ Widget_FlagOverTime <- function(
     gt::as_raw_html()
 
   gtFlagOverTime_recent12 <- Report_FlagOverTime(
-    dplyr::filter(dfResults, SnapshotDate %in% most_recent12),
+    dplyr::filter(dfResults, .data$SnapshotDate %in% most_recent12),
     dfMetrics,
     strGroupLevel = strGroupLevel
   ) %>%

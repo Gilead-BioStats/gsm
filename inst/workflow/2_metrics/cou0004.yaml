@@ -2,7 +2,7 @@ meta:
   Type: Analysis
   ID: cou0004
   GroupLevel: Country
-  Abbreviation: PD
+  Abbreviation: IPD
   Metric: Important Protocol Deviation Rate
   Numerator: Important Protocol Deviations
   Denominator: Days on Study
