@@ -6,7 +6,6 @@
 #' Apply a column specification to a data frame. The column specification is a
 #' named list where the names are the target column names and the values are
 #' lists of column specifications. The column specifications can include:
-#'   - `required`: Whether the column is required.
 #'   - `type`: The data type to convert the column to.
 #'   - `source_col`: The name of the source column to map to the target column.
 #'
@@ -28,10 +27,6 @@ ApplySpec <- function(dfSource, columnSpecs, domain) {
     }
 
     columnSpecs[["_all"]] <- NULL
-    columnSpecs <- map(columnSpecs, ~ {
-      .x$required <- TRUE
-      .x
-    })
   }
 
   # write a query to select the columns from the source
@@ -41,21 +36,23 @@ ApplySpec <- function(dfSource, columnSpecs, domain) {
         mapping <- list(target = name)
         mapping$source <- spec$source_col %||% name
         mapping$type <- spec$type %||% NULL
-        mapping$required <- spec$required %||% FALSE
         return(mapping)
       }
     ) %>%
-    # Drop non-required columns that aren't in dfSource.
-    purrr::keep(~ .x$required || .x$source %in% colnames(dfSource))
+    # Drop non-specified columns that aren't in dfSource.
+    purrr::keep(~ .x$source %in% colnames(dfSource))
 
-  # check that the required columns exists in the source data
+  # check that the columns exists in the source data
   sourceCols <- columnMapping %>% map("source")
   if (!all(sourceCols %in% names(dfSource))) {
     missingCols <- sourceCols[!sourceCols %in% names(dfSource)]
-    stop(glue("Columns not found in source data for domain '{domain}': {missingCols}."))
+    LogMessage(
+      level = "error",
+      message = "Columns not found in source data for domain '{domain}': {missingCols}."
+    )
   }
 
-  # Write query to select/rename required columns from source to target
+  # Write query to select/rename columns from source to target
   strColQuery <- columnMapping %>%
     map_chr(function(mapping) {
       if (mapping$source == mapping$target) {

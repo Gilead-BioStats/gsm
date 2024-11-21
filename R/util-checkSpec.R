@@ -14,26 +14,27 @@
 #' if any data.frame or column is missing.
 #'
 #' @examples
-#' lData <- list(reporting_groups = gsm::reportingGroups, reporting_results = gsm::reportingResults)
+#' lData <- list(reporting_bounds = gsm::reportingBounds, reporting_results = gsm::reportingResults)
 #' lSpec <- list(
-#'   reporting_groups = list(
-#'     GroupID = list(required = TRUE),
-#'     GroupLevel = list(required = TRUE),
-#'     Param = list(required = TRUE),
-#'     Value = list(required = TRUE)
+#'   reporting_bounds = list(
+#'     Metric = list(type = "numeric"),
+#'     Numerator = list(type = "numeric"),
+#'     LogDenominator = list(type = "numeric"),
+#'     MetricID = list(type = "character")
 #'   ),
 #'   reporting_results = list(
-#'     GroupID = list(required = TRUE),
-#'     GroupLevel = list(required = TRUE),
-#'     Numerator = list(required = TRUE),
-#'     Denominator = list(required = TRUE)
+#'     GroupID = list(type = "character"),
+#'     GroupLevel = list(type = "character"),
+#'     Numerator = list(type = "integer"),
+#'     Denominator = list(type = "integer")
 #'   )
 #' )
 #' CheckSpec(lData, lSpec) # Prints message that everything is found
 #'
-#' lSpec$reporting_groups$NotACol <- list(required = TRUE)
+#' \dontrun{
+#' lSpec$reporting_groups$NotACol <- list(type = "character")
 #' CheckSpec(lData, lSpec) # Throws error that NotACol is missing
-#'
+#' }
 #' @export
 #'
 CheckSpec <- function(lData, lSpec) {
@@ -43,11 +44,8 @@ CheckSpec <- function(lData, lSpec) {
   if (!all(lSpecDataFrames %in% lDataFrames)) {
     MissingSpecDataFrames <- lSpecDataFrames[!lSpecDataFrames %in% lDataFrames]
     LogMessage(
-      level = "fatal",
-      message = paste0(
-        "`lData` must contain all data.frames in `lSpec`.",
-        " Missing data.frames: {MissingSpecDataFrames}"
-      )
+      level = "error",
+      message = "`lData` must contain all data.frames in `lSpec`. Missing data.frames: {MissingSpecDataFrames}"
     )
   } else {
     LogMessage(
@@ -83,7 +81,7 @@ CheckSpec <- function(lData, lSpec) {
 
     if (length(wrongType)) {
       LogMessage(
-        level = "error",
+        level = "warn",
         message = "Not all columns of {strDataFrame} in the spec are in the expected format, improperly formatted columns are: {wrongType}"
       )
     } else {
@@ -95,7 +93,7 @@ CheckSpec <- function(lData, lSpec) {
     }
     # check that required exist in data, if _all required is not specified
     if (!isTRUE(lSpec[[strDataFrame]]$`_all`$required)) {
-      lSpecColumns <- which(sapply(lSpec[[strDataFrame]], function(x) x$required)) %>% names()
+      lSpecColumns <- names(lSpec[[strDataFrame]])
       lDataColumns <- names(lData[[strDataFrame]])
       allCols <- c(allCols, paste(strDataFrame, lSpecColumns, sep = "$"))
 
@@ -107,19 +105,19 @@ CheckSpec <- function(lData, lSpec) {
   }
   if (length(missingCols) > 0) {
     LogMessage(
-      level = "error",
-      message = "Not all required columns in the spec are present in the data, missing columns are: {missingCols}"
+      level = "warn",
+      message = "Not all specified columns in the spec are present in the data, missing columns are: {missingCols}"
     )
   } else if (length(allCols) > 0) {
     LogMessage(
       level = "info",
-      message = "All {length(allCols)} required column{?s} in the spec are present in the data: {allCols}",
+      message = "All {length(allCols)} specified column{?s} in the spec are present in the data: {allCols}",
       cli_detail = "alert"
     )
   } else {
     LogMessage(
       level = "info",
-      message = "No required columns specified in the spec. All data.frames are pulling in all available columns.",
+      message = "No columns specified in the spec. All data.frames are pulling in all available columns.",
       cli_detail = "alert"
     )
   }
