@@ -21,8 +21,8 @@ ParseThreshold <- function(strThreshold) {
   if (length(vThreshold > 0) && all(!is.na(vThreshold))) {
     LogMessage(
       level = "info",
-      message = "Parsed {strThreshold} to numeric vector: {sort(vThreshold)}",
-      cli_detail = "alert_success"
+      message = "Parsed {strThreshold} to numeric vector: {toString(vThreshold)}",
+      cli_detail = "inform"
     )
     return(sort(vThreshold))
   } else {

@@ -28,7 +28,10 @@ test_that("RunQuery handles empty df", {
   query <- "SELECT * FROM df WHERE Age >= 30"
 
   # Call the RunQuery function
-  result <- RunQuery(query, df)
+  expect_warning(
+    result <- RunQuery(query, df),
+    regexp = "empty data frame"
+  )
 
   # Check if the result is empty
   expect_equal(nrow(result), 0)
