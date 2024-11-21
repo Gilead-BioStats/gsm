@@ -90,7 +90,7 @@ Report_KRI <- function(
       name = pivoted_groups[["nickname"]] %||% NA,
       title = pivoted_groups[["protocol_title"]] %||% NA,
       characteristics = list(list(
-        status = pivoted_groups[["Status"]] %||% NA,
+        status = pivoted_groups[["status"]] %||% NA, # datasim is lowercase; clindata is uppercase
         siteActivation = pivoted_groups[["SiteActivation"]] %||% NA,
         enrollment = pivoted_groups[["ParticipantEnrollment"]] %||% NA,
         fpfv = pivoted_groups[["act_fpfv"]] %||% NA,
@@ -160,7 +160,7 @@ Report_KRI <- function(
 
   snapshot_info <- list(
     study_id = StudyID,
-    module_id = GroupLevel,
+    module_slug = GroupLevel,
     snapshot_date = SnapshotDate
   )
 
