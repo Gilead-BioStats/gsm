@@ -98,8 +98,8 @@ Report_KRI <- function(
         indication = pivoted_groups[["protocol_indication"]] %||% NA,
         product = pivoted_groups[["product"]] %||% NA,
         phase = pivoted_groups[["phase"]] %||% NA,
-        lpfv = pivoted_groups[["act_lpfv"]] %||% NA,
-        lplv = pivoted_groups[["act_lplv"]] %||% NA
+        lpfv = pivoted_groups[["est_lpfv"]] %||% NA,
+        lplv = pivoted_groups[["est_lplv"]] %||% NA
       ))
     ) %>%
     select(id, name, title, characteristics)
