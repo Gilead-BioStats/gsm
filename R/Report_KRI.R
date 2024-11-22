@@ -175,29 +175,6 @@ Report_KRI <- function(
     write_json(risk_signal_info, path = risk_signal_file, na = "null", pretty = TRUE, auto_unbox = TRUE)
   }
 
-  # Write module and snapshot JSON files
-  module_info <- list(
-    list(
-      study_id = StudyID,
-      slug = GroupLevel,
-      title = if (GroupLevel == "kri-country") {
-        "KRI (by country)"
-      } else if (GroupLevel == "kri-site") {
-        "KRI (by site)"
-      } else {
-        paste("KRI (", GroupLevel, ")", sep = "")
-      }
-    )
-  )
-
-  module_file <- file.path(json_path, "module.json")
-  if (file.exists(module_file)) {
-    existing_data <- fromJSON(module_file, simplifyVector = FALSE, simplifyDataFrame = FALSE)
-    write_json(c(existing_data, module_info), path = module_file, na = "null", pretty = TRUE, auto_unbox = TRUE)
-  } else {
-    write_json(module_info, path = module_file, na = "null", pretty = TRUE, auto_unbox = TRUE)
-  }
-
   snapshot_info <- list(
     study_id = StudyID,
     module_slug = GroupLevel,
