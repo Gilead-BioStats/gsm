@@ -79,27 +79,67 @@ Report_KRI <- function(
     dir.create(json_path, recursive = TRUE)
   }
 
-  # Convert study-level data to JSON
+  #metrics json
+  metrics_info <- dfMetrics %>%
+    mutate(
+      id = .[["MetricID"]] %||% NA,
+      abbreviation = .[["Abbreviation"]] %||% NA,
+      label = .[["Metric"]] %||% NA
+    ) %>%
+    select(id, abbreviation, label) %>%
+    split(., seq(nrow(.)))
+
+  metrics_file <- file.path(json_path, "risk-signal-metrics.json")
+  if (file.exists(metrics_file)) {
+    existing_data <- fromJSON(metrics_file, simplifyVector = FALSE, simplifyDataFrame = FALSE)
+    write_json(c(existing_data, metrics_info), path = metrics_file, na = "null", pretty = TRUE, auto_unbox = TRUE)
+  } else {
+    write_json(metrics_info, path = metrics_file, na = "null", pretty = TRUE, auto_unbox = TRUE)
+  }
+
+  # Convert study-level and groups-level data to JSON
   pivoted_groups <- dfGroups %>%
-    pivot_wider(names_from = Param, values_from = Value) %>%
+    pivot_wider(names_from = Param, values_from = Value)
+
+  pivoted_groups_site <-  pivoted_groups %>%
+    filter(GroupLevel == "Site")
+
+  groups_info <- pivoted_groups_site %>%
+    mutate(
+      id = .[["invid"]] %||% NA,
+      inv_first_name = .[["InvestigatorFirstName"]] %||% NA,
+      inv_last_name = .[["InvestigatorLastName"]] %||% NA
+    ) %>%
+    select(id, inv_first_name, inv_last_name) %>%
+    split(., seq(nrow(.)))
+
+  groups_file <- file.path(json_path, "risk-signal-groups.json")
+  if (file.exists(groups_file)) {
+    existing_data <- fromJSON(groups_file, simplifyVector = FALSE, simplifyDataFrame = FALSE)
+    write_json(c(existing_data, groups_info), path = groups_file, na = "null", pretty = TRUE, auto_unbox = TRUE)
+  } else {
+    write_json(groups_info, path = groups_file, na = "null", pretty = TRUE, auto_unbox = TRUE)
+  }
+
+  pivoted_groups_study <- pivoted_groups %>%
     filter(GroupLevel == "Study")
 
-  study_info <- pivoted_groups %>%
+  study_info <- pivoted_groups_study %>%
     mutate(
-      id = pivoted_groups[["StudyID"]] %||% NA,
-      name = pivoted_groups[["nickname"]] %||% NA,
-      title = pivoted_groups[["protocol_title"]] %||% NA,
+      id = .[["StudyID"]] %||% NA,
+      name = .[["nickname"]] %||% NA,
+      title = .[["protocol_title"]] %||% NA,
       characteristics = list(list(
-        status = pivoted_groups[["status"]] %||% NA, # datasim is lowercase; clindata is uppercase
-        siteActivation = pivoted_groups[["SiteActivation"]] %||% NA,
-        enrollment = pivoted_groups[["ParticipantEnrollment"]] %||% NA,
-        fpfv = pivoted_groups[["act_fpfv"]] %||% NA,
-        therapeuticArea = pivoted_groups[["therapeutic_area"]] %||% NA,
-        indication = pivoted_groups[["protocol_indication"]] %||% NA,
-        product = pivoted_groups[["product"]] %||% NA,
-        phase = pivoted_groups[["phase"]] %||% NA,
-        lpfv = pivoted_groups[["est_lpfv"]] %||% NA,
-        lplv = pivoted_groups[["est_lplv"]] %||% NA
+        status = .[["status"]] %||% NA, # datasim is lowercase; clindata is uppercase
+        siteActivation = .[["SiteActivation"]] %||% NA,
+        enrollment = .[["ParticipantEnrollment"]] %||% NA,
+        fpfv = .[["act_fpfv"]] %||% NA,
+        therapeuticArea = .[["therapeutic_area"]] %||% NA,
+        indication = .[["protocol_indication"]] %||% NA,
+        product = .[["product"]] %||% NA,
+        phase = .[["phase"]] %||% NA,
+        lpfv = .[["est_lpfv"]] %||% NA,
+        lplv = .[["est_lplv"]] %||% NA
       ))
     ) %>%
     select(id, name, title, characteristics)
