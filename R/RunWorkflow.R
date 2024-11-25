@@ -59,10 +59,21 @@ RunWorkflow <- function(
 
   # Load data with configuration object.
   if (!is.null(lConfig)) {
-    if (exists('LoadData', lConfig)) {
-      cli::cli_h3('Loading data with [ lConfig ].')
+    if (
+      exists('LoadData', lConfig) &&
+      is.function(lConfig$LoadData) &&
+      all(c('lWorkflow', 'lConfig') %in% names(formals(lConfig$LoadData)))
+    ) {
+      cli::cli_h3('Loading data with `lConfig$LoadData`.')
 
-      lData <- lConfig$LoadData(lWorkflow, lConfig)
+      lData <- lConfig$LoadData(
+        lWorkflow = lWorkflow,
+        lConfig = lConfig
+      )
+    } else {
+      cli::cli_alert_warning(
+        '`lConfig` must include a function named `LoadData` with two arguments: `lWorkflow` and `lConfig`.'
+      )
     }
   }
 
@@ -115,10 +126,21 @@ RunWorkflow <- function(
 
     # Save data with configuration object.
     if (!is.null(lConfig)) {
-      if (exists('SaveData', lConfig)) {
-        cli::cli_h3('Saving data with [ lConfig ].')
+      if (
+        exists('SaveData', lConfig) &&
+        is.function(lConfig$SaveData) &&
+        all(c('lWorkflow', 'lConfig') %in% names(formals(lConfig$SaveData)))
+      ) {
+        cli::cli_h3('Saving data with `lConfig$SaveData`.')
 
-        lData <- lConfig$SaveData(lWorkflow, lConfig)
+        lConfig$SaveData(
+          lWorkflow = lWorkflow,
+          lConfig = lConfig
+        )
+      } else {
+        cli::cli_alert_warning(
+          '`lConfig` must include a function named `SaveData` with two arguments: `lWorkflow` and `lConfig`.'
+        )
       }
     }
 
