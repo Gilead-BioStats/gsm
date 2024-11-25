@@ -4,14 +4,16 @@ LoadData <- function(lWorkflow, lConfig) {
     purrr::imap(
         lWorkflow$spec,
         ~ {
-            if (is.data.frame(lConfig[[ .y ]])) {
-                data <- lConfig[[ .y ]]
-            } else if (is.function(lConfig[[ .y ]])) {
-                data <- lConfig[[ .y ]]()
-            } else if (is.character(lConfig[[ .y ]]) && file.exists(lConfig[[ .y ]])) {
-                data <- read.csv(lConfig[[ .y ]])
+            input <- lConfig$Domains[[ .y ]]
+
+            if (is.data.frame(input)) {
+                data <- input
+            } else if (is.function(input)) {
+                data <- input()
+            } else if (is.character(input)) {
+                data <- read.csv(input)
             } else {
-                cli::cli_abort("Invalid data source: {lConfig[[ .y ]]}.")
+                cli::cli_abort("Invalid data source: {input}.")
             }
 
             return(ApplySpec(data, .x))
@@ -23,8 +25,8 @@ SaveData <- function(lWorkflow, lConfig) {
     domain <- paste0(lWorkflow$meta$Type, '_', lWorkflow$meta$ID)
     cli::cli_alert_info(domain)
 
-    if (exists(domain, lConfig)) {
-        output <- lConfig[[ domain ]]
+    if (exists(domain, lConfig$Domains)) {
+        output <- lConfig$Domains[[ domain ]]
         cli::cli_alert_info(output)
 
         cli::cli_alert_info(
@@ -35,20 +37,25 @@ SaveData <- function(lWorkflow, lConfig) {
             lWorkflow$lResult,
             output
         )
+    } else {
+        cli::cli_alert_info(
+            '{domain} not found.'
+        )
     }
 }
 
 lConfig <- list(
     LoadData = LoadData,
     SaveData = SaveData,
+    Domains = list(
+        Raw_PD = function() { clindata::ctms_protdev },
+        Raw_SUBJ = function() { clindata::rawplus_dm },
+        Raw_SITE = function() { clindata::ctms_site },
 
-    Raw_PD = function() { clindata::ctms_protdev },
-    Raw_SUBJ = function() { clindata::rawplus_dm },
-    Raw_SITE = function() { clindata::ctms_site },
-
-    Mapped_PD = paste0(tempdir(), '/mapped-pd.csv'),
-    Mapped_SUBJ = paste0(tempdir(), '/mapped-subj.csv'),
-    Mapped_SITE = paste0(tempdir(), '/mapped-site.csv')
+        Mapped_PD = file.path(tempdir(), 'mapped-pd.csv'),
+        Mapped_SUBJ = file.path(tempdir(), 'mapped-subj.csv'),
+        Mapped_SITE = file.path(tempdir(), 'mapped-site.csv')
+    )
 )
 
 lMappedData <- RunWorkflows(

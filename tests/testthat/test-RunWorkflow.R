@@ -106,32 +106,29 @@ test_that("RunWorkflow contains all outputs from yaml steps with populated field
 })
 
 #test_that('RunWorkflow loads data with configuration object.', {
-#    expect_no_error({
-#        lConfig <- list(
-#            LoadData = function(lWorkflow, lConfig) {
-#                lData <- list(
-#                    Raw_SUBJ = clindata::rawplus_dm,
-#                    Raw_AE = clindata::rawplus_ae,
-#                    Raw_PD = clindata::ctms_protdev,
-#                    Raw_LB = clindata::rawplus_lb,
-#                    Raw_STUDCOMP = clindata::rawplus_studcomp,
-#                    Raw_SDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == "Blinded Study Drug Completion"),
-#                    Raw_DATACHG = clindata::edc_data_points,
-#                    Raw_DATAENT = clindata::edc_data_pages,
-#                    Raw_QUERY = clindata::edc_queries,
-#                    Raw_ENROLL = clindata::rawplus_enroll,
-#                    Raw_SITE = clindata::ctms_site,
-#                    Raw_STUDY = clindata::ctms_study
+#    lWorkflow <- list(
+#        meta = list(
+#            Type = 'asdf',
+#            ID = '1234'
+#        ),
+#        spec = list(
+#            df = list(
+#                col1 = list(
+#                    type = 'character'
+#                ),
+#                col2 = list(
+#                    type = 'character'
 #                )
-#
-#                return(lData)
-#            }
+#            )
+#        ),
+#        steps = list(
+#            list(
+#                output = 'asdf_1234'
+#                name = '=',
+#                params = list(
+#                    'Raw_AE'
+#                ),
+#            )
 #        )
-#
-#        lMapped <- quiet_RunWorkflows(
-#            lWorkflows = wf_mapping,
-#            lData = NULL,
-#            lConfig = lConfig
-#        )
-#    })
+#    )
 #})
