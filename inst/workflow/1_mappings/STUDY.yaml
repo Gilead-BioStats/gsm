@@ -22,6 +22,18 @@ spec:
       type: Date
     est_fpfv:
       type: Date
+    est_lplv:
+      type: Date
+    est_lpfv:
+      type: Date
+    therapeutic_area:
+      type: character
+    protocol_indication:
+      type: character
+    phase:
+      type: character
+    product:
+      type: character
   Mapped_SUBJ:
     studyid:
       type: character
