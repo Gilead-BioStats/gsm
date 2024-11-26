@@ -14,26 +14,27 @@
 #' if any data.frame or column is missing.
 #'
 #' @examples
-#' lData <- list(reporting_groups = gsm::reportingGroups, reporting_results = gsm::reportingResults)
+#' lData <- list(reporting_bounds = gsm::reportingBounds, reporting_results = gsm::reportingResults)
 #' lSpec <- list(
-#'   reporting_groups = list(
-#'     GroupID = list(required = TRUE),
-#'     GroupLevel = list(required = TRUE),
-#'     Param = list(required = TRUE),
-#'     Value = list(required = TRUE)
+#'   reporting_bounds = list(
+#'     Metric = list(type = "numeric"),
+#'     Numerator = list(type = "numeric"),
+#'     LogDenominator = list(type = "numeric"),
+#'     MetricID = list(type = "character")
 #'   ),
 #'   reporting_results = list(
-#'     GroupID = list(required = TRUE),
-#'     GroupLevel = list(required = TRUE),
-#'     Numerator = list(required = TRUE),
-#'     Denominator = list(required = TRUE)
+#'     GroupID = list(type = "character"),
+#'     GroupLevel = list(type = "character"),
+#'     Numerator = list(type = "integer"),
+#'     Denominator = list(type = "integer")
 #'   )
 #' )
 #' CheckSpec(lData, lSpec) # Prints message that everything is found
 #'
-#' lSpec$reporting_groups$NotACol <- list(required = TRUE)
+#' \dontrun{
+#' lSpec$reporting_groups$NotACol <- list(type = "character")
 #' CheckSpec(lData, lSpec) # Throws error that NotACol is missing
-#'
+#' }
 #' @export
 #'
 CheckSpec <- function(lData, lSpec) {
@@ -81,7 +82,7 @@ CheckSpec <- function(lData, lSpec) {
     }
     # check that required exist in data, if _all required is not specified
     if (!isTRUE(lSpec[[strDataFrame]]$`_all`$required)) {
-      lSpecColumns <- which(sapply(lSpec[[strDataFrame]], function(x) x$required)) %>% names()
+      lSpecColumns <- names(lSpec[[strDataFrame]])
       lDataColumns <- names(lData[[strDataFrame]])
       allCols <- c(allCols, paste(strDataFrame, lSpecColumns, sep = "$"))
 
@@ -92,10 +93,10 @@ CheckSpec <- function(lData, lSpec) {
     }
   }
   if (length(missingCols) > 0) {
-    cli::cli_alert_danger("Not all required columns in the spec are present in the data, missing columns are: {missingCols}")
+    cli::cli_alert_danger("Not all specified columns in the spec are present in the data, missing columns are: {missingCols}")
   } else if (length(allCols) > 0) {
-    cli::cli_alert("All {length(allCols)} required column{?s} in the spec are present in the data: {allCols}")
+    cli::cli_alert("All {length(allCols)} specified column{?s} in the spec are present in the data: {allCols}")
   } else {
-    cli::cli_alert("No required columns specified in the spec. All data.frames are pulling in all available columns.")
+    cli::cli_alert("No columns specified in the spec. All data.frames are pulling in all available columns.")
   }
 }

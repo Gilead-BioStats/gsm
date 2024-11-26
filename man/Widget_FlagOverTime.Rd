@@ -27,7 +27,7 @@ Widget_FlagOverTime(
 \item{height}{\code{character} Pixel height or percentage size of page}
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
 A widget that generates a table of flags over time using
 \code{\link[=Report_FlagOverTime]{Report_FlagOverTime()}}.
