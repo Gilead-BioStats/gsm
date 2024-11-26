@@ -104,3 +104,31 @@ test_that("RunWorkflow contains all outputs from yaml steps with populated field
     )
   })
 })
+
+#test_that('RunWorkflow loads data with configuration object.', {
+#    lWorkflow <- list(
+#        meta = list(
+#            Type = 'asdf',
+#            ID = '1234'
+#        ),
+#        spec = list(
+#            df = list(
+#                col1 = list(
+#                    type = 'character'
+#                ),
+#                col2 = list(
+#                    type = 'character'
+#                )
+#            )
+#        ),
+#        steps = list(
+#            list(
+#                output = 'asdf_1234'
+#                name = '=',
+#                params = list(
+#                    'Raw_AE'
+#                ),
+#            )
+#        )
+#    )
+#})

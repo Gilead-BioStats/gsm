@@ -38,7 +38,7 @@ steps:
     name: RunQuery
     params:
       df: Mapped_SDRGCOMP
-      strQuery: "SELECT * FROM df WHERE sdrgyn = 'N' AND phase = 'Blinded Study Drug Completion'"
+      strQuery: "SELECT DISTINCT subjid FROM df WHERE sdrgyn = 'N'"
   - output: Analysis_Input
     name: Input_Rate
     params:

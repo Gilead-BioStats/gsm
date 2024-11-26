@@ -8,6 +8,9 @@
 #'
 #' @param lWorkflow `list` A named list of metadata defining how the workflow should be run.
 #' @param lData `list` A named list of domain-level data frames.
+#' @param lConfig `list` A configuration object with two methods:
+#' - `LoadData`: A function that loads data specified in `lWorkflow$spec`.
+#' - `SaveData`: A function that saves data returned by the last step in `lWorkflow$steps`.
 #' @param bKeepInputData `boolean` should the input data be included in `lData` after the workflow is run? Only relevant when bReturnResult is FALSE. Default is `TRUE`.
 #' @param bReturnResult `boolean` should *only* the result from the last step (`lResults`) be returned? If false, the full workflow (including `lResults`) is returned. Default is `TRUE`.
 #'
@@ -37,6 +40,7 @@
 RunWorkflow <- function(
   lWorkflow,
   lData = NULL,
+  lConfig = NULL,
   bReturnResult = TRUE,
   bKeepInputData = TRUE
 ) {
@@ -51,6 +55,26 @@ RunWorkflow <- function(
 
   if (!"meta" %in% names(lWorkflow)) {
     cli::cli_alert("Workflow `{uid}` has no `meta` property.")
+  }
+
+  # Load data with configuration object.
+  if (!is.null(lConfig)) {
+    if (
+      exists('LoadData', lConfig) &&
+      is.function(lConfig$LoadData) &&
+      all(c('lWorkflow', 'lConfig') %in% names(formals(lConfig$LoadData)))
+    ) {
+      cli::cli_h3('Loading data with `lConfig$LoadData`.')
+
+      lData <- lConfig$LoadData(
+        lWorkflow = lWorkflow,
+        lConfig = lConfig
+      )
+    } else {
+      cli::cli_alert_warning(
+        '`lConfig` must include a function named `LoadData` with two arguments: `lWorkflow` and `lConfig`.'
+      )
+    }
   }
 
   lWorkflow$lData <- lData
@@ -99,6 +123,27 @@ RunWorkflow <- function(
     } else {
       cli::cli_h2("Returning results from final step: {typeof(lWorkflow$lResult)} of length {length(lWorkflow$lResult)}`.")
     }
+
+    # Save data with configuration object.
+    if (!is.null(lConfig)) {
+      if (
+        exists('SaveData', lConfig) &&
+        is.function(lConfig$SaveData) &&
+        all(c('lWorkflow', 'lConfig') %in% names(formals(lConfig$SaveData)))
+      ) {
+        cli::cli_h3('Saving data with `lConfig$SaveData`.')
+
+        lConfig$SaveData(
+          lWorkflow = lWorkflow,
+          lConfig = lConfig
+        )
+      } else {
+        cli::cli_alert_warning(
+          '`lConfig` must include a function named `SaveData` with two arguments: `lWorkflow` and `lConfig`.'
+        )
+      }
+    }
+
     cli::cli_h1("Completed `{uid}` Workflow")
     return(lWorkflow$lResult)
   } else {

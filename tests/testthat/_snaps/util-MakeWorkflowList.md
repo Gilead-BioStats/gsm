@@ -1100,7 +1100,7 @@
       [1] "Mapped_SDRGCOMP"
       
       $cou0007[[2]]$params$strQuery
-      [1] "SELECT * FROM df WHERE sdrgyn = 'N' AND phase = 'Blinded Study Drug Completion'"
+      [1] "SELECT DISTINCT subjid FROM df WHERE sdrgyn = 'N'"
       
       
       
@@ -2976,7 +2976,7 @@
       [1] "Mapped_SDRGCOMP"
       
       $kri0007[[2]]$params$strQuery
-      [1] "SELECT * FROM df WHERE sdrgyn = 'N' AND phase = 'Blinded Study Drug Completion'"
+      [1] "SELECT DISTINCT subjid FROM df WHERE sdrgyn = 'N'"
       
       
       
