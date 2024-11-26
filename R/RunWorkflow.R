@@ -18,20 +18,96 @@
 #'
 #' @examples
 #' \dontrun{
-#' lAssessments <- MakeWorkflowList("kri0001")
-#' lData <- list(
-#'   dfAE = clindata::rawplus_ae,
-#'   dfCONSENT = clindata::rawplus_consent,
-#'   dfDISP = clindata::rawplus_dm,
-#'   dfIE = clindata::rawplus_ie,
-#'   dfLB = clindata::rawplus_lb,
-#'   dfPD = clindata::ctms_protdev,
-#'   dfSUBJ = clindata::rawplus_dm
-#' )
-#' wf_mapping <- MakeWorkflowList("mapping")
-#' lMapped <- RunWorkflow(wf_mapping, lData)$lData
+#' # ----
+#' # Workflow using in-memory data.
 #'
-#' output <- map(lAssessments, ~ RunWorkflow(., lMapped))
+#' lRawData <- list(
+#'   Raw_AE = clindata::rawplus_ae,
+#'   Raw_SUBJ = clindata::rawplus_dm
+#' )
+#' 
+#' # Generate mapped input data to metric workflow.
+#' lMappingWorkflows <- MakeWorkflowList(
+#'     c('AE', 'SUBJ'),
+#'     bExact = TRUE
+#' )
+#' 
+#' lMappedData <- RunWorkflows(
+#'     lMappingWorkflows,
+#'     lRawData
+#' )
+#' 
+#' # Run the metric workflow.
+#' lMetricWorkflow <- MakeWorkflowList("kri0001")$kri0001
+#' lMetricOutput <- RunWorkflow(
+#'     lMetricWorkflow,
+#'     lMappedData
+#' )
+#'
+#' # ----
+#' # Workflow using data read/write functions.
+#'
+#' # Define a function that loads data. 
+#' LoadData <- function(lWorkflow, lConfig) {
+#'     purrr::imap(
+#'         lWorkflow$spec,
+#'         ~ {
+#'             input <- lConfig$Domains[[ .y ]]
+#' 
+#'             if (is.function(input)) {
+#'                 data <- input()
+#'             } else if (is.character(input)) {
+#'                 data <- read.csv(input)
+#'             }
+#' 
+#'             return(ApplySpec(data, .x))
+#'         }
+#'     )
+#' }
+#' 
+#' # Define a function that saves data to .csv.
+#' SaveData <- function(lWorkflow, lConfig) {
+#'     domain <- paste0(lWorkflow$meta$Type, '_', lWorkflow$meta$ID)
+#'     if (domain %in% names(lConfig$Domains)) {
+#'         output <- lConfig$Domains[[ domain ]]
+#' 
+#'         write.csv(
+#'             lWorkflow$lResult,
+#'             output
+#'         )
+#'     }
+#' }
+#' 
+#' # Define a configuration object with LoadData/SaveData functions and a list of named data sources.
+#' lConfig <- list(
+#'     LoadData = LoadData,
+#'     SaveData = SaveData,
+#'     Domains = c(
+#'         Raw_AE = function() { clindata::rawplus_ae },
+#'         Raw_SUBJ = function() { clindata::rawplus_dm },
+#' 
+#'         Mapped_AE = file.path(tempdir(), 'mapped-ae.csv'),
+#'         Mapped_SUBJ = file.path(tempdir(), 'mapped-subj.csv')
+#'     )
+#' )
+#' 
+#' # Generate mapped input data to metric workflow.
+#' lMappingWorkflows <- MakeWorkflowList(
+#'     c('AE', 'SUBJ'),
+#'     bExact = TRUE
+#' )
+#' 
+#' lMappedData <- RunWorkflows(
+#'     lMappingWorkflows,
+#'     lConfig = lConfig
+#' )
+#' 
+#' # Run the metric workflow.
+#' lMetricWorkflow <- MakeWorkflowList("kri0001")$kri0001
+#' lMetricOutput <- RunWorkflow(
+#'     lMetricWorkflow,
+#'     lConfig = lConfig
+#' )
 #' }
 #' @return `list` contains just lData if `bReturnData` is `TRUE`, otherwise returns the full `lWorkflow` object.
 #'
@@ -71,8 +147,8 @@ RunWorkflow <- function(
         lConfig = lConfig
       )
     } else {
-      cli::cli_alert_warning(
-        '`lConfig` must include a function named `LoadData` with two arguments: `lWorkflow` and `lConfig`.'
+        cli::cli_abort(
+        '`lConfig` must include a function named `LoadData` with two named parameters: `lWorkflow` and `lConfig`.'
       )
     }
   }
@@ -138,8 +214,8 @@ RunWorkflow <- function(
           lConfig = lConfig
         )
       } else {
-        cli::cli_alert_warning(
-          '`lConfig` must include a function named `SaveData` with two arguments: `lWorkflow` and `lConfig`.'
+        cli::cli_abort(
+          '`lConfig` must include a function named `SaveData` with two named parameters: `lWorkflow` and `lConfig`.'
         )
       }
     }
