@@ -72,6 +72,7 @@ results as a named list where the names of the list correspond to the workflow I
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">RunWorkflows</span><span class="op">(</span></span>
 <span>  <span class="va">lWorkflows</span>,</span>
 <span>  lData <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lConfig <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  bKeepInputData <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  bReturnResult <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  strResultNames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Type"</span>, <span class="st">"ID"</span><span class="op">)</span></span>
@@ -88,6 +89,12 @@ results as a named list where the names of the list correspond to the workflow I
 
 <dt id="arg-ldata">lData<a class="anchor" aria-label="anchor" href="#arg-ldata"></a></dt>
 <dd><p><code>list</code> A named list of domain-level data frames.</p></dd>
+
+
+<dt id="arg-lconfig">lConfig<a class="anchor" aria-label="anchor" href="#arg-lconfig"></a></dt>
+<dd><p><code>list</code> A configuration object with two methods:</p><ul><li><p><code>LoadData</code>: A function that loads data specified in <code>lWorkflow$spec</code>.</p></li>
+<li><p><code>SaveData</code>: A function that saves data returned by the last step in <code>lWorkflow$steps</code>.</p></li>
+</ul></dd>
 
 
 <dt id="arg-bkeepinputdata">bKeepInputData<a class="anchor" aria-label="anchor" href="#arg-bkeepinputdata"></a></dt>

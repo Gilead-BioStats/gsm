@@ -69,6 +69,7 @@ Calls <code>RunStep</code> for each item in <code>lWorkflow$workflow</code> and 
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">RunWorkflow</span><span class="op">(</span></span>
 <span>  <span class="va">lWorkflow</span>,</span>
 <span>  lData <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  lConfig <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  bReturnResult <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  bKeepInputData <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -84,6 +85,12 @@ Calls <code>RunStep</code> for each item in <code>lWorkflow$workflow</code> and 
 
 <dt id="arg-ldata">lData<a class="anchor" aria-label="anchor" href="#arg-ldata"></a></dt>
 <dd><p><code>list</code> A named list of domain-level data frames.</p></dd>
+
+
+<dt id="arg-lconfig">lConfig<a class="anchor" aria-label="anchor" href="#arg-lconfig"></a></dt>
+<dd><p><code>list</code> A configuration object with two methods:</p><ul><li><p><code>LoadData</code>: A function that loads data specified in <code>lWorkflow$spec</code>.</p></li>
+<li><p><code>SaveData</code>: A function that saves data returned by the last step in <code>lWorkflow$steps</code>.</p></li>
+</ul></dd>
 
 
 <dt id="arg-breturnresult">bReturnResult<a class="anchor" aria-label="anchor" href="#arg-breturnresult"></a></dt>
@@ -103,20 +110,96 @@ Calls <code>RunStep</code> for each item in <code>lWorkflow$workflow</code> and 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="va">lAssessments</span> <span class="op">&lt;-</span> <span class="fu"><a href="MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span><span class="st">"kri0001"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">lData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  dfAE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_ae.html" class="external-link">rawplus_ae</a></span>,</span></span>
-<span class="r-in"><span>  dfCONSENT <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_consent</span>,</span></span>
-<span class="r-in"><span>  dfDISP <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span>,</span></span>
-<span class="r-in"><span>  dfIE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va">rawplus_ie</span>,</span></span>
-<span class="r-in"><span>  dfLB <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_lb.html" class="external-link">rawplus_lb</a></span>,</span></span>
-<span class="r-in"><span>  dfPD <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/ctms_protdev.html" class="external-link">ctms_protdev</a></span>,</span></span>
-<span class="r-in"><span>  dfSUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">wf_mapping</span> <span class="op">&lt;-</span> <span class="fu"><a href="MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span><span class="st">"mapping"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">lMapped</span> <span class="op">&lt;-</span> <span class="fu">RunWorkflow</span><span class="op">(</span><span class="va">wf_mapping</span>, <span class="va">lData</span><span class="op">)</span><span class="op">$</span><span class="va">lData</span></span></span>
+<span class="r-in"><span><span class="co"># ----</span></span></span>
+<span class="r-in"><span><span class="co"># Workflow using in-memory data.</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">output</span> <span class="op">&lt;-</span> <span class="fu">map</span><span class="op">(</span><span class="va">lAssessments</span>, <span class="op">~</span> <span class="fu">RunWorkflow</span><span class="op">(</span><span class="va">.</span>, <span class="va">lMapped</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">lRawData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  Raw_AE <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_ae.html" class="external-link">rawplus_ae</a></span>,</span></span>
+<span class="r-in"><span>  Raw_SUBJ <span class="op">=</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Generate mapped input data to metric workflow.</span></span></span>
+<span class="r-in"><span><span class="va">lMappingWorkflows</span> <span class="op">&lt;-</span> <span class="fu"><a href="MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'AE'</span>, <span class="st">'SUBJ'</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    bExact <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">lMappedData</span> <span class="op">&lt;-</span> <span class="fu"><a href="RunWorkflows.html">RunWorkflows</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">lMappingWorkflows</span>,</span></span>
+<span class="r-in"><span>    <span class="va">lRawData</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Run the metric workflow.</span></span></span>
+<span class="r-in"><span><span class="va">lMetricWorkflow</span> <span class="op">&lt;-</span> <span class="fu"><a href="MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span><span class="st">"kri0001"</span><span class="op">)</span><span class="op">$</span><span class="va">kri0001</span></span></span>
+<span class="r-in"><span><span class="va">lMetricOutput</span> <span class="op">&lt;-</span> <span class="fu">RunWorkflow</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">lMetricWorkflow</span>,</span></span>
+<span class="r-in"><span>    <span class="va">lMappedData</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># ----</span></span></span>
+<span class="r-in"><span><span class="co"># Workflow using data read/write functions.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Define a function that loads data. </span></span></span>
+<span class="r-in"><span><span class="va">LoadData</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">lWorkflow</span>, <span class="va">lConfig</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/imap.html" class="external-link">imap</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        <span class="va">lWorkflow</span><span class="op">$</span><span class="va">spec</span>,</span></span>
+<span class="r-in"><span>        <span class="op">~</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>            <span class="va">input</span> <span class="op">&lt;-</span> <span class="va">lConfig</span><span class="op">$</span><span class="va">Domains</span><span class="op">[[</span> <span class="va">.y</span> <span class="op">]</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>            <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/is.function.html" class="external-link">is.function</a></span><span class="op">(</span><span class="va">input</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>                <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">input</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span>            <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">is.character</a></span><span class="op">(</span><span class="va">input</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>                <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="va">input</span><span class="op">)</span></span></span>
+<span class="r-in"><span>            <span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>            <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="fu"><a href="ApplySpec.html">ApplySpec</a></span><span class="op">(</span><span class="va">data</span>, <span class="va">.x</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>        <span class="op">}</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Define a function that saves data to .csv.</span></span></span>
+<span class="r-in"><span><span class="va">SaveData</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">lWorkflow</span>, <span class="va">lConfig</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="va">domain</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">lWorkflow</span><span class="op">$</span><span class="va">meta</span><span class="op">$</span><span class="va">Type</span>, <span class="st">'_'</span>, <span class="va">lWorkflow</span><span class="op">$</span><span class="va">meta</span><span class="op">$</span><span class="va">ID</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="kw">if</span> <span class="op">(</span><span class="va">domain</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">lConfig</span><span class="op">$</span><span class="va">Domains</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>        <span class="va">output</span> <span class="op">&lt;-</span> <span class="va">lConfig</span><span class="op">$</span><span class="va">Domains</span><span class="op">[[</span> <span class="va">domain</span> <span class="op">]</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>        <span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>            <span class="va">lWorkflow</span><span class="op">$</span><span class="va">lResult</span>,</span></span>
+<span class="r-in"><span>            <span class="va">output</span></span></span>
+<span class="r-in"><span>        <span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">}</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Define a configuration object with LoadData/SaveData functions and a list of named data sources.</span></span></span>
+<span class="r-in"><span><span class="va">lConfig</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    LoadData <span class="op">=</span> <span class="va">LoadData</span>,</span></span>
+<span class="r-in"><span>    SaveData <span class="op">=</span> <span class="va">SaveData</span>,</span></span>
+<span class="r-in"><span>    Domains <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>        Raw_AE <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_ae.html" class="external-link">rawplus_ae</a></span> <span class="op">}</span>,</span></span>
+<span class="r-in"><span>        Raw_SUBJ <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span> <span class="fu">clindata</span><span class="fu">::</span><span class="va"><a href="https://gilead-biostats.github.io/clindata/reference/rawplus_dm.html" class="external-link">rawplus_dm</a></span> <span class="op">}</span>,</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>        Mapped_AE <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">'mapped-ae.csv'</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>        Mapped_SUBJ <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">'mapped-subj.csv'</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Generate mapped input data to metric workflow.</span></span></span>
+<span class="r-in"><span><span class="va">lMappingWorkflows</span> <span class="op">&lt;-</span> <span class="fu"><a href="MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'AE'</span>, <span class="st">'SUBJ'</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    bExact <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">lMappedData</span> <span class="op">&lt;-</span> <span class="fu"><a href="RunWorkflows.html">RunWorkflows</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">lMappingWorkflows</span>,</span></span>
+<span class="r-in"><span>    lConfig <span class="op">=</span> <span class="va">lConfig</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Run the metric workflow.</span></span></span>
+<span class="r-in"><span><span class="va">lMetricWorkflow</span> <span class="op">&lt;-</span> <span class="fu"><a href="MakeWorkflowList.html">MakeWorkflowList</a></span><span class="op">(</span><span class="st">"kri0001"</span><span class="op">)</span><span class="op">$</span><span class="va">kri0001</span></span></span>
+<span class="r-in"><span><span class="va">lMetricOutput</span> <span class="op">&lt;-</span> <span class="fu">RunWorkflow</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    <span class="va">lMetricWorkflow</span>,</span></span>
+<span class="r-in"><span>    lConfig <span class="op">=</span> <span class="va">lConfig</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
