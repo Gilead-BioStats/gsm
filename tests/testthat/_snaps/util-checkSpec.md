@@ -39,6 +39,15 @@
       CheckSpec(lData, lSpec)
     Message
       > All 1 data.frame(s) in the spec are present in the data: reporting_results
+      > All specified columns in reporting_results are in the expected format
+      > 
+
+---
+
+    Code
+      CheckSpec(lData, lSpec)
+    Message
+      > All 1 data.frame(s) in the spec are present in the data: reporting_results
     Condition
       Warning:
       Not all columns of reporting_results in the spec are in the expected format, improperly formatted columns are: Numerator

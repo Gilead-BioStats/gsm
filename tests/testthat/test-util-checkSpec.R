@@ -99,10 +99,7 @@ test_that("Validate column type works", {
       SnapshotDate = list(type = "Date")
     )
   )
-  expect_message(
-    expect_message(expect_message(CheckSpec(lData, lSpec), "All 1"), "All 5"),
-    regexp = "All specified columns"
-  )
+  expect_snapshot(CheckSpec(lData, lSpec))
 
   lSpec <- list(
     reporting_results = list(
