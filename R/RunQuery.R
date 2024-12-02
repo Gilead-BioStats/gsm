@@ -11,6 +11,7 @@
 #'
 #' @param strQuery `character` SQL query to run, containing placeholders `"FROM df"`.
 #' @param df `data.frame` or `tbl_dbi` A data frame or DuckDB lazy table to use in the SQL query.
+#' @param lSpec `list` a data specification containing required columns. See `vignette("gsm_extensions")`.
 #'
 #' @return `data.frame` containing the results of the SQL query.
 #'

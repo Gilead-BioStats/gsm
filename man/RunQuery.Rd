@@ -4,12 +4,14 @@
 \alias{RunQuery}
 \title{Run a SQL query on a data frame or DuckDB table}
 \usage{
-RunQuery(strQuery, df)
+RunQuery(strQuery, df, lSpec = NULL)
 }
 \arguments{
 \item{strQuery}{\code{character} SQL query to run, containing placeholders \code{"FROM df"}.}
 
 \item{df}{\code{data.frame} or \code{tbl_dbi} A data frame or DuckDB lazy table to use in the SQL query.}
+
+\item{lSpec}{\code{list} a data specification containing required columns. See \code{vignette("gsm_extensions")}.}
 }
 \value{
 \code{data.frame} containing the results of the SQL query.
