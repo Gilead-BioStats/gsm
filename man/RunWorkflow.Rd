@@ -7,6 +7,7 @@
 RunWorkflow(
   lWorkflow,
   lData = NULL,
+  lConfig = NULL,
   bReturnResult = TRUE,
   bKeepInputData = TRUE
 )
@@ -15,6 +16,12 @@ RunWorkflow(
 \item{lWorkflow}{\code{list} A named list of metadata defining how the workflow should be run.}
 
 \item{lData}{\code{list} A named list of domain-level data frames.}
+
+\item{lConfig}{\code{list} A configuration object with two methods:
+\itemize{
+\item \code{LoadData}: A function that loads data specified in \code{lWorkflow$spec}.
+\item \code{SaveData}: A function that saves data returned by the last step in \code{lWorkflow$steps}.
+}}
 
 \item{bReturnResult}{\code{boolean} should \emph{only} the result from the last step (\code{lResults}) be returned? If false, the full workflow (including \code{lResults}) is returned. Default is \code{TRUE}.}
 
@@ -33,19 +40,95 @@ Calls \code{RunStep} for each item in \code{lWorkflow$workflow} and saves the re
 }
 \examples{
 \dontrun{
-lAssessments <- MakeWorkflowList("kri0001")
-lData <- list(
-  dfAE = clindata::rawplus_ae,
-  dfCONSENT = clindata::rawplus_consent,
-  dfDISP = clindata::rawplus_dm,
-  dfIE = clindata::rawplus_ie,
-  dfLB = clindata::rawplus_lb,
-  dfPD = clindata::ctms_protdev,
-  dfSUBJ = clindata::rawplus_dm
-)
-wf_mapping <- MakeWorkflowList("mapping")
-lMapped <- RunWorkflow(wf_mapping, lData)$lData
+# ----
+# Workflow using in-memory data.
 
-output <- map(lAssessments, ~ RunWorkflow(., lMapped))
+lRawData <- list(
+  Raw_AE = clindata::rawplus_ae,
+  Raw_SUBJ = clindata::rawplus_dm
+)
+
+# Generate mapped input data to metric workflow.
+lMappingWorkflows <- MakeWorkflowList(
+    c('AE', 'SUBJ'),
+    bExact = TRUE
+)
+
+lMappedData <- RunWorkflows(
+    lMappingWorkflows,
+    lRawData
+)
+
+# Run the metric workflow.
+lMetricWorkflow <- MakeWorkflowList("kri0001")$kri0001
+lMetricOutput <- RunWorkflow(
+    lMetricWorkflow,
+    lMappedData
+)
+
+# ----
+# Workflow using data read/write functions.
+
+# Define a function that loads data. 
+LoadData <- function(lWorkflow, lConfig) {
+    purrr::imap(
+        lWorkflow$spec,
+        ~ {
+            input <- lConfig$Domains[[ .y ]]
+
+            if (is.function(input)) {
+                data <- input()
+            } else if (is.character(input)) {
+                data <- read.csv(input)
+            }
+
+            return(ApplySpec(data, .x))
+        }
+    )
+}
+
+# Define a function that saves data to .csv.
+SaveData <- function(lWorkflow, lConfig) {
+    domain <- paste0(lWorkflow$meta$Type, '_', lWorkflow$meta$ID)
+    if (domain \%in\% names(lConfig$Domains)) {
+        output <- lConfig$Domains[[ domain ]]
+
+        write.csv(
+            lWorkflow$lResult,
+            output
+        )
+    }
+}
+
+# Define a configuration object with LoadData/SaveData functions and a list of named data sources.
+lConfig <- list(
+    LoadData = LoadData,
+    SaveData = SaveData,
+    Domains = c(
+        Raw_AE = function() { clindata::rawplus_ae },
+        Raw_SUBJ = function() { clindata::rawplus_dm },
+
+        Mapped_AE = file.path(tempdir(), 'mapped-ae.csv'),
+        Mapped_SUBJ = file.path(tempdir(), 'mapped-subj.csv')
+    )
+)
+
+# Generate mapped input data to metric workflow.
+lMappingWorkflows <- MakeWorkflowList(
+    c('AE', 'SUBJ'),
+    bExact = TRUE
+)
+
+lMappedData <- RunWorkflows(
+    lMappingWorkflows,
+    lConfig = lConfig
+)
+
+# Run the metric workflow.
+lMetricWorkflow <- MakeWorkflowList("kri0001")$kri0001
+lMetricOutput <- RunWorkflow(
+    lMetricWorkflow,
+    lConfig = lConfig
+)
 }
 }

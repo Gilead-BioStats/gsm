@@ -6,13 +6,10 @@ meta:
 spec: 
  Raw_SDRGCOMP:
     subjid:
-      required: true
       type: character
     sdrgyn:
-      required: true
       type: character
     phase:
-      required: true
       type: character
 steps:
   - output: Mapped_SDRGCOMP
