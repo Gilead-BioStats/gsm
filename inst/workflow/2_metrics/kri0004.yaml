@@ -2,7 +2,7 @@ meta:
   Type: Analysis
   ID: kri0004
   GroupLevel: Site
-  Abbreviation: PD
+  Abbreviation: IPD
   Metric: Important Protocol Deviation Rate
   Numerator: Important Protocol Deviations
   Denominator: Days on Study
@@ -14,20 +14,15 @@ meta:
 spec:
   Mapped_PD:
     subjid:
-      required: true
       type: character
     deemedimportant:
-      required: true
       type: character
   Mapped_SUBJ:
     subjid:
-      required: true
       type: character
     invid:
-      required: true
       type: character
     timeonstudy:
-      required: true
       type: integer
 steps:
   - output: vThreshold

@@ -1100,7 +1100,7 @@
       [1] "Mapped_SDRGCOMP"
       
       $cou0007[[2]]$params$strQuery
-      [1] "SELECT * FROM df WHERE sdrgyn = 'N' AND phase = 'Blinded Study Drug Completion'"
+      [1] "SELECT DISTINCT subjid FROM df WHERE sdrgyn = 'N'"
       
       
       
@@ -2976,7 +2976,7 @@
       [1] "Mapped_SDRGCOMP"
       
       $kri0007[[2]]$params$strQuery
-      [1] "SELECT * FROM df WHERE sdrgyn = 'N' AND phase = 'Blinded Study Drug Completion'"
+      [1] "SELECT DISTINCT subjid FROM df WHERE sdrgyn = 'N'"
       
       
       
@@ -4196,26 +4196,13 @@
       $Metrics
       $Metrics[[1]]
       $Metrics[[1]]$output
-      [1] "lWorkflows"
-      
-      $Metrics[[1]]$name
-      [1] "MakeWorkflowList"
-      
-      $Metrics[[1]]$params
-      $Metrics[[1]]$params$strPackage
-      [1] "gsm"
-      
-      
-      
-      $Metrics[[2]]
-      $Metrics[[2]]$output
       [1] "Reporting_Metrics"
       
-      $Metrics[[2]]$name
+      $Metrics[[1]]$name
       [1] "MakeMetric"
       
-      $Metrics[[2]]$params
-      $Metrics[[2]]$params$lWorkflows
+      $Metrics[[1]]$params
+      $Metrics[[1]]$params$lWorkflows
       [1] "lWorkflows"
       
       
@@ -4560,49 +4547,134 @@
       
       $STUDY[[3]]
       $STUDY[[3]]$output
-      [1] "Temp_StudyCountsWide"
+      [1] "Temp_CTMSplanned"
       
       $STUDY[[3]]$name
       [1] "RunQuery"
       
       $STUDY[[3]]$params
       $STUDY[[3]]$params$df
-      [1] "Mapped_SUBJ"
+      [1] "Raw_STUDY"
       
       $STUDY[[3]]$params$strQuery
-      [1] "SELECT studyid as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY studyid"
+      [1] "SELECT studyid as GroupID, num_plan_site as SiteTarget, num_plan_subj as ParticipantTarget FROM df"
       
       
       
       $STUDY[[4]]
       $STUDY[[4]]$output
-      [1] "Temp_StudyCounts"
-      
-      $STUDY[[4]]$name
-      [1] "MakeLongMeta"
-      
-      $STUDY[[4]]$params
-      $STUDY[[4]]$params$data
       [1] "Temp_StudyCountsWide"
       
-      $STUDY[[4]]$params$strGroupLevel
-      [1] "Study"
+      $STUDY[[4]]$name
+      [1] "RunQuery"
+      
+      $STUDY[[4]]$params
+      $STUDY[[4]]$params$df
+      [1] "Mapped_SUBJ"
+      
+      $STUDY[[4]]$params$strQuery
+      [1] "SELECT studyid as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY studyid"
       
       
       
       $STUDY[[5]]
       $STUDY[[5]]$output
-      [1] "Mapped_STUDY"
+      [1] "Temp_CountTargetsWide"
       
       $STUDY[[5]]$name
-      [1] "bind_rows"
+      [1] "left_join"
       
       $STUDY[[5]]$params
-      $STUDY[[5]]$params$Temp_CTMSStudy
+      $STUDY[[5]]$params$x
+      [1] "Temp_CTMSplanned"
+      
+      $STUDY[[5]]$params$y
+      [1] "Temp_StudyCountsWide"
+      
+      $STUDY[[5]]$params$by
+      [1] "GroupID"
+      
+      
+      
+      $STUDY[[6]]
+      $STUDY[[6]]$output
+      [1] "Temp_CountTargetsWide_addsite"
+      
+      $STUDY[[6]]$names
+      [1] "CalculatePercentage"
+      
+      $STUDY[[6]]$params
+      $STUDY[[6]]$params$data
+      [1] "Temp_CountTargetsWide"
+      
+      $STUDY[[6]]$params$strCurrentCol
+      [1] "SiteCount"
+      
+      $STUDY[[6]]$params$strTargetCol
+      [1] "SiteTarget"
+      
+      $STUDY[[6]]$params$strPercVal
+      [1] "PercentSitesActivated"
+      
+      $STUDY[[6]]$params$strPercStrVal
+      [1] "SiteActivation"
+      
+      
+      
+      $STUDY[[7]]
+      $STUDY[[7]]$output
+      [1] "Temp_CountTargetsWide_addsitepts"
+      
+      $STUDY[[7]]$names
+      [1] "CalculatePercentage"
+      
+      $STUDY[[7]]$params
+      $STUDY[[7]]$params$data
+      [1] "Temp_CountTargetsWide_addsite"
+      
+      $STUDY[[7]]$params$strCurrentCol
+      [1] "ParticipantCount"
+      
+      $STUDY[[7]]$params$strTargetCol
+      [1] "ParticipantTarget"
+      
+      $STUDY[[7]]$params$strPercVal
+      [1] "PercentParticipantsEnrolled"
+      
+      $STUDY[[7]]$params$strPercStrVal
+      [1] "ParticipantEnrollment"
+      
+      
+      
+      $STUDY[[8]]
+      $STUDY[[8]]$output
+      [1] "Temp_CountTargetsPercs"
+      
+      $STUDY[[8]]$name
+      [1] "MakeLongMeta"
+      
+      $STUDY[[8]]$params
+      $STUDY[[8]]$params$data
+      [1] "Temp_CountTargetsWide_addsitepts"
+      
+      $STUDY[[8]]$params$strGroupLevel
+      [1] "Study"
+      
+      
+      
+      $STUDY[[9]]
+      $STUDY[[9]]$output
+      [1] "Mapped_STUDY"
+      
+      $STUDY[[9]]$name
+      [1] "bind_rows"
+      
+      $STUDY[[9]]$params
+      $STUDY[[9]]$params$Temp_CTMSStudy
       [1] "Temp_CTMSStudy"
       
-      $STUDY[[5]]$params$Temp_StudyCounts
-      [1] "Temp_StudyCounts"
+      $STUDY[[9]]$params$Temp_CountTargetsPercs
+      [1] "Temp_CountTargetsPercs"
       
       
       

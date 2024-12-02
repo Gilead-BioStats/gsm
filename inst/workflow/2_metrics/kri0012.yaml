@@ -14,13 +14,10 @@ meta:
 spec:
   Mapped_ENROLL:
     subjectid:
-      required: true
       type: character
     invid:
-      required: true
       type: character
     enrollyn:
-      required: true
       type: character
 steps:
   - output: vThreshold

@@ -53,6 +53,11 @@ Report_Setup <- function(dfGroups = NULL, dfMetrics = NULL, dfResults = NULL) {
     pull("GroupID") %>%
     unique()
 
+  output$StudyLabel <- ifelse(is.na(output$lStudy$nickname) || is.null(output$lStudy$nickname),
+    output$StudyID,
+    glue::glue("{output$StudyID} ({output$lStudy$nickname})")
+  )
+
   # Count Red and Amber Flags for most recent snapshot
   output$red_kris <- dfResults %>%
     filter(.data$SnapshotDate == output$SnapshotDate) %>%

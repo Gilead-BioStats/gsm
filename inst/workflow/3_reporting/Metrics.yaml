@@ -1,13 +1,10 @@
 meta:
   Type: Reporting
   ID: Metrics
-  Description: Reporting Metrics Data 
+  Description: Reporting Metrics Data
   Priority: 1
 steps:
-  - output: lWorkflows
-    name: MakeWorkflowList
-    params:
-      strPackage: gsm
+  # lWorkflows is a named list of metric workflows.
   - output: Reporting_Metrics
     name: MakeMetric
     params:

@@ -34,7 +34,7 @@ setup <- Report_Setup(
 
 ---
 title: "`r setup$GroupLevel` KRI Overview"
-subtitle: "Study: `r setup$StudyID`"
+subtitle: "Study: `r setup$StudyLabel`"
 date: "Snapshot Date: `r setup$SnapshotDate`"
 --- 
 
@@ -126,7 +126,7 @@ Report_OverviewText(
 
 ```{r, echo=FALSE, results='asis'}
 
-for (i in unique(params$dfMetrics$MetricID)) {
+for (i in unique(params$dfResults$MetricID)) {
   lMetric <- params$dfMetrics %>% dplyr::filter(MetricID == i) %>% as.list
 
   print(htmltools::h3(lMetric$Metric))

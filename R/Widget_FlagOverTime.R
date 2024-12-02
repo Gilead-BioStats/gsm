@@ -1,7 +1,7 @@
 #' Flag Over Time Widget
 #'
 #' @description
-#' `r lifecycle::badge("experimental")`
+#' `r lifecycle::badge("stable")`
 #'
 #' A widget that generates a table of flags over time using
 #' [Report_FlagOverTime()].
@@ -9,6 +9,8 @@
 #' @inheritParams shared-params
 #' @param strGroupLevel `character` Value for the group level. Default: "Site".
 #' @param strFootnote `character` Text to insert for figure
+#' @param width `character` Pixel width or percentage size of page
+#' @param height `character` Pixel height or percentage size of page
 #'
 #' @examples
 #' reportingResultsSubset <- dplyr::filter(
@@ -24,13 +26,22 @@ Widget_FlagOverTime <- function(
   dfResults,
   dfMetrics,
   strGroupLevel = c("Site", "Study", "Country"),
-  strFootnote = NULL
+  strFootnote = NULL,
+  width = "100%",
+  height = "400px"
 ) {
   stopifnot(
     "dfResults is not a data.frame" = is.data.frame(dfResults),
     "dfMetrics is not a data.frame" = is.data.frame(dfMetrics),
     "strGroupLevel is not a character" = is.character(strGroupLevel)
   )
+
+  most_recent12 <- dfResults %>%
+    dplyr::pull(.data$SnapshotDate) %>%
+    unique() %>%
+    sort(decreasing = TRUE) %>%
+    utils::head(12) %>%
+    na.omit()
 
   gtFlagOverTime <- Report_FlagOverTime(
     dfResults,
@@ -39,15 +50,27 @@ Widget_FlagOverTime <- function(
   ) %>%
     gt::tab_options(table.align = "left") %>%
     gt::as_raw_html()
+
+  gtFlagOverTime_recent12 <- Report_FlagOverTime(
+    dplyr::filter(dfResults, .data$SnapshotDate %in% most_recent12),
+    dfMetrics,
+    strGroupLevel = strGroupLevel
+  ) %>%
+    gt::tab_options(table.align = "left") %>%
+    gt::as_raw_html()
+
+  # Pass both tables and add toggle state in Widget js
   x <- list(
-    html = gtFlagOverTime,
+    html_full = gtFlagOverTime,
+    html_recent12 = gtFlagOverTime_recent12,
     strFootnote = strFootnote
   )
+
   htmlwidgets::createWidget(
     name = "Widget_FlagOverTime",
     x,
-    width = "100%", # You can adjust these as needed
-    height = "400px", # This can be customized for different heights
+    width, # You can adjust these as needed
+    height, # This can be customized for different heights
     package = "gsm"
   )
 }
@@ -55,7 +78,7 @@ Widget_FlagOverTime <- function(
 #' Shiny bindings for Widget_FlagOverTime
 #'
 #' @description
-#' `r lifecycle::badge("experimental")`
+#' `r lifecycle::badge("stable")`
 #'
 #' Output and render functions for using Widget_FlagOverTime within
 #' Shiny applications and interactive Rmd documents.

@@ -1,6 +1,6 @@
 Package: gsm
 Title: Good Statistical Monitoring
-Version: 2.1.1
+Version: 2.1.2.9000
 Authors@R: c(
     person("George", "Wu", , "george.wu@gilead.com", role = c("aut", "cre")),
     person("Jeremy", "Wildfire", , "jwildfire@gmail.com", role = "aut"),
@@ -32,15 +32,18 @@ Depends:
 Imports:
     broom,
     cli,
+    DBI,
+    dbplyr,
     dplyr,
+    duckdb,
     ggplot2,
     glue,
+    gt,
     htmltools,
     htmlwidgets,
     jsonlite,
     lifecycle,
     magrittr,
-    methods,
     purrr,
     rlang (>= 0.4.11),
     stats,
@@ -57,9 +60,7 @@ Suggests:
     fontawesome (>= 0.2.2),
     gggenes,
     ggiraph,
-    gt,
     here,
-    kableExtra,
     knitr,
     lamW,
     lubridate,

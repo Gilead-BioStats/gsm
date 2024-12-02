@@ -1,7 +1,7 @@
 #' Generate a Summary data.frame for use in reports
 #'
 #' @description
-#' `r lifecycle::badge("experimental")`
+#' `r lifecycle::badge("stable")`
 #'
 #' Generate a summary table for a report by joining the provided results data
 #' frame with the site-level metadata from dfGroups, and filter and arrange the

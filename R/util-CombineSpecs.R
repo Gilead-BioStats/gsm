@@ -11,23 +11,23 @@
 #' @examples
 #' spec1 <- list(
 #'   df1 = list(
-#'     col1 = list(required = TRUE),
-#'     col2 = list(required = TRUE)
+#'     col1 = list(type = "character"),
+#'     col2 = list(type = "character")
 #'   ),
 #'   df2 = list(
-#'     col3 = list(required = TRUE),
-#'     col4 = list(required = TRUE)
+#'     col3 = list(type = "character"),
+#'     col4 = list(type = "integer")
 #'   )
 #' )
 #'
 #' spec2 <- list(
 #'   df1 = list(
-#'     col1 = list(required = TRUE),
-#'     col5 = list(required = TRUE)
+#'     col1 = list(type = "character"),
+#'     col5 = list(type = "character")
 #'   ),
 #'   df3 = list(
-#'     col6 = list(required = TRUE),
-#'     col7 = list(required = TRUE)
+#'     col6 = list(type = "character"),
+#'     col7 = list(type = "character")
 #'   )
 #' )
 #'
@@ -99,10 +99,7 @@ combine_domain <- function(domain_specs) {
 #' @return A list containing the updated column specification.
 #' @keywords internal
 update_column <- function(existing_col, new_col, col_name) {
-  if (!is.null(existing_col)) {
-    # Handle required conflict
-    existing_col$required <- existing_col$required || new_col$required
-
+  if (length(existing_col)) {
     # Handle type conflict with a warning when available
     if (!is.null(existing_col$type) && !is.null(new_col$type)) {
       if (existing_col$type != new_col$type) {
