@@ -1,7 +1,7 @@
 #' Flag Over Time Widget
 #'
 #' @description
-#' `r lifecycle::badge("experimental")`
+#' `r lifecycle::badge("stable")`
 #'
 #' A widget that generates a table of flags over time using
 #' [Report_FlagOverTime()].
@@ -78,7 +78,7 @@ Widget_FlagOverTime <- function(
 #' Shiny bindings for Widget_FlagOverTime
 #'
 #' @description
-#' `r lifecycle::badge("experimental")`
+#' `r lifecycle::badge("stable")`
 #'
 #' Output and render functions for using Widget_FlagOverTime within
 #' Shiny applications and interactive Rmd documents.

@@ -7,6 +7,7 @@
 RunWorkflows(
   lWorkflows,
   lData = NULL,
+  lConfig = NULL,
   bKeepInputData = FALSE,
   bReturnResult = TRUE,
   strResultNames = c("Type", "ID")
@@ -16,6 +17,12 @@ RunWorkflows(
 \item{lWorkflows}{\code{list} A named list of metadata defining how the workflow should be run.}
 
 \item{lData}{\code{list} A named list of domain-level data frames.}
+
+\item{lConfig}{\code{list} A configuration object with two methods:
+\itemize{
+\item \code{LoadData}: A function that loads data specified in \code{lWorkflow$spec}.
+\item \code{SaveData}: A function that saves data returned by the last step in \code{lWorkflow$steps}.
+}}
 
 \item{bKeepInputData}{\code{boolean} should the input data be included in \code{lData} after the workflow is run? Only relevant when bReturnResult is FALSE. Default is \code{TRUE}.}
 
