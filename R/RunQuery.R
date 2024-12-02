@@ -25,7 +25,7 @@
 #' result <- RunQuery(query, df)
 #'
 #' @export
-RunQuery <- function(strQuery, df) {
+RunQuery <- function(strQuery, df, lSpec = NULL) {
   stopifnot(is.character(strQuery))
 
   # Check that strQuery contains "FROM df"
@@ -65,6 +65,15 @@ RunQuery <- function(strQuery, df) {
       cli::cli_text("Disconnected from temporary DuckDB connection.")
     }
   })
+
+  if (!is.null(lSpec)) {
+    chrDataFrameColnames <- colnames(result)
+    for(strCol in chrDataFrameColnames) {
+      if (!is.null(lSpec[[strCol]]) && 'type' %in% names(lSpec[[strCol]])) {
+        result[[ strCol ]] <- as(result[[ strCol ]], lSpec[[strCol]]$type)
+      }
+    }
+  }
 
   return(result)
 }
