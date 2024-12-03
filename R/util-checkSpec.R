@@ -50,7 +50,7 @@ CheckSpec <- function(lData, lSpec) {
   } else {
     LogMessage(
       level = "info",
-      message = "All {length(lSpecDataFrames)} data.frame(s) in the spec are present in the data: {lSpecDataFrames}",
+      message = "All {length(lSpecDataFrames)} data.frame(s) in the spec are present in the data: {glue::glue_collapse(lSpecDataFrames, sep = ', ')}",
       cli_detail = "alert"
     )
   }
@@ -111,7 +111,7 @@ CheckSpec <- function(lData, lSpec) {
   } else if (length(allCols) > 0) {
     LogMessage(
       level = "info",
-      message = "All {length(allCols)} specified column{?s} in the spec are present in the data: {allCols}",
+      message = "All {length(allCols)} specified column(s) in the spec are present in the data: {glue::glue_collapse(allCols, sep = ', ')}",
       cli_detail = "alert"
     )
   } else {
