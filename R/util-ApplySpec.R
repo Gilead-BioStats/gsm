@@ -67,7 +67,8 @@ ApplySpec <- function(dfSource, columnSpecs, domain) {
   dfTarget <- RunQuery(
     dfSource,
     strQuery = strQuery,
-    lSpec = columnSpecs
+    bUseSchema = T,
+    lColumnMapping = columnMapping
   )
 
   return(dfTarget)

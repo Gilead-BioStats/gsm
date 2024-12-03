@@ -25,6 +25,7 @@
 #' @importFrom DBI dbGetQuery
 #' @importFrom DBI dbWriteTable
 #' @importFrom DBI dbDisconnect
+#' @importFrom DBI dbExecute
 #' @importFrom dbplyr remote_con
 #' @importFrom dbplyr remote_name
 #' @importFrom glue glue
