@@ -10,6 +10,11 @@ RunQuery(strQuery, df, bUseSchema = FALSE, lColumnMapping = NULL)
 \item{strQuery}{\code{character} SQL query to run, containing placeholders \code{"FROM df"}.}
 
 \item{df}{\code{data.frame} or \code{tbl_dbi} A data frame or DuckDB lazy table to use in the SQL query.}
+
+\item{bUseSchema}{\code{boolean} should we use a schema to enforce data types. Defaults to \code{FALSE}.}
+
+\item{lColumnMapping}{\code{list} a namesd list of column specifications for a single data.frame.
+Required if \code{bUseSchema} is \code{TRUE}.}
 }
 \value{
 \code{data.frame} containing the results of the SQL query.

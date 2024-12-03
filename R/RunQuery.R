@@ -11,6 +11,9 @@
 #'
 #' @param strQuery `character` SQL query to run, containing placeholders `"FROM df"`.
 #' @param df `data.frame` or `tbl_dbi` A data frame or DuckDB lazy table to use in the SQL query.
+#' @param bUseSchema `boolean` should we use a schema to enforce data types. Defaults to `FALSE`.
+#' @param lColumnMapping `list` a namesd list of column specifications for a single data.frame.
+#' Required if `bUseSchema` is `TRUE`.
 #'
 #' @return `data.frame` containing the results of the SQL query.
 #'
