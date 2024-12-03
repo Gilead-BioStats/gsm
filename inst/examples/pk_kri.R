@@ -1,4 +1,3 @@
-devtools::load_all()
 library(tidyr)
 set.seed(1234)
 

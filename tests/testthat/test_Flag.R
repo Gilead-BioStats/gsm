@@ -32,6 +32,25 @@ test_that("incorrect inputs throw errors", {
   expect_error(Flag(dfAnalyzed, vThreshold = c(1, -1)))
 })
 
+# NA Values in vThreshold are handled correctly ---------------------------
+
+test_that("NA values in vThreshold are handled correctly", {
+  dfFlagged <- Flag(dfAnalyzed, vThreshold = c(NA, 1))
+  expect_equal(dfFlagged$Flag, c(0, 0, 0, 0))
+  
+  dfFlagged <- Flag(dfAnalyzed, vThreshold = c(-1, NA))
+  expect_equal(dfFlagged$Flag, c(0, 0, 0, 0))
+  
+  dfFlagged <- Flag(dfAnalyzed, vThreshold = c(NA, NA))
+  expect_equal(dfFlagged$Flag, c(0, 0, 0, 0))
+  
+  dfFlagged <- Flag(dfAnalyzed, vThreshold = c(NA, 2))
+  expect_equal(dfFlagged$Flag, c(1, 1, 0, 0))
+  
+  dfFlagged <- Flag(dfAnalyzed, vThreshold = c(1, NA))
+  expect_equal(dfFlagged$Flag, c(0, 0, -1, -1))
+})
+
 
 # custom tests ------------------------------------------------------------
 test_that("strValueColumn paramter works as intended", {
@@ -56,3 +75,5 @@ test_that("NA values in strColumn result in NA in Flag column", {
   NAsim <- Flag(data.frame(GroupID = seq(1:100), vals = c(seq(1:90), rep(NA, 10))), strColumn = "vals", vThreshold = c(10, NA))
   expect_equal(NAsim$Flag, c(rep(-1, 9), rep(0, 81), rep(NA, 10)))
 })
+
+

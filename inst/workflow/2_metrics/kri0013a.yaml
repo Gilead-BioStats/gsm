@@ -9,7 +9,7 @@ meta:
   Model: Identity
   Score: Percent Complete
   AnalysisType: identity
-  Threshold: "0.85,1.0"
+  Threshold: 0.85, 1.0
   nMinDenominator: 10
 spec:
   Mapped_SUBJ:
