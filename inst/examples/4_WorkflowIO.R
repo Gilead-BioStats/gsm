@@ -47,18 +47,41 @@ SaveData <- function(lWorkflow, lConfig) {
 lConfig <- list(
     LoadData = LoadData,
     SaveData = SaveData,
-    Domains = list(
-        Raw_PD = function() { clindata::ctms_protdev },
-        Raw_SUBJ = function() { clindata::rawplus_dm },
+    Domains = c(
+        Raw_STUDY = function() { clindata::ctms_study },
         Raw_SITE = function() { clindata::ctms_site },
+        Raw_PD = function() { clindata::ctms_protdev },
 
+        Raw_SUBJ = function() { clindata::rawplus_dm },
+        Raw_ENROLL = function() { clindata::rawplus_enroll },
+        Raw_SDRGCOMP = function() { clindata::rawplus_sdrgcomp },
+        Raw_STUDCOMP = function() { clindata::rawplus_studcomp },
+        Raw_LB = function() { clindata::rawplus_lb },
+        Raw_AE = function() { clindata::rawplus_ae },
+
+        Raw_DATAENT = function() { clindata::edc_data_pages },
+        Raw_DATACHG = function() { clindata::edc_data_points },
+        Raw_QUERY = function() { clindata::edc_queries },
+
+        Mapped_STUDY = file.path(tempdir(), 'mapped-study.csv'),
+        Mapped_SITE = file.path(tempdir(), 'mapped-site.csv'),
+        Mapped_COUNTRY = file.path(tempdir(), 'mapped-country.csv'),
         Mapped_PD = file.path(tempdir(), 'mapped-pd.csv'),
+
         Mapped_SUBJ = file.path(tempdir(), 'mapped-subj.csv'),
-        Mapped_SITE = file.path(tempdir(), 'mapped-site.csv')
+        Mapped_ENROLL = file.path(tempdir(), 'mapped-enroll.csv'),
+        Mapped_SDRGCOMP = file.path(tempdir(), 'mapped-sdrgcomp.csv'),
+        Mapped_STUDCOMP = file.path(tempdir(), 'mapped-studcomp.csv'),
+        Mapped_LB = file.path(tempdir(), 'mapped-lb.csv'),
+        Mapped_AE = file.path(tempdir(), 'mapped-ae.csv'),
+
+        Mapped_DATAENT = file.path(tempdir(), 'mapped-dataent.csv'),
+        Mapped_DATACHG = file.path(tempdir(), 'mapped-datachg.csv'),
+        Mapped_QUERY = file.path(tempdir(), 'mapped-query.csv')
     )
 )
 
 lMappedData <- RunWorkflows(
-    MakeWorkflowList(c('SUBJ', 'PD', 'SITE')),
+    MakeWorkflowList(strPath = 'workflow/1_mappings'),
     lConfig = lConfig
 )

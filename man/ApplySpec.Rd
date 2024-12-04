@@ -23,7 +23,6 @@ Apply a column specification to a data frame. The column specification is a
 named list where the names are the target column names and the values are
 lists of column specifications. The column specifications can include:
 \itemize{
-\item \code{required}: Whether the column is required.
 \item \code{type}: The data type to convert the column to.
 \item \code{source_col}: The name of the source column to map to the target column.
 }

@@ -14,21 +14,16 @@ meta:
 spec:
   Mapped_QUERY:
     subjid:
-      required: true
       type: character
     querystatus:
-      required: true
       type: character
   Mapped_SUBJ:
     subjid:
-      required: true
       type: character
     invid:
-      required: true
       type: character
   Mapped_DATACHG:
     subjid:
-      required: true
       type: character
 steps:
   - output: vThreshold

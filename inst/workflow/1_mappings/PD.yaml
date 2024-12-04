@@ -6,11 +6,9 @@ meta:
 spec: 
   Raw_PD:
     subjid:
-      required: true
       type: character
       source_col: subjectenrollmentnumber
     deemedimportant:
-      required: true
       type: character
 steps:
   - output: Mapped_PD

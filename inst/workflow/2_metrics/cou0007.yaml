@@ -14,20 +14,15 @@ meta:
 spec:
   Mapped_SUBJ:
     subjid:
-      required: true
       type: character
     country:
-      required: true
       type: character
   Mapped_SDRGCOMP:
     subjid:
-      required: true
       type: character
     sdrgyn:
-      required: true
       type: character
     phase:
-      required: true
       type: character
 steps:
   - output: vThreshold

@@ -6,13 +6,10 @@ meta:
 spec:
   Mapped_SUBJ:
     country:
-      required: true
       type: character
     invid:
-      required: true
       type: character
     subjid:
-      required: true
       type: character
 steps:
   - output: Temp_CountryCountsWide
