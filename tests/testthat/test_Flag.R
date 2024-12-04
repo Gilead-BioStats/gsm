@@ -1,79 +1,68 @@
-dfAnalyzed <- tibble::tibble(
-  GroupID    = c("123", "45", "67", "101"),
-  TotalCount = c(1, 1, 2, 2),
-  Metric     = c(1, 1, 2, 2),
-  Score      = c(1, 1, 2, 2)
-)
+test_that("Flag function works correctly with z-score data", {
+    dfAnalyzed <- data.frame(
+        GroupID = 1:12,
+        Score = c(-4, -3.1,-3,-2.9, -2.1, -2,-1.9,  0, 2, 2.9, 3, 3.1)
+    )
 
-# output is created as expected -------------------------------------------
-test_that("output is created as expected", {
-  dfFlagged <- Flag(dfAnalyzed, vThreshold = c(-1, 1))
-  expect_true(is.data.frame(dfFlagged))
-  expect_equal(sort(unique(dfAnalyzed$GroupID)), sort(dfFlagged$GroupID))
-  expect_true(all(names(dfAnalyzed) %in% names(dfFlagged)))
-  expect_equal(names(dfFlagged), c("GroupID", "TotalCount", "Metric", "Score", "Flag"))
-  expect_equal(length(unique(dfAnalyzed$GroupID)), length(unique(dfFlagged$GroupID)))
-  expect_equal(length(unique(dfAnalyzed$GroupID)), nrow(dfFlagged))
+    # Test with default parameters
+    dfFlagged <- Flag(dfAnalyzed)                            
+    expect_equal(dfFlagged$Flag, c(-2, -2, -1, -1, -1, 0, 0, 0, 1, 1, 2, 2))
+
+    # Test with custom thresholds and flags
+    dfFlagged <- Flag(dfAnalyzed, vThreshold = c(-2,2), vFlag = c(-1,0,1))
+    expect_equal(dfFlagged$Flag, c(-1, -1, -1, -1, -1, 0, 0, 0, 1, 1, 1, 1))
+   })
+
+test_that("Flag function works correctly with rate data", {
+    # Test with rate data
+    dfAnalyzed_Rate <- data.frame(
+        GroupID = 1:9,
+        Score = c(0.1, 0.2, 0.5, 0.6, 0.8, 0.85, 0.86, 0.9, 0.99)
+    )
 })
 
-# incorrect inputs throw errors -------------------------------------------
-test_that("incorrect inputs throw errors", {
-  expect_error(Flag(list(), -1, 1))
-  expect_error(Flag("Hi", -1, 1))
-  expect_error(Flag(dfAnalyzed, "1", "2"))
-  expect_error(Flag(dfAnalyzed, vThreshold = c(NA, 1), strColumn = 1.0, strValueColumn = "Estimate"))
-  expect_error(Flag(dfAnalyzed, vThreshold = "1", strValueColumn = "Estimate"))
-  expect_error(Flag(dfAnalyzed, vThreshold = 0.5, strValueColumn = "Estimate"))
-  expect_error(Flag(dfAnalyzed, vThreshold = c(NA, 1), strColumn = "PValue1", strValueColumn = "Estimate"))
-  expect_error(Flag(dfAnalyzed, vThreshold = c(NA, 1), strValueColumn = "Mean"))
-  expect_error(Flag(dfAnalyzed, vThreshold = NULL))
-  expect_error(Flag(dfAnalyzed, strColumn = c("Score", "GroupID")))
-  expect_error(Flag(dfAnalyzed %>% select(-c(GroupID))))
-  expect_error(Flag(dfAnalyzed, vThreshold = c(1, -1)))
+test_that("Flag function works correctly with poisson data", {
+    # Test with Poisson Data
+    dfAnalyzed <- Transform_Rate(analyticsInput) %>% Analyze_Poisson()
+    dfFlagged_Poisson <- Flag(dfAnalyzed_Rate, vThreshold = c(0.85,0.9), vFlag = c(0,1,2))
+    expect_equal(dfFlagged$Flag, c(0,0,0,0,0,1,1,2,2))
+
+    # Test with Poisson Data
+    dfAnalyzedCustom <- tibble::tribble(
+      ~GroupID, ~Numerator, ~Denominator, ~Metric, ~Score, ~PredictedCount,
+      "166", 5L, 857L, 0.0058343057176196, -11, 5.12722560489132,
+      "76", 2L, 13L, 0.153846153846154, -6, 2.00753825876477,
+      "86", 5L, 678L, 0.00737463126843658, 6, 4.86523613634436,
+      "80", 5L, 678L, 0.00737463126843658, 11, 4.86523613634436
+    )
+
+    expect_silent(dfFlagged <- Flag_Poisson(dfAnalyzedCustom, vThreshold = c(-10, -5, 5, 10)))
+    expect_equal(dfFlagged$Flag, c(2, -2, 1, -1))
 })
 
-# NA Values in vThreshold are handled correctly ---------------------------
-
-test_that("NA values in vThreshold are handled correctly", {
-  dfFlagged <- Flag(dfAnalyzed, vThreshold = c(NA, 1))
-  expect_equal(dfFlagged$Flag, c(0, 0, 0, 0))
-  
-  dfFlagged <- Flag(dfAnalyzed, vThreshold = c(-1, NA))
-  expect_equal(dfFlagged$Flag, c(0, 0, 0, 0))
-  
-  dfFlagged <- Flag(dfAnalyzed, vThreshold = c(NA, NA))
-  expect_equal(dfFlagged$Flag, c(0, 0, 0, 0))
-  
-  dfFlagged <- Flag(dfAnalyzed, vThreshold = c(NA, 2))
-  expect_equal(dfFlagged$Flag, c(1, 1, 0, 0))
-  
-  dfFlagged <- Flag(dfAnalyzed, vThreshold = c(1, NA))
-  expect_equal(dfFlagged$Flag, c(0, 0, -1, -1))
+test_that("Flag function works correctly with NA data", {
+    dfAnalyzed_NA <- data.frame(
+        GroupID = 1:7,
+        Score = c(-4, -1, 0, NA, 2, 5, NA)
+    )
+    dfFlagged_NA <- Flag(dfAnalyzed_NA)                            
+    expect_equal(dfFlagged_NA$Flag, c(-2, 0, 0, NA, 1, 2, NA))
 })
 
+test_that("errors working as expected", {
 
-# custom tests ------------------------------------------------------------
-test_that("strValueColumn paramter works as intended", {
-  dfFlagged <- Flag(dfAnalyzed, vThreshold = c(-1, 1), strValueColumn = "TotalCount")
-  expect_equal(dfFlagged$Flag[1], 1)
-  dfFlagged <- Flag(dfAnalyzed, vThreshold = c(-1, 1), strValueColumn = NULL)
-  expect_equal(dfFlagged$Flag[1], 1)
+    # Test with missing strColumn
+    expect_error(Flag(dfAnalyzed, strColumn = "MissingColumn"), "strColumn not found in dfAnalyzed")
+
+    # Test with improper number of flag values
+    expect_error(Flag(dfAnalyzed, vThreshold = c(-2, 0, 2), vFlag = c(1,2,3)), "Improper number of Flag values provided")
+
+    # Test with non-numeric vThreshold
+    expect_error(Flag(dfAnalyzed, vThreshold = c("a", "b", "c")), "vThreshold is not numeric")
+
+    # Test with non-character strColumn
+    expect_error(Flag(dfAnalyzed, strColumn = 123), "strColumn is not character")
+
+    # Test with non-data frame dfAnalyzed
+    expect_error(Flag(list(SiteID = 1:10, Score = c(-4, -3, -2.5, -2, -1, 0, 1, 2, 2.5, 3))), "dfAnalyzed is not a data frame")
 })
-
-test_that("vThreshold parameter works as intended", {
-  sim1 <- Flag(data.frame(GroupID = seq(1:100), vals = seq(1:100)), strColumn = "vals", vThreshold = c(10, NA))
-  expect_equal(sim1$Flag, c(rep(-1, 9), rep(0, 91)))
-  sim2 <- Flag(data.frame(GroupID = seq(1:100), vals = seq(1:100)), strColumn = "vals", vThreshold = c(NA, 91))
-  expect_equal(sim2$Flag, c(rep(1, 9), rep(0, 91)))
-  sim3 <- Flag(data.frame(GroupID = seq(1:100), vals = seq(1:100)), strColumn = "vals", vThreshold = c(2, 91))
-  expect_equal(sim3$Flag, c(rep(1, 9), -1, rep(0, 90)))
-  sim4 <- Flag(data.frame(GroupID = seq(1:201), vals = seq(from = -100, to = 100)), strColumn = "vals", vThreshold = c(-91, 91))
-  expect_equal(sim4$Flag, c(rep(1, 9), rep(-1, 9), rep(0, 183)))
-})
-
-test_that("NA values in strColumn result in NA in Flag column", {
-  NAsim <- Flag(data.frame(GroupID = seq(1:100), vals = c(seq(1:90), rep(NA, 10))), strColumn = "vals", vThreshold = c(10, NA))
-  expect_equal(NAsim$Flag, c(rep(-1, 9), rep(0, 81), rep(NA, 10)))
-})
-
-
