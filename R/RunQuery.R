@@ -72,7 +72,7 @@ RunQuery <- function(strQuery, df, bUseSchema = FALSE, lColumnMapping = NULL) {
       dbExecute(con, create_tab_query)
       # set up arguments for dbWriteTable
       append_tab = TRUE
-      df <- df %>% select(sapply(lColumnMapping, function(x) x$source) %>% unname()) #need this to be an unnamed vector to avoid using target colnames here
+      df <- df %>% select(map_chr(lColumnMapping, function(x) x$source) %>% unname()) #need this to be an unnamed vector to avoid using target colnames here
     }
     DBI::dbWriteTable(con, temp_table_name, df, append = append_tab)
     table_name <- temp_table_name
