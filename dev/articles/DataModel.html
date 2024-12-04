@@ -138,7 +138,7 @@ compatible with the analytics pipeline. Data Mapping transformations can
 be done using multiple methods including custom R scripts (e.g., with
 <code>dplyr</code>), SQL queries, or using <code>gsm</code> workflows
 (e.g. the
-<code>system.file("workflow/data_mapping.yaml", package = "gsm")</code>
+<code>system.file("workflow/1_mapping/AE.yaml", package = "gsm")</code>
 file). Examples of these methods can be found in
 <code><a href="../articles/Cookbook.html">vignette("Cookbook")</a></code>.</p>
 </div>
@@ -733,7 +733,8 @@ specified test on the metric provided.</li>
 <li>Inputs: <code>lAnalysis</code>, <code>strStudyID</code>,
 <code>dSnapshotDate</code>
 </li>
-<li>Workflow used to create table: <code>data_reporting.yaml</code>
+<li>Workflow used to create table:
+<code>3_reporting/Results.yaml</code>
 </li>
 <li>Usage: Summarize KRI at the group level for reporting.</li>
 <li>Structure:</li>
@@ -855,7 +856,8 @@ specified test on the metric provided.</li>
 <li>Inputs: <code>lAnalysis</code>, <code>strStudyID</code>,
 <code>dSnapshotDate</code>
 </li>
-<li>Workflow used to create table: <code>data_reporting.yaml</code>
+<li>Workflow used to create table:
+<code>3_reporting/Bounds.yaml</code>
 </li>
 <li>Usage: Calculates predicted percentages/rates and upper- and
 lower-bounds across the full range of sample sizes/total exposure values
@@ -960,7 +962,8 @@ are based on</td>
 </ul>
 </li>
 <li>Inputs: CTMS site, study and country data</li>
-<li>Workflow used to create table: <code>data_reporting.yaml</code>
+<li>Workflow used to create table:
+<code>3_reporting/Groups.yaml</code>
 </li>
 <li>Usage: Group-level metadata dictionary.</li>
 <li>Structure: Long data frame, with certain <code>Param</code> required
@@ -1108,7 +1111,8 @@ reporting. User may add other Param values as needed.</p>
 <li>Inputs: <code>lWorkflows</code> - metadata for the corresponding
 kri(s) made with <code><a href="../reference/MakeWorkflowList.html">MakeWorkflowList()</a></code>
 </li>
-<li>Workflow used to create table: <code>data_reporting.yaml</code>
+<li>Workflow used to create table:
+<code>3_reporting/Metrics.yaml</code>
 </li>
 <li>Usage: Metadata used for charts and tables</li>
 <li>Structure:</li>
@@ -1216,7 +1220,7 @@ functions and parameters across multiple studies.</p>
 <p>The <code>lWorkflow</code> object is a named list of metadata and
 steps defining how each assessment should be run. By default,
 <code><a href="../reference/MakeWorkflowList.html">MakeWorkflowList()</a></code> imports YAML specifications from
-<code>workflow/metrics</code>. Each item in <code>lWorkflow</code>
+<code>workflow/2_metrics</code>. Each item in <code>lWorkflow</code>
 expects the following parameters in the <code>steps</code> section:</p>
 <ul>
 <li>
