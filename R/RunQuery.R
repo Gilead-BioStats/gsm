@@ -42,7 +42,7 @@ RunQuery <- function(strQuery, df, bUseSchema = FALSE, lColumnMapping = NULL) {
     stop("if use_schema = TRUE, you must provide lColumnMapping spec")
   }
 
-  if (!is.null(lColumnMapping && any(is.null(map(lColumnMapping, .x$source))))) {
+  if (!is.null(lColumnMapping) && any(is.null(map(lColumnMapping, \(x) x$source)))) {
     stop("if use_schema = TRUE, all columns listed in lColumnMapping must have `source` specified. Typical use of schema is with `Apply_Spec()")
   }
 
