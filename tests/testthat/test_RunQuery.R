@@ -90,19 +90,19 @@ test_that("RunQuery applies schema appropriately", {
   lColumnMapping <- list(
     Name = list(
       type = "character",
-      source = "Name"
+      source_col = "Name"
     ),
     Age = list(
       type = "integer",
-      source = "Age"
+      source_col = "Age"
     ),
     Salary = list(
       type = "integer",
-      source = "Salary"
+      source_col = "Salary"
     ),
     Birthday = list(
       type = "Date",
-      source = "Birthday"
+      source_col = "Birthday"
     )
   )
 
