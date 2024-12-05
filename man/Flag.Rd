@@ -2,13 +2,16 @@
 % Please edit documentation in R/Flag.R
 \name{Flag}
 \alias{Flag}
+\alias{Flag_NormalApprox}
+\alias{Flag_Poisson}
 \title{Flag}
 \usage{
 Flag(
   dfAnalyzed,
   strColumn = "Score",
   vThreshold = c(-3, -2, 2, 3),
-  vFlag = c(-2, -1, 0, 1, 2)
+  vFlag = c(-2, -1, 0, 1, 2),
+  vFlagOrder = c(2, -2, 1, -1, 0)
 )
 }
 \arguments{
@@ -16,9 +19,11 @@ Flag(
 
 \item{strColumn}{\code{character} Name of the column to use for thresholding. Default: \code{"Score"}}
 
-\item{vThreshold}{\code{numeric} Vector of numeric values representing threshold values.}
+\item{vThreshold}{\code{numeric} Vector of numeric values representing threshold values. Default is \code{c(-3,-2,2,3)} which is typical for z-scores.}
 
-\item{vFlagValues}{\code{character} Vector of flag values. There must be one more item in Flag than thresholds - that is \code{length(vThreshold)+1 == length(vFlagValues)}. When vFlagValues is \code{NULL} (the default), it is set to seq(0:length(vTreshhold)).}
+\item{vFlag}{\code{numeric} Vector of flag values. There must be one more item in Flag than thresholds - that is \code{length(vThreshold)+1 == length(vFlagValues)}. Default is \code{c(-2,-1,0,1,2)}, which is typical for z-scores.}
+
+\item{vFlagOrder}{\code{numeric} Vector of ordered flag values. Output data.frame will be sorted based on flag column using the order provided. NULL (or values that don't match vFlag) will leave the data unsorted. Must have identical values to vFlag. Default is \code{c(2,-2,1,-1,0)} which puts largest z-score outliers first in the data set.}
 }
 \value{
 \code{data.frame} dfAnalyzed is returned with an additional \code{Flag} column.

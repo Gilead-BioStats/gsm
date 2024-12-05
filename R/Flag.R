@@ -29,8 +29,9 @@
 #'
 #' @param dfAnalyzed `data.frame` where flags should be added.
 #' @param strColumn `character` Name of the column to use for thresholding. Default: `"Score"`
-#' @param vThreshold `numeric` Vector of numeric values representing threshold values. 
-#' @param vFlagValues `character` Vector of flag values. There must be one more item in Flag than thresholds - that is `length(vThreshold)+1 == length(vFlagValues)`. When vFlagValues is `NULL` (the default), it is set to seq(0:length(vTreshhold)). 
+#' @param vThreshold `numeric` Vector of numeric values representing threshold values. Default is `c(-3,-2,2,3)` which is typical for z-scores. 
+#' @param vFlag `numeric` Vector of flag values. There must be one more item in Flag than thresholds - that is `length(vThreshold)+1 == length(vFlagValues)`. Default is `c(-2,-1,0,1,2)`, which is typical for z-scores. 
+#' @param vFlagOrder `numeric` Vector of ordered flag values. Output data.frame will be sorted based on flag column using the order provided. NULL (or values that don't match vFlag) will leave the data unsorted. Must have identical values to vFlag. Default is `c(2,-2,1,-1,0)` which puts largest z-score outliers first in the data set. 
 #' 
 #' @return `data.frame` dfAnalyzed is returned with an additional `Flag` column. 
 #'
@@ -49,7 +50,8 @@ Flag <- function(
   dfAnalyzed,
   strColumn = "Score",
   vThreshold = c(-3,-2,2,3),
-  vFlag = c(-2,-1,0,1,2)
+  vFlag = c(-2,-1,0,1,2),
+  vFlagOrder = c(2,-2,1,-1,0)
 ) {
   stopifnot(
     "dfAnalyzed is not a data frame" = is.data.frame(dfAnalyzed),
@@ -60,21 +62,49 @@ Flag <- function(
     "strColumn must be length of 1" = length(strColumn) == 1,
     "strColumn not found in dfAnalyzed" = strColumn %in% names(dfAnalyzed),
     "vFlag must be numeric" = is.numeric(vFlag),
-    "Improper number of Flag values provided" = length(vFlag) == length(vThreshold)+1
+    "Improper number of Flag values provided" = length(vFlag) == length(vThreshold)+1,
+    "vFlagOrder must be numeric or NULL" = is.numeric(vFlagOrder) | is.null(vFlagOrder)
   )
-    dfFlagged <- dfAnalyzed
-    # generate flag values for dfAnalyzed[strColumn] based on vThresold and vFlag 
-    dfFlagged$Flag <- cut(
-        dfFlagged[[strColumn]],
-        breaks = c(-Inf, vThreshold, Inf),
-        labels = vFlag,
-        right = FALSE
-    ) %>% as.character() %>% as.numeric() #Parse from factor to numeric
 
-    # If default flag is used, apply custom sort
-    if(vFlag == c(-2,-1,0,1,2) ){
-      dfFlagged <- dfFlagged %>% arrange(match(.data$Flag, c(2, -2, 1, -1, 0)))
+  dfFlagged <- dfAnalyzed
+  
+  # generate flag values for dfAnalyzed[strColumn] based on vThresold and vFlag 
+  dfFlagged$Flag <- cut(
+      dfFlagged[[strColumn]],
+      breaks = c(-Inf, vThreshold, Inf),
+      labels = vFlag,
+      right = FALSE
+  ) %>% as.character() %>% as.numeric() #Parse from factor to numeric
+
+  # Apply custom sort order using vFlagOrder
+  if(!is.null(vFlagOrder)){
+    #all values in vFlag should be included in vFlagOrder
+    if(identical(sort(vFlag), sort(vFlagOrder))){ 
+      dfFlagged <- dfFlagged %>% arrange(match(.data$Flag, vFlagOrder))
+      cli::cli_alert_info("Sorted dfFlagged using custom Flag order: {vFlagOrder}.")
+    }else{
+      cli::cli_alert_info("Mismatch in vFlagOrder and vFlag values. Aborting Sort and returning unsorted data.")
     }
-    
+  }
+  
   return(dfFlagged)
 }
+
+#' Flag_NormalApprox 
+#' 
+#' #' @description
+#' `r lifecycle::badge("stable")`
+#'
+#' Alias for `Flag()``
+
+Flag_NormalApprox <- Flag
+
+
+#' Flag_Poisson
+#' 
+#' #' @description
+#' `r lifecycle::badge("stable")`
+#'
+#' Alias for `Flag()``
+
+Flag_Poisson <- Flag
