@@ -80,15 +80,11 @@ reference:
   - title: Utility
     desc: Utility functions for use within the Data Model
   - contents:
-     -  ApplySpec
      -  BindResults
      -  cli_fmt
      -  CalculatePercentage
-     -  CheckSpec
-     -  CombineSpecs
      -  FilterByLatestSnapshotDate
      -  FilterByFlags
-     -  Ingest
      -  LogMessage
      -  MakeBounds
      -  MakeCharts
@@ -103,7 +99,6 @@ reference:
      -  ParseThreshold
      -  RenderRmd
      -  RunStep
-     -  RunQuery
      -  RunWorkflow
      -  RunWorkflows
      -  SetLogger
