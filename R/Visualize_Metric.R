@@ -135,6 +135,7 @@ Visualize_Metric <- function(
       dfResults = dfResults_latest,
       lMetric = lMetric,
       dfGroups = dfGroups,
+      vThreshold = vThreshold,
       strOutcome = "Metric",
       bDebug = bDebug
     )
@@ -143,6 +144,7 @@ Visualize_Metric <- function(
       dfResults = dfResults_latest,
       lMetric = lMetric,
       dfGroups = dfGroups,
+      vThreshold = vThreshold,
       strOutcome = "Score",
       bDebug = bDebug
     )
