@@ -32,6 +32,7 @@
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/Flag_Poisson.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/Ingest.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/Input_Rate.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/dev/reference/LogMessage.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/MakeBounds.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/MakeCharts.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/MakeLongMeta.html</loc></url>
@@ -56,6 +57,7 @@
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/RunStep.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/RunWorkflow.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/RunWorkflows.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/dev/reference/SetLogger.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/Summarize.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/Transform_Count.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/Transform_Rate.html</loc></url>
@@ -75,6 +77,7 @@
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/Widget_TimeSeries.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/analyticsInput.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/analyticsSummary.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/dev/reference/cli_fmt.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/cols_label_month.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/combine_domain.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/dev/reference/gsm-package.html</loc></url>
