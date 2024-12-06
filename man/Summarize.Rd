@@ -36,12 +36,10 @@ Create a concise summary of assessment results that is easy to aggregate across 
 }
 
 \examples{
+
 dfTransformed <- Transform_Rate(analyticsInput)
-
-dfAnalyzed <- Analyze_Poisson(dfTransformed)
-
-dfFlagged <- Flag(dfAnalyzed, vThreshold = c(-5, 5))
-
+dfAnalyzed <- Analyze_NormalApprox(dfTransformed)
+dfFlagged <- Flag(dfAnalyzed)
 dfSummary <- Summarize(dfFlagged)
 
 }
