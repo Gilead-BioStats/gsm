@@ -36,15 +36,12 @@
 #' @return `data.frame` dfAnalyzed is returned with an additional `Flag` column. 
 #'
 #' @examples
-#' dfTransformed <- Transform_Count(analyticsInput, strCountCol = "Numerator")
-#'
-#' dfAnalyzed <- Analyze_Identity(dfTransformed)
-#'
-#' dfFlagged <- Flag(dfAnalyzed, vThreshold = c(0.001, 0.01))
+#' 
+#' dfTransformed <- Transform_Rate(analyticsInput)
+#' dfAnalyzed <- Analyze_NormalApprox(dfTransformed)
+#' dfFlagged <- Flag(dfAnalyzed)
 #'
 #' @export
-#' 
-#' @aliases Flag_NormalApprox Flag_Poisson 
 
 Flag <- function(
   dfAnalyzed,
@@ -94,8 +91,17 @@ Flag <- function(
 #' 
 #' #' @description
 #' `r lifecycle::badge("stable")`
-#'
-#' Alias for `Flag()``
+#' 
+#' Alias for `Flag()`
+#' 
+#' @param dfAnalyzed `data.frame` where flags should be added.
+#' @param strColumn `character` Name of the column to use for thresholding. Default: `"Score"`
+#' @param vThreshold `numeric` Vector of numeric values representing threshold values. Default is `c(-3,-2,2,3)` which is typical for z-scores. 
+#' @param vFlag `numeric` Vector of flag values. There must be one more item in Flag than thresholds - that is `length(vThreshold)+1 == length(vFlagValues)`. Default is `c(-2,-1,0,1,2)`, which is typical for z-scores. 
+#' @param vFlagOrder `numeric` Vector of ordered flag values. Output data.frame will be sorted based on flag column using the order provided. NULL (or values that don't match vFlag) will leave the data unsorted. Must have identical values to vFlag. Default is `c(2,-2,1,-1,0)` which puts largest z-score outliers first in the data set. 
+#' 
+#' 
+#' @export
 
 Flag_NormalApprox <- Flag
 
@@ -104,7 +110,15 @@ Flag_NormalApprox <- Flag
 #' 
 #' #' @description
 #' `r lifecycle::badge("stable")`
+#' 
+#' Alias for `Flag()`
 #'
-#' Alias for `Flag()``
+#' @param dfAnalyzed `data.frame` where flags should be added.
+#' @param strColumn `character` Name of the column to use for thresholding. Default: `"Score"`
+#' @param vThreshold `numeric` Vector of numeric values representing threshold values. Default is `c(-3,-2,2,3)` which is typical for z-scores. 
+#' @param vFlag `numeric` Vector of flag values. There must be one more item in Flag than thresholds - that is `length(vThreshold)+1 == length(vFlagValues)`. Default is `c(-2,-1,0,1,2)`, which is typical for z-scores. 
+#' @param vFlagOrder `numeric` Vector of ordered flag values. Output data.frame will be sorted based on flag column using the order provided. NULL (or values that don't match vFlag) will leave the data unsorted. Must have identical values to vFlag. Default is `c(2,-2,1,-1,0)` which puts largest z-score outliers first in the data set. 
+#'  
+#' @export
 
 Flag_Poisson <- Flag

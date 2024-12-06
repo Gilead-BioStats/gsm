@@ -12,10 +12,21 @@ Flag_NormalApprox(
   vFlagOrder = c(2, -2, 1, -1, 0)
 )
 }
+\arguments{
+\item{dfAnalyzed}{\code{data.frame} where flags should be added.}
+
+\item{strColumn}{\code{character} Name of the column to use for thresholding. Default: \code{"Score"}}
+
+\item{vThreshold}{\code{numeric} Vector of numeric values representing threshold values. Default is \code{c(-3,-2,2,3)} which is typical for z-scores.}
+
+\item{vFlag}{\code{numeric} Vector of flag values. There must be one more item in Flag than thresholds - that is \code{length(vThreshold)+1 == length(vFlagValues)}. Default is \code{c(-2,-1,0,1,2)}, which is typical for z-scores.}
+
+\item{vFlagOrder}{\code{numeric} Vector of ordered flag values. Output data.frame will be sorted based on flag column using the order provided. NULL (or values that don't match vFlag) will leave the data unsorted. Must have identical values to vFlag. Default is \code{c(2,-2,1,-1,0)} which puts largest z-score outliers first in the data set.}
+}
 \description{
 #' @description
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \details{
-Alias for `Flag()``
+Alias for \code{Flag()}
 }

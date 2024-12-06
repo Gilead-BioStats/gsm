@@ -2,8 +2,6 @@
 % Please edit documentation in R/Flag.R
 \name{Flag}
 \alias{Flag}
-\alias{Flag_NormalApprox}
-\alias{Flag_Poisson}
 \title{Flag}
 \usage{
 Flag(
@@ -62,10 +60,9 @@ The following column is considered optional:
 }
 
 \examples{
-dfTransformed <- Transform_Count(analyticsInput, strCountCol = "Numerator")
 
-dfAnalyzed <- Analyze_Identity(dfTransformed)
-
-dfFlagged <- Flag(dfAnalyzed, vThreshold = c(0.001, 0.01))
+dfTransformed <- Transform_Rate(analyticsInput)
+dfAnalyzed <- Analyze_NormalApprox(dfTransformed)
+dfFlagged <- Flag(dfAnalyzed)
 
 }

@@ -17,7 +17,7 @@ test_that("Flag function works correctly with z-score data", {
     expect_equal(dfFlagged$Flag, c(-1, -1, -1, -1, -1, 0, 0, 0, 1, 1, 1, 1))
 
     # Test Alias
-    dfFlagged <- Flag_NormalApprox(dfAnalyzed, vFlagOrder=FALSE)                            
+    dfFlagged <- Flag_NormalApprox(dfAnalyzed, vFlagOrder=NULL)                            
     expect_equal(dfFlagged$Flag, c(-2, -2, -1, -1, -1, 0, 0, 0, 1, 1, 2, 2))   
 })
 
@@ -62,7 +62,10 @@ test_that("Flag function works correctly with NA data", {
 })
 
 test_that("errors working as expected", {
-
+    dfAnalyzed <- data.frame(
+        GroupID = 1:12,
+        Score = c(-4, -3.1,-3,-2.9, -2.1, -2,-1.9,  0, 2, 2.9, 3, 3.1)
+    )
     # Test with missing strColumn
     expect_error(Flag(dfAnalyzed, strColumn = "MissingColumn"), "strColumn not found in dfAnalyzed")
 
