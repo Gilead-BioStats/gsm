@@ -43,7 +43,7 @@ RunQuery <- function(strQuery, df, bUseSchema = FALSE, lColumnMapping = NULL) {
   }
 
   #use `source_col` for `source` if using mapping and it hasn't gone through ApplySpec()
-  if (bUseSchema && any(is.null(map(lColumnMapping, \(x) x$source)))) {
+  if (bUseSchema && any(map_lgl(lColumnMapping, \(x) is.null(x$source)))) {
     lColumnMapping <- lColumnMapping %>%
         imap(
           function(spec, name) {

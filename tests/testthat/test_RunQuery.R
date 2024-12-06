@@ -92,29 +92,26 @@ test_that("RunQuery applies schema appropriately", {
   )
   lColumnMapping <- list(
     Name = list(
-      type = "character",
-      source_col = "Name"
+      type = "character"
     ),
     Age = list(
-      type = "integer",
-      source_col = "Age"
+      type = "integer"
     ),
     Salary = list(
-      type = "integer",
-      source_col = "Salary"
+      type = "integer"
     ),
-    Birthday = list(
+    Birthdate = list(
       type = "Date",
       source_col = "Birthday"
     )
   )
 
   # Define the query and mapping
-  query <- "SELECT * FROM df WHERE Age >= 30"
+  query <- "SELECT Name, Age, Salary, Birthday AS Birthdate FROM df WHERE Age >= 30"
 
   # Call the RunQuery function and expect no error
   expect_no_error(result <- RunQuery(query, df, bUseSchema = T, lColumnMapping = lColumnMapping))
-  expect_equal(class(result$Birthday), "Date")
+  expect_equal(class(result$Birthdate), "Date")
   expect_equal(class(result$Salary), "integer")
   expect_equal(class(result$Age), "integer")
   expect_equal(class(result$Name), "character")
