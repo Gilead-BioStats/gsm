@@ -69,7 +69,7 @@ lMetricOutput <- RunWorkflow(
 # ----
 # Workflow using data read/write functions.
 
-# Define a function that loads data. 
+# Define a function that loads data.
 LoadData <- function(lWorkflow, lConfig) {
     purrr::imap(
         lWorkflow$spec,
