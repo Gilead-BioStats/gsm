@@ -74,120 +74,120 @@ Report_KRI <- function(
     dir.create(report_path, recursive = TRUE)
   }
 
-  json_path <- file.path("..", "json")
-  if (!dir.exists(json_path)) {
-    dir.create(json_path, recursive = TRUE)
-  }
-
-  #metrics json
-  metrics_info <- dfMetrics %>%
-    mutate(
-      id = .[["MetricID"]] %||% NA,
-      abbreviation = .[["Abbreviation"]] %||% NA,
-      label = .[["Metric"]] %||% NA
-    ) %>%
-    select(id, abbreviation, label) %>%
-    split(., seq(nrow(.)))
-
-  metrics_file <- file.path(json_path, "risk-signal-metrics.json")
-  if (file.exists(metrics_file)) {
-    existing_data <- fromJSON(metrics_file, simplifyVector = FALSE, simplifyDataFrame = FALSE)
-    write_json(c(existing_data, metrics_info), path = metrics_file, na = "null", pretty = TRUE, auto_unbox = TRUE)
-  } else {
-    write_json(metrics_info, path = metrics_file, na = "null", pretty = TRUE, auto_unbox = TRUE)
-  }
-
-  # Convert study-level and groups-level data to JSON
-  pivoted_groups <- dfGroups %>%
-    pivot_wider(names_from = Param, values_from = Value)
-
-  pivoted_groups_site <-  pivoted_groups %>%
-    filter(GroupLevel == "Site")
-
-  groups_info <- pivoted_groups_site %>%
-    mutate(
-      id = .[["invid"]] %||% NA,
-      inv_first_name = .[["InvestigatorFirstName"]] %||% NA,
-      inv_last_name = .[["InvestigatorLastName"]] %||% NA
-    ) %>%
-    select(id, inv_first_name, inv_last_name) %>%
-    split(., seq(nrow(.)))
-
-  groups_file <- file.path(json_path, "risk-signal-groups.json")
-  if (file.exists(groups_file)) {
-    existing_data <- fromJSON(groups_file, simplifyVector = FALSE, simplifyDataFrame = FALSE)
-    write_json(c(existing_data, groups_info), path = groups_file, na = "null", pretty = TRUE, auto_unbox = TRUE)
-  } else {
-    write_json(groups_info, path = groups_file, na = "null", pretty = TRUE, auto_unbox = TRUE)
-  }
-
-  pivoted_groups_study <- pivoted_groups %>%
-    filter(GroupLevel == "Study")
-
-  study_info <- pivoted_groups_study %>%
-    mutate(
-      id = .[["StudyID"]] %||% NA,
-      name = .[["nickname"]] %||% NA,
-      title = .[["protocol_title"]] %||% NA,
-      characteristics = list(list(
-        status = .[["status"]] %||% NA, # datasim is lowercase; clindata is uppercase
-        siteActivation = .[["SiteActivation"]] %||% NA,
-        enrollment = .[["ParticipantEnrollment"]] %||% NA,
-        fpfv = .[["act_fpfv"]] %||% NA,
-        therapeuticArea = .[["therapeutic_area"]] %||% NA,
-        indication = .[["protocol_indication"]] %||% NA,
-        product = .[["product"]] %||% NA,
-        phase = .[["phase"]] %||% NA,
-        lpfv = .[["est_lpfv"]] %||% NA,
-        lplv = .[["est_lplv"]] %||% NA
-      ))
-    ) %>%
-    select(id, name, title, characteristics)
-
-  study_file <- file.path(json_path, "study.json")
-  if (file.exists(study_file)) {
-    existing_data <- fromJSON(study_file, simplifyVector = FALSE, simplifyDataFrame = FALSE)
-    write_json(c(existing_data, list(study_info)), path = study_file, na = "null", pretty = TRUE, auto_unbox = TRUE)
-  } else {
-    write_json(list(study_info), path = study_file, na = "null", pretty = TRUE, auto_unbox = TRUE)
-  }
-  #risk signals
-  risk_signal_info <- dfResults %>%
-    mutate(
-      study_id = .[["StudyID"]] %||% NA,
-      snapshot_date = .[["SnapshotDate"]] %||% NA,
-      metric_id = .[["MetricID"]] %||% NA,
-      group_id = .[["GroupID"]] %||% NA,
-      flag = .[["Flag"]] %||% NA,
-      ado_url = "tbd",
-      status = "tbd",
-      summary = "tbd",
-      recommended_action = "tbd"
-    ) %>%
-    select(study_id, snapshot_date, metric_id, group_id, flag, ado_url, status, summary, recommended_action) %>%
-    split(., seq(nrow(.)))
-
-  risk_signal_file <- file.path(json_path, "risk-signal.json")
-  if (file.exists(risk_signal_file)) {
-    existing_data <- fromJSON(risk_signal_file, simplifyVector = FALSE, simplifyDataFrame = FALSE)
-    write_json(c(existing_data, risk_signal_info), path = risk_signal_file, na = "null", pretty = TRUE, auto_unbox = TRUE)
-  } else {
-    write_json(risk_signal_info, path = risk_signal_file, na = "null", pretty = TRUE, auto_unbox = TRUE)
-  }
-
-  snapshot_info <- list(
-    study_id = StudyID,
-    module_slug = GroupLevel,
-    snapshot_date = SnapshotDate
-  )
-
-  snapshot_file <- file.path(json_path, "snapshot.json")
-  if (file.exists(snapshot_file)) {
-    existing_data <- fromJSON(snapshot_file, simplifyVector = FALSE, simplifyDataFrame = FALSE)
-    write_json(c(existing_data, list(snapshot_info)), path = snapshot_file, na = "null", pretty = TRUE, auto_unbox = TRUE)
-  } else {
-    write_json(list(snapshot_info), path = snapshot_file, na = "null", pretty = TRUE, auto_unbox = TRUE)
-  }
+  # json_path <- file.path("..", "json")
+  # if (!dir.exists(json_path)) {
+  #   dir.create(json_path, recursive = TRUE)
+  # }
+  #
+  # #metrics json
+  # metrics_info <- dfMetrics %>%
+  #   mutate(
+  #     id = .[["MetricID"]] %||% NA,
+  #     abbreviation = .[["Abbreviation"]] %||% NA,
+  #     label = .[["Metric"]] %||% NA
+  #   ) %>%
+  #   select(id, abbreviation, label) %>%
+  #   split(., seq(nrow(.)))
+  #
+  # metrics_file <- file.path(json_path, "risk-signal-metrics.json")
+  # if (file.exists(metrics_file)) {
+  #   existing_data <- fromJSON(metrics_file, simplifyVector = FALSE, simplifyDataFrame = FALSE)
+  #   write_json(c(existing_data, metrics_info), path = metrics_file, na = "null", pretty = TRUE, auto_unbox = TRUE)
+  # } else {
+  #   write_json(metrics_info, path = metrics_file, na = "null", pretty = TRUE, auto_unbox = TRUE)
+  # }
+  #
+  # # Convert study-level and groups-level data to JSON
+  # pivoted_groups <- dfGroups %>%
+  #   pivot_wider(names_from = Param, values_from = Value)
+  #
+  # pivoted_groups_site <-  pivoted_groups %>%
+  #   filter(GroupLevel == "Site")
+  #
+  # groups_info <- pivoted_groups_site %>%
+  #   mutate(
+  #     id = .[["invid"]] %||% NA,
+  #     inv_first_name = .[["InvestigatorFirstName"]] %||% NA,
+  #     inv_last_name = .[["InvestigatorLastName"]] %||% NA
+  #   ) %>%
+  #   select(id, inv_first_name, inv_last_name) %>%
+  #   split(., seq(nrow(.)))
+  #
+  # groups_file <- file.path(json_path, "risk-signal-groups.json")
+  # if (file.exists(groups_file)) {
+  #   existing_data <- fromJSON(groups_file, simplifyVector = FALSE, simplifyDataFrame = FALSE)
+  #   write_json(c(existing_data, groups_info), path = groups_file, na = "null", pretty = TRUE, auto_unbox = TRUE)
+  # } else {
+  #   write_json(groups_info, path = groups_file, na = "null", pretty = TRUE, auto_unbox = TRUE)
+  # }
+  #
+  # pivoted_groups_study <- pivoted_groups %>%
+  #   filter(GroupLevel == "Study")
+  #
+  # study_info <- pivoted_groups_study %>%
+  #   mutate(
+  #     id = .[["StudyID"]] %||% NA,
+  #     name = .[["nickname"]] %||% NA,
+  #     title = .[["protocol_title"]] %||% NA,
+  #     characteristics = list(list(
+  #       status = .[["status"]] %||% NA, # datasim is lowercase; clindata is uppercase
+  #       siteActivation = .[["SiteActivation"]] %||% NA,
+  #       enrollment = .[["ParticipantEnrollment"]] %||% NA,
+  #       fpfv = .[["act_fpfv"]] %||% NA,
+  #       therapeuticArea = .[["therapeutic_area"]] %||% NA,
+  #       indication = .[["protocol_indication"]] %||% NA,
+  #       product = .[["product"]] %||% NA,
+  #       phase = .[["phase"]] %||% NA,
+  #       lpfv = .[["est_lpfv"]] %||% NA,
+  #       lplv = .[["est_lplv"]] %||% NA
+  #     ))
+  #   ) %>%
+  #   select(id, name, title, characteristics)
+  #
+  # study_file <- file.path(json_path, "study.json")
+  # if (file.exists(study_file)) {
+  #   existing_data <- fromJSON(study_file, simplifyVector = FALSE, simplifyDataFrame = FALSE)
+  #   write_json(c(existing_data, list(study_info)), path = study_file, na = "null", pretty = TRUE, auto_unbox = TRUE)
+  # } else {
+  #   write_json(list(study_info), path = study_file, na = "null", pretty = TRUE, auto_unbox = TRUE)
+  # }
+  # #risk signals
+  # risk_signal_info <- dfResults %>%
+  #   mutate(
+  #     study_id = .[["StudyID"]] %||% NA,
+  #     snapshot_date = .[["SnapshotDate"]] %||% NA,
+  #     metric_id = .[["MetricID"]] %||% NA,
+  #     group_id = .[["GroupID"]] %||% NA,
+  #     flag = .[["Flag"]] %||% NA,
+  #     ado_url = "tbd",
+  #     status = "tbd",
+  #     summary = "tbd",
+  #     recommended_action = "tbd"
+  #   ) %>%
+  #   select(study_id, snapshot_date, metric_id, group_id, flag, ado_url, status, summary, recommended_action) %>%
+  #   split(., seq(nrow(.)))
+  #
+  # risk_signal_file <- file.path(json_path, "risk-signal.json")
+  # if (file.exists(risk_signal_file)) {
+  #   existing_data <- fromJSON(risk_signal_file, simplifyVector = FALSE, simplifyDataFrame = FALSE)
+  #   write_json(c(existing_data, risk_signal_info), path = risk_signal_file, na = "null", pretty = TRUE, auto_unbox = TRUE)
+  # } else {
+  #   write_json(risk_signal_info, path = risk_signal_file, na = "null", pretty = TRUE, auto_unbox = TRUE)
+  # }
+  #
+  # snapshot_info <- list(
+  #   study_id = StudyID,
+  #   module_slug = GroupLevel,
+  #   snapshot_date = SnapshotDate
+  # )
+  #
+  # snapshot_file <- file.path(json_path, "snapshot.json")
+  # if (file.exists(snapshot_file)) {
+  #   existing_data <- fromJSON(snapshot_file, simplifyVector = FALSE, simplifyDataFrame = FALSE)
+  #   write_json(c(existing_data, list(snapshot_info)), path = snapshot_file, na = "null", pretty = TRUE, auto_unbox = TRUE)
+  # } else {
+  #   write_json(list(snapshot_info), path = snapshot_file, na = "null", pretty = TRUE, auto_unbox = TRUE)
+  # }
 
   # set output path
   if (is.null(strOutputFile)) {
