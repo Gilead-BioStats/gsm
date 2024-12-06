@@ -50,8 +50,7 @@ lRaw <- list(
     rename(State = state) %>%
     rename(Country = country),
   Raw_STUDY = lSource$Source_STUDY %>%
-    rename(studyid = protocol_number) %>%
-    rename(Status = status)
+    rename(studyid = protocol_number)
 )
 
 # Create Mapped Data

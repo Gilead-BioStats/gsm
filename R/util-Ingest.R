@@ -46,7 +46,11 @@ Ingest <- function(lSourceData, lSpec, strDomain = "Raw") {
 
   lMappedData <- lSpec %>% imap(
     function(columnSpecs, domain) {
-      cli::cli_alert_info(glue("Ingesting data for {domain}."))
+      LogMessage(
+        level = "info",
+        message = "Ingesting data for {domain}.",
+        cli_detail = "alert_info"
+      )
 
       # check that the domain exists in the source data
       dfSource <- lSourceData[[domain]]

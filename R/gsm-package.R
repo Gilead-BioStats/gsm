@@ -6,6 +6,7 @@
 #' @import dplyr
 #' @import ggplot2
 #' @import gt
+#' @import log4r
 #' @import purrr
 #' @importFrom broom augment
 #' @importFrom broom glance
@@ -49,6 +50,8 @@
 #' @importFrom rlang %||%
 #' @importFrom rlang .data
 #' @importFrom rlang check_installed
+#' @importFrom rlang expr
+#' @importFrom rlang eval_tidy
 #' @importFrom stats binom.test
 #' @importFrom stats fisher.test
 #' @importFrom stats glm

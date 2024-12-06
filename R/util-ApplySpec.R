@@ -46,7 +46,10 @@ ApplySpec <- function(dfSource, columnSpecs, domain) {
   sourceCols <- columnMapping %>% map("source")
   if (!all(sourceCols %in% names(dfSource))) {
     missingCols <- sourceCols[!sourceCols %in% names(dfSource)]
-    stop(glue("Columns not found in source data for domain '{domain}': {missingCols}."))
+    LogMessage(
+      level = "error",
+      message = "Columns not found in source data for domain '{domain}': {missingCols}."
+    )
   }
 
   # Write query to select/rename columns from source to target

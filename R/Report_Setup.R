@@ -24,7 +24,11 @@ Report_Setup <- function(dfGroups = NULL, dfMetrics = NULL, dfResults = NULL) {
   if (length(group) == 1) {
     output$GroupLevel <- group
   } else {
-    cli::cli_alert("Multiple `GroupLevel`s detected in dfMetrics, so GroupLevel not specifed for KRI Report. ")
+    LogMessage(
+      level = "info",
+      message = "Multiple `GroupLevel`s detected in dfMetrics, so GroupLevel not specifed for KRI Report. ",
+      cli_detail = "alert"
+    )
     output$GroupLevel <- ""
   }
 
@@ -32,7 +36,11 @@ Report_Setup <- function(dfGroups = NULL, dfMetrics = NULL, dfResults = NULL) {
   if ("SnapshotDate" %in% names(dfResults)) {
     output$SnapshotDate <- max(dfResults$SnapshotDate)
   } else {
-    cli::cli_alert("No `SnapshotDate` detected in dfResults, setting to today: {Sys.Date()}")
+    LogMessage(
+      level = "info",
+      message = "No `SnapshotDate` detected in dfResults, setting to today: {Sys.Date()}",
+      cli_detail = "alert"
+    )
     output$SnapshotDate <- Sys.Date()
     dfResults$SnapshotDate <- Sys.Date()
   }
