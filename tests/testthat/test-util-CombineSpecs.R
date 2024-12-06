@@ -85,7 +85,7 @@ test_that("Combining specs with some empty dfs", {
   spec2 <- list(
     df2 = list(
       col3 = list(type = "character")
-      ),
+    ),
     df3 = list()
   )
 

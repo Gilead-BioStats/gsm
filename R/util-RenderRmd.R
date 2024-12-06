@@ -19,7 +19,11 @@ RenderRmd <- function(
   # specify strOutputDir path, depending on write access to strOutputDir
   if (file.access(strOutputDir, mode = 2) == -1) {
     tpath <- tempdir()
-    cli::cli_inform("You do not have permission to write to {strOutputDir}. Report will be saved to {tpath}")
+    LogMessage(
+      level = "info",
+      message = "You do not have permission to write to {strOutputDir}. Report will be saved to {tpath}",
+      cli_detail = "inform"
+    )
     strOutputDir <- tpath
   }
   rmarkdown::render(

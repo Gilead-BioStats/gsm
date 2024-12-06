@@ -57,15 +57,26 @@ RunQuery <- function(strQuery, df, bUseSchema = FALSE, lColumnMapping = NULL) {
 
   # Set up the connection and table names if passing in duckdb lazy table
   if (inherits(df, "tbl_dbi")) {
-    cli::cli_text("Using provided DuckDB connection.")
+    LogMessage(
+      level = "info",
+      message = "Using provided DuckDB connection.",
+      cli_detail = "text"
+    )
     con <- dbplyr::remote_con(df)
     table_name <- dbplyr::remote_name(df)
   } else {
     if (ncol(df) == 0) {
-      cli::cli_alert_warning("df has no columns. Query not run. Returning empty data frame.")
+      LogMessage(
+        level = "warn",
+        message = "df has no columns. Query not run. Returning empty data frame."
+      )
       return(df)
     }
-    cli::cli_text("Creating a new temporary DuckDB connection.")
+    LogMessage(
+      level = "info",
+      message = "Creating a new temporary DuckDB connection.",
+      cli_detail = "text"
+    )
     con <- DBI::dbConnect(duckdb::duckdb())
     temp_table_name <- paste0("temp_table_", format(Sys.time(), "%Y%m%d_%H%M%S"))
     append_tab = FALSE
@@ -95,15 +106,25 @@ RunQuery <- function(strQuery, df, bUseSchema = FALSE, lColumnMapping = NULL) {
 
   result <- tryCatch({
     result <- DBI::dbGetQuery(con, strQuery)
-    cli::cli_alert_success("SQL Query complete: {nrow(result)} rows returned.")
+    LogMessage(
+      level = "info",
+      message = "SQL Query complete: {nrow(result)} rows returned.",
+      cli_detail = "alert_success"
+    )
     result
   }, error = function(e) {
-    cli::cli_alert_danger("Error executing query: {e$message}")
-    stop(glue::glue("Error executing query: {e$message}"))
+    LogMessage(
+      level = "fatal",
+      message = "Error executing query: {e$message}"
+    )
   }, finally = {
     if (!inherits(df, "tbl_dbi")) {
       DBI::dbDisconnect(con)
-      cli::cli_text("Disconnected from temporary DuckDB connection.")
+      LogMessage(
+        level = "info",
+        message = "Disconnected from temporary DuckDB connection.",
+        cli_detail = "text"
+      )
     }
   })
 

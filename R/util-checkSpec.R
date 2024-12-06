@@ -43,12 +43,16 @@ CheckSpec <- function(lData, lSpec) {
   lDataFrames <- names(lData)
   if (!all(lSpecDataFrames %in% lDataFrames)) {
     MissingSpecDataFrames <- lSpecDataFrames[!lSpecDataFrames %in% lDataFrames]
-    cli::cli_abort(c(
-      "{.arg lData} must contain all data.frames in {.arg lSpec}.",
-      i = "Missing data.frames: {MissingSpecDataFrames}"
-    ))
+    LogMessage(
+      level = "error",
+      message = "`lData` must contain all data.frames in `lSpec`. Missing data.frames: {MissingSpecDataFrames}"
+    )
   } else {
-    cli::cli_alert("All {length(lSpecDataFrames)} data.frame(s) in the spec are present in the data: {lSpecDataFrames}")
+    LogMessage(
+      level = "info",
+      message = "All {length(lSpecDataFrames)} data.frame(s) in the spec are present in the data: {glue::glue_collapse(lSpecDataFrames, sep = ', ')}",
+      cli_detail = "alert"
+    )
   }
 
   # Check that all required columns in the spec are present in the data
@@ -76,9 +80,16 @@ CheckSpec <- function(lData, lSpec) {
     )
 
     if (length(wrongType)) {
-      cli::cli_alert_danger("Not all columns of {strDataFrame} in the spec are in the expected format, improperly formatted columns are: {wrongType}")
+      LogMessage(
+        level = "warn",
+        message = "Not all columns of {strDataFrame} in the spec are in the expected format, improperly formatted columns are: {wrongType}"
+      )
     } else {
-      cli::cli_alert("All specified columns in {strDataFrame} are in the expected format")
+      LogMessage(
+        level = "info",
+        message = "All specified columns in {strDataFrame} are in the expected format",
+        cli_detail = "alert"
+      )
     }
     # check that required exist in data, if _all required is not specified
     if (!isTRUE(lSpec[[strDataFrame]]$`_all`$required)) {
@@ -93,10 +104,21 @@ CheckSpec <- function(lData, lSpec) {
     }
   }
   if (length(missingCols) > 0) {
-    cli::cli_alert_danger("Not all specified columns in the spec are present in the data, missing columns are: {missingCols}")
+    LogMessage(
+      level = "warn",
+      message = "Not all specified columns in the spec are present in the data, missing columns are: {missingCols}"
+    )
   } else if (length(allCols) > 0) {
-    cli::cli_alert("All {length(allCols)} specified column{?s} in the spec are present in the data: {allCols}")
+    LogMessage(
+      level = "info",
+      message = "All {length(allCols)} specified column(s) in the spec are present in the data: {glue::glue_collapse(allCols, sep = ', ')}",
+      cli_detail = "alert"
+    )
   } else {
-    cli::cli_alert("No columns specified in the spec. All data.frames are pulling in all available columns.")
+    LogMessage(
+      level = "info",
+      message = "No columns specified in the spec. All data.frames are pulling in all available columns.",
+      cli_detail = "alert"
+    )
   }
 }

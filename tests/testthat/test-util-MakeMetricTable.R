@@ -52,8 +52,7 @@ test_that("Score rounding works correctly", {
 
 test_that("Errors informatively when multiple MetricIDs passed in", {
   expect_error(
-    MakeMetricTable(reportingResults, reportingGroups),
-    class = "gsm_error-multiple_values"
+    MakeMetricTable(reportingResults, reportingGroups)
   )
 })
 

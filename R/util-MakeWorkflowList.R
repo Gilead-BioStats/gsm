@@ -78,20 +78,20 @@ MakeWorkflowList <- function(
 
       # each workflow should have an $meta and $steps $meta$ID attributes
       if (!utils::hasName(workflow, "meta")) {
-        cli::cli_abort(c("{file_name} must contain `meta` attributes."))
+        LogMessage(level = "fatal", message = "{file_name} must contain `meta` attributes.")
       }
       if (!utils::hasName(workflow, "steps")) {
-        cli::cli_abort(c("{file_name} must contain `steps` attributes."))
+        LogMessage(level = "fatal", message = "{file_name} must contain `steps` attributes.")
       }
       if (!utils::hasName(workflow$meta, "Type")) {
-        cli::cli_abort(c("{file_name} must contain `Type` attribute in `meta` section."))
+        LogMessage(level = "fatal", message = "{file_name} must contain `Type` attribute in `meta` section.")
       }
       if (!utils::hasName(workflow$meta, "ID")) {
-        cli::cli_abort(c("{file_name} must contain `ID` attribute in `meta` section."))
+        LogMessage(level = "fatal", message = "{file_name} must contain `ID` attribute in `meta` section.")
       }
       # warn user if file name doesn't match ID specified
       if (gsub(".yaml", "", file_name) != workflow$meta$ID) {
-        cli::cli_warn(c("`ID` attribute does not match name of the file, {file_name}."))
+        LogMessage(level = "warn", message = "`ID` attribute does not match name of the file, {file_name}.")
       }
 
       return(workflow)
@@ -112,7 +112,7 @@ MakeWorkflowList <- function(
 
   # throw a warning if no workflows are found
   if (length(workflows) == 0) {
-    cli::cli_alert_warning("No workflows found.")
+    LogMessage(level = "warn", message = "No workflows found.")
   }
 
   return(workflows)

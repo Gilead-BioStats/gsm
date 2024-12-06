@@ -16,7 +16,10 @@
 #' @export
 CalculatePercentage <- function(data, strCurrentCol, strTargetCol, strPercVal, strPercStrVal) {
   if (!(strCurrentCol %in% names(data))) {
-    cli::cli_abort("Check that {strCurrentCol} is in data")
+    LogMessage(
+      level = "fatal",
+      message = "Check that {strCurrentCol} is in data"
+    )
   }
 
   if (strTargetCol %in% names(data)) {

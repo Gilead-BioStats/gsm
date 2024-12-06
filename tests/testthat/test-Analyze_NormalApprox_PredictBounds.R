@@ -4,7 +4,6 @@ test_that("Analyze_NormalApprox_PredictBounds handles missing nStep correctly", 
     {
       dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed)
     },
-    class = "gsm_msg-default_nStep",
     regexp = "Setting default step"
   )
 })
@@ -20,7 +19,6 @@ test_that("Analyze_NormalApprox_PredictBounds handles missing nStep for weird ra
     {
       dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed)
     },
-    class = "gsm_msg-default_nStep",
     regexp = "step to 1\\.[^0-9]*"
   )
 })
@@ -33,7 +31,6 @@ test_that("Analyze_NormalApprox_PredictBounds handles missing vThreshold correct
       dfBounds <- quiet_Analyze_NormalApprox_PredictBounds(
         dfTransformed,
         vThreshold = NULL,
-        msg_classes = "default_nStep"
       )
     },
     "vThreshold was not provided"
