@@ -11,6 +11,9 @@
 #'
 #' @param strQuery `character` SQL query to run, containing placeholders `"FROM df"`.
 #' @param df `data.frame` or `tbl_dbi` A data frame or DuckDB lazy table to use in the SQL query.
+#' @param bUseSchema `boolean` should we use a schema to enforce data types. Defaults to `FALSE`.
+#' @param lColumnMapping `list` a namesd list of column specifications for a single data.frame.
+#' Required if `bUseSchema` is `TRUE`.
 #'
 #' @return `data.frame` containing the results of the SQL query.
 #'
@@ -25,13 +28,32 @@
 #' result <- RunQuery(query, df)
 #'
 #' @export
-RunQuery <- function(strQuery, df) {
+RunQuery <- function(strQuery, df, bUseSchema = FALSE, lColumnMapping = NULL) {
   stopifnot(is.character(strQuery))
 
   # Check that strQuery contains "FROM df"
   if (!stringr::str_detect(strQuery, "FROM df")) {
     stop("strQuery must contain 'FROM df'")
   }
+
+  # Check that columnMapping exists if use_schema == TRUE
+
+  if (bUseSchema && is.null(lColumnMapping)) {
+    stop("if use_schema = TRUE, you must provide lColumnMapping spec")
+  }
+
+  #use `source_col` for `source` if using mapping and it hasn't gone through ApplySpec()
+  if (bUseSchema && any(map_lgl(lColumnMapping, \(x) is.null(x$source)))) {
+    lColumnMapping <- lColumnMapping %>%
+        imap(
+          function(spec, name) {
+            mapping <- list(target = name)
+            mapping$source <- spec$source_col %||% name
+            mapping$type <- spec$type %||% NULL
+            return(mapping)
+          })
+  }
+
 
   # Set up the connection and table names if passing in duckdb lazy table
   if (inherits(df, "tbl_dbi")) {
@@ -57,7 +79,26 @@ RunQuery <- function(strQuery, df) {
     )
     con <- DBI::dbConnect(duckdb::duckdb())
     temp_table_name <- paste0("temp_table_", format(Sys.time(), "%Y%m%d_%H%M%S"))
-    DBI::dbWriteTable(con, temp_table_name, df)
+    append_tab = FALSE
+    if (bUseSchema) {
+      create_tab_query <- lColumnMapping %>%
+        map_chr(function(mapping) {
+          type <- switch(mapping$type,
+                         Date = "DATE",
+                         numeric = "DOUBLE",
+                         integer = "INTEGER",
+                         character = "VARCHAR",
+                         "VARCHAR")
+            glue("{mapping$source} {type}")
+        }) %>%
+        paste(collapse = ", ")
+      create_tab_query <- glue("CREATE TABLE {temp_table_name} ({create_tab_query})")
+      dbExecute(con, create_tab_query)
+      # set up arguments for dbWriteTable
+      append_tab = TRUE
+      df <- df %>% select(map_chr(lColumnMapping, function(x) x$source) %>% unname()) #need this to be an unnamed vector to avoid using target colnames here
+    }
+    DBI::dbWriteTable(con, temp_table_name, df, append = append_tab)
     table_name <- temp_table_name
   }
 
@@ -78,7 +119,7 @@ RunQuery <- function(strQuery, df) {
     )
   }, finally = {
     if (!inherits(df, "tbl_dbi")) {
-      DBI::dbDisconnect(con)
+      DBI::dbDisconnect(con, shutdown = TRUE)
       LogMessage(
         level = "info",
         message = "Disconnected from temporary DuckDB connection.",
