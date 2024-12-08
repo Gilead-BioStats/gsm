@@ -144,7 +144,8 @@ RunWorkflow <- function(
 
       lData <- lConfig$LoadData(
         lWorkflow = lWorkflow,
-        lConfig = lConfig
+        lConfig = lConfig,
+	lData = lData
       )
     } else {
         cli::cli_abort(
