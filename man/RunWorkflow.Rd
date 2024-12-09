@@ -69,8 +69,9 @@ lMetricOutput <- RunWorkflow(
 # ----
 # Workflow using data read/write functions.
 
-# Define a function that loads data. 
-LoadData <- function(lWorkflow, lConfig) {
+# Define a function that loads data.
+LoadData <- function(lWorkflow, lConfig, lData) {
+lData <- lData
     purrr::imap(
         lWorkflow$spec,
         ~ {
@@ -82,9 +83,10 @@ LoadData <- function(lWorkflow, lConfig) {
                 data <- read.csv(input)
             }
 
-            return(ApplySpec(data, .x))
+            lData[[.y]] <- ApplySpec(data, .x)
         }
     )
+    return(lData)
 }
 
 # Define a function that saves data to .csv.

@@ -48,7 +48,8 @@
 #' # Workflow using data read/write functions.
 #'
 #' # Define a function that loads data.
-#' LoadData <- function(lWorkflow, lConfig) {
+#' LoadData <- function(lWorkflow, lConfig, lData) {
+#' lData <- lData
 #'     purrr::imap(
 #'         lWorkflow$spec,
 #'         ~ {
@@ -60,9 +61,10 @@
 #'                 data <- read.csv(input)
 #'             }
 #'
-#'             return(ApplySpec(data, .x))
+#'             lData[[.y]] <- ApplySpec(data, .x)
 #'         }
 #'     )
+#'     return(lData)
 #' }
 #'
 #' # Define a function that saves data to .csv.
