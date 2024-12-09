@@ -1,6 +1,6 @@
 #' Generate a study information data.frame for use in reports
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description `r lifecycle::badge("stable")`
 #'
 #' Generate a study info table summarizing study metadata.
 #'

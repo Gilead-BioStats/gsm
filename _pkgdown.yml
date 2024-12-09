@@ -82,12 +82,14 @@ reference:
   - contents:
      -  ApplySpec
      -  BindResults
+     -  cli_fmt
      -  CalculatePercentage
      -  CheckSpec
      -  CombineSpecs
      -  FilterByLatestSnapshotDate
      -  FilterByFlags
      -  Ingest
+     -  LogMessage
      -  MakeBounds
      -  MakeCharts
      -  MakeMetric
@@ -104,6 +106,7 @@ reference:
      -  RunQuery
      -  RunWorkflow
      -  RunWorkflows
+     -  SetLogger
      -  UseClindata
 
   - title: Sample Data

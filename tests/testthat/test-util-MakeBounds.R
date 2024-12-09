@@ -27,8 +27,7 @@ test_that("MakeBounds fails for NULLed arguments", {
         strMetrics = NULL
       )
     },
-    regexp = "strMetrics",
-    class = "gsm_error-null_arg"
+    regexp = "strMetrics"
   )
   expect_error(
     {
@@ -38,8 +37,7 @@ test_that("MakeBounds fails for NULLed arguments", {
         dSnapshotDate = NULL
       )
     },
-    regexp = "dSnapshotDate",
-    class = "gsm_error-null_arg"
+    regexp = "dSnapshotDate"
   )
   expect_error(
     {
@@ -49,8 +47,7 @@ test_that("MakeBounds fails for NULLed arguments", {
         strStudyID = NULL
       )
     },
-    regexp = "strStudyID",
-    class = "gsm_error-null_arg"
+    regexp = "strStudyID"
   )
 })
 
@@ -68,7 +65,6 @@ test_that("MakeBounds fails gracefully for multiple arg values", {
       )
     },
     regexp = "SnapshotDate",
-    class = "gsm_warning-multiple_values"
   )
   expect_null(dfBounds)
   expect_warning(
@@ -85,7 +81,6 @@ test_that("MakeBounds fails gracefully for multiple arg values", {
       )
     },
     regexp = "StudyID",
-    class = "gsm_warning-multiple_values"
   )
   expect_null(dfBounds)
 })

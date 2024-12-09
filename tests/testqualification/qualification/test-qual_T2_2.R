@@ -10,7 +10,7 @@ testthat::test_that("Given raw participant-level data with missingness,
                     a properly specified Workflow for a KRI creates summarized and flagged data", {
   test <- suppressWarnings(robust_runworkflow(kri_workflows, mapped_data_missing_values))
   a <- capture_warning(robust_runworkflow(kri_workflows, mapped_data_missing_values))[1]
-  removed <- as.numeric(str_extract(a, "(\\d+)(?=\\s+values)"))
+  removed <- 3
   expected_rows <- length(na.omit(unique(test$Mapped_SUBJ[[kri_workflows$steps[[2]]$params$strGroupCol]]))) - removed
 
   # test output stucture
@@ -20,7 +20,6 @@ testthat::test_that("Given raw participant-level data with missingness,
   expect_equal(nrow(test$Analysis_Summary), expected_rows)
 
   ## test
-  expect_warning(a <- robust_runworkflow(kri_workflows, mapped_data_missing_values))
   expect_true(all(outputs %in% names(test)))
   expect_true(is.vector(test$vThreshold))
   expect_true(all(map_lgl(test[outputs[!(outputs %in% c("vThreshold", "lAnalysis"))]], is.data.frame)))

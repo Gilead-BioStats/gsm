@@ -38,7 +38,11 @@ Analyze_Poisson_PredictBounds <- function(
   if (is.null(vThreshold)) {
     vThreshold <- c(-5, 5)
 
-    cli::cli_alert("vThreshold was not provided. Setting default threshold to c(-5, 5)")
+    LogMessage(
+      level = "info",
+      message = "vThreshold was not provided. Setting default threshold to c(-5, 5)",
+      cli_detail = "alert"
+    )
   }
 
   # add a 0 threhsold to calcultate estimate without an offset
@@ -61,7 +65,11 @@ Analyze_Poisson_PredictBounds <- function(
       nStep <- .05
     }
 
-    cli::cli_alert("nStep was not provided. Setting default step to {nStep}")
+    LogMessage(
+      level = "info",
+      message = "nStep was not provided. Setting default step to {nStep}",
+      cli_detail = "alert"
+    )
   }
 
   # Fit GLM of number of events at each site predicted by total exposure.

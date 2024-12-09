@@ -36,7 +36,7 @@ test_that("ParseThreshold with floating point numbers returns sorted numeric vec
 
 # Test Case 7 - Mixed Valid and Invalid Input
 test_that("ParseThreshold with mixed valid and invalid input returns NULL", {
-  expect_warning({
+  expect_snapshot({
     result <- ParseThreshold("1,2,three,4")
   })
   expect_null(result)

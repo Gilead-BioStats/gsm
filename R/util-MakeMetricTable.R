@@ -1,7 +1,7 @@
 #' Generate a Summary data.frame for use in reports
 #'
 #' @description
-#' `r lifecycle::badge("experimental")`
+#' `r lifecycle::badge("stable")`
 #'
 #' Generate a summary table for a report by joining the provided results data
 #' frame with the site-level metadata from dfGroups, and filter and arrange the
@@ -57,12 +57,13 @@ MakeMetricTable <- function(
 
   metric_ids <- sort(unique(dfResults$MetricID))
   if (length(metric_ids) > 1) {
-    cli::cli_abort(
-      c(
-        "{.arg dfResults} must only contain one unique {.field MetricID}.",
-        x = "{.arg dfResults} contains these {.field MetricID} values: {metric_ids}."
-      ),
-      class = "gsm_error-multiple_values"
+    LogMessage(
+      level = "fatal",
+      message =
+        paste0(
+          "{dfResults} must only contain one unique `MetricID`.",
+          "{dfResults} contains these `MetricID` values: {metric_ids}."
+        )
     )
   }
 

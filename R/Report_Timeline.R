@@ -156,6 +156,9 @@ Make_Timeline <- function(status_study, longitudinal = NULL, n_breaks = 10, date
 
     return(ggiraph::girafe(ggobj = a, canvas_id = "timeline"))
   } else {
-    cli::cli_alert_warning("Could not detect any columns in date format.")
+    LogMessage(
+      level = "warn",
+      message = "Could not detect any columns in date format."
+    )
   }
 }

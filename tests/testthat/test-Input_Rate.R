@@ -151,7 +151,7 @@ test_that("if dfDenominator is incompatible with method and column choice", {
 
   expect_error(
     Input_Rate(subjects, numerators, denominators),
-    regexp = "causing all denominator values to be 0"
+    regexp = "All denominator values are 0"
   )
 })
 

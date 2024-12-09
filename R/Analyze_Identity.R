@@ -32,7 +32,11 @@ Analyze_Identity <- function(dfTransformed, strValueCol = "Metric") {
     ) %>%
     arrange(.data$Score)
 
-  cli::cli_text(paste0("{.var Score} column created from `", strValueCol, "`."))
+  LogMessage(
+    level = "info",
+    message = paste0("`Score` column created from `", strValueCol, "`."),
+    cli_detail = "text"
+  )
 
   return(dfAnalyzed)
 }

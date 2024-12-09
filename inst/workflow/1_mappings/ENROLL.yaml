@@ -6,22 +6,16 @@ meta:
 spec:
   Raw_ENROLL:
     studyid:
-      required: true
       type: character
     invid:
-      required: true
       type: character
     country:
-      required: true
       type: character
     subjid:
-      required: true
       type: character
     subjectid:
-      required: true
       type: character
     enrollyn:
-      required: true
       type: character
 steps:
   - output: Mapped_ENROLL

@@ -5,13 +5,24 @@
     Condition
       Warning in `strsplit(strThreshold, ",")[[1]] %>% as.numeric()`:
       NAs introduced by coercion
-    Message
-      ! Warning: Failed to parse strThreshold ('a,b,c') to a numeric vector.
+      Warning:
+      Warning: Failed to parse strThreshold ('a,b,c') to a numeric vector.
 
 # ParseThreshold with empty string returns NULL
 
     Code
       result <- ParseThreshold("")
-    Message
-      ! Warning: Failed to parse strThreshold ('') to a numeric vector.
+    Condition
+      Warning:
+      Warning: Failed to parse strThreshold ('') to a numeric vector.
+
+# ParseThreshold with mixed valid and invalid input returns NULL
+
+    Code
+      result <- ParseThreshold("1,2,three,4")
+    Condition
+      Warning in `strsplit(strThreshold, ",")[[1]] %>% as.numeric()`:
+      NAs introduced by coercion
+      Warning:
+      Warning: Failed to parse strThreshold ('1,2,three,4') to a numeric vector.
 

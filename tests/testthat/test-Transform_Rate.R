@@ -86,15 +86,11 @@ test_that("rows with a denominator of 0 are removed", {
       )
     ) %>%
     ungroup()
-
-  expect_warning(
-    {
-      row_removed <- Transform_Rate(
-        dfInput = testInput
-      )
-    },
-    class = "gsm_wrn-remove_rows"
-  )
+  expect_warning({
+    row_removed <- Transform_Rate(
+      dfInput = testInput
+    )
+  })
   expect_snapshot(row_removed)
 })
 

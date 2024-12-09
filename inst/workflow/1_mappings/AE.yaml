@@ -6,10 +6,8 @@ meta:
 spec: 
  Raw_AE:
     subjid:
-      required: true
       type: character
     aeser:
-      required: true
       type: character
 steps:
   - output: Mapped_AE

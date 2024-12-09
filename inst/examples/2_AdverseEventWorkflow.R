@@ -18,17 +18,13 @@ AE_workflow <- read_yaml(text=
 spec:
   Mapped_AE:
     subjid:
-      required: true
       type: character
   Mapped_SUBJ:
     subjid:
-      required: true
       type: character
     invid:
-      required: true
       type: character
     timeonstudy:
-      required: true
       type: integer
 steps:
   - output: vThreshold

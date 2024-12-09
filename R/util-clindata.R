@@ -25,8 +25,9 @@
 #' @export
 UseClindata <- function(lDomains = NULL) {
   if (!requireNamespace("clindata", quietly = TRUE)) {
-    cli::cli_abort(
-      "Package {.pkg clindata} must be installed to use this function with sample data.\nRun {.code remotes::install_github('Gilead-BioStats/clindata')}"
+    LogMessage(
+      level = "fatal",
+      "Package `clindata` must be installed to use this function with sample data.\nRun `remotes::install_github('Gilead-BioStats/clindata')`"
     )
   } else {
     clindata_list <- purrr::map(lDomains, ~ eval(parse(text = .x)))

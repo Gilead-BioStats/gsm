@@ -39,7 +39,7 @@ In general, `{gsm}` is designed to be flexible and customizable, allowing users 
 
 `{gsm}` is designed to work with a wide variety of clinical data sources. The raw data used in the analysis pipeline is typically sourced from clinical trial databases and is transformed into mapped data using simple transformations. Mapped data is then used as input for the analysis pipeline. 
 
-There is not a single data standard for raw or mapped data in `{gsm}`. The only requirement is that the mapped data is compatible with the analytics pipeline. Data Mapping transformations can be done using multiple methods including custom R scripts (e.g., with `dplyr`), SQL queries, or using `gsm` workflows (e.g. the `system.file("workflow/data_mapping.yaml", package = "gsm")` file). Examples of these methods can be found in `vignette("Cookbook")`.
+There is not a single data standard for raw or mapped data in `{gsm}`. The only requirement is that the mapped data is compatible with the analytics pipeline. Data Mapping transformations can be done using multiple methods including custom R scripts (e.g., with `dplyr`), SQL queries, or using `gsm` workflows (e.g. the `system.file("workflow/1_mapping/AE.yaml", package = "gsm")` file). Examples of these methods can be found in `vignette("Cookbook")`.
 
 # Analysis Data 
 
@@ -197,7 +197,7 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
   - Function(s) used to create table:
     - `BindResults()`
   - Inputs: `lAnalysis`, `strStudyID`, `dSnapshotDate`
-  - Workflow used to create table: `data_reporting.yaml`
+  - Workflow used to create table: `3_reporting/Results.yaml`
   - Usage: Summarize KRI at the group level for reporting.
   - Structure:
 
@@ -219,7 +219,7 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
     - `MakeBounds()`
     - `Analyze_NormalApprox_PredictBounds()` (called within `MakeBounds()`)
   - Inputs: `lAnalysis`, `strStudyID`, `dSnapshotDate`
-  - Workflow used to create table: `data_reporting.yaml`
+  - Workflow used to create table: `3_reporting/Bounds.yaml`
   - Usage: Calculates predicted percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values for reporting.
   - Structure:
 
@@ -239,7 +239,7 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
     - `MakeLongMeta()`
     - `bind_rows()`
   - Inputs: CTMS site, study and country data
-  - Workflow used to create table: `data_reporting.yaml`
+  - Workflow used to create table: `3_reporting/Groups.yaml`
   - Usage: Group-level metadata dictionary.
   - Structure: Long data frame, with certain `Param` required for given `GroupLevel`
 
@@ -271,7 +271,7 @@ Expected `Param` by `GroupLevel` for use in gsm reporting. User may add other Pa
 ###  `Reporting_Metrics`
   - Function used to create table: `MakeMetric()`
   - Inputs: `lWorkflows` - metadata for the corresponding kri(s) made with `MakeWorkflowList()`
-  - Workflow used to create table: `data_reporting.yaml`
+  - Workflow used to create table: `3_reporting/Metrics.yaml`
   - Usage: Metadata used for charts and tables
   - Structure:
 
@@ -291,7 +291,7 @@ Expected `Param` by `GroupLevel` for use in gsm reporting. User may add other Pa
 
 Assessment workflow metadata objects are passed to the `lWorkflow` parameter in `RunWorkflow()` to define functions and parameters across multiple studies.
 
-The `lWorkflow` object is a named list of metadata and steps defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `workflow/metrics`. Each item in `lWorkflow` expects the following parameters in the `steps` section:
+The `lWorkflow` object is a named list of metadata and steps defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `workflow/2_metrics`. Each item in `lWorkflow` expects the following parameters in the `steps` section:
 
 -   `workflow`: Array defining one or more functions to be executed as part of the workflow for a given assessment
     -   `workflow[]$meta`: specifies all of the metadata information for the KRI.

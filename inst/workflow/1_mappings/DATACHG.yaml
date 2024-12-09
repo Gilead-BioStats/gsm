@@ -6,18 +6,14 @@ meta:
 spec: 
   Raw_DATACHG:
     subject_nsv:
-      required: true
       type: character
       source_col: subjectname
     n_changes:
-      required: true
       type: integer
   Mapped_SUBJ:
     subjid:
-      required: true
       type: character
     subject_nsv:
-      required: true
       type: character
 steps:
   # Merge [ subjid ] onto EDC domains.

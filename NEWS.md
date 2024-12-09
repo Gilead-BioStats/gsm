@@ -1,3 +1,17 @@
+# gsm v2.2.0
+
+This minor release prepares the gsm to be used as part of a more sophisticated pipeline, through the addition of 
+flexible logging and hooks for data access. Specifically:
+
+- Use `DuckDB` for sql queries and data type coercion within `RunQuery()`
+- Implement more flexible logging with the `log4r` package
+- Add the ability to use `lConfig` and specify load and save hooks for use with local or remote data.
+- Additional minor updates:
+  - fix bug that prevented threshold annotations from appearing in `Widget_BarChart()`
+  - remove `required` from yaml specs
+  - update vignettes to align with new yaml specs
+  
+
 # gsm v2.1.2
 
 This patch release primarily addresses minor report updates and handling classes in sql queries properly. Specifically:
