@@ -1,9 +1,11 @@
 load_all()
 
-LoadData <- function(lWorkflow, lConfig) {
+LoadData <- function(lWorkflow, lConfig, lData = NULL) {
+  lData <- lData
     purrr::imap(
         lWorkflow$spec,
         ~ {
+          print(.y)
             input <- lConfig$Domains[[ .y ]]
 
             if (is.data.frame(input)) {
@@ -16,9 +18,10 @@ LoadData <- function(lWorkflow, lConfig) {
                 cli::cli_abort("Invalid data source: {input}.")
             }
 
-            return(ApplySpec(data, .x))
+            lData[[ .y ]] <<- (ApplySpec(data, .x))
         }
     )
+    return(lData)
 }
 
 SaveData <- function(lWorkflow, lConfig) {
