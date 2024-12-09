@@ -108,7 +108,7 @@ test_that("RunWorkflow contains all outputs from yaml steps with populated field
 # Test [ lConfig ] parameter of [ RunWorkflow ].
 
 lConfig <- list(
-    LoadData = function(lWorkflow, lConfig) {
+    LoadData = function(lWorkflow, lConfig, lData) {
         imap(
             lWorkflow$spec,
             ~ lConfig$Domains[[ .y ]]()
@@ -226,3 +226,4 @@ test_that('RunWorkflow errors out if the data save method does not have expected
         'must include a function named .SaveData.'
     )
 })
+
