@@ -116,3 +116,25 @@ test_that("RunQuery applies schema appropriately", {
   expect_equal(class(result$Age), "integer")
   expect_equal(class(result$Name), "character")
 })
+
+test_that("RunQuery applies incomplete schema appropriately", {
+  # Create a sample data frame
+  df <- data.frame(
+    Name = c("John", "Jane", "Bob"),
+    Age = c(25, 30, 35),
+    Salary = c(50000, 60000, "70000"),
+    Birthday = c("1990-01-01", "1987-02-02", "1985-03-03")
+  )
+  lColumnMapping <- list(
+    emaN = list(
+      source = 'Name'
+    )
+  )
+
+  # Define the query and mapping
+  query <- "SELECT Name as emaN FROM df WHERE Name LIKE '%o%'"
+
+  # Call the RunQuery function and expect no error
+  expect_no_error(result <- RunQuery(query, df, bUseSchema = T, lColumnMapping = lColumnMapping))
+  expect_equal(class(result$emaN), "character")
+})

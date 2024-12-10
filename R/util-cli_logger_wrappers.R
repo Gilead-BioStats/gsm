@@ -46,8 +46,7 @@ LogMessage <- function(level, message, cli_detail = NULL, .envir = parent.frame(
   }
 
   # Pass the formatted message to the appropriate logging level
-  switch(
-    toupper(level),
+  switch(toupper(level),
     "DEBUG" = log4r::debug(logger = .le$logger, level = toupper(level), message = message),
     "INFO" = log4r::info(logger = .le$logger, level = toupper(level), message = message, cli_detail = cli_detail),
     "WARN" = log4r::warn(logger = .le$logger, level = toupper(level), message = message),
@@ -55,5 +54,3 @@ LogMessage <- function(level, message, cli_detail = NULL, .envir = parent.frame(
     "FATAL" = log4r::fatal(logger = .le$logger, level = toupper(level), message = message)
   )
 }
-
-

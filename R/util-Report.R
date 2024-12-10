@@ -38,7 +38,7 @@ FilterByLatestSnapshotDate <- function(df, strSnapshotDate = NULL) {
       arg_name <- rlang::caller_arg(df)
       LogMessage(
         level = "fatal",
-        message ="`{arg_name}` must contain a `SnapshotDate` column."
+        message = "`{arg_name}` must contain a `SnapshotDate` column."
       )
     }
     return(df)

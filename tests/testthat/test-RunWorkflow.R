@@ -108,122 +108,125 @@ test_that("RunWorkflow contains all outputs from yaml steps with populated field
 # Test [ lConfig ] parameter of [ RunWorkflow ].
 
 lConfig <- list(
-    LoadData = function(lWorkflow, lConfig, lData) {
-        imap(
-            lWorkflow$spec,
-            ~ lConfig$Domains[[ .y ]]()
-        )
-    },
-    SaveData = function(lWorkflow, lConfig) {
-        domain <- paste0(lWorkflow$meta$Type, '_', lWorkflow$meta$ID)
-        if (domain %in% names(lConfig$Domains)) {
-            assign(
-                domain,
-                lWorkflow$lResult,
-                envir = .GlobalEnv
-            )
-        }
-    },
-    Domains = c(
-        Raw_AE = function() { clindata::rawplus_ae },
-        Mapped_AE = function() { Mapped_AE }
+  LoadData = function(lWorkflow, lConfig, lData) {
+    imap(
+      lWorkflow$spec,
+      ~ lConfig$Domains[[.y]]()
     )
+  },
+  SaveData = function(lWorkflow, lConfig) {
+    domain <- paste0(lWorkflow$meta$Type, "_", lWorkflow$meta$ID)
+    if (domain %in% names(lConfig$Domains)) {
+      assign(
+        domain,
+        lWorkflow$lResult,
+        envir = .GlobalEnv
+      )
+    }
+  },
+  Domains = c(
+    Raw_AE = function() {
+      clindata::rawplus_ae
+    },
+    Mapped_AE = function() {
+      Mapped_AE
+    }
+  )
 )
 
-test_that('RunWorkflow loads/saves data with configuration object.', {
-    expect_no_error({
-        RunWorkflow(
-            lWorkflow = wf_mapping$AE,
-            lConfig = lConfig
-        )
-    })
+test_that("RunWorkflow loads/saves data with configuration object.", {
+  expect_no_error({
+    RunWorkflow(
+      lWorkflow = wf_mapping$AE,
+      lConfig = lConfig
+    )
+  })
 
-    expect_true(exists('Mapped_AE'))
+  expect_true(exists("Mapped_AE"))
 })
 
-test_that('RunWorkflow errors out if [ lConfig ] does not have a method to load data.', {
-    lBadConfig <- lConfig
-    lBadConfig$LoadData <- NULL
+test_that("RunWorkflow errors out if [ lConfig ] does not have a method to load data.", {
+  lBadConfig <- lConfig
+  lBadConfig$LoadData <- NULL
 
-    expect_error(
-        {
-            RunWorkflow(
-                lWorkflow = wf_mapping$AE,
-                lConfig = lBadConfig
-            )
-        },
-        'must include a function named .LoadData.'
-    )
+  expect_error(
+    {
+      RunWorkflow(
+        lWorkflow = wf_mapping$AE,
+        lConfig = lBadConfig
+      )
+    },
+    "must include a function named .LoadData."
+  )
 })
 
-test_that('RunWorkflow errors out if the data load method does not have expected parameters.', {
-    lBadConfig <- lConfig
-    lBadConfig$LoadData <- function(lWorkflow) {}
+test_that("RunWorkflow errors out if the data load method does not have expected parameters.", {
+  lBadConfig <- lConfig
+  lBadConfig$LoadData <- function(lWorkflow) {}
 
-    expect_error(
-        {
-            RunWorkflow(
-                lWorkflow = wf_mapping$AE,
-                lConfig = lBadConfig
-            )
-        },
-        'must include a function named .LoadData.'
-    )
+  expect_error(
+    {
+      RunWorkflow(
+        lWorkflow = wf_mapping$AE,
+        lConfig = lBadConfig
+      )
+    },
+    "must include a function named .LoadData."
+  )
 
-    lBadConfig <- lConfig
-    lBadConfig$LoadData <- function(lConfig) {}
+  lBadConfig <- lConfig
+  lBadConfig$LoadData <- function(lConfig) {}
 
-    expect_error(
-        {
-            RunWorkflow(
-                lWorkflow = wf_mapping$AE,
-                lConfig = lBadConfig
-            )
-        },
-        'must include a function named .LoadData.'
-    )
+  expect_error(
+    {
+      RunWorkflow(
+        lWorkflow = wf_mapping$AE,
+        lConfig = lBadConfig
+      )
+    },
+    "must include a function named .LoadData."
+  )
 })
 
-test_that('RunWorkflow errors out if [ lConfig ] does not have a method to save data.', {
-    lBadConfig <- lConfig
-    lBadConfig$SaveData <- NULL
+test_that("RunWorkflow errors out if [ lConfig ] does not have a method to save data.", {
+  lBadConfig <- lConfig
+  lBadConfig$SaveData <- NULL
 
-    expect_error(
-        {
-            RunWorkflow(
-                lWorkflow = wf_mapping$AE,
-                lConfig = lBadConfig
-            )
-        },
-        'must include a function named .SaveData.'
-    )
+  expect_error(
+    {
+      RunWorkflow(
+        lWorkflow = wf_mapping$AE,
+        lConfig = lBadConfig
+      )
+    },
+    "must include a function named .SaveData."
+  )
 })
 
-test_that('RunWorkflow errors out if the data save method does not have expected parameters.', {
-    lBadConfig <- lConfig
-    lBadConfig$SaveData <- function(lWorkflow) {}
+test_that("RunWorkflow errors out if the data save method does not have expected parameters.", {
+  lBadConfig <- lConfig
+  lBadConfig$SaveData <- function(lWorkflow) {}
 
-    expect_error(
-        {
-            RunWorkflow(
-                lWorkflow = wf_mapping$AE,
-                lConfig = lBadConfig
-            )
-        },
-        'must include a function named .SaveData.'
-    )
+  expect_error(
+    {
+      RunWorkflow(
+        lWorkflow = wf_mapping$AE,
+        lConfig = lBadConfig
+      )
+    },
+    "must include a function named .SaveData."
+  )
 
-    lBadConfig <- lConfig
-    lBadConfig$SaveData <- function(lConfig) {}
+  lBadConfig <- lConfig
+  lBadConfig$SaveData <- function(lConfig) {}
 
-    expect_error(
-        {
-            RunWorkflow(
-                lWorkflow = wf_mapping$AE,
-                lConfig = lBadConfig
-            )
-        },
-        'must include a function named .SaveData.'
-    )
+  expect_error(
+    {
+      RunWorkflow(
+        lWorkflow = wf_mapping$AE,
+        lConfig = lBadConfig
+      )
+    },
+    "must include a function named .SaveData."
+  )
 })
-
