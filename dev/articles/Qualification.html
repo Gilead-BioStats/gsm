@@ -82,7 +82,7 @@
             <h3 data-toc-skip class="subtitle">{gsm} v2.1.2.9000</h3>
             
             <h4 data-toc-skip class="date">Report Run Date:
-2024-12-09</h4>
+2024-12-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/v2.2.0-rc/vignettes/articles/Qualification.Rmd" class="external-link"><code>vignettes/articles/Qualification.Rmd</code></a></small>
       <div class="d-none name"><code>Qualification.Rmd</code></div>
@@ -2778,7 +2778,7 @@ function has.</p>
 <p><strong>loaded via a namespace (and not attached):</strong>
 <em>tidyselect(v.1.2.1)</em>, <em>urltools(v.1.7.3)</em>,
 <em>fastmap(v.1.2.0)</em>, <em>lazyeval(v.0.2.2)</em>,
-<em>duckdb(v.1.1.3)</em>, <em>promises(v.1.3.2)</em>,
+<em>duckdb(v.1.1.3-1)</em>, <em>promises(v.1.3.2)</em>,
 <em>rex(v.1.2.1)</em>, <em>digest(v.0.6.37)</em>, <em>mime(v.0.12)</em>,
 <em>lifecycle(v.1.0.4)</em>, <em>waldo(v.0.6.1)</em>,
 <em>ellipsis(v.0.3.2)</em>, <em>magrittr(v.2.0.3)</em>,
@@ -3311,8 +3311,8 @@ ranges from 0 (low risk) to 1 (high risk).</p>
 </tr>
 <tr>
 <td headers="package" class="gt_row gt_left gt_striped">duckdb</td>
-<td headers="version" class="gt_row gt_right gt_striped">1.1.3</td>
-<td headers="pkg_score" class="gt_row gt_right gt_striped">0.441</td>
+<td headers="version" class="gt_row gt_right gt_striped">1.1.3.1</td>
+<td headers="pkg_score" class="gt_row gt_right gt_striped">0.442</td>
 </tr>
 <tr>
 <td headers="package" class="gt_row gt_left">ggplot2</td>
@@ -3327,7 +3327,7 @@ ranges from 0 (low risk) to 1 (high risk).</p>
 <tr>
 <td headers="package" class="gt_row gt_left">gt</td>
 <td headers="version" class="gt_row gt_right">0.11.1</td>
-<td headers="pkg_score" class="gt_row gt_right">0.449</td>
+<td headers="pkg_score" class="gt_row gt_right">0.446</td>
 </tr>
 <tr>
 <td headers="package" class="gt_row gt_left gt_striped">htmltools</td>
@@ -3362,7 +3362,7 @@ ranges from 0 (low risk) to 1 (high risk).</p>
 <tr>
 <td headers="package" class="gt_row gt_left gt_striped">purrr</td>
 <td headers="version" class="gt_row gt_right gt_striped">1.0.2</td>
-<td headers="pkg_score" class="gt_row gt_right gt_striped">0.367</td>
+<td headers="pkg_score" class="gt_row gt_right gt_striped">0.369</td>
 </tr>
 <tr>
 <td headers="package" class="gt_row gt_left">rlang</td>
@@ -3402,7 +3402,7 @@ ranges from 0 (low risk) to 1 (high risk).</p>
 <tr>
 <td headers="package" class="gt_row gt_left gt_striped">yaml</td>
 <td headers="version" class="gt_row gt_right gt_striped">2.3.10</td>
-<td headers="pkg_score" class="gt_row gt_right gt_striped">0.429</td>
+<td headers="pkg_score" class="gt_row gt_right gt_striped">0.430</td>
 </tr>
 </tbody>
 </table>
@@ -3413,6 +3413,33 @@ ranges from 0 (low risk) to 1 (high risk).</p>
 <div class="section level2">
 <h2 id="pull-request-history">Pull Request History<a class="anchor" aria-label="anchor" href="#pull-request-history"></a>
 </h2>
+<div class="section level4">
+<h4 id="pull-request-1986-fix-issue-in-runquery-related-to-incomplete-column-spec">Pull Request 1986: fix issue in <code>RunQuery</code> related to
+incomplete column spec<a class="anchor" aria-label="anchor" href="#pull-request-1986-fix-issue-in-runquery-related-to-incomplete-column-spec"></a>
+</h4>
+<p>Merging fix-RunQuery into v2.2.0-rc</p>
+<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1986" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1986</a></p>
+<table style="width:75%;" class="table">
+<colgroup>
+<col width="16%">
+<col width="18%">
+<col width="18%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Requester</th>
+<th align="center">Date Requested</th>
+<th align="center">Reviewers</th>
+<th align="center">Review Status</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="center">samussiah</td>
+<td align="center">2024-12-10 18:06:09</td>
+<td align="center">annezheng2</td>
+<td align="center">APPROVED</td>
+</tr></tbody>
+</table>
+</div>
 <div class="section level4">
 <h4 id="pull-request-1982-fix-ldata-passthrough-resolves-1981">Pull Request 1982: fix ldata passthrough, resolves #1981<a class="anchor" aria-label="anchor" href="#pull-request-1982-fix-ldata-passthrough-resolves-1981"></a>
 </h4>
@@ -5957,32 +5984,6 @@ plot, and time series.<a class="anchor" aria-label="anchor" href="#pull-request-
 <td align="center">samussiah</td>
 <td align="center">2024-08-06 20:04:29</td>
 <td align="center">taylorrodgers</td>
-<td align="center">APPROVED</td>
-</tr></tbody>
-</table>
-</div>
-<div class="section level4">
-<h4 id="pull-request-1751-fix-workflow-typo-">Pull Request 1751: Fix workflow typo.<a class="anchor" aria-label="anchor" href="#pull-request-1751-fix-workflow-typo-"></a>
-</h4>
-<p>Merging fix-1734 into dev</p>
-<p><a href="https://github.com/Gilead-BioStats/gsm/pull/1751" class="external-link">https://github.com/Gilead-BioStats/gsm/pull/1751</a></p>
-<table style="width:75%;" class="table">
-<colgroup>
-<col width="18%">
-<col width="18%">
-<col width="16%">
-<col width="22%">
-</colgroup>
-<thead><tr class="header">
-<th align="center">Requester</th>
-<th align="center">Date Requested</th>
-<th align="center">Reviewers</th>
-<th align="center">Review Status</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="center">jonthegeek</td>
-<td align="center">2024-08-06 19:22:58</td>
-<td align="center"></td>
 <td align="center">APPROVED</td>
 </tr></tbody>
 </table>
