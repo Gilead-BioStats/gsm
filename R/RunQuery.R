@@ -42,19 +42,21 @@ RunQuery <- function(strQuery, df, bUseSchema = FALSE, lColumnMapping = NULL) {
     stop("if use_schema = TRUE, you must provide lColumnMapping spec")
   }
 
-  # use `source_col` for `source` if using mapping and it hasn't gone through ApplySpec()
-  if (bUseSchema && any(map_lgl(lColumnMapping, \(x) is.null(x$source)))) {
+  # Enforce data structure of schema.
+  if (bUseSchema) {
     lColumnMapping <- lColumnMapping %>%
-      imap(
-        function(spec, name) {
-          mapping <- list(target = name)
-          mapping$source <- spec$source_col %||% name
-          mapping$type <- spec$type %||% NULL
-          return(mapping)
-        }
-      )
-  }
+      imap(function(spec, name) {
+        mapping <- list(target = name)
 
+        # use `source_col` for `source` if using mapping and it hasn't gone through ApplySpec()
+        mapping$source <- spec$source %||% spec$source_col %||% name
+
+        # NULL type breaks things below
+        mapping$type <- spec$type %||% ''
+
+        return(mapping)
+      })
+  }
 
   # Set up the connection and table names if passing in duckdb lazy table
   if (inherits(df, "tbl_dbi")) {
