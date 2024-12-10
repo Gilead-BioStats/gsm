@@ -82,24 +82,25 @@ RunQuery <- function(strQuery, df, bUseSchema = FALSE, lColumnMapping = NULL) {
     )
     con <- DBI::dbConnect(duckdb::duckdb())
     temp_table_name <- paste0("temp_table_", format(Sys.time(), "%Y%m%d_%H%M%S"))
-    append_tab = FALSE
+    append_tab <- FALSE
     if (bUseSchema) {
       create_tab_query <- lColumnMapping %>%
         map_chr(function(mapping) {
           type <- switch(mapping$type,
-                         Date = "DATE",
-                         numeric = "DOUBLE",
-                         integer = "INTEGER",
-                         character = "VARCHAR",
-                         "VARCHAR")
-            glue("{mapping$source} {type}")
+            Date = "DATE",
+            numeric = "DOUBLE",
+            integer = "INTEGER",
+            character = "VARCHAR",
+            "VARCHAR"
+          )
+          glue("{mapping$source} {type}")
         }) %>%
         paste(collapse = ", ")
       create_tab_query <- glue("CREATE TABLE {temp_table_name} ({create_tab_query})")
       dbExecute(con, create_tab_query)
       # set up arguments for dbWriteTable
-      append_tab = TRUE
-      df <- df %>% select(map_chr(lColumnMapping, function(x) x$source) %>% unname()) #need this to be an unnamed vector to avoid using target colnames here
+      append_tab <- TRUE
+      df <- df %>% select(map_chr(lColumnMapping, function(x) x$source) %>% unname()) # need this to be an unnamed vector to avoid using target colnames here
     }
     DBI::dbWriteTable(con, temp_table_name, df, append = append_tab)
     table_name <- temp_table_name
