@@ -143,7 +143,7 @@ RunWorkflow <- function(
     if (
       exists("LoadData", lConfig) &&
         is.function(lConfig$LoadData) &&
-        all(c("lWorkflow", "lConfig") %in% names(formals(lConfig$LoadData)))
+        all(c("lWorkflow", "lConfig", "lData") %in% names(formals(lConfig$LoadData)))
     ) {
       LogMessage(level = "info", message = "Loading data with `lConfig$LoadData`.", cli_detail = "h3")
 
