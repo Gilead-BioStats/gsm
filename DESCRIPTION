@@ -1,6 +1,6 @@
 Package: gsm
 Title: Good Statistical Monitoring
-Version: 2.1.2
+Version: 2.2.0
 Authors@R: c(
     person("George", "Wu", , "george.wu@gilead.com", role = c("aut", "cre")),
     person("Jeremy", "Wildfire", , "jwildfire@gmail.com", role = "aut"),
@@ -20,6 +20,8 @@ Authors@R: c(
     person("Colleen", "McLaughlin", , "colleen.mclaughlin@atorusresearch.com", role = "aut"),
     person("Chelsea", "Dickens", , "chelsea.dickens@atorusresearch.com", role = "aut"),
     person("Maya", "Gans", , "maya.gans@atorusresearch.com", role = "aut"),
+    person("Anne", "Zheng", , "anne@a2-ai.com", role = "aut"),
+    person("Devin", "Pastoor", , "devin@a2-ai.com", role = "aut"),
     person("Gilead Sciences", role = "cph")
   )
 Description: The Good Statistical Monitoring or 'gsm' R package provides a
@@ -32,7 +34,10 @@ Depends:
 Imports:
     broom,
     cli,
+    DBI,
+    dbplyr,
     dplyr,
+    duckdb,
     ggplot2,
     glue,
     gt,
@@ -40,8 +45,8 @@ Imports:
     htmlwidgets,
     jsonlite,
     lifecycle,
+    log4r,
     magrittr,
-    methods,
     purrr,
     rlang (>= 0.4.11),
     stats,

@@ -19,10 +19,17 @@ ParseThreshold <- function(strThreshold) {
 
   # Check if all values are numeric
   if (length(vThreshold > 0) && all(!is.na(vThreshold))) {
-    cli::cli_alert_success("Parsed {strThreshold} to numeric vector: {sort(vThreshold)}")
+    LogMessage(
+      level = "info",
+      message = "Parsed {strThreshold} to numeric vector: {toString(vThreshold)}",
+      cli_detail = "inform"
+    )
     return(sort(vThreshold))
   } else {
-    cli::cli_alert_warning("Warning: Failed to parse strThreshold ('{strThreshold}') to a numeric vector.")
+    LogMessage(
+      level = "warn",
+      message = "Warning: Failed to parse strThreshold ('{strThreshold}') to a numeric vector."
+    )
     return(NULL)
   }
 }

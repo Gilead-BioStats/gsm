@@ -126,7 +126,7 @@ Report_OverviewText(
 
 ```{r, echo=FALSE, results='asis'}
 
-for (i in unique(params$dfMetrics$MetricID)) {
+for (i in unique(params$dfResults$MetricID)) {
   lMetric <- params$dfMetrics %>% dplyr::filter(MetricID == i) %>% as.list
 
   print(htmltools::h3(lMetric$Metric))

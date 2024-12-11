@@ -2,12 +2,12 @@ test_that("All data.frames and columns are present", {
   # example lSpec
   lSpec <- list(
     df1 = list(
-      a = list(required = TRUE),
-      b = list(required = TRUE)
+      a = list(type = "integer"),
+      b = list(type = "integer")
     ),
     df2 = list(
-      x = list(required = TRUE),
-      y = list(required = TRUE)
+      x = list(type = "integer"),
+      y = list(type = "integer")
     )
   )
 
@@ -17,25 +17,19 @@ test_that("All data.frames and columns are present", {
     df2 = data.frame(x = 7:9, y = 10:12)
   )
 
-  expect_message(
-    expect_message(expect_message(
-      expect_message(CheckSpec(lData, lSpec), "All 2 data"),
-      "All specified"
-    ), "All specified"),
-    "All 4 required"
-  )
+  expect_snapshot(CheckSpec(lData, lSpec))
 })
 
 test_that("Missing data.frames trigger an error", {
   # example lSpec
   lSpec <- list(
     df1 = list(
-      a = list(required = TRUE),
-      b = list(required = TRUE)
+      a = list(type = "integer"),
+      b = list(type = "integer")
     ),
     df2 = list(
-      x = list(required = TRUE),
-      y = list(required = TRUE)
+      x = list(type = "integer"),
+      y = list(type = "integer")
     )
   )
 
@@ -54,12 +48,12 @@ test_that("Missing columns trigger a warning", {
   # example lSpec
   lSpec <- list(
     df1 = list(
-      a = list(required = TRUE),
-      b = list(required = TRUE)
+      a = list(type = "integer"),
+      b = list(type = "integer")
     ),
     df2 = list(
-      x = list(required = TRUE),
-      y = list(required = TRUE)
+      x = list(type = "integer"),
+      y = list(type = "integer")
     )
   )
 
@@ -69,22 +63,19 @@ test_that("Missing columns trigger a warning", {
     df2 = data.frame(x = 7:9, y = 10:12)
   )
 
-  expect_message(
-    expect_message(expect_message(expect_message(CheckSpec(lData, lSpec), "All 2 data"), "All specified"), "All specified"),
-    regexp = "missing columns are: df1\\$b"
-  )
+  expect_snapshot(CheckSpec(lData, lSpec))
 })
 
 test_that("Multiple missing columns are correctly reported", {
   # example lSpec
   lSpec <- list(
     df1 = list(
-      a = list(required = TRUE),
-      b = list(required = TRUE)
+      a = list(type = "integer"),
+      b = list(type = "integer")
     ),
     df2 = list(
-      x = list(required = TRUE),
-      y = list(required = TRUE)
+      x = list(type = "integer"),
+      y = list(type = "integer")
     )
   )
 
@@ -94,84 +85,44 @@ test_that("Multiple missing columns are correctly reported", {
     df2 = data.frame(x = 7:9)
   )
 
-  expect_message(
-    expect_message(expect_message(expect_message(CheckSpec(lData, lSpec), "All 2 data"), "All specified"), "All specified"),
-    regexp = "missing columns are: df1\\$b and df2\\$y"
-  )
-})
-
-test_that("Missing column only gets a flag when it is required", {
-  lData <- list(reporting_groups = gsm::reportingGroups)
-  lSpec <- list(
-    reporting_groups = list(
-      GroupID = list(required = TRUE),
-      GroupLevel = list(required = TRUE),
-      Param = list(required = TRUE),
-      Value = list(required = TRUE),
-      NewVar = list(required = FALSE)
-    )
-  )
-  expect_message(
-    expect_message(expect_message(CheckSpec(lData, lSpec), "All 1 data"), "All specified"),
-    regexp = "All 4 required columns"
-  )
-
-  lSpec <- list(
-    reporting_groups = list(
-      GroupID = list(required = TRUE),
-      GroupLevel = list(required = TRUE),
-      Param = list(required = TRUE),
-      Value = list(required = TRUE),
-      NewVar = list(required = TRUE)
-    )
-  )
-  expect_message(
-    expect_message(expect_message(CheckSpec(lData, lSpec), "All 1 data"), "All specified"),
-    regexp = "Not all required columns"
-  )
+  expect_snapshot(CheckSpec(lData, lSpec))
 })
 
 test_that("Validate column type works", {
   lData <- list(reporting_results = gsm::reportingResults)
   lSpec <- list(
     reporting_results = list(
-      GroupID = list(required = TRUE, type = "character"),
-      GroupLevel = list(required = TRUE, type = "character"),
-      Numerator = list(required = TRUE, type = "integer"),
-      Denominator = list(required = TRUE, type = "integer"),
-      SnapshotDate = list(required = TRUE, type = "Date")
+      GroupID = list(type = "character"),
+      GroupLevel = list(type = "character"),
+      Numerator = list(type = "integer"),
+      Denominator = list(type = "integer"),
+      SnapshotDate = list(type = "Date")
     )
   )
-  expect_message(
-    expect_message(expect_message(CheckSpec(lData, lSpec), "All 1"), "All 5"),
-    regexp = "All specified columns"
-  )
+  expect_snapshot(CheckSpec(lData, lSpec))
 
   lSpec <- list(
     reporting_results = list(
-      GroupID = list(required = TRUE, type = "character"),
-      GroupLevel = list(required = TRUE, type = "character"),
-      Numerator = list(required = TRUE, type = "character"),
-      Denominator = list(required = TRUE, type = "integer"),
-      SnapshotDate = list(required = TRUE, type = "Date")
+      GroupID = list(type = "character"),
+      GroupLevel = list(type = "character"),
+      Numerator = list(type = "character"),
+      Denominator = list(type = "integer"),
+      SnapshotDate = list(type = "Date")
     )
   )
-  expect_message(
-    expect_message(expect_message(CheckSpec(lData, lSpec), "All 1"), "All 5"),
-    regexp = "Not all columns"
-  )
+  expect_snapshot(CheckSpec(lData, lSpec))
 })
 
 test_that("skip column check when `_all` is specified", {
   # example lSpec
   lSpec <- list(
     df1 = list(
-      a = list(required = TRUE),
-      b = list(required = TRUE)
+      a = list(type = "integer"),
+      b = list(type = "integer")
     ),
     df2 = list(
-      x = list(required = TRUE),
-      y = list(required = TRUE)
+      x = list(type = "integer"),
+      y = list(type = "integer")
     ),
     df3 = list(
       `_all` = list(required = TRUE)
@@ -185,13 +136,7 @@ test_that("skip column check when `_all` is specified", {
     df3 = data.frame(z = 1:3, t = 20:22)
   )
 
-  expect_message(
-    expect_message(expect_message(
-      expect_message(CheckSpec(lData, lSpec), "All 3 data"),
-      "All specified"
-    ), "All specified"),
-    "All 4 required"
-  )
+  expect_snapshot(CheckSpec(lData, lSpec))
 })
 
 test_that("proper message appears when all data frames require `_all` columns", {
@@ -215,8 +160,5 @@ test_that("proper message appears when all data frames require `_all` columns", 
     df3 = data.frame(z = 1:3, t = 20:22)
   )
 
-  expect_message(
-    expect_message(CheckSpec(lData, lSpec), "All 3 data"),
-    " No required columns specified"
-  )
+  expect_snapshot(CheckSpec(lData, lSpec))
 })

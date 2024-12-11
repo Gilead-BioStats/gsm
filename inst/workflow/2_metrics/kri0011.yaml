@@ -14,17 +14,13 @@ meta:
 spec:
   Mapped_SUBJ:
     subjid:
-      required: true
       type: character
     invid:
-      required: true
       type: character
   Mapped_DATACHG:
     subjid:
-      required: true
       type: character
     n_changes:
-      required: true
       type: integer
 steps:
   - output: vThreshold

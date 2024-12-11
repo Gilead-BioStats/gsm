@@ -1100,7 +1100,7 @@
       [1] "Mapped_SDRGCOMP"
       
       $cou0007[[2]]$params$strQuery
-      [1] "SELECT * FROM df WHERE sdrgyn = 'N' AND phase = 'Blinded Study Drug Completion'"
+      [1] "SELECT DISTINCT subjid FROM df WHERE sdrgyn = 'N'"
       
       
       
@@ -2976,7 +2976,7 @@
       [1] "Mapped_SDRGCOMP"
       
       $kri0007[[2]]$params$strQuery
-      [1] "SELECT * FROM df WHERE sdrgyn = 'N' AND phase = 'Blinded Study Drug Completion'"
+      [1] "SELECT DISTINCT subjid FROM df WHERE sdrgyn = 'N'"
       
       
       
@@ -4600,7 +4600,7 @@
       $STUDY[[6]]$output
       [1] "Temp_CountTargetsWide_addsite"
       
-      $STUDY[[6]]$names
+      $STUDY[[6]]$name
       [1] "CalculatePercentage"
       
       $STUDY[[6]]$params
@@ -4625,7 +4625,7 @@
       $STUDY[[7]]$output
       [1] "Temp_CountTargetsWide_addsitepts"
       
-      $STUDY[[7]]$names
+      $STUDY[[7]]$name
       [1] "CalculatePercentage"
       
       $STUDY[[7]]$params
@@ -4684,6 +4684,7 @@
 
     Code
       wf_list <- MakeWorkflowList(strNames = "kri8675309", bRecursive = bRecursive)
-    Message
-      ! No workflows found.
+    Condition
+      Warning:
+      No workflows found.
 
