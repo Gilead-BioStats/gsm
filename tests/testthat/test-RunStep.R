@@ -54,3 +54,12 @@ test_that("RunStep will run a function from a namespace", {
   result <- RunStep(lStep, lData, lMeta)
   expect_equal(result, head(Theoph))
 })
+
+test_that("RunStep will run a function without a namespace", {
+  lStep <- list(name = "glimpse", params = list(head(Theoph)))
+  lData <- list(data1 = 300)
+  lMeta <- list(meta1 = 400)
+
+  result <- RunStep(lStep, lData, lMeta)
+  expect_equal(result, head(Theoph))
+})
