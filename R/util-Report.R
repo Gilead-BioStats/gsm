@@ -6,14 +6,16 @@
   }
 }
 
-stop_if_empty <- function(x, x_arg = rlang::caller_arg(x)) {
-  if (!length(x)) {
-    LogMessage(
-      level = "fatal",
-      message = "{x_arg} must not be `NULL`."
-    )
+stop_if <- function(cnd, message) {
+  # Use enquo to capture the condition for lazy evaluation
+  condition <- enquo(cnd)
+
+  # Check if the condition is met
+  if (eval_tidy(condition)) {
+    LogMessage(level = "error", message = message)
   }
 }
+
 
 #' Filter by Latest Snapshot Date
 #'
