@@ -75,13 +75,13 @@ Input_Rate <- function(
 ) {
   # Check if data frames are NULL
   if (is.null(dfSubjects)) {
-    stop("dfSubjects must be provided")
+    LogMessage(level = "error", message = "dfSubjects must be provided")
   }
   if (is.null(dfDenominator)) {
-    stop("dfDenominator, must be provided")
+    LogMessage(level = "error", message = "dfDenominator, must be provided")
   }
   if (is.null(dfNumerator)) {
-    stop("dfNumerator, must be provided")
+    LogMessage(level = "error", message = "dfNumerator, must be provided")
   }
 
   # must be eit
@@ -91,20 +91,20 @@ Input_Rate <- function(
   # Check if strNumeratorCol is Null when strNumeratorMethod is 'Sum'
   if (strNumeratorMethod == "Sum") {
     if (is.null(strNumeratorCol)) {
-      stop("strNumeratorCol must be provided when strNumeratorMethod is 'Sum'")
+      LogMessage(level = "error", message = "strNumeratorCol must be provided when strNumeratorMethod is 'Sum'")
     }
     if (!is.numeric(dfNumerator[[strNumeratorCol]])) {
-      stop("strNumeratorCol must be numeric when strNumeratorMethod is `Sum`")
+      LogMessage(level = "error", message = "strNumeratorCol must be numeric when strNumeratorMethod is `Sum`")
     }
   }
 
   # Check if strDenominatorCol is Null when strDenominatorMethod is 'Sum'
   if (strDenominatorMethod == "Sum") {
     if (is.null(strDenominatorCol)) {
-      stop("strDenominatorCol must be provided when strDenominatorMethod is 'Sum'")
+      LogMessage(level = "error", message = "strDenominatorCol must be provided when strDenominatorMethod is 'Sum'")
     }
     if (!is.numeric(dfDenominator[[strDenominatorCol]])) {
-      stop("strDenominatorCol must be numeric when strDenominatorMethod is `Sum`")
+      LogMessage(level = "error", message = "strDenominatorCol must be numeric when strDenominatorMethod is `Sum`")
     }
   }
 

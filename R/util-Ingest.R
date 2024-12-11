@@ -56,7 +56,7 @@ Ingest <- function(lSourceData, lSpec, strDomain = "Raw") {
       dfSource <- lSourceData[[domain]]
 
       if (is.null(dfSource)) {
-        stop(glue("Domain '*_{domain}' not found in source data."))
+        LogMessage(level = "error", message = glue("Domain '*_{domain}' not found in source data."))
       }
 
       dfMapped <- ApplySpec(

@@ -33,13 +33,13 @@ RunQuery <- function(strQuery, df, bUseSchema = FALSE, lColumnMapping = NULL) {
 
   # Check that strQuery contains "FROM df"
   if (!stringr::str_detect(strQuery, "FROM df")) {
-    stop("strQuery must contain 'FROM df'")
+    LogMessage(level = "error", message = "strQuery must contain 'FROM df'")
   }
 
   # Check that columnMapping exists if use_schema == TRUE
 
   if (bUseSchema && is.null(lColumnMapping)) {
-    stop("if use_schema = TRUE, you must provide lColumnMapping spec")
+    LogMessage(level = "error", message = "if use_schema = TRUE, you must provide lColumnMapping spec")
   }
 
   #use `source_col` for `source` if using mapping and it hasn't gone through ApplySpec()

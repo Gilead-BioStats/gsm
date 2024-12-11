@@ -66,7 +66,7 @@ Widget_GroupOverview <- function(
   }
 
   if (is.null(strGroupLevel) || length(strGroupLevel) != 1) {
-    stop("A single group level must be provided to create group-level output.")
+    LogMessage(level = "error", message = "A single group level must be provided to create group-level output.")
   }
 
   # forward options using x
