@@ -2,9 +2,7 @@
 % Please edit documentation in R/util-func-namespace.R
 \name{GetStrFunctionIfNamespaced}
 \alias{GetStrFunctionIfNamespaced}
-\title{GetFunctionIfNamespaced looks to see if a strFunction is namespaced and looks it up
-allowing the do.call in run step to process correctly
-this will either return a function, or the original string if not namespaced}
+\title{GetFunctionIfNamespaced}
 \usage{
 GetStrFunctionIfNamespaced(strFunction)
 }
@@ -13,8 +11,12 @@ GetStrFunctionIfNamespaced(strFunction)
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
+This function looks to see if a strFunction is namespaced and looks it up
+allowing the do.call in run step to process correctly
+this will either return a function, or the original string if not namespaced
 }
 \examples{
 fn <- GetStrFunctionIfNamespaced("dplyr::glimpse")
-fn(head(Theoph)) 
+fn(head(Theoph))
 }
