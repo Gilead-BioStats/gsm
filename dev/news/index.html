@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gsm</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.1.2.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,9 +50,24 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/v2.2.0-rc/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/dev/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.2.0" id="gsm-v220">gsm v2.2.0<a class="anchor" aria-label="anchor" href="#gsm-v220"></a></h2>
+<p>This minor release prepares the gsm to be used as part of a more sophisticated pipeline, through the addition of flexible logging and hooks for data access. Specifically:</p>
+<ul><li>Use <code>DuckDB</code> for sql queries and data type coercion within <code><a href="../reference/RunQuery.html">RunQuery()</a></code>
+</li>
+<li>Implement more flexible logging with the <code>log4r</code> package</li>
+<li>Add the ability to use <code>lConfig</code> and specify load and save hooks for use with local or remote data.</li>
+<li>Allow RunWorkflows to execute code from other packages with <code><a href="../reference/GetStrFunctionIfNamespaced.html">GetStrFunctionIfNamespaced()</a></code>.</li>
+<li>Additional minor updates:
+<ul><li>fix bug that prevented threshold annotations from appearing in <code><a href="../reference/Widget_BarChart.html">Widget_BarChart()</a></code>
+</li>
+<li>remove <code>required</code> from yaml specs</li>
+<li>update vignettes to align with new yaml specs</li>
+</ul></li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.1.2" id="gsm-v212">gsm v2.1.2<a class="anchor" aria-label="anchor" href="#gsm-v212"></a></h2>
 <p>This patch release primarily addresses minor report updates and handling classes in sql queries properly. Specifically:</p>
@@ -440,7 +455,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Spencer Childress, Laura Maxwell, Jacob Anderson, Jon Harmon, Zelos Zhu, Nathan Kosiba, Douglas Sanders, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
+  <p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Spencer Childress, Laura Maxwell, Jacob Anderson, Jon Harmon, Zelos Zhu, Nathan Kosiba, Douglas Sanders, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans, Anne Zheng, Devin Pastoor.</p>
 </div>
 
 <div class="pkgdown-footer-right">
