@@ -145,7 +145,7 @@ RunWorkflow <- function(
         is.function(lConfig$LoadData) &&
         all(c("lWorkflow", "lConfig") %in% names(formals(lConfig$LoadData)))
     ) {
-      cli::cli_h3("Loading data with `lConfig$LoadData`.")
+      LogMessage(level = "info", message = "Loading data with `lConfig$LoadData`.", cli_detail = "h3")
 
       lData <- lConfig$LoadData(
         lWorkflow = lWorkflow,
@@ -153,8 +153,9 @@ RunWorkflow <- function(
         lData = lData
       )
     } else {
-      cli::cli_abort(
-        "`lConfig` must include a function named `LoadData` with two named parameters: `lWorkflow` and `lConfig`."
+      LogMessage(
+        level = "error",
+        message = "`lConfig` must include a function named `LoadData` with two named parameters: `lWorkflow` and `lConfig`."
       )
     }
   }
