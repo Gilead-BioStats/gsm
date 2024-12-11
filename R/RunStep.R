@@ -131,5 +131,5 @@ RunStep <- function(lStep, lData, lMeta, lSpec = NULL) {
     cli_detail = "h3"
   )
 
-  return(do.call(lStep$name, params))
+  return(do.call(getStrFunctionIfNamespaced(lStep$name), params))
 }
