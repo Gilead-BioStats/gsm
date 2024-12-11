@@ -52,7 +52,7 @@ RunQuery <- function(strQuery, df, bUseSchema = FALSE, lColumnMapping = NULL) {
         mapping$source <- spec$source %||% spec$source_col %||% name
 
         # NULL type breaks things below
-        mapping$type <- spec$type %||% ''
+        mapping$type <- spec$type %||% ""
 
         return(mapping)
       })

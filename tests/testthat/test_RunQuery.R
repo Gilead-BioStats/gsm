@@ -127,7 +127,7 @@ test_that("RunQuery applies incomplete schema appropriately", {
   )
   lColumnMapping <- list(
     emaN = list(
-      source = 'Name'
+      source = "Name"
     )
   )
 
