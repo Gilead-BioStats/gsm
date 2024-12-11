@@ -20,6 +20,8 @@ Authors@R: c(
     person("Colleen", "McLaughlin", , "colleen.mclaughlin@atorusresearch.com", role = "aut"),
     person("Chelsea", "Dickens", , "chelsea.dickens@atorusresearch.com", role = "aut"),
     person("Maya", "Gans", , "maya.gans@atorusresearch.com", role = "aut"),
+    person("Anne", "Zheng", , "anne@a2-ai.com", role = "aut"),
+    person("Devin", "Pastoor", , "devin@a2-ai.com", role = "aut"),
     person("Gilead Sciences", role = "cph")
   )
 Description: The Good Statistical Monitoring or 'gsm' R package provides a
