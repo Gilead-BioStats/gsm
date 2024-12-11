@@ -155,7 +155,7 @@ RunWorkflow <- function(
     } else {
       LogMessage(
         level = "error",
-        message = "`lConfig` must include a function named `LoadData` with two named parameters: `lWorkflow` and `lConfig`."
+        message = "`lConfig` must include a function named `LoadData` with three named parameters: `lWorkflow`, `lConfig`, and `lData`."
       )
     }
   }
