@@ -6,7 +6,7 @@ flexible logging and hooks for data access. Specifically:
 - Use `DuckDB` for sql queries and data type coercion within `RunQuery()`
 - Implement more flexible logging with the `log4r` package
 - Add the ability to use `lConfig` and specify load and save hooks for use with local or remote data.
-- Allow RunWorkflows to execute code from other packages with `GetFunctionIfNamespaced()`.
+- Allow RunWorkflows to execute code from other packages with `GetStrFunctionIfNamespaced()`.
 - Additional minor updates:
   - fix bug that prevented threshold annotations from appearing in `Widget_BarChart()`
   - remove `required` from yaml specs
