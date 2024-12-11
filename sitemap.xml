@@ -31,8 +31,10 @@
 <url><loc>https://gilead-biostats.github.io/gsm/reference/Flag_Fisher.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/Flag_NormalApprox.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/Flag_Poisson.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/GetStrFunctionIfNamespaced.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/Ingest.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/Input_Rate.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/LogMessage.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/MakeBounds.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/MakeCharts.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/MakeLongMeta.html</loc></url>
@@ -57,6 +59,7 @@
 <url><loc>https://gilead-biostats.github.io/gsm/reference/RunStep.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/RunWorkflow.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/RunWorkflows.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/SetLogger.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/Summarize.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/Transform_Count.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/Transform_Rate.html</loc></url>
@@ -76,6 +79,7 @@
 <url><loc>https://gilead-biostats.github.io/gsm/reference/Widget_TimeSeries.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/analyticsInput.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/analyticsSummary.html</loc></url>
+<url><loc>https://gilead-biostats.github.io/gsm/reference/cli_fmt.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/cols_label_month.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/combine_domain.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/gsm-package.html</loc></url>

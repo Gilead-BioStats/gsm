@@ -8,8 +8,8 @@
 <title>gsm Extensions • gsm</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="gsm Extensions">
 <link href="pkgdown/extra.css" rel="stylesheet">
@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gsm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -273,14 +273,13 @@ list of data tables, with each table containing a list of columns.
 Finally, each column contains the following parameters:</p>
 <ul>
 <li>
-<code>required</code>: Boolean field specifying whether this column
-is required for the workflow to run, or optional/recommended for
-inclusion for user experience or augmented information. This parameter
-is required and must be included for all columns.</li>
-<li>
 <code>type</code>: Character field describing the data type of the
 column. Use a <code>mode</code> as defined by R. This parameter is
 optional.</li>
+<li>
+<code>source_col</code>: Character field containing the column name
+from the source data frame. Only necessary when source column name
+differs from target column name.</li>
 </ul>
 <div class="section level4">
 <h4 id="spec-example-metric-module">
@@ -293,17 +292,13 @@ KRI metric</a> is:</p>
 <pre><code><span><span class="va">spec</span><span class="op">:</span></span>
 <span>  <span class="va">Mapped_AE</span><span class="op">:</span></span>
 <span>    <span class="va">subjid</span><span class="op">:</span></span>
-<span>      <span class="va">required</span><span class="op">:</span> <span class="va">true</span></span>
 <span>      <span class="va">type</span><span class="op">:</span> <span class="va">character</span></span>
 <span>  <span class="va">Mapped_ENROLL</span><span class="op">:</span></span>
 <span>    <span class="va">subjid</span><span class="op">:</span></span>
-<span>      <span class="va">required</span><span class="op">:</span> <span class="va">true</span></span>
 <span>      <span class="va">type</span><span class="op">:</span> <span class="va">character</span></span>
 <span>    <span class="va">invid</span><span class="op">:</span></span>
-<span>      <span class="va">required</span><span class="op">:</span> <span class="va">true</span></span>
 <span>      <span class="va">type</span><span class="op">:</span> <span class="va">character</span></span>
 <span>    <span class="va">timeonstudy</span><span class="op">:</span></span>
-<span>      <span class="va">required</span><span class="op">:</span> <span class="va">true</span></span>
 <span>      <span class="va">type</span><span class="op">:</span> <span class="va">integer</span></span></code></pre>
 <p>So, in summary, the AE KRI metric requires two data tables,
 <code>Mapped_AE</code> and <code>Mapped_ENROLL</code>, both of which are
@@ -327,21 +322,12 @@ KRI report</a> has the following <code>spec</code>:</p>
 <pre><code>spec:
   Reporting_Results: 
     _all:
-      required: true
-  Reporting_Groups:
-    _all:
-      required: false
-  Reporting_Metrics:
-    _all:
-      required: false
-  Reporting_Bounds:
-    _all: 
-      require: false</code></pre>
+      required: true</code></pre>
 <p>Note that the <code>_all</code> key word is used to specify that all
 standard columns from the <code>Reporting_Results</code> data table are
 expected and that the table required - without it, the report can’t run.
 The other <code>Reporting</code> tables are used to enhance the report,
-but are not required.</p>
+but are not required, and thus not included in the spec.</p>
 <p>The <code>Mapped</code> data layer is also available for use in
 reports and apps. Most typically, mapped data is used to drill down from
 high-level metric findings (e.g. “Site 5 has an elevated AE rate
@@ -356,13 +342,10 @@ is a representative excerpt from the <code>spec</code>:</p>
       required: true
   Mapped_AE:
     subjid:
-      required: false
       type: character
     aeterm:
-      required: false
       type: character 
     aesev: 
-      required: false
       type: character
     ...</code></pre>
 </div>
@@ -558,10 +541,8 @@ requires multiple steps to produce the desired mapped data.</p>
 spec: 
  Raw_AE:
     subjid:
-      required: true
       type: character
     aeser:
-      required: true
       type: character
 steps:
   - output: Mapped_AE
@@ -581,18 +562,14 @@ steps:
 spec: 
   Raw_DATACHG:
     subject_nsv:
-      required: true
       type: character
       source_col: subjectname
     n_changes:
-      required: true
       type: integer
   Mapped_SUBJ:
     subjid:
-      required: true
       type: character
     subject_nsv:
-      required: true
       type: character
 steps:
   # Merge [ subjid ] onto EDC domains.
@@ -716,7 +693,7 @@ steps:
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Spencer Childress, Laura Maxwell, Jacob Anderson, Jon Harmon, Zelos Zhu, Nathan Kosiba, Douglas Sanders, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans.</p>
+  <p>Developed by George Wu, Jeremy Wildfire, Matt Roumaya, Spencer Childress, Laura Maxwell, Jacob Anderson, Jon Harmon, Zelos Zhu, Nathan Kosiba, Douglas Sanders, Li Ge, Zhongkai Wang, Colleen McLaughlin, Chelsea Dickens, Maya Gans, Anne Zheng, Devin Pastoor.</p>
 </div>
 
 <div class="pkgdown-footer-right">
