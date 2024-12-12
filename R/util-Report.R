@@ -16,6 +16,20 @@ stop_if <- function(cnd, message) {
   }
 }
 
+stop_if_any <- function(conditions, messages, ...) {
+  # Validate input lengths
+  if (length(conditions) != length(messages)) {
+    LogMessage(level = "error", message = "For gsm developers, each condition must have a corresponding message.")
+  }
+
+  # Loop through conditions and evaluate each in the caller's environment
+  for (i in seq_along(conditions)) {
+    if (eval_tidy(conditions[[i]], env = caller_env())) {
+      LogMessage(level = "error", message = messages[[i]])
+    }
+  }
+}
+
 
 #' Filter by Latest Snapshot Date
 #'
