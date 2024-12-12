@@ -90,8 +90,8 @@ Input_Rate <- function(
 
   # Check if strDenominatorCol is Null when strDenominatorMethod is 'Sum'
   if (strDenominatorMethod == "Sum") {
-    stop_if(is.null(strDenominatorCol), message = "strDenominatorCol must be provided when strDenominatorMethod is 'Sum'")
-    stop_if(!is.numeric(dfDenominator[[strDenominatorCol]]), message = "strDenominatorCol must be numeric when strDenominatorMethod is `Sum`")
+    stop_if(cnd = is.null(strDenominatorCol), message = "strDenominatorCol must be provided when strDenominatorMethod is 'Sum'")
+    stop_if(cnd = !is.numeric(dfDenominator[[strDenominatorCol]]), message = "strDenominatorCol must be numeric when strDenominatorMethod is `Sum`")
   }
 
   # check that "strSubjectCol" is in all dfs
