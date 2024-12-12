@@ -95,12 +95,12 @@ Input_Rate <- function(
   }
 
   # check that "strSubjectCol" is in all dfs
-  stop_if(cnd = strSubjectCol %in% colnames(dfSubjects), message = "`strSubjectCol` must be a column name of `dfSubjects`")
-  stop_if(cnd = strSubjectCol %in% colnames(dfNumerator), message = "`strSubjectCol` must be a column name of `dfNumerator`")
-  stop_if(cnd = strSubjectCol %in% colnames(dfDenominator), message = "`strSubjectCol` must be a column name of `dfDenominator`")
+  stop_if(cnd = !(strSubjectCol %in% colnames(dfSubjects)), message = "`strSubjectCol` must be a column name of `dfSubjects`")
+  stop_if(cnd = !(strSubjectCol %in% colnames(dfNumerator)), message = "`strSubjectCol` must be a column name of `dfNumerator`")
+  stop_if(cnd = !(strSubjectCol %in% colnames(dfDenominator)), message = "`strSubjectCol` must be a column name of `dfDenominator`")
 
   # check that "strGroupCol" is in dfSubjects
-  stop_if(cnd = strGroupCol %in% colnames(dfSubjects), message = "`strGroupcol` must be a column name of `dfSubjects`")
+  stop_if(cnd = !(strGroupCol %in% colnames(dfSubjects)), message = "`strGroupcol` must be a column name of `dfSubjects`")
 
   # if `strGroupLevel` is null, use `strGroupCol`
   if (is.null(strGroupLevel)) {
