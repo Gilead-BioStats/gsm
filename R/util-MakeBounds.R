@@ -31,7 +31,7 @@ MakeBounds <- function(
   dSnapshotDate = unique(dfResults$SnapshotDate),
   strStudyID = unique(dfResults$StudyID)
 ) {
-  # stop_if_any(cnd = !length(strMetrics), message = "`strMetrics` must not be `NULL`.")
+  # stop_if(cnd = !length(strMetrics), message = "`strMetrics` must not be `NULL`.")
   # stop_if(cnd = !length(dSnapshotDate), message = "`dSnapshotDate` must not be `NULL`.")
   # stop_if(cnd = !length(strStudyID), message = "`strStudyID` must not be `NULL`.")
 
