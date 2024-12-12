@@ -13,7 +13,7 @@ this will either return a function, or the original string if not namespaced"><m
 
     <a class="navbar-brand me-2" href="../index.html">gsm</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.2.0</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.2.0.9999</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,9 +84,14 @@ this will either return a function, or the original string if not namespaced</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">fn</span> <span class="op">&lt;-</span> <span class="fu">GetStrFunctionIfNamespaced</span><span class="op">(</span><span class="st">"dplyr::glimpse"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in GetStrFunctionIfNamespaced("dplyr::glimpse"):</span> could not find function "GetStrFunctionIfNamespaced"</span>
 <span class="r-in"><span><span class="fu">fn</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">Theoph</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in fn(head(Theoph)):</span> could not find function "fn"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Rows: 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Columns: 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ Subject <span style="color: #949494; font-style: italic;">&lt;ord&gt;</span> 1, 1, 1, 1, 1, 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ Wt      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 79.6, 79.6, 79.6, 79.6, 79.6, 79.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ Dose    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 4.02, 4.02, 4.02, 4.02, 4.02, 4.02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ Time    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 0.00, 0.25, 0.57, 1.12, 2.02, 3.82</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $ conc    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 0.74, 2.84, 6.57, 10.50, 9.66, 8.58</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
