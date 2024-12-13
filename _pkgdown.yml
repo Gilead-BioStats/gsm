@@ -60,7 +60,6 @@ reference:
       - Transform_Count
       - Transform_Rate
       - Flag
-      - Flag_Fisher
       - Flag_NormalApprox
       - Flag_Poisson
       - Summarize
