@@ -2,8 +2,10 @@
 % Please edit documentation in R/utils-tidy-eval.R
 \name{tidyeval}
 \alias{tidyeval}
+\alias{caller_env}
 \alias{enquo}
 \alias{enquos}
+\alias{exprs}
 \alias{.data}
 \alias{:=}
 \alias{as_name}
