@@ -6,6 +6,7 @@
 #' @import dplyr
 #' @import ggplot2
 #' @import gt
+#' @import log4r
 #' @import purrr
 #' @importFrom broom augment
 #' @importFrom broom glance
@@ -25,6 +26,7 @@
 #' @importFrom DBI dbGetQuery
 #' @importFrom DBI dbWriteTable
 #' @importFrom DBI dbDisconnect
+#' @importFrom DBI dbExecute
 #' @importFrom dbplyr remote_con
 #' @importFrom dbplyr remote_name
 #' @importFrom glue glue
@@ -49,6 +51,8 @@
 #' @importFrom rlang %||%
 #' @importFrom rlang .data
 #' @importFrom rlang check_installed
+#' @importFrom rlang expr
+#' @importFrom rlang eval_tidy
 #' @importFrom stats binom.test
 #' @importFrom stats fisher.test
 #' @importFrom stats glm

@@ -37,10 +37,10 @@ Analyze_Poisson <- function(dfTransformed) {
   dfModel <- dfTransformed %>%
     mutate(LogDenominator = log(.data$Denominator))
 
-  cli::cli_alert_info(
-    glue::glue(
-      "Fitting log-linked Poisson generalized linear model of [ Numerator ] ~ [ log( Denominator ) ]."
-    )
+  LogMessage(
+    level = "info",
+    message = "Fitting log-linked Poisson generalized linear model of [ Numerator ] ~ [ log( Denominator ) ].",
+    cli_detail = "alert_info"
   )
 
 

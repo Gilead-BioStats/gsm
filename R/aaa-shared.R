@@ -1,3 +1,5 @@
+.le <- new.env(parent = emptyenv())
+
 gloss_param <- function(param) {
   param_def <- yaml::read_yaml(paste0("man/glossary/", param, ".yaml"))
   glue::glue("`{param_def$class}` {param_def$definition}")
