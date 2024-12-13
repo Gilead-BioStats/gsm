@@ -52,6 +52,7 @@
 #' @importFrom rlang .data
 #' @importFrom rlang check_installed
 #' @importFrom rlang expr
+#' @importFrom rlang exprs
 #' @importFrom rlang eval_tidy
 #' @importFrom stats binom.test
 #' @importFrom stats fisher.test
