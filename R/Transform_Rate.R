@@ -38,14 +38,13 @@ Transform_Rate <- function(
   strNumeratorCol = "Numerator",
   strDenominatorCol = "Denominator"
 ) {
-  stopifnot(
-    "dfInput is not a data frame" = is.data.frame(dfInput),
-    "strNumeratorColumn is not numeric" = is.numeric(dfInput[[strNumeratorCol]]),
-    "strDenominatorColumn is not numeric" = is.numeric(dfInput[[strDenominatorCol]]),
-    "NA's found in numerator" = !anyNA(dfInput[[strNumeratorCol]]),
-    "NA's found in denominator" = !anyNA(dfInput[[strDenominatorCol]]),
-    "Required columns not found in input data" = c(strNumeratorCol, strDenominatorCol, "GroupID", "GroupLevel") %in% names(dfInput)
-  )
+  stop_if(cnd = !is.data.frame(dfInput), message = "dfInput is not a data frame")
+  stop_if(cnd = !is.numeric(dfInput[[strNumeratorCol]]), message = "strNumeratorColumn is not numeric")
+  stop_if(cnd = !is.numeric(dfInput[[strDenominatorCol]]), message = "strDenominatorColumn is not numeric")
+  stop_if(cnd = anyNA(dfInput[[strNumeratorCol]]), message = "NA's found in numerator")
+  stop_if(cnd = anyNA(dfInput[[strDenominatorCol]]), message = "NA's found in denominator")
+  stop_if(cnd = !(c(strNumeratorCol, strDenominatorCol, "GroupID", "GroupLevel") %in% names(dfInput)), message = "Required columns not found in input data")
+
 
   dfTransformed <- dfInput %>%
     group_by(.data$GroupID, .data$GroupLevel) %>%

@@ -5,7 +5,6 @@
 \alias{caller_env}
 \alias{enquo}
 \alias{enquos}
-\alias{exprs}
 \alias{.data}
 \alias{:=}
 \alias{as_name}

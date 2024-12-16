@@ -101,7 +101,7 @@
 #' @md
 #' @name tidyeval
 #' @keywords internal
-#' @importFrom rlang caller_env enquo enquos exprs .data := as_name as_label
-#' @aliases caller_env enquo enquos exprs .data := as_name as_label
-#' @export enquo enquos exprs .data := as_name as_label
+#' @importFrom rlang caller_env enquo enquos .data := as_name as_label
+#' @aliases caller_env enquo enquos .data := as_name as_label
+#' @export enquo enquos .data := as_name as_label
 NULL

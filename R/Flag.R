@@ -56,22 +56,18 @@ Flag <- function(
   vThreshold = NULL,
   strValueColumn = NULL
 ) {
-  stopifnot(
-    "dfAnalyzed is not a data frame" = is.data.frame(dfAnalyzed),
-    "strColumn is not character" = is.character(strColumn),
-    "vThreshold is not numeric" = is.numeric(vThreshold),
-    "vThreshold must be length of 2" = length(vThreshold) == 2,
-    "vThreshold cannot be NULL" = !is.null(vThreshold),
-    "strColumn must be length of 1" = length(strColumn) == 1,
-    "strColumn not found in dfAnalyzed" = strColumn %in% names(dfAnalyzed),
-    "strValueColumn not found in dfAnalyzed" = strValueColumn %in% names(dfAnalyzed),
-    "GroupID not found in dfAnalyzed" = "GroupID" %in% names(dfAnalyzed)
-  )
+  stop_if(cnd = !is.data.frame(dfAnalyzed), message = "dfAnalyzed is not a data frame")
+  stop_if(cnd = !is.character(strColumn), message = "strColumn is not character")
+  stop_if(cnd = !is.numeric(vThreshold), message = "vThreshold is not numeric")
+  stop_if(cnd = !(length(vThreshold) == 2), message = "vThreshold must be length of 2")
+  stop_if(cnd = is.null(vThreshold), message = "vThreshold cannot be NULL")
+  stop_if(cnd = !(length(strColumn) == 1), message = "strColumn must be length of 1")
+  stop_if(cnd = !(strColumn %in% names(dfAnalyzed)), message = "strColumn not found in dfAnalyzed")
+  stop_if(cnd = !(strValueColumn %in% names(dfAnalyzed)), message = "strValueColumn not found in dfAnalyzed")
+  stop_if(cnd = !("GroupID" %in% names(dfAnalyzed)), message = "GroupID not found in dfAnalyzed")
 
   if (all(!is.na(vThreshold))) {
-    stopifnot(
-      "vThreshold must contain a minimum and maximum value (i.e., vThreshold = c(1, 2))" = vThreshold[2] > vThreshold[1]
-    )
+    stop_if(cnd = vThreshold[2] <= vThreshold[1], "vThreshold must contain a minimum and maximum value (i.e., vThreshold = c(1, 2))")
   }
 
   # Flag values outside the specified threshold.

@@ -29,18 +29,17 @@
 #'
 #' @export
 RunQuery <- function(strQuery, df, bUseSchema = FALSE, lColumnMapping = NULL) {
-  stopifnot(is.character(strQuery))
+  stop_if(cnd = !is.character(strQuery), message = "strQuery must be a query")
 
   # Check that strQuery contains "FROM df"
-  if (!stringr::str_detect(strQuery, "FROM df")) {
-    LogMessage(level = "error", message = "strQuery must contain 'FROM df'")
-  }
+  stop_if(cnd = !stringr::str_detect(strQuery, "FROM df"), message = "strQuery must contain 'FROM df'")
 
   # Check that columnMapping exists if use_schema == TRUE
 
-  if (bUseSchema && is.null(lColumnMapping)) {
-    LogMessage(level = "error", message = "if use_schema = TRUE, you must provide lColumnMapping spec")
-  }
+  stop_if(
+    cnd = (bUseSchema && is.null(lColumnMapping)),
+    message = "if use_schema = TRUE, you must provide lColumnMapping spec"
+  )
 
   #use `source_col` for `source` if using mapping and it hasn't gone through ApplySpec()
   if (bUseSchema && any(map_lgl(lColumnMapping, \(x) is.null(x$source)))) {

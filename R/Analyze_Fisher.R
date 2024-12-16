@@ -44,13 +44,11 @@ Analyze_Fisher <- function(
   dfTransformed,
   strOutcome = "Numerator"
 ) {
-  stopifnot(
-    "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
-    "GroupID or the value in strOutcome not found in dfTransformed" = all(c("GroupID", strOutcome) %in% names(dfTransformed)),
-    "NA value(s) found in GroupID" = all(!is.na(dfTransformed[["GroupID"]])),
-    "strOutcome must be length 1" = length(strOutcome) == 1,
-    "strOutcome is not character" = is.character(strOutcome)
-  )
+  stop_if(cnd = !is.data.frame(dfTransformed), message = "dfTransformed is not a data.frame")
+  stop_if(cnd = !all(c("GroupID", strOutcome) %in% names(dfTransformed)), message = "GroupID or the value in strOutcome not found in dfTransformed")
+  stop_if(cnd = !all(!is.na(dfTransformed[["GroupID"]])), message = "NA value(s) found in GroupID")
+  stop_if(cnd = !(length(strOutcome) == 1), message = "strOutcome must be length 1")
+  stop_if(cnd = !is.character(strOutcome), message = "strOutcome is not character")
 
   fisher_model <- function(site) {
     SiteTable <- dfTransformed %>%
