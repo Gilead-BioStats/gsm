@@ -4,7 +4,7 @@
 #'
 #' This function looks to see if a strFunction is namespaced and looks it up
 #' allowing the do.call in run step to process correctly
-#' this will either return a function, or the original string if not namespaced
+#' this will return a function.
 #'
 #' @param strFunction the function to be called
 #' @export
