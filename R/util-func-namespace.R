@@ -21,5 +21,7 @@ GetStrFunctionIfNamespaced <- function(strFunction) {
     fn <- fn_pieces[[2]]
     return(rlang::as_function(fn, env = getNamespace(pkg)))
   }
-  return(strFunction)
+  else {
+    return(rlang::as_function(strFunction))
+  }
 }
