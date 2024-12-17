@@ -63,7 +63,6 @@ Flag <- function(
   stop_if(cnd = is.null(vThreshold), message = "vThreshold cannot be NULL")
   stop_if(cnd = !(length(strColumn) == 1), message = "strColumn must be length of 1")
   stop_if(cnd = !(strColumn %in% names(dfAnalyzed)), message = "strColumn not found in dfAnalyzed")
-  stop_if(cnd = !(strValueColumn %in% names(dfAnalyzed)), message = "strValueColumn not found in dfAnalyzed")
   stop_if(cnd = !("GroupID" %in% names(dfAnalyzed)), message = "GroupID not found in dfAnalyzed")
 
   if (all(!is.na(vThreshold))) {
@@ -82,6 +81,8 @@ Flag <- function(
 
   # If strValueColumn is supplied, it can only affect sign of Flag (1 or -1).
   if (!is.null(strValueColumn)) {
+    stop_if(cnd = !(strValueColumn %in% names(dfAnalyzed)), message = "strValueColumn not found in dfAnalyzed")
+
     nMedian <- dfFlagged %>%
       pull(strValueColumn) %>%
       stats::median(na.rm = TRUE)

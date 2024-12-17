@@ -43,7 +43,7 @@ Transform_Rate <- function(
   stop_if(cnd = !is.numeric(dfInput[[strDenominatorCol]]), message = "strDenominatorColumn is not numeric")
   stop_if(cnd = anyNA(dfInput[[strNumeratorCol]]), message = "NA's found in numerator")
   stop_if(cnd = anyNA(dfInput[[strDenominatorCol]]), message = "NA's found in denominator")
-  stop_if(cnd = !(c(strNumeratorCol, strDenominatorCol, "GroupID", "GroupLevel") %in% names(dfInput)), message = "Required columns not found in input data")
+  stop_if(cnd = !(all(c(strNumeratorCol, strDenominatorCol, "GroupID", "GroupLevel") %in% names(dfInput))), message = "Required columns not found in input data")
 
 
   dfTransformed <- dfInput %>%
