@@ -36,6 +36,8 @@ Authors:
   \item Colleen McLaughlin \email{colleen.mclaughlin@atorusresearch.com}
   \item Chelsea Dickens \email{chelsea.dickens@atorusresearch.com}
   \item Maya Gans \email{maya.gans@atorusresearch.com}
+  \item Anne Zheng \email{anne@a2-ai.com}
+  \item Devin Pastoor \email{devin@a2-ai.com}
 }
 
 Other contributors:

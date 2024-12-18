@@ -10,4 +10,3 @@ globalVariables(c("."))
   logger <- logger("DEBUG", appenders = console_appender(layout = cli_fmt))
   SetLogger(logger)
 }
-

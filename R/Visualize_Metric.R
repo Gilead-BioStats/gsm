@@ -66,7 +66,8 @@ Visualize_Metric <- function(
       LogMessage(
         level = "info",
         message = "MetricID not found in dfResults. No charts will be generated.",
-        cli_detail = "alert_info")
+        cli_detail = "alert_info"
+      )
       return(NULL)
     } else {
       dfResults <- dfResults %>% filter(.data$MetricID == strMetricID)
@@ -152,6 +153,7 @@ Visualize_Metric <- function(
       dfResults = dfResults_latest,
       lMetric = lMetric,
       dfGroups = dfGroups,
+      vThreshold = vThreshold,
       strOutcome = "Metric",
       bDebug = bDebug
     )
@@ -160,6 +162,7 @@ Visualize_Metric <- function(
       dfResults = dfResults_latest,
       lMetric = lMetric,
       dfGroups = dfGroups,
+      vThreshold = vThreshold,
       strOutcome = "Score",
       bDebug = bDebug
     )

@@ -85,6 +85,11 @@ reference:
      -  CalculatePercentage
      -  FilterByLatestSnapshotDate
      -  FilterByFlags
+<<<<<<< HEAD
+=======
+     -  GetStrFunctionIfNamespaced
+     -  Ingest
+>>>>>>> dev
      -  LogMessage
      -  MakeBounds
      -  MakeCharts

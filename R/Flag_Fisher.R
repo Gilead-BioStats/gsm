@@ -36,18 +36,14 @@ Flag_Fisher <- function(
   dfAnalyzed,
   vThreshold = NULL
 ) {
-  stopifnot(
-    "dfAnalyzed is not a data frame" = is.data.frame(dfAnalyzed),
-    "vThreshold is not numeric" = is.numeric(vThreshold),
-    "vThreshold must be length of 2" = length(vThreshold) == 2,
-    "vThreshold cannot be NULL" = !is.null(vThreshold),
-    "GroupID not found in dfAnalyzed" = "GroupID" %in% names(dfAnalyzed)
-  )
+  stop_if(cnd = !is.data.frame(dfAnalyzed), message = "dfAnalyzed is not a data frame")
+  stop_if(cnd = !is.numeric(vThreshold), message = "vThreshold is not numeric")
+  stop_if(cnd = length(vThreshold) != 2, message = "vThreshold must be length of 2")
+  stop_if(cnd = is.null(vThreshold), message = "vThreshold cannot be NULL")
+  stop_if(cnd = !("GroupID" %in% names(dfAnalyzed)), message = "GroupID not found in dfAnalyzed")
 
   if (all(!is.na(vThreshold))) {
-    stopifnot(
-      "vThreshold must contain a minimum and maximum value (i.e., vThreshold = c(1, 2))" = vThreshold[2] > vThreshold[1]
-    )
+    stop_if(cnd = vThreshold[2] <= vThreshold[1], "vThreshold must contain a minimum and maximum value (i.e., vThreshold = c(1, 2))")
   }
 
   dfFlagged <- dfAnalyzed %>%

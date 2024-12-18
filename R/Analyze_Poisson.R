@@ -27,12 +27,12 @@
 #' @export
 
 Analyze_Poisson <- function(dfTransformed) {
-  stopifnot(
-    "dfTransformed is not a data.frame" = is.data.frame(dfTransformed),
-    "One or more of these columns not found: GroupID, GroupLevel, Denominator, Numerator, Metric" =
-      all(c("GroupID", "GroupLevel", "Denominator", "Numerator", "Metric") %in% names(dfTransformed)),
-    "NA value(s) found in GroupID" = all(!is.na(dfTransformed[["GroupID"]]))
+  stop_if(cnd = !is.data.frame(dfTransformed), message = "dfTransformed is not a data.frame")
+  stop_if(
+    cnd = !all(c("GroupID", "GroupLevel", "Denominator", "Numerator", "Metric") %in% names(dfTransformed)),
+    message = "One or more of these columns not found: GroupID, GroupLevel, Denominator, Numerator, Metric"
   )
+  stop_if(cnd = !all(!is.na(dfTransformed[["GroupID"]])), message = "NA value(s) found in GroupID")
 
   dfModel <- dfTransformed %>%
     mutate(LogDenominator = log(.data$Denominator))
