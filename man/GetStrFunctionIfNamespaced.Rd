@@ -13,8 +13,8 @@ GetStrFunctionIfNamespaced(strFunction)
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 
 This function looks to see if a strFunction is namespaced and looks it up
-allowing the do.call in run step to process correctly
-this will either return a function, or the original string if not namespaced
+allowing the do.call in run step to process correctly.
+This will return a function.
 }
 \examples{
 fn <- GetStrFunctionIfNamespaced("dplyr::glimpse")
