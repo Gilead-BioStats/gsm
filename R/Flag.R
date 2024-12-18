@@ -61,7 +61,7 @@ Flag <- function(
   stop_if(cnd = !is.numeric(vThreshold), message = "vThreshold is not numeric")
   stop_if(cnd = length(vThreshold) != 2, message = "vThreshold must be length of 2")
   stop_if(cnd = is.null(vThreshold), message = "vThreshold cannot be NULL")
-  stop_if(cnd = !(length(strColumn) == 1), message = "strColumn must be length of 1")
+  stop_if(cnd = length(strColumn) != 1, message = "strColumn must be length of 1")
   stop_if(cnd = !(strColumn %in% names(dfAnalyzed)), message = "strColumn not found in dfAnalyzed")
   stop_if(cnd = !("GroupID" %in% names(dfAnalyzed)), message = "GroupID not found in dfAnalyzed")
 
