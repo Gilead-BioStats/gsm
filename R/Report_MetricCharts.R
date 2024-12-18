@@ -32,9 +32,9 @@ Report_MetricCharts <- function(lCharts, strMetricID = "", overview = FALSE) {
   )
 
   if (overview == FALSE) {
-    lCharts <- lCharts[names(lCharts) %in% chartTypes]
+    lCharts <- lCharts[intersect(chartTypes, names(lCharts))]
   } else {
-    lCharts <- lCharts[names(lCharts) %in% chartTypes2]
+    lCharts <- lCharts[intersect(chartTypes2, names(lCharts))]
   }
 
   for (j in seq_along(lCharts)) {
