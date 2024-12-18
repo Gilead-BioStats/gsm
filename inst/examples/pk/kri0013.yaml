@@ -1,43 +1,50 @@
 meta:
   Type: Analysis
-  ID: kri0011
+  ID: kri0013a
   GroupLevel: Site
-  Abbreviation: CDAT
-  Metric: Data Change Rate
-  Numerator: Data Points with 1+ Change
-  Denominator: Total Data Points
-  Model: Normal Approximation
-  Score: Adjusted Z-Score
-  AnalysisType: binary
-  Threshold: -3,-2,2,3
-  nMinDenominator: 30
+  Abbreviation: PKi
+  Metric: PK Rate - Identity
+  Numerator: PK Measures Completed
+  Denominator: PK Measures Expected
+  Model: Identity
+  Score: Percent Complete
+  AnalysisType: identity
+  Threshold: 0.85, 1.0
+  nMinDenominator: 10
 spec:
   Mapped_SUBJ:
     subjid:
+      required: true
       type: character
     invid:
+      required: true
       type: character
-  Mapped_DATACHG:
+  Mapped_PK: 
     subjid:
+      required: true
       type: character
-    n_changes:
-      type: integer
+    pktpt:
+      required: true
+      type: character
+    pkperf:
+      required: true
+      type: character
 steps:
   - output: vThreshold
     name: ParseThreshold
     params:
       strThreshold: Threshold
-  - output: Temp_CHANGED
+  - output: Temp_PK_Complete
     name: RunQuery
     params:
-      df: Mapped_DATACHG
-      strQuery: "SELECT * FROM df WHERE n_changes > 0"
+      df: Mapped_PK
+      strQuery: "SELECT * FROM df WHERE pkperf = 'Yes'"
   - output: Analysis_Input
     name: Input_Rate
     params:
       dfSubjects: Mapped_SUBJ
-      dfNumerator: Temp_CHANGED
-      dfDenominator: Mapped_DATACHG
+      dfNumerator: Temp_PK_Complete
+      dfDenominator: Mapped_PK
       strSubjectCol: subjid
       strGroupCol: invid
       strGroupLevel: GroupLevel
@@ -48,10 +55,9 @@ steps:
     params:
       dfInput: Analysis_Input
   - output: Analysis_Analyzed
-    name: Analyze_NormalApprox
+    name: Analyze_Identity
     params:
       dfTransformed: Analysis_Transformed
-      strType: AnalysisType
   - output: Analysis_Flagged
     name: Flag
     params:

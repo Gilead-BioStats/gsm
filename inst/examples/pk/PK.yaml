@@ -1,0 +1,23 @@
+meta:
+  Type: Mapped
+  ID: PK
+  Description: PK Data Mapping 
+  Priority: 1
+spec: 
+ Raw_PK:
+    subjid:
+      required: true
+      type: character
+    pktpt:
+      required: true
+      type: character
+    pkperf:
+      required: true
+      type: character
+steps:
+  - output: Mapped_PK
+    name: =
+    params:
+      lhs: Mapped_PK
+      rhs: Raw_PK
+

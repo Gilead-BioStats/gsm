@@ -24,12 +24,10 @@
 #' when associated with a workflow.
 #'
 #' @examples
+#' 
 #' dfTransformed <- Transform_Rate(analyticsInput)
-#'
-#' dfAnalyzed <- Analyze_Poisson(dfTransformed)
-#'
-#' dfFlagged <- Flag(dfAnalyzed, vThreshold = c(-5, 5))
-#'
+#' dfAnalyzed <- Analyze_NormalApprox(dfTransformed)
+#' dfFlagged <- Flag(dfAnalyzed)
 #' dfSummary <- Summarize(dfFlagged)
 #'
 #' @export

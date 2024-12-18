@@ -223,7 +223,7 @@
       [1] "Analysis_Flagged"
       
       $cou0001[[5]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Flag"
       
       $cou0001[[5]]$params
       $cou0001[[5]]$params$dfAnalyzed
@@ -380,7 +380,7 @@
       [1] "Analysis_Flagged"
       
       $cou0002[[6]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Flag"
       
       $cou0002[[6]]$params
       $cou0002[[6]]$params$dfAnalyzed
@@ -537,7 +537,7 @@
       [1] "Analysis_Flagged"
       
       $cou0003[[6]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Flag"
       
       $cou0003[[6]]$params
       $cou0003[[6]]$params$dfAnalyzed
@@ -694,7 +694,7 @@
       [1] "Analysis_Flagged"
       
       $cou0004[[6]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Flag"
       
       $cou0004[[6]]$params
       $cou0004[[6]]$params$dfAnalyzed
@@ -864,7 +864,7 @@
       [1] "Analysis_Flagged"
       
       $cou0005[[7]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Flag"
       
       $cou0005[[7]]$params
       $cou0005[[7]]$params$dfAnalyzed
@@ -1018,7 +1018,7 @@
       [1] "Analysis_Flagged"
       
       $cou0006[[6]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Flag"
       
       $cou0006[[6]]$params
       $cou0006[[6]]$params$dfAnalyzed
@@ -1172,7 +1172,7 @@
       [1] "Analysis_Flagged"
       
       $cou0007[[6]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Flag"
       
       $cou0007[[6]]$params
       $cou0007[[6]]$params$dfAnalyzed
@@ -1326,7 +1326,7 @@
       [1] "Analysis_Flagged"
       
       $cou0008[[6]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Flag"
       
       $cou0008[[6]]$params
       $cou0008[[6]]$params$dfAnalyzed
@@ -1496,7 +1496,7 @@
       [1] "Analysis_Flagged"
       
       $cou0009[[7]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Flag"
       
       $cou0009[[7]]$params
       $cou0009[[7]]$params$dfAnalyzed
@@ -1650,7 +1650,7 @@
       [1] "Analysis_Flagged"
       
       $cou0010[[6]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Flag"
       
       $cou0010[[6]]$params
       $cou0010[[6]]$params$dfAnalyzed
@@ -1804,7 +1804,7 @@
       [1] "Analysis_Flagged"
       
       $cou0011[[6]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Flag"
       
       $cou0011[[6]]$params
       $cou0011[[6]]$params$dfAnalyzed
@@ -1958,7 +1958,7 @@
       [1] "Analysis_Flagged"
       
       $cou0012[[6]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Flag"
       
       $cou0012[[6]]$params
       $cou0012[[6]]$params$dfAnalyzed
@@ -2099,7 +2099,7 @@
       [1] "Analysis_Flagged"
       
       $kri0001[[5]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Flag"
       
       $kri0001[[5]]$params
       $kri0001[[5]]$params$dfAnalyzed
@@ -2256,7 +2256,7 @@
       [1] "Analysis_Flagged"
       
       $kri0002[[6]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Flag"
       
       $kri0002[[6]]$params
       $kri0002[[6]]$params$dfAnalyzed
@@ -2413,7 +2413,7 @@
       [1] "Analysis_Flagged"
       
       $kri0003[[6]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Flag"
       
       $kri0003[[6]]$params
       $kri0003[[6]]$params$dfAnalyzed
@@ -2570,7 +2570,7 @@
       [1] "Analysis_Flagged"
       
       $kri0004[[6]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Flag"
       
       $kri0004[[6]]$params
       $kri0004[[6]]$params$dfAnalyzed
@@ -2740,7 +2740,7 @@
       [1] "Analysis_Flagged"
       
       $kri0005[[7]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Flag"
       
       $kri0005[[7]]$params
       $kri0005[[7]]$params$dfAnalyzed
@@ -2894,7 +2894,7 @@
       [1] "Analysis_Flagged"
       
       $kri0006[[6]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Flag"
       
       $kri0006[[6]]$params
       $kri0006[[6]]$params$dfAnalyzed
@@ -3048,7 +3048,7 @@
       [1] "Analysis_Flagged"
       
       $kri0007[[6]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Flag"
       
       $kri0007[[6]]$params
       $kri0007[[6]]$params$dfAnalyzed
@@ -3202,7 +3202,7 @@
       [1] "Analysis_Flagged"
       
       $kri0008[[6]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Flag"
       
       $kri0008[[6]]$params
       $kri0008[[6]]$params$dfAnalyzed
@@ -3372,7 +3372,7 @@
       [1] "Analysis_Flagged"
       
       $kri0009[[7]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Flag"
       
       $kri0009[[7]]$params
       $kri0009[[7]]$params$dfAnalyzed
@@ -3526,7 +3526,7 @@
       [1] "Analysis_Flagged"
       
       $kri0010[[6]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Flag"
       
       $kri0010[[6]]$params
       $kri0010[[6]]$params$dfAnalyzed
@@ -3680,7 +3680,7 @@
       [1] "Analysis_Flagged"
       
       $kri0011[[6]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Flag"
       
       $kri0011[[6]]$params
       $kri0011[[6]]$params$dfAnalyzed
@@ -3834,7 +3834,7 @@
       [1] "Analysis_Flagged"
       
       $kri0012[[6]]$name
-      [1] "Flag_NormalApprox"
+      [1] "Flag"
       
       $kri0012[[6]]$params
       $kri0012[[6]]$params$dfAnalyzed

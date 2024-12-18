@@ -44,7 +44,6 @@ reference:
       - starts_with("Widget_")
       - Analyze_NormalApprox_PredictBounds
       - Analyze_Poisson_PredictBounds
-      - Make_Timeline
 
   - title: Analyze
     desc: Conduct statistical analysis based on input data
@@ -61,7 +60,6 @@ reference:
       - Transform_Count
       - Transform_Rate
       - Flag
-      - Flag_Fisher
       - Flag_NormalApprox
       - Flag_Poisson
       - Summarize
