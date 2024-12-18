@@ -47,7 +47,7 @@ Analyze_Fisher <- function(
   stop_if(cnd = !is.data.frame(dfTransformed), message = "dfTransformed is not a data.frame")
   stop_if(cnd = !all(c("GroupID", strOutcome) %in% names(dfTransformed)), message = "GroupID or the value in strOutcome not found in dfTransformed")
   stop_if(cnd = !all(!is.na(dfTransformed[["GroupID"]])), message = "NA value(s) found in GroupID")
-  stop_if(cnd = !(length(strOutcome) == 1), message = "strOutcome must be length 1")
+  stop_if(cnd = length(strOutcome) != 1, message = "strOutcome must be length 1")
   stop_if(cnd = !is.character(strOutcome), message = "strOutcome is not character")
 
   fisher_model <- function(site) {
