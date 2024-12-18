@@ -27,8 +27,8 @@ Report_MetricCharts <- function(lCharts, strMetricID = "", overview = FALSE) {
   )
 
   chartTypes2 <- c(
-    "groupOverviewJS",
-    "flagOverTimeJS"
+    #"groupOverviewJS"
+    #"flagOverTimeJS"
   )
 
   if (overview == FALSE) {
@@ -42,14 +42,14 @@ Report_MetricCharts <- function(lCharts, strMetricID = "", overview = FALSE) {
     chart <- lCharts[[j]]
 
     chart_name <- switch(chart_key,
+      groupOverviewJS = paste0(fontawesome::fa("table", fill = "#337ab7"), "  Group Overview"),
+      flagOverTimeJS = paste0(fontawesome::fa("table", fill = "#337ab7"), "  Flags Over Time"),
       scatterJS = paste0(fontawesome::fa("arrow-up-right-dots", fill = "#337ab7"), "  Summary"),
       barScoreJS = paste0(fontawesome::fa("chart-simple", fill = "#337ab7"), "  KRI Score"),
       barMetricJS = paste0(fontawesome::fa("chart-simple", fill = "#337ab7"), "  KRI Metric"),
       timeSeriesContinuousScoreJS = paste0(fontawesome::fa("chart-line", fill = "#337ab7"), "  KRI Score"),
       timeSeriesContinuousMetricJS = paste0(fontawesome::fa("chart-line", fill = "#337ab7"), "  KRI Metric"),
       timeSeriesContinuousNumeratorJS = paste0(fontawesome::fa("chart-line", fill = "#337ab7"), "  Numerator"),
-      groupOverviewJS = paste0(fontawesome::fa("table", fill = "#337ab7"), "  Group Overview"),
-      flagOverTimeJS = paste0(fontawesome::fa("table", fill = "#337ab7"), "  Flags Over Time"),
       metricTable = paste0(fontawesome::fa("table", fill = "#337ab7"), "  Metric Table")
     )
 

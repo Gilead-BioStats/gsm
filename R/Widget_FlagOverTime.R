@@ -49,7 +49,7 @@ Widget_FlagOverTime <- function(
     strGroupLevel = strGroupLevel
   ) %>%
     gt::tab_options(table.align = "left") %>%
-    gt::as_raw_html()
+    gt::as_raw_html(inline_css = FALSE)
 
   gtFlagOverTime_recent12 <- Report_FlagOverTime(
     dplyr::filter(dfResults, .data$SnapshotDate %in% most_recent12),
@@ -57,7 +57,7 @@ Widget_FlagOverTime <- function(
     strGroupLevel = strGroupLevel
   ) %>%
     gt::tab_options(table.align = "left") %>%
-    gt::as_raw_html()
+    gt::as_raw_html(inline_css = FALSE)
 
   # Pass both tables and add toggle state in Widget js
   x <- list(
