@@ -38,7 +38,7 @@ Flag_Fisher <- function(
 ) {
   stop_if(cnd = !is.data.frame(dfAnalyzed), message = "dfAnalyzed is not a data frame")
   stop_if(cnd = !is.numeric(vThreshold), message = "vThreshold is not numeric")
-  stop_if(cnd = !(length(vThreshold) == 2), message = "vThreshold must be length of 2")
+  stop_if(cnd = length(vThreshold) != 2, message = "vThreshold must be length of 2")
   stop_if(cnd = is.null(vThreshold), message = "vThreshold cannot be NULL")
   stop_if(cnd = !("GroupID" %in% names(dfAnalyzed)), message = "GroupID not found in dfAnalyzed")
 
