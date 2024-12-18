@@ -21,12 +21,15 @@ MakeMetric <- function(lWorkflows) {
   # check to make sure Type and ID exist for naming
   missing_types <- which(sapply(lWorkflows, function(x) is.null(x$meta$Type))) %>% names()
   missing_ids <- which(sapply(lWorkflows, function(x) is.null(x$meta$ID))) %>% names()
-  if (length(missing_types > 0)) {
-    stop(glue::glue("The following workflows are missing the 'Type' field in `meta`: {missing_types}"))
-  }
-  if (length(missing_ids > 0)) {
-    stop(glue::glue("The following workflows are missing the 'ID' field in `meta`: {missing_ids}"))
-  }
+  stop_if(
+    cnd = length(missing_types > 0),
+    message = glue::glue("The following workflows are missing the 'Type' field in `meta`: {missing_types}")
+  )
+  stop_if(
+    cnd = length(missing_ids > 0),
+    message = glue::glue("The following workflows are missing the 'ID' field in `meta`: {missing_ids}")
+  )
+
   dfMetrics <- lWorkflows %>%
     purrr::map(function(wf) {
       return(tibble::as_tibble(wf$meta))

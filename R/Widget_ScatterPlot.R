@@ -40,15 +40,13 @@ Widget_ScatterPlot <- function(
   strShinyGroupSelectID = "GroupID",
   bDebug = FALSE
 ) {
-  stopifnot(
-    "dfResults is not a data.frame" = is.data.frame(dfResults),
-    "lMetric must be a list, but not a data.frame" = is.null(lMetric) || (is.list(lMetric) && !is.data.frame(lMetric)),
-    "dfGroups is not a data.frame" = is.null(dfGroups) || is.data.frame(dfGroups),
-    "dfBounds is not a data.frame" = is.null(dfBounds) || is.data.frame(dfBounds),
-    "bAddGroupSelect is not a logical" = is.logical(bAddGroupSelect),
-    "strShinyGroupSelectID is not a character" = is.character(strShinyGroupSelectID),
-    "bDebug is not a logical" = is.logical(bDebug)
-  )
+  stop_if(cnd = !is.data.frame(dfResults),"dfResults is not a data.frame")
+  stop_if(cnd = !(is.null(lMetric) || (is.list(lMetric) && !is.data.frame(lMetric))), "lMetric must be a list, but not a data.frame")
+  stop_if(cnd = !(is.null(dfGroups) || is.data.frame(dfGroups)),"dfGroups is not a data.frame")
+  stop_if(cnd = !(is.null(dfBounds) || is.data.frame(dfBounds)),"dfBounds is not a data.frame")
+  stop_if(cnd = !is.logical(bAddGroupSelect),"bAddGroupSelect is not a logical")
+  stop_if(cnd = !is.character(strShinyGroupSelectID),"strShinyGroupSelectID is not a character")
+  stop_if(cnd = !is.logical(bDebug), "bDebug is not a logical")
 
   # define widget inputs
   input <- list(
