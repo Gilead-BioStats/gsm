@@ -22,7 +22,7 @@ dependencies:
     script: 'showHideRows.js'
  */
 
-const addGroupSubsetLongitudinal = (el) => {
+const addGroupSubsetLongitudinal = (el, bExcludeEver) => {
   // add container in which to place dropdown
   const groupSubsetContainer = document.createElement('div');
   el.insertBefore(groupSubsetContainer, el.firstChild);
@@ -37,7 +37,7 @@ const addGroupSubsetLongitudinal = (el) => {
   groupSubsetContainer.appendChild(groupSubset);
 
   // add options
-  const subsets = [
+  let subsets = [
     { value: 'all', text: 'All' },
     { value: 'red/amber', text: '1+ flag (latest)' },
     { value: 'red/amber-ever', text: '1+ flag (ever)' },
@@ -47,6 +47,12 @@ const addGroupSubsetLongitudinal = (el) => {
     { value: 'amber-ever', text: '1+ amber flag (ever)' },
     { value: 'flag-changed', text: 'Flag changed' }
   ];
+
+    // If widget is subset on flags present in most recent snapshot, remove 'ever' options.
+    if (bExcludeEver) {
+        subsets = subsets.filter(subset => !subset.value.includes('ever'));
+    }
+
   for (const subset of subsets) {
       const option = document.createElement('option');
       option.innerHTML = subset.text;

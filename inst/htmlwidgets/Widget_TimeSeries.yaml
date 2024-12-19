@@ -24,3 +24,7 @@ dependencies:
     version: 1.0.0
     src: 'htmlwidgets/lib'
     script: 'getCountries.js'
+  - name: addOutcomeSelect
+    version: 1.0.0
+    src: 'htmlwidgets/lib'
+    script: 'addOutcomeSelect.js'

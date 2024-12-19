@@ -2,31 +2,26 @@ dummy_chart <- htmltools::tags$div("dummy chart content")
 
 test_that("Handles all supported chart types", {
   lCharts <- list(
-    scatterJS = dummy_chart,
-    barMetricJS = dummy_chart,
-    barScoreJS = dummy_chart,
-    timeSeriesContinuousScoreJS = dummy_chart,
-    timeSeriesContinuousMetricJS = dummy_chart,
-    timeSeriesContinuousNumeratorJS = dummy_chart
+    scatterPlot = dummy_chart,
+    barChart = dummy_chart,
+    timeSeries = dummy_chart
   )
 
   expect_output(Report_MetricCharts(lCharts), "#### Summary Charts \\{.tabset\\}")
-  expect_output(Report_MetricCharts(lCharts), "Summary")
-  expect_output(Report_MetricCharts(lCharts), "KRI Score")
-  expect_output(Report_MetricCharts(lCharts), "KRI Metric")
-  expect_output(Report_MetricCharts(lCharts), "Numerator")
+  expect_output(Report_MetricCharts(lCharts), "Scatter Plot")
+  expect_output(Report_MetricCharts(lCharts), "Bar Chart")
+  expect_output(Report_MetricCharts(lCharts), "Time Series")
 })
 
 test_that("Handles some missing chart types", {
   lCharts <- list(
-    scatterJS = dummy_chart,
-    barMetricJS = dummy_chart,
-    timeSeriesContinuousMetricJS = dummy_chart
+    scatterPlot = dummy_chart,
+    timeSeries = dummy_chart
   )
 
-  expect_output(Report_MetricCharts(lCharts), "Summary")
-  expect_output(Report_MetricCharts(lCharts), "KRI Metric")
   expect_output(Report_MetricCharts(lCharts), "#### Summary Charts \\{.tabset\\}")
+  expect_output(Report_MetricCharts(lCharts), "Scatter Plot")
+  expect_output(Report_MetricCharts(lCharts), "Time Series")
 })
 
 test_that("Ignores unsupported chart types", {
@@ -48,13 +43,13 @@ test_that("Handles empty input", {
 
 test_that("Output formatting and no errors", {
   lCharts <- list(
-    scatterJS = dummy_chart,
-    barScoreJS = dummy_chart
+    scatterPlot = dummy_chart,
+    barChart = dummy_chart
   )
 
   output <- capture.output(Report_MetricCharts(lCharts))
-  expect_true(any(grepl("Summary", output)))
-  expect_true(any(grepl("KRI Score", output)))
+  expect_true(any(grepl("Scatter Plot", output)))
+  expect_true(any(grepl("Bar Chart", output)))
   expect_true(any(grepl("<div class", output)))
   expect_true(any(grepl("</div>", output)))
 })

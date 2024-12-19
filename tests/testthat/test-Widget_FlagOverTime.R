@@ -7,7 +7,7 @@ test_that("Widget_FlagOverTime creates a valid HTML widget", {
   expect_s3_class(widget, c("WidgetGroupOverview", "htmlwidget"))
   expect_true(
     stringr::str_detect(
-      widget$x$html_full,
+      widget$x$gtFlagOverTime,
       "<table class=\"gt_table\""
     )
   )
