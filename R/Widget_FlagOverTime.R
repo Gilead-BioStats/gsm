@@ -9,15 +9,32 @@
 #' @inheritParams shared-params
 #' @param strGroupLevel `character` Value for the group level. Default: "Site".
 #' @param strFootnote `character` Text to insert for figure
+#' @param bExcludeEver `logical` Exclude options in widget dropdown that include the string "ever".
+#' Default: `FALSE`.
 #'
 #' @examples
-#' reportingResultsSubset <- dplyr::filter(
-#'   reportingResults,
-#'   GroupID %in% head(unique(reportingResults$GroupID))
-#' )
+#' # Include all risk signals, irrespective flag value.
 #' Widget_FlagOverTime(
-#'   dfResults = reportingResultsSubset,
+#'   dfResults = reportingResults,
 #'   dfMetrics = reportingMetrics
+#' )
+#'
+#' # Include risk signals that were ever flagged.
+#' Widget_FlagOverTime(
+#'   dfResults = FilterByFlags(
+#'     reportingResults
+#'   ),
+#'   dfMetrics = reportingMetrics
+#' )
+#'
+#' # Include risk signals that were only flagged in the most recent snapshot.
+#' Widget_FlagOverTime(
+#'   dfResults = FilterByFlags(
+#'     reportingResults,
+#'     bCurrentlyFlagged = TRUE
+#'   ),
+#'   dfMetrics = reportingMetrics,
+#'   bExcludeEver = TRUE
 #' )
 #' @export
 Widget_FlagOverTime <- function(
@@ -25,6 +42,7 @@ Widget_FlagOverTime <- function(
   dfMetrics,
   strGroupLevel = c("Site", "Study", "Country"),
   strFootnote = NULL,
+  bExcludeEver = FALSE,
   bDebug = FALSE
 ) {
   stopifnot(
@@ -46,6 +64,7 @@ Widget_FlagOverTime <- function(
   x <- list(
     gtFlagOverTime = gtFlagOverTime,
     strFootnote = strFootnote,
+    bExcludeEver = bExcludeEver,
     bDebug = bDebug
   )
 
@@ -62,6 +81,8 @@ Widget_FlagOverTime <- function(
     print(widget)
     options(viewer = viewer)
   }
+
+  return(widget)
 }
 
 #' Shiny bindings for Widget_FlagOverTime

@@ -85,11 +85,10 @@ GroupOverViz <- Widget_GroupOverview(
   ),
   strGroupLabelKey = GroupLabelKey
 )
+
 overview_viz <- list(groupOverview = GroupOverViz)
 
-
 # Add FlagOverTime Table if data has more than one snapshot
-
 if(length(unique((params$dfResults)$SnapshotDate)) > 1){
   # Only include risk signals flagged at the most recent snapshot.
   dfResultsFlagged <- FilterByFlags(
@@ -97,16 +96,14 @@ if(length(unique((params$dfResults)$SnapshotDate)) > 1){
     bCurrentlyFlagged = TRUE
   )
 
-  FlagOverViz <- Widget_FlagOverTime(
+  overview_viz$flagOverTime <- Widget_FlagOverTime(
     dfResults = dfResultsFlagged,
     dfMetrics = params$dfMetrics,
     strGroupLevel = setup$GroupLevel,
-    strFootnote = "*Includes risk signals flagged at the most recent snapshot only."
+    strFootnote = "*Includes risk signals flagged at the most recent snapshot only.",
+    bExclueEver = TRUE
   )
-
-  overview_viz$flagOverTime <- FlagOverViz
 }
-
 
 Report_MetricCharts(overview_viz, overview = TRUE)
 ```
