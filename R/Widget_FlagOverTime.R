@@ -47,13 +47,11 @@ Widget_FlagOverTime <- function(
   bExcludeEver = FALSE,
   bDebug = FALSE
 ) {
-  stopifnot(
-    "dfResults is not a data.frame" = is.data.frame(dfResults),
-    "dfMetrics is not a data.frame" = is.data.frame(dfMetrics),
-    "strGroupLevel is not a character" = is.character(strGroupLevel),
-    "strFootnote is not a character" = is.null(strFootnote) || is.character(strFootnote),
-    "bDebug is not a logical" = is.logical(bDebug)
-  )
+  stop_if(cnd = !is.data.frame(dfResults), message = "dfResults is not a data.frame")
+  stop_if(cnd = !is.data.frame(dfMetrics),"dfMetrics is not a data.frame")
+  stop_if(cnd = !is.character(strGroupLevel), "strGroupLevel is not a character")
+  stop_if(cnd = !is.null(strFootnote) || !is.character(strFootnote), "strFootnote is not a character")
+  stop_if(cnd = !is.logical(bDebug), "bDebug is not a logical")
 
   gtFlagOverTime <- Report_FlagOverTime(
     dfResults,

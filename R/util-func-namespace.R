@@ -3,8 +3,8 @@
 #' `r lifecycle::badge("experimental")`
 #'
 #' This function looks to see if a strFunction is namespaced and looks it up
-#' allowing the do.call in run step to process correctly
-#' this will either return a function, or the original string if not namespaced
+#' allowing the do.call in run step to process correctly.
+#' This will return a function.
 #'
 #' @param strFunction the function to be called
 #' @export
@@ -21,5 +21,5 @@ GetStrFunctionIfNamespaced <- function(strFunction) {
     fn <- fn_pieces[[2]]
     return(rlang::as_function(fn, env = getNamespace(pkg)))
   }
-  return(strFunction)
+  return(rlang::as_function(strFunction, env = rlang::current_env()))
 }
