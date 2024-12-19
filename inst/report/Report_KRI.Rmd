@@ -101,7 +101,7 @@ if(length(unique((params$dfResults)$SnapshotDate)) > 1){
     dfMetrics = params$dfMetrics,
     strGroupLevel = setup$GroupLevel,
     strFootnote = "*Includes risk signals flagged at the most recent snapshot only.",
-    bExclueEver = TRUE
+    bExcludeEver = TRUE
   )
 }
 

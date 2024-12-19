@@ -36,7 +36,9 @@
 #'   dfMetrics = reportingMetrics,
 #'   bExcludeEver = TRUE
 #' )
+#'
 #' @export
+
 Widget_FlagOverTime <- function(
   dfResults,
   dfMetrics,
