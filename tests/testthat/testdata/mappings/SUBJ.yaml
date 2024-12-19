@@ -1,9 +1,9 @@
 meta:
   Type: Mapped
   ID: SUBJ
-  Description: Subject Data Mapping 
+  Description: Subject Data Mapping
   Priority: 1
-spec: 
+spec:
   Raw_SUBJ:
     studyid:
       required: true
@@ -28,7 +28,7 @@ spec:
       type: integer
 steps:
   - output: Mapped_SUBJ
-    name: RunQuery
+    name: gsm.mapping::RunQuery
     params:
       df: Raw_SUBJ
       strQuery: "SELECT * FROM df WHERE enrollyn == 'Y'"

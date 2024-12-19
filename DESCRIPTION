@@ -63,6 +63,7 @@ Suggests:
     fontawesome (>= 0.2.2),
     gggenes,
     ggiraph,
+    gsm.mapping,
     here,
     knitr,
     lamW,
