@@ -3,14 +3,16 @@
  *
  * @param {Node} el - widget container, an element in the DOM
  * @param {Array} dfResults - analysis results for a single metric
- * @param {Object} lMetrics - metric metadata
+ * @param {Object} lMetric - metric metadata
  * @param {Array} dfGroups - group metadata
+ * @param {boolean} bAddGroupSelect - whether to add a group select dropdown
  *
  * @returns {Node} HTML select element
  */
-const addWidgetControls = function(el, dfResults, lMetrics, dfGroups, bAddGroupSelect) {
+const addWidgetControls = function(el, dfResults, lMetric, dfGroups, bAddGroupSelect) {
     if (!bAddGroupSelect)
         return {
+            widgetControls: null,
             groupSelect: null,
             countrySelect: null
         };
@@ -26,7 +28,7 @@ const addWidgetControls = function(el, dfResults, lMetrics, dfGroups, bAddGroupS
     const groups = getGroups(dfResults);
     const groupSelect = addSelectControl(
         widgetControls,
-        `Highlighted ${lMetrics?.GroupLevel || 'Group'}`,
+        `Highlighted ${lMetric?.GroupLevel || 'Group'}`,
         groups
     );
     groupSelect.classList.add('gsm-widget-control--group');
@@ -91,6 +93,7 @@ const addWidgetControls = function(el, dfResults, lMetrics, dfGroups, bAddGroupS
         });
 
     return {
+        widgetControls,
         groupSelect,
         countrySelect
     };

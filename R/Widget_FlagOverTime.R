@@ -9,8 +9,6 @@
 #' @inheritParams shared-params
 #' @param strGroupLevel `character` Value for the group level. Default: "Site".
 #' @param strFootnote `character` Text to insert for figure
-#' @param width `character` Pixel width or percentage size of page
-#' @param height `character` Pixel height or percentage size of page
 #'
 #' @examples
 #' reportingResultsSubset <- dplyr::filter(
@@ -27,21 +25,15 @@ Widget_FlagOverTime <- function(
   dfMetrics,
   strGroupLevel = c("Site", "Study", "Country"),
   strFootnote = NULL,
-  width = "100%",
-  height = "400px"
+  bDebug = FALSE
 ) {
   stopifnot(
     "dfResults is not a data.frame" = is.data.frame(dfResults),
     "dfMetrics is not a data.frame" = is.data.frame(dfMetrics),
-    "strGroupLevel is not a character" = is.character(strGroupLevel)
+    "strGroupLevel is not a character" = is.character(strGroupLevel),
+    "strFootnote is not a character" = is.null(strFootnote) || is.character(strFootnote),
+    "bDebug is not a logical" = is.logical(bDebug)
   )
-
-  most_recent12 <- dfResults %>%
-    dplyr::pull(.data$SnapshotDate) %>%
-    unique() %>%
-    sort(decreasing = TRUE) %>%
-    utils::head(12) %>%
-    na.omit()
 
   gtFlagOverTime <- Report_FlagOverTime(
     dfResults,
@@ -51,28 +43,25 @@ Widget_FlagOverTime <- function(
     gt::tab_options(table.align = "left") %>%
     gt::as_raw_html(inline_css = FALSE)
 
-  gtFlagOverTime_recent12 <- Report_FlagOverTime(
-    dplyr::filter(dfResults, .data$SnapshotDate %in% most_recent12),
-    dfMetrics,
-    strGroupLevel = strGroupLevel
-  ) %>%
-    gt::tab_options(table.align = "left") %>%
-    gt::as_raw_html(inline_css = FALSE)
-
-  # Pass both tables and add toggle state in Widget js
   x <- list(
-    html_full = gtFlagOverTime,
-    html_recent12 = gtFlagOverTime_recent12,
-    strFootnote = strFootnote
+    gtFlagOverTime = gtFlagOverTime,
+    strFootnote = strFootnote,
+    bDebug = bDebug
   )
 
-  htmlwidgets::createWidget(
+  widget <- htmlwidgets::createWidget(
     name = "Widget_FlagOverTime",
     x,
-    width, # You can adjust these as needed
-    height, # This can be customized for different heights
+    width = "100%",
     package = "gsm"
   )
+
+  if (bDebug) {
+    viewer <- getOption("viewer")
+    options(viewer = NULL)
+    print(widget)
+    options(viewer = viewer)
+  }
 }
 
 #' Shiny bindings for Widget_FlagOverTime

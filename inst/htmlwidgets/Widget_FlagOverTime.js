@@ -4,7 +4,7 @@ HTMLWidgets.widget({
   factory: function(el, width, height) {
     el.innerHTML = '';
     // Add group subset dropdown.
-    addGroupSubsetLongitudinal(el);
+      //addGroupSubsetLongitudinal(el);
 
     // Apply styles to make the content scrollable if it gets too long
     el.style.overflowY = 'auto';  // Enable vertical scrolling
@@ -14,34 +14,35 @@ HTMLWidgets.widget({
 
     return {
       renderValue: function(x) {
+          console.log(x);
         // Create the toggle button
-        const toggleContainer = document.createElement('div');
+          //const toggleContainer = document.createElement('div');
         // Create the label for the checkbox
-        const label = document.createElement('label');
-        label.classList.add('toggle');
-        toggleContainer.appendChild(label);
+          //const label = document.createElement('label');
+          //label.classList.add('toggle');
+          //toggleContainer.appendChild(label);
 
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.classList.add('toggle-checkbox')
-        checkbox.id = 'toggle-checkbox';
-        checkbox.checked = false;
-        toggleContainer.appendChild(checkbox);
+          //const checkbox = document.createElement('input');
+          //checkbox.type = 'checkbox';
+          //checkbox.classList.add('toggle-checkbox')
+          //checkbox.id = 'toggle-checkbox';
+          //checkbox.checked = false;
+          //toggleContainer.appendChild(checkbox);
 
         // Create the switch element
-        const switchElement = document.createElement('div');
-        switchElement.classList.add('toggle-switch');
-        switchElement.id = "toggle-switch"
-        toggleContainer.appendChild(switchElement);
+          //const switchElement = document.createElement('div');
+          //switchElement.classList.add('toggle-switch');
+          //switchElement.id = "toggle-switch"
+          //toggleContainer.appendChild(switchElement);
 
-        const labelText = document.createElement('span');
-        labelText.classList.add("toggle-label");
-        labelText.textContent = "Show All Time";
-        toggleContainer.appendChild(labelText);
+          //const labelText = document.createElement('span');
+          //labelText.classList.add("toggle-label");
+          //labelText.textContent = "Show All Time";
+          //toggleContainer.appendChild(labelText);
 
 
         // Append the button to the widget container
-        el.appendChild(toggleContainer);
+          //el.appendChild(toggleContainer);
 
         // Create container div for the flag over time content
         const contentDiv = document.createElement('div');
@@ -49,15 +50,16 @@ HTMLWidgets.widget({
         el.appendChild(contentDiv);
 
         // Function to update the displayed table
-        const updateTable = (showRecent) => {
-          contentDiv.innerHTML = showRecent ? x.html_recent12 : x.html_full;
-          // Reapply the group subset filtering each time the table is updated
-          addGroupSubsetLongitudinalListener(el);
-        };
+          //const updateTable = (showRecent) => {
+          //  contentDiv.innerHTML = showRecent ? x.html_recent12 : x.html_full;
+          //  // Reapply the group subset filtering each time the table is updated
+          //  addGroupSubsetLongitudinalListener(el);
+          //};
+          contentDiv.innerHTML = x.gtFlagOverTime;
 
         // Set the default view to recent (12-month) table view
-        let showRecent = true;
-        updateTable(showRecent);
+          //let showRecent = true;
+          //updateTable(showRecent);
 
         // Insert footnote if provided
         if (x.strFootnote) {
@@ -69,18 +71,18 @@ HTMLWidgets.widget({
         }
 
         // Toggle button to switch between recent (12-month) and full view
-        toggleContainer.addEventListener('click', () => {
-          showRecent = !showRecent;
-          updateTable(showRecent);
-          checkbox.checked = !showRecent;
-          if (!showRecent) {
-            labelText.textContent = 'Show Recent';
-        } else {
-            labelText.textContent = 'Show All Time';
-        }
-        });
+          //toggleContainer.addEventListener('click', () => {
+          //  showRecent = !showRecent;
+          //  updateTable(showRecent);
+          //  checkbox.checked = !showRecent;
+          //  if (!showRecent) {
+          //    labelText.textContent = 'Show Recent';
+          //} else {
+          //    labelText.textContent = 'Show All Time';
+          //}
+          //});
 
-        addGroupSubsetLongitudinalListener(el); // Initial call for filtering
+          //addGroupSubsetLongitudinalListener(el); // Initial call for filtering
       },
 
       resize: function(width, height) {

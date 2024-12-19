@@ -63,13 +63,18 @@ FilterByLatestSnapshotDate <- function(df, strSnapshotDate = NULL) {
 #' reportingResults_flags <- FilterByFlags(reportingResults)
 #'
 #' @export
-FilterByFlags <- function(df) {
-  df %>%
+FilterByFlags <- function(dfResults, bLatest = FALSE) {
+  dfResults %>%
     group_by(.data$GroupID, .data$MetricID) %>%
-    mutate(flagsum = sum(.data$Flag)) %>%
+    mutate(
+        flagsum = sum(abs(.data$Flag), na.rm = TRUE),
+        flaglatest = Flag[SnapshotDate == max(SnapshotDate)]
+    ) %>%
     ungroup() %>%
-    filter(.data$flagsum != 0 | is.na(.data$flagsum)) %>%
-    select(-"flagsum")
+    filter(
+      (bLatest & .data$flaglatest != 0) | (!bLatest & .data$flagsum > 0)
+    ) %>%
+    select(-flagsum, -flaglatest)
 }
 
 add_Groups_metadata <- function(
