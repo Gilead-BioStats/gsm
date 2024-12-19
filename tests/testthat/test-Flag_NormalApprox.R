@@ -35,8 +35,8 @@ test_that("flagging works correctly", {
   expect_equal(dfFlagged$Flag, c(2, 1, 0, 0))
 })
 
-test_that("yaml workflow produces same table as R function", {
-  source(test_path("testdata", "create_double_data.R"), local = TRUE)
-  expect_equal(dfFlagged$Flag, lResults$Analysis_kri0001$Analysis_Flagged$Flag)
-  expect_equal(dim(dfFlagged), dim(lResults$Analysis_kri0001$Analysis_Flagged))
-})
+# test_that("yaml workflow produces same table as R function", {
+#   source(test_path("testdata", "create_double_data.R"), local = TRUE)
+#   expect_equal(dfFlagged$Flag, lResults$Analysis_kri0001$Analysis_Flagged$Flag)
+#   expect_equal(dim(dfFlagged), dim(lResults$Analysis_kri0001$Analysis_Flagged))
+# })

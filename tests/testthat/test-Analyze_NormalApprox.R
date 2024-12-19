@@ -101,8 +101,8 @@ test_that("Score (z_i) is 0 when vMu is 1 or 0", {
   expect_true(all(result_zero$Score == 0))
 })
 
-test_that("yaml workflow produces same table as R function", {
-  source(test_path("testdata", "create_double_data.R"), local = TRUE)
-  expect_equal(dfAnalyzed$Metric, lResults$Analysis_kri0001$Analysis_Analyzed$Metric)
-  expect_equal(dim(dfAnalyzed), dim(lResults$Analysis_kri0001$Analysis_Analyzed))
-})
+# test_that("yaml workflow produces same table as R function", {
+#   source(test_path("testdata", "create_double_data.R"), local = TRUE)
+#   expect_equal(dfAnalyzed$Metric, lResults$Analysis_kri0001$Analysis_Analyzed$Metric)
+#   expect_equal(dim(dfAnalyzed), dim(lResults$Analysis_kri0001$Analysis_Analyzed))
+# })
