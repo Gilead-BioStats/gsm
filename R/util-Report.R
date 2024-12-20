@@ -51,22 +51,46 @@ FilterByLatestSnapshotDate <- function(df, strSnapshotDate = NULL) {
 #' Filter a results dataframe so that only metrics across all timepoints
 #' that have at least one flag are kept
 #'
-#' @param df A data frame containing the results.
+#' @param dfResults `data.frame` Analysis results data.
+#' @param bCurrentlyFlagged `logical` Include risk signals flagged in most recent snapshot?
+#' Default: `FALSE`.
 #'
-#' @return A data frame containing the results with at least one flagged record
-#' over time for an group's individual metric
+#' @return A data frame containing the results with at least one flagged record over time for an
+#' group's individual metric
 #'
 #' @examples
 #' reportingResults_flags <- FilterByFlags(reportingResults)
 #'
 #' @export
-FilterByFlags <- function(df) {
-  df %>%
+
+FilterByFlags <- function(
+    dfResults,
+    bCurrentlyFlagged = FALSE
+) {
+  dfResultsFlagged <- dfResults %>%
     group_by(.data$GroupID, .data$MetricID) %>%
-    mutate(flagsum = sum(.data$Flag)) %>%
+    mutate(
+        flagsum = sum(abs(.data$Flag), na.rm = TRUE),
+        flaglatest = Flag[SnapshotDate == max(SnapshotDate)]
+    ) %>%
     ungroup() %>%
-    filter(.data$flagsum != 0 | is.na(.data$flagsum)) %>%
-    select(-"flagsum")
+    filter(
+      .data$flagsum > 0
+    )
+
+    if (bCurrentlyFlagged) {
+      dfResultsFlagged <- dfResultsFlagged %>%
+        filter(
+            .data$flaglatest != 0
+        )
+    }
+
+    dfResultsFlagged <- dfResultsFlagged %>%
+        select(-all_of(c(
+            'flagsum', 'flaglatest'
+        )))
+
+    return(dfResultsFlagged)
 }
 
 add_Groups_metadata <- function(

@@ -17,24 +17,21 @@ Report_MetricCharts <- function(lCharts, strMetricID = "", overview = FALSE) {
   #### charts tabset
   cat("#### Summary Charts {.tabset} \n")
   chartTypes <- c(
-    "scatterJS",
-    "barMetricJS",
-    "barScoreJS",
-    "timeSeriesContinuousScoreJS",
-    "timeSeriesContinuousMetricJS",
-    "timeSeriesContinuousNumeratorJS",
+    "scatterPlot",
+    "barChart",
+    "timeSeries",
     "metricTable"
   )
 
   chartTypes2 <- c(
-    "groupOverviewJS",
-    "flagOverTimeJS"
+    "groupOverview",
+    "flagOverTime"
   )
 
   if (overview == FALSE) {
-    lCharts <- lCharts[names(lCharts) %in% chartTypes]
+    lCharts <- lCharts[intersect(chartTypes, names(lCharts))]
   } else {
-    lCharts <- lCharts[names(lCharts) %in% chartTypes2]
+    lCharts <- lCharts[intersect(chartTypes2, names(lCharts))]
   }
 
   for (j in seq_along(lCharts)) {
@@ -42,14 +39,11 @@ Report_MetricCharts <- function(lCharts, strMetricID = "", overview = FALSE) {
     chart <- lCharts[[j]]
 
     chart_name <- switch(chart_key,
-      scatterJS = paste0(fontawesome::fa("arrow-up-right-dots", fill = "#337ab7"), "  Summary"),
-      barScoreJS = paste0(fontawesome::fa("chart-simple", fill = "#337ab7"), "  KRI Score"),
-      barMetricJS = paste0(fontawesome::fa("chart-simple", fill = "#337ab7"), "  KRI Metric"),
-      timeSeriesContinuousScoreJS = paste0(fontawesome::fa("chart-line", fill = "#337ab7"), "  KRI Score"),
-      timeSeriesContinuousMetricJS = paste0(fontawesome::fa("chart-line", fill = "#337ab7"), "  KRI Metric"),
-      timeSeriesContinuousNumeratorJS = paste0(fontawesome::fa("chart-line", fill = "#337ab7"), "  Numerator"),
-      groupOverviewJS = paste0(fontawesome::fa("table", fill = "#337ab7"), "  Group Overview"),
-      flagOverTimeJS = paste0(fontawesome::fa("table", fill = "#337ab7"), "  Flags Over Time"),
+      groupOverview = paste0(fontawesome::fa("table", fill = "#337ab7"), "  Group Overview"),
+      flagOverTime = paste0(fontawesome::fa("table", fill = "#337ab7"), "  Flags Over Time"),
+      scatterPlot = paste0(fontawesome::fa("arrow-up-right-dots", fill = "#337ab7"), "  Scatter Plot"),
+      barChart = paste0(fontawesome::fa("chart-simple", fill = "#337ab7"), "  Bar Chart"),
+      timeSeries = paste0(fontawesome::fa("chart-line", fill = "#337ab7"), "  Time Series"),
       metricTable = paste0(fontawesome::fa("table", fill = "#337ab7"), "  Metric Table")
     )
 

@@ -11,7 +11,6 @@ params:
   dfResults: NA
   dfGroups: NA
   dfMetrics: NA
-
 ---
 
 ```{r setup, include=FALSE} 
@@ -86,25 +85,35 @@ GroupOverViz <- Widget_GroupOverview(
   ),
   strGroupLabelKey = GroupLabelKey
 )
-overview_viz <- list(groupOverviewJS = GroupOverViz)
 
+overview_viz <- list(groupOverview = GroupOverViz)
 
 # Add FlagOverTime Table if data has more than one snapshot
-
 if(length(unique((params$dfResults)$SnapshotDate)) > 1){
-  # Remove sites/countries whose metrics have no flags at all timepoints
-  dfResults_flags <- FilterByFlags(params$dfResults)
-  
-  FlagOverViz <- Widget_FlagOverTime(
-    dfResults = dfResults_flags,
+  intSnapshots <- 12L # consider adding this as a parameter
+  strSnapshotDates <- unique(params$dfResults$SnapshotDate) %>%
+    sort(decreasing = TRUE) %>%
+    head(intSnapshots)
+
+  # Only include risk signals flagged at the most recent snapshot and the 12 most recent snapshots.
+  dfResultsFlagged <- params$dfResults %>%
+    FilterByFlags(bCurrentlyFlagged = TRUE) %>%
+    dplyr::filter(
+      .data$SnapshotDate %in% strSnapshotDates
+    )
+
+  overview_viz$flagOverTime <- Widget_FlagOverTime(
+    dfResults = dfResultsFlagged,
     dfMetrics = params$dfMetrics,
     strGroupLevel = setup$GroupLevel,
-    strFootnote = "*Only sites with at least one flag are shown."
+    strFootnote = glue::glue(
+      "Table displays the {
+        length(strSnapshotDates)
+      } most recent snapshots and only includes risk signals flagged in the most recent snapshot."
+    ),
+    bExcludeEver = TRUE
   )
-  
-  overview_viz$flagOverTimeJS <- FlagOverViz
 }
-
 
 Report_MetricCharts(overview_viz, overview = TRUE)
 ```
