@@ -17,8 +17,9 @@ spec:
     InvestigatorLastName:
       type: character
       source_col: pi_last_name
-    site_status:
+    Status:
       type: character
+      source_col: site_status
     City:
       type: character
       source_col: city
@@ -35,6 +36,8 @@ spec:
       type: character
     subjid:
       type: character
+    Status:
+      type: character
 steps:
   - output: Temp_CTMSSiteWide
     name: RunQuery
@@ -50,11 +53,26 @@ steps:
     name: RunQuery
     params:
       df: Mapped_SUBJ
-      strQuery: "SELECT invid as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid"
+      strQuery: |
+        SELECT
+          invid as GroupID,
+          COUNT(DISTINCT subjid) as ParticipantCount,
+          SUM(CASE WHEN Status == 'Active' THEN 1 ELSE 0 END) as ActiveParticipantCount,
+          COUNT(DISTINCT invid) as SiteCount
+        FROM df
+        GROUP BY invid
+  - output: Temp_SiteCountsWide_ActiveParticipants
+    name: CalculatePercentage
+    params:
+      data: Temp_SiteCountsWide
+      strCurrentCol: ActiveParticipantCount
+      strTargetCol: ParticipantCount
+      strPercVal: PercentParticipantsActive
+      strPercStrVal: ActiveParticipants
   - output: Temp_SiteCounts
     name: MakeLongMeta
     params:
-      data: Temp_SiteCountsWide
+      data: Temp_SiteCountsWide_ActiveParticipants
       strGroupLevel: "Site"
   - output: Mapped_SITE
     name: bind_rows

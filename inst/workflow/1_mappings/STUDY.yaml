@@ -12,8 +12,9 @@ spec:
       type: character
     protocol_title:
       type: character
-    status:
+    Status:
       type: character
+      source_col: status
     num_plan_site:
       type: integer
     num_plan_subj:
@@ -41,6 +42,8 @@ spec:
       type: character
     subjid:
       type: character
+    Status:
+      type: character
 steps:
   - output: Temp_CTMSStudyWide
     name: RunQuery
@@ -61,7 +64,14 @@ steps:
     name: RunQuery
     params:
       df: Mapped_SUBJ
-      strQuery: "SELECT studyid as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY studyid"
+      strQuery: |
+        SELECT
+          studyid as GroupID,
+          COUNT(DISTINCT subjid) as ParticipantCount,
+          SUM(CASE WHEN Status == 'Active' THEN 1 ELSE 0 END) as ActiveParticipantCount,
+          COUNT(DISTINCT invid) as SiteCount
+        FROM df
+        GROUP BY studyid
   - output: Temp_CountTargetsWide
     name: left_join
     params:
@@ -84,13 +94,22 @@ steps:
       strTargetCol: ParticipantTarget
       strPercVal: PercentParticipantsEnrolled
       strPercStrVal: ParticipantEnrollment
+  - output: Temp_CountTargetsWide_ActiveParticipants
+    name: CalculatePercentage
+    params:
+      data: Temp_CountTargetsWide_addsitepts
+      strCurrentCol: ActiveParticipantCount
+      strTargetCol: ParticipantCount
+      strPercVal: PercentParticipantsActive
+      strPercStrVal: ActiveParticipants
   - output: Temp_CountTargetsPercs
     name: MakeLongMeta
     params:
-      data: Temp_CountTargetsWide_addsitepts
+      data: Temp_CountTargetsWide_ActiveParticipants
       strGroupLevel: "Study"
   - output: Mapped_STUDY
     name: bind_rows
     params:
       Temp_CTMSStudy: Temp_CTMSStudy
       Temp_CountTargetsPercs: Temp_CountTargetsPercs
+

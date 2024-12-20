@@ -467,6 +467,8 @@
         <tbody class="gt_table_body">
           <tr><td headers="Description" class="gt_row gt_left">Nickname</td>
       <td headers="Value" class="gt_row gt_right">Nickname</td></tr>
+          <tr><td headers="Description" class="gt_row gt_left">Status</td>
+      <td headers="Value" class="gt_row gt_right">Ongoing</td></tr>
         </tbody>
         
         
