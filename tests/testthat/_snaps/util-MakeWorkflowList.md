@@ -4157,17 +4157,36 @@
       $SUBJ
       $SUBJ[[1]]
       $SUBJ[[1]]$output
-      [1] "Mapped_SUBJ"
+      [1] "Temp_SUBJ"
       
       $SUBJ[[1]]$name
-      [1] "RunQuery"
+      [1] "left_join"
       
       $SUBJ[[1]]$params
-      $SUBJ[[1]]$params$df
+      $SUBJ[[1]]$params$x
       [1] "Raw_SUBJ"
       
-      $SUBJ[[1]]$params$strQuery
-      [1] "SELECT * FROM df WHERE enrollyn == 'Y'"
+      $SUBJ[[1]]$params$y
+      [1] "Raw_STUDCOMP"
+      
+      $SUBJ[[1]]$params$by
+      [1] "subjid"
+      
+      
+      
+      $SUBJ[[2]]
+      $SUBJ[[2]]$output
+      [1] "Mapped_SUBJ"
+      
+      $SUBJ[[2]]$name
+      [1] "RunQuery"
+      
+      $SUBJ[[2]]$params
+      $SUBJ[[2]]$params$df
+      [1] "Temp_SUBJ"
+      
+      $SUBJ[[2]]$params$strQuery
+      [1] "SELECT *,\nCASE\n  WHEN compyn == 'Y' THEN 'Completed'\n  WHEN compyn == 'N' THEN 'Discontinued'\n  WHEN enrollyn == 'Y' THEN 'Active'\n  WHEN enrollyn == 'N' THEN 'Screen Failure'\n  WHEN enrollyn == '' THEN 'In Screening'\n  ELSE 'Unknown'\nEND as Status\nFROM df\nWHERE enrollyn == 'Y'\n"
       
       
       
@@ -4409,22 +4428,47 @@
       [1] "Mapped_SUBJ"
       
       $COUNTRY[[1]]$params$strQuery
-      [1] "SELECT country as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country"
+      [1] "SELECT\n  country as GroupID,\n  COUNT(DISTINCT subjid) as ParticipantCount,\n  SUM(CASE WHEN Status == 'Active' THEN 1 ELSE 0 END) as ActiveParticipantCount,\n  COUNT(DISTINCT invid) as SiteCount\nFROM df\nGROUP BY country\n"
       
       
       
       $COUNTRY[[2]]
       $COUNTRY[[2]]$output
-      [1] "Mapped_COUNTRY"
+      [1] "Temp_CountryCountsWide_ActiveParticipants"
       
       $COUNTRY[[2]]$name
-      [1] "MakeLongMeta"
+      [1] "CalculatePercentage"
       
       $COUNTRY[[2]]$params
       $COUNTRY[[2]]$params$data
       [1] "Temp_CountryCountsWide"
       
-      $COUNTRY[[2]]$params$strGroupLevel
+      $COUNTRY[[2]]$params$strCurrentCol
+      [1] "ActiveParticipantCount"
+      
+      $COUNTRY[[2]]$params$strTargetCol
+      [1] "ParticipantCount"
+      
+      $COUNTRY[[2]]$params$strPercVal
+      [1] "PercentParticipantsActive"
+      
+      $COUNTRY[[2]]$params$strPercStrVal
+      [1] "ActiveParticipants"
+      
+      
+      
+      $COUNTRY[[3]]
+      $COUNTRY[[3]]$output
+      [1] "Mapped_COUNTRY"
+      
+      $COUNTRY[[3]]$name
+      [1] "MakeLongMeta"
+      
+      $COUNTRY[[3]]$params
+      $COUNTRY[[3]]$params$data
+      [1] "Temp_CountryCountsWide_ActiveParticipants"
+      
+      $COUNTRY[[3]]$params$strGroupLevel
       [1] "Country"
       
       
@@ -4475,38 +4519,63 @@
       [1] "Mapped_SUBJ"
       
       $SITE[[3]]$params$strQuery
-      [1] "SELECT invid as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY invid"
+      [1] "SELECT\n  invid as GroupID,\n  COUNT(DISTINCT subjid) as ParticipantCount,\n  SUM(CASE WHEN Status == 'Active' THEN 1 ELSE 0 END) as ActiveParticipantCount,\n  COUNT(DISTINCT invid) as SiteCount\nFROM df\nGROUP BY invid\n"
       
       
       
       $SITE[[4]]
       $SITE[[4]]$output
-      [1] "Temp_SiteCounts"
+      [1] "Temp_SiteCountsWide_ActiveParticipants"
       
       $SITE[[4]]$name
-      [1] "MakeLongMeta"
+      [1] "CalculatePercentage"
       
       $SITE[[4]]$params
       $SITE[[4]]$params$data
       [1] "Temp_SiteCountsWide"
       
-      $SITE[[4]]$params$strGroupLevel
-      [1] "Site"
+      $SITE[[4]]$params$strCurrentCol
+      [1] "ActiveParticipantCount"
+      
+      $SITE[[4]]$params$strTargetCol
+      [1] "ParticipantCount"
+      
+      $SITE[[4]]$params$strPercVal
+      [1] "PercentParticipantsActive"
+      
+      $SITE[[4]]$params$strPercStrVal
+      [1] "ActiveParticipants"
       
       
       
       $SITE[[5]]
       $SITE[[5]]$output
-      [1] "Mapped_SITE"
+      [1] "Temp_SiteCounts"
       
       $SITE[[5]]$name
-      [1] "bind_rows"
+      [1] "MakeLongMeta"
       
       $SITE[[5]]$params
-      $SITE[[5]]$params$Temp_CTMSSite
+      $SITE[[5]]$params$data
+      [1] "Temp_SiteCountsWide_ActiveParticipants"
+      
+      $SITE[[5]]$params$strGroupLevel
+      [1] "Site"
+      
+      
+      
+      $SITE[[6]]
+      $SITE[[6]]$output
+      [1] "Mapped_SITE"
+      
+      $SITE[[6]]$name
+      [1] "bind_rows"
+      
+      $SITE[[6]]$params
+      $SITE[[6]]$params$Temp_CTMSSite
       [1] "Temp_CTMSSite"
       
-      $SITE[[5]]$params$Temp_SiteCounts
+      $SITE[[6]]$params$Temp_SiteCounts
       [1] "Temp_SiteCounts"
       
       
@@ -4573,7 +4642,7 @@
       [1] "Mapped_SUBJ"
       
       $STUDY[[4]]$params$strQuery
-      [1] "SELECT studyid as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY studyid"
+      [1] "SELECT\n  studyid as GroupID,\n  COUNT(DISTINCT subjid) as ParticipantCount,\n  SUM(CASE WHEN Status == 'Active' THEN 1 ELSE 0 END) as ActiveParticipantCount,\n  COUNT(DISTINCT invid) as SiteCount\nFROM df\nGROUP BY studyid\n"
       
       
       
@@ -4648,32 +4717,57 @@
       
       $STUDY[[8]]
       $STUDY[[8]]$output
-      [1] "Temp_CountTargetsPercs"
+      [1] "Temp_CountTargetsWide_ActiveParticipants"
       
       $STUDY[[8]]$name
-      [1] "MakeLongMeta"
+      [1] "CalculatePercentage"
       
       $STUDY[[8]]$params
       $STUDY[[8]]$params$data
       [1] "Temp_CountTargetsWide_addsitepts"
       
-      $STUDY[[8]]$params$strGroupLevel
-      [1] "Study"
+      $STUDY[[8]]$params$strCurrentCol
+      [1] "ActiveParticipantCount"
+      
+      $STUDY[[8]]$params$strTargetCol
+      [1] "ParticipantCount"
+      
+      $STUDY[[8]]$params$strPercVal
+      [1] "PercentParticipantsActive"
+      
+      $STUDY[[8]]$params$strPercStrVal
+      [1] "ActiveParticipants"
       
       
       
       $STUDY[[9]]
       $STUDY[[9]]$output
-      [1] "Mapped_STUDY"
+      [1] "Temp_CountTargetsPercs"
       
       $STUDY[[9]]$name
-      [1] "bind_rows"
+      [1] "MakeLongMeta"
       
       $STUDY[[9]]$params
-      $STUDY[[9]]$params$Temp_CTMSStudy
+      $STUDY[[9]]$params$data
+      [1] "Temp_CountTargetsWide_ActiveParticipants"
+      
+      $STUDY[[9]]$params$strGroupLevel
+      [1] "Study"
+      
+      
+      
+      $STUDY[[10]]
+      $STUDY[[10]]$output
+      [1] "Mapped_STUDY"
+      
+      $STUDY[[10]]$name
+      [1] "bind_rows"
+      
+      $STUDY[[10]]$params
+      $STUDY[[10]]$params$Temp_CTMSStudy
       [1] "Temp_CTMSStudy"
       
-      $STUDY[[9]]$params$Temp_CountTargetsPercs
+      $STUDY[[10]]$params$Temp_CountTargetsPercs
       [1] "Temp_CountTargetsPercs"
       
       
