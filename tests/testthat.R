@@ -8,5 +8,6 @@
 
 library(testthat)
 library(gsm)
+library(gsm.mapping)
 
 test_check("gsm")

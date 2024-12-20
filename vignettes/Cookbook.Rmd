@@ -9,6 +9,7 @@ vignette: >
 
 ```{r setup, include = FALSE}
 library(gsm)
+library(gsm.mapping)
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"

@@ -12,6 +12,7 @@ vignette: >
 ```{r setup, include = FALSE}
 suppressPackageStartupMessages({
   library(gsm)
+  library(gsm.mapping)
   library(knitr)
   library(gt)
   library(dplyr)

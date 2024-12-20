@@ -32,12 +32,12 @@ spec:
       required: true
       type: character
 steps:
-  - name: RunQuery
+  - name: gsm.mapping::RunQuery
     output: Mapped_SUBJ
     params:
       df: Raw_SUBJ
       strQuery: "SELECT * FROM df WHERE enrollyn == 'Y'"
-  - name: RunQuery
+  - name: gsm.mapping::RunQuery
     output: Mapped_AE
     params:
       df: Raw_AE
