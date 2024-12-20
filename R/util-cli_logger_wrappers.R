@@ -54,3 +54,13 @@ LogMessage <- function(level, message, cli_detail = NULL, .envir = parent.frame(
     "FATAL" = log4r::fatal(logger = .le$logger, level = toupper(level), message = message)
   )
 }
+#' Custom stop message
+#' @param cnd condition for stopping
+#' @param message message to display; may contain glue-style placeholders
+#'
+#' @export
+stop_if <- function(cnd, message) {
+  if (cnd) {
+    LogMessage(level = "error", message = message)
+  }
+}
