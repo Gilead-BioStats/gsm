@@ -34,25 +34,26 @@ Flag_Poisson <- function(
   dfAnalyzed,
   vThreshold = NULL
 ) {
-  stopifnot(
-    "dfAnalyzed is not a data frame" = is.data.frame(dfAnalyzed),
-    "vThreshold is not numeric" = is.numeric(vThreshold),
-    "vThreshold must be length of 4" = length(vThreshold) == 4,
-    "vThreshold cannot be NULL" = !is.null(vThreshold)
-  )
+  stop_if(cnd = !is.data.frame(dfAnalyzed), message = "dfAnalyzed is not a data frame")
+  stop_if(cnd = !is.numeric(vThreshold), message = "vThreshold is not numeric")
+  stop_if(cnd = !(length(vThreshold) == 4), message = "vThreshold must be length of 4")
+  stop_if(cnd = is.null(vThreshold), message = "vThreshold cannot be NULL")
 
 
   if (all(!is.na(vThreshold))) {
-    stopifnot(
-      "vThreshold must contain cutoff for moderate/high risks in two directions (i.e., vThreshold = c(-7, -5, 5, 7))" =
-        vThreshold[1] < vThreshold[2],
-      "vThreshold must contain cutoff for moderate/high risks in two directions (i.e., vThreshold = c(-7, -5, 5, 7))" =
-        vThreshold[2] < vThreshold[3],
-      "vThreshold must contain cutoff for moderate/high risks in two directions (i.e., vThreshold = c(-7, -5, 5, 7))" =
-        vThreshold[3] < vThreshold[4]
+    stop_if(
+      cnd = vThreshold[2] <= vThreshold[1],
+      message = "vThreshold must contain cutoff for moderate/high risks in two directions (i.e., vThreshold = c(-7, -5, 5, 7))"
+    )
+    stop_if(
+      cnd = vThreshold[3] <= vThreshold[2],
+      message = "vThreshold must contain cutoff for moderate/high risks in two directions (i.e., vThreshold = = c(-7, -5, 5, 7))"
+    )
+    stop_if(
+      cnd = vThreshold[4] <= vThreshold[3],
+      message = "vThreshold must contain cutoff for moderate/high risks in two directions (i.e., vThreshold = = c(-7, -5, 5, 7))"
     )
   }
-
 
   # Flag values outside the specified threshold.
   dfFlagged <- dfAnalyzed %>%
