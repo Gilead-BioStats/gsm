@@ -146,6 +146,12 @@ for (i in unique(params$dfResults$MetricID)) {
     overview = FALSE
   )
   
+  if (grepl("0010", i)) {
+    glue("
+    <div style = 'margin-top: 1em;'>As of {lSetup$SnapshotDate}, {lSetup$StudyID} has an average Data Entry Lag of {setup$dfGroups$value[setup$dfGroups$param == 'avg_data_entry_lag']}, with .</div>")
+    %>% cat()
+  }
+  
   print(htmltools::tags$br())
 
 }

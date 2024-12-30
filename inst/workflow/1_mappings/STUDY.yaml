@@ -44,6 +44,9 @@ spec:
       type: character
     Status:
       type: character
+  Mapped_DATAENT:
+    data_entry_lag:
+      type: integer
 steps:
   - output: Temp_CTMSStudyWide
     name: RunQuery
@@ -107,9 +110,15 @@ steps:
     params:
       data: Temp_CountTargetsWide_ActiveParticipants
       strGroupLevel: "Study"
+  - output: Temp_DataEntAvg
+    name: RunQuery
+    params:
+      df: Mapped_DATAENT
+      strQuery: "SELECT AVG(data_entry_lag) as avg_data_entry_lag FROM df"
   - output: Mapped_STUDY
     name: bind_rows
     params:
       Temp_CTMSStudy: Temp_CTMSStudy
       Temp_CountTargetsPercs: Temp_CountTargetsPercs
+      Temp_DataEntAvg: Temp_DataEntAvg
 
