@@ -108,21 +108,15 @@ The function creates all available charts for a metric using the data provided">
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A list containing the following charts:</p><ul><li><p>scatterJS: A scatter plot using JavaScript.</p></li>
-<li><p>scatter: A scatter plot using ggplot2.</p></li>
-<li><p>barMetricJS: A bar chart using JavaScript with metric on the y-axis.</p></li>
-<li><p>barScoreJS: A bar chart using JavaScript with score on the y-axis.</p></li>
-<li><p>barMetric: A bar chart using ggplot2 with metric on the y-axis.</p></li>
-<li><p>barScore: A bar chart using ggplot2 with score on the y-axis.</p></li>
-<li><p>timeSeriesContinuousScoreJS: A time series chart using JavaScript with score on the y-axis.</p></li>
-<li><p>timeSeriesContinuousMetricJS: A time series chart using JavaScript with metric on the y-axis.</p></li>
-<li><p>timeSeriesContinuousNumeratorJS: A time series chart using JavaScript with numerator on the y-axis.</p></li>
+    <p>A list containing the following charts:</p><ul><li><p>scatterPlot: A scatter plot using JavaScript.</p></li>
+<li><p>barChart: A bar chart using JavaScript with metric on the y-axis.</p></li>
+<li><p>timeSeries: A time series chart using JavaScript with score on the y-axis.</p></li>
 <li><p>metricTable: A table containing all</p></li>
 </ul></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">charts</span> <span class="op">&lt;-</span> <span class="fu">Visualize_Metric</span><span class="op">(</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">lCharts</span> <span class="op">&lt;-</span> <span class="fu">Visualize_Metric</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  dfResults <span class="op">=</span> <span class="va">reportingResults</span>,</span></span>
 <span class="r-in"><span>  dfBounds <span class="op">=</span> <span class="va">reportingBounds</span>,</span></span>
 <span class="r-in"><span>  dfGroups <span class="op">=</span> <span class="va">reportingGroups</span>,</span></span>

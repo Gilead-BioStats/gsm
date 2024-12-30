@@ -7,7 +7,7 @@
  *
  * @returns {Node} HTML select element
  */
-const addSelectControl = function(widgetControls, label, values) {
+const addSelectControl = function(widgetControls, label, values, addNone = true, defaultValue = 'None') {
     // add control container
     const selectContainer = document.createElement('div');
     selectContainer.classList.add('gsm-widget-control');
@@ -25,9 +25,11 @@ const addSelectControl = function(widgetControls, label, values) {
     selectContainer.appendChild(select);
 
     // add default option
-    const noneOption = document.createElement('option');
-    noneOption.innerHTML = 'None';
-    select.appendChild(noneOption);
+    if (addNone) {
+        const noneOption = document.createElement('option');
+        noneOption.innerHTML = defaultValue;
+        select.appendChild(noneOption);
+    }
 
     // add data-driven values
     for (const value of values) {
@@ -35,6 +37,9 @@ const addSelectControl = function(widgetControls, label, values) {
         option.innerHTML = value;
         select.appendChild(option);
     }
+
+    // set default value
+    select.value = defaultValue;
 
     return select;
 }
