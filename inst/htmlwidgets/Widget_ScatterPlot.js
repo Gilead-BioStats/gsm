@@ -28,12 +28,13 @@ HTMLWidgets.widget({
                 );
 
                 // Add dropdowns that highlight group IDs.
-                const { groupSelect, countrySelect } = addWidgetControls(
+                addWidgetControls(
                     el,
                     input.dfResults,
                     input.lMetric,
                     input.dfGroups,
-                    input.bAddGroupSelect
+                    input.bAddGroupSelect,
+                    false
                 );
 
                 // Add a footnote below the scatter plot.

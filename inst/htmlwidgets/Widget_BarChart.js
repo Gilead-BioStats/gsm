@@ -28,12 +28,21 @@ HTMLWidgets.widget({
                 );
 
                 // Add dropdowns that highlight group IDs.
-                const { groupSelect, countrySelect } = addWidgetControls(
+                const { widgetControls } = addWidgetControls(
                     el,
                     input.dfResults,
                     input.lMetric,
                     input.dfGroups,
                     input.bAddGroupSelect
+                );
+
+                // Add a dropdown that changes the outcome variable.
+                const outcomeSelect = addOutcomeSelect(
+                    widgetControls,
+                    input.dfResults,
+                    input.lMetric,
+                    input.dfGroups,
+                    input.strOutcome
                 );
             },
             resize: function(width, height) {
