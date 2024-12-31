@@ -150,7 +150,7 @@ for (i in unique(params$dfResults$MetricID)) {
     print(htmltools::tags$br())
     avg_dataent_lag <- params$dfGroups$Value[params$dfGroups$Param == 'AvgDataEntryLag'] %>% as.numeric() %>% round(3)
     glue("
-    <div style = 'margin-top: 1em;'>As of {setup$SnapshotDate}, {setup$StudyID} has an average Data Entry Lag of {avg_dataent_lag}.</div>") %>% cat()
+    <div style = 'margin-top: 1em;'>As of {setup$SnapshotDate}, {setup$StudyID} has an average Data Entry Lag of {avg_dataent_lag} days.</div>") %>% cat()
   }
   
   print(htmltools::tags$br())
