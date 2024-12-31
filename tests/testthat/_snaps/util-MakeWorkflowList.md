@@ -4632,142 +4632,161 @@
       
       $STUDY[[4]]
       $STUDY[[4]]$output
-      [1] "Temp_StudyCountsWide"
+      [1] "Temp_SUBJ_DATAENT"
       
       $STUDY[[4]]$name
-      [1] "RunQuery"
+      [1] "left_join"
       
       $STUDY[[4]]$params
-      $STUDY[[4]]$params$df
+      $STUDY[[4]]$params$x
       [1] "Mapped_SUBJ"
       
-      $STUDY[[4]]$params$strQuery
-      [1] "SELECT\n  studyid as GroupID,\n  COUNT(DISTINCT subjid) as ParticipantCount,\n  SUM(CASE WHEN Status == 'Active' THEN 1 ELSE 0 END) as ActiveParticipantCount,\n  COUNT(DISTINCT invid) as SiteCount\nFROM df\nGROUP BY studyid\n"
+      $STUDY[[4]]$params$y
+      [1] "Mapped_DATAENT"
+      
+      $STUDY[[4]]$params$by
+      [1] "subjid"
       
       
       
       $STUDY[[5]]
       $STUDY[[5]]$output
-      [1] "Temp_CountTargetsWide"
-      
-      $STUDY[[5]]$name
-      [1] "left_join"
-      
-      $STUDY[[5]]$params
-      $STUDY[[5]]$params$x
-      [1] "Temp_CTMSplanned"
-      
-      $STUDY[[5]]$params$y
       [1] "Temp_StudyCountsWide"
       
-      $STUDY[[5]]$params$by
-      [1] "GroupID"
+      $STUDY[[5]]$name
+      [1] "RunQuery"
+      
+      $STUDY[[5]]$params
+      $STUDY[[5]]$params$df
+      [1] "Temp_SUBJ_DATAENT"
+      
+      $STUDY[[5]]$params$strQuery
+      [1] "SELECT\n  studyid as GroupID,\n  COUNT(DISTINCT subjid) as ParticipantCount,\n  SUM(CASE WHEN Status == 'Active' THEN 1 ELSE 0 END) as ActiveParticipantCount,\n  COUNT(DISTINCT invid) as SiteCount,\n  AVG(data_entry_lag) as AvgDataEntryLag,\n  AVG(CASE WHEN data_entry_lag >= 10 THEN data_entry_lag END) as AvgDataEntryLag_over10\nFROM df\nGROUP BY studyid\n"
       
       
       
       $STUDY[[6]]
       $STUDY[[6]]$output
-      [1] "Temp_CountTargetsWide_addsite"
-      
-      $STUDY[[6]]$name
-      [1] "CalculatePercentage"
-      
-      $STUDY[[6]]$params
-      $STUDY[[6]]$params$data
       [1] "Temp_CountTargetsWide"
       
-      $STUDY[[6]]$params$strCurrentCol
-      [1] "SiteCount"
+      $STUDY[[6]]$name
+      [1] "left_join"
       
-      $STUDY[[6]]$params$strTargetCol
-      [1] "SiteTarget"
+      $STUDY[[6]]$params
+      $STUDY[[6]]$params$x
+      [1] "Temp_CTMSplanned"
       
-      $STUDY[[6]]$params$strPercVal
-      [1] "PercentSitesActivated"
+      $STUDY[[6]]$params$y
+      [1] "Temp_StudyCountsWide"
       
-      $STUDY[[6]]$params$strPercStrVal
-      [1] "SiteActivation"
+      $STUDY[[6]]$params$by
+      [1] "GroupID"
       
       
       
       $STUDY[[7]]
       $STUDY[[7]]$output
-      [1] "Temp_CountTargetsWide_addsitepts"
+      [1] "Temp_CountTargetsWide_addsite"
       
       $STUDY[[7]]$name
       [1] "CalculatePercentage"
       
       $STUDY[[7]]$params
       $STUDY[[7]]$params$data
-      [1] "Temp_CountTargetsWide_addsite"
+      [1] "Temp_CountTargetsWide"
       
       $STUDY[[7]]$params$strCurrentCol
-      [1] "ParticipantCount"
+      [1] "SiteCount"
       
       $STUDY[[7]]$params$strTargetCol
-      [1] "ParticipantTarget"
+      [1] "SiteTarget"
       
       $STUDY[[7]]$params$strPercVal
-      [1] "PercentParticipantsEnrolled"
+      [1] "PercentSitesActivated"
       
       $STUDY[[7]]$params$strPercStrVal
-      [1] "ParticipantEnrollment"
+      [1] "SiteActivation"
       
       
       
       $STUDY[[8]]
       $STUDY[[8]]$output
-      [1] "Temp_CountTargetsWide_ActiveParticipants"
+      [1] "Temp_CountTargetsWide_addsitepts"
       
       $STUDY[[8]]$name
       [1] "CalculatePercentage"
       
       $STUDY[[8]]$params
       $STUDY[[8]]$params$data
-      [1] "Temp_CountTargetsWide_addsitepts"
+      [1] "Temp_CountTargetsWide_addsite"
       
       $STUDY[[8]]$params$strCurrentCol
-      [1] "ActiveParticipantCount"
-      
-      $STUDY[[8]]$params$strTargetCol
       [1] "ParticipantCount"
       
+      $STUDY[[8]]$params$strTargetCol
+      [1] "ParticipantTarget"
+      
       $STUDY[[8]]$params$strPercVal
-      [1] "PercentParticipantsActive"
+      [1] "PercentParticipantsEnrolled"
       
       $STUDY[[8]]$params$strPercStrVal
-      [1] "ActiveParticipants"
+      [1] "ParticipantEnrollment"
       
       
       
       $STUDY[[9]]
       $STUDY[[9]]$output
-      [1] "Temp_CountTargetsPercs"
+      [1] "Temp_CountTargetsWide_ActiveParticipants"
       
       $STUDY[[9]]$name
-      [1] "MakeLongMeta"
+      [1] "CalculatePercentage"
       
       $STUDY[[9]]$params
       $STUDY[[9]]$params$data
-      [1] "Temp_CountTargetsWide_ActiveParticipants"
+      [1] "Temp_CountTargetsWide_addsitepts"
       
-      $STUDY[[9]]$params$strGroupLevel
-      [1] "Study"
+      $STUDY[[9]]$params$strCurrentCol
+      [1] "ActiveParticipantCount"
+      
+      $STUDY[[9]]$params$strTargetCol
+      [1] "ParticipantCount"
+      
+      $STUDY[[9]]$params$strPercVal
+      [1] "PercentParticipantsActive"
+      
+      $STUDY[[9]]$params$strPercStrVal
+      [1] "ActiveParticipants"
       
       
       
       $STUDY[[10]]
       $STUDY[[10]]$output
-      [1] "Mapped_STUDY"
+      [1] "Temp_CountTargetsPercs"
       
       $STUDY[[10]]$name
-      [1] "bind_rows"
+      [1] "MakeLongMeta"
       
       $STUDY[[10]]$params
-      $STUDY[[10]]$params$Temp_CTMSStudy
+      $STUDY[[10]]$params$data
+      [1] "Temp_CountTargetsWide_ActiveParticipants"
+      
+      $STUDY[[10]]$params$strGroupLevel
+      [1] "Study"
+      
+      
+      
+      $STUDY[[11]]
+      $STUDY[[11]]$output
+      [1] "Mapped_STUDY"
+      
+      $STUDY[[11]]$name
+      [1] "bind_rows"
+      
+      $STUDY[[11]]$params
+      $STUDY[[11]]$params$Temp_CTMSStudy
       [1] "Temp_CTMSStudy"
       
-      $STUDY[[10]]$params$Temp_CountTargetsPercs
+      $STUDY[[11]]$params$Temp_CountTargetsPercs
       [1] "Temp_CountTargetsPercs"
       
       
