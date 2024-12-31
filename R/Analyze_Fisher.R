@@ -65,7 +65,7 @@ Analyze_Fisher <- function(
 
   dfAnalyzed <- dfTransformed %>%
     mutate(model = purrr::map(.data$GroupID, fisher_model)) %>%
-    mutate(summary = purrr::map(.data$model, broom::glance)) %>%
+    mutate(summary = purrr::map(.data$model, generics::glance)) %>%
     tidyr::unnest(summary) %>%
     mutate(
       Estimate = .data$estimate,

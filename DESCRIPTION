@@ -32,12 +32,12 @@ BugReports: https://github.com/Gilead-BioStats/gsm/issues
 Depends: 
     R (>= 4.0)
 Imports:
-    broom,
     cli,
     DBI,
     dbplyr,
     dplyr,
     duckdb,
+    generics,
     ggplot2,
     glue,
     gt,
@@ -72,7 +72,6 @@ Suggests:
     rmarkdown,
     roxygen2,
     safetyData,
-    sqldf,
     styler,
     testthat,
     usethis,
