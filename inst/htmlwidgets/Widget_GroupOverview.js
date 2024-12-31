@@ -13,31 +13,7 @@ HTMLWidgets.widget({
                     input.dfResults,
                     {
                         GroupLevel: input.strGroupLevel,
-                        groupLabelKey: input.strGroupLabelKey //,
-                        // Callbacks for Shiny, may need to move to a different file.
-                        /*
-                        groupClickCallback: function (datum) {
-                            Shiny.setInputValue(
-                                'GroupOverviewGroupID',
-                                datum.GroupID,
-                                {priority: 'event'}
-                            );
-                        },
-                        metricClickCallback: function(datum) {
-                            console.log('clicked metric')
-                            console.log(datum);
-                            Shiny.setInputValue(
-                                'GroupOverviewGroupID',
-                                datum.GroupID,
-                                {priority: 'event'}
-                            );
-                            Shiny.setInputValue(
-                                'GroupOverviewMetricID',
-                                datum.MetricID,
-                                {priority: "event"}
-                            );
-                        }
-                        */
+                        groupLabelKey: input.strGroupLabelKey
                     },
                     input.dfGroups,
                     input.dfMetrics

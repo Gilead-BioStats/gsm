@@ -32,15 +32,9 @@ Visualize_Metric(
 \value{
 A list containing the following charts:
 \itemize{
-\item scatterJS: A scatter plot using JavaScript.
-\item scatter: A scatter plot using ggplot2.
-\item barMetricJS: A bar chart using JavaScript with metric on the y-axis.
-\item barScoreJS: A bar chart using JavaScript with score on the y-axis.
-\item barMetric: A bar chart using ggplot2 with metric on the y-axis.
-\item barScore: A bar chart using ggplot2 with score on the y-axis.
-\item timeSeriesContinuousScoreJS: A time series chart using JavaScript with score on the y-axis.
-\item timeSeriesContinuousMetricJS: A time series chart using JavaScript with metric on the y-axis.
-\item timeSeriesContinuousNumeratorJS: A time series chart using JavaScript with numerator on the y-axis.
+\item scatterPlot: A scatter plot using JavaScript.
+\item barChart: A bar chart using JavaScript with metric on the y-axis.
+\item timeSeries: A time series chart using JavaScript with score on the y-axis.
 \item metricTable: A table containing all
 }
 }
@@ -50,7 +44,7 @@ A list containing the following charts:
 The function creates all available charts for a metric using the data provided
 }
 \examples{
-charts <- Visualize_Metric(
+lCharts <- Visualize_Metric(
   dfResults = reportingResults,
   dfBounds = reportingBounds,
   dfGroups = reportingGroups,

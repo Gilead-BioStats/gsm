@@ -19,9 +19,32 @@ spec:
       type: character
     timeonstudy:
       type: integer
+  Raw_STUDCOMP:
+    subjid:
+      type: character
+    compyn:
+      type: character
 steps:
+  - output: Temp_SUBJ
+    name: left_join
+    params:
+      x: Raw_SUBJ
+      "y": Raw_STUDCOMP
+      by: subjid
   - output: Mapped_SUBJ
     name: RunQuery
     params:
-      df: Raw_SUBJ
-      strQuery: "SELECT * FROM df WHERE enrollyn == 'Y'"
+      df: Temp_SUBJ
+      strQuery: |
+        SELECT *,
+        CASE
+          WHEN compyn == 'Y' THEN 'Completed'
+          WHEN compyn == 'N' THEN 'Discontinued'
+          WHEN enrollyn == 'Y' THEN 'Active'
+          WHEN enrollyn == 'N' THEN 'Screen Failure'
+          WHEN enrollyn == '' THEN 'In Screening'
+          ELSE 'Unknown'
+        END as Status
+        FROM df
+        WHERE enrollyn == 'Y'
+

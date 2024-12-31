@@ -55,7 +55,7 @@ Widget_GroupOverview <- function(
   stop_if(cnd = !is.data.frame(dfMetrics),"dfMetrics is not a data.frame")
   stop_if(cnd = !is.data.frame(dfGroups),"dfGroups is not a data.frame")
   stop_if(cnd = !is.character(strGroupSubset),"strGroupSubset is not a character")
-  stop_if(cnd = !is.character(strGroupLabelKey) || is.null(strGroupLabelKey),"strGroupLabelKey is not a character or NULL")
+  stop_if(cnd = !is.character(strGroupLabelKey) && !is.null(strGroupLabelKey), "strGroupLabelKey is not a character or NULL")
   stop_if(cnd = !is.logical(bDebug), "bDebug is not a logical")
 
   # set strGroupLevel if NULL and dfMetrics is not NULL

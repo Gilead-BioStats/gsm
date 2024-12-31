@@ -91,7 +91,8 @@ lRaw <- list(
     Raw_PD = lSource$Source_PD %>%
       dplyr::rename(subjid = subjectenrollmentnumber),
     Raw_LB = lSource$Source_LB,
-    Raw_STUDCOMP = lSource$Source_STUDCOMP,
+    Raw_STUDCOMP = lSource$Source_STUDCOMP %>%
+      dplyr::select(subjid, compyn),
     Raw_SDRGCOMP = lSource$Source_SDRGCOMP,
     Raw_DATACHG = lSource$Source_DATACHG %>%
       dplyr::rename(subject_nsv = subjectname),
@@ -107,7 +108,8 @@ lRaw <- list(
       dplyr::rename(InvestigatorLastName = pi_last_name) %>%
       dplyr::rename(City = city) %>%
       dplyr::rename(State = state) %>%
-      dplyr::rename(Country = country),
+      dplyr::rename(Country = country) %>%
+      dplyr::rename(Status = site_status),
     Raw_STUDY = lSource$Source_STUDY %>%
       dplyr::rename(studyid = protocol_number) %>%
       dplyr::rename(Status = status)
