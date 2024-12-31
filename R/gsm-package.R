@@ -8,6 +8,7 @@
 #' @import gt
 #' @import log4r
 #' @import purrr
+#' @import gsm.mapping
 #' @importFrom broom augment
 #' @importFrom broom glance
 #' @importFrom cli cli_abort
