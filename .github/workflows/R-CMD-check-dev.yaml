@@ -35,6 +35,11 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
+      - name: Install dependencies with remotes
+        run: |
+          Rscript -e 'install.packages("remotes")'
+          Rscript -e 'remotes::install_deps(dependencies = TRUE)'
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::rcmdcheck
