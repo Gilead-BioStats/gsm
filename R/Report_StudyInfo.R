@@ -35,7 +35,7 @@ Report_StudyInfo <- function(
     "ParticipantEnrollment"
   )
   show_table <- study_status_table %>%
-    dplyr::filter(.data$Param %in% subcols) %>%
+    dplyr::filter(tolower(.data$Param) %in% tolower(subcols)) %>%
     gt_StudyInfo(id = strId)
 
   strId_hide <- paste0(strId, "_hide")

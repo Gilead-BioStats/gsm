@@ -50,18 +50,17 @@ Flag <- function(
   vFlag = c(-2,-1,0,1,2),
   vFlagOrder = c(2,-2,1,-1,0)
 ) {
-  stopifnot(
-    "dfAnalyzed is not a data frame" = is.data.frame(dfAnalyzed),
-    "strColumn is not character" = is.character(strColumn),
-    "vThreshold is not numeric" = is.numeric(vThreshold),
-    "vThreshold cannot be NULL" = !is.null(vThreshold),
-    "vThreshold is not in ascending order" = all(vThreshold == sort(vThreshold)),
-    "strColumn must be length of 1" = length(strColumn) == 1,
-    "strColumn not found in dfAnalyzed" = strColumn %in% names(dfAnalyzed),
-    "vFlag must be numeric" = is.numeric(vFlag),
-    "Improper number of Flag values provided" = length(vFlag) == length(vThreshold)+1,
-    "vFlagOrder must be numeric or NULL" = is.numeric(vFlagOrder) | is.null(vFlagOrder)
-  )
+
+  stop_if(cnd = !is.data.frame(dfAnalyzed), message = "dfAnalyzed is not a data frame")
+  stop_if(cnd = !is.character(strColumn), message = "strColumn is not character")
+  stop_if(cnd = !is.numeric(vThreshold), message = "vThreshold is not numeric")
+  stop_if(cnd = !all(vThreshold == sort(vThreshold)), message = "vThreshold is not in ascending order")
+  stop_if(cnd = is.null(vThreshold), message = "vThreshold cannot be NULL")
+  stop_if(cnd = length(strColumn) != 1, message = "strColumn must be length of 1")
+  stop_if(cnd = !(strColumn %in% names(dfAnalyzed)), message = "strColumn not found in dfAnalyzed")
+  stop_if(cnd = !is.numeric(vFlag), message = "vFlag must be numeric")
+  stop_if(cnd = length(vFlag) != length(vThreshold)+1, message = "Improper number of Flag values provided")
+  stop_if(cnd = !is.numeric(vFlagOrder) & !is.null(vFlagOrder), message = "vFlagOrder must be numeric or NULL")
 
   dfFlagged <- dfAnalyzed
 
@@ -83,12 +82,12 @@ Flag <- function(
         message = "Sorted dfFlagged using custom Flag order: {vFlagOrder}.",
         cli_detail = "alert_info"
       )
-    }else{
+    } else {
       LogMessage(
         level = "info",
         message = "Mismatch in vFlagOrder and vFlag values. Aborting Sort and returning unsorted data.",
         cli_detail = "alert_info"
-      )
+    )
     }
   }
 

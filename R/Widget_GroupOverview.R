@@ -51,23 +51,22 @@ Widget_GroupOverview <- function(
   strGroupLabelKey = "InvestigatorLastName",
   bDebug = FALSE
 ) {
-  stopifnot(
-    "dfResults is not a data.frame" = is.data.frame(dfResults),
-    "dfMetrics is not a data.frame" = is.data.frame(dfMetrics),
-    "dfGroups is not a data.frame" = is.data.frame(dfGroups),
-    "strGroupSubset is not a character" = is.character(strGroupSubset),
-    "strGroupLabelKey is not a character or NULL" = is.character(strGroupLabelKey) || is.null(strGroupLabelKey),
-    "bDebug is not a logical" = is.logical(bDebug)
-  )
+  stop_if(cnd = !is.data.frame(dfResults),"dfResults is not a data.frame")
+  stop_if(cnd = !is.data.frame(dfMetrics),"dfMetrics is not a data.frame")
+  stop_if(cnd = !is.data.frame(dfGroups),"dfGroups is not a data.frame")
+  stop_if(cnd = !is.character(strGroupSubset),"strGroupSubset is not a character")
+  stop_if(cnd = !is.character(strGroupLabelKey) && !is.null(strGroupLabelKey), "strGroupLabelKey is not a character or NULL")
+  stop_if(cnd = !is.logical(bDebug), "bDebug is not a logical")
 
   # set strGroupLevel if NULL and dfMetrics is not NULL
   if (is.null(strGroupLevel) && !is.null(dfMetrics)) {
     strGroupLevel <- unique(dfMetrics$GroupLevel)
   }
 
-  if (is.null(strGroupLevel) || length(strGroupLevel) != 1) {
-    stop("A single group level must be provided to create group-level output.")
-  }
+  stop_if(
+    cnd = (is.null(strGroupLevel) || length(strGroupLevel) != 1),
+    message = "A single group level must be provided to create group-level output."
+  )
 
   # forward options using x
   input <- list(

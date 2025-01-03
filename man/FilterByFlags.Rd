@@ -4,14 +4,17 @@
 \alias{FilterByFlags}
 \title{Filter out non-flagged rows on FlagOverTime Widget}
 \usage{
-FilterByFlags(df)
+FilterByFlags(dfResults, bCurrentlyFlagged = FALSE)
 }
 \arguments{
-\item{df}{A data frame containing the results.}
+\item{dfResults}{\code{data.frame} Analysis results data.}
+
+\item{bCurrentlyFlagged}{\code{logical} Include risk signals flagged in most recent snapshot?
+Default: \code{FALSE}.}
 }
 \value{
-A data frame containing the results with at least one flagged record
-over time for an group's individual metric
+A data frame containing the results with at least one flagged record over time for an
+group's individual metric
 }
 \description{
 Filter a results dataframe so that only metrics across all timepoints
