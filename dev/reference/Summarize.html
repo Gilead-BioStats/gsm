@@ -100,13 +100,13 @@ when associated with a workflow.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">dfTransformed</span> <span class="op">&lt;-</span> <span class="fu"><a href="Transform_Rate.html">Transform_Rate</a></span><span class="op">(</span><span class="va">analyticsInput</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">dfAnalyzed</span> <span class="op">&lt;-</span> <span class="fu"><a href="Analyze_Poisson.html">Analyze_Poisson</a></span><span class="op">(</span><span class="va">dfTransformed</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Fitting log-linked Poisson generalized linear model of [ Numerator ] ~ [ log( Denominator ) ].</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">dfFlagged</span> <span class="op">&lt;-</span> <span class="fu"><a href="Flag.html">Flag</a></span><span class="op">(</span><span class="va">dfAnalyzed</span>, vThreshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">dfTransformed</span> <span class="op">&lt;-</span> <span class="fu"><a href="Transform_Rate.html">Transform_Rate</a></span><span class="op">(</span><span class="va">analyticsInput</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dfAnalyzed</span> <span class="op">&lt;-</span> <span class="fu"><a href="Analyze_NormalApprox.html">Analyze_NormalApprox</a></span><span class="op">(</span><span class="va">dfTransformed</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> `OverallMetric`, `Factor`, and `Score` columns created from normal</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> approximation.</span>
+<span class="r-in"><span><span class="va">dfFlagged</span> <span class="op">&lt;-</span> <span class="fu"><a href="Flag.html">Flag</a></span><span class="op">(</span><span class="va">dfAnalyzed</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Sorted dfFlagged using custom Flag order: 2.Sorted dfFlagged using custom Flag order: -2.Sorted dfFlagged using custom Flag order: 1.Sorted dfFlagged using custom Flag order: -1.Sorted dfFlagged using custom Flag order: 0.</span>
 <span class="r-in"><span><span class="va">dfSummary</span> <span class="op">&lt;-</span> <span class="fu">Summarize</span><span class="op">(</span><span class="va">dfFlagged</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

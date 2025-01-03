@@ -268,7 +268,8 @@ resulting <code>dfFlagged</code> data frame will contain site-level
 analysis results data with flagging incorporated based on a
 pre-specified statistical threshold to highlight possible outliers.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dfFlagged</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Flag_NormalApprox.html">Flag_NormalApprox</a></span><span class="op">(</span><span class="va">dfAnalyzed</span>, vThreshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="op">-</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">dfFlagged</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Flag_NormalApprox.html">Flag_NormalApprox</a></span><span class="op">(</span><span class="va">dfAnalyzed</span>, vThreshold <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>, <span class="op">-</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">ℹ</span> Sorted dfFlagged using custom Flag order: 2.Sorted dfFlagged using custom Flag order: -2.Sorted dfFlagged using custom Flag order: 1.Sorted dfFlagged using custom Flag order: -1.Sorted dfFlagged using custom Flag order: 0.</span></span></code></pre></div>
 <p>The default flagging function for the normal approximation method is
 <code><a href="../reference/Flag_NormalApprox.html">Flag_NormalApprox()</a></code> and the default threshold is (-3, -2,
 2, 3). Using our example AE data, <code>dfFlagged</code> contains the
@@ -474,7 +475,7 @@ treatment period</li>
 <code><a href="../reference/Flag_NormalApprox.html">Flag_NormalApprox()</a></code>: Default flagging function when
 <code><a href="../reference/Analyze_NormalApprox.html">Analyze_NormalApprox()</a></code> is used for an assessment.</li>
 <li>
-<code><a href="../reference/Flag_Fisher.html">Flag_Fisher()</a></code>: Default flagging function when
+<code>Flag_Fisher()</code>: Default flagging function when
 <code><a href="../reference/Analyze_Fisher.html">Analyze_Fisher()</a></code> is used for an assessment</li>
 <li>
 <code><a href="../reference/Flag_Poisson.html">Flag_Poisson()</a></code>: Default flagging function when
