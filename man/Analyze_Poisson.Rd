@@ -27,7 +27,7 @@ of the KRI Method vignette.
 
 This function fits a Poisson model to site-level data and then calculates residuals for each site.
 The Poisson model is run using standard methods in the \code{stats} package by fitting a \code{glm} model with family
-set to \code{poisson} using a "log" link. Site-level residuals are calculated using \code{stats::predict.glm} via \code{generics::augment}.
+set to \code{poisson} using a "log" link. Site-level residuals are calculated using \code{stats::predict.glm} via \code{broom::augment}.
 }
 
 \examples{

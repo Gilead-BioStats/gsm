@@ -12,7 +12,7 @@
 #'
 #' This function fits a Poisson model to site-level data and then calculates residuals for each site.
 #' The Poisson model is run using standard methods in the `stats` package by fitting a `glm` model with family
-#' set to `poisson` using a "log" link. Site-level residuals are calculated using `stats::predict.glm` via `generics::augment`.
+#' set to `poisson` using a "log" link. Site-level residuals are calculated using `stats::predict.glm` via `broom::augment`.
 #'
 #' @param dfTransformed `r gloss_param("dfTransformed")`
 #'   `r gloss_extra("dfTransformed_Rate")`
@@ -50,7 +50,7 @@ Analyze_Poisson <- function(dfTransformed) {
     data = dfModel
   )
 
-  dfAnalyzed <- generics::augment(cModel, dfModel, type.predict = "response") %>%
+  dfAnalyzed <- broom::augment(cModel, dfModel, type.predict = "response") %>%
     select(
       "GroupID",
       "GroupLevel",

@@ -37,7 +37,7 @@ Imports:
     dbplyr,
     dplyr,
     duckdb,
-    generics,
+    broom,
     ggplot2,
     glue,
     gt,

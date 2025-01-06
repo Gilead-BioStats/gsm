@@ -173,7 +173,7 @@ $$ where $\mu$ is the average number of counts and $E(Y)=Var(Y)=\mu$.
 
 ### Methods
 
-This method fits a Poisson model to site-level data and then calculates deviance residuals for each site. The Poisson model is run using standard methods in the `stats` package by fitting a `glm` model with family set to `poisson` using a "log" link. Site-level deviance residuals are calculated using `resid` from `stats::predict.glm` via `generics::augment`.
+This method fits a Poisson model to site-level data and then calculates deviance residuals for each site. The Poisson model is run using standard methods in the `stats` package by fitting a `glm` model with family set to `poisson` using a "log" link. Site-level deviance residuals are calculated using `resid` from `stats::predict.glm` via `broom::augment`.
 
 Let $Y_1, ..., Y_N$ be independent random variables with $Y_i \sim Poisson(\mu_i)$ denoting the number of events observed from $n_i$ for the $i$th observation following Poisson distribution. Then $E(Y_i)=\mu_i=n_ie^{x_i\beta}$. Thus,the log-linear generalized linear model (Poisson regression) is 
 $$

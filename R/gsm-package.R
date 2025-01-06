@@ -8,8 +8,8 @@
 #' @import gt
 #' @import log4r
 #' @import purrr
-#' @importFrom generics augment
-#' @importFrom generics glance
+#' @importFrom broom augment
+#' @importFrom broom glance
 #' @importFrom cli cli_abort
 #' @importFrom cli cli_alert
 #' @importFrom cli cli_alert_danger
