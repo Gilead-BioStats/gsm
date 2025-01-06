@@ -36,8 +36,7 @@ Analyze_NormalApprox <- function(
   dfTransformed,
   strType = "binary"
 ) {
-
-  stop_if(cnd = !is.data.frame(dfTransformed), message ="dfTransformed is not a data.frame")
+  stop_if(cnd = !is.data.frame(dfTransformed), message = "dfTransformed is not a data.frame")
   stop_if(
     cnd = !all(c("GroupID", "GroupLevel", "Denominator", "Numerator", "Metric") %in% names(dfTransformed)),
     message = "One or more of these columns not found: GroupID, GroupLevel, Denominator, Numerator, Metric"
