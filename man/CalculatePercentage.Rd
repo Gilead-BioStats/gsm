@@ -28,6 +28,6 @@ A data frame containing two additional columns for the precentage value and asso
 }
 \description{
 Used to create percentage values on enrollment data, such as site activation and
-and participantment enrollment, and pasting together an appropriate n/N (xx.x\%) value
+and participant enrollment, and pasting together an appropriate n/N (xx.x\%) value
 as well.
 }
