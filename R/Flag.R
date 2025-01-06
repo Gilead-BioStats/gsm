@@ -46,11 +46,10 @@
 Flag <- function(
   dfAnalyzed,
   strColumn = "Score",
-  vThreshold = c(-3,-2,2,3),
-  vFlag = c(-2,-1,0,1,2),
-  vFlagOrder = c(2,-2,1,-1,0)
+  vThreshold = c(-3, -2, 2, 3),
+  vFlag = c(-2, -1, 0, 1, 2),
+  vFlagOrder = c(2, -2, 1, -1, 0)
 ) {
-
   stop_if(cnd = !is.data.frame(dfAnalyzed), message = "dfAnalyzed is not a data frame")
   stop_if(cnd = !is.character(strColumn), message = "strColumn is not character")
   stop_if(cnd = !is.numeric(vThreshold), message = "vThreshold is not numeric")
@@ -59,23 +58,25 @@ Flag <- function(
   stop_if(cnd = length(strColumn) != 1, message = "strColumn must be length of 1")
   stop_if(cnd = !(strColumn %in% names(dfAnalyzed)), message = "strColumn not found in dfAnalyzed")
   stop_if(cnd = !is.numeric(vFlag), message = "vFlag must be numeric")
-  stop_if(cnd = length(vFlag) != length(vThreshold)+1, message = "Improper number of Flag values provided")
+  stop_if(cnd = length(vFlag) != length(vThreshold) + 1, message = "Improper number of Flag values provided")
   stop_if(cnd = !is.numeric(vFlagOrder) & !is.null(vFlagOrder), message = "vFlagOrder must be numeric or NULL")
 
   dfFlagged <- dfAnalyzed
 
   # generate flag values for dfAnalyzed[strColumn] based on vThresold and vFlag
   dfFlagged$Flag <- cut(
-      dfFlagged[[strColumn]],
-      breaks = c(-Inf, vThreshold, Inf),
-      labels = vFlag,
-      right = FALSE
-  ) %>% as.character() %>% as.numeric() #Parse from factor to numeric
+    dfFlagged[[strColumn]],
+    breaks = c(-Inf, vThreshold, Inf),
+    labels = vFlag,
+    right = FALSE
+  ) %>%
+    as.character() %>%
+    as.numeric() # Parse from factor to numeric
 
   # Apply custom sort order using vFlagOrder
-  if(!is.null(vFlagOrder)){
-    #all values in vFlag should be included in vFlagOrder
-    if(identical(sort(vFlag), sort(vFlagOrder))){
+  if (!is.null(vFlagOrder)) {
+    # all values in vFlag should be included in vFlagOrder
+    if (identical(sort(vFlag), sort(vFlagOrder))) {
       dfFlagged <- dfFlagged %>% arrange(match(.data$Flag, vFlagOrder))
       LogMessage(
         level = "info",
@@ -87,7 +88,7 @@ Flag <- function(
         level = "info",
         message = "Mismatch in vFlagOrder and vFlag values. Aborting Sort and returning unsorted data.",
         cli_detail = "alert_info"
-    )
+      )
     }
   }
 

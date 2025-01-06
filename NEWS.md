@@ -1,3 +1,7 @@
+# gsm v2.1.2
+
+This patch release primarily addresses minor report updates and handling classes in sql queries properly. Specifically:
+
 # gsm v2.2.0
 
 This minor release prepares the gsm to be used as part of a more sophisticated pipeline, through the addition of 

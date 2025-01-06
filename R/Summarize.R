@@ -24,7 +24,7 @@
 #' when associated with a workflow.
 #'
 #' @examples
-#' 
+#'
 #' dfTransformed <- Transform_Rate(analyticsInput)
 #' dfAnalyzed <- Analyze_NormalApprox(dfTransformed)
 #' dfFlagged <- Flag(dfAnalyzed)
@@ -37,8 +37,10 @@ Summarize <- function(
   nMinDenominator = NULL
 ) {
   stop_if(cnd = !is.data.frame(dfFlagged), message = "dfFlagged is not a data frame")
-  stop_if(cnd = !all(c("GroupID", "GroupLevel", "Flag", "Score") %in% names(dfFlagged)),
-          message = "One or more of these columns: GroupID, GroupLevel, Flag, Score, not found in dfFlagged" )
+  stop_if(
+    cnd = !all(c("GroupID", "GroupLevel", "Flag", "Score") %in% names(dfFlagged)),
+    message = "One or more of these columns: GroupID, GroupLevel, Flag, Score, not found in dfFlagged"
+  )
 
   if (!("Numerator" %in% colnames(dfFlagged))) {
     dfFlagged$Numerator <- NA

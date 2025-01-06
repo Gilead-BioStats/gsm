@@ -35,7 +35,7 @@
 #' @export
 
 Ingest <- function(lSourceData, lSpec, strDomain = "Raw") {
-  stop_if(!is.list(lSourceData),"[ lSourceData ] must be a list.")
+  stop_if(!is.list(lSourceData), "[ lSourceData ] must be a list.")
   stop_if(!is.list(lSpec), "[ lSpec ] must be a list.")
 
   # If there is a domain (specificed with and underscore) in lSourceData/lSpec names, remove it
