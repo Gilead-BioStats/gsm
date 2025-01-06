@@ -4,7 +4,7 @@ This patch release primarily addresses minor report updates bug fixes. Specifica
 
 - Reduce size of flags over time table by only displaying the most recent 12 periods
 - Return an object of class `function` from `GetStrFunctionIfNamespaced()`
-- Generalize all `Flag_*` functions to a single `Flag()` function
+- Generalize all `Flag_*()` functions to a single `Flag()` function
 - Use `log4r` framework set up in v2.2.0 for `stopif()`/`stopifnot()` calls
 - Add Subject Disposition field to Study Completion domain
 
