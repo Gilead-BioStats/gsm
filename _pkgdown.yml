@@ -102,7 +102,6 @@ reference:
      -  ParseThreshold
      -  RenderRmd
      -  RunStep
-     -  RunQuery
      -  RunWorkflow
      -  RunWorkflows
      -  SetLogger

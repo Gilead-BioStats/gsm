@@ -1,3 +1,4 @@
+library(gsm.mapping)
 wf_mapping <- MakeWorkflowList(strPath = "workflow/1_mappings")
 workflows <- MakeWorkflowList(strNames = paste0("kri", sprintf("%04d", 1:2)))
 
