@@ -28,7 +28,6 @@
 <url><loc>https://gilead-biostats.github.io/gsm/reference/FilterByFlags.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/FilterByLatestSnapshotDate.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/Flag.html</loc></url>
-<url><loc>https://gilead-biostats.github.io/gsm/reference/Flag_Fisher.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/Flag_NormalApprox.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/Flag_Poisson.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/GetStrFunctionIfNamespaced.html</loc></url>
@@ -44,7 +43,6 @@
 <url><loc>https://gilead-biostats.github.io/gsm/reference/MakeStudyInfo.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/MakeWideGroups.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/MakeWorkflowList.html</loc></url>
-<url><loc>https://gilead-biostats.github.io/gsm/reference/Make_Timeline.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/ParseThreshold.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/RenderRmd.html</loc></url>
 <url><loc>https://gilead-biostats.github.io/gsm/reference/Report_FlagOverTime.html</loc></url>

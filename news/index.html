@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gsm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,6 +53,16 @@
       <small>Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.2.1" id="gsm-v221">gsm v2.2.1<a class="anchor" aria-label="anchor" href="#gsm-v221"></a></h2>
+<p>This patch release primarily addresses minor report updates bug fixes. Specifically:</p>
+<ul><li>Reduce size of flags over time table by only displaying the most recent 12 periods</li>
+<li>Return an object of class <code>function</code> from <code><a href="../reference/GetStrFunctionIfNamespaced.html">GetStrFunctionIfNamespaced()</a></code>
+</li>
+<li>Generalize all <code>Flag_*()</code> functions to a single <code><a href="../reference/Flag.html">Flag()</a></code> function</li>
+<li>Use <code>log4r</code> framework set up in v2.2.0 for <code>stopif()</code>/<code><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot()</a></code> calls</li>
+<li>Add Subject Disposition field to Study Completion domain</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.2.0" id="gsm-v220">gsm v2.2.0<a class="anchor" aria-label="anchor" href="#gsm-v220"></a></h2>
 <p>This minor release prepares the gsm to be used as part of a more sophisticated pipeline, through the addition of flexible logging and hooks for data access. Specifically:</p>
@@ -203,7 +213,7 @@
 <ul><li>
 <code>Overview_Table()</code> removes pagination in favor of a drop-down selector for all <em>red</em> KRIs, <em>red &amp; amber</em> KRIS, and <em>all</em> sites/countries/&lt;<group>&gt;.</group></li>
 <li>
-<code><a href="../reference/Make_Timeline.html">Make_Timeline()</a></code> adds a visualization to show key events from CTMS data. This is slated to be included in standard reporting via <code>Study_Report()</code> in <code>v1.8.1</code>.</li>
+<code>Make_Timeline()</code> adds a visualization to show key events from CTMS data. This is slated to be included in standard reporting via <code>Study_Report()</code> in <code>v1.8.1</code>.</li>
 <li>A new country report is available for use, but has not been thoroughly tested.</li>
 </ul></div>
 <div class="section level4">
@@ -407,7 +417,7 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.2.0" id="gsm-v120">gsm v1.2.0<a class="anchor" aria-label="anchor" href="#gsm-v120"></a></h2>
 <p>This release includes qualified functionality for the following KRIs: - Lab Abnormality - Disposition - Adverse Event - Protocol Deviation</p>
-<p>Notable updates include: - Addition of the <code>Make_Snapshot()</code> function, which allows a user to run multiple assessments on a given study, as well as create metadata needed as the inputs to the Gismo web app. - The <code><a href="../reference/Flag.html">Flag()</a></code> function has been split into <code><a href="../reference/Flag_Poisson.html">Flag_Poisson()</a></code> and <code><a href="../reference/Flag_Fisher.html">Flag_Fisher()</a></code> functions to simplify flagging logic based on the type of statistical model that is being used. - The <code>Transform_EventCount()</code> function has been split into <code><a href="../reference/Transform_Rate.html">Transform_Rate()</a></code> and <code><a href="../reference/Transform_Count.html">Transform_Count()</a></code> to be used based on the metric that is being evaluated. - <code>*_Assess()</code> functions have been refactored based on refinements to the data model. Notable changes include removing all <code>lTags</code>, and generally paring back some of the metadata captured in the assess functions which is either no longer needed, or will happen outside of the assessment function.</p>
+<p>Notable updates include: - Addition of the <code>Make_Snapshot()</code> function, which allows a user to run multiple assessments on a given study, as well as create metadata needed as the inputs to the Gismo web app. - The <code><a href="../reference/Flag.html">Flag()</a></code> function has been split into <code><a href="../reference/Flag_Poisson.html">Flag_Poisson()</a></code> and <code>Flag_Fisher()</code> functions to simplify flagging logic based on the type of statistical model that is being used. - The <code>Transform_EventCount()</code> function has been split into <code><a href="../reference/Transform_Rate.html">Transform_Rate()</a></code> and <code><a href="../reference/Transform_Count.html">Transform_Count()</a></code> to be used based on the metric that is being evaluated. - <code>*_Assess()</code> functions have been refactored based on refinements to the data model. Notable changes include removing all <code>lTags</code>, and generally paring back some of the metadata captured in the assess functions which is either no longer needed, or will happen outside of the assessment function.</p>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.1.0" id="gsm-v110">gsm v1.1.0<a class="anchor" aria-label="anchor" href="#gsm-v110"></a></h2>
