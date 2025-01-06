@@ -63,59 +63,29 @@ To run the analysis workflow on all 13 KRIs using `clindata` Raw+ data, use the 
 3. `mapped$Mapped_ENROLL` - mapped data.frame of enrolled participants
 
 ```{r include = TRUE, message = FALSE}
+
 # Create Mapped Data - filter/map raw data
-lSource <- UseClindata(
-  list(
-    "Source_SUBJ" = "clindata::rawplus_dm",
-    "Source_AE" = "clindata::rawplus_ae",
-    "Source_PD" = "clindata::ctms_protdev",
-    "Source_CONSENT" = "clindata::rawplus_consent",
-    "Source_IE" = "clindata::rawplus_ie",
-    "Source_LB" = "clindata::rawplus_lb",
-    "Source_STUDCOMP" = "clindata::rawplus_studcomp",
-    "Source_SDRGCOMP" = "clindata::rawplus_sdrgcomp %>%
-            dplyr::filter(.data$phase == 'Blinded Study Drug Completion')",
-    "Source_DATACHG" = "clindata::edc_data_points",
-    "Source_DATAENT" = "clindata::edc_data_pages",
-    "Source_QUERY" = "clindata::edc_queries",
-    "Source_ENROLL" = "clindata::rawplus_enroll",
-    "Source_STUDY" = "clindata::ctms_study",
-    "Source_SITE" = "clindata::ctms_site"
-  )
+lSource <- list(
+    Source_SUBJ = clindata::rawplus_dm,
+    Source_AE = clindata::rawplus_ae,
+    Source_PD = clindata::ctms_protdev,
+    Source_LB = clindata::rawplus_lb,
+    Source_STUDCOMP = clindata::rawplus_studcomp,
+    Source_SDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
+    Source_DATACHG = clindata::edc_data_points,
+    Source_DATAENT = clindata::edc_data_pages,
+    Source_QUERY = clindata::edc_queries,
+    Source_ENROLL = clindata::rawplus_enroll,
+    Source_SITE = clindata::ctms_site,
+    Source_STUDY = clindata::ctms_study
 )
 
-lRaw <- list(
-    Raw_SUBJ = lSource$Source_SUBJ,
-    Raw_AE = lSource$Source_AE,
-    Raw_PD = lSource$Source_PD %>%
-      dplyr::rename(subjid = subjectenrollmentnumber),
-    Raw_LB = lSource$Source_LB,
-    Raw_STUDCOMP = lSource$Source_STUDCOMP %>%
-      dplyr::select(subjid, compyn),
-    Raw_SDRGCOMP = lSource$Source_SDRGCOMP,
-    Raw_DATACHG = lSource$Source_DATACHG %>%
-      dplyr::rename(subject_nsv = subjectname),
-    Raw_DATAENT = lSource$Source_DATAENT %>%
-      dplyr::rename(subject_nsv = subjectname),
-    Raw_QUERY = lSource$Source_QUERY %>%
-      dplyr::rename(subject_nsv = subjectname),
-    Raw_ENROLL = lSource$Source_ENROLL,
-    Raw_SITE = lSource$Source_SITE %>%
-      dplyr::rename(studyid = protocol) %>%
-      dplyr::rename(invid = pi_number) %>%
-      dplyr::rename(InvestigatorFirstName = pi_first_name) %>%
-      dplyr::rename(InvestigatorLastName = pi_last_name) %>%
-      dplyr::rename(City = city) %>%
-      dplyr::rename(State = state) %>%
-      dplyr::rename(Country = country) %>%
-      dplyr::rename(Status = site_status),
-    Raw_STUDY = lSource$Source_STUDY %>%
-      dplyr::rename(studyid = protocol_number) %>%
-      dplyr::rename(Status = status)
-)
+# Step 0 - Data Ingestion - standardize tables/columns names
+mappings_wf <- MakeWorkflowList(strPath = "workflow/1_mappings")
+mappings_spec <- CombineSpecs(mappings_wf)
+lRaw <- Ingest(lSource, mappings_spec)
 
 # Step 1 - Create Mapped Data Layer - filter, aggregate and join raw data to create mapped data layer
-mappings_wf <- MakeWorkflowList(strPath = "workflow/1_mappings")
 mapped <- RunWorkflows(mappings_wf, lRaw)
 
 # Step 2 - Create Metrics - calculate metrics using mapped data
