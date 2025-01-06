@@ -22,6 +22,7 @@ jobs:
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      REPOPAT: ${{ secrets.GSMMAPPING }}
       R_KEEP_PKG_SOURCE: yes
 
     steps:
@@ -35,15 +36,15 @@ jobs:
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::rcmdcheck, gsm.mapping=?ignore
+          needs: check
+
       - name: Install dependencies with remotes
         run: |
           Rscript -e 'install.packages("remotes")'
-          Rscript -e 'remotes::install_github("Gilead-Biostats/gsm.mapping", ref = "main", auth_token = Sys.getenv("GITHUB_PAT"))'
-
-      - uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          extra-packages: any::rcmdcheck
-          needs: check
+          Rscript -e 'remotes::install_github("Gilead-Biostats/gsm.mapping", ref = "main", auth_token = Sys.getenv("GSMMAPPING"))'
 
       - uses: r-lib/actions/check-r-package@v2
         with:
