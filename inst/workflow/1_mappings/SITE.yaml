@@ -54,7 +54,7 @@ steps:
     params:
       data: Temp_CTMSSiteWide
       strGroupLevel: 'Site'
- - output: Temp_SUBJ_DATAENT
+  - output: Temp_SUBJ_DATAENT
     name: left_join
     params:
       x: Mapped_SUBJ

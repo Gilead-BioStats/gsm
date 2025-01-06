@@ -4509,73 +4509,92 @@
       
       $SITE[[3]]
       $SITE[[3]]$output
-      [1] "Temp_SiteCountsWide"
+      [1] "Temp_SUBJ_DATAENT"
       
       $SITE[[3]]$name
-      [1] "RunQuery"
+      [1] "left_join"
       
       $SITE[[3]]$params
-      $SITE[[3]]$params$df
+      $SITE[[3]]$params$x
       [1] "Mapped_SUBJ"
       
-      $SITE[[3]]$params$strQuery
-      [1] "SELECT\n  invid as GroupID,\n  COUNT(DISTINCT subjid) as ParticipantCount,\n  SUM(CASE WHEN Status == 'Active' THEN 1 ELSE 0 END) as ActiveParticipantCount,\n  COUNT(DISTINCT invid) as SiteCount\nFROM df\nGROUP BY invid\n"
+      $SITE[[3]]$params$y
+      [1] "Mapped_DATAENT"
+      
+      $SITE[[3]]$params$by
+      [1] "subjid"
       
       
       
       $SITE[[4]]
       $SITE[[4]]$output
-      [1] "Temp_SiteCountsWide_ActiveParticipants"
-      
-      $SITE[[4]]$name
-      [1] "CalculatePercentage"
-      
-      $SITE[[4]]$params
-      $SITE[[4]]$params$data
       [1] "Temp_SiteCountsWide"
       
-      $SITE[[4]]$params$strCurrentCol
-      [1] "ActiveParticipantCount"
+      $SITE[[4]]$name
+      [1] "RunQuery"
       
-      $SITE[[4]]$params$strTargetCol
-      [1] "ParticipantCount"
+      $SITE[[4]]$params
+      $SITE[[4]]$params$df
+      [1] "Temp_SUBJ_DATAENT"
       
-      $SITE[[4]]$params$strPercVal
-      [1] "PercentParticipantsActive"
-      
-      $SITE[[4]]$params$strPercStrVal
-      [1] "ActiveParticipants"
+      $SITE[[4]]$params$strQuery
+      [1] "SELECT\n  invid as GroupID,\n  COUNT(DISTINCT subjid) as ParticipantCount,\n  SUM(CASE WHEN Status == 'Active' THEN 1 ELSE 0 END) as ActiveParticipantCount,\n  COUNT(DISTINCT invid) as SiteCount,\n  AVG(data_entry_lag) as AvgDataEntryLag\nFROM df\nGROUP BY invid\n"
       
       
       
       $SITE[[5]]
       $SITE[[5]]$output
-      [1] "Temp_SiteCounts"
+      [1] "Temp_SiteCountsWide_ActiveParticipants"
       
       $SITE[[5]]$name
-      [1] "MakeLongMeta"
+      [1] "CalculatePercentage"
       
       $SITE[[5]]$params
       $SITE[[5]]$params$data
-      [1] "Temp_SiteCountsWide_ActiveParticipants"
+      [1] "Temp_SiteCountsWide"
       
-      $SITE[[5]]$params$strGroupLevel
-      [1] "Site"
+      $SITE[[5]]$params$strCurrentCol
+      [1] "ActiveParticipantCount"
+      
+      $SITE[[5]]$params$strTargetCol
+      [1] "ParticipantCount"
+      
+      $SITE[[5]]$params$strPercVal
+      [1] "PercentParticipantsActive"
+      
+      $SITE[[5]]$params$strPercStrVal
+      [1] "ActiveParticipants"
       
       
       
       $SITE[[6]]
       $SITE[[6]]$output
-      [1] "Mapped_SITE"
+      [1] "Temp_SiteCounts"
       
       $SITE[[6]]$name
-      [1] "bind_rows"
+      [1] "MakeLongMeta"
       
       $SITE[[6]]$params
-      $SITE[[6]]$params$Temp_CTMSSite
+      $SITE[[6]]$params$data
+      [1] "Temp_SiteCountsWide_ActiveParticipants"
+      
+      $SITE[[6]]$params$strGroupLevel
+      [1] "Site"
+      
+      
+      
+      $SITE[[7]]
+      $SITE[[7]]$output
+      [1] "Mapped_SITE"
+      
+      $SITE[[7]]$name
+      [1] "bind_rows"
+      
+      $SITE[[7]]$params
+      $SITE[[7]]$params$Temp_CTMSSite
       [1] "Temp_CTMSSite"
       
-      $SITE[[6]]$params$Temp_SiteCounts
+      $SITE[[7]]$params$Temp_SiteCounts
       [1] "Temp_SiteCounts"
       
       
@@ -4661,7 +4680,7 @@
       [1] "Temp_SUBJ_DATAENT"
       
       $STUDY[[5]]$params$strQuery
-      [1] "SELECT\n  studyid as GroupID,\n  COUNT(DISTINCT subjid) as ParticipantCount,\n  SUM(CASE WHEN Status == 'Active' THEN 1 ELSE 0 END) as ActiveParticipantCount,\n  COUNT(DISTINCT invid) as SiteCount,\n  AVG(data_entry_lag) as AvgDataEntryLag,\n  AVG(CASE WHEN data_entry_lag >= 10 THEN data_entry_lag END) as AvgDataEntryLag_over10\nFROM df\nGROUP BY studyid\n"
+      [1] "SELECT\n  studyid as GroupID,\n  COUNT(DISTINCT subjid) as ParticipantCount,\n  SUM(CASE WHEN Status == 'Active' THEN 1 ELSE 0 END) as ActiveParticipantCount,\n  COUNT(DISTINCT invid) as SiteCount,\n  AVG(data_entry_lag) as AvgDataEntryLag\nFROM df\nGROUP BY studyid\n"
       
       
       
