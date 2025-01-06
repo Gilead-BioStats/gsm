@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gsm</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.2.0.9999</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">2.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,9 +50,19 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/gsm-v2.2.1-rc/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/dev/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.2.1" id="gsm-v221">gsm v2.2.1<a class="anchor" aria-label="anchor" href="#gsm-v221"></a></h2>
+<p>This patch release primarily addresses minor report updates bug fixes. Specifically:</p>
+<ul><li>Reduce size of flags over time table by only displaying the most recent 12 periods</li>
+<li>Return an object of class <code>function</code> from <code><a href="../reference/GetStrFunctionIfNamespaced.html">GetStrFunctionIfNamespaced()</a></code>
+</li>
+<li>Generalize all <code>Flag_*()</code> functions to a single <code><a href="../reference/Flag.html">Flag()</a></code> function</li>
+<li>Use <code>log4r</code> framework set up in v2.2.0 for <code>stopif()</code>/<code><a href="https://rdrr.io/r/base/stopifnot.html" class="external-link">stopifnot()</a></code> calls</li>
+<li>Add Subject Disposition field to Study Completion domain</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.2.0" id="gsm-v220">gsm v2.2.0<a class="anchor" aria-label="anchor" href="#gsm-v220"></a></h2>
 <p>This minor release prepares the gsm to be used as part of a more sophisticated pipeline, through the addition of flexible logging and hooks for data access. Specifically:</p>
