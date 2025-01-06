@@ -44,11 +44,6 @@ spec:
       type: character
     Status:
       type: character
-  Mapped_DATAENT:
-    data_entry_lag:
-      type: integer
-    subjid:
-      type: character
 steps:
   - output: Temp_CTMSStudyWide
     name: RunQuery
@@ -65,23 +60,16 @@ steps:
     params:
       df: Raw_STUDY
       strQuery: "SELECT studyid as GroupID, num_plan_site as SiteTarget, num_plan_subj as ParticipantTarget FROM df"
-  - output: Temp_SUBJ_DATAENT
-    name: left_join
-    params:
-      x: Mapped_SUBJ
-      "y": Mapped_DATAENT
-      by: subjid
   - output: Temp_StudyCountsWide
     name: RunQuery
     params:
-      df: Temp_SUBJ_DATAENT
+      df: Temp_SUBJ
       strQuery: |
         SELECT
           studyid as GroupID,
           COUNT(DISTINCT subjid) as ParticipantCount,
           SUM(CASE WHEN Status == 'Active' THEN 1 ELSE 0 END) as ActiveParticipantCount,
-          COUNT(DISTINCT invid) as SiteCount,
-          AVG(data_entry_lag) as AvgDataEntryLag
+          COUNT(DISTINCT invid) as SiteCount
         FROM df
         GROUP BY studyid
   - output: Temp_CountTargetsWide

@@ -146,14 +146,6 @@ for (i in unique(params$dfResults$MetricID)) {
     overview = FALSE
   )
   
-  if (grepl("0010", i)) {
-    print(htmltools::tags$br())
-    avg_dataent_lag <- params$dfGroups$Value[params$dfGroups$Param == 'AvgDataEntryLag'] %>% as.numeric() %>% round(3)
-
-    glue("
-    <div style = 'margin-top: 1em;'>As of {setup$SnapshotDate}, {setup$StudyID} has an average study-wide Data Entry Lag of {avg_dataent_lag} days.</div>") %>% cat()
-  }
-  
   print(htmltools::tags$br())
 
 }
