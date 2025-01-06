@@ -81,8 +81,7 @@ steps:
           COUNT(DISTINCT subjid) as ParticipantCount,
           SUM(CASE WHEN Status == 'Active' THEN 1 ELSE 0 END) as ActiveParticipantCount,
           COUNT(DISTINCT invid) as SiteCount,
-          AVG(data_entry_lag) as AvgDataEntryLag,
-          AVG(CASE WHEN data_entry_lag >= 10 THEN data_entry_lag END) as AvgDataEntryLag_over10
+          AVG(data_entry_lag) as AvgDataEntryLag
         FROM df
         GROUP BY studyid
   - output: Temp_CountTargetsWide
