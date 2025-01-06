@@ -265,7 +265,3 @@ test_that("RunWorkflow errors out if the data save method does not have expected
     "must include a function named .SaveData."
   )
 })
-<<<<<<< HEAD
-
-=======
->>>>>>> f9e1f843a528b30cea908d0a2f6da6c9aca222f3
