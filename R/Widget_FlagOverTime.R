@@ -9,37 +9,49 @@
 #' @inheritParams shared-params
 #' @param strGroupLevel `character` Value for the group level. Default: "Site".
 #' @param strFootnote `character` Text to insert for figure
-#' @param width `character` Pixel width or percentage size of page
-#' @param height `character` Pixel height or percentage size of page
+#' @param bExcludeEver `logical` Exclude options in widget dropdown that include the string "ever".
+#' Default: `FALSE`.
 #'
 #' @examples
-#' reportingResultsSubset <- dplyr::filter(
-#'   reportingResults,
-#'   GroupID %in% head(unique(reportingResults$GroupID))
-#' )
+#' # Include all risk signals, irrespective flag value.
 #' Widget_FlagOverTime(
-#'   dfResults = reportingResultsSubset,
+#'   dfResults = reportingResults,
 #'   dfMetrics = reportingMetrics
 #' )
+#'
+#' # Include risk signals that were ever flagged.
+#' Widget_FlagOverTime(
+#'   dfResults = FilterByFlags(
+#'     reportingResults
+#'   ),
+#'   dfMetrics = reportingMetrics
+#' )
+#'
+#' # Include risk signals that were only flagged in the most recent snapshot.
+#' Widget_FlagOverTime(
+#'   dfResults = FilterByFlags(
+#'     reportingResults,
+#'     bCurrentlyFlagged = TRUE
+#'   ),
+#'   dfMetrics = reportingMetrics,
+#'   bExcludeEver = TRUE
+#' )
+#'
 #' @export
+
 Widget_FlagOverTime <- function(
   dfResults,
   dfMetrics,
   strGroupLevel = c("Site", "Study", "Country"),
   strFootnote = NULL,
-  width = "100%",
-  height = "400px"
+  bExcludeEver = FALSE,
+  bDebug = FALSE
 ) {
   stop_if(cnd = !is.data.frame(dfResults), message = "dfResults is not a data.frame")
   stop_if(cnd = !is.data.frame(dfMetrics),"dfMetrics is not a data.frame")
   stop_if(cnd = !is.character(strGroupLevel), "strGroupLevel is not a character")
-
-  most_recent12 <- dfResults %>%
-    dplyr::pull(.data$SnapshotDate) %>%
-    unique() %>%
-    sort(decreasing = TRUE) %>%
-    utils::head(12) %>%
-    na.omit()
+  stop_if(cnd = !is.character(strFootnote) && !is.null(strFootnote), "strFootnote is not a character or NULL")
+  stop_if(cnd = !is.logical(bDebug), "bDebug is not a logical")
 
   gtFlagOverTime <- Report_FlagOverTime(
     dfResults,
@@ -47,30 +59,30 @@ Widget_FlagOverTime <- function(
     strGroupLevel = strGroupLevel
   ) %>%
     gt::tab_options(table.align = "left") %>%
-    gt::as_raw_html()
+    gt::as_raw_html(inline_css = FALSE)
 
-  gtFlagOverTime_recent12 <- Report_FlagOverTime(
-    dplyr::filter(dfResults, .data$SnapshotDate %in% most_recent12),
-    dfMetrics,
-    strGroupLevel = strGroupLevel
-  ) %>%
-    gt::tab_options(table.align = "left") %>%
-    gt::as_raw_html()
-
-  # Pass both tables and add toggle state in Widget js
   x <- list(
-    html_full = gtFlagOverTime,
-    html_recent12 = gtFlagOverTime_recent12,
-    strFootnote = strFootnote
+    gtFlagOverTime = gtFlagOverTime,
+    strFootnote = strFootnote,
+    bExcludeEver = bExcludeEver,
+    bDebug = bDebug
   )
 
-  htmlwidgets::createWidget(
+  widget <- htmlwidgets::createWidget(
     name = "Widget_FlagOverTime",
     x,
-    width, # You can adjust these as needed
-    height, # This can be customized for different heights
+    width = "100%",
     package = "gsm"
   )
+
+  if (bDebug) {
+    viewer <- getOption("viewer")
+    options(viewer = NULL)
+    print(widget)
+    options(viewer = viewer)
+  }
+
+  return(widget)
 }
 
 #' Shiny bindings for Widget_FlagOverTime

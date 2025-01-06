@@ -9,8 +9,8 @@ Widget_FlagOverTime(
   dfMetrics,
   strGroupLevel = c("Site", "Study", "Country"),
   strFootnote = NULL,
-  width = "100\%",
-  height = "400px"
+  bExcludeEver = FALSE,
+  bDebug = FALSE
 )
 }
 \arguments{
@@ -22,9 +22,10 @@ Widget_FlagOverTime(
 
 \item{strFootnote}{\code{character} Text to insert for figure}
 
-\item{width}{\code{character} Pixel width or percentage size of page}
+\item{bExcludeEver}{\code{logical} Exclude options in widget dropdown that include the string "ever".
+Default: \code{FALSE}.}
 
-\item{height}{\code{character} Pixel height or percentage size of page}
+\item{bDebug}{\code{logical} Print debug messages? Default: \code{FALSE}.}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
@@ -33,12 +34,28 @@ A widget that generates a table of flags over time using
 \code{\link[=Report_FlagOverTime]{Report_FlagOverTime()}}.
 }
 \examples{
-reportingResultsSubset <- dplyr::filter(
-  reportingResults,
-  GroupID \%in\% head(unique(reportingResults$GroupID))
-)
+# Include all risk signals, irrespective flag value.
 Widget_FlagOverTime(
-  dfResults = reportingResultsSubset,
+  dfResults = reportingResults,
   dfMetrics = reportingMetrics
 )
+
+# Include risk signals that were ever flagged.
+Widget_FlagOverTime(
+  dfResults = FilterByFlags(
+    reportingResults
+  ),
+  dfMetrics = reportingMetrics
+)
+
+# Include risk signals that were only flagged in the most recent snapshot.
+Widget_FlagOverTime(
+  dfResults = FilterByFlags(
+    reportingResults,
+    bCurrentlyFlagged = TRUE
+  ),
+  dfMetrics = reportingMetrics,
+  bExcludeEver = TRUE
+)
+
 }

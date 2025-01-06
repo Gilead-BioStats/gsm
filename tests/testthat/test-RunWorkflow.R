@@ -32,7 +32,8 @@ lRaw <- list(
   Raw_PD = lSource$Source_PD %>%
     rename(subjid = subjectenrollmentnumber),
   Raw_LB = lSource$Source_LB,
-  Raw_STUDCOMP = lSource$Source_STUDCOMP,
+  Raw_STUDCOMP = lSource$Source_STUDCOMP %>%
+    select(subjid, compyn),
   Raw_SDRGCOMP = lSource$Source_SDRGCOMP,
   Raw_DATACHG = lSource$Source_DATACHG %>%
     rename(subject_nsv = subjectname),
@@ -48,9 +49,11 @@ lRaw <- list(
     rename(InvestigatorLastName = pi_last_name) %>%
     rename(City = city) %>%
     rename(State = state) %>%
-    rename(Country = country),
+    rename(Country = country) %>%
+    rename(Status = site_status),
   Raw_STUDY = lSource$Source_STUDY %>%
-    rename(studyid = protocol_number)
+    rename(studyid = protocol_number) %>%
+    rename(Status = status)
 )
 
 # Create Mapped Data

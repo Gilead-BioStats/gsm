@@ -4,26 +4,27 @@
 \alias{Flag}
 \title{Flag}
 \usage{
-Flag(dfAnalyzed, strColumn = "Score", vThreshold = NULL, strValueColumn = NULL)
+Flag(
+  dfAnalyzed,
+  strColumn = "Score",
+  vThreshold = c(-3, -2, 2, 3),
+  vFlag = c(-2, -1, 0, 1, 2),
+  vFlagOrder = c(2, -2, 1, -1, 0)
+)
 }
 \arguments{
 \item{dfAnalyzed}{\code{data.frame} where flags should be added.}
 
 \item{strColumn}{\code{character} Name of the column to use for thresholding. Default: \code{"Score"}}
 
-\item{vThreshold}{\code{numeric} Vector of 2 numeric values representing lower and upper threshold values. All
-values in \code{strColumn} are compared to \code{vThreshold} using strict comparisons. Values less than
-the lower threshold or greater than the upper threshold are flagged. Values equal to the
-threshold values are set to 0 (i.e., not flagged). If NA is provided for either threshold value,
-it is ignored and no values are flagged based on the threshold. NA and NaN values in \code{strColumn}
-are given NA flag values.}
+\item{vThreshold}{\code{numeric} Vector of numeric values representing threshold values. Default is \code{c(-3,-2,2,3)} which is typical for z-scores.}
 
-\item{strValueColumn}{\code{character} Name of the column to use for sign of \code{Flag.} If the value for
-that row is higher than the median of \code{strValueColumn}, then \code{Flag} is set to 1. Similarly, if
-the value for that row is lower than the median of \code{strValueColumn}, then Flag is set to -1.}
+\item{vFlag}{\code{numeric} Vector of flag values. There must be one more item in Flag than thresholds - that is \code{length(vThreshold)+1 == length(vFlagValues)}. Default is \code{c(-2,-1,0,1,2)}, which is typical for z-scores.}
+
+\item{vFlagOrder}{\code{numeric} Vector of ordered flag values. Output data.frame will be sorted based on flag column using the order provided. NULL (or values that don't match vFlag) will leave the data unsorted. Must have identical values to vFlag. Default is \code{c(2,-2,1,-1,0)} which puts largest z-score outliers first in the data set.}
 }
 \value{
-\code{data.frame} with one row per site with columns: \code{GroupID}, \code{TotalCount}, \code{Metric}, \code{Score}, \code{Flag}
+\code{data.frame} dfAnalyzed is returned with an additional \code{Flag} column.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
@@ -59,10 +60,9 @@ The following column is considered optional:
 }
 
 \examples{
-dfTransformed <- Transform_Count(analyticsInput, strCountCol = "Numerator")
 
-dfAnalyzed <- Analyze_Identity(dfTransformed)
-
-dfFlagged <- Flag(dfAnalyzed, vThreshold = c(0.001, 0.01))
+dfTransformed <- Transform_Rate(analyticsInput)
+dfAnalyzed <- Analyze_NormalApprox(dfTransformed)
+dfFlagged <- Flag(dfAnalyzed)
 
 }
