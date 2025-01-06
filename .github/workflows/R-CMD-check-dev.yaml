@@ -44,7 +44,7 @@ jobs:
       - name: Install dependencies with remotes
         run: |
           Rscript -e 'install.packages("remotes")'
-          Rscript -e 'remotes::install_github("Gilead-Biostats/gsm.mapping", ref = "main", auth_token = Sys.getenv("GSMMAPPING"))'
+          Rscript -e 'remotes::install_github("Gilead-Biostats/gsm.mapping", ref = "main", auth_token = Sys.getenv("REPOPAT"))'
 
       - uses: r-lib/actions/check-r-package@v2
         with:
