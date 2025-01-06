@@ -11,19 +11,13 @@
 #' @param bDebug `logical` Display console in html viewer for debugging. Default is `FALSE`.
 #'
 #' @return A list containing the following charts:
-#' - scatterJS: A scatter plot using JavaScript.
-#' - scatter: A scatter plot using ggplot2.
-#' - barMetricJS: A bar chart using JavaScript with metric on the y-axis.
-#' - barScoreJS: A bar chart using JavaScript with score on the y-axis.
-#' - barMetric: A bar chart using ggplot2 with metric on the y-axis.
-#' - barScore: A bar chart using ggplot2 with score on the y-axis.
-#' - timeSeriesContinuousScoreJS: A time series chart using JavaScript with score on the y-axis.
-#' - timeSeriesContinuousMetricJS: A time series chart using JavaScript with metric on the y-axis.
-#' - timeSeriesContinuousNumeratorJS: A time series chart using JavaScript with numerator on the y-axis.
+#' - scatterPlot: A scatter plot using JavaScript.
+#' - barChart: A bar chart using JavaScript with metric on the y-axis.
+#' - timeSeries: A time series chart using JavaScript with score on the y-axis.
 #' - metricTable: A table containing all
 #'
 #' @examples
-#' charts <- Visualize_Metric(
+#' lCharts <- Visualize_Metric(
 #'   dfResults = reportingResults,
 #'   dfBounds = reportingBounds,
 #'   dfGroups = reportingGroups,
@@ -135,7 +129,7 @@ Visualize_Metric <- function(
       message = "No data found for specified snapshot date: {strSnapshotDate}. No charts will be generated."
     )
   } else {
-    lCharts$scatterJS <- Widget_ScatterPlot(
+    lCharts$scatterPlot <- Widget_ScatterPlot(
       dfResults = dfResults_latest,
       lMetric = lMetric,
       dfGroups = dfGroups,
@@ -143,22 +137,7 @@ Visualize_Metric <- function(
       bDebug = bDebug
     )
 
-    lCharts$scatter <- Visualize_Scatter(
-      dfResults = dfResults_latest,
-      dfBounds = dfBounds_latest,
-      strGroupLabel = lMetric$GroupLevel
-    )
-
-    lCharts$barMetricJS <- Widget_BarChart(
-      dfResults = dfResults_latest,
-      lMetric = lMetric,
-      dfGroups = dfGroups,
-      vThreshold = vThreshold,
-      strOutcome = "Metric",
-      bDebug = bDebug
-    )
-
-    lCharts$barScoreJS <- Widget_BarChart(
+    lCharts$barChart <- Widget_BarChart(
       dfResults = dfResults_latest,
       lMetric = lMetric,
       dfGroups = dfGroups,
@@ -167,16 +146,6 @@ Visualize_Metric <- function(
       bDebug = bDebug
     )
 
-    lCharts$barMetric <- Visualize_Score(
-      dfResults = dfResults_latest,
-      strType = "Metric"
-    )
-
-    lCharts$barScore <- Visualize_Score(
-      dfResults = dfResults_latest,
-      strType = "Score",
-      vThreshold = vThreshold
-    )
     if (!is.null(lMetric)) {
       lCharts$metricTable <- Report_MetricTable(
         dfResults = dfResults_latest,
@@ -195,28 +164,12 @@ Visualize_Metric <- function(
       cli_detail = "alert_info"
     )
   } else {
-    lCharts$timeSeriesContinuousScoreJS <- Widget_TimeSeries(
+    lCharts$timeSeries <- Widget_TimeSeries(
       dfResults = dfResults,
       lMetric = lMetric,
       dfGroups = dfGroups,
       vThreshold = vThreshold,
       strOutcome = "Score",
-      bDebug = bDebug
-    )
-
-    lCharts$timeSeriesContinuousMetricJS <- Widget_TimeSeries(
-      dfResults = dfResults,
-      lMetric = lMetric,
-      dfGroups = dfGroups,
-      strOutcome = "Metric",
-      bDebug = bDebug
-    )
-
-    lCharts$timeSeriesContinuousNumeratorJS <- Widget_TimeSeries(
-      dfResults = dfResults,
-      lMetric = lMetric,
-      dfGroups = dfGroups,
-      strOutcome = "Numerator",
       bDebug = bDebug
     )
   }

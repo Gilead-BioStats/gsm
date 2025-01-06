@@ -36,12 +36,10 @@ Transform_Count <- function(
   strCountCol,
   strGroupCol = "GroupID"
 ) {
-  stopifnot(
-    "dfInput is not a data frame" = is.data.frame(dfInput),
-    "strCountCol not found in input data" = strCountCol %in% names(dfInput),
-    "strCountCol is not numeric or logical" = is.numeric(dfInput[[strCountCol]]) | is.logical(dfInput[[strCountCol]]),
-    "NA's found in strCountCol" = !anyNA(dfInput[[strCountCol]])
-  )
+  stop_if(cnd = !is.data.frame(dfInput), message = "dfInput is not a data frame")
+  stop_if(cnd = !(strCountCol %in% names(dfInput)), message = "strCountCol not found in input data")
+  stop_if(cnd = !(is.numeric(dfInput[[strCountCol]]) | is.logical(dfInput[[strCountCol]])), message = "strCountCol is not numeric or logical")
+  stop_if(cnd = anyNA(dfInput[[strCountCol]]), message = "NA's found in strCountCol")
 
   dfTransformed <- dfInput %>%
     group_by(GroupID = .data[[strGroupCol]]) %>%

@@ -31,9 +31,10 @@ MakeBounds <- function(
   dSnapshotDate = unique(dfResults$SnapshotDate),
   strStudyID = unique(dfResults$StudyID)
 ) {
-  stop_if_empty(strMetrics)
-  stop_if_empty(dSnapshotDate)
-  stop_if_empty(strStudyID)
+  stop_if(cnd = !length(strMetrics), message = "`strMetrics` must not be `NULL`.")
+  stop_if(cnd = !length(dSnapshotDate), message = "`dSnapshotDate` must not be `NULL`.")
+  stop_if(cnd = !length(strStudyID), message = "`strStudyID` must not be `NULL`.")
+
   LogMessage(
     level = "info",
     message = "Creating stacked dfBounds data for strMetrics",
@@ -64,6 +65,9 @@ MakeBounds <- function(
         as.list()
       vThreshold <- ParseThreshold(strThreshold = lMetric$Threshold)
       if (!is.null(lMetric$AnalysisType) &&
+        tolower(unique(lMetric$AnalysisType)) %in% c("identity")) {
+        dfBounds <- NULL
+      } else if (!is.null(lMetric$AnalysisType) &&
         tolower(unique(lMetric$AnalysisType)) %in% c("poisson")) {
         dfBounds <- Analyze_Poisson_PredictBounds(
           dfResult,

@@ -39,13 +39,11 @@ Visualize_Score <- function(
   bFlagFilter = FALSE,
   strTitle = ""
 ) {
-  stopifnot(
-    "strTitle must be character" = is.character(strTitle),
-    "bFlagFilter must be logical" = is.logical(bFlagFilter),
-    "dfResults must be a data.frame" = is.data.frame(dfResults),
-    "strType must be 'Metric' or 'Score'" = strType %in% c("Metric", "Score"),
-    "strType must be length 1" = length(strType) == 1
-  )
+  stop_if(cnd = !is.character(strTitle), message = "strTitle must be character")
+  stop_if(cnd = !is.logical(bFlagFilter), message = "bFlagFilter must be logical")
+  stop_if(cnd = !is.data.frame(dfResults), message = "dfResults must be a data.frame")
+  stop_if(cnd = !(length(strType) == 1), message = "strType must be length 1")
+  stop_if(cnd = !(strType %in% c("Metric", "Score")), message = "strType must be 'Metric' or 'Score'")
 
   dfResults$FlagAbs <- abs(dfResults$Flag)
   flagBreaks <- as.character(unique(sort(dfResults$FlagAbs)))

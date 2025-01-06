@@ -24,12 +24,10 @@
 #' when associated with a workflow.
 #'
 #' @examples
+#'
 #' dfTransformed <- Transform_Rate(analyticsInput)
-#'
-#' dfAnalyzed <- Analyze_Poisson(dfTransformed)
-#'
-#' dfFlagged <- Flag(dfAnalyzed, vThreshold = c(-5, 5))
-#'
+#' dfAnalyzed <- Analyze_NormalApprox(dfTransformed)
+#' dfFlagged <- Flag(dfAnalyzed)
 #' dfSummary <- Summarize(dfFlagged)
 #'
 #' @export
@@ -38,9 +36,10 @@ Summarize <- function(
   dfFlagged,
   nMinDenominator = NULL
 ) {
-  stopifnot(
-    "dfFlagged is not a data frame" = is.data.frame(dfFlagged),
-    "One or more of these columns: GroupID, GroupLevel, Flag, Score, not found in dfFlagged" = all(c("GroupID", "GroupLevel", "Flag", "Score") %in% names(dfFlagged))
+  stop_if(cnd = !is.data.frame(dfFlagged), message = "dfFlagged is not a data frame")
+  stop_if(
+    cnd = !all(c("GroupID", "GroupLevel", "Flag", "Score") %in% names(dfFlagged)),
+    message = "One or more of these columns: GroupID, GroupLevel, Flag, Score, not found in dfFlagged"
   )
 
   if (!("Numerator" %in% colnames(dfFlagged))) {

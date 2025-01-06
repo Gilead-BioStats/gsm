@@ -5,7 +5,6 @@ LoadData <- function(lWorkflow, lConfig, lData = NULL) {
     purrr::imap(
         lWorkflow$spec,
         ~ {
-          print(.y)
             input <- lConfig$Domains[[ .y ]]
 
             if (is.data.frame(input)) {

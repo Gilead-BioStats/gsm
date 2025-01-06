@@ -17,9 +17,9 @@
 #'
 #' @export
 MakeWideGroups <- function(dfGroups, strGroupLevel) {
-  stopifnot(
-    "One or more of these columns not found: GroupID, GroupLevel, Param, Value" =
-      all(c("GroupID", "GroupLevel", "Param", "Value") %in% names(dfGroups))
+  stop_if(
+    cnd = !(all(c("GroupID", "GroupLevel", "Param", "Value") %in% names(dfGroups))),
+    message = "One or more of these columns not found: GroupID, GroupLevel, Param, Value"
   )
   df_wide <- dfGroups %>%
     dplyr::filter(.data$GroupLevel == strGroupLevel) %>%

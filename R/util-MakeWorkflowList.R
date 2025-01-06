@@ -33,7 +33,7 @@ MakeWorkflowList <- function(
   if (length(strPackage)) {
     path <- system.file(strPath, package = strPackage)
   }
-  stopifnot("[ strPath ] must exist." = dir.exists(path))
+  stop_if(!dir.exists(path), "[ strPath ] must exist.")
   path <- tools::file_path_as_absolute(path)
 
   # list all files to loop through to build the workflow list.

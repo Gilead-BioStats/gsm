@@ -68,8 +68,8 @@ Detailed RMarkdown/HTML reporting is built into `{gsm}`, and provides a detailed
 
 Full reports for a sample trial run with [`{clindata}`](https://github.com/Gilead-BioStats/clindata) are provided below:
 
-- [Site Report](https://gilead-biostats.github.io/gsm/StandardReportSite.html)
-- [Country Report](https://gilead-biostats.github.io/gsm/StandardReportCountry.html)
+- [Site Report](https://gilead-biostats.github.io/gsm/report_kri_site.html)
+- [Country Report](https://gilead-biostats.github.io/gsm/report_kri_country.html)
 
 
 

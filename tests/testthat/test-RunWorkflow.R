@@ -32,7 +32,8 @@ lRaw <- list(
   Raw_PD = lSource$Source_PD %>%
     rename(subjid = subjectenrollmentnumber),
   Raw_LB = lSource$Source_LB,
-  Raw_STUDCOMP = lSource$Source_STUDCOMP,
+  Raw_STUDCOMP = lSource$Source_STUDCOMP %>%
+    select(subjid, compyn),
   Raw_SDRGCOMP = lSource$Source_SDRGCOMP,
   Raw_DATACHG = lSource$Source_DATACHG %>%
     rename(subject_nsv = subjectname),
@@ -48,9 +49,11 @@ lRaw <- list(
     rename(InvestigatorLastName = pi_last_name) %>%
     rename(City = city) %>%
     rename(State = state) %>%
-    rename(Country = country),
+    rename(Country = country) %>%
+    rename(Status = site_status),
   Raw_STUDY = lSource$Source_STUDY %>%
-    rename(studyid = protocol_number)
+    rename(studyid = protocol_number) %>%
+    rename(Status = status)
 )
 
 # Create Mapped Data
@@ -109,10 +112,26 @@ test_that("RunWorkflow contains all outputs from yaml steps with populated field
 
 lConfig <- list(
   LoadData = function(lWorkflow, lConfig, lData) {
-    imap(
+    lData <- lData
+    purrr::imap(
       lWorkflow$spec,
-      ~ lConfig$Domains[[.y]]()
+      ~ {
+        input <- lConfig$Domains[[.y]]
+
+        if (is.data.frame(input)) {
+          data <- input
+        } else if (is.function(input)) {
+          data <- input()
+        } else if (is.character(input)) {
+          data <- read.csv(input)
+        } else {
+          cli::cli_abort("Invalid data source: {input}.")
+        }
+
+        lData[[.y]] <<- (ApplySpec(data, .x))
+      }
     )
+    return(lData)
   },
   SaveData = function(lWorkflow, lConfig) {
     domain <- paste0(lWorkflow$meta$Type, "_", lWorkflow$meta$ID)
@@ -143,6 +162,21 @@ test_that("RunWorkflow loads/saves data with configuration object.", {
   })
 
   expect_true(exists("Mapped_AE"))
+})
+
+test_that("RunWorkflow passes existing lData objects through with configuration object.", {
+  lData <- list(lWorkflows = wf_mapping)
+
+  expect_no_error({
+    output <- RunWorkflow(
+      lWorkflow = wf_mapping$AE,
+      lConfig = lConfig,
+      lData = lData,
+      bReturnResult = F
+    )
+  })
+
+  expect_true(!is.null(output$lData$lWorkflows))
 })
 
 test_that("RunWorkflow errors out if [ lConfig ] does not have a method to load data.", {
