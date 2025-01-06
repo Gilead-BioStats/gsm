@@ -75,6 +75,9 @@
       $kri0012
       [1] "meta"  "spec"  "steps" "path" 
       
+      $kri0014
+      [1] "meta"  "spec"  "steps" "path" 
+      
       $report_kri_country
       [1] "meta"  "spec"  "steps" "path" 
       
@@ -3890,6 +3893,147 @@
       
       
       
+      $kri0014
+      $kri0014[[1]]
+      $kri0014[[1]]$output
+      [1] "vThreshold"
+      
+      $kri0014[[1]]$name
+      [1] "ParseThreshold"
+      
+      $kri0014[[1]]$params
+      $kri0014[[1]]$params$strThreshold
+      [1] "Threshold"
+      
+      
+      
+      $kri0014[[2]]
+      $kri0014[[2]]$output
+      [1] "Analysis_Input"
+      
+      $kri0014[[2]]$name
+      [1] "Input_Rate"
+      
+      $kri0014[[2]]$params
+      $kri0014[[2]]$params$dfSubjects
+      [1] "Mapped_SUBJ"
+      
+      $kri0014[[2]]$params$dfNumerator
+      [1] "Mapped_DATAENT"
+      
+      $kri0014[[2]]$params$dfDenominator
+      [1] "Mapped_DATAENT"
+      
+      $kri0014[[2]]$params$strSubjectCol
+      [1] "subjid"
+      
+      $kri0014[[2]]$params$strGroupCol
+      [1] "invid"
+      
+      $kri0014[[2]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $kri0014[[2]]$params$strNumeratorCol
+      [1] "data_entry_lag"
+      
+      $kri0014[[2]]$params$strNumeratorMethod
+      [1] "Sum"
+      
+      $kri0014[[2]]$params$strDenominatorMethod
+      [1] "Count"
+      
+      
+      
+      $kri0014[[3]]
+      $kri0014[[3]]$output
+      [1] "Analysis_Transformed"
+      
+      $kri0014[[3]]$name
+      [1] "Transform_Rate"
+      
+      $kri0014[[3]]$params
+      $kri0014[[3]]$params$dfInput
+      [1] "Analysis_Input"
+      
+      
+      
+      $kri0014[[4]]
+      $kri0014[[4]]$output
+      [1] "Analysis_Analyzed"
+      
+      $kri0014[[4]]$name
+      [1] "Analyze_NormalApprox"
+      
+      $kri0014[[4]]$params
+      $kri0014[[4]]$params$dfTransformed
+      [1] "Analysis_Transformed"
+      
+      $kri0014[[4]]$params$strType
+      [1] "AnalysisType"
+      
+      
+      
+      $kri0014[[5]]
+      $kri0014[[5]]$output
+      [1] "Analysis_Flagged"
+      
+      $kri0014[[5]]$name
+      [1] "Flag_NormalApprox"
+      
+      $kri0014[[5]]$params
+      $kri0014[[5]]$params$dfAnalyzed
+      [1] "Analysis_Analyzed"
+      
+      $kri0014[[5]]$params$vThreshold
+      [1] "vThreshold"
+      
+      
+      
+      $kri0014[[6]]
+      $kri0014[[6]]$output
+      [1] "Analysis_Summary"
+      
+      $kri0014[[6]]$name
+      [1] "Summarize"
+      
+      $kri0014[[6]]$params
+      $kri0014[[6]]$params$dfFlagged
+      [1] "Analysis_Flagged"
+      
+      $kri0014[[6]]$params$nMinDenominator
+      [1] "nMinDenominator"
+      
+      
+      
+      $kri0014[[7]]
+      $kri0014[[7]]$output
+      [1] "lAnalysis"
+      
+      $kri0014[[7]]$name
+      [1] "list"
+      
+      $kri0014[[7]]$params
+      $kri0014[[7]]$params$ID
+      [1] "ID"
+      
+      $kri0014[[7]]$params$Analysis_Input
+      [1] "Analysis_Input"
+      
+      $kri0014[[7]]$params$Analysis_Transformed
+      [1] "Analysis_Transformed"
+      
+      $kri0014[[7]]$params$Analysis_Analyzed
+      [1] "Analysis_Analyzed"
+      
+      $kri0014[[7]]$params$Analysis_Flagged
+      [1] "Analysis_Flagged"
+      
+      $kri0014[[7]]$params$Analysis_Summary
+      [1] "Analysis_Summary"
+      
+      
+      
+      
       $report_kri_country
       $report_kri_country[[1]]
       $report_kri_country[[1]]$output
@@ -4509,92 +4653,73 @@
       
       $SITE[[3]]
       $SITE[[3]]$output
-      [1] "Temp_SUBJ_DATAENT"
+      [1] "Temp_SiteCountsWide"
       
       $SITE[[3]]$name
-      [1] "left_join"
+      [1] "RunQuery"
       
       $SITE[[3]]$params
-      $SITE[[3]]$params$x
+      $SITE[[3]]$params$df
       [1] "Mapped_SUBJ"
       
-      $SITE[[3]]$params$y
-      [1] "Mapped_DATAENT"
-      
-      $SITE[[3]]$params$by
-      [1] "subjid"
+      $SITE[[3]]$params$strQuery
+      [1] "SELECT\n  invid as GroupID,\n  COUNT(DISTINCT subjid) as ParticipantCount,\n  SUM(CASE WHEN Status == 'Active' THEN 1 ELSE 0 END) as ActiveParticipantCount,\n  COUNT(DISTINCT invid) as SiteCount\nFROM df\nGROUP BY invid\n"
       
       
       
       $SITE[[4]]
       $SITE[[4]]$output
-      [1] "Temp_SiteCountsWide"
+      [1] "Temp_SiteCountsWide_ActiveParticipants"
       
       $SITE[[4]]$name
-      [1] "RunQuery"
+      [1] "CalculatePercentage"
       
       $SITE[[4]]$params
-      $SITE[[4]]$params$df
-      [1] "Temp_SUBJ_DATAENT"
+      $SITE[[4]]$params$data
+      [1] "Temp_SiteCountsWide"
       
-      $SITE[[4]]$params$strQuery
-      [1] "SELECT\n  invid as GroupID,\n  COUNT(DISTINCT subjid) as ParticipantCount,\n  SUM(CASE WHEN Status == 'Active' THEN 1 ELSE 0 END) as ActiveParticipantCount,\n  COUNT(DISTINCT invid) as SiteCount,\n  AVG(data_entry_lag) as AvgDataEntryLag\nFROM df\nGROUP BY invid\n"
+      $SITE[[4]]$params$strCurrentCol
+      [1] "ActiveParticipantCount"
+      
+      $SITE[[4]]$params$strTargetCol
+      [1] "ParticipantCount"
+      
+      $SITE[[4]]$params$strPercVal
+      [1] "PercentParticipantsActive"
+      
+      $SITE[[4]]$params$strPercStrVal
+      [1] "ActiveParticipants"
       
       
       
       $SITE[[5]]
       $SITE[[5]]$output
-      [1] "Temp_SiteCountsWide_ActiveParticipants"
+      [1] "Temp_SiteCounts"
       
       $SITE[[5]]$name
-      [1] "CalculatePercentage"
+      [1] "MakeLongMeta"
       
       $SITE[[5]]$params
       $SITE[[5]]$params$data
-      [1] "Temp_SiteCountsWide"
+      [1] "Temp_SiteCountsWide_ActiveParticipants"
       
-      $SITE[[5]]$params$strCurrentCol
-      [1] "ActiveParticipantCount"
-      
-      $SITE[[5]]$params$strTargetCol
-      [1] "ParticipantCount"
-      
-      $SITE[[5]]$params$strPercVal
-      [1] "PercentParticipantsActive"
-      
-      $SITE[[5]]$params$strPercStrVal
-      [1] "ActiveParticipants"
+      $SITE[[5]]$params$strGroupLevel
+      [1] "Site"
       
       
       
       $SITE[[6]]
       $SITE[[6]]$output
-      [1] "Temp_SiteCounts"
-      
-      $SITE[[6]]$name
-      [1] "MakeLongMeta"
-      
-      $SITE[[6]]$params
-      $SITE[[6]]$params$data
-      [1] "Temp_SiteCountsWide_ActiveParticipants"
-      
-      $SITE[[6]]$params$strGroupLevel
-      [1] "Site"
-      
-      
-      
-      $SITE[[7]]
-      $SITE[[7]]$output
       [1] "Mapped_SITE"
       
-      $SITE[[7]]$name
+      $SITE[[6]]$name
       [1] "bind_rows"
       
-      $SITE[[7]]$params
-      $SITE[[7]]$params$Temp_CTMSSite
+      $SITE[[6]]$params
+      $SITE[[6]]$params$Temp_CTMSSite
       [1] "Temp_CTMSSite"
       
-      $SITE[[7]]$params$Temp_SiteCounts
+      $SITE[[6]]$params$Temp_SiteCounts
       [1] "Temp_SiteCounts"
       
       
@@ -4651,161 +4776,142 @@
       
       $STUDY[[4]]
       $STUDY[[4]]$output
-      [1] "Temp_SUBJ_DATAENT"
+      [1] "Temp_StudyCountsWide"
       
       $STUDY[[4]]$name
-      [1] "left_join"
+      [1] "RunQuery"
       
       $STUDY[[4]]$params
-      $STUDY[[4]]$params$x
+      $STUDY[[4]]$params$df
       [1] "Mapped_SUBJ"
       
-      $STUDY[[4]]$params$y
-      [1] "Mapped_DATAENT"
-      
-      $STUDY[[4]]$params$by
-      [1] "subjid"
+      $STUDY[[4]]$params$strQuery
+      [1] "SELECT\n  studyid as GroupID,\n  COUNT(DISTINCT subjid) as ParticipantCount,\n  SUM(CASE WHEN Status == 'Active' THEN 1 ELSE 0 END) as ActiveParticipantCount,\n  COUNT(DISTINCT invid) as SiteCount\nFROM df\nGROUP BY studyid\n"
       
       
       
       $STUDY[[5]]
       $STUDY[[5]]$output
-      [1] "Temp_StudyCountsWide"
+      [1] "Temp_CountTargetsWide"
       
       $STUDY[[5]]$name
-      [1] "RunQuery"
+      [1] "left_join"
       
       $STUDY[[5]]$params
-      $STUDY[[5]]$params$df
-      [1] "Temp_SUBJ_DATAENT"
+      $STUDY[[5]]$params$x
+      [1] "Temp_CTMSplanned"
       
-      $STUDY[[5]]$params$strQuery
-      [1] "SELECT\n  studyid as GroupID,\n  COUNT(DISTINCT subjid) as ParticipantCount,\n  SUM(CASE WHEN Status == 'Active' THEN 1 ELSE 0 END) as ActiveParticipantCount,\n  COUNT(DISTINCT invid) as SiteCount,\n  AVG(data_entry_lag) as AvgDataEntryLag\nFROM df\nGROUP BY studyid\n"
+      $STUDY[[5]]$params$y
+      [1] "Temp_StudyCountsWide"
+      
+      $STUDY[[5]]$params$by
+      [1] "GroupID"
       
       
       
       $STUDY[[6]]
       $STUDY[[6]]$output
-      [1] "Temp_CountTargetsWide"
+      [1] "Temp_CountTargetsWide_addsite"
       
       $STUDY[[6]]$name
-      [1] "left_join"
+      [1] "CalculatePercentage"
       
       $STUDY[[6]]$params
-      $STUDY[[6]]$params$x
-      [1] "Temp_CTMSplanned"
+      $STUDY[[6]]$params$data
+      [1] "Temp_CountTargetsWide"
       
-      $STUDY[[6]]$params$y
-      [1] "Temp_StudyCountsWide"
+      $STUDY[[6]]$params$strCurrentCol
+      [1] "SiteCount"
       
-      $STUDY[[6]]$params$by
-      [1] "GroupID"
+      $STUDY[[6]]$params$strTargetCol
+      [1] "SiteTarget"
+      
+      $STUDY[[6]]$params$strPercVal
+      [1] "PercentSitesActivated"
+      
+      $STUDY[[6]]$params$strPercStrVal
+      [1] "SiteActivation"
       
       
       
       $STUDY[[7]]
       $STUDY[[7]]$output
-      [1] "Temp_CountTargetsWide_addsite"
+      [1] "Temp_CountTargetsWide_addsitepts"
       
       $STUDY[[7]]$name
       [1] "CalculatePercentage"
       
       $STUDY[[7]]$params
       $STUDY[[7]]$params$data
-      [1] "Temp_CountTargetsWide"
+      [1] "Temp_CountTargetsWide_addsite"
       
       $STUDY[[7]]$params$strCurrentCol
-      [1] "SiteCount"
+      [1] "ParticipantCount"
       
       $STUDY[[7]]$params$strTargetCol
-      [1] "SiteTarget"
+      [1] "ParticipantTarget"
       
       $STUDY[[7]]$params$strPercVal
-      [1] "PercentSitesActivated"
+      [1] "PercentParticipantsEnrolled"
       
       $STUDY[[7]]$params$strPercStrVal
-      [1] "SiteActivation"
+      [1] "ParticipantEnrollment"
       
       
       
       $STUDY[[8]]
       $STUDY[[8]]$output
-      [1] "Temp_CountTargetsWide_addsitepts"
+      [1] "Temp_CountTargetsWide_ActiveParticipants"
       
       $STUDY[[8]]$name
       [1] "CalculatePercentage"
       
       $STUDY[[8]]$params
       $STUDY[[8]]$params$data
-      [1] "Temp_CountTargetsWide_addsite"
+      [1] "Temp_CountTargetsWide_addsitepts"
       
       $STUDY[[8]]$params$strCurrentCol
-      [1] "ParticipantCount"
+      [1] "ActiveParticipantCount"
       
       $STUDY[[8]]$params$strTargetCol
-      [1] "ParticipantTarget"
+      [1] "ParticipantCount"
       
       $STUDY[[8]]$params$strPercVal
-      [1] "PercentParticipantsEnrolled"
+      [1] "PercentParticipantsActive"
       
       $STUDY[[8]]$params$strPercStrVal
-      [1] "ParticipantEnrollment"
+      [1] "ActiveParticipants"
       
       
       
       $STUDY[[9]]
       $STUDY[[9]]$output
-      [1] "Temp_CountTargetsWide_ActiveParticipants"
+      [1] "Temp_CountTargetsPercs"
       
       $STUDY[[9]]$name
-      [1] "CalculatePercentage"
+      [1] "MakeLongMeta"
       
       $STUDY[[9]]$params
       $STUDY[[9]]$params$data
-      [1] "Temp_CountTargetsWide_addsitepts"
+      [1] "Temp_CountTargetsWide_ActiveParticipants"
       
-      $STUDY[[9]]$params$strCurrentCol
-      [1] "ActiveParticipantCount"
-      
-      $STUDY[[9]]$params$strTargetCol
-      [1] "ParticipantCount"
-      
-      $STUDY[[9]]$params$strPercVal
-      [1] "PercentParticipantsActive"
-      
-      $STUDY[[9]]$params$strPercStrVal
-      [1] "ActiveParticipants"
+      $STUDY[[9]]$params$strGroupLevel
+      [1] "Study"
       
       
       
       $STUDY[[10]]
       $STUDY[[10]]$output
-      [1] "Temp_CountTargetsPercs"
-      
-      $STUDY[[10]]$name
-      [1] "MakeLongMeta"
-      
-      $STUDY[[10]]$params
-      $STUDY[[10]]$params$data
-      [1] "Temp_CountTargetsWide_ActiveParticipants"
-      
-      $STUDY[[10]]$params$strGroupLevel
-      [1] "Study"
-      
-      
-      
-      $STUDY[[11]]
-      $STUDY[[11]]$output
       [1] "Mapped_STUDY"
       
-      $STUDY[[11]]$name
+      $STUDY[[10]]$name
       [1] "bind_rows"
       
-      $STUDY[[11]]$params
-      $STUDY[[11]]$params$Temp_CTMSStudy
+      $STUDY[[10]]$params
+      $STUDY[[10]]$params$Temp_CTMSStudy
       [1] "Temp_CTMSStudy"
       
-      $STUDY[[11]]$params$Temp_CountTargetsPercs
+      $STUDY[[10]]$params$Temp_CountTargetsPercs
       [1] "Temp_CountTargetsPercs"
       
       

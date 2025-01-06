@@ -63,7 +63,7 @@ steps:
   - output: Temp_StudyCountsWide
     name: RunQuery
     params:
-      df: Temp_SUBJ
+      df: Mapped_SUBJ
       strQuery: |
         SELECT
           studyid as GroupID,
