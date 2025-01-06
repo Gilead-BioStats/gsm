@@ -117,7 +117,7 @@ lConfig <- list(
     purrr::imap(
       lWorkflow$spec,
       ~ {
-        input <- lConfig$Domains[[ .y ]]
+        input <- lConfig$Domains[[.y]]
 
         if (is.data.frame(input)) {
           data <- input
@@ -129,7 +129,7 @@ lConfig <- list(
           cli::cli_abort("Invalid data source: {input}.")
         }
 
-        lData[[ .y ]] <<- (ApplySpec(data, .x))
+        lData[[.y]] <<- (ApplySpec(data, .x))
       }
     )
     return(lData)
@@ -265,4 +265,7 @@ test_that("RunWorkflow errors out if the data save method does not have expected
     "must include a function named .SaveData."
   )
 })
+<<<<<<< HEAD
 
+=======
+>>>>>>> f9e1f843a528b30cea908d0a2f6da6c9aca222f3

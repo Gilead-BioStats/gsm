@@ -66,7 +66,7 @@ MakeBounds <- function(
       vThreshold <- ParseThreshold(strThreshold = lMetric$Threshold)
       if (!is.null(lMetric$AnalysisType) &&
         tolower(unique(lMetric$AnalysisType)) %in% c("identity")) {
-        dfBounds <- NULL 
+        dfBounds <- NULL
       } else if (!is.null(lMetric$AnalysisType) &&
         tolower(unique(lMetric$AnalysisType)) %in% c("poisson")) {
         dfBounds <- Analyze_Poisson_PredictBounds(
