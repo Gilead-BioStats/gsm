@@ -1,5 +1,5 @@
 set.seed(123)
-
+library(gsm.mapping)
 ## Declare all the data
 lSource <- list(
   Source_SUBJ = clindata::rawplus_dm,
