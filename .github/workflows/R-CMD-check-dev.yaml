@@ -41,7 +41,7 @@ jobs:
           extra-packages: any::rcmdcheck, gsm.mapping=?ignore
           needs: check
 
-      - name: Install dependencies with remotes
+      - name: Install private repos with remotes
         run: |
           Rscript -e 'install.packages("remotes")'
           Rscript -e 'remotes::install_github("Gilead-Biostats/gsm.mapping", ref = "dev", auth_token = Sys.getenv("REPOPAT"))'

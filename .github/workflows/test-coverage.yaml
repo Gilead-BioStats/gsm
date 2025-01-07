@@ -14,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      REPOPAT: ${{ secrets.GSMMAPPING }}
 
     steps:
       - uses: actions/checkout@v4
@@ -24,8 +25,14 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::covr, any::xml2
+          extra-packages: any::covr, any::xml2, gsm.mapping=?ignore
           needs: coverage
+
+      - name: Install private repos with remotes
+        run: |
+          Rscript -e 'install.packages("remotes")'
+          Rscript -e 'remotes::install_github("Gilead-Biostats/gsm.mapping", ref = "dev", auth_token = Sys.getenv("REPOPAT"))'
+
 
       - name: Test coverage
         shell: Rscript {0}

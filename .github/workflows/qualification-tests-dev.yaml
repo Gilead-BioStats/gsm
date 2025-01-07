@@ -19,6 +19,7 @@ jobs:
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      REPOPAT: ${{ secrets.GSMMAPPING }}
       R_KEEP_PKG_SOURCE: yes
 
     steps:
@@ -34,7 +35,12 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::devtools
+          extra-packages: any::devtools, gsm.mapping=?ignore
+
+      - name: Install private repos with remotes
+        run: |
+          Rscript -e 'install.packages("remotes")'
+          Rscript -e 'remotes::install_github("Gilead-Biostats/gsm.mapping", ref = "dev", auth_token = Sys.getenv("REPOPAT"))'
 
       - name: run qualification tests
         run: source(here::here("tests", "testqualification", "test_qualification.R"))

@@ -20,6 +20,7 @@ jobs:
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      REPOPAT: ${{ secrets.GSMMAPPING }}
       R_KEEP_PKG_SOURCE: yes
 
     steps:
@@ -29,6 +30,14 @@ jobs:
           r-version: ${{ matrix.config.r }}
           use-public-rspm: true
       - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: gsm.mapping=?ignore
+
+      - name: Install private repos with remotes
+        run: |
+          Rscript -e 'install.packages("remotes")'
+          Rscript -e 'remotes::install_github("Gilead-Biostats/gsm.mapping", ref = "dev", auth_token = Sys.getenv("REPOPAT"))'
+
       - name: Test Workflows
         run: |
           # Run test_workflows/main.R
