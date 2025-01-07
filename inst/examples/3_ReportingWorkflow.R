@@ -1,3 +1,7 @@
+# uncomment line below if you need to install gsm.mapping
+# remotes::install_github("Gilead-BioStats/gsm.mapping")
+library(gsm.mapping)
+
 #### 3.1 - Create a KRI Report using 12 standard metrics in a step-by-step workflow
 
 # Source Data
