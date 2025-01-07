@@ -1,10 +1,6 @@
 ---
 title: "Contributor Guidelines"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Contributor Guidelines}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+output: html_document
 ---
 
 ```{r setup, include = FALSE}
@@ -102,8 +98,6 @@ Code developers for `{gsm}` use the [tidyverse style guide](https://style.tidyve
     -   If a release branch is already created, make sure that it is synced with the current `dev` branch.
 2.  Release Owner prepares the release for QC by performing the following steps and pushing updates to the `release` branch:
     -   Confirm that the version in the `DESCRIPTION` file is up to date.
-        -   **After** the version in the `DESCRIPTION` file is updated, run `gsm::UpdateGSMVersion()` to update metadata that includes the `{gsm}` version number.
-
     -   Run `styler` using the script from the [style guide](#style-guide) above (or by running `gutil::style_code()`) and commit any updates.
     -   Update `NEWS.md` with a summary of the revisions/additions in the release. Keep any information from previous releases to maintain traceability through versions.
     -   Ensure that the qualification specifications spreadsheet is up-to-date and accurate. If there have been any changes/updates to qualification tests, reach out to the qualification developer to update any necessary files.
@@ -132,7 +126,7 @@ Code developers for `{gsm}` use the [tidyverse style guide](https://style.tidyve
     -   Create the GitHub release targeting the `main` branch using the wording from `NEWS.md`, in addition to the automatically generated content in GitHub.
     -   Confirm that the QC Report is attached to release.
 7.  Finally, the Release Owner (or qualified designee) should complete the following housekeeping tasks:
-    -   Create a Pull Request to merge the `main` branch into the `dev` branch to sync any updates that were made during release process.
+    -   Create a Pull Request to merge the `main` branch into the `dev` branch to sync any updates that were made during release process and update the version to a dev version by appending `.9999` to the version number (e.g. `2.2.1.9999`).
     -   Check that all issues associated with the current release are closed.
     -   Update the milestone for any incomplete tasks.
     -   Delete code branches associated with previous releases.
