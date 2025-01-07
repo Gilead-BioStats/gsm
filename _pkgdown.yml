@@ -78,12 +78,9 @@ reference:
   - title: Utility
     desc: Utility functions for use within the Data Model
   - contents:
-     -  ApplySpec
      -  BindResults
      -  cli_fmt
-     -  CalculatePercentage
      -  CheckSpec
-     -  CombineSpecs
      -  FilterByLatestSnapshotDate
      -  FilterByFlags
      -  GetStrFunctionIfNamespaced
@@ -93,7 +90,6 @@ reference:
      -  MakeCharts
      -  MakeMetric
      -  MakeMetricTable
-     -  MakeLongMeta
      -  MakeParamLabels
      -  MakeParamLabelsList
      -  MakeStudyInfo
