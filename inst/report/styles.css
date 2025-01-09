@@ -121,24 +121,6 @@ table.dataTable.compact thead th, table.dataTable.compact thead td {
   display: none;
 }
 
-/* Styling for the TOC button */
-#toc-toggle {
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  z-index: 1000;
-  background-color: #007bff;
-  color: white;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-#toc-toggle:hover {
-  background-color: #0056b3;
-}
-
 /* Adjusting the TOC position and transition */
 #TOC {
   transition: transform 0.3s ease-in-out;
