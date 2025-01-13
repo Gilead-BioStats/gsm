@@ -96,6 +96,7 @@ reference:
      -  MakeWorkflowList
      -  ParseThreshold
      -  RenderRmd
+     -  RunQuery
      -  RunStep
      -  RunWorkflow
      -  RunWorkflows
