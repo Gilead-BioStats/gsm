@@ -78,16 +78,13 @@ reference:
   - title: Utility
     desc: Utility functions for use within the Data Model
   - contents:
-     -  BindResults
      -  cli_fmt
      -  CheckSpec
      -  FilterByLatestSnapshotDate
      -  FilterByFlags
      -  GetStrFunctionIfNamespaced
      -  LogMessage
-     -  MakeBounds
      -  MakeCharts
-     -  MakeMetric
      -  MakeMetricTable
      -  MakeParamLabels
      -  MakeParamLabelsList
