@@ -165,7 +165,7 @@ The `dfMetrics` table contains the metadata for each of the KRIs in the report. 
 
 
 ```{r include = TRUE}
-dfMetrics <- MakeMetric(lWorkflows = metrics_wf)
+dfMetrics <- gsm.mapping::MakeMetric(lWorkflows = metrics_wf)
 ```
 
 The resulting `dfMetrics` dataframe contains the following columns:
@@ -394,7 +394,7 @@ lReports <- RunWorkflows(module_wf, reporting)
 ### Recap - Reporting Workflow 
     
   -   `dfGroups` created from CTMS data using `RunQuery()`, `MakeLongMeta()` and `bind_rows()`
-  -   `dfMetrics` created from `lWorkflow` using `MakeMetric()`
+  -   `dfMetrics` created from `lWorkflow` using `gsm.mapping::MakeMetric()`
   -   `dfResults` created from `lAnalysis$dfSummary` using `BindResults()`
   -   `dfBounds` created from `dfResults` using `MakeBounds()`
   -   List of all charts and tables (`lCharts`) created from `dfResults`, `dfBounds`, `dfMetrics` and `dfGroups` using `MakeCharts()`
