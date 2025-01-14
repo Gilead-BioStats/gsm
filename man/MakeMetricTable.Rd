@@ -13,7 +13,7 @@ MakeMetricTable(
 )
 }
 \arguments{
-\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}. For this function, \code{dfResults} must be filtered to a single KRI (\code{MetricID}).}
+\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[gsm.mapping:BindResults]{gsm.mapping::BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}. For this function, \code{dfResults} must be filtered to a single KRI (\code{MetricID}).}
 
 \item{dfGroups}{\code{data.frame} Group-level metadata dictionary. Created by passing CTMS site and study data to \code{\link[gsm.mapping:MakeLongMeta]{gsm.mapping::MakeLongMeta()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Param}, \code{Value}.}
 
