@@ -1,25 +1,30 @@
 #' Poisson Analysis - Predicted Boundaries.
 #'
-#' @description
-#' `r lifecycle::badge("stable")`
+#' @description `r lifecycle::badge("stable")`
 #'
-#' Fits a Poisson model to site-level data and then calculates predicted count values and upper- and
-#' lower- bounds for across the full range of exposure values.
+#' Fits a Poisson model to site-level data and then calculates predicted count
+#' values and upper- and lower- bounds for across the full range of exposure
+#' values.
 #'
-#' @section Statistical Methods:
-#' This function fits a Poisson model to site-level data and then calculates residuals for each
-#' site. The Poisson model is run using standard methods in the `stats` package by fitting a `glm`
-#' model with family set to `poisson` using a "log" link. Upper and lower boundary values are then
-#' calculated using the method described here TODO: Add link.
+#' @section Statistical Methods: This function fits a Poisson model to
+#'   site-level data and then calculates residuals for each site. The Poisson
+#'   model is run using standard methods in the `stats` package by fitting a
+#'   `glm` model with family set to `poisson` using a "log" link. Upper and
+#'   lower boundary values are then calculated using the method described here
+#'   TODO: Add link.
 #'
-#' @param dfTransformed `r gloss_param("dfTransformed")`
-#'   `r gloss_extra("dfTransformed_Rate")`
-#' @param vThreshold `numeric` upper and lower boundaries in residual space. Should be identical to
-#' the thresholds used AE_Assess().
+#' @param dfTransformed `data.frame` Transformed data for analysis. Data should
+#'   have one record per site with expected columns: `GroupID`, `GroupLevel`,
+#'   `Numerator`, `Denominator`, and `Metric`. For more details see the Data
+#'   Model vignette: `vignette("DataModel", package = "gsm")`. For this
+#'   function, `dfTransformed` should typically be created using
+#'   [Transform_Rate()].
+#' @param vThreshold `numeric` upper and lower boundaries in residual space.
+#'   Should be identical to the thresholds used AE_Assess().
 #' @param nStep `numeric` step size of imputed bounds.
 #'
-#' @return `data.frame` containing predicted boundary values with upper and lower bounds across the
-#' range of observed values.
+#' @return `data.frame` containing predicted boundary values with upper and
+#'   lower bounds across the range of observed values.
 #'
 #' @examples
 #' dfTransformed <- Transform_Rate(analyticsInput)
