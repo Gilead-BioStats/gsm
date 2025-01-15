@@ -83,7 +83,7 @@ VignetteBuilder:
     knitr
 Remotes:
     clindata=Gilead-BioStats/clindata,
-    gsm.mapping=Gilead-BioStats/gsm.mapping@dev
+    gsm.mapping=Gilead-BioStats/gsm.mapping
 Config/testthat/edition: 3
 Config/testthat/parallel: true
 Config/testthat/start-first: util-RunWorkflow, util-clindata
