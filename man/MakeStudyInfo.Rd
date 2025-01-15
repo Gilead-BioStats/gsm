@@ -7,7 +7,9 @@
 MakeStudyInfo(dfGroups, lStudyLabels = NULL, lStudy = deprecated())
 }
 \arguments{
-\item{dfGroups}{\code{data.frame} Group-level metadata dictionary. Created by passing CTMS site and study data to \code{\link[=MakeLongMeta]{MakeLongMeta()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Param}, \code{Value}.}
+\item{dfGroups}{\code{data.frame} Group-level metadata dictionary. Created by
+passing CTMS site and study data to \code{\link[=MakeLongMeta]{MakeLongMeta()}}. Expected columns:
+\code{GroupID}, \code{GroupLevel}, \code{Param}, \code{Value}.}
 
 \item{lStudyLabels}{\code{list} A list containing study labels. Default is NULL.}
 

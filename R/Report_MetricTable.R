@@ -2,13 +2,18 @@
 #'
 #' @description `r lifecycle::badge("stable")`
 #'
-#' This function generates a summary table for a report by joining the provided
-#' results data frame with the site-level metadata from dfGroups. It then
-#' filters and arranges the data based on certain conditions and displays the
-#' result in a datatable.
+#'   This function generates a summary table for a report by joining the
+#'   provided results data frame with the site-level metadata from dfGroups. It
+#'   then filters and arranges the data based on certain conditions and displays
+#'   the result in a datatable.
 #'
 #' @inheritParams shared-params
-#' @param dfResults `r gloss_param("dfResults")` `r gloss_extra("dfResults_filtered")`
+#' @param dfResults `data.frame` A stacked summary of analysis pipeline output.
+#'   Created by passing a list of results returned by [Summarize()] to
+#'   [BindResults()]. Expected columns: `GroupID`, `GroupLevel`, `Numerator`,
+#'   `Denominator`, `Metric`, `Score`, `Flag`, `MetricID`, `StudyID`,
+#'   `SnapshotDate`. For this function, `dfResults` must be filtered to a single
+#'   KRI (`MetricID`).
 #' @param strGroupLevel  group level for the table
 #' @param strGroupDetailsParams one or more parameters from dfGroups to be added
 #'   as columns in the table
