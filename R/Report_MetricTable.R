@@ -10,7 +10,7 @@
 #' @inheritParams shared-params
 #' @param dfResults `data.frame` A stacked summary of analysis pipeline output.
 #'   Created by passing a list of results returned by [Summarize()] to
-#'   [BindResults()]. Expected columns: `GroupID`, `GroupLevel`, `Numerator`,
+#'   [gsm.mapping::BindResults()]. Expected columns: `GroupID`, `GroupLevel`, `Numerator`,
 #'   `Denominator`, `Metric`, `Score`, `Flag`, `MetricID`, `StudyID`,
 #'   `SnapshotDate`. For this function, `dfResults` must be filtered to a single
 #'   KRI (`MetricID`).
