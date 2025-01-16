@@ -20,13 +20,9 @@ Created by passing a list of results returned by \code{\link[=Summarize]{Summari
 \code{SnapshotDate}. For this function, \code{dfResults} must be filtered to a single
 KRI (\code{MetricID}).}
 
-<<<<<<< HEAD
-\item{dfGroups}{\code{data.frame} Group-level metadata dictionary. Created by passing CTMS site and study data to \code{\link[gsm.mapping:MakeLongMeta]{gsm.mapping::MakeLongMeta()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Param}, \code{Value}.}
-=======
 \item{dfGroups}{\code{data.frame} Group-level metadata dictionary. Created by
-passing CTMS site and study data to \code{\link[=MakeLongMeta]{MakeLongMeta()}}. Expected columns:
+passing CTMS site and study data to \code{\link[gsm.mapping:MakeLongMeta]{gsm.mapping::MakeLongMeta()}}. Expected columns:
 \code{GroupID}, \code{GroupLevel}, \code{Param}, \code{Value}.}
->>>>>>> dev
 
 \item{strGroupLevel}{group level for the table}
 

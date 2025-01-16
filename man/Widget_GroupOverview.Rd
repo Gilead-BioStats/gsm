@@ -27,13 +27,9 @@ Expected columns: \code{File}, \code{MetricID}, \code{Group}, \code{Abbreviation
 \code{Numerator}, \code{Denominator}, \code{Model}, \code{Score}, and \code{Threshold}. For more
 details see the Data Model vignette: \code{vignette("DataModel", package = "gsm")}.}
 
-<<<<<<< HEAD
-\item{dfGroups}{\code{data.frame} Group-level metadata dictionary. Created by passing CTMS site and study data to \code{\link[gsm.mapping:MakeLongMeta]{gsm.mapping::MakeLongMeta()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Param}, \code{Value}.}
-=======
 \item{dfGroups}{\code{data.frame} Group-level metadata dictionary. Created by
-passing CTMS site and study data to \code{\link[=MakeLongMeta]{MakeLongMeta()}}. Expected columns:
+passing CTMS site and study data to \code{\link[gsm.mapping:MakeLongMeta]{gsm.mapping::MakeLongMeta()}}. Expected columns:
 \code{GroupID}, \code{GroupLevel}, \code{Param}, \code{Value}.}
->>>>>>> dev
 
 \item{strGroupLevel}{\code{character} Value for the group level. Default: NULL and taken from \code{dfMetrics$GroupLevel} if available.}
 

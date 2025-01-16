@@ -21,7 +21,7 @@
 #'   [MakeBounds()]. Expected columns: `Threshold`, `Denominator`, `Numerator`,
 #'   `Metric`, `MetricID`, `StudyID`, `SnapshotDate`.
 #' @param dfGroups `data.frame` Group-level metadata dictionary. Created by
-#'   passing CTMS site and study data to [MakeLongMeta()]. Expected columns:
+#'   passing CTMS site and study data to [gsm.mapping::MakeLongMeta()]. Expected columns:
 #'   `GroupID`, `GroupLevel`, `Param`, `Value`.
 #' @param dfInput `data.frame` Input data with one record per subject. Created
 #'   by passing Raw+ data into [Input_Rate()]. Expected columns: `GroupID`,

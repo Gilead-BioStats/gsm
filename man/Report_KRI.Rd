@@ -22,13 +22,9 @@ Created by passing a list of results returned by \code{\link[=Summarize]{Summari
 \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID},
 \code{SnapshotDate}.}
 
-<<<<<<< HEAD
-\item{dfGroups}{\code{data.frame} Group-level metadata dictionary. Created by passing CTMS site and study data to \code{\link[gsm.mapping:MakeLongMeta]{gsm.mapping::MakeLongMeta()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Param}, \code{Value}.}
-=======
 \item{dfGroups}{\code{data.frame} Group-level metadata dictionary. Created by
-passing CTMS site and study data to \code{\link[=MakeLongMeta]{MakeLongMeta()}}. Expected columns:
+passing CTMS site and study data to \code{\link[gsm.mapping:MakeLongMeta]{gsm.mapping::MakeLongMeta()}}. Expected columns:
 \code{GroupID}, \code{GroupLevel}, \code{Param}, \code{Value}.}
->>>>>>> dev
 
 \item{dfMetrics}{\code{data.frame} Metric-specific metadata for use in charts and
 reporting. Created by passing an \code{lWorkflow} object to \code{\link[=MakeMetric]{MakeMetric()}}.
