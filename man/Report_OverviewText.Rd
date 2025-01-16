@@ -9,15 +9,11 @@ Report_OverviewText(lSetup, dfResults, lStudy)
 \arguments{
 \item{lSetup}{\code{list} that is produced by \code{Report_StudyInfo()}.}
 
-<<<<<<< HEAD
-\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[gsm.mapping:BindResults]{gsm.mapping::BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
-=======
 \item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output.
 Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to
 \code{\link[=BindResults]{BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator},
 \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID},
 \code{SnapshotDate}.}
->>>>>>> fix-1972v2
 
 \item{lStudy}{\code{list} contains study-level metadata.}
 }
