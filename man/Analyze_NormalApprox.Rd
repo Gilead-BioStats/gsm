@@ -7,8 +7,12 @@
 Analyze_NormalApprox(dfTransformed, strType = "binary")
 }
 \arguments{
-\item{dfTransformed}{\code{data.frame} Transformed data for analysis. Data should have one record per site with expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, and \code{Metric}. For more details see the Data Model vignette: \code{vignette("DataModel", package = "gsm")}.
-For this function, \code{dfTransformed} should typically be created using \code{\link[=Transform_Rate]{Transform_Rate()}}.}
+\item{dfTransformed}{\code{data.frame} Transformed data for analysis. Data should
+have one record per site with expected columns: \code{GroupID}, \code{GroupLevel},
+\code{Numerator}, \code{Denominator}, and \code{Metric}. For more details see the Data
+Model vignette: \code{vignette("DataModel", package = "gsm")}. For this
+function, \code{dfTransformed} should typically be created using
+\code{\link[=Transform_Rate]{Transform_Rate()}}.}
 
 \item{strType}{\code{character} Statistical outcome type. Valid values:
 \itemize{
@@ -17,21 +21,24 @@ For this function, \code{dfTransformed} should typically be created using \code{
 }}
 }
 \value{
-\code{data.frame} with one row per site with columns: GroupID, Numerator, Denominator, Metric, OverallMetric, Factor, and Score.
+\code{data.frame} with one row per site with columns: GroupID, Numerator,
+Denominator, Metric, OverallMetric, Factor, and Score.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
-Creates analysis results data for percentage/rate data using funnel plot method with normal approximation.
+Creates analysis results data for percentage/rate data using funnel plot
+method with normal approximation.
 
 More information can be found in \href{https://gilead-biostats.github.io/gsm/articles/KRI\%20Method.html#the-normal-approximation-method}{The Normal Approximation Method}
 of the KRI Method vignette.
 }
 \section{Statistical Methods}{
-
-This function applies funnel plots using asymptotic limits based on the normal approximation of a binomial distribution for
-the binary outcome, or normal approximation of a Poisson distribution for the rate outcome with volume (the sample sizes
-or total exposure of the sites) to assess data quality and safety.
+ This function applies funnel plots using
+asymptotic limits based on the normal approximation of a binomial
+distribution for the binary outcome, or normal approximation of a Poisson
+distribution for the rate outcome with volume (the sample sizes or total
+exposure of the sites) to assess data quality and safety.
 }
 
 \examples{
