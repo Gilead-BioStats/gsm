@@ -393,10 +393,10 @@ lReports <- RunWorkflows(module_wf, reporting)
     
 ### Recap - Reporting Workflow 
     
-  -   `dfGroups` created from CTMS data using `RunQuery()`, `MakeLongMeta()` and `bind_rows()`
+  -   `dfGroups` created from CTMS data using `RunQuery()`, `gsm.mapping::MakeLongMeta()` and `bind_rows()`
   -   `dfMetrics` created from `lWorkflow` using `gsm.mapping::MakeMetric()`
-  -   `dfResults` created from `lAnalysis$dfSummary` using `BindResults()`
-  -   `dfBounds` created from `dfResults` using `MakeBounds()`
+  -   `dfResults` created from `lAnalysis$dfSummary` using `gsm.mapping::BindResults()`
+  -   `dfBounds` created from `dfResults` using `gsm.mapping::MakeBounds()`
   -   List of all charts and tables (`lCharts`) created from `dfResults`, `dfBounds`, `dfMetrics` and `dfGroups` using `MakeCharts()`
   -   Report generated from `lCharts`, `dfResults`, `dfMetrics` and `dfGroups` using `Report_KRI()`
   
