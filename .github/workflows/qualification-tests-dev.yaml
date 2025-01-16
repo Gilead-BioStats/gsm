@@ -40,7 +40,7 @@ jobs:
       - name: Install private repos with remotes
         run: |
           Rscript -e 'install.packages("remotes")'
-          Rscript -e 'remotes::install_github("Gilead-Biostats/gsm.mapping", ref = "dev", auth_token = Sys.getenv("REPOPAT"))'
+          Rscript -e 'remotes::install_github("Gilead-BioStats/gsm.mapping", ref = "fix-5_6", auth_token = Sys.getenv("REPOPAT"))'
 
       - name: run qualification tests
         run: source(here::here("tests", "testqualification", "test_qualification.R"))
