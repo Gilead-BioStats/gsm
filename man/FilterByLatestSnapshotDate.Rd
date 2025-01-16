@@ -18,6 +18,6 @@ A data frame containing the results for the most recent snapshot date.
 Filter a data frame to the most recent snapshot date.
 }
 \examples{
-reportingResults_latest <- FilterByLatestSnapshotDate(reportingResults)
+reportingResults_latest <- FilterByLatestSnapshotDate(gsm::reportingResults)
 
 }

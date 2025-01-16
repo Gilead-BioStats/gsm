@@ -22,7 +22,7 @@ stop_if <- function(cnd, message) {
 #' @return A data frame containing the results for the most recent snapshot date.
 #'
 #' @examples
-#' reportingResults_latest <- FilterByLatestSnapshotDate(reportingResults)
+#' reportingResults_latest <- FilterByLatestSnapshotDate(gsm::reportingResults)
 #'
 #' @export
 
@@ -59,7 +59,7 @@ FilterByLatestSnapshotDate <- function(df, strSnapshotDate = NULL) {
 #' group's individual metric
 #'
 #' @examples
-#' reportingResults_flags <- FilterByFlags(reportingResults)
+#' reportingResults_flags <- FilterByFlags(gsm::reportingResults)
 #'
 #' @export
 

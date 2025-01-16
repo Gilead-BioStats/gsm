@@ -21,6 +21,6 @@ Filter a results dataframe so that only metrics across all timepoints
 that have at least one flag are kept
 }
 \examples{
-reportingResults_flags <- FilterByFlags(reportingResults)
+reportingResults_flags <- FilterByFlags(gsm::reportingResults)
 
 }
