@@ -106,6 +106,7 @@ reference:
      -  RunWorkflow
      -  RunWorkflows
      -  SetLogger
+     -  stop_if
      -  UseClindata
 
   - title: Sample Data
