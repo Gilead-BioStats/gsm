@@ -44,7 +44,7 @@ jobs:
       - name: Install private repos with remotes
         run: |
           Rscript -e 'install.packages("remotes")'
-          Rscript -e 'remotes::install_github("Gilead-Biostats/gsm.mapping", ref = "dev", auth_token = Sys.getenv("REPOPAT"))'
+          Rscript -e 'remotes::install_github("Gilead-Biostats/gsm.mapping", ref = "fix-5_6", auth_token = Sys.getenv("REPOPAT"))'
 
       - uses: r-lib/actions/check-r-package@v2
         with:
