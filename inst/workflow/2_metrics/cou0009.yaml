@@ -12,19 +12,21 @@ meta:
   Threshold: -3,-2,2,3
   nMinDenominator: 30
 spec:
-  Mapped_SUBJ:
-    subjid:
+  Mapped_QUERY:
+    subject_nsv:
       type: character
     country:
-      type: character
-  Mapped_QUERY:
-    subjid:
       type: character
     querystatus:
       type: character
     queryage:
       type: integer
 steps:
+  - output: dfSubjects
+    name: RunQuery
+    params:
+      df: Mapped_QUERY
+      strQuery: "SELECT DISTINCT subject_nsv, country FROM df"
   - output: vThreshold
     name: ParseThreshold
     params:
@@ -42,10 +44,10 @@ steps:
   - output: Analysis_Input
     name: Input_Rate
     params:
-      dfSubjects: Mapped_SUBJ
+      dfSubjects: dfSubjects
       dfNumerator: Temp_OLDQUERY
       dfDenominator: Temp_QUERY
-      strSubjectCol: subjid
+      strSubjectCol: subject_nsv
       strGroupCol: country
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
