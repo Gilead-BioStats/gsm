@@ -13,7 +13,7 @@ meta:
   nMinDenominator: 30
 spec:
   Mapped_QUERY:
-    subjid:
+    subject_nsv:
       type: character
     invid:
       type: character
@@ -47,7 +47,7 @@ steps:
       dfSubjects: dfSubjects
       dfNumerator: Temp_OLDQUERY
       dfDenominator: Temp_QUERY
-      strSubjectCol: subjid
+      strSubjectCol: subject_nsv
       strGroupCol: invid
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
