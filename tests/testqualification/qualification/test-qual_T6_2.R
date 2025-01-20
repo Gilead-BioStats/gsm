@@ -7,7 +7,7 @@ outputs <- map(kri_workflows, ~ map_vec(.x$steps, ~ .x$output))
 ## Test Code
 testthat::test_that("Adverse Event Assessments can be done correctly using a grouping variable, such as Site or Country for KRIs, and Study for QTLs, when applicable.", {
   ## regular -----------------------------------------
-  test <- map(kri_workflows, ~ robust_runworkflow(.x, mapped_data, steps = 1:4))
+  test <- map(kri_workflows, ~ robust_runworkflow(.x, mapped_data, steps = 1:5))
 
 
   # grouping col in yaml file is interpreted correctly in dfInput GroupID
@@ -23,7 +23,7 @@ testthat::test_that("Adverse Event Assessments can be done correctly using a gro
   ))
 
   ## custom -------------------------------------------
-  test_custom <- map(kri_custom, ~ robust_runworkflow(.x, mapped_data, steps = 1:4))
+  test_custom <- map(kri_custom, ~ robust_runworkflow(.x, mapped_data, steps = 1:5))
 
   # grouping col in custom yaml file is interpreted correctly in dfInput GroupID
   iwalk(test_custom, ~ expect_identical(
@@ -41,12 +41,12 @@ testthat::test_that("Adverse Event Assessments can be done correctly using a gro
 
   ## custom edits -------------------------------------
   kri_custom2 <- map(kri_workflows, function(kri) {
-    kri$steps[[which(map_chr(kri$steps, ~ .x$name) == "Input_Rate")]]$params$strGroupCol <- "agerep"
-    kri$steps[[which(map_chr(kri$steps, ~ .x$name) == "Input_Rate")]]$params$strGroupLevel <- "Age"
+    kri$steps[[which(map_chr(kri$steps, ~ .x$name) == "Input_Rate")]]$params$strGroupCol <- "sex"
+    kri$steps[[which(map_chr(kri$steps, ~ .x$name) == "Input_Rate")]]$params$strGroupLevel <- "Sex"
     return(kri)
   })
 
-  test_custom2 <- map(kri_custom2, ~ robust_runworkflow(.x, mapped_data, steps = 1:4))
+  test_custom2 <- map(kri_custom2, ~ robust_runworkflow(.x, mapped_data, steps = 1:5))
 
   # grouping col in custom2 workflow is interpreted correctly in dfInput GroupID
   iwalk(test_custom2, ~ expect_identical(
