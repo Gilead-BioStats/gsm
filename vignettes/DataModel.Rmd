@@ -270,7 +270,7 @@ Expected `Param` by `GroupLevel` for use in gsm reporting. User may add other Pa
 
 
 ###  `Reporting_Metrics`
-  - Function used to create table: `MakeMetric()`
+  - Function used to create table: `gsm.mapping::MakeMetric()`
   - Inputs: `lWorkflows` - metadata for the corresponding kri(s) made with `MakeWorkflowList()`
   - Workflow used to create table: `3_reporting/Metrics.yaml`
   - Usage: Metadata used for charts and tables

@@ -17,12 +17,12 @@ Widget_ScatterPlot(
 \arguments{
 \item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output.
 Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to
-\code{\link[=BindResults]{BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator},
+\code{\link[gsm.mapping:BindResults]{gsm.mapping::BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator},
 \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID},
 \code{SnapshotDate}.}
 
 \item{lMetric}{\code{list} Metric-specific metadata for use in charts and
-reporting. Created by passing an \code{lWorkflow} object to \code{\link[=MakeMetric]{MakeMetric()}} and
+reporting. Created by passing an \code{lWorkflow} object to \code{\link[gsm.mapping:MakeMetric]{gsm.mapping::MakeMetric()}} and
 turing it into a list. Expected columns: \code{File},\code{MetricID}, \code{Group},
 \code{Abbreviation}, \code{Metric}, \code{Numerator}, \code{Denominator}, \code{Model}, \code{Score}, and
 \code{strThreshold}. For more details see the Data Model vignette:
@@ -35,7 +35,7 @@ passing CTMS site and study data to \code{\link[gsm.mapping:MakeLongMeta]{gsm.ma
 \item{dfBounds}{\code{data.frame} Set of predicted percentages/rates and upper-
 and lower-bounds across the full range of sample sizes/total exposure
 values for reporting. Created by passing \code{dfResults} and \code{dfMetrics} to
-\code{\link[=MakeBounds]{MakeBounds()}}. Expected columns: \code{Threshold}, \code{Denominator}, \code{Numerator},
+\code{\link[gsm.mapping:MakeBounds]{gsm.mapping::MakeBounds()}}. Expected columns: \code{Threshold}, \code{Denominator}, \code{Numerator},
 \code{Metric}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
 
 \item{bAddGroupSelect}{\code{logical} Add a dropdown to highlight sites? Default: \code{TRUE}.}
