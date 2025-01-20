@@ -23,27 +23,14 @@ spec:
       type: character
     race:
       type: character
-  Raw_STUDCOMP:
-    subjid:
-      type: character
-    compyn:
-      type: character
 steps:
-  - output: Temp_SUBJ
-    name: left_join
-    params:
-      x: Raw_SUBJ
-      "y": Raw_STUDCOMP
-      by: subjid
   - output: Mapped_SUBJ
     name: RunQuery
     params:
-      df: Temp_SUBJ
+      df: Raw_SUBJ
       strQuery: |
         SELECT *,
         CASE
-          WHEN compyn == 'Y' THEN 'Completed'
-          WHEN compyn == 'N' THEN 'Discontinued'
           WHEN enrollyn == 'Y' THEN 'Active'
           WHEN enrollyn == 'N' THEN 'Screen Failure'
           WHEN enrollyn == '' THEN 'In Screening'
