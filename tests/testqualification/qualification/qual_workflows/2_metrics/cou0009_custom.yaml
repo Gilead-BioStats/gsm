@@ -15,7 +15,7 @@ spec:
   Mapped_QUERY:
     subject_nsv:
       type: character
-    country:
+    sex:
       type: character
     querystatus:
       type: character
@@ -26,7 +26,7 @@ steps:
     name: RunQuery
     params:
       df: Mapped_QUERY
-      strQuery: "SELECT DISTINCT subject_nsv, country FROM df"
+      strQuery: "SELECT DISTINCT subject_nsv, sex FROM df"
   - output: vThreshold
     name: ParseThreshold
     params:
@@ -48,7 +48,7 @@ steps:
       dfNumerator: Temp_OLDQUERY
       dfDenominator: Temp_QUERY
       strSubjectCol: subject_nsv
-      strGroupCol: country
+      strGroupCol: sex
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count

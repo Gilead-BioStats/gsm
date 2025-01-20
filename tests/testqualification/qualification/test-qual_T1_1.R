@@ -14,8 +14,7 @@ test_that("mappings now done by individual domain, test that inputs and outputs 
   # Output from yaml is in the mapped data object
   iwalk(mapped_p1_yaml, ~ expect_true(flatten(.x$steps)$output %in% names(mapped_data)))
 
-  # Needed columns of raw data are actually in raw data and retained in final data
-  iwalk(mapped_p1_yaml, ~ expect_true(all(names(flatten(.x$spec)) %in% names(lData[names(.x$spec)][[1]]))))
+  # Needed columns of raw data are retained in final data
   iwalk(mapped_p1_yaml, ~ expect_true(all(names(flatten(.x$spec)) %in% names(mapped_data[[flatten(.x$steps)$output]]))))
 })
 

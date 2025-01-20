@@ -16,7 +16,7 @@ spec:
   Mapped_QUERY:
     subject_nsv:
       type: character
-    invid:
+    race:
       type: character
     querystatus:
       type: character
@@ -27,7 +27,7 @@ steps:
     name: RunQuery
     params:
       df: Mapped_QUERY
-      strQuery: "SELECT DISTINCT subject_nsv, invid FROM df"
+      strQuery: "SELECT DISTINCT subject_nsv, race FROM df"
   - output: vThreshold
     name: ParseThreshold
     params:
@@ -49,7 +49,7 @@ steps:
       dfNumerator: Temp_OLDQUERY
       dfDenominator: Temp_QUERY
       strSubjectCol: subject_nsv
-      strGroupCol: invid
+      strGroupCol: race
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
       strDenominatorMethod: Count
