@@ -1,9 +1,9 @@
 meta:
   Type: Mapped
   ID: QUERY
-  Description: Query Data Mapping 
-  Priority: 2
-spec: 
+  Description: Query Data Mapping
+  Priority: 1
+spec:
   Raw_QUERY:
     subject_nsv:
       required: true
@@ -15,12 +15,16 @@ spec:
     queryage:
       required: true
       type: integer
-  Mapped_SUBJ:
+  Raw_SUBJ:
     subjid:
       required: true
       type: character
     subject_nsv:
       required: true
+      type: character
+    invid:
+      type: character
+    country:
       type: character
 steps:
   # Merge [ subjid ] onto EDC domains.
