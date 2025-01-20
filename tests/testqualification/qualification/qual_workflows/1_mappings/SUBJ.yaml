@@ -1,9 +1,9 @@
 meta:
   Type: Mapped
   ID: SUBJ
-  Description: Subject Data Mapping 
+  Description: Subject Data Mapping
   Priority: 1
-spec: 
+spec:
   Raw_SUBJ:
     studyid:
       type: character
@@ -19,6 +19,10 @@ spec:
       type: character
     timeonstudy:
       type: integer
+    sex:
+      type: character
+    race:
+      type: character
   Raw_STUDCOMP:
     subjid:
       type: character

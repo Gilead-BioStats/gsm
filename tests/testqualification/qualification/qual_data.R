@@ -131,7 +131,7 @@ robust_runworkflow <- function(
 
 # get only the relevant data for a workflow to speed up mapping
 # Just a fancy wrapper for robust_runworkflow
-get_data <- function(lWorkflow, data, steps) {
+get_data <- function(lWorkflow, data, steps, mappings_wf) {
   if ("spec" %in% names(lWorkflow)) {
     lWorkflow <- list(lWorkflow)
   }

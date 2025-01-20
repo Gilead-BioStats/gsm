@@ -1,6 +1,7 @@
 ## Test Setup
+mappings_wf <- MakeWorkflowList(strPath = "tests/testqualification/qualification/qual_workflows/1_mappings")
 kri_workflows <- flatten(MakeWorkflowList(strNames = "kri0001"))
-mapped_data_missing_values <- get_data(kri_workflows, lData_missing_values)
+mapped_data_missing_values <- get_data(kri_workflows, lData_missing_values, mappings_wf = mappings_wf)
 
 outputs <- map_vec(kri_workflows$steps, ~ .x$output)
 
