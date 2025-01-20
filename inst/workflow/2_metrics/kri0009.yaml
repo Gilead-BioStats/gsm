@@ -26,7 +26,7 @@ steps:
     name: RunQuery
     params:
       df: Mapped_QUERY
-      strQuery: "SELECT DISTINCT subject_nsv, country FROM df"
+      strQuery: "SELECT DISTINCT subject_nsv, invid FROM df"
   - output: vThreshold
     name: ParseThreshold
     params:
