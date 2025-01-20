@@ -6,12 +6,6 @@
   }
 }
 
-stop_if <- function(cnd, message) {
-  if (cnd) {
-    LogMessage(level = "error", message = message)
-  }
-}
-
 #' Filter by Latest Snapshot Date
 #'
 #' Filter a data frame to the most recent snapshot date.

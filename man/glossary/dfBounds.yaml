@@ -3,6 +3,6 @@ definition: >
   Set of predicted percentages/rates and upper- and
   lower-bounds across the full range of sample sizes/total
   exposure values for reporting. Created by passing
-  `dfResults` and `dfMetrics` to [MakeBounds()]. Expected
+  `dfResults` and `dfMetrics` to [gsm.mapping::MakeBounds()]. Expected
   columns: `Threshold`, `Denominator`, `Numerator`, `Metric`,
   `MetricID`, `StudyID`, `SnapshotDate`.

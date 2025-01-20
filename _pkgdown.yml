@@ -78,22 +78,14 @@ reference:
   - title: Utility
     desc: Utility functions for use within the Data Model
   - contents:
-     -  ApplySpec
-     -  BindResults
      -  cli_fmt
-     -  CalculatePercentage
      -  CheckSpec
-     -  CombineSpecs
      -  FilterByLatestSnapshotDate
      -  FilterByFlags
      -  GetStrFunctionIfNamespaced
-     -  Ingest
      -  LogMessage
-     -  MakeBounds
      -  MakeCharts
-     -  MakeMetric
      -  MakeMetricTable
-     -  MakeLongMeta
      -  MakeParamLabels
      -  MakeParamLabelsList
      -  MakeStudyInfo
@@ -101,11 +93,12 @@ reference:
      -  MakeWorkflowList
      -  ParseThreshold
      -  RenderRmd
-     -  RunStep
      -  RunQuery
+     -  RunStep
      -  RunWorkflow
      -  RunWorkflows
      -  SetLogger
+     -  stop_if
      -  UseClindata
 
   - title: Sample Data

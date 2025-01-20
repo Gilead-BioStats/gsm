@@ -1,5 +1,5 @@
 class: data.frame
 definition: >
   Group-level metadata dictionary. Created by passing CTMS
-  site and study data to [MakeLongMeta()]. Expected columns:
+  site and study data to [gsm.mapping::MakeLongMeta()]. Expected columns:
   `GroupID`, `GroupLevel`, `Param`, `Value`.
