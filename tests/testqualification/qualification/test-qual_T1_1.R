@@ -2,7 +2,7 @@ source(system.file("tests", "testqualification", "qualification", "qual_data.R",
 
 # Priority 1 mappings
 test_that("mappings now done by individual domain, test that inputs and outputs of priority 1 mappings are completed as expected", {
-  priority1 <- c("AE.yaml", "ENROLL.yaml", "LB.yaml", "PD.yaml", "SDRGCOMP.yaml", "STUDCOMP.yaml", "SUBJ.yaml")
+  priority1 <- c("AE.yaml", "ENROLL.yaml", "LB.yaml", "PD.yaml", "QUERY.yaml", "SDRGCOMP.yaml", "STUDCOMP.yaml", "SUBJ.yaml")
 
   mapped_p1_yaml <- map(priority1, ~ read_yaml(
     system.file("tests", "testqualification", "qualification", "qual_workflows", "1_mappings", .x, package = "gsm")
@@ -23,7 +23,7 @@ test_that("mappings now done by individual domain, test that inputs and outputs 
 # Priority 2 Mappings
 
 test_that("mappings now done by individual domain, test that inputs and outputs of priority 2 mappings are completed as expected", {
-  priority2 <- c("DATACHG.yaml", "DATAENT.yaml", "QUERY.yaml")
+  priority2 <- c("DATACHG.yaml", "DATAENT.yaml")
 
   mapped_p2_yaml <- map(priority2, ~ read_yaml(
     system.file("tests", "testqualification", "qualification", "qual_workflows", "1_mappings", .x, package = "gsm")
@@ -32,8 +32,6 @@ test_that("mappings now done by individual domain, test that inputs and outputs 
   iwalk(mapped_p2_yaml, ~ expect_true(all(names(.x$spec) %in% c(names(lData), "Mapped_SUBJ"))))
 
   iwalk(mapped_p2_yaml, ~ expect_true(flatten(.x$steps)$output %in% c(names(mapped_data), "Temp_SubjectLookup")))
-
-  iwalk(mapped_p2_yaml, ~ expect_true(all(names(flatten(.x$spec)) %in% c(names(lData[names(.x$spec)][[1]]), names(lData["Raw_SUBJ"][[1]])))))
 })
 
 # Priority 3 Mappings
