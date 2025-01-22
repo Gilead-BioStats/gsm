@@ -1,3 +1,9 @@
+# gsm v2.2.2
+
+This patch release moves the `duckdb` dependency from `Imports` to `Suggests` to side step an
+[issue](https://github.com/duckdb/duckdb-r/issues/612) related to deployment of
+[`gsm.app`](https://github.com/Gilead-BioStats/gsm.app/tree/v2.2.0) to Posit Connect.
+
 # gsm v2.2.1
 
 This patch release primarily addresses minor report updates bug fixes. Specifically:

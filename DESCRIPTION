@@ -1,6 +1,6 @@
 Package: gsm
 Title: Good Statistical Monitoring
-Version: 2.2.1
+Version: 2.2.2
 Authors@R: c(
     person("George", "Wu", , "george.wu@gilead.com", role = c("aut", "cre")),
     person("Jeremy", "Wildfire", , "jwildfire@gmail.com", role = "aut"),
@@ -37,7 +37,6 @@ Imports:
     DBI,
     dbplyr,
     dplyr,
-    duckdb,
     ggplot2,
     glue,
     gt,
@@ -60,6 +59,7 @@ Suggests:
     clindata,
     covr,
     DT,
+    duckdb,
     fontawesome (>= 0.2.2),
     gggenes,
     ggiraph,
