@@ -40,8 +40,8 @@
 #' @export
 
 Analyze_NormalApprox <- function(
-    dfTransformed,
-    strType = "binary"
+  dfTransformed,
+  strType = "binary"
 ) {
   stop_if(cnd = !is.data.frame(dfTransformed), message = "dfTransformed is not a data.frame")
   stop_if(
@@ -57,15 +57,15 @@ Analyze_NormalApprox <- function(
       mutate(
         vMu = sum(.data$Numerator) / sum(.data$Denominator),
         z_0 = ifelse(.data$vMu == 0 | .data$vMu == 1,
-                     0,
-                     (.data$Metric - .data$vMu) /
-                       sqrt(.data$vMu * (1 - .data$vMu) / .data$Denominator)
+          0,
+          (.data$Metric - .data$vMu) /
+            sqrt(.data$vMu * (1 - .data$vMu) / .data$Denominator)
         ),
         phi = mean(.data$z_0^2),
         z_i = ifelse(.data$vMu == 0 | .data$vMu == 1 | .data$phi == 0,
-                     0,
-                     (.data$Metric - .data$vMu) /
-                       sqrt(.data$phi * .data$vMu * (1 - .data$vMu) / .data$Denominator)
+          0,
+          (.data$Metric - .data$vMu) /
+            sqrt(.data$phi * .data$vMu * (1 - .data$vMu) / .data$Denominator)
         )
       )
   } else if (strType == "rate") {
@@ -73,15 +73,15 @@ Analyze_NormalApprox <- function(
       mutate(
         vMu = sum(.data$Numerator) / sum(.data$Denominator),
         z_0 = ifelse(.data$vMu == 0,
-                     0,
-                     (.data$Metric - .data$vMu) /
-                       sqrt(.data$vMu / .data$Denominator)
+          0,
+          (.data$Metric - .data$vMu) /
+            sqrt(.data$vMu / .data$Denominator)
         ),
         phi = mean(.data$z_0^2),
         z_i = ifelse(.data$vMu == 0 | .data$phi == 0,
-                     0,
-                     (.data$Metric - .data$vMu) /
-                       sqrt(.data$phi * .data$vMu / .data$Denominator)
+          0,
+          (.data$Metric - .data$vMu) /
+            sqrt(.data$phi * .data$vMu / .data$Denominator)
         )
       )
   }

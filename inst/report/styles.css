@@ -121,14 +121,6 @@ table.dataTable.compact thead th, table.dataTable.compact thead td {
   display: none;
 }
 
-/* Adjusting the TOC position and transition */
-#TOC {
-  transition: transform 0.3s ease-in-out;
-}
-
-#TOC.hidden {
-  transform: translateX(-300px); /* Hide TOC off the screen */
-}
 
 /* Group summary table -- change cursor to cue to user that tooltip is available */
 td[title] {
