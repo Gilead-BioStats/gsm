@@ -29,6 +29,8 @@ setup <- Report_Setup(
 )
 
 ```
+
+
 ---
 title: "`r setup$GroupLevel` KRI Overview"
 subtitle: "Study: `r setup$StudyLabel`"
@@ -161,14 +163,10 @@ params$dfMetrics %>%
 ```{r echo=FALSE}
 group_dropdown <- system.file('report', 'lib', 'overallGroupDropdown.js', package = "gsm")
 dropdown_drag <- system.file('report', 'lib', 'dragOverallGroupDropdown.js', package = "gsm")
-toggle_toc <- system.file('report', 'lib', 'toggleTOC.js', package = "gsm")
 ```
 
 ```{js, file={group_dropdown}, echo=FALSE}
 ```
 
 ```{js, file={dropdown_drag}, echo=FALSE}
-```
-
-```{js, file={toggle_toc}, echo=FALSE}
 ```
