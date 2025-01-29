@@ -13,9 +13,9 @@
       [22] "kri0010"            "kri0011"            "kri0012"           
       [25] "report_kri_country" "report_kri_site"    "AE"                
       [28] "ENROLL"             "LB"                 "PD"                
-      [31] "SDRGCOMP"           "STUDCOMP"           "SUBJ"              
-      [34] "Groups"             "Metrics"            "Results"           
-      [37] "DATACHG"            "DATAENT"            "QUERY"             
+      [31] "QUERY"              "SDRGCOMP"           "STUDCOMP"          
+      [34] "SUBJ"               "Groups"             "Metrics"           
+      [37] "Results"            "DATACHG"            "DATAENT"           
       [40] "Bounds"             "COUNTRY"            "SITE"              
       [43] "STUDY"             
 

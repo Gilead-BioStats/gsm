@@ -7,7 +7,8 @@ lSource <- list(
   Source_PD = clindata::ctms_protdev,
   Source_LB = clindata::rawplus_lb,
   Source_STUDCOMP = clindata::rawplus_studcomp,
-  Source_SDRGCOMP = clindata::rawplus_sdrgcomp %>% dplyr::filter(.data$phase == "Blinded Study Drug Completion"),
+  Source_SDRGCOMP = clindata::rawplus_sdrgcomp %>%
+    dplyr::filter(.data$phase == 'Blinded Study Drug Completion'),
   Source_DATACHG = clindata::edc_data_points,
   Source_DATAENT = clindata::edc_data_pages,
   Source_QUERY = clindata::edc_queries,
@@ -16,36 +17,19 @@ lSource <- list(
   Source_STUDY = clindata::ctms_study
 )
 
-# Step 0 - Data Ingestion - standardize tables/columns names
-lData <- list(
-  Raw_SUBJ = lSource$Source_SUBJ,
-  Raw_AE = lSource$Source_AE,
-  Raw_PD = lSource$Source_PD %>%
-    rename(subjid = subjectenrollmentnumber),
-  Raw_LB = lSource$Source_LB,
-  Raw_STUDCOMP = lSource$Source_STUDCOMP,
-  Raw_SDRGCOMP = lSource$Source_SDRGCOMP,
-  Raw_DATACHG = lSource$Source_DATACHG %>%
-    rename(subject_nsv = subjectname),
-  Raw_DATAENT = lSource$Source_DATAENT %>%
-    rename(subject_nsv = subjectname),
-  Raw_QUERY = lSource$Source_QUERY %>%
-    rename(subject_nsv = subjectname),
-  Raw_ENROLL = lSource$Source_ENROLL,
-  Raw_SITE = lSource$Source_SITE %>%
-    rename(studyid = protocol) %>%
-    rename(invid = pi_number) %>%
-    rename(InvestigatorFirstName = pi_first_name) %>%
-    rename(InvestigatorLastName = pi_last_name) %>%
-    rename(City = city) %>%
-    rename(State = state) %>%
-    rename(Country = country),
-  Raw_STUDY = lSource$Source_STUDY %>%
-    rename(studyid = protocol_number)
-)
+
+
+## custom kris path instead of inst/workflow
+yaml_path_custom_mappings <- "tests/testqualification/qualification/qual_workflows/1_mappings"
+yaml_path_custom_metrics <- "tests/testqualification/qualification/qual_workflows/2_metrics"
+
+## Get Mapped data
+mappings_wf <- MakeWorkflowList(strPath = yaml_path_custom_mappings)
+mappings_spec <- CombineSpecs(mappings_wf)
+lData <- Ingest(lSource, mappings_spec)
+mapped_data <- RunWorkflows(mappings_wf, lData)
 
 ## Data with missing values (15% NA's)
-
 ## ONLY USED IN T2_2
 lData_missing_values <- map(lData, function(df) {
   df %>%
@@ -54,13 +38,6 @@ lData_missing_values <- map(lData, function(df) {
     )
 })
 
-## custom kris path instead of inst/workflow
-yaml_path_custom_mappings <- "tests/testqualification/qualification/qual_workflows/1_mappings"
-yaml_path_custom_metrics <- "tests/testqualification/qualification/qual_workflows/2_metrics"
-
-## Get Mapped data
-mappings_wf <- MakeWorkflowList(strPath = yaml_path_custom_mappings)
-mapped_data <- RunWorkflows(mappings_wf, lData)
 
 mapping_output <- map(mappings_wf, ~ .x$steps[[1]]$output) %>% unlist()
 
@@ -154,7 +131,7 @@ robust_runworkflow <- function(
 
 # get only the relevant data for a workflow to speed up mapping
 # Just a fancy wrapper for robust_runworkflow
-get_data <- function(lWorkflow, data, steps) {
+get_data <- function(lWorkflow, data, steps, mappings_wf) {
   if ("spec" %in% names(lWorkflow)) {
     lWorkflow <- list(lWorkflow)
   }
@@ -165,3 +142,4 @@ get_data <- function(lWorkflow, data, steps) {
   mapped_needed_data <- RunWorkflows(mappings_wf[maps_needed], data)
   return(mapped_needed_data)
 }
+

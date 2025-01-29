@@ -12,24 +12,21 @@ meta:
   Threshold: -5,-3,3,5
   nMinDenominator: 300
 spec:
-  Mapped_SUBJ:
-    subjid:
-      required: true
+  Mapped_QUERY:
+    subject_nsv:
       type: character
     sex:
-      required: true
-      type: character
-  Mapped_QUERY:
-    subjid:
-      required: true
       type: character
     querystatus:
-      required: true
       type: character
     queryage:
-      required: true
       type: integer
 steps:
+  - output: dfSubjects
+    name: RunQuery
+    params:
+      df: Mapped_QUERY
+      strQuery: "SELECT DISTINCT subject_nsv, sex FROM df"
   - output: vThreshold
     name: ParseThreshold
     params:
@@ -47,10 +44,10 @@ steps:
   - output: Analysis_Input
     name: Input_Rate
     params:
-      dfSubjects: Mapped_SUBJ
+      dfSubjects: dfSubjects
       dfNumerator: Temp_OLDQUERY
       dfDenominator: Temp_QUERY
-      strSubjectCol: subjid
+      strSubjectCol: subject_nsv
       strGroupCol: sex
       strGroupLevel: GroupLevel
       strNumeratorMethod: Count
@@ -65,7 +62,7 @@ steps:
       dfTransformed: Analysis_Transformed
       strType: AnalysisType
   - output: Analysis_Flagged
-    name: Flag_NormalApprox
+    name: Flag
     params:
       dfAnalyzed: Analysis_Analyzed
       vThreshold: vThreshold
@@ -83,3 +80,4 @@ steps:
       Analysis_Analyzed: Analysis_Analyzed
       Analysis_Flagged: Analysis_Flagged
       Analysis_Summary: Analysis_Summary
+

@@ -6,22 +6,35 @@ meta:
 spec:
   Mapped_SUBJ:
     country:
-      required: true
       type: character
     invid:
-      required: true
       type: character
     subjid:
-      required: true
       type: character
 steps:
   - output: Temp_CountryCountsWide
     name: RunQuery
     params:
       df: Mapped_SUBJ
-      strQuery: "SELECT country as GroupID, COUNT(DISTINCT subjid) as ParticipantCount, COUNT(DISTINCT invid) as SiteCount FROM df GROUP BY country"
+      strQuery: |
+        SELECT
+          country as GroupID,
+          COUNT(DISTINCT subjid) as ParticipantCount,
+          SUM(CASE WHEN Status == 'Active' THEN 1 ELSE 0 END) as ActiveParticipantCount,
+          COUNT(DISTINCT invid) as SiteCount
+        FROM df
+        GROUP BY country
+  - output: Temp_CountryCountsWide_ActiveParticipants
+    name: CalculatePercentage
+    params:
+      data: Temp_CountryCountsWide
+      strCurrentCol: ActiveParticipantCount
+      strTargetCol: ParticipantCount
+      strPercVal: PercentParticipantsActive
+      strPercStrVal: ActiveParticipants
   - output: Mapped_COUNTRY
     name: MakeLongMeta
     params:
-      data: Temp_CountryCountsWide
+      data: Temp_CountryCountsWide_ActiveParticipants
       strGroupLevel: "Country"
+
