@@ -1,15 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("Document loaded. Initializing TOC toggle functionality.");
 
   // Create the toggle button
   const button = document.createElement("button");
   button.id = "toc-toggle";
   button.style.position = "fixed";
-  button.style.top = "10px";
-  button.style.left = "10px";
+  button.style.top = "3px";
+  button.style.left = "20px";
   button.style.zIndex = "1000";
   button.style.width = "80px";
-  button.style.height = "25px";
+  button.style.height = "20px";
   button.style.display = "flex";
   button.style.flexDirection = "column";
   button.style.justifyContent = "space-around";
@@ -32,7 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // }
 
   document.body.appendChild(button);
-  console.log("TOC toggle button created and added to the page.");
 
   // Select the TOC and main content elements
   const toc = document.querySelector("#TOC");
@@ -40,18 +38,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Add click event to toggle TOC visibility and adjust content width
   button.addEventListener("click", function () {
-    console.log("Toggle button clicked.");
     toc.classList.toggle("hidden");
 
     if (toc.classList.contains("hidden")) {
-      console.log("TOC is now hidden. Expanding main content.");
       mainContent.classList.remove("col-sm-8", "col-md-9");
       mainContent.classList.add("col-sm-12", "col-md-12");
       button.innerHTML = 'Show TOC';
       button.style.backgroundColor = '#9D9D9D';
       button.style.color = 'white';
     } else {
-      console.log("TOC is now visible. Restoring main content width.");
       mainContent.classList.remove("col-sm-12", "col-md-12");
       mainContent.classList.add("col-sm-8", "col-md-9");
       button.innerHTML = 'Hide TOC';
@@ -68,8 +63,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   `;
   document.head.appendChild(style);
-});document.addEventListener("load", function() {
-  console.log("JavaScript is loaded and running!");
+});
+
+document.addEventListener("load", function() {
   // Create the toggle button
   const button = document.createElement("button");
   button.id = "toc-toggle";
