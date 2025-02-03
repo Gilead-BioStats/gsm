@@ -29,6 +29,7 @@
 #' # Generate mapped input data to metric workflow.
 #' lMappingWorkflows <- MakeWorkflowList(
 #'   c("AE", "SUBJ"),
+#'   strPath = testthat::test_path("testdata/mappings")
 #'   bExact = TRUE
 #' )
 #'
@@ -38,7 +39,7 @@
 #' )
 #'
 #' # Run the metric workflow.
-#' lMetricWorkflow <- MakeWorkflowList("kri0001")$kri0001
+#' lMetricWorkflow <- MakeWorkflowList(testthat::test_path("testdata/metrics/kri0001"))$kri0001
 #' lMetricOutput <- RunWorkflow(
 #'   lMetricWorkflow,
 #'   lMappedData

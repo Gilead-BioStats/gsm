@@ -32,10 +32,7 @@ MakeWorkflowList(
 \code{MakeWorkflowList()} is a utility function that creates a list of workflows for use in KRI pipelines.
 }
 \examples{
-# use default
-workflow <- MakeWorkflowList()
-
 # get specific workflow files
-workflow <- MakeWorkflowList(strNames = c("kri0001", "kri0005", "cou0003"))
+workflow <- MakeWorkflowList(strPath = testthat::test_path("testdata/metrics"))
 
 }
