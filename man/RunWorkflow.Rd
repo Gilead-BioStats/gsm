@@ -51,7 +51,7 @@ lRawData <- list(
 # Generate mapped input data to metric workflow.
 lMappingWorkflows <- MakeWorkflowList(
   c("AE", "SUBJ"),
-  strPath = testthat::test_path("testdata/mappings")
+  strPath = here::here("tests/testthat/testdata/mappings"),
   bExact = TRUE
 )
 
@@ -122,6 +122,7 @@ lConfig <- list(
 # Generate mapped input data to metric workflow.
 lMappingWorkflows <- MakeWorkflowList(
   c("AE", "SUBJ"),
+  strPath = here::here("tests/testthat/testdata/mappings"),
   bExact = TRUE
 )
 
@@ -131,7 +132,7 @@ lMappedData <- RunWorkflows(
 )
 
 # Run the metric workflow.
-lMetricWorkflow <- here::here("tests/testthat/testdata/metrics/kri0001")$kri0001
+lMetricWorkflow <- MakeWorkflowList(here::here("tests/testthat/testdata/metrics/kri0001"))$kri0001
 lMetricOutput <- RunWorkflow(
   lMetricWorkflow,
   lConfig = lConfig

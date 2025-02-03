@@ -12,10 +12,11 @@ navbar:
     right: [search, github]
 
 articles:
+  - title: Articles
     contents:
       - DataAnalysis
       - articles/KRIMethod
-
+      - articles/ContributorGuidelines
 reference:
   - title: Analyze
     desc: Conduct statistical analysis based on input data
