@@ -61,7 +61,7 @@ lMappedData <- RunWorkflows(
 )
 
 # Run the metric workflow.
-lMetricWorkflow <- MakeWorkflowList(testthat::test_path("testdata/metrics/kri0001"))$kri0001
+lMetricWorkflow <- MakeWorkflowList(here::here("tests/testthat/testdata/metrics/kri0001"))$kri0001
 lMetricOutput <- RunWorkflow(
   lMetricWorkflow,
   lMappedData
@@ -131,7 +131,7 @@ lMappedData <- RunWorkflows(
 )
 
 # Run the metric workflow.
-lMetricWorkflow <- MakeWorkflowList("kri0001")$kri0001
+lMetricWorkflow <- here::here("tests/testthat/testdata/metrics/kri0001")$kri0001
 lMetricOutput <- RunWorkflow(
   lMetricWorkflow,
   lConfig = lConfig

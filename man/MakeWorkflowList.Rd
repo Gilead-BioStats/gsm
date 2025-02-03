@@ -7,7 +7,7 @@
 MakeWorkflowList(
   strNames = NULL,
   strPath = "workflow",
-  strPackage = "gsm",
+  strPackage = NULL,
   bExact = FALSE,
   bRecursive = TRUE
 )
@@ -33,6 +33,6 @@ MakeWorkflowList(
 }
 \examples{
 # get specific workflow files
-workflow <- MakeWorkflowList(strPath = testthat::test_path("testdata/metrics"))
+workflow <- MakeWorkflowList(strPath = here::here("tests/testthat/testdata/metrics"))
 
 }
