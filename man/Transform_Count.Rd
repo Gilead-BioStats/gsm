@@ -7,7 +7,10 @@
 Transform_Count(dfInput, strCountCol, strGroupCol = "GroupID")
 }
 \arguments{
-\item{dfInput}{\code{data.frame} Input data with one record per subject. Created by passing Raw+ data into \code{\link[=Input_Rate]{Input_Rate()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator} and/or columns specified in \code{strCountCol} and \code{strGroupCol}.}
+\item{dfInput}{\code{data.frame} Input data with one record per subject. Created
+by passing Raw+ data into \code{\link[=Input_Rate]{Input_Rate()}}. Expected columns: \code{GroupID},
+\code{GroupLevel}, \code{Numerator}, \code{Denominator} and/or columns specified in
+\code{strCountCol} and \code{strGroupCol}.}
 
 \item{strCountCol}{Required. Numerical or logical. Column to be counted.}
 

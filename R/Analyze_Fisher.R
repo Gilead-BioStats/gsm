@@ -1,9 +1,8 @@
 #' Fisher's Exact Test Analysis.
 #'
-#' @description
-#' `r lifecycle::badge("stable")`
+#' @description `r lifecycle::badge("stable")`
 #'
-#' Analyzes count data using the Fisher's exact test.
+#'   Analyzes count data using the Fisher's exact test.
 #'
 #'   More information can be found in [The Fisher's Exact Method
 #'   Section](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-fishers-exact-method)
@@ -23,8 +22,12 @@
 #'   analysis are flagged by default. The significance level was set at a common
 #'   choice.
 #'
-#' @param dfTransformed `r gloss_param("dfTransformed")`
-#'   `r gloss_extra("dfTransformed_Rate")`
+#' @param dfTransformed `data.frame` Transformed data for analysis. Data should
+#'   have one record per site with expected columns: `GroupID`, `GroupLevel`,
+#'   `Numerator`, `Denominator`, and `Metric`. For more details see the Data
+#'   Model vignette: `vignette("DataModel", package = "gsm")`. For this
+#'   function, `dfTransformed` should typically be created using
+#'   [Transform_Rate()].
 #' @param strOutcome `character` required, name of column in `dfTransformed`
 #'   dataset to perform Fisher's exact test on. Default is "Numerator".
 #'

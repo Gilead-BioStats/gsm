@@ -11,30 +11,36 @@ Analyze_Poisson_PredictBounds(
 )
 }
 \arguments{
-\item{dfTransformed}{\code{data.frame} Transformed data for analysis. Data should have one record per site with expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, and \code{Metric}. For more details see the Data Model vignette: \code{vignette("DataModel", package = "gsm")}.
-For this function, \code{dfTransformed} should typically be created using \code{\link[=Transform_Rate]{Transform_Rate()}}.}
+\item{dfTransformed}{\code{data.frame} Transformed data for analysis. Data should
+have one record per site with expected columns: \code{GroupID}, \code{GroupLevel},
+\code{Numerator}, \code{Denominator}, and \code{Metric}. For more details see the Data
+Model vignette: \code{vignette("DataModel", package = "gsm")}. For this
+function, \code{dfTransformed} should typically be created using
+\code{\link[=Transform_Rate]{Transform_Rate()}}.}
 
-\item{vThreshold}{\code{numeric} upper and lower boundaries in residual space. Should be identical to
-the thresholds used AE_Assess().}
+\item{vThreshold}{\code{numeric} upper and lower boundaries in residual space.
+Should be identical to the thresholds used AE_Assess().}
 
 \item{nStep}{\code{numeric} step size of imputed bounds.}
 }
 \value{
-\code{data.frame} containing predicted boundary values with upper and lower bounds across the
-range of observed values.
+\code{data.frame} containing predicted boundary values with upper and
+lower bounds across the range of observed values.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
-Fits a Poisson model to site-level data and then calculates predicted count values and upper- and
-lower- bounds for across the full range of exposure values.
+Fits a Poisson model to site-level data and then calculates predicted count
+values and upper- and lower- bounds for across the full range of exposure
+values.
 }
 \section{Statistical Methods}{
-
-This function fits a Poisson model to site-level data and then calculates residuals for each
-site. The Poisson model is run using standard methods in the \code{stats} package by fitting a \code{glm}
-model with family set to \code{poisson} using a "log" link. Upper and lower boundary values are then
-calculated using the method described here TODO: Add link.
+ This function fits a Poisson model to
+site-level data and then calculates residuals for each site. The Poisson
+model is run using standard methods in the \code{stats} package by fitting a
+\code{glm} model with family set to \code{poisson} using a "log" link. Upper and
+lower boundary values are then calculated using the method described here
+TODO: Add link.
 }
 
 \examples{

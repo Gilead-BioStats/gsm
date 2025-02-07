@@ -14,9 +14,17 @@ Widget_FlagOverTime(
 )
 }
 \arguments{
-\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output. Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to \code{\link[=BindResults]{BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID}, \code{SnapshotDate}.}
+\item{dfResults}{\code{data.frame} A stacked summary of analysis pipeline output.
+Created by passing a list of results returned by \code{\link[=Summarize]{Summarize()}} to
+\code{\link[=BindResults]{BindResults()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator},
+\code{Denominator}, \code{Metric}, \code{Score}, \code{Flag}, \code{MetricID}, \code{StudyID},
+\code{SnapshotDate}.}
 
-\item{dfMetrics}{\code{data.frame} Metric-specific metadata for use in charts and reporting. Created by passing an \code{lWorkflow} object to \code{\link[=MakeMetric]{MakeMetric()}}. Expected columns: \code{File}, \code{MetricID}, \code{Group}, \code{Abbreviation}, \code{Metric}, \code{Numerator}, \code{Denominator}, \code{Model}, \code{Score}, and \code{Threshold}. For more details see the Data Model vignette: \code{vignette("DataModel", package = "gsm")}.}
+\item{dfMetrics}{\code{data.frame} Metric-specific metadata for use in charts and
+reporting. Created by passing an \code{lWorkflow} object to \code{\link[=MakeMetric]{MakeMetric()}}.
+Expected columns: \code{File}, \code{MetricID}, \code{Group}, \code{Abbreviation}, \code{Metric},
+\code{Numerator}, \code{Denominator}, \code{Model}, \code{Score}, and \code{Threshold}. For more
+details see the Data Model vignette: \code{vignette("DataModel", package = "gsm")}.}
 
 \item{strGroupLevel}{\code{character} Value for the group level. Default: "Site".}
 

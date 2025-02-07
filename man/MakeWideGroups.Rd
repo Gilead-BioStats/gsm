@@ -7,7 +7,9 @@
 MakeWideGroups(dfGroups, strGroupLevel)
 }
 \arguments{
-\item{dfGroups}{\code{data.frame} Group-level metadata dictionary. Created by passing CTMS site and study data to \code{\link[=MakeLongMeta]{MakeLongMeta()}}. Expected columns: \code{GroupID}, \code{GroupLevel}, \code{Param}, \code{Value}.}
+\item{dfGroups}{\code{data.frame} Group-level metadata dictionary. Created by
+passing CTMS site and study data to \code{\link[=MakeLongMeta]{MakeLongMeta()}}. Expected columns:
+\code{GroupID}, \code{GroupLevel}, \code{Param}, \code{Value}.}
 
 \item{strGroupLevel}{A string specifying the group level; used to filter
 dfGroups$GroupLevel.}

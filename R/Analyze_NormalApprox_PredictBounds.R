@@ -1,27 +1,33 @@
 #' Funnel Plot Analysis with Normal Approximation - Predicted Boundaries.
 #'
-#' @description
-#' `r lifecycle::badge("stable")`
+#' @description `r lifecycle::badge("stable")`
 #'
-#' Applies a funnel plot analysis with normal approximation to site-level data, and then calculates predicted
-#' percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values.
-#'
-#' @section Statistical Methods:
-#' This function applies a funnel plot analysis with normal approximation to site-level data and then calculates
-#' predicted percentages/rates and upper- and lower- bounds (funnels) based on the standard deviation from the mean
+#' Applies a funnel plot analysis with normal approximation to site-level data,
+#' and then calculates predicted percentages/rates and upper- and lower-bounds
 #' across the full range of sample sizes/total exposure values.
 #'
-#' @param dfTransformed `r gloss_param("dfTransformed")`
-#'   `r gloss_extra("dfTransformed_Rate")`
-#' @param vThreshold `numeric` upper and lower boundaries based on standard deviation. Should be identical to
-#' the thresholds used in `*_Assess()` functions.
+#' @section Statistical Methods: This function applies a funnel plot analysis
+#'   with normal approximation to site-level data and then calculates predicted
+#'   percentages/rates and upper- and lower- bounds (funnels) based on the
+#'   standard deviation from the mean across the full range of sample
+#'   sizes/total exposure values.
+#'
+#' @param dfTransformed `data.frame` Transformed data for analysis. Data should
+#'   have one record per site with expected columns: `GroupID`, `GroupLevel`,
+#'   `Numerator`, `Denominator`, and `Metric`. For more details see the Data
+#'   Model vignette: `vignette("DataModel", package = "gsm")`. For this
+#'   function, `dfTransformed` should typically be created using
+#'   [Transform_Rate()].
+#' @param vThreshold `numeric` upper and lower boundaries based on standard
+#'   deviation. Should be identical to the thresholds used in `*_Assess()`
+#'   functions.
 #' @param nStep `numeric` step size of imputed bounds.
 #' @param strType `character` Statistical method. Valid values:
 #'   - `"binary"` (default)
 #'   - `"rate"`
 #'
-#' @return `data.frame` containing predicted boundary values with upper and lower bounds across the
-#' range of observed values.
+#' @return `data.frame` containing predicted boundary values with upper and
+#'   lower bounds across the range of observed values.
 #'
 #' @examples
 #' # Binary

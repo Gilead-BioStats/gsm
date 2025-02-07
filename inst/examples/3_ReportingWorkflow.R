@@ -53,7 +53,7 @@ mappings_wf <- MakeWorkflowList(strPath = "workflow/1_mappings")
 mapped <- RunWorkflows(mappings_wf, lRaw)
 
 # Step 2 - Create Metrics - calculate metrics using mapped data
-metrics_wf <- MakeWorkflowList(strPath = "workflow/2_metrics", strNames = "kri")
+metrics_wf <- MakeWorkflowList(strPath = "workflow/2_metrics")
 analyzed <- RunWorkflows(metrics_wf, mapped)
 
 # Step 3 - Create Reporting Layer - create reports using metrics data

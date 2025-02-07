@@ -7,8 +7,12 @@
 Analyze_Fisher(dfTransformed, strOutcome = "Numerator")
 }
 \arguments{
-\item{dfTransformed}{\code{data.frame} Transformed data for analysis. Data should have one record per site with expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, and \code{Metric}. For more details see the Data Model vignette: \code{vignette("DataModel", package = "gsm")}.
-For this function, \code{dfTransformed} should typically be created using \code{\link[=Transform_Rate]{Transform_Rate()}}.}
+\item{dfTransformed}{\code{data.frame} Transformed data for analysis. Data should
+have one record per site with expected columns: \code{GroupID}, \code{GroupLevel},
+\code{Numerator}, \code{Denominator}, and \code{Metric}. For more details see the Data
+Model vignette: \code{vignette("DataModel", package = "gsm")}. For this
+function, \code{dfTransformed} should typically be created using
+\code{\link[=Transform_Rate]{Transform_Rate()}}.}
 
 \item{strOutcome}{\code{character} required, name of column in \code{dfTransformed}
 dataset to perform Fisher's exact test on. Default is "Numerator".}
