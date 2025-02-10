@@ -8,43 +8,16 @@ template:
 
 navbar:
   structure:
-    left: [articles, Reports, reference, news]
+    left: [articles, reference, news]
     right: [search, github]
-  components:
-    Reports:
-      text: Sample Reports
-      menu:
-        - text: Site Report
-          href: report_kri_site.html
-        - text: Country Report
-          href: report_kri_country.html
 
 articles:
-  - title: "Workflows"
-    navbar: "Workflows"
+  - title: Articles
     contents:
-      - DataModel
-      - Cookbook
       - DataAnalysis
-      - DataReporting
-      - gsmExtensions
       - articles/KRIMethod
-  - title: "Quality"
-    navbar: "Quality"
-    contents:
-      - articles/QualificationWorkflow
-      - articles/Qualification
       - articles/ContributorGuidelines
-
 reference:
-  - title: Visualize
-    desc: Generate a visualization from the Assessment results
-  - contents:
-      - starts_with("Visualize_")
-      - starts_with("Widget_")
-      - Analyze_NormalApprox_PredictBounds
-      - Analyze_Poisson_PredictBounds
-
   - title: Analyze
     desc: Conduct statistical analysis based on input data
   - contents:
@@ -52,6 +25,8 @@ reference:
       - Analyze_Identity
       - Analyze_Fisher
       - Analyze_Poisson
+      - Analyze_NormalApprox_PredictBounds
+      - Analyze_Poisson_PredictBounds
 
   - title: Data Pipeline
     desc: Create site-level summary, analyzed, and flagged data for an assessment
@@ -64,43 +39,17 @@ reference:
       - Flag_Poisson
       - Summarize
 
-  - title: Reporting
-    desc: Creates summary tables and HTML objects to create a report
-  - contents:
-      - Report_FlagOverTime
-      - Report_FormatFlag
-      - Report_KRI
-      - Report_MetricCharts
-      - Report_MetricTable
-      - Report_StudyInfo
-
 
   - title: Utility
     desc: Utility functions for use within the Data Model
   - contents:
-     -  ApplySpec
-     -  BindResults
      -  cli_fmt
-     -  CalculatePercentage
      -  CheckSpec
-     -  CombineSpecs
-     -  FilterByLatestSnapshotDate
-     -  FilterByFlags
      -  GetStrFunctionIfNamespaced
-     -  Ingest
      -  LogMessage
-     -  MakeBounds
-     -  MakeCharts
-     -  MakeMetric
-     -  MakeMetricTable
-     -  MakeLongMeta
-     -  MakeParamLabels
-     -  MakeParamLabelsList
-     -  MakeStudyInfo
      -  MakeWideGroups
      -  MakeWorkflowList
      -  ParseThreshold
-     -  RenderRmd
      -  RunStep
      -  RunQuery
      -  RunWorkflow
