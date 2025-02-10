@@ -1,0 +1,44 @@
+meta:
+  File: mapping.yaml
+  description: Data Mappings to prepare for metric calculations
+spec:
+  Raw_SUBJ:
+    subjectid:
+      required: true
+      type: character
+    subjid:
+      required: true
+      type: character
+    invid:
+      required: true
+      type: character
+    country:
+      required: true
+      type: character
+    timeonstudy:
+      required: true
+      type: integer
+    subject_nsv:
+      required: true
+      type: character
+    studyid:
+      required: true
+      type: character
+  Raw_AE:
+    subjid:
+      required: true
+      type: character
+    aeser:
+      required: true
+      type: character
+steps:
+  - name: RunQuery
+    output: Mapped_SUBJ
+    params:
+      df: Raw_SUBJ
+      strQuery: "SELECT * FROM df WHERE enrollyn == 'Y'"
+  - name: RunQuery
+    output: Mapped_AE
+    params:
+      df: Raw_AE
+      strQuery: "SELECT * FROM df WHERE aeser = 'Y'"
