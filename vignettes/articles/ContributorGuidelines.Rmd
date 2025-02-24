@@ -1,5 +1,6 @@
 ---
 title: "Contributor Guidelines"
+description: "This page outlines the development process for `{gsm}` packages, including how to contribute by filing issues, bug reports, and submitting code via a Pull Request."
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Contributor Guidelines}
@@ -17,7 +18,7 @@ knitr::opts_chunk$set(
 
 # Introduction
 
-This page outlines the development process for `{gsm}`, including how to contribute by filing issues, bug reports, and submitting code via a Pull Request.
+This page outlines the development process for `{gsm}` packages, including how to contribute by filing issues, bug reports, and submitting code via a Pull Request.
 
 ## Prerequisites
 
