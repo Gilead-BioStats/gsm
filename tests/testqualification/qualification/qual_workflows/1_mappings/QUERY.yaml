@@ -2,37 +2,28 @@ meta:
   Type: Mapped
   ID: QUERY
   Description: Query Data Mapping 
-  Priority: 2
+  Priority: 1
 spec: 
   Raw_QUERY:
     subject_nsv:
-      required: true
       type: character
       source_col: subjectname
     querystatus:
-      required: true
       type: character
     queryage:
-      required: true
       type: integer
-  Mapped_SUBJ:
-    subjid:
-      required: true
-      type: character
+  Raw_SUBJ:
     subject_nsv:
-      required: true
+      type: character
+    invid:
+      type: character
+    country:
       type: character
 steps:
-  # Merge [ subjid ] onto EDC domains.
-  - output: Temp_SubjectLookup
-    name: select
-    params:
-      .data: Mapped_SUBJ
-      subjid: subjid
-      subject_nsv: subject_nsv
   - output: Mapped_QUERY
     name: left_join
     params:
       x: Raw_QUERY
-      "y": Temp_SubjectLookup
+      "y": Raw_SUBJ
       by: subject_nsv
+

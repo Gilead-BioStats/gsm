@@ -5,7 +5,7 @@ kri_custom <- MakeWorkflowList(c(sprintf("kri%04d_custom", 8:9), sprintf("cou%04
 ## Test Code
 testthat::test_that("Query Age Assessments can be done correctly using a grouping variable, such as Site, Country, or Study, when applicable.", {
   ## regular -----------------------------------------
-  test <- map(kri_workflows, ~ robust_runworkflow(.x, mapped_data, steps = 1:5))
+  test <- map(kri_workflows, ~ robust_runworkflow(.x, mapped_data, steps = 1:6))
 
   # grouping col in yaml file is interpreted correctly in dfInput GroupID
   iwalk(test, ~ expect_identical(
@@ -20,7 +20,7 @@ testthat::test_that("Query Age Assessments can be done correctly using a groupin
   ))
 
   ## custom -------------------------------------------
-  test_custom <- map(kri_custom, ~ robust_runworkflow(.x, mapped_data, steps = 1:5))
+  test_custom <- map(kri_custom, ~ robust_runworkflow(.x, mapped_data, steps = 1:6))
 
   # grouping col in custom yaml file is interpreted correctly in dfInput GroupID
   iwalk(test_custom, ~ expect_identical(

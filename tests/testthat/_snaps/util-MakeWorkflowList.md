@@ -93,6 +93,9 @@
       $PD
       [1] "meta"  "spec"  "steps" "path" 
       
+      $QUERY
+      [1] "meta"  "spec"  "steps" "path" 
+      
       $SDRGCOMP
       [1] "meta"  "spec"  "steps" "path" 
       
@@ -115,9 +118,6 @@
       [1] "meta"  "spec"  "steps" "path" 
       
       $DATAENT
-      [1] "meta"  "spec"  "steps" "path" 
-      
-      $QUERY
       [1] "meta"  "spec"  "steps" "path" 
       
       $Bounds
@@ -1385,36 +1385,36 @@
       $cou0009
       $cou0009[[1]]
       $cou0009[[1]]$output
-      [1] "vThreshold"
+      [1] "dfSubjects"
       
       $cou0009[[1]]$name
-      [1] "ParseThreshold"
+      [1] "RunQuery"
       
       $cou0009[[1]]$params
-      $cou0009[[1]]$params$strThreshold
-      [1] "Threshold"
+      $cou0009[[1]]$params$df
+      [1] "Mapped_QUERY"
+      
+      $cou0009[[1]]$params$strQuery
+      [1] "SELECT DISTINCT subject_nsv, country FROM df"
       
       
       
       $cou0009[[2]]
       $cou0009[[2]]$output
-      [1] "Temp_OLDQUERY"
+      [1] "vThreshold"
       
       $cou0009[[2]]$name
-      [1] "RunQuery"
+      [1] "ParseThreshold"
       
       $cou0009[[2]]$params
-      $cou0009[[2]]$params$df
-      [1] "Mapped_QUERY"
-      
-      $cou0009[[2]]$params$strQuery
-      [1] "SELECT * FROM df WHERE querystatus IN ('Open','Answered','Closed') AND queryage > 30"
+      $cou0009[[2]]$params$strThreshold
+      [1] "Threshold"
       
       
       
       $cou0009[[3]]
       $cou0009[[3]]$output
-      [1] "Temp_QUERY"
+      [1] "Temp_OLDQUERY"
       
       $cou0009[[3]]$name
       [1] "RunQuery"
@@ -1424,129 +1424,145 @@
       [1] "Mapped_QUERY"
       
       $cou0009[[3]]$params$strQuery
-      [1] "SELECT * FROM df WHERE querystatus IN ('Open','Answered','Closed')"
+      [1] "SELECT * FROM df WHERE querystatus IN ('Open','Answered','Closed') AND queryage > 30"
       
       
       
       $cou0009[[4]]
       $cou0009[[4]]$output
-      [1] "Analysis_Input"
-      
-      $cou0009[[4]]$name
-      [1] "Input_Rate"
-      
-      $cou0009[[4]]$params
-      $cou0009[[4]]$params$dfSubjects
-      [1] "Mapped_SUBJ"
-      
-      $cou0009[[4]]$params$dfNumerator
-      [1] "Temp_OLDQUERY"
-      
-      $cou0009[[4]]$params$dfDenominator
       [1] "Temp_QUERY"
       
-      $cou0009[[4]]$params$strSubjectCol
-      [1] "subjid"
+      $cou0009[[4]]$name
+      [1] "RunQuery"
       
-      $cou0009[[4]]$params$strGroupCol
-      [1] "country"
+      $cou0009[[4]]$params
+      $cou0009[[4]]$params$df
+      [1] "Mapped_QUERY"
       
-      $cou0009[[4]]$params$strGroupLevel
-      [1] "GroupLevel"
-      
-      $cou0009[[4]]$params$strNumeratorMethod
-      [1] "Count"
-      
-      $cou0009[[4]]$params$strDenominatorMethod
-      [1] "Count"
+      $cou0009[[4]]$params$strQuery
+      [1] "SELECT * FROM df WHERE querystatus IN ('Open','Answered','Closed')"
       
       
       
       $cou0009[[5]]
       $cou0009[[5]]$output
-      [1] "Analysis_Transformed"
+      [1] "Analysis_Input"
       
       $cou0009[[5]]$name
-      [1] "Transform_Rate"
+      [1] "Input_Rate"
       
       $cou0009[[5]]$params
-      $cou0009[[5]]$params$dfInput
-      [1] "Analysis_Input"
+      $cou0009[[5]]$params$dfSubjects
+      [1] "dfSubjects"
+      
+      $cou0009[[5]]$params$dfNumerator
+      [1] "Temp_OLDQUERY"
+      
+      $cou0009[[5]]$params$dfDenominator
+      [1] "Temp_QUERY"
+      
+      $cou0009[[5]]$params$strSubjectCol
+      [1] "subject_nsv"
+      
+      $cou0009[[5]]$params$strGroupCol
+      [1] "country"
+      
+      $cou0009[[5]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $cou0009[[5]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $cou0009[[5]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $cou0009[[6]]
       $cou0009[[6]]$output
-      [1] "Analysis_Analyzed"
-      
-      $cou0009[[6]]$name
-      [1] "Analyze_NormalApprox"
-      
-      $cou0009[[6]]$params
-      $cou0009[[6]]$params$dfTransformed
       [1] "Analysis_Transformed"
       
-      $cou0009[[6]]$params$strType
-      [1] "AnalysisType"
+      $cou0009[[6]]$name
+      [1] "Transform_Rate"
+      
+      $cou0009[[6]]$params
+      $cou0009[[6]]$params$dfInput
+      [1] "Analysis_Input"
       
       
       
       $cou0009[[7]]
       $cou0009[[7]]$output
-      [1] "Analysis_Flagged"
-      
-      $cou0009[[7]]$name
-      [1] "Flag"
-      
-      $cou0009[[7]]$params
-      $cou0009[[7]]$params$dfAnalyzed
       [1] "Analysis_Analyzed"
       
-      $cou0009[[7]]$params$vThreshold
-      [1] "vThreshold"
+      $cou0009[[7]]$name
+      [1] "Analyze_NormalApprox"
+      
+      $cou0009[[7]]$params
+      $cou0009[[7]]$params$dfTransformed
+      [1] "Analysis_Transformed"
+      
+      $cou0009[[7]]$params$strType
+      [1] "AnalysisType"
       
       
       
       $cou0009[[8]]
       $cou0009[[8]]$output
-      [1] "Analysis_Summary"
-      
-      $cou0009[[8]]$name
-      [1] "Summarize"
-      
-      $cou0009[[8]]$params
-      $cou0009[[8]]$params$dfFlagged
       [1] "Analysis_Flagged"
       
-      $cou0009[[8]]$params$nMinDenominator
-      [1] "nMinDenominator"
+      $cou0009[[8]]$name
+      [1] "Flag"
+      
+      $cou0009[[8]]$params
+      $cou0009[[8]]$params$dfAnalyzed
+      [1] "Analysis_Analyzed"
+      
+      $cou0009[[8]]$params$vThreshold
+      [1] "vThreshold"
       
       
       
       $cou0009[[9]]
       $cou0009[[9]]$output
-      [1] "lAnalysis"
+      [1] "Analysis_Summary"
       
       $cou0009[[9]]$name
-      [1] "list"
+      [1] "Summarize"
       
       $cou0009[[9]]$params
-      $cou0009[[9]]$params$ID
-      [1] "ID"
-      
-      $cou0009[[9]]$params$Analysis_Input
-      [1] "Analysis_Input"
-      
-      $cou0009[[9]]$params$Analysis_Transformed
-      [1] "Analysis_Transformed"
-      
-      $cou0009[[9]]$params$Analysis_Analyzed
-      [1] "Analysis_Analyzed"
-      
-      $cou0009[[9]]$params$Analysis_Flagged
+      $cou0009[[9]]$params$dfFlagged
       [1] "Analysis_Flagged"
       
-      $cou0009[[9]]$params$Analysis_Summary
+      $cou0009[[9]]$params$nMinDenominator
+      [1] "nMinDenominator"
+      
+      
+      
+      $cou0009[[10]]
+      $cou0009[[10]]$output
+      [1] "lAnalysis"
+      
+      $cou0009[[10]]$name
+      [1] "list"
+      
+      $cou0009[[10]]$params
+      $cou0009[[10]]$params$ID
+      [1] "ID"
+      
+      $cou0009[[10]]$params$Analysis_Input
+      [1] "Analysis_Input"
+      
+      $cou0009[[10]]$params$Analysis_Transformed
+      [1] "Analysis_Transformed"
+      
+      $cou0009[[10]]$params$Analysis_Analyzed
+      [1] "Analysis_Analyzed"
+      
+      $cou0009[[10]]$params$Analysis_Flagged
+      [1] "Analysis_Flagged"
+      
+      $cou0009[[10]]$params$Analysis_Summary
       [1] "Analysis_Summary"
       
       
@@ -3261,36 +3277,36 @@
       $kri0009
       $kri0009[[1]]
       $kri0009[[1]]$output
-      [1] "vThreshold"
+      [1] "dfSubjects"
       
       $kri0009[[1]]$name
-      [1] "ParseThreshold"
+      [1] "RunQuery"
       
       $kri0009[[1]]$params
-      $kri0009[[1]]$params$strThreshold
-      [1] "Threshold"
+      $kri0009[[1]]$params$df
+      [1] "Mapped_QUERY"
+      
+      $kri0009[[1]]$params$strQuery
+      [1] "SELECT DISTINCT subject_nsv, invid FROM df"
       
       
       
       $kri0009[[2]]
       $kri0009[[2]]$output
-      [1] "Temp_OLDQUERY"
+      [1] "vThreshold"
       
       $kri0009[[2]]$name
-      [1] "RunQuery"
+      [1] "ParseThreshold"
       
       $kri0009[[2]]$params
-      $kri0009[[2]]$params$df
-      [1] "Mapped_QUERY"
-      
-      $kri0009[[2]]$params$strQuery
-      [1] "SELECT * FROM df WHERE querystatus IN ('Open','Answered','Closed') AND queryage > 30"
+      $kri0009[[2]]$params$strThreshold
+      [1] "Threshold"
       
       
       
       $kri0009[[3]]
       $kri0009[[3]]$output
-      [1] "Temp_QUERY"
+      [1] "Temp_OLDQUERY"
       
       $kri0009[[3]]$name
       [1] "RunQuery"
@@ -3300,129 +3316,145 @@
       [1] "Mapped_QUERY"
       
       $kri0009[[3]]$params$strQuery
-      [1] "SELECT * FROM df WHERE querystatus IN ('Open','Answered','Closed')"
+      [1] "SELECT * FROM df WHERE querystatus IN ('Open','Answered','Closed') AND queryage > 30"
       
       
       
       $kri0009[[4]]
       $kri0009[[4]]$output
-      [1] "Analysis_Input"
-      
-      $kri0009[[4]]$name
-      [1] "Input_Rate"
-      
-      $kri0009[[4]]$params
-      $kri0009[[4]]$params$dfSubjects
-      [1] "Mapped_SUBJ"
-      
-      $kri0009[[4]]$params$dfNumerator
-      [1] "Temp_OLDQUERY"
-      
-      $kri0009[[4]]$params$dfDenominator
       [1] "Temp_QUERY"
       
-      $kri0009[[4]]$params$strSubjectCol
-      [1] "subjid"
+      $kri0009[[4]]$name
+      [1] "RunQuery"
       
-      $kri0009[[4]]$params$strGroupCol
-      [1] "invid"
+      $kri0009[[4]]$params
+      $kri0009[[4]]$params$df
+      [1] "Mapped_QUERY"
       
-      $kri0009[[4]]$params$strGroupLevel
-      [1] "GroupLevel"
-      
-      $kri0009[[4]]$params$strNumeratorMethod
-      [1] "Count"
-      
-      $kri0009[[4]]$params$strDenominatorMethod
-      [1] "Count"
+      $kri0009[[4]]$params$strQuery
+      [1] "SELECT * FROM df WHERE querystatus IN ('Open','Answered','Closed')"
       
       
       
       $kri0009[[5]]
       $kri0009[[5]]$output
-      [1] "Analysis_Transformed"
+      [1] "Analysis_Input"
       
       $kri0009[[5]]$name
-      [1] "Transform_Rate"
+      [1] "Input_Rate"
       
       $kri0009[[5]]$params
-      $kri0009[[5]]$params$dfInput
-      [1] "Analysis_Input"
+      $kri0009[[5]]$params$dfSubjects
+      [1] "dfSubjects"
+      
+      $kri0009[[5]]$params$dfNumerator
+      [1] "Temp_OLDQUERY"
+      
+      $kri0009[[5]]$params$dfDenominator
+      [1] "Temp_QUERY"
+      
+      $kri0009[[5]]$params$strSubjectCol
+      [1] "subject_nsv"
+      
+      $kri0009[[5]]$params$strGroupCol
+      [1] "invid"
+      
+      $kri0009[[5]]$params$strGroupLevel
+      [1] "GroupLevel"
+      
+      $kri0009[[5]]$params$strNumeratorMethod
+      [1] "Count"
+      
+      $kri0009[[5]]$params$strDenominatorMethod
+      [1] "Count"
       
       
       
       $kri0009[[6]]
       $kri0009[[6]]$output
-      [1] "Analysis_Analyzed"
-      
-      $kri0009[[6]]$name
-      [1] "Analyze_NormalApprox"
-      
-      $kri0009[[6]]$params
-      $kri0009[[6]]$params$dfTransformed
       [1] "Analysis_Transformed"
       
-      $kri0009[[6]]$params$strType
-      [1] "AnalysisType"
+      $kri0009[[6]]$name
+      [1] "Transform_Rate"
+      
+      $kri0009[[6]]$params
+      $kri0009[[6]]$params$dfInput
+      [1] "Analysis_Input"
       
       
       
       $kri0009[[7]]
       $kri0009[[7]]$output
-      [1] "Analysis_Flagged"
-      
-      $kri0009[[7]]$name
-      [1] "Flag"
-      
-      $kri0009[[7]]$params
-      $kri0009[[7]]$params$dfAnalyzed
       [1] "Analysis_Analyzed"
       
-      $kri0009[[7]]$params$vThreshold
-      [1] "vThreshold"
+      $kri0009[[7]]$name
+      [1] "Analyze_NormalApprox"
+      
+      $kri0009[[7]]$params
+      $kri0009[[7]]$params$dfTransformed
+      [1] "Analysis_Transformed"
+      
+      $kri0009[[7]]$params$strType
+      [1] "AnalysisType"
       
       
       
       $kri0009[[8]]
       $kri0009[[8]]$output
-      [1] "Analysis_Summary"
-      
-      $kri0009[[8]]$name
-      [1] "Summarize"
-      
-      $kri0009[[8]]$params
-      $kri0009[[8]]$params$dfFlagged
       [1] "Analysis_Flagged"
       
-      $kri0009[[8]]$params$nMinDenominator
-      [1] "nMinDenominator"
+      $kri0009[[8]]$name
+      [1] "Flag"
+      
+      $kri0009[[8]]$params
+      $kri0009[[8]]$params$dfAnalyzed
+      [1] "Analysis_Analyzed"
+      
+      $kri0009[[8]]$params$vThreshold
+      [1] "vThreshold"
       
       
       
       $kri0009[[9]]
       $kri0009[[9]]$output
-      [1] "lAnalysis"
+      [1] "Analysis_Summary"
       
       $kri0009[[9]]$name
-      [1] "list"
+      [1] "Summarize"
       
       $kri0009[[9]]$params
-      $kri0009[[9]]$params$ID
-      [1] "ID"
-      
-      $kri0009[[9]]$params$Analysis_Input
-      [1] "Analysis_Input"
-      
-      $kri0009[[9]]$params$Analysis_Transformed
-      [1] "Analysis_Transformed"
-      
-      $kri0009[[9]]$params$Analysis_Analyzed
-      [1] "Analysis_Analyzed"
-      
-      $kri0009[[9]]$params$Analysis_Flagged
+      $kri0009[[9]]$params$dfFlagged
       [1] "Analysis_Flagged"
       
-      $kri0009[[9]]$params$Analysis_Summary
+      $kri0009[[9]]$params$nMinDenominator
+      [1] "nMinDenominator"
+      
+      
+      
+      $kri0009[[10]]
+      $kri0009[[10]]$output
+      [1] "lAnalysis"
+      
+      $kri0009[[10]]$name
+      [1] "list"
+      
+      $kri0009[[10]]$params
+      $kri0009[[10]]$params$ID
+      [1] "ID"
+      
+      $kri0009[[10]]$params$Analysis_Input
+      [1] "Analysis_Input"
+      
+      $kri0009[[10]]$params$Analysis_Transformed
+      [1] "Analysis_Transformed"
+      
+      $kri0009[[10]]$params$Analysis_Analyzed
+      [1] "Analysis_Analyzed"
+      
+      $kri0009[[10]]$params$Analysis_Flagged
+      [1] "Analysis_Flagged"
+      
+      $kri0009[[10]]$params$Analysis_Summary
       [1] "Analysis_Summary"
       
       
@@ -4118,6 +4150,27 @@
       
       
       
+      $QUERY
+      $QUERY[[1]]
+      $QUERY[[1]]$output
+      [1] "Mapped_QUERY"
+      
+      $QUERY[[1]]$name
+      [1] "left_join"
+      
+      $QUERY[[1]]$params
+      $QUERY[[1]]$params$x
+      [1] "Raw_QUERY"
+      
+      $QUERY[[1]]$params$y
+      [1] "Raw_SUBJ"
+      
+      $QUERY[[1]]$params$by
+      [1] "subject_nsv"
+      
+      
+      
+      
       $SDRGCOMP
       $SDRGCOMP[[1]]
       $SDRGCOMP[[1]]$output
@@ -4352,46 +4405,6 @@
       [1] "Temp_SubjectLookup"
       
       $DATAENT[[2]]$params$by
-      [1] "subject_nsv"
-      
-      
-      
-      
-      $QUERY
-      $QUERY[[1]]
-      $QUERY[[1]]$output
-      [1] "Temp_SubjectLookup"
-      
-      $QUERY[[1]]$name
-      [1] "select"
-      
-      $QUERY[[1]]$params
-      $QUERY[[1]]$params$.data
-      [1] "Mapped_SUBJ"
-      
-      $QUERY[[1]]$params$subjid
-      [1] "subjid"
-      
-      $QUERY[[1]]$params$subject_nsv
-      [1] "subject_nsv"
-      
-      
-      
-      $QUERY[[2]]
-      $QUERY[[2]]$output
-      [1] "Mapped_QUERY"
-      
-      $QUERY[[2]]$name
-      [1] "left_join"
-      
-      $QUERY[[2]]$params
-      $QUERY[[2]]$params$x
-      [1] "Raw_QUERY"
-      
-      $QUERY[[2]]$params$y
-      [1] "Temp_SubjectLookup"
-      
-      $QUERY[[2]]$params$by
       [1] "subject_nsv"
       
       
