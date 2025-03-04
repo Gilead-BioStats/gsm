@@ -1,16 +1,18 @@
 meta:
   Type: Analysis
-  ID: kri0013a
+  ID: kri0013
   GroupLevel: Site
-  Abbreviation: PKi
-  Metric: PK Rate - Identity
-  Numerator: PK Measures Completed
-  Denominator: PK Measures Expected
+  Abbreviation: PK
+  Metric: PK Collection Compliance Rate
+  Numerator: PK Samples Collected
+  Denominator: PK Samples Expected
   Model: Identity
-  Score: Percent Complete
+  Score: PK Collection Compliance Rate
   AnalysisType: identity
-  Threshold: 0.85, 1.0
-  nMinDenominator: 10
+  Threshold: "0.85,0.9"
+  Flag: "-2,-1,0"
+  nMinNumerator: 3
+  nMinDenominator: 3
 spec:
   Mapped_SUBJ:
     subjid:
@@ -34,6 +36,11 @@ steps:
     name: ParseThreshold
     params:
       strThreshold: Threshold
+  - output: vFlag
+    name: ParseThreshold
+    params:
+      strThreshold: Flag
+      bSort: false
   - output: Temp_PK_Complete
     name: RunQuery
     params:
@@ -63,6 +70,7 @@ steps:
     params:
       dfAnalyzed: Analysis_Analyzed
       vThreshold: vThreshold
+      vFlag: vFlag
   - output: Analysis_Summary
     name: Summarize
     params:
@@ -77,4 +85,3 @@ steps:
       Analysis_Analyzed: Analysis_Analyzed
       Analysis_Flagged: Analysis_Flagged
       Analysis_Summary: Analysis_Summary
-
