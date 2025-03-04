@@ -19,7 +19,7 @@
 #' # by default thresholds will be sorted in ascending order
 #' ParseThreshold("3,2,-2,-3")
 #'
-#' optionally disable the sort
+#' # optionally disable the sort
 #' ParseThreshold("0.9,0.85", bSort = FALSE)
 #'
 #' @export
