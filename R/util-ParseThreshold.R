@@ -7,13 +7,24 @@
 #' vector. It checks if all values in the string are numeric and returns the
 #' parsed vector. If any value is not numeric, it throws an error.
 #'
-#' @param strThreshold A comma-separated string of numeric values.
+#' @param strThreshold `character` A comma-separated string of numeric values.
+#' @param bSort `logical` Sort thresholds in ascending order? Default: `TRUE`.
+#'
 #' @return A numeric vector containing the parsed values.
+#'
 #' @examples
-#' ParseThreshold("1,2,3,4")
+#' # standard thresholds
+#' ParseThreshold("-3,-2,2,3")
+#'
+#' # by default thresholds will be sorted in ascending order
+#' ParseThreshold("3,2,-2,-3")
+#'
+#' # optionally disable the sort
+#' ParseThreshold("0.9,0.85", bSort = FALSE)
+#'
 #' @export
 
-ParseThreshold <- function(strThreshold) {
+ParseThreshold <- function(strThreshold, bSort = TRUE) {
   # Parse from a comma separated string to a vector of numeric values
   vThreshold <- strsplit(strThreshold, ",")[[1]] %>% as.numeric()
 
@@ -24,12 +35,17 @@ ParseThreshold <- function(strThreshold) {
       message = "Parsed {strThreshold} to numeric vector: {toString(vThreshold)}",
       cli_detail = "inform"
     )
-    return(sort(vThreshold))
+
+   if (bSort)
+       vThreshold = sort(vThreshold)
+
+    return(vThreshold)
   } else {
     LogMessage(
       level = "warn",
       message = "Warning: Failed to parse strThreshold ('{strThreshold}') to a numeric vector."
     )
+
     return(NULL)
   }
 }

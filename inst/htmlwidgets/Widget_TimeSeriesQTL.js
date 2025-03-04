@@ -9,7 +9,7 @@ HTMLWidgets.widget({
         workflow.selectedGroupIDs = x.selectedGroupIDs
         workflow.y = 'metric';
 
-        const instance = rbmViz.default.timeSeries(
+        const instance = gsmViz.default.timeSeries(
           el,
           x.results,
           workflow,

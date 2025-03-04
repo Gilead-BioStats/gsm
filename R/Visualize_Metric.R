@@ -111,7 +111,7 @@ Visualize_Metric <- function(
     vThreshold <- NULL
   } else {
     lMetric <- as.list(dfMetrics)
-    vThreshold <- ParseThreshold(lMetric$Threshold)
+    vThreshold <- ParseThreshold(lMetric$Threshold, bSort = FALSE)
   }
 
   # Cross-sectional Charts using most recent snapshot ------------------------
