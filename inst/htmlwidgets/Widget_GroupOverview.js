@@ -8,7 +8,7 @@ HTMLWidgets.widget({
                     console.log(input);
 
                 // Generate site overview table.
-                const instance = rbmViz.default.groupOverview(
+                const instance = gsmViz.default.groupOverview(
                     el,
                     input.dfResults,
                     {

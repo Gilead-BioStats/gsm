@@ -1,5 +1,5 @@
 dependencies:
-  - name: rbmviz
-    version: 2.1.0
-    src: 'htmlwidgets/lib/rbm-viz-2.1.0'
-    script: 'rbm-viz.js'
+  - name: gsmViz
+    version: 2.2.0
+    src: 'htmlwidgets/lib/gsm.viz-2.2.0'
+    script: 'gsm.viz.js'
