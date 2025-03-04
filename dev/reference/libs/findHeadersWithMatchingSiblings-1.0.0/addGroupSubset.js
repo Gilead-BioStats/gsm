@@ -2,7 +2,7 @@
  * Add a dropdown to the top of the table that allows the user to filter the table by group subset.
  *
  * @param {HTMLElement} el - element in which to place dropdown
- * @param {Object} instance - rbmViz groupOverview instance
+ * @param {Object} instance - gsmViz groupOverview instance
  * @param {Array} dfResults - analysis results for one or more metrics
  * @param {String} initialSubset - initial subset of group IDs to display
  *
