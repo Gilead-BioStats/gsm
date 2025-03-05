@@ -1,5 +1,0 @@
-dependencies:
-  - name: rbmviz
-    version: 2.1.0
-    src: 'htmlwidgets/lib/rbm-viz-2.1.0'
-    script: 'rbm-viz.js'
