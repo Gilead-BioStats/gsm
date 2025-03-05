@@ -1,5 +1,6 @@
 ---
 title: "Step-by-Step Analysis Workflow"
+description: "This vignette walks users through the mechanics of the functions that produce all of the Analysis workflow output within the `{gsm}` package."
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Step-by-Step Analysis Workflow}
@@ -175,24 +176,6 @@ datatable(dfSummary[-1,])
 
 ------------------------------------------------------------------------
 
-### 6. Data Visualization
-
-For a single Normal Approximation AE assessment, a scatter plot of Total Exposure (in days, on log scale) vs Total Number of Event(s) of Interest (on linear scale) is created. Each data point represents one site with outliers displayed in yellow or red, depending on the "extremeness" of the KRI value. The `Visualize_Scatter()` function takes inputs of `dfBounds`-- which defines bounds based on the statistical model, `dfTransformed` and thresholds using `Analyze_NormalApprox_PredictBounds()`-- and `dfFlagged` to plot the data. Using our example AE data, we see the following scatter plot:
-
-```{r include = TRUE}
-dfBounds <- Analyze_NormalApprox_PredictBounds(dfTransformed, vThreshold = c(-3, -2, 2, 3))
-
-chart <- Visualize_Scatter(dfFlagged, dfBounds)
-```
-
-```{r, echo = FALSE, fig.width=7, fig.height=5}
-chart
-```
-
-A full explanation of all Data Visualizations in the `{gsm}` package is outlined in the `vignette("DataReporting")`.
-
-------------------------------------------------------------------------
-
 # Recap - Normal Approximation Adverse Event KRI
 
 -   `dfInput` used as original input using `Input_Rate()`
@@ -200,7 +183,6 @@ A full explanation of all Data Visualizations in the `{gsm}` package is outlined
 -   `dfAnalyzed` created from `dfTransformed` using `Analyze_NormalApprox()`
 -   `dfFlagged` created from `dfAnalyzed` using `Flag_NormalApprox()`
 -   `dfSummary` created from `dfFlagged` using `Summarize()`
--   Scatter plot created from `dfTransformed` and `dfBounds` using `Visualize_Scatter()`
 
 ------------------------------------------------------------------------
 
@@ -232,11 +214,6 @@ The following sections include various examples of supporting functions and stat
 -   `Flag_Poisson()`: Default flagging function when `Analyze_Poisson()` is used for an assessment
 -   `Flag()`: Default flagging function when `Analyze_Identity()` is used for an assessment
 
-### Visualization Functions
-
--   `Visualize_Scatter()`: Creates scatter plot of Total Exposure (in days, on log scale) vs Total Number of Event(s) of Interest (on linear scale). Each data point represents one site. Outliers are plotted in red with the site label attached. This plot is only created when statistical method is **not** defined as `identity`.
--   `Visualize_Score()`: Provides a standard visualization for Score or KRI.
--   `Visualize_Metric()`: Creates all available charts for a metric using the data provided.
 
 ### What Statistical Models Are Available For Each Assessment?
 

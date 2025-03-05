@@ -35,9 +35,9 @@
 #' @param lMeta `list` a named list of meta data.
 #'
 #' @examples
-#' wf_mapping <- MakeWorkflowList(strPath = "workflow/1_mappings")
-#' lStep <- MakeWorkflowList("kri0001")[["kri0001"]][["steps"]][[1]]
-#' lMeta <- MakeWorkflowList("kri0001")[["kri0001"]][["meta"]]
+#' wf_mapping <- MakeWorkflowList(strPath = here::here("tests/testthat/testdata/mappings"))
+#' lStep <- MakeWorkflowList(strPath = here::here("tests/testthat/testdata/metrics"))[["kri0001"]][["steps"]][[1]]
+#' lMeta <- MakeWorkflowList(strPath = here::here("tests/testthat/testdata/metrics"))[["kri0001"]][["meta"]]
 #' lData <- list(
 #'   dfSUBJ = clindata::rawplus_dm,
 #'   dfAE = clindata::rawplus_ae,

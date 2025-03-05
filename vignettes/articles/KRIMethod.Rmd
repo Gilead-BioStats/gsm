@@ -1,5 +1,6 @@
 ---
 title: "KRI Method"
+description: "This vignette outlines the statistical methods used to evaluate Key Risk Indicators (KRIs) in {gsm}."
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{KRI Method}
