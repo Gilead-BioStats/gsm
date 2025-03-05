@@ -1,3 +1,12 @@
+# gsm v2.2.3
+
+This patch release updates several user interface and widget features. Specifically:
+
+- Allow users to show/hide the table of contents on the KRI Report
+- Fixes a bug that displayed the incorrect label on the y axis
+- Extend charts to display addtional group metadata
+- Support the display of descending thresholds
+
 # gsm v2.2.2
 
 This patch release moves the `duckdb` dependency from `Imports` to `Suggests` to side step an

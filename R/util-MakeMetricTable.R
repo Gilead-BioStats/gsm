@@ -69,9 +69,9 @@ MakeMetricTable <- function(
 
   # Include [ InvestigatorLastName ] in group label with group ID if present in data.
   if (
-      rlang::arg_match(strGroupLevel) == "Site" &&
+    rlang::arg_match(strGroupLevel) == "Site" &&
       !is.null(dfGroups) &&
-      exists('InvestigatorLastName', dfResults)
+      exists("InvestigatorLastName", dfResults)
   ) {
     dfResults$Group <- glue::glue(
       "{dfResults$GroupID} ({dfResults$InvestigatorLastName})"

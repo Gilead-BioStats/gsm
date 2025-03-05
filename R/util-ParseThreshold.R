@@ -36,8 +36,9 @@ ParseThreshold <- function(strThreshold, bSort = TRUE) {
       cli_detail = "inform"
     )
 
-   if (bSort)
-       vThreshold = sort(vThreshold)
+    if (bSort) {
+      vThreshold <- sort(vThreshold)
+    }
 
     return(vThreshold)
   } else {
