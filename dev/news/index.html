@@ -15,27 +15,7 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Workflows</h6></li>
-    <li><a class="dropdown-item" href="../articles/DataModel.html">Data Model</a></li>
-    <li><a class="dropdown-item" href="../articles/Cookbook.html">Cookbook</a></li>
-    <li><a class="dropdown-item" href="../articles/DataAnalysis.html">Step-by-Step Analysis Workflow</a></li>
-    <li><a class="dropdown-item" href="../articles/DataReporting.html">Step-by-Step Reporting Workflow</a></li>
-    <li><a class="dropdown-item" href="../articles/gsmExtensions.html">gsm Extensions</a></li>
-    <li><a class="dropdown-item" href="../articles/KRIMethod.html">KRI Method</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Quality</h6></li>
-    <li><a class="dropdown-item" href="../articles/QualificationWorkflow.html">Qualification Workflow</a></li>
-    <li><a class="dropdown-item" href="../articles/Qualification.html">Qualification Report for the {gsm} R Package</a></li>
-    <li><a class="dropdown-item" href="../articles/ContributorGuidelines.html">Contributor Guidelines</a></li>
-  </ul></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-sample-reports" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Sample Reports</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-sample-reports"><li><a class="dropdown-item" href="../report_kri_site.html">Site Report</a></li>
-    <li><a class="dropdown-item" href="../report_kri_country.html">Country Report</a></li>
-  </ul></li>
+      <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/index.html">Articles</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="active nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -50,7 +30,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/gsm-v2.2.3-rc/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/dev/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
@@ -76,7 +56,7 @@
 <li>Add the ability to use <code>lConfig</code> and specify load and save hooks for use with local or remote data.</li>
 <li>Allow RunWorkflows to execute code from other packages with <code><a href="../reference/GetStrFunctionIfNamespaced.html">GetStrFunctionIfNamespaced()</a></code>.</li>
 <li>Additional minor updates:
-<ul><li>fix bug that prevented threshold annotations from appearing in <code><a href="../reference/Widget_BarChart.html">Widget_BarChart()</a></code>
+<ul><li>fix bug that prevented threshold annotations from appearing in <code>Widget_BarChart()</code>
 </li>
 <li>remove <code>required</code> from yaml specs</li>
 <li>update vignettes to align with new yaml specs</li>
@@ -110,7 +90,7 @@
 <li>Allow a master spec document to be constructed via the <code>CombineSpecs</code>.</li>
 <li>Enforce that by default, each yaml file produces only one output- the final output in the workflow <code>steps</code>.</li>
 <li>Parse out the mapping yamls into individual workflows, one per mapped dataframe.</li>
-<li>Create a standard structure for yamls and the directories that yamls are stored in, specified in <code><a href="../articles/gsmExtensions.html">vignette('gsmExtensions')</a></code>,</li>
+<li>Create a standard structure for yamls and the directories that yamls are stored in, specified in <code>vignette('gsmExtensions')</code>,</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.0.1" id="gsm-v201">gsm v2.0.1<a class="anchor" aria-label="anchor" href="#gsm-v201"></a></h2>
@@ -152,7 +132,7 @@
 <h4 id="reporting-changes-2-0-0">Reporting Changes<a class="anchor" aria-label="anchor" href="#reporting-changes-2-0-0"></a></h4>
 <p>We’ve refactored and standardized all charting and reporting functions using the new Reporting data model. We expect lots of new functionality in this area in upcoming release. Reporting update in v2 include:</p>
 <ul><li>
-<code>Study_Report()</code> has been replaced by <code><a href="../reference/Report_KRI.html">Report_KRI()</a></code> and re-parameterized and modularized to provide more transparency on data requirements.</li>
+<code>Study_Report()</code> has been replaced by <code>Report_KRI()</code> and re-parameterized and modularized to provide more transparency on data requirements.</li>
 <li>New version of rbm-viz provides:
 <ul><li>Country selector dropdown to select all observations from a given country</li>
 <li>Update the group overview table widget to handle any group level specification.</li>
@@ -323,9 +303,9 @@
 </ul></div>
 <div class="section level4">
 <h4 id="new-widgets-1-7-0">New Widgets<a class="anchor" aria-label="anchor" href="#new-widgets-1-7-0"></a></h4>
-<ul><li>Two new widgets have been added and are considered experimental for this release: <code><a href="../reference/Widget_TimeSeries.html">Widget_TimeSeries()</a></code> and <code>Widget_TimeSeriesQTL()</code>.</li>
+<ul><li>Two new widgets have been added and are considered experimental for this release: <code>Widget_TimeSeries()</code> and <code>Widget_TimeSeriesQTL()</code>.</li>
 <li>
-<code><a href="../reference/Widget_TimeSeries.html">Widget_TimeSeries()</a></code> plots will be appended to each workflow’s <code>lCharts</code> object after running <code>Augment_Snapshot()</code>.</li>
+<code>Widget_TimeSeries()</code> plots will be appended to each workflow’s <code>lCharts</code> object after running <code>Augment_Snapshot()</code>.</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -426,7 +406,7 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.1.0" id="gsm-v110">gsm v1.1.0<a class="anchor" aria-label="anchor" href="#gsm-v110"></a></h2>
 <p>This release includes qualified functionality for Lab Abnormality and Disposition Assessments.</p>
-<p>Additionally, updates include: - Mapping functions include custom grouping functionality by columns for <code>SiteID</code>, <code>StudyID</code>, or <code>Region</code>/<code>CustomGroupID</code>. This allows for Study (QTL) and Site (KRI) assessments to be run. - <code><a href="../reference/Analyze_Identity.html">Analyze_Identity()</a></code> allows for nominal and statistical assessments for all Assess functions. - New utility functions <code>MakeStratifiedAssessment()</code> and <code>ConsolidateStrata()</code> allow for stratified assessments to be run. - <code><a href="../reference/Visualize_Score.html">Visualize_Score()</a></code> provides a standard visualization for Score or KRI. - <code>Visualize_Workflow()</code> provides a flowchart with a high-level overview of the data pipeline for a given assessment.</p>
+<p>Additionally, updates include: - Mapping functions include custom grouping functionality by columns for <code>SiteID</code>, <code>StudyID</code>, or <code>Region</code>/<code>CustomGroupID</code>. This allows for Study (QTL) and Site (KRI) assessments to be run. - <code><a href="../reference/Analyze_Identity.html">Analyze_Identity()</a></code> allows for nominal and statistical assessments for all Assess functions. - New utility functions <code>MakeStratifiedAssessment()</code> and <code>ConsolidateStrata()</code> allow for stratified assessments to be run. - <code>Visualize_Score()</code> provides a standard visualization for Score or KRI. - <code>Visualize_Workflow()</code> provides a flowchart with a high-level overview of the data pipeline for a given assessment.</p>
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.0.1" id="gsm-v101">gsm v1.0.1<a class="anchor" aria-label="anchor" href="#gsm-v101"></a></h2>
