@@ -22,6 +22,7 @@ A data frame with  rows and  columns:
 \item{"Raw_SITE"}{SITE Source dataset}
 \item{"Raw_SUBJ"}{SUBJ Source dataset}
 }
+}
 \source{
 Generated from \code{data-raw/run-gsm.datasim.R}.
 }

@@ -212,6 +212,7 @@
 #'   \item{"Raw_SDRGCOMP"}{SDRGCOMP Source dataset}
 #'   \item{"Raw_SITE"}{SITE Source dataset}
 #'   \item{"Raw_SUBJ"}{SUBJ Source dataset}
+#'   }
 #' @source Generated from `data-raw/run-gsm.datasim.R`.
 "lSource"
 

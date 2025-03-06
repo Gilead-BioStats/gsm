@@ -56,7 +56,6 @@ reference:
      -  RunWorkflows
      -  SetLogger
      -  stop_if
-     -  UseClindata
 
   - title: Sample Data
     desc: data used for examples and testing
