@@ -47,9 +47,9 @@
 #' @examples
 #' # Run for AE KRI
 #' dfInput <- Input_Rate(
-#'   dfSubjects = clindata::rawplus_dm,
-#'   dfNumerator = clindata::rawplus_ae,
-#'   dfDenominator = clindata::rawplus_dm,
+#'   dfSubjects = gsm::lSource$Raw_SUBJ,
+#'   dfNumerator = gsm::lSource$Raw_AE,
+#'   dfDenominator =  gsm::lSource$Raw_SUBJ,
 #'   strSubjectCol = "subjid",
 #'   strGroupCol = "siteid",
 #'   strGroupLevel = "Site",

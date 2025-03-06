@@ -191,6 +191,31 @@
 #' @source Generated from `reportingResults_country.csv` dataset in the `gsm` package.
 "reportingResults_country"
 
+
+#' lSource Dataset
+#'
+#'  `r lifecycle::badge("stable")`
+#'
+#' @format `r df_dim_desc(lSource)`
+#' \describe{
+#'   \item{"Raw_AE"}{AE Source dataset}
+#'   \item{"Raw_COUNTRY"}{Country Source dataset}
+#'   \item{"Raw_DATACHG"}{DATACHG ource dataset}
+#'   \item{"Raw_DATAENT"}{DATAENT Source dataset}
+#'   \item{"Raw_ENROLL"}{Enroll Source dataset}
+#'   \item{"Raw_LB"}{Lab Source dataset}
+#'   \item{"Raw_PD"}{Protocol Deviation Source dataset}
+#'   \item{"Raw_PK"}{PK Source dataset}
+#'   \item{"Raw_QUERY"}{Query Source dataset}
+#'   \item{"Raw_STUDY"}{Study Source dataset}
+#'   \item{"Raw_STUDCOMP"}{STUDCOMP Source dataset}
+#'   \item{"Raw_SDRGCOMP"}{SDRGCOMP Source dataset}
+#'   \item{"Raw_SITE"}{SITE Source dataset}
+#'   \item{"Raw_SUBJ"}{SUBJ Source dataset}
+#'   }
+#' @source Generated from `data-raw/run-gsm.datasim.R`.
+"lSource"
+
 df_dim_desc <- function(df) {
   paste0("A data frame with ", dim(df)[1], " rows and ", dim(df)[2], " columns:")
 }

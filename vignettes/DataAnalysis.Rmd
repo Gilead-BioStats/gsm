@@ -52,9 +52,9 @@ Finally, the method for calculating the Numerator and Denominator is specified i
 
 ```{r include = TRUE}
 dfInput <- Input_Rate(
-              dfSubjects = clindata::rawplus_dm,
-              dfNumerator = clindata::rawplus_ae,
-              dfDenominator = clindata::rawplus_dm,
+              dfSubjects = gsm::lSource$Raw_SUBJ,
+              dfNumerator = gsm::lSource$Raw_AE,
+              dfDenominator = gsm::lSource$Raw_SUBJ,
               strSubjectCol = "subjid",
               strGroupCol = "siteid",
               strNumeratorMethod = "Count",

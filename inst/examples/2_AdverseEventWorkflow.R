@@ -74,9 +74,16 @@ steps:
 ')
 
 # Run the workflow
+lMappingWorkflows <- MakeWorkflowList(
+  c("AE", "SUBJ"),
+  strPath = here::here("tests/testthat/testdata/mappings"),
+  bExact = TRUE
+)
+mappings_spec <- CombineSpecs(lMappingWorkflows)
+lRawData <- Ingest(gsm::lSource, mappings_spec)
 AE_data <-list(
-  Mapped_SUBJ= clindata::rawplus_dm,
-  Mapped_AE= clindata::rawplus_ae
+  Mapped_SUBJ= lRawData$Raw_SUBJ,
+  Mapped_AE= lRawData$Raw_AE
 )
 AE_KRI <- RunWorkflow(lWorkflow = AE_workflow, lData = AE_data)
 
