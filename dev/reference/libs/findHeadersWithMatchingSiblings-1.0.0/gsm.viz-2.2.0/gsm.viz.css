@@ -1,0 +1,74 @@
+/* ---------------------------------------------------------------------------------------------- */
+/* rbm-viz examples */
+/* ---------------------------------------------------------------------------------------------- */
+
+.rbm-viz--example #controls {
+    display: flex;
+    justify-content: center;
+}
+.rbm-viz--example fieldset {
+    display: flex;
+    justify-content: center;
+}
+.rbm-viz--example #container {
+    margin: auto;
+    width: 100%;
+    height: 40vw;
+}
+
+/* ---------------------------------------------------------------------------------------------- */
+/* groupOverview module */
+/* ---------------------------------------------------------------------------------------------- */
+
+.group-overview {
+    border-collapse: separate;
+    border-spacing: 0.1em;
+}
+.group-overview th,
+.group-overview td {
+    text-align: center;
+}
+.group-overview th.group-overview--tooltip,
+.group-overview td.group-overview--tooltip {
+    cursor: help;
+}
+
+/* table header */
+
+.group-overview th {
+    background-color: #f2f2f2;
+    cursor: pointer;
+    padding: 0.25em 0.5em;
+}
+.group-overview th.group-overview--GroupLabel {
+}
+.group-overview th.group-overview--ParticipantCount {
+}
+.group-overview th.group-overview--nRedFlags {
+}
+.group-overview th.group-overview--nAmberFlags {
+}
+.group-overview th.group-overview--metric {
+    font-size: 0.8em;
+}
+
+/* table body */
+
+.group-overview td {
+}
+.group-overview td.group-overview--GroupLabel {
+    white-space: nowrap;
+}
+.group-overview td.group-overview--ParticipantCount {
+}
+.group-overview td.group-overview--nRedFlags {
+    background-color: #ff5859;
+}
+.group-overview td.group-overview--nAmberFlags {
+    background-color: #feaa02;
+}
+.group-overview td.group-overview--metric {
+    width: 3em;
+    text-align: center;
+    padding-top: 0.4em;
+}
