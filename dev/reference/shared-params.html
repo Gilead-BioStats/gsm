@@ -15,27 +15,7 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Workflows</h6></li>
-    <li><a class="dropdown-item" href="../articles/DataModel.html">Data Model</a></li>
-    <li><a class="dropdown-item" href="../articles/Cookbook.html">Cookbook</a></li>
-    <li><a class="dropdown-item" href="../articles/DataAnalysis.html">Step-by-Step Analysis Workflow</a></li>
-    <li><a class="dropdown-item" href="../articles/DataReporting.html">Step-by-Step Reporting Workflow</a></li>
-    <li><a class="dropdown-item" href="../articles/gsmExtensions.html">gsm Extensions</a></li>
-    <li><a class="dropdown-item" href="../articles/KRIMethod.html">KRI Method</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><h6 class="dropdown-header" data-toc-skip>Quality</h6></li>
-    <li><a class="dropdown-item" href="../articles/QualificationWorkflow.html">Qualification Workflow</a></li>
-    <li><a class="dropdown-item" href="../articles/Qualification.html">Qualification Report for the {gsm} R Package</a></li>
-    <li><a class="dropdown-item" href="../articles/ContributorGuidelines.html">Contributor Guidelines</a></li>
-  </ul></li>
-<li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-sample-reports" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Sample Reports</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-sample-reports"><li><a class="dropdown-item" href="../report_kri_site.html">Site Report</a></li>
-    <li><a class="dropdown-item" href="../report_kri_country.html">Country Report</a></li>
-  </ul></li>
+      <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/index.html">Articles</a></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
@@ -50,7 +30,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Parameters used in multiple functions</h1>
-      <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/gsm-v2.2.3-rc/R/aaa-shared.R" class="external-link"><code>R/aaa-shared.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Gilead-BioStats/gsm/blob/dev/R/aaa-shared.R" class="external-link"><code>R/aaa-shared.R</code></a></small>
       <div class="d-none name"><code>shared-params.Rd</code></div>
     </div>
 
@@ -65,16 +45,16 @@
 
 <dl><dt id="arg-dfmetrics">dfMetrics<a class="anchor" aria-label="anchor" href="#arg-dfmetrics"></a></dt>
 <dd><p><code>data.frame</code> Metric-specific metadata for use in charts and
-reporting. Created by passing an <code>lWorkflow</code> object to <code><a href="MakeMetric.html">MakeMetric()</a></code>.
+reporting. Created by passing an <code>lWorkflow</code> object to <code>gsm.reporting::MakeMetric()</code>.
 Expected columns: <code>File</code>, <code>MetricID</code>, <code>Group</code>, <code>Abbreviation</code>, <code>Metric</code>,
 <code>Numerator</code>, <code>Denominator</code>, <code>Model</code>, <code>Score</code>, and <code>Threshold</code>. For more
-details see the Data Model vignette: <code><a href="../articles/DataModel.html">vignette("DataModel", package = "gsm")</a></code>.</p></dd>
+details see the Data Model vignette: <code><a href="https://gilead-biostats.github.io/gsm/articles/DataModel.html">vignette("DataModel", package = "gsm")</a></code>.</p></dd>
 
 
 <dt id="arg-dfresults">dfResults<a class="anchor" aria-label="anchor" href="#arg-dfresults"></a></dt>
 <dd><p><code>data.frame</code> A stacked summary of analysis pipeline output.
 Created by passing a list of results returned by <code><a href="Summarize.html">Summarize()</a></code> to
-<code><a href="BindResults.html">BindResults()</a></code>. Expected columns: <code>GroupID</code>, <code>GroupLevel</code>, <code>Numerator</code>,
+<code>gsm.reporting::BindResults()</code>. Expected columns: <code>GroupID</code>, <code>GroupLevel</code>, <code>Numerator</code>,
 <code>Denominator</code>, <code>Metric</code>, <code>Score</code>, <code>Flag</code>, <code>MetricID</code>, <code>StudyID</code>,
 <code>SnapshotDate</code>.</p></dd>
 
@@ -83,13 +63,13 @@ Created by passing a list of results returned by <code><a href="Summarize.html">
 <dd><p><code>data.frame</code> Set of predicted percentages/rates and upper-
 and lower-bounds across the full range of sample sizes/total exposure
 values for reporting. Created by passing <code>dfResults</code> and <code>dfMetrics</code> to
-<code><a href="MakeBounds.html">MakeBounds()</a></code>. Expected columns: <code>Threshold</code>, <code>Denominator</code>, <code>Numerator</code>,
+<code>gsm.reporting::MakeBounds()</code>. Expected columns: <code>Threshold</code>, <code>Denominator</code>, <code>Numerator</code>,
 <code>Metric</code>, <code>MetricID</code>, <code>StudyID</code>, <code>SnapshotDate</code>.</p></dd>
 
 
 <dt id="arg-dfgroups">dfGroups<a class="anchor" aria-label="anchor" href="#arg-dfgroups"></a></dt>
 <dd><p><code>data.frame</code> Group-level metadata dictionary. Created by
-passing CTMS site and study data to <code><a href="MakeLongMeta.html">MakeLongMeta()</a></code>. Expected columns:
+passing CTMS site and study data to <code>gsm.mapping::MakeLongMeta()</code>. Expected columns:
 <code>GroupID</code>, <code>GroupLevel</code>, <code>Param</code>, <code>Value</code>.</p></dd>
 
 
@@ -102,11 +82,11 @@ by passing Raw+ data into <code><a href="Input_Rate.html">Input_Rate()</a></code
 
 <dt id="arg-lmetric">lMetric<a class="anchor" aria-label="anchor" href="#arg-lmetric"></a></dt>
 <dd><p><code>list</code> Metric-specific metadata for use in charts and
-reporting. Created by passing an <code>lWorkflow</code> object to <code><a href="MakeMetric.html">MakeMetric()</a></code> and
+reporting. Created by passing an <code>lWorkflow</code> object to <code>gsm.reporting::MakeMetric()</code> and
 turing it into a list. Expected columns: <code>File</code>,<code>MetricID</code>, <code>Group</code>,
 <code>Abbreviation</code>, <code>Metric</code>, <code>Numerator</code>, <code>Denominator</code>, <code>Model</code>, <code>Score</code>, and
 <code>strThreshold</code>. For more details see the Data Model vignette:
-<code><a href="../articles/DataModel.html">vignette("DataModel", package = "gsm")</a></code>.</p></dd>
+<code><a href="https://gilead-biostats.github.io/gsm/articles/DataModel.html">vignette("DataModel", package = "gsm")</a></code>.</p></dd>
 
 
 <dt id="arg-lparamlabels">lParamLabels<a class="anchor" aria-label="anchor" href="#arg-lparamlabels"></a></dt>
