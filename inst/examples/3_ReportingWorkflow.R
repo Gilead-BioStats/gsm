@@ -1,3 +1,8 @@
+library(gsm)
+library(gsm.mapping)
+library(gsm.kri)
+library(gsm.reporting)
+
 #### 3.1 - Create a KRI Report using 12 standard metrics in a step-by-step workflow
 
 core_mappings <- c("AE", "COUNTRY", "DATACHG", "DATAENT", "ENROLL", "LB",
@@ -61,16 +66,16 @@ lRaw <- Ingest(gsm::lSource, mappings_spec)
 mapped <- RunWorkflows(mappings_wf, lRaw)
 
 # Step 2 - Create Metrics - calculate metrics using mapped data
-metrics_wf <- MakeWorkflowList(strPath = "workflow/2_metrics")
+metrics_wf <- MakeWorkflowList(strPath = "workflow/2_metrics", strPackage = "gsm.kri")
 analyzed <- RunWorkflows(metrics_wf, mapped)
 
 # Step 3 - Create Reporting Layer - create reports using metrics data
-reporting_wf <- MakeWorkflowList(strPath = "workflow/3_reporting")
+reporting_wf <- MakeWorkflowList(strPath = "workflow/3_reporting", strPackage = "gsm.reporting")
 reporting <- RunWorkflows(reporting_wf, c(mapped, list(lAnalyzed = analyzed,
                                                        lWorkflows = metrics_wf)))
 
 # Step 4 - Create KRI Report - create KRI report using reporting data
-module_wf <- MakeWorkflowList(strPath = "workflow/4_modules")
+module_wf <- MakeWorkflowList(strPath = "workflow/4_modules", strPackage = "gsm.kri")
 lReports <- RunWorkflows(module_wf, reporting)
 
 #### 3.4 - Combine steps in to a single workflow
