@@ -1,10 +1,11 @@
 library(tidyr)
+load_all()
 set.seed(1234)
 
 # Step 0 - Simulate PK data for clindata participants
 mapped_pk <- tidyr::crossing(
     subjid = unique(clindata::rawplus_dm$subjid),
-    pktpt = c( 
+    pktpt = c(
         "Cycle 1 Day 1",
         "Cycle 1 Day 1",
         "Cycle 1 Day 1",
@@ -22,16 +23,23 @@ pk_data <-list(
 )
 
 # Example 1 - Standard KRI with normal approximation
-pk_kri <- gsm::RunWorkflows(
-  lWorkflow = MakeWorkflowList(strName = "kri0013.yaml"), 
+lWorkflow <- system.file('examples', 'pk', 'kri0013.yaml', package = 'gsm') %>%
+  yaml::read_yaml()
+pk_kri <- RunWorkflow(
+  lWorkflow,
   lData = pk_data
 )
-Widget_BarChart(dfResults = pk_kri$Analysis_kri0013$Analysis_Summary)
+Widget_BarChart(
+  dfResults = pk_kri$Analysis_Summary,
+  lWorkflow$meta,
+  vThreshold = ParseThreshold(lWorkflow$meta$Threshold, bSort = FALSE),
+  bDebug = TRUE
+)
 
 # Example 2 - KRI with custom flagging based on 90% threshold
 
 pk_kri_alt <- gsm::RunWorkflows(
-  lWorkflow = MakeWorkflowList(strName = "kri0013a.yaml"), 
+  lWorkflow = MakeWorkflowList(strName = "kri0013a.yaml"),
   lData = pk_data
 )
 Widget_BarChart(dfResults = pk_kri_alt$Analysis_kri0013a$Analysis_Summary)

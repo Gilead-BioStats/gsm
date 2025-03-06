@@ -7,17 +7,23 @@
 Analyze_Poisson(dfTransformed)
 }
 \arguments{
-\item{dfTransformed}{\code{data.frame} Transformed data for analysis. Data should have one record per site with expected columns: \code{GroupID}, \code{GroupLevel}, \code{Numerator}, \code{Denominator}, and \code{Metric}. For more details see the Data Model vignette: \code{vignette("DataModel", package = "gsm")}.
-For this function, \code{dfTransformed} should typically be created using \code{\link[=Transform_Rate]{Transform_Rate()}}.}
+\item{dfTransformed}{\code{data.frame} Transformed data for analysis. Data should
+have one record per site with expected columns: \code{GroupID}, \code{GroupLevel},
+\code{Numerator}, \code{Denominator}, and \code{Metric}. For more details see the Data
+Model vignette: \code{vignette("DataModel", package = "gsm")}. For this
+function, \code{dfTransformed} should typically be created using
+\code{\link[=Transform_Rate]{Transform_Rate()}}.}
 }
 \value{
-\code{data.frame} with one row per site with columns: GroupID, Numerator, Denominator, Metric, Score, and PredictedCount.
+\code{data.frame} with one row per site with columns: GroupID, Numerator,
+Denominator, Metric, Score, and PredictedCount.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \details{
-Fits a Poisson model to site-level data and adds columns capturing Residual and Predicted Count for each site.
+Fits a Poisson model to site-level data and adds columns capturing
+Residual and Predicted Count for each site.
 
 More information can be found in \href{https://gilead-biostats.github.io/gsm/articles/KRI\%20Method.html#the-poisson-regression-method}{The Poisson Regression Method}
 of the KRI Method vignette.
@@ -25,9 +31,11 @@ of the KRI Method vignette.
 \section{Statistical Methods}{
 
 
-This function fits a Poisson model to site-level data and then calculates residuals for each site.
-The Poisson model is run using standard methods in the \code{stats} package by fitting a \code{glm} model with family
-set to \code{poisson} using a "log" link. Site-level residuals are calculated using \code{stats::predict.glm} via \code{broom::augment}.
+This function fits a Poisson model to site-level data and then calculates
+residuals for each site. The Poisson model is run using standard methods in
+the \code{stats} package by fitting a \code{glm} model with family set to \code{poisson}
+using a "log" link. Site-level residuals are calculated using
+\code{stats::predict.glm} via \code{broom::augment}.
 }
 
 \examples{

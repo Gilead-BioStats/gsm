@@ -4,10 +4,12 @@
 \alias{ParseThreshold}
 \title{Parse a string into a numeric vector}
 \usage{
-ParseThreshold(strThreshold)
+ParseThreshold(strThreshold, bSort = TRUE)
 }
 \arguments{
-\item{strThreshold}{A comma-separated string of numeric values.}
+\item{strThreshold}{\code{character} A comma-separated string of numeric values.}
+
+\item{bSort}{\code{logical} Sort thresholds in ascending order? Default: \code{TRUE}.}
 }
 \value{
 A numeric vector containing the parsed values.
@@ -20,5 +22,13 @@ vector. It checks if all values in the string are numeric and returns the
 parsed vector. If any value is not numeric, it throws an error.
 }
 \examples{
-ParseThreshold("1,2,3,4")
+# standard thresholds
+ParseThreshold("-3,-2,2,3")
+
+# by default thresholds will be sorted in ascending order
+ParseThreshold("3,2,-2,-3")
+
+# optionally disable the sort
+ParseThreshold("0.9,0.85", bSort = FALSE)
+
 }

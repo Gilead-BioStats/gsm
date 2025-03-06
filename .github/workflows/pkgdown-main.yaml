@@ -3,10 +3,10 @@ on:
     branches: [main]
   workflow_dispatch:
 
-name: pkgdown-dev2main
+name: pkgdown-main
 
 jobs:
-  pkgdown-dev2main:
+  pkgdown-main:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -16,8 +16,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: dev
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -33,19 +31,20 @@ jobs:
       - name: Generate sample reports
         shell: Rscript {0}
         run: |
-          devtools::load_all()
+          install.packages("devtools")
+          devtools::install(dependencies = T)
           dir.create(here::here("pkgdown", "assets"), recursive = TRUE)
 
-          lCharts <- MakeCharts(
+          lCharts <- gsm::MakeCharts(
             dfResults = gsm::reportingResults,
             dfGroups = gsm::reportingGroups,
             dfMetrics = gsm::reportingMetrics,
             dfBounds = gsm::reportingBounds
           )
 
-          Report_KRI(
+          gsm::Report_KRI(
             lCharts = lCharts,
-            dfResults =  FilterByLatestSnapshotDate(gsm::reportingResults),
+            dfResults =  gsm::FilterByLatestSnapshotDate(gsm::reportingResults),
             dfGroups =  gsm::reportingGroups,
             dfMetrics = gsm::reportingMetrics,
             strOutputDir = here::here("pkgdown", "assets"),
@@ -53,16 +52,16 @@ jobs:
           )
 
           ## Country Report
-            lCharts_country <- MakeCharts(
+            lCharts_country <- gsm::MakeCharts(
             dfResults = gsm::reportingResults_country,
             dfGroups = gsm::reportingGroups_country,
             dfMetrics = gsm::reportingMetrics_country,
             dfBounds = gsm::reportingBounds_country
           )
 
-          Report_KRI(
+          gsm::Report_KRI(
             lCharts = lCharts_country,
-            dfResults =  FilterByLatestSnapshotDate(gsm::reportingResults_country),
+            dfResults =  gsm::FilterByLatestSnapshotDate(gsm::reportingResults_country),
             dfGroups =  gsm::reportingGroups_country,
             dfMetrics = gsm::reportingMetrics_country,
             strOutputDir = here::here("pkgdown", "assets"),

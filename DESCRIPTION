@@ -1,6 +1,6 @@
 Package: gsm
 Title: Good Statistical Monitoring
-Version: 2.2.2
+Version: 2.2.3
 Authors@R: c(
     person("George", "Wu", , "george.wu@gilead.com", role = c("aut", "cre")),
     person("Jeremy", "Wildfire", , "jwildfire@gmail.com", role = "aut"),
@@ -52,7 +52,6 @@ Imports:
     stringr,
     tibble,
     tidyr,
-    tools,
     utils,
     yaml
 Suggests:
@@ -73,7 +72,6 @@ Suggests:
     rmarkdown,
     roxygen2,
     safetyData,
-    sqldf,
     styler,
     testthat,
     usethis,
