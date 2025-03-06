@@ -93,7 +93,7 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
   
 ### `Analysis_Input`
   - Function(s) used to create table: 
-    - `Input_Rate()`
+    - `gsm.core::Input_Rate()`
   - Inputs: 
     - `Analysis_Subjects`
     - `Analysis_Numerator`
@@ -113,8 +113,8 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
 
 ### `Analysis_Transformed`
   - Function(s) used to create table:
-    - `Transform_Rate()`
-    - `Transform_Count()`
+    - `gsm.core::Transform_Rate()`
+    - `gsm.core::Transform_Count()`
   - Inputs: `Analysis_Input`
   - Usage: Convert from input data format to needed format to derive KRI for an Assessment via the `Analyze_*()` functions.
   - Structure:
@@ -129,10 +129,10 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
 
 ###  `Analysis_Analyzed`
   - Function(s) used to create table:
-    - `Analyze_Fisher()`
-    - `Analyze_Identity()`
-    - `Analyze_NormalApprox()`
-    - `Analyze_Poisson()`
+    - `gsm.core::Analyze_Fisher()`
+    - `gsm.core::Analyze_Identity()`
+    - `gsm.core::Analyze_NormalApprox()`
+    - `gsm.core::Analyze_Poisson()`
   - Inputs: `Analysis_Transformed`
   - Usage: Prepare the data for `Flag_*()` by performing the specified test on the metric provided.
   - Structure:
@@ -152,12 +152,9 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
 
 ### `Analysis_Flagged`
   - Function(s) used to create table:
-    - `Flag_Fisher()`
-    - `Flag_Identity()`
-    - `Flag_NormalApprox()`
-    - `Flag_Poisson()`
+    - `gsm.core::Flag()`
   - Inputs: `Analysis_Analyzed`
-  - Usage: Flag a group-level metric to be summarized via `Summarize()` and used for reporting.
+  - Usage: Flag a group-level metric to be summarized via `gsm.core::Summarize()` and used for reporting.
   - Structure:
 
   | Table    | Column Name  | Description                          | Type     | Optional  | 
@@ -175,7 +172,7 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
 
 ###  `Analysis_Summary`
   - Function(s) used to create table:
-    - `Summarize()`
+    - `gsm.core::Summarize()`
   - Inputs: `Analysis_Flagged`
   - Usage: Summarize KRI at the group level for reporting.
   - Structure:
@@ -195,9 +192,9 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
   
 ###  `Reporting_Results`
   - Function(s) used to create table:
-    - `BindResults()`
+    - `gsm.reporting::BindResults()`
   - Inputs: `lAnalysis`, `strStudyID`, `dSnapshotDate`
-  - Workflow used to create table: `3_reporting/Results.yaml`
+  - Workflow used to create table: `3_reporting/Results.yaml` in `{gsm.reporting}`
   - Usage: Summarize KRI at the group level for reporting.
   - Structure:
 
@@ -216,10 +213,10 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
 
 ### `Reporting_Bounds`
   - Function(s) used to create table:
-    - `MakeBounds()`
-    - `Analyze_NormalApprox_PredictBounds()` (called within `MakeBounds()`)
+    - `gsm.reporting::MakeBounds()`
+    - `gsm.core::Analyze_NormalApprox_PredictBounds()` (called within `gsm.reporting::MakeBounds()`)
   - Inputs: `lAnalysis`, `strStudyID`, `dSnapshotDate`
-  - Workflow used to create table: `3_reporting/Bounds.yaml`
+  - Workflow used to create table: `3_reporting/Bounds.yaml` in `{gsm.reporting}`
   - Usage: Calculates predicted percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values for reporting.
   - Structure:
 
@@ -236,10 +233,10 @@ The KRI analytics pipeline is a standardized process for **Analyzing** data issu
 
 ###  `Reporting_Groups`
   - Function(s) used to create table:
-    - `MakeLongMeta()`
-    - `bind_rows()`
+    - `gsm.reporting::MakeLongMeta()`
+    - `dplyr::bind_rows()`
   - Inputs: CTMS site, study and country data
-  - Workflow used to create table: `3_reporting/Groups.yaml`
+  - Workflow used to create table: `3_reporting/Groups.yaml` in `{gsm.reporting}`
   - Usage: Group-level metadata dictionary.
   - Structure: Long data frame, with certain `Param` required for given `GroupLevel`
 
@@ -269,9 +266,9 @@ Expected `Param` by `GroupLevel` for use in gsm reporting. User may add other Pa
 
 
 ###  `Reporting_Metrics`
-  - Function used to create table: `MakeMetric()`
-  - Inputs: `lWorkflows` - metadata for the corresponding kri(s) made with `MakeWorkflowList()`
-  - Workflow used to create table: `3_reporting/Metrics.yaml`
+  - Function used to create table: `gsm.reporting::MakeMetric()`
+  - Inputs: `lWorkflows` - metadata for the corresponding kri(s) made with `gsm.core::MakeWorkflowList()`
+  - Workflow used to create table: `3_reporting/Metrics.yaml` in `{gsm.reporting}`
   - Usage: Metadata used for charts and tables
   - Structure:
 
@@ -291,7 +288,7 @@ Expected `Param` by `GroupLevel` for use in gsm reporting. User may add other Pa
 
 Assessment workflow metadata objects are passed to the `lWorkflow` parameter in `RunWorkflow()` to define functions and parameters across multiple studies.
 
-The `lWorkflow` object is a named list of metadata and steps defining how each assessment should be run. By default, `MakeWorkflowList()` imports YAML specifications from `workflow/2_metrics`. Each item in `lWorkflow` expects the following parameters in the `steps` section:
+The `lWorkflow` object is a named list of metadata and steps defining how each assessment should be run. By default, `gsm.core::MakeWorkflowList()` imports YAML specifications from `workflow/2_metrics` in `{gsm.kri}`. Each item in `lWorkflow` expects the following parameters in the `steps` section:
 
 -   `workflow`: Array defining one or more functions to be executed as part of the workflow for a given assessment
     -   `workflow[]$meta`: specifies all of the metadata information for the KRI.
@@ -301,7 +298,78 @@ The `lWorkflow` object is a named list of metadata and steps defining how each a
         -   `workflow[]$steps$output`: specifies the output data from the workflow step, which can be used as an input in the next step in the workflow
         -   `workflow[]$steps$params`: specifies parameters to be passed to the function
 
-For example, the default workflow for the AE assessment (`system.file("workflow/2_metrics/kri0001.yaml", package = "gsm")`) is shown below:
+For example, the default workflow for the AE assessment (`system.file("workflow/2_metrics/kri0001.yaml", package = "gsm.kri")`) is shown below:
 
-```{yaml, code = readLines(system.file("workflow/2_metrics/kri0001.yaml", package = "gsm")), eval = FALSE}
+```{yaml eval = FALSE}
+meta:
+  Type: Analysis
+  ID: kri0001
+  GroupLevel: Site
+  Abbreviation: AE
+  Metric: Adverse Event Rate
+  Numerator: Adverse Events
+  Denominator: Days on Study
+  Model: Normal Approximation
+  Score: Adjusted Z-Score
+  AnalysisType: rate
+  Threshold: -2,-1,2,3
+  nMinDenominator: 30
+spec:
+  Mapped_AE:
+    subjid:
+      type: character
+  Mapped_SUBJ:
+    subjid:
+      type: character
+    invid:
+      type: character
+    timeonstudy:
+      type: integer
+steps:
+  - output: vThreshold
+    name: gsm::ParseThreshold
+    params:
+      strThreshold: Threshold
+  - output: Analysis_Input
+    name: gsm::Input_Rate
+    params:
+      dfSubjects: Mapped_SUBJ
+      dfNumerator: Mapped_AE
+      dfDenominator: Mapped_SUBJ
+      strSubjectCol: subjid
+      strGroupCol: invid
+      strGroupLevel: GroupLevel
+      strNumeratorMethod: Count
+      strDenominatorMethod: Sum
+      strDenominatorCol: timeonstudy
+  - output: Analysis_Transformed
+    name: gsm::Transform_Rate
+    params:
+      dfInput: Analysis_Input
+  - output: Analysis_Analyzed
+    name: Analyze_NormalApprox
+    params:
+      dfTransformed: Analysis_Transformed
+      strType: AnalysisType
+  - output: Analysis_Flagged
+    name: gsm::Flag_NormalApprox
+    params:
+      dfAnalyzed: Analysis_Analyzed
+      vThreshold: vThreshold
+  - output: Analysis_Summary
+    name: gsm::Summarize
+    params:
+      dfFlagged: Analysis_Flagged
+      nMinDenominator: nMinDenominator
+  - output: lAnalysis
+    name: list
+    params:
+      ID: ID
+      Analysis_Input: Analysis_Input
+      Analysis_Transformed: Analysis_Transformed
+      Analysis_Analyzed: Analysis_Analyzed
+      Analysis_Flagged: Analysis_Flagged
+      Analysis_Summary: Analysis_Summary
+
+
 ```
