@@ -44,7 +44,7 @@ jobs:
 
           gsm::Report_KRI(
             lCharts = lCharts,
-            dfResults =  FilterByLatestSnapshotDate(gsm::reportingResults),
+            dfResults =  gsm::FilterByLatestSnapshotDate(gsm::reportingResults),
             dfGroups =  gsm::reportingGroups,
             dfMetrics = gsm::reportingMetrics,
             strOutputDir = here::here("pkgdown", "assets"),
