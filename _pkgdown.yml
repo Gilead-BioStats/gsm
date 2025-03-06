@@ -14,7 +14,9 @@ navbar:
 articles:
   - title: Articles
     contents:
+      - Cookbook
       - DataAnalysis
+      - DataModel
       - KRIMethod
       - ContributorGuidelines
 reference:
