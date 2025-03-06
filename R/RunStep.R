@@ -35,6 +35,8 @@
 #' @param lMeta `list` a named list of meta data.
 #'
 #' @examples
+#' \dontrun{
+#' ----
 #' wf_mapping <- MakeWorkflowList(strPath = here::here("tests/testthat/testdata/mappings"))
 #' lStep <- MakeWorkflowList(strPath = here::here("tests/testthat/testdata/metrics"))[["kri0001"]][["steps"]][[1]]
 #' lMeta <- MakeWorkflowList(strPath = here::here("tests/testthat/testdata/metrics"))[["kri0001"]][["meta"]]
@@ -43,7 +45,7 @@
 #' lRaw <- Ingest(gsm::lSource, mappings_spec)
 #' mapped <- RunWorkflows(wf_mapping, lRaw)
 #' ae_step <- RunStep(lStep = lStep, lData = lMapped, lMeta = lMeta)
-#'
+#' }
 #' @return `list` containing the results of the `lStep$name` function call should contain `.$checks`
 #'   parameter with results from `is_mapping_vald` for each domain in `lStep$inputs`.
 #'
