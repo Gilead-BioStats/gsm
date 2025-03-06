@@ -3,10 +3,10 @@ on:
     branches: [main]
   workflow_dispatch:
 
-name: pkgdown-dev2main
+name: pkgdown-main
 
 jobs:
-  pkgdown-dev2main:
+  pkgdown-main:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -16,8 +16,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: dev
 
       - uses: r-lib/actions/setup-pandoc@v2
 
