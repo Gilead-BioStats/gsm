@@ -50,20 +50,20 @@ lConfig <- list(
     LoadData = LoadData,
     SaveData = SaveData,
     Domains = c(
-        Raw_STUDY = function() { clindata::ctms_study },
-        Raw_SITE = function() { clindata::ctms_site },
-        Raw_PD = function() { clindata::ctms_protdev },
+        Raw_STUDY = function() { gsm::lSource$Raw_STUDY },
+        Raw_SITE = function() { gsm::lSource$Raw_SITE },
+        Raw_PD = function() { gsm::lSource$Raw_PD },
 
-        Raw_SUBJ = function() { clindata::rawplus_dm },
-        Raw_ENROLL = function() { clindata::rawplus_enroll },
-        Raw_SDRGCOMP = function() { clindata::rawplus_sdrgcomp },
-        Raw_STUDCOMP = function() { clindata::rawplus_studcomp },
-        Raw_LB = function() { clindata::rawplus_lb },
-        Raw_AE = function() { clindata::rawplus_ae },
+        Raw_SUBJ = function() { gsm::lSource$Raw_SUBJ },
+        Raw_ENROLL = function() { gsm::lSource$Raw_ENROLL },
+        Raw_SDRGCOMP = function() { gsm::lSource$Raw_SDRGCOMP },
+        Raw_STUDCOMP = function() { gsm::lSource$Raw_STUDCOMP },
+        Raw_LB = function() { gsm::lSource$Raw_LB },
+        Raw_AE = function() { gsm::lSource$Raw_AE },
 
-        Raw_DATAENT = function() { clindata::edc_data_pages },
-        Raw_DATACHG = function() { clindata::edc_data_points },
-        Raw_QUERY = function() { clindata::edc_queries },
+        Raw_DATAENT = function() { gsm::lSource$Raw_DATAENT },
+        Raw_DATACHG = function() { gsm::lSource$Raw_DATACHG },
+        Raw_QUERY = function() { gsm::lSource$Raw_QUERY },
 
         Mapped_STUDY = file.path(tempdir(), 'mapped-study.csv'),
         Mapped_SITE = file.path(tempdir(), 'mapped-site.csv'),
@@ -83,7 +83,10 @@ lConfig <- list(
     )
 )
 
+core_mappings <- c("AE", "COUNTRY", "DATACHG", "DATAENT", "ENROLL", "LB",
+                   "PD", "QUERY", "STUDY", "STUDCOMP", "SDRGCOMP", "SITE", "SUBJ")
+
 lMappedData <- RunWorkflows(
-    MakeWorkflowList(strPath = 'workflow/1_mappings'),
+    MakeWorkflowList(strNames = core_mappings, strPath = 'workflow/1_mappings', strPackage = "gsm.mapping"),
     lConfig = lConfig
 )

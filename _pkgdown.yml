@@ -58,7 +58,6 @@ reference:
      -  RunWorkflows
      -  SetLogger
      -  stop_if
-     -  UseClindata
 
   - title: Sample Data
     desc: data used for examples and testing
@@ -73,4 +72,5 @@ reference:
       - reportingGroups_country
       - reportingMetrics_country
       - reportingResults_country
+      - lSource
 
