@@ -36,14 +36,14 @@ jobs:
           devtools::load_all()
           dir.create(here::here("pkgdown", "assets"), recursive = TRUE)
 
-          lCharts <- MakeCharts(
+          lCharts <- gsm::MakeCharts(
             dfResults = gsm::reportingResults,
             dfGroups = gsm::reportingGroups,
             dfMetrics = gsm::reportingMetrics,
             dfBounds = gsm::reportingBounds
           )
 
-          Report_KRI(
+          gsm::Report_KRI(
             lCharts = lCharts,
             dfResults =  FilterByLatestSnapshotDate(gsm::reportingResults),
             dfGroups =  gsm::reportingGroups,
@@ -53,16 +53,16 @@ jobs:
           )
 
           ## Country Report
-            lCharts_country <- MakeCharts(
+            lCharts_country <- gsm::MakeCharts(
             dfResults = gsm::reportingResults_country,
             dfGroups = gsm::reportingGroups_country,
             dfMetrics = gsm::reportingMetrics_country,
             dfBounds = gsm::reportingBounds_country
           )
 
-          Report_KRI(
+          gsm::Report_KRI(
             lCharts = lCharts_country,
-            dfResults =  FilterByLatestSnapshotDate(gsm::reportingResults_country),
+            dfResults =  gsm::FilterByLatestSnapshotDate(gsm::reportingResults_country),
             dfGroups =  gsm::reportingGroups_country,
             dfMetrics = gsm::reportingMetrics_country,
             strOutputDir = here::here("pkgdown", "assets"),
