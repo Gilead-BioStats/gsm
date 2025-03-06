@@ -21,17 +21,14 @@
 #' # ----
 #' # Workflow using in-memory data.
 #'
-#' lRawData <- list(
-#'   Raw_AE = clindata::rawplus_ae,
-#'   Raw_SUBJ = clindata::rawplus_dm
-#' )
-#'
-#' # Generate mapped input data to metric workflow.
+#' Generate mapped input data to metric workflow.
 #' lMappingWorkflows <- MakeWorkflowList(
 #'   c("AE", "SUBJ"),
 #'   strPath = here::here("tests/testthat/testdata/mappings"),
 #'   bExact = TRUE
 #' )
+#' mappings_spec <- CombineSpecs(lMappingWorkflows)
+#' lRawData <- Ingest(gsm::lSource, mappings_spec)
 #'
 #' lMappedData <- RunWorkflows(
 #'   lMappingWorkflows,
@@ -87,10 +84,10 @@
 #'   SaveData = SaveData,
 #'   Domains = c(
 #'     Raw_AE = function() {
-#'       clindata::rawplus_ae
+#'        gsm::lSource$Raw_AE
 #'     },
 #'     Raw_SUBJ = function() {
-#'       clindata::rawplus_dm
+#'        gsm::lSource$Raw_SUBJ
 #'     },
 #'     Mapped_AE = file.path(tempdir(), "mapped-ae.csv"),
 #'     Mapped_SUBJ = file.path(tempdir(), "mapped-subj.csv")

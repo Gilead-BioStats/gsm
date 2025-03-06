@@ -1,9 +1,9 @@
 #### Example 1.1 - Generate an Adverse Event Metric using the standard {gsm} workflow
 
 dfInput <- Input_Rate(
-  dfSubjects= clindata::rawplus_dm,
-  dfNumerator= clindata::rawplus_ae,
-  dfDenominator = clindata::rawplus_dm,
+  dfSubjects= gsm::lSource$Raw_SUBJ,
+  dfNumerator= gsm::lSource$Raw_AE,
+  dfDenominator = gsm::lSource$Raw_SUBJ,
   strSubjectCol = "subjid",
   strGroupCol = "siteid",
   strNumeratorMethod= "Count",
@@ -21,9 +21,9 @@ table(dfSummarized$Flag)
 #### Example 1.2 - Make an SAE Metric by adding a filter.  Also works with pipes.
 
 SAE_KRI <- Input_Rate(
-  dfSubjects= clindata::rawplus_dm,
-  dfNumerator= clindata::rawplus_ae %>% filter(aeser=="Y"),
-  dfDenominator = clindata::rawplus_dm,
+  dfSubjects= gsm::lSource$Raw_SUBJ,
+  dfNumerator= gsm::lSource$Raw_AE %>% filter(aeser=="Y"),
+  dfDenominator = gsm::lSource$Raw_SUBJ,
   strSubjectCol = "subjid",
   strGroupCol = "siteid",
   strNumeratorMethod= "Count",
@@ -38,7 +38,7 @@ SAE_KRI <- Input_Rate(
 table(SAE_KRI$Flag)
 
 ### Example 1.3 - Visualize Metric distribution using Bar Charts using provided htmlwidgets
-labels <- list(  
+labels <- list(
   Metric= "Serious Adverse Event Rate",
   Numerator= "Serious Adverse Events",
   Denominator= "Days on Study"

@@ -74,9 +74,9 @@ found in dfNumerator/dfDenominator numerator and denominator values are filled w
 \examples{
 # Run for AE KRI
 dfInput <- Input_Rate(
-  dfSubjects = clindata::rawplus_dm,
-  dfNumerator = clindata::rawplus_ae,
-  dfDenominator = clindata::rawplus_dm,
+  dfSubjects = gsm::lSource$Raw_DM,
+  dfNumerator = gsm::lSource$Raw_AE,
+  dfDenominator =  gsm::lSource$Raw_DM,
   strSubjectCol = "subjid",
   strGroupCol = "siteid",
   strGroupLevel = "Site",
