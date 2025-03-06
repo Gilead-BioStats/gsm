@@ -33,6 +33,7 @@ jobs:
       - name: Generate sample reports
         shell: Rscript {0}
         run: |
+          install.packages("devtools")
           devtools::load_all()
           dir.create(here::here("pkgdown", "assets"), recursive = TRUE)
 
