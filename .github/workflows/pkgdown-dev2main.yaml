@@ -34,7 +34,7 @@ jobs:
         shell: Rscript {0}
         run: |
           install.packages("devtools")
-          devtools::load_all()
+          devtools::install(dependencies = T)
           dir.create(here::here("pkgdown", "assets"), recursive = TRUE)
 
           lCharts <- gsm::MakeCharts(
