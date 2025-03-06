@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gsm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.2.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.2.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,19 +68,33 @@
 
 
 <dl><dt id="arg-dfresults">dfResults<a class="anchor" aria-label="anchor" href="#arg-dfresults"></a></dt>
-<dd><p><code>data.frame</code> A stacked summary of analysis pipeline output. Created by passing a list of results returned by <code><a href="Summarize.html">Summarize()</a></code> to <code><a href="BindResults.html">BindResults()</a></code>. Expected columns: <code>GroupID</code>, <code>GroupLevel</code>, <code>Numerator</code>, <code>Denominator</code>, <code>Metric</code>, <code>Score</code>, <code>Flag</code>, <code>MetricID</code>, <code>StudyID</code>, <code>SnapshotDate</code>.</p></dd>
+<dd><p><code>data.frame</code> A stacked summary of analysis pipeline output.
+Created by passing a list of results returned by <code><a href="Summarize.html">Summarize()</a></code> to
+<code><a href="BindResults.html">BindResults()</a></code>. Expected columns: <code>GroupID</code>, <code>GroupLevel</code>, <code>Numerator</code>,
+<code>Denominator</code>, <code>Metric</code>, <code>Score</code>, <code>Flag</code>, <code>MetricID</code>, <code>StudyID</code>,
+<code>SnapshotDate</code>.</p></dd>
 
 
 <dt id="arg-dfbounds">dfBounds<a class="anchor" aria-label="anchor" href="#arg-dfbounds"></a></dt>
-<dd><p><code>data.frame</code> Set of predicted percentages/rates and upper- and lower-bounds across the full range of sample sizes/total exposure values for reporting. Created by passing <code>dfResults</code> and <code>dfMetrics</code> to <code><a href="MakeBounds.html">MakeBounds()</a></code>. Expected columns: <code>Threshold</code>, <code>Denominator</code>, <code>Numerator</code>, <code>Metric</code>, <code>MetricID</code>, <code>StudyID</code>, <code>SnapshotDate</code>.</p></dd>
+<dd><p><code>data.frame</code> Set of predicted percentages/rates and upper-
+and lower-bounds across the full range of sample sizes/total exposure
+values for reporting. Created by passing <code>dfResults</code> and <code>dfMetrics</code> to
+<code><a href="MakeBounds.html">MakeBounds()</a></code>. Expected columns: <code>Threshold</code>, <code>Denominator</code>, <code>Numerator</code>,
+<code>Metric</code>, <code>MetricID</code>, <code>StudyID</code>, <code>SnapshotDate</code>.</p></dd>
 
 
 <dt id="arg-dfgroups">dfGroups<a class="anchor" aria-label="anchor" href="#arg-dfgroups"></a></dt>
-<dd><p><code>data.frame</code> Group-level metadata dictionary. Created by passing CTMS site and study data to <code><a href="MakeLongMeta.html">MakeLongMeta()</a></code>. Expected columns: <code>GroupID</code>, <code>GroupLevel</code>, <code>Param</code>, <code>Value</code>.</p></dd>
+<dd><p><code>data.frame</code> Group-level metadata dictionary. Created by
+passing CTMS site and study data to <code><a href="MakeLongMeta.html">MakeLongMeta()</a></code>. Expected columns:
+<code>GroupID</code>, <code>GroupLevel</code>, <code>Param</code>, <code>Value</code>.</p></dd>
 
 
 <dt id="arg-dfmetrics">dfMetrics<a class="anchor" aria-label="anchor" href="#arg-dfmetrics"></a></dt>
-<dd><p><code>data.frame</code> Metric-specific metadata for use in charts and reporting. Created by passing an <code>lWorkflow</code> object to <code><a href="MakeMetric.html">MakeMetric()</a></code>. Expected columns: <code>File</code>, <code>MetricID</code>, <code>Group</code>, <code>Abbreviation</code>, <code>Metric</code>, <code>Numerator</code>, <code>Denominator</code>, <code>Model</code>, <code>Score</code>, and <code>Threshold</code>. For more details see the Data Model vignette: <code><a href="../articles/DataModel.html">vignette("DataModel", package = "gsm")</a></code>.</p></dd>
+<dd><p><code>data.frame</code> Metric-specific metadata for use in charts and
+reporting. Created by passing an <code>lWorkflow</code> object to <code><a href="MakeMetric.html">MakeMetric()</a></code>.
+Expected columns: <code>File</code>, <code>MetricID</code>, <code>Group</code>, <code>Abbreviation</code>, <code>Metric</code>,
+<code>Numerator</code>, <code>Denominator</code>, <code>Model</code>, <code>Score</code>, and <code>Threshold</code>. For more
+details see the Data Model vignette: <code><a href="../articles/DataModel.html">vignette("DataModel", package = "gsm")</a></code>.</p></dd>
 
 
 <dt id="arg-bdebug">bDebug<a class="anchor" aria-label="anchor" href="#arg-bdebug"></a></dt>

@@ -24,7 +24,9 @@ const addOutcomeSelect = function(widgetControls, dfResults, lMetric, dfGroups, 
     // add event listener to outcome select
     const instance = widgetControls.parentNode.getElementsByTagName('canvas')[0].chart;
     outcomeSelect.addEventListener('change', event => {
+        // Update y-axis outcome and label.
         instance.data.config.y = event.target.value;
+        instance.data.config.yLabel = lMetric[ event.target.value ];
 
         // barChart
         if (Object.keys(instance.helpers).includes('updateConfig')) {

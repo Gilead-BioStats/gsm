@@ -3,7 +3,7 @@
 A widget that generates a bar chart of group-level metric results, plotting groups on the x-axis
 and the outcome (numerator, denominator, metric, or score) on the y-axis."><meta property="og:description" content="
 A widget that generates a bar chart of group-level metric results, plotting groups on the x-axis
-and the outcome (numerator, denominator, metric, or score) on the y-axis."><!-- dependencies from examples --><script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><script src="libs/rbmviz-2.1.0/rbm-viz.js"></script><script src="libs/clickCallback-1.0.0/clickCallback.js"></script><link href="libs/addWidgetControls-1.0.0/widgetControls.css" rel="stylesheet"><script src="libs/addWidgetControls-1.0.0/addWidgetControls.js"></script><script src="libs/addSelectControl-1.0.0/addSelectControl.js"></script><script src="libs/getGroups-1.0.0/getGroups.js"></script><script src="libs/getCountries-1.0.0/getCountries.js"></script><script src="libs/addOutcomeSelect-1.0.0/addOutcomeSelect.js"></script><script src="libs/Widget_BarChart-binding-2.2.1.9999/Widget_BarChart.js"></script><link href="pkgdown/extra.css" rel="stylesheet"></head><body>
+and the outcome (numerator, denominator, metric, or score) on the y-axis."><!-- dependencies from examples --><script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><script src="libs/gsmViz-2.2.0/gsm.viz.js"></script><script src="libs/clickCallback-1.0.0/clickCallback.js"></script><link href="libs/addWidgetControls-1.0.0/widgetControls.css" rel="stylesheet"><script src="libs/addWidgetControls-1.0.0/addWidgetControls.js"></script><script src="libs/addSelectControl-1.0.0/addSelectControl.js"></script><script src="libs/getGroups-1.0.0/getGroups.js"></script><script src="libs/getCountries-1.0.0/getCountries.js"></script><script src="libs/addOutcomeSelect-1.0.0/addOutcomeSelect.js"></script><script src="libs/Widget_BarChart-binding-2.2.3/Widget_BarChart.js"></script><link href="pkgdown/extra.css" rel="stylesheet"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -11,7 +11,7 @@ and the outcome (numerator, denominator, metric, or score) on the y-axis."><!-- 
 
     <a class="navbar-brand me-2" href="../index.html">gsm</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.2.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.2.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,15 +83,26 @@ and the outcome (numerator, denominator, metric, or score) on the y-axis.</p>
 
 
 <dl><dt id="arg-dfresults">dfResults<a class="anchor" aria-label="anchor" href="#arg-dfresults"></a></dt>
-<dd><p><code>data.frame</code> A stacked summary of analysis pipeline output. Created by passing a list of results returned by <code><a href="Summarize.html">Summarize()</a></code> to <code><a href="BindResults.html">BindResults()</a></code>. Expected columns: <code>GroupID</code>, <code>GroupLevel</code>, <code>Numerator</code>, <code>Denominator</code>, <code>Metric</code>, <code>Score</code>, <code>Flag</code>, <code>MetricID</code>, <code>StudyID</code>, <code>SnapshotDate</code>.</p></dd>
+<dd><p><code>data.frame</code> A stacked summary of analysis pipeline output.
+Created by passing a list of results returned by <code><a href="Summarize.html">Summarize()</a></code> to
+<code><a href="BindResults.html">BindResults()</a></code>. Expected columns: <code>GroupID</code>, <code>GroupLevel</code>, <code>Numerator</code>,
+<code>Denominator</code>, <code>Metric</code>, <code>Score</code>, <code>Flag</code>, <code>MetricID</code>, <code>StudyID</code>,
+<code>SnapshotDate</code>.</p></dd>
 
 
 <dt id="arg-lmetric">lMetric<a class="anchor" aria-label="anchor" href="#arg-lmetric"></a></dt>
-<dd><p><code>list</code> Metric-specific metadata for use in charts and reporting. Created by passing an <code>lWorkflow</code> object to <code><a href="MakeMetric.html">MakeMetric()</a></code> and turing it into a list. Expected columns: <code>File</code>,<code>MetricID</code>, <code>Group</code>, <code>Abbreviation</code>, <code>Metric</code>, <code>Numerator</code>, <code>Denominator</code>, <code>Model</code>, <code>Score</code>, and <code>strThreshold</code>. For more details see the Data Model vignette: <code><a href="../articles/DataModel.html">vignette("DataModel", package = "gsm")</a></code>.</p></dd>
+<dd><p><code>list</code> Metric-specific metadata for use in charts and
+reporting. Created by passing an <code>lWorkflow</code> object to <code><a href="MakeMetric.html">MakeMetric()</a></code> and
+turing it into a list. Expected columns: <code>File</code>,<code>MetricID</code>, <code>Group</code>,
+<code>Abbreviation</code>, <code>Metric</code>, <code>Numerator</code>, <code>Denominator</code>, <code>Model</code>, <code>Score</code>, and
+<code>strThreshold</code>. For more details see the Data Model vignette:
+<code><a href="../articles/DataModel.html">vignette("DataModel", package = "gsm")</a></code>.</p></dd>
 
 
 <dt id="arg-dfgroups">dfGroups<a class="anchor" aria-label="anchor" href="#arg-dfgroups"></a></dt>
-<dd><p><code>data.frame</code> Group-level metadata dictionary. Created by passing CTMS site and study data to <code><a href="MakeLongMeta.html">MakeLongMeta()</a></code>. Expected columns: <code>GroupID</code>, <code>GroupLevel</code>, <code>Param</code>, <code>Value</code>.</p></dd>
+<dd><p><code>data.frame</code> Group-level metadata dictionary. Created by
+passing CTMS site and study data to <code><a href="MakeLongMeta.html">MakeLongMeta()</a></code>. Expected columns:
+<code>GroupID</code>, <code>GroupLevel</code>, <code>Param</code>, <code>Value</code>.</p></dd>
 
 
 <dt id="arg-vthreshold">vThreshold<a class="anchor" aria-label="anchor" href="#arg-vthreshold"></a></dt>
