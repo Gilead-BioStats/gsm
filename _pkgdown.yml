@@ -15,8 +15,8 @@ articles:
   - title: Articles
     contents:
       - DataAnalysis
-      - articles/KRIMethod
-      - articles/ContributorGuidelines
+      - KRIMethod
+      - ContributorGuidelines
 reference:
   - title: Analyze
     desc: Conduct statistical analysis based on input data
