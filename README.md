@@ -14,12 +14,12 @@ The {gsm} package provides a standardized Risk Based Quality Monitoring (RBQM) f
 
 </center>
 
-This README provides a high-level overview of {gsm}; see the [package website](https://gilead-biostats.github.io/gsm/) for additional details.
+This README provides a high-level overview of the {gsm} suite of packages; see the [package website](https://gilead-biostats.github.io/gsm/) for additional details.
 
 
 # Background 
 
-The {gsm} package performs risk assessments primarily focused on detecting differences in quality at the site-level. "High quality" is defined as the absence of errors that matter. We interpret this as focusing on detecting potential issues related to critical data or process across the major risk categories of safety, efficacy, disposition, treatment, and general quality, where each category consists of one or more risk assessment(s). Each risk assessment will analyze the data to flag sites with potential issues and provide a visualization to help the user understand the issue. Some relevant references are provided below. 
+The {gsm} suite of packages performs risk assessments primarily focused on detecting differences in quality at the site-level. "High quality" is defined as the absence of errors that matter. We interpret this as focusing on detecting potential issues related to critical data or process across the major risk categories of safety, efficacy, disposition, treatment, and general quality, where each category consists of one or more risk assessment(s). Each risk assessment will analyze the data to flag sites with potential issues and provide a visualization to help the user understand the issue. Some relevant references are provided below. 
 
 - Centralized Statistical Monitoring: [1](https://documents.pub/reader/full/centralized-statistical-monitoring-to-detect-data-integrity-issues-statisticalcentralized), [2](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7308734/), [3](https://www.magiworld.org/Journal/2014/1411_Centralized.pdf).
 [4](https://pubmed.ncbi.nlm.nih.gov/38796099/)
@@ -45,7 +45,7 @@ The {gsm} package establishes a data pipeline for RBM using R. The package provi
 11. Data Change Rate
 12. Screen Failure Rate
 
-All {gsm} assessments use a standardized 6 step data pipeline: 
+All `gsm` assessments use a standardized 6 step data pipeline: 
 
 1.  **Input_Rate** - Converts `raw` data to `input` data.
 2.  **Transform** - Converts `input` data to `transformed` data.
@@ -54,11 +54,11 @@ All {gsm} assessments use a standardized 6 step data pipeline:
 5.  **Flag** - Uses `analyzed` data and numeric `thresholds` to create `flagged` data.
 6.  **Summarize** - Selects key columns from `flagged` data to create `summary` data.
 
-To learn more about {gsm}'s data pipeline, visit the [Data Pipeline Vignette](https://gilead-biostats.github.io/gsm/articles/DataModel.html).
+To learn more about `gsm`'s data pipeline, visit the [Data Pipeline Vignette](https://gilead-biostats.github.io/gsm/articles/DataModel.html).
 
 # Reporting
 
-Detailed RMarkdown/HTML reporting is built into `{gsm}`, and provides a detailed overview of all risk assessments for a given trial. For example, an AE risk assessment looks like this: 
+Detailed RMarkdown/HTML reporting is built into `{gsm.kri}`, and provides a detailed overview of all risk assessments for a given trial. For example, an AE risk assessment looks like this: 
 
 <center>
  
@@ -66,7 +66,7 @@ Detailed RMarkdown/HTML reporting is built into `{gsm}`, and provides a detailed
 
 </center>
 
-Full reports for a sample trial run with [`{clindata}`](https://github.com/Gilead-BioStats/clindata) are provided below:
+Full reports for a sample trial run with data simulated from [`{gsm.datasim}`](https://github.com/Gilead-BioStats/gsm.datasim) are provided below:
 
 - [Site Report](https://gilead-biostats.github.io/gsm/report_kri_site.html)
 - [Country Report](https://gilead-biostats.github.io/gsm/report_kri_country.html)
@@ -75,9 +75,9 @@ Full reports for a sample trial run with [`{clindata}`](https://github.com/Gilea
 
 # Quality Control
 
-Since {gsm} is designed for use in a [GCP](https://en.wikipedia.org/wiki/Good_clinical_practice) framework, we have conducted extensive quality control as part of our development process. In particular, we do the following:  
+Since the `gsm` pipeline is designed for use in a [GCP](https://en.wikipedia.org/wiki/Good_clinical_practice) framework, we have conducted extensive quality control as part of our development process. In particular, we do the following:  
 
-- **Qualification Workflow** - All assessments have been Qualified as described in the Qualification Workflow Vignette. A Qualification Report Vignette is generated and attached to each release. 
+- **Qualification Workflow** - All assessments have been Qualified as described in the Qualification Workflow Vignette in the `{gsm.qc}` package. A Qualification Report Vignette is generated and attached to each release. 
 - **Unit Tests** - Unit tests are written for all core functions.
 - **Workflow Tests** - Additional unit tests confirm that core workflows behave as expected.
 - **Contributor Guidelines** - Detailed contributor guidelines including step-by-step processes for code development and releases are provided as a vignette.
