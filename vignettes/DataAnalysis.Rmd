@@ -27,7 +27,7 @@ These functions provide data frames, visualizations, and metadata to be used in 
 
 ![](data_analysis.png){width="100%"} 
 
-All of these functions will run automatically and sequentially when a user calls upon the `RunWorkflow()` function with a specified yaml file for KRI metrics found in the `workflow/2_metrics` directory of the `{gsm.kri}` package.
+All of these functions will run automatically and sequentially when a user calls upon the `RunWorkflow()` function with a specified yaml file for KRI metrics found in the `workflow/2_metrics` directory of the [`{gsm.kri}`](https://github.com/Gilead-BioStats/gsm.kri) package.
 
 Each of these individual functions can also be run independently outside of a specified yaml workflow.
 
@@ -37,13 +37,13 @@ For the purposes of this documentation, we will evaluate the input(s) and output
 
 ## Case Study - Step-by-Step Adverse Event KRI
 
-We will use sample clinical data from the [`{clindata}`](https://github.com/Gilead-BioStats/clindata) package to run the Adverse Events (AE) Assessment, i.e., `AE_Assess()`, using the normal approximation method.
+We will use sample clinical data simulated with the [`{gsm.datasim}`](https://github.com/Gilead-BioStats/gsm.datasim) package to run the Adverse Events (AE) Assessment, i.e., `AE_Assess()`, using the normal approximation method.
 
 Additional statistical methods and supporting functions are explored in [Appendix 1](#appendix-1).
 
 ### 1. Create `dfInput`
 
-Start by creating `dfInput` using sample rawplus data from `{clindata}`. Note that `Input_Rate()` requires three specific datasets from `{clindata}`, which include a subject-level demographics/exposure dataset (`dfSubjects`) and a domain-level dataset (`dfNumerator`) that records every adverse event per subject. 
+Start by creating `dfInput` using sample rawplus data created with `{gsm.datasim}`. Note that `Input_Rate()` requires three specific rawplus datasets, which include a subject-level demographics/exposure dataset (`dfSubjects`) and a domain-level dataset (`dfNumerator`) that records every adverse event per subject. 
 
 Since `Input_Rate()` is a generalized function, it is also required that you specify the relevant column names for the Subject (`strSubjectCol`), Group (`strGroupCol`) and optionally the Denominator (`strDenominatorCol`) and Numerator (`strNumeratorCol`) when it is not simply "Denominator" or "Numerator", respectively.
 
