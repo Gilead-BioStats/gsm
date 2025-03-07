@@ -14,9 +14,12 @@ navbar:
 articles:
   - title: Articles
     contents:
+      - Cookbook
       - DataAnalysis
-      - articles/KRIMethod
-      - articles/ContributorGuidelines
+      - DataModel
+      - gsmExtensions
+      - KRIMethod
+      - ContributorGuidelines
 reference:
   - title: Analyze
     desc: Conduct statistical analysis based on input data

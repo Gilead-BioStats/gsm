@@ -21,13 +21,13 @@ library(DT)
 
 # Introduction
 
-This vignette walks users through the mechanics of the functions that produce all of the Analysis workflow output within the `{gsm}` package. `{gsm}` leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level and site-level Risk Based Monitoring for clinical trials.
+This vignette walks users through the mechanics of the functions that produce all of the Analysis workflow output within the `{gsm.core}` package. The suite of `{gsm}` packages leverages Key Risk Indicators (KRIs) and thresholds to conduct study-level and site-level Risk Based Monitoring for clinical trials.
 
 These functions provide data frames, visualizations, and metadata to be used in reporting and error checking at clinical sites. The image below illustrates the supporting functions that feed into the yaml workflow that is specified in each analysis workflow.
 
 ![](data_analysis.png){width="100%"} 
 
-All of these functions will run automatically and sequentially when a user calls upon the `RunWorkflow()` function with a specified yaml file for KRI metrics found in the `workflow/2_metrics` directory of the `{gsm}` package.
+All of these functions will run automatically and sequentially when a user calls upon the `RunWorkflow()` function with a specified yaml file for KRI metrics found in the `workflow/2_metrics` directory of the [`{gsm.kri}`](https://github.com/Gilead-BioStats/gsm.kri) package.
 
 Each of these individual functions can also be run independently outside of a specified yaml workflow.
 
@@ -37,17 +37,17 @@ For the purposes of this documentation, we will evaluate the input(s) and output
 
 ## Case Study - Step-by-Step Adverse Event KRI
 
-We will use sample clinical data from the [`{clindata}`](https://github.com/Gilead-BioStats/clindata) package to run the Adverse Events (AE) Assessment, i.e., `AE_Assess()`, using the normal approximation method.
+We will use sample clinical data simulated with the [`{gsm.datasim}`](https://github.com/Gilead-BioStats/gsm.datasim) package to run the Adverse Events (AE) Assessment, i.e., `AE_Assess()`, using the normal approximation method.
 
 Additional statistical methods and supporting functions are explored in [Appendix 1](#appendix-1).
 
 ### 1. Create `dfInput`
 
-Start by creating `dfInput` using sample rawplus data from `{clindata}`. Note that `Input_Rate()` requires three specific datasets from `{clindata}`, which include a subject-level demographics/exposure dataset (`dfSubjects`) and a domain-level dataset (`dfNumerator`) that records every adverse event per subject. 
+Start by creating `dfInput` using sample rawplus data created with `{gsm.datasim}`. Note that `Input_Rate()` requires three specific rawplus datasets, which include a subject-level demographics/exposure dataset (`dfSubjects`) and a domain-level dataset (`dfNumerator`) that records every adverse event per subject. 
 
 Since `Input_Rate()` is a generalized function, it is also required that you specify the relevant column names for the Subject (`strSubjectCol`), Group (`strGroupCol`) and optionally the Denominator (`strDenominatorCol`) and Numerator (`strNumeratorCol`) when it is not simply "Denominator" or "Numerator", respectively.
 
-Finally, the method for calculating the Numerator and Denominator is specified in `strNumeratorMethod` and `strDenominatorMethod` as either "Count" or "Sum".  If the method is "Count", the function simply counts the number of rows in the provided data frame. If the numerator method is "Sum", the function takes the sum of the values in the specified column (strNumeratorCol or strDenominatorCol). 
+Finally, the method for calculating the Numerator and Denominator is specified in `strNumeratorMethod` and `strDenominatorMethod` as either "Count" or "Sum".  If the method is "Count", the function simply counts the number of rows in the provided data frame. If the numerator method is "Sum", the function takes the sum of the values in the specified column (`strNumeratorCol` or `strDenominatorCol`). 
 
 
 ```{r include = TRUE}
@@ -130,13 +130,13 @@ datatable(dfAnalyzed) %>%
 
 ### 4. Create `dfFlagged`
 
-The data frame `dfFlagged` is derived from `dfAnalyzed` using a `Flag()` function. The resulting `dfFlagged` data frame will contain site-level analysis results data with flagging incorporated based on a pre-specified statistical threshold to highlight possible outliers.
+The data frame `dfFlagged` is derived from `dfAnalyzed` using the `Flag()` function. The resulting `dfFlagged` data frame will contain site-level analysis results data with flagging incorporated based on a pre-specified statistical threshold to highlight possible outliers.
 
 ```{r include = TRUE}
-dfFlagged <- Flag_NormalApprox(dfAnalyzed, vThreshold = c(-3, -2, 2, 3))
+dfFlagged <- Flag(dfAnalyzed, vThreshold = c(-3, -2, 2, 3))
 ```
 
-The default flagging function for the normal approximation method is `Flag_NormalApprox()` and the default threshold is (-3, -2, 2, 3). Using our example AE data, `dfFlagged` contains the following columns:
+The default flagging function for the normal approximation method is `Flag()` and the default threshold is (-3, -2, 2, 3). Using our example AE data, `dfFlagged` contains the following columns:
 
 -   `GroupID`: Group Identifier (default is Site ID)
 -   `GroupLevel`: Type of Group specified in `GroupID` (Country, Site)
@@ -209,15 +209,15 @@ The following sections include various examples of supporting functions and stat
 
 ### Flag Functions
 
--   `Flag_NormalApprox()`: Default flagging function when `Analyze_NormalApprox()` is used for an assessment.
--   `Flag_Fisher()`: Default flagging function when `Analyze_Fisher()` is used for an assessment
--   `Flag_Poisson()`: Default flagging function when `Analyze_Poisson()` is used for an assessment
--   `Flag()`: Default flagging function when `Analyze_Identity()` is used for an assessment
+-   `Flag()`: Default flagging function for all assessments
+-   `Flag_NormalApprox()`: Deprecated flagging function when `Analyze_NormalApprox()` is used for an assessment.
+-   `Flag_Poisson()`: Deprecated flagging function when `Analyze_Poisson()` is used for an assessment
+
 
 
 ### What Statistical Models Are Available For Each Assessment?
 
--   By default, all yaml workflow assessments specified in the `inst/workflows/` directory use the [normal approximation](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-normal-approximation-method) method.
+-   By default, all yaml workflow assessments specified in the `inst/workflow/` directory of the `{gsm.kri}` package use the [normal approximation](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-normal-approximation-method) method.
 -   Optionally, other statistical methods include: [**Poisson**](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-poisson-regression-method), [**Fisher's Exact**](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-fishers-exact-method), and [**Identity**](https://gilead-biostats.github.io/gsm/articles/KRI%20Method.html#the-identity-method).
 
 ![](data_analysis_combined.png){width="100%"}
