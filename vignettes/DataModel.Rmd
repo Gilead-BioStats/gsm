@@ -1,5 +1,6 @@
 ---
 title: "Data Model"
+description: "A vignette detailing the data model used in the gsm pipeline."
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Data Model}

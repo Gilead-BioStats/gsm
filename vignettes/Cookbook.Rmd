@@ -1,5 +1,6 @@
 ---
 title: "Cookbook"
+description: "Sample code showing how to use the Good Statistical Monitoring {gsm} suite of  packages using sample data from {gsm.core}."
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Cookbook}
@@ -17,7 +18,7 @@ knitr::opts_chunk$set(
 
 # Introduction
 
-This vignette contains sample code showing how to use the Good Statistical Monitoring `{gsm}`suite of  packages using sample data from `{gsm.core}`. For more information on the `{gsm}`suite of packages see the [package homepage](https://gilead-biostats.github.io/gsm/).
+This vignette contains sample code showing how to use the Good Statistical Monitoring `{gsm}` suite of  packages using sample data from `{gsm.core}`. For more information on the `{gsm}` suite of packages see the [package homepage](https://gilead-biostats.github.io/gsm/).
 
 # Setup and Installation
 
